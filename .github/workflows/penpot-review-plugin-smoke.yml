@@ -1,0 +1,93 @@
+name: Penpot review plugin static contract
+
+on:
+  push:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+  pull_request:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: penpot-review-plugin-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check prototypes/penpot-review-plugin/dist/plugin.js
+      - run: node prototypes/penpot-review-plugin/scripts/validate.mjs
+
+      - name: Verify immutable plugin assets, MIME types and CORS
+        shell: bash
+        run: |
+          set -euo pipefail
+          prototype='prototypes/penpot-review-plugin'
+          plugin_revision="${GITHUB_SHA}"
+          ui_revision="$(node - <<'NODE'
+          const fs = require('node:fs');
+          const source = fs.readFileSync('prototypes/penpot-review-plugin/dist/plugin.js', 'utf8');
+          const match = source.match(/const UI_REVISION = '([0-9a-f]{40})'/u);
+          if (!match) process.exit(1);
+          process.stdout.write(match[1]);
+          NODE
+          )"
+          plugin_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${plugin_revision}/${prototype}"
+          ui_url="https://raw.githack.com/${GITHUB_REPOSITORY}/${ui_revision}/${prototype}/dist/ui.html"
+          mkdir -p "${RUNNER_TEMP}/lovekgd-plugin-cdn"
+
+          fetch_asset() {
+            local url="$1"
+            local output="$2"
+            for attempt in $(seq 1 12); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 15 --max-time 45 \
+                --output "$output" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            return 1
+          }
+
+          fetch_headers() {
+            local url="$1"
+            local output="$2"
+            curl --fail --silent --show-error --location --head \
+              --connect-timeout 15 --max-time 45 \
+              --output "$output" "$url"
+          }
+
+          fetch_asset "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
+          fetch_asset "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          fetch_asset "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
+          fetch_headers "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
+          fetch_headers "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.headers"
+          fetch_headers "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+
+          grep -Fq 'LoveKGD Review — Git snapshot prototype 001b' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
+          grep -Fq '/* GIT_MANIFEST_START */' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq '/* GIT_SVG_START */' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq "const UI_REVISION = '${ui_revision}'" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          if grep -Eq '\bfetch[[:space:]]*\(' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"; then
+            echo 'Runtime fetch found in plugin build' >&2
+            exit 1
+          fi
+          grep -Fq '<title>LoveKGD Review</title>' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
+          grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
+          grep -Eiq '^content-type:[[:space:]]*(application|text)/(javascript|x-javascript)([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.headers"
+          grep -Eiq '^content-type:[[:space:]]*text/html([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+          if grep -Eiq '^x-frame-options:[[:space:]]*(deny|sameorigin)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"; then
+            echo 'UI host forbids embedding' >&2
+            exit 1
+          fi
