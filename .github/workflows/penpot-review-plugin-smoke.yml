@@ -1,0 +1,25 @@
+name: Penpot review plugin static contract
+
+on:
+  push:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+  pull_request:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check prototypes/penpot-review-plugin/dist/plugin.js
+      - run: node prototypes/penpot-review-plugin/scripts/validate.mjs
