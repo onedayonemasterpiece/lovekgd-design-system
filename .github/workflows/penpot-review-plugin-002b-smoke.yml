@@ -3,14 +3,8 @@ name: Penpot current mirror prototype 002B contract
 on:
   push:
     branches:
-      - prototype/penpot-review-plugin-002b
-      - penpot-mirror-live
+      - main
     paths:
-      - 'prototypes/penpot-review-plugin-002b/**'
-      - '.github/workflows/penpot-review-plugin-002b-smoke.yml'
-  pull_request:
-    paths:
-      - 'prototypes/penpot-review-plugin-002b/**'
       - '.github/workflows/penpot-review-plugin-002b-smoke.yml'
   workflow_dispatch:
 
@@ -25,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: prototype/penpot-review-plugin-002b
 
       - uses: actions/setup-node@v4
         with:
@@ -40,21 +34,18 @@ jobs:
           WAVE=B node prototypes/penpot-review-plugin-002b/scripts/generate-catalog.mjs \
             --out prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
 
-      - name: Commit generated catalogs on prototype branch
-        if: github.event_name == 'push' && github.ref_name == 'prototype/penpot-review-plugin-002b'
+      - name: Commit generated catalogs to prototype branch
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- prototypes/penpot-review-plugin-002b/catalog; then
-            echo 'Catalogs already reproducible.'
-            exit 0
+          if ! git diff --quiet -- prototypes/penpot-review-plugin-002b/catalog; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add prototypes/penpot-review-plugin-002b/catalog/catalog.json \
+                    prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
+            git commit -m 'test: generate Penpot 002B load catalogs'
+            git push origin HEAD:prototype/penpot-review-plugin-002b
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add prototypes/penpot-review-plugin-002b/catalog/catalog.json \
-                  prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
-          git commit -m 'test: generate Penpot 002B load catalogs'
-          git push origin HEAD:prototype/penpot-review-plugin-002b
 
       - name: Syntax-check plugin and UI script
         shell: bash
@@ -92,8 +83,7 @@ jobs:
           printf '%s\n' "$headers"
           printf '%s\n' "$headers" | grep -qi '^content-type: *text/html'
 
-      - name: Publish exact passing commit as live Penpot mirror catalog
-        if: github.event_name == 'push' && github.ref_name == 'prototype/penpot-review-plugin-002b'
+      - name: Publish exact passing prototype commit as live catalog
         shell: bash
         run: |
           set -euo pipefail
