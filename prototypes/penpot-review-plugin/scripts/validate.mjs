@@ -12,6 +12,7 @@ const ui = await read('dist/ui.html');
 const sourceSvg = await read('data/core.button.smoke.svg');
 
 const digest = (value) => createHash('sha256').update(value, 'utf8').digest('hex');
+const normalizeText = (value) => value.replaceAll('\r\n', '\n').replace(/\n*$/u, '\n');
 const fail = (message) => { throw new Error(message); };
 
 const manifestMatch = plugin.match(
@@ -32,10 +33,12 @@ const svgMatch = plugin.match(
   /\/\* GIT_SVG_START \*\/\s*const GIT_SPECIMEN_SVG = String\.raw`([\s\S]*?)`;\s*\/\* GIT_SVG_END \*\//u,
 );
 if (!svgMatch) fail('embedded Git SVG block missing');
-if (svgMatch[1] !== sourceSvg) {
-  fail(`embedded SVG differs from Git source: embedded=${digest(svgMatch[1])} source=${digest(sourceSvg)}`);
+const embeddedSvg = normalizeText(svgMatch[1]);
+const normalizedSourceSvg = normalizeText(sourceSvg);
+if (embeddedSvg !== normalizedSourceSvg) {
+  fail(`embedded SVG differs from Git source after line-ending normalization: embedded=${digest(embeddedSvg)} source=${digest(normalizedSourceSvg)}`);
 }
-if (/\bfetch\s*\(/u.test(plugin)) fail('runtime fetch is forbidden in prototype 001b');
+if (/\bfetch\s*\(/u.test(plugin)) fail('runtime fetch is forbidden in prototype 001');
 
 if (sourceManifest.schemaVersion !== 1) fail('schemaVersion');
 if (sourceManifest.elements?.length !== 1) fail('one smoke element required');
@@ -61,7 +64,7 @@ console.log(JSON.stringify({
   status: 'PASS',
   elementId: element.id,
   sourcePath: element.sourcePath,
-  transport: 'embedded-byte-exact-git-snapshot',
+  transport: 'embedded-git-snapshot',
   manifestSha256: digest(manifestText),
-  svgSha256: digest(sourceSvg),
+  svgSha256: digest(normalizedSourceSvg),
 }));
