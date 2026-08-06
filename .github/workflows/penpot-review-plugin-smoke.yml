@@ -76,9 +76,13 @@ jobs:
           fetch_headers "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
 
           grep -Fq 'LoveKGD Review — Git snapshot prototype 001b' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
-          grep -Fq 'const EMBEDDED_MANIFEST_BASE64 =' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
-          grep -Fq 'const EMBEDDED_SVG_BASE64 =' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq '/* GIT_MANIFEST_START */' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq '/* GIT_SVG_START */' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
           grep -Fq "const UI_REVISION = '${ui_revision}'" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          if grep -Eq '\bfetch[[:space:]]*\(' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"; then
+            echo 'Runtime fetch found in plugin build' >&2
+            exit 1
+          fi
           grep -Fq '<title>LoveKGD Review</title>' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
           grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
           grep -Eiq '^content-type:[[:space:]]*(application|text)/(javascript|x-javascript)([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.headers"
