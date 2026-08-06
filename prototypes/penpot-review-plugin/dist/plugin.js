@@ -1,28 +1,69 @@
 (() => {
   'use strict';
 
-  // Prototype 001 is intentionally self-contained after installation.
-  // The two payloads below are exact UTF-8 snapshots of Git-tracked files:
-  // - data/review-manifest.json
-  // - data/core.button.smoke.svg
-  // CI verifies byte-for-byte equality before the plugin can be accepted.
-  const EMBEDDED_MANIFEST_BASE64 = 'ewogICJzY2hlbWFWZXJzaW9uIjogMSwKICAicmVwb3NpdG9yeSI6ICJvbmVkYXlvbmVtYXN0ZXJwaWVjZS9sb3Zla2dkLWRlc2lnbi1zeXN0ZW0iLAogICJzb3VyY2VSZXZpc2lvbiI6ICJiMDc0OGExYjE0ODhjOGM2ZDU4YTE3NTk2MmU2MzRiYWI5ZWMwNWQyIiwKICAiZWxlbWVudHMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJjb3JlLmJ1dHRvbi5zbW9rZSIsCiAgICAgICJuYW1lIjogIkJ1dHRvbiAvIFByaW1hcnkgLyBTbW9rZSIsCiAgICAgICJzdGF0dXMiOiAiZXhwZXJpbWVudGFsIiwKICAgICAgInZlcnNpb24iOiAiMC4wLjEiLAogICAgICAic3RhdGUiOiAiZGVmYXVsdCIsCiAgICAgICJzb3VyY2VQYXRoIjogInByb3RvdHlwZXMvcGVucG90LXJldmlldy1wbHVnaW4vZGF0YS9jb3JlLmJ1dHRvbi5zbW9rZS5zdmciLAogICAgICAic291cmNlVXJsIjogImh0dHBzOi8vZ2l0aHViLmNvbS9vbmVkYXlvbmVtYXN0ZXJwaWVjZS9sb3Zla2dkLWRlc2lnbi1zeXN0ZW0vYmxvYi9iMDc0OGExYjE0ODhjOGM2ZDU4YTE3NTk2MmU2MzRiYWI5ZWMwNWQyL3Byb3RvdHlwZXMvcGVucG90LXJldmlldy1wbHVnaW4vZGF0YS9jb3JlLmJ1dHRvbi5zbW9rZS5zdmciLAogICAgICAiYm9hcmQiOiB7CiAgICAgICAgIndpZHRoIjogNzIwLAogICAgICAgICJoZWlnaHQiOiA0MjAsCiAgICAgICAgIngiOiAwLAogICAgICAgICJ5IjogMCwKICAgICAgICAiZmlsbCI6ICIjRjNFRkU2IgogICAgICB9LAogICAgICAiYXJ0aWZhY3QiOiB7CiAgICAgICAgInBhdGgiOiAiZGF0YS9jb3JlLmJ1dHRvbi5zbW9rZS5zdmciLAogICAgICAgICJ3aWR0aCI6IDcyMCwKICAgICAgICAiaGVpZ2h0IjogNDIwCiAgICAgIH0KICAgIH0KICBdLAogICJwcm9tcHQiOiB7CiAgICAibm9Db21tZW50c1RleHQiOiAi4oCUINC90LXQt9Cw0LrRgNGL0YLRi9GFINC60L7QvNC80LXQvdGC0LDRgNC40LXQsiDQuiDQstGL0LHRgNCw0L3QvdC+0LzRgyBib2FyZCDQv9C+0LrQsCDQvdC10YIiLAogICAgInRlbXBsYXRlIjogIkBHaXRIdWIge3tyZXBvc2l0b3J5fX1cblxu0JTQvtGA0LDQsdC+0YLQsNC5INGN0LvQtdC80LXQvdGCIGB7e2VsZW1lbnRJZH19YCDQv9C+INC90LXQt9Cw0LrRgNGL0YLRi9C8INC60L7QvNC80LXQvdGC0LDRgNC40Y/QvCBQZW5wb3QuXG5cbtCY0YHRgtC+0YfQvdC40Log0Y3Qu9C10LzQtdC90YLQsCDQsiBHaXQ6XG57e3NvdXJjZVVybH19XG5cbtCg0LXQstC40LfQuNGPINC40YHRgtC+0YfQvdC40LrQsDogYHt7c291cmNlUmV2aXNpb259fWBcbtCS0LXRgNGB0LjRjyDRjdC70LXQvNC10L3RgtCwOiBge3tlbGVtZW50VmVyc2lvbn19YFxu0KHQvtGB0YLQvtGP0L3QuNC1OiBge3tzdGF0ZX19YFxuXG7QmtC+0LzQvNC10L3RgtCw0YDQuNC4Olxue3tjb21tZW50c319XG5cbtCh0L3QsNGH0LDQu9CwINGB0LLQtdGA0Y/QudGB0Y8g0YEg0YPQutCw0LfQsNC90L3Ri9C8IEdpdC3QuNGB0YLQvtGH0L3QuNC60L7QvDsg0L3QtSDQstC+0YHRgdGC0LDQvdCw0LLQu9C40LLQsNC5INGN0LvQtdC80LXQvdGCINC/0L4g0L/QsNC80Y/RgtC4INC4INC90LUg0L/RgNC40LTRg9C80YvQstCw0Lkg0L7RgtGB0YPRgtGB0YLQstGD0Y7RidC40LUg0LTQsNC90L3Ri9C1LiDQn9C+0LTQs9C+0YLQvtCy0Ywg0LjQt9C80LXQvdC10L3QuNC1INCyINC00LjQt9Cw0LnQvS3RgdC40YHRgtC10LzQtSDQuCDQvdC+0LLRi9C5INC/0YDQvtCy0LXRgNGP0LXQvNGL0LkgcHJldmlldy4gUHJvZHVjdGlvbiDQvdC1INC+0LHQvdC+0LLQu9GP0Lkg0LHQtdC3IHNpZ24tb2ZmINCy0LvQsNC00LXQu9GM0YbQsCDQv9GA0L7QtNGD0LrRgtCwLiIKICB9Cn0K';
-  const EMBEDDED_SVG_BASE64 = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MjAiIGhlaWdodD0iNDIwIiB2aWV3Qm94PSIwIDAgNzIwIDQyMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRpdGxlIGRlc2MiPgogIDx0aXRsZSBpZD0idGl0bGUiPtCi0LXRgdGC0L7QstGL0Lkg0LDRgNGC0LXRhNCw0LrRgiDQutC90L7Qv9C60Lgg0LTQu9GPIFBlbnBvdCByZXZpZXctcGx1Z2luPC90aXRsZT4KICA8ZGVzYyBpZD0iZGVzYyI+0K3QutGB0L/QtdGA0LjQvNC10L3RgtCw0LvRjNC90YvQuSDQv9GA0LjQvNC10YAsINC40YHRgtC+0YfQvdC40Log0LrQvtGC0L7RgNC+0LPQviDRhdGA0LDQvdC40YLRgdGPINCyIEdpdC4g0J3QtSDRj9Cy0LvRj9C10YLRgdGPINGD0YLQstC10YDQttC00ZHQvdC90YvQvCDQutC+0LzQv9C+0L3QtdC90YLQvtC8INC00LjQt9Cw0LnQvS3RgdC40YHRgtC10LzRiy48L2Rlc2M+CiAgPHJlY3Qgd2lkdGg9IjcyMCIgaGVpZ2h0PSI0MjAiIHJ4PSIyOCIgZmlsbD0iI0YzRUZFNiIvPgogIDxyZWN0IHg9IjMyIiB5PSIzMiIgd2lkdGg9IjY1NiIgaGVpZ2h0PSIzNTYiIHJ4PSIyMCIgZmlsbD0iI0ZGRkRGOCIgc3Ryb2tlPSIjRDZEMEM0Ii8+CiAgPHRleHQgeD0iNjQiIHk9IjgyIiBmaWxsPSIjNUQ1NzRGIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkxPVkVLR0QgwrcgUFJPVE9UWVBFIDAwMTwvdGV4dD4KICA8dGV4dCB4PSI2NCIgeT0iMTI2IiBmaWxsPSIjMjAxRDFBIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtd2VpZ2h0PSI3MDAiPkJ1dHRvbiAvIFByaW1hcnkgLyBTbW9rZTwvdGV4dD4KICA8dGV4dCB4PSI2NCIgeT0iMTU3IiBmaWxsPSIjNkU2NzVGIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiPtCi0LXRgdGC0L7QstGL0Lkg0LDRgNGC0LXRhNCw0LrRgiDQuNC3IEdpdCDigJQg0L3QtSDRg9GC0LLQtdGA0LbQtNC10L3QvdGL0Lkg0LrQvtC80L/QvtC90LXQvdGCPC90ZXh0PgogIDxyZWN0IHg9IjY0IiB5PSIyMDIiIHdpZHRoPSIyMzIiIGhlaWdodD0iNTgiIHJ4PSIxNCIgZmlsbD0iIzIwM0I1NyIvPgogIDx0ZXh0IHg9IjE4MCIgeT0iMjM4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTciIGZvbnQtd2VpZ2h0PSI3MDAiPtCf0L7QutCw0LfQsNGC0Ywg0YHQvtCx0YvRgtC40Y88L3RleHQ+CiAgPGxpbmUgeDE9IjY0IiB5MT0iMzAyIiB4Mj0iNjU2IiB5Mj0iMzAyIiBzdHJva2U9IiNEREQ3Q0MiLz4KICA8dGV4dCB4PSI2NCIgeT0iMzM0IiBmaWxsPSIjNUQ1NzRGIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiPklEOiBjb3JlLmJ1dHRvbi5zbW9rZTwvdGV4dD4KICA8dGV4dCB4PSI2NCIgeT0iMzU4IiBmaWxsPSIjNUQ1NzRGIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiPtCY0YHRgtC+0YfQvdC40Lo6IHByb3RvdHlwZXMvcGVucG90LXJldmlldy1wbHVnaW4vZGF0YS9jb3JlLmJ1dHRvbi5zbW9rZS5zdmc8L3RleHQ+Cjwvc3ZnPgo=';
+  // Prototype 001b is self-contained after installation. The manifest and SVG
+  // below are generated from, and validated against, the Git-tracked sources.
+  /* GIT_MANIFEST_START */
+  const GIT_MANIFEST = Object.freeze(
+{
+  "schemaVersion": 1,
+  "repository": "onedayonemasterpiece/lovekgd-design-system",
+  "sourceRevision": "b0748a1b1488c8c6d58a175962e634bab9ec05d2",
+  "elements": [
+    {
+      "id": "core.button.smoke",
+      "name": "Button / Primary / Smoke",
+      "status": "experimental",
+      "version": "0.0.1",
+      "state": "default",
+      "sourcePath": "prototypes/penpot-review-plugin/data/core.button.smoke.svg",
+      "sourceUrl": "https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/b0748a1b1488c8c6d58a175962e634bab9ec05d2/prototypes/penpot-review-plugin/data/core.button.smoke.svg",
+      "board": {
+        "width": 720,
+        "height": 420,
+        "x": 0,
+        "y": 0,
+        "fill": "#F3EFE6"
+      },
+      "artifact": {
+        "path": "data/core.button.smoke.svg",
+        "width": 720,
+        "height": 420
+      }
+    }
+  ],
+  "prompt": {
+    "noCommentsText": "— незакрытых комментариев к выбранному board пока нет",
+    "template": "@GitHub {{repository}}\n\nДоработай элемент `{{elementId}}` по незакрытым комментариям Penpot.\n\nИсточник элемента в Git:\n{{sourceUrl}}\n\nРевизия источника: `{{sourceRevision}}`\nВерсия элемента: `{{elementVersion}}`\nСостояние: `{{state}}`\n\nКомментарии:\n{{comments}}\n\nСначала сверяйся с указанным Git-источником; не восстанавливай элемент по памяти и не придумывай отсутствующие данные. Подготовь изменение в дизайн-системе и новый проверяемый preview. Production не обновляй без sign-off владельца продукта."
+  }
+}
+  );
+  /* GIT_MANIFEST_END */
+
+  /* GIT_SVG_START */
+  const GIT_SPECIMEN_SVG = String.raw`<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Тестовый артефакт кнопки для Penpot review-plugin</title>
+  <desc id="desc">Экспериментальный пример, источник которого хранится в Git. Не является утверждённым компонентом дизайн-системы.</desc>
+  <rect width="720" height="420" rx="28" fill="#F3EFE6"/>
+  <rect x="32" y="32" width="656" height="356" rx="20" fill="#FFFDF8" stroke="#D6D0C4"/>
+  <text x="64" y="82" fill="#5D574F" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">LOVEKGD · PROTOTYPE 001</text>
+  <text x="64" y="126" fill="#201D1A" font-family="Arial, sans-serif" font-size="26" font-weight="700">Button / Primary / Smoke</text>
+  <text x="64" y="157" fill="#6E675F" font-family="Arial, sans-serif" font-size="15">Тестовый артефакт из Git — не утверждённый компонент</text>
+  <rect x="64" y="202" width="232" height="58" rx="14" fill="#203B57"/>
+  <text x="180" y="238" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="17" font-weight="700">Показать события</text>
+  <line x1="64" y1="302" x2="656" y2="302" stroke="#DDD7CC"/>
+  <text x="64" y="334" fill="#5D574F" font-family="Arial, sans-serif" font-size="13">ID: core.button.smoke</text>
+  <text x="64" y="358" fill="#5D574F" font-family="Arial, sans-serif" font-size="13">Источник: prototypes/penpot-review-plugin/data/core.button.smoke.svg</text>
+</svg>
+`;
+  /* GIT_SVG_END */
+
   const UI_REVISION = '8bdd0af766f889f32324e50d6678b9fbc4cca198';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const PROTOTYPE_PATH = 'prototypes/penpot-review-plugin';
   const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_REVISION}/${PROTOTYPE_PATH}/dist/ui.html`;
   const NAMESPACE = 'lovekgd.review';
   const ELEMENT_KEY = 'element';
-
-  function decodeUtf8Base64(value) {
-    const bytes = Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
-    return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
-  }
-
-  const EMBEDDED_MANIFEST_TEXT = decodeUtf8Base64(EMBEDDED_MANIFEST_BASE64);
-  const EMBEDDED_SVG = decodeUtf8Base64(EMBEDDED_SVG_BASE64);
-  const EMBEDDED_MANIFEST = JSON.parse(EMBEDDED_MANIFEST_TEXT);
 
   penpot.ui.open('LoveKGD Review', UI_URL, { width: 420, height: 650 });
 
@@ -49,14 +90,9 @@
       assert(typeof element[key] === 'string' && element[key], `git_element_${key}_missing`);
     }
     assert(element.board && Number.isFinite(element.board.width) && Number.isFinite(element.board.height), 'git_board_geometry_missing');
-    assert(element.artifact && typeof element.artifact.path === 'string', 'git_artifact_path_missing');
     assert(manifest.prompt && typeof manifest.prompt.template === 'string', 'git_prompt_template_missing');
-    assert(EMBEDDED_SVG.includes('<svg') && EMBEDDED_SVG.includes(element.id), 'git_artifact_contract_failed');
+    assert(GIT_SPECIMEN_SVG.includes('<svg') && GIT_SPECIMEN_SVG.includes(element.id), 'git_artifact_contract_failed');
     return manifest;
-  }
-
-  function loadManifest() {
-    return validateManifest(EMBEDDED_MANIFEST);
   }
 
   function elementMetadata(manifest, element) {
@@ -70,7 +106,7 @@
       sourceRevision: manifest.sourceRevision,
       sourcePath: element.sourcePath,
       sourceUrl: element.sourceUrl,
-      artifactTransport: 'embedded-from-git',
+      artifactTransport: 'embedded-git-snapshot'
     };
   }
 
@@ -113,17 +149,15 @@
       const comments = await thread.findComments();
       result.push({
         seqNumber: thread.seqNumber,
-        comments: comments.map((comment) => ({
-          content: String(comment.content || '').trim(),
-          date: comment.date instanceof Date ? comment.date.toISOString() : String(comment.date || '')
-        })).filter((comment) => comment.content)
+        comments: comments
+          .map((comment) => ({ content: String(comment.content || '').trim() }))
+          .filter((comment) => comment.content)
       });
     }
     return result;
   }
 
   function commentsText(threads, noCommentsText) {
-    if (!threads.length) return noCommentsText;
     const lines = [];
     for (const thread of threads) {
       for (const comment of thread.comments) {
@@ -164,7 +198,7 @@
   async function importFromGit() {
     const page = penpot.currentPage;
     assert(page, 'penpot_current_page_missing');
-    const manifest = loadManifest();
+    const manifest = validateManifest(GIT_MANIFEST);
     const element = manifest.elements[0];
     const metadata = elementMetadata(manifest, element);
 
@@ -188,7 +222,7 @@
     board.showInViewMode = true;
     page.root.appendChild(board);
 
-    const specimen = penpot.createShapeFromSvg(EMBEDDED_SVG);
+    const specimen = penpot.createShapeFromSvg(GIT_SPECIMEN_SVG);
     if (!specimen) {
       board.remove();
       throw new Error('penpot_svg_import_failed');
@@ -202,7 +236,7 @@
 
     penpot.selection = [board];
     penpot.viewport.zoomIntoView([board]);
-    status('Specimen импортирован из Git-снимка плагина. Теперь поставьте обычный Penpot-комментарий внутри board.', 'ok');
+    status('Specimen импортирован из зафиксированного Git-снимка. Теперь поставьте обычный Penpot-комментарий внутри board.', 'ok');
     await sendSelectionState();
   }
 
@@ -211,9 +245,8 @@
     assert(board, 'select_review_board_first');
     const metadata = readBoardMetadata(board);
     assert(metadata, 'review_board_metadata_missing');
-    const manifest = loadManifest();
+    const manifest = validateManifest(GIT_MANIFEST);
     const threads = await commentThreadsForBoard(board);
-    const comments = commentsText(threads, manifest.prompt.noCommentsText);
     const text = renderPrompt(manifest.prompt.template, {
       repository: metadata.repository,
       elementId: metadata.id,
@@ -221,7 +254,7 @@
       sourceRevision: metadata.sourceRevision,
       elementVersion: metadata.version,
       state: metadata.state,
-      comments
+      comments: commentsText(threads, manifest.prompt.noCommentsText)
     });
     const commentCount = threads.reduce((count, thread) => count + thread.comments.length, 0);
     send({ type: 'prompt', text, commentCount, element: metadata });
@@ -234,8 +267,7 @@
       if (message.type === 'import-from-git') await importFromGit();
       if (message.type === 'build-prompt') await buildPrompt();
     } catch (error) {
-      const safeMessage = String(error?.message || error || 'unknown_error').slice(0, 240);
-      status(`Ошибка: ${safeMessage}`, 'error');
+      status(`Ошибка: ${String(error?.message || error || 'unknown_error').slice(0, 240)}`, 'error');
     }
   });
 
