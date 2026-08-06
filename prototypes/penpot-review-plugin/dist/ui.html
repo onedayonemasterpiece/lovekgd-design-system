@@ -11,6 +11,7 @@
     h1 { font-size: 18px; margin: 0 0 8px; }
     p { font-size: 13px; line-height: 1.45; margin: 0 0 12px; color: #625c54; }
     .card { background: white; border: 1px solid #d8d2c8; border-radius: 12px; padding: 12px; margin: 12px 0; }
+    .note { font-size: 12px; line-height: 1.45; color: #625c54; }
     .status { min-height: 40px; font-size: 13px; line-height: 1.4; white-space: pre-wrap; }
     .meta { display: grid; grid-template-columns: 96px 1fr; gap: 6px 8px; font-size: 12px; }
     .meta dt { color: #6d665e; }
@@ -27,12 +28,13 @@
 </head>
 <body>
   <h1>LoveKGD Review</h1>
-  <p>Плагин ничего не проектирует: specimen, metadata и шаблон промпта загружаются из Git.</p>
+  <p>Specimen, metadata и шаблон промпта берутся из зафиксированного Git-снимка.</p>
+  <p class="note">Плагин ничего не отправляет в GitHub или Supabase. Комментарии хранятся в Penpot; промпт собирается локально и появляется только в этом окне.</p>
 
   <div class="card">
     <div id="status" class="status">Ожидаю данные Penpot…</div>
     <button id="import" class="primary">Импортировать specimen из Git</button>
-    <button id="refresh" class="secondary">Прочитать выбранный board и комментарии</button>
+    <button id="refresh" class="secondary">Прочитать комментарии к specimen</button>
   </div>
 
   <dl id="meta" class="card meta hidden">
@@ -64,24 +66,24 @@
     }
 
     document.querySelector('#import').addEventListener('click', () => {
-      setStatus('Загружаю manifest и SVG из Git…');
+      setStatus('Импортирую зафиксированный Git-snapshot…');
       send('import-from-git');
     });
 
     document.querySelector('#refresh').addEventListener('click', () => {
-      setStatus('Читаю metadata выбранного board и незакрытые комментарии…');
+      setStatus('Нахожу review-board и читаю незакрытые комментарии Penpot…');
       send('build-prompt');
     });
 
     copyButton.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(prompt.value);
-        setStatus('Промпт скопирован.', 'ok');
+        setStatus('Промпт скопирован. Никакие данные автоматически не отправлены.', 'ok');
       } catch {
         prompt.focus();
         prompt.select();
         const copied = document.execCommand('copy');
-        setStatus(copied ? 'Промпт скопирован.' : 'Не удалось скопировать: выделите текст вручную.', copied ? 'ok' : 'error');
+        setStatus(copied ? 'Промпт скопирован. Никакие данные автоматически не отправлены.' : 'Не удалось скопировать: выделите текст вручную.', copied ? 'ok' : 'error');
       }
     });
 
@@ -92,7 +94,6 @@
       if (message.type === 'selection') {
         if (!message.element) {
           meta.classList.add('hidden');
-          promptPanel.classList.add('hidden');
           return;
         }
         meta.classList.remove('hidden');
@@ -106,7 +107,7 @@
         promptPanel.classList.remove('hidden');
         prompt.value = message.text;
         document.querySelector('#comment-count').textContent = String(message.commentCount);
-        setStatus('Промпт собран только из Git metadata и незакрытых комментариев выбранного board.', 'ok');
+        setStatus('Промпт собран локально из Git metadata и незакрытых комментариев Penpot.', 'ok');
       }
     });
 
