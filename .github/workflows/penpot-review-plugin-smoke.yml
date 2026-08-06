@@ -24,7 +24,7 @@ jobs:
       - run: node --check prototypes/penpot-review-plugin/dist/plugin.js
       - run: node prototypes/penpot-review-plugin/scripts/validate.mjs
 
-      - name: Verify immutable CDN assets and CORS
+      - name: Verify immutable plugin assets, MIME types and CORS
         shell: bash
         run: |
           set -euo pipefail
@@ -40,6 +40,7 @@ jobs:
           )"
           plugin_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${plugin_revision}/${prototype}"
           data_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${data_revision}/${prototype}"
+          ui_url="https://raw.githack.com/${GITHUB_REPOSITORY}/${data_revision}/${prototype}/dist/ui.html"
           mkdir -p "${RUNNER_TEMP}/lovekgd-plugin-cdn"
 
           fetch_asset() {
@@ -66,16 +67,21 @@ jobs:
 
           fetch_asset "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
           fetch_asset "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
-          fetch_asset "${data_base}/dist/ui.html" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
+          fetch_asset "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
           fetch_asset "${data_base}/data/review-manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/review-manifest.json"
           fetch_asset "${data_base}/data/core.button.smoke.svg" "${RUNNER_TEMP}/lovekgd-plugin-cdn/specimen.svg"
           fetch_headers "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
-          fetch_headers "${data_base}/dist/ui.html" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+          fetch_headers "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
 
           grep -Fq 'LoveKGD Review — Git-backed prototype' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
           grep -Fq "const DATA_REVISION = '${data_revision}'" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq "const UI_URL = \`https://raw.githack.com/\${REPOSITORY}/\${DATA_REVISION}/\${PROTOTYPE_PATH}/dist/ui.html\`;" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
           grep -Fq '<title>LoveKGD Review</title>' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
           grep -Fq 'core.button.smoke' "${RUNNER_TEMP}/lovekgd-plugin-cdn/review-manifest.json"
           grep -Fq 'core.button.smoke' "${RUNNER_TEMP}/lovekgd-plugin-cdn/specimen.svg"
           grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
-          grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+          grep -Eiq '^content-type:[[:space:]]*text/html([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+          if grep -Eiq '^x-frame-options:[[:space:]]*(deny|sameorigin)' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"; then
+            echo 'UI host forbids embedding' >&2
+            exit 1
+          fi
