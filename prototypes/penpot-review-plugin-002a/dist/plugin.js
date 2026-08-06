@@ -1,14 +1,14 @@
 (() => {
   'use strict';
 
-  const UI_REVISION = 'a16ee60de6d8de7a824c0527a724171418deff4f';
+  const UI_REVISION = '7520abb76967491ebdf21697c7970556caa4ff4d';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const PROTOTYPE_PATH = 'prototypes/penpot-review-plugin-002a';
   const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_REVISION}/${PROTOTYPE_PATH}/dist/ui.html`;
   const NAMESPACE = 'lovekgd.review';
   const ELEMENT_KEY = 'element';
 
-  penpot.ui.open('LoveKGD Review · 002A', UI_URL, { width: 450, height: 720 });
+  penpot.ui.open('LoveKGD Review · 002A.1', UI_URL, { width: 450, height: 720 });
 
   function send(message) {
     penpot.ui.sendMessage(message);
