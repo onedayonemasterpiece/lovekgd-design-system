@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  // Prototype 001b is self-contained after installation. The manifest and SVG
-  // below are generated from, and validated against, the Git-tracked sources.
+  // Prototype 001c is self-contained after installation. The manifest and SVG
+  // below are copied from, and validated against, the Git-tracked sources.
   /* GIT_MANIFEST_START */
   const GIT_MANIFEST = Object.freeze(
 {
@@ -58,7 +58,7 @@
 `;
   /* GIT_SVG_END */
 
-  const UI_REVISION = '8bdd0af766f889f32324e50d6678b9fbc4cca198';
+  const UI_REVISION = '56d6daf7493811842cc0459a8f38eb57b5440116';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const PROTOTYPE_PATH = 'prototypes/penpot-review-plugin';
   const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_REVISION}/${PROTOTYPE_PATH}/dist/ui.html`;
@@ -139,10 +139,41 @@
     return null;
   }
 
-  async function commentThreadsForBoard(board) {
+  function reviewBoardsOnCurrentPage() {
+    const page = penpot.currentPage;
+    if (!page) return [];
+    return page.findShapes({ type: 'board' })
+      .filter((shape) => Boolean(readBoardMetadata(shape)));
+  }
+
+  async function unresolvedThreadsOnCurrentPage() {
     const page = penpot.currentPage;
     assert(page, 'penpot_current_page_missing');
-    const threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+    return page.findCommentThreads({ onlyYours: false, showResolved: false });
+  }
+
+  async function resolveReviewBoard() {
+    const selected = selectedReviewBoard();
+    if (selected) return selected;
+
+    const boards = reviewBoardsOnCurrentPage();
+    if (boards.length === 0) return null;
+    if (boards.length === 1) return boards[0];
+
+    const threads = await unresolvedThreadsOnCurrentPage();
+    const commentedBoardIds = new Set(
+      threads
+        .filter((thread) => !thread.resolved && thread.board?.id)
+        .map((thread) => thread.board.id),
+    );
+    const commentedBoards = boards.filter((board) => commentedBoardIds.has(board.id));
+    if (commentedBoards.length === 1) return commentedBoards[0];
+
+    return null;
+  }
+
+  async function commentThreadsForBoard(board) {
+    const threads = await unresolvedThreadsOnCurrentPage();
     const matching = threads.filter((thread) => thread.board?.id === board.id && !thread.resolved);
     const result = [];
     for (const thread of matching) {
@@ -179,7 +210,7 @@
   }
 
   async function sendSelectionState() {
-    const board = selectedReviewBoard();
+    const board = await resolveReviewBoard();
     if (!board) {
       send({ type: 'selection', element: null, commentCount: null });
       return;
@@ -207,7 +238,7 @@
     if (existing) {
       penpot.selection = [existing];
       penpot.viewport.zoomIntoView([existing]);
-      status('Specimen уже существует. Выбран существующий board; данные не перезаписаны.', 'ok');
+      status('Specimen уже существует. Найден существующий board; данные не перезаписаны.', 'ok');
       await sendSelectionState();
       return;
     }
@@ -241,12 +272,13 @@
   }
 
   async function buildPrompt() {
-    const board = selectedReviewBoard();
-    assert(board, 'select_review_board_first');
+    const board = await resolveReviewBoard();
+    assert(board, 'review_board_not_found_or_ambiguous');
     const metadata = readBoardMetadata(board);
     assert(metadata, 'review_board_metadata_missing');
     const manifest = validateManifest(GIT_MANIFEST);
     const threads = await commentThreadsForBoard(board);
+    const comments = commentsText(threads, manifest.prompt.noCommentsText);
     const text = renderPrompt(manifest.prompt.template, {
       repository: metadata.repository,
       elementId: metadata.id,
@@ -254,9 +286,10 @@
       sourceRevision: metadata.sourceRevision,
       elementVersion: metadata.version,
       state: metadata.state,
-      comments: commentsText(threads, manifest.prompt.noCommentsText)
+      comments
     });
     const commentCount = threads.reduce((count, thread) => count + thread.comments.length, 0);
+    send({ type: 'selection', element: metadata, commentCount });
     send({ type: 'prompt', text, commentCount, element: metadata });
   }
 
@@ -267,7 +300,8 @@
       if (message.type === 'import-from-git') await importFromGit();
       if (message.type === 'build-prompt') await buildPrompt();
     } catch (error) {
-      status(`Ошибка: ${String(error?.message || error || 'unknown_error').slice(0, 240)}`, 'error');
+      const safeMessage = String(error?.message || error || 'unknown_error').slice(0, 240);
+      status(`Ошибка: ${safeMessage}`, 'error');
     }
   });
 
