@@ -12,25 +12,37 @@ Git specimen + Git metadata + Git prompt template
 
 Плагин не проектирует компонент, не меняет значения и не обращается к Penpot REST API. Визуальный артефакт, metadata и prompt template находятся в этом репозитории. При повторном импорте существующий board не перезаписывается, чтобы не потерять комментарии.
 
-## Что проверяет smoke
+## Результат ручного smoke — PASS
 
-1. Установить плагин по выданному immutable manifest URL.
-2. Открыть плагин и нажать **«Импортировать specimen из Git»**.
-3. Убедиться, что появился board `Button / Primary / Smoke`.
-4. Поставить обычный комментарий Penpot внутри board.
-5. Выбрать board и нажать **«Прочитать выбранный board и комментарии»**.
-6. Проверить текст и нажать **«Скопировать промпт»**.
+Дата: 2026-08-06.
 
-PASS означает, что готовый промпт содержит:
+Фактически подтверждено в Penpot Cloud:
 
-- `core.button.smoke`;
-- Git source URL;
-- source revision и версию элемента;
-- точный текст незакрытого комментария Penpot.
+1. установлен immutable plugin manifest;
+2. создан board `Button / Primary / Smoke` из Git-снимка;
+3. board получил стабильный ID `core.button.smoke` и source revision;
+4. владелец оставил штатный Penpot-comment внутри board;
+5. plugin прочитал незакрытый комментарий без повторного выделения board;
+6. plugin сформировал и скопировал детерминированный prompt;
+7. prompt содержал точный текст комментария: `У кнопки нужно поменять цвет`.
+
+Прототип ничего не отправлял в GitHub или Supabase. Комментарий остался в Penpot; готовый prompt был помещён только в локальный буфер обмена.
+
+## Что не доказано прототипом 001
+
+- обновление уже размещённого board после изменения Git-источника;
+- обновление данных без переустановки plugin;
+- сохранение истории комментариев между ревизиями элемента;
+- работа с десятками и сотнями boards;
+- фотографии и другие растровые assets;
+- большие наборы SVG и иконок;
+- автоматическое создание review bundle.
+
+Эти вопросы переходят в prototype 002A/002B и не должны считаться решёнными результатом prototype 001.
 
 ## Источники прототипа
 
 - [`data/review-manifest.json`](data/review-manifest.json) — metadata и prompt template;
 - [`data/core.button.smoke.svg`](data/core.button.smoke.svg) — точный импортируемый specimen;
 - [`dist/plugin.js`](dist/plugin.js) — узкий мост Git → Penpot comments → prompt;
-- [`dist/ui.html`](dist/ui.html) — интерфейс плагина.
+- [`dist/ui.html`](dist/ui.html) — интерфейс plugin.
