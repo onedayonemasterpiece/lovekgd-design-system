@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -10,6 +11,20 @@ const plugin = await read('dist/plugin.js');
 const ui = await read('dist/ui.html');
 const svg = await read('data/core.button.smoke.svg');
 
+const digest = (value) => createHash('sha256').update(value, 'utf8').digest('hex');
+const firstDifference = (left, right) => {
+  const length = Math.min(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    if (left[index] !== right[index]) {
+      return {
+        index,
+        leftCodePoint: left.codePointAt(index),
+        rightCodePoint: right.codePointAt(index),
+      };
+    }
+  }
+  return left.length === right.length ? null : { index: length, leftLength: left.length, rightLength: right.length };
+};
 const fail = (message) => { throw new Error(message); };
 const embedded = (name) => {
   const match = plugin.match(new RegExp(`const ${name} = '([A-Za-z0-9+/=]+)'`, 'u'));
@@ -24,8 +39,12 @@ if (!svg.includes(element.id)) fail('svg must contain element id');
 
 const embeddedManifest = embedded('EMBEDDED_MANIFEST_BASE64');
 const embeddedSvg = embedded('EMBEDDED_SVG_BASE64');
-if (embeddedManifest !== manifestText) fail('embedded manifest differs from Git source');
-if (embeddedSvg !== svg) fail('embedded SVG differs from Git source');
+if (embeddedManifest !== manifestText) {
+  fail(`embedded manifest differs from Git source: embedded=${digest(embeddedManifest)} source=${digest(manifestText)} diff=${JSON.stringify(firstDifference(embeddedManifest, manifestText))}`);
+}
+if (embeddedSvg !== svg) {
+  fail(`embedded SVG differs from Git source: embedded=${digest(embeddedSvg)} source=${digest(svg)} diff=${JSON.stringify(firstDifference(embeddedSvg, svg))}`);
+}
 if (/\bfetch\s*\(/u.test(plugin)) fail('runtime fetch is forbidden in prototype 001b');
 
 const uiRevisionMatch = plugin.match(/const UI_REVISION = '([^']+)'/u);
@@ -47,4 +66,6 @@ console.log(JSON.stringify({
   elementId: element.id,
   sourcePath: element.sourcePath,
   transport: 'embedded-byte-exact-git-snapshot',
+  manifestSha256: digest(manifestText),
+  svgSha256: digest(svg),
 }));
