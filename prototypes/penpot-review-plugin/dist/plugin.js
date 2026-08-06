@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const DATA_REVISION = '__DATA_REVISION__';
+  const DATA_REVISION = '8109eaa0c0f8eee1060bc9bff280becb79aa5bca';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const PROTOTYPE_PATH = 'prototypes/penpot-review-plugin';
   const BASE_URL = `https://cdn.jsdelivr.net/gh/${REPOSITORY}@${DATA_REVISION}/${PROTOTYPE_PATH}`;
