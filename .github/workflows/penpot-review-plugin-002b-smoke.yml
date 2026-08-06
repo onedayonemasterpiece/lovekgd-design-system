@@ -1,0 +1,102 @@
+name: Penpot current mirror prototype 002B contract
+
+on:
+  push:
+    branches:
+      - prototype/penpot-review-plugin-002b
+      - penpot-mirror-live
+    paths:
+      - 'prototypes/penpot-review-plugin-002b/**'
+      - '.github/workflows/penpot-review-plugin-002b-smoke.yml'
+  pull_request:
+    paths:
+      - 'prototypes/penpot-review-plugin-002b/**'
+      - '.github/workflows/penpot-review-plugin-002b-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate committed Wave A and prepared Wave B catalogs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node prototypes/penpot-review-plugin-002b/scripts/generate-catalog.mjs \
+            --out prototypes/penpot-review-plugin-002b/catalog/catalog.json
+          WAVE=B node prototypes/penpot-review-plugin-002b/scripts/generate-catalog.mjs \
+            --out prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
+
+      - name: Commit generated catalogs on prototype branch
+        if: github.event_name == 'push' && github.ref_name == 'prototype/penpot-review-plugin-002b'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- prototypes/penpot-review-plugin-002b/catalog; then
+            echo 'Catalogs already reproducible.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add prototypes/penpot-review-plugin-002b/catalog/catalog.json \
+                  prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
+          git commit -m 'test: generate Penpot 002B load catalogs'
+          git push origin HEAD:prototype/penpot-review-plugin-002b
+
+      - name: Syntax-check plugin and UI script
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check prototypes/penpot-review-plugin-002b/dist/plugin.js
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-review-plugin-002b/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/penpot-002b-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/penpot-002b-ui.js
+
+      - name: Reproduce both load catalogs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node prototypes/penpot-review-plugin-002b/scripts/generate-catalog.mjs --out /tmp/catalog-a.json
+          WAVE=B node prototypes/penpot-review-plugin-002b/scripts/generate-catalog.mjs --out /tmp/catalog-b.json
+          cmp /tmp/catalog-a.json prototypes/penpot-review-plugin-002b/catalog/catalog.json
+          cmp /tmp/catalog-b.json prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json
+
+      - name: Validate mirror, load corpus and Wave B delta
+        run: node prototypes/penpot-review-plugin-002b/scripts/validate.mjs
+
+      - name: Verify immutable UI delivery contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          ui_revision="$(sed -n "s/.*const UI_REVISION = '\([0-9a-f]\{40\}\)'.*/\1/p" prototypes/penpot-review-plugin-002b/dist/plugin.js)"
+          test -n "$ui_revision"
+          url="https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${ui_revision}/prototypes/penpot-review-plugin-002b/dist/ui.html"
+          headers="$(curl --silent --show-error --location --fail --retry 3 --max-time 30 --head "$url")"
+          printf '%s\n' "$headers"
+          printf '%s\n' "$headers" | grep -qi '^content-type: *text/html'
+
+      - name: Publish exact passing commit as live Penpot mirror catalog
+        if: github.event_name == 'push' && github.ref_name == 'prototype/penpot-review-plugin-002b'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin prototype/penpot-review-plugin-002b
+          git checkout -B prototype/penpot-review-plugin-002b origin/prototype/penpot-review-plugin-002b
+          git push --force-with-lease origin HEAD:penpot-mirror-live
