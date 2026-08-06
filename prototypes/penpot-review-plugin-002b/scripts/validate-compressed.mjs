@@ -6,10 +6,16 @@ import { resolve } from 'node:path';
 const root = resolve(process.argv[2] || 'prototypes/penpot-review-plugin-002b');
 const text = (path) => readFile(resolve(root, path), 'utf8');
 const sha256 = (value) => createHash('sha256').update(value, 'utf8').digest('hex');
+const gitBlobSha = (value) => createHash('sha1').update(`blob ${Buffer.byteLength(value, 'utf8')}\0`).update(value, 'utf8').digest('hex');
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 
 async function compressed(path) {
   const encoded = (await text(path)).trim();
+  return JSON.parse(gunzipSync(Buffer.from(encoded, 'base64')).toString('utf8'));
+}
+
+async function compressedParts(paths) {
+  const encoded = (await Promise.all(paths.map(text))).map((part) => part.trim()).join('');
   return JSON.parse(gunzipSync(Buffer.from(encoded, 'base64')).toString('utf8'));
 }
 
@@ -50,13 +56,31 @@ function validateCatalog(catalog, wave) {
   return { ids, counts };
 }
 
-const [aCatalog, bCatalog, plugin, ui, manifest] = await Promise.all([
+const waveBParts = [
+  'catalog/wave-b/000.b64',
+  'catalog/wave-b/001.b64',
+  'catalog/wave-b/002.b64',
+  'catalog/wave-b/003.b64',
+];
+
+const [aCatalog, bCatalog, plugin, ui, manifest, ...partTexts] = await Promise.all([
   compressed('catalog/catalog.json.gz.b64'),
-  compressed('catalog/catalog.wave-b.json.gz.b64'),
+  compressedParts(waveBParts),
   text('dist/plugin-current.js'),
   text('dist/ui.html'),
   text('dist/manifest.json').then(JSON.parse),
+  ...waveBParts.map(text),
 ]);
+
+const expectedPartBlobs = [
+  'e7637c960d0391f5a3a69ab3f89a0816215f2c53',
+  '7e1bb78bc0fd4a31a1d7cf5e04c05e348a8b91c1',
+  '66c6f78d06d2d421bf0021ae913e86aba91dad3f',
+  '01582ab117c7153297a7567b879b5a34d157d6c4',
+];
+partTexts.forEach((part, index) => {
+  assert(gitBlobSha(part) === expectedPartBlobs[index], `wave_b_part_blob:${index}`);
+});
 
 const a = validateCatalog(aCatalog, 'A');
 const b = validateCatalog(bCatalog, 'B');
@@ -91,4 +115,13 @@ for (const marker of ["CATALOG_BRANCH = 'penpot-mirror-live'", 'catalog.json.gz.
 assert(manifest.code === 'plugin-current.js', 'manifest_runtime');
 assert(JSON.stringify(manifest.permissions) === JSON.stringify(['content:read', 'content:write', 'comment:read']), 'permissions');
 
-console.log(JSON.stringify({ ok: true, waveA: a.counts, waveB: b.counts, removed, added, changed, moved }, null, 2));
+console.log(JSON.stringify({
+  ok: true,
+  waveA: a.counts,
+  waveB: b.counts,
+  waveBPartBlobs: expectedPartBlobs,
+  removed,
+  added,
+  changed,
+  moved,
+}, null, 2));
