@@ -23,3 +23,59 @@ jobs:
           node-version: '22'
       - run: node --check prototypes/penpot-review-plugin/dist/plugin.js
       - run: node prototypes/penpot-review-plugin/scripts/validate.mjs
+
+      - name: Verify immutable CDN assets and CORS
+        shell: bash
+        run: |
+          set -euo pipefail
+          prototype='prototypes/penpot-review-plugin'
+          plugin_revision="${GITHUB_SHA}"
+          data_revision="$(node - <<'NODE'
+          const fs = require('node:fs');
+          const source = fs.readFileSync('prototypes/penpot-review-plugin/dist/plugin.js', 'utf8');
+          const match = source.match(/const DATA_REVISION = '([0-9a-f]{40})'/u);
+          if (!match) process.exit(1);
+          process.stdout.write(match[1]);
+          NODE
+          )"
+          plugin_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${plugin_revision}/${prototype}"
+          data_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${data_revision}/${prototype}"
+          mkdir -p "${RUNNER_TEMP}/lovekgd-plugin-cdn"
+
+          fetch_asset() {
+            local url="$1"
+            local output="$2"
+            for attempt in $(seq 1 12); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 15 --max-time 45 \
+                --output "$output" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            return 1
+          }
+
+          fetch_headers() {
+            local url="$1"
+            local output="$2"
+            curl --fail --silent --show-error --location --head \
+              --connect-timeout 15 --max-time 45 \
+              --output "$output" "$url"
+          }
+
+          fetch_asset "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
+          fetch_asset "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          fetch_asset "${data_base}/dist/ui.html" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
+          fetch_asset "${data_base}/data/review-manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/review-manifest.json"
+          fetch_asset "${data_base}/data/core.button.smoke.svg" "${RUNNER_TEMP}/lovekgd-plugin-cdn/specimen.svg"
+          fetch_headers "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
+          fetch_headers "${data_base}/dist/ui.html" "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
+
+          grep -Fq 'LoveKGD Review — Git-backed prototype' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.json"
+          grep -Fq "const DATA_REVISION = '${data_revision}'" "${RUNNER_TEMP}/lovekgd-plugin-cdn/plugin.js"
+          grep -Fq '<title>LoveKGD Review</title>' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.html"
+          grep -Fq 'core.button.smoke' "${RUNNER_TEMP}/lovekgd-plugin-cdn/review-manifest.json"
+          grep -Fq 'core.button.smoke' "${RUNNER_TEMP}/lovekgd-plugin-cdn/specimen.svg"
+          grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/manifest.headers"
+          grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-cdn/ui.headers"
