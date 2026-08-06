@@ -42,7 +42,7 @@ jobs:
       - name: Validate compressed load corpus and structural Wave B
         run: node prototypes/penpot-review-plugin-002b/scripts/validate-compressed.mjs
 
-      - name: Reproduce Wave A and Wave B source JSON
+      - name: Reproduce Wave A and chunked Wave B source JSON
         shell: bash
         run: |
           set -euo pipefail
@@ -51,13 +51,14 @@ jobs:
           python3 - <<'PY'
           import base64, gzip
           from pathlib import Path
-          pairs = [
-              ('prototypes/penpot-review-plugin-002b/catalog/catalog.json.gz.b64', '/tmp/committed-a.json'),
-              ('prototypes/penpot-review-plugin-002b/catalog/catalog.wave-b.json.gz.b64', '/tmp/committed-b.json'),
-          ]
-          for source, target in pairs:
-              encoded = Path(source).read_text(encoding='utf-8').strip()
-              Path(target).write_bytes(gzip.decompress(base64.b64decode(encoded)))
+
+          a_encoded = Path('prototypes/penpot-review-plugin-002b/catalog/catalog.json.gz.b64').read_text(encoding='utf-8').strip()
+          Path('/tmp/committed-a.json').write_bytes(gzip.decompress(base64.b64decode(a_encoded)))
+
+          parts = sorted(Path('prototypes/penpot-review-plugin-002b/catalog/wave-b').glob('*.b64'))
+          assert [p.name for p in parts] == ['000.b64', '001.b64', '002.b64', '003.b64']
+          b_encoded = ''.join(p.read_text(encoding='utf-8').strip() for p in parts)
+          Path('/tmp/committed-b.json').write_bytes(gzip.decompress(base64.b64decode(b_encoded)))
           PY
           cmp /tmp/catalog-a.json /tmp/committed-a.json
           cmp /tmp/catalog-b.json /tmp/committed-b.json
