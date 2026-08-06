@@ -5,7 +5,7 @@
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const PROTOTYPE_PATH = 'prototypes/penpot-review-plugin';
   const BASE_URL = `https://cdn.jsdelivr.net/gh/${REPOSITORY}@${DATA_REVISION}/${PROTOTYPE_PATH}`;
-  const UI_URL = `${BASE_URL}/dist/ui.html`;
+  const UI_URL = `https://raw.githack.com/${REPOSITORY}/${DATA_REVISION}/${PROTOTYPE_PATH}/dist/ui.html`;
   const REVIEW_MANIFEST_URL = `${BASE_URL}/data/review-manifest.json`;
   const NAMESPACE = 'lovekgd.review';
   const ELEMENT_KEY = 'element';
