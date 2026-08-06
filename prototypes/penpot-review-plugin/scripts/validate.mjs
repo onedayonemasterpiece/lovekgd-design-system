@@ -3,21 +3,36 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const read = (path) => readFile(resolve(root, path), 'utf8');
-const manifest = JSON.parse(await read('data/review-manifest.json'));
+const manifestText = await read('data/review-manifest.json');
+const manifest = JSON.parse(manifestText);
 const pluginManifest = JSON.parse(await read('dist/manifest.json'));
 const plugin = await read('dist/plugin.js');
 const ui = await read('dist/ui.html');
 const svg = await read('data/core.button.smoke.svg');
 
 const fail = (message) => { throw new Error(message); };
+const embedded = (name) => {
+  const match = plugin.match(new RegExp(`const ${name} = '([A-Za-z0-9+/=]+)'`, 'u'));
+  if (!match) fail(`${name} missing`);
+  return Buffer.from(match[1], 'base64').toString('utf8');
+};
+
 if (manifest.schemaVersion !== 1) fail('schemaVersion');
 if (manifest.elements?.length !== 1) fail('one smoke element required');
 const element = manifest.elements[0];
 if (!svg.includes(element.id)) fail('svg must contain element id');
-const revisionMatch = plugin.match(/const DATA_REVISION = '([^']+)'/u);
-if (!revisionMatch || (revisionMatch[1] !== '__DATA_REVISION__' && !/^[0-9a-f]{40}$/u.test(revisionMatch[1]))) {
-  fail('plugin data revision must be placeholder or exact commit SHA');
+
+const embeddedManifest = embedded('EMBEDDED_MANIFEST_BASE64');
+const embeddedSvg = embedded('EMBEDDED_SVG_BASE64');
+if (embeddedManifest !== manifestText) fail('embedded manifest differs from Git source');
+if (embeddedSvg !== svg) fail('embedded SVG differs from Git source');
+if (/\bfetch\s*\(/u.test(plugin)) fail('runtime fetch is forbidden in prototype 001b');
+
+const uiRevisionMatch = plugin.match(/const UI_REVISION = '([^']+)'/u);
+if (!uiRevisionMatch || !/^[0-9a-f]{40}$/u.test(uiRevisionMatch[1])) {
+  fail('plugin UI revision must be exact commit SHA');
 }
+
 for (const token of ['{{repository}}', '{{elementId}}', '{{sourceUrl}}', '{{sourceRevision}}', '{{elementVersion}}', '{{state}}', '{{comments}}']) {
   if (!manifest.prompt.template.includes(token)) fail(`prompt token missing: ${token}`);
 }
@@ -27,4 +42,9 @@ for (const permission of ['content:read', 'content:write', 'comment:read']) {
 for (const id of ['import', 'refresh', 'prompt', 'copy']) {
   if (!ui.includes(`id="${id}"`)) fail(`ui control missing: ${id}`);
 }
-console.log(JSON.stringify({ status: 'PASS', elementId: element.id, sourcePath: element.sourcePath }));
+console.log(JSON.stringify({
+  status: 'PASS',
+  elementId: element.id,
+  sourcePath: element.sourcePath,
+  transport: 'embedded-byte-exact-git-snapshot',
+}));
