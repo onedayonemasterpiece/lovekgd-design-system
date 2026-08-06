@@ -1,0 +1,91 @@
+name: Penpot review plugin 002A.1 contract
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'prototypes/penpot-review-plugin-002a/**'
+      - '.github/workflows/penpot-review-plugin-002a-smoke.yml'
+  pull_request:
+    paths:
+      - 'prototypes/penpot-review-plugin-002a/**'
+      - '.github/workflows/penpot-review-plugin-002a-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: penpot-review-plugin-002a1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate plugin and UI syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check prototypes/penpot-review-plugin-002a/dist/plugin.js
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const html = fs.readFileSync('prototypes/penpot-review-plugin-002a/dist/ui.html', 'utf8');
+          const match = html.match(/<script>([\s\S]*?)<\/script>/u);
+          if (!match) throw new Error('inline UI script missing');
+          fs.writeFileSync(process.env.RUNNER_TEMP + '/penpot-002a1-ui.js', match[1]);
+          NODE
+          node --check "${RUNNER_TEMP}/penpot-002a1-ui.js"
+
+      - name: Validate transport contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          plugin='prototypes/penpot-review-plugin-002a/dist/plugin.js'
+          ui='prototypes/penpot-review-plugin-002a/dist/ui.html'
+          manifest='prototypes/penpot-review-plugin-002a/dist/manifest.json'
+
+          grep -Fq 'dynamic catalog prototype 002A.1' "$manifest"
+          grep -Fq 'https://api.github.com/repos/${REPOSITORY}/git/ref/heads/${CATALOG_BRANCH}' "$ui"
+          grep -Fq 'resolvedBranchSha' "$ui"
+          grep -Fq 'raw.githack.com/${REPOSITORY}/${resolved.sha}/${CATALOG_PATH}' "$ui"
+          if grep -Fq 'raw.githack.com/onedayonemasterpiece/lovekgd-design-system/penpot-catalog-live' "$ui"; then
+            echo 'mutable raw.githack branch URL is forbidden' >&2
+            exit 1
+          fi
+          grep -Eq "const UI_REVISION = '[0-9a-f]{40}'" "$plugin"
+
+      - name: Resolve current catalog through GitHub API and verify immutable artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          ref_url='https://api.github.com/repos/onedayonemasterpiece/lovekgd-design-system/git/ref/heads/penpot-catalog-live'
+          mkdir -p "${RUNNER_TEMP}/penpot-002a1"
+          curl --fail --silent --show-error --location \
+            -H 'Accept: application/vnd.github+json' \
+            "$ref_url" > "${RUNNER_TEMP}/penpot-002a1/ref.json"
+          sha="$(node -e "const r=require(process.argv[1]); if(!/^[0-9a-f]{40}$/.test(r.object.sha)) process.exit(1); process.stdout.write(r.object.sha)" "${RUNNER_TEMP}/penpot-002a1/ref.json")"
+          catalog_url="https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${sha}/prototypes/penpot-review-plugin-002a/catalog/catalog.json"
+          curl --fail --silent --show-error --location "$catalog_url" > "${RUNNER_TEMP}/penpot-002a1/catalog.json"
+          artifact_url="$(node -e "const c=require(process.argv[1]); process.stdout.write(c.elements[0].artifact.url)" "${RUNNER_TEMP}/penpot-002a1/catalog.json")"
+          curl --fail --silent --show-error --location "$artifact_url" > "${RUNNER_TEMP}/penpot-002a1/specimen.svg"
+
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const root = process.env.RUNNER_TEMP + '/penpot-002a1';
+          const ref = JSON.parse(fs.readFileSync(root + '/ref.json', 'utf8'));
+          const catalog = JSON.parse(fs.readFileSync(root + '/catalog.json', 'utf8'));
+          const svg = fs.readFileSync(root + '/specimen.svg', 'utf8').replaceAll('\r\n', '\n');
+          if (catalog.schemaVersion !== 2) throw new Error('catalog schema');
+          if (catalog.catalogRevision !== '002a-r2') throw new Error(`stale catalog: ${catalog.catalogRevision}`);
+          if (catalog.elements[0].version !== '0.0.3') throw new Error(`stale element: ${catalog.elements[0].version}`);
+          const hash = crypto.createHash('sha256').update(svg, 'utf8').digest('hex');
+          if (hash !== catalog.elements[0].artifact.sha256) throw new Error(`artifact hash mismatch: ${hash}`);
+          if (!svg.includes('core.button.smoke') || !svg.includes('LIVE CATALOG · R2')) throw new Error('specimen contract');
+          console.log(JSON.stringify({status:'PASS', branchSha:ref.object.sha, catalogRevision:catalog.catalogRevision, version:catalog.elements[0].version, hash}));
+          NODE
