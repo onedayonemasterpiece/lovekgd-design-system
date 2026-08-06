@@ -6,52 +6,35 @@
   <title>LoveKGD Review 002B</title>
   <style>
     :root{font-family:Inter,system-ui,sans-serif;color:#201d1a;background:#f7f5f0}
-    *{box-sizing:border-box}
-    body{margin:0;padding:14px}
-    h1{font-size:18px;margin:0 0 6px}
+    *{box-sizing:border-box}body{margin:0;padding:14px}h1{font-size:18px;margin:0 0 6px}
     p{font-size:12px;line-height:1.45;margin:0 0 10px;color:#625c54}
     .card{background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:11px;margin:10px 0}
-    .status-row{display:flex;align-items:center;gap:8px}
-    .badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em}
-    .badge.current{background:#ddebe3;color:#315745}
-    .badge.stale{background:#f2e7c9;color:#6a531f}
-    .badge.failed{background:#f1d9d9;color:#8b3030}
-    .badge.checking{background:#dde8f2;color:#315b7a}
+    .status-row{display:flex;align-items:center;gap:8px}.badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em}
+    .current{background:#ddebe3;color:#315745}.stale{background:#f2e7c9;color:#6a531f}.failed{background:#f1d9d9;color:#8b3030}.checking{background:#dde8f2;color:#315b7a}
     .status{font-size:12px;line-height:1.4;white-space:pre-wrap;margin-top:8px}
     button{width:100%;border:0;border-radius:10px;padding:11px 12px;font:inherit;font-weight:750;cursor:pointer;margin-top:7px}
-    button.primary{background:#203b57;color:#fff}
-    button.secondary{background:#ebe7de;color:#201d1a}
-    button:disabled{opacity:.48;cursor:not-allowed}
-    dl.meta{display:grid;grid-template-columns:112px 1fr;gap:5px 8px;font-size:11px;margin:0}
-    dt{color:#6d665e} dd{margin:0;overflow-wrap:anywhere}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-    .metric{border:1px solid #e2ddd4;border-radius:9px;padding:8px;background:#faf8f4}
-    .metric b{display:block;font-size:15px}.metric span{font-size:10px;color:#6d665e}
-    ul{margin:7px 0 0;padding-left:18px;font-size:11px;line-height:1.45}
-    details summary{cursor:pointer;font-size:11px;font-weight:700}
+    button.primary{background:#203b57;color:#fff}button.secondary{background:#ebe7de;color:#201d1a}button:disabled{opacity:.48;cursor:not-allowed}
+    dl{display:grid;grid-template-columns:112px 1fr;gap:5px 8px;font-size:11px;margin:0}dt{color:#6d665e}dd{margin:0;overflow-wrap:anywhere}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{border:1px solid #e2ddd4;border-radius:9px;padding:8px;background:#faf8f4}.metric b{display:block;font-size:15px}.metric span{font-size:10px;color:#6d665e}
+    ul{margin:7px 0 0;padding-left:18px;font-size:11px;line-height:1.45}details summary{cursor:pointer;font-size:11px;font-weight:700}
     textarea{width:100%;min-height:180px;resize:vertical;border:1px solid #cfc8bd;border-radius:10px;padding:9px;font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
-    .hidden{display:none}
-    .error{color:#9a2d2d}.ok{color:#1d6a45}.warn{color:#8a5a00}
-    code{overflow-wrap:anywhere}
+    .hidden{display:none}.error{color:#9a2d2d}.ok{color:#1d6a45}.warn{color:#8a5a00}code{overflow-wrap:anywhere}
   </style>
 </head>
 <body>
   <h1>LoveKGD Review · 002B</h1>
-  <p>Актуальное зеркало Git + native Penpot comments. Plugin не отправляет данные в GitHub или Supabase.</p>
+  <p>Актуальное зеркало Git + native Penpot comments. Плагин не пишет в GitHub, Supabase или бот.</p>
 
-  <div class="card">
-    <div class="status-row">
-      <span id="badge" class="badge checking">CHECKING</span>
-      <strong id="headline">Проверяю актуальность…</strong>
-    </div>
+  <section class="card">
+    <div class="status-row"><span id="badge" class="badge checking">CHECKING</span><strong id="headline">Проверяю актуальность…</strong></div>
     <div id="status" class="status">Получаю точный SHA каталога и проверяю артефакты.</div>
     <button id="check" class="primary">Проверить актуальность</button>
     <button id="sync" class="secondary" disabled>Синхронизировать актуальное зеркало</button>
     <button id="prompt" class="secondary">Собрать промпт по комментариям</button>
-  </div>
+  </section>
 
-  <div id="catalog-card" class="card hidden">
-    <dl class="meta">
+  <section id="catalog-card" class="card hidden">
+    <dl>
       <dt>Catalog revision</dt><dd id="catalog-revision"></dd>
       <dt>Catalog SHA</dt><dd><code id="catalog-sha"></code></dd>
       <dt>Элементы</dt><dd id="element-count"></dd>
@@ -59,9 +42,9 @@
       <dt>Загружено</dt><dd id="bytes-loaded"></dd>
       <dt>GitHub API</dt><dd id="rate-limit"></dd>
     </dl>
-  </div>
+  </section>
 
-  <div id="plan-card" class="card hidden">
+  <section id="plan-card" class="card hidden">
     <div class="grid">
       <div class="metric"><b id="m-create">0</b><span>создать</span></div>
       <div class="metric"><b id="m-replace">0</b><span>заменить</span></div>
@@ -70,60 +53,50 @@
       <div class="metric"><b id="m-remove">0</b><span>удалить</span></div>
       <div class="metric"><b id="m-noop">0</b><span>без изменений</span></div>
     </div>
-    <details>
-      <summary>Показать подробный план</summary>
-      <ul id="plan-list"></ul>
-    </details>
-  </div>
+    <details><summary>Подробный план</summary><ul id="plan-list"></ul></details>
+  </section>
 
-  <div id="report-card" class="card hidden">
+  <section id="report-card" class="card hidden">
     <strong>Последняя синхронизация</strong>
-    <dl class="meta" style="margin-top:8px">
-      <dt>Load</dt><dd id="r-load"></dd>
-      <dt>Inspect</dt><dd id="r-inspect"></dd>
-      <dt>Stage</dt><dd id="r-stage"></dd>
-      <dt>Commit</dt><dd id="r-commit"></dd>
-      <dt>Итог</dt><dd id="r-result"></dd>
+    <dl style="margin-top:8px">
+      <dt>Load</dt><dd id="r-load"></dd><dt>Inspect</dt><dd id="r-inspect"></dd>
+      <dt>Stage</dt><dd id="r-stage"></dd><dt>Commit</dt><dd id="r-commit"></dd><dt>Итог</dt><dd id="r-result"></dd>
     </dl>
-  </div>
+  </section>
 
-  <div id="prompt-card" class="card hidden">
+  <section id="prompt-card" class="card hidden">
     <textarea id="prompt-text" readonly aria-label="Готовый промпт"></textarea>
     <button id="copy" class="primary">Скопировать промпт</button>
-  </div>
+  </section>
 
 <script>
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const CATALOG_BRANCH = 'penpot-mirror-live';
-  const CATALOG_PATH = 'prototypes/penpot-review-plugin-002b/catalog/catalog.json';
+  const CATALOG_PATH = 'prototypes/penpot-review-plugin-002b/catalog/catalog.json.gz.b64';
   const REF_URL = `https://api.github.com/repos/${REPOSITORY}/git/ref/heads/${CATALOG_BRANCH}`;
-
   const $ = (selector) => document.querySelector(selector);
   const badge = $('#badge');
   const headline = $('#headline');
   const statusNode = $('#status');
   const checkButton = $('#check');
   const syncButton = $('#sync');
-  const promptButton = $('#prompt');
   const promptCard = $('#prompt-card');
   const promptText = $('#prompt-text');
-
   let loaded = null;
   let lastPlan = null;
   let checking = false;
   let syncing = false;
 
-  function send(type, payload = {}) {
-    parent.postMessage({ type, ...payload }, '*');
-  }
+  const send = (type, payload = {}) => parent.postMessage({ type, ...payload }, '*');
+  const assert = (condition, message) => { if (!condition) throw new Error(message); };
 
-  function setState(state, headlineText, detail = '') {
-    const cssState = state === 'SYNC FAILED' ? 'failed' : state.toLowerCase();
-    badge.className = `badge ${cssState}`;
+  function setState(state, title, detail = '') {
+    const css = state === 'SYNC FAILED' ? 'failed' : state.toLowerCase();
+    badge.className = `badge ${css}`;
     badge.textContent = state;
-    headline.textContent = headlineText;
+    headline.textContent = title;
     statusNode.textContent = detail;
-    statusNode.className = 'status ' + (state === 'SYNC FAILED' ? 'error' : state === 'STALE' ? 'warn' : state === 'CURRENT' ? 'ok' : '');
+    statusNode.className = `status ${state === 'SYNC FAILED' ? 'error' : state === 'STALE' ? 'warn' : state === 'CURRENT' ? 'ok' : ''}`;
   }
 
   function formatBytes(value) {
@@ -132,17 +105,9 @@
     return `${(value / 1024 / 1024).toFixed(2)} MiB`;
   }
 
-  function toHex(buffer) {
-    return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  async function digest(name, bytes) {
-    return toHex(await crypto.subtle.digest(name, bytes));
-  }
-
-  async function sha256Text(text) {
-    return digest('SHA-256', new TextEncoder().encode(text));
-  }
+  const toHex = (buffer) => Array.from(new Uint8Array(buffer), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const digest = async (name, bytes) => toHex(await crypto.subtle.digest(name, bytes));
+  const sha256Text = async (text) => digest('SHA-256', new TextEncoder().encode(text));
 
   async function gitBlobSha(bytes) {
     const prefix = new TextEncoder().encode(`blob ${bytes.byteLength}\0`);
@@ -152,17 +117,28 @@
     return digest('SHA-1', combined);
   }
 
+  function decodeBase64(value) {
+    const binary = atob(value.trim());
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+    return bytes;
+  }
+
   function bytesToBase64(bytes) {
     const chunk = 0x8000;
     let binary = '';
-    for (let i = 0; i < bytes.length; i += chunk) {
-      binary += String.fromCharCode(...bytes.subarray(i, Math.min(i + chunk, bytes.length)));
+    for (let index = 0; index < bytes.length; index += chunk) {
+      binary += String.fromCharCode(...bytes.subarray(index, Math.min(index + chunk, bytes.length)));
     }
     return btoa(binary);
   }
 
-  function assert(condition, message) {
-    if (!condition) throw new Error(message);
+  async function parseGzipBase64(text) {
+    assert(typeof DecompressionStream === 'function', 'gzip_decompression_unsupported');
+    const bytes = decodeBase64(text);
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const jsonText = await new Response(stream).text();
+    return JSON.parse(jsonText);
   }
 
   async function fetchExact(url, as = 'arrayBuffer') {
@@ -180,22 +156,21 @@
   }
 
   async function mapLimit(items, limit, worker) {
-    const results = new Array(items.length);
+    const result = new Array(items.length);
     let cursor = 0;
     async function run() {
       while (true) {
         const index = cursor++;
         if (index >= items.length) return;
-        results[index] = await worker(items[index], index);
+        result[index] = await worker(items[index], index);
       }
     }
     await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
-    return results;
+    return result;
   }
 
   function validateCatalogShape(catalog) {
-    assert(catalog && typeof catalog === 'object', 'catalog_not_object');
-    assert(catalog.schemaVersion === 3, 'catalog_schema_unsupported');
+    assert(catalog?.schemaVersion === 3, 'catalog_schema_unsupported');
     assert(catalog.repository === REPOSITORY, 'catalog_repository_mismatch');
     assert(catalog.mirror?.namespace === 'lovekgd.mirror.002b', 'catalog_namespace_mismatch');
     assert(Array.isArray(catalog.elements) && catalog.elements.length >= 50, 'catalog_load_corpus_too_small');
@@ -205,16 +180,16 @@
       assert(!ids.has(element.id), `duplicate_element_id:${element.id}`);
       ids.add(element.id);
       assert(typeof element.contentHash === 'string', `content_hash_missing:${element.id}`);
-      assert(element.board && Number.isFinite(element.board.x) && Number.isFinite(element.board.y), `board_slot_missing:${element.id}`);
+      assert(Number.isFinite(element.board?.x) && Number.isFinite(element.board?.y), `board_slot_missing:${element.id}`);
       assert(['inline-svg', 'git-svg', 'git-image'].includes(element.artifact?.type), `artifact_type_unsupported:${element.id}`);
     }
     return catalog;
   }
 
-  async function prepareElement(element, branchSha, exactCatalogGitHubUrl) {
+  async function prepareElement(element, branchSha, catalogGitHubUrl) {
     const artifact = element.artifact;
-    if (!element.sourceRevision) element.sourceRevision = branchSha;
-    if (!element.sourceUrl) element.sourceUrl = `${exactCatalogGitHubUrl}#${encodeURIComponent(element.id)}`;
+    element.sourceRevision ||= branchSha;
+    element.sourceUrl ||= `${catalogGitHubUrl}#${encodeURIComponent(element.id)}`;
 
     if (artifact.type === 'inline-svg') {
       const hash = await sha256Text(artifact.svg);
@@ -224,8 +199,7 @@
     }
 
     const { value: bytes } = await fetchExact(artifact.url);
-    const blobSha = await gitBlobSha(bytes);
-    assert(blobSha === artifact.gitBlobSha, `git_blob_mismatch:${element.id}`);
+    assert(await gitBlobSha(bytes) === artifact.gitBlobSha, `git_blob_mismatch:${element.id}`);
 
     if (artifact.type === 'git-svg') {
       const svg = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
@@ -233,16 +207,10 @@
       return { ...element, payload: { type: 'svg', svg }, loadedBytes: bytes.byteLength };
     }
 
-    const frameHash = await sha256Text(artifact.frameSvg);
-    assert(frameHash === artifact.frameSha256, `image_frame_hash_mismatch:${element.id}`);
+    assert(await sha256Text(artifact.frameSvg) === artifact.frameSha256, `image_frame_hash_mismatch:${element.id}`);
     return {
       ...element,
-      payload: {
-        type: 'image',
-        bytesBase64: bytesToBase64(bytes),
-        mimeType: artifact.mimeType,
-        frameSvg: artifact.frameSvg,
-      },
+      payload: { type: 'image', bytesBase64: bytesToBase64(bytes), mimeType: artifact.mimeType, frameSvg: artifact.frameSvg },
       loadedBytes: bytes.byteLength + new TextEncoder().encode(artifact.frameSvg).byteLength,
     };
   }
@@ -252,28 +220,22 @@
     const { value: ref, response: refResponse } = await fetchExact(REF_URL, 'json');
     const branchSha = ref?.object?.sha;
     assert(/^[0-9a-f]{40}$/.test(branchSha || ''), 'branch_sha_missing');
-    const remaining = refResponse.headers.get('x-ratelimit-remaining') || '—';
     const exactCatalogUrl = `https://raw.githack.com/${REPOSITORY}/${branchSha}/${CATALOG_PATH}`;
     const exactCatalogGitHubUrl = `https://github.com/${REPOSITORY}/blob/${branchSha}/${CATALOG_PATH}`;
-    const { value: rawCatalog } = await fetchExact(exactCatalogUrl, 'json');
-    const catalog = validateCatalogShape(rawCatalog);
-    const fetchStarted = performance.now();
-    const preparedElements = await mapLimit(catalog.elements, 6, (element) =>
-      prepareElement(structuredClone(element), branchSha, exactCatalogGitHubUrl)
-    );
-    const loadedBytes = preparedElements.reduce((sum, item) => sum + item.loadedBytes, 0);
-    const counts = preparedElements.reduce((acc, item) => {
-      acc[item.artifact.type] = (acc[item.artifact.type] || 0) + 1;
-      return acc;
-    }, {});
+    const { value: compressed } = await fetchExact(exactCatalogUrl, 'text');
+    const catalog = validateCatalogShape(await parseGzipBase64(compressed));
+    const artifactsStarted = performance.now();
+    const elements = await mapLimit(catalog.elements, 6, (element) => prepareElement(structuredClone(element), branchSha, exactCatalogGitHubUrl));
+    const loadedBytes = elements.reduce((sum, element) => sum + element.loadedBytes, 0);
+    const counts = elements.reduce((all, element) => ({ ...all, [element.artifact.type]: (all[element.artifact.type] || 0) + 1 }), {});
     return {
-      catalog: { ...catalog, catalogSha: branchSha, exactCatalogUrl, elements: preparedElements },
+      catalog: { ...catalog, catalogSha: branchSha, exactCatalogUrl, elements },
       loadMetrics: {
         totalMs: Math.round(performance.now() - started),
-        artifactsMs: Math.round(performance.now() - fetchStarted),
+        artifactsMs: Math.round(performance.now() - artifactsStarted),
         loadedBytes,
         counts,
-        rateLimitRemaining: remaining,
+        rateLimitRemaining: refResponse.headers.get('x-ratelimit-remaining') || '—',
       },
     };
   }
@@ -283,46 +245,34 @@
     $('#catalog-revision').textContent = data.catalog.catalogRevision;
     $('#catalog-sha').textContent = data.catalog.catalogSha;
     $('#element-count').textContent = String(data.catalog.elements.length);
-    const c = data.loadMetrics.counts;
-    $('#artifact-counts').textContent = `inline SVG ${c['inline-svg'] || 0}; Git SVG ${c['git-svg'] || 0}; images ${c['git-image'] || 0}`;
+    const counts = data.loadMetrics.counts;
+    $('#artifact-counts').textContent = `inline SVG ${counts['inline-svg'] || 0}; Git SVG ${counts['git-svg'] || 0}; images ${counts['git-image'] || 0}`;
     $('#bytes-loaded').textContent = `${formatBytes(data.loadMetrics.loadedBytes)} · ${data.loadMetrics.totalMs} ms`;
     $('#rate-limit').textContent = `${data.loadMetrics.rateLimitRemaining} запросов осталось`;
   }
 
-  function setMetric(id, value) { $(id).textContent = String(value || 0); }
+  const setMetric = (selector, value) => { $(selector).textContent = String(value || 0); };
 
   function renderPlan(message) {
     lastPlan = message;
     $('#plan-card').classList.remove('hidden');
-    const s = message.summary;
-    setMetric('#m-create', s.create);
-    setMetric('#m-replace', s.replace);
-    setMetric('#m-archive', s.archive);
-    setMetric('#m-move', s.move + s.metadata);
-    setMetric('#m-remove', s.remove);
-    setMetric('#m-noop', s.noop);
-    const list = $('#plan-list');
-    list.replaceChildren();
+    const summary = message.summary;
+    setMetric('#m-create', summary.create); setMetric('#m-replace', summary.replace); setMetric('#m-archive', summary.archive);
+    setMetric('#m-move', summary.move + summary.metadata); setMetric('#m-remove', summary.remove); setMetric('#m-noop', summary.noop);
+    const list = $('#plan-list'); list.replaceChildren();
     for (const item of message.items.slice(0, 120)) {
       const li = document.createElement('li');
-      const comments = item.commentCount ? ` · comments ${item.commentCount}` : '';
-      li.textContent = `${item.elementId}: ${item.action}${comments}`;
+      li.textContent = `${item.elementId}: ${item.action}${item.commentCount ? ` · comments ${item.commentCount}` : ''}`;
       list.appendChild(li);
     }
-    const changes = message.changeCount;
-    syncButton.disabled = changes === 0 || syncing;
-    if (changes === 0) {
-      setState('CURRENT', 'Penpot соответствует Git-каталогу', `${message.totalCurrent} current boards; review snapshots: ${message.totalReview}.`);
-    } else {
-      setState('STALE', `Найдено изменений: ${changes}`, 'Сначала все артефакты уже загружены и проверены. Синхронизация использует staging и не перезаписывает boards с комментариями.');
-    }
+    syncButton.disabled = message.changeCount === 0 || syncing;
+    if (message.changeCount === 0) setState('CURRENT', 'Penpot соответствует Git-каталогу', `${message.totalCurrent} current boards; review snapshots: ${message.totalReview}.`);
+    else setState('STALE', `Найдено изменений: ${message.changeCount}`, 'Все артефакты уже загружены и проверены. Синхронизация использует staging и сохраняет boards с комментариями.');
   }
 
   async function check() {
     if (checking || syncing) return;
-    checking = true;
-    checkButton.disabled = true;
-    syncButton.disabled = true;
+    checking = true; checkButton.disabled = true; syncButton.disabled = true;
     setState('CHECKING', 'Проверяю актуальность…', 'Получаю точный Git SHA и проверяю целостность 50+ артефактов.');
     try {
       loaded = await loadCatalog();
@@ -331,42 +281,27 @@
     } catch (error) {
       setState('SYNC FAILED', 'Проверка не выполнена', String(error?.message || error));
     } finally {
-      checking = false;
-      checkButton.disabled = false;
+      checking = false; checkButton.disabled = false;
     }
   }
 
   checkButton.addEventListener('click', check);
-
   syncButton.addEventListener('click', () => {
     if (!loaded || !lastPlan || syncing) return;
-    const count = lastPlan.changeCount;
-    if (count > 20 && !confirm(`Будет применено ${count} изменений к current mirror. Продолжить?`)) return;
-    syncing = true;
-    syncButton.disabled = true;
-    checkButton.disabled = true;
-    setState('CHECKING', 'Собираю staging…', 'Текущий mirror останется видимым до готовности всех новых boards.');
+    if (lastPlan.changeCount > 20 && !confirm(`Будет применено ${lastPlan.changeCount} изменений. Продолжить?`)) return;
+    syncing = true; syncButton.disabled = true; checkButton.disabled = true;
+    setState('CHECKING', 'Собираю staging…', 'Текущий mirror останется видимым до готовности новых boards.');
     send('apply-catalog', { catalog: loaded.catalog, loadMetrics: loaded.loadMetrics });
   });
 
-  promptButton.addEventListener('click', () => {
-    if (!loaded) {
-      setState('SYNC FAILED', 'Сначала проверьте актуальность', 'Catalog нужен для детерминированного prompt template.');
-      return;
-    }
+  $('#prompt').addEventListener('click', () => {
+    if (!loaded) return setState('SYNC FAILED', 'Сначала проверьте актуальность', 'Catalog нужен для детерминированного prompt template.');
     send('build-prompt', { catalog: loaded.catalog });
   });
 
   $('#copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(promptText.value);
-      statusNode.textContent = 'Промпт скопирован. Никаких данных автоматически не отправлено.';
-    } catch {
-      promptText.focus();
-      promptText.select();
-      document.execCommand('copy');
-      statusNode.textContent = 'Текст выделен для копирования.';
-    }
+    try { await navigator.clipboard.writeText(promptText.value); statusNode.textContent = 'Промпт скопирован. Никаких данных автоматически не отправлено.'; }
+    catch { promptText.focus(); promptText.select(); document.execCommand('copy'); statusNode.textContent = 'Текст выделен для копирования.'; }
   });
 
   window.addEventListener('message', (event) => {
@@ -378,22 +313,17 @@
     }
     if (message.type === 'catalog-plan') renderPlan(message);
     if (message.type === 'sync-report') {
-      syncing = false;
-      checkButton.disabled = false;
+      syncing = false; checkButton.disabled = false;
       $('#report-card').classList.remove('hidden');
-      $('#r-load').textContent = `${message.metrics.loadMs} ms`;
-      $('#r-inspect').textContent = `${message.metrics.inspectMs} ms`;
-      $('#r-stage').textContent = `${message.metrics.stageMs} ms`;
-      $('#r-commit').textContent = `${message.metrics.commitMs} ms`;
+      $('#r-load').textContent = `${message.metrics.loadMs} ms`; $('#r-inspect').textContent = `${message.metrics.inspectMs} ms`;
+      $('#r-stage').textContent = `${message.metrics.stageMs} ms`; $('#r-commit').textContent = `${message.metrics.commitMs} ms`;
       $('#r-result').textContent = `created ${message.result.created}; replaced ${message.result.replaced}; archived ${message.result.archived}; moved ${message.result.moved}; removed ${message.result.removed}`;
-      loaded = null;
-      lastPlan = null;
+      loaded = null; lastPlan = null;
       setState('CHECKING', 'Перепроверяю результат…', 'Снова читаю Git-каталог и Penpot mirror.');
       check();
     }
     if (message.type === 'prompt') {
-      promptCard.classList.remove('hidden');
-      promptText.value = message.text;
+      promptCard.classList.remove('hidden'); promptText.value = message.text;
       statusNode.textContent = `Промпт собран из ${message.commentCount} незакрытых комментариев.`;
     }
   });
