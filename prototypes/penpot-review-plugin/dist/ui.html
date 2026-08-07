@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LoveKGD Review</title>
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #201d1a; background: #f7f5f0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 16px; }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    p { font-size: 13px; line-height: 1.45; margin: 0 0 12px; color: #625c54; }
+    .card { background: white; border: 1px solid #d8d2c8; border-radius: 12px; padding: 12px; margin: 12px 0; }
+    .note { font-size: 12px; line-height: 1.45; color: #625c54; }
+    .status { min-height: 40px; font-size: 13px; line-height: 1.4; white-space: pre-wrap; }
+    .meta { display: grid; grid-template-columns: 96px 1fr; gap: 6px 8px; font-size: 12px; }
+    .meta dt { color: #6d665e; }
+    .meta dd { margin: 0; overflow-wrap: anywhere; }
+    button { width: 100%; border: 0; border-radius: 10px; padding: 11px 12px; font: inherit; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    button.primary { background: #203b57; color: white; }
+    button.secondary { background: #ebe7de; color: #201d1a; }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    textarea { width: 100%; min-height: 180px; resize: vertical; border: 1px solid #cfc8bd; border-radius: 10px; padding: 10px; font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .hidden { display: none; }
+    .ok { color: #1d6a45; }
+    .error { color: #9a2d2d; }
+  </style>
+</head>
+<body>
+  <h1>LoveKGD Review</h1>
+  <p>Specimen, metadata и шаблон промпта берутся из зафиксированного Git-снимка.</p>
+  <p class="note">Плагин ничего не отправляет в GitHub или Supabase. Комментарии хранятся в Penpot; промпт собирается локально и появляется только в этом окне.</p>
+
+  <div class="card">
+    <div id="status" class="status">Ожидаю данные Penpot…</div>
+    <button id="import" class="primary">Импортировать specimen из Git</button>
+    <button id="refresh" class="secondary">Прочитать комментарии к specimen</button>
+  </div>
+
+  <dl id="meta" class="card meta hidden">
+    <dt>Element ID</dt><dd id="element-id"></dd>
+    <dt>Версия</dt><dd id="element-version"></dd>
+    <dt>Источник</dt><dd id="source-url"></dd>
+    <dt>Комментарии</dt><dd id="comment-count"></dd>
+  </dl>
+
+  <div id="prompt-panel" class="card hidden">
+    <textarea id="prompt" readonly aria-label="Готовый промпт"></textarea>
+    <button id="copy" class="primary">Скопировать промпт</button>
+  </div>
+
+  <script>
+    const status = document.querySelector('#status');
+    const meta = document.querySelector('#meta');
+    const promptPanel = document.querySelector('#prompt-panel');
+    const prompt = document.querySelector('#prompt');
+    const copyButton = document.querySelector('#copy');
+
+    function send(type, payload = {}) {
+      parent.postMessage({ type, ...payload }, '*');
+    }
+
+    function setStatus(text, kind = '') {
+      status.textContent = text;
+      status.className = `status ${kind}`.trim();
+    }
+
+    document.querySelector('#import').addEventListener('click', () => {
+      setStatus('Импортирую зафиксированный Git-snapshot…');
+      send('import-from-git');
+    });
+
+    document.querySelector('#refresh').addEventListener('click', () => {
+      setStatus('Нахожу review-board и читаю незакрытые комментарии Penpot…');
+      send('build-prompt');
+    });
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(prompt.value);
+        setStatus('Промпт скопирован. Никакие данные автоматически не отправлены.', 'ok');
+      } catch {
+        prompt.focus();
+        prompt.select();
+        const copied = document.execCommand('copy');
+        setStatus(copied ? 'Промпт скопирован. Никакие данные автоматически не отправлены.' : 'Не удалось скопировать: выделите текст вручную.', copied ? 'ok' : 'error');
+      }
+    });
+
+    window.addEventListener('message', (event) => {
+      const message = event.data;
+      if (!message || typeof message !== 'object') return;
+      if (message.type === 'status') setStatus(message.text, message.kind || '');
+      if (message.type === 'selection') {
+        if (!message.element) {
+          meta.classList.add('hidden');
+          return;
+        }
+        meta.classList.remove('hidden');
+        document.querySelector('#element-id').textContent = message.element.id;
+        document.querySelector('#element-version').textContent = message.element.version;
+        document.querySelector('#source-url').textContent = message.element.sourceUrl;
+        document.querySelector('#comment-count').textContent = String(message.commentCount ?? '—');
+      }
+      if (message.type === 'prompt') {
+        meta.classList.remove('hidden');
+        promptPanel.classList.remove('hidden');
+        prompt.value = message.text;
+        document.querySelector('#comment-count').textContent = String(message.commentCount);
+        setStatus('Промпт собран локально из Git metadata и незакрытых комментариев Penpot.', 'ok');
+      }
+    });
+
+    send('request-state');
+  </script>
+</body>
+</html>

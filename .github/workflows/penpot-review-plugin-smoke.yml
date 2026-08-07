@@ -1,0 +1,158 @@
+name: Penpot review plugin contracts
+
+on:
+  push:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - 'prototypes/penpot-review-plugin-002a/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+  pull_request:
+    paths:
+      - 'prototypes/penpot-review-plugin/**'
+      - 'prototypes/penpot-review-plugin-002a/**'
+      - '.github/workflows/penpot-review-plugin-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: penpot-review-plugin-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate-001:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check prototypes/penpot-review-plugin/dist/plugin.js
+      - run: node prototypes/penpot-review-plugin/scripts/validate.mjs
+
+      - name: Verify immutable prototype 001 delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          prototype='prototypes/penpot-review-plugin'
+          plugin_revision="${GITHUB_SHA}"
+          ui_revision="$(node - <<'NODE'
+          const fs = require('node:fs');
+          const source = fs.readFileSync('prototypes/penpot-review-plugin/dist/plugin.js', 'utf8');
+          const match = source.match(/const UI_REVISION = '([0-9a-f]{40})'/u);
+          if (!match) process.exit(1);
+          process.stdout.write(match[1]);
+          NODE
+          )"
+          plugin_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${plugin_revision}/${prototype}"
+          ui_url="https://raw.githack.com/${GITHUB_REPOSITORY}/${ui_revision}/${prototype}/dist/ui.html"
+          mkdir -p "${RUNNER_TEMP}/lovekgd-plugin-001"
+
+          fetch_asset() {
+            local url="$1" output="$2"
+            for attempt in $(seq 1 18); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 15 --max-time 45 --output "$output" "${url}?ci=${GITHUB_RUN_ID}-${attempt}"; then
+                return 0
+              fi
+              sleep 5
+            done
+            return 1
+          }
+
+          fetch_headers() {
+            local url="$1" output="$2"
+            curl --fail --silent --show-error --location --head \
+              --connect-timeout 15 --max-time 45 --output "$output" "$url"
+          }
+
+          fetch_asset "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-001/manifest.json"
+          fetch_asset "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.js"
+          fetch_asset "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-001/ui.html"
+          fetch_headers "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/lovekgd-plugin-001/manifest.headers"
+          fetch_headers "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.headers"
+          fetch_headers "${ui_url}" "${RUNNER_TEMP}/lovekgd-plugin-001/ui.headers"
+
+          grep -Fq 'LoveKGD Review — Git snapshot prototype 001c' "${RUNNER_TEMP}/lovekgd-plugin-001/manifest.json"
+          grep -Fq '/* GIT_MANIFEST_START */' "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.js"
+          grep -Fq '/* GIT_SVG_START */' "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.js"
+          if grep -Eq '\bfetch[[:space:]]*\(' "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.js"; then
+            echo 'Runtime fetch found in prototype 001 main plugin' >&2
+            exit 1
+          fi
+          grep -Fq '<title>LoveKGD Review</title>' "${RUNNER_TEMP}/lovekgd-plugin-001/ui.html"
+          grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "${RUNNER_TEMP}/lovekgd-plugin-001/manifest.headers"
+          grep -Eiq '^content-type:[[:space:]]*(application|text)/(javascript|x-javascript)([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-001/plugin.headers"
+          grep -Eiq '^content-type:[[:space:]]*text/html([;[:space:]]|$)' "${RUNNER_TEMP}/lovekgd-plugin-001/ui.headers"
+
+  validate-002a:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate plugin and UI syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check prototypes/penpot-review-plugin-002a/dist/plugin.js
+          node prototypes/penpot-review-plugin-002a/scripts/validate.mjs
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const html = fs.readFileSync('prototypes/penpot-review-plugin-002a/dist/ui.html', 'utf8');
+          const match = html.match(/<script>([\s\S]*?)<\/script>/u);
+          if (!match) throw new Error('inline UI script missing');
+          fs.writeFileSync(process.env.RUNNER_TEMP + '/penpot-002a-ui.js', match[1]);
+          NODE
+          node --check "${RUNNER_TEMP}/penpot-002a-ui.js"
+
+      - name: Verify immutable plugin and mutable catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          prototype='prototypes/penpot-review-plugin-002a'
+          plugin_revision="${GITHUB_SHA}"
+          plugin_base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${plugin_revision}/${prototype}"
+          catalog_url='https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/penpot-catalog-live/prototypes/penpot-review-plugin-002a/catalog/catalog.json'
+          mkdir -p "${RUNNER_TEMP}/penpot-002a"
+
+          fetch_asset() {
+            local url="$1" output="$2"
+            for attempt in $(seq 1 18); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 15 --max-time 45 --output "$output" "${url}?ci=${GITHUB_RUN_ID}-${attempt}"; then
+                return 0
+              fi
+              sleep 5
+            done
+            return 1
+          }
+
+          fetch_asset "${plugin_base}/dist/manifest.json" "${RUNNER_TEMP}/penpot-002a/manifest.json"
+          fetch_asset "${plugin_base}/dist/plugin.js" "${RUNNER_TEMP}/penpot-002a/plugin.js"
+          fetch_asset "$catalog_url" "${RUNNER_TEMP}/penpot-002a/catalog.json"
+          artifact_url="$(node -e "const c=require(process.argv[1]); process.stdout.write(c.elements[0].artifact.url)" "${RUNNER_TEMP}/penpot-002a/catalog.json")"
+          fetch_asset "$artifact_url" "${RUNNER_TEMP}/penpot-002a/specimen.svg"
+
+          grep -Fq 'LoveKGD Review — dynamic catalog prototype 002A' "${RUNNER_TEMP}/penpot-002a/manifest.json"
+          if grep -Eq '\bfetch[[:space:]]*\(' "${RUNNER_TEMP}/penpot-002a/plugin.js"; then
+            echo 'Runtime fetch found in prototype 002A main plugin' >&2
+            exit 1
+          fi
+
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const root = process.env.RUNNER_TEMP + '/penpot-002a';
+          const catalog = JSON.parse(fs.readFileSync(root + '/catalog.json', 'utf8'));
+          const svg = fs.readFileSync(root + '/specimen.svg', 'utf8').replaceAll('\r\n', '\n');
+          if (catalog.schemaVersion !== 2) throw new Error('catalog schema');
+          if (catalog.catalogRevision !== '002a-r1') throw new Error('unexpected catalog revision');
+          if (catalog.elements[0].version !== '0.0.2') throw new Error('unexpected element version');
+          const hash = crypto.createHash('sha256').update(svg, 'utf8').digest('hex');
+          if (hash !== catalog.elements[0].artifact.sha256) throw new Error(`artifact hash mismatch: ${hash}`);
+          if (!svg.includes('core.button.smoke') || !svg.includes('LIVE CATALOG')) throw new Error('specimen contract');
+          console.log(JSON.stringify({status:'PASS', catalogRevision:catalog.catalogRevision, version:catalog.elements[0].version, hash}));
+          NODE

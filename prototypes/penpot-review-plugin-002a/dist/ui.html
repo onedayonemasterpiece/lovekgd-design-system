@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LoveKGD Review 002A.1</title>
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #201d1a; background: #f7f5f0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 16px; }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    p { font-size: 13px; line-height: 1.45; margin: 0 0 12px; color: #625c54; }
+    code { overflow-wrap: anywhere; }
+    .card { background: white; border: 1px solid #d8d2c8; border-radius: 12px; padding: 12px; margin: 12px 0; }
+    .status { min-height: 42px; font-size: 13px; line-height: 1.45; white-space: pre-wrap; }
+    .meta { display: grid; grid-template-columns: 108px 1fr; gap: 6px 8px; font-size: 12px; }
+    .meta dt { color: #6d665e; }
+    .meta dd { margin: 0; overflow-wrap: anywhere; }
+    button { width: 100%; border: 0; border-radius: 10px; padding: 11px 12px; font: inherit; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    button.primary { background: #203b57; color: white; }
+    button.secondary { background: #ebe7de; color: #201d1a; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
+    textarea { width: 100%; min-height: 180px; resize: vertical; border: 1px solid #cfc8bd; border-radius: 10px; padding: 10px; font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .hidden { display: none; }
+    .ok { color: #1d6a45; }
+    .error { color: #9a2d2d; }
+    .warn { color: #8a5a00; }
+    .updates { margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <h1>LoveKGD Review · 002A.1</h1>
+  <p>Сначала получает актуальный SHA ветки через GitHub REST API, затем читает catalog по неизменяемому commit URL. Plugin не пишет в GitHub или Supabase.</p>
+
+  <div class="card">
+    <div id="status" class="status">Готов проверить обновления.</div>
+    <button id="check" class="primary">Проверить обновления из Git</button>
+    <button id="apply" class="secondary" disabled>Создать новую ревизию рядом</button>
+    <button id="prompt" class="secondary">Прочитать комментарии и собрать промпт</button>
+  </div>
+
+  <div id="catalog-panel" class="card hidden">
+    <dl class="meta">
+      <dt>Catalog revision</dt><dd id="catalog-revision"></dd>
+      <dt>Branch SHA</dt><dd><code id="branch-sha"></code></dd>
+      <dt>Источник</dt><dd><code id="catalog-url"></code></dd>
+      <dt>API limit</dt><dd id="rate-limit"></dd>
+    </dl>
+    <ul id="updates" class="updates"></ul>
+  </div>
+
+  <dl id="selection" class="card meta hidden">
+    <dt>Element ID</dt><dd id="element-id"></dd>
+    <dt>Версия</dt><dd id="element-version"></dd>
+    <dt>Комментарии</dt><dd id="comment-count"></dd>
+  </dl>
+
+  <div id="prompt-panel" class="card hidden">
+    <textarea id="prompt-text" readonly aria-label="Готовый промпт"></textarea>
+    <button id="copy" class="primary">Скопировать промпт</button>
+  </div>
+
+  <script>
+    const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+    const CATALOG_BRANCH = 'penpot-catalog-live';
+    const CATALOG_PATH = 'prototypes/penpot-review-plugin-002a/catalog/catalog.json';
+    const REF_API_URL = `https://api.github.com/repos/${REPOSITORY}/git/ref/heads/${CATALOG_BRANCH}`;
+
+    const status = document.querySelector('#status');
+    const checkButton = document.querySelector('#check');
+    const applyButton = document.querySelector('#apply');
+    const promptButton = document.querySelector('#prompt');
+    const catalogPanel = document.querySelector('#catalog-panel');
+    const selectionPanel = document.querySelector('#selection');
+    const promptPanel = document.querySelector('#prompt-panel');
+    const promptText = document.querySelector('#prompt-text');
+    let cachedCatalog = null;
+    let lastInspection = null;
+
+    function send(type, payload = {}) {
+      parent.postMessage({ type, ...payload }, '*');
+    }
+
+    function setStatus(text, kind = '') {
+      status.textContent = text;
+      status.className = `status ${kind}`.trim();
+    }
+
+    function toHex(buffer) {
+      return Array.from(new Uint8Array(buffer), byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function sha256(text) {
+      const bytes = new TextEncoder().encode(text.replaceAll('\r\n', '\n'));
+      return toHex(await crypto.subtle.digest('SHA-256', bytes));
+    }
+
+    function assert(condition, message) {
+      if (!condition) throw new Error(message);
+    }
+
+    async function resolveCatalogCommit() {
+      const response = await fetch(`${REF_API_URL}?ts=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { Accept: 'application/vnd.github+json' },
+      });
+      assert(response.ok, `github_ref_http_${response.status}`);
+      const payload = await response.json();
+      const sha = payload?.object?.sha;
+      assert(typeof sha === 'string' && /^[0-9a-f]{40}$/u.test(sha), 'github_ref_sha_invalid');
+      return {
+        sha,
+        remaining: response.headers.get('x-ratelimit-remaining'),
+      };
+    }
+
+    async function loadCatalog() {
+      const resolved = await resolveCatalogCommit();
+      const catalogUrl = `https://raw.githack.com/${REPOSITORY}/${resolved.sha}/${CATALOG_PATH}`;
+      const response = await fetch(catalogUrl, { cache: 'no-store' });
+      assert(response.ok, `catalog_http_${response.status}`);
+      const catalog = await response.json();
+      assert(catalog?.schemaVersion === 2, 'catalog_schema_unsupported');
+      assert(catalog.repository === REPOSITORY, 'catalog_repository_mismatch');
+      assert(Array.isArray(catalog.elements) && catalog.elements.length > 0, 'catalog_elements_missing');
+
+      for (const element of catalog.elements) {
+        assert(element.artifact?.type === 'svg', `artifact_type_unsupported:${element.id}`);
+        const artifactResponse = await fetch(element.artifact.url, { cache: 'no-store' });
+        assert(artifactResponse.ok, `artifact_http_${artifactResponse.status}:${element.id}`);
+        const svg = await artifactResponse.text();
+        const actualHash = await sha256(svg);
+        assert(actualHash === element.artifact.sha256, `artifact_hash_mismatch:${element.id}`);
+        assert(svg.includes('<svg') && svg.includes(element.id), `artifact_contract_failed:${element.id}`);
+        element.svg = svg;
+      }
+
+      catalog.resolvedBranchSha = resolved.sha;
+      catalog.resolvedCatalogUrl = catalogUrl;
+      catalog.githubRateLimitRemaining = resolved.remaining;
+      return catalog;
+    }
+
+    function renderInspection(message) {
+      lastInspection = message;
+      catalogPanel.classList.remove('hidden');
+      document.querySelector('#catalog-revision').textContent = message.catalogRevision;
+      document.querySelector('#branch-sha').textContent = cachedCatalog?.resolvedBranchSha || '—';
+      document.querySelector('#catalog-url').textContent = cachedCatalog?.resolvedCatalogUrl || '—';
+      document.querySelector('#rate-limit').textContent = cachedCatalog?.githubRateLimitRemaining == null
+        ? '—'
+        : `${cachedCatalog.githubRateLimitRemaining} запросов осталось`;
+      const list = document.querySelector('#updates');
+      list.replaceChildren();
+      for (const item of message.items) {
+        const li = document.createElement('li');
+        const before = item.currentVersion || 'нет';
+        const suffix = item.commentCount > 0 ? `; комментариев: ${item.commentCount}` : '';
+        li.textContent = `${item.elementId}: ${before} → ${item.targetVersion}; ${item.action}${suffix}`;
+        list.appendChild(li);
+      }
+      applyButton.disabled = !message.items.some(item => item.action !== 'noop');
+      const changed = message.items.filter(item => item.action !== 'noop').length;
+      setStatus(changed
+        ? `Найдено обновлений: ${changed}. Branch SHA: ${cachedCatalog?.resolvedBranchSha?.slice(0, 12) || '—'}. Старые boards не будут удалены.`
+        : `Каталог ${message.catalogRevision} совпадает с последними импортированными ревизиями.`, changed ? 'warn' : 'ok');
+    }
+
+    checkButton.addEventListener('click', async () => {
+      checkButton.disabled = true;
+      applyButton.disabled = true;
+      setStatus('Получаю актуальный SHA ветки через GitHub API и проверяю immutable catalog…');
+      try {
+        cachedCatalog = await loadCatalog();
+        send('inspect-catalog', { catalog: cachedCatalog });
+      } catch (error) {
+        setStatus(`Ошибка загрузки каталога: ${String(error?.message || error)}`, 'error');
+      } finally {
+        checkButton.disabled = false;
+      }
+    });
+
+    applyButton.addEventListener('click', () => {
+      if (!cachedCatalog || !lastInspection) return;
+      applyButton.disabled = true;
+      setStatus('Создаю только новые revision boards; старые boards и comments сохраняются…');
+      send('apply-catalog', { catalog: cachedCatalog });
+    });
+
+    promptButton.addEventListener('click', async () => {
+      try {
+        if (!cachedCatalog) cachedCatalog = await loadCatalog();
+        setStatus('Читаю незакрытые комментарии к review-board…');
+        send('build-prompt', { catalog: cachedCatalog });
+      } catch (error) {
+        setStatus(`Ошибка: ${String(error?.message || error)}`, 'error');
+      }
+    });
+
+    document.querySelector('#copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(promptText.value);
+        setStatus('Промпт скопирован. Никаких данных автоматически не отправлено.', 'ok');
+      } catch {
+        promptText.focus();
+        promptText.select();
+        const copied = document.execCommand('copy');
+        setStatus(copied ? 'Промпт скопирован.' : 'Выделите и скопируйте текст вручную.', copied ? 'ok' : 'error');
+      }
+    });
+
+    window.addEventListener('message', event => {
+      const message = event.data;
+      if (!message || typeof message !== 'object') return;
+      if (message.type === 'status') setStatus(message.text, message.kind || '');
+      if (message.type === 'catalog-inspection') renderInspection(message);
+      if (message.type === 'catalog-applied') {
+        applyButton.disabled = true;
+        setStatus(`Создано revision boards: ${message.createdCount}. Старые boards сохранены.`, 'ok');
+        send('inspect-catalog', { catalog: cachedCatalog });
+      }
+      if (message.type === 'selection') {
+        if (!message.element) {
+          selectionPanel.classList.add('hidden');
+          return;
+        }
+        selectionPanel.classList.remove('hidden');
+        document.querySelector('#element-id').textContent = message.element.id;
+        document.querySelector('#element-version').textContent = message.element.version;
+        document.querySelector('#comment-count').textContent = String(message.commentCount ?? '—');
+      }
+      if (message.type === 'prompt') {
+        promptPanel.classList.remove('hidden');
+        promptText.value = message.text;
+        setStatus('Промпт собран локально из metadata revision board и Penpot comments.', 'ok');
+      }
+    });
+
+    send('request-state');
+  </script>
+</body>
+</html>
