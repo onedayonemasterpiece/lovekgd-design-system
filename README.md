@@ -1,61 +1,63 @@
 # LoveKGD Design System — Penpot review layer
 
-Этот репозиторий содержит **инструментальный контур отображения и согласования** дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы» в Penpot.
+Этот репозиторий содержит инструментальный контур отображения и согласования дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы» в Penpot.
 
 Канонический код действующей дизайн-системы остаётся рядом с production-потребителем — в [`onedayonemasterpiece/events-bot-new`](https://github.com/onedayonemasterpiece/events-bot-new):
 
-- нормативный контракт: [`docs/features/static-site-pages/design-system/README.md`](https://github.com/onedayonemasterpiece/events-bot-new/blob/main/docs/features/static-site-pages/design-system/README.md);
+- нормативный контракт: `docs/features/static-site-pages/design-system/README.md`;
 - semantic tokens: `site/src/styles/design-system.css`;
 - primitive Astro components: `site/src/components/design-system/`;
 - product components: `site/src/components/`;
-- реальный runtime-каталог: `site/src/pages/lab/design-system/index.astro` → `/lab/design-system/`.
+- runtime-каталог: `site/src/pages/lab/design-system/index.astro` → `/lab/design-system/`.
 
 Penpot не является вторым источником истины и не содержит вручную перерисованных «похожих» компонентов. Он получает проверяемое представление точного Astro runtime из Git.
 
 ## Текущая поставка
 
-**Penpot Runtime Review 003.1** завершает три связанных контура:
+**Penpot Runtime Review 003.2** связывает три контура:
 
-1. **Дизайн-система:** foundations, primitive UI, продуктовые компоненты, состояния и реестр версий отображаются из реального runtime-кода сайта.
-2. **Отображение в Penpot:** плагин создаёт девять именованных страниц и синхронизирует exact desktop/mobile screenshots с Git provenance и SHA-256.
-3. **Обратная связь:** штатные Penpot comments сохраняются при обновлении артефакта; плагин собирает из незакрытых комментариев детерминированный промпт с exact source SHA, route, viewport и ссылкой на исходник.
+1. foundations, primitive UI, продуктовые компоненты, состояния и реестр версий берутся из реального runtime-кода сайта;
+2. плагин создаёт девять именованных Penpot pages и синхронизирует exact desktop/mobile screenshots с Git provenance и SHA-256;
+3. native Penpot comments сохраняются при обновлении артефакта и превращаются в детерминированный implementation prompt с exact source SHA, route, viewport и source URL.
 
-Patch `003.1` добавляет:
+Patch `003.2` устраняет реальный host crash Penpot Cloud `2.17.1-RC5` с React error `#185`:
 
-- подробную копируемую диагностику с incident ID, фазой, точным элементом, страницей, индексом, попыткой, source artifact, transport payload, версией Penpot и читаемыми полями исходной ошибки;
-- последовательную media-загрузку с ограничением до трёх попыток;
-- bounded WebP transport derivative для необычно длинных, крупных или сильно уменьшаемых screenshots;
-- раздельные source и transport hashes/dimensions, поэтому transport-оптимизация не подменяет канонический Git-артефакт;
-- очистку неуспешного staging при сохранении существующих current и чужих boards.
+- media загружаются до page/board mutations;
+- элементы группируются по целевой странице;
+- каждая страница открывается не более одного раза на фазу;
+- mutations объединяются в native Penpot undo blocks;
+- за один пакет изменяется не более четырёх boards, между пакетами есть settle barrier;
+- сохраняется durable checkpoint: phase, page, element, index и sync run ID;
+- после аварийного завершения удаляются только managed boards с `lane=staging`;
+- foreign boards, technical fixtures и native comments не удаляются;
+- retired boards получают `lane=trash` до verification, поэтому не создают duplicate-current state.
 
 Проверенная поставка:
 
-- публикация и public-delivery smoke: [`run 31159712780`](https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/31159712780) — `success`;
-- immutable plugin commit: [`ef47cd0a9b5b0a96d8bc70ca809596e5613c41f2`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/ef47cd0a9b5b0a96d8bc70ca809596e5613c41f2);
-- pinned UI commit: [`00e00cac159ca61fdd4de3dea368460386ef723d`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/00e00cac159ca61fdd4de3dea368460386ef723d);
-- merged implementation: [`66f87536908a40b63de39b6d222757e786fa555a`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/66f87536908a40b63de39b6d222757e786fa555a);
-- product runtime source: [`events-bot-new@c6a679dbbb3bbd65eb096becbd5976e7ccd67a26`](https://github.com/onedayonemasterpiece/events-bot-new/commit/c6a679dbbb3bbd65eb096becbd5976e7ccd67a26);
-- каталог: `9` именованных страниц, `46` exact runtime artifacts, desktop + mobile, `0` capture errors.
+- publication/public-delivery smoke: [`run 31163780657`](https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/31163780657) — `success`;
+- immutable plugin commit: [`16699ff75f92b3964bda8a935b6be9b000569635`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/16699ff75f92b3964bda8a935b6be9b000569635);
+- pinned UI commit: [`8cf3c007c462a20bdc252d5685adf3d4dfe54c23`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/8cf3c007c462a20bdc252d5685adf3d4dfe54c23);
+- merged implementation: [`8d6c7e090051322d2f7d5c56ebaa916d8184f274`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/8d6c7e090051322d2f7d5c56ebaa916d8184f274);
+- product runtime source: `events-bot-new@c6a679dbbb3bbd65eb096becbd5976e7ccd67a26`;
+- catalog: `9` именованных страниц, `46` exact runtime artifacts, desktop + mobile, `0` capture errors.
 
-## Установка плагина в Penpot
+## Установка в Penpot
 
-В Penpot откройте **Plugins → Install plugin** и вставьте immutable manifest URL:
-
-```text
-https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@ef47cd0a9b5b0a96d8bc70ca809596e5613c41f2/prototypes/penpot-as-is-runtime-0031/dist/manifest.json
-```
-
-Обновляемая ссылка для текущего проверенного patch:
+Immutable manifest:
 
 ```text
-https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@penpot-runtime-0031-live/prototypes/penpot-as-is-runtime-0031/dist/manifest.json
+https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@16699ff75f92b3964bda8a935b6be9b000569635/prototypes/penpot-as-is-runtime-0032/dist/manifest.json
 ```
 
-Для воспроизводимого review предпочтительна immutable-ссылка с commit SHA.
+Обновляемая ссылка текущего patch:
+
+```text
+https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@penpot-runtime-0032-live/prototypes/penpot-as-is-runtime-0032/dist/manifest.json
+```
+
+Для воспроизводимого review используется immutable URL с commit SHA.
 
 ## Структура Penpot-файла
-
-Плагин создаёт и поддерживает страницы:
 
 - `00 — System map`;
 - `20 — Foundations`;
@@ -67,33 +69,25 @@ https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@penpot-ru
 - `90 — Review archive`;
 - `99 — Technical tests`.
 
-Старый технический прототип не смешивается с системой: его страница переводится в `99 — Technical tests`. Чужие и вручную созданные boards плагин не удаляет.
+Старый технический прототип переводится в `99 — Technical tests`. Чужие и вручную созданные boards плагин не удаляет.
 
 ## Рабочий цикл
 
 ```text
 Git / Astro runtime
 → Проверить актуальность
+→ Безопасно убрать interrupted staging, если он есть
 → Синхронизировать именованные страницы
-→ Оставить native Penpot comments на конкретных boards
-→ Собрать промпт по незакрытым комментариям
+→ Оставить native Penpot comments
+→ Собрать prompt по незакрытым комментариям
 → Сделать candidate preview отдельно от AS-IS
 → Получить sign-off владельца продукта
 → Изменить канонический код в events-bot-new
 → Пересобрать exact runtime mirror
 ```
 
-Правила безопасного обновления:
-
-- неизменившийся screenshot → `noop`;
-- изменившийся screenshot без комментариев → замена current board;
-- изменившийся screenshot с комментариями → старый board сохраняется как review snapshot, новый становится current;
-- удалённый artifact с комментариями → сохраняется как review evidence;
-- все новые boards сначала проходят staging;
-- ошибка hash, download, upload или verification останавливает синхронизацию и выдаёт копируемую element-level диагностику;
-- при ошибке staging удаляется, а current mirror не переключается частично.
-
 Подробные контракты:
 
 - [`Prototype 003 — exact AS-IS runtime`](prototypes/penpot-as-is-runtime-003/README.md);
-- [`Prototype 003.1 — diagnostics and transport-safe media`](prototypes/penpot-as-is-runtime-0031/README.md).
+- [`Prototype 003.1 — diagnostics and transport-safe media`](prototypes/penpot-as-is-runtime-0031/README.md);
+- [`Prototype 003.2 — host-safe resumable sync`](prototypes/penpot-as-is-runtime-0032/README.md).
