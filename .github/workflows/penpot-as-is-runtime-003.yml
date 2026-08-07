@@ -121,7 +121,7 @@ jobs:
           fi
           tail -n 120 /tmp/penpot-003-astro.log 2>/dev/null || true
 
-      - name: Commit exact UI, catalog and screenshots
+      - name: Commit and persist exact UI, catalog and screenshots
         shell: bash
         run: |
           set -euo pipefail
@@ -133,6 +133,7 @@ jobs:
           fi
           git rev-parse HEAD > /tmp/penpot003-ui-sha
           test "$(wc -c < /tmp/penpot003-ui-sha)" -eq 41
+          git push origin HEAD:prototype/penpot-as-is-runtime-003
 
       - name: Build immutable Penpot plugin and validate contract
         shell: bash
