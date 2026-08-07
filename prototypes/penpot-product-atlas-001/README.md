@@ -35,3 +35,7 @@
 ## Status boundary
 
 The plugin is syntax/contract validated, but real Penpot host acceptance is still required. The first host test must verify wrong-file refusal, one-update idempotency, comment preservation and systemic prompt construction.
+
+## Immutable asset boundary
+
+The installed plugin bundle loads its UI and catalog from exact repository commit `45f62ce3ea0bd665f972a213c23aef37273f9fb7` rather than mutable `main`. Install the manifest from the final plugin commit used for the host-smoke session.

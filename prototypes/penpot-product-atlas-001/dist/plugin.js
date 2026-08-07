@@ -3,7 +3,8 @@
 
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const ROOT_PATH = 'prototypes/penpot-product-atlas-001';
-  const UI_URL = `https://cdn.jsdelivr.net/gh/${REPOSITORY}@main/${ROOT_PATH}/dist/ui.html`;
+  const ASSET_SHA = '45f62ce3ea0bd665f972a213c23aef37273f9fb7';
+  const UI_URL = `https://cdn.jsdelivr.net/gh/${REPOSITORY}@${ASSET_SHA}/${ROOT_PATH}/dist/ui.html`;
   const NS = 'lovekgd.productatlas.001';
   const OWNER = 'lovekgd-product-atlas-001';
   const FILE_KIND_KEY = 'file-kind';
