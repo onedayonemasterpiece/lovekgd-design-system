@@ -15,7 +15,7 @@
   const ICON_BATCH_SIZE = 5;
   const CORE_BATCH_SIZE = 4;
 
-  penpot.ui.open('LoveKGD Resource Graph · 004a', UI_URL, { width: 540, height: 860 });
+  penpot.ui.open('LoveKGD Resource Graph · 004a.1', UI_URL, { width: 540, height: 860 });
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const now = () => new Date().toISOString();
@@ -170,6 +170,30 @@
     return result;
   }
 
+  function setHostSafeLetterSpacing(target, requested) {
+  const value = asString(requested ?? '0').trim() || '0';
+  try {
+    target.letterSpacing = value;
+    return { requested: value, applied: value, fallback: false };
+  } catch (error) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric >= 0) throw error;
+    target.letterSpacing = '0';
+    try {
+      mark(target, {
+        requestedLetterSpacing: value,
+        appliedLetterSpacing: '0',
+        compatibilityFallback: 'penpot-2.17.1-rc5-negative-letter-spacing',
+      });
+    } catch {}
+    send({
+      type: 'warning',
+      message: `Penpot ${penpot.version || 'unknown'} отклонил прямой negative letterSpacing ${value}; для shape применён host-safe 0, а исходное значение сохранено в Typography resource/metadata.`,
+    });
+    return { requested: value, applied: '0', fallback: true };
+  }
+}
+
   function createText(text, options = {}) {
     const shape = penpot.createText(asString(text));
     fail(shape, 'text_create_failed');
@@ -180,7 +204,7 @@
     shape.fontSize = asString(options.fontSize || 14);
     shape.fontWeight = asString(options.fontWeight || 500);
     shape.lineHeight = asString(options.lineHeight || '1.35');
-    shape.letterSpacing = asString(options.letterSpacing || '0');
+    setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');
     shape.growType = options.growType || 'auto-height';
     shape.fills = [{ fillColor: options.color || '#221a14', fillOpacity: options.opacity ?? 1 }];
     if (Number.isFinite(options.width) && Number.isFinite(options.height)) shape.resize(options.width, options.height);
@@ -330,7 +354,7 @@
       type.fontWeight = item.fontWeight;
       type.fontStyle = item.fontStyle || 'normal';
       type.lineHeight = item.lineHeight;
-      type.letterSpacing = item.letterSpacing;
+      setHostSafeLetterSpacing(type, item.letterSpacing);
       if (item.textTransform) type.textTransform = item.textTransform;
       markManaged(type, 'library-typography', item.id, catalog, {
         source: item.source,
@@ -340,8 +364,23 @@
     return { created, updated };
   }
 
-  function createColorDocumentation(page, catalog) {
-    removeManagedDocumentation(page);
+  function removeKnownFailedTypographyOrphans(page) {
+  const knownNames = new Set([
+    'Город говорит',
+    'События на выходные',
+    'Калининградская область · 16 сентября · 19:00',
+  ]);
+  for (const shape of page.findShapes({ type: 'text' })) {
+    const isTopLevel = Boolean(page.root?.id && shape.parent?.id === page.root.id);
+    if (!isTopLevel || isManaged(shape) || !knownNames.has(shape.name)) continue;
+    if (Number(shape.x) < 300 || Number(shape.y) < 1000) continue;
+    try { shape.remove(); } catch {}
+  }
+}
+
+function createColorDocumentation(page, catalog) {
+  removeKnownFailedTypographyOrphans(page);
+  removeManagedDocumentation(page);
     const section = createSection(
       page,
       catalog,

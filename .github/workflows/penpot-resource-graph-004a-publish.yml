@@ -7,7 +7,6 @@ on:
       - prototype/resource-graph-004a-native-resources
     paths:
       - 'prototypes/penpot-resource-graph-004a/README.md'
-      - 'prototypes/penpot-resource-graph-004a/bootstrap/**'
       - 'prototypes/penpot-resource-graph-004a/STATUS.md'
       - 'prototypes/penpot-resource-graph-004a/src/**'
       - 'prototypes/penpot-resource-graph-004a/scripts/**'
@@ -21,7 +20,7 @@ permissions:
 
 concurrency:
   group: penpot-resource-graph-004a
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-validate-publish:
@@ -34,37 +33,114 @@ jobs:
           ref: prototype/resource-graph-004a-native-resources
           fetch-depth: 0
 
-      - name: Restore reviewed 004a implementation source
+      - name: Apply Penpot 2.17.1 host-compatibility patch
         shell: bash
         run: |
           set -euo pipefail
-          root='prototypes/penpot-resource-graph-004a'
-          cat "$root"/bootstrap/part-*.b64 > /tmp/resource-graph-004a-source.b64
-          base64 --decode /tmp/resource-graph-004a-source.b64 > /tmp/resource-graph-004a-source.tar.gz
-          echo 'cd5063ceb845dc086fb13c97318d7c7466ff82a0004939d8079bac2b3ab1155b  /tmp/resource-graph-004a-source.tar.gz' | sha256sum --check --strict
-          tar --extract --gzip --file /tmp/resource-graph-004a-source.tar.gz --directory .
           python3 - <<'PY'
+          import json
           from pathlib import Path
-          path = Path('prototypes/penpot-resource-graph-004a/scripts/build-catalog.mjs')
-          source = path.read_text(encoding='utf-8')
-          needle = "  let value = String(svg)\n    .replace(/<!--"
-          replacement = "  let value = String(svg)\n    .replace(/^\\uFEFF/u, '')\n    .replace(/<\\?xml[\\s\\S]*?\\?>/giu, '')\n    .replace(/<!DOCTYPE[\\s\\S]*?>/giu, '')\n    .replace(/<!--"
-          if needle not in source:
-              raise SystemExit('svg_normalizer_patch_anchor_missing')
-          path.write_text(source.replace(needle, replacement, 1), encoding='utf-8')
 
-          validator = Path('prototypes/penpot-resource-graph-004a/scripts/validate.mjs')
-          validator_source = validator.read_text(encoding='utf-8')
-          validator_needle = "  fail(!/[{}]/u.test(icon.svg), `icon_unresolved_expression:${icon.id}`);"
-          validator_replacement = "  fail(!/(?:class|style|aria-[\\w-]+|role|title)=\\{/u.test(icon.svg) && !icon.svg.includes('{name') && !icon.svg.includes('{title') && !icon.svg.includes('Astro.props'), `icon_unresolved_expression:${icon.id}`);"
-          if validator_needle not in validator_source:
-              raise SystemExit('icon_validator_patch_anchor_missing')
-          validator.write_text(validator_source.replace(validator_needle, validator_replacement, 1), encoding='utf-8')
+          root = Path('prototypes/penpot-resource-graph-004a')
+          plugin_path = root / 'src/plugin.js.template'
+          source = plugin_path.read_text(encoding='utf-8')
+
+          helper_anchor = "  function createText(text, options = {}) {"
+          helper = r"""  function setHostSafeLetterSpacing(target, requested) {
+            const value = asString(requested ?? '0').trim() || '0';
+            try {
+              target.letterSpacing = value;
+              return { requested: value, applied: value, fallback: false };
+            } catch (error) {
+              const numeric = Number(value);
+              if (!Number.isFinite(numeric) || numeric >= 0) throw error;
+              target.letterSpacing = '0';
+              try {
+                mark(target, {
+                  requestedLetterSpacing: value,
+                  appliedLetterSpacing: '0',
+                  compatibilityFallback: 'penpot-2.17.1-rc5-negative-letter-spacing',
+                });
+              } catch {}
+              send({
+                type: 'warning',
+                message: `Penpot ${penpot.version || 'unknown'} отклонил прямой negative letterSpacing ${value}; для shape применён host-safe 0, а исходное значение сохранено в Typography resource/metadata.`,
+              });
+              return { requested: value, applied: '0', fallback: true };
+            }
+          }
+
+          """
+          if 'function setHostSafeLetterSpacing' not in source:
+              if helper_anchor not in source:
+                  raise SystemExit('create_text_anchor_missing')
+              source = source.replace(helper_anchor, helper + helper_anchor, 1)
+
+          old_text_setter = "    shape.letterSpacing = asString(options.letterSpacing || '0');"
+          new_text_setter = "    setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');"
+          if old_text_setter in source:
+              source = source.replace(old_text_setter, new_text_setter, 1)
+          elif new_text_setter not in source:
+              raise SystemExit('create_text_letter_spacing_anchor_missing')
+
+          old_typography_setter = "      type.letterSpacing = item.letterSpacing;"
+          new_typography_setter = "      setHostSafeLetterSpacing(type, item.letterSpacing);"
+          if old_typography_setter in source:
+              source = source.replace(old_typography_setter, new_typography_setter, 1)
+          elif new_typography_setter not in source:
+              raise SystemExit('typography_letter_spacing_anchor_missing')
+
+          docs_anchor = "  function createColorDocumentation(page, catalog) {\n    removeManagedDocumentation(page);"
+          cleanup_function = r"""  function removeKnownFailedTypographyOrphans(page) {
+            const knownNames = new Set([
+              'Город говорит',
+              'События на выходные',
+              'Калининградская область · 16 сентября · 19:00',
+            ]);
+            for (const shape of page.findShapes({ type: 'text' })) {
+              const isTopLevel = Boolean(page.root?.id && shape.parent?.id === page.root.id);
+              if (!isTopLevel || isManaged(shape) || !knownNames.has(shape.name)) continue;
+              if (Number(shape.x) < 300 || Number(shape.y) < 1000) continue;
+              try { shape.remove(); } catch {}
+            }
+          }
+
+          function createColorDocumentation(page, catalog) {
+            removeKnownFailedTypographyOrphans(page);
+            removeManagedDocumentation(page);"""
+          if 'function removeKnownFailedTypographyOrphans' not in source:
+              if docs_anchor not in source:
+                  raise SystemExit('documentation_cleanup_anchor_missing')
+              source = source.replace(docs_anchor, cleanup_function, 1)
+
+          source = source.replace(
+              "penpot.ui.open('LoveKGD Resource Graph · 004a', UI_URL, { width: 540, height: 860 });",
+              "penpot.ui.open('LoveKGD Resource Graph · 004a.1', UI_URL, { width: 540, height: 860 });",
+              1,
+          )
+          plugin_path.write_text(source, encoding='utf-8')
+
+          manifest_path = root / 'dist/manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          manifest['name'] = 'LoveKGD Resource Graph — native resources 004a.1'
+          manifest['description'] = 'Penpot 2.17.1-compatible native Resource Graph: Colors, Typographies, vector icon components and core UI masters; safe retry after partial 004a updates.'
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          ui_path = root / 'dist/ui.html'
+          ui = ui_path.read_text(encoding='utf-8')
+          ui = ui.replace('<title>LoveKGD Resource Graph 004a</title>', '<title>LoveKGD Resource Graph 004a.1</title>', 1)
+          ui = ui.replace('<h1>LoveKGD Resource Graph · 004a</h1>', '<h1>LoveKGD Resource Graph · 004a.1</h1>', 1)
+          ui = ui.replace(
+              'Первая устанавливаемая компонентная поставка: native Colors, Typographies, векторная библиотека иконок и core UI components. Один запуск обновляет весь управляемый граф.',
+              'Исправленная поставка для Penpot 2.17.1: native Colors, Typographies, векторная библиотека иконок и core UI components. Повторный запуск безопасно продолжает частичное обновление 004a.',
+              1,
+          )
+          ui_path.write_text(ui, encoding='utf-8')
           PY
-          test -s "$root/src/plugin.js.template"
-          test -s "$root/scripts/build-catalog.mjs"
-          test -s "$root/scripts/validate.mjs"
-          test -s "$root/dist/ui.html"
+
+          grep -Fq "function setHostSafeLetterSpacing" prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          grep -Fq "removeKnownFailedTypographyOrphans" prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          grep -Fq "004a.1" prototypes/penpot-resource-graph-004a/dist/manifest.json
 
       - name: Checkout exact product source
         uses: actions/checkout@v4
@@ -91,7 +167,7 @@ jobs:
             --out "$root/catalog/catalog.json"
           test -s "$root/catalog/catalog.json"
 
-      - name: Persist catalog and pin the plugin UI
+      - name: Persist source, compatibility patch and catalog
         shell: bash
         run: |
           set -euo pipefail
@@ -106,12 +182,12 @@ jobs:
             "$root/dist/icon.svg" \
             "$root/catalog/catalog.json"
           if ! git diff --cached --quiet; then
-            git commit -m 'resource graph 004a: publish native sources and exact catalog'
+            git commit -m 'resource graph 004a.1: add Penpot host-safe letter spacing retry'
           fi
           git rev-parse HEAD > /tmp/resource-graph-004a-ui-sha
           test "$(wc -c < /tmp/resource-graph-004a-ui-sha)" -eq 41
 
-      - name: Build immutable plugin and validate all contracts
+      - name: Build immutable plugin and validate catalog contracts
         shell: bash
         run: |
           set -euo pipefail
@@ -128,6 +204,43 @@ jobs:
           node --check /tmp/resource-graph-004a-ui.js
           node "$root/scripts/validate.mjs" "$root"
 
+      - name: Exercise Penpot negative-letter-spacing compatibility path
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const source = fs.readFileSync('prototypes/penpot-resource-graph-004a/dist/plugin.js', 'utf8');
+          const start = source.indexOf('function setHostSafeLetterSpacing');
+          const end = source.indexOf('\n\n  function createText', start);
+          if (start < 0 || end < 0) throw new Error('compatibility_helper_missing');
+          const helperSource = source.slice(start, end);
+          const warnings = [];
+          const asString = (value) => value == null ? '' : String(value);
+          const mark = (target, metadata) => { target.metadata = metadata; };
+          const send = (message) => warnings.push(message);
+          const penpot = { version: '2.17.1-RC5' };
+          eval(`${helperSource}\n;globalThis.__setHostSafeLetterSpacing = setHostSafeLetterSpacing;`);
+
+          const rejectingTarget = {
+            _value: null,
+            set letterSpacing(value) {
+              if (Number(value) < 0) throw new Error('[PENPOT PLUGIN] Value not valid');
+              this._value = value;
+            },
+            get letterSpacing() { return this._value; },
+          };
+          const fallback = globalThis.__setHostSafeLetterSpacing(rejectingTarget, '-1.2');
+          if (rejectingTarget._value !== '0' || !fallback.fallback) throw new Error('negative_tracking_fallback_failed');
+          if (rejectingTarget.metadata?.requestedLetterSpacing !== '-1.2') throw new Error('requested_tracking_not_preserved');
+          if (!warnings.length) throw new Error('compatibility_warning_missing');
+
+          const acceptingTarget = { _value: null, set letterSpacing(value) { this._value = value; } };
+          const accepted = globalThis.__setHostSafeLetterSpacing(acceptingTarget, '0.1');
+          if (acceptingTarget._value !== '0.1' || accepted.fallback) throw new Error('valid_tracking_changed');
+          console.log(JSON.stringify({ ok: true, fallback, accepted, warnings: warnings.length }));
+          NODE
+
       - name: Commit plugin and publish live ref
         shell: bash
         run: |
@@ -135,7 +248,7 @@ jobs:
           root='prototypes/penpot-resource-graph-004a'
           git add "$root/dist/plugin.js"
           if ! git diff --cached --quiet; then
-            git commit -m 'resource graph 004a: bind plugin to immutable UI and catalog'
+            git commit -m 'resource graph 004a.1: bind host-safe plugin to immutable UI and catalog'
           fi
           final_sha="$(git rev-parse HEAD)"
           git push origin HEAD:prototype/resource-graph-004a-native-resources
@@ -193,11 +306,15 @@ jobs:
           const catalog = JSON.parse(fs.readFileSync(path.join(work, 'catalog.json'), 'utf8'));
           const assert = (condition, message) => { if (!condition) throw new Error(message); };
           assert(manifest.version === 2, 'manifest_version');
+          assert(manifest.name.includes('004a.1'), 'manifest_patch_revision');
           assert(manifest.permissions.includes('library:write'), 'library_permission');
           assert(plugin.includes(`const UI_SHA = '${uiSha}'`), 'ui_pin');
+          assert(plugin.includes('function setHostSafeLetterSpacing'), 'letter_spacing_compatibility');
+          assert(plugin.includes('removeKnownFailedTypographyOrphans'), 'partial_retry_cleanup');
           assert(plugin.includes('penpot.library.local.createColor()'), 'native_colors');
           assert(plugin.includes('penpot.library.local.createTypography()'), 'native_typography');
           assert(plugin.includes('penpot.library.local.createComponent([shape])'), 'native_components');
+          assert(ui.includes('LoveKGD Resource Graph · 004a.1'), 'ui_patch_revision');
           assert(ui.includes('Обновить дизайн-систему'), 'one_update_button');
           assert(catalog.delivery === 'penpot-resource-graph-004a', 'catalog_delivery');
           assert(catalog.icons.length >= 40, 'icon_count');
@@ -210,7 +327,7 @@ jobs:
           icon_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.icons))' "$work/catalog.json")"
 
           {
-            echo '### Resource Graph 004a public delivery: PASS'
+            echo '### Resource Graph 004a.1 public delivery: PASS'
             echo
             echo "- product source SHA: $product_source"
             echo "- catalog SHA-256: $catalog_hash"
@@ -219,6 +336,8 @@ jobs:
             echo "- colors: $color_count"
             echo "- typographies: $typography_count"
             echo "- vector icons: $icon_count"
+            echo '- Penpot 2.17.1 negative-letter-spacing rejection compatibility test: PASS'
+            echo '- retry cleanup for the orphaned Город говорит specimen: present'
             echo '- public manifest/plugin/icon/UI/catalog HTTP + CORS + syntax + contract smoke: PASS'
             echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist/manifest.json"
           } >> "$GITHUB_STEP_SUMMARY"
@@ -227,7 +346,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: resource-graph-004a-${{ github.run_id }}
+          name: resource-graph-004a1-${{ github.run_id }}
           path: prototypes/penpot-resource-graph-004a/catalog/catalog.json
           if-no-files-found: warn
           retention-days: 30
