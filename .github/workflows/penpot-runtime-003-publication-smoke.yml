@@ -1,0 +1,167 @@
+name: Penpot runtime 003 public delivery smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/penpot-runtime-003-publication-smoke.yml'
+      - 'prototypes/penpot-as-is-runtime-003/dist/**'
+  pull_request:
+    paths:
+      - '.github/workflows/penpot-runtime-003-publication-smoke.yml'
+      - 'prototypes/penpot-as-is-runtime-003/dist/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: penpot-runtime-003-publication-smoke-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  DELIVERY_REPOSITORY: onedayonemasterpiece/lovekgd-design-system
+  PLUGIN_COMMIT: 2d917d1e39dbcac5ee9e88bcc6dd9f988e4b688c
+  UI_COMMIT: 13fa03d0105fc66c7bb0ebc33cd20a55aed74805
+  ROOT_PATH: prototypes/penpot-as-is-runtime-003
+
+jobs:
+  public-delivery-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout contract source
+        uses: actions/checkout@v4
+
+      - name: Fetch and validate public plugin delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="${RUNNER_TEMP}/penpot-runtime-003-public"
+          mkdir -p "$work"
+
+          fetch_public() {
+            local url="$1"
+            local body="$2"
+            local headers="$3"
+            local attempt
+            for attempt in $(seq 1 12); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 10 --max-time 60 \
+                -D "$headers" -o "$body" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            echo "Failed to fetch public URL after ${attempt} attempts: ${url}" >&2
+            return 1
+          }
+
+          assert_cors() {
+            local headers="$1"
+            tr -d '\r' < "$headers" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
+          }
+
+          cdn_base="https://cdn.jsdelivr.net/gh/${DELIVERY_REPOSITORY}@${PLUGIN_COMMIT}/${ROOT_PATH}/dist"
+          manifest_url="${cdn_base}/manifest.json"
+          plugin_url="${cdn_base}/plugin.js"
+          icon_url="${cdn_base}/icon.svg"
+          ui_url="https://raw.githack.com/${DELIVERY_REPOSITORY}/${UI_COMMIT}/${ROOT_PATH}/dist/ui.html"
+
+          fetch_public "$manifest_url" "$work/manifest.json" "$work/manifest.headers"
+          fetch_public "$plugin_url" "$work/plugin.js" "$work/plugin.headers"
+          fetch_public "$icon_url" "$work/icon.svg" "$work/icon.headers"
+          fetch_public "$ui_url" "$work/ui.html" "$work/ui.headers"
+
+          assert_cors "$work/manifest.headers"
+          assert_cors "$work/plugin.headers"
+          assert_cors "$work/icon.headers"
+          assert_cors "$work/ui.headers"
+
+          node --check "$work/plugin.js"
+          node - "$work" "$PLUGIN_COMMIT" "$UI_COMMIT" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [work, pluginCommit, uiCommit] = process.argv.slice(2);
+          const manifest = JSON.parse(fs.readFileSync(path.join(work, 'manifest.json'), 'utf8'));
+          const plugin = fs.readFileSync(path.join(work, 'plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(work, 'ui.html'), 'utf8');
+
+          const assert = (condition, message) => {
+            if (!condition) throw new Error(message);
+          };
+
+          assert(manifest.version === 2, 'manifest version must be 2 for relative assets');
+          assert(manifest.code === 'plugin.js', 'manifest code path');
+          assert(manifest.icon === 'icon.svg', 'manifest icon path');
+          assert(JSON.stringify(manifest.permissions) === JSON.stringify(['content:read', 'content:write', 'comment:read']), 'manifest permission boundary');
+          assert(plugin.includes(`const UI_SHA = '${uiCommit}'`), 'plugin UI commit pin');
+          assert(plugin.includes("const NS = 'lovekgd.runtime.003'"), 'managed namespace');
+          assert(plugin.includes('findCommentThreads'), 'native Penpot comment read');
+          assert(plugin.includes('buildPrompt'), 'comment-to-prompt flow');
+          assert(plugin.includes('archive-replace'), 'comment-preserving update action');
+          assert(plugin.includes('uploadMediaData'), 'verified media upload path');
+          assert(ui.includes("CATALOG_BRANCH = 'penpot-as-is-live'"), 'live catalog ref');
+          assert(ui.includes('crypto.subtle.digest'), 'browser-side SHA-256 verification');
+          for (const marker of ['CHECKING', 'CURRENT', 'STALE', 'SYNC FAILED']) {
+            assert(ui.includes(marker), `missing UI state ${marker}`);
+          }
+          assert(pluginCommit.length === 40, 'plugin commit shape');
+
+          const scriptMatch = ui.match(/<script>([\s\S]*?)<\/script>/u);
+          assert(scriptMatch, 'inline UI script missing');
+          fs.writeFileSync(path.join(work, 'ui-inline.js'), scriptMatch[1]);
+          NODE
+          node --check "$work/ui-inline.js"
+
+          live_ref_url="https://api.github.com/repos/${DELIVERY_REPOSITORY}/git/ref/heads/penpot-as-is-live"
+          fetch_public "$live_ref_url" "$work/live-ref.json" "$work/live-ref.headers"
+          live_sha="$(node -e "const r=require(process.argv[1]); if(!/^[0-9a-f]{40}$/.test(r.object.sha)) process.exit(1); process.stdout.write(r.object.sha)" "$work/live-ref.json")"
+          test "$live_sha" = "$PLUGIN_COMMIT"
+
+          runtime_base="https://raw.githack.com/${DELIVERY_REPOSITORY}/${live_sha}/${ROOT_PATH}/catalog"
+          fetch_public "${runtime_base}/catalog.json" "$work/catalog.json" "$work/catalog.headers"
+          assert_cors "$work/catalog.headers"
+
+          node - "$work/catalog.json" "$work/artifact.env" <<'NODE'
+          const fs = require('node:fs');
+          const [catalogPath, envPath] = process.argv.slice(2);
+          const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+          const assert = (condition, message) => {
+            if (!condition) throw new Error(message);
+          };
+          assert(catalog.schemaVersion === 1, 'catalog schema');
+          assert(catalog.contract?.mode === 'observed-as-is', 'catalog mode');
+          assert(catalog.pages?.length === 9, `page count ${catalog.pages?.length}`);
+          assert(catalog.elements?.length === 46, `element count ${catalog.elements?.length}`);
+          assert(catalog.metrics?.captureErrorCount === 0, `capture errors ${catalog.metrics?.captureErrorCount}`);
+          assert(/^[0-9a-f]{40}$/u.test(catalog.source?.revision || ''), 'product source revision');
+          const artifact = catalog.elements[0]?.artifact;
+          assert(artifact?.path && /^[0-9a-f]{64}$/u.test(artifact.sha256 || ''), 'first artifact metadata');
+          fs.writeFileSync(envPath, [
+            `ARTIFACT_PATH=${artifact.path}`,
+            `ARTIFACT_SHA256=${artifact.sha256}`,
+            `ARTIFACT_BYTES=${artifact.byteLength}`,
+            `PRODUCT_SHA=${catalog.source.revision}`,
+            `TOTAL_BYTES=${catalog.metrics.totalBytes}`,
+          ].join('\n') + '\n');
+          NODE
+
+          source "$work/artifact.env"
+          fetch_public "${runtime_base}/${ARTIFACT_PATH}" "$work/artifact.bin" "$work/artifact.headers"
+          assert_cors "$work/artifact.headers"
+          test "$(sha256sum "$work/artifact.bin" | cut -d' ' -f1)" = "$ARTIFACT_SHA256"
+          test "$(wc -c < "$work/artifact.bin")" -eq "$ARTIFACT_BYTES"
+
+          {
+            echo '### Penpot Runtime Review 003 public delivery: PASS'
+            echo
+            echo "- immutable plugin commit: \`${PLUGIN_COMMIT}\`"
+            echo "- pinned UI commit: \`${UI_COMMIT}\`"
+            echo "- live catalog ref: \`${live_sha}\`"
+            echo "- product runtime SHA: \`${PRODUCT_SHA}\`"
+            echo '- catalog: 9 pages / 46 artifacts / 0 capture errors'
+            echo "- captured bytes: \`${TOTAL_BYTES}\`"
+            echo '- manifest, plugin, icon, UI, catalog and one binary artifact: HTTP + CORS + syntax/hash contracts passed'
+          } >> "$GITHUB_STEP_SUMMARY"
