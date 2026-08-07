@@ -9,6 +9,10 @@ IMPLEMENTATION STATUS: CODE-READY / HOST-UNVERIFIED
 - Systemic unresolved-comments prompt: implemented.
 - Real two-file Penpot host smoke: not yet performed.
 
-IMMUTABLE ASSET SOURCE: `45f62ce3ea0bd665f972a213c23aef37273f9fb7`
 
-The plugin bundle loads UI and catalog from this exact commit; the remaining gate is real Penpot host acceptance.
+IMMUTABLE DELIVERY CHAIN:
+
+- UI commit: `9a4a694bbeae06a79274f6b2391ca1194006e080`.
+- Catalog commit: `45f62ce3ea0bd665f972a213c23aef37273f9fb7`.
+- The final installed bundle commit is recorded by the public-delivery smoke.
+- Real Penpot host import remains required.
