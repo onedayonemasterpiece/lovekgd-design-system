@@ -1,0 +1,1065 @@
+(() => {
+  'use strict';
+
+  const UI_COMMIT = '__UI_COMMIT__';
+  const CATALOG_COMMIT = '__CATALOG_COMMIT__';
+  const CATALOG_SHA = '__CATALOG_SHA__';
+  const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+  const ROOT = 'prototypes/penpot-runtime-derived-005';
+  const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_COMMIT}/${ROOT}/dist/ui.html`;
+  const CATALOG_URL = `https://raw.githack.com/${REPOSITORY}/${CATALOG_COMMIT}/${ROOT}/catalog/catalog.json`;
+  const CATALOG_ROOT = `https://raw.githack.com/${REPOSITORY}/${CATALOG_COMMIT}/${ROOT}/catalog`;
+  const NS = 'lovekgd.runtime-derived.005';
+  const LEGACY_NAMESPACES = ['lovekgd.runtime.003', 'lovekgd.resourcegraph.004a', 'lovekgd.resourcegraph.004b'];
+  const FILE_STATE_KEY = 'state';
+  const COMMENT_REGISTRY_KEY = 'comment-registry';
+  const CHECKPOINT_KEY = 'lovekgd.runtime-derived.005.checkpoint';
+  const PAGE_SETTLE_MS = 420;
+  const BATCH_SETTLE_MS = 320;
+  const COMPONENT_BATCH = 2;
+  const EVIDENCE_BATCH = 2;
+
+  penpot.ui.open('LoveKGD Runtime-Derived Design System · 005', UI_URL, { width: 590, height: 920 });
+
+  const now = () => new Date().toISOString();
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const send = (message) => penpot.ui.sendMessage(message);
+  const asString = (value) => value == null ? '' : String(value);
+  const fail = (condition, message) => { if (!condition) throw new Error(message); };
+  const number = (value, fallback = 0) => {
+    const parsed = Number.parseFloat(asString(value));
+    return Number.isFinite(parsed) ? parsed : fallback;
+  };
+
+  let operationActive = false;
+  let catalogCache = null;
+  let fontCache = null;
+  let fontVariantCache = new Map();
+  const mediaCache = new Map();
+
+  function normalizeError(error) {
+    const result = {
+      name: asString(error?.name || 'Error'),
+      message: asString(error?.message || error),
+      stack: asString(error?.stack || '').split('\n').slice(0, 24).join('\n'),
+    };
+    for (const key of ['code', 'status', 'type', 'hint', 'details', 'cause']) {
+      try {
+        if (error?.[key] !== undefined) result[key] = typeof error[key] === 'object' ? JSON.stringify(error[key]) : asString(error[key]);
+      } catch {}
+    }
+    return result;
+  }
+
+  function incident(error, context = {}) {
+    const value = {
+      schemaVersion: 1,
+      incidentId: `rg005-${Date.now().toString(36)}`,
+      occurredAt: now(),
+      penpotVersion: penpot.version || null,
+      currentPage: penpot.currentPage?.name || null,
+      catalogSha: catalogCache?.catalogSha256 || CATALOG_SHA,
+      sourceSha: catalogCache?.source?.revision || null,
+      checkpoint: readCheckpoint(),
+      context,
+      error: normalizeError(error),
+    };
+    send({ type: 'diagnostic', diagnostic: value });
+    return value;
+  }
+
+  function checkpoint(value) {
+    try {
+      penpot.localStorage.setItem(CHECKPOINT_KEY, JSON.stringify({ updatedAt: now(), ...value }));
+    } catch {}
+  }
+
+  function readCheckpoint() {
+    try {
+      const raw = penpot.localStorage.getItem(CHECKPOINT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  }
+
+  function clearCheckpoint() {
+    try { penpot.localStorage.setItem(CHECKPOINT_KEY, ''); } catch {}
+  }
+
+  function progress(phase, completed, total, detail = '', extra = {}) {
+    const value = { phase, completed, total, detail, ...extra };
+    checkpoint(value);
+    send({ type: 'progress', ...value });
+  }
+
+  function getShared(target, key, ns = NS) {
+    try { return target?.getSharedPluginData(ns, key) || ''; } catch { return ''; }
+  }
+
+  function setShared(target, key, value, ns = NS) {
+    target?.setSharedPluginData(ns, key, asString(value));
+  }
+
+  function mark(target, data, ns = NS) {
+    for (const [key, value] of Object.entries(data)) {
+      setShared(target, key, typeof value === 'string' ? value : JSON.stringify(value), ns);
+    }
+  }
+
+  function markManaged(target, kind, id, catalog, extra = {}) {
+    mark(target, {
+      managed: 'true', kind, id,
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      updatedAt: now(),
+      ...extra,
+    });
+  }
+
+  function isManaged(target, kind = null) {
+    if (getShared(target, 'managed') !== 'true') return false;
+    return !kind || getShared(target, 'kind') === kind;
+  }
+
+  function isLegacyManaged(target) {
+    return LEGACY_NAMESPACES.some((ns) => {
+      try { return target?.getSharedPluginData(ns, 'managed') === 'true' || target?.getSharedPluginData(ns, 'element'); }
+      catch { return false; }
+    });
+  }
+
+  function allPages() {
+    return penpot.currentFile?.pages || [];
+  }
+
+  function pageByName(name) {
+    return allPages().find((page) => page.name === name) || null;
+  }
+
+  async function openPage(page) {
+    fail(page?.id, 'page_missing');
+    if (penpot.currentPage?.id !== page.id) {
+      await penpot.openPage(page);
+      await delay(PAGE_SETTLE_MS);
+    }
+    fail(penpot.currentPage?.id === page.id, `page_open_failed:${page.name}`);
+  }
+
+  function withUndo(callback) {
+    const begin = penpot.history?.undoBlockBegin;
+    const finish = penpot.history?.undoBlockFinish;
+    if (typeof begin !== 'function' || typeof finish !== 'function') return callback();
+    const id = begin.call(penpot.history);
+    try { return callback(); }
+    finally { finish.call(penpot.history, id); }
+  }
+
+  function cssColorToHex(value, fallback = null) {
+    const input = asString(value).trim();
+    if (!input || input === 'transparent' || input === 'rgba(0, 0, 0, 0)') return fallback;
+    if (/^#[0-9a-f]{3,8}$/iu.test(input)) {
+      if (input.length === 4) return `#${input.slice(1).split('').map((c) => c + c).join('')}`;
+      return input.slice(0, 7);
+    }
+    const match = input.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/iu);
+    if (!match) return fallback;
+    if (match[4] !== undefined && Number(match[4]) <= 0.01) return fallback;
+    const hex = [match[1], match[2], match[3]].map((part) => Math.max(0, Math.min(255, Math.round(Number(part)))).toString(16).padStart(2, '0')).join('');
+    return `#${hex}`;
+  }
+
+  function parseRadius(value) {
+    return Math.max(0, number(asString(value).split(/\s+/u)[0], 0));
+  }
+
+  function createRectangle(options = {}) {
+    const shape = penpot.createRectangle();
+    shape.name = options.name || 'Rectangle';
+    shape.x = number(options.x);
+    shape.y = number(options.y);
+    shape.resize(Math.max(1, number(options.width, 100)), Math.max(1, number(options.height, 100)));
+    shape.fills = options.fill ? [{ fillColor: options.fill, fillOpacity: options.fillOpacity ?? 1 }] : [];
+    shape.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: options.strokeOpacity ?? 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    if (options.radius !== undefined) shape.borderRadius = number(options.radius);
+    if (options.opacity !== undefined) shape.opacity = number(options.opacity, 1);
+    return shape;
+  }
+
+  function createBoard(page, options = {}) {
+    const board = penpot.createBoard();
+    board.name = options.name || 'Board';
+    board.x = number(options.x);
+    board.y = number(options.y);
+    board.resize(Math.max(1, number(options.width, 100)), Math.max(1, number(options.height, 100)));
+    board.fills = options.fill ? [{ fillColor: options.fill, fillOpacity: options.fillOpacity ?? 1 }] : [];
+    board.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    board.borderRadius = number(options.radius, 0);
+    board.clipContent = Boolean(options.clipContent);
+    board.showInViewMode = options.showInViewMode !== false;
+    if (!board.parent) page.root.appendChild(board);
+    return board;
+  }
+
+  function append(parent, child) {
+    parent.appendChild(child);
+    return child;
+  }
+
+  function resolveFont(catalog) {
+    if (fontCache) return fontCache;
+    const requested = catalog.foundations?.fontFamilies?.map((item) => item.value.split(',')[0].replace(/["']/gu, '').trim()).find(Boolean) || 'Inter';
+    const candidates = [requested, 'Inter', 'Arial', 'Liberation Sans', 'Noto Sans', 'DejaVu Sans'];
+    for (const name of [...new Set(candidates)]) {
+      let font = null;
+      try { font = penpot.fonts.findByName(name); } catch {}
+      if (!font) {
+        try { font = penpot.fonts.findAllByName(name)?.[0] || null; } catch {}
+      }
+      if (font) {
+        fontCache = font;
+        send({ type: 'font-resolved', requested, applied: font.name || font.fontFamily || name });
+        return font;
+      }
+    }
+    const all = penpot.fonts?.all || [];
+    const fallback = all.find((font) => /sans|arial|inter|roboto|noto|dejavu/iu.test(`${font.name} ${font.fontFamily}`));
+    fail(fallback, 'no_sans_font_available');
+    fontCache = fallback;
+    send({ type: 'warning', message: `Шрифт runtime не найден; использован явный sans fallback ${fallback.name || fallback.fontFamily}.` });
+    return fallback;
+  }
+
+  function fontVariant(catalog, weight, style = 'normal') {
+    const font = resolveFont(catalog);
+    const key = `${font.name || font.fontFamily}:${weight}:${style}`;
+    if (fontVariantCache.has(key)) return fontVariantCache.get(key);
+    const variants = font.variants || [];
+    fail(variants.length, 'font_variants_missing');
+    const target = Number(weight) || 400;
+    const sameStyle = variants.filter((variant) => (variant.fontStyle || 'normal') === style);
+    const pool = sameStyle.length ? sameStyle : variants;
+    let best = pool[0];
+    for (const variant of pool.slice(1)) {
+      const currentDistance = Math.abs(Number(best.fontWeight) - target);
+      const nextDistance = Math.abs(Number(variant.fontWeight) - target);
+      if (nextDistance < currentDistance || (nextDistance === currentDistance && Number(variant.fontWeight) > Number(best.fontWeight))) best = variant;
+    }
+    const value = { font, variant: best };
+    fontVariantCache.set(key, value);
+    return value;
+  }
+
+  function setHostSafeLetterSpacing(target, requested) {
+    const value = asString(requested ?? '0').trim() || '0';
+    try {
+      target.letterSpacing = value;
+      return;
+    } catch (error) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric) || numeric >= 0) throw error;
+      target.letterSpacing = '0';
+      mark(target, { requestedLetterSpacing: value, appliedLetterSpacing: '0', compatibilityFallback: 'penpot-negative-letter-spacing' });
+    }
+  }
+
+  function createText(catalog, text, options = {}) {
+    const shape = penpot.createText(asString(text));
+    fail(shape, 'text_create_failed');
+    shape.name = options.name || asString(text).slice(0, 80) || 'Text';
+    shape.x = number(options.x);
+    shape.y = number(options.y);
+    const resolved = fontVariant(catalog, options.fontWeight ?? 400, options.fontStyle || 'normal');
+    resolved.font.applyToText(shape, resolved.variant);
+    shape.fontSize = asString(Math.max(1, number(options.fontSize, 14)));
+    shape.lineHeight = asString(options.lineHeight || '1.35');
+    setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');
+    shape.growType = options.growType || 'auto-height';
+    shape.fills = [{ fillColor: options.color || '#221a14', fillOpacity: options.opacity ?? 1 }];
+    if (Number.isFinite(options.width) && Number.isFinite(options.height)) shape.resize(options.width, options.height);
+    mark(shape, {
+      requestedFontFamily: catalog.foundations?.fontFamilies?.[0]?.value || 'runtime',
+      appliedFontFamily: resolved.font.name || resolved.font.fontFamily || 'sans',
+      requestedFontWeight: asString(options.fontWeight ?? 400),
+      appliedFontWeight: asString(resolved.variant.fontWeight),
+      fontVariantId: resolved.variant.fontVariantId,
+    });
+    return shape;
+  }
+
+  function componentCreate(shape) {
+    try { return penpot.library.local.createComponent([shape]); }
+    catch (error) {
+      try { return penpot.library.local.createComponent(shape); }
+      catch { throw error; }
+    }
+  }
+
+  function findComponent(id) {
+    return penpot.library.local.components.find((component) => getShared(component, 'id') === id) || null;
+  }
+
+  function archiveComponent(component, reason) {
+    try {
+      component.path = `Archive/Runtime 005/${component.path || 'Unsorted'}`;
+      component.name = `${component.name} · ${reason}`;
+      mark(component, { status: 'archived', archivedAt: now(), archiveReason: reason });
+      const main = component.mainInstance?.();
+      if (main) main.x = number(main.x) + 100000;
+    } catch {}
+  }
+
+  function managedBoards(page, kind = null) {
+    return page.findShapes({ type: 'board' }).filter((board) => isManaged(board) && (!kind || getShared(board, 'kind') === kind));
+  }
+
+  function removeManagedBoards(page, kinds) {
+    const set = new Set(kinds);
+    withUndo(() => {
+      for (const board of page.findShapes({ type: 'board' })) {
+        if (isManaged(board) && set.has(getShared(board, 'kind'))) board.remove();
+      }
+    });
+  }
+
+  async function commentCount(page) {
+    try {
+      const threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+      return threads.length;
+    } catch { return 0; }
+  }
+
+  async function cleanupLegacyPages(catalog, full = false) {
+    const archiveName = '89 — Review archive';
+    let archive = pageByName(archiveName);
+    if (!archive) {
+      archive = penpot.createPage();
+      archive.name = archiveName;
+    }
+    const activeNames = new Set(catalog.pageModel.map((item) => item.name));
+    const results = { removed: 0, archived: 0, kept: 0 };
+    for (const page of [...allPages()]) {
+      if (activeNames.has(page.name)) continue;
+      const legacy = page.name.startsWith('98 — Runtime 003.2')
+        || page.name.startsWith('99 — Technical')
+        || page.name.includes('Runtime 003.2')
+        || page.name.includes('Technical tests')
+        || page.findShapes({ type: 'board' }).some((board) => isLegacyManaged(board));
+      if (!legacy || (!full && !page.name.startsWith('98 — Runtime 003.2'))) continue;
+      const comments = await commentCount(page);
+      if (comments > 0) {
+        page.name = `89 — Review archive / ${page.name.replace(/^\d+\s+—\s+/u, '')}`;
+        results.archived += 1;
+      } else {
+        try { page.remove(); results.removed += 1; }
+        catch { page.name = `99 — Technical tests / ${page.name}`; results.kept += 1; }
+      }
+      await delay(180);
+    }
+    return results;
+  }
+
+  const PAGE_MODEL = [
+    { id: '00-system-map', name: '00 — System map' },
+    { id: '10-brand-assets', name: '10 — Brand assets' },
+    { id: '20-foundations', name: '20 — Foundations' },
+    { id: '25-iconography', name: '25 — Iconography' },
+    { id: '30-runtime-components', name: '30 — Runtime component masters' },
+    { id: '40-component-families', name: '40 — Product component families' },
+    { id: '50-patterns', name: '50 — Product patterns' },
+    { id: '60-archetypes', name: '60 — Page archetypes' },
+    { id: '70-coverage', name: '70 — Coverage and fragmentation' },
+    { id: '75-gaps', name: '75 — Design gaps' },
+    { id: '80-candidates', name: '80 — Candidate review' },
+    { id: '89-archive', name: '89 — Review archive' },
+    { id: '90-evidence-desktop', name: '90 — Evidence / desktop' },
+    { id: '91-evidence-tablet', name: '91 — Evidence / tablet' },
+    { id: '92-evidence-mobile', name: '92 — Evidence / mobile' },
+    { id: '93-evidence-a11y', name: '93 — Evidence / interaction and accessibility' },
+    { id: '99-technical', name: '99 — Technical tests' },
+  ];
+
+  function ensurePages(catalog) {
+    catalog.pageModel = PAGE_MODEL;
+    const map = new Map();
+    for (const item of PAGE_MODEL) {
+      let page = pageByName(item.name);
+      if (!page) {
+        page = penpot.createPage();
+        page.name = item.name;
+      }
+      markManaged(page, 'managed-page', item.id, catalog, { pageName: item.name });
+      map.set(item.id, page);
+    }
+    return map;
+  }
+
+  async function fetchCatalog() {
+    if (catalogCache) return catalogCache;
+    const response = await fetch(CATALOG_URL, { cache: 'no-store' });
+    fail(response.ok, `catalog_http_${response.status}`);
+    const text = await response.text();
+    const catalog = JSON.parse(text);
+    fail(catalog.delivery === 'penpot-runtime-derived-005', 'catalog_delivery_mismatch');
+    fail(catalog.catalogSha256 === CATALOG_SHA, `catalog_sha_mismatch:${catalog.catalogSha256}:${CATALOG_SHA}`);
+    fail(catalog.contract?.oldDesignSystemUsedAsSource === false, 'old_design_system_source_forbidden');
+    fail(catalog.contract?.manualComponentAllowlistUsed === false, 'manual_allowlist_forbidden');
+    catalog.pageModel = PAGE_MODEL;
+    catalogCache = catalog;
+    return catalog;
+  }
+
+  async function fetchBytes(relativePath) {
+    const url = `${CATALOG_ROOT}/${relativePath.replace(/^\/+/, '')}`;
+    if (mediaCache.has(url)) return mediaCache.get(url);
+    const response = await fetch(url, { cache: 'force-cache' });
+    fail(response.ok, `asset_http_${response.status}:${relativePath}`);
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    const mime = response.headers.get('content-type') || (relativePath.endsWith('.png') ? 'image/png' : 'application/octet-stream');
+    const value = { url, bytes, mime };
+    mediaCache.set(url, value);
+    return value;
+  }
+
+  async function uploadCatalogImage(relativePath, name) {
+    const key = `media:${relativePath}`;
+    if (mediaCache.has(key)) return mediaCache.get(key);
+    const { bytes, mime } = await fetchBytes(relativePath);
+    const image = await penpot.uploadMediaData(name, bytes, mime);
+    fail(image, `media_upload_null:${relativePath}`);
+    mediaCache.set(key, image);
+    await delay(120);
+    return image;
+  }
+
+  function createImageRect(image, options = {}) {
+    const rect = createRectangle({
+      name: options.name || 'Image',
+      x: options.x, y: options.y, width: options.width, height: options.height,
+      fill: '#F2E7D7', radius: options.radius || 0,
+    });
+    rect.fills = [{ fillOpacity: 1, fillImage: image }];
+    return rect;
+  }
+
+  function assetBySrc(catalog, src) {
+    return catalog.assets.find((asset) => asset.src === src) || null;
+  }
+
+  async function renderLayoutTree(catalog, page, component, x, y) {
+    const representative = component.representative;
+    const width = Math.max(24, number(representative.width, 320));
+    const height = Math.max(24, number(representative.height, 180));
+    const scale = Math.min(1, 860 / width, 680 / height);
+    const board = createBoard(page, {
+      name: `${component.title} · ${component.id}`,
+      x, y,
+      width: width * scale,
+      height: height * scale,
+      fill: cssColorToHex(representative.style?.backgroundColor, '#FFFDF8'),
+      stroke: '#D7C8B8', radius: parseRadius(representative.style?.borderRadius), clipContent: true,
+    });
+    markManaged(board, 'component-master-board', component.id, catalog, {
+      contentHash: component.signature,
+      kind: component.kind,
+      route: representative.route,
+      selector: representative.selector,
+      sourceCandidates: component.sourceCandidates,
+      scale,
+    });
+
+    const nodes = representative.tree || [];
+    for (const node of nodes.slice(1)) {
+      const nx = board.x + number(node.x) * scale;
+      const ny = board.y + number(node.y) * scale;
+      const nw = Math.max(1, number(node.width) * scale);
+      const nh = Math.max(1, number(node.height) * scale);
+      if (node.type === 'text') {
+        const text = createText(catalog, node.text, {
+          x: nx, y: ny, width: nw, height: nh,
+          fontSize: number(node.style?.fontSize, 14) * scale,
+          fontWeight: number(node.style?.fontWeight, 400),
+          fontStyle: node.style?.fontStyle || 'normal',
+          lineHeight: node.style?.lineHeight && node.style.lineHeight !== 'normal' ? asString(number(node.style.lineHeight, 18) * scale) : '1.25',
+          letterSpacing: node.style?.letterSpacing || '0',
+          color: cssColorToHex(node.style?.color, '#221A14'),
+          opacity: number(node.style?.opacity, 1),
+          name: `Text · ${node.text?.slice(0, 40) || 'runtime'}`,
+        });
+        append(board, text);
+        continue;
+      }
+      if (node.type === 'svg' && node.svg) {
+        try {
+          const svg = penpot.createShapeFromSvg(node.svg);
+          svg.name = `SVG · ${node.classes?.join('.') || node.id}`;
+          svg.x = nx; svg.y = ny; svg.resize(nw, nh);
+          append(board, svg);
+          continue;
+        } catch {}
+      }
+      if (node.type === 'image' && node.src) {
+        const asset = assetBySrc(catalog, node.src);
+        if (asset?.localPath) {
+          try {
+            const image = await uploadCatalogImage(asset.localPath, `${asset.id}-${component.id}`);
+            append(board, createImageRect(image, { x: nx, y: ny, width: nw, height: nh, radius: parseRadius(node.style?.borderRadius), name: `Image · ${asset.alt || asset.id}` }));
+            continue;
+          } catch {}
+        }
+      }
+      const fill = cssColorToHex(node.style?.backgroundColor, null);
+      const strokeWidth = number(node.style?.borderTopWidth, 0);
+      const stroke = strokeWidth > 0 && node.style?.borderTopStyle !== 'none'
+        ? cssColorToHex(node.style?.borderTopColor, '#D7C8B8')
+        : null;
+      if (!fill && !stroke) continue;
+      append(board, createRectangle({
+        name: `${node.tag || 'Box'} · ${node.classes?.slice(0, 2).join('.') || node.id}`,
+        x: nx, y: ny, width: nw, height: nh,
+        fill, stroke, strokeWidth: Math.max(1, strokeWidth * scale),
+        radius: parseRadius(node.style?.borderRadius) * scale,
+        opacity: number(node.style?.opacity, 1),
+      }));
+    }
+    return board;
+  }
+
+  function componentGridPosition(index) {
+    const column = index % 4;
+    const row = Math.floor(index / 4);
+    return { x: column * 980, y: row * 820 };
+  }
+
+  async function reconcileComponents(catalog, pages, mode, selectedIds = null) {
+    const page = pages.get('30-runtime-components');
+    await openPage(page);
+    const wanted = selectedIds ? catalog.components.filter((item) => selectedIds.has(item.id)) : catalog.components;
+    if (mode === 'full') removeManagedBoards(page, ['component-master-board']);
+    let created = 0, unchanged = 0, archived = 0;
+    for (let index = 0; index < wanted.length; index += 1) {
+      const component = wanted[index];
+      const existing = findComponent(component.id);
+      if (mode !== 'full' && existing && getShared(existing, 'contentHash') === component.signature) {
+        unchanged += 1;
+        continue;
+      }
+      if (existing) { archiveComponent(existing, 'runtime-updated'); archived += 1; }
+      progress('components', index + 1, wanted.length, component.title, { componentId: component.id });
+      const pos = componentGridPosition(index);
+      const board = await renderLayoutTree(catalog, page, component, pos.x, pos.y);
+      const master = componentCreate(board);
+      master.name = component.title.slice(0, 100);
+      master.path = `Runtime/${component.kind}`;
+      markManaged(master, 'runtime-component-master', component.id, catalog, {
+        contentHash: component.signature,
+        kind: component.kind,
+        occurrences: component.occurrences,
+        sourceCandidates: component.sourceCandidates,
+      });
+      created += 1;
+      if ((index + 1) % COMPONENT_BATCH === 0) await delay(BATCH_SETTLE_MS);
+    }
+    return { created, unchanged, archived };
+  }
+
+  async function reconcilePatterns(catalog, pages, mode, selectedIds = null) {
+    const page = pages.get('50-patterns');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['pattern-board']);
+    let created = 0, unchanged = 0;
+    for (let index = 0; index < catalog.patterns.length; index += 1) {
+      const pattern = catalog.patterns[index];
+      if (selectedIds && !selectedIds.has(pattern.id) && !pattern.componentIds.some((id) => selectedIds.has(id))) continue;
+      const existing = findComponent(pattern.id);
+      if (mode !== 'full' && existing && getShared(existing, 'contentHash') === pattern.id) {
+        unchanged += 1;
+        continue;
+      }
+      if (existing) archiveComponent(existing, 'pattern-updated');
+      progress('patterns', index + 1, catalog.patterns.length, pattern.title, { patternId: pattern.id });
+      const column = index % 3;
+      const row = Math.floor(index / 3);
+      const board = createBoard(page, {
+        name: pattern.title,
+        x: column * 1180,
+        y: row * 1500,
+        width: 1080,
+        height: Math.max(420, pattern.componentIds.length * 260 + 120),
+        fill: '#FBF7EF', stroke: '#D7C8B8', radius: 24,
+      });
+      markManaged(board, 'pattern-board', pattern.id, catalog, { contentHash: pattern.id });
+      append(board, createText(catalog, pattern.title, { x: board.x + 30, y: board.y + 24, fontSize: 26, fontWeight: 800, width: board.width - 60, height: 42 }));
+      let cursorY = board.y + 90;
+      for (const componentId of pattern.componentIds) {
+        const component = findComponent(componentId);
+        if (!component) continue;
+        try {
+          const instance = component.instance();
+          instance.name = `Instance · ${componentId}`;
+          instance.x = board.x + 30;
+          instance.y = cursorY;
+          const main = component.mainInstance?.();
+          const targetWidth = Math.min(board.width - 60, number(main?.width, 600));
+          const ratio = targetWidth / Math.max(1, number(main?.width, targetWidth));
+          instance.resize(targetWidth, Math.max(20, number(main?.height, 180) * ratio));
+          markManaged(instance, 'pattern-component-instance', `${pattern.id}:${componentId}`, catalog, { componentId, patternId: pattern.id });
+          append(board, instance);
+          cursorY += number(instance.height, 180) + 28;
+        } catch {}
+      }
+      board.resize(board.width, Math.max(240, cursorY - board.y + 30));
+      const master = componentCreate(board);
+      master.name = pattern.title;
+      master.path = 'Patterns/Runtime';
+      markManaged(master, 'runtime-pattern-master', pattern.id, catalog, { contentHash: pattern.id, componentIds: pattern.componentIds });
+      created += 1;
+      await delay(BATCH_SETTLE_MS);
+    }
+    return { created, unchanged };
+  }
+
+  function occurrenceMap(catalog) {
+    const map = new Map();
+    for (const component of catalog.components) {
+      for (const occurrence of component.occurrences) map.set(occurrence.id, { ...occurrence, componentId: component.id });
+    }
+    return map;
+  }
+
+  async function reconcileArchetypes(catalog, pages, mode, selectedIds = null) {
+    const page = pages.get('60-archetypes');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['archetype-board']);
+    const occurrences = occurrenceMap(catalog);
+    let created = 0, unchanged = 0;
+    let boardIndex = 0;
+    for (const pageSpec of catalog.pages) {
+      for (const viewport of pageSpec.viewports) {
+        const id = `archetype.${pageSpec.id}.${viewport.id}`;
+        if (selectedIds && !selectedIds.has(id) && !viewport.componentIds.some((componentId) => selectedIds.has(componentId))) continue;
+        const existing = managedBoards(page, 'archetype-board').find((board) => getShared(board, 'id') === id);
+        const contentHash = `${pageSpec.structureHash}:${viewport.id}:${viewport.componentIds.join(',')}`;
+        if (mode !== 'full' && existing && getShared(existing, 'contentHash') === contentHash) {
+          unchanged += 1;
+          continue;
+        }
+        if (existing) existing.remove();
+        progress('archetypes', boardIndex + 1, catalog.pages.reduce((sum, item) => sum + item.viewports.length, 0), `${pageSpec.representativeRoute} · ${viewport.id}`, { archetypeId: id });
+        const column = boardIndex % 3;
+        const row = Math.floor(boardIndex / 3);
+        const sourceWidth = Math.max(320, viewport.documentWidth || viewport.width);
+        const sourceHeight = Math.max(400, viewport.documentHeight || viewport.height);
+        const scale = Math.min(1, 920 / sourceWidth, 2100 / sourceHeight);
+        const board = createBoard(page, {
+          name: `${pageSpec.representativeRoute} · ${viewport.id}`,
+          x: column * 1120,
+          y: row * 2300,
+          width: sourceWidth * scale,
+          height: sourceHeight * scale,
+          fill: '#FFFFFF', stroke: '#D7C8B8', radius: 12, clipContent: true,
+        });
+        markManaged(board, 'archetype-board', id, catalog, {
+          contentHash,
+          route: pageSpec.representativeRoute,
+          routes: pageSpec.routes,
+          viewport: viewport.id,
+          evidenceScreenshot: viewport.screenshot,
+          patternId: viewport.patternId,
+        });
+        let instanceCount = 0;
+        for (const occurrenceId of viewport.topLevelOccurrenceIds || []) {
+          const occurrence = occurrences.get(occurrenceId);
+          if (!occurrence) continue;
+          const component = findComponent(occurrence.componentId);
+          if (!component) continue;
+          try {
+            const instance = component.instance();
+            instance.name = `Instance · ${occurrence.componentId}`;
+            instance.x = board.x + occurrence.x * scale;
+            instance.y = board.y + occurrence.y * scale;
+            instance.resize(Math.max(1, occurrence.width * scale), Math.max(1, occurrence.height * scale));
+            markManaged(instance, 'archetype-component-instance', `${id}:${occurrenceId}`, catalog, {
+              componentId: occurrence.componentId,
+              archetypeId: id,
+              occurrenceId,
+              route: pageSpec.representativeRoute,
+              viewport: viewport.id,
+            });
+            append(board, instance);
+            instanceCount += 1;
+          } catch {}
+        }
+        if (!instanceCount) {
+          append(board, createText(catalog, 'Компонентные границы не распознаны — см. Design gaps и actual screenshot.', {
+            x: board.x + 24, y: board.y + 24, fontSize: 16, fontWeight: 700,
+            color: '#A92D2D', width: board.width - 48, height: 80,
+          }));
+        }
+        created += 1;
+        boardIndex += 1;
+        await delay(BATCH_SETTLE_MS);
+      }
+    }
+    return { created, unchanged };
+  }
+
+  async function reconcileEvidence(catalog, pages, mode, selectedIds = null) {
+    const pageMap = {
+      desktop: pages.get('90-evidence-desktop'),
+      tablet: pages.get('91-evidence-tablet'),
+      mobile: pages.get('92-evidence-mobile'),
+    };
+    const counters = { desktop: 0, tablet: 0, mobile: 0 };
+    let created = 0, unchanged = 0;
+    const total = catalog.pages.reduce((sum, item) => sum + item.viewports.length, 0);
+    let index = 0;
+    for (const pageSpec of catalog.pages) {
+      for (const viewport of pageSpec.viewports) {
+        index += 1;
+        const group = viewport.viewportGroup || (viewport.id.startsWith('mobile') ? 'mobile' : viewport.id.startsWith('tablet') ? 'tablet' : 'desktop');
+        const targetPage = pageMap[group];
+        const id = `evidence.${pageSpec.id}.${viewport.id}`;
+        if (selectedIds && !selectedIds.has(id) && !selectedIds.has(`archetype.${pageSpec.id}.${viewport.id}`)) continue;
+        await openPage(targetPage);
+        const existing = managedBoards(targetPage, 'evidence-board').find((board) => getShared(board, 'id') === id);
+        if (mode !== 'full' && existing && getShared(existing, 'contentHash') === viewport.screenshotSha256) {
+          unchanged += 1;
+          continue;
+        }
+        if (existing) existing.remove();
+        progress('evidence', index, total, `${pageSpec.representativeRoute} · ${viewport.id}`, { evidenceId: id });
+        const image = await uploadCatalogImage(viewport.screenshot, id);
+        const slot = counters[group]++;
+        const column = slot % 3;
+        const row = Math.floor(slot / 3);
+        const scale = Math.min(1, 900 / viewport.documentWidth, 1900 / viewport.documentHeight);
+        const board = createBoard(targetPage, {
+          name: `${pageSpec.representativeRoute} · ${viewport.id} · actual`,
+          x: column * 1050,
+          y: row * 2100,
+          width: viewport.documentWidth * scale,
+          height: viewport.documentHeight * scale,
+          fill: '#FFFFFF', stroke: '#D7C8B8', radius: 12, clipContent: true,
+        });
+        append(board, createImageRect(image, { x: board.x, y: board.y, width: board.width, height: board.height, name: 'Actual runtime screenshot' }));
+        markManaged(board, 'evidence-board', id, catalog, {
+          contentHash: viewport.screenshotSha256,
+          route: pageSpec.representativeRoute,
+          routes: pageSpec.routes,
+          viewport: viewport.id,
+          sourceSha: catalog.source.revision,
+          screenshot: viewport.screenshot,
+          testStatus: 'actual-captured',
+        });
+        created += 1;
+        if (created % EVIDENCE_BATCH === 0) await delay(BATCH_SETTLE_MS);
+      }
+    }
+    return { created, unchanged };
+  }
+
+  async function reconcileIcons(catalog, pages, mode) {
+    const page = pages.get('25-iconography');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['icon-specimen']);
+    let created = 0, unchanged = 0;
+    for (let index = 0; index < catalog.icons.length; index += 1) {
+      const icon = catalog.icons[index];
+      const existing = findComponent(icon.id);
+      if (mode !== 'full' && existing && getShared(existing, 'contentHash') === icon.hash) {
+        unchanged += 1;
+        continue;
+      }
+      if (existing) archiveComponent(existing, 'icon-updated');
+      let markup = icon.markup || '';
+      if (!markup && icon.kind === 'svg-image' && icon.src) {
+        const asset = assetBySrc(catalog, icon.src);
+        if (asset?.localPath?.endsWith('.svg')) {
+          try { markup = new TextDecoder().decode((await fetchBytes(asset.localPath)).bytes); } catch {}
+        }
+      }
+      if (!markup) continue;
+      try {
+        const shape = penpot.createShapeFromSvg(markup);
+        shape.name = icon.title || icon.alt || icon.id;
+        const column = index % 10;
+        const row = Math.floor(index / 10);
+        shape.x = column * 160;
+        shape.y = row * 160;
+        shape.resize(96, 96);
+        markManaged(shape, 'runtime-icon-shape', icon.id, catalog, { contentHash: icon.hash, occurrences: icon.occurrences });
+        const component = componentCreate(shape);
+        component.name = shape.name;
+        component.path = 'Icons/Runtime observed';
+        markManaged(component, 'runtime-icon-master', icon.id, catalog, { contentHash: icon.hash, occurrences: icon.occurrences });
+        created += 1;
+      } catch {}
+      if ((index + 1) % 6 === 0) await delay(BATCH_SETTLE_MS);
+    }
+    return { created, unchanged };
+  }
+
+  async function reconcileFoundations(catalog, pages, mode) {
+    const page = pages.get('20-foundations');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['foundation-board']);
+    const existing = managedBoards(page, 'foundation-board').find((board) => getShared(board, 'id') === 'foundations.runtime');
+    if (mode !== 'full' && existing && getShared(existing, 'contentHash') === catalog.catalogSha256) return { created: 0, unchanged: 1 };
+    if (existing) existing.remove();
+    const board = createBoard(page, { name: 'Runtime foundations', x: 0, y: 0, width: 1800, height: 2400, fill: '#FBF7EF', stroke: '#D7C8B8', radius: 24 });
+    markManaged(board, 'foundation-board', 'foundations.runtime', catalog, { contentHash: catalog.catalogSha256 });
+    append(board, createText(catalog, 'Foundations extracted from the latest built pages', { x: 40, y: 30, fontSize: 34, fontWeight: 800, width: 1500, height: 52 }));
+    append(board, createText(catalog, `Source: events-bot-new@${catalog.source.revision}\nAll ${catalog.counts.generatedRoutes} generated routes inspected; ${catalog.counts.structuralClusters} structural clusters rendered in ${catalog.contract.viewports.length} viewports.`, { x: 40, y: 90, fontSize: 15, fontWeight: 500, color: '#6D6259', width: 1500, height: 80 }));
+    const sections = [
+      ['Colors', catalog.foundations.colors, 40, 200],
+      ['Font families', catalog.foundations.fontFamilies, 940, 200],
+      ['Font sizes', catalog.foundations.fontSizes, 40, 820],
+      ['Font weights', catalog.foundations.fontWeights, 940, 820],
+      ['Border radii', catalog.foundations.borderRadii, 40, 1440],
+      ['Spacing', catalog.foundations.spacing, 940, 1440],
+    ];
+    for (const [title, values, sx, sy] of sections) {
+      append(board, createText(catalog, title, { x: sx, y: sy, fontSize: 24, fontWeight: 800, width: 700, height: 36 }));
+      let y = sy + 52;
+      for (const item of (values || []).slice(0, 24)) {
+        if (title === 'Colors') {
+          const fill = cssColorToHex(item.value, '#FFFFFF');
+          append(board, createRectangle({ x: sx, y, width: 42, height: 42, fill, stroke: '#D7C8B8', radius: 8 }));
+          append(board, createText(catalog, `${item.value} · ${item.count}`, { x: sx + 56, y: y + 8, fontSize: 13, fontWeight: 600, width: 600, height: 28 }));
+          y += 52;
+        } else {
+          append(board, createText(catalog, `${item.value} · ${item.count}`, { x: sx, y, fontSize: 13, fontWeight: 600, width: 720, height: 24 }));
+          y += 28;
+        }
+      }
+    }
+    return { created: 1, unchanged: 0 };
+  }
+
+  async function reconcileBrandAssets(catalog, pages, mode) {
+    const page = pages.get('10-brand-assets');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['brand-asset-board']);
+    const brandAssets = catalog.assets.filter((asset) => /logo|brand|pwa|favicon|lockup|wordmark|mark|tag|badge|medallion|icon/i.test(`${asset.src} ${asset.alt}`)).slice(0, 180);
+    let created = 0, unchanged = 0;
+    for (let index = 0; index < brandAssets.length; index += 1) {
+      const asset = brandAssets[index];
+      const existing = managedBoards(page, 'brand-asset-board').find((board) => getShared(board, 'id') === asset.id);
+      const contentHash = asset.localPath || asset.src;
+      if (mode !== 'full' && existing && getShared(existing, 'contentHash') === contentHash) {
+        unchanged += 1;
+        continue;
+      }
+      if (existing) existing.remove();
+      const column = index % 4;
+      const row = Math.floor(index / 4);
+      const board = createBoard(page, { name: asset.alt || asset.id, x: column * 520, y: row * 420, width: 460, height: 360, fill: '#FFFDF8', stroke: '#D7C8B8', radius: 18, clipContent: true });
+      append(board, createText(catalog, asset.alt || asset.src.split('/').pop(), { x: board.x + 20, y: board.y + 16, fontSize: 15, fontWeight: 700, width: 420, height: 42 }));
+      if (asset.localPath) {
+        try {
+          const image = await uploadCatalogImage(asset.localPath, asset.id);
+          const w = Math.min(400, Math.max(80, asset.width || 320));
+          const h = Math.min(260, Math.max(80, asset.height || 220));
+          append(board, createImageRect(image, { x: board.x + 30, y: board.y + 76, width: w, height: h, radius: 12, name: 'Runtime-used brand asset' }));
+        } catch {}
+      }
+      markManaged(board, 'brand-asset-board', asset.id, catalog, { contentHash, src: asset.src, occurrences: asset.occurrences });
+      created += 1;
+      if ((index + 1) % 4 === 0) await delay(BATCH_SETTLE_MS);
+    }
+    return { created, unchanged, discovered: brandAssets.length };
+  }
+
+  async function reconcileCoverage(catalog, pages, mode) {
+    const page = pages.get('70-coverage');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['coverage-board']);
+    const existing = managedBoards(page, 'coverage-board').find((board) => getShared(board, 'id') === 'coverage.runtime');
+    if (mode !== 'full' && existing && getShared(existing, 'contentHash') === catalog.catalogSha256) return { created: 0, unchanged: 1 };
+    if (existing) existing.remove();
+    const board = createBoard(page, { name: 'Runtime coverage and fragmentation', x: 0, y: 0, width: 1800, height: Math.max(1400, catalog.fragmentation.length * 100 + 500), fill: '#FBF7EF', stroke: '#D7C8B8', radius: 24 });
+    markManaged(board, 'coverage-board', 'coverage.runtime', catalog, { contentHash: catalog.catalogSha256 });
+    append(board, createText(catalog, 'Coverage from latest built pages', { x: 40, y: 30, fontSize: 34, fontWeight: 800, width: 1500, height: 52 }));
+    const lines = [
+      `Generated routes inspected: ${catalog.counts.generatedRoutes}`,
+      `Structural page clusters: ${catalog.counts.structuralClusters}`,
+      `Runtime component signatures: ${catalog.counts.runtimeComponents}`,
+      `Runtime component occurrences: ${catalog.counts.componentOccurrences}`,
+      `Runtime patterns: ${catalog.counts.runtimePatterns}`,
+      `Imported Astro components: ${catalog.counts.importedAstroComponents}`,
+      `Runtime-mapped Astro components: ${catalog.counts.mappedAstroComponents}`,
+      `Imported but unmapped Astro components: ${catalog.counts.unmappedAstroComponents}`,
+      `Runtime icons: ${catalog.counts.icons}`,
+      `Used assets: ${catalog.counts.assets}`,
+      `Source mapping gaps: ${catalog.designGaps.filter((gap) => gap.status === 'needs-source-attribution').length}`,
+    ];
+    append(board, createText(catalog, lines.join('\n'), { x: 40, y: 100, fontSize: 17, fontWeight: 600, lineHeight: '1.55', width: 800, height: 360 }));
+    append(board, createText(catalog, 'Fragmentation clusters', { x: 940, y: 100, fontSize: 24, fontWeight: 800, width: 700, height: 40 }));
+    let y = 156;
+    for (const cluster of catalog.fragmentation) {
+      append(board, createText(catalog, `${cluster.title}\n${cluster.status} · ${cluster.recommendation}`, { x: 940, y, fontSize: 14, fontWeight: 600, lineHeight: '1.35', color: cluster.status === 'needs-review' ? '#A92D2D' : '#0F6C3D', width: 760, height: 76 }));
+      y += 90;
+    }
+    return { created: 1, unchanged: 0 };
+  }
+
+  async function reconcileGaps(catalog, pages, mode) {
+    const page = pages.get('75-gaps');
+    await openPage(page);
+    if (mode === 'full') removeManagedBoards(page, ['gap-board']);
+    const existing = managedBoards(page, 'gap-board').find((board) => getShared(board, 'id') === 'gaps.runtime');
+    if (mode !== 'full' && existing && getShared(existing, 'contentHash') === catalog.catalogSha256) return { created: 0, unchanged: 1 };
+    if (existing) existing.remove();
+    const board = createBoard(page, { name: 'Runtime design gaps', x: 0, y: 0, width: 1600, height: Math.max(800, catalog.designGaps.length * 88 + 160), fill: '#FFFDF8', stroke: '#D7C8B8', radius: 24 });
+    markManaged(board, 'gap-board', 'gaps.runtime', catalog, { contentHash: catalog.catalogSha256 });
+    append(board, createText(catalog, 'Design gaps discovered from runtime', { x: 40, y: 30, fontSize: 32, fontWeight: 800, width: 1400, height: 50 }));
+    let y = 100;
+    for (const gap of catalog.designGaps) {
+      append(board, createText(catalog, `${gap.title}\n${gap.status}`, { x: 40, y, fontSize: 14, fontWeight: 650, lineHeight: '1.35', color: '#A92D2D', width: 1480, height: 70 }));
+      y += 82;
+    }
+    return { created: 1, unchanged: 0 };
+  }
+
+  function selectedManagedIds() {
+    const result = new Set();
+    for (const shape of penpot.selection || []) {
+      const id = getShared(shape, 'id');
+      const componentId = getShared(shape, 'componentId');
+      const archetypeId = getShared(shape, 'archetypeId');
+      if (id) result.add(id);
+      if (componentId) result.add(componentId);
+      if (archetypeId) result.add(archetypeId);
+    }
+    return result;
+  }
+
+  function fileState() {
+    try {
+      const raw = penpot.currentFile?.getSharedPluginData(NS, FILE_STATE_KEY) || '';
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  }
+
+  function writeFileState(catalog, report) {
+    const state = {
+      schemaVersion: 1,
+      delivery: catalog.delivery,
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      syncedAt: now(),
+      counts: catalog.counts,
+      report,
+    };
+    try { penpot.currentFile?.setSharedPluginData(NS, FILE_STATE_KEY, JSON.stringify(state)); } catch {}
+    return state;
+  }
+
+  async function check() {
+    const catalog = await fetchCatalog();
+    const state = fileState();
+    const current = state?.catalogSha === catalog.catalogSha256 && state?.sourceSha === catalog.source.revision;
+    const result = {
+      current,
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      sourceMode: catalog.source.mode,
+      generatedAt: catalog.generatedAt,
+      counts: catalog.counts,
+      contract: catalog.contract,
+      releaseAttached: Object.keys(catalog.source.releaseEvidence || {}).length > 0,
+      state,
+      checkpoint: readCheckpoint(),
+    };
+    send({ type: 'check-result', ...result });
+    return { catalog, ...result };
+  }
+
+  async function update(mode = 'changed') {
+    if (operationActive) return;
+    operationActive = true;
+    const originalPage = penpot.currentPage;
+    try {
+      const catalog = await fetchCatalog();
+      const selected = mode === 'selected' ? selectedManagedIds() : null;
+      if (mode === 'selected') fail(selected.size, 'select_managed_component_or_archetype_first');
+      const pages = ensurePages(catalog);
+      const cleanup = await cleanupLegacyPages(catalog, mode === 'full');
+      const report = { mode, cleanup };
+      report.foundations = await reconcileFoundations(catalog, pages, mode);
+      report.brandAssets = await reconcileBrandAssets(catalog, pages, mode);
+      report.icons = await reconcileIcons(catalog, pages, mode);
+      report.components = await reconcileComponents(catalog, pages, mode, selected);
+      report.patterns = await reconcilePatterns(catalog, pages, mode, selected);
+      report.archetypes = await reconcileArchetypes(catalog, pages, mode, selected);
+      report.evidence = await reconcileEvidence(catalog, pages, mode, selected);
+      report.coverage = await reconcileCoverage(catalog, pages, mode);
+      report.gaps = await reconcileGaps(catalog, pages, mode);
+      const state = writeFileState(catalog, report);
+      clearCheckpoint();
+      send({ type: 'update-complete', state, report });
+    } catch (error) {
+      incident(error, { operation: 'update', mode });
+      send({ type: 'update-failed', message: asString(error?.message || error) });
+    } finally {
+      try { if (originalPage) await openPage(originalPage); } catch {}
+      operationActive = false;
+    }
+  }
+
+  async function buildPrompt() {
+    try {
+      const catalog = await fetchCatalog();
+      const selected = penpot.selection?.[0] || null;
+      const id = selected ? (getShared(selected, 'componentId') || getShared(selected, 'archetypeId') || getShared(selected, 'id')) : '';
+      const page = penpot.currentPage;
+      const threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+      const comments = [];
+      for (const thread of threads) {
+        if (selected?.id && thread.board?.id && thread.board.id !== selected.id && thread.board.id !== selected.parent?.id) continue;
+        const values = await thread.findComments();
+        for (const comment of values) {
+          const content = asString(comment.content).trim();
+          if (content) comments.push(`[Penpot #${thread.seqNumber}] ${content}`);
+        }
+      }
+      const component = catalog.components.find((item) => item.id === id) || null;
+      const archetype = id.startsWith('archetype.') ? id : null;
+      const prompt = [
+        '@GitHub onedayonemasterpiece/events-bot-new',
+        '',
+        `Доработай ${component ? `runtime-derived component \`${component.id}\`` : archetype ? `page archetype \`${archetype}\`` : 'выбранный элемент дизайн-системы'}.`,
+        '',
+        `Источник: latest built runtime \`${catalog.source.revision}\`.`,
+        `Каталог: \`${catalog.catalogSha256}\`.`,
+        component?.sourceCandidates?.length ? `Кандидаты исходников:\n${component.sourceCandidates.map((item) => `- ${item.url} (confidence ${item.confidence})`).join('\n')}` : '',
+        comments.length ? `Комментарии:\n${comments.join('\n')}` : 'Незакрытых комментариев в текущем контексте не найдено.',
+        '',
+        'Не восстанавливай интерфейс по памяти и не используй старую страницу /lab/design-system как источник. Сверь изменение с актуальным Astro runtime, обнови component master, его instances, page archetypes и visual evidence. Production не продвигай без sign-off владельца продукта.',
+      ].filter(Boolean).join('\n');
+      send({ type: 'prompt-ready', prompt, commentCount: comments.length, selectedId: id || null });
+    } catch (error) {
+      incident(error, { operation: 'build-prompt' });
+    }
+  }
+
+  penpot.ui.onMessage((message) => {
+    if (!message || typeof message !== 'object') return;
+    if (message.type === 'check') check().catch((error) => incident(error, { operation: 'check' }));
+    if (message.type === 'update') update(message.mode || 'changed');
+    if (message.type === 'build-prompt') buildPrompt();
+  });
+
+  check().catch((error) => incident(error, { operation: 'initial-check' }));
+})();
