@@ -47,7 +47,7 @@ jobs:
           test -s "$root/scripts/validate.mjs"
           test -s "$root/dist/ui.html"
 
-      - name: Repair validator marker to match the implemented one-update message contract
+      - name: Repair validator markers to match implemented message handlers
         shell: bash
         run: |
           set -euo pipefail
@@ -56,16 +56,16 @@ jobs:
 
           path = Path('prototypes/penpot-resource-graph-004b/scripts/validate.mjs')
           source = path.read_text(encoding='utf-8')
-          before = source
-          source = source.replace("type: 'update-all'", "update-all")
-          source = source.replace('type: "update-all"', 'update-all')
-          if source == before:
-              # The validator may already have been repaired by a prior generated commit.
-              if 'update-all' not in source:
-                  raise SystemExit('update_all_validator_marker_missing')
+          for message_type in ('check', 'update-all', 'build-prompt'):
+              source = source.replace(f"type: '{message_type}'", message_type)
+              source = source.replace(f'type: "{message_type}"', message_type)
+          for required in ('update-all', 'build-prompt'):
+              if required not in source:
+                  raise SystemExit(f'{required}_validator_marker_missing')
           path.write_text(source, encoding='utf-8')
           PY
           grep -Fq 'update-all' prototypes/penpot-resource-graph-004b/scripts/validate.mjs
+          grep -Fq 'build-prompt' prototypes/penpot-resource-graph-004b/scripts/validate.mjs
 
       - name: Checkout exact product source
         uses: actions/checkout@v4
