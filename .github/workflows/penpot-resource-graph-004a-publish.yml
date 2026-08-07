@@ -52,6 +52,14 @@ jobs:
           if needle not in source:
               raise SystemExit('svg_normalizer_patch_anchor_missing')
           path.write_text(source.replace(needle, replacement, 1), encoding='utf-8')
+
+          validator = Path('prototypes/penpot-resource-graph-004a/scripts/validate.mjs')
+          validator_source = validator.read_text(encoding='utf-8')
+          validator_needle = "  fail(!/[{}]/u.test(icon.svg), `icon_unresolved_expression:${icon.id}`);"
+          validator_replacement = "  fail(!/(?:class|style|aria-[\\w-]+|role|title)=\\{/u.test(icon.svg) && !icon.svg.includes('{name') && !icon.svg.includes('{title') && !icon.svg.includes('Astro.props'), `icon_unresolved_expression:${icon.id}`);"
+          if validator_needle not in validator_source:
+              raise SystemExit('icon_validator_patch_anchor_missing')
+          validator.write_text(validator_source.replace(validator_needle, validator_replacement, 1), encoding='utf-8')
           PY
           test -s "$root/src/plugin.js.template"
           test -s "$root/scripts/build-catalog.mjs"
