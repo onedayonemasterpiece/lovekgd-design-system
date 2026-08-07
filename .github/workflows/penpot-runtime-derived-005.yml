@@ -1,0 +1,319 @@
+name: Publish Runtime-Derived Design System 005 from latest pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - prototype/runtime-derived-005-latest-pages
+    paths:
+      - 'prototypes/penpot-runtime-derived-005/README.md'
+      - 'prototypes/penpot-runtime-derived-005/scripts/**'
+      - 'prototypes/penpot-runtime-derived-005/src/**'
+      - 'prototypes/penpot-runtime-derived-005/dist/ui.html'
+      - 'prototypes/penpot-runtime-derived-005/dist/manifest.json'
+      - 'prototypes/penpot-runtime-derived-005/dist/icon.svg'
+      - '.github/workflows/penpot-runtime-derived-005.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: penpot-runtime-derived-005
+  cancel-in-progress: true
+
+jobs:
+  build-runtime-inventory-and-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Checkout design-system delivery branch
+        uses: actions/checkout@v4
+        with:
+          ref: prototype/runtime-derived-005-latest-pages
+          fetch-depth: 0
+
+      - name: Checkout the newest product main
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: main
+          path: .source/events-bot-new
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+          cache: npm
+          cache-dependency-path: .source/events-bot-new/site/package-lock.json
+
+      - name: Install exact product dependencies and Chromium
+        working-directory: .source/events-bot-new/site
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Build the exact newest Astro pages
+        working-directory: .source/events-bot-new/site
+        env:
+          PUBLIC_SITE_MODE: production
+          PUBLIC_SITE_ORIGIN: http://127.0.0.1:4321
+          SITE_BASE_PATH: /
+          PUBLIC_ASSET_BASE_URL: http://127.0.0.1:4321
+          PUBLIC_TRANSPORT_TIMETABLE_EXPERIMENT_MODE: off
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run build
+
+      - name: Start the built runtime
+        working-directory: .source/events-bot-new/site
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup npx astro preview --host 127.0.0.1 --port 4321 > /tmp/rg005-astro.log 2>&1 &
+          echo $! > /tmp/rg005-astro.pid
+          for attempt in $(seq 1 120); do
+            if curl --fail --silent --show-error --max-time 5 http://127.0.0.1:4321/ >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/rg005-astro.log
+          exit 1
+
+      - name: Decode every latest page into runtime components and archetypes
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          product_sha="$(git -C .source/events-bot-new rev-parse HEAD)"
+          rm -rf "$root/catalog"
+          node "$root/scripts/build-runtime-catalog.mjs" \
+            --repo-dir .source/events-bot-new \
+            --site-dir .source/events-bot-new/site \
+            --dist .source/events-bot-new/site/dist \
+            --base-url http://127.0.0.1:4321 \
+            --source-sha "$product_sha" \
+            --max-clusters 1000 \
+            --max-candidates-per-page 600 \
+            --max-tree-nodes 180 \
+            --out "$root/catalog"
+
+      - name: Stop built runtime
+        if: always()
+        shell: bash
+        run: |
+          if test -f /tmp/rg005-astro.pid; then
+            kill "$(cat /tmp/rg005-astro.pid)" 2>/dev/null || true
+          fi
+          tail -n 120 /tmp/rg005-astro.log 2>/dev/null || true
+
+      - name: Validate latest-page inventory contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          product_sha="$(git -C .source/events-bot-new rev-parse HEAD)"
+          node - "$root/catalog/catalog.json" "$product_sha" <<'NODE'
+          const fs = require('node:fs');
+          const [catalogPath, expectedSha] = process.argv.slice(2);
+          const c = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          assert(c.delivery === 'penpot-runtime-derived-005', 'delivery');
+          assert(c.source?.revision === expectedSha, `source_sha:${c.source?.revision}:${expectedSha}`);
+          assert(c.source?.mode === 'latest-main-built-runtime', 'source_mode');
+          assert(c.source?.productionFreshnessClaimed === false, 'production_claim_must_be_false_without_receipt');
+          assert(c.contract?.oldDesignSystemUsedAsSource === false, 'old_design_system_forbidden');
+          assert(c.contract?.manualComponentAllowlistUsed === false, 'manual_component_allowlist_forbidden');
+          assert(c.contract?.sourceOfInventory?.includes('built HTML'), 'runtime_inventory_source');
+          assert(c.counts?.generatedRoutes > 0, 'generated_routes');
+          assert(c.counts?.structuralClusters > 0, 'structural_clusters');
+          assert(c.pages?.length === c.counts.structuralClusters, 'page_cluster_count');
+          assert(c.pages.every((page) => page.viewports?.length === 4), 'all_archetypes_four_viewports');
+          assert(c.counts?.failures === 0 && c.failures?.length === 0, 'runtime_capture_failures');
+          assert(c.counts?.runtimeComponents >= 30, `runtime_component_count:${c.counts?.runtimeComponents}`);
+          assert(c.counts?.runtimePatterns >= 5, `runtime_pattern_count:${c.counts?.runtimePatterns}`);
+          assert(c.counts?.importedAstroComponents >= 20, `imported_astro_count:${c.counts?.importedAstroComponents}`);
+          const kinds = new Set(c.components.map((item) => item.kind));
+          for (const kind of ['header', 'footer', 'navigation', 'button']) assert(kinds.has(kind), `missing_runtime_kind:${kind}`);
+          const assetText = c.assets.map((item) => `${item.src} ${item.alt}`).join('\n').toLowerCase();
+          assert(/pwa|favicon|logo|wordmark|lockup|brand/.test(assetText), 'brand_or_pwa_assets_not_observed');
+          assert(kinds.has('medallion') || /medallion|token/.test(assetText), 'medallions_not_observed');
+          assert(c.pages.some((page) => page.representativeRoute === '/'), 'home_archetype');
+          assert(c.pages.some((page) => page.routes.some((route) => route.startsWith('/sobytiya/'))), 'event_detail_archetype');
+          console.log(JSON.stringify({ ok: true, source: expectedSha, counts: c.counts, kinds: [...kinds].sort() }, null, 2));
+          NODE
+
+      - name: Commit exact catalog, screenshots and assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$root/catalog"
+          if ! git diff --cached --quiet; then
+            git commit -m 'runtime-derived 005: capture the newest built pages and components'
+          fi
+          git rev-parse HEAD > /tmp/rg005-catalog-commit
+          node -e "const c=require('./$root/catalog/catalog.json');process.stdout.write(c.catalogSha256)" > /tmp/rg005-catalog-sha
+          test "$(wc -c < /tmp/rg005-catalog-commit)" -eq 41
+          test "$(wc -c < /tmp/rg005-catalog-sha)" -eq 64
+
+      - name: Build immutable Penpot plugin and validate syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          catalog_commit="$(cat /tmp/rg005-catalog-commit)"
+          catalog_sha="$(cat /tmp/rg005-catalog-sha)"
+          sed \
+            -e "s/__UI_COMMIT__/$catalog_commit/g" \
+            -e "s/__CATALOG_COMMIT__/$catalog_commit/g" \
+            -e "s/__CATALOG_SHA__/$catalog_sha/g" \
+            "$root/src/plugin.js.template" > "$root/dist/plugin.js"
+          node --check "$root/dist/plugin.js"
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-runtime-derived-005/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/rg005-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/rg005-ui.js
+          python3 -m json.tool "$root/dist/manifest.json" >/dev/null
+
+      - name: Validate Penpot component graph and update modes
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          node - "$root" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const root = process.argv[2];
+          const plugin = fs.readFileSync(path.join(root, 'dist/plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(root, 'dist/ui.html'), 'utf8');
+          const manifest = JSON.parse(fs.readFileSync(path.join(root, 'dist/manifest.json'), 'utf8'));
+          const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog/catalog.json'), 'utf8'));
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          for (const marker of [
+            'renderLayoutTree', 'reconcileComponents', 'component.instance()', 'reconcilePatterns',
+            'reconcileArchetypes', 'reconcileEvidence', 'reconcileBrandAssets', 'reconcileIcons',
+            'cleanupLegacyPages', 'mode === \'selected\'', "mode === 'full'", "message.type === 'update'",
+            'old_design_system_source_forbidden', 'manual_allowlist_forbidden'
+          ]) assert(plugin.includes(marker), `plugin_contract:${marker}`);
+          for (const marker of ['Быстро: только изменившееся', 'Выбранное + зависимости', 'Полная пересборка и очистка']) {
+            assert(ui.includes(marker), `ui_update_mode:${marker}`);
+          }
+          assert(manifest.version === 2, 'manifest_version');
+          for (const permission of ['content:read', 'content:write', 'library:write', 'comment:read']) {
+            assert(manifest.permissions.includes(permission), `permission:${permission}`);
+          }
+          assert(catalog.contract.oldDesignSystemUsedAsSource === false, 'catalog_old_ds');
+          assert(catalog.contract.manualComponentAllowlistUsed === false, 'catalog_allowlist');
+          NODE
+
+      - name: Publish candidate files and live ref
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          mkdir -p penpot/candidate
+          cp "$root/dist/manifest.json" penpot/candidate/manifest.json
+          cp "$root/dist/plugin.js" penpot/candidate/plugin.js
+          cp "$root/dist/icon.svg" penpot/candidate/icon.svg
+          cat > penpot/candidate/README.md <<EOF2
+          # Penpot candidate channel
+
+          Current candidate: Runtime-Derived Design System 005.
+
+          Source: exact newest built events-bot-new pages. The old design-system lab is not used as inventory source. Stable channel is unchanged until a real Penpot-file acceptance passes.
+          EOF2
+          git add "$root/dist/plugin.js" penpot/candidate
+          if ! git diff --cached --quiet; then
+            git commit -m 'runtime-derived 005: publish immutable plugin and permanent candidate channel'
+          fi
+          final_sha="$(git rev-parse HEAD)"
+          git push origin HEAD:prototype/runtime-derived-005-latest-pages
+          git push --force origin HEAD:runtime-derived-005-live
+          printf '%s' "$final_sha" > /tmp/rg005-final-sha
+
+      - name: Public delivery smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-runtime-derived-005'
+          final_sha="$(cat /tmp/rg005-final-sha)"
+          catalog_commit="$(cat /tmp/rg005-catalog-commit)"
+          work="$RUNNER_TEMP/rg005-public"
+          mkdir -p "$work"
+
+          fetch_public() {
+            local url="$1" body="$2" headers="$3"
+            for attempt in $(seq 1 15); do
+              if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 120 -D "$headers" -o "$body" "$url"; then return 0; fi
+              sleep 5
+            done
+            echo "public fetch failed: $url" >&2
+            return 1
+          }
+          assert_cors() { tr -d '\r' < "$1" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'; }
+
+          cdn="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist"
+          fetch_public "$cdn/manifest.json" "$work/manifest.json" "$work/manifest.headers"
+          fetch_public "$cdn/plugin.js" "$work/plugin.js" "$work/plugin.headers"
+          fetch_public "$cdn/icon.svg" "$work/icon.svg" "$work/icon.headers"
+          fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${catalog_commit}/${root}/dist/ui.html" "$work/ui.html" "$work/ui.headers"
+          fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${catalog_commit}/${root}/catalog/catalog.json" "$work/catalog.json" "$work/catalog.headers"
+          sample="$(node -e 'const c=require(process.argv[1]);process.stdout.write(c.pages[0].viewports[0].screenshot)' "$work/catalog.json")"
+          fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${catalog_commit}/${root}/catalog/${sample}" "$work/sample.png" "$work/sample.headers"
+
+          for file in manifest plugin icon ui catalog sample; do assert_cors "$work/$file.headers"; done
+          node --check "$work/plugin.js"
+          node - "$work" "$catalog_commit" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [work, catalogCommit] = process.argv.slice(2);
+          const manifest = JSON.parse(fs.readFileSync(path.join(work, 'manifest.json'), 'utf8'));
+          const plugin = fs.readFileSync(path.join(work, 'plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(work, 'ui.html'), 'utf8');
+          const catalog = JSON.parse(fs.readFileSync(path.join(work, 'catalog.json'), 'utf8'));
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          assert(manifest.name.includes('latest pages 005'), 'manifest_name');
+          assert(plugin.includes(`const CATALOG_COMMIT = '${catalogCommit}'`), 'catalog_commit_pin');
+          assert(plugin.includes(`const CATALOG_SHA = '${catalog.catalogSha256}'`), 'catalog_hash_pin');
+          assert(ui.includes('Старый <code>/lab/design-system</code> источником не является'), 'ui_source_truth');
+          assert(catalog.contract.oldDesignSystemUsedAsSource === false, 'old_ds_source');
+          assert(catalog.contract.manualComponentAllowlistUsed === false, 'manual_allowlist');
+          assert(catalog.counts.failures === 0, 'capture_failures');
+          NODE
+
+          {
+            echo '### Runtime-Derived Design System 005 public delivery: PASS'
+            echo
+            echo "- exact product source: $(node -e 'const c=require(process.argv[1]);process.stdout.write(c.source.revision)' "$work/catalog.json")"
+            echo "- generated routes inspected: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.generatedRoutes))' "$work/catalog.json")"
+            echo "- page archetypes: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.structuralClusters))' "$work/catalog.json")"
+            echo "- runtime component signatures: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.runtimeComponents))' "$work/catalog.json")"
+            echo "- imported Astro components: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.importedAstroComponents))' "$work/catalog.json")"
+            echo "- runtime patterns: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.runtimePatterns))' "$work/catalog.json")"
+            echo "- icons: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.icons))' "$work/catalog.json")"
+            echo "- used assets: $(node -e 'const c=require(process.argv[1]);process.stdout.write(String(c.counts.assets))' "$work/catalog.json")"
+            echo '- old design-system source: false'
+            echo '- manual component allowlist: false'
+            echo "- immutable manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist/manifest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: penpot-runtime-derived-005-${{ github.run_id }}
+          path: |
+            prototypes/penpot-runtime-derived-005/catalog/receipt.json
+            prototypes/penpot-runtime-derived-005/catalog/failures.json
+          if-no-files-found: warn
+          retention-days: 30
