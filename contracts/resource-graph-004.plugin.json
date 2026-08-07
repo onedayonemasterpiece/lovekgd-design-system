@@ -51,10 +51,14 @@
     "recover-interrupted-operation",
     "reconcile-library-colors",
     "reconcile-library-typographies",
+    "reconcile-iconography-inventory",
+    "reconcile-icon-component-masters",
+    "reconcile-icon-variants-and-specimens",
     "reconcile-component-masters",
     "reconcile-variant-sets",
     "reconcile-product-patterns",
     "reconcile-archetype-instances",
+    "reconcile-icon-consumer-links",
     "reconcile-desktop-evidence",
     "reconcile-tablet-evidence",
     "reconcile-mobile-evidence",
@@ -68,6 +72,7 @@
     { "id": "00-system-map", "name": "00 — System map", "kind": "documentation" },
     { "id": "10-brand-assets", "name": "10 — Brand assets", "kind": "resources" },
     { "id": "20-foundations", "name": "20 — Foundations", "kind": "resources" },
+    { "id": "25-iconography", "name": "25 — Iconography", "kind": "resources" },
     { "id": "30-core-ui", "name": "30 — Core UI resources", "kind": "resources" },
     { "id": "40-announcements-components", "name": "40 — Announcements components", "kind": "resources" },
     { "id": "50-product-patterns", "name": "50 — Product patterns", "kind": "patterns" },
@@ -84,6 +89,10 @@
   "managed_object_types": [
     "library-color",
     "library-typography",
+    "icon-component-master",
+    "icon-variant",
+    "icon-specimen",
+    "icon-consumer-link",
     "component-master",
     "variant-container",
     "component-instance",
@@ -95,6 +104,50 @@
     "documentation-board",
     "review-snapshot"
   ],
+  "iconography": {
+    "source_contract": "onedayonemasterpiece/events-bot-new/site/src/data/design-system-iconography-contract.v1.json",
+    "authority": "accepted-production-release-reachability",
+    "native_vector_required": true,
+    "forbid_rasterized_icon_masters": true,
+    "resource_path_prefix": "Icon",
+    "separate_page": "25 — Iconography",
+    "categories": [
+      "system-and-actions",
+      "navigation",
+      "status-and-feedback",
+      "social-and-external-services",
+      "transport",
+      "festival-and-editorial-categories",
+      "product-specialized-symbols",
+      "optical-alignment-and-size-tests",
+      "accessibility-semantics",
+      "duplicates-legacy-and-unclassified"
+    ],
+    "specimen_sizes_px": [16, 20, 24, 32],
+    "control_target_px": 44,
+    "required_links": [
+      "icon-to-source",
+      "icon-to-production-consumer",
+      "icon-to-component-master",
+      "icon-to-archetype-instance",
+      "icon-to-evidence"
+    ],
+    "brand_asset_boundary": "Favicon, PWA artwork and channel lockups remain on 10 — Brand assets and are cross-linked from iconography; they are not generic UI icons.",
+    "classification_statuses": [
+      "current",
+      "candidate",
+      "legacy",
+      "unclassified",
+      "unused"
+    ],
+    "publication_gate": [
+      "zero-unclassified-production-icons",
+      "all-current-icons-have-native-masters",
+      "all-current-icons-have-production-consumers",
+      "all-current-icons-have-source-and-license-provenance",
+      "all-archetype-icon-instances-link-to-current-masters"
+    ]
+  },
   "evidence": {
     "separate_from_resource_pages": true,
     "origin": "automated-test-artifacts",
@@ -116,6 +169,7 @@
   "status_dimensions": [
     "production-source",
     "resource-library",
+    "iconography",
     "archetype-composition",
     "evidence",
     "coverage",
@@ -123,7 +177,7 @@
   ],
   "recovery": {
     "checkpoint_before_each_internal_batch": true,
-    "resume_without_user_page-selection": true,
+    "resume_without_user_page_selection": true,
     "cleanup_only_managed_staging": true,
     "preserve_foreign_objects": true,
     "preserve_native_comments": true,

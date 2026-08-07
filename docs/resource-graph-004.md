@@ -8,22 +8,24 @@ Resource Graph 004 is the next Penpot delivery after Runtime Review 003.2.
 
 ```text
 one accepted production release
-→ one machine-readable inventory
+→ one machine-readable production and iconography inventory
 → one Penpot plugin update
-→ native resource library
+→ native colors, typographies and icon resources
 → component and variant graph
 → archetypes assembled from instances
 → separate automated screenshot evidence
-→ component/archetype/evidence comments
+→ resource/component/archetype/evidence comments
 ```
 
-The product-side inventory contract is maintained in `events-bot-new`:
+The product-side inventory contracts are maintained in `events-bot-new`:
 
 - `site/src/data/design-system-production-surface-contract.v1.json`;
+- `site/src/data/design-system-iconography-contract.v1.json`;
 - `site/scripts/check-design-system-production-surface-contract.mjs`;
+- `site/scripts/check-design-system-iconography-contract.mjs`;
 - `docs/features/static-site-pages/design-system/penpot-resource-graph-004.md`.
 
-This repository consumes the resulting immutable production inventory. It does not rediscover current pages from the old `/lab/design-system/` route.
+This repository consumes the resulting immutable inventories. It does not rediscover current pages or icons from the old `/lab/design-system/` route.
 
 ## Production-only inventory
 
@@ -43,9 +45,51 @@ Current inventory includes only:
 - HTML routes found in that production artifact;
 - source pages mapped to those routes at the same SHA;
 - components transitively imported by those production page sources;
+- icons referenced by those production-reachable components or the accepted artifact;
 - brand assets emitted into the same release.
 
-A component that merely exists in Git but has no accepted production consumer is placed in candidate/coverage review, not in the current resource library. `/lab`, preview fixtures and deprecated implementations are excluded from current inventory.
+A component or icon that merely exists in Git but has no accepted production consumer is placed in candidate/coverage review, not in the current resource library. `/lab`, preview fixtures and deprecated implementations are excluded from current inventory.
+
+## Iconography is a first-class plane
+
+Iconography is not a handful of pictograms inside Foundations. Resource Graph 004 creates a dedicated page:
+
+```text
+25 — Iconography
+```
+
+It contains native vector component masters and documentation sections for:
+
+- system and actions;
+- navigation;
+- status and feedback;
+- social and external services;
+- transport;
+- festival and editorial categories;
+- product-specialized symbols;
+- optical alignment and size tests;
+- accessibility semantics;
+- duplicates, legacy and unclassified assets.
+
+The machine-readable delivery contract is [`contracts/resource-graph-004.iconography.json`](../contracts/resource-graph-004.iconography.json).
+
+Current icons are hierarchical native Resources, for example:
+
+```text
+Icon/UI/Share
+Icon/Navigation/Search
+Icon/Status/Warning
+Icon/Social/VK
+Icon/Transport/Bus
+Icon/Editorial/Festival category/Theatre
+Icon/Product/Artifact
+```
+
+A current icon master must retain source path/hash, source `viewBox`, optical size, semantic role, decorative/informative semantics, attribution/license, exact release identity and production consumers. Raster screenshots may document rendering evidence but are forbidden as icon masters.
+
+Specimens show `16`, `20`, `24` and `32` px sizes, a `44` px control target, relevant states and light/brand/dark/status backgrounds. Publication is blocked when a production icon is unclassified, lacks provenance or consumer links, or an archetype uses an unlinked local copy.
+
+PWA icons, favicon and channel lockups remain on `10 — Brand assets`; Iconography cross-links them without misclassifying them as generic UI icons.
 
 ## Screenshots remain first-class
 
@@ -57,6 +101,7 @@ Contain:
 
 - native Penpot colors;
 - native Penpot typographies;
+- native vector icon component masters and specimens;
 - component masters;
 - variant sets;
 - component instances;
@@ -93,11 +138,11 @@ desktop-1728x900
 
 Every required archetype references its actual screenshots. When a baseline exists, it also references the baseline and a diff when actual differs. References include the automated test ID and exact release identity.
 
-A screenshot proves what the browser rendered. An archetype explains which components and variants produced the page. Both are required.
+A screenshot proves what the browser rendered. An archetype explains which components, icons and variants produced the page. Both are required.
 
 ## One-update plugin UX
 
-The user opens the plugin once for an update. The plugin exposes no per-page or per-file workflow.
+The user opens the plugin once for an update. The plugin exposes no per-page, per-icon or per-file workflow.
 
 Maximum actions:
 
@@ -114,10 +159,11 @@ validate one catalog
 → recover interrupted staging
 → colors
 → typographies
+→ icon inventory, native masters and specimens
 → component masters
 → variants
 → patterns
-→ archetypes
+→ archetypes and icon-consumer links
 → desktop/tablet/mobile/interaction evidence
 → cross-links
 → comments and review snapshots
@@ -132,6 +178,7 @@ Internal batching, retries and page switching remain invisible orchestration det
 00 — System map
 10 — Brand assets
 20 — Foundations
+25 — Iconography
 30 — Core UI resources
 40 — Announcements components
 50 — Product patterns
@@ -155,19 +202,23 @@ One green `CURRENT` badge is replaced by independent dimensions:
 ```text
 Production source
 Resource library
+Iconography
 Archetype composition
 Evidence
 Coverage
 Review
 ```
 
-This prevents a technically current screenshot mirror from hiding an incomplete component inventory.
+This prevents a technically current screenshot mirror from hiding an incomplete component or icon inventory.
 
 ## Comment routing
 
 Comments target the selected level:
 
-- resource comment → token and all consumers;
+- color/typography resource comment → token and all consumers;
+- icon master/variant comment → shared icon, provenance and all consumers;
+- icon instance comment → icon master plus exact archetype context;
+- icon collection comment → optical consistency, licensing or fragmentation policy;
 - component master/variant comment → shared component and all archetypes;
 - instance comment → shared component plus exact archetype context;
 - pattern comment → product composition/user task;
@@ -184,9 +235,12 @@ Resource Graph 004 is accepted only after a real-file test proves:
 - at most three user actions;
 - one production inventory, not stale `/lab` data;
 - native colors, typographies, components and variants;
+- `25 — Iconography` with native current icon masters;
+- zero unclassified production icons;
+- icon source/provenance, consumer and archetype links;
 - required archetypes composed from instances;
 - automated actual/baseline/diff screenshots on separate evidence pages;
 - working archetype-to-evidence navigation;
-- correctly scoped comments and prompts;
+- correctly scoped icon, component and archetype comments/prompts;
 - crash recovery without page-by-page continuation;
 - a second preflight with zero pending managed changes and explicit coverage gaps.

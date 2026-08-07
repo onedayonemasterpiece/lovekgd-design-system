@@ -1,0 +1,117 @@
+{
+  "schema_version": "lovekgd-penpot-iconography-contract-v1",
+  "delivery_id": "resource-graph-004",
+  "source_contract": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "path": "site/src/data/design-system-iconography-contract.v1.json",
+    "inventory_artifact": "artifacts/design-system/iconography-inventory.json",
+    "authority": "accepted-production-release",
+    "current_definition": "Referenced by a production-reachable component or accepted production artifact at the exact release SHA."
+  },
+  "penpot": {
+    "page": "25 — Iconography",
+    "native_resource_prefix": "Icon",
+    "master_format": "native-vector-component",
+    "rasterized_master_forbidden": true,
+    "documentation_sections": [
+      "System and actions",
+      "Navigation",
+      "Status and feedback",
+      "Social and external services",
+      "Transport",
+      "Festival and editorial categories",
+      "Product-specialized symbols",
+      "Optical alignment and size tests",
+      "Accessibility semantics",
+      "Duplicates, legacy and unclassified"
+    ]
+  },
+  "resource_hierarchy": [
+    "Icon/UI",
+    "Icon/Navigation",
+    "Icon/Status",
+    "Icon/Social",
+    "Icon/Transport",
+    "Icon/Editorial/Festival category",
+    "Icon/Product",
+    "Icon/Legacy"
+  ],
+  "component_master_required_metadata": [
+    "icon_id",
+    "semantic_role",
+    "source_type",
+    "source_path",
+    "source_sha256",
+    "source_viewbox",
+    "optical_size",
+    "decorative_or_informative",
+    "license_or_provenance",
+    "status",
+    "production_consumers",
+    "release_identity"
+  ],
+  "specimens": {
+    "sizes_px": [16, 20, 24, 32],
+    "control_target_px": 44,
+    "backgrounds": ["light", "brand", "dark", "status"],
+    "states": ["default", "hover", "focus", "pressed", "disabled", "selected-when-applicable"],
+    "checks": [
+      "viewbox-normalization",
+      "optical-centering",
+      "stroke-and-fill-consistency",
+      "currentColor-behavior",
+      "small-size-legibility",
+      "forced-colors",
+      "high-contrast",
+      "touch-target-separation"
+    ]
+  },
+  "classification": {
+    "statuses": ["current", "candidate", "legacy", "unclassified", "unused"],
+    "current_assets_only_in_main_resource_groups": true,
+    "candidate_and_legacy_visible_in_governance_section": true,
+    "unclassified_blocks_publication": true
+  },
+  "consumer_graph": {
+    "required_edges": [
+      "icon-to-source",
+      "icon-to-production-consumer",
+      "icon-to-component-master",
+      "icon-to-archetype-instance",
+      "icon-to-evidence"
+    ],
+    "comment_routing": {
+      "master_comment": "changes the icon resource and all consumers after sign-off",
+      "archetype_instance_comment": "includes icon master plus the concrete archetype context",
+      "collection_section_comment": "targets iconography policy, consistency or fragmentation"
+    }
+  },
+  "brand_boundary": {
+    "cross_link_page": "10 — Brand assets",
+    "assets": ["favicon", "PWA icons", "channel lockups"],
+    "rule": "These assets are visually adjacent to iconography but remain brand/channel assets, not generic UI icons."
+  },
+  "update_flow": {
+    "user_action": "update-everything",
+    "manual_per_icon_import_forbidden": true,
+    "internal_steps": [
+      "load-single-catalog",
+      "verify-iconography-contract-and-inventory",
+      "classify-current-candidate-legacy-unclassified",
+      "reconcile-native-icon-masters",
+      "reconcile-specimen-sections",
+      "relink-component-and-archetype-instances",
+      "preserve-native-comments",
+      "verify-counts-hashes-consumers-and-provenance"
+    ]
+  },
+  "acceptance": [
+    "zero-unclassified-production-icons",
+    "zero-rasterized-current-icon-masters",
+    "all-current-icons-have-native-component-masters",
+    "all-current-icons-have-production-consumers",
+    "all-current-icons-have-source-and-license-provenance",
+    "all-current-archetype-icon-instances-reference-current-masters",
+    "one plugin opening and one update action updates the complete iconography plane"
+  ]
+}

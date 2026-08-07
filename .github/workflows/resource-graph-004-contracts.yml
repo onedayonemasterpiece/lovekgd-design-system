@@ -1,0 +1,35 @@
+name: Resource Graph 004 contracts
+
+on:
+  pull_request:
+    paths:
+      - 'contracts/resource-graph-004*.json'
+      - 'docs/resource-graph-004.md'
+      - 'README.md'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - '.github/workflows/resource-graph-004-contracts.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'contracts/resource-graph-004*.json'
+      - 'docs/resource-graph-004.md'
+      - 'README.md'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - '.github/workflows/resource-graph-004-contracts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+      - name: Validate Resource Graph 004 and iconography contracts
+        run: node scripts/validate-resource-graph-004-contracts.mjs
