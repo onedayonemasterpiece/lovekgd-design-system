@@ -122,7 +122,6 @@ jobs:
           tail -n 120 /tmp/penpot-003-astro.log 2>/dev/null || true
 
       - name: Commit exact UI, catalog and screenshots
-        id: source_commit
         shell: bash
         run: |
           set -euo pipefail
@@ -132,15 +131,15 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m 'prototype 003: capture exact Astro runtime into named Penpot catalog'
           fi
-          ui_sha="$(git rev-parse HEAD)"
-          echo "ui_sha=$ui_sha" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > /tmp/penpot003-ui-sha
+          test "$(wc -c < /tmp/penpot003-ui-sha)" -eq 41
 
       - name: Build immutable Penpot plugin and validate contract
         shell: bash
         run: |
           set -euo pipefail
           root='prototypes/penpot-as-is-runtime-003'
-          ui_sha='${{ steps.source_commit.outputs.ui_sha }}'
+          ui_sha="$(cat /tmp/penpot003-ui-sha)"
           sed "s/__UI_SHA__/$ui_sha/g" "$root/dist/plugin.js.template" > "$root/dist/plugin.js"
           node --check "$root/dist/plugin.js"
           python3 - <<'PY'
@@ -153,7 +152,6 @@ jobs:
           node "$root/scripts/validate.mjs" "$root"
 
       - name: Commit plugin and publish live catalog ref
-        id: publish
         shell: bash
         run: |
           set -euo pipefail
@@ -161,14 +159,16 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m 'prototype 003: bind Penpot plugin to immutable runtime UI'
           fi
+          source_ui_sha="$(cat /tmp/penpot003-ui-sha)"
           final_sha="$(git rev-parse HEAD)"
           git push origin HEAD:prototype/penpot-as-is-runtime-003
           git push --force origin HEAD:penpot-as-is-live
-          echo "final_sha=$final_sha" >> "$GITHUB_OUTPUT"
-          echo "### Prototype 003 published" >> "$GITHUB_STEP_SUMMARY"
-          echo "- source UI commit: ${{ steps.source_commit.outputs.ui_sha }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- final plugin commit: $final_sha" >> "$GITHUB_STEP_SUMMARY"
-          echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@$final_sha/prototypes/penpot-as-is-runtime-003/dist/manifest.json" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo '### Prototype 003 published'
+            echo "- source UI commit: $source_ui_sha"
+            echo "- final plugin commit: $final_sha"
+            echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@$final_sha/prototypes/penpot-as-is-runtime-003/dist/manifest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload capture evidence
         if: always()
