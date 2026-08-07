@@ -1,0 +1,132 @@
+{
+  "schema_version": "lovekgd-penpot-resource-graph-plugin-contract-v1",
+  "delivery_id": "resource-graph-004",
+  "source": {
+    "catalog_count_per_update": 1,
+    "authority": "accepted-production-release-inventory",
+    "required_identity": [
+      "repo_sha",
+      "build_id",
+      "run_id",
+      "snapshot_id",
+      "snapshot_sha256",
+      "catalog_sha256"
+    ],
+    "forbid_arbitrary_main": true,
+    "forbid_lab_as_inventory_authority": true
+  },
+  "interaction": {
+    "plugin_open_per_update": 1,
+    "maximum_user_actions": 3,
+    "auto_preflight_on_open": true,
+    "actions": [
+      {
+        "id": "check-currentness",
+        "label": "Проверить актуальность",
+        "mutates_file": false,
+        "optional": true
+      },
+      {
+        "id": "update-everything",
+        "label": "Обновить дизайн-систему",
+        "mutates_file": true,
+        "primary": true
+      },
+      {
+        "id": "build-review-prompt",
+        "label": "Собрать промпт по комментариям",
+        "mutates_file": false
+      }
+    ],
+    "forbidden_actions": [
+      "update-page",
+      "update-component",
+      "update-file",
+      "continue-next-page",
+      "import-next-batch-manually"
+    ]
+  },
+  "update_everything_phases": [
+    "load-and-verify-single-catalog",
+    "recover-interrupted-operation",
+    "reconcile-library-colors",
+    "reconcile-library-typographies",
+    "reconcile-component-masters",
+    "reconcile-variant-sets",
+    "reconcile-product-patterns",
+    "reconcile-archetype-instances",
+    "reconcile-desktop-evidence",
+    "reconcile-tablet-evidence",
+    "reconcile-mobile-evidence",
+    "reconcile-interaction-and-accessibility-evidence",
+    "write-resource-consumer-evidence-links",
+    "preserve-native-comments-and-review-snapshots",
+    "verify-hashes-counts-links-and-coverage",
+    "publish-one-final-report"
+  ],
+  "penpot_pages": [
+    { "id": "00-system-map", "name": "00 — System map", "kind": "documentation" },
+    { "id": "10-brand-assets", "name": "10 — Brand assets", "kind": "resources" },
+    { "id": "20-foundations", "name": "20 — Foundations", "kind": "resources" },
+    { "id": "30-core-ui", "name": "30 — Core UI resources", "kind": "resources" },
+    { "id": "40-announcements-components", "name": "40 — Announcements components", "kind": "resources" },
+    { "id": "50-product-patterns", "name": "50 — Product patterns", "kind": "patterns" },
+    { "id": "60-page-archetypes", "name": "60 — Page archetypes", "kind": "archetypes" },
+    { "id": "70-coverage-fragmentation", "name": "70 — Coverage and fragmentation", "kind": "governance" },
+    { "id": "80-candidate-review", "name": "80 — Candidate review", "kind": "review" },
+    { "id": "89-review-archive", "name": "89 — Review archive", "kind": "archive" },
+    { "id": "90-evidence-desktop", "name": "90 — Evidence / desktop", "kind": "evidence" },
+    { "id": "91-evidence-tablet", "name": "91 — Evidence / tablet", "kind": "evidence" },
+    { "id": "92-evidence-mobile", "name": "92 — Evidence / mobile", "kind": "evidence" },
+    { "id": "93-evidence-interaction-a11y", "name": "93 — Evidence / interaction and accessibility", "kind": "evidence" },
+    { "id": "99-technical-tests", "name": "99 — Technical tests", "kind": "technical" }
+  ],
+  "managed_object_types": [
+    "library-color",
+    "library-typography",
+    "component-master",
+    "variant-container",
+    "component-instance",
+    "product-pattern",
+    "page-archetype",
+    "evidence-actual",
+    "evidence-approved-baseline",
+    "evidence-diff",
+    "documentation-board",
+    "review-snapshot"
+  ],
+  "evidence": {
+    "separate_from_resource_pages": true,
+    "origin": "automated-test-artifacts",
+    "viewports": [
+      "mobile-390x844",
+      "mobile-430x932",
+      "tablet-768x1024",
+      "desktop-1280x800",
+      "desktop-1728x900"
+    ],
+    "required_links": [
+      "archetype-to-actual",
+      "archetype-to-approved-baseline",
+      "archetype-to-diff-when-present",
+      "evidence-to-test-run",
+      "evidence-to-release-identity"
+    ]
+  },
+  "status_dimensions": [
+    "production-source",
+    "resource-library",
+    "archetype-composition",
+    "evidence",
+    "coverage",
+    "review"
+  ],
+  "recovery": {
+    "checkpoint_before_each_internal_batch": true,
+    "resume_without_user_page-selection": true,
+    "cleanup_only_managed_staging": true,
+    "preserve_foreign_objects": true,
+    "preserve_native_comments": true,
+    "fail_closed": true
+  }
+}
