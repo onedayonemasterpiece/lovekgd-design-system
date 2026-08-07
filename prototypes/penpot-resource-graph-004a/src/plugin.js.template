@@ -10,12 +10,16 @@
   const LEGACY_KEY = 'element';
   const FILE_CATALOG_KEY = 'current-catalog';
   const CHECKPOINT_KEY = 'lovekgd.resourcegraph.004a.checkpoint';
+  const PRODUCT_ATLAS_NS = 'lovekgd.productatlas.001';
+const PRODUCT_ATLAS_FILE_KIND_KEY = 'file-kind';
+const PRODUCT_ATLAS_FILE_KIND = 'product-atlas';
+
   const PAGE_SETTLE_MS = 420;
   const BATCH_SETTLE_MS = 220;
   const ICON_BATCH_SIZE = 5;
   const CORE_BATCH_SIZE = 4;
 
-  penpot.ui.open('LoveKGD Resource Graph · 004a.2', UI_URL, { width: 540, height: 860 });
+  penpot.ui.open('LoveKGD Resource Graph · 004a.3', UI_URL, { width: 540, height: 860 });
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const now = () => new Date().toISOString();
@@ -155,7 +159,31 @@
     }
   }
 
+  function assertNotProductAtlasFile() {
+  const reasons = [];
+  for (const page of allPages()) {
+    try {
+      if (page.getSharedPluginData(PRODUCT_ATLAS_NS, PRODUCT_ATLAS_FILE_KIND_KEY) === PRODUCT_ATLAS_FILE_KIND) {
+        reasons.push(`page:${page.name}`);
+      }
+    } catch {}
+    let boards = [];
+    try { boards = page.findShapes({ type: 'board' }); } catch {}
+    for (const board of boards) {
+      try {
+        const fileKind = board.getSharedPluginData(PRODUCT_ATLAS_NS, PRODUCT_ATLAS_FILE_KIND_KEY);
+        const managed = board.getSharedPluginData(PRODUCT_ATLAS_NS, 'managed');
+        if (fileKind === PRODUCT_ATLAS_FILE_KIND || managed === 'true') {
+          reasons.push(`board:${board.name}`);
+        }
+      } catch {}
+    }
+  }
+  fail(reasons.length === 0, `wrong_file_kind:product-atlas:${reasons.slice(0, 12).join(',')}`);
+}
+
   function ensurePages(catalog) {
+    assertNotProductAtlasFile();
     migrateLegacyPageNames(catalog);
     const result = new Map();
     for (const name of catalog.pages) {
