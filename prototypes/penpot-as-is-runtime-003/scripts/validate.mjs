@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const root = resolve(process.argv[2] || 'prototypes/penpot-as-is-runtime-003');
@@ -69,6 +69,8 @@ for (const route of ['/', '/segodnya/', '/zavtra/', '/vyhodnye/', '/populyarnoe/
   fail(pageArchetypes.has(route), `missing_route:${route}`);
 }
 
+// The plugin owns deterministic Penpot synchronization and the native-comment review flow.
+// Human-facing state labels live in ui.html and therefore are validated separately below.
 for (const marker of [
   "const NS = 'lovekgd.runtime.003'",
   'createPage',
@@ -77,18 +79,20 @@ for (const marker of [
   'uploadMediaData',
   'renameTechnicalPage',
   'findCommentThreads',
-  'CURRENT',
-  'STALE',
-  'SYNC FAILED',
+  'commentThreads',
+  'buildPrompt',
+  "type: 'build-prompt'",
+  'candidate-preview',
 ]) fail(plugin.includes(marker), `plugin_marker:${marker}`);
 
 for (const marker of [
   "CATALOG_BRANCH = 'penpot-as-is-live'",
   'crypto.subtle.digest',
-  'Git screenshot',
+  'exact runtime screenshots',
   'CURRENT',
   'STALE',
   'SYNC FAILED',
+  'Собрать промпт по комментариям',
 ]) fail(ui.includes(marker), `ui_marker:${marker}`);
 
 fail(manifest.code === 'plugin.js', 'manifest_code');
