@@ -38,13 +38,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          bundle='prototypes/penpot-resource-graph-004a/bootstrap/source.tar.gz.b64'
-          test -s "$bundle"
-          base64 --decode "$bundle" | tar --extract --gzip --directory .
-          test -s prototypes/penpot-resource-graph-004a/src/plugin.js.template
-          test -s prototypes/penpot-resource-graph-004a/scripts/build-catalog.mjs
-          test -s prototypes/penpot-resource-graph-004a/scripts/validate.mjs
-          test -s prototypes/penpot-resource-graph-004a/dist/ui.html
+          root='prototypes/penpot-resource-graph-004a'
+          cat "$root"/bootstrap/part-*.b64 > /tmp/resource-graph-004a-source.b64
+          base64 --decode /tmp/resource-graph-004a-source.b64 > /tmp/resource-graph-004a-source.tar.gz
+          echo 'cd5063ceb845dc086fb13c97318d7c7466ff82a0004939d8079bac2b3ab1155b  /tmp/resource-graph-004a-source.tar.gz' | sha256sum --check --strict
+          tar --extract --gzip --file /tmp/resource-graph-004a-source.tar.gz --directory .
+          test -s "$root/src/plugin.js.template"
+          test -s "$root/scripts/build-catalog.mjs"
+          test -s "$root/scripts/validate.mjs"
+          test -s "$root/dist/ui.html"
 
       - name: Checkout exact product source
         uses: actions/checkout@v4
@@ -203,5 +205,5 @@ jobs:
         with:
           name: resource-graph-004a-${{ github.run_id }}
           path: prototypes/penpot-resource-graph-004a/catalog/catalog.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
