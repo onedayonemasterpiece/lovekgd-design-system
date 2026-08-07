@@ -1,0 +1,198 @@
+name: Penpot Runtime Review 003.2 publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix/penpot-runtime-0032-host-safe-resume
+    paths:
+      - 'prototypes/penpot-as-is-runtime-0032/bootstrap/**'
+      - '.github/workflows/penpot-runtime-0032-publish.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: penpot-runtime-0032-publish
+  cancel-in-progress: true
+
+env:
+  ROOT: prototypes/penpot-as-is-runtime-0032
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/penpot-runtime-0032-host-safe-resume
+          fetch-depth: 0
+
+      - name: Restore reviewed Prototype 003.2 source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="${RUNNER_TEMP}/penpot0032"
+          mkdir -p "$work"
+          cat "$ROOT"/bootstrap/part-*.b64 > "$work/source.tar.gz.b64"
+          test "$(wc -c < "$work/source.tar.gz.b64")" -gt 10000
+          base64 --decode "$work/source.tar.gz.b64" > "$work/source.tar.gz"
+          gzip --test "$work/source.tar.gz"
+          tar --extract --gzip --file "$work/source.tar.gz" --directory "$ROOT"
+
+          test -f "$ROOT/dist/plugin.js.template"
+          test -f "$ROOT/dist/ui.html"
+          test -f "$ROOT/dist/manifest.json"
+          test -f "$ROOT/dist/icon.svg"
+          test -f "$ROOT/scripts/validate.mjs"
+          test -f "$ROOT/README.md"
+          sha256sum "$work/source.tar.gz.b64" "$work/source.tar.gz" | tee "$work/source.sha256"
+
+      - name: Validate source and persist immutable UI revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$ROOT/dist/plugin.js.template" /tmp/penpot0032-plugin-template.js
+          node --check /tmp/penpot0032-plugin-template.js
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-as-is-runtime-0032/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/penpot0032-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/penpot0032-ui.js
+          node "$ROOT/scripts/validate.mjs" "$ROOT"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003.2: materialize host-safe resumable sync source'
+          fi
+          git rev-parse HEAD > /tmp/penpot0032-ui-sha
+          test "$(wc -c < /tmp/penpot0032-ui-sha)" -eq 41
+
+      - name: Build immutable plugin and validate generated delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          ui_sha="$(cat /tmp/penpot0032-ui-sha)"
+          sed "s/__UI_SHA__/$ui_sha/g" "$ROOT/dist/plugin.js.template" > "$ROOT/dist/plugin.js"
+          node --check "$ROOT/dist/plugin.js"
+          grep -Fq "const UI_SHA = '$ui_sha'" "$ROOT/dist/plugin.js"
+          grep -Fq 'undoBlockBegin' "$ROOT/dist/plugin.js"
+          grep -Fq 'checkpoint' "$ROOT/dist/plugin.js"
+          grep -Fq 'cleanup' "$ROOT/dist/plugin.js"
+          grep -Fq 'copy-diagnostic' "$ROOT/dist/ui.html"
+          node "$ROOT/scripts/validate.mjs" "$ROOT"
+
+          git add "$ROOT/dist/plugin.js"
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003.2: bind plugin to immutable host-safe UI'
+          fi
+          git rev-parse HEAD > /tmp/penpot0032-final-sha
+          test "$(wc -c < /tmp/penpot0032-final-sha)" -eq 41
+
+      - name: Publish branch and live revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          final_sha="$(cat /tmp/penpot0032-final-sha)"
+          git push origin HEAD:fix/penpot-runtime-0032-host-safe-resume
+          git push --force origin HEAD:penpot-runtime-0032-live
+          echo "$final_sha" > /tmp/penpot0032-published-sha
+
+      - name: Smoke-test public immutable delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="${RUNNER_TEMP}/penpot0032/public"
+          mkdir -p "$work"
+          final_sha="$(cat /tmp/penpot0032-final-sha)"
+          ui_sha="$(cat /tmp/penpot0032-ui-sha)"
+
+          fetch_public() {
+            local url="$1" body="$2" headers="$3"
+            for attempt in $(seq 1 18); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 10 --max-time 60 \
+                -D "$headers" -o "$body" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            echo "Failed public fetch: ${url}" >&2
+            return 1
+          }
+
+          assert_cors() {
+            tr -d '\r' < "$1" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
+          }
+
+          cdn_base="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${ROOT}/dist"
+          ui_url="https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${ui_sha}/${ROOT}/dist/ui.html"
+          fetch_public "${cdn_base}/manifest.json" "$work/manifest.json" "$work/manifest.headers"
+          fetch_public "${cdn_base}/plugin.js" "$work/plugin.js" "$work/plugin.headers"
+          fetch_public "${cdn_base}/icon.svg" "$work/icon.svg" "$work/icon.headers"
+          fetch_public "$ui_url" "$work/ui.html" "$work/ui.headers"
+          assert_cors "$work/manifest.headers"
+          assert_cors "$work/plugin.headers"
+          assert_cors "$work/icon.headers"
+          assert_cors "$work/ui.headers"
+          node --check "$work/plugin.js"
+
+          node - "$work" "$ui_sha" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [work, uiSha] = process.argv.slice(2);
+          const manifest = JSON.parse(fs.readFileSync(path.join(work, 'manifest.json'), 'utf8'));
+          const plugin = fs.readFileSync(path.join(work, 'plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(work, 'ui.html'), 'utf8');
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          assert(manifest.name.includes('003.2'), 'manifest name');
+          assert(manifest.version === 2, 'manifest version');
+          assert(manifest.code === 'plugin.js', 'manifest code');
+          assert(JSON.stringify(manifest.permissions) === JSON.stringify(['content:read', 'content:write', 'comment:read']), 'permissions');
+          assert(plugin.includes(`const UI_SHA = '${uiSha}'`), 'UI pin');
+          for (const marker of ['undoBlockBegin', 'checkpoint', 'cleanup', 'findCommentThreads', 'buildPrompt']) {
+            assert(plugin.includes(marker), `plugin marker ${marker}`);
+          }
+          for (const marker of ['copy-diagnostic', 'diagnostic-text', 'CURRENT', 'STALE', 'SYNC FAILED']) {
+            assert(ui.includes(marker), `UI marker ${marker}`);
+          }
+          const inline = ui.match(/<script>([\s\S]*?)<\/script>/u);
+          assert(inline, 'inline UI script');
+          fs.writeFileSync(path.join(work, 'ui-inline.js'), inline[1]);
+          NODE
+          node --check "$work/ui-inline.js"
+
+          live_ref='https://api.github.com/repos/onedayonemasterpiece/lovekgd-design-system/git/ref/heads/penpot-runtime-0032-live'
+          fetch_public "$live_ref" "$work/live-ref.json" "$work/live-ref.headers"
+          live_sha="$(node -e "const r=require(process.argv[1]); if(!/^[0-9a-f]{40}$/.test(r.object.sha)) process.exit(1); process.stdout.write(r.object.sha)" "$work/live-ref.json")"
+          test "$live_sha" = "$final_sha"
+
+          {
+            echo '### Penpot Runtime Review 003.2: PASS'
+            echo
+            echo "- immutable plugin commit: \`${final_sha}\`"
+            echo "- pinned UI commit: \`${ui_sha}\`"
+            echo '- manifest/plugin/icon/UI: HTTP + CORS + syntax passed'
+            echo '- host-safe page batching, checkpoint and cleanup contracts: present'
+            echo
+            echo "Manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${ROOT}/dist/manifest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: penpot-runtime-0032-${{ github.run_id }}
+          path: |
+            prototypes/penpot-as-is-runtime-0032/README.md
+            prototypes/penpot-as-is-runtime-0032/dist/manifest.json
+            prototypes/penpot-as-is-runtime-0032/dist/plugin.js
+            prototypes/penpot-as-is-runtime-0032/dist/ui.html
+          if-no-files-found: warn
+          retention-days: 14

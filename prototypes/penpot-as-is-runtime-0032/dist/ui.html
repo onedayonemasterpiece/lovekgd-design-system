@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LoveKGD Runtime Review 003.2</title>
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#201d1a;background:#f7f5f0}
+    *{box-sizing:border-box}
+    body{margin:0;padding:14px}
+    h1{font-size:18px;margin:0 0 5px}
+    p{font-size:12px;line-height:1.45;margin:0;color:#625c54}
+    .card{background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:11px;margin:10px 0}
+    .row{display:flex;align-items:center;gap:8px}.row-between{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:850;letter-spacing:.05em}
+    .checking{background:#dce8f2;color:#315b7a}.current{background:#dcebe3;color:#2f6248}.stale{background:#f2e7c9;color:#6a531f}.failed{background:#f1d9d9;color:#8b3030}
+    .status{font-size:12px;line-height:1.42;white-space:pre-wrap;margin-top:8px}
+    button{width:100%;border:0;border-radius:10px;padding:11px 12px;font:inherit;font-weight:780;cursor:pointer;margin-top:7px}
+    button.primary{background:#203b57;color:#fff}button.secondary{background:#ebe7de;color:#201d1a}button.danger{background:#8b3030;color:#fff}button:disabled{opacity:.45;cursor:not-allowed}
+    dl{display:grid;grid-template-columns:128px 1fr;gap:5px 8px;font-size:11px;margin:0}dt{color:#6d665e}dd{margin:0;overflow-wrap:anywhere}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{border:1px solid #e2ddd4;border-radius:9px;padding:8px;background:#faf8f4}.metric b{display:block;font-size:15px}.metric span{font-size:10px;color:#6d665e}
+    details summary{cursor:pointer;font-size:11px;font-weight:750}ul{margin:7px 0 0;padding-left:18px;font-size:11px;line-height:1.4}
+    textarea{width:100%;min-height:190px;border:1px solid #cec7bc;border-radius:10px;padding:9px;resize:vertical;font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .diagnostic textarea{min-height:260px}.diagnostic strong{color:#8b3030}.diagnostic code{font-size:10px}.hidden{display:none}.ok{color:#1f6b48}.warn{color:#8b5b00}.error{color:#9a2d2d}code{overflow-wrap:anywhere}
+    progress{width:100%;height:10px;margin-top:9px}.tiny{font-size:10px;color:#746d64}.transform{color:#6a531f;font-weight:700}
+    .recovery{border-color:#d5a73b;background:#fffaf0}.recovery strong{color:#7a5700}
+  </style>
+</head>
+<body>
+  <h1>LoveKGD Runtime Review · 003.2</h1>
+  <p>Host-safe sync: media сначала загружаются отдельно, затем boards создаются по страницам с ограниченными mutation batches. Interrupted staging восстанавливается автоматически.</p>
+
+  <div class="card">
+    <div class="row"><span id="badge" class="badge checking">CHECKING</span><strong id="headline">Проверяю каталог…</strong></div>
+    <div id="status" class="status">Получаю точный Git SHA и проверяю каждый screenshot.</div>
+    <progress id="progress" class="hidden" max="100" value="0"></progress>
+    <div id="progress-meta" class="tiny hidden"></div>
+    <button id="check" class="primary">Проверить актуальность</button>
+    <button id="sync" class="secondary" disabled>Синхронизировать именованные страницы</button>
+    <button id="prompt" class="secondary">Собрать промпт по комментариям</button>
+  </div>
+
+  <div id="recovery-card" class="card recovery hidden">
+    <div class="row-between"><strong>Незавершённая предыдущая операция</strong><code id="recovery-time"></code></div>
+    <dl style="margin-top:8px">
+      <dt>Фаза</dt><dd id="recovery-phase"></dd>
+      <dt>Элемент</dt><dd id="recovery-element"></dd>
+      <dt>Страница</dt><dd id="recovery-page"></dd>
+      <dt>Прогресс</dt><dd id="recovery-progress"></dd>
+      <dt>Staging boards</dt><dd id="recovery-staging"></dd>
+    </dl>
+    <button id="cleanup" class="secondary">Очистить interrupted staging</button>
+  </div>
+
+  <div id="catalog" class="card hidden">
+    <dl>
+      <dt>Catalog</dt><dd id="revision"></dd>
+      <dt>Catalog SHA</dt><dd><code id="catalog-sha"></code></dd>
+      <dt>Runtime SHA</dt><dd><code id="runtime-sha"></code></dd>
+      <dt>Pages</dt><dd id="pages"></dd>
+      <dt>Artifacts</dt><dd id="artifacts"></dd>
+      <dt>Source bytes</dt><dd id="source-bytes"></dd>
+      <dt>Transport bytes</dt><dd id="transport-bytes"></dd>
+      <dt>Safe derivatives</dt><dd id="transformed"></dd>
+      <dt>GitHub API</dt><dd id="rate"></dd>
+    </dl>
+  </div>
+
+  <div id="plan" class="card hidden">
+    <div class="grid">
+      <div class="metric"><b id="m-pages">0</b><span>pages</span></div>
+      <div class="metric"><b id="m-create">0</b><span>create</span></div>
+      <div class="metric"><b id="m-replace">0</b><span>replace</span></div>
+      <div class="metric"><b id="m-review">0</b><span>review</span></div>
+      <div class="metric"><b id="m-move">0</b><span>move/meta</span></div>
+      <div class="metric"><b id="m-remove">0</b><span>remove</span></div>
+      <div class="metric"><b id="m-noop">0</b><span>noop</span></div>
+      <div class="metric"><b id="m-staging">0</b><span>interrupted staging</span></div>
+    </div>
+    <details><summary>Подробный план</summary><ul id="plan-list"></ul></details>
+  </div>
+
+  <div id="report" class="card hidden">
+    <strong>Последняя синхронизация</strong>
+    <dl style="margin-top:8px">
+      <dt>Load</dt><dd id="r-load"></dd>
+      <dt>Inspect</dt><dd id="r-inspect"></dd>
+      <dt>Media upload</dt><dd id="r-upload"></dd>
+      <dt>Shape staging</dt><dd id="r-stage"></dd>
+      <dt>Commit</dt><dd id="r-commit"></dd>
+      <dt>Result</dt><dd id="r-result"></dd>
+    </dl>
+  </div>
+
+  <div id="diagnostic-card" class="card diagnostic hidden">
+    <div class="row-between"><strong>Диагностика ошибки</strong><code id="incident"></code></div>
+    <dl style="margin-top:8px">
+      <dt>Фаза</dt><dd id="d-phase"></dd>
+      <dt>Элемент</dt><dd id="d-element"></dd>
+      <dt>Artifact</dt><dd id="d-artifact"></dd>
+      <dt>Transport</dt><dd id="d-transport"></dd>
+      <dt>Попытка</dt><dd id="d-attempt"></dd>
+      <dt>Ошибка</dt><dd id="d-error"></dd>
+    </dl>
+    <textarea id="diagnostic-text" readonly></textarea>
+    <button id="copy-diagnostic" class="danger">Скопировать полную диагностику</button>
+  </div>
+
+  <div id="prompt-card" class="card hidden">
+    <textarea id="prompt-text" readonly></textarea>
+    <button id="copy" class="primary">Скопировать промпт</button>
+  </div>
+
+<script>
+  const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+  const CATALOG_BRANCH = 'penpot-as-is-live';
+  const CATALOG_PATH = 'prototypes/penpot-as-is-runtime-003/catalog/catalog.json';
+  const ROOT = 'prototypes/penpot-as-is-runtime-003/catalog/';
+  const REF_URL = `https://api.github.com/repos/${REPOSITORY}/git/ref/heads/${CATALOG_BRANCH}`;
+  const MAX_TRANSPORT_DIMENSION = 7600;
+  const MAX_TRANSPORT_PIXELS = 24_000_000;
+  const LARGE_SOURCE_BYTES = 900_000;
+  const DESIRED_DEVICE_SCALE = 2;
+
+  const $ = (selector) => document.querySelector(selector);
+  const badge = $('#badge');
+  const headline = $('#headline');
+  const statusNode = $('#status');
+  const checkButton = $('#check');
+  const syncButton = $('#sync');
+  const promptButton = $('#prompt');
+  const cleanupButton = $('#cleanup');
+  const progressNode = $('#progress');
+  const progressMeta = $('#progress-meta');
+
+  let loaded = null;
+  let plan = null;
+  let checking = false;
+  let syncing = false;
+  let lastDiagnostic = null;
+
+  const send = (type, payload = {}) => parent.postMessage({ type, ...payload }, '*');
+  const assert = (condition, message) => { if (!condition) throw new Error(message); };
+  const formatBytes = (value) => value < 1024
+    ? `${value} B`
+    : value < 1048576
+      ? `${(value / 1024).toFixed(1)} KiB`
+      : `${(value / 1048576).toFixed(2)} MiB`;
+  const hex = (buffer) => Array.from(new Uint8Array(buffer), (value) => value.toString(16).padStart(2, '0')).join('');
+
+  const bytesToBase64 = (bytes) => {
+    let binary = '';
+    const step = 0x8000;
+    for (let index = 0; index < bytes.length; index += step) {
+      binary += String.fromCharCode(...bytes.subarray(index, Math.min(bytes.length, index + step)));
+    }
+    return btoa(binary);
+  };
+
+  function setState(state, title, detail = '') {
+    const css = state === 'SYNC FAILED' ? 'failed' : state.toLowerCase();
+    badge.className = `badge ${css}`;
+    badge.textContent = state;
+    headline.textContent = title;
+    statusNode.textContent = detail;
+    statusNode.className = `status ${state === 'CURRENT' ? 'ok' : state === 'STALE' ? 'warn' : state === 'SYNC FAILED' ? 'error' : ''}`;
+  }
+
+  function showProgress(value, label = '') {
+    progressNode.classList.remove('hidden');
+    progressMeta.classList.remove('hidden');
+    progressNode.value = Math.max(0, Math.min(100, value));
+    progressMeta.textContent = label;
+  }
+
+  function hideProgress() {
+    progressNode.classList.add('hidden');
+    progressMeta.classList.add('hidden');
+  }
+
+  async function fetchExact(url, as = 'bytes') {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000);
+    try {
+      const response = await fetch(url, { cache: 'no-store', signal: controller.signal });
+      assert(response.ok, `http_${response.status}:${url}`);
+      if (as === 'json') return { value: await response.json(), response };
+      return { value: new Uint8Array(await response.arrayBuffer()), response };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function sha256(bytes) {
+    return hex(await crypto.subtle.digest('SHA-256', bytes));
+  }
+
+  async function mapLimit(items, limit, worker) {
+    const result = new Array(items.length);
+    let cursor = 0;
+    async function run() {
+      while (true) {
+        const index = cursor++;
+        if (index >= items.length) return;
+        result[index] = await worker(items[index], index);
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
+    return result;
+  }
+
+  function validateCatalog(catalog) {
+    assert(catalog?.schemaVersion === 1, 'catalog_schema_unsupported');
+    assert(catalog.contract?.mode === 'observed-as-is', 'catalog_mode_invalid');
+    assert(Array.isArray(catalog.pages) && catalog.pages.length === 9, 'catalog_pages_invalid');
+    assert(Array.isArray(catalog.elements) && catalog.elements.length >= 24, 'catalog_too_small');
+    const ids = new Set();
+    for (const element of catalog.elements) {
+      assert(element.id && !ids.has(element.id), `duplicate_element:${element.id}`);
+      ids.add(element.id);
+      assert(element.artifact?.type === 'image', `artifact_type:${element.id}`);
+      assert(/^[0-9a-f]{64}$/u.test(element.artifact.sha256 || ''), `artifact_hash:${element.id}`);
+      assert(Number.isFinite(element.board?.width) && Number.isFinite(element.board?.height), `board_size:${element.id}`);
+    }
+    return catalog;
+  }
+
+  async function decodeImage(bytes, mimeType) {
+    const blob = new Blob([bytes], { type: mimeType });
+    if ('createImageBitmap' in window) return createImageBitmap(blob);
+    const url = URL.createObjectURL(blob);
+    try {
+      const image = new Image();
+      image.decoding = 'async';
+      image.src = url;
+      await image.decode();
+      return image;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  function transportTarget(element) {
+    const sourceWidth = element.artifact.originalWidth;
+    const sourceHeight = element.artifact.originalHeight;
+    const boardWidth = Math.max(1, Math.round(element.board.width));
+    const boardHeight = Math.max(1, Math.round(element.board.height));
+    const sourceScale = Math.min(sourceWidth / boardWidth, sourceHeight / boardHeight);
+    const dimensionScale = MAX_TRANSPORT_DIMENSION / Math.max(boardWidth, boardHeight);
+    const pixelScale = Math.sqrt(MAX_TRANSPORT_PIXELS / (boardWidth * boardHeight));
+    const scale = Math.max(0.1, Math.min(DESIRED_DEVICE_SCALE, sourceScale, dimensionScale, pixelScale));
+    return {
+      width: Math.max(1, Math.round(boardWidth * scale)),
+      height: Math.max(1, Math.round(boardHeight * scale)),
+      scale,
+    };
+  }
+
+  async function canvasBlob(canvas, type, quality) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('canvas_to_blob_failed')), type, quality);
+    });
+  }
+
+  async function safeTransport(element, sourceBytes) {
+    const target = transportTarget(element);
+    const reasons = [];
+    if (Math.max(element.artifact.originalWidth, element.artifact.originalHeight) > MAX_TRANSPORT_DIMENSION) reasons.push('source-dimension');
+    if (element.artifact.byteLength > LARGE_SOURCE_BYTES) reasons.push('source-bytes');
+    if (target.width < element.artifact.originalWidth || target.height < element.artifact.originalHeight) reasons.push('display-derivative');
+
+    if (!reasons.length) {
+      return {
+        bytes: sourceBytes,
+        mimeType: element.artifact.mimeType,
+        width: element.artifact.originalWidth,
+        height: element.artifact.originalHeight,
+        transformed: false,
+        transformReason: null,
+      };
+    }
+
+    const image = await decodeImage(sourceBytes, element.artifact.mimeType);
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = target.width;
+      canvas.height = target.height;
+      const context = canvas.getContext('2d', { alpha: false });
+      assert(context, `canvas_context_missing:${element.id}`);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = 'high';
+      context.fillStyle = '#ffffff';
+      context.fillRect(0, 0, target.width, target.height);
+      context.drawImage(image, 0, 0, target.width, target.height);
+      const blob = await canvasBlob(canvas, 'image/webp', 0.9);
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return {
+        bytes,
+        mimeType: 'image/webp',
+        width: target.width,
+        height: target.height,
+        transformed: true,
+        transformReason: reasons.join(','),
+      };
+    } finally {
+      if (typeof image.close === 'function') image.close();
+    }
+  }
+
+  async function loadCatalog() {
+    const started = performance.now();
+    const { value: ref, response } = await fetchExact(REF_URL, 'json');
+    const catalogSha = ref?.object?.sha;
+    assert(/^[0-9a-f]{40}$/.test(catalogSha || ''), 'catalog_branch_sha_missing');
+
+    const catalogUrl = `https://raw.githack.com/${REPOSITORY}/${catalogSha}/${CATALOG_PATH}`;
+    const { value: catalog } = await fetchExact(catalogUrl, 'json');
+    validateCatalog(catalog);
+
+    const artifactsStarted = performance.now();
+    let completed = 0;
+    const prepared = await mapLimit(catalog.elements, 2, async (element) => {
+      const url = `https://raw.githack.com/${REPOSITORY}/${catalogSha}/${ROOT}${element.artifact.path}`;
+      const { value: sourceBytes } = await fetchExact(url);
+      const actual = await sha256(sourceBytes);
+      assert(actual === element.artifact.sha256, `artifact_hash_mismatch:${element.id}`);
+      assert(sourceBytes.byteLength === element.artifact.byteLength, `artifact_size_mismatch:${element.id}`);
+
+      const transport = await safeTransport(element, sourceBytes);
+      const transportHash = await sha256(transport.bytes);
+      completed += 1;
+      showProgress(
+        (completed / catalog.elements.length) * 100,
+        `Подготовка ${completed}/${catalog.elements.length}: ${element.id}${transport.transformed ? ' · safe WebP derivative' : ''}`,
+      );
+      return {
+        ...element,
+        payload: {
+          type: 'image',
+          bytesBase64: bytesToBase64(transport.bytes),
+          mimeType: transport.mimeType,
+          byteLength: transport.bytes.byteLength,
+          sha256: transportHash,
+          width: transport.width,
+          height: transport.height,
+          transformed: transport.transformed,
+          transformReason: transport.transformReason,
+        },
+        loadedBytes: sourceBytes.byteLength,
+      };
+    });
+
+    const sourceBytes = prepared.reduce((sum, item) => sum + item.loadedBytes, 0);
+    const transportBytes = prepared.reduce((sum, item) => sum + item.payload.byteLength, 0);
+    const transformedCount = prepared.filter((item) => item.payload.transformed).length;
+
+    return {
+      catalog: { ...catalog, catalogSha, elements: prepared },
+      metrics: {
+        totalMs: Math.round(performance.now() - started),
+        artifactMs: Math.round(performance.now() - artifactsStarted),
+        sourceBytes,
+        transportBytes,
+        transformedCount,
+        totalBytes: transportBytes,
+        rateLimitRemaining: response.headers.get('x-ratelimit-remaining') || '—',
+      },
+    };
+  }
+
+  function renderCatalog(data) {
+    $('#catalog').classList.remove('hidden');
+    $('#revision').textContent = data.catalog.catalogRevision;
+    $('#catalog-sha').textContent = data.catalog.catalogSha;
+    $('#runtime-sha').textContent = data.catalog.source.revision;
+    $('#pages').textContent = String(data.catalog.pages.length);
+    $('#artifacts').textContent = `${data.catalog.elements.length} exact runtime screenshots`;
+    $('#source-bytes').textContent = `${formatBytes(data.metrics.sourceBytes)} verified`;
+    $('#transport-bytes').textContent = `${formatBytes(data.metrics.transportBytes)} to Penpot`;
+    $('#transformed').innerHTML = `<span class="transform">${data.metrics.transformedCount}</span> / ${data.catalog.elements.length}`;
+    $('#rate').textContent = `${data.metrics.rateLimitRemaining} запросов осталось`;
+  }
+
+  function setMetric(selector, value) {
+    $(selector).textContent = String(value || 0);
+  }
+
+  function renderPlan(message) {
+    plan = message;
+    $('#plan').classList.remove('hidden');
+    const summary = message.summary;
+    setMetric('#m-pages', summary.pages);
+    setMetric('#m-create', summary.create);
+    setMetric('#m-replace', summary.replace);
+    setMetric('#m-review', summary.review);
+    setMetric('#m-move', summary.move + summary.metadata + summary.relocate);
+    setMetric('#m-remove', summary.remove);
+    setMetric('#m-noop', summary.noop);
+    setMetric('#m-staging', message.totalInterruptedStaging);
+
+    const list = $('#plan-list');
+    list.replaceChildren();
+    for (const item of message.items.slice(0, 160)) {
+      const li = document.createElement('li');
+      li.textContent = `${item.pageName || 'page'} · ${item.elementId || item.pageId}: ${item.action}${item.commentCount ? ` · comments ${item.commentCount}` : ''}`;
+      list.appendChild(li);
+    }
+
+    syncButton.disabled = message.changeCount === 0 || syncing;
+    hideProgress();
+    if (message.changeCount === 0 && message.totalInterruptedStaging === 0) {
+      setState('CURRENT', 'Penpot соответствует Git runtime', `${message.totalCurrent} current boards на ${message.pageCount} именованных pages.`);
+    } else {
+      const staging = message.totalInterruptedStaging
+        ? ` Interrupted staging: ${message.totalInterruptedStaging}; будет очищен перед sync.`
+        : '';
+      setState('STALE', `Найдено изменений: ${message.changeCount}`, `План host-safe: media upload без page navigation, затем page-batched shape mutations.${staging}`);
+    }
+  }
+
+  function renderRecovery(message) {
+    const card = $('#recovery-card');
+    const value = message.checkpoint;
+    const staging = Number(message.interruptedStaging || 0);
+    if (!value && !staging) {
+      card.classList.add('hidden');
+      return;
+    }
+    card.classList.remove('hidden');
+    $('#recovery-time').textContent = value?.updatedAt || '—';
+    $('#recovery-phase').textContent = value?.phase || 'unknown';
+    $('#recovery-element').textContent = value?.elementId || '—';
+    $('#recovery-page').textContent = value?.pageName || value?.pageId || value?.currentPage || '—';
+    $('#recovery-progress').textContent = value?.total ? `${value.index || 0}/${value.total}` : '—';
+    $('#recovery-staging').textContent = String(staging);
+    cleanupButton.disabled = staging === 0;
+  }
+
+  function renderDiagnostic(value) {
+    lastDiagnostic = value;
+    $('#diagnostic-card').classList.remove('hidden');
+    $('#incident').textContent = value.incidentId || 'unknown';
+    $('#d-phase').textContent = value.phase || 'unknown';
+    $('#d-element').textContent = value.element ? `${value.element.id} · ${value.element.pageId}` : '—';
+    $('#d-artifact').textContent = value.element?.artifact
+      ? `${value.element.artifact.path} · ${formatBytes(value.element.artifact.byteLength)} · ${value.element.artifact.originalWidth}×${value.element.artifact.originalHeight}`
+      : '—';
+    $('#d-transport').textContent = value.element?.transport
+      ? `${value.element.transport.mimeType} · ${formatBytes(value.element.transport.byteLength)} · ${value.element.transport.width}×${value.element.transport.height}${value.element.transport.transformed ? ' · transformed' : ''}`
+      : '—';
+    $('#d-attempt').textContent = value.attempt ? `${value.attempt}/${value.maxAttempts || '—'}` : '—';
+    $('#d-error').textContent = value.error?.message || value.error?.cause?.message || JSON.stringify(value.error || {}).slice(0, 260);
+    $('#diagnostic-text').value = JSON.stringify(value, null, 2);
+    setState('SYNC FAILED', 'Синхронизация остановлена', `${value.phase}: ${value.element?.id || 'без element context'} · incident ${value.incidentId}`);
+    checking = false;
+    syncing = false;
+    checkButton.disabled = false;
+    syncButton.disabled = !loaded || !plan || plan.changeCount === 0;
+    hideProgress();
+  }
+
+  async function check() {
+    if (checking || syncing) return;
+    checking = true;
+    checkButton.disabled = true;
+    syncButton.disabled = true;
+    $('#diagnostic-card').classList.add('hidden');
+    setState('CHECKING', 'Проверяю runtime-каталог…', 'Получаю exact Git SHA, проверяю source hashes и готовлю transport payload.');
+    showProgress(1, 'Начинаю загрузку каталога');
+    try {
+      loaded = await loadCatalog();
+      renderCatalog(loaded);
+      send('inspect-catalog', { catalog: loaded.catalog, loadMetrics: loaded.metrics });
+    } catch (error) {
+      setState('SYNC FAILED', 'Проверка остановлена', String(error?.message || error));
+      hideProgress();
+    } finally {
+      checking = false;
+      checkButton.disabled = false;
+    }
+  }
+
+  checkButton.addEventListener('click', check);
+
+  syncButton.addEventListener('click', () => {
+    if (!loaded || !plan || syncing) return;
+    if (plan.changeCount > 12 && !confirm(`Будет применено ${plan.changeCount} изменений. Media и shape mutations разделены, страницы обрабатываются последовательно. Продолжить?`)) return;
+    syncing = true;
+    checkButton.disabled = true;
+    syncButton.disabled = true;
+    $('#diagnostic-card').classList.add('hidden');
+    setState('CHECKING', 'Запускаю host-safe sync…', 'Сначала media upload без навигации, затем boards группами по page с паузами и undo blocks.');
+    showProgress(1, 'Ожидаю первую фазу');
+    send('apply-catalog', { catalog: loaded.catalog, loadMetrics: loaded.metrics });
+  });
+
+  promptButton.addEventListener('click', () => {
+    if (!loaded) return setState('SYNC FAILED', 'Сначала проверьте каталог', 'Нужен точный source revision.');
+    send('build-prompt', { catalog: loaded.catalog });
+  });
+
+  cleanupButton.addEventListener('click', () => {
+    cleanupButton.disabled = true;
+    setState('CHECKING', 'Очищаю interrupted staging…', 'Удаляются только managed boards с lane=staging.');
+    send('cleanup-staging');
+  });
+
+  $('#copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText($('#prompt-text').value);
+      statusNode.textContent = 'Промпт скопирован; ничего автоматически не отправлено.';
+    } catch {
+      $('#prompt-text').focus();
+      $('#prompt-text').select();
+      document.execCommand('copy');
+    }
+  });
+
+  $('#copy-diagnostic').addEventListener('click', async () => {
+    const text = $('#diagnostic-text').value;
+    try {
+      await navigator.clipboard.writeText(text);
+      statusNode.textContent = `Диагностика ${lastDiagnostic?.incidentId || ''} скопирована.`;
+    } catch {
+      $('#diagnostic-text').focus();
+      $('#diagnostic-text').select();
+      document.execCommand('copy');
+    }
+  });
+
+  window.addEventListener('message', (event) => {
+    const message = event.data;
+    if (!message?.type) return;
+
+    if (message.type === 'recovery-state') renderRecovery(message);
+    if (message.type === 'catalog-plan') renderPlan(message);
+
+    if (message.type === 'status') {
+      statusNode.textContent = message.text || '';
+      if (message.kind === 'error') {
+        setState('SYNC FAILED', 'Синхронизация остановлена', message.text || 'unknown error');
+        syncing = false;
+        checkButton.disabled = false;
+        syncButton.disabled = !loaded || !plan || plan.changeCount === 0;
+        hideProgress();
+      }
+    }
+
+    if (message.type === 'sync-progress') {
+      const total = Number(message.total || 0);
+      const index = Number(message.index || 0);
+      const percent = total > 0 ? (index / total) * 100 : 1;
+      const attempt = message.attempt ? ` · attempt ${message.attempt}/${message.maxAttempts || '—'}` : '';
+      showProgress(percent, `${message.phase || 'sync'} ${index || 0}/${total || '—'} · ${message.elementId || message.pageName || ''}${attempt}`);
+      statusNode.textContent = `${message.phase || 'sync'}: ${message.elementId || message.pageName || ''}${message.transportDimensions ? ` · ${message.transportDimensions} · ${formatBytes(message.transportBytes || 0)}` : ''}`;
+    }
+
+    if (message.type === 'staging-cleanup') {
+      statusNode.textContent = message.state === 'completed'
+        ? `Interrupted staging удалён: ${message.count}.`
+        : `Удаляю interrupted staging: ${message.count}.`;
+    }
+
+    if (message.type === 'cleanup-complete') {
+      cleanupButton.disabled = true;
+      $('#recovery-staging').textContent = String(message.remaining || 0);
+      setState('CHECKING', 'Interrupted staging очищен', 'Перепроверяю каталог.');
+      setTimeout(check, 500);
+    }
+
+    if (message.type === 'diagnostic') renderDiagnostic(message.diagnostic);
+
+    if (message.type === 'sync-report') {
+      syncing = false;
+      checkButton.disabled = false;
+      syncButton.disabled = true;
+      hideProgress();
+      $('#report').classList.remove('hidden');
+      $('#r-load').textContent = `${message.metrics.loadMs} ms`;
+      $('#r-inspect').textContent = `${message.metrics.inspectMs} ms`;
+      $('#r-upload').textContent = `${message.metrics.uploadMs || 0} ms`;
+      $('#r-stage').textContent = `${message.metrics.stageMs} ms`;
+      $('#r-commit').textContent = `${message.metrics.commitMs} ms`;
+      $('#r-result').textContent = JSON.stringify(message.result);
+      $('#recovery-card').classList.add('hidden');
+      setState('CHECKING', 'Синхронизация применена', 'Перепроверяю current mirror.');
+      setTimeout(check, 650);
+    }
+
+    if (message.type === 'prompt') {
+      $('#prompt-card').classList.remove('hidden');
+      $('#prompt-text').value = message.text || '';
+      statusNode.textContent = `Собран промпт: комментариев ${message.commentCount || 0}.`;
+    }
+  });
+
+  send('plugin-ready');
+  check();
+</script>
+</body>
+</html>
