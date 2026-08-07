@@ -55,14 +55,11 @@ jobs:
           npm ci
           npx playwright install --with-deps chromium
 
-      - name: Build the exact newest Astro pages
+      - name: Build the exact newest Astro implementation pages
         working-directory: .source/events-bot-new/site
         env:
-          PUBLIC_SITE_MODE: production
           PUBLIC_SITE_ORIGIN: http://127.0.0.1:4321
           SITE_BASE_PATH: /
-          PUBLIC_ASSET_BASE_URL: http://127.0.0.1:4321
-          PUBLIC_TRANSPORT_TIMETABLE_EXPERIMENT_MODE: off
         shell: bash
         run: |
           set -euo pipefail
@@ -202,7 +199,7 @@ jobs:
           for (const marker of [
             'renderLayoutTree', 'reconcileComponents', 'component.instance()', 'reconcilePatterns',
             'reconcileArchetypes', 'reconcileEvidence', 'reconcileBrandAssets', 'reconcileIcons',
-            'cleanupLegacyPages', 'mode === \'selected\'', "mode === 'full'", "message.type === 'update'",
+            'cleanupLegacyPages', "mode === 'selected'", "mode === 'full'", "message.type === 'update'",
             'old_design_system_source_forbidden', 'manual_allowlist_forbidden'
           ]) assert(plugin.includes(marker), `plugin_contract:${marker}`);
           for (const marker of ['Быстро: только изменившееся', 'Выбранное + зависимости', 'Полная пересборка и очистка']) {
