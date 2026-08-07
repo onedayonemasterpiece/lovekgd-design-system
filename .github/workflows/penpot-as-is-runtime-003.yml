@@ -1,0 +1,170 @@
+name: Penpot exact AS-IS runtime prototype 003
+
+on:
+  push:
+    branches:
+      - prototype/penpot-as-is-runtime-003
+    paths:
+      - 'prototypes/penpot-as-is-runtime-003/bootstrap/**'
+      - '.github/workflows/penpot-as-is-runtime-003.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: penpot-as-is-runtime-003
+  cancel-in-progress: false
+
+jobs:
+  capture-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout design-system branch
+        uses: actions/checkout@v4
+        with:
+          ref: prototype/penpot-as-is-runtime-003
+          fetch-depth: 0
+
+      - name: Restore Prototype 003 source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          target='prototypes/penpot-as-is-runtime-003'
+          cat "$target"/bootstrap/part-*.b64 \
+            | base64 --decode \
+            | tar --extract --gzip --directory "$target"
+          test -f "$target/scripts/capture-runtime.mjs"
+          test -f "$target/dist/plugin.js.template"
+          test -f "$target/dist/ui.html"
+
+      - name: Checkout exact product source
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: main
+          path: .source/events-bot-new
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: .source/events-bot-new/site/package-lock.json
+
+      - name: Install product dependencies and Chromium
+        working-directory: .source/events-bot-new/site
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Build exact Astro runtime
+        working-directory: .source/events-bot-new/site
+        env:
+          PUBLIC_SITE_ORIGIN: http://127.0.0.1:4321
+          SITE_BASE_PATH: /
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run build
+
+      - name: Start built runtime
+        working-directory: .source/events-bot-new/site
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup npx astro preview --host 127.0.0.1 --port 4321 > /tmp/penpot-003-astro.log 2>&1 &
+          echo $! > /tmp/penpot-003-astro.pid
+          for attempt in $(seq 1 90); do
+            if curl --silent --show-error --fail --max-time 5 http://127.0.0.1:4321/lab/design-system/ >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/penpot-003-astro.log
+          exit 1
+
+      - name: Capture exact runtime evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_sha="$(git -C .source/events-bot-new rev-parse HEAD)"
+          node prototypes/penpot-as-is-runtime-003/scripts/capture-runtime.mjs \
+            --site-dir .source/events-bot-new/site \
+            --out prototypes/penpot-as-is-runtime-003/catalog \
+            --base-url http://127.0.0.1:4321 \
+            --source-sha "$source_sha"
+
+      - name: Stop built runtime
+        if: always()
+        shell: bash
+        run: |
+          if test -f /tmp/penpot-003-astro.pid; then
+            kill "$(cat /tmp/penpot-003-astro.pid)" 2>/dev/null || true
+          fi
+          tail -n 120 /tmp/penpot-003-astro.log 2>/dev/null || true
+
+      - name: Commit exact UI, catalog and screenshots
+        id: source_commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add prototypes/penpot-as-is-runtime-003
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003: capture exact Astro runtime into named Penpot catalog'
+          fi
+          ui_sha="$(git rev-parse HEAD)"
+          echo "ui_sha=$ui_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Build immutable Penpot plugin and validate contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-as-is-runtime-003'
+          ui_sha='${{ steps.source_commit.outputs.ui_sha }}'
+          sed "s/__UI_SHA__/$ui_sha/g" "$root/dist/plugin.js.template" > "$root/dist/plugin.js"
+          node --check "$root/dist/plugin.js"
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-as-is-runtime-003/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/penpot-003-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/penpot-003-ui.js
+          node "$root/scripts/validate.mjs" "$root"
+
+      - name: Commit plugin and publish live catalog ref
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add prototypes/penpot-as-is-runtime-003/dist/plugin.js
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003: bind Penpot plugin to immutable runtime UI'
+          fi
+          final_sha="$(git rev-parse HEAD)"
+          git push origin HEAD:prototype/penpot-as-is-runtime-003
+          git push --force origin HEAD:penpot-as-is-live
+          echo "final_sha=$final_sha" >> "$GITHUB_OUTPUT"
+          echo "### Prototype 003 published" >> "$GITHUB_STEP_SUMMARY"
+          echo "- source UI commit: ${{ steps.source_commit.outputs.ui_sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- final plugin commit: $final_sha" >> "$GITHUB_STEP_SUMMARY"
+          echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@$final_sha/prototypes/penpot-as-is-runtime-003/dist/manifest.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload capture evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: penpot-as-is-runtime-003-${{ github.run_id }}
+          path: |
+            prototypes/penpot-as-is-runtime-003/catalog/catalog.json
+            prototypes/penpot-as-is-runtime-003/catalog/capture-errors.json
+            prototypes/penpot-as-is-runtime-003/catalog/registry.*.json
+          if-no-files-found: warn
+          retention-days: 14
