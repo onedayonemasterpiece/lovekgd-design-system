@@ -116,7 +116,8 @@ jobs:
           status.write_text(text, encoding='utf-8')
           PY
 
-          node --check prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          cp prototypes/penpot-resource-graph-004a/src/plugin.js.template /tmp/resource-graph-template.js
+          node --check /tmp/resource-graph-template.js
           node --check prototypes/penpot-resource-graph-004a/dist/plugin.js
           node prototypes/penpot-resource-graph-004a/scripts/validate.mjs
           node prototypes/penpot-product-atlas-001/scripts/validate.mjs
