@@ -1,0 +1,136 @@
+name: Patch Resource Graph Product Atlas guard once
+
+on:
+  push:
+    branches:
+      - fix/product-atlas-plugin-boundary-20260807
+    paths:
+      - '.github/workflows/patch-resource-graph-product-atlas-guard-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: fix/product-atlas-plugin-boundary-20260807
+          fetch-depth: 0
+
+      - name: Add symmetric wrong-file guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          files = [
+              Path('prototypes/penpot-resource-graph-004a/src/plugin.js.template'),
+              Path('prototypes/penpot-resource-graph-004a/dist/plugin.js'),
+          ]
+
+          constants_anchor = "  const CHECKPOINT_KEY = 'lovekgd.resourcegraph.004a.checkpoint';"
+          constants = """  const PRODUCT_ATLAS_NS = 'lovekgd.productatlas.001';
+          const PRODUCT_ATLAS_FILE_KIND_KEY = 'file-kind';
+          const PRODUCT_ATLAS_FILE_KIND = 'product-atlas';
+          """
+
+          guard_anchor = "  function ensurePages(catalog) {"
+          guard = r"""  function assertNotProductAtlasFile() {
+            const reasons = [];
+            for (const page of allPages()) {
+              try {
+                if (page.getSharedPluginData(PRODUCT_ATLAS_NS, PRODUCT_ATLAS_FILE_KIND_KEY) === PRODUCT_ATLAS_FILE_KIND) {
+                  reasons.push(`page:${page.name}`);
+                }
+              } catch {}
+              let boards = [];
+              try { boards = page.findShapes({ type: 'board' }); } catch {}
+              for (const board of boards) {
+                try {
+                  const fileKind = board.getSharedPluginData(PRODUCT_ATLAS_NS, PRODUCT_ATLAS_FILE_KIND_KEY);
+                  const managed = board.getSharedPluginData(PRODUCT_ATLAS_NS, 'managed');
+                  if (fileKind === PRODUCT_ATLAS_FILE_KIND || managed === 'true') {
+                    reasons.push(`board:${board.name}`);
+                  }
+                } catch {}
+              }
+            }
+            fail(reasons.length === 0, `wrong_file_kind:product-atlas:${reasons.slice(0, 12).join(',')}`);
+          }
+
+          """
+
+          for path in files:
+              source = path.read_text(encoding='utf-8')
+              if 'const PRODUCT_ATLAS_NS' not in source:
+                  if constants_anchor not in source:
+                      raise SystemExit(f'constants anchor missing: {path}')
+                  source = source.replace(constants_anchor, constants_anchor + '\n' + constants, 1)
+              if 'function assertNotProductAtlasFile' not in source:
+                  if guard_anchor not in source:
+                      raise SystemExit(f'guard anchor missing: {path}')
+                  source = source.replace(guard_anchor, guard + guard_anchor, 1)
+              guarded_anchor = "  function ensurePages(catalog) {\n"
+              guarded_call = "  function ensurePages(catalog) {\n    assertNotProductAtlasFile();\n"
+              if guarded_call not in source:
+                  if guarded_anchor not in source:
+                      raise SystemExit(f'ensurePages anchor missing: {path}')
+                  source = source.replace(guarded_anchor, guarded_call, 1)
+              source = source.replace('LoveKGD Resource Graph · 004a.2', 'LoveKGD Resource Graph · 004a.3')
+              path.write_text(source, encoding='utf-8')
+
+          manifest = Path('prototypes/penpot-resource-graph-004a/dist/manifest.json')
+          value = manifest.read_text(encoding='utf-8')
+          value = value.replace('LoveKGD Resource Graph — native resources 004a.2', 'LoveKGD Resource Graph — native resources 004a.3')
+          value = value.replace('idempotent retry after partial 004a/004a.1 updates.', 'idempotent retry after partial updates; refuses Product Atlas files before mutation.')
+          manifest.write_text(value, encoding='utf-8')
+
+          readme = Path('prototypes/penpot-resource-graph-004a/README.md')
+          text = readme.read_text(encoding='utf-8')
+          marker = '## Product Atlas wrong-file guard'
+          if marker not in text:
+              text += """
+
+          ## Product Atlas wrong-file guard
+
+          Resource Graph and Product Atlas use separate Penpot files, manifests, catalogs and namespaces. Resource Graph 004a.3 checks `lovekgd.productatlas.001` markers before `ensurePages` and fails closed with `wrong_file_kind:product-atlas`; it must not create design-system pages in a Product Atlas file.
+          """
+          readme.write_text(text, encoding='utf-8')
+
+          status = Path('prototypes/penpot-resource-graph-004a/STATUS.md')
+          text = status.read_text(encoding='utf-8')
+          marker = 'PRODUCT ATLAS FILE GUARD:'
+          if marker not in text:
+              text += """
+
+          PRODUCT ATLAS FILE GUARD: CODE-READY / HOST-UNVERIFIED
+
+          Resource Graph 004a.3 now fails closed when `lovekgd.productatlas.001` managed markers are present. Joint acceptance still requires one real two-file Penpot smoke.
+          """
+          status.write_text(text, encoding='utf-8')
+          PY
+
+          node --check prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          node --check prototypes/penpot-resource-graph-004a/dist/plugin.js
+          node prototypes/penpot-resource-graph-004a/scripts/validate.mjs
+          node prototypes/penpot-product-atlas-001/scripts/validate.mjs
+          python -m json.tool prototypes/penpot-resource-graph-004a/dist/manifest.json >/dev/null
+
+          rm -f .github/workflows/patch-resource-graph-product-atlas-guard-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            prototypes/penpot-resource-graph-004a/src/plugin.js.template \
+            prototypes/penpot-resource-graph-004a/dist/plugin.js \
+            prototypes/penpot-resource-graph-004a/dist/manifest.json \
+            prototypes/penpot-resource-graph-004a/README.md \
+            prototypes/penpot-resource-graph-004a/STATUS.md \
+            .github/workflows/patch-resource-graph-product-atlas-guard-once.yml
+          git commit -m 'fix: refuse Product Atlas files in Resource Graph 004a.3'
+          git push origin HEAD:fix/product-atlas-plugin-boundary-20260807
