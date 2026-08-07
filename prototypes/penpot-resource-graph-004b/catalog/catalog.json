@@ -1,0 +1,2484 @@
+{
+  "schemaVersion": 1,
+  "delivery": "penpot-resource-graph-004b",
+  "generatedAt": "2026-08-07T22:03:56.261Z",
+  "source": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "revision": "ec09c011674eecddf9e9b8e154e3d102f9384b12",
+    "mode": "implementation-main-product-graph",
+    "productionFreshnessClaimed": false,
+    "contract": "site/src/data/design-system-production-surface-contract.v1.json"
+  },
+  "pages": [
+    "00 — System map",
+    "10 — Brand assets",
+    "20 — Foundations",
+    "25 — Iconography",
+    "30 — Core UI resources",
+    "40 — Product component masters",
+    "50 — Product patterns",
+    "60 — Page archetypes",
+    "70 — Coverage and fragmentation",
+    "75 — Design gaps",
+    "80 — Candidate review",
+    "89 — Review archive",
+    "90 — Evidence / desktop",
+    "91 — Evidence / tablet",
+    "92 — Evidence / mobile",
+    "93 — Evidence / interaction and accessibility",
+    "99 — Technical tests"
+  ],
+  "fontPolicy": {
+    "requestedFamily": "Inter",
+    "fallbacks": [
+      "Inter",
+      "Arial",
+      "Liberation Sans",
+      "sans-serif"
+    ],
+    "requireExplicitResolution": true,
+    "forbidSilentSerifFallback": true
+  },
+  "components": [
+    {
+      "id": "shell.header.desktop",
+      "family": "Shell",
+      "name": "Header · desktop",
+      "kind": "header",
+      "viewport": "desktop",
+      "width": 1180,
+      "height": 104,
+      "sourceFiles": [
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/HomeQuickNav.astro"
+      ],
+      "variants": {
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/layouts/EventLayout.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/[preview]/index.astro",
+            "site/src/pages/artefakty/index.astro",
+            "site/src/pages/date-[date].astro",
+            "site/src/pages/dlya-menya/index.astro",
+            "site/src/pages/festivali/index.astro",
+            "site/src/pages/index.astro",
+            "site/src/pages/izbrannoe/index.astro",
+            "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+            "site/src/pages/kluby-po-interesam/index.astro",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/lab/event-desktop/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/event-mobile/index.astro",
+            "site/src/pages/lab/event-participants.astro",
+            "site/src/pages/lab/exhibitions-personal/index.astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/lab/hero/review/index.astro",
+            "site/src/pages/lab/medallions/index.astro",
+            "site/src/pages/lab/occurrences/index.astro",
+            "site/src/pages/lab/question-cta/index.astro",
+            "site/src/pages/neobychnoe/index.astro",
+            "site/src/pages/partners/index.astro",
+            "site/src/pages/partnerstvo/index.astro",
+            "site/src/pages/podborki/[slug]/index.astro",
+            "site/src/pages/podborki/gastronomiya/index.astro",
+            "site/src/pages/podborki/index.astro",
+            "site/src/pages/poisk/index.astro",
+            "site/src/pages/populyarnoe/index.astro",
+            "site/src/pages/segodnya/index.astro",
+            "site/src/pages/sobytiya/[slug].astro",
+            "site/src/pages/vyhodnye/[start].astro",
+            "site/src/pages/vyhodnye/index.astro",
+            "site/src/pages/vystavki/index.astro",
+            "site/src/pages/zavtra/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/HomeQuickNav.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/[preview]/index.astro",
+        "site/src/pages/artefakty/index.astro",
+        "site/src/pages/date-[date].astro",
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/pages/festivali/index.astro",
+        "site/src/pages/index.astro",
+        "site/src/pages/izbrannoe/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/lab/event-desktop/index.astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/event-mobile/index.astro",
+        "site/src/pages/lab/event-participants.astro",
+        "site/src/pages/lab/exhibitions-personal/index.astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/lab/hero/review/index.astro",
+        "site/src/pages/lab/medallions/index.astro",
+        "site/src/pages/lab/occurrences/index.astro",
+        "site/src/pages/lab/question-cta/index.astro",
+        "site/src/pages/neobychnoe/index.astro",
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/podborki/gastronomiya/index.astro",
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/poisk/index.astro",
+        "site/src/pages/populyarnoe/index.astro",
+        "site/src/pages/segodnya/index.astro",
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/pages/vyhodnye/[start].astro",
+        "site/src/pages/vyhodnye/index.astro",
+        "site/src/pages/vystavki/index.astro",
+        "site/src/pages/zavtra/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "2f64d38dada2e2944eb4a495aacf954f4b5a89f870017bbad1fe90e623df5e80"
+    },
+    {
+      "id": "shell.header.mobile",
+      "family": "Shell",
+      "name": "Header · mobile",
+      "kind": "header",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 84,
+      "sourceFiles": [
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/Reference4MobileMenu.astro"
+      ],
+      "variants": {
+        "viewport": "mobile"
+      },
+      "sources": [
+        {
+          "file": "site/src/layouts/EventLayout.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/[preview]/index.astro",
+            "site/src/pages/artefakty/index.astro",
+            "site/src/pages/date-[date].astro",
+            "site/src/pages/dlya-menya/index.astro",
+            "site/src/pages/festivali/index.astro",
+            "site/src/pages/index.astro",
+            "site/src/pages/izbrannoe/index.astro",
+            "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+            "site/src/pages/kluby-po-interesam/index.astro",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/lab/event-desktop/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/event-mobile/index.astro",
+            "site/src/pages/lab/event-participants.astro",
+            "site/src/pages/lab/exhibitions-personal/index.astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/lab/hero/review/index.astro",
+            "site/src/pages/lab/medallions/index.astro",
+            "site/src/pages/lab/occurrences/index.astro",
+            "site/src/pages/lab/question-cta/index.astro",
+            "site/src/pages/neobychnoe/index.astro",
+            "site/src/pages/partners/index.astro",
+            "site/src/pages/partnerstvo/index.astro",
+            "site/src/pages/podborki/[slug]/index.astro",
+            "site/src/pages/podborki/gastronomiya/index.astro",
+            "site/src/pages/podborki/index.astro",
+            "site/src/pages/poisk/index.astro",
+            "site/src/pages/populyarnoe/index.astro",
+            "site/src/pages/segodnya/index.astro",
+            "site/src/pages/sobytiya/[slug].astro",
+            "site/src/pages/vyhodnye/[start].astro",
+            "site/src/pages/vyhodnye/index.astro",
+            "site/src/pages/vystavki/index.astro",
+            "site/src/pages/zavtra/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/Reference4MobileMenu.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/pages/[preview]/index.astro",
+        "site/src/pages/artefakty/index.astro",
+        "site/src/pages/date-[date].astro",
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/pages/festivali/index.astro",
+        "site/src/pages/index.astro",
+        "site/src/pages/izbrannoe/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/lab/event-desktop/index.astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/event-mobile/index.astro",
+        "site/src/pages/lab/event-participants.astro",
+        "site/src/pages/lab/exhibitions-personal/index.astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/lab/hero/review/index.astro",
+        "site/src/pages/lab/medallions/index.astro",
+        "site/src/pages/lab/occurrences/index.astro",
+        "site/src/pages/lab/question-cta/index.astro",
+        "site/src/pages/neobychnoe/index.astro",
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/podborki/gastronomiya/index.astro",
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/poisk/index.astro",
+        "site/src/pages/populyarnoe/index.astro",
+        "site/src/pages/segodnya/index.astro",
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/pages/vyhodnye/[start].astro",
+        "site/src/pages/vyhodnye/index.astro",
+        "site/src/pages/vystavki/index.astro",
+        "site/src/pages/zavtra/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "6cc080ad9acf31aa8f47fb806ce95435349133f6c2e503dd6de78307d9db3213"
+    },
+    {
+      "id": "shell.mobile-menu",
+      "family": "Shell",
+      "name": "Mobile menu",
+      "kind": "mobile-menu",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 620,
+      "sourceFiles": [
+        "site/src/components/Reference4MobileMenu.astro"
+      ],
+      "variants": {
+        "state": "open"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/Reference4MobileMenu.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "d2694019e350d0ac3ff4d3f38e126be7ca1249e1aa35ccf954daa9ce9b0bc6b3"
+    },
+    {
+      "id": "shell.mobile-bottom-nav",
+      "family": "Shell",
+      "name": "Mobile bottom navigation",
+      "kind": "bottom-nav",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 78,
+      "sourceFiles": [
+        "site/src/components/MobileBottomNav.astro"
+      ],
+      "variants": {
+        "active": "today"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/MobileBottomNav.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/MobileSearchBottomNav.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/MobileSearchBottomNav.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "eb2fbad0797abbd94744359c38a901c352da0238134ec17ebfd61be5668c54d0"
+    },
+    {
+      "id": "shell.search-bottom-nav",
+      "family": "Shell",
+      "name": "Mobile search bottom navigation",
+      "kind": "bottom-nav-search",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 78,
+      "sourceFiles": [
+        "site/src/components/MobileSearchBottomNav.astro"
+      ],
+      "variants": {
+        "active": "search"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/MobileSearchBottomNav.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json"
+      ],
+      "status": "implementation-linked",
+      "hash": "70c9d8a6b7e96136edd4fd21b784ea94d8673d1cb6a1d65a27fbb3142b10fbd8"
+    },
+    {
+      "id": "shell.footer",
+      "family": "Shell",
+      "name": "Footer",
+      "kind": "footer",
+      "viewport": "responsive",
+      "width": 1180,
+      "height": 310,
+      "sourceFiles": [
+        "site/src/components/SiteFooter.astro"
+      ],
+      "variants": {
+        "surface": "inverse"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/SiteFooter.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "422ecf0e0bdbe2048163f2c417eb5785da64bea585285d6e89917dda661a399b"
+    },
+    {
+      "id": "navigation.keyboard",
+      "family": "Navigation",
+      "name": "Keyboard navigation",
+      "kind": "keyboard-nav",
+      "viewport": "desktop",
+      "width": 880,
+      "height": 170,
+      "sourceFiles": [
+        "site/src/components/KeyboardEventNavigation.astro"
+      ],
+      "variants": {
+        "state": "discovery"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/KeyboardEventNavigation.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "06a9d8dcc55462b1201b3f815aea45cb2d2d3dc73a1ce82b3afc751a841d75f1"
+    },
+    {
+      "id": "listing.page-header.desktop",
+      "family": "Listings",
+      "name": "Listing page header · desktop",
+      "kind": "listing-header",
+      "viewport": "desktop",
+      "width": 960,
+      "height": 190,
+      "sourceFiles": [
+        "site/src/components/listings/ListingPageHeader.astro"
+      ],
+      "variants": {
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ListingPageHeader.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/PopularListingSurface.astro",
+            "site/src/components/listings/WeekendListingSurface.astro",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/PopularListingSurface.astro",
+        "site/src/components/listings/WeekendListingSurface.astro",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "62362491d5c844e344393fbaad8914d20d54295f0c60fd6fba4759cbbcbf2957"
+    },
+    {
+      "id": "listing.page-header.mobile",
+      "family": "Listings",
+      "name": "Listing page header · mobile",
+      "kind": "listing-header",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 180,
+      "sourceFiles": [
+        "site/src/components/listings/ListingPageHeader.astro"
+      ],
+      "variants": {
+        "viewport": "mobile"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ListingPageHeader.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/PopularListingSurface.astro",
+            "site/src/components/listings/WeekendListingSurface.astro",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/PopularListingSurface.astro",
+        "site/src/components/listings/WeekendListingSurface.astro",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "2025c6f505514bf1f6565dfbb1be224e42484885ca676bddb31953eb64590246"
+    },
+    {
+      "id": "listing.time-nav.desktop",
+      "family": "Listings",
+      "name": "Listing time navigation · desktop",
+      "kind": "time-nav",
+      "viewport": "desktop",
+      "width": 900,
+      "height": 92,
+      "sourceFiles": [
+        "site/src/components/listings/ListingTimeNav.astro",
+        "site/src/components/listings/ListingTimeMarker.astro"
+      ],
+      "variants": {
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ListingTimeNav.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/ListingWeekendTimeNav.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/listings/ListingTimeMarker.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/ListingWeekendTimeNav.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "32eeb0d5d7943cc17047500896d5c529f8efe42efb34bdbd986871dd97b2bd52"
+    },
+    {
+      "id": "listing.time-nav.mobile",
+      "family": "Listings",
+      "name": "Listing time navigation · mobile",
+      "kind": "time-nav",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 84,
+      "sourceFiles": [
+        "site/src/components/listings/ListingTimeNav.astro",
+        "site/src/components/listings/ListingTimeMarker.astro"
+      ],
+      "variants": {
+        "viewport": "mobile"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ListingTimeNav.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/ListingWeekendTimeNav.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/listings/ListingTimeMarker.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/ListingWeekendTimeNav.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "2b0300d10be063d3cf9ba8b22a3b2a7382f944143df4858ac5a6c3a27b61895b"
+    },
+    {
+      "id": "listing.row.desktop",
+      "family": "Listings",
+      "name": "Listing row · desktop",
+      "kind": "listing-row",
+      "viewport": "desktop",
+      "width": 900,
+      "height": 180,
+      "sourceFiles": [
+        "site/src/components/EventListItem.astro",
+        "site/src/components/listings/ListingEventCard.astro"
+      ],
+      "variants": {
+        "viewport": "desktop",
+        "density": "regular"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventListItem.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/listings/ListingEventCard.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/PopularBehaviorRows.astro",
+            "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+            "site/src/components/listings/PopularPersonalizedRow.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/components/listings/WeekendTimeMatrix.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/styles/design-system.css"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/PopularBehaviorRows.astro",
+        "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+        "site/src/components/listings/PopularPersonalizedRow.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/components/listings/WeekendTimeMatrix.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/styles/design-system.css"
+      ],
+      "status": "implementation-linked",
+      "hash": "eab0cd5892329fcf0416f2685ac1a8a056ea55536562d33a9af2927b0327f498"
+    },
+    {
+      "id": "listing.row.mobile",
+      "family": "Listings",
+      "name": "Listing row · mobile",
+      "kind": "listing-row",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 166,
+      "sourceFiles": [
+        "site/src/components/listings/MobileListingRailRow.astro",
+        "site/src/components/listings/ListingEventCard.astro"
+      ],
+      "variants": {
+        "viewport": "mobile",
+        "density": "compact"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/MobileListingRailRow.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/MobileListingRailSurface.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json"
+          ]
+        },
+        {
+          "file": "site/src/components/listings/ListingEventCard.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/PopularBehaviorRows.astro",
+            "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+            "site/src/components/listings/PopularPersonalizedRow.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/components/listings/WeekendTimeMatrix.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/styles/design-system.css"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/MobileListingRailSurface.astro",
+        "site/src/components/listings/PopularBehaviorRows.astro",
+        "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+        "site/src/components/listings/PopularPersonalizedRow.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/components/listings/WeekendTimeMatrix.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/styles/design-system.css"
+      ],
+      "status": "implementation-linked",
+      "hash": "a2abf3d4d5c92bcb825756f3f520e83d50f97478988d5c4d32859387776259c9"
+    },
+    {
+      "id": "event.card.small",
+      "family": "Event presentation",
+      "name": "Event card · small",
+      "kind": "event-card",
+      "viewport": "responsive",
+      "width": 250,
+      "height": 330,
+      "sourceFiles": [
+        "site/src/components/EventCard.astro"
+      ],
+      "variants": {
+        "size": "small",
+        "media": "portrait"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventCard.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/AuthorizedEventSearch.astro",
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/components/FreeCollectionSurface.astro",
+            "site/src/components/GastronomyCollectionSurface.astro",
+            "site/src/components/HomeColdStartFeed.astro",
+            "site/src/components/OptimizedEventCardGrid.astro",
+            "site/src/components/UnusualListingSurface.astro",
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/PopularBehaviorRows.astro",
+            "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+            "site/src/components/listings/PopularMobileBehaviorRows.astro",
+            "site/src/components/listings/PopularPersonalizedRow.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/components/listings/WeekendTimeMatrix.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro",
+            "site/src/pages/[preview]/index.astro",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/podborki/[slug]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro",
+            "site/src/styles/design-system.css"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/AuthorizedEventSearch.astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/FreeCollectionSurface.astro",
+        "site/src/components/GastronomyCollectionSurface.astro",
+        "site/src/components/HomeColdStartFeed.astro",
+        "site/src/components/OptimizedEventCardGrid.astro",
+        "site/src/components/UnusualListingSurface.astro",
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/PopularBehaviorRows.astro",
+        "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+        "site/src/components/listings/PopularMobileBehaviorRows.astro",
+        "site/src/components/listings/PopularPersonalizedRow.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/components/listings/WeekendTimeMatrix.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/pages/[preview]/index.astro",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/styles/design-system.css"
+      ],
+      "status": "implementation-linked",
+      "hash": "19cf03993018962b780d5151ddc9d3f8fa5f474390041060193f80380bb6ccb1"
+    },
+    {
+      "id": "event.card.large",
+      "family": "Event presentation",
+      "name": "Event card · large",
+      "kind": "event-card",
+      "viewport": "responsive",
+      "width": 390,
+      "height": 450,
+      "sourceFiles": [
+        "site/src/components/EventCard.astro"
+      ],
+      "variants": {
+        "size": "large",
+        "media": "landscape"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventCard.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/AuthorizedEventSearch.astro",
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/components/FreeCollectionSurface.astro",
+            "site/src/components/GastronomyCollectionSurface.astro",
+            "site/src/components/HomeColdStartFeed.astro",
+            "site/src/components/OptimizedEventCardGrid.astro",
+            "site/src/components/UnusualListingSurface.astro",
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/PopularBehaviorRows.astro",
+            "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+            "site/src/components/listings/PopularMobileBehaviorRows.astro",
+            "site/src/components/listings/PopularPersonalizedRow.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/components/listings/WeekendTimeMatrix.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro",
+            "site/src/pages/[preview]/index.astro",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/podborki/[slug]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro",
+            "site/src/styles/design-system.css"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/AuthorizedEventSearch.astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/FreeCollectionSurface.astro",
+        "site/src/components/GastronomyCollectionSurface.astro",
+        "site/src/components/HomeColdStartFeed.astro",
+        "site/src/components/OptimizedEventCardGrid.astro",
+        "site/src/components/UnusualListingSurface.astro",
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/PopularBehaviorRows.astro",
+        "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+        "site/src/components/listings/PopularMobileBehaviorRows.astro",
+        "site/src/components/listings/PopularPersonalizedRow.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/components/listings/WeekendTimeMatrix.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/pages/[preview]/index.astro",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/styles/design-system.css"
+      ],
+      "status": "implementation-linked",
+      "hash": "7bf7b05d508bf45b131004bad2adfb34e705dce996edec79f4a34081be3c9905"
+    },
+    {
+      "id": "event.rail.exact-time",
+      "family": "Event presentation",
+      "name": "Exact-time rail item",
+      "kind": "rail-card",
+      "viewport": "responsive",
+      "width": 260,
+      "height": 250,
+      "sourceFiles": [
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/ListingTimeMarker.astro"
+      ],
+      "variants": {
+        "rail": "exact-time"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ExactTimeTimeline.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/listings/ListingTimeMarker.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/ExactTimeTimeline.astro",
+            "site/src/components/listings/WeekendEditorialTimeline.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/ExactTimeTimeline.astro",
+        "site/src/components/listings/WeekendEditorialTimeline.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "8d381e03d4cd67ef9aa3ae14f70038d239dc419c123fb9bcbc9b0568aec9ec3c"
+    },
+    {
+      "id": "event.rail.discovery",
+      "family": "Event presentation",
+      "name": "Discovery rail card",
+      "kind": "rail-card",
+      "viewport": "responsive",
+      "width": 260,
+      "height": 250,
+      "sourceFiles": [
+        "site/src/components/listings/ListingDiscoveryRail.astro"
+      ],
+      "variants": {
+        "rail": "discovery"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/listings/ListingDiscoveryRail.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/PopularListingSurface.astro",
+            "site/src/components/listings/WeekendListingSurface.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/PopularListingSurface.astro",
+        "site/src/components/listings/WeekendListingSurface.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "793702d5035a2e057dc77efb1b8d83528794f89bed75b1af1310239c04cf42c5"
+    },
+    {
+      "id": "event.hero.wide",
+      "family": "Event detail",
+      "name": "Event hero · wide image",
+      "kind": "event-hero",
+      "viewport": "desktop",
+      "width": 960,
+      "height": 620,
+      "sourceFiles": [
+        "site/src/components/EventHero.astro",
+        "site/src/components/DesktopEventPage.astro"
+      ],
+      "variants": {
+        "media": "wide",
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventHero.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        },
+        {
+          "file": "site/src/components/DesktopEventPage.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "1e1c769bd4b3d1f450ec7b01e1a24a960d46f33d76a7249e58b3ea5263a8d628"
+    },
+    {
+      "id": "event.hero.narrow",
+      "family": "Event detail",
+      "name": "Event hero · narrow image",
+      "kind": "event-hero",
+      "viewport": "desktop",
+      "width": 760,
+      "height": 700,
+      "sourceFiles": [
+        "site/src/components/EventHero.astro",
+        "site/src/components/DesktopEventPage.astro"
+      ],
+      "variants": {
+        "media": "narrow",
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventHero.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        },
+        {
+          "file": "site/src/components/DesktopEventPage.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "24e4d7591fe7fa44f7aca623d82cef2cdada7e07cebcf496fef15192e9c690fe"
+    },
+    {
+      "id": "event.hero.no-image",
+      "family": "Event detail",
+      "name": "Event hero · no image",
+      "kind": "event-hero",
+      "viewport": "desktop",
+      "width": 760,
+      "height": 480,
+      "sourceFiles": [
+        "site/src/components/EventHero.astro",
+        "site/src/components/DesktopEventPage.astro"
+      ],
+      "variants": {
+        "media": "none",
+        "viewport": "desktop"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventHero.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        },
+        {
+          "file": "site/src/components/DesktopEventPage.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "a7e1850a1664c9da8669f53431007a15cbb82a4fab6ecf797ce2971234496ba1"
+    },
+    {
+      "id": "event.hero.mobile",
+      "family": "Event detail",
+      "name": "Event hero · mobile",
+      "kind": "event-hero",
+      "viewport": "mobile",
+      "width": 390,
+      "height": 620,
+      "sourceFiles": [
+        "site/src/components/EventHero.astro",
+        "site/src/components/MobileEventProductionStyles.astro"
+      ],
+      "variants": {
+        "media": "responsive",
+        "viewport": "mobile"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventHero.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+            "site/src/pages/lab/hero/index.astro",
+            "site/src/pages/lab/hero/review/[caseId]/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        },
+        {
+          "file": "site/src/components/MobileEventProductionStyles.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/lab/event-mobile/examples/[variant]/[scenario].astro",
+        "site/src/pages/lab/hero/index.astro",
+        "site/src/pages/lab/hero/review/[caseId]/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "353055342e4e1b1acdcf2194476680b332e8a612564cddafde2b337b16945959"
+    },
+    {
+      "id": "event.facts",
+      "family": "Event detail",
+      "name": "Event facts",
+      "kind": "facts",
+      "viewport": "responsive",
+      "width": 680,
+      "height": 280,
+      "sourceFiles": [
+        "site/src/components/EventFacts.astro"
+      ],
+      "variants": {
+        "density": "regular"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventFacts.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "ce00e724c279848d1d06553ae1a881af6d5fc4261a827a3ed652176d56766d02"
+    },
+    {
+      "id": "event.cta",
+      "family": "Event detail",
+      "name": "Event CTA panel",
+      "kind": "cta",
+      "viewport": "responsive",
+      "width": 520,
+      "height": 300,
+      "sourceFiles": [
+        "site/src/components/EventCtaPanel.astro",
+        "site/src/components/DesktopEventActionPanel.astro"
+      ],
+      "variants": {
+        "registration": "available"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventCtaPanel.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/DesktopEventActionPanel.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "24714c394cf9aa0b3ccae51c0052384b8c122c03249b8925ef0ac0d9b0f09775"
+    },
+    {
+      "id": "event.media-rail",
+      "family": "Event detail",
+      "name": "Event media rail",
+      "kind": "media-rail",
+      "viewport": "responsive",
+      "width": 880,
+      "height": 260,
+      "sourceFiles": [
+        "site/src/components/EventMediaRail.astro"
+      ],
+      "variants": {
+        "items": "mixed"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventMediaRail.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "a5288fd2b0a426f5562cfef8d180ac1908dce8f927b68a8b5975a4a5b417530e"
+    },
+    {
+      "id": "event.medallions",
+      "family": "Event detail",
+      "name": "Event medallions",
+      "kind": "medallions",
+      "viewport": "responsive",
+      "width": 700,
+      "height": 220,
+      "sourceFiles": [
+        "site/src/components/EventTokenMedallions.astro"
+      ],
+      "variants": {
+        "collection": "current"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventTokenMedallions.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/components/lab/MobileEventReviewPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/lab/MobileEventReviewPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "fb02f7ee67eae07d4c2dfb4232dffe6e931a4c3137d129b33451aff597b67350"
+    },
+    {
+      "id": "search.surface",
+      "family": "Product surfaces",
+      "name": "Search surface",
+      "kind": "search",
+      "viewport": "responsive",
+      "width": 760,
+      "height": 520,
+      "sourceFiles": [
+        "site/src/components/AuthorizedEventSearch.astro",
+        "site/src/components/SearchCollectionLinks.astro"
+      ],
+      "variants": {
+        "state": "results"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/AuthorizedEventSearch.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/poisk/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/SearchCollectionLinks.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/poisk/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/poisk/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "217fae555b007901029a65c93778f9554e09f09585ce3be26a2f8fbdf237dcac"
+    },
+    {
+      "id": "authorization.surface",
+      "family": "Product surfaces",
+      "name": "Authorization surface",
+      "kind": "auth",
+      "viewport": "responsive",
+      "width": 520,
+      "height": 430,
+      "sourceFiles": [
+        "site/src/components/auth/StaticSiteAuthRuntime.astro"
+      ],
+      "variants": {
+        "state": "anonymous"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/auth/StaticSiteAuthRuntime.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro",
+            "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+            "site/src/pages/zakrytaya-afisha/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "a2d95959e3d565cf2d0e97ea7fd84b456b0ffeeefb73bee5cce7a537f8150da3"
+    },
+    {
+      "id": "favorites.surface",
+      "family": "Product surfaces",
+      "name": "Favorites surface",
+      "kind": "favorites",
+      "viewport": "responsive",
+      "width": 760,
+      "height": 500,
+      "sourceFiles": [
+        "site/src/components/FavoritesSurface.astro"
+      ],
+      "variants": {
+        "state": "populated"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/FavoritesSurface.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/izbrannoe/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/izbrannoe/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "4dbd43b564e32057dab4c5b347c5132e0b2f282fce4cd1376e737dd693203b52"
+    },
+    {
+      "id": "personal.surface",
+      "family": "Product surfaces",
+      "name": "For me surface",
+      "kind": "personal",
+      "viewport": "responsive",
+      "width": 760,
+      "height": 560,
+      "sourceFiles": [
+        "site/src/components/PersonalFeedSlot.astro",
+        "site/src/components/InterestProfile.astro",
+        "site/src/components/ListingPersonalFilter.astro"
+      ],
+      "variants": {
+        "state": "personalized"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/PersonalFeedSlot.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/date-[date].astro",
+            "site/src/pages/lab/design-system/index.astro",
+            "site/src/pages/segodnya/index.astro",
+            "site/src/pages/sobytiya/[slug].astro",
+            "site/src/pages/vyhodnye/index.astro",
+            "site/src/pages/zavtra/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/InterestProfile.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/dlya-menya/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/ListingPersonalFilter.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/listings/DateListingSurface.astro",
+            "site/src/components/listings/WeekendListingSurface.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/listings/DateListingSurface.astro",
+        "site/src/components/listings/WeekendListingSurface.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/date-[date].astro",
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/pages/lab/design-system/index.astro",
+        "site/src/pages/segodnya/index.astro",
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/pages/vyhodnye/index.astro",
+        "site/src/pages/zavtra/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "8c0be6dcf08543363f42b655a95f980087ee063ff002ea251b6fda8b67f712f6"
+    },
+    {
+      "id": "focus.nps",
+      "family": "Focus group",
+      "name": "Focus group · NPS",
+      "kind": "focus-nps",
+      "viewport": "responsive",
+      "width": 640,
+      "height": 360,
+      "sourceFiles": [
+        "site/src/components/FocusGroupFeedback.astro"
+      ],
+      "variants": {
+        "step": "nps"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/FocusGroupFeedback.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/dlya-menya/index.astro",
+            "site/src/pages/zakrytaya-afisha/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "c09203d81694e6c661965992d871a85032de07887ef94d2af6912556a68a39c3"
+    },
+    {
+      "id": "focus.feedback",
+      "family": "Focus group",
+      "name": "Focus group · feedback",
+      "kind": "focus-feedback",
+      "viewport": "responsive",
+      "width": 640,
+      "height": 480,
+      "sourceFiles": [
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro"
+      ],
+      "variants": {
+        "step": "feedback"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/FocusGroupFeedback.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/dlya-menya/index.astro",
+            "site/src/pages/zakrytaya-afisha/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/FocusConnectivityDiagnostic.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+            "site/src/pages/fokus-gruppa/diagnostika/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "2ea244c987a652492f0ff1d6ebaef0b361baa7ca6e523ab7e826756d676570f2"
+    },
+    {
+      "id": "focus.invite",
+      "family": "Focus group",
+      "name": "Focus group · invite",
+      "kind": "focus-invite",
+      "viewport": "responsive",
+      "width": 640,
+      "height": 400,
+      "sourceFiles": [
+        "site/src/components/FocusGroupInviteIntake.astro",
+        "site/src/components/FocusGroupInviteShare.astro"
+      ],
+      "variants": {
+        "step": "invite"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/FocusGroupInviteIntake.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/fokus-gruppa/priglashenie/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/FocusGroupInviteShare.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/fokus-gruppa/index.astro",
+            "site/src/pages/zakrytaya-afisha/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "57ab7889b71cfec7a3346445ba73ecd107f37f5e8f6e8ade6157297a357c6ec6"
+    },
+    {
+      "id": "exhibitions.surface",
+      "family": "Product surfaces",
+      "name": "Exhibitions surface",
+      "kind": "exhibitions",
+      "viewport": "responsive",
+      "width": 820,
+      "height": 560,
+      "sourceFiles": [
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/components/ExhibitionPrototypeRow.astro"
+      ],
+      "variants": {
+        "state": "listing"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/ExhibitionsPersonalSurface.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/vystavki/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/ExhibitionPrototypeRow.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/ExhibitionsPersonalSurface.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/exhibitions-personal/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/exhibitions-personal/index.astro",
+        "site/src/pages/vystavki/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "740c54d4c43b0a0c90c002a2ee0ce4f6f3250385d0783dbb0b71adac5bdb945c"
+    },
+    {
+      "id": "artifacts.collection",
+      "family": "Artifacts",
+      "name": "Artifact collection",
+      "kind": "artifacts",
+      "viewport": "responsive",
+      "width": 820,
+      "height": 520,
+      "sourceFiles": [
+        "site/src/components/FocusEggArtifact.astro",
+        "site/src/components/FocusEggCollectionCard.astro",
+        "site/src/components/FocusEggSavedListDemo.astro"
+      ],
+      "variants": {
+        "state": "current-and-reserved"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/FocusEggArtifact.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/FocusEggSavedListDemo.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json"
+          ]
+        },
+        {
+          "file": "site/src/components/FocusEggCollectionCard.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/fokus-gruppa/kollektsiya/index.astro"
+          ]
+        },
+        {
+          "file": "site/src/components/FocusEggSavedListDemo.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/fokus-gruppa/kollektsiya/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/FocusEggSavedListDemo.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "a465b318d03fc542cdc7810c2cd651129ecb067f8aa4895d009b6c449664b448"
+    },
+    {
+      "id": "transport.rail",
+      "family": "Transport",
+      "name": "Rail schedule",
+      "kind": "transport",
+      "viewport": "responsive",
+      "width": 760,
+      "height": 390,
+      "sourceFiles": [
+        "site/src/components/EventTransportSchedule.astro",
+        "site/src/components/KaupTransportSchedule.astro"
+      ],
+      "variants": {
+        "mode": "rail"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventTransportSchedule.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/lib/eventMedallions.ts",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        },
+        {
+          "file": "site/src/components/KaupTransportSchedule.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/lib/eventMedallions.ts",
+        "site/src/pages/lab/event-desktop/examples/[scenario].astro",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "9cbc389adfd4373c23aa8f12fea208e9a5d4e09d08f5ffd7038b02d6ae06345b"
+    },
+    {
+      "id": "transport.bus",
+      "family": "Transport",
+      "name": "Bus schedule",
+      "kind": "transport",
+      "viewport": "responsive",
+      "width": 760,
+      "height": 390,
+      "sourceFiles": [
+        "site/src/components/EventBusTransportSchedule.astro"
+      ],
+      "variants": {
+        "mode": "bus"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/EventBusTransportSchedule.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/components/DesktopEventPage.astro",
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/sobytiya/[slug].astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "9c60d6ef40bc619844f9b5d533a2140fe07df263286ccd9673d87c59418ac4f9"
+    },
+    {
+      "id": "notice.persistent",
+      "family": "Feedback",
+      "name": "Persistent notice",
+      "kind": "notice",
+      "viewport": "responsive",
+      "width": 660,
+      "height": 220,
+      "sourceFiles": [
+        "site/src/components/design-system/StatePanel.astro"
+      ],
+      "variants": {
+        "lifecycle": "persistent"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/design-system/StatePanel.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/pages/lab/design-system/index.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/pages/lab/design-system/index.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "eb4bac0315887d7775741a264674037ffc49f8a144a053ae11e0d237f23f404f"
+    },
+    {
+      "id": "toast.timed",
+      "family": "Feedback",
+      "name": "Timed toast",
+      "kind": "toast",
+      "viewport": "responsive",
+      "width": 420,
+      "height": 120,
+      "sourceFiles": [
+        "site/src/components/MobileToastRegion.astro"
+      ],
+      "variants": {
+        "lifecycle": "timed"
+      },
+      "sources": [
+        {
+          "file": "site/src/components/MobileToastRegion.astro",
+          "exists": true,
+          "consumers": [
+            "site/src/data/design-system-production-surface-contract.v1.json",
+            "site/src/layouts/EventLayout.astro"
+          ]
+        }
+      ],
+      "consumers": [
+        "site/src/data/design-system-production-surface-contract.v1.json",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "status": "implementation-linked",
+      "hash": "fda9d01e1ad26a65be686bcf01f4cf0680a82756dd6513ce257f58b83bf498ab"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "pattern.listing.desktop",
+      "name": "Event listing · desktop",
+      "path": "Patterns/Listings",
+      "components": [
+        "shell.header.desktop",
+        "listing.page-header.desktop",
+        "listing.time-nav.desktop",
+        "listing.row.desktop",
+        "shell.footer"
+      ],
+      "hash": "f5fcddae1604fa8c5498f6efb40568fa5fce1dc7bddae79d701609ceb1f17b82"
+    },
+    {
+      "id": "pattern.listing.mobile",
+      "name": "Event listing · mobile",
+      "path": "Patterns/Listings",
+      "components": [
+        "shell.header.mobile",
+        "listing.page-header.mobile",
+        "listing.time-nav.mobile",
+        "listing.row.mobile",
+        "shell.mobile-bottom-nav"
+      ],
+      "hash": "ffafe67ab25a4bf8e518c0c7382a8e4a9b89c424a4aa278920a59f4ba7fa8002"
+    },
+    {
+      "id": "pattern.event-detail.wide",
+      "name": "Event detail · wide image",
+      "path": "Patterns/Event detail",
+      "components": [
+        "shell.header.desktop",
+        "event.hero.wide",
+        "event.facts",
+        "event.cta",
+        "event.media-rail",
+        "event.medallions",
+        "shell.footer"
+      ],
+      "hash": "4879e9488810f55259fd79c640324224c4868bdc6309614d939cb6c1981e94f4"
+    },
+    {
+      "id": "pattern.event-detail.narrow",
+      "name": "Event detail · narrow image",
+      "path": "Patterns/Event detail",
+      "components": [
+        "shell.header.desktop",
+        "event.hero.narrow",
+        "event.facts",
+        "event.cta",
+        "event.media-rail",
+        "event.medallions",
+        "shell.footer"
+      ],
+      "hash": "86a92ef68dd42ed11973861e124f85a7cad31996dcc8c1cbc76e4c0d2c39f2cf"
+    },
+    {
+      "id": "pattern.event-detail.no-image",
+      "name": "Event detail · no image",
+      "path": "Patterns/Event detail",
+      "components": [
+        "shell.header.desktop",
+        "event.hero.no-image",
+        "event.facts",
+        "event.cta",
+        "event.medallions",
+        "shell.footer"
+      ],
+      "hash": "11c22f60af08bf27859549efd133d804db83d9f1ae0f333a3199ec27ac5d7c1e"
+    },
+    {
+      "id": "pattern.search",
+      "name": "Search and results",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "shell.header.desktop",
+        "search.surface",
+        "shell.footer"
+      ],
+      "hash": "19aef48d55892fc613da08f9d3b238922725e1898be6a0e7661db91d9cd122be"
+    },
+    {
+      "id": "pattern.focus-group",
+      "name": "Focus-group feedback",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "focus.invite",
+        "focus.nps",
+        "focus.feedback"
+      ],
+      "hash": "f40ab8ded286ec07ccc162f49951d6f214b159f682abda816c954a3de5665d91"
+    },
+    {
+      "id": "pattern.artifacts",
+      "name": "Artifact collection",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "artifacts.collection"
+      ],
+      "hash": "0ba442917d488815192544d98154b191e867efcf0ae64eda613d7b581005eeaa"
+    },
+    {
+      "id": "pattern.transport",
+      "name": "Transport context",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "transport.rail",
+        "transport.bus"
+      ],
+      "hash": "36fd7685d5b0b8d40451d45ab972b038a4f11f291849d8ea367a7b75ab88e77f"
+    },
+    {
+      "id": "pattern.personal",
+      "name": "For me",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "personal.surface",
+        "event.card.small"
+      ],
+      "hash": "96edbbb6aea5da84704bb667076232ec85bec13baa310b037ceaa91217900daa"
+    },
+    {
+      "id": "pattern.favorites",
+      "name": "Favorites",
+      "path": "Patterns/Product surfaces",
+      "components": [
+        "favorites.surface",
+        "event.card.small"
+      ],
+      "hash": "877f5e81b5aa4f4421d37c6a8580d2b48d9f39d5cb4fbce832325bbd2ce9b3c7"
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "home",
+      "routes": [
+        "/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "event.card.large",
+        "event.rail.discovery",
+        "artifacts.collection",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/",
+          "source": "site/src/pages/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "c5f518ff9115961e26007038ba113033bf15506b3d26e18111a188045f9b3413"
+    },
+    {
+      "id": "today-listing",
+      "routes": [
+        "/segodnya/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "tablet-768x1024",
+        "desktop-1728x900"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.listing.desktop"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/segodnya/",
+          "source": "site/src/pages/segodnya/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "2d386848b75bfc9ea29c8f27ded6c32d2eaf47f2cc66d3ecc9a4731a697ac7ce"
+    },
+    {
+      "id": "tomorrow-listing",
+      "routes": [
+        "/zavtra/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.listing.desktop"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/zavtra/",
+          "source": "site/src/pages/zavtra/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "78ac562dd2c6608ee15cadee442cdd9585287de530989d3dc547bb58ab8fd666"
+    },
+    {
+      "id": "weekend-listing",
+      "routes": [
+        "/vyhodnye/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.listing.desktop"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/vyhodnye/",
+          "source": "site/src/pages/vyhodnye/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "b650f3ad40f9ce16ca7737b2dff4108a39d8cfca03545e71ea9b8ad841993f7d"
+    },
+    {
+      "id": "popular-listing",
+      "routes": [
+        "/populyarnoe/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "listing.page-header.desktop",
+        "event.card.large",
+        "event.card.small",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/populyarnoe/",
+          "source": "site/src/pages/populyarnoe/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "6109b207b0ae783429b32d0b0ca1f83585e7bb64c64f27690edb729583a72875"
+    },
+    {
+      "id": "collections",
+      "routes": [
+        "/podborki/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "event.card.large",
+        "event.card.small",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/podborki/",
+          "source": "site/src/pages/podborki/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "9ab7d6dae8beb560bf44e0d774a1ed4196e3968ff0ca613186f767df1e4f50d2"
+    },
+    {
+      "id": "festivals",
+      "routes": [
+        "/festivali/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1728x900"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "listing.page-header.desktop",
+        "event.card.large",
+        "event.rail.discovery",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/festivali/",
+          "source": "site/src/pages/festivali/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "b9193a9554cb6ff969afe7c4afa5a540b53b0ad3be2f733c22707034f36f045d"
+    },
+    {
+      "id": "exhibitions",
+      "routes": [
+        "/vystavki/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "exhibitions.surface",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/vystavki/",
+          "source": "site/src/pages/vystavki/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "fb6fbaef281f425bcd8dff4a5a0a48af2a2b7af925fedd3f57db533b617afb81"
+    },
+    {
+      "id": "favorites",
+      "routes": [
+        "/izbrannoe/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.favorites"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/izbrannoe/",
+          "source": "site/src/pages/izbrannoe/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "4b9d10754eaa6c033aa2ac0942caf4eadd8c31756bd57cdfca754df4f71150d9"
+    },
+    {
+      "id": "search",
+      "routes": [
+        "/poisk/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.search"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/poisk/",
+          "source": "site/src/pages/poisk/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "c40565209db82afa1231cb68a6b4717c9bbd4a951bf0a7a51d7c6e2d12209519"
+    },
+    {
+      "id": "for-me",
+      "routes": [
+        "/dlya-menya/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.personal"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/dlya-menya/",
+          "source": "site/src/pages/dlya-menya/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "bf7e6f5247cbed2253d2f6c83c03f1c5d8f783bfbc3022cbb00b8ed4d942a0a2"
+    },
+    {
+      "id": "focus-group",
+      "routes": [
+        "/fokus-gruppa/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.focus-group"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/fokus-gruppa/",
+          "source": "site/src/pages/fokus-gruppa/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "b8b72d2d5688786bdf9865865dfee96e5346a0770897222fe679078cee8d1b88"
+    },
+    {
+      "id": "artifacts",
+      "routes": [
+        "/artefakty/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "pattern.artifacts"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/artefakty/",
+          "source": "site/src/pages/artefakty/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "67b4b17c31214683a947325a56f3480ac8e242ea63596be60f8d80ef2561903e"
+    },
+    {
+      "id": "event-detail",
+      "routes": [
+        "/sobytiya/*/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "tablet-768x1024",
+        "desktop-1728x900"
+      ],
+      "scenarios": [
+        "wide-image",
+        "narrow-image",
+        "no-image"
+      ],
+      "components": [
+        "pattern.event-detail.wide",
+        "pattern.event-detail.narrow",
+        "pattern.event-detail.no-image"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/sobytiya/*/",
+          "source": "site/src/pages/sobytiya/[slug].astro",
+          "exists": true
+        }
+      ],
+      "hash": "d2352a4cccd40ff1ea9eb586b268682986dcf2c413c1dce90be2ff12aef95a84"
+    },
+    {
+      "id": "interest-clubs",
+      "routes": [
+        "/kluby-po-interesam/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "listing.page-header.desktop",
+        "event.card.small",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/kluby-po-interesam/",
+          "source": "site/src/pages/kluby-po-interesam/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "fba240b35996180bf84be0ec5e0eb2c31cf3be6791d26b82afeb6bd74282da68"
+    },
+    {
+      "id": "unusual-events",
+      "routes": [
+        "/neobychnoe/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "listing.page-header.desktop",
+        "event.card.large",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/neobychnoe/",
+          "source": "site/src/pages/neobychnoe/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "e6bcecb92185f7be1c7dc340034b655676b20719e75c19708b71914482fd3523"
+    },
+    {
+      "id": "information-pages",
+      "routes": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "required": true,
+      "evidenceViewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "scenarios": [],
+      "components": [
+        "shell.header.desktop",
+        "notice.persistent",
+        "shell.footer"
+      ],
+      "sourceStatus": [
+        {
+          "route": "/partners/",
+          "source": "site/src/pages/partners/index.astro",
+          "exists": true
+        },
+        {
+          "route": "/partnerstvo/",
+          "source": "site/src/pages/partnerstvo/index.astro",
+          "exists": true
+        }
+      ],
+      "hash": "f97509afd073cd9767974d74a4440ebc2162d20cc5cc896c6b1646bd69295354"
+    }
+  ],
+  "fragmentationClusters": [
+    {
+      "id": "fragment.cards",
+      "title": "Event card, listing row and rail cards",
+      "members": [
+        "event.card.small",
+        "event.card.large",
+        "listing.row.desktop",
+        "listing.row.mobile",
+        "event.rail.exact-time",
+        "event.rail.discovery"
+      ],
+      "decision": "Shared media, title, metadata and status primitives; keep distinct layout APIs for list, rail and discovery contexts.",
+      "status": "needs-owner-review"
+    },
+    {
+      "id": "fragment.mobile-navigation",
+      "title": "Mobile bottom navigation, search navigation and mobile menu",
+      "members": [
+        "shell.mobile-bottom-nav",
+        "shell.search-bottom-nav",
+        "shell.mobile-menu"
+      ],
+      "decision": "Shared navigation item and active-state tokens; keep menu overlay separate from persistent bottom navigation.",
+      "status": "candidate-ready"
+    },
+    {
+      "id": "fragment.feedback",
+      "title": "Persistent notices and timed toasts",
+      "members": [
+        "notice.persistent",
+        "toast.timed"
+      ],
+      "decision": "Share semantic tones and anatomy; lifecycle, dismissal and announcement semantics remain separate.",
+      "status": "candidate-ready"
+    },
+    {
+      "id": "fragment.transport",
+      "title": "Rail and bus schedules",
+      "members": [
+        "transport.rail",
+        "transport.bus"
+      ],
+      "decision": "Extract shared schedule row and service state, retain mode-specific route metadata and iconography.",
+      "status": "needs-options"
+    },
+    {
+      "id": "fragment.event-hero",
+      "title": "Wide, narrow and absent event media",
+      "members": [
+        "event.hero.wide",
+        "event.hero.narrow",
+        "event.hero.no-image",
+        "event.hero.mobile"
+      ],
+      "decision": "One EventHero family with explicit media geometry and viewport variants.",
+      "status": "candidate-ready"
+    },
+    {
+      "id": "fragment.focus-group",
+      "title": "Focus-group invite, NPS and feedback",
+      "members": [
+        "focus.invite",
+        "focus.nps",
+        "focus.feedback"
+      ],
+      "decision": "One product flow composed of separate steps; do not merge the forms into one generic component.",
+      "status": "candidate-ready"
+    }
+  ],
+  "designGaps": [
+    {
+      "id": "gap.accepted-production-release",
+      "title": "Attach accepted production release identity",
+      "status": "identified",
+      "requirement": "Replace implementation-main source mode with exact static-release-manifest, build ID and snapshot evidence."
+    },
+    {
+      "id": "gap.actual-baseline-diff",
+      "title": "Generate multi-resolution actual / baseline / diff evidence",
+      "status": "needs-options",
+      "requirement": "Populate pages 90–93 from automated tests at the accepted production SHA."
+    },
+    {
+      "id": "gap.editorial-contracts",
+      "title": "Connect editorial contracts to component APIs",
+      "status": "identified",
+      "requirement": "Show title-length, date, venue, price, status, alt and credit rules beside the components that consume them."
+    },
+    {
+      "id": "gap.print-and-channel-extensions",
+      "title": "Brand extensions for print, email and social",
+      "status": "identified",
+      "requirement": "Keep shared foundations while documenting channel-specific templates and constraints."
+    }
+  ],
+  "cleanupPolicy": {
+    "mode": "automatic-safe-organize",
+    "legacyNamespace": "lovekgd.runtime.003",
+    "moveCommentBoundBoards": true,
+    "deleteEmptyLegacyPages": true,
+    "archiveUnboundCommentPages": true,
+    "preserveCommentRegistryInFile": true,
+    "externalPersistence": "not-configured"
+  },
+  "counts": {
+    "components": 38,
+    "sourceLinkedComponents": 38,
+    "patterns": 11,
+    "archetypes": 17,
+    "archetypeBoards": 39,
+    "fragmentationClusters": 6,
+    "designGaps": 4
+  },
+  "catalogSha256": "45600ac188425637a49db5cf988ae509e3821583d8e75d82ce6b48cf586290fc"
+}

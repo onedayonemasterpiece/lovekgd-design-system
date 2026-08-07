@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LoveKGD Resource Graph 004b</title>
+  <style>
+    :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color:#221a14; background:#fbf7ef; }
+    *{box-sizing:border-box} body{margin:0;padding:14px;font-size:13px;line-height:1.45}
+    h1{font-size:20px;line-height:1.15;margin:0 0 8px} p{margin:0 0 10px;color:#6d6259}
+    .card{background:#fffdf8;border:1px solid #e1d3c2;border-radius:16px;padding:12px;margin:10px 0}
+    .statusline{display:flex;gap:8px;align-items:flex-start}.badge{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px;white-space:nowrap}
+    .checking{background:#e7f2f7;color:#1f658d}.current{background:#e6f6e9;color:#0f6c3d}.incomplete,.needs-update{background:#fff8db;color:#5a3b06}.failed{background:#fff0f0;color:#a92d2d}
+    .headline{font-weight:800;font-size:15px}.detail{color:#6d6259;margin-top:2px}
+    button{width:100%;border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;cursor:pointer;margin-top:8px;background:#ece4d8;color:#221a14}
+    button.primary{background:#204568;color:#fff} button.danger{background:#a92d2d;color:#fff} button:disabled{opacity:.45;cursor:not-allowed}
+    progress{width:100%;height:12px;margin-top:10px}.meta{font-size:11px;color:#6d6259;margin-top:5px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{border:1px solid #eee4d7;border-radius:12px;padding:9px}
+    .metric b{display:block;font-size:18px}.metric span{font-size:10px;color:#6d6259}
+    dl{display:grid;grid-template-columns:115px 1fr;gap:5px 8px;margin:0}dt{color:#6d6259}dd{margin:0;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px}
+    table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:7px 4px;border-bottom:1px solid #eee4d7;vertical-align:top}th{color:#6d6259;font-size:10px}
+    .ok{color:#0f6c3d;font-weight:800}.warn{color:#5a3b06;font-weight:800}.bad{color:#a92d2d;font-weight:800}
+    textarea{width:100%;min-height:180px;resize:vertical;border:1px solid #e1d3c2;border-radius:10px;padding:9px;font:11px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;background:#fff}
+    .hidden{display:none}.note{background:#fff8db;border-color:#ead28a}.result{background:#e6f6e9;border-color:#b7dec2}
+    details summary{font-weight:800;cursor:pointer}.small{font-size:11px;color:#6d6259}
+  </style>
+</head>
+<body>
+  <h1>LoveKGD Resource Graph · 004b</h1>
+  <p>Один запуск: шрифты → безопасная очистка legacy evidence → product component masters → patterns → page archetypes → fragmentation → design gaps → comment registry.</p>
+
+  <section class="card">
+    <div class="statusline">
+      <span id="badge" class="badge checking">CHECKING</span>
+      <div><div id="headline" class="headline">Загружаю точный каталог…</div><div id="detail" class="detail">Проверяю SHA и состояние Penpot-файла.</div></div>
+    </div>
+    <progress id="progress" class="hidden" value="0" max="100"></progress>
+    <div id="progress-meta" class="meta hidden"></div>
+    <button id="check">Проверить актуальность</button>
+    <button id="update" class="primary" disabled>Обновить всю дизайн-систему</button>
+    <button id="prompt" disabled>Собрать промпт по комментариям</button>
+  </section>
+
+  <section id="catalog-card" class="card hidden">
+    <dl>
+      <dt>Catalog</dt><dd id="catalog-sha"></dd>
+      <dt>Product source</dt><dd id="source-sha"></dd>
+      <dt>Generated</dt><dd id="generated"></dd>
+      <dt>Font policy</dt><dd id="font-policy"></dd>
+      <dt>Cleanup</dt><dd>automatic-safe-organize; comments/evidence preserved</dd>
+    </dl>
+  </section>
+
+  <section id="metrics-card" class="card hidden">
+    <div class="grid">
+      <div class="metric"><b id="m-components">0</b><span>product component specs</span></div>
+      <div class="metric"><b id="m-patterns">0</b><span>product patterns</span></div>
+      <div class="metric"><b id="m-archetypes">0</b><span>page archetypes</span></div>
+      <div class="metric"><b id="m-fragmentation">0</b><span>fragmentation clusters</span></div>
+    </div>
+  </section>
+
+  <section id="state-card" class="card hidden">
+    <table>
+      <tbody>
+        <tr><th>Product components</th><td id="s-components"></td></tr>
+        <tr><th>Patterns</th><td id="s-patterns"></td></tr>
+        <tr><th>Archetype boards</th><td id="s-archetypes"></td></tr>
+        <tr><th>Managed pages</th><td id="s-pages"></td></tr>
+        <tr><th>Source gaps</th><td id="s-source-gaps"></td></tr>
+        <tr><th>Route gaps</th><td id="s-route-gaps"></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="result-card" class="card result hidden">
+    <strong>Итог обновления</strong>
+    <div id="result-text" style="margin-top:6px"></div>
+    <div id="cleanup-text" class="small" style="margin-top:7px"></div>
+  </section>
+
+  <section id="warnings-card" class="card note hidden">
+    <strong>Предупреждения Penpot API</strong>
+    <div id="warnings" class="small" style="white-space:pre-wrap;margin-top:6px"></div>
+  </section>
+
+  <section id="diagnostic-card" class="card hidden">
+    <details open>
+      <summary>Полная диагностика · <code id="incident"></code></summary>
+      <textarea id="diagnostic" readonly></textarea>
+      <button id="copy-diagnostic" class="danger">Скопировать диагностику</button>
+    </details>
+  </section>
+
+  <section id="prompt-card" class="card hidden">
+    <textarea id="prompt-text" readonly></textarea>
+    <button id="copy-prompt" class="primary">Скопировать промпт</button>
+  </section>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const send = (type, payload = {}) => parent.postMessage({ type, ...payload }, '*');
+  const assert = (c, m) => { if (!c) throw new Error(m); };
+  let catalog = null;
+  let busy = false;
+  let latestDiagnostic = null;
+  const warnings = [];
+
+  function setState(kind, title, detail = '') {
+    const badge = $('#badge');
+    badge.textContent = kind;
+    badge.className = `badge ${kind.toLowerCase().replace(/\s+/g,'-')}`;
+    $('#headline').textContent = title;
+    $('#detail').textContent = detail;
+  }
+  function setBusy(value) {
+    busy = value;
+    $('#check').disabled = value;
+    $('#update').disabled = value || !catalog;
+    $('#prompt').disabled = value || !catalog;
+  }
+  function showProgress(completed, total, detail) {
+    const p = $('#progress');
+    p.classList.remove('hidden');
+    $('#progress-meta').classList.remove('hidden');
+    p.value = Math.min(100, Math.max(0, Number(completed || 0) / Math.max(1, Number(total || 1)) * 100));
+    $('#progress-meta').textContent = `${completed}/${total} · ${detail || ''}`;
+  }
+  function hideProgress() {
+    $('#progress').classList.add('hidden');
+    $('#progress-meta').classList.add('hidden');
+  }
+  function renderCatalog() {
+    $('#catalog-card').classList.remove('hidden');
+    $('#metrics-card').classList.remove('hidden');
+    $('#catalog-sha').textContent = catalog.catalogSha256;
+    $('#source-sha').textContent = `${catalog.source.repository}@${catalog.source.revision}`;
+    $('#generated').textContent = catalog.generatedAt;
+    $('#font-policy').textContent = `${catalog.fontPolicy.requestedFamily} → ${catalog.fontPolicy.fallbacks.join(' → ')}`;
+    $('#m-components').textContent = catalog.counts.components;
+    $('#m-patterns').textContent = catalog.counts.patterns;
+    $('#m-archetypes').textContent = catalog.counts.archetypes;
+    $('#m-fragmentation').textContent = catalog.counts.fragmentationClusters;
+  }
+  function cell(id, value, state) {
+    const node = $(id); node.textContent = value; node.className = state;
+  }
+  function renderInspection(state) {
+    $('#state-card').classList.remove('hidden');
+    cell('#s-components', `${state.productComponents}/${state.expectedProductComponents}`, state.productComponents >= state.expectedProductComponents ? 'ok' : 'bad');
+    cell('#s-patterns', `${state.patterns}/${state.expectedPatterns}`, state.patterns >= state.expectedPatterns ? 'ok' : 'bad');
+    cell('#s-archetypes', `${state.archetypeBoards}/${state.expectedArchetypeBoards}`, state.archetypeBoards >= state.expectedArchetypeBoards ? 'ok' : 'bad');
+    cell('#s-pages', `${state.pages}/${state.expectedPages}`, state.pages >= state.expectedPages ? 'ok' : 'bad');
+    cell('#s-source-gaps', state.sourceGaps.length ? state.sourceGaps.join(', ') : '0', state.sourceGaps.length ? 'warn' : 'ok');
+    cell('#s-route-gaps', state.routeGaps.length ? state.routeGaps.join(', ') : '0', state.routeGaps.length ? 'warn' : 'ok');
+    if (state.status === 'CURRENT') {
+      setState('CURRENT', 'Граф и production-linked inventory актуальны', 'Все обязательные product components, patterns и archetype boards созданы; source/route gaps отсутствуют.');
+      $('#update').disabled = true;
+    } else if (state.status === 'INCOMPLETE') {
+      setState('INCOMPLETE', 'Граф обновлён, но inventory неполон', 'Текущий каталог применён. Оставшиеся source/route gaps показаны ниже; повторный запуск без нового каталога не требуется.');
+      $('#update').disabled = true;
+    } else {
+      setState('NEEDS UPDATE', 'Требуется единое обновление', 'Нажмите одну кнопку. Очистка legacy pages и построение всего графа выполняются автоматически.');
+      $('#update').disabled = busy;
+    }
+  }
+  async function fetchCatalog() {
+    const url = new URL('../catalog/catalog.json', window.location.href);
+    const response = await fetch(url, { cache: 'no-store' });
+    assert(response.ok, `catalog_http_${response.status}`);
+    const value = await response.json();
+    assert(value?.schemaVersion === 1, 'catalog_schema_invalid');
+    assert(value.delivery === 'penpot-resource-graph-004b', 'catalog_delivery_invalid');
+    assert(/^[0-9a-f]{64}$/.test(value.catalogSha256 || ''), 'catalog_sha_invalid');
+    assert(value.components?.length >= 35, 'components_incomplete');
+    assert(value.patterns?.length >= 10, 'patterns_incomplete');
+    assert(value.archetypes?.length >= 17, 'archetypes_incomplete');
+    return value;
+  }
+  async function loadAndInspect() {
+    if (busy) return;
+    setBusy(true);
+    setState('CHECKING', 'Загружаю точный каталог…', 'Проверяю immutable UI/catalog и состояние файла.');
+    try {
+      catalog = await fetchCatalog();
+      renderCatalog();
+      send('inspect', { catalog });
+    } catch (error) {
+      setBusy(false);
+      setState('FAILED', 'Не удалось загрузить каталог', String(error?.message || error));
+      renderDiagnostic({ phase:'catalog-load', error:{message:String(error?.message||error),stack:String(error?.stack||'')} });
+    }
+  }
+  function renderDiagnostic(value) {
+    latestDiagnostic = value;
+    $('#diagnostic-card').classList.remove('hidden');
+    $('#incident').textContent = value?.incidentId || 'catalog-load';
+    $('#diagnostic').value = JSON.stringify(value, null, 2);
+  }
+  function renderWarnings() {
+    if (!warnings.length) return;
+    $('#warnings-card').classList.remove('hidden');
+    $('#warnings').textContent = [...new Set(warnings)].join('\n');
+  }
+
+  $('#check').addEventListener('click', loadAndInspect);
+  $('#update').addEventListener('click', () => {
+    if (!catalog || busy) return;
+    setBusy(true);
+    $('#result-card').classList.add('hidden');
+    $('#diagnostic-card').classList.add('hidden');
+    setState('CHECKING', 'Обновляю весь инженерный граф…', 'Font resolution → cleanup → components → patterns → archetypes → fragmentation → comments.');
+    send('update-all', { catalog });
+  });
+  $('#prompt').addEventListener('click', () => {
+    if (!catalog || busy) return;
+    $('#prompt').disabled = true;
+    send('build-prompt', { catalog });
+  });
+  $('#copy-diagnostic').addEventListener('click', async () => {
+    await navigator.clipboard.writeText(JSON.stringify(latestDiagnostic, null, 2));
+    $('#copy-diagnostic').textContent = 'Диагностика скопирована';
+  });
+  $('#copy-prompt').addEventListener('click', async () => {
+    await navigator.clipboard.writeText($('#prompt-text').value);
+    $('#copy-prompt').textContent = 'Промпт скопирован';
+  });
+
+  window.addEventListener('message', (event) => {
+    const m = event.data;
+    if (!m || typeof m !== 'object') return;
+    if (m.type === 'inspection') {
+      setBusy(false); hideProgress(); renderInspection(m.state);
+    } else if (m.type === 'progress') {
+      showProgress(m.completed, m.total, `${m.phase}: ${m.detail || ''}`);
+    } else if (m.type === 'warning') {
+      warnings.push(m.message || JSON.stringify(m)); renderWarnings();
+    } else if (m.type === 'complete') {
+      setBusy(false); hideProgress(); renderInspection(m.state);
+      $('#result-card').classList.remove('hidden');
+      const r = m.result || {};
+      $('#result-text').textContent = `PASS: ${r.product?.total || 0} product masters, ${r.patterns?.total || 0} pattern masters, ${r.archetypes?.total || 0} archetype boards. Font: ${r.fonts?.resolvedFontName || '—'}. Penpot file validation: PASS.`;
+      $('#cleanup-text').textContent = `Legacy cleanup: ${r.cleanup?.moved || 0} evidence boards moved; ${(r.cleanup?.removedPages || []).length} empty pages removed; ${(r.cleanup?.archivedPages || []).length} pages preserved in archive; unresolved comments indexed: ${r.comments?.entries || 0}.`;
+    } else if (m.type === 'failure') {
+      setBusy(false); hideProgress();
+      setState('FAILED', 'Обновление остановлено', m.diagnostic?.error?.message || 'Неизвестная ошибка');
+      renderDiagnostic(m.diagnostic || m);
+    } else if (m.type === 'prompt') {
+      $('#prompt').disabled = false;
+      $('#prompt-card').classList.remove('hidden');
+      $('#prompt-text').value = m.prompt || '';
+    }
+  });
+  loadAndInspect();
+})();
+</script>
+</body>
+</html>
