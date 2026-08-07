@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const UI_SHA = 'e782c860d594ac2c2ff72d6c75c6bfe44fe90bba';
+  const UI_SHA = '5e1186365682b16ca8de3946bf4014f760806fc0';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const ROOT_PATH = 'prototypes/penpot-resource-graph-004a';
   const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_SHA}/${ROOT_PATH}/dist/ui.html`;
