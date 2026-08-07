@@ -81,7 +81,7 @@ for (const marker of [
   'findCommentThreads',
   'commentThreads',
   'buildPrompt',
-  "type: 'build-prompt'",
+  "message?.type === 'build-prompt'",
   'candidate-preview',
 ]) fail(plugin.includes(marker), `plugin_marker:${marker}`);
 
