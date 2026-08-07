@@ -1,114 +1,172 @@
-# Product Atlas Penpot extension
+# Product Atlas: отдельный Penpot plugin и visual extension
 
-> **Статус:** рекомендуемая граница расширения для owner review.  
+> **Статус:** скорректированная граница реализации.  
 > **Дата:** 7 августа 2026 года.  
-> **Каноническая продуктовая архитектура:** `events-bot-new/docs/product-model/product-atlas-architecture.md`.
+> **Канонический product contract:** `events-bot-new/docs/product-model/product-atlas-architecture.md`.
 
 ## 1. Решение
 
-LoveKGD Design System получает внутреннее расширение для визуализации продуктовой модели, но не становится владельцем Jobs, outcomes, release state или metrics.
+Product Atlas создаётся:
+
+- в отдельном Penpot-файле;
+- отдельным Product Atlas plugin;
+- из отдельного `product-atlas` catalog;
+- с отдельным managed namespace;
+- без импорта Resource Graph дизайн-системы в продуктовую доску.
 
 ```text
 events-bot-new product model
-+ common-analytics evidence snapshot
-+ LoveKGD visualization tokens/components
-→ Penpot Product Atlas snapshot
++ release / acceptance / incident refs
++ reviewed product analysis records
++ LoveKGD visual foundations
+→ Product Atlas Penpot projection
 ```
 
-Product Atlas размещается в **отдельном Penpot-файле**. Resource Graph дизайн-системы остаётся библиотекой resources, archetypes и visual evidence.
+`common-analytics` не является входом Product Atlas. Статистические данные находятся в проектируемом DB/runtime-контуре `events-bot-new`; на Product Atlas попадают только проверяемые snapshots/findings из конкретных analysis records.
 
-## 2. Почему отдельный Penpot-файл
+## 2. Почему plugins должны быть отдельными
 
-Product Atlas отличается от design-system resource graph:
+Resource Graph и Product Atlas различаются по:
 
-- чаще обновляет runtime/evidence values;
-- содержит Jobs, stakeholder lanes, metrics и incidents;
-- имеет другой review cadence;
-- должен сохранять stable product-board geometry;
-- не должен загрязнять component library и design-system coverage.
+- catalog schema;
+- managed object types;
+- page model;
+- частоте обновления;
+- comment semantics;
+- acceptance и recovery rules.
 
-Файлы связываются IDs и deep links:
+Один пользовательский plugin с переключателем режима создавал бы риск:
+
+- импортировать component/resource catalog на продуктовую доску;
+- создать Jobs и problem bubbles в design-system-файле;
+- повредить comments или managed object identity;
+- ошибочно считать один файл current по другому catalog.
+
+Поэтому разделяются:
 
 ```text
-Product Atlas capability / UI evidence
-↔ Resource Graph component / pattern / archetype
-↔ actual / baseline / diff screenshot
+LoveKGD Resource Graph plugin
+LoveKGD Product Atlas plugin
 ```
 
-## 3. Переиспользуемый foundation
+Допускается общий internal renderer core, но не общий manifest, namespace, catalog kind или mutation command.
 
-Product Atlas наследует из LoveKGD:
+## 3. File-kind guard
 
-- semantic colors;
+### Product Atlas plugin
+
+Обязан:
+
+- принимать только `catalog_kind=lovekgd-product-atlas`;
+- использовать namespace `lovekgd.productatlas.*`;
+- требовать file marker `file_kind=product-atlas`;
+- распознавать Resource Graph managed namespace;
+- fail closed при design-system marker;
+- работать только с allowlisted Product Atlas pages;
+- не запрашивать `library:write` на первой версии;
+- не создавать native Colors, Typographies, icons или public UI component masters.
+
+### Resource Graph plugin
+
+До совместной эксплуатации обязан получить симметричную проверку:
+
+- fail closed при `file_kind=product-atlas`;
+- не переименовывать Product Atlas pages;
+- не удалять и не архивировать Product Atlas managed objects.
+
+Host acceptance двух plugins блокируется, пока обе стороны guard не доказаны в одном чистом design-system-файле и одном чистом Product Atlas-файле.
+
+## 4. Разделение Penpot-файлов
+
+### Design-system Resource Graph
+
+Сохраняет свои страницы resources, components, patterns, archetypes, coverage и automated visual evidence.
+
+### Product Atlas
+
+Использует:
+
+```text
+00 — Executive / Problem Radar
+10 — Stakeholders, Jobs and outcomes
+20 — Journeys and capabilities
+30 — Delivery, coverage and readiness
+40 — Findings, incidents and decisions
+50 — UI and design evidence
+80 — Candidate decisions
+89 — Decision archive
+99 — Technical diagnostics
+```
+
+Связь между файлами выполняется stable IDs и deep links:
+
+```text
+Product Atlas capability / UI gap
+↔ Resource Graph component / pattern / archetype
+↔ actual / baseline / diff evidence
+```
+
+Product Atlas plugin может создать link/evidence card. Он не копирует всю design-system library и не вызывает её mutation phases.
+
+## 5. Visual foundations
+
+Product Atlas наследует семантику LoveKGD:
+
+- semantic color roles;
 - Inter typography roles;
 - 4px spacing scale;
 - radii, borders и elevation;
-- focus, keyboard и 44px interaction contracts;
-- reduced motion и accessible status rules;
-- iconography resources.
+- focus и keyboard behavior;
+- 44px interaction target;
+- reduced-motion и high-contrast правила;
+- iconography semantics.
 
-Внутренняя визуализация не выбирает отдельную палитру и не копирует raw values.
+Первая версия может использовать проверяемый compact token snapshot с exact design-system revision. Это не делает Product Atlas источником tokens.
 
-## 4. Новый namespace компонентов
+## 6. Internal visualization components
 
-Рекомендуемые paths:
+Namespace:
 
 ```text
 Visualization/ProductModel/*
 Internal/ProductAtlas/*
 ```
 
-Компоненты:
+Минимальный набор:
 
 | Component | Contract |
 |---|---|
-| `ProductEntityCard` | type, ID, title, owner, purpose, relations, evidence facets |
-| `StakeholderLane` | user, owner/operator или partner context |
-| `JobNode` | Job, context, start/terminal summary |
-| `OutcomeNode` | user/owner/partner outcome, metric and confidence |
-| `CapabilityNode` | stable capability identity and linked journeys |
-| `StatusFacetStrip` | independent definition/delivery/release/runtime/outcome state |
-| `ProblemBubble` | problem type, S/M/L impact, context, age, owner and evidence |
-| `CoverageCell` | scenario tuple and implemented/tested/released/live/observed vector |
-| `MetricEvidenceCard` | value, target, window, sample, freshness and provenance |
-| `IncidentMarker` | incident, severity, affected context and recovery state |
-| `DecisionCallout` | decision required, options, owner and due date |
-| `EvidenceLink` | immutable source reference and environment |
-| `FilterContext` | selected Job, release, contexts and time window |
+| `ProductEntityCard` | type, stable ID, title, owner, purpose, relations, facets |
+| `StakeholderLane` | user, owner/operator или future partner |
+| `JobNode` | Job context, start/terminal summary и outcome links |
+| `OutcomeNode` | user/owner/partner outcome, evidence state |
+| `CapabilityNode` | capability, journeys, product/UI coverage |
+| `StatusFacetStrip` | independent definition/delivery/release/runtime/outcome states |
+| `ProblemBubble` | type, S/M/L impact, affected IDs, sources and owner |
+| `CoverageCell` | context tuple and implementation/test/release/live vector |
+| `AnalysisFindingCard` | analysis record, finding, confidence and limitations |
+| `IncidentMarker` | incident, affected context and recovery state |
+| `DecisionCallout` | options, owner and decision deadline |
+| `EvidenceLink` | immutable source/provenance reference |
+| `Legend` | complete semantic status grammar |
 
-Эти components являются internal visualization primitives и не входят автоматически в public-site runtime library.
+Компоненты могут быть неполными в первой версии. Missing/fragmented component coverage отображается как данные Product Atlas, а не скрывается.
 
-## 5. Semantic status grammar
+## 7. Product Problem Radar
 
-Нельзя заменять многомерное состояние одним badge.
+`00 — Executive / Problem Radar` содержит до семи generated problem bubbles.
 
-### Delivery
+Источники первой версии:
 
-- `planned` — dotted boundary / target plane;
-- `implemented` — square marker;
-- `verified` — diamond/check marker;
-- `released` — release triangle.
+- release/checklist blockers;
+- acceptance gaps;
+- incidents;
+- requirement conflicts;
+- missing component / visual evidence / design drift;
+- accepted analysis findings;
+- decision-required records.
 
-### Runtime
-
-- `healthy` — solid circle/check;
-- `degraded` — triangle + hatch;
-- `broken` — octagon/cross;
-- `unknown` — hollow shape/question.
-
-### Evidence and governance
-
-- `insufficient_data` — dotted fill;
-- `stale_evidence` — diagonal pattern + timestamp;
-- `decision_required` — explicit callout;
-- `superseded` — double boundary and replacement link;
-- `not_applicable` — explicit dash, never blank.
-
-Color only reinforces meaning. Text, shape, pattern and stable position remain mandatory for grayscale, high contrast, PDF and screen-reader equivalents.
-
-## 6. Product Radar
-
-`00 — Executive / Problem Radar` contains no more than seven generated problem bubbles.
+Raw DB metrics plugin не интерпретирует.
 
 Bubble types:
 
@@ -119,120 +177,145 @@ Bubble types:
 - decision gap;
 - design drift.
 
-Bubble size is discrete `S/M/L`. The renderer must not create continuous pseudo-precision from an opaque score.
+Размер только `S/M/L`; continuous opaque score запрещён.
 
-Every bubble links to:
+## 8. Product Atlas plugin UX
+
+Пользователь открывает отдельный plugin один раз.
+
+Максимум три действия:
+
+1. `Проверить актуальность` — optional preflight;
+2. `Обновить Product Atlas` — единственная mutation-команда;
+3. `Собрать системный промпт` — feedback output.
+
+Запрещены действия:
 
 ```text
-Job → context → capability → evidence / incident → decision options
+import-design-system
+update-resource-graph
+update-page-manually
+continue-next-batch
+copy-all-components
+write-to-github
+close-comments-automatically
 ```
 
-## 7. Named pages
+## 9. Reuse proven orchestration, not the user-facing plugin
 
-```text
-00 — Executive / Problem Radar
-10 — Stakeholders, Jobs and outcomes
-20 — Journeys and capabilities
-30 — Delivery, coverage and readiness
-40 — Metrics, incidents and decisions
-50 — UI and design evidence
-80 — Candidate decisions
-89 — Decision archive
-99 — Technical diagnostics
-```
-
-Resource Graph pages remain in the design-system file and are not duplicated.
-
-## 8. Renderer and plugin boundary
-
-Product Atlas should be implemented as a second catalog mode of the current deterministic renderer, not as an unrelated plugin.
-
-### Reuse from Resource Graph 004a.2
+Из Resource Graph 004a.2 переиспользуются внутренние принципы:
 
 - one catalog per update;
-- exact source identity and hashes;
+- exact catalog/source identity;
+- schema/hash validation;
 - managed shared plugin data;
-- idempotent reconciliation;
-- checkpoint/resume;
+- idempotent whole-system reconciliation;
+- checkpoints and resume;
 - fail-closed update;
-- preservation of foreign objects and native comments;
-- deterministic comment-to-prompt flow;
-- one whole-system update action.
+- preservation of foreign objects and comments;
+- one final report.
 
-### Add for Product Atlas
+Рекомендуется вынести повторяемые pure helpers в internal source module/build step. Две published plugin bundles остаются независимыми.
 
-- product-model and evidence schemas;
-- stable board-layout rules;
-- derived Problem Radar;
-- in-place updates of metric/status child shapes;
-- cross-links to Product Console and Resource Graph;
-- snapshot-level release and evidence identity.
+## 10. Update semantics
 
-Frequent value updates must not replace an entire entity card. Managed text/status children update in place so spatial position and comment attachment survive.
+### Stable entity identity
 
-Structural changes create a new version or archived snapshot when required.
+Managed element key строится из product entity ID, а не из координат или текста.
 
-## 9. Snapshot identity
+### Non-structural update
 
-Each Product Atlas update records:
+Изменение status, finding или short value обновляет managed child shapes in place, чтобы сохранить:
+
+- board position;
+- spatial memory;
+- native comment attachment;
+- stable element identity.
+
+### Structural update
+
+Изменение entity type, relation topology или page responsibility создаёт versioned replacement. Комментированное старое состояние переносится в `89 — Decision archive`.
+
+### Snapshot identity
+
+Каждый update фиксирует:
 
 ```text
 product_model_sha
-analytics_snapshot_sha
-release_checklist_sha
-incident_revision
-accepted_release_identity
-design_token_version
+product_analysis_revision
+release/checklist revision
+incident revision
+design_token_revision
 renderer_version
 catalog_sha256
 ```
 
-A generic `CURRENT` is prohibited. Currentness remains multidimensional:
+Generic `CURRENT` запрещён. Актуальность показывается отдельно по model, evidence, incidents, visual resources и review.
 
-- product model;
-- analytics evidence;
-- release state;
-- runtime health;
-- visual resources;
-- review state.
+## 11. Комплексная обратная связь
 
-## 10. Comment routing
+Комментарии могут находиться на разных pages и сущностях. Product Atlas plugin собирает один prompt по всем незакрытым комментариям или по явно выбранному scope.
 
-Comments attach to the selected managed entity:
+Каждая запись prompt включает:
 
-- Job or outcome comment → product-model decision;
-- capability comment → shared capability and linked journeys;
-- coverage cell comment → exact context and evidence gap;
-- problem bubble comment → affected Job/context/problem record;
-- metric card comment → metric definition, data quality or interpretation;
-- UI evidence comment → Resource Graph component/archetype/screenshot context.
+- Penpot page;
+- managed board ID;
+- entity type и stable ID;
+- stakeholder lane;
+- Job / journey / capability / scenario links;
+- status facets;
+- source/evidence/analysis refs;
+- catalog revision;
+- Penpot thread number;
+- exact comment text.
 
-Generated prompts contain stable entity IDs, context tuple, source SHAs, evidence references and Penpot thread IDs.
+Prompt начинается с системной задачи:
 
-A comment never changes Git or production automatically.
+```text
+Рассмотри все комментарии как один связанный продуктовый review.
+Не превращай каждый комментарий автоматически в отдельную UI-задачу.
+Сначала восстанови затронутые Jobs, outcomes, journeys и capabilities.
+Объедини дубли, выяви противоречия и сквозные причины.
+```
 
-## 11. Penpot MCP
+Затем он требует:
 
-Penpot MCP is useful for:
+1. problem statements без преждевременного решения;
+2. impact по user/owner/future partner outcomes;
+3. варианты решения;
+4. последствия для UX, UI/design system, implementation, acceptance, statistics и docs;
+5. список owner decisions;
+6. ссылки на все исходные comments.
 
-- read/inspect;
-- assisted review;
-- prototyping a candidate board or component;
-- small reversible changes.
+Plugin не закрывает comments, не создаёт Issues и не меняет product model. Результат после проверки сохраняется в `events-bot-new` как analysis/decision record.
 
-It is not the canonical synchronization path. Product Atlas sync remains in the custom plugin because the plugin enforces exact catalog identity, hashes, managed object ownership, idempotency and recovery.
+## 12. Penpot MCP
 
-## 12. Pilot acceptance
+Penpot MCP остаётся вспомогательным инструментом для read/inspect и candidate prototyping.
 
-The pilot is accepted when one real Penpot file proves:
+Он не используется как canonical sync, потому что Product Atlas plugin обязан обеспечивать:
 
-- one plugin opening and one update action;
-- one Job, two journeys and 5–8 capabilities;
-- independent delivery/runtime/outcome facets;
-- four context coverage cells;
-- generated Product Radar;
-- links to one real incident and UI evidence;
-- native comments preserved across one metric refresh;
-- deterministic prompt from one problem comment;
-- second preflight reports zero pending managed changes;
-- static PDF remains understandable without color.
+- wrong-file guard;
+- exact catalog identity;
+- managed ownership;
+- idempotency;
+- comment preservation;
+- deterministic prompt.
+
+## 13. Pilot acceptance
+
+Первая версия должна доказать в реальном Penpot:
+
+- отдельный manifest и plugin name;
+- отказ Product Atlas plugin в design-system-файле;
+- отказ Resource Graph plugin в Product Atlas-файле;
+- one update action;
+- один Job, два journeys и 5–8 capabilities;
+- problem radar;
+- независимые status facets;
+- missing component coverage;
+- один analysis finding и один incident/gap;
+- comments на нескольких pages;
+- один системный prompt со всеми comments и provenance;
+- повторный preflight с нулём pending managed changes;
+- понятный PDF без зависимости только от цвета.
