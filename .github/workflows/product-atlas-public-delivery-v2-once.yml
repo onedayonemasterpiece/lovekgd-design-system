@@ -1,0 +1,118 @@
+name: Verify final Product Atlas public delivery once
+
+on:
+  push:
+    branches:
+      - verify/product-atlas-public-delivery-v2-20260807
+    paths:
+      - '.github/workflows/product-atlas-public-delivery-v2-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      BUNDLE_SHA: d87e6d55181242867c05b7fa9cc233f247215162
+      UI_SHA: 9a4a694bbeae06a79274f6b2391ca1194006e080
+      CATALOG_SHA: 45f62ce3ea0bd665f972a213c23aef37273f9fb7
+      ROOT: prototypes/penpot-product-atlas-001
+    steps:
+      - name: Check out verification branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: verify/product-atlas-public-delivery-v2-20260807
+          fetch-depth: 0
+
+      - name: Fetch and verify exact public bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+
+          manifest_url="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${BUNDLE_SHA}/${ROOT}/dist/manifest.json"
+          plugin_url="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${BUNDLE_SHA}/${ROOT}/dist/plugin.js"
+          ui_url="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${UI_SHA}/${ROOT}/dist/ui.html"
+          catalog_url="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${CATALOG_SHA}/${ROOT}/catalog/catalog.json"
+
+          fetch() {
+            local url="$1" output="$2" headers="$3"
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 15 --max-time 90 \
+                --dump-header "$headers" --output "$output" "$url"; then
+                return 0
+              fi
+              sleep $((attempt * 5))
+            done
+            return 1
+          }
+
+          fetch "$manifest_url" "$work/manifest.json" "$work/manifest.headers"
+          fetch "$plugin_url" "$work/plugin.js" "$work/plugin.headers"
+          fetch "$ui_url" "$work/ui.html" "$work/ui.headers"
+          fetch "$catalog_url" "$work/catalog.json" "$work/catalog.headers"
+
+          for headers in "$work"/*.headers; do
+            grep -Eiq '^access-control-allow-origin:[[:space:]]*\*' "$headers"
+            grep -Eiq '^content-type:' "$headers"
+          done
+
+          python -m json.tool "$work/manifest.json" >/dev/null
+          python -m json.tool "$work/catalog.json" >/dev/null
+          node --check "$work/plugin.js"
+
+          python - "$work/manifest.json" "$work/catalog.json" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          manifest = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'))
+          catalog = json.loads(pathlib.Path(sys.argv[2]).read_text(encoding='utf-8'))
+          assert manifest['name'] == 'LoveKGD Product Atlas — pilot 001'
+          assert manifest['code'] == 'plugin.js'
+          assert manifest['permissions'] == ['content:read', 'content:write', 'comment:read']
+          assert catalog['catalogKind'] == 'lovekgd-product-atlas'
+          assert len(catalog['pages']) == 9
+          assert len(catalog['elements']) == 25
+          PY
+
+          grep -F "$UI_SHA" "$work/plugin.js"
+          grep -F "$CATALOG_SHA" "$work/ui.html"
+          grep -F "lovekgd.productatlas.001" "$work/plugin.js"
+          grep -F "wrong_file_kind:design-system" "$work/plugin.js"
+          grep -F "Системный продуктовый review" "$work/plugin.js"
+          grep -F "Обновить Product Atlas" "$work/ui.html"
+
+          manifest_sha256="$(sha256sum "$work/manifest.json" | awk '{print $1}')"
+          plugin_sha256="$(sha256sum "$work/plugin.js" | awk '{print $1}')"
+          ui_sha256="$(sha256sum "$work/ui.html" | awk '{print $1}')"
+          catalog_sha256="$(sha256sum "$work/catalog.json" | awk '{print $1}')"
+
+          status='prototypes/penpot-product-atlas-001/STATUS.md'
+          cat >> "$status" <<EOF
+
+          PUBLIC DELIVERY SMOKE: PASS
+
+          - GitHub Actions run: \`${GITHUB_RUN_ID}\`.
+          - Bundle commit: \`${BUNDLE_SHA}\`.
+          - UI commit: \`${UI_SHA}\`.
+          - Catalog commit: \`${CATALOG_SHA}\`.
+          - Manifest SHA-256: \`${manifest_sha256}\`.
+          - Plugin SHA-256: \`${plugin_sha256}\`.
+          - UI SHA-256: \`${ui_sha256}\`.
+          - Catalog SHA-256: \`${catalog_sha256}\`.
+          - Exact jsDelivr HTTP/CORS, JSON, JavaScript, catalog count, immutable-chain and guard markers: PASS.
+          - Real Penpot host import and two-file guard smoke: still required.
+          EOF
+
+          rm -f .github/workflows/product-atlas-public-delivery-v2-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$status" .github/workflows/product-atlas-public-delivery-v2-once.yml
+          git commit -m 'test: record final Product Atlas public delivery smoke'
+          git push origin HEAD:verify/product-atlas-public-delivery-v2-20260807
