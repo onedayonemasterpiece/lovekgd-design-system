@@ -54,3 +54,8 @@ It does not yet claim:
 - multi-resolution actual/baseline/diff evidence from the accepted production artifact.
 
 Runtime Review 003.2 remains preserved as screenshot evidence and comment history while those production-derived layers are added. The native resources created by 004a are the base that subsequent releases update in place.
+
+
+## Product Atlas wrong-file guard
+
+Resource Graph and Product Atlas use separate Penpot files, manifests, catalogs and namespaces. Resource Graph 004a.3 checks `lovekgd.productatlas.001` markers before `ensurePages` and fails closed with `wrong_file_kind:product-atlas`; it must not create design-system pages in a Product Atlas file.
