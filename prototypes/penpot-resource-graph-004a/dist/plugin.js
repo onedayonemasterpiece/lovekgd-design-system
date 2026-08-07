@@ -1,0 +1,949 @@
+(() => {
+  'use strict';
+
+  const UI_SHA = '37599314c499858c1351ef45e21a98fc396b9ceb';
+  const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+  const ROOT_PATH = 'prototypes/penpot-resource-graph-004a';
+  const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_SHA}/${ROOT_PATH}/dist/ui.html`;
+  const NS = 'lovekgd.resourcegraph.004a';
+  const LEGACY_NS = 'lovekgd.runtime.003';
+  const LEGACY_KEY = 'element';
+  const FILE_CATALOG_KEY = 'current-catalog';
+  const CHECKPOINT_KEY = 'lovekgd.resourcegraph.004a.checkpoint';
+  const PAGE_SETTLE_MS = 420;
+  const BATCH_SETTLE_MS = 220;
+  const ICON_BATCH_SIZE = 5;
+  const CORE_BATCH_SIZE = 4;
+
+  penpot.ui.open('LoveKGD Resource Graph · 004a', UI_URL, { width: 540, height: 860 });
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const now = () => new Date().toISOString();
+  const send = (message) => penpot.ui.sendMessage(message);
+  const fail = (condition, message) => { if (!condition) throw new Error(message); };
+  const asString = (value) => value == null ? '' : String(value);
+
+  let operationActive = false;
+  let lastCatalog = null;
+
+  function normalizeError(error) {
+    const result = {
+      name: asString(error?.name || 'Error'),
+      message: asString(error?.message || error),
+      stack: asString(error?.stack || '').split('\n').slice(0, 16).join('\n'),
+    };
+    for (const key of ['code', 'status', 'type', 'hint', 'details', 'cause']) {
+      try {
+        if (error?.[key] !== undefined) result[key] = typeof error[key] === 'object' ? JSON.stringify(error[key]) : asString(error[key]);
+      } catch {}
+    }
+    return result;
+  }
+
+  function checkpoint(value) {
+    try {
+      penpot.localStorage.setItem(CHECKPOINT_KEY, JSON.stringify({
+        schemaVersion: 1,
+        updatedAt: now(),
+        penpotVersion: penpot.version || null,
+        currentPage: penpot.currentPage?.name || null,
+        ...value,
+      }));
+    } catch {}
+  }
+
+  function clearCheckpoint() {
+    try { penpot.localStorage.setItem(CHECKPOINT_KEY, ''); } catch {}
+  }
+
+  function readCheckpoint() {
+    try {
+      const raw = penpot.localStorage.getItem(CHECKPOINT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function progress(phase, completed, total, detail = '') {
+    const value = { phase, completed, total, detail };
+    checkpoint(value);
+    send({ type: 'progress', ...value });
+  }
+
+  function sharedGet(target, key) {
+    try { return target?.getSharedPluginData(NS, key) || ''; } catch { return ''; }
+  }
+
+  function sharedSet(target, key, value) {
+    target?.setSharedPluginData(NS, key, asString(value));
+  }
+
+  function mark(target, data) {
+    for (const [key, value] of Object.entries(data)) {
+      sharedSet(target, key, typeof value === 'string' ? value : JSON.stringify(value));
+    }
+  }
+
+  function markManaged(target, kind, id, catalog, extra = {}) {
+    mark(target, {
+      managed: 'true',
+      kind,
+      id,
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      updatedAt: now(),
+      ...extra,
+    });
+  }
+
+  function isManaged(target, kind = null) {
+    if (sharedGet(target, 'managed') !== 'true') return false;
+    return !kind || sharedGet(target, 'kind') === kind;
+  }
+
+  function allPages() {
+    return penpot.currentFile?.pages || [];
+  }
+
+  function pageByName(name) {
+    return allPages().find((page) => page.name === name) || null;
+  }
+
+  async function openPage(page) {
+    fail(page?.id, 'page_missing');
+    if (penpot.currentPage?.id !== page.id) {
+      await penpot.openPage(page);
+      await delay(PAGE_SETTLE_MS);
+    }
+    fail(penpot.currentPage?.id === page.id, `page_open_failed:${page.name}`);
+  }
+
+  function withUndo(callback) {
+    const begin = penpot.history?.undoBlockBegin;
+    const finish = penpot.history?.undoBlockFinish;
+    if (typeof begin !== 'function' || typeof finish !== 'function') return callback();
+    const id = begin.call(penpot.history);
+    try { return callback(); }
+    finally { finish.call(penpot.history, id); }
+  }
+
+  function legacyRuntimeBoards(page) {
+    try {
+      return page.findShapes({ type: 'board' }).filter((board) => Boolean(board.getSharedPluginData(LEGACY_NS, LEGACY_KEY)));
+    } catch {
+      return [];
+    }
+  }
+
+  function uniquePageName(base) {
+    if (!pageByName(base)) return base;
+    let index = 2;
+    while (pageByName(`${base} · ${index}`)) index += 1;
+    return `${base} · ${index}`;
+  }
+
+  function migrateLegacyPageNames(catalog) {
+    for (const name of catalog.pages) {
+      const page = pageByName(name);
+      if (!page || name === '99 — Technical tests') continue;
+      const has004 = sharedGet(page, 'page-id');
+      if (has004) continue;
+      if (legacyRuntimeBoards(page).length === 0) continue;
+      page.name = uniquePageName(`98 — Runtime 003.2 / ${name.replace(/^\d+\s+—\s+/u, '')}`);
+      mark(page, { legacySource: 'runtime-003.2', migratedAt: now() });
+    }
+  }
+
+  function ensurePages(catalog) {
+    migrateLegacyPageNames(catalog);
+    const result = new Map();
+    for (const name of catalog.pages) {
+      let page = pageByName(name);
+      if (!page) {
+        page = penpot.createPage();
+        page.name = name;
+      }
+      mark(page, { 'page-id': name, managed: 'true', kind: 'page', catalogSha: catalog.catalogSha256 });
+      result.set(name, page);
+    }
+    return result;
+  }
+
+  function createText(text, options = {}) {
+    const shape = penpot.createText(asString(text));
+    fail(shape, 'text_create_failed');
+    shape.name = options.name || asString(text).slice(0, 60) || 'Text';
+    shape.x = Number(options.x || 0);
+    shape.y = Number(options.y || 0);
+    shape.fontFamily = options.fontFamily || 'Inter';
+    shape.fontSize = asString(options.fontSize || 14);
+    shape.fontWeight = asString(options.fontWeight || 500);
+    shape.lineHeight = asString(options.lineHeight || '1.35');
+    shape.letterSpacing = asString(options.letterSpacing || '0');
+    shape.growType = options.growType || 'auto-height';
+    shape.fills = [{ fillColor: options.color || '#221a14', fillOpacity: options.opacity ?? 1 }];
+    if (Number.isFinite(options.width) && Number.isFinite(options.height)) shape.resize(options.width, options.height);
+    return shape;
+  }
+
+  function createRectangle(options = {}) {
+    const shape = penpot.createRectangle();
+    shape.name = options.name || 'Rectangle';
+    shape.x = Number(options.x || 0);
+    shape.y = Number(options.y || 0);
+    shape.resize(Number(options.width || 100), Number(options.height || 100));
+    shape.fills = [{ fillColor: options.fill || '#fffdf8', fillOpacity: options.fillOpacity ?? 1 }];
+    if (options.stroke) {
+      shape.strokes = [{
+        strokeColor: options.stroke,
+        strokeOpacity: options.strokeOpacity ?? 1,
+        strokeStyle: 'solid',
+        strokeWidth: options.strokeWidth || 1,
+        strokeAlignment: 'inner',
+      }];
+    } else {
+      shape.strokes = [];
+    }
+    if (options.radius !== undefined) shape.borderRadius = Number(options.radius);
+    if (options.opacity !== undefined) shape.opacity = Number(options.opacity);
+    return shape;
+  }
+
+  function createBoard(page, options = {}) {
+    const board = penpot.createBoard();
+    board.name = options.name || 'Board';
+    board.x = Number(options.x || 0);
+    board.y = Number(options.y || 0);
+    board.resize(Number(options.width || 100), Number(options.height || 100));
+    board.fills = [{ fillColor: options.fill || '#fffdf8', fillOpacity: options.fillOpacity ?? 1 }];
+    board.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    board.borderRadius = Number(options.radius || 0);
+    board.clipContent = Boolean(options.clipContent);
+    board.showInViewMode = options.showInViewMode !== false;
+    if (!board.parent) page.root.appendChild(board);
+    return board;
+  }
+
+  function append(board, shape) {
+    board.appendChild(shape);
+    return shape;
+  }
+
+  function createSection(page, catalog, id, title, subtitle, options = {}) {
+    const board = createBoard(page, {
+      name: title,
+      x: options.x || 0,
+      y: options.y || 0,
+      width: options.width || 1440,
+      height: options.height || 900,
+      fill: options.fill || '#fbf7ef',
+      stroke: options.stroke || '#e1d3c2',
+      radius: options.radius ?? 28,
+      clipContent: false,
+    });
+    markManaged(board, 'documentation-section', id, catalog, { title });
+    append(board, createText(title, {
+      x: board.x + 40,
+      y: board.y + 32,
+      fontSize: 30,
+      fontWeight: 900,
+      lineHeight: '1.08',
+      color: '#221a14',
+      width: board.width - 80,
+      height: 48,
+    }));
+    append(board, createText(subtitle, {
+      x: board.x + 40,
+      y: board.y + 84,
+      fontSize: 14,
+      fontWeight: 500,
+      lineHeight: '1.45',
+      color: '#6d6259',
+      width: board.width - 80,
+      height: 60,
+    }));
+    return board;
+  }
+
+  function removeManagedDocumentation(page) {
+    const shapes = page.findShapes({ type: 'board' });
+    for (const shape of shapes) {
+      if (isManaged(shape, 'documentation-section') || isManaged(shape, 'specimen-card') || isManaged(shape, 'coverage-board')) {
+        try { shape.remove(); } catch {}
+      }
+    }
+  }
+
+  function existingColor(id) {
+    return penpot.library.local.colors.find((color) => sharedGet(color, 'id') === id) || null;
+  }
+
+  function existingTypography(id) {
+    return penpot.library.local.typographies.find((type) => sharedGet(type, 'id') === id) || null;
+  }
+
+  function existingComponent(id) {
+    return penpot.library.local.components.find((component) => sharedGet(component, 'id') === id) || null;
+  }
+
+  function reconcileColors(catalog) {
+    let created = 0;
+    let updated = 0;
+    for (const item of catalog.colors) {
+      let color = existingColor(item.id);
+      if (!color) {
+        color = penpot.library.local.createColor();
+        created += 1;
+      } else updated += 1;
+      color.name = item.name;
+      color.path = item.path;
+      color.color = item.value;
+      color.opacity = item.opacity ?? 1;
+      markManaged(color, 'library-color', item.id, catalog, {
+        source: item.source,
+        hash: item.value,
+      });
+    }
+    return { created, updated };
+  }
+
+  function reconcileTypography(catalog) {
+    let created = 0;
+    let updated = 0;
+    for (const item of catalog.typography) {
+      let type = existingTypography(item.id);
+      if (!type) {
+        type = penpot.library.local.createTypography();
+        created += 1;
+      } else updated += 1;
+      type.name = item.name;
+      type.path = item.path;
+      type.fontFamily = item.fontFamily;
+      type.fontSize = item.fontSize;
+      type.fontWeight = item.fontWeight;
+      type.fontStyle = item.fontStyle || 'normal';
+      type.lineHeight = item.lineHeight;
+      type.letterSpacing = item.letterSpacing;
+      if (item.textTransform) type.textTransform = item.textTransform;
+      markManaged(type, 'library-typography', item.id, catalog, {
+        source: item.source,
+        hash: JSON.stringify(item),
+      });
+    }
+    return { created, updated };
+  }
+
+  function createColorDocumentation(page, catalog) {
+    removeManagedDocumentation(page);
+    const section = createSection(
+      page,
+      catalog,
+      'foundations.colors',
+      'Foundations · semantic colors',
+      `Native Penpot Colors from ${catalog.source.repository}@${catalog.source.revision.slice(0, 12)}. Components consume semantic roles, not detached swatches.`,
+      { x: 0, y: 0, width: 1440, height: 980 },
+    );
+    const startX = section.x + 40;
+    const startY = section.y + 160;
+    const cardW = 250;
+    const cardH = 140;
+    const gapX = 22;
+    const gapY = 22;
+    const columns = 5;
+    catalog.colors.forEach((item, index) => {
+      const col = index % columns;
+      const row = Math.floor(index / columns);
+      const x = startX + col * (cardW + gapX);
+      const y = startY + row * (cardH + gapY);
+      const card = createBoard(page, { name: `Color · ${item.path}/${item.name}`, x, y, width: cardW, height: cardH, fill: '#fffdf8', stroke: '#e1d3c2', radius: 16 });
+      markManaged(card, 'specimen-card', `specimen.${item.id}`, catalog, { resourceId: item.id, resourceKind: 'color' });
+      append(card, createRectangle({ x: x + 14, y: y + 14, width: 62, height: 62, fill: item.value, stroke: item.value === '#ffffff' || item.value === '#fffdf8' ? '#e1d3c2' : null, radius: 14, name: item.name }));
+      append(card, createText(item.name, { x: x + 90, y: y + 17, fontSize: 14, fontWeight: 800, color: '#221a14', width: 144, height: 30 }));
+      append(card, createText(item.path, { x: x + 90, y: y + 47, fontSize: 11, fontWeight: 600, color: '#6d6259', width: 144, height: 26 }));
+      append(card, createText(item.value.toUpperCase(), { x: x + 14, y: y + 94, fontSize: 12, fontWeight: 700, color: '#44362d', width: 220, height: 24 }));
+    });
+
+    const typeSection = createSection(
+      page,
+      catalog,
+      'foundations.typography',
+      'Foundations · typography roles',
+      'Native Penpot Typographies. Every specimen below is linked to a local library typography resource.',
+      { x: 0, y: 1040, width: 1440, height: 1120 },
+    );
+    catalog.typography.forEach((item, index) => {
+      const y = typeSection.y + 150 + index * 102;
+      const label = createText(`${item.path} / ${item.name}`, { x: typeSection.x + 40, y, fontSize: 12, fontWeight: 700, color: '#6d6259', width: 300, height: 22 });
+      append(typeSection, label);
+      const specimen = createText(index === 0 ? 'Город говорит' : index === 1 ? 'События на выходные' : 'Калининградская область · 16 сентября · 19:00', {
+        x: typeSection.x + 360,
+        y: y - 12,
+        fontFamily: item.fontFamily,
+        fontSize: item.fontSize,
+        fontWeight: item.fontWeight,
+        lineHeight: item.lineHeight,
+        letterSpacing: item.letterSpacing,
+        color: '#221a14',
+        width: 1000,
+        height: 74,
+      });
+      const resource = existingTypography(item.id);
+      try { resource?.applyToText(specimen); } catch {}
+      append(typeSection, specimen);
+    });
+  }
+
+  function componentCreate(shape) {
+    try { return penpot.library.local.createComponent([shape]); }
+    catch (error) {
+      try { return penpot.library.local.createComponent(shape); }
+      catch { throw error; }
+    }
+  }
+
+  function archiveComponent(component) {
+    try {
+      component.path = `Archive/Resource Graph 004a/${component.path || 'Unsorted'}`;
+      component.name = `${component.name} · superseded`;
+      mark(component, { status: 'archived', archivedAt: now() });
+    } catch {}
+  }
+
+  function reconcileIconComponent(page, catalog, icon, cardX, cardY, masterX, masterY) {
+    let component = existingComponent(icon.id);
+    if (component && sharedGet(component, 'hash') !== icon.hash) {
+      archiveComponent(component);
+      component = null;
+    }
+
+    const card = createBoard(page, {
+      name: `Icon specimen · ${icon.path}/${icon.name}`,
+      x: cardX,
+      y: cardY,
+      width: 250,
+      height: 176,
+      fill: icon.status === 'legacy' ? '#fff0f0' : icon.status === 'candidate' ? '#fff8db' : '#fffdf8',
+      stroke: '#e1d3c2',
+      radius: 16,
+    });
+    markManaged(card, 'specimen-card', `specimen.${icon.id}`, catalog, {
+      resourceId: icon.id,
+      resourceKind: 'icon',
+      source: icon.source,
+      status: icon.status,
+    });
+
+    if (!component) {
+      // Component mains must survive documentation regeneration. Keep the exact
+      // vector master outside disposable specimen cards; cards contain instances.
+      const svg = penpot.createShapeFromSvg(icon.svg);
+      fail(svg, `icon_svg_create_failed:${icon.id}`);
+      svg.name = `Icon master · ${icon.name}`;
+      svg.resize(32, 32);
+      svg.x = masterX;
+      svg.y = masterY;
+      page.root.appendChild(svg);
+      markManaged(svg, 'icon-master-shape', icon.id, catalog, { source: icon.source, hash: icon.hash, status: icon.status });
+      component = componentCreate(svg);
+      fail(component, `icon_component_create_failed:${icon.id}`);
+      component.name = icon.name;
+      component.path = icon.path;
+      markManaged(component, 'icon-component-master', icon.id, catalog, {
+        source: icon.source,
+        consumers: icon.consumers,
+        attribution: icon.attribution || null,
+        hash: icon.hash,
+        status: icon.status,
+      });
+    }
+
+    const leadInstance = component.instance();
+    leadInstance.name = `Icon instance · ${icon.name}`;
+    leadInstance.resize(32, 32);
+    leadInstance.x = cardX + 18;
+    leadInstance.y = cardY + 42;
+    card.appendChild(leadInstance);
+    markManaged(leadInstance, 'icon-instance', `${icon.id}.specimen.lead`, catalog, { masterId: icon.id });
+
+    const sizes = [16, 20, 24, 32];
+    sizes.forEach((size, index) => {
+      const instance = component.instance();
+      instance.name = `${icon.name} · ${size}px`;
+      instance.resize(size, size);
+      instance.x = cardX + 76 + index * 40;
+      instance.y = cardY + 48 + (32 - size) / 2;
+      card.appendChild(instance);
+      markManaged(instance, 'icon-instance', `${icon.id}.specimen.${size}`, catalog, { masterId: icon.id, opticalSize: size });
+      append(card, createText(String(size), { x: cardX + 76 + index * 40, y: cardY + 88, fontSize: 10, fontWeight: 600, color: '#6d6259', width: 32, height: 18 }));
+    });
+
+    append(card, createText(icon.name, { x: cardX + 16, y: cardY + 116, fontSize: 13, fontWeight: 800, color: '#221a14', width: 218, height: 24 }));
+    append(card, createText(`${icon.status} · ${icon.consumers.length} consumers`, { x: cardX + 16, y: cardY + 142, fontSize: 10, fontWeight: 650, color: icon.status === 'current' ? '#0f6c3d' : icon.status === 'legacy' ? '#a92d2d' : '#5a3b06', width: 218, height: 20 }));
+    return component;
+  }
+
+  async function reconcileIconography(page, catalog) {
+    removeManagedDocumentation(page);
+    const categories = [...new Set(catalog.icons.map((icon) => icon.category))];
+    let pageY = 0;
+    let completed = 0;
+    const total = catalog.icons.length;
+    for (const category of categories) {
+      const items = catalog.icons.filter((icon) => icon.category === category);
+      const columns = 5;
+      const rows = Math.ceil(items.length / columns);
+      const height = 170 + rows * 198;
+      const section = createSection(
+        page,
+        catalog,
+        `iconography.${category.toLowerCase().replace(/[^a-z0-9]+/gu, '-')}`,
+        `Iconography · ${category}`,
+        'Native vector component masters with 16/20/24/32 px specimens. Current status is derived from exact Git consumers; candidates and legacy assets remain visibly separated.',
+        { x: 0, y: pageY, width: 1440, height },
+      );
+      for (let index = 0; index < items.length; index += 1) {
+        const icon = items[index];
+        const col = index % columns;
+        const row = Math.floor(index / columns);
+        const x = section.x + 40 + col * 272;
+        const y = section.y + 148 + row * 198;
+        const masterIndex = catalog.icons.findIndex((entry) => entry.id === icon.id);
+        const masterX = 1620 + (masterIndex % 12) * 48;
+        const masterY = 40 + Math.floor(masterIndex / 12) * 48;
+        withUndo(() => reconcileIconComponent(page, catalog, icon, x, y, masterX, masterY));
+        completed += 1;
+        progress('iconography', completed, total, `${icon.path}/${icon.name}`);
+        if (completed % ICON_BATCH_SIZE === 0) await delay(BATCH_SETTLE_MS);
+      }
+      pageY += height + 50;
+    }
+    return { total };
+  }
+
+  const COLOR = {
+    ink: '#221a14', copy: '#44362d', muted: '#6d6259', line: '#e1d3c2', canvas: '#fbf7ef', surface: '#fffdf8', white: '#ffffff',
+    brand: '#a54821', brandHover: '#98401f', brandDeep: '#793014', accent: '#0f766e', accentStrong: '#0f5d57',
+    successBg: '#e6f6e9', success: '#0f6c3d', warningBg: '#fff8db', warning: '#5a3b06', dangerBg: '#fff0f0', danger: '#a92d2d', infoBg: '#e7f2f7', info: '#1f658d',
+  };
+
+  function coreComponentId(base, variant) {
+    return `${base}.${Object.entries(variant).map(([key, value]) => `${key}-${value}`).join('.')}`;
+  }
+
+  function createButtonMaster(page, catalog, hierarchy, state, x, y) {
+    const id = coreComponentId('core.button', { hierarchy, state });
+    let component = existingComponent(id);
+    const hash = JSON.stringify({ hierarchy, state, v: 1 });
+    if (component && sharedGet(component, 'hash') === hash) return component;
+    if (component) archiveComponent(component);
+
+    const board = createBoard(page, { name: `Button · ${hierarchy} · ${state}`, x, y, width: 190, height: 52, fill: '#000000', fillOpacity: 0, radius: 26, clipContent: false });
+    const palette = {
+      primary: { bg: state === 'hover' ? COLOR.brandHover : state === 'disabled' ? '#eee7de' : COLOR.brand, text: state === 'disabled' ? '#746a62' : COLOR.white, stroke: null },
+      secondary: { bg: state === 'hover' ? '#fff7ea' : state === 'disabled' ? '#eee7de' : COLOR.white, text: state === 'disabled' ? '#746a62' : COLOR.brandHover, stroke: state === 'focus' ? COLOR.accent : COLOR.line },
+      quiet: { bg: state === 'hover' ? '#fff7ea' : '#000000', alpha: state === 'hover' ? 1 : 0, text: state === 'disabled' ? '#746a62' : COLOR.brandHover, stroke: state === 'focus' ? COLOR.accent : null },
+      danger: { bg: state === 'disabled' ? '#eee7de' : COLOR.danger, text: state === 'disabled' ? '#746a62' : COLOR.white, stroke: null },
+    }[hierarchy];
+    const bg = createRectangle({ x, y, width: 190, height: 52, fill: palette.bg, fillOpacity: palette.alpha ?? 1, stroke: palette.stroke, strokeWidth: state === 'focus' ? 3 : 1, radius: 26, name: 'Button background' });
+    board.appendChild(bg);
+    const label = createText(state === 'disabled' ? 'Недоступно' : hierarchy === 'danger' ? 'Удалить' : 'Показать события', { x: x + 20, y: y + 15, fontSize: 14, fontWeight: 850, lineHeight: '1.1', color: palette.text, width: 150, height: 24 });
+    board.appendChild(label);
+    if (state === 'pressed') { bg.y += 1; label.y += 1; }
+    markManaged(board, 'component-main-shape', id, catalog, { source: 'site/src/components/design-system/Button.astro', hash });
+    component = componentCreate(board);
+    component.name = `${hierarchy} · ${state}`;
+    component.path = 'Core/Actions/Button';
+    markManaged(component, 'component-master', id, catalog, { source: 'site/src/components/design-system/Button.astro', hash, variant: { hierarchy, state } });
+    return component;
+  }
+
+  function createBadgeMaster(page, catalog, tone, x, y) {
+    const id = coreComponentId('core.badge', { tone });
+    let component = existingComponent(id);
+    const hash = JSON.stringify({ tone, v: 1 });
+    if (component && sharedGet(component, 'hash') === hash) return component;
+    if (component) archiveComponent(component);
+    const palette = {
+      neutral: { bg: COLOR.white, text: COLOR.copy, stroke: COLOR.line }, brand: { bg: '#f8e5d8', text: '#5f250f', stroke: '#e2bda9' },
+      accent: { bg: '#e8f3f1', text: COLOR.accentStrong, stroke: '#b7ded9' }, success: { bg: COLOR.successBg, text: COLOR.success, stroke: '#b7dec2' },
+      warning: { bg: COLOR.warningBg, text: COLOR.warning, stroke: '#ead28a' }, danger: { bg: COLOR.dangerBg, text: COLOR.danger, stroke: '#efc1c1' },
+    }[tone];
+    const board = createBoard(page, { name: `Badge · ${tone}`, x, y, width: 150, height: 32, fill: palette.bg, stroke: palette.stroke, radius: 16 });
+    board.appendChild(createText(tone === 'neutral' ? 'Категория' : tone === 'brand' ? 'Концерт' : tone === 'accent' ? 'Популярное' : tone === 'success' ? 'Бесплатно' : tone === 'warning' ? 'Мало мест' : 'Отменено', { x: x + 14, y: y + 8, fontSize: 12, fontWeight: 800, lineHeight: '1.15', color: palette.text, width: 122, height: 18 }));
+    markManaged(board, 'component-main-shape', id, catalog, { source: 'site/src/components/design-system/Tag.astro', hash });
+    component = componentCreate(board);
+    component.name = tone;
+    component.path = 'Core/Status/Badge';
+    markManaged(component, 'component-master', id, catalog, { source: 'site/src/components/design-system/Tag.astro', hash, variant: { tone } });
+    return component;
+  }
+
+  function createFieldMaster(page, catalog, state, x, y) {
+    const id = coreComponentId('core.field', { state });
+    let component = existingComponent(id);
+    const hash = JSON.stringify({ state, v: 1 });
+    if (component && sharedGet(component, 'hash') === hash) return component;
+    if (component) archiveComponent(component);
+    const board = createBoard(page, { name: `Field · ${state}`, x, y, width: 360, height: 112, fill: COLOR.canvas, fillOpacity: 0, radius: 0 });
+    board.appendChild(createText('Город', { x, y, fontSize: 14, fontWeight: 850, color: COLOR.copy, width: 340, height: 24 }));
+    const stroke = state === 'focus' ? COLOR.accent : state === 'error' ? COLOR.danger : state === 'hover' ? '#a99683' : '#cdbfad';
+    const bg = state === 'disabled' ? '#eee7de' : COLOR.white;
+    board.appendChild(createRectangle({ x, y: y + 30, width: 360, height: 48, fill: bg, stroke, strokeWidth: state === 'focus' ? 3 : 1, radius: 14, name: 'Field control' }));
+    board.appendChild(createText(state === 'error' ? 'Выберите город' : 'Калининград', { x: x + 14, y: y + 44, fontSize: 16, fontWeight: 500, color: state === 'disabled' ? '#746a62' : COLOR.ink, width: 330, height: 24 }));
+    board.appendChild(createText(state === 'error' ? 'Поле обязательно' : 'Начните вводить название', { x, y: y + 86, fontSize: 12, fontWeight: state === 'error' ? 700 : 500, color: state === 'error' ? COLOR.danger : COLOR.muted, width: 350, height: 20 }));
+    markManaged(board, 'component-main-shape', id, catalog, { source: 'site/src/components/design-system/FormControl.astro', hash });
+    component = componentCreate(board);
+    component.name = state;
+    component.path = 'Core/Forms/Field';
+    markManaged(component, 'component-master', id, catalog, { source: 'site/src/components/design-system/FormControl.astro', hash, variant: { state } });
+    return component;
+  }
+
+  function createStatePanelMaster(page, catalog, tone, x, y) {
+    const id = coreComponentId('core.state-panel', { tone });
+    let component = existingComponent(id);
+    const hash = JSON.stringify({ tone, v: 1 });
+    if (component && sharedGet(component, 'hash') === hash) return component;
+    if (component) archiveComponent(component);
+    const palette = {
+      info: { bg: COLOR.infoBg, text: COLOR.info, mark: 'i', title: 'Информация' }, success: { bg: COLOR.successBg, text: COLOR.success, mark: '✓', title: 'Готово' },
+      warning: { bg: COLOR.warningBg, text: COLOR.warning, mark: '!', title: 'Обратите внимание' }, critical: { bg: COLOR.dangerBg, text: COLOR.danger, mark: '×', title: 'Ошибка' },
+    }[tone];
+    const board = createBoard(page, { name: `State panel · ${tone}`, x, y, width: 340, height: 172, fill: COLOR.surface, stroke: COLOR.line, radius: 20 });
+    board.appendChild(createRectangle({ x: x + 20, y: y + 20, width: 42, height: 42, fill: palette.bg, radius: 21, name: 'State mark' }));
+    board.appendChild(createText(palette.mark, { x: x + 33, y: y + 30, fontSize: 18, fontWeight: 900, color: palette.text, width: 20, height: 22 }));
+    board.appendChild(createText(palette.title, { x: x + 20, y: y + 78, fontSize: 18, fontWeight: 850, color: COLOR.ink, width: 300, height: 28 }));
+    board.appendChild(createText('Сообщение состояния для пользователя. Действие и способ восстановления описаны рядом.', { x: x + 20, y: y + 112, fontSize: 13, fontWeight: 500, lineHeight: '1.45', color: COLOR.muted, width: 300, height: 48 }));
+    markManaged(board, 'component-main-shape', id, catalog, { source: 'site/src/components/design-system/StatePanel.astro', hash });
+    component = componentCreate(board);
+    component.name = tone;
+    component.path = 'Core/Feedback/State panel';
+    markManaged(component, 'component-master', id, catalog, { source: 'site/src/components/design-system/StatePanel.astro', hash, variant: { tone } });
+    return component;
+  }
+
+  function tryCreateVariantSet(components, id, catalog, name) {
+    const boards = components.map((component) => {
+      try { return component.mainInstance(); } catch { return null; }
+    }).filter((shape) => shape?.type === 'board');
+    if (boards.length < 2) return null;
+    try {
+      const container = penpot.createVariantFromComponents(boards);
+      container.name = `${name} variants`;
+      markManaged(container, 'variant-container', id, catalog, { componentIds: components.map((component) => sharedGet(component, 'id')) });
+      return container;
+    } catch (error) {
+      send({ type: 'warning', message: `Variant grouping skipped for ${name}: ${asString(error?.message || error)}` });
+      return null;
+    }
+  }
+
+  async function reconcileCoreComponents(page, catalog) {
+    removeManagedDocumentation(page);
+    const section = createSection(page, catalog, 'core-ui', 'Core UI resources', 'Native Penpot component masters generated from the canonical Astro/CSS contract. Each master is addressable by comments and source provenance.', { x: 0, y: 0, width: 1600, height: 2300 });
+    const components = [];
+    let completed = 0;
+    const expected = 20 + 6 + 5 + 4;
+
+    const buttonComponents = [];
+    const hierarchies = ['primary', 'secondary', 'quiet', 'danger'];
+    const states = ['default', 'hover', 'focus', 'pressed', 'disabled'];
+    for (let row = 0; row < states.length; row += 1) {
+      for (let col = 0; col < hierarchies.length; col += 1) {
+        const component = withUndo(() => createButtonMaster(page, catalog, hierarchies[col], states[row], section.x + 40 + col * 230, section.y + 190 + row * 92));
+        buttonComponents.push(component);
+        components.push(component);
+        completed += 1;
+        progress('core-components', completed, expected, `Button ${hierarchies[col]} ${states[row]}`);
+        if (completed % CORE_BATCH_SIZE === 0) await delay(BATCH_SETTLE_MS);
+      }
+    }
+    tryCreateVariantSet(buttonComponents, 'core.button.variants', catalog, 'Button');
+
+    const tones = ['neutral', 'brand', 'accent', 'success', 'warning', 'danger'];
+    const badgeComponents = [];
+    tones.forEach((tone, index) => {
+      const component = withUndo(() => createBadgeMaster(page, catalog, tone, section.x + 40 + index * 190, section.y + 720));
+      badgeComponents.push(component);
+      components.push(component);
+      completed += 1;
+      progress('core-components', completed, expected, `Badge ${tone}`);
+    });
+    tryCreateVariantSet(badgeComponents, 'core.badge.variants', catalog, 'Badge');
+    await delay(BATCH_SETTLE_MS);
+
+    const fieldStates = ['default', 'hover', 'focus', 'error', 'disabled'];
+    const fieldComponents = [];
+    for (let index = 0; index < fieldStates.length; index += 1) {
+      const component = withUndo(() => createFieldMaster(page, catalog, fieldStates[index], section.x + 40 + (index % 3) * 420, section.y + 880 + Math.floor(index / 3) * 160));
+      fieldComponents.push(component);
+      components.push(component);
+      completed += 1;
+      progress('core-components', completed, expected, `Field ${fieldStates[index]}`);
+      if (completed % CORE_BATCH_SIZE === 0) await delay(BATCH_SETTLE_MS);
+    }
+    tryCreateVariantSet(fieldComponents, 'core.field.variants', catalog, 'Field');
+
+    const panelTones = ['info', 'success', 'warning', 'critical'];
+    const panelComponents = [];
+    for (let index = 0; index < panelTones.length; index += 1) {
+      const component = withUndo(() => createStatePanelMaster(page, catalog, panelTones[index], section.x + 40 + (index % 2) * 390, section.y + 1280 + Math.floor(index / 2) * 220));
+      panelComponents.push(component);
+      components.push(component);
+      completed += 1;
+      progress('core-components', completed, expected, `State panel ${panelTones[index]}`);
+      await delay(BATCH_SETTLE_MS);
+    }
+    tryCreateVariantSet(panelComponents, 'core.state-panel.variants', catalog, 'State panel');
+
+    append(section, createText('Resource paths', { x: section.x + 980, y: section.y + 190, fontSize: 18, fontWeight: 850, color: COLOR.ink, width: 400, height: 30 }));
+    const paths = ['Core/Actions/Button', 'Core/Status/Badge', 'Core/Forms/Field', 'Core/Feedback/State panel'];
+    paths.forEach((path, index) => append(section, createText(path, { x: section.x + 980, y: section.y + 240 + index * 40, fontSize: 14, fontWeight: 650, color: COLOR.copy, width: 520, height: 28 })));
+    return { total: components.length };
+  }
+
+  function createSystemMap(page, catalog, result) {
+    removeManagedDocumentation(page);
+    const section = createSection(page, catalog, 'system-map', 'LoveKGD Resource Graph 004a', 'First installable native-resource delivery. It replaces the screenshot-only interpretation of “CURRENT” with separate source, resource, iconography, component and coverage dimensions.', { x: 0, y: 0, width: 1440, height: 980 });
+    const metrics = [
+      ['Production source', catalog.source.productionFreshnessClaimed ? 'current' : 'not yet attached', catalog.source.productionFreshnessClaimed ? COLOR.success : COLOR.warning],
+      ['Resource library', `${catalog.colors.length} colors · ${catalog.typography.length} typographies`, COLOR.success],
+      ['Iconography', `${catalog.icons.length} vector masters`, COLOR.success],
+      ['Core components', `${result.core.total} masters`, COLOR.success],
+      ['Product components', 'not yet reconciled', COLOR.warning],
+      ['Archetype composition', 'not yet reconciled', COLOR.warning],
+      ['Evidence', 'Runtime Review 003.2 retained separately', COLOR.info],
+    ];
+    metrics.forEach(([label, value, tone], index) => {
+      const x = section.x + 40 + (index % 2) * 660;
+      const y = section.y + 180 + Math.floor(index / 2) * 150;
+      const card = createBoard(page, { name: `Status · ${label}`, x, y, width: 620, height: 118, fill: COLOR.white, stroke: COLOR.line, radius: 18 });
+      markManaged(card, 'specimen-card', `system.status.${index}`, catalog, { statusDimension: label });
+      append(card, createText(label, { x: x + 20, y: y + 20, fontSize: 13, fontWeight: 750, color: COLOR.muted, width: 580, height: 22 }));
+      append(card, createText(value, { x: x + 20, y: y + 54, fontSize: 21, fontWeight: 900, color: tone, width: 580, height: 36 }));
+    });
+    append(section, createText(`Source: ${catalog.source.repository}@${catalog.source.revision}\nCatalog: ${catalog.catalogSha256}\nGenerated: ${catalog.generatedAt}`, { x: section.x + 40, y: section.y + 800, fontSize: 12, fontWeight: 600, lineHeight: '1.5', color: COLOR.copy, width: 1300, height: 90 }));
+  }
+
+  function createCoverage(page, catalog) {
+    removeManagedDocumentation(page);
+    const section = createSection(page, catalog, 'coverage', 'Coverage and fragmentation', 'The catalog does not hide gaps behind a single green badge. Current, candidate, legacy and unused icon assets are shown separately; product/archetype coverage remains explicit.', { x: 0, y: 0, width: 1440, height: 1050 });
+    const counts = [
+      ['Current icons', catalog.counts.currentIcons, COLOR.success],
+      ['Candidate icons', catalog.counts.candidateIcons, COLOR.warning],
+      ['Legacy icons', catalog.counts.legacyIcons, COLOR.danger],
+      ['Unused canonical icons', catalog.counts.unusedIcons, COLOR.muted],
+    ];
+    counts.forEach(([label, value, tone], index) => {
+      const x = section.x + 40 + index * 330;
+      const card = createBoard(page, { name: label, x, y: section.y + 170, width: 290, height: 138, fill: COLOR.white, stroke: COLOR.line, radius: 18 });
+      markManaged(card, 'coverage-board', `coverage.icon.${index}`, catalog, { label });
+      append(card, createText(String(value), { x: x + 20, y: section.y + 188, fontSize: 42, fontWeight: 950, color: tone, width: 250, height: 54 }));
+      append(card, createText(label, { x: x + 20, y: section.y + 252, fontSize: 13, fontWeight: 750, color: COLOR.copy, width: 250, height: 30 }));
+    });
+    append(section, createText('Known gaps in this installable delivery', { x: section.x + 40, y: section.y + 380, fontSize: 22, fontWeight: 900, color: COLOR.ink, width: 800, height: 36 }));
+    catalog.knownGaps.forEach((gap, index) => {
+      append(section, createText(`${index + 1}. ${gap}`, { x: section.x + 60, y: section.y + 440 + index * 80, fontSize: 15, fontWeight: 600, lineHeight: '1.45', color: COLOR.copy, width: 1260, height: 64 }));
+    });
+  }
+
+  function inspectState(catalog) {
+    const fileCatalog = (() => {
+      try { return JSON.parse(penpot.currentFile?.getSharedPluginData(NS, FILE_CATALOG_KEY) || '{}'); }
+      catch { return {}; }
+    })();
+    const managedColors = penpot.library.local.colors.filter((item) => isManaged(item, 'library-color'));
+    const managedTypography = penpot.library.local.typographies.filter((item) => isManaged(item, 'library-typography'));
+    const managedIcons = penpot.library.local.components.filter((item) => isManaged(item, 'icon-component-master'));
+    const managedCore = penpot.library.local.components.filter((item) => isManaged(item, 'component-master'));
+    const pages = catalog.pages.filter((name) => Boolean(pageByName(name))).length;
+    const current = fileCatalog.catalogSha === catalog.catalogSha256
+      && managedColors.length >= catalog.colors.length
+      && managedTypography.length >= catalog.typography.length
+      && managedIcons.length >= catalog.icons.length
+      && managedCore.length >= 20;
+    return {
+      current,
+      fileCatalog,
+      pages,
+      expectedPages: catalog.pages.length,
+      colors: managedColors.length,
+      expectedColors: catalog.colors.length,
+      typography: managedTypography.length,
+      expectedTypography: catalog.typography.length,
+      icons: managedIcons.length,
+      expectedIcons: catalog.icons.length,
+      coreComponents: managedCore.length,
+      checkpoint: readCheckpoint(),
+      source: catalog.source,
+      catalogSha: catalog.catalogSha256,
+      counts: catalog.counts,
+    };
+  }
+
+  function validateCatalog(catalog) {
+    fail(catalog?.schemaVersion === 1, 'catalog_schema_invalid');
+    fail(catalog.delivery === 'penpot-resource-graph-004a', 'catalog_delivery_invalid');
+    fail(/^[0-9a-f]{40}$/u.test(catalog.source?.revision || ''), 'source_sha_invalid');
+    fail(/^[0-9a-f]{64}$/u.test(catalog.catalogSha256 || ''), 'catalog_sha_invalid');
+    fail(Array.isArray(catalog.pages) && catalog.pages.includes('25 — Iconography'), 'catalog_pages_invalid');
+    fail(Array.isArray(catalog.colors) && catalog.colors.length >= 20, 'catalog_colors_incomplete');
+    fail(Array.isArray(catalog.typography) && catalog.typography.length >= 8, 'catalog_typography_incomplete');
+    fail(Array.isArray(catalog.icons) && catalog.icons.length >= 40, 'catalog_icons_incomplete');
+    fail(Array.isArray(catalog.coreComponents) && catalog.coreComponents.length >= 4, 'catalog_components_incomplete');
+    const ids = new Set();
+    for (const item of [...catalog.colors, ...catalog.typography, ...catalog.icons]) {
+      fail(item.id && !ids.has(item.id), `duplicate_resource_id:${item.id}`);
+      ids.add(item.id);
+    }
+    return catalog;
+  }
+
+  async function updateEverything(catalogInput) {
+    fail(!operationActive, 'operation_already_active');
+    operationActive = true;
+    const catalog = validateCatalog(catalogInput);
+    lastCatalog = catalog;
+    const originalPageId = penpot.currentPage?.id || null;
+    try {
+      progress('preflight', 0, 1, 'Validating catalog and file');
+      const pages = ensurePages(catalog);
+      progress('resources', 0, 2, 'Reconciling Colors');
+      const colors = withUndo(() => reconcileColors(catalog));
+      progress('resources', 1, 2, 'Reconciling Typographies');
+      const typography = withUndo(() => reconcileTypography(catalog));
+      progress('resources', 2, 2, 'Library resources ready');
+
+      await openPage(pages.get('20 — Foundations'));
+      withUndo(() => createColorDocumentation(pages.get('20 — Foundations'), catalog));
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('25 — Iconography'));
+      const iconography = await reconcileIconography(pages.get('25 — Iconography'), catalog);
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('30 — Core UI resources'));
+      const core = await reconcileCoreComponents(pages.get('30 — Core UI resources'), catalog);
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('00 — System map'));
+      withUndo(() => createSystemMap(pages.get('00 — System map'), catalog, { colors, typography, iconography, core }));
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('70 — Coverage and fragmentation'));
+      withUndo(() => createCoverage(pages.get('70 — Coverage and fragmentation'), catalog));
+
+      penpot.currentFile?.setSharedPluginData(NS, FILE_CATALOG_KEY, JSON.stringify({
+        catalogSha: catalog.catalogSha256,
+        sourceSha: catalog.source.revision,
+        appliedAt: now(),
+        counts: { colors: catalog.colors.length, typography: catalog.typography.length, icons: catalog.icons.length, coreComponents: core.total },
+      }));
+
+      const validationErrors = penpot.currentFile?.validate?.() || [];
+      fail(validationErrors.length === 0, `penpot_file_validation_failed:${JSON.stringify(validationErrors.slice(0, 6))}`);
+      clearCheckpoint();
+      const state = inspectState(catalog);
+      send({ type: 'complete', state, result: { colors, typography, iconography, core } });
+      if (originalPageId) {
+        const originalPage = allPages().find((page) => page.id === originalPageId);
+        if (originalPage) await openPage(originalPage);
+      }
+    } catch (error) {
+      const diagnostic = {
+        schemaVersion: 1,
+        incidentId: `rg004a-${Date.now().toString(36)}`,
+        occurredAt: now(),
+        checkpoint: readCheckpoint(),
+        penpotVersion: penpot.version || null,
+        currentPage: penpot.currentPage?.name || null,
+        catalogSha: catalog?.catalogSha256 || null,
+        sourceSha: catalog?.source?.revision || null,
+        error: normalizeError(error),
+      };
+      send({ type: 'failure', diagnostic });
+    } finally {
+      operationActive = false;
+    }
+  }
+
+  async function buildReviewPrompt(catalog) {
+    const file = penpot.currentFile;
+    fail(file, 'file_missing');
+    const selectedIds = new Set(penpot.selection.map((shape) => shape.id));
+    const entries = [];
+    for (const page of file.pages) {
+      const threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+      for (const thread of threads) {
+        const board = thread.board;
+        if (!board) continue;
+        let target = board;
+        while (target && !isManaged(target) && target.parent) target = target.parent;
+        if (!target || !isManaged(target)) continue;
+        if (selectedIds.size && !selectedIds.has(target.id) && !selectedIds.has(board.id)) continue;
+        const comments = await thread.findComments();
+        for (const comment of comments) {
+          const content = asString(comment.content).trim();
+          if (!content) continue;
+          entries.push({
+            page: page.name,
+            thread: thread.seqNumber,
+            targetId: sharedGet(target, 'id'),
+            targetKind: sharedGet(target, 'kind'),
+            source: sharedGet(target, 'source'),
+            content,
+          });
+        }
+      }
+    }
+    const prompt = entries.length ? [
+      '@GitHub onedayonemasterpiece/lovekgd-design-system and onedayonemasterpiece/events-bot-new',
+      '',
+      `Доработай Resource Graph 004a по незакрытым комментариям Penpot.`,
+      '',
+      `Catalog SHA: ${catalog.catalogSha256}`,
+      `Product source SHA: ${catalog.source.revision}`,
+      '',
+      'Комментарии:',
+      ...entries.map((entry, index) => `${index + 1}. [Penpot #${entry.thread}] ${entry.page} · ${entry.targetKind} · ${entry.targetId}\n${entry.content}`),
+      '',
+      'Сначала сверяйся с exact Git sources и consumer graph. Не исправляй только локальный instance, когда комментарий относится к component master. Candidate preview держи отдельно от AS-IS; production не обновляй без sign-off владельца продукта.',
+    ].join('\n') : 'Нет незакрытых комментариев на managed Resource Graph 004a objects.';
+    send({ type: 'prompt', prompt, count: entries.length });
+  }
+
+  penpot.ui.onMessage(async (message) => {
+    try {
+      if (!message || typeof message !== 'object') return;
+      if (message.type === 'inspect') {
+        const catalog = validateCatalog(message.catalog);
+        lastCatalog = catalog;
+        send({ type: 'inspection', state: inspectState(catalog) });
+      } else if (message.type === 'update-all') {
+        await updateEverything(message.catalog);
+      } else if (message.type === 'build-prompt') {
+        const catalog = validateCatalog(message.catalog || lastCatalog);
+        await buildReviewPrompt(catalog);
+      } else if (message.type === 'close') {
+        penpot.closePlugin();
+      }
+    } catch (error) {
+      send({ type: 'failure', diagnostic: {
+        schemaVersion: 1,
+        incidentId: `rg004a-message-${Date.now().toString(36)}`,
+        occurredAt: now(),
+        checkpoint: readCheckpoint(),
+        penpotVersion: penpot.version || null,
+        currentPage: penpot.currentPage?.name || null,
+        error: normalizeError(error),
+      } });
+    }
+  });
+})();
