@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LoveKGD Runtime Review 003</title>
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#201d1a;background:#f7f5f0}
+    *{box-sizing:border-box}
+    body{margin:0;padding:14px}
+    h1{font-size:18px;margin:0 0 5px}
+    p{font-size:12px;line-height:1.45;margin:0;color:#625c54}
+    .card{background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:11px;margin:10px 0}
+    .row{display:flex;align-items:center;gap:8px}
+    .badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:850;letter-spacing:.05em}
+    .checking{background:#dce8f2;color:#315b7a}.current{background:#dcebe3;color:#2f6248}.stale{background:#f2e7c9;color:#6a531f}.failed{background:#f1d9d9;color:#8b3030}
+    .status{font-size:12px;line-height:1.42;white-space:pre-wrap;margin-top:8px}
+    button{width:100%;border:0;border-radius:10px;padding:11px 12px;font:inherit;font-weight:780;cursor:pointer;margin-top:7px}
+    button.primary{background:#203b57;color:#fff} button.secondary{background:#ebe7de;color:#201d1a} button:disabled{opacity:.45;cursor:not-allowed}
+    dl{display:grid;grid-template-columns:112px 1fr;gap:5px 8px;font-size:11px;margin:0}dt{color:#6d665e}dd{margin:0;overflow-wrap:anywhere}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .metric{border:1px solid #e2ddd4;border-radius:9px;padding:8px;background:#faf8f4}.metric b{display:block;font-size:15px}.metric span{font-size:10px;color:#6d665e}
+    details summary{cursor:pointer;font-size:11px;font-weight:750}ul{margin:7px 0 0;padding-left:18px;font-size:11px;line-height:1.4}
+    textarea{width:100%;min-height:200px;border:1px solid #cec7bc;border-radius:10px;padding:9px;resize:vertical;font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .hidden{display:none}.ok{color:#1f6b48}.warn{color:#8b5b00}.error{color:#9a2d2d}code{overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+  <h1>LoveKGD Runtime Review · 003</h1>
+  <p>Именованные Penpot pages + exact Git screenshot текущего Astro runtime. Плагин не рисует компоненты и не пишет в GitHub, Supabase или product DB.</p>
+
+  <div class="card">
+    <div class="row"><span id="badge" class="badge checking">CHECKING</span><strong id="headline">Проверяю каталог…</strong></div>
+    <div id="status" class="status">Получаю точный Git SHA и проверяю каждый screenshot.</div>
+    <button id="check" class="primary">Проверить актуальность</button>
+    <button id="sync" class="secondary" disabled>Синхронизировать именованные страницы</button>
+    <button id="prompt" class="secondary">Собрать промпт по комментариям</button>
+  </div>
+
+  <div id="catalog" class="card hidden">
+    <dl>
+      <dt>Catalog</dt><dd id="revision"></dd>
+      <dt>Catalog SHA</dt><dd><code id="catalog-sha"></code></dd>
+      <dt>Runtime SHA</dt><dd><code id="runtime-sha"></code></dd>
+      <dt>Pages</dt><dd id="pages"></dd>
+      <dt>Artifacts</dt><dd id="artifacts"></dd>
+      <dt>Downloaded</dt><dd id="bytes"></dd>
+      <dt>GitHub API</dt><dd id="rate"></dd>
+    </dl>
+  </div>
+
+  <div id="plan" class="card hidden">
+    <div class="grid">
+      <div class="metric"><b id="m-pages">0</b><span>pages</span></div>
+      <div class="metric"><b id="m-create">0</b><span>create</span></div>
+      <div class="metric"><b id="m-replace">0</b><span>replace</span></div>
+      <div class="metric"><b id="m-review">0</b><span>review</span></div>
+      <div class="metric"><b id="m-move">0</b><span>move/meta</span></div>
+      <div class="metric"><b id="m-remove">0</b><span>remove</span></div>
+      <div class="metric"><b id="m-noop">0</b><span>noop</span></div>
+    </div>
+    <details><summary>Подробный план</summary><ul id="plan-list"></ul></details>
+  </div>
+
+  <div id="report" class="card hidden">
+    <strong>Последняя синхронизация</strong>
+    <dl style="margin-top:8px">
+      <dt>Load</dt><dd id="r-load"></dd>
+      <dt>Inspect</dt><dd id="r-inspect"></dd>
+      <dt>Stage</dt><dd id="r-stage"></dd>
+      <dt>Commit</dt><dd id="r-commit"></dd>
+      <dt>Result</dt><dd id="r-result"></dd>
+    </dl>
+  </div>
+
+  <div id="prompt-card" class="card hidden">
+    <textarea id="prompt-text" readonly></textarea>
+    <button id="copy" class="primary">Скопировать промпт</button>
+  </div>
+
+<script>
+  const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+  const CATALOG_BRANCH = 'penpot-as-is-live';
+  const CATALOG_PATH = 'prototypes/penpot-as-is-runtime-003/catalog/catalog.json';
+  const ROOT = 'prototypes/penpot-as-is-runtime-003/catalog/';
+  const REF_URL = `https://api.github.com/repos/${REPOSITORY}/git/ref/heads/${CATALOG_BRANCH}`;
+  const $ = (selector) => document.querySelector(selector);
+  const badge = $('#badge');
+  const headline = $('#headline');
+  const statusNode = $('#status');
+  const checkButton = $('#check');
+  const syncButton = $('#sync');
+  const promptButton = $('#prompt');
+  let loaded = null;
+  let plan = null;
+  let checking = false;
+  let syncing = false;
+
+  const send = (type, payload = {}) => parent.postMessage({ type, ...payload }, '*');
+  const assert = (condition, message) => { if (!condition) throw new Error(message); };
+  const formatBytes = (value) => value < 1024 ? `${value} B` : value < 1048576 ? `${(value / 1024).toFixed(1)} KiB` : `${(value / 1048576).toFixed(2)} MiB`;
+  const hex = (buffer) => Array.from(new Uint8Array(buffer), (value) => value.toString(16).padStart(2, '0')).join('');
+  const bytesToBase64 = (bytes) => {
+    let binary = '';
+    const step = 0x8000;
+    for (let i = 0; i < bytes.length; i += step) binary += String.fromCharCode(...bytes.subarray(i, Math.min(bytes.length, i + step)));
+    return btoa(binary);
+  };
+
+  function setState(state, title, detail = '') {
+    const css = state === 'SYNC FAILED' ? 'failed' : state.toLowerCase();
+    badge.className = `badge ${css}`;
+    badge.textContent = state;
+    headline.textContent = title;
+    statusNode.textContent = detail;
+    statusNode.className = `status ${state === 'CURRENT' ? 'ok' : state === 'STALE' ? 'warn' : state === 'SYNC FAILED' ? 'error' : ''}`;
+  }
+
+  async function fetchExact(url, as = 'bytes') {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000);
+    try {
+      const response = await fetch(url, { cache: 'no-store', signal: controller.signal });
+      assert(response.ok, `http_${response.status}:${url}`);
+      if (as === 'json') return { value: await response.json(), response };
+      return { value: new Uint8Array(await response.arrayBuffer()), response };
+    } finally { clearTimeout(timer); }
+  }
+
+  async function sha256(bytes) {
+    return hex(await crypto.subtle.digest('SHA-256', bytes));
+  }
+
+  async function mapLimit(items, limit, worker) {
+    const result = new Array(items.length);
+    let cursor = 0;
+    async function run() {
+      while (true) {
+        const index = cursor++;
+        if (index >= items.length) return;
+        result[index] = await worker(items[index], index);
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
+    return result;
+  }
+
+  function validateCatalog(catalog) {
+    assert(catalog?.schemaVersion === 1, 'catalog_schema_unsupported');
+    assert(catalog.contract?.mode === 'observed-as-is', 'catalog_mode_invalid');
+    assert(Array.isArray(catalog.pages) && catalog.pages.length === 9, 'catalog_pages_invalid');
+    assert(Array.isArray(catalog.elements) && catalog.elements.length >= 24, 'catalog_too_small');
+    const ids = new Set();
+    for (const element of catalog.elements) {
+      assert(element.id && !ids.has(element.id), `duplicate_element:${element.id}`);
+      ids.add(element.id);
+      assert(element.artifact?.type === 'image', `artifact_type:${element.id}`);
+      assert(/^[0-9a-f]{64}$/.test(element.artifact.sha256 || ''), `artifact_hash:${element.id}`);
+    }
+    return catalog;
+  }
+
+  async function loadCatalog() {
+    const started = performance.now();
+    const { value: ref, response } = await fetchExact(REF_URL, 'json');
+    const catalogSha = ref?.object?.sha;
+    assert(/^[0-9a-f]{40}$/.test(catalogSha || ''), 'catalog_branch_sha_missing');
+    const catalogUrl = `https://raw.githack.com/${REPOSITORY}/${catalogSha}/${CATALOG_PATH}`;
+    const { value: catalog } = await fetchExact(catalogUrl, 'json');
+    validateCatalog(catalog);
+    const artifactsStarted = performance.now();
+    const prepared = await mapLimit(catalog.elements, 5, async (element) => {
+      const url = `https://raw.githack.com/${REPOSITORY}/${catalogSha}/${ROOT}${element.artifact.path}`;
+      const { value: bytes } = await fetchExact(url);
+      const actual = await sha256(bytes);
+      assert(actual === element.artifact.sha256, `artifact_hash_mismatch:${element.id}`);
+      assert(bytes.byteLength === element.artifact.byteLength, `artifact_size_mismatch:${element.id}`);
+      return { ...element, payload: { type: 'image', bytesBase64: bytesToBase64(bytes), mimeType: element.artifact.mimeType }, loadedBytes: bytes.byteLength };
+    });
+    const totalBytes = prepared.reduce((sum, item) => sum + item.loadedBytes, 0);
+    return {
+      catalog: { ...catalog, catalogSha, elements: prepared },
+      metrics: {
+        totalMs: Math.round(performance.now() - started),
+        artifactMs: Math.round(performance.now() - artifactsStarted),
+        totalBytes,
+        rateLimitRemaining: response.headers.get('x-ratelimit-remaining') || '—',
+      },
+    };
+  }
+
+  function renderCatalog(data) {
+    $('#catalog').classList.remove('hidden');
+    $('#revision').textContent = data.catalog.catalogRevision;
+    $('#catalog-sha').textContent = data.catalog.catalogSha;
+    $('#runtime-sha').textContent = data.catalog.source.revision;
+    $('#pages').textContent = String(data.catalog.pages.length);
+    $('#artifacts').textContent = `${data.catalog.elements.length} exact runtime screenshots`;
+    $('#bytes').textContent = `${formatBytes(data.metrics.totalBytes)} · ${data.metrics.totalMs} ms`;
+    $('#rate').textContent = `${data.metrics.rateLimitRemaining} запросов осталось`;
+  }
+
+  function setMetric(selector, value) { $(selector).textContent = String(value || 0); }
+  function renderPlan(message) {
+    plan = message;
+    $('#plan').classList.remove('hidden');
+    const s = message.summary;
+    setMetric('#m-pages', s.pages);
+    setMetric('#m-create', s.create);
+    setMetric('#m-replace', s.replace);
+    setMetric('#m-review', s.review);
+    setMetric('#m-move', s.move + s.metadata + s.relocate);
+    setMetric('#m-remove', s.remove);
+    setMetric('#m-noop', s.noop);
+    const list = $('#plan-list');
+    list.replaceChildren();
+    for (const item of message.items.slice(0, 160)) {
+      const li = document.createElement('li');
+      li.textContent = `${item.pageName || 'page'} · ${item.elementId || item.pageId}: ${item.action}${item.commentCount ? ` · comments ${item.commentCount}` : ''}`;
+      list.appendChild(li);
+    }
+    syncButton.disabled = message.changeCount === 0 || syncing;
+    if (message.changeCount === 0) setState('CURRENT', 'Penpot соответствует Git runtime', `${message.totalCurrent} current boards на ${message.pageCount} именованных pages.`);
+    else setState('STALE', `Найдено изменений: ${message.changeCount}`, 'Все screenshot уже загружены и проверены. Синхронизация создаёт named pages и current mirror; чужие boards не удаляются.');
+  }
+
+  async function check() {
+    if (checking || syncing) return;
+    checking = true;
+    checkButton.disabled = true;
+    syncButton.disabled = true;
+    setState('CHECKING', 'Проверяю runtime-каталог…', 'Получаю exact Git SHA и проверяю screenshot hashes.');
+    try {
+      loaded = await loadCatalog();
+      renderCatalog(loaded);
+      send('inspect-catalog', { catalog: loaded.catalog, loadMetrics: loaded.metrics });
+    } catch (error) {
+      setState('SYNC FAILED', 'Проверка остановлена', String(error?.message || error));
+    } finally {
+      checking = false;
+      checkButton.disabled = false;
+    }
+  }
+
+  checkButton.addEventListener('click', check);
+  syncButton.addEventListener('click', () => {
+    if (!loaded || !plan || syncing) return;
+    if (plan.changeCount > 12 && !confirm(`Будет применено ${plan.changeCount} изменений на именованных Penpot pages. Продолжить?`)) return;
+    syncing = true;
+    checkButton.disabled = true;
+    syncButton.disabled = true;
+    setState('CHECKING', 'Собираю staging…', 'Existing current boards с native comments будут сохранены как review snapshots.');
+    send('apply-catalog', { catalog: loaded.catalog, loadMetrics: loaded.metrics });
+  });
+  promptButton.addEventListener('click', () => {
+    if (!loaded) return setState('SYNC FAILED', 'Сначала проверьте каталог', 'Нужен точный source revision.');
+    send('build-prompt', { catalog: loaded.catalog });
+  });
+  $('#copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText($('#prompt-text').value); statusNode.textContent = 'Промпт скопирован; ничего автоматически не отправлено.'; }
+    catch { $('#prompt-text').focus(); $('#prompt-text').select(); document.execCommand('copy'); }
+  });
+
+  window.addEventListener('message', (event) => {
+    const message = event.data;
+    if (!message || typeof message !== 'object') return;
+    if (message.type === 'status') {
+      statusNode.textContent = message.text;
+      if (message.kind === 'error') setState('SYNC FAILED', 'Синхронизация остановлена', message.text);
+    }
+    if (message.type === 'catalog-plan') renderPlan(message);
+    if (message.type === 'sync-report') {
+      syncing = false;
+      checkButton.disabled = false;
+      $('#report').classList.remove('hidden');
+      $('#r-load').textContent = `${message.metrics.loadMs} ms`;
+      $('#r-inspect').textContent = `${message.metrics.inspectMs} ms`;
+      $('#r-stage').textContent = `${message.metrics.stageMs} ms`;
+      $('#r-commit').textContent = `${message.metrics.commitMs} ms`;
+      $('#r-result').textContent = `pages ${message.result.pages}; created ${message.result.created}; replaced ${message.result.replaced}; reviewed ${message.result.reviewed}; moved ${message.result.moved}; removed ${message.result.removed}`;
+      loaded = null; plan = null;
+      setState('CHECKING', 'Перепроверяю current mirror…', 'Повторный read-only pass должен вернуть CURRENT.');
+      check();
+    }
+    if (message.type === 'prompt') {
+      $('#prompt-card').classList.remove('hidden');
+      $('#prompt-text').value = message.text;
+      statusNode.textContent = `Промпт собран из ${message.commentCount} незакрытых комментариев.`;
+    }
+  });
+
+  setTimeout(check, 300);
+</script>
+</body>
+</html>
