@@ -34,7 +34,13 @@ jobs:
           plugin = Path('prototypes/penpot-product-atlas-001/dist/plugin.js')
           value = plugin.read_text(encoding='utf-8')
           old = "  const UI_URL = `https://cdn.jsdelivr.net/gh/${REPOSITORY}@main/${ROOT_PATH}/dist/ui.html`;"
-          new = f"  const ASSET_SHA = '{asset_sha}';\n  const UI_URL = `https://cdn.jsdelivr.net/gh/${{REPOSITORY}}@${{ASSET_SHA}}/${{ROOT_PATH}}/dist/ui.html`;"
+          repository_ref = '$' + '{REPOSITORY}'
+          asset_ref = '$' + '{ASSET_SHA}'
+          root_ref = '$' + '{ROOT_PATH}'
+          new = (
+              f"  const ASSET_SHA = '{asset_sha}';\n"
+              f"  const UI_URL = `https://cdn.jsdelivr.net/gh/{repository_ref}@{asset_ref}/{root_ref}/dist/ui.html`;"
+          )
           if old not in value and f"const ASSET_SHA = '{asset_sha}'" not in value:
               raise SystemExit('plugin mutable UI URL anchor missing')
           value = value.replace(old, new, 1)
