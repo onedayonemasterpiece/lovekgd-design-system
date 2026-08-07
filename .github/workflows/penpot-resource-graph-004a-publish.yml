@@ -1,0 +1,207 @@
+name: Publish Penpot Resource Graph 004a
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - prototype/resource-graph-004a-native-resources
+    paths:
+      - 'prototypes/penpot-resource-graph-004a/README.md'
+      - 'prototypes/penpot-resource-graph-004a/bootstrap/**'
+      - 'prototypes/penpot-resource-graph-004a/STATUS.md'
+      - 'prototypes/penpot-resource-graph-004a/src/**'
+      - 'prototypes/penpot-resource-graph-004a/scripts/**'
+      - 'prototypes/penpot-resource-graph-004a/dist/ui.html'
+      - 'prototypes/penpot-resource-graph-004a/dist/manifest.json'
+      - 'prototypes/penpot-resource-graph-004a/dist/icon.svg'
+      - '.github/workflows/penpot-resource-graph-004a-publish.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: penpot-resource-graph-004a
+  cancel-in-progress: true
+
+jobs:
+  build-validate-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout design-system delivery branch
+        uses: actions/checkout@v4
+        with:
+          ref: prototype/resource-graph-004a-native-resources
+          fetch-depth: 0
+
+      - name: Restore reviewed 004a implementation source
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle='prototypes/penpot-resource-graph-004a/bootstrap/source.tar.gz.b64'
+          test -s "$bundle"
+          base64 --decode "$bundle" | tar --extract --gzip --directory .
+          test -s prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          test -s prototypes/penpot-resource-graph-004a/scripts/build-catalog.mjs
+          test -s prototypes/penpot-resource-graph-004a/scripts/validate.mjs
+          test -s prototypes/penpot-resource-graph-004a/dist/ui.html
+
+      - name: Checkout exact product source
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: main
+          path: .source/events-bot-new
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+
+      - name: Build one Git-backed native-resource catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-resource-graph-004a'
+          product_sha="$(git -C .source/events-bot-new rev-parse HEAD)"
+          node "$root/scripts/build-catalog.mjs" \
+            --product-dir .source/events-bot-new \
+            --product-sha "$product_sha" \
+            --out "$root/catalog/catalog.json"
+          test -s "$root/catalog/catalog.json"
+
+      - name: Persist catalog and pin the plugin UI
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-resource-graph-004a'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            "$root/src" \
+            "$root/scripts" \
+            "$root/dist/ui.html" \
+            "$root/dist/manifest.json" \
+            "$root/dist/icon.svg" \
+            "$root/catalog/catalog.json"
+          if ! git diff --cached --quiet; then
+            git commit -m 'resource graph 004a: publish native sources and exact catalog'
+          fi
+          git rev-parse HEAD > /tmp/resource-graph-004a-ui-sha
+          test "$(wc -c < /tmp/resource-graph-004a-ui-sha)" -eq 41
+
+      - name: Build immutable plugin and validate all contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-resource-graph-004a'
+          ui_sha="$(cat /tmp/resource-graph-004a-ui-sha)"
+          sed "s/__UI_SHA__/$ui_sha/g" "$root/src/plugin.js.template" > "$root/dist/plugin.js"
+          node --check "$root/dist/plugin.js"
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-resource-graph-004a/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/resource-graph-004a-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/resource-graph-004a-ui.js
+          node "$root/scripts/validate.mjs" "$root"
+
+      - name: Commit plugin and publish live ref
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-resource-graph-004a'
+          git add "$root/dist/plugin.js"
+          if ! git diff --cached --quiet; then
+            git commit -m 'resource graph 004a: bind plugin to immutable UI and catalog'
+          fi
+          final_sha="$(git rev-parse HEAD)"
+          git push origin HEAD:prototype/resource-graph-004a-native-resources
+          git push --force origin HEAD:resource-graph-004a-live
+          printf '%s' "$final_sha" > /tmp/resource-graph-004a-final-sha
+
+      - name: Public delivery smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='prototypes/penpot-resource-graph-004a'
+          ui_sha="$(cat /tmp/resource-graph-004a-ui-sha)"
+          final_sha="$(cat /tmp/resource-graph-004a-final-sha)"
+          work="$RUNNER_TEMP/resource-graph-004a-public"
+          mkdir -p "$work"
+
+          fetch_public() {
+            local url="$1" body="$2" headers="$3"
+            for attempt in $(seq 1 12); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 10 --max-time 90 \
+                -D "$headers" -o "$body" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            echo "public fetch failed: $url" >&2
+            return 1
+          }
+
+          assert_cors() {
+            tr -d '\r' < "$1" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
+          }
+
+          cdn="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist"
+          fetch_public "$cdn/manifest.json" "$work/manifest.json" "$work/manifest.headers"
+          fetch_public "$cdn/plugin.js" "$work/plugin.js" "$work/plugin.headers"
+          fetch_public "$cdn/icon.svg" "$work/icon.svg" "$work/icon.headers"
+          fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${ui_sha}/${root}/dist/ui.html" "$work/ui.html" "$work/ui.headers"
+          fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${final_sha}/${root}/catalog/catalog.json" "$work/catalog.json" "$work/catalog.headers"
+
+          assert_cors "$work/manifest.headers"
+          assert_cors "$work/plugin.headers"
+          assert_cors "$work/icon.headers"
+          assert_cors "$work/ui.headers"
+          assert_cors "$work/catalog.headers"
+          node --check "$work/plugin.js"
+          node - "$work" "$ui_sha" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [work, uiSha] = process.argv.slice(2);
+          const manifest = JSON.parse(fs.readFileSync(path.join(work, 'manifest.json'), 'utf8'));
+          const plugin = fs.readFileSync(path.join(work, 'plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(work, 'ui.html'), 'utf8');
+          const catalog = JSON.parse(fs.readFileSync(path.join(work, 'catalog.json'), 'utf8'));
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          assert(manifest.version === 2, 'manifest_version');
+          assert(manifest.permissions.includes('library:write'), 'library_permission');
+          assert(plugin.includes(`const UI_SHA = '${uiSha}'`), 'ui_pin');
+          assert(plugin.includes('penpot.library.local.createColor()'), 'native_colors');
+          assert(plugin.includes('penpot.library.local.createTypography()'), 'native_typography');
+          assert(plugin.includes('penpot.library.local.createComponent([shape])'), 'native_components');
+          assert(ui.includes('Обновить дизайн-систему'), 'one_update_button');
+          assert(catalog.delivery === 'penpot-resource-graph-004a', 'catalog_delivery');
+          assert(catalog.icons.length >= 40, 'icon_count');
+          NODE
+
+          {
+            echo '### Resource Graph 004a public delivery: PASS'
+            echo
+            echo "- product source SHA: \`$(node -p \"require('$work/catalog.json').source.revision\")\`"
+            echo "- catalog SHA-256: \`$(node -p \"require('$work/catalog.json').catalogSha256\")\`"
+            echo "- immutable plugin commit: \`${final_sha}\`"
+            echo "- pinned UI commit: \`${ui_sha}\`"
+            echo "- colors: \`$(node -p \"require('$work/catalog.json').counts.colors\")\`"
+            echo "- typographies: \`$(node -p \"require('$work/catalog.json').counts.typography\")\`"
+            echo "- vector icons: \`$(node -p \"require('$work/catalog.json').counts.icons\")\`"
+            echo '- public manifest/plugin/icon/UI/catalog HTTP + CORS + syntax + contract smoke: PASS'
+            echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist/manifest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload catalog receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resource-graph-004a-${{ github.run_id }}
+          path: prototypes/penpot-resource-graph-004a/catalog/catalog.json
+          if-no-files-found: error
+          retention-days: 30
