@@ -203,16 +203,22 @@ jobs:
           assert(catalog.icons.length >= 40, 'icon_count');
           NODE
 
+          product_source="$(node -e 'const c=require(process.argv[1]); process.stdout.write(c.source.revision)' "$work/catalog.json")"
+          catalog_hash="$(node -e 'const c=require(process.argv[1]); process.stdout.write(c.catalogSha256)' "$work/catalog.json")"
+          color_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.colors))' "$work/catalog.json")"
+          typography_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.typography))' "$work/catalog.json")"
+          icon_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.icons))' "$work/catalog.json")"
+
           {
             echo '### Resource Graph 004a public delivery: PASS'
             echo
-            echo "- product source SHA: \`$(node -p \"require('$work/catalog.json').source.revision\")\`"
-            echo "- catalog SHA-256: \`$(node -p \"require('$work/catalog.json').catalogSha256\")\`"
-            echo "- immutable plugin commit: \`${final_sha}\`"
-            echo "- pinned UI commit: \`${ui_sha}\`"
-            echo "- colors: \`$(node -p \"require('$work/catalog.json').counts.colors\")\`"
-            echo "- typographies: \`$(node -p \"require('$work/catalog.json').counts.typography\")\`"
-            echo "- vector icons: \`$(node -p \"require('$work/catalog.json').counts.icons\")\`"
+            echo "- product source SHA: $product_source"
+            echo "- catalog SHA-256: $catalog_hash"
+            echo "- immutable plugin commit: $final_sha"
+            echo "- pinned UI commit: $ui_sha"
+            echo "- colors: $color_count"
+            echo "- typographies: $typography_count"
+            echo "- vector icons: $icon_count"
             echo '- public manifest/plugin/icon/UI/catalog HTTP + CORS + syntax + contract smoke: PASS'
             echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist/manifest.json"
           } >> "$GITHUB_STEP_SUMMARY"
