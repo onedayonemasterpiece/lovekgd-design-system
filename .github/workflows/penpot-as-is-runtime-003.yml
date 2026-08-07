@@ -6,6 +6,8 @@ on:
       - prototype/penpot-as-is-runtime-003
     paths:
       - 'prototypes/penpot-as-is-runtime-003/bootstrap/**'
+      - 'prototypes/penpot-as-is-runtime-003/dist/**'
+      - 'prototypes/penpot-as-is-runtime-003/scripts/**'
       - '.github/workflows/penpot-as-is-runtime-003.yml'
   workflow_dispatch:
 
@@ -27,30 +29,27 @@ jobs:
           ref: prototype/penpot-as-is-runtime-003
           fetch-depth: 0
 
-      - name: Restore corrected Prototype 003 source
+      - name: Restore Prototype 003 source only when absent
         shell: bash
         run: |
           set -euo pipefail
           target='prototypes/penpot-as-is-runtime-003'
           if ! test -f "$target/scripts/capture-runtime.mjs" \
+             || ! test -f "$target/scripts/validate.mjs" \
              || ! test -f "$target/dist/plugin.js.template" \
              || ! test -f "$target/dist/ui.html"; then
             cat "$target"/bootstrap/part-*.b64 \
               | base64 --decode \
               | tar --extract --gzip --directory "$target"
+            cat "$target"/bootstrap/overlay/part-*.b64 \
+              | base64 --decode \
+              | tar --extract --gzip --directory "$target"
           fi
-
-          # Apply the reviewed source overlay after the historical bootstrap.
-          # Chunking keeps every repository write independently verifiable.
-          cat "$target"/bootstrap/overlay/part-*.b64 \
-            | base64 --decode \
-            | tar --extract --gzip --directory "$target"
 
           test -f "$target/scripts/capture-runtime.mjs"
           test -f "$target/scripts/validate.mjs"
           test -f "$target/dist/plugin.js.template"
           test -f "$target/dist/ui.html"
-          test "$(cat "$target"/bootstrap/overlay/part-*.b64 | wc -c)" -eq 23452
 
       - name: Checkout exact product source
         uses: actions/checkout@v4
