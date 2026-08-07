@@ -1,93 +1,141 @@
-# LoveKGD Design System — Penpot review layer
+# LoveKGD Design System — Penpot delivery and review layer
 
 Этот репозиторий содержит инструментальный контур отображения и согласования дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы» в Penpot.
 
-Канонический код действующей дизайн-системы остаётся рядом с production-потребителем — в [`onedayonemasterpiece/events-bot-new`](https://github.com/onedayonemasterpiece/events-bot-new):
+Канонический код и production identity остаются в [`onedayonemasterpiece/events-bot-new`](https://github.com/onedayonemasterpiece/events-bot-new). Penpot не становится вторым источником истины.
 
-- нормативный контракт: `docs/features/static-site-pages/design-system/README.md`;
-- semantic tokens: `site/src/styles/design-system.css`;
-- primitive Astro components: `site/src/components/design-system/`;
-- product components: `site/src/components/`;
-- runtime-каталог: `site/src/pages/lab/design-system/index.astro` → `/lab/design-system/`.
+## Текущее состояние
 
-Penpot не является вторым источником истины и не содержит вручную перерисованных «похожих» компонентов. Он получает проверяемое представление точного Astro runtime из Git.
+### Runtime Review 003.2 — проверенный evidence transport
 
-## Текущая поставка
+003.2 доказал:
 
-**Penpot Runtime Review 003.2** связывает три контура:
+- импорт exact runtime screenshots;
+- SHA-256 и source provenance;
+- native Penpot comments;
+- deterministic comment-to-prompt flow;
+- host-safe batching;
+- recovery после Penpot React `#185` crash;
+- очистку только managed staging без удаления foreign boards и comments.
 
-1. foundations, primitive UI, продуктовые компоненты, состояния и реестр версий берутся из реального runtime-кода сайта;
-2. плагин создаёт девять именованных Penpot pages и синхронизирует exact desktop/mobile screenshots с Git provenance и SHA-256;
-3. native Penpot comments сохраняются при обновлении артефакта и превращаются в детерминированный implementation prompt с exact source SHA, route, viewport и source URL.
-
-Patch `003.2` устраняет реальный host crash Penpot Cloud `2.17.1-RC5` с React error `#185`:
-
-- media загружаются до page/board mutations;
-- элементы группируются по целевой странице;
-- каждая страница открывается не более одного раза на фазу;
-- mutations объединяются в native Penpot undo blocks;
-- за один пакет изменяется не более четырёх boards, между пакетами есть settle barrier;
-- сохраняется durable checkpoint: phase, page, element, index и sync run ID;
-- после аварийного завершения удаляются только managed boards с `lane=staging`;
-- foreign boards, technical fixtures и native comments не удаляются;
-- retired boards получают `lane=trash` до verification, поэтому не создают duplicate-current state.
-
-Проверенная поставка:
-
-- publication/public-delivery smoke: [`run 31163780657`](https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/31163780657) — `success`;
-- immutable plugin commit: [`16699ff75f92b3964bda8a935b6be9b000569635`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/16699ff75f92b3964bda8a935b6be9b000569635);
-- pinned UI commit: [`8cf3c007c462a20bdc252d5685adf3d4dfe54c23`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/8cf3c007c462a20bdc252d5685adf3d4dfe54c23);
-- merged implementation: [`8d6c7e090051322d2f7d5c56ebaa916d8184f274`](https://github.com/onedayonemasterpiece/lovekgd-design-system/commit/8d6c7e090051322d2f7d5c56ebaa916d8184f274);
-- product runtime source: `events-bot-new@c6a679dbbb3bbd65eb096becbd5976e7ccd67a26`;
-- catalog: `9` именованных страниц, `46` exact runtime artifacts, desktop + mobile, `0` capture errors.
-
-## Установка в Penpot
-
-Immutable manifest:
+Проверенная immutable-сборка:
 
 ```text
 https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@16699ff75f92b3964bda8a935b6be9b000569635/prototypes/penpot-as-is-runtime-0032/dist/manifest.json
 ```
 
-Обновляемая ссылка текущего patch:
+Она остаётся техническим AS-IS evidence layer. Её зелёный `CURRENT` означает соответствие 46 screenshot-boards старому каталогу `003.2`; это не означает полноту дизайн-системы.
+
+### Resource Graph 004 — целевая поставка
+
+004 превращает evidence layer в связанную дизайн-систему:
 
 ```text
-https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@penpot-runtime-0032-live/prototypes/penpot-as-is-runtime-0032/dist/manifest.json
+accepted production release
+→ production-only inventory
+→ Penpot Colors and Typographies
+→ component masters and variants
+→ product patterns
+→ archetypes assembled from instances
+→ separate automated actual/baseline/diff screenshots
+→ comments scoped to resource, component, archetype or evidence
 ```
 
-Для воспроизводимого review используется immutable URL с commit SHA.
+Ключевые контракты:
 
-## Структура Penpot-файла
+- [Resource Graph 004](docs/resource-graph-004.md);
+- [one-update plugin contract](contracts/resource-graph-004.plugin.json).
 
-- `00 — System map`;
-- `20 — Foundations`;
-- `30 — Core UI`;
-- `40 — Announcements components`;
-- `60 — Page archetypes`;
-- `70 — AS-IS registry`;
-- `80 — Candidate review`;
-- `90 — Review archive`;
-- `99 — Technical tests`.
+Продуктовый inventory contract хранится в `events-bot-new`:
 
-Старый технический прототип переводится в `99 — Technical tests`. Чужие и вручную созданные boards плагин не удаляет.
+- `site/src/data/design-system-production-surface-contract.v1.json`;
+- `site/scripts/check-design-system-production-surface-contract.mjs`;
+- `docs/features/static-site-pages/design-system/penpot-resource-graph-004.md`.
 
-## Рабочий цикл
+## Скриншоты и компоненты
+
+Скриншоты не удаляются. Они становятся отдельным видом проверяемого evidence:
 
 ```text
-Git / Astro runtime
-→ Проверить актуальность
-→ Безопасно убрать interrupted staging, если он есть
-→ Синхронизировать именованные страницы
-→ Оставить native Penpot comments
-→ Собрать prompt по незакрытым комментариям
-→ Сделать candidate preview отдельно от AS-IS
-→ Получить sign-off владельца продукта
-→ Изменить канонический код в events-bot-new
-→ Пересобрать exact runtime mirror
+90 — Evidence / desktop
+91 — Evidence / tablet
+92 — Evidence / mobile
+93 — Evidence / interaction and accessibility
 ```
 
-Подробные контракты:
+Каждый обязательный архетип связан с:
 
-- [`Prototype 003 — exact AS-IS runtime`](prototypes/penpot-as-is-runtime-003/README.md);
-- [`Prototype 003.1 — diagnostics and transport-safe media`](prototypes/penpot-as-is-runtime-0031/README.md);
-- [`Prototype 003.2 — host-safe resumable sync`](prototypes/penpot-as-is-runtime-0032/README.md).
+- `actual` screenshot из автоматического теста;
+- `approved-baseline`, если baseline утверждён;
+- `diff`, если actual отличается;
+- test ID, run ID, exact repo SHA, build ID и data snapshot.
+
+На resource/archetype pages находятся component instances и связи. На evidence pages — то, что фактически отрисовал браузер.
+
+## Источник инвентаризации
+
+004 не использует старый ручной `/lab/design-system/` как источник перечня.
+
+Текущими считаются только:
+
+- HTML routes из одного принятого production artifact;
+- page sources, соответствующие этим routes на exact release SHA;
+- transitively imported production components;
+- brand/PWA assets, вошедшие в тот же release.
+
+`/lab`, preview fixtures, detached prototypes и deprecated zero-consumer implementations не попадают в current library. Они остаются candidate/archive/technical evidence.
+
+## Один запуск на обновление
+
+Пользователь открывает plugin один раз. Максимум три действия:
+
+1. **Проверить актуальность** — optional, preflight также выполняется автоматически.
+2. **Обновить дизайн-систему** — единственная mutation-команда.
+3. **Собрать промпт по комментариям**.
+
+Нет и не будет ручных действий `обновить страницу`, `импортировать следующий компонент` или `продолжить следующий пакет`.
+
+`Обновить дизайн-систему` самостоятельно выполняет:
+
+```text
+catalog verification
+→ interrupted-operation recovery
+→ colors
+→ typographies
+→ components
+→ variants
+→ patterns
+→ archetypes
+→ evidence pages for all viewports
+→ component↔archetype↔evidence links
+→ comments/review preservation
+→ final verification and one report
+```
+
+Внутренние batch/retry/page-switch операции остаются деталями оркестрации и не превращаются в повторяющиеся действия пользователя.
+
+## Структура Resource Graph 004
+
+```text
+00 — System map
+10 — Brand assets
+20 — Foundations
+30 — Core UI resources
+40 — Announcements components
+50 — Product patterns
+60 — Page archetypes
+70 — Coverage and fragmentation
+80 — Candidate review
+89 — Review archive
+90 — Evidence / desktop
+91 — Evidence / tablet
+92 — Evidence / mobile
+93 — Evidence / interaction and accessibility
+99 — Technical tests
+```
+
+Подробные исторические контракты:
+
+- [Prototype 003](prototypes/penpot-as-is-runtime-003/README.md);
+- [Prototype 003.1](prototypes/penpot-as-is-runtime-0031/README.md);
+- [Prototype 003.2](prototypes/penpot-as-is-runtime-0032/README.md).
