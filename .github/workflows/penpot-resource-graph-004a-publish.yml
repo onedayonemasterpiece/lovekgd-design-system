@@ -43,6 +43,16 @@ jobs:
           base64 --decode /tmp/resource-graph-004a-source.b64 > /tmp/resource-graph-004a-source.tar.gz
           echo 'cd5063ceb845dc086fb13c97318d7c7466ff82a0004939d8079bac2b3ab1155b  /tmp/resource-graph-004a-source.tar.gz' | sha256sum --check --strict
           tar --extract --gzip --file /tmp/resource-graph-004a-source.tar.gz --directory .
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('prototypes/penpot-resource-graph-004a/scripts/build-catalog.mjs')
+          source = path.read_text(encoding='utf-8')
+          needle = "  let value = String(svg)\n    .replace(/<!--"
+          replacement = "  let value = String(svg)\n    .replace(/^\\uFEFF/u, '')\n    .replace(/<\\?xml[\\s\\S]*?\\?>/giu, '')\n    .replace(/<!DOCTYPE[\\s\\S]*?>/giu, '')\n    .replace(/<!--"
+          if needle not in source:
+              raise SystemExit('svg_normalizer_patch_anchor_missing')
+          path.write_text(source.replace(needle, replacement, 1), encoding='utf-8')
+          PY
           test -s "$root/src/plugin.js.template"
           test -s "$root/scripts/build-catalog.mjs"
           test -s "$root/scripts/validate.mjs"
