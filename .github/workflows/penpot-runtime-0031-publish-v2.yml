@@ -1,0 +1,221 @@
+name: Penpot Runtime Review 003.1 publish v2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix/penpot-runtime-0031-diagnostics-safe-media
+    paths:
+      - 'prototypes/penpot-as-is-runtime-0031/bootstrap/**'
+      - '.github/workflows/penpot-runtime-0031-publish-v2.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: penpot-runtime-0031-publish
+  cancel-in-progress: true
+
+env:
+  ROOT: prototypes/penpot-as-is-runtime-0031
+  BOOTSTRAP_SIZE: '22436'
+  BOOTSTRAP_SHA256: a4c595f3411c7234b1230b61f5ba90a704eb1856a18362093eb624c67fd810ce
+  ARCHIVE_SHA256: b7cee1ebe189c063440de64e097e5fd939c26185d804daffc319d320f17997cf
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/penpot-runtime-0031-diagnostics-safe-media
+          fetch-depth: 0
+
+      - name: Restore and verify reviewed source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${RUNNER_TEMP}/penpot0031"
+          cat "$ROOT"/bootstrap/part-*.b64 > "${RUNNER_TEMP}/penpot0031/source.tar.gz.b64"
+          test "$(wc -c < "${RUNNER_TEMP}/penpot0031/source.tar.gz.b64")" -eq "$BOOTSTRAP_SIZE"
+          test "$(sha256sum "${RUNNER_TEMP}/penpot0031/source.tar.gz.b64" | cut -d' ' -f1)" = "$BOOTSTRAP_SHA256"
+          base64 --decode "${RUNNER_TEMP}/penpot0031/source.tar.gz.b64" > "${RUNNER_TEMP}/penpot0031/source.tar.gz"
+          test "$(sha256sum "${RUNNER_TEMP}/penpot0031/source.tar.gz" | cut -d' ' -f1)" = "$ARCHIVE_SHA256"
+          tar --extract --gzip --file "${RUNNER_TEMP}/penpot0031/source.tar.gz" --directory "$ROOT"
+
+          test -f "$ROOT/dist/plugin.js.template"
+          test -f "$ROOT/dist/ui.html"
+          test -f "$ROOT/dist/manifest.json"
+          test -f "$ROOT/scripts/validate.mjs"
+          test -f "$ROOT/README.md"
+
+      - name: Validate source and persist immutable UI revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$ROOT/dist/plugin.js.template" /tmp/penpot0031-plugin-template.js
+          node --check /tmp/penpot0031-plugin-template.js
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('prototypes/penpot-as-is-runtime-0031/dist/ui.html').read_text(encoding='utf-8')
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/penpot0031-ui.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/penpot0031-ui.js
+          node "$ROOT/scripts/validate.mjs" "$ROOT"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003.1: materialize diagnostics and transport-safe media source'
+          fi
+          git rev-parse HEAD > /tmp/penpot0031-ui-sha
+          test "$(wc -c < /tmp/penpot0031-ui-sha)" -eq 41
+
+      - name: Build immutable plugin and validate generated delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          ui_sha="$(cat /tmp/penpot0031-ui-sha)"
+          sed "s/__UI_SHA__/$ui_sha/g" "$ROOT/dist/plugin.js.template" > "$ROOT/dist/plugin.js"
+          node --check "$ROOT/dist/plugin.js"
+          grep -Fq "const UI_SHA = '$ui_sha'" "$ROOT/dist/plugin.js"
+          grep -Fq "phase: 'staging-upload'" "$ROOT/dist/plugin.js"
+          grep -Fq 'MAX_UPLOAD_ATTEMPTS = 3' "$ROOT/dist/plugin.js"
+          grep -Fq 'copy-diagnostic' "$ROOT/dist/ui.html"
+          grep -Fq 'MAX_TRANSPORT_DIMENSION = 7600' "$ROOT/dist/ui.html"
+          grep -Fq 'MAX_TRANSPORT_PIXELS = 24_000_000' "$ROOT/dist/ui.html"
+
+          git add "$ROOT/dist/plugin.js"
+          if ! git diff --cached --quiet; then
+            git commit -m 'prototype 003.1: bind plugin to immutable diagnostic UI'
+          fi
+          git rev-parse HEAD > /tmp/penpot0031-final-sha
+          test "$(wc -c < /tmp/penpot0031-final-sha)" -eq 41
+
+      - name: Publish branch and live revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          final_sha="$(cat /tmp/penpot0031-final-sha)"
+          git push origin HEAD:fix/penpot-runtime-0031-diagnostics-safe-media
+          git push --force origin HEAD:penpot-runtime-0031-live
+          echo "$final_sha" > /tmp/penpot0031-published-sha
+
+      - name: Smoke-test public immutable delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="${RUNNER_TEMP}/penpot0031/public"
+          mkdir -p "$work"
+          final_sha="$(cat /tmp/penpot0031-final-sha)"
+          ui_sha="$(cat /tmp/penpot0031-ui-sha)"
+
+          fetch_public() {
+            local url="$1"
+            local body="$2"
+            local headers="$3"
+            local attempt
+            for attempt in $(seq 1 18); do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 10 --max-time 60 \
+                -D "$headers" -o "$body" "$url"; then
+                return 0
+              fi
+              sleep 5
+            done
+            echo "Failed public fetch after ${attempt} attempts: ${url}" >&2
+            return 1
+          }
+
+          assert_cors() {
+            local headers="$1"
+            tr -d '\r' < "$headers" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
+          }
+
+          cdn_base="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${ROOT}/dist"
+          ui_url="https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${ui_sha}/${ROOT}/dist/ui.html"
+          fetch_public "${cdn_base}/manifest.json" "$work/manifest.json" "$work/manifest.headers"
+          fetch_public "${cdn_base}/plugin.js" "$work/plugin.js" "$work/plugin.headers"
+          fetch_public "${cdn_base}/icon.svg" "$work/icon.svg" "$work/icon.headers"
+          fetch_public "$ui_url" "$work/ui.html" "$work/ui.headers"
+
+          assert_cors "$work/manifest.headers"
+          assert_cors "$work/plugin.headers"
+          assert_cors "$work/icon.headers"
+          assert_cors "$work/ui.headers"
+          node --check "$work/plugin.js"
+
+          node - "$work" "$ui_sha" <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [work, uiSha] = process.argv.slice(2);
+          const manifest = JSON.parse(fs.readFileSync(path.join(work, 'manifest.json'), 'utf8'));
+          const plugin = fs.readFileSync(path.join(work, 'plugin.js'), 'utf8');
+          const ui = fs.readFileSync(path.join(work, 'ui.html'), 'utf8');
+          const assert = (condition, message) => { if (!condition) throw new Error(message); };
+          assert(manifest.name.includes('003.1'), 'manifest name');
+          assert(manifest.version === 2, 'manifest version');
+          assert(manifest.code === 'plugin.js', 'manifest code');
+          assert(JSON.stringify(manifest.permissions) === JSON.stringify(['content:read', 'content:write', 'comment:read']), 'permissions');
+          assert(plugin.includes(`const UI_SHA = '${uiSha}'`), 'UI pin');
+          for (const marker of ['reportDiagnostic', "phase: 'staging-upload'", 'MAX_UPLOAD_ATTEMPTS = 3', 'transportHash', 'findCommentThreads', 'buildPrompt']) {
+            assert(plugin.includes(marker), `plugin marker ${marker}`);
+          }
+          for (const marker of ['MAX_TRANSPORT_DIMENSION = 7600', 'MAX_TRANSPORT_PIXELS = 24_000_000', 'createImageBitmap', 'canvas.toBlob', 'copy-diagnostic', 'diagnostic-text']) {
+            assert(ui.includes(marker), `UI marker ${marker}`);
+          }
+          const inline = ui.match(/<script>([\s\S]*?)<\/script>/u);
+          assert(inline, 'inline UI script');
+          fs.writeFileSync(path.join(work, 'ui-inline.js'), inline[1]);
+          NODE
+          node --check "$work/ui-inline.js"
+
+          live_ref='https://api.github.com/repos/onedayonemasterpiece/lovekgd-design-system/git/ref/heads/penpot-runtime-0031-live'
+          fetch_public "$live_ref" "$work/live-ref.json" "$work/live-ref.headers"
+          live_sha="$(node -e "const r=require(process.argv[1]); if(!/^[0-9a-f]{40}$/.test(r.object.sha)) process.exit(1); process.stdout.write(r.object.sha)" "$work/live-ref.json")"
+          test "$live_sha" = "$final_sha"
+
+          catalog_ref='https://api.github.com/repos/onedayonemasterpiece/lovekgd-design-system/git/ref/heads/penpot-as-is-live'
+          fetch_public "$catalog_ref" "$work/catalog-ref.json" "$work/catalog-ref.headers"
+          catalog_sha="$(node -e "const r=require(process.argv[1]); if(!/^[0-9a-f]{40}$/.test(r.object.sha)) process.exit(1); process.stdout.write(r.object.sha)" "$work/catalog-ref.json")"
+          catalog_url="https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${catalog_sha}/prototypes/penpot-as-is-runtime-003/catalog/catalog.json"
+          fetch_public "$catalog_url" "$work/catalog.json" "$work/catalog.headers"
+          assert_cors "$work/catalog.headers"
+          node - "$work/catalog.json" <<'NODE'
+          const catalog = require(process.argv[2]);
+          if (catalog.contract?.mode !== 'observed-as-is') throw new Error('catalog mode');
+          if (catalog.pages?.length !== 9) throw new Error(`catalog pages ${catalog.pages?.length}`);
+          if (catalog.elements?.length !== 46) throw new Error(`catalog elements ${catalog.elements?.length}`);
+          if (catalog.metrics?.captureErrorCount !== 0) throw new Error(`capture errors ${catalog.metrics?.captureErrorCount}`);
+          NODE
+
+          {
+            echo '### Penpot Runtime Review 003.1: PASS'
+            echo
+            echo "- immutable plugin commit: \`${final_sha}\`"
+            echo "- pinned UI commit: \`${ui_sha}\`"
+            echo '- public manifest/plugin/icon/UI: HTTP + CORS + syntax passed'
+            echo '- detailed staging diagnostics: present'
+            echo '- sequential 3-attempt media upload: present'
+            echo '- transport-safe WebP derivative contract: present'
+            echo '- live observed-as-is catalog: 9 pages / 46 artifacts / 0 capture errors'
+            echo
+            echo "Manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${ROOT}/dist/manifest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: penpot-runtime-0031-${{ github.run_id }}
+          path: |
+            prototypes/penpot-as-is-runtime-0031/README.md
+            prototypes/penpot-as-is-runtime-0031/dist/manifest.json
+            prototypes/penpot-as-is-runtime-0031/dist/plugin.js
+            prototypes/penpot-as-is-runtime-0031/dist/ui.html
+          if-no-files-found: warn
+          retention-days: 14
