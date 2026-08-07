@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const UI_SHA = 'b9a254d2755bb62dd3974950a3d26cfa99387b91';
+  const UI_SHA = '8569ac581cacc7d2fe04dc61f6b7d3491a662291';
   const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
   const ROOT_PATH = 'prototypes/penpot-resource-graph-004a';
   const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_SHA}/${ROOT_PATH}/dist/ui.html`;
@@ -15,7 +15,7 @@
   const ICON_BATCH_SIZE = 5;
   const CORE_BATCH_SIZE = 4;
 
-  penpot.ui.open('LoveKGD Resource Graph · 004a.1', UI_URL, { width: 540, height: 860 });
+  penpot.ui.open('LoveKGD Resource Graph · 004a.2', UI_URL, { width: 540, height: 860 });
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const now = () => new Date().toISOString();
@@ -170,6 +170,52 @@
     return result;
   }
 
+  const HOST_FONT_WEIGHTS = Object.freeze([100, 200, 300, 400, 500, 600, 700, 800, 900]);
+const fontWeightWarnings = new Set();
+
+function nearestHostFontWeight(requested) {
+  const numeric = Number(requested);
+  if (!Number.isFinite(numeric)) return asString(requested || '500');
+  let best = HOST_FONT_WEIGHTS[0];
+  let bestDistance = Math.abs(numeric - best);
+  for (const candidate of HOST_FONT_WEIGHTS.slice(1)) {
+    const distance = Math.abs(numeric - candidate);
+    if (distance < bestDistance || (distance === bestDistance && candidate > best)) {
+      best = candidate;
+      bestDistance = distance;
+    }
+  }
+  return String(best);
+}
+
+function setHostSafeFontWeight(target, requested) {
+  const requestedValue = asString(requested ?? '500').trim() || '500';
+  const numeric = Number(requestedValue);
+  const appliedValue = Number.isFinite(numeric)
+    ? nearestHostFontWeight(requestedValue)
+    : requestedValue;
+  target.fontWeight = appliedValue;
+  const fallback = appliedValue !== requestedValue;
+  if (fallback) {
+    try {
+      mark(target, {
+        requestedFontWeight: requestedValue,
+        appliedFontWeight: appliedValue,
+        fontWeightCompatibilityFallback: 'penpot-2.17.1-discrete-inter-weights',
+      });
+    } catch {}
+    const warningKey = `${requestedValue}->${appliedValue}`;
+    if (!fontWeightWarnings.has(warningKey)) {
+      fontWeightWarnings.add(warningKey);
+      send({
+        type: 'warning',
+        message: `Penpot ${penpot.version || 'unknown'} поддерживает для Inter только дискретные веса 100–900 с шагом 100; ${requestedValue} отображается как ${appliedValue}. Исходное значение сохранено в Typography resource/metadata.`,
+      });
+    }
+  }
+  return { requested: requestedValue, applied: appliedValue, fallback };
+}
+
   function setHostSafeLetterSpacing(target, requested) {
   const value = asString(requested ?? '0').trim() || '0';
   try {
@@ -202,7 +248,7 @@
     shape.y = Number(options.y || 0);
     shape.fontFamily = options.fontFamily || 'Inter';
     shape.fontSize = asString(options.fontSize || 14);
-    shape.fontWeight = asString(options.fontWeight || 500);
+    setHostSafeFontWeight(shape, options.fontWeight ?? 500);
     shape.lineHeight = asString(options.lineHeight || '1.35');
     setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');
     shape.growType = options.growType || 'auto-height';
@@ -351,7 +397,7 @@
       type.path = item.path;
       type.fontFamily = item.fontFamily;
       type.fontSize = item.fontSize;
-      type.fontWeight = item.fontWeight;
+      setHostSafeFontWeight(type, item.fontWeight);
       type.fontStyle = item.fontStyle || 'normal';
       type.lineHeight = item.lineHeight;
       setHostSafeLetterSpacing(type, item.letterSpacing);
