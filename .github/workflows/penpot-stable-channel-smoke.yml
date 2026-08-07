@@ -1,0 +1,73 @@
+name: Penpot stable channel smoke
+
+on:
+  pull_request:
+    paths:
+      - 'penpot/stable/**'
+      - '.github/workflows/penpot-stable-channel-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'penpot/stable/**'
+      - '.github/workflows/penpot-stable-channel-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stable-channel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate local stable bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          root='penpot/stable'
+          test -s "$root/manifest.json"
+          test -s "$root/plugin.js"
+          test -s "$root/icon.svg"
+          node --check "$root/plugin.js"
+          node - "$root/manifest.json" <<'NODE'
+          const fs = require('node:fs');
+          const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          const assert = (v, m) => { if (!v) throw new Error(m); };
+          assert(manifest.version === 2, 'manifest_version');
+          assert(manifest.code === 'plugin.js', 'relative_code');
+          assert(manifest.icon === 'icon.svg', 'relative_icon');
+          assert(manifest.permissions.includes('content:write'), 'content_write');
+          assert(manifest.permissions.includes('library:write'), 'library_write');
+          assert(manifest.permissions.includes('comment:read'), 'comment_read');
+          NODE
+      - name: Validate public commit-addressed delivery and CORS
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://raw.githubusercontent.com/onedayonemasterpiece/lovekgd-design-system/${GITHUB_SHA}/penpot/stable"
+          for file in manifest.json plugin.js icon.svg; do
+            curl --fail --silent --show-error --location --max-time 60 \
+              --dump-header "/tmp/${file}.headers" \
+              --output "/tmp/${file}" \
+              "$base/$file"
+            tr -d '\r' < "/tmp/${file}.headers" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
+          done
+          node --check /tmp/plugin.js
+          cmp penpot/stable/manifest.json /tmp/manifest.json
+          cmp penpot/stable/plugin.js /tmp/plugin.js
+          cmp penpot/stable/icon.svg /tmp/icon.svg
+      - name: Record stable URL
+        shell: bash
+        run: |
+          {
+            echo '### Penpot stable channel: PASS'
+            echo
+            echo 'Permanent installation URL:'
+            echo 'https://raw.githubusercontent.com/onedayonemasterpiece/lovekgd-design-system/main/penpot/stable/manifest.json'
+            echo
+            echo "Validated commit: $GITHUB_SHA"
+          } >> "$GITHUB_STEP_SUMMARY"
