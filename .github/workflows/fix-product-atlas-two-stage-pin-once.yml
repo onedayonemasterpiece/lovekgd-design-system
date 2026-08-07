@@ -1,0 +1,101 @@
+name: Fix Product Atlas two-stage immutable chain once
+
+on:
+  push:
+    branches:
+      - fix/product-atlas-two-stage-immutable-20260807
+    paths:
+      - '.github/workflows/fix-product-atlas-two-stage-pin-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: fix/product-atlas-two-stage-immutable-20260807
+          fetch-depth: 0
+
+      - name: Point plugin to pinned UI commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          ui_commit = '9a4a694bbeae06a79274f6b2391ca1194006e080'
+          catalog_commit = '45f62ce3ea0bd665f972a213c23aef37273f9fb7'
+
+          plugin = Path('prototypes/penpot-product-atlas-001/dist/plugin.js')
+          value = plugin.read_text(encoding='utf-8')
+          old = "  const ASSET_SHA = '45f62ce3ea0bd665f972a213c23aef37273f9fb7';"
+          new = f"  const ASSET_SHA = '{ui_commit}';"
+          if old not in value and new not in value:
+              raise SystemExit('plugin asset SHA anchor missing')
+          value = value.replace(old, new, 1)
+          plugin.write_text(value, encoding='utf-8')
+
+          ui = Path('prototypes/penpot-product-atlas-001/dist/ui.html').read_text(encoding='utf-8')
+          expected = f'lovekgd-design-system@{catalog_commit}/prototypes/penpot-product-atlas-001'
+          if expected not in ui:
+              raise SystemExit('pinned UI does not point to exact catalog commit')
+
+          readme = Path('prototypes/penpot-product-atlas-001/README.md')
+          value = readme.read_text(encoding='utf-8')
+          start = value.find('## Immutable asset boundary')
+          if start >= 0:
+              value = value[:start].rstrip() + '\n'
+          value += f"""
+
+          ## Immutable delivery chain
+
+          The bundle uses a two-stage immutable chain:
+
+          ```text
+          installed manifest/plugin commit
+          → UI commit {ui_commit}
+          → catalog commit {catalog_commit}
+          ```
+
+          The UI commit contains the exact catalog URL. The plugin no longer depends on mutable `main`.
+          """
+          readme.write_text(value, encoding='utf-8')
+
+          status = Path('prototypes/penpot-product-atlas-001/STATUS.md')
+          value = status.read_text(encoding='utf-8')
+          marker = 'IMMUTABLE ASSET SOURCE:'
+          if marker in value:
+              value = value.split(marker, 1)[0].rstrip() + '\n'
+          value += f"""
+
+          IMMUTABLE DELIVERY CHAIN:
+
+          - UI commit: `{ui_commit}`.
+          - Catalog commit: `{catalog_commit}`.
+          - The final installed bundle commit is recorded by the public-delivery smoke.
+          - Real Penpot host import remains required.
+          """
+          status.write_text(value, encoding='utf-8')
+          PY
+
+          node --check prototypes/penpot-product-atlas-001/dist/plugin.js
+          node prototypes/penpot-product-atlas-001/scripts/validate.mjs
+          grep -F '9a4a694bbeae06a79274f6b2391ca1194006e080' prototypes/penpot-product-atlas-001/dist/plugin.js
+          grep -F '45f62ce3ea0bd665f972a213c23aef37273f9fb7' prototypes/penpot-product-atlas-001/dist/ui.html
+
+          rm -f .github/workflows/fix-product-atlas-two-stage-pin-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            prototypes/penpot-product-atlas-001/dist/plugin.js \
+            prototypes/penpot-product-atlas-001/README.md \
+            prototypes/penpot-product-atlas-001/STATUS.md \
+            .github/workflows/fix-product-atlas-two-stage-pin-once.yml
+          git commit -m 'fix: use two-stage immutable Product Atlas delivery'
+          git push origin HEAD:fix/product-atlas-two-stage-immutable-20260807
