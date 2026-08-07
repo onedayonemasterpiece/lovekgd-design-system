@@ -1,0 +1,2754 @@
+(() => {
+  'use strict';
+
+  const UI_SHA = 'ddbc25f31169a1e1fd8017a38d653fe69eae8587';
+  const CATALOG_SHA = '45600ac188425637a49db5cf988ae509e3821583d8e75d82ce6b48cf586290fc';
+  const REPOSITORY = 'onedayonemasterpiece/lovekgd-design-system';
+  const ROOT_PATH = 'prototypes/penpot-resource-graph-004b';
+  const UI_URL = `https://raw.githack.com/${REPOSITORY}/${UI_SHA}/${ROOT_PATH}/dist/ui.html`;
+  const NS = 'lovekgd.resourcegraph.004b';
+  const PREV_NS = 'lovekgd.resourcegraph.004a';
+  const LEGACY_NS = 'lovekgd.runtime.003';
+  const LEGACY_KEY = 'element';
+  const FILE_CATALOG_KEY = 'current-catalog';
+  const COMMENT_REGISTRY_KEY = 'comment-registry';
+  const CHECKPOINT_KEY = 'lovekgd.resourcegraph.004b.checkpoint';
+  const PAGE_SETTLE_MS = 460;
+  const BATCH_SETTLE_MS = 320;
+  const MOVE_SETTLE_MS = 420;
+  const COMPONENT_BATCH = 3;
+  const ARCHETYPE_BATCH = 2;
+
+  penpot.ui.open('LoveKGD Resource Graph · 004b', UI_URL, { width: 560, height: 900 });
+
+  const now = () => new Date().toISOString();
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const send = (message) => penpot.ui.sendMessage(message);
+  const asString = (value) => value == null ? '' : String(value);
+  const fail = (condition, message) => { if (!condition) throw new Error(message); };
+
+  let operationActive = false;
+  let lastCatalog = null;
+  let resolvedFont = null;
+  let resolvedFontName = null;
+  const fontWarnings = new Set();
+
+  function normalizeError(error) {
+    const result = {
+      name: asString(error?.name || 'Error'),
+      message: asString(error?.message || error),
+      stack: asString(error?.stack || '').split('\n').slice(0, 20).join('\n'),
+    };
+    for (const key of ['code', 'status', 'type', 'hint', 'details', 'cause']) {
+      try {
+        if (error?.[key] !== undefined) {
+          result[key] = typeof error[key] === 'object'
+            ? JSON.stringify(error[key])
+            : asString(error[key]);
+        }
+      } catch {}
+    }
+    return result;
+  }
+
+  function checkpoint(value) {
+    try {
+      penpot.localStorage.setItem(CHECKPOINT_KEY, JSON.stringify({
+        schemaVersion: 1,
+        updatedAt: now(),
+        penpotVersion: penpot.version || null,
+        currentPage: penpot.currentPage?.name || null,
+        ...value,
+      }));
+    } catch {}
+  }
+
+  function clearCheckpoint() {
+    try { penpot.localStorage.setItem(CHECKPOINT_KEY, ''); } catch {}
+  }
+
+  function readCheckpoint() {
+    try {
+      const raw = penpot.localStorage.getItem(CHECKPOINT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function progress(phase, completed, total, detail = '') {
+    const value = { phase, completed, total, detail };
+    checkpoint(value);
+    send({ type: 'progress', ...value });
+  }
+
+  function sharedGetNs(target, ns, key) {
+    try { return target?.getSharedPluginData(ns, key) || ''; } catch { return ''; }
+  }
+
+  function sharedGet(target, key) {
+    return sharedGetNs(target, NS, key);
+  }
+
+  function sharedSet(target, key, value) {
+    target?.setSharedPluginData(NS, key, asString(value));
+  }
+
+  function mark(target, data) {
+    for (const [key, value] of Object.entries(data)) {
+      sharedSet(target, key, typeof value === 'string' ? value : JSON.stringify(value));
+    }
+  }
+
+  function markManaged(target, kind, id, catalog, extra = {}) {
+    mark(target, {
+      managed: 'true',
+      kind,
+      id,
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      updatedAt: now(),
+      ...extra,
+    });
+  }
+
+  function isManaged(target, kind = null) {
+    if (sharedGet(target, 'managed') !== 'true') return false;
+    return !kind || sharedGet(target, 'kind') === kind;
+  }
+
+  function previousId(target) {
+    return sharedGetNs(target, PREV_NS, 'id');
+  }
+
+  function previousKind(target) {
+    return sharedGetNs(target, PREV_NS, 'kind');
+  }
+
+  function isPreviousManaged(target, kind = null) {
+    const managed = sharedGetNs(target, PREV_NS, 'managed') === 'true';
+    return managed && (!kind || previousKind(target) === kind);
+  }
+
+  function allPages() {
+    return penpot.currentFile?.pages || [];
+  }
+
+  function pageByName(name) {
+    return allPages().find((page) => page.name === name) || null;
+  }
+
+  function pageById(id) {
+    return allPages().find((page) => page.id === id) || null;
+  }
+
+  async function openPage(page) {
+    fail(page?.id, 'page_missing');
+    if (penpot.currentPage?.id !== page.id) {
+      await penpot.openPage(page);
+      await delay(PAGE_SETTLE_MS);
+    }
+    fail(penpot.currentPage?.id === page.id, `page_open_failed:${page.name}`);
+  }
+
+  function withUndo(callback) {
+    const begin = penpot.history?.undoBlockBegin;
+    const finish = penpot.history?.undoBlockFinish;
+    if (typeof begin !== 'function' || typeof finish !== 'function') return callback();
+    const id = begin.call(penpot.history);
+    try { return callback(); }
+    finally { finish.call(penpot.history, id); }
+  }
+
+  function ensurePages(catalog) {
+    const result = new Map();
+    for (const name of catalog.pages) {
+      let page = pageByName(name);
+      if (!page) {
+        page = penpot.createPage();
+        page.name = name;
+      }
+      markManaged(page, 'page', name, catalog, { 'page-id': name });
+      result.set(name, page);
+    }
+    return result;
+  }
+
+  function getFontCandidates(catalog) {
+    const names = [
+      catalog.fontPolicy?.requestedFamily,
+      ...(catalog.fontPolicy?.fallbacks || []),
+      'Inter',
+      'Arial',
+      'Liberation Sans',
+    ].filter(Boolean);
+    return [...new Set(names)];
+  }
+
+  function resolveFont(catalog) {
+    if (resolvedFont) return resolvedFont;
+    for (const name of getFontCandidates(catalog)) {
+      let font = null;
+      try { font = penpot.fonts.findByName(name); } catch {}
+      if (!font) {
+        try { font = penpot.fonts.findAllByName(name)?.[0] || null; } catch {}
+      }
+      if (font) {
+        resolvedFont = font;
+        resolvedFontName = font.name || font.fontFamily || name;
+        if (name !== catalog.fontPolicy?.requestedFamily) {
+          send({
+            type: 'warning',
+            message: `Inter не найден в этом Penpot. Использован явный fallback ${resolvedFontName}; serif fallback запрещён.`,
+          });
+        }
+        return font;
+      }
+    }
+    const all = penpot.fonts?.all || [];
+    const sans = all.find((font) => /sans|arial|inter|roboto|open/i.test(`${font.name} ${font.fontFamily}`));
+    fail(sans, 'no_sans_font_available');
+    resolvedFont = sans;
+    resolvedFontName = sans.name || sans.fontFamily || 'Unknown Sans';
+    send({
+      type: 'warning',
+      message: `Ни один шрифт продуктового fallback stack не найден. Использован первый доступный sans: ${resolvedFontName}.`,
+    });
+    return resolvedFont;
+  }
+
+  function nearestVariant(font, requestedWeight, requestedStyle = 'normal') {
+    const variants = font?.variants || [];
+    fail(variants.length > 0, `font_variants_missing:${font?.name || font?.fontFamily}`);
+    const target = Number(requestedWeight);
+    const style = requestedStyle || 'normal';
+    const sameStyle = variants.filter((variant) => (variant.fontStyle || 'normal') === style);
+    const pool = sameStyle.length ? sameStyle : variants;
+    let best = pool[0];
+    let bestDistance = Number.isFinite(target)
+      ? Math.abs(Number(best.fontWeight) - target)
+      : 0;
+    for (const variant of pool.slice(1)) {
+      const distance = Number.isFinite(target)
+        ? Math.abs(Number(variant.fontWeight) - target)
+        : 0;
+      if (
+        distance < bestDistance
+        || (distance === bestDistance && Number(variant.fontWeight) > Number(best.fontWeight))
+      ) {
+        best = variant;
+        bestDistance = distance;
+      }
+    }
+    return best;
+  }
+
+  function applyResolvedFontToText(shape, catalog, requestedWeight = 500, requestedStyle = 'normal') {
+    const font = resolveFont(catalog);
+    const variant = nearestVariant(font, requestedWeight, requestedStyle);
+    font.applyToText(shape, variant);
+    const requested = asString(requestedWeight);
+    const applied = asString(variant.fontWeight);
+    if (requested !== applied) {
+      mark(shape, {
+        requestedFontFamily: catalog.fontPolicy?.requestedFamily || 'Inter',
+        resolvedFontFamily: resolvedFontName,
+        requestedFontWeight: requested,
+        appliedFontWeight: applied,
+        resolvedFontVariantId: variant.fontVariantId,
+      });
+      const key = `${requested}->${applied}`;
+      if (!fontWarnings.has(key)) {
+        fontWarnings.add(key);
+        send({
+          type: 'warning',
+          message: `Penpot применил доступное начертание ${resolvedFontName} ${applied} вместо семантического веса ${requested}; исходное значение сохранено в metadata.`,
+        });
+      }
+    }
+    return { font, variant, requested, applied };
+  }
+
+  function applyResolvedFontToTypography(typography, catalog, requestedWeight = 500, requestedStyle = 'normal') {
+    const font = resolveFont(catalog);
+    const variant = nearestVariant(font, requestedWeight, requestedStyle);
+    typography.setFont(font);
+    try { typography.fontVariantId = variant.fontVariantId; } catch {}
+    typography.fontWeight = variant.fontWeight;
+    typography.fontStyle = variant.fontStyle || requestedStyle || 'normal';
+    typography.fontFamily = font.fontFamily || font.name || resolvedFontName;
+    mark(typography, {
+      requestedFontFamily: catalog.fontPolicy?.requestedFamily || 'Inter',
+      resolvedFontFamily: resolvedFontName,
+      requestedFontWeight: asString(requestedWeight),
+      appliedFontWeight: asString(variant.fontWeight),
+      resolvedFontVariantId: variant.fontVariantId,
+    });
+    return { font, variant };
+  }
+
+  function setHostSafeLetterSpacing(target, requested) {
+    const value = asString(requested ?? '0').trim() || '0';
+    try {
+      target.letterSpacing = value;
+      return { requested: value, applied: value, fallback: false };
+    } catch (error) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric) || numeric >= 0) throw error;
+      target.letterSpacing = '0';
+      mark(target, {
+        requestedLetterSpacing: value,
+        appliedLetterSpacing: '0',
+        compatibilityFallback: 'penpot-2.17.1-negative-letter-spacing',
+      });
+      return { requested: value, applied: '0', fallback: true };
+    }
+  }
+
+  function createText(catalog, text, options = {}) {
+    const shape = penpot.createText(asString(text));
+    fail(shape, 'text_create_failed');
+    shape.name = options.name || asString(text).slice(0, 80) || 'Text';
+    shape.x = Number(options.x || 0);
+    shape.y = Number(options.y || 0);
+    applyResolvedFontToText(
+      shape,
+      catalog,
+      options.fontWeight ?? 500,
+      options.fontStyle || 'normal',
+    );
+    shape.fontSize = asString(options.fontSize || 14);
+    shape.lineHeight = asString(options.lineHeight || '1.35');
+    setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');
+    shape.growType = options.growType || 'auto-height';
+    shape.fills = [{
+      fillColor: options.color || '#221a14',
+      fillOpacity: options.opacity ?? 1,
+    }];
+    if (Number.isFinite(options.width) && Number.isFinite(options.height)) {
+      shape.resize(options.width, options.height);
+    }
+    return shape;
+  }
+
+  function createRectangle(options = {}) {
+    const shape = penpot.createRectangle();
+    shape.name = options.name || 'Rectangle';
+    shape.x = Number(options.x || 0);
+    shape.y = Number(options.y || 0);
+    shape.resize(Number(options.width || 100), Number(options.height || 100));
+    shape.fills = [{
+      fillColor: options.fill || '#fffdf8',
+      fillOpacity: options.fillOpacity ?? 1,
+    }];
+    shape.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: options.strokeOpacity ?? 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    if (options.radius !== undefined) shape.borderRadius = Number(options.radius);
+    if (options.opacity !== undefined) shape.opacity = Number(options.opacity);
+    return shape;
+  }
+
+  function createEllipse(options = {}) {
+    const shape = penpot.createEllipse();
+    shape.name = options.name || 'Ellipse';
+    shape.x = Number(options.x || 0);
+    shape.y = Number(options.y || 0);
+    shape.resize(Number(options.width || 40), Number(options.height || 40));
+    shape.fills = [{
+      fillColor: options.fill || '#fffdf8',
+      fillOpacity: options.fillOpacity ?? 1,
+    }];
+    shape.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    return shape;
+  }
+
+  function createBoard(page, options = {}) {
+    const board = penpot.createBoard();
+    board.name = options.name || 'Board';
+    board.x = Number(options.x || 0);
+    board.y = Number(options.y || 0);
+    board.resize(Number(options.width || 100), Number(options.height || 100));
+    board.fills = [{
+      fillColor: options.fill || '#fffdf8',
+      fillOpacity: options.fillOpacity ?? 1,
+    }];
+    board.strokes = options.stroke ? [{
+      strokeColor: options.stroke,
+      strokeOpacity: 1,
+      strokeStyle: 'solid',
+      strokeWidth: options.strokeWidth || 1,
+      strokeAlignment: 'inner',
+    }] : [];
+    board.borderRadius = Number(options.radius || 0);
+    board.clipContent = Boolean(options.clipContent);
+    board.showInViewMode = options.showInViewMode !== false;
+    if (!board.parent) page.root.appendChild(board);
+    return board;
+  }
+
+  function append(parent, child) {
+    parent.appendChild(child);
+    return child;
+  }
+
+  const COLOR = Object.freeze({
+    ink: '#221a14',
+    copy: '#44362d',
+    muted: '#6d6259',
+    line: '#e1d3c2',
+    canvas: '#fbf7ef',
+    canvasSoft: '#f2e7d7',
+    surface: '#fffdf8',
+    white: '#ffffff',
+    inverse: '#24211f',
+    inverseRaised: '#292521',
+    brand: '#a54821',
+    brandHover: '#98401f',
+    brandDeep: '#5f250f',
+    accent: '#0f766e',
+    accentStrong: '#0f5d57',
+    successBg: '#e6f6e9',
+    success: '#0f6c3d',
+    warningBg: '#fff8db',
+    warning: '#5a3b06',
+    dangerBg: '#fff0f0',
+    danger: '#a92d2d',
+    infoBg: '#e7f2f7',
+    info: '#1f658d',
+  });
+
+  function createSection(page, catalog, id, title, subtitle, options = {}) {
+    const board = createBoard(page, {
+      name: title,
+      x: options.x || 0,
+      y: options.y || 0,
+      width: options.width || 1440,
+      height: options.height || 900,
+      fill: options.fill || COLOR.canvas,
+      stroke: options.stroke || COLOR.line,
+      radius: options.radius ?? 28,
+      clipContent: false,
+    });
+    markManaged(board, 'documentation-section', id, catalog, { title });
+    append(board, createText(catalog, title, {
+      x: board.x + 40,
+      y: board.y + 30,
+      fontSize: 30,
+      fontWeight: 900,
+      lineHeight: '1.08',
+      color: COLOR.ink,
+      width: board.width - 80,
+      height: 48,
+    }));
+    append(board, createText(catalog, subtitle, {
+      x: board.x + 40,
+      y: board.y + 84,
+      fontSize: 14,
+      fontWeight: 500,
+      lineHeight: '1.45',
+      color: COLOR.muted,
+      width: board.width - 80,
+      height: 64,
+    }));
+    return board;
+  }
+
+  function removeManagedBoards(page, kinds) {
+    const wanted = new Set(kinds);
+    const boards = page.findShapes({ type: 'board' });
+    for (const board of boards) {
+      if (isManaged(board) && wanted.has(sharedGet(board, 'kind'))) {
+        try { board.remove(); } catch {}
+      }
+    }
+  }
+
+  function previousResourceId(target) {
+    return previousId(target) || sharedGet(target, 'id');
+  }
+
+  function findTypography(id) {
+    return penpot.library.local.typographies.find((item) => (
+      previousResourceId(item) === id
+    )) || null;
+  }
+
+  function reconcileTypographyFonts(catalog) {
+    let updated = 0;
+    let missing = 0;
+    const definitions = [
+      ['type.display.brand', 900, 'normal'],
+      ['type.heading.h1', 900, 'normal'],
+      ['type.heading.h2', 850, 'normal'],
+      ['type.heading.h3', 800, 'normal'],
+      ['type.body.default', 500, 'normal'],
+      ['type.body.strong', 750, 'normal'],
+      ['type.meta.default', 650, 'normal'],
+      ['type.caption.default', 600, 'normal'],
+      ['type.control.label', 850, 'normal'],
+    ];
+    for (const [id, weight, style] of definitions) {
+      const typography = findTypography(id);
+      if (!typography) {
+        missing += 1;
+        continue;
+      }
+      applyResolvedFontToTypography(typography, catalog, weight, style);
+      markManaged(typography, 'library-typography', id, catalog, {
+        compatibilityUpgrade: '004b-explicit-font-resolution',
+      });
+      updated += 1;
+    }
+    return { updated, missing, resolvedFontName };
+  }
+
+  function findComponentByAnyNamespace(id) {
+    return penpot.library.local.components.find((component) => (
+      sharedGet(component, 'id') === id
+      || previousId(component) === id
+    )) || null;
+  }
+
+  function find004bComponent(id) {
+    return penpot.library.local.components.find((component) => (
+      sharedGet(component, 'id') === id
+      && ['product-component-master', 'pattern-component-master'].includes(sharedGet(component, 'kind'))
+    )) || null;
+  }
+
+  function componentCreate(shape) {
+    try { return penpot.library.local.createComponent([shape]); }
+    catch (error) {
+      try { return penpot.library.local.createComponent(shape); }
+      catch { throw error; }
+    }
+  }
+
+  function archiveComponent(component, reason = 'superseded') {
+    try {
+      component.path = `Archive/Resource Graph 004b/${component.path || 'Unsorted'}`;
+      component.name = `${component.name} · ${reason}`;
+      mark(component, { status: 'archived', archivedAt: now(), archiveReason: reason });
+      const main = component.mainInstance?.();
+      if (main) {
+        main.name = `${main.name} · ${reason}`;
+        main.x = Number(main.x || 0) + 8000;
+      }
+    } catch {}
+  }
+
+  function coreComponentInstance(id) {
+    const component = findComponentByAnyNamespace(id);
+    if (!component) return null;
+    try { return component.instance(); } catch { return null; }
+  }
+
+  function iconComponentByName(name) {
+    const lower = name.toLowerCase();
+    return penpot.library.local.components.find((component) => {
+      const path = asString(component.path).toLowerCase();
+      const label = asString(component.name).toLowerCase();
+      return label === lower || label.includes(lower) || path.endsWith(`/${lower}`);
+    }) || null;
+  }
+
+  function iconInstance(name, x, y, size = 22) {
+    const component = iconComponentByName(name);
+    if (component) {
+      try {
+        const instance = component.instance();
+        instance.name = `Icon · ${name}`;
+        instance.x = x;
+        instance.y = y;
+        instance.resize(size, size);
+        return instance;
+      } catch {}
+    }
+    return createEllipse({
+      x,
+      y,
+      width: size,
+      height: size,
+      fill: COLOR.canvasSoft,
+      stroke: COLOR.line,
+      name: `Icon fallback · ${name}`,
+    });
+  }
+
+  function pill(catalog, board, label, x, y, options = {}) {
+    const width = Number(options.width || Math.max(74, label.length * 8 + 28));
+    const height = Number(options.height || 32);
+    append(board, createRectangle({
+      x,
+      y,
+      width,
+      height,
+      fill: options.fill || COLOR.surface,
+      stroke: options.stroke || COLOR.line,
+      radius: height / 2,
+      name: `Pill · ${label}`,
+    }));
+    append(board, createText(catalog, label, {
+      x: x + 14,
+      y: y + 8,
+      fontSize: options.fontSize || 12,
+      fontWeight: options.fontWeight || 750,
+      lineHeight: '1.1',
+      color: options.color || COLOR.copy,
+      width: width - 28,
+      height: height - 10,
+    }));
+    return width;
+  }
+
+  function imagePlaceholder(catalog, board, x, y, width, height, label = 'Изображение') {
+    append(board, createRectangle({
+      x,
+      y,
+      width,
+      height,
+      fill: '#ded1c1',
+      stroke: '#c8b49d',
+      radius: 18,
+      name: label,
+    }));
+    append(board, createText(catalog, label, {
+      x: x + 18,
+      y: y + Math.max(16, height / 2 - 12),
+      fontSize: 13,
+      fontWeight: 700,
+      color: COLOR.muted,
+      width: width - 36,
+      height: 28,
+    }));
+  }
+
+  function renderHeader(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const mobile = spec.viewport === 'mobile';
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.brandDeep,
+      radius: mobile ? 0 : 18,
+      name: 'Leather header surface',
+    }));
+    append(board, createText(catalog, 'ПОЛЮБИТЬ КАЛИНИНГРАД', {
+      x: x + (mobile ? 18 : 26),
+      y: y + 14,
+      fontSize: mobile ? 8 : 10,
+      fontWeight: 750,
+      letterSpacing: '0.6',
+      color: '#f8e5d8',
+      width: mobile ? 180 : 220,
+      height: 18,
+    }));
+    append(board, createText(catalog, 'АНОНСЫ', {
+      x: x + (mobile ? 18 : 26),
+      y: y + (mobile ? 30 : 34),
+      fontSize: mobile ? 28 : 38,
+      fontWeight: 900,
+      letterSpacing: '-0.6',
+      color: COLOR.white,
+      width: mobile ? 190 : 260,
+      height: mobile ? 38 : 50,
+    }));
+    if (mobile) {
+      append(board, iconInstance('search', x + board.width - 84, y + 28, 24));
+      append(board, iconInstance('menu', x + board.width - 46, y + 28, 24));
+    } else {
+      const labels = ['Сегодня', 'Завтра', 'Выходные', 'Выставки', 'Фестивали', 'Популярное'];
+      let cursor = x + 330;
+      for (const label of labels) {
+        append(board, createText(catalog, label, {
+          x: cursor,
+          y: y + 46,
+          fontSize: 14,
+          fontWeight: 700,
+          color: '#fff8ef',
+          width: 120,
+          height: 26,
+        }));
+        cursor += label.length * 8 + 44;
+      }
+    }
+  }
+
+  function renderMobileMenu(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.inverse,
+      radius: 24,
+      name: 'Mobile menu surface',
+    }));
+    append(board, createText(catalog, 'Меню', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 28,
+      fontWeight: 900,
+      color: COLOR.white,
+      width: 220,
+      height: 42,
+    }));
+    const items = ['Сегодня', 'Завтра', 'Выходные', 'Выставки', 'Фестивали', 'Подборки', 'Избранное', 'Для меня'];
+    items.forEach((item, index) => {
+      append(board, createText(catalog, item, {
+        x: x + 28,
+        y: y + 94 + index * 54,
+        fontSize: 18,
+        fontWeight: index === 0 ? 850 : 650,
+        color: index === 0 ? '#ffd8c4' : COLOR.white,
+        width: board.width - 56,
+        height: 34,
+      }));
+    });
+    pill(catalog, board, 'Войти', x + 24, y + board.height - 76, {
+      width: board.width - 48,
+      height: 44,
+      fill: COLOR.brand,
+      stroke: COLOR.brand,
+      color: COLOR.white,
+      fontSize: 15,
+    });
+  }
+
+  function renderBottomNav(catalog, board, searchMode = false) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.surface,
+      stroke: COLOR.line,
+      radius: 22,
+      name: 'Bottom navigation surface',
+    }));
+    const items = searchMode
+      ? [['search', 'Поиск'], ['heart', 'Избранное'], ['spark', 'Для меня']]
+      : [['calendar', 'Сегодня'], ['search', 'Поиск'], ['heart', 'Избранное'], ['spark', 'Для меня']];
+    const cell = board.width / items.length;
+    items.forEach(([icon, label], index) => {
+      append(board, iconInstance(icon, x + index * cell + cell / 2 - 11, y + 12, 22));
+      append(board, createText(catalog, label, {
+        x: x + index * cell + 4,
+        y: y + 43,
+        fontSize: 10,
+        fontWeight: index === 0 ? 800 : 600,
+        color: index === 0 ? COLOR.brand : COLOR.muted,
+        width: cell - 8,
+        height: 20,
+      }));
+    });
+  }
+
+  function renderFooter(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.inverse,
+      radius: 24,
+      name: 'Footer surface',
+    }));
+    append(board, createText(catalog, 'АНОНСЫ', {
+      x: x + 28,
+      y: y + 34,
+      fontSize: 34,
+      fontWeight: 900,
+      color: COLOR.white,
+      width: 240,
+      height: 48,
+    }));
+    const columns = [
+      ['Смотреть', 'Сегодня\nЗавтра\nВыходные\nФестивали'],
+      ['О проекте', 'Полюбить Калининград\nПартнёрам\nФокус-группа'],
+      ['Связаться', 'Telegram\nVK\nEmail'],
+    ];
+    columns.forEach(([title, body], index) => {
+      const cx = x + 330 + index * 250;
+      append(board, createText(catalog, title, {
+        x: cx,
+        y: y + 44,
+        fontSize: 13,
+        fontWeight: 800,
+        color: '#f8e5d8',
+        width: 220,
+        height: 24,
+      }));
+      append(board, createText(catalog, body, {
+        x: cx,
+        y: y + 86,
+        fontSize: 15,
+        fontWeight: 550,
+        lineHeight: '1.8',
+        color: COLOR.white,
+        width: 220,
+        height: 160,
+      }));
+    });
+  }
+
+  function renderKeyboardNavigation(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.inverse,
+      radius: 18,
+      name: 'Keyboard navigation panel',
+    }));
+    append(board, createText(catalog, 'Быстрая навигация по событиям', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 19,
+      fontWeight: 850,
+      color: COLOR.white,
+      width: 420,
+      height: 30,
+    }));
+    const shortcuts = [['←', 'предыдущее'], ['→', 'следующее'], ['Enter', 'открыть'], ['L', 'нравится'], ['C', 'календарь']];
+    let cursor = x + 24;
+    shortcuts.forEach(([key, label]) => {
+      const width = pill(catalog, board, key, cursor, y + 78, {
+        fill: COLOR.inverseRaised,
+        stroke: '#61564d',
+        color: '#ffd8c4',
+        width: key.length > 2 ? 70 : 46,
+      });
+      append(board, createText(catalog, label, {
+        x: cursor,
+        y: y + 118,
+        fontSize: 10,
+        fontWeight: 600,
+        color: '#d8cec5',
+        width: Math.max(70, width),
+        height: 20,
+      }));
+      cursor += Math.max(120, width + 54);
+    });
+  }
+
+  function renderListingHeader(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const mobile = spec.viewport === 'mobile';
+    append(board, createText(catalog, '7 августа', {
+      x: x + 24,
+      y: y + 20,
+      fontSize: mobile ? 30 : 44,
+      fontWeight: 900,
+      letterSpacing: '-0.6',
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: mobile ? 42 : 58,
+    }));
+    append(board, createText(catalog, 'События сегодня', {
+      x: x + 24,
+      y: y + (mobile ? 68 : 82),
+      fontSize: mobile ? 15 : 18,
+      fontWeight: 650,
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 28,
+    }));
+    const labels = mobile ? ['Все', 'Интересные', 'Рядом'] : ['Все события', 'Только интересные', 'Калининград', 'Формат'];
+    let cursor = x + 24;
+    labels.forEach((label, index) => {
+      cursor += pill(catalog, board, label, cursor, y + (mobile ? 116 : 126), {
+        fill: index === 0 ? COLOR.brand : COLOR.surface,
+        stroke: index === 0 ? COLOR.brand : COLOR.line,
+        color: index === 0 ? COLOR.white : COLOR.copy,
+      }) + 10;
+    });
+  }
+
+  function renderTimeNav(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const times = spec.viewport === 'mobile' ? ['Сейчас', '16:00', '19:00', '21:00'] : ['Сейчас', '12:00', '16:00', '19:00', '21:00'];
+    const cell = (board.width - 32) / times.length;
+    times.forEach((time, index) => {
+      const active = index === 0;
+      append(board, createRectangle({
+        x: x + 16 + index * cell,
+        y: y + 18,
+        width: cell - 8,
+        height: 48,
+        fill: active ? COLOR.brand : COLOR.surface,
+        stroke: active ? COLOR.brand : COLOR.line,
+        radius: 24,
+        name: `Time · ${time}`,
+      }));
+      append(board, createText(catalog, time, {
+        x: x + 24 + index * cell,
+        y: y + 34,
+        fontSize: 13,
+        fontWeight: 800,
+        color: active ? COLOR.white : COLOR.copy,
+        width: cell - 24,
+        height: 22,
+      }));
+    });
+  }
+
+  function renderListingRow(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const mobile = spec.viewport === 'mobile';
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.surface,
+      stroke: COLOR.line,
+      radius: 20,
+      name: 'Listing row surface',
+    }));
+    append(board, createText(catalog, '19:00', {
+      x: x + 18,
+      y: y + 18,
+      fontSize: mobile ? 24 : 34,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: mobile ? 86 : 120,
+      height: 46,
+    }));
+    const imageX = x + (mobile ? 108 : 150);
+    const imageW = mobile ? 112 : 180;
+    imagePlaceholder(catalog, board, imageX, y + 18, imageW, board.height - 36, 'Афиша');
+    const contentX = imageX + imageW + 18;
+    append(board, createText(catalog, 'Древние воины Янтарного края', {
+      x: contentX,
+      y: y + 22,
+      fontSize: mobile ? 16 : 22,
+      fontWeight: 850,
+      lineHeight: '1.18',
+      color: COLOR.ink,
+      width: board.width - contentX + x - 24,
+      height: mobile ? 52 : 64,
+    }));
+    append(board, createText(catalog, 'Историко-художественный музей · Калининград', {
+      x: contentX,
+      y: y + (mobile ? 86 : 98),
+      fontSize: mobile ? 11 : 14,
+      fontWeight: 550,
+      color: COLOR.muted,
+      width: board.width - contentX + x - 24,
+      height: 42,
+    }));
+    pill(catalog, board, 'Выставка', contentX, y + board.height - 48, {
+      fill: '#f8e5d8',
+      stroke: '#e2bda9',
+      color: COLOR.brandDeep,
+      height: 28,
+    });
+  }
+
+  function renderEventCard(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const large = spec.variants?.size === 'large';
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.inverse,
+      stroke: '#3b3632',
+      radius: 22,
+      name: 'Event card surface',
+    }));
+    imagePlaceholder(catalog, board, x + 12, y + 12, board.width - 24, large ? 230 : 150, 'Фото события');
+    const textY = y + (large ? 260 : 182);
+    pill(catalog, board, 'ВЫСТАВКА', x + 16, textY, {
+      fill: COLOR.brand,
+      stroke: COLOR.brand,
+      color: COLOR.white,
+      height: 26,
+      fontSize: 10,
+    });
+    append(board, createText(catalog, 'Древние воины Янтарного края', {
+      x: x + 16,
+      y: textY + 40,
+      fontSize: large ? 24 : 18,
+      fontWeight: 900,
+      lineHeight: '1.08',
+      color: COLOR.white,
+      width: board.width - 32,
+      height: large ? 76 : 58,
+    }));
+    append(board, createText(catalog, '16 сентября · Историко-художественный музей', {
+      x: x + 16,
+      y: board.height + y - 58,
+      fontSize: 11,
+      fontWeight: 600,
+      color: '#d8cec5',
+      width: board.width - 32,
+      height: 32,
+    }));
+  }
+
+  function renderRailCard(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.surface,
+      stroke: COLOR.line,
+      radius: 18,
+      name: 'Rail card surface',
+    }));
+    imagePlaceholder(catalog, board, x + 12, y + 12, board.width - 24, 120, spec.variants?.rail === 'exact-time' ? '19:00' : 'Смотрите дальше');
+    append(board, createText(catalog, spec.variants?.rail === 'exact-time' ? 'Купить гараж. Калининград' : 'Сильные впечатления', {
+      x: x + 14,
+      y: y + 148,
+      fontSize: 17,
+      fontWeight: 850,
+      lineHeight: '1.18',
+      color: COLOR.ink,
+      width: board.width - 28,
+      height: 52,
+    }));
+    pill(catalog, board, spec.variants?.rail === 'exact-time' ? '1 событие' : 'Подборка', x + 14, y + board.height - 42, {
+      height: 26,
+      fill: COLOR.canvasSoft,
+      stroke: COLOR.line,
+      color: COLOR.copy,
+      fontSize: 10,
+    });
+  }
+
+  function renderEventHero(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const media = spec.variants?.media;
+    const mobile = spec.viewport === 'mobile';
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: COLOR.surface,
+      stroke: COLOR.line,
+      radius: mobile ? 0 : 24,
+      name: 'Event hero surface',
+    }));
+    let contentY = y + 24;
+    if (media !== 'none') {
+      const imageHeight = mobile ? 250 : media === 'wide' ? 330 : 420;
+      const imageWidth = mobile ? board.width : media === 'wide' ? board.width : Math.min(board.width * 0.62, 460);
+      imagePlaceholder(catalog, board, x, y, imageWidth, imageHeight, media === 'narrow' ? 'Узкое фото' : 'Широкое фото');
+      contentY = y + imageHeight + 22;
+    }
+    pill(catalog, board, 'ВЫСТАВКА', x + 24, contentY, {
+      fill: '#f8e5d8',
+      stroke: '#e2bda9',
+      color: COLOR.brandDeep,
+      height: 26,
+      fontSize: 10,
+    });
+    append(board, createText(catalog, 'Древние воины Янтарного края', {
+      x: x + 24,
+      y: contentY + 42,
+      fontSize: mobile ? 32 : 42,
+      fontWeight: 900,
+      lineHeight: '1.04',
+      letterSpacing: '-0.6',
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: mobile ? 96 : 118,
+    }));
+    append(board, createText(catalog, '16 сентября 2025 00:00 · Историко-художественный музей · Калининград', {
+      x: x + 24,
+      y: contentY + (mobile ? 148 : 170),
+      fontSize: mobile ? 12 : 14,
+      fontWeight: 650,
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 50,
+    }));
+  }
+
+  function renderFacts(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Факты и медальоны', {
+      x: x + 20,
+      y: y + 20,
+      fontSize: 22,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: 420,
+      height: 34,
+    }));
+    const facts = ['Дата и время', 'Место', 'Билеты', 'Доступность'];
+    facts.forEach((fact, index) => {
+      append(board, iconInstance(index === 0 ? 'calendar' : index === 1 ? 'pin' : index === 2 ? 'ticket' : 'info', x + 22, y + 74 + index * 42, 20));
+      append(board, createText(catalog, fact, {
+        x: x + 54,
+        y: y + 75 + index * 42,
+        fontSize: 13,
+        fontWeight: 750,
+        color: COLOR.copy,
+        width: 160,
+        height: 22,
+      }));
+      append(board, createText(catalog, index === 0 ? '16 сентября · 19:00' : index === 1 ? 'Калининград' : index === 2 ? 'Регистрация' : 'Уточнить у площадки', {
+        x: x + 230,
+        y: y + 75 + index * 42,
+        fontSize: 13,
+        fontWeight: 550,
+        color: COLOR.ink,
+        width: 360,
+        height: 22,
+      }));
+    });
+  }
+
+  function renderCta(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Купить билет или сохранить', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 22,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 34,
+    }));
+    const button = coreComponentInstance('core.button.hierarchy-primary.state-default');
+    if (button) {
+      button.x = x + 24;
+      button.y = y + 82;
+      board.appendChild(button);
+    } else {
+      pill(catalog, board, 'Купить билет', x + 24, y + 82, {
+        width: 200,
+        height: 48,
+        fill: COLOR.brand,
+        stroke: COLOR.brand,
+        color: COLOR.white,
+        fontSize: 15,
+      });
+    }
+    const secondary = coreComponentInstance('core.button.hierarchy-secondary.state-default');
+    if (secondary) {
+      secondary.x = x + 24;
+      secondary.y = y + 150;
+      board.appendChild(secondary);
+    } else {
+      pill(catalog, board, 'В календарь', x + 24, y + 150, {
+        width: 200,
+        height: 48,
+      });
+    }
+    pill(catalog, board, 'Поделиться', x + 250, y + 82, { width: 180, height: 48 });
+    pill(catalog, board, '♡ 38', x + 250, y + 150, { width: 120, height: 48 });
+    append(board, createText(catalog, 'Если состояние ещё неизвестно, интерфейс показывает способ уточнить его у организатора.', {
+      x: x + 24,
+      y: y + 222,
+      fontSize: 12,
+      fontWeight: 500,
+      lineHeight: '1.45',
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 58,
+    }));
+  }
+
+  function renderMediaRail(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Медиа', {
+      x: x + 20,
+      y: y + 18,
+      fontSize: 22,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: 160,
+      height: 34,
+    }));
+    for (let index = 0; index < 4; index += 1) {
+      imagePlaceholder(catalog, board, x + 20 + index * 208, y + 70, 188, 150, index === 0 ? 'Видео' : `Фото ${index}`);
+    }
+  }
+
+  function renderMedallions(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Медальоны события', {
+      x: x + 20,
+      y: y + 16,
+      fontSize: 20,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: 360,
+      height: 32,
+    }));
+    const items = [['history', 'История'], ['ticket', 'Билеты'], ['pin', 'Локация'], ['spark', 'Артефакт'], ['calendar', 'Дата']];
+    items.forEach(([icon, label], index) => {
+      const cx = x + 28 + index * 128;
+      append(board, createEllipse({
+        x: cx,
+        y: y + 72,
+        width: 76,
+        height: 76,
+        fill: index === 3 ? '#f8e5d8' : COLOR.canvasSoft,
+        stroke: COLOR.line,
+        name: `Medallion · ${label}`,
+      }));
+      append(board, iconInstance(icon, cx + 24, y + 96, 28));
+      append(board, createText(catalog, label, {
+        x: cx - 10,
+        y: y + 160,
+        fontSize: 11,
+        fontWeight: 700,
+        color: COLOR.copy,
+        width: 96,
+        height: 22,
+      }));
+    });
+  }
+
+  function renderSearch(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Поиск событий', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 28,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: 400,
+      height: 42,
+    }));
+    append(board, createRectangle({
+      x: x + 24,
+      y: y + 82,
+      width: board.width - 48,
+      height: 54,
+      fill: COLOR.surface,
+      stroke: COLOR.accent,
+      strokeWidth: 2,
+      radius: 16,
+      name: 'Search field',
+    }));
+    append(board, iconInstance('search', x + 40, y + 98, 22));
+    append(board, createText(catalog, 'Лекции, выставки, спектакли…', {
+      x: x + 78,
+      y: y + 100,
+      fontSize: 15,
+      fontWeight: 500,
+      color: COLOR.muted,
+      width: board.width - 120,
+      height: 28,
+    }));
+    append(board, createText(catalog, '8 результатов', {
+      x: x + 24,
+      y: y + 164,
+      fontSize: 13,
+      fontWeight: 750,
+      color: COLOR.copy,
+      width: 200,
+      height: 24,
+    }));
+    for (let index = 0; index < 3; index += 1) {
+      const row = createBoard(pageByName('40 — Product component masters') || penpot.currentPage, {
+        name: `Search result ${index + 1}`,
+        x: x + 24,
+        y: y + 208 + index * 94,
+        width: board.width - 48,
+        height: 78,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 14,
+      });
+      // The temporary board is immediately nested into the component board.
+      board.appendChild(row);
+      append(row, createText(catalog, ['Культурная чайка', 'Древние воины Янтарного края', 'Лекция о городе'][index], {
+        x: row.x + 16,
+        y: row.y + 14,
+        fontSize: 15,
+        fontWeight: 800,
+        color: COLOR.ink,
+        width: row.width - 32,
+        height: 26,
+      }));
+      append(row, createText(catalog, 'Сегодня · Калининград', {
+        x: row.x + 16,
+        y: row.y + 46,
+        fontSize: 11,
+        fontWeight: 550,
+        color: COLOR.muted,
+        width: row.width - 32,
+        height: 20,
+      }));
+    }
+  }
+
+  function renderAuth(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Войти в Анонсы', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 28,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 42,
+    }));
+    append(board, createText(catalog, 'Авторизация нужна для избранного, персонализации и участия в фокус-группе.', {
+      x: x + 24,
+      y: y + 78,
+      fontSize: 14,
+      fontWeight: 500,
+      lineHeight: '1.45',
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 62,
+    }));
+    pill(catalog, board, 'Войти через Яндекс', x + 24, y + 166, {
+      width: board.width - 48,
+      height: 50,
+      fill: COLOR.brand,
+      stroke: COLOR.brand,
+      color: COLOR.white,
+      fontSize: 15,
+    });
+    pill(catalog, board, 'Получить код на email', x + 24, y + 232, {
+      width: board.width - 48,
+      height: 50,
+      fontSize: 15,
+    });
+    append(board, createText(catalog, 'Без авторизации сайт остаётся доступным для просмотра.', {
+      x: x + 24,
+      y: y + 316,
+      fontSize: 12,
+      fontWeight: 600,
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 36,
+    }));
+  }
+
+  function renderSurfaceList(catalog, board, title, empty = false) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, title, {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 28,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 42,
+    }));
+    if (empty) {
+      append(board, createText(catalog, 'Здесь пока ничего нет', {
+        x: x + 24,
+        y: y + 110,
+        fontSize: 19,
+        fontWeight: 800,
+        color: COLOR.copy,
+        width: board.width - 48,
+        height: 34,
+      }));
+      append(board, createText(catalog, 'Сохраните событие или измените фильтры — мы покажем подходящие варианты.', {
+        x: x + 24,
+        y: y + 160,
+        fontSize: 14,
+        fontWeight: 500,
+        lineHeight: '1.45',
+        color: COLOR.muted,
+        width: board.width - 48,
+        height: 64,
+      }));
+      return;
+    }
+    for (let index = 0; index < 3; index += 1) {
+      append(board, createRectangle({
+        x: x + 24,
+        y: y + 92 + index * 124,
+        width: board.width - 48,
+        height: 104,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 16,
+        name: `${title} row ${index + 1}`,
+      }));
+      append(board, createText(catalog, ['Древние воины Янтарного края', 'Культурная чайка', 'События на выходные'][index], {
+        x: x + 44,
+        y: y + 112 + index * 124,
+        fontSize: 17,
+        fontWeight: 850,
+        color: COLOR.ink,
+        width: board.width - 90,
+        height: 30,
+      }));
+      append(board, createText(catalog, 'Калининград · сегодня', {
+        x: x + 44,
+        y: y + 152 + index * 124,
+        fontSize: 12,
+        fontWeight: 550,
+        color: COLOR.muted,
+        width: board.width - 90,
+        height: 24,
+      }));
+    }
+  }
+
+  function renderPersonal(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Для меня', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 30,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 44,
+    }));
+    append(board, createText(catalog, 'Интересы помогают поднять подходящие события выше, но не скрывают остальной город.', {
+      x: x + 24,
+      y: y + 78,
+      fontSize: 14,
+      fontWeight: 500,
+      lineHeight: '1.45',
+      color: COLOR.muted,
+      width: board.width - 48,
+      height: 62,
+    }));
+    let cursor = x + 24;
+    ['История', 'Выставки', 'Лекции', 'Для семьи', 'Восток области'].forEach((label, index) => {
+      cursor += pill(catalog, board, label, cursor, y + 154, {
+        fill: index < 3 ? '#f8e5d8' : COLOR.surface,
+        stroke: index < 3 ? '#e2bda9' : COLOR.line,
+        color: index < 3 ? COLOR.brandDeep : COLOR.copy,
+      }) + 8;
+    });
+    renderSurfaceList(catalog, board, 'Подходящие события', false);
+  }
+
+  function renderFocus(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const step = spec.variants?.step;
+    const title = step === 'nps' ? 'Насколько вероятно, что вы порекомендуете Анонсы?' : step === 'feedback' ? 'Что стоит исправить?' : 'Присоединиться к фокус-группе';
+    append(board, createText(catalog, title, {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 24,
+      fontWeight: 900,
+      lineHeight: '1.15',
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 74,
+    }));
+    if (step === 'nps') {
+      for (let index = 0; index <= 10; index += 1) {
+        append(board, createRectangle({
+          x: x + 24 + (index % 6) * 86,
+          y: y + 128 + Math.floor(index / 6) * 70,
+          width: 66,
+          height: 50,
+          fill: index === 8 ? COLOR.brand : COLOR.surface,
+          stroke: index === 8 ? COLOR.brand : COLOR.line,
+          radius: 14,
+          name: `NPS ${index}`,
+        }));
+        append(board, createText(catalog, String(index), {
+          x: x + 24 + (index % 6) * 86,
+          y: y + 143 + Math.floor(index / 6) * 70,
+          fontSize: 16,
+          fontWeight: 850,
+          color: index === 8 ? COLOR.white : COLOR.copy,
+          width: 66,
+          height: 24,
+        }));
+      }
+    } else if (step === 'feedback') {
+      append(board, createRectangle({
+        x: x + 24,
+        y: y + 120,
+        width: board.width - 48,
+        height: 190,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 16,
+        name: 'Feedback field',
+      }));
+      append(board, createText(catalog, 'Опишите проблему или предложение…', {
+        x: x + 42,
+        y: y + 142,
+        fontSize: 14,
+        fontWeight: 500,
+        color: COLOR.muted,
+        width: board.width - 84,
+        height: 34,
+      }));
+      pill(catalog, board, 'Приложить скриншот', x + 24, y + 332, { width: 210, height: 46 });
+    } else {
+      append(board, createText(catalog, 'Оставьте email, чтобы получать задания и участвовать в розыгрыше.', {
+        x: x + 24,
+        y: y + 112,
+        fontSize: 14,
+        fontWeight: 500,
+        lineHeight: '1.45',
+        color: COLOR.muted,
+        width: board.width - 48,
+        height: 62,
+      }));
+      append(board, createRectangle({
+        x: x + 24,
+        y: y + 190,
+        width: board.width - 48,
+        height: 52,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 16,
+        name: 'Email field',
+      }));
+      pill(catalog, board, 'Участвовать', x + 24, y + 264, {
+        width: board.width - 48,
+        height: 50,
+        fill: COLOR.brand,
+        stroke: COLOR.brand,
+        color: COLOR.white,
+        fontSize: 15,
+      });
+    }
+  }
+
+  function renderExhibitions(catalog, board) {
+    renderSurfaceList(catalog, board, 'Выставки', false);
+    pill(catalog, board, 'Только интересные мне', board.x + 24, board.y + 462, {
+      width: 220,
+      height: 42,
+      fill: '#f8e5d8',
+      stroke: '#e2bda9',
+      color: COLOR.brandDeep,
+    });
+  }
+
+  function renderArtifacts(catalog, board) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createText(catalog, 'Коллекция артефактов', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 28,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 42,
+    }));
+    for (let index = 0; index < 6; index += 1) {
+      const cx = x + 24 + (index % 3) * 250;
+      const cy = y + 92 + Math.floor(index / 3) * 190;
+      append(board, createRectangle({
+        x: cx,
+        y: cy,
+        width: 220,
+        height: 160,
+        fill: index < 3 ? '#f8e5d8' : COLOR.canvasSoft,
+        stroke: COLOR.line,
+        radius: 20,
+        name: index < 3 ? `Artifact ${index + 1}` : `Reserved slot ${index + 1}`,
+      }));
+      append(board, createText(catalog, index < 3 ? ['Янтарный воин', 'Кирпич Кёнигсберга', 'Медальон музея'][index] : 'Место для следующей коллекции', {
+        x: cx + 16,
+        y: cy + 104,
+        fontSize: 13,
+        fontWeight: 800,
+        lineHeight: '1.2',
+        color: index < 3 ? COLOR.brandDeep : COLOR.muted,
+        width: 188,
+        height: 46,
+      }));
+    }
+  }
+
+  function renderTransport(catalog, board, spec) {
+    const x = board.x;
+    const y = board.y;
+    const rail = spec.variants?.mode === 'rail';
+    append(board, createText(catalog, rail ? 'Как добраться на поезде' : 'Как добраться на автобусе', {
+      x: x + 24,
+      y: y + 24,
+      fontSize: 24,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: board.width - 48,
+      height: 38,
+    }));
+    append(board, iconInstance(rail ? 'train' : 'bus', x + board.width - 62, y + 22, 30));
+    const rows = rail
+      ? [['Калининград Южный', '17:40'], ['Зеленоградск-Новый', '18:28'], ['Обратно', '21:42']]
+      : [['Остановка у музея', '18:10'], ['Автовокзал', '18:52'], ['Последний рейс', '22:05']];
+    rows.forEach(([label, time], index) => {
+      append(board, createRectangle({
+        x: x + 24,
+        y: y + 90 + index * 78,
+        width: board.width - 48,
+        height: 62,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 14,
+        name: `${label} ${time}`,
+      }));
+      append(board, createText(catalog, label, {
+        x: x + 42,
+        y: y + 110 + index * 78,
+        fontSize: 15,
+        fontWeight: 750,
+        color: COLOR.copy,
+        width: board.width - 180,
+        height: 26,
+      }));
+      append(board, createText(catalog, time, {
+        x: x + board.width - 120,
+        y: y + 108 + index * 78,
+        fontSize: 18,
+        fontWeight: 900,
+        color: COLOR.brand,
+        width: 86,
+        height: 30,
+      }));
+    });
+  }
+
+  function renderNotice(catalog, board, timed = false) {
+    const x = board.x;
+    const y = board.y;
+    append(board, createRectangle({
+      x,
+      y,
+      width: board.width,
+      height: board.height,
+      fill: timed ? COLOR.inverse : COLOR.warningBg,
+      stroke: timed ? '#4d4640' : '#ead28a',
+      radius: 18,
+      name: timed ? 'Timed toast' : 'Persistent notice',
+    }));
+    append(board, createText(catalog, timed ? 'Ссылка скопирована' : 'Событие перенесено', {
+      x: x + 22,
+      y: y + 20,
+      fontSize: timed ? 16 : 20,
+      fontWeight: 850,
+      color: timed ? COLOR.white : COLOR.warning,
+      width: board.width - 44,
+      height: 32,
+    }));
+    append(board, createText(catalog, timed ? 'Сообщение исчезнет через несколько секунд.' : 'Новая дата указана ниже. Цвет не является единственным носителем статуса.', {
+      x: x + 22,
+      y: y + (timed ? 58 : 68),
+      fontSize: timed ? 12 : 14,
+      fontWeight: 550,
+      lineHeight: '1.4',
+      color: timed ? '#d8cec5' : COLOR.copy,
+      width: board.width - 44,
+      height: timed ? 38 : 72,
+    }));
+  }
+
+  function renderProductComponent(catalog, board, spec) {
+    switch (spec.kind) {
+      case 'header': renderHeader(catalog, board, spec); break;
+      case 'mobile-menu': renderMobileMenu(catalog, board); break;
+      case 'bottom-nav': renderBottomNav(catalog, board, false); break;
+      case 'bottom-nav-search': renderBottomNav(catalog, board, true); break;
+      case 'footer': renderFooter(catalog, board); break;
+      case 'keyboard-nav': renderKeyboardNavigation(catalog, board); break;
+      case 'listing-header': renderListingHeader(catalog, board, spec); break;
+      case 'time-nav': renderTimeNav(catalog, board, spec); break;
+      case 'listing-row': renderListingRow(catalog, board, spec); break;
+      case 'event-card': renderEventCard(catalog, board, spec); break;
+      case 'rail-card': renderRailCard(catalog, board, spec); break;
+      case 'event-hero': renderEventHero(catalog, board, spec); break;
+      case 'facts': renderFacts(catalog, board); break;
+      case 'cta': renderCta(catalog, board); break;
+      case 'media-rail': renderMediaRail(catalog, board); break;
+      case 'medallions': renderMedallions(catalog, board); break;
+      case 'search': renderSearch(catalog, board); break;
+      case 'auth': renderAuth(catalog, board); break;
+      case 'favorites': renderSurfaceList(catalog, board, 'Избранное', false); break;
+      case 'personal': renderPersonal(catalog, board); break;
+      case 'focus-nps':
+      case 'focus-feedback':
+      case 'focus-invite': renderFocus(catalog, board, spec); break;
+      case 'exhibitions': renderExhibitions(catalog, board); break;
+      case 'artifacts': renderArtifacts(catalog, board); break;
+      case 'transport': renderTransport(catalog, board, spec); break;
+      case 'notice': renderNotice(catalog, board, false); break;
+      case 'toast': renderNotice(catalog, board, true); break;
+      default:
+        append(board, createText(catalog, `${spec.name}\n${spec.kind}`, {
+          x: board.x + 24,
+          y: board.y + 24,
+          fontSize: 20,
+          fontWeight: 850,
+          color: COLOR.ink,
+          width: board.width - 48,
+          height: 80,
+        }));
+    }
+  }
+
+  function createOrUpdateProductMaster(page, catalog, spec, x, y) {
+    let component = find004bComponent(spec.id);
+    if (component && sharedGet(component, 'hash') === spec.hash) {
+      try {
+        const main = component.mainInstance();
+        main.x = x;
+        main.y = y;
+        markManaged(main, 'product-component-main', spec.id, catalog, {
+          source: spec.sources,
+          consumers: spec.consumers,
+          hash: spec.hash,
+          family: spec.family,
+          variants: spec.variants,
+        });
+      } catch {}
+      return component;
+    }
+    if (component) archiveComponent(component);
+
+    const board = createBoard(page, {
+      name: spec.name,
+      x,
+      y,
+      width: spec.width,
+      height: spec.height,
+      fill: COLOR.canvas,
+      fillOpacity: 0,
+      radius: 0,
+      clipContent: false,
+    });
+    renderProductComponent(catalog, board, spec);
+    markManaged(board, 'product-component-main', spec.id, catalog, {
+      source: spec.sources,
+      consumers: spec.consumers,
+      hash: spec.hash,
+      family: spec.family,
+      variants: spec.variants,
+      status: spec.status,
+    });
+    component = componentCreate(board);
+    fail(component, `component_create_failed:${spec.id}`);
+    component.name = spec.name;
+    component.path = `Product/${spec.family}`;
+    markManaged(component, 'product-component-master', spec.id, catalog, {
+      source: spec.sources,
+      consumers: spec.consumers,
+      hash: spec.hash,
+      family: spec.family,
+      variants: spec.variants,
+      status: spec.status,
+    });
+    return component;
+  }
+
+  function tryCreateVariantSet(components, id, catalog, name) {
+    const boards = components.map((component) => {
+      try { return component.mainInstance(); } catch { return null; }
+    }).filter((shape) => shape?.type === 'board');
+    if (boards.length < 2) return null;
+    try {
+      const container = penpot.createVariantFromComponents(boards);
+      container.name = `${name} variants`;
+      markManaged(container, 'variant-container', id, catalog, {
+        componentIds: components.map((component) => sharedGet(component, 'id')),
+      });
+      return container;
+    } catch (error) {
+      send({ type: 'warning', message: `Variant grouping skipped for ${name}: ${asString(error?.message || error)}` });
+      return null;
+    }
+  }
+
+  async function reconcileProductComponents(page, catalog) {
+    removeManagedBoards(page, ['documentation-section', 'component-family-label']);
+    const families = [...new Set(catalog.components.map((item) => item.family))];
+    const created = new Map();
+    let pageY = 0;
+    let completed = 0;
+    for (const family of families) {
+      const items = catalog.components.filter((item) => item.family === family);
+      const maxWidth = Math.max(...items.map((item) => item.width));
+      const columns = maxWidth > 760 ? 1 : maxWidth > 420 ? 2 : 3;
+      const cellW = Math.max(430, maxWidth + 90);
+      const rows = Math.ceil(items.length / columns);
+      const rowHeights = [];
+      for (let row = 0; row < rows; row += 1) {
+        rowHeights[row] = Math.max(...items.slice(row * columns, row * columns + columns).map((item) => item.height)) + 110;
+      }
+      const height = 150 + rowHeights.reduce((sum, value) => sum + value, 0);
+      createSection(
+        page,
+        catalog,
+        `product-family.${family.toLowerCase().replace(/[^a-z0-9]+/gu, '-')}`,
+        family,
+        'Нативные Penpot component masters. Instances в паттернах и архетипах остаются связанными с этими masters; source paths и consumers записаны в metadata.',
+        { x: 0, y: pageY, width: Math.max(1440, columns * cellW + 80), height },
+      );
+      let rowY = pageY + 160;
+      for (let index = 0; index < items.length; index += 1) {
+        const spec = items[index];
+        const row = Math.floor(index / columns);
+        const col = index % columns;
+        if (col === 0 && row > 0) rowY += rowHeights[row - 1];
+        const x = 40 + col * cellW;
+        const y = rowY + 26;
+        append(page.root, createText(catalog, `${spec.name} · ${spec.status}`, {
+          x,
+          y: y - 26,
+          fontSize: 12,
+          fontWeight: 700,
+          color: spec.status === 'implementation-linked' ? COLOR.success : COLOR.danger,
+          width: spec.width,
+          height: 22,
+        }));
+        const component = withUndo(() => createOrUpdateProductMaster(page, catalog, spec, x, y));
+        created.set(spec.id, component);
+        completed += 1;
+        progress('product-components', completed, catalog.components.length, spec.name);
+        if (completed % COMPONENT_BATCH === 0) await delay(BATCH_SETTLE_MS);
+      }
+      pageY += height + 50;
+    }
+
+    const variantGroups = [
+      ['product.shell.header', ['shell.header.desktop', 'shell.header.mobile'], 'Header'],
+      ['product.shell.bottom-nav', ['shell.mobile-bottom-nav', 'shell.search-bottom-nav'], 'Mobile bottom navigation'],
+      ['product.listing.page-header', ['listing.page-header.desktop', 'listing.page-header.mobile'], 'Listing page header'],
+      ['product.listing.time-nav', ['listing.time-nav.desktop', 'listing.time-nav.mobile'], 'Listing time navigation'],
+      ['product.listing.row', ['listing.row.desktop', 'listing.row.mobile'], 'Listing row'],
+      ['product.event.card', ['event.card.small', 'event.card.large'], 'Event card'],
+      ['product.event.rail', ['event.rail.exact-time', 'event.rail.discovery'], 'Event rail card'],
+      ['product.event.hero', ['event.hero.wide', 'event.hero.narrow', 'event.hero.no-image', 'event.hero.mobile'], 'Event hero'],
+      ['product.focus.flow', ['focus.invite', 'focus.nps', 'focus.feedback'], 'Focus group'],
+      ['product.transport.schedule', ['transport.rail', 'transport.bus'], 'Transport schedule'],
+      ['product.feedback.lifecycle', ['notice.persistent', 'toast.timed'], 'Feedback lifecycle'],
+    ];
+    for (const [id, members, name] of variantGroups) {
+      const variants = members.map((member) => created.get(member)).filter(Boolean);
+      tryCreateVariantSet(variants, id, catalog, name);
+    }
+    return { total: created.size, components: created };
+  }
+
+  function createPatternBoard(page, catalog, pattern, components, x, y) {
+    let existing = find004bComponent(pattern.id);
+    if (existing && sharedGet(existing, 'hash') === pattern.hash) {
+      try {
+        const main = existing.mainInstance();
+        main.x = x;
+        main.y = y;
+      } catch {}
+      return existing;
+    }
+    if (existing) archiveComponent(existing);
+
+    const natural = pattern.components.map((id) => components.get(id)).filter(Boolean);
+    const widths = natural.map((component) => {
+      try { return component.mainInstance().width; } catch { return 400; }
+    });
+    const heights = natural.map((component) => {
+      try { return component.mainInstance().height; } catch { return 200; }
+    });
+    const width = Math.max(520, ...widths) + 48;
+    const height = 86 + heights.reduce((sum, value) => sum + value + 24, 0);
+    const board = createBoard(page, {
+      name: pattern.name,
+      x,
+      y,
+      width,
+      height,
+      fill: COLOR.canvas,
+      stroke: COLOR.line,
+      radius: 24,
+      clipContent: false,
+    });
+    append(board, createText(catalog, pattern.name, {
+      x: x + 24,
+      y: y + 22,
+      fontSize: 22,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: width - 48,
+      height: 36,
+    }));
+    let cursorY = y + 78;
+    pattern.components.forEach((id) => {
+      const component = components.get(id);
+      if (!component) return;
+      const instance = component.instance();
+      instance.name = `Pattern instance · ${id}`;
+      instance.x = x + 24;
+      instance.y = cursorY;
+      board.appendChild(instance);
+      markManaged(instance, 'product-component-instance', `${pattern.id}.${id}`, catalog, {
+        masterId: id,
+        patternId: pattern.id,
+      });
+      cursorY += Number(instance.height || 200) + 24;
+    });
+    markManaged(board, 'pattern-main', pattern.id, catalog, {
+      sourceComponents: pattern.components,
+      hash: pattern.hash,
+    });
+    const component = componentCreate(board);
+    component.name = pattern.name;
+    component.path = pattern.path;
+    markManaged(component, 'pattern-component-master', pattern.id, catalog, {
+      sourceComponents: pattern.components,
+      hash: pattern.hash,
+    });
+    return component;
+  }
+
+  async function reconcilePatterns(page, catalog, components) {
+    removeManagedBoards(page, ['documentation-section']);
+    const section = createSection(
+      page,
+      catalog,
+      'product-patterns',
+      'Product patterns',
+      'Составные решения пользовательских задач. Каждый pattern собран из linked component instances и затем сам используется в page archetypes.',
+      { x: 0, y: 0, width: 2600, height: 9200 },
+    );
+    const patterns = new Map();
+    let x = 40;
+    let y = 150;
+    let columnWidth = 0;
+    let completed = 0;
+    for (const pattern of catalog.patterns) {
+      const component = withUndo(() => createPatternBoard(page, catalog, pattern, components, x, y));
+      patterns.set(pattern.id, component);
+      const main = component.mainInstance();
+      y += Number(main.height || 500) + 90;
+      columnWidth = Math.max(columnWidth, Number(main.width || 600));
+      if (y > section.height - 700) {
+        x += columnWidth + 80;
+        y = 150;
+        columnWidth = 0;
+      }
+      completed += 1;
+      progress('product-patterns', completed, catalog.patterns.length, pattern.name);
+      if (completed % 2 === 0) await delay(BATCH_SETTLE_MS);
+    }
+    return { total: patterns.size, patterns };
+  }
+
+  function evidencePageForViewport(viewportId) {
+    if (viewportId.includes('mobile')) return '92 — Evidence / mobile';
+    if (viewportId.includes('tablet')) return '91 — Evidence / tablet';
+    return '90 — Evidence / desktop';
+  }
+
+  function legacyRuntimeBoards(page) {
+    try {
+      return page.findShapes({ type: 'board' }).filter((board) => Boolean(
+        board.getSharedPluginData(LEGACY_NS, LEGACY_KEY),
+      ));
+    } catch {
+      return [];
+    }
+  }
+
+  function parseLegacyElement(board) {
+    try {
+      return JSON.parse(board.getSharedPluginData(LEGACY_NS, LEGACY_KEY) || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  function classifyLegacyEvidence(board) {
+    const element = parseLegacyElement(board);
+    const viewportId = asString(
+      element.source?.viewport?.id
+      || element.viewport?.id
+      || element.viewport
+      || (board.name.toLowerCase().includes('mobile') ? 'mobile-legacy' : 'desktop-legacy'),
+    );
+    const route = asString(element.source?.runtimePath || element.source?.route || element.route || '');
+    return { element, viewportId, route };
+  }
+
+  async function organizeLegacyEvidence(pages, catalog) {
+    const legacyPages = allPages().filter((page) => /^98\s+—\s+Runtime 003\.2/u.test(page.name));
+    const entries = [];
+    for (const page of legacyPages) {
+      for (const board of legacyRuntimeBoards(page)) {
+        const classification = classifyLegacyEvidence(board);
+        entries.push({ sourcePage: page, board, ...classification });
+      }
+    }
+
+    const moved = [];
+    const archivedPages = [];
+    const removedPages = [];
+    const unboundCommentPages = [];
+    const pageSlots = new Map();
+    let completed = 0;
+
+    for (const pageName of ['90 — Evidence / desktop', '91 — Evidence / tablet', '92 — Evidence / mobile']) {
+      pageSlots.set(pageName, { index: 0, page: pages.get(pageName) });
+    }
+
+    for (const entry of entries) {
+      const targetName = evidencePageForViewport(entry.viewportId);
+      const slot = pageSlots.get(targetName);
+      const index = slot.index;
+      const columns = targetName === '92 — Evidence / mobile' ? 4 : 2;
+      const cellW = targetName === '92 — Evidence / mobile' ? 520 : 1320;
+      const cellH = targetName === '92 — Evidence / mobile' ? 1320 : 1120;
+      const x = (index % columns) * cellW;
+      const y = Math.floor(index / columns) * cellH;
+      slot.index += 1;
+
+      try {
+        slot.page.root.appendChild(entry.board);
+        entry.board.x = x;
+        entry.board.y = y;
+        entry.board.name = `Actual evidence · ${entry.route || entry.sourcePage.name} · ${entry.viewportId}`;
+        markManaged(entry.board, 'runtime-evidence', `evidence.${entry.board.id}`, catalog, {
+          route: entry.route,
+          viewportId: entry.viewportId,
+          sourcePage: entry.sourcePage.name,
+          legacySource: 'runtime-003.2',
+          legacyElement: entry.element,
+        });
+        moved.push(entry.board.id);
+      } catch (error) {
+        send({
+          type: 'warning',
+          message: `Legacy evidence move skipped for ${entry.board.name}: ${asString(error?.message || error)}`,
+        });
+      }
+      completed += 1;
+      progress('legacy-cleanup', completed, Math.max(1, entries.length), entry.board.name);
+      await delay(MOVE_SETTLE_MS);
+    }
+
+    for (const page of legacyPages) {
+      let threads = [];
+      try {
+        threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+      } catch {}
+      const unbound = threads.filter((thread) => !thread.board);
+      const remainingBoards = legacyRuntimeBoards(page);
+      if (unbound.length > 0) {
+        page.name = `89 — Review archive / ${page.name.replace(/^98\s+—\s+/u, '')}`;
+        markManaged(page, 'review-archive-page', page.name, catalog, {
+          reason: 'unbound-comments',
+          threads: unbound.map((thread) => thread.seqNumber),
+        });
+        archivedPages.push(page.name);
+        unboundCommentPages.push(page.name);
+        continue;
+      }
+      if (remainingBoards.length === 0) {
+        try {
+          page.remove();
+          removedPages.push(page.name);
+          await delay(PAGE_SETTLE_MS);
+        } catch {
+          page.name = `89 — Review archive / ${page.name.replace(/^98\s+—\s+/u, '')}`;
+          archivedPages.push(page.name);
+        }
+      }
+    }
+
+    return {
+      legacyPages: legacyPages.length,
+      legacyBoards: entries.length,
+      moved: moved.length,
+      removedPages,
+      archivedPages,
+      unboundCommentPages,
+    };
+  }
+
+  function findEvidence(route, viewportId) {
+    const pageName = evidencePageForViewport(viewportId);
+    const page = pageByName(pageName);
+    if (!page) return null;
+    const boards = page.findShapes({ type: 'board' });
+    const normalized = route.replace(/\*[^/]*$/u, '');
+    return boards.find((board) => {
+      if (!isManaged(board, 'runtime-evidence')) return false;
+      const boardRoute = sharedGet(board, 'route');
+      const boardViewport = sharedGet(board, 'viewportId');
+      return (
+        (boardRoute === route || (normalized && boardRoute.startsWith(normalized)))
+        && (
+          boardViewport === viewportId
+          || boardViewport.includes(viewportId.split('-')[0])
+        )
+      );
+    }) || null;
+  }
+
+  function archetypeViewportClass(viewportId) {
+    if (viewportId.includes('mobile')) return 'mobile';
+    if (viewportId.includes('tablet')) return 'tablet';
+    return 'desktop';
+  }
+
+  function pickArchetypeReferences(archetype, viewportId) {
+    const viewportClass = archetypeViewportClass(viewportId);
+    const references = [...archetype.components];
+    if (viewportClass === 'mobile') {
+      return references.map((id) => (
+        id === 'pattern.listing.desktop' ? 'pattern.listing.mobile'
+          : id === 'shell.header.desktop' ? 'shell.header.mobile'
+            : id === 'shell.footer' ? 'shell.mobile-bottom-nav'
+              : id
+      ));
+    }
+    return references;
+  }
+
+  function createArchetypeBoard(page, catalog, archetype, viewportId, libraries, x, y) {
+    const viewportClass = archetypeViewportClass(viewportId);
+    const width = viewportClass === 'mobile' ? 390 : viewportClass === 'tablet' ? 768 : 1280;
+    const references = pickArchetypeReferences(archetype, viewportId);
+    const resolved = references.map((id) => libraries.patterns.get(id) || libraries.components.get(id)).filter(Boolean);
+    const heights = resolved.map((component) => {
+      try { return Number(component.mainInstance().height || 240); } catch { return 240; }
+    });
+    const contentHeight = heights.reduce((sum, height) => sum + height + 22, 0);
+    const board = createBoard(page, {
+      name: `${archetype.id} · ${viewportId}`,
+      x,
+      y,
+      width,
+      height: Math.max(980, 160 + contentHeight),
+      fill: COLOR.canvas,
+      stroke: COLOR.line,
+      radius: viewportClass === 'mobile' ? 0 : 24,
+      clipContent: false,
+    });
+    markManaged(board, 'page-archetype', `archetype.${archetype.id}.${viewportId}`, catalog, {
+      archetypeId: archetype.id,
+      route: archetype.routes[0],
+      viewportId,
+      componentRefs: references,
+      hash: archetype.hash,
+    });
+
+    append(board, createText(catalog, `${archetype.id} · ${viewportId}`, {
+      x: x + 18,
+      y: y + 18,
+      fontSize: viewportClass === 'mobile' ? 16 : 20,
+      fontWeight: 900,
+      color: COLOR.ink,
+      width: width - 36,
+      height: 30,
+    }));
+    append(board, createText(catalog, archetype.routes.join(' · '), {
+      x: x + 18,
+      y: y + 52,
+      fontSize: 11,
+      fontWeight: 650,
+      color: COLOR.muted,
+      width: width - 36,
+      height: 26,
+    }));
+
+    let cursorY = y + 96;
+    for (let index = 0; index < references.length; index += 1) {
+      const id = references[index];
+      const component = libraries.patterns.get(id) || libraries.components.get(id);
+      if (!component) continue;
+      const instance = component.instance();
+      instance.name = `Archetype instance · ${id}`;
+      instance.x = x + 18;
+      instance.y = cursorY;
+      if (Number(instance.width) > width - 36) {
+        const ratio = (width - 36) / Number(instance.width);
+        instance.resize(width - 36, Math.max(1, Number(instance.height) * ratio));
+      }
+      board.appendChild(instance);
+      markManaged(instance, 'archetype-component-instance', `${archetype.id}.${viewportId}.${id}`, catalog, {
+        masterId: id,
+        archetypeId: archetype.id,
+        route: archetype.routes[0],
+        viewportId,
+      });
+      cursorY += Number(instance.height || 220) + 22;
+    }
+
+    const evidence = findEvidence(archetype.routes[0], viewportId);
+    const evidenceY = Math.max(cursorY + 12, y + board.height - 70);
+    append(board, createRectangle({
+      x: x + 18,
+      y: evidenceY,
+      width: width - 36,
+      height: 52,
+      fill: evidence ? COLOR.infoBg : COLOR.warningBg,
+      stroke: evidence ? '#b8d8e8' : '#ead28a',
+      radius: 14,
+      name: 'Evidence reference',
+    }));
+    append(board, createText(catalog, evidence
+      ? `Actual screenshot: ${pageById(evidence.page?.id)?.name || evidencePageForViewport(viewportId)} / ${evidence.name}`
+      : `Evidence gap: ${archetype.routes[0]} · ${viewportId}`, {
+      x: x + 32,
+      y: evidenceY + 15,
+      fontSize: 11,
+      fontWeight: 700,
+      color: evidence ? COLOR.info : COLOR.warning,
+      width: width - 64,
+      height: 24,
+    }));
+    if (evidence) {
+      mark(board, {
+        evidenceBoardId: evidence.id,
+        evidencePage: evidencePageForViewport(viewportId),
+      });
+    }
+    return board;
+  }
+
+  async function reconcileArchetypes(page, catalog, libraries) {
+    removeManagedBoards(page, ['page-archetype', 'documentation-section']);
+    createSection(
+      page,
+      catalog,
+      'page-archetypes',
+      'Page archetypes',
+      'Каждый макет собран из linked component/pattern instances. Рядом хранится reference на actual screenshot evidence; растровые evidence остаются на страницах 90–93.',
+      { x: 0, y: 0, width: 5000, height: 30000 },
+    );
+    let x = 40;
+    let y = 150;
+    let columnWidth = 0;
+    let completed = 0;
+    let total = 0;
+    for (const archetype of catalog.archetypes) total += archetype.evidenceViewports.length;
+    for (const archetype of catalog.archetypes) {
+      for (const viewportId of archetype.evidenceViewports) {
+        const board = withUndo(() => createArchetypeBoard(page, catalog, archetype, viewportId, libraries, x, y));
+        y += Number(board.height || 1200) + 90;
+        columnWidth = Math.max(columnWidth, Number(board.width || 390));
+        if (y > 28000) {
+          x += columnWidth + 140;
+          y = 150;
+          columnWidth = 0;
+        }
+        completed += 1;
+        progress('page-archetypes', completed, total, `${archetype.id} · ${viewportId}`);
+        if (completed % ARCHETYPE_BATCH === 0) await delay(BATCH_SETTLE_MS);
+      }
+    }
+    return { total };
+  }
+
+  function createFragmentationPage(page, catalog, components) {
+    removeManagedBoards(page, ['documentation-section', 'fragmentation-cluster']);
+    const section = createSection(
+      page,
+      catalog,
+      'fragmentation',
+      'Coverage and fragmentation',
+      'Сходство не означает автоматическое объединение. Здесь видны кандидаты на общий master, допустимые различия и решения, требующие sign-off владельца продукта.',
+      { x: 0, y: 0, width: 1900, height: 4600 },
+    );
+    catalog.fragmentationClusters.forEach((cluster, index) => {
+      const x = section.x + 40 + (index % 2) * 900;
+      const y = section.y + 160 + Math.floor(index / 2) * 1420;
+      const card = createBoard(page, {
+        name: cluster.title,
+        x,
+        y,
+        width: 840,
+        height: 1320,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 22,
+      });
+      markManaged(card, 'fragmentation-cluster', cluster.id, catalog, {
+        members: cluster.members,
+        status: cluster.status,
+      });
+      append(card, createText(catalog, cluster.title, {
+        x: x + 24,
+        y: y + 22,
+        fontSize: 21,
+        fontWeight: 900,
+        color: COLOR.ink,
+        width: 790,
+        height: 56,
+      }));
+      pill(catalog, card, cluster.status, x + 24, y + 86, {
+        fill: cluster.status === 'candidate-ready' ? COLOR.successBg : COLOR.warningBg,
+        stroke: cluster.status === 'candidate-ready' ? '#b7dec2' : '#ead28a',
+        color: cluster.status === 'candidate-ready' ? COLOR.success : COLOR.warning,
+      });
+      append(card, createText(catalog, cluster.decision, {
+        x: x + 24,
+        y: y + 136,
+        fontSize: 13,
+        fontWeight: 550,
+        lineHeight: '1.45',
+        color: COLOR.copy,
+        width: 790,
+        height: 92,
+      }));
+      let cursorY = y + 250;
+      for (const id of cluster.members) {
+        const component = components.get(id);
+        if (!component) continue;
+        const instance = component.instance();
+        instance.name = `Fragmentation comparison · ${id}`;
+        instance.x = x + 24;
+        instance.y = cursorY;
+        if (Number(instance.width) > 780) {
+          const ratio = 780 / Number(instance.width);
+          instance.resize(780, Number(instance.height) * ratio);
+        }
+        card.appendChild(instance);
+        markManaged(instance, 'fragmentation-instance', `${cluster.id}.${id}`, catalog, {
+          masterId: id,
+          clusterId: cluster.id,
+        });
+        cursorY += Number(instance.height || 180) + 24;
+        if (cursorY > y + card.height - 80) break;
+      }
+    });
+  }
+
+  function createDesignGapsPage(page, catalog) {
+    removeManagedBoards(page, ['documentation-section', 'design-gap']);
+    const section = createSection(
+      page,
+      catalog,
+      'design-gaps',
+      'Design gaps',
+      'Функциональность, для которой уже есть требование или кодовый задел, но нет принятого component/pattern/archetype/evidence. На стадии needs-options готовятся несколько вариантов; автоматического выбора нет.',
+      { x: 0, y: 0, width: 1500, height: 1800 },
+    );
+    catalog.designGaps.forEach((gap, index) => {
+      const x = section.x + 40;
+      const y = section.y + 170 + index * 360;
+      const card = createBoard(page, {
+        name: gap.title,
+        x,
+        y,
+        width: 1380,
+        height: 310,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 20,
+      });
+      markManaged(card, 'design-gap', gap.id, catalog, {
+        status: gap.status,
+        requirement: gap.requirement,
+      });
+      append(card, createText(catalog, gap.title, {
+        x: x + 24,
+        y: y + 24,
+        fontSize: 22,
+        fontWeight: 900,
+        color: COLOR.ink,
+        width: 1080,
+        height: 42,
+      }));
+      pill(catalog, card, gap.status, x + 1120, y + 24, {
+        width: 220,
+        fill: COLOR.warningBg,
+        stroke: '#ead28a',
+        color: COLOR.warning,
+      });
+      append(card, createText(catalog, gap.requirement, {
+        x: x + 24,
+        y: y + 92,
+        fontSize: 15,
+        fontWeight: 550,
+        lineHeight: '1.5',
+        color: COLOR.copy,
+        width: 1310,
+        height: 94,
+      }));
+      append(card, createText(catalog, 'Workflow: identified → needs-options → candidate-ready → owner-review → approved → implemented → verified', {
+        x: x + 24,
+        y: y + 230,
+        fontSize: 12,
+        fontWeight: 650,
+        color: COLOR.muted,
+        width: 1310,
+        height: 30,
+      }));
+    });
+  }
+
+  function createSystemMap(page, catalog, result) {
+    removeManagedBoards(page, ['documentation-section', 'system-status']);
+    const section = createSection(
+      page,
+      catalog,
+      'system-map',
+      'LoveKGD Resource Graph 004b',
+      'Инженерный граф: resources → component masters → pattern masters → archetype instances → runtime evidence. Статусы разделены; успешное обновление не означает принятую production-версию.',
+      { x: 0, y: 0, width: 1600, height: 1400 },
+    );
+    const metrics = [
+      ['Font resolution', result.fonts.resolvedFontName, result.fonts.missing === 0 ? COLOR.success : COLOR.warning],
+      ['Product components', `${result.product.total}/${catalog.components.length}`, result.product.total === catalog.components.length ? COLOR.success : COLOR.danger],
+      ['Product patterns', `${result.patterns.total}/${catalog.patterns.length}`, result.patterns.total === catalog.patterns.length ? COLOR.success : COLOR.danger],
+      ['Page archetypes', `${result.archetypes.total} boards`, result.archetypes.total > 0 ? COLOR.success : COLOR.danger],
+      ['Legacy evidence', `${result.cleanup.moved} moved · ${result.cleanup.removedPages.length} pages removed`, COLOR.info],
+      ['Production source', catalog.source.productionFreshnessClaimed ? 'accepted production' : 'exact implementation SHA; production not attached', catalog.source.productionFreshnessClaimed ? COLOR.success : COLOR.warning],
+      ['Comment registry', `${result.comments.entries} unresolved comments indexed`, COLOR.info],
+      ['Fragmentation', `${catalog.fragmentationClusters.length} clusters`, COLOR.warning],
+    ];
+    metrics.forEach(([label, value, tone], index) => {
+      const x = section.x + 40 + (index % 2) * 760;
+      const y = section.y + 170 + Math.floor(index / 2) * 190;
+      const card = createBoard(page, {
+        name: `System status · ${label}`,
+        x,
+        y,
+        width: 700,
+        height: 154,
+        fill: COLOR.surface,
+        stroke: COLOR.line,
+        radius: 20,
+      });
+      markManaged(card, 'system-status', `system.status.${index}`, catalog, { dimension: label });
+      append(card, createText(catalog, label, {
+        x: x + 22,
+        y: y + 20,
+        fontSize: 13,
+        fontWeight: 750,
+        color: COLOR.muted,
+        width: 650,
+        height: 24,
+      }));
+      append(card, createText(catalog, value, {
+        x: x + 22,
+        y: y + 60,
+        fontSize: 20,
+        fontWeight: 900,
+        lineHeight: '1.2',
+        color: tone,
+        width: 650,
+        height: 68,
+      }));
+    });
+    append(section, createText(catalog, `Product source: ${catalog.source.repository}@${catalog.source.revision}\nCatalog: ${catalog.catalogSha256}\nGenerated: ${catalog.generatedAt}`, {
+      x: section.x + 40,
+      y: section.y + 1060,
+      fontSize: 12,
+      fontWeight: 600,
+      lineHeight: '1.55',
+      color: COLOR.copy,
+      width: 1500,
+      height: 100,
+    }));
+  }
+
+  async function snapshotCommentRegistry(catalog) {
+    const registry = [];
+    const file = penpot.currentFile;
+    if (!file) return { entries: 0, registry: [] };
+    for (const page of file.pages) {
+      let threads = [];
+      try {
+        threads = await page.findCommentThreads({ onlyYours: false, showResolved: false });
+      } catch {}
+      for (const thread of threads) {
+        let comments = [];
+        try { comments = await thread.findComments(); } catch {}
+        const board = thread.board;
+        let target = board;
+        while (target && !isManaged(target) && target.parent) target = target.parent;
+        const targetId = target ? sharedGet(target, 'id') : '';
+        const targetKind = target ? sharedGet(target, 'kind') : '';
+        for (const comment of comments) {
+          const content = asString(comment.content).trim();
+          if (!content) continue;
+          registry.push({
+            page: page.name,
+            pageId: page.id,
+            threadId: thread.id || null,
+            threadNumber: thread.seqNumber,
+            boardId: board?.id || null,
+            targetId,
+            targetKind,
+            content,
+          });
+        }
+      }
+    }
+    const snapshot = {
+      schemaVersion: 1,
+      generatedAt: now(),
+      catalogSha: catalog.catalogSha256,
+      sourceSha: catalog.source.revision,
+      entries: registry,
+    };
+    try {
+      penpot.currentFile?.setSharedPluginData(NS, COMMENT_REGISTRY_KEY, JSON.stringify(snapshot));
+    } catch {}
+    return { entries: registry.length, registry };
+  }
+
+  function inspectState(catalog) {
+    let fileCatalog = {};
+    try {
+      fileCatalog = JSON.parse(penpot.currentFile?.getSharedPluginData(NS, FILE_CATALOG_KEY) || '{}');
+    } catch {}
+    const productComponents = penpot.library.local.components.filter((item) => isManaged(item, 'product-component-master'));
+    const patterns = penpot.library.local.components.filter((item) => isManaged(item, 'pattern-component-master'));
+    const archetypeBoards = allPages().flatMap((page) => page.findShapes({ type: 'board' }))
+      .filter((board) => isManaged(board, 'page-archetype'));
+    const pages = catalog.pages.filter((name) => Boolean(pageByName(name))).length;
+    const sourceGaps = catalog.components.filter((component) => component.status !== 'implementation-linked').map((component) => component.id);
+    const routeGaps = catalog.archetypes.flatMap((archetype) => archetype.sourceStatus.filter((status) => !status.exists).map((status) => `${archetype.id}:${status.route}`));
+    const current = fileCatalog.catalogSha === catalog.catalogSha256
+      && productComponents.length >= catalog.components.length
+      && patterns.length >= catalog.patterns.length
+      && archetypeBoards.length >= fileCatalog.counts?.archetypeBoards;
+    const complete = current && sourceGaps.length === 0 && routeGaps.length === 0;
+    return {
+      current,
+      complete,
+      status: complete ? 'CURRENT' : current ? 'INCOMPLETE' : 'NEEDS UPDATE',
+      fileCatalog,
+      pages,
+      expectedPages: catalog.pages.length,
+      productComponents: productComponents.length,
+      expectedProductComponents: catalog.components.length,
+      patterns: patterns.length,
+      expectedPatterns: catalog.patterns.length,
+      archetypeBoards: archetypeBoards.length,
+      expectedArchetypeBoards: fileCatalog.counts?.archetypeBoards || catalog.counts.archetypeBoards,
+      sourceGaps,
+      routeGaps,
+      checkpoint: readCheckpoint(),
+      catalogSha: catalog.catalogSha256,
+      source: catalog.source,
+      cleanupPolicy: catalog.cleanupPolicy,
+    };
+  }
+
+  function validateCatalog(catalog) {
+    fail(catalog?.schemaVersion === 1, 'catalog_schema_invalid');
+    fail(catalog.delivery === 'penpot-resource-graph-004b', 'catalog_delivery_invalid');
+    fail(/^[0-9a-f]{40}$/u.test(catalog.source?.revision || ''), 'source_sha_invalid');
+    fail(/^[0-9a-f]{64}$/u.test(catalog.catalogSha256 || ''), 'catalog_sha_invalid');
+    fail(catalog.catalogSha256 === CATALOG_SHA, 'plugin_catalog_pin_mismatch');
+    fail(Array.isArray(catalog.components) && catalog.components.length >= 35, 'components_incomplete');
+    fail(Array.isArray(catalog.patterns) && catalog.patterns.length >= 10, 'patterns_incomplete');
+    fail(Array.isArray(catalog.archetypes) && catalog.archetypes.length >= 17, 'archetypes_incomplete');
+    fail(catalog.pages.includes('75 — Design gaps'), 'design_gaps_page_missing');
+    const componentIds = new Set(catalog.components.map((component) => component.id));
+    const patternIds = new Set(catalog.patterns.map((pattern) => pattern.id));
+    for (const pattern of catalog.patterns) {
+      for (const id of pattern.components) fail(componentIds.has(id), `pattern_ref_missing:${pattern.id}:${id}`);
+    }
+    for (const archetype of catalog.archetypes) {
+      for (const id of archetype.components) {
+        fail(componentIds.has(id) || patternIds.has(id), `archetype_ref_missing:${archetype.id}:${id}`);
+      }
+    }
+    return catalog;
+  }
+
+  async function updateEverything(catalogInput) {
+    fail(!operationActive, 'operation_already_active');
+    operationActive = true;
+    const catalog = validateCatalog(catalogInput);
+    lastCatalog = catalog;
+    const originalPageId = penpot.currentPage?.id || null;
+    try {
+      progress('preflight', 0, 1, 'Resolving font and validating catalog');
+      resolveFont(catalog);
+      const pages = ensurePages(catalog);
+
+      progress('typography', 0, 1, 'Applying explicit Penpot font objects');
+      const fonts = withUndo(() => reconcileTypographyFonts(catalog));
+      progress('typography', 1, 1, `Resolved ${fonts.resolvedFontName}`);
+
+      progress('legacy-cleanup', 0, 1, 'Organizing Runtime 003.2 evidence');
+      const cleanup = await organizeLegacyEvidence(pages, catalog);
+
+      await openPage(pages.get('40 — Product component masters'));
+      const product = await reconcileProductComponents(pages.get('40 — Product component masters'), catalog);
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('50 — Product patterns'));
+      const patterns = await reconcilePatterns(pages.get('50 — Product patterns'), catalog, product.components);
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('60 — Page archetypes'));
+      const archetypes = await reconcileArchetypes(pages.get('60 — Page archetypes'), catalog, {
+        components: product.components,
+        patterns: patterns.patterns,
+      });
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('70 — Coverage and fragmentation'));
+      withUndo(() => createFragmentationPage(pages.get('70 — Coverage and fragmentation'), catalog, product.components));
+      await delay(BATCH_SETTLE_MS);
+
+      await openPage(pages.get('75 — Design gaps'));
+      withUndo(() => createDesignGapsPage(pages.get('75 — Design gaps'), catalog));
+      await delay(BATCH_SETTLE_MS);
+
+      const comments = await snapshotCommentRegistry(catalog);
+
+      await openPage(pages.get('00 — System map'));
+      withUndo(() => createSystemMap(pages.get('00 — System map'), catalog, {
+        fonts,
+        product,
+        patterns,
+        archetypes,
+        cleanup,
+        comments,
+      }));
+
+      const counts = {
+        productComponents: product.total,
+        patterns: patterns.total,
+        archetypeBoards: archetypes.total,
+        movedLegacyEvidence: cleanup.moved,
+        unresolvedComments: comments.entries,
+      };
+      penpot.currentFile?.setSharedPluginData(NS, FILE_CATALOG_KEY, JSON.stringify({
+        catalogSha: catalog.catalogSha256,
+        sourceSha: catalog.source.revision,
+        appliedAt: now(),
+        resolvedFontName: fonts.resolvedFontName,
+        counts,
+      }));
+      const validationErrors = penpot.currentFile?.validate?.() || [];
+      fail(validationErrors.length === 0, `penpot_file_validation_failed:${JSON.stringify(validationErrors.slice(0, 8))}`);
+      clearCheckpoint();
+      const state = inspectState(catalog);
+      send({
+        type: 'complete',
+        state,
+        result: {
+          fonts,
+          product: { total: product.total },
+          patterns: { total: patterns.total },
+          archetypes,
+          cleanup,
+          comments: { entries: comments.entries },
+        },
+      });
+      if (originalPageId) {
+        const original = pageById(originalPageId);
+        if (original) await openPage(original);
+      }
+    } catch (error) {
+      const diagnostic = {
+        schemaVersion: 1,
+        incidentId: `rg004b-${Date.now().toString(36)}`,
+        occurredAt: now(),
+        checkpoint: readCheckpoint(),
+        penpotVersion: penpot.version || null,
+        currentPage: penpot.currentPage?.name || null,
+        catalogSha: catalog?.catalogSha256 || null,
+        sourceSha: catalog?.source?.revision || null,
+        error: normalizeError(error),
+      };
+      send({ type: 'failure', diagnostic });
+    } finally {
+      operationActive = false;
+    }
+  }
+
+  async function buildReviewPrompt(catalog) {
+    const snapshot = await snapshotCommentRegistry(catalog);
+    const entries = snapshot.registry;
+    const prompt = entries.length ? [
+      '@GitHub onedayonemasterpiece/lovekgd-design-system and onedayonemasterpiece/events-bot-new',
+      '',
+      'Доработай LoveKGD Resource Graph 004b по незакрытым комментариям Penpot.',
+      '',
+      `Catalog SHA: ${catalog.catalogSha256}`,
+      `Product source SHA: ${catalog.source.revision}`,
+      '',
+      'Комментарии:',
+      ...entries.map((entry, index) => [
+        `${index + 1}. [Penpot #${entry.threadNumber}] ${entry.page}`,
+        `Target: ${entry.targetKind || 'unbound'} · ${entry.targetId || entry.boardId || 'page'}`,
+        entry.content,
+      ].join('\n')),
+      '',
+      'Сначала определи scope: component master, pattern, archetype или runtime evidence. Исправление master должно проходить по consumer graph; локальный instance не заменяет системное решение. Для design gap подготовь варианты, а не выбирай решение автоматически. Production не обновляй без sign-off владельца продукта.',
+    ].join('\n\n') : 'Нет незакрытых комментариев на управляемых объектах Resource Graph 004b.';
+    send({ type: 'prompt', prompt, count: entries.length });
+  }
+
+  penpot.ui.onMessage(async (message) => {
+    try {
+      if (!message || typeof message !== 'object') return;
+      if (message.type === 'inspect') {
+        const catalog = validateCatalog(message.catalog);
+        lastCatalog = catalog;
+        send({ type: 'inspection', state: inspectState(catalog) });
+      } else if (message.type === 'update-all') {
+        await updateEverything(message.catalog);
+      } else if (message.type === 'build-prompt') {
+        const catalog = validateCatalog(message.catalog || lastCatalog);
+        await buildReviewPrompt(catalog);
+      } else if (message.type === 'close') {
+        penpot.closePlugin();
+      }
+    } catch (error) {
+      send({
+        type: 'failure',
+        diagnostic: {
+          schemaVersion: 1,
+          incidentId: `rg004b-message-${Date.now().toString(36)}`,
+          occurredAt: now(),
+          checkpoint: readCheckpoint(),
+          penpotVersion: penpot.version || null,
+          currentPage: penpot.currentPage?.name || null,
+          error: normalizeError(error),
+        },
+      });
+    }
+  });
+})();
