@@ -6,7 +6,7 @@
 
 ## Текущее состояние
 
-### Runtime Review 003.2 — проверенный evidence transport
+### Runtime Review 003.2 — опубликованный evidence transport
 
 003.2 доказал:
 
@@ -26,30 +26,35 @@ https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@16699ff75
 
 Она остаётся техническим AS-IS evidence layer. Её зелёный `CURRENT` означает соответствие 46 screenshot-boards старому каталогу `003.2`; это не означает полноту дизайн-системы.
 
-### Resource Graph 004 — целевая поставка
+### Resource Graph 004 — целевая поставка, manifest ещё не опубликован
 
-004 превращает evidence layer в связанную дизайн-систему:
+На текущем этапе для 004 приняты и проверяются machine-readable contracts. **Устанавливаемой manifest-ссылки Resource Graph 004 пока нет.** Плагин 003.2 нельзя использовать для создания native Colors, Typographies, icon masters, component masters, variants и archetype instances: его объектная модель ограничена screenshot-boards.
+
+004 должен превратить evidence layer в связанную дизайн-систему:
 
 ```text
 accepted production release
-→ production-only inventory
-→ Penpot Colors and Typographies
+→ production-only component and iconography inventory
+→ Penpot Colors, Typographies and native vector Icon resources
 → component masters and variants
 → product patterns
 → archetypes assembled from instances
 → separate automated actual/baseline/diff screenshots
-→ comments scoped to resource, component, archetype or evidence
+→ comments scoped to resource, icon, component, archetype or evidence
 ```
 
 Ключевые контракты:
 
 - [Resource Graph 004](docs/resource-graph-004.md);
-- [one-update plugin contract](contracts/resource-graph-004.plugin.json).
+- [one-update plugin contract](contracts/resource-graph-004.plugin.json);
+- [iconography delivery contract](contracts/resource-graph-004.iconography.json).
 
 Продуктовый inventory contract хранится в `events-bot-new`:
 
 - `site/src/data/design-system-production-surface-contract.v1.json`;
+- `site/src/data/design-system-iconography-contract.v1.json`;
 - `site/scripts/check-design-system-production-surface-contract.mjs`;
+- `site/scripts/check-design-system-iconography-contract.mjs`;
 - `docs/features/static-site-pages/design-system/penpot-resource-graph-004.md`.
 
 ## Скриншоты и компоненты
@@ -72,6 +77,28 @@ accepted production release
 
 На resource/archetype pages находятся component instances и связи. На evidence pages — то, что фактически отрисовал браузер.
 
+## Iconography
+
+Iconography выделяется в отдельную плоскость:
+
+```text
+25 — Iconography
+```
+
+Она содержит native vector component masters и specimens для:
+
+- system/actions;
+- navigation;
+- status/feedback;
+- social/external services;
+- transport;
+- festival/editorial categories;
+- product-specialized symbols;
+- optical alignment, sizes and accessibility;
+- duplicates, legacy and unclassified assets.
+
+Current icons определяются только по accepted production release. Иконка, которая просто лежит в Git, остаётся candidate/legacy/unused/unclassified до доказанного consumer. PWA и favicon artwork остаются на `10 — Brand assets`, но получают cross-links.
+
 ## Источник инвентаризации
 
 004 не использует старый ручной `/lab/design-system/` как источник перечня.
@@ -80,7 +107,7 @@ accepted production release
 
 - HTML routes из одного принятого production artifact;
 - page sources, соответствующие этим routes на exact release SHA;
-- transitively imported production components;
+- transitively imported production components and icons;
 - brand/PWA assets, вошедшие в тот же release.
 
 `/lab`, preview fixtures, detached prototypes и deprecated zero-consumer implementations не попадают в current library. Они остаются candidate/archive/technical evidence.
@@ -93,7 +120,7 @@ accepted production release
 2. **Обновить дизайн-систему** — единственная mutation-команда.
 3. **Собрать промпт по комментариям**.
 
-Нет и не будет ручных действий `обновить страницу`, `импортировать следующий компонент` или `продолжить следующий пакет`.
+Нет и не будет ручных действий `обновить страницу`, `импортировать следующую иконку`, `импортировать следующий компонент` или `продолжить следующий пакет`.
 
 `Обновить дизайн-систему` самостоятельно выполняет:
 
@@ -102,12 +129,13 @@ catalog verification
 → interrupted-operation recovery
 → colors
 → typographies
+→ iconography inventory, masters and specimens
 → components
 → variants
 → patterns
-→ archetypes
+→ archetypes and icon-consumer links
 → evidence pages for all viewports
-→ component↔archetype↔evidence links
+→ resource↔archetype↔evidence links
 → comments/review preservation
 → final verification and one report
 ```
@@ -120,6 +148,7 @@ catalog verification
 00 — System map
 10 — Brand assets
 20 — Foundations
+25 — Iconography
 30 — Core UI resources
 40 — Announcements components
 50 — Product patterns
