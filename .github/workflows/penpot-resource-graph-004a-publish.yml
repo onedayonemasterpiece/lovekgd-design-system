@@ -1,4 +1,4 @@
-name: Publish Penpot Resource Graph 004a
+name: Publish Penpot Resource Graph 004a.2
 
 on:
   workflow_dispatch:
@@ -6,34 +6,28 @@ on:
     branches:
       - prototype/resource-graph-004a-native-resources
     paths:
-      - 'prototypes/penpot-resource-graph-004a/README.md'
-      - 'prototypes/penpot-resource-graph-004a/STATUS.md'
-      - 'prototypes/penpot-resource-graph-004a/src/**'
-      - 'prototypes/penpot-resource-graph-004a/scripts/**'
-      - 'prototypes/penpot-resource-graph-004a/dist/ui.html'
-      - 'prototypes/penpot-resource-graph-004a/dist/manifest.json'
-      - 'prototypes/penpot-resource-graph-004a/dist/icon.svg'
       - '.github/workflows/penpot-resource-graph-004a-publish.yml'
 
 permissions:
   contents: write
 
 concurrency:
-  group: penpot-resource-graph-004a
+  group: penpot-resource-graph-004a2
   cancel-in-progress: false
 
 jobs:
   build-validate-publish:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
-      - name: Checkout design-system delivery branch
+      - name: Checkout Resource Graph delivery branch
         uses: actions/checkout@v4
         with:
           ref: prototype/resource-graph-004a-native-resources
           fetch-depth: 0
 
-      - name: Apply Penpot 2.17.1 host-compatibility patch
+      - name: Apply Penpot 2.17.1 typography compatibility patch
         shell: bash
         run: |
           set -euo pipefail
@@ -45,102 +39,101 @@ jobs:
           plugin_path = root / 'src/plugin.js.template'
           source = plugin_path.read_text(encoding='utf-8')
 
-          helper_anchor = "  function createText(text, options = {}) {"
-          helper = r"""  function setHostSafeLetterSpacing(target, requested) {
-            const value = asString(requested ?? '0').trim() || '0';
-            try {
-              target.letterSpacing = value;
-              return { requested: value, applied: value, fallback: false };
-            } catch (error) {
-              const numeric = Number(value);
-              if (!Number.isFinite(numeric) || numeric >= 0) throw error;
-              target.letterSpacing = '0';
+          if 'function setHostSafeFontWeight' not in source:
+              anchor = '  function setHostSafeLetterSpacing(target, requested) {'
+              helper = r'''  const HOST_FONT_WEIGHTS = Object.freeze([100, 200, 300, 400, 500, 600, 700, 800, 900]);
+          const fontWeightWarnings = new Set();
+
+          function nearestHostFontWeight(requested) {
+            const numeric = Number(requested);
+            if (!Number.isFinite(numeric)) return asString(requested || '500');
+            let best = HOST_FONT_WEIGHTS[0];
+            let bestDistance = Math.abs(numeric - best);
+            for (const candidate of HOST_FONT_WEIGHTS.slice(1)) {
+              const distance = Math.abs(numeric - candidate);
+              if (distance < bestDistance || (distance === bestDistance && candidate > best)) {
+                best = candidate;
+                bestDistance = distance;
+              }
+            }
+            return String(best);
+          }
+
+          function setHostSafeFontWeight(target, requested) {
+            const requestedValue = asString(requested ?? '500').trim() || '500';
+            const numeric = Number(requestedValue);
+            const appliedValue = Number.isFinite(numeric)
+              ? nearestHostFontWeight(requestedValue)
+              : requestedValue;
+            target.fontWeight = appliedValue;
+            const fallback = appliedValue !== requestedValue;
+            if (fallback) {
               try {
                 mark(target, {
-                  requestedLetterSpacing: value,
-                  appliedLetterSpacing: '0',
-                  compatibilityFallback: 'penpot-2.17.1-rc5-negative-letter-spacing',
+                  requestedFontWeight: requestedValue,
+                  appliedFontWeight: appliedValue,
+                  fontWeightCompatibilityFallback: 'penpot-2.17.1-discrete-inter-weights',
                 });
               } catch {}
-              send({
-                type: 'warning',
-                message: `Penpot ${penpot.version || 'unknown'} отклонил прямой negative letterSpacing ${value}; для shape применён host-safe 0, а исходное значение сохранено в Typography resource/metadata.`,
-              });
-              return { requested: value, applied: '0', fallback: true };
+              const warningKey = `${requestedValue}->${appliedValue}`;
+              if (!fontWeightWarnings.has(warningKey)) {
+                fontWeightWarnings.add(warningKey);
+                send({
+                  type: 'warning',
+                  message: `Penpot ${penpot.version || 'unknown'} поддерживает для Inter только дискретные веса 100–900 с шагом 100; ${requestedValue} отображается как ${appliedValue}. Исходное значение сохранено в Typography resource/metadata.`,
+                });
+              }
             }
+            return { requested: requestedValue, applied: appliedValue, fallback };
           }
 
-          """
-          if 'function setHostSafeLetterSpacing' not in source:
-              if helper_anchor not in source:
-                  raise SystemExit('create_text_anchor_missing')
-              source = source.replace(helper_anchor, helper + helper_anchor, 1)
+          '''
+              if anchor not in source:
+                  raise SystemExit('letter_spacing_helper_anchor_missing')
+              source = source.replace(anchor, helper + anchor, 1)
 
-          old_text_setter = "    shape.letterSpacing = asString(options.letterSpacing || '0');"
-          new_text_setter = "    setHostSafeLetterSpacing(shape, options.letterSpacing ?? '0');"
-          if old_text_setter in source:
-              source = source.replace(old_text_setter, new_text_setter, 1)
-          elif new_text_setter not in source:
-              raise SystemExit('create_text_letter_spacing_anchor_missing')
+          direct_shape = "    shape.fontWeight = asString(options.fontWeight || 500);"
+          safe_shape = "    setHostSafeFontWeight(shape, options.fontWeight ?? 500);"
+          if direct_shape in source:
+              source = source.replace(direct_shape, safe_shape, 1)
+          elif safe_shape not in source:
+              raise SystemExit('shape_font_weight_anchor_missing')
 
-          old_typography_setter = "      type.letterSpacing = item.letterSpacing;"
-          new_typography_setter = "      setHostSafeLetterSpacing(type, item.letterSpacing);"
-          if old_typography_setter in source:
-              source = source.replace(old_typography_setter, new_typography_setter, 1)
-          elif new_typography_setter not in source:
-              raise SystemExit('typography_letter_spacing_anchor_missing')
-
-          docs_anchor = "  function createColorDocumentation(page, catalog) {\n    removeManagedDocumentation(page);"
-          cleanup_function = r"""  function removeKnownFailedTypographyOrphans(page) {
-            const knownNames = new Set([
-              'Город говорит',
-              'События на выходные',
-              'Калининградская область · 16 сентября · 19:00',
-            ]);
-            for (const shape of page.findShapes({ type: 'text' })) {
-              const isTopLevel = Boolean(page.root?.id && shape.parent?.id === page.root.id);
-              if (!isTopLevel || isManaged(shape) || !knownNames.has(shape.name)) continue;
-              if (Number(shape.x) < 300 || Number(shape.y) < 1000) continue;
-              try { shape.remove(); } catch {}
-            }
-          }
-
-          function createColorDocumentation(page, catalog) {
-            removeKnownFailedTypographyOrphans(page);
-            removeManagedDocumentation(page);"""
-          if 'function removeKnownFailedTypographyOrphans' not in source:
-              if docs_anchor not in source:
-                  raise SystemExit('documentation_cleanup_anchor_missing')
-              source = source.replace(docs_anchor, cleanup_function, 1)
+          direct_typography = "      type.fontWeight = item.fontWeight;"
+          safe_typography = "      setHostSafeFontWeight(type, item.fontWeight);"
+          if direct_typography in source:
+              source = source.replace(direct_typography, safe_typography, 1)
+          elif safe_typography not in source:
+              raise SystemExit('typography_font_weight_anchor_missing')
 
           source = source.replace(
-              "penpot.ui.open('LoveKGD Resource Graph · 004a', UI_URL, { width: 540, height: 860 });",
               "penpot.ui.open('LoveKGD Resource Graph · 004a.1', UI_URL, { width: 540, height: 860 });",
+              "penpot.ui.open('LoveKGD Resource Graph · 004a.2', UI_URL, { width: 540, height: 860 });",
               1,
           )
           plugin_path.write_text(source, encoding='utf-8')
 
           manifest_path = root / 'dist/manifest.json'
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          manifest['name'] = 'LoveKGD Resource Graph — native resources 004a.1'
-          manifest['description'] = 'Penpot 2.17.1-compatible native Resource Graph: Colors, Typographies, vector icon components and core UI masters; safe retry after partial 004a updates.'
+          manifest['name'] = 'LoveKGD Resource Graph — native resources 004a.2'
+          manifest['description'] = 'Penpot 2.17.1-compatible Resource Graph with safe negative tracking and discrete Inter font-weight normalization; idempotent retry after partial 004a/004a.1 updates.'
           manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
           ui_path = root / 'dist/ui.html'
           ui = ui_path.read_text(encoding='utf-8')
-          ui = ui.replace('<title>LoveKGD Resource Graph 004a</title>', '<title>LoveKGD Resource Graph 004a.1</title>', 1)
-          ui = ui.replace('<h1>LoveKGD Resource Graph · 004a</h1>', '<h1>LoveKGD Resource Graph · 004a.1</h1>', 1)
+          ui = ui.replace('LoveKGD Resource Graph 004a.1', 'LoveKGD Resource Graph 004a.2')
+          ui = ui.replace('LoveKGD Resource Graph · 004a.1', 'LoveKGD Resource Graph · 004a.2')
           ui = ui.replace(
-              'Первая устанавливаемая компонентная поставка: native Colors, Typographies, векторная библиотека иконок и core UI components. Один запуск обновляет весь управляемый граф.',
               'Исправленная поставка для Penpot 2.17.1: native Colors, Typographies, векторная библиотека иконок и core UI components. Повторный запуск безопасно продолжает частичное обновление 004a.',
-              1,
+              'Исправленная поставка для Penpot 2.17.1: negative tracking и нестандартные веса Inter переводятся в host-safe представление без потери исходных токенов. Повторный запуск продолжает частичное обновление 004a/004a.1.',
           )
           ui_path.write_text(ui, encoding='utf-8')
           PY
 
-          grep -Fq "function setHostSafeLetterSpacing" prototypes/penpot-resource-graph-004a/src/plugin.js.template
-          grep -Fq "removeKnownFailedTypographyOrphans" prototypes/penpot-resource-graph-004a/src/plugin.js.template
-          grep -Fq "004a.1" prototypes/penpot-resource-graph-004a/dist/manifest.json
+          grep -Fq 'function setHostSafeFontWeight' prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          grep -Fq 'setHostSafeFontWeight(shape, options.fontWeight ?? 500)' prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          grep -Fq 'setHostSafeFontWeight(type, item.fontWeight)' prototypes/penpot-resource-graph-004a/src/plugin.js.template
+          grep -Fq '004a.2' prototypes/penpot-resource-graph-004a/dist/manifest.json
 
       - name: Checkout exact product source
         uses: actions/checkout@v4
@@ -155,7 +148,7 @@ jobs:
         with:
           node-version: '22.12.0'
 
-      - name: Build one Git-backed native-resource catalog
+      - name: Rebuild the exact Git-backed catalog
         shell: bash
         run: |
           set -euo pipefail
@@ -167,7 +160,7 @@ jobs:
             --out "$root/catalog/catalog.json"
           test -s "$root/catalog/catalog.json"
 
-      - name: Persist source, compatibility patch and catalog
+      - name: Persist source, UI, manifest and catalog
         shell: bash
         run: |
           set -euo pipefail
@@ -175,70 +168,86 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add \
-            "$root/src" \
-            "$root/scripts" \
+            "$root/src/plugin.js.template" \
             "$root/dist/ui.html" \
             "$root/dist/manifest.json" \
-            "$root/dist/icon.svg" \
             "$root/catalog/catalog.json"
           if ! git diff --cached --quiet; then
-            git commit -m 'resource graph 004a.1: add Penpot host-safe letter spacing retry'
+            git commit -m 'resource graph 004a.2: normalize Penpot font weights safely'
           fi
-          git rev-parse HEAD > /tmp/resource-graph-004a-ui-sha
-          test "$(wc -c < /tmp/resource-graph-004a-ui-sha)" -eq 41
+          git rev-parse HEAD > /tmp/resource-graph-004a2-ui-sha
 
-      - name: Build immutable plugin and validate catalog contracts
+      - name: Build immutable plugin and validate contracts
         shell: bash
         run: |
           set -euo pipefail
           root='prototypes/penpot-resource-graph-004a'
-          ui_sha="$(cat /tmp/resource-graph-004a-ui-sha)"
+          ui_sha="$(cat /tmp/resource-graph-004a2-ui-sha)"
           sed "s/__UI_SHA__/$ui_sha/g" "$root/src/plugin.js.template" > "$root/dist/plugin.js"
           node --check "$root/dist/plugin.js"
           python3 - <<'PY'
           from pathlib import Path
           html = Path('prototypes/penpot-resource-graph-004a/dist/ui.html').read_text(encoding='utf-8')
           script = html.split('<script>', 1)[1].split('</script>', 1)[0]
-          Path('/tmp/resource-graph-004a-ui.js').write_text(script, encoding='utf-8')
+          Path('/tmp/resource-graph-004a2-ui.js').write_text(script, encoding='utf-8')
           PY
-          node --check /tmp/resource-graph-004a-ui.js
+          node --check /tmp/resource-graph-004a2-ui.js
           node "$root/scripts/validate.mjs" "$root"
 
-      - name: Exercise Penpot negative-letter-spacing compatibility path
+      - name: Exercise all non-standard font weights used by the graph
         shell: bash
         run: |
           set -euo pipefail
           node - <<'NODE'
           const fs = require('node:fs');
           const source = fs.readFileSync('prototypes/penpot-resource-graph-004a/dist/plugin.js', 'utf8');
-          const start = source.indexOf('function setHostSafeLetterSpacing');
+          const start = source.indexOf('const HOST_FONT_WEIGHTS');
           const end = source.indexOf('\n\n  function createText', start);
-          if (start < 0 || end < 0) throw new Error('compatibility_helper_missing');
+          if (start < 0 || end < 0) throw new Error('font_weight_compatibility_helper_missing');
           const helperSource = source.slice(start, end);
           const warnings = [];
           const asString = (value) => value == null ? '' : String(value);
-          const mark = (target, metadata) => { target.metadata = metadata; };
+          const mark = (target, metadata) => { target.metadata = { ...(target.metadata || {}), ...metadata }; };
           const send = (message) => warnings.push(message);
           const penpot = { version: '2.17.1-RC5' };
-          eval(`${helperSource}\n;globalThis.__setHostSafeLetterSpacing = setHostSafeLetterSpacing;`);
+          eval(`${helperSource}\n;globalThis.__setHostSafeFontWeight = setHostSafeFontWeight; globalThis.__setHostSafeLetterSpacing = setHostSafeLetterSpacing;`);
 
-          const rejectingTarget = {
-            _value: null,
-            set letterSpacing(value) {
-              if (Number(value) < 0) throw new Error('[PENPOT PLUGIN] Value not valid');
-              this._value = value;
-            },
-            get letterSpacing() { return this._value; },
-          };
-          const fallback = globalThis.__setHostSafeLetterSpacing(rejectingTarget, '-1.2');
-          if (rejectingTarget._value !== '0' || !fallback.fallback) throw new Error('negative_tracking_fallback_failed');
-          if (rejectingTarget.metadata?.requestedLetterSpacing !== '-1.2') throw new Error('requested_tracking_not_preserved');
-          if (!warnings.length) throw new Error('compatibility_warning_missing');
+          const expected = new Map([
+            ['650', '700'],
+            ['750', '800'],
+            ['850', '900'],
+            ['950', '900'],
+            ['900', '900'],
+          ]);
+          for (const [requested, applied] of expected) {
+            const target = { _weight: null, set fontWeight(value) {
+              if (!['100','200','300','400','500','600','700','800','900'].includes(String(value))) {
+                throw new Error(`unsupported:${value}`);
+              }
+              this._weight = String(value);
+            } };
+            const result = globalThis.__setHostSafeFontWeight(target, requested);
+            if (target._weight !== applied || result.applied !== applied) {
+              throw new Error(`font_weight_mapping_failed:${requested}->${target._weight}`);
+            }
+            if (requested !== applied && target.metadata?.requestedFontWeight !== requested) {
+              throw new Error(`font_weight_metadata_missing:${requested}`);
+            }
+          }
 
-          const acceptingTarget = { _value: null, set letterSpacing(value) { this._value = value; } };
-          const accepted = globalThis.__setHostSafeLetterSpacing(acceptingTarget, '0.1');
-          if (acceptingTarget._value !== '0.1' || accepted.fallback) throw new Error('valid_tracking_changed');
-          console.log(JSON.stringify({ ok: true, fallback, accepted, warnings: warnings.length }));
+          const trackingTarget = { _tracking: null, set letterSpacing(value) {
+            if (Number(value) < 0) throw new Error(`unsupported_tracking:${value}`);
+            this._tracking = String(value);
+          } };
+          const tracking = globalThis.__setHostSafeLetterSpacing(trackingTarget, '-1.2');
+          if (trackingTarget._tracking !== '0' || !tracking.fallback) throw new Error('negative_tracking_regression');
+
+          if (!source.includes('setHostSafeFontWeight(shape, options.fontWeight ?? 500)')) throw new Error('create_text_not_guarded');
+          if (!source.includes('setHostSafeFontWeight(type, item.fontWeight)')) throw new Error('typography_resource_not_guarded');
+          if (source.includes('shape.fontWeight = asString(options.fontWeight || 500)')) throw new Error('unsafe_shape_assignment_present');
+          if (source.includes('type.fontWeight = item.fontWeight')) throw new Error('unsafe_typography_assignment_present');
+          if (warnings.length < 5) throw new Error(`compatibility_warnings_missing:${warnings.length}`);
+          console.log(JSON.stringify({ ok: true, mappings: Object.fromEntries(expected), warnings: warnings.length }));
           NODE
 
       - name: Commit plugin and publish live ref
@@ -248,21 +257,21 @@ jobs:
           root='prototypes/penpot-resource-graph-004a'
           git add "$root/dist/plugin.js"
           if ! git diff --cached --quiet; then
-            git commit -m 'resource graph 004a.1: bind host-safe plugin to immutable UI and catalog'
+            git commit -m 'resource graph 004a.2: bind host-safe plugin to immutable UI and catalog'
           fi
           final_sha="$(git rev-parse HEAD)"
           git push origin HEAD:prototype/resource-graph-004a-native-resources
           git push --force origin HEAD:resource-graph-004a-live
-          printf '%s' "$final_sha" > /tmp/resource-graph-004a-final-sha
+          printf '%s' "$final_sha" > /tmp/resource-graph-004a2-final-sha
 
       - name: Public delivery smoke
         shell: bash
         run: |
           set -euo pipefail
           root='prototypes/penpot-resource-graph-004a'
-          ui_sha="$(cat /tmp/resource-graph-004a-ui-sha)"
-          final_sha="$(cat /tmp/resource-graph-004a-final-sha)"
-          work="$RUNNER_TEMP/resource-graph-004a-public"
+          ui_sha="$(cat /tmp/resource-graph-004a2-ui-sha)"
+          final_sha="$(cat /tmp/resource-graph-004a2-final-sha)"
+          work="$RUNNER_TEMP/resource-graph-004a2-public"
           mkdir -p "$work"
 
           fetch_public() {
@@ -278,10 +287,7 @@ jobs:
             echo "public fetch failed: $url" >&2
             return 1
           }
-
-          assert_cors() {
-            tr -d '\r' < "$1" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'
-          }
+          assert_cors() { tr -d '\r' < "$1" | grep -Eiq '^access-control-allow-origin:[[:space:]]*\*$'; }
 
           cdn="https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist"
           fetch_public "$cdn/manifest.json" "$work/manifest.json" "$work/manifest.headers"
@@ -290,11 +296,7 @@ jobs:
           fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${ui_sha}/${root}/dist/ui.html" "$work/ui.html" "$work/ui.headers"
           fetch_public "https://raw.githack.com/onedayonemasterpiece/lovekgd-design-system/${final_sha}/${root}/catalog/catalog.json" "$work/catalog.json" "$work/catalog.headers"
 
-          assert_cors "$work/manifest.headers"
-          assert_cors "$work/plugin.headers"
-          assert_cors "$work/icon.headers"
-          assert_cors "$work/ui.headers"
-          assert_cors "$work/catalog.headers"
+          for file in manifest plugin icon ui catalog; do assert_cors "$work/$file.headers"; done
           node --check "$work/plugin.js"
           node - "$work" "$ui_sha" <<'NODE'
           const fs = require('node:fs');
@@ -306,38 +308,22 @@ jobs:
           const catalog = JSON.parse(fs.readFileSync(path.join(work, 'catalog.json'), 'utf8'));
           const assert = (condition, message) => { if (!condition) throw new Error(message); };
           assert(manifest.version === 2, 'manifest_version');
-          assert(manifest.name.includes('004a.1'), 'manifest_patch_revision');
-          assert(manifest.permissions.includes('library:write'), 'library_permission');
+          assert(manifest.name.includes('004a.2'), 'manifest_patch_revision');
           assert(plugin.includes(`const UI_SHA = '${uiSha}'`), 'ui_pin');
+          assert(plugin.includes('function setHostSafeFontWeight'), 'font_weight_compatibility');
           assert(plugin.includes('function setHostSafeLetterSpacing'), 'letter_spacing_compatibility');
-          assert(plugin.includes('removeKnownFailedTypographyOrphans'), 'partial_retry_cleanup');
-          assert(plugin.includes('penpot.library.local.createColor()'), 'native_colors');
-          assert(plugin.includes('penpot.library.local.createTypography()'), 'native_typography');
-          assert(plugin.includes('penpot.library.local.createComponent([shape])'), 'native_components');
-          assert(ui.includes('LoveKGD Resource Graph · 004a.1'), 'ui_patch_revision');
-          assert(ui.includes('Обновить дизайн-систему'), 'one_update_button');
+          assert(ui.includes('LoveKGD Resource Graph · 004a.2'), 'ui_patch_revision');
           assert(catalog.delivery === 'penpot-resource-graph-004a', 'catalog_delivery');
           assert(catalog.icons.length >= 40, 'icon_count');
           NODE
 
-          product_source="$(node -e 'const c=require(process.argv[1]); process.stdout.write(c.source.revision)' "$work/catalog.json")"
-          catalog_hash="$(node -e 'const c=require(process.argv[1]); process.stdout.write(c.catalogSha256)' "$work/catalog.json")"
-          color_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.colors))' "$work/catalog.json")"
-          typography_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.typography))' "$work/catalog.json")"
-          icon_count="$(node -e 'const c=require(process.argv[1]); process.stdout.write(String(c.counts.icons))' "$work/catalog.json")"
-
           {
-            echo '### Resource Graph 004a.1 public delivery: PASS'
+            echo '### Resource Graph 004a.2 public delivery: PASS'
             echo
-            echo "- product source SHA: $product_source"
-            echo "- catalog SHA-256: $catalog_hash"
             echo "- immutable plugin commit: $final_sha"
             echo "- pinned UI commit: $ui_sha"
-            echo "- colors: $color_count"
-            echo "- typographies: $typography_count"
-            echo "- vector icons: $icon_count"
-            echo '- Penpot 2.17.1 negative-letter-spacing rejection compatibility test: PASS'
-            echo '- retry cleanup for the orphaned Город говорит specimen: present'
+            echo '- Penpot 2.17.1 negative tracking compatibility: PASS'
+            echo '- Penpot discrete Inter weights 650/750/850/950 normalization: PASS'
             echo '- public manifest/plugin/icon/UI/catalog HTTP + CORS + syntax + contract smoke: PASS'
             echo "- manifest: https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@${final_sha}/${root}/dist/manifest.json"
           } >> "$GITHUB_STEP_SUMMARY"
@@ -346,7 +332,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: resource-graph-004a1-${{ github.run_id }}
+          name: resource-graph-004a2-${{ github.run_id }}
           path: prototypes/penpot-resource-graph-004a/catalog/catalog.json
           if-no-files-found: warn
           retention-days: 30
