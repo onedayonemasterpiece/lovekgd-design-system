@@ -1,1 +1,5 @@
-Implementation in progress. No manifest is published from this directory until the native resource smoke gates pass.
+PUBLICATION STATUS: PASS
+
+Resource Graph 004a has a successful build, contract validation and external public-delivery smoke. It is installable through the `resource-graph-004a-live` manifest and creates native Penpot colors, typographies, vector icon components and core UI component masters in one update operation.
+
+Full accepted-production archetypes and multi-resolution evidence remain subsequent Resource Graph 004 work; this status does not claim those layers are complete.
