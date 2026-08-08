@@ -9,6 +9,7 @@ on:
       - 'prototypes/penpot-runtime-derived-005/README.md'
       - 'prototypes/penpot-runtime-derived-005/scripts/build-runtime-catalog.mjs'
       - 'prototypes/penpot-runtime-derived-005/scripts/ci-run.sh'
+      - 'prototypes/penpot-runtime-derived-005/scripts/enable-parallel-capture.py'
       - 'prototypes/penpot-runtime-derived-005/src/plugin.js.template'
       - 'prototypes/penpot-runtime-derived-005/dist/ui.html'
       - 'prototypes/penpot-runtime-derived-005/dist/manifest.json'
@@ -25,7 +26,7 @@ concurrency:
 jobs:
   build-runtime-inventory-and-publish:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 150
     steps:
       - name: Checkout design-system delivery branch
         uses: actions/checkout@v4
@@ -47,6 +48,10 @@ jobs:
           node-version: '22.12.0'
           cache: npm
           cache-dependency-path: .source/events-bot-new/site/package-lock.json
+
+      - name: Enable bounded parallel viewport capture
+        shell: bash
+        run: python3 prototypes/penpot-runtime-derived-005/scripts/enable-parallel-capture.py
 
       - name: Build, decode every latest page, validate and publish
         shell: bash
