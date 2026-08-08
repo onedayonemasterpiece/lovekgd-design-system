@@ -1,130 +1,308 @@
-# Resource Graph 004
+# Resource Graph 004 — canonical operating contract
 
-Resource Graph 004 is the next Penpot delivery after Runtime Review 003.2.
+> Status: accepted operating model; implementation is in reconstruction phase.  
+> Penpot file: `3be9e5e1-190f-8090-8008-713c0fbe6260`.  
+> Current validated revision: `30`.  
+> Native component/resource content: intentionally empty.
 
-003.2 remains a verified transport and review mechanism: it can import exact runtime screenshots, preserve comments, recover from an interrupted sync and build deterministic prompts. It is not the final design-system model because its managed objects are raster boards rather than Penpot resources and component instances.
+## 1. Current truth
 
-## Required result
+Resource Graph 004 is not an extension of an existing accepted component library. No accepted LoveKGD component design system existed before this phase.
+
+Earlier Runtime Review 003.*, Resource Graph 004a/004b and runtime-derived 005 are noncanonical technical experiments. Their useful transport, recovery, evidence and comment-ingestion lessons may be reused, but their Penpot objects, component IDs, catalogs and status claims are not retained as design-system truth.
+
+The active Resource Graph was cleared and rebuilt as a structure-only TO-BE scaffold. Read-back validation returned `PASS`:
 
 ```text
-one accepted production release
-→ one machine-readable production and iconography inventory
-→ one Penpot plugin update
-→ native colors, typographies and icon resources
-→ component and variant graph
-→ archetypes assembled from instances
-→ separate automated screenshot evidence
-→ resource/component/archetype/evidence comments
+pages: 23
+root boards: 23
+managed zones: 257
+navigation references/interactions: 90 / 90
+native components: 0
+variants: 0
+colors/typographies/tokens: 0
+images/SVG assets: 0
+authority mode: reconstructed
 ```
 
-The product-side inventory contracts are maintained in `events-bot-new`:
+The exact receipt is stored at [`../receipts/penpot/resource-graph-to-be-structure-v1.json`](../receipts/penpot/resource-graph-to-be-structure-v1.json). The page/zone contract is [`../contracts/resource-graph-scaffold.v1.json`](../contracts/resource-graph-scaffold.v1.json).
 
-- `site/src/data/design-system-production-surface-contract.v1.json`;
-- `site/src/data/design-system-iconography-contract.v1.json`;
-- `site/scripts/check-design-system-production-surface-contract.mjs`;
-- `site/scripts/check-design-system-iconography-contract.mjs`;
-- `docs/features/static-site-pages/design-system/penpot-resource-graph-004.md`.
+## 2. Role of Resource Graph
 
-This repository consumes the resulting immutable inventories. It does not rediscover current pages or icons from the old `/lab/design-system/` route.
-
-## Production-only inventory
-
-The catalog is accepted only when it identifies one exact production release by:
+Resource Graph is the mature design-system and evidence plane:
 
 ```text
-repo_sha
-build_id
-run_id
-snapshot_id
-snapshot_sha256
-catalog_sha256
+foundations and brand resources
+→ native components and variants
+→ composite product patterns
+→ page archetypes
+→ real product representations and state matrices
+→ UX-flow links
+→ coverage, fragmentation, comments and gaps
+→ promotion packages
+→ runtime evidence
+→ accepted exports and test references
 ```
 
-Current inventory includes only:
+It is not:
 
-- HTML routes found in that production artifact;
-- source pages mapped to those routes at the same SHA;
-- components transitively imported by those production page sources;
-- icons referenced by those production-reachable components or the accepted artifact;
-- brand assets emitted into the same release.
+- the Product Atlas;
+- a free-form UI brainstorm canvas;
+- a screenshot mirror of every generated route;
+- a second independent backlog;
+- the sole executable source of browser behavior;
+- an automatic source of production code without conformance checks.
 
-A component or icon that merely exists in Git but has no accepted production consumer is placed in candidate/coverage review, not in the current resource library. `/lab`, preview fixtures and deprecated implementations are excluded from current inventory.
+## 3. Connected planes
 
-## Iconography is a first-class plane
+### Product Atlas
 
-Iconography is not a handful of pictograms inside Foundations. Resource Graph 004 creates a dedicated page:
+Owns product meaning and UI-gap identity:
+
+- user need;
+- Job/Job Story;
+- user and owner outcomes;
+- journey;
+- capability;
+- stories/enablers;
+- acceptance scenarios;
+- product problem and UI gap;
+- decisions, readiness and risks.
+
+### UI Exploration
+
+Owns unfinished visual work:
+
+- current runtime/archetype context;
+- references and AI visual seeds;
+- local component and pattern candidates;
+- page compositions;
+- whole iterations;
+- shortlist and selected for build;
+- parked/rejected alternatives;
+- runtime closure.
+
+### Resource Graph
+
+Owns mature, systemically evaluated design resources, compositions, evidence and promotion.
+
+The complete cross-plane loop is specified in [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md).
+
+## 4. Two-state authority model
+
+Every resource family has one of two authority modes.
+
+### `reconstructed`
+
+Current phase. Rules:
+
+- `events-bot-new` Astro source and runtime evidence describe what currently exists;
+- source-first decoder reconstructs component families, states, consumers and fragmentation;
+- candidate contracts and Penpot resources do not become normative merely because they were generated;
+- ambiguity is a first-class gap;
+- visual diffs are diagnostic unless an explicit reference has been accepted;
+- candidates remain separate from reconstructed current representations.
+
+### `design-system-led`
+
+Enabled per bounded resource family after promotion. Rules:
+
+- accepted Component Contract is normative for ID, version, API, variants and states;
+- native Penpot component and canonical Astro implementation implement the same contract version/hash;
+- application code consumes a pinned package version;
+- runtime instances emit known state keys and prove conformance;
+- implementation cannot silently update accepted references;
+- new changes begin as candidate versions and pass acceptance before release.
+
+A global one-step switch for the whole system is forbidden.
+
+## 5. Component authority
+
+The target single center is a versioned component package in Git:
 
 ```text
+Component Contract
++ Astro presentation implementation
++ generated types
++ fixtures/specimens
++ interaction/accessibility/visual tests
++ Penpot binding
++ accepted references
++ migration/promotion/rollback receipts
+```
+
+Detailed rules, state keys and three-way conformance are defined in [`component-contract-authority.md`](component-contract-authority.md).
+
+## 6. Source-first reconstruction
+
+The next stage decodes the current UI in this order:
+
+```text
+source and generators
+→ controlled isolated specimens
+→ all-page reachability/state scan
+→ representative page verification
+→ reconciliation and candidate contracts
+```
+
+Existing Penpot test objects are not decoder inputs. The decoder stops before Penpot materialization or production refactoring. See [`source-first-component-decoder.md`](source-first-component-decoder.md).
+
+## 7. Native resource requirements
+
+When the first resources are later materialized:
+
+- every reusable UI resource is a native Penpot component master or variant component;
+- icon masters are native vectors, not screenshots;
+- composite components and product patterns use nested instances;
+- archetypes use managed patterns/components rather than detached copies;
+- product representations remain linked to the underlying native graph;
+- screenshots stay on evidence pages and never substitute for component identity.
+
+## 8. Structural states and fixtures
+
+State modelling separates:
+
+```text
+structural variants/states
+  anatomy, layout, visibility, behavior and semantics
+
+content fixtures
+  real text, images, dates, places and stress data
+```
+
+The system stores supported axes, valid/invalid combinations, curated required scenarios, production-observed fixtures, stress fixtures and explicit missing coverage. It does not generate a full Cartesian product.
+
+## 9. Product graph entities
+
+Canonical design-side records include at least:
+
+```text
+DesignResource
+ComponentContractRef
+ComponentVariant
+ContentFixture
+ProductPattern
+PageArchetype
+ProductScreen
+ProductScreenState
+ScreenComponentInstance
+ScreenTransition
+UXFlow
+RuntimeEvidence
+ReviewThread
+Gap
+Decision
+AcceptanceReceipt
+PromotionReceipt
+RollbackReceipt
+AcceptedExport
+```
+
+A ProductScreen is not an independent mockup. It references exact component variants, one archetype, fixture, viewport, flow steps, evidence and authority status.
+
+## 10. Exact Penpot page model
+
+The validated Resource Graph contains the following exact pages in this order:
+
+```text
+00 — System map
+05 — Recent changes
+10 — Brand assets
+15 — Methodology and contracts
+20 — Foundations
 25 — Iconography
-```
-
-It contains native vector component masters and documentation sections for:
-
-- system and actions;
-- navigation;
-- status and feedback;
-- social and external services;
-- transport;
-- festival and editorial categories;
-- product-specialized symbols;
-- optical alignment and size tests;
-- accessibility semantics;
-- duplicates, legacy and unclassified assets.
-
-The machine-readable delivery contract is [`contracts/resource-graph-004.iconography.json`](../contracts/resource-graph-004.iconography.json).
-
-Current icons are hierarchical native Resources, for example:
-
-```text
-Icon/UI/Share
-Icon/Navigation/Search
-Icon/Status/Warning
-Icon/Social/VK
-Icon/Transport/Bus
-Icon/Editorial/Festival category/Theatre
-Icon/Product/Artifact
-```
-
-A current icon master must retain source path/hash, source `viewBox`, optical size, semantic role, decorative/informative semantics, attribution/license, exact release identity and production consumers. Raster screenshots may document rendering evidence but are forbidden as icon masters.
-
-Specimens show `16`, `20`, `24` and `32` px sizes, a `44` px control target, relevant states and light/brand/dark/status backgrounds. Publication is blocked when a production icon is unclassified, lacks provenance or consumer links, or an archetype uses an unlinked local copy.
-
-PWA icons, favicon and channel lockups remain on `10 — Brand assets`; Iconography cross-links them without misclassifying them as generic UI icons.
-
-## Screenshots remain first-class
-
-Resource Graph 004 does not remove screenshots. It separates their responsibility.
-
-### Resource and archetype pages
-
-Contain:
-
-- native Penpot colors;
-- native Penpot typographies;
-- native vector icon component masters and specimens;
-- component masters;
-- variant sets;
-- component instances;
-- product patterns;
-- page archetypes assembled from those instances;
-- source, version, status, consumer and coverage metadata.
-
-### Evidence pages
-
-Contain screenshots generated by automated tests:
-
-```text
+30 — Core UI resources
+40 — Announcements components
+50 — Product patterns
+60 — Page archetypes
+62 — Product representations
+64 — Product state matrices
+66 — UX flows and transitions
+68 — UI gaps, comments and decisions
+70 — Coverage and fragmentation
+80 — Candidate review and promotion
+89 — Review archive
 90 — Evidence / desktop
 91 — Evidence / tablet
 92 — Evidence / mobile
 93 — Evidence / interaction and accessibility
+94 — Accepted exports and test references
+99 — MCP diagnostics and sandbox
 ```
 
-Evidence kinds:
+The machine-readable required zones are the authoritative detail. High-level page responsibilities follow.
 
-- actual;
-- owner-approved baseline;
-- generated diff.
+### `00 — System map`
+
+Current reconstruction status, topology, authority modes, lifecycle, operation channels and complete page index.
+
+### `05 — Recent changes`
+
+Machine-generated material changes grouped by iteration/package and calendar date. Metadata refresh, comment-only updates, layout noise and repeated catalog reads are not design changes.
+
+### `10 — Brand assets`
+
+Brand marks, lockups, channel/PWA/email/social assets, provenance, rights and usage constraints.
+
+### `15 — Methodology and contracts`
+
+Sources of truth, Component Contract model, authority/promotion, hierarchy, comment/gap lifecycle, MCP mutation classes, managed layout and rollback gates.
+
+### `20 — Foundations`
+
+Color, typography, spacing, sizing, radius, borders, elevation, grid, breakpoints, motion, accessibility and media foundations.
+
+### `25 — Iconography`
+
+System/action/navigation/status/social/transport/editorial/product icons, optical sizing, accessibility, provenance, licensing, duplicates and consumers.
+
+### `30 — Core UI resources`
+
+Generic actions, controls, navigation, status/feedback, overlays, disclosure, data display, utilities, interaction and responsive states.
+
+### `40 — Announcements components`
+
+Event cards, hero/media, facts/schedules, actions/registration/tickets, badges/medallions, participants/venues, transport, discovery/personalization/social proof, shelves/lists and stress fixtures.
+
+### `50 — Product patterns`
+
+Site shell, listing/timeline, search/results, event summary/action, registration/auth, favorites/personalization, collections/festivals, focus-group/feedback, partner/check-in, error/recovery patterns.
+
+### `60 — Page archetypes`
+
+Reusable contracts for Home, listings, search, event detail, collections/festivals, favorites/personal feed, focus group, partner/registration and unavailable pages.
+
+### `62 — Product representations`
+
+Real configured mobile/tablet/desktop screens, positive/negative states, authorization states, real fixtures and links to archetypes, instances, flows and evidence.
+
+### `64 — Product state matrices`
+
+Authorization, temporal, commerce/action, loading/empty/partial, error/offline/recovery, media, text stress, responsive, interaction and accessibility state coverage.
+
+### `66 — UX flows and transitions`
+
+Entry points, happy paths, auth branches, unavailable branches, external handoffs, errors/recovery, offline/permission states and screen-state references.
+
+### `68 — UI gaps, comments and decisions`
+
+Deduplicated comment intake, association, reproduced gaps, current/desired state, product/flow context, candidate links, impact reports, decisions, handoff and verification. This is explicitly **not a second backlog**.
+
+### `70 — Coverage and fragmentation`
+
+Source/family/native/variant/fixture/responsive/archetype/representation/flow/evidence coverage, duplicates, local overrides, promotion readiness and blockers.
+
+### `80 — Candidate review and promotion`
+
+Bounded packages from UI Exploration, candidate resource/archetype revisions, impact, shortlist, acceptance, implementation readiness, accepted/rejected/parked states and receipts.
+
+### `89 — Review archive`
+
+Resolved comments, closed gaps, historical revisions, rejected/parked candidates, deprecated resources, superseded archetypes, historical evidence and rollback history.
+
+### `90–93 — Evidence`
+
+Browser actual, owner-approved baseline, generated diff, component specimens, representations, archetypes, release/test identity, interaction/accessibility traces and known noise.
 
 Canonical viewport IDs:
 
@@ -136,111 +314,187 @@ desktop-1280x800
 desktop-1728x900
 ```
 
-Every required archetype references its actual screenshots. When a baseline exists, it also references the baseline and a diff when actual differs. References include the automated test ID and exact release identity.
+### `94 — Accepted exports and test references`
 
-A screenshot proves what the browser rendered. An archetype explains which components, icons and variants produced the page. Both are required.
+Accepted component/pattern/archetype exports, manifests, hashes, Astro specimen refs, runtime comparison refs, Actions test IDs, implementation packages and approval receipts.
 
-## One-update plugin UX
+### `99 — MCP diagnostics and sandbox`
 
-The user opens the plugin once for an update. The plugin exposes no per-page, per-icon or per-file workflow.
+Connection/read traversal, comment ingestion, metadata validation, bounded write/reflow/collision/rollback tests and a disposable noncanonical sandbox.
 
-Maximum actions:
-
-1. `Проверить актуальность` — optional because preflight runs on plugin open.
-2. `Обновить дизайн-систему` — the only mutation command.
-3. `Собрать промпт по комментариям` — review output.
-
-The machine-readable interaction contract is [`contracts/resource-graph-004.plugin.json`](../contracts/resource-graph-004.plugin.json).
-
-`Обновить дизайн-систему` internally performs all phases:
+## 11. Managed spatial layout contract
 
 ```text
-validate one catalog
-→ recover interrupted staging
-→ colors
-→ typographies
-→ icon inventory, native masters and specimens
-→ component masters
-→ variants
-→ patterns
-→ archetypes and icon-consumer links
-→ desktop/tablet/mobile/interaction evidence
-→ cross-links
-→ comments and review snapshots
-→ final verification
+managed page
+→ one root board
+→ managed zones
+→ stable wrapper boards
+→ resources, instances, specimens and annotations
 ```
 
-Internal batching, retries and page switching remain invisible orchestration details. They never become repeated user steps.
+Each managed object records stable ID, schema version, zone, sort/layout slot, ownership bounds, minimum gap, overflow policy, authority mode and source/contract hash where applicable.
 
-## Penpot page model
+Rules:
+
+- targeted patch does not move objects outside its owned wrapper;
+- zone reflow moves only managed siblings of that zone;
+- exploration/manual areas are never overwritten by routine sync;
+- comment-bearing wrappers are identity anchors and should be preserved;
+- overflow expands/wraps deterministically rather than overlapping neighbours;
+- every write records before/after bounds and runs collision/off-canvas/clipping checks;
+- topology changes use rematerialization rather than coordinate nudges.
+
+## 12. Comment ingestion and routing
+
+MCP comment reading was verified independently of the currently open page. Full page traversal returned the same file-level threads repeatedly, therefore ingestion is file-scoped first.
+
+Primary dedupe key: stable Penpot thread ID/sequence. Fallback:
 
 ```text
-00 — System map
-10 — Brand assets
-20 — Foundations
-25 — Iconography
-30 — Core UI resources
-40 — Announcements components
-50 — Product patterns
-60 — Page archetypes
-70 — Coverage and fragmentation
-80 — Candidate review
-89 — Review archive
-90 — Evidence / desktop
-91 — Evidence / tablet
-92 — Evidence / mobile
-93 — Evidence / interaction and accessibility
-99 — Technical tests
+normalized author
++ created_at
++ normalized initial text
++ origin page
++ origin board/frame
 ```
 
-Resource and pattern documentation uses parent boards with native flex/grid layout. Objects are not left as unrelated boards on an infinite canvas.
+The open page never overwrites origin metadata. Association order:
 
-## Currentness model
+1. direct shape/component identity when available;
+2. origin board;
+3. exact managed wrapper/resource ID;
+4. smallest containing managed bounds;
+5. ambiguous/manual triage.
 
-One green `CURRENT` badge is replaced by independent dimensions:
+Low-confidence nearest-object guesses are not accepted silently. MCP may propose, patch and reply with evidence, but does not resolve comments without explicit owner acceptance.
+
+## 13. UI gap lifecycle
 
 ```text
-Production source
-Resource library
-Iconography
-Archetype composition
-Evidence
-Coverage
-Review
+observed
+→ reproduced
+→ understood
+→ proposed
+→ designed
+→ accepted or rejected
+→ implemented
+→ verified
+→ closed
 ```
 
-This prevents a technically current screenshot mirror from hiding an incomplete component or icon inventory.
+Gap records retain product, resource, archetype, representation, flow, evidence, review, severity, acceptance, implementation and verification references. Candidate decisions do not overwrite reconstructed or accepted resources.
 
-## Comment routing
+## 14. Operation channels
 
-Comments target the selected level:
+### GitHub Actions
 
-- color/typography resource comment → token and all consumers;
-- icon master/variant comment → shared icon, provenance and all consumers;
-- icon instance comment → icon master plus exact archetype context;
-- icon collection comment → optical consistency, licensing or fragmentation policy;
-- component master/variant comment → shared component and all archetypes;
-- instance comment → shared component plus exact archetype context;
-- pattern comment → product composition/user task;
-- archetype comment → page composition and route family;
-- screenshot/diff comment → runtime regression or local override.
+Used for corpus-wide deterministic work:
 
-The generated prompt includes resource IDs, variant values, source files, production identity, consumers, archetype/evidence references and Penpot thread IDs.
+- source/component inventory;
+- graph construction;
+- icon/media analysis;
+- decoder/IR generation and validation;
+- route/viewport capture;
+- visual diffs;
+- large export batches;
+- full referential/collision checks;
+- immutable artifact/receipt packaging.
 
-## Acceptance
+### Resource Graph plugin
 
-Resource Graph 004 is accepted only after a real-file test proves:
+Used for reproducible bulk materialization, reconciliation, recovery and stable publication from an accepted package/IR.
 
-- one plugin opening;
-- at most three user actions;
-- one production inventory, not stale `/lab` data;
-- native colors, typographies, components and variants;
-- `25 — Iconography` with native current icon masters;
-- zero unclassified production icons;
-- icon source/provenance, consumer and archetype links;
-- required archetypes composed from instances;
-- automated actual/baseline/diff screenshots on separate evidence pages;
-- working archetype-to-evidence navigation;
-- correctly scoped icon, component and archetype comments/prompts;
-- crash recovery without page-by-page continuation;
-- a second preflight with zero pending managed changes and explicit coverage gaps.
+### Penpot MCP
+
+Used for scoped inspection, comments, candidate construction, targeted patch, bounded reflow, page rematerialization, diagnostics and focused evidence.
+
+Plugin and MCP must consume one contract/IR and use operation locks. They do not own independent catalogs.
+
+## 15. MCP write protocol
+
+Operation classes:
+
+```text
+patch
+reflow-zone
+rematerialize-page
+rebuild-file
+```
+
+Safe transaction:
+
+1. read revision, page, metadata and target identities;
+2. resolve resource/comment/gap/downstream impact;
+3. produce dry-run plan and allowed movement scope;
+4. create rollback point for non-trivial batch;
+5. use one bounded undo transaction;
+6. preserve stable comment-bearing wrappers;
+7. apply deterministic layout rules;
+8. validate references and component/variant links;
+9. validate overlap/off-canvas/clipping/overflow/minimum gap;
+10. export focused before/after evidence;
+11. write changed-resource manifest and rollback ref;
+12. leave candidate until explicit promotion.
+
+## 16. Currentness model
+
+A single green `CURRENT` badge is forbidden. Independent dimensions:
+
+```text
+production/source evidence
+resource library
+iconography
+component/state coverage
+pattern composition
+archetype composition
+product representations
+UX-flow coverage
+runtime evidence
+review
+promotion/authority mode
+```
+
+## 17. Baseline and test policy
+
+```text
+accepted Penpot specimen/export
+→ immutable visual reference manifest
+
+browser actual
+→ screenshot + diff + functional/interaction/accessibility results
+```
+
+Actual does not auto-update baseline. A screenshot proves browser rendering; component/archetype/representation graphs explain construction and user state. All are required.
+
+## 18. Promotion gate
+
+A family is promoted only when:
+
+1. current source consumers are inventoried at one exact SHA/release;
+2. candidate Component Contract is reviewed and accepted;
+3. native Penpot masters/variants exist with stable IDs;
+4. canonical Astro implementation uses the same version/hash;
+5. patterns/archetypes use nested instances;
+6. state/responsive/media/stress coverage is explicit;
+7. real product representations and relevant UX branches exist;
+8. repeat materialization is idempotent;
+9. comments/gaps are associated and reviewed;
+10. three-way conformance passes;
+11. accepted exports/tests are deterministic enough for the intended gate;
+12. rollback is proven;
+13. explicit owner acceptance receipt exists;
+14. no unresolved critical gap contradicts the contract.
+
+A successful extraction or visually plausible Penpot object is never sufficient alone.
+
+## 19. Current stop boundary
+
+At revision 30 the structure is complete but content is empty. The next approved stage is decoder implementation and evidence generation. Before decoder review, do not:
+
+- materialize components;
+- restore old Penpot resources;
+- use old IDs;
+- import runtime screenshot corpora;
+- declare baselines;
+- promote families;
+- refactor production UI under an assumed component model.

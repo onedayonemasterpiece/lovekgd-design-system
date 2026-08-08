@@ -1,132 +1,118 @@
-# LoveKGD Design System — Penpot delivery and review layer
+# LoveKGD Design System
 
-Этот репозиторий содержит Penpot-инструменты для бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы».
+Репозиторий хранит архитектуру, контракты, инструменты и воспроизводимые доказательства дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы».
 
-Канонический UI-код, продуктовая модель и production identity остаются в [`onedayonemasterpiece/events-bot-new`](https://github.com/onedayonemasterpiece/events-bot-new). Penpot не становится вторым источником истины.
-
-## Два отдельных Penpot-контура
-
-### 1. Resource Graph — дизайн-система
-
-Отдельный Penpot-файл и plugin для:
-
-- native Colors и Typographies;
-- icon component masters;
-- core/product components и variants;
-- patterns и page archetypes;
-- actual/baseline/diff evidence;
-- visual review и comments.
-
-Текущий опубликованный foundation — Resource Graph `004a.2`. Он создаёт native resources одной операцией, но ещё не объявляет полными accepted-production archetypes и multi-resolution evidence.
-
-Moving manifest:
+## Текущий статус
 
 ```text
-https://cdn.jsdelivr.net/gh/onedayonemasterpiece/lovekgd-design-system@resource-graph-004a-live/prototypes/penpot-resource-graph-004a/dist/manifest.json
+phase: reconstruction
+Penpot Resource Graph: TO-BE scaffold created and validated
+Penpot file_id: 3be9e5e1-190f-8090-8008-713c0fbe6260
+Penpot revision: 30
+pages: 23
+managed zones: 257
+native components: 0
+variants: 0
+tokens/styles: 0
+imported assets: 0
+decoder snapshot: not created
+promoted resource families: 0
 ```
 
-Кандидат `004a.3` добавляет fail-closed защиту: Resource Graph отказывается работать в Product Atlas-файле.
+**Принятой компонентной дизайн-системы пока нет.** Runtime Review 003.*, Resource Graph 004a/004b и runtime-derived 005 были техническими экспериментами. Активный Penpot-файл очищен и заново содержит только утверждённую TO-BE структуру. Старые Penpot-компоненты, screenshots и object IDs не являются источником истины и не участвуют в будущем декодировании.
 
-Документы:
+Фактический PASS receipt: [`receipts/penpot/resource-graph-to-be-structure-v1.json`](receipts/penpot/resource-graph-to-be-structure-v1.json).
 
-- [Resource Graph 004](docs/resource-graph-004.md);
-- [plugin contract](contracts/resource-graph-004.plugin.json);
-- [iconography contract](contracts/resource-graph-004.iconography.json);
-- [installable 004a delivery](prototypes/penpot-resource-graph-004a/README.md).
+Машиночитаемый контракт структуры: [`contracts/resource-graph-scaffold.v1.json`](contracts/resource-graph-scaffold.v1.json).
 
-### 2. Product Atlas — продуктовая доска
-
-Отдельный Penpot-файл и отдельный plugin для:
-
-- stakeholder lanes;
-- Jobs, outcomes, journeys и capabilities;
-- stories/enablers и readiness;
-- Product Problem Radar;
-- coverage gaps, incidents и analysis findings;
-- одного системного prompt из комментариев по всей доске.
-
-Product Atlas **не импортирует Resource Graph catalog** и не имеет `library:write`. Он использует отдельные:
+## Три связанных, но раздельных Penpot-контура
 
 ```text
-manifest
-catalog kind
-managed namespace
-page allowlist
-file-kind guard
+Product Atlas
+→ зачем требуется изменение: need, Job, outcome, journey, capability, UI gap
+
+UI Exploration
+→ какие решения исследуются: references, candidates, patterns, compositions, shortlist
+
+Resource Graph
+→ что созрело системно: resources, components, patterns, archetypes,
+  product representations, evidence, promotion and accepted exports
 ```
 
-Pilot `001` имеет статус `CODE-READY / HOST-UNVERIFIED`.
+Resource Graph не является свободным brainstorm-canvas. Product Atlas и UI Exploration находятся в отдельных Penpot-файлах и связываются stable IDs и deep links.
 
-Документы и код:
+## Два режима авторитетности
 
-- [Product Atlas Penpot boundary](docs/product-atlas-penpot-extension.md);
-- [plugin contract](contracts/product-atlas-001.plugin.json);
-- [pilot README](prototypes/penpot-product-atlas-001/README.md);
-- [pilot status](prototypes/penpot-product-atlas-001/STATUS.md).
+### `reconstructed`
 
-## Почему plugins разделены
+Текущий Astro-код и runtime показывают, что фактически существует. Декодер восстанавливает component families, состояния и фрагментацию. Penpot нормализует и визуализирует результат, но ещё не является нормативным источником реализации.
 
-Resource Graph и Product Atlas имеют разные catalogs, сущности, update cadence и feedback semantics. Один переключаемый plugin повышал бы риск импортировать дизайн-систему на продуктовую доску или создать продуктовые карточки в design-system-файле.
+### `design-system-led`
 
-Совместная приёмка требует симметричной защиты:
+Режим включается **по отдельному resource family** только после promotion gate. Для принятой версии один Component Contract связывает native Penpot component, canonical Astro implementation и runtime state evidence. Приложение обязано использовать принятую package-версию.
+
+## Будущий единый центр компонентов
+
+Целевая единица истины — versioned component package в Git:
 
 ```text
-Product Atlas plugin + design-system marker
-→ fail closed
-
-Resource Graph plugin + Product Atlas marker
-→ fail closed
+Component Contract
++ Astro presentation implementation
++ generated props/state types
++ fixtures and specimens
++ interaction/accessibility/visual tests
++ Penpot binding
++ accepted visual references
++ version, migration and promotion receipts
 ```
 
-Внутренние orchestration helpers могут переиспользоваться, но published manifests, namespaces и mutation commands остаются независимыми.
+До promotion текущий UI в `events-bot-new` остаётся источником факта о реализации. После promotion семейства `events-bot-new` импортирует зафиксированную версию package и не хранит независимо редактируемую копию компонента.
 
-## Общие доказанные механизмы
+Подробности: [`docs/component-contract-authority.md`](docs/component-contract-authority.md).
 
-Penpot tooling уже использует:
+## Ближайшая работа
 
-- exact catalog/source identity;
-- schema/hash validation;
-- managed plugin metadata;
-- idempotent whole-system update;
-- checkpoint/resume;
-- preservation of foreign objects и native comments;
-- deterministic comment-to-prompt flow;
-- fail-closed semantics.
-
-Product Atlas применяет их к продуктовой модели, но не получает доступ к статистическим БД и не интерпретирует raw metrics. На доску попадают только зафиксированные evidence и reviewed analysis records из `events-bot-new`.
-
-## Product Atlas pages
+Следующий отдельный этап — source-first decoder:
 
 ```text
-00 — Executive / Problem Radar
-10 — Stakeholders, Jobs and outcomes
-20 — Journeys and capabilities
-30 — Delivery, coverage and readiness
-40 — Findings, incidents and decisions
-50 — UI and design evidence
-80 — Candidate decisions
-89 — Decision archive
-99 — Technical diagnostics
+Astro source and generators
+→ controlled generated component specimens
+→ verification on real generated pages
+→ candidate Component Contracts
+→ mismatches and unresolved mappings
+→ STOP before Penpot materialization
 ```
 
-## Feedback loop
+Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
 
-На Product Atlas можно оставить комментарии на разных managed cards. Plugin собирает их в один prompt с entity IDs, stakeholder lanes, Job/journey/capability links, status facets, source refs и Penpot thread numbers.
+## Канонические документы
+
+- [Карта документации](docs/index.md)
+- [Resource Graph 004 — operating contract](docs/resource-graph-004.md)
+- [Component authority and three-way conformance](docs/component-contract-authority.md)
+- [Source-first component decoder](docs/source-first-component-decoder.md)
+- [Product-design operating model](docs/penpot-product-design-operating-model.md)
+- [История неканонических экспериментов](docs/legacy-experiments.md)
+
+## Инструментальные роли
 
 ```text
-comments across Product Atlas
-→ one systemic ChatGPT review
-→ reviewed analysis / decision record in events-bot-new
-→ candidate product/design/implementation changes
-→ acceptance and production evidence
-→ next board snapshot
+GitHub Actions
+  тяжёлое deterministic extraction, validation, screenshots, diffs and artifacts
+
+Resource Graph plugin
+  воспроизводимая массовая материализация принятого package/IR
+
+Penpot MCP
+  scoped inspection, comments, bounded candidate mutations,
+  patch/reflow/rematerialization, evidence export and diagnostics
 ```
 
-Plugin не создаёт GitHub Issues, не закрывает comments и не меняет production автоматически.
+Плагин и MCP не имеют независимых каталогов: после появления компонентов оба пути должны потреблять один contract/IR и одинаковые stable IDs.
 
-## Исторические прототипы
+## Репозитории
 
-- [Runtime Review 003](prototypes/penpot-as-is-runtime-003/README.md);
-- [Runtime Review 003.1](prototypes/penpot-as-is-runtime-0031/README.md);
-- [Runtime Review 003.2](prototypes/penpot-as-is-runtime-0032/README.md);
-- [Review plugin experiments](prototypes/penpot-review-plugin/README.md).
+- Product/runtime source: `onedayonemasterpiece/events-bot-new`
+- Design-system contracts and delivery: `onedayonemasterpiece/lovekgd-design-system`
+
+Документация не создаёт GitHub Issues и не запускает implementation автоматически.
