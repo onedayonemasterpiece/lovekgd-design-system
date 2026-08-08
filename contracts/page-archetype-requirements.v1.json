@@ -1,0 +1,291 @@
+{
+  "schema_id": "lovekgd.page-archetype-requirements.v1",
+  "schema_version": 1,
+  "status": "accepted-source-map",
+  "authority_mode": "reconstructed",
+  "canonical_design": false,
+  "accepted_visual_archetypes": 0,
+  "source": {
+    "requirements_repository": "onedayonemasterpiece/events-bot-new",
+    "requirements_map_path": "docs/features/static-site-pages/page-archetype-source-map.md",
+    "requirements_map_merge_sha": "3a7294328449375729e4d6ade29aada356acf3f5",
+    "route_snapshot_sha": "0bfbc3f94a6a8bebd9d7c849c3699e3358efde30"
+  },
+  "target": {
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "penpot_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "penpot_page_id": "10a29786-8dcf-802c-8008-739d91afc626",
+    "penpot_page_name": "60 — Page archetypes"
+  },
+  "semantics": {
+    "overlay_kind": "source-requirements-overlay",
+    "meaning": "Research context and verified route evidence shown beside a future page archetype.",
+    "does_not_mean": [
+      "accepted visual archetype",
+      "accepted component composition",
+      "production conformance",
+      "Product Atlas replacement"
+    ],
+    "required_metadata": [
+      "stable_id",
+      "zone_id",
+      "authority_mode",
+      "canonical",
+      "source_repository",
+      "source_map_merge_sha",
+      "route_snapshot_sha",
+      "contract_schema_id"
+    ]
+  },
+  "entries": [
+    {
+      "id": "home",
+      "zone_id": "rg.zone.60.page-archetypes.home",
+      "title": "Главная",
+      "requirement_summary": "Быстро объяснить сервис, дать основные входы и полезную статическую холодную выдачу до персонализации; выдача ограничена.",
+      "source_documents": [
+        "docs/features/static-site-pages/README.md",
+        "docs/features/static-site-pages/listing-personal-feed.md"
+      ],
+      "current_routes": [
+        {"pattern": "/", "source": "site/src/pages/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.home"
+    },
+    {
+      "id": "today-tomorrow-and-dated-listings",
+      "zone_id": "rg.zone.60.page-archetypes.today-tomorrow-and-dated-listings",
+      "title": "Сегодня, завтра и выбранная дата",
+      "requirement_summary": "Показать события дня по времени; дата, место и действия читаемы без открытия карточки; статический список остаётся полезным при отказе динамических сервисов.",
+      "source_documents": [
+        "docs/features/static-site-pages/listing-surfaces-v14-product.md",
+        "docs/features/static-site-pages/listing-personal-feed.md",
+        "docs/features/static-site-pages/schedule-user-requirements.md"
+      ],
+      "current_routes": [
+        {"pattern": "/segodnya/", "source": "site/src/pages/segodnya/index.astro", "status": "verified"},
+        {"pattern": "/zavtra/", "source": "site/src/pages/zavtra/index.astro", "status": "verified"},
+        {"pattern": "/date-{date}/", "source": "site/src/pages/date-[date].astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.today-tomorrow-and-dated-listings"
+    },
+    {
+      "id": "weekend-and-editorial-listings",
+      "zone_id": "rg.zone.60.page-archetypes.weekend-and-editorial-listings",
+      "title": "Выходные и специальные списочные выдачи",
+      "requirement_summary": "Два дня образуют одну поверхность с разделением по дням и точному времени. Популярное и другие специальные выдачи не считаются обычной подборкой только из-за списка карточек.",
+      "source_documents": [
+        "docs/features/static-site-pages/listing-surfaces-v14-product.md",
+        "docs/features/static-site-pages/listing-surfaces-v20-mobile-popular.md",
+        "docs/features/static-site-pages/listing-surfaces-v28-desktop-popular.md"
+      ],
+      "current_routes": [
+        {"pattern": "/vyhodnye/", "source": "site/src/pages/vyhodnye/index.astro", "status": "verified"},
+        {"pattern": "/vyhodnye/{start}/", "source": "site/src/pages/vyhodnye/[start].astro", "status": "verified"},
+        {"pattern": "/populyarnoe/", "source": "site/src/pages/populyarnoe/index.astro", "status": "verified"},
+        {"pattern": "/neobychnoe/", "source": "site/src/pages/neobychnoe/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/weekends", "status": "historical-only"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.weekend-and-editorial-listings"
+    },
+    {
+      "id": "search",
+      "zone_id": "rg.zone.60.page-archetypes.search",
+      "title": "Поиск",
+      "requirement_summary": "Принять потребность естественным языком, показать честный прогресс и восстановление; auth, vector и LLM являются состояниями одного поискового пути.",
+      "source_documents": [
+        "docs/features/static-site-pages/smart-vector-search/smart-vector-search-requirements.md",
+        "docs/features/static-site-pages/smart-vector-search/README.md",
+        "docs/features/static-site-pages/mobile-shell.md"
+      ],
+      "current_routes": [
+        {"pattern": "/poisk/", "source": "site/src/pages/poisk/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/search", "status": "obsolete-not-current"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.search"
+    },
+    {
+      "id": "event-detail",
+      "zone_id": "rg.zone.60.page-archetypes.event-detail",
+      "title": "Страница события",
+      "requirement_summary": "За 5–10 секунд помочь понять событие, решить, идти ли, выполнить главное действие и затем продолжить к конечной релевантной выдаче.",
+      "source_documents": [
+        "docs/features/static-site-pages/event-page-product-design.md",
+        "docs/features/static-site-pages/event-page-merged-skeleton.md",
+        "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+        "docs/features/static-site-pages/event-mobile-ui-lab-2026-07-15.md"
+      ],
+      "current_routes": [
+        {"pattern": "/sobytiya/{slug}/", "source": "site/src/pages/sobytiya/[slug].astro", "status": "verified"},
+        {"pattern": "/sobytiya/{slug}/event.ics", "source": "site/src/pages/sobytiya/[slug]/event.ics.ts", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/events/{id}", "status": "obsolete-not-current"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.event-detail"
+    },
+    {
+      "id": "collections-festivals-and-exhibitions",
+      "zone_id": "rg.zone.60.page-archetypes.collections-festivals-and-exhibitions",
+      "title": "Подборки, фестивали, выставки и клубы",
+      "requirement_summary": "Различать автоматические подборки, редакционные материалы и специальные поверхности; сохранять стабильные URL и честные empty/dormant/error states.",
+      "source_documents": [
+        "docs/features/static-site-pages/podborki.md",
+        "docs/features/static-site-pages/podborki-to-be.md",
+        "docs/features/static-site-pages/gastronomy-collection.md",
+        "docs/features/static-site-pages/festival-timeline.md",
+        "docs/features/static-site-pages/exhibitions-personal-prototype.md"
+      ],
+      "current_routes": [
+        {"pattern": "/podborki/", "source": "site/src/pages/podborki/index.astro", "status": "verified"},
+        {"pattern": "/podborki/{slug}/", "source": "site/src/pages/podborki/[slug]/index.astro", "status": "verified"},
+        {"pattern": "/podborki/gastronomiya/", "source": "site/src/pages/podborki/gastronomiya/index.astro", "status": "verified"},
+        {"pattern": "/festivali/", "source": "site/src/pages/festivali/index.astro", "status": "verified"},
+        {"pattern": "/vystavki/", "source": "site/src/pages/vystavki/index.astro", "status": "verified"},
+        {"pattern": "/kluby-po-interesam/", "source": "site/src/pages/kluby-po-interesam/index.astro", "status": "verified"},
+        {"pattern": "/kluby-po-interesam/{slug}/", "source": "site/src/pages/kluby-po-interesam/[slug]/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/collections/{slug}", "status": "obsolete-not-current"},
+        {"pattern": "/festivali/{slug}/", "status": "not-present-in-current-astro"},
+        {"pattern": "/vystavki/{slug}/", "status": "not-present-in-current-astro"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.collections-festivals-and-exhibitions"
+    },
+    {
+      "id": "favorites-and-personal-feed",
+      "zone_id": "rg.zone.60.page-archetypes.favorites-and-personal-feed",
+      "title": "Избранное и «Для меня»",
+      "requirement_summary": "Избранное хранит явный выбор и календарную непрерывность; «Для меня» даёт объяснимую персональную выдачу с безопасным fallback и не смешивается с избранным.",
+      "source_documents": [
+        "docs/features/static-site-pages/schedule-user-requirements.md",
+        "docs/features/static-site-pages/listing-personal-feed.md",
+        "docs/features/static-site-pages/exhibitions-personal-prototype.md"
+      ],
+      "current_routes": [
+        {"pattern": "/izbrannoe/", "source": "site/src/pages/izbrannoe/index.astro", "status": "verified"},
+        {"pattern": "/dlya-menya/", "source": "site/src/pages/dlya-menya/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/personal", "status": "obsolete-not-current"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.favorites-and-personal-feed"
+    },
+    {
+      "id": "focus-group",
+      "zone_id": "rg.zone.60.page-archetypes.focus-group",
+      "title": "Фокус-группа",
+      "requirement_summary": "Объяснить программу, провести onboarding, сохранить 30-дневную непрерывность и отделить служебную диагностику от пользовательского пути.",
+      "source_documents": [
+        "docs/features/static-site-pages/focus-group.md",
+        "docs/features/static-site-focus-group/README.md"
+      ],
+      "current_routes": [
+        {"pattern": "/fokus-gruppa/", "source": "site/src/pages/fokus-gruppa/index.astro", "status": "verified"},
+        {"pattern": "/fokus-gruppa/priglashenie/", "source": "site/src/pages/fokus-gruppa/priglashenie/index.astro", "status": "verified"},
+        {"pattern": "/fokus-gruppa/zavershenie/", "source": "site/src/pages/fokus-gruppa/zavershenie/index.astro", "status": "verified"},
+        {"pattern": "/fokus-gruppa/diagnostika/", "source": "site/src/pages/fokus-gruppa/diagnostika/index.astro", "status": "verified"},
+        {"pattern": "/fokus-gruppa/diagnostika-ustoychivost/", "source": "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro", "status": "verified"},
+        {"pattern": "/fokus-gruppa/kollektsiya/", "source": "site/src/pages/fokus-gruppa/kollektsiya/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.focus-group"
+    },
+    {
+      "id": "partner-and-registration",
+      "zone_id": "rg.zone.60.page-archetypes.partner-and-registration",
+      "title": "Партнёры и регистрация",
+      "requirement_summary": "Отделить страницы партнёров от event detail; регистрацию события связывать с предзаполнением, проверкой ФИО и check-in states; не объявлять route реализованным без evidence.",
+      "source_documents": [
+        "docs/features/static-site-pages/README.md"
+      ],
+      "current_routes": [
+        {"pattern": "/partners/", "source": "site/src/pages/partners/index.astro", "status": "verified"},
+        {"pattern": "/partnerstvo/", "source": "site/src/pages/partnerstvo/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [
+        {"pattern": "/events/{id}/register", "status": "unverified-requirement-gap"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.partner-and-registration"
+    },
+    {
+      "id": "special-unavailable-and-closed-pages",
+      "zone_id": "rg.zone.60.page-archetypes.special-unavailable-and-closed-pages",
+      "title": "Специальные, закрытые и недоступные страницы",
+      "requirement_summary": "Честно объяснить закрытое, завершённое или недоступное состояние и дать безопасный следующий шаг; не маскировать техническую ошибку как empty state.",
+      "source_documents": [
+        "docs/features/static-site-pages/README.md",
+        "docs/features/static-site-pages/release-plan.md",
+        "docs/features/static-site-pages/focus-group.md"
+      ],
+      "current_routes": [
+        {"pattern": "/zakrytaya-afisha/", "source": "site/src/pages/zakrytaya-afisha/index.astro", "status": "verified"}
+      ],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.special-unavailable-and-closed-pages"
+    },
+    {
+      "id": "responsive-archetype-matrix",
+      "zone_id": "rg.zone.60.page-archetypes.responsive-archetype-matrix",
+      "title": "Responsive-матрица архетипов",
+      "requirement_summary": "Фиксировать реальные изменения композиции, навигации и действий между mobile, tablet и desktop; каждый viewport имеет evidence или explicit gap.",
+      "source_documents": [
+        "docs/features/static-site-pages/mobile-shell.md",
+        "docs/features/static-site-pages/event-page-product-design.md",
+        "docs/features/static-site-pages/listing-surfaces-v14-product.md",
+        "docs/features/static-site-pages/listing-surfaces-v28-desktop-popular.md"
+      ],
+      "current_routes": [],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.responsive-archetype-matrix"
+    },
+    {
+      "id": "product-links-and-acceptance-scenarios",
+      "zone_id": "rg.zone.60.page-archetypes.product-links-and-acceptance-scenarios",
+      "title": "Продуктовые связи и acceptance scenarios",
+      "requirement_summary": "Связать архетип с потребностью, journey/capability, acceptance scenarios и результатами; source requirement, route и visual contract не подменяют друг друга.",
+      "source_documents": [
+        "docs/features/static-site-pages/test-scenarios.md",
+        "docs/features/static-site-pages/release-autotest-gates.md"
+      ],
+      "current_routes": [],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.product-links-and-acceptance-scenarios"
+    },
+    {
+      "id": "runtime-consumers",
+      "zone_id": "rg.zone.60.page-archetypes.runtime-consumers",
+      "title": "Runtime consumers",
+      "requirement_summary": "Показывать фактические Astro consumers на точном SHA; расхождение требований, route и runtime evidence становится gap.",
+      "source_documents": [
+        "site/src/pages/",
+        "docs/features/static-site-pages/README.md"
+      ],
+      "current_routes": [],
+      "historical_or_gap_routes": [],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.runtime-consumers"
+    },
+    {
+      "id": "archetype-coverage-and-gaps",
+      "zone_id": "rg.zone.60.page-archetypes.archetype-coverage-and-gaps",
+      "title": "Покрытие и пробелы",
+      "requirement_summary": "Независимо учитывать source requirements, route implementation, responsive states, representations и runtime evidence; отсутствие доказательства не становится положительным статусом.",
+      "source_documents": [
+        "docs/features/static-site-pages/page-archetype-source-map.md"
+      ],
+      "current_routes": [],
+      "historical_or_gap_routes": [
+        {"pattern": "/festivali/{slug}/", "status": "not-present-in-current-astro"},
+        {"pattern": "/vystavki/{slug}/", "status": "not-present-in-current-astro"},
+        {"pattern": "/events/{id}/register", "status": "unverified-requirement-gap"}
+      ],
+      "penpot_overlay_stable_id": "rg.source-requirements.60.archetype-coverage-and-gaps"
+    }
+  ]
+}
