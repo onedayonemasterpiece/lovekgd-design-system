@@ -21,6 +21,40 @@ Decoder создаёт реконструируемое описание тек�
 
 `GO` здесь означает, что evidence достаточно для отдельного family-scoped анализа дефрагментации. Это **не** означает принятие contracts, equivalence, merge/split, tokenization, normalization, Penpot materialization или изменение Astro/CSS/runtime. Все candidate contracts имеют `candidate-as-is-not-accepted`, а решения остаются `NOT_MERGED`.
 
+### Append-only behavioral supplement v1.1
+
+Behavioral/action/media evidence не переписывает завершённый v1. Для его reviewed final import
+зарезервирован отдельный sibling-каталог:
+
+```text
+catalog/component-decoder/
+├── decoder-v1-snapshot-20260808T124842-4786ac53bc/                 # immutable
+└── behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/ # append-only sibling
+```
+
+Reviewed v1.1 импортирован как evidence-запись с финальным статусом
+`EVIDENCE_COLLECTION_INCOMPLETE`. Все заявленные output bytes/SHA проходят отдельный validator,
+124/124 raster имеют file-level `reviewed-full-resolution`, Actions artifact продублирован
+durable GitHub Release asset, secret scan прошёл, independent audit имеет `PASS`. Два уникальных
+readiness blocker сохранены: отсутствует рабочее native `End`/`Home` поведение mobile rail, а
+полная 293-row breakpoint/container matrix не имеет отдельного truthful runtime probe для каждой
+строки.
+
+Проверка после импорта:
+
+```bash
+node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
+  catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc
+```
+
+Отдельный workflow одновременно повторно проверяет v1 и требует его исходный Git tree
+`e77fc2457fadfdffb46ed2d90304ebb91e89a715`. Behavioral supplement не добавляет, не удаляет,
+не объединяет и не делит компоненты v1; controlled runtime не объявляется production evidence.
+Текущий статус не разрешает следующий project normalization synthesis и тем более не означает
+`READY_FOR_PHYSICAL_DEFRAGMENTATION`. Даже возможный будущий
+`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` будет означать только аналитическую готовность, а не
+автоматическое физическое изменение компонентов.
+
 Воспроизводимая проверка compact tree:
 
 ```bash
@@ -252,6 +286,10 @@ catalog/component-decoder/<snapshot-id>/
 
 Screenshots, traces, detailed DOM, accessibility snapshots, computed styles and full logs остаются в immutable GitHub Actions artifact.
 
+Behavioral v1.1 использует такой же compact/heavy split: diffable JSON/JSONL, receipts и audit
+лежат в sibling supplement, а 124 raster files остаются в Actions artifact и durable Release asset.
+Compact `artifact-index.json` обязан связывать каждую raster path/SHA с её full-resolution review.
+
 ## Failure safety
 
 - file-size budgets enforced;
@@ -285,3 +323,11 @@ Decoder task заканчивается после:
 - принимает contracts;
 - включает visual baseline gate;
 - запускает следующую реализацию автоматически.
+
+Для behavioral supplement STOP дополнительно запрещает:
+
+- выдавать controlled exact-source specimen за production observation;
+- заменять full-resolution review perceptual hash/contact sheet;
+- выбирать winner среди CTA или transport treatments;
+- превращать 2:3, 4:5 или 5:4 в универсальный media token;
+- начинать physical defragmentation на основании одного статуса synthesis readiness.

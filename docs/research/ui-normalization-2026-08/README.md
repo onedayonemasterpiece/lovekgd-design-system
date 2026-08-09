@@ -6,6 +6,20 @@
 
 Исследования дают evidence base для family-scoped анализа, component contracts, migration и governance. Они **не** принимают компоненты, токены или варианты автоматически и не отменяют действующий статус `reconstructed` / `NOT_ACCEPTED` в [source-first decoder](../../source-first-component-decoder.md). Любое решение о merge, variant, split, composition, preserve, deprecate или promotion остаётся отдельным проверяемым шагом по конкретному семейству.
 
+R-01…R-06 — immutable imported source reports: их текст не редактируется при последующем
+adoption. R-07 — отдельный living append-only synthesis/adoption ledger, первоначально
+seeded переданным source text с SHA-256
+`bc9ba8960fbab631a1d9c317b9a87a00fef74f38e64761021684f1ccc2832ec1`.
+Новые receipts добавляются в R-07, не переписывая R-01…R-06 и не создавая параллельный R-08.
+
+### Текущий adoption receipt
+
+Reviewed Behavioral Decoder v1.1 импортирован sibling-каталогом и принят как append-only project
+evidence. Оба validator и immutable-v1 tree assertion проходят; 124/124 raster просмотрены вручную
+в полном разрешении. Итог остаётся `EVIDENCE_COLLECTION_INCOMPLETE`: native rail `End`/`Home` и
+полная per-probe runtime-проверка 293 breakpoint/container rows остаются readiness blockers.
+Полная provenance-запись — в [R-07, section 8](07-cross-research-synthesis-and-adoption.md#8-behavioral-supplement-v11-evidence-adoption-receipt).
+
 ## Полные тексты
 
 | ID | Исследование | Роль |

@@ -1,0 +1,73 @@
+name: Validate current UI behavioral decoder supplement v1.1
+
+on:
+  push:
+    paths:
+      - 'catalog/component-decoder/**'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/index.md'
+      - 'docs/research/ui-normalization-2026-08/**'
+      - 'README.md'
+      - '.github/workflows/behavioral-decoder-supplement-v1-1.yml'
+  pull_request:
+    paths:
+      - 'catalog/component-decoder/**'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/index.md'
+      - 'docs/research/ui-normalization-2026-08/**'
+      - 'README.md'
+      - '.github/workflows/behavioral-decoder-supplement-v1-1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: behavioral-decoder-supplement-v1-1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact catalog tree
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Prove immutable Decoder v1 tree identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='e77fc2457fadfdffb46ed2d90304ebb91e89a715'
+          actual="$(git rev-parse 'HEAD:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc')"
+          test "$actual" = "$expected" || {
+            echo "immutable Decoder v1 tree mismatch: expected=$expected actual=$actual" >&2
+            exit 1
+          }
+
+      - name: Revalidate immutable Decoder v1
+        run: |
+          node scripts/validate-component-decoder-snapshot.mjs \
+            catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc
+
+      - name: Validate reviewed behavioral supplement and STOP boundary
+        run: |
+          node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
+            catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc
+
+      - name: Prove fail-closed corruption detection
+        shell: bash
+        run: |
+          set -euo pipefail
+          source='catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc'
+          target="${RUNNER_TEMP}/behavioral-supplement-corruption-probe"
+          cp -a "$source" "$target"
+          printf '\ncorruption-probe\n' >> "$target/audit-report.md"
+          if node scripts/validate-behavioral-decoder-supplement-v1-1.mjs "$target"; then
+            echo 'validator accepted a modified compact shard' >&2
+            exit 1
+          fi
