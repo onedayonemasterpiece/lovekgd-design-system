@@ -16,6 +16,7 @@
 | R-04 | [Внешний доказательный корпус best practices](04-external-evidence-corpus.md) | корпус источников, шкала силы evidence и границы доступности источников |
 | R-05 | [Evidence-based Normalization Charter для «Полюбить Калининград Анонсы»](05-normalization-charter-lovekgd.md) | charter, привязанный к reviewed decoder snapshot и project evidence |
 | R-06 | [Глубокое исследование: Best practices дефрагментации и унификации UI-компонентов](06-deep-ui-component-defragmentation-research.md) | самостоятельный deep-dive: архитектура перехода, lifecycle и безопасная миграция UI-компонентов |
+| R-07 | [Cross-research synthesis and adoption ledger](07-cross-research-synthesis-and-adoption.md) | принятые границы и evidence-gate для project-specific normalization synthesis; не утверждает физические слияния или токены |
 
 ## Provenance и дедупликация
 
@@ -28,5 +29,6 @@
 | `acee2202-c3b5-4bc8-a932-3ef825acb962/pasted-text.txt` | R-04 | `189ed301d03d9acfc93a0effc8abc9e98e240b771d1ab4b43f2bb485cb6382e0` |
 | `23c3c597-5c5b-46f2-9e4f-84f262a2cbc2/pasted-text.txt` | R-05 | `afd640e09f38366d0581dc8f3f4dc1f835da0d8af03de847a5b039e5576339ea` |
 | `e6dfc5b6-cdd1-435b-a28f-a16e2528728d/pasted-text.txt` | R-06 | `b2f3a119329f165af32858bb724449945cc5cc16d4a8be922537008c58e26fb2` |
+| `4a494da4-006b-4057-b824-841ea8f4554d/pasted-text.txt` | R-07 | `bc9ba8960fbab631a1d9c317b9a87a00fef74f38e64761021684f1ccc2832ec1` |
 
 Идентичные SHA-256 R-02 и duplicate подтверждают byte-for-byte дубликат: публикация сохраняет одну полную копию и явную provenance-запись, не раздувая corpus второй одинаковой версией.
