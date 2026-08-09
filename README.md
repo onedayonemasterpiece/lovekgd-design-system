@@ -84,7 +84,7 @@ Astro source and generators
 → verification on real generated pages
 → candidate Component Contracts
 → mismatches and unresolved mappings
-→ manual visual review of 155/155 rasters
+→ manual visual review of 157/157 rasters and 135 raster-backed page records
 → immutable compact snapshot + permanent heavy evidence
 → STOP before normalization and Penpot materialization
 ```
