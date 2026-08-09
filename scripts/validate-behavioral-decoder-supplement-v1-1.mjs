@@ -12,14 +12,18 @@ const EXPECTED_BASE_ID = 'decoder-v1-snapshot-20260808T124842-4786ac53bc';
 const EXPECTED_BASE_PATH = '../decoder-v1-snapshot-20260808T124842-4786ac53bc';
 const EXPECTED_BASE_MANIFEST_SHA = 'f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc';
 const EXPECTED_SOURCE_SHA = 'ef7aa62e45c60f7a12da6160f490719c0721ec03';
-const EXPECTED_FINAL_STATUS = 'READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS';
+const EXPECTED_FINAL_STATUS = 'EVIDENCE_COLLECTION_INCOMPLETE';
+const EXPECTED_BLOCKERS = Object.freeze([
+  'unresolved.behavior-blocker.864db42986f38970b1',
+  'unresolved.behavior-blocker.fdec1149e1f0d6b359',
+]);
 const EXPECTED_COUNTS = Object.freeze({
-  plans: 50,
-  executable: 45,
-  explicitBlockers: 5,
-  observations: 99,
-  rasters: 99,
-  reviews: 99,
+  plans: 67,
+  executable: 57,
+  explicitBlockers: 10,
+  observations: 124,
+  rasters: 124,
+  reviews: 124,
 });
 const REQUIRED_FILES = Object.freeze([
   'action-packet-index.jsonl',
@@ -127,9 +131,10 @@ function validateSupplement(root) {
   assert(manifest.supplement_id === EXPECTED_SUPPLEMENT_ID && receipt.supplement_id === EXPECTED_SUPPLEMENT_ID, 'supplement identity mismatch');
   assert(manifest.supplement_version === '1.1', 'supplement version mismatch');
   assert(manifest.source_sha === EXPECTED_SOURCE_SHA, 'exact source SHA mismatch');
-  assert(manifest.status === EXPECTED_FINAL_STATUS && receipt.final_status === EXPECTED_FINAL_STATUS, 'normalization-synthesis gate is not ready');
-  assert(receipt.status === 'complete' && (receipt.blockers || []).length === 0, 'receipt is incomplete');
-  assert((manifest.blockers || []).length === 0, 'manifest still has readiness blockers');
+  assert(manifest.status === EXPECTED_FINAL_STATUS && receipt.final_status === EXPECTED_FINAL_STATUS, 'supplement did not preserve the incomplete evidence gate');
+  assert(receipt.status === 'partial', 'incomplete evidence receipt must remain partial');
+  assert(JSON.stringify(receipt.blockers || []) === JSON.stringify(EXPECTED_BLOCKERS), 'receipt readiness blockers changed or duplicated');
+  assert(JSON.stringify(manifest.blockers || []) === JSON.stringify(EXPECTED_BLOCKERS), 'manifest readiness blockers changed or duplicated');
   assert(receipt.manifest_sha256 === sha256(readBuffer(manifestPath)), 'receipt does not bind manifest bytes');
   assert(manifest.immutable_v1_modified === false, 'supplement claims immutable v1 mutation');
   assertBaseSnapshot(manifest.base_snapshot, 'manifest');
@@ -181,7 +186,7 @@ function validateSupplement(root) {
     visual_reviews: EXPECTED_COUNTS.reviews,
     rasters: EXPECTED_COUNTS.rasters,
   })) assert(manifest.counts?.[key] === expected, `manifest count mismatch: ${key}`);
-  for (const [key, expected] of Object.entries({ plans: 50, observations: 99, rasters: 99, reviews: 99, explicit_blockers: 5 })) {
+  for (const [key, expected] of Object.entries({ plans: EXPECTED_COUNTS.plans, observations: EXPECTED_COUNTS.observations, rasters: EXPECTED_COUNTS.rasters, reviews: EXPECTED_COUNTS.reviews, explicit_blockers: EXPECTED_COUNTS.explicitBlockers })) {
     assert(receipt.counts?.[key] === expected, `receipt count mismatch: ${key}`);
   }
 
@@ -228,24 +233,29 @@ function validateSupplement(root) {
   }
   assert(pageVerification.every((row) => observationMap.has(row.observation_id) && row.review_status === 'reviewed-full-resolution' && row.production_observed === false && row.production_equivalence === false), 'page-verification boundary or coverage mismatch');
   assert(actionPackets.every((row) => planMap.has(row.plan_id) && ['reviewed-full-resolution', 'not-applicable-no-raster'].includes(row.review_status)), 'action-packet index review mismatch');
-  assert(unresolved.every((row) => row.blocks_ready !== true), 'unresolved readiness blocker remains');
+  const blockingUnresolved = unresolved.filter((row) => row.blocks_ready === true);
+  assert(JSON.stringify(blockingUnresolved.map((row) => row.id)) === JSON.stringify(EXPECTED_BLOCKERS), 'unresolved readiness blockers changed, disappeared or duplicated');
+  assert(JSON.stringify(blockingUnresolved.map((row) => row.plan_id)) === JSON.stringify([
+    'behavior-packet.rail-keyboard-home-end',
+    'behavior-packet.breakpoint-container-runtime-coverage-gap',
+  ]), 'required readiness-blocking packet mapping changed');
 
   const humanReview = manifest.human_visual_review || {};
   assert(humanReview.required === true && humanReview.completed === true, 'human visual review is incomplete');
   assert(humanReview.perceptual_hash_is_not_review === true, 'human review/perceptual hash distinction missing');
-  assert(humanReview.raster_count === 99 && humanReview.reviewed_raster_count === 99, 'human visual review coverage mismatch');
+  assert(humanReview.raster_count === EXPECTED_COUNTS.rasters && humanReview.reviewed_raster_count === EXPECTED_COUNTS.reviews, 'human visual review coverage mismatch');
   assert(/^[a-f0-9]{64}$/u.test(humanReview.ledger_sha256 || ''), 'review ledger digest missing');
 
   const artifactIndex = readJson(path.join(root, 'artifact-index.json'));
   const artifactReceipt = readJson(path.join(root, 'artifact-receipt.json'));
   const independentAudit = readJson(path.join(root, 'independent-audit.json'));
   assert(artifactIndex.schema_version === EXPECTED_SCHEMA && artifactIndex.supplement_id === EXPECTED_SUPPLEMENT_ID, 'artifact index identity mismatch');
-  assert(artifactIndex.status === 'reviewed-durable', 'artifact index is not reviewed/durable');
+  assert(artifactIndex.status === 'reviewed-evidence-incomplete', 'artifact index did not preserve reviewed/incomplete state');
   assertBaseSnapshot(artifactIndex.base_snapshot, 'artifact index');
   assert(artifactReceipt.schema_version === EXPECTED_ARTIFACT_SCHEMA && artifactReceipt.supplement_id === EXPECTED_SUPPLEMENT_ID, 'artifact receipt identity mismatch');
-  assert(artifactReceipt.status === 'complete' && artifactReceipt.secret_scan?.status === 'PASS', 'artifact receipt is incomplete or secret scan failed');
+  assert(artifactReceipt.status === 'review-complete-evidence-incomplete' && artifactReceipt.secret_scan?.status === 'PASS', 'artifact receipt did not preserve review-complete/incomplete state or secret scan failed');
   assertBaseSnapshot(artifactReceipt.base_snapshot, 'artifact receipt');
-  assert(artifactReceipt.source_sha === EXPECTED_SOURCE_SHA && artifactReceipt.review_count === 99 && artifactReceipt.raster_count === 99, 'artifact receipt evidence counts mismatch');
+  assert(artifactReceipt.source_sha === EXPECTED_SOURCE_SHA && artifactReceipt.review_count === EXPECTED_COUNTS.reviews && artifactReceipt.raster_count === EXPECTED_COUNTS.rasters, 'artifact receipt evidence counts mismatch');
   assertArtifactMetadata(manifest.provenance, 'manifest provenance');
   assertArtifactMetadata(artifactIndex, 'artifact index', { requireAudit: false });
   assertArtifactMetadata(artifactReceipt, 'artifact receipt');
@@ -253,9 +263,9 @@ function validateSupplement(root) {
 
   const heavy = artifactIndex.entries?.filter((entry) => entry.storage === 'actions-and-permanent-heavy-artifact') || [];
   const compact = artifactIndex.entries?.filter((entry) => entry.storage === 'compact-supplement') || [];
-  assert(heavy.length === 99, 'artifact index does not contain all 99 heavy rasters');
+  assert(heavy.length === EXPECTED_COUNTS.rasters, `artifact index does not contain all ${EXPECTED_COUNTS.rasters} heavy rasters`);
   assertUnique(heavy, 'path', 'heavy raster entries');
-  assert(new Set(heavy.map((entry) => entry.observation_id)).size === 99, 'heavy raster observation references are not unique');
+  assert(new Set(heavy.map((entry) => entry.observation_id)).size === EXPECTED_COUNTS.observations, 'heavy raster observation references are not unique');
   for (const entry of heavy) {
     const observation = observationMap.get(entry.observation_id);
     assert(observation && entry.path === observation.screenshot.path && entry.sha256 === observation.screenshot.sha256 && entry.bytes === observation.screenshot.bytes, `heavy raster mismatch: ${entry.path}`);
