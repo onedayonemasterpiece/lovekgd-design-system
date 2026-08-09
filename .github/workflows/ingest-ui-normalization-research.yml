@@ -1,0 +1,73 @@
+name: Ingest UI normalization research sources
+
+on:
+  push:
+    branches:
+      - docs/ui-normalization-research-20260809
+    paths:
+      - research/_ingest/ui-normalization-2026-08-09.trigger
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingest-ui-normalization-research-20260809
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: docs/ui-normalization-research-20260809
+          fetch-depth: 0
+
+      - name: Decode and verify exact source documents
+        shell: bash
+        run: |
+          set -euo pipefail
+          target='research/2026-08-09-ui-normalization'
+          mkdir -p "$target"
+
+          materialize() {
+            local parts_dir="$1"
+            local output="$2"
+            local expected_sha="$3"
+            find "$parts_dir" -maxdepth 1 -type f -name '*.b64' -print0 \
+              | sort -z \
+              | xargs -0 cat \
+              | tr -d '\r\n' \
+              | base64 --decode > "$output"
+            printf '%s  %s\n' "$expected_sha" "$output" | sha256sum --check --strict
+          }
+
+          materialize \
+            research/_ingest/01 \
+            "$target/01-component-defragmentation-and-unification-best-practices.md" \
+            3302f0c5e8428d1ca48509826d34fc86cfcf535b7ab06160856c6e1447715081
+
+          materialize \
+            research/_ingest/02 \
+            "$target/02-external-evidence-ui-normalization-best-practices.md" \
+            c552ffdd6693266d2c8bf42a75a998e389190d0ba6d4f5b12f0b842ec711babb
+
+          materialize \
+            research/_ingest/03 \
+            "$target/03-evidence-based-normalization-charter.md" \
+            40cdc201cfd56e00dc8805ef333911e2bd80f62248cc4be8fc09b0f862e8da53
+
+          rm -rf research/_ingest
+          rm -f .github/workflows/ingest-ui-normalization-research.yml
+
+      - name: Commit materialized documents
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git diff --cached --check
+          git commit -m 'docs: materialize UI normalization research sources'
+          git push origin HEAD:docs/ui-normalization-research-20260809
