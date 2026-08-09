@@ -24,16 +24,15 @@
 - base manifest SHA-256: `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`;
 - expected immutable v1 Git tree: `e77fc2457fadfdffb46ed2d90304ebb91e89a715`;
 - import status: **reviewed append-only evidence imported**;
-- final status: `EVIDENCE_COLLECTION_INCOMPLETE`;
-- counts: 67 packet plans, 57 captured/reviewed, 10 explicit blockers, 124 observations/rasters/reviews;
-- manifest SHA-256: `c6c62cee8bea4e9440ff85bc75c46bc85cf5abf3e2fdcd4c7357c6ece916436f`.
+- final status: `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`;
+- counts: 293 terminal probes (236 PASS, 39 MISMATCH, 18 UNREACHABLE_WITH_REASON),
+  87 unresolved findings, zero readiness blockers, 134 observations/rasters/reviews;
+- manifest SHA-256: `c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1`.
 
-Все 124 raster прошли file-level full-resolution review; Actions artifact продублирован durable
+Все 134 raster прошли file-level full-resolution review; Actions artifact продублирован durable
 GitHub Release asset, independent audit имеет `PASS`, оба validator проходят. Путь никогда не
-вкладывается в immutable v1. Два уникальных readiness blocker удерживают статус
-`EVIDENCE_COLLECTION_INCOMPLETE`. Данные остаются `NOT_MERGED` и не разрешают
-merge/split/delete, normalization, tokens, experiment winner, Penpot или production
-Astro/CSS/JS mutation.
+вкладывается в immutable v1. Данные остаются `NOT_MERGED` и не разрешают физические component
+operations, tokens, experiment winner, Penpot или production Astro/CSS/JS mutation.
 
 Проверка:
 

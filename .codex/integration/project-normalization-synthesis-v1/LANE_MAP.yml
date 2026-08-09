@@ -1,0 +1,31 @@
+schema_version: project-normalization-lane-map.v1
+base_commit: 228126dd78a67a6f335272324dc90c1e680cd8c4
+requirements:
+  R01: charter
+  R02: corpus-dispositions
+  R03: family-registry
+  R04: product-value-binding
+  R05: prioritization
+  R06: dossiers
+  R07: decision-queue
+  R08: automation-docs-receipt
+  R09: independent-audit
+lanes:
+  - id: authority-map
+    mode: read-only
+    owns: [R01, R02]
+  - id: family-map
+    mode: read-only
+    owns: [R03, R06]
+  - id: value-map
+    mode: read-only
+    owns: [R04]
+  - id: delivery-map
+    mode: read-only
+    owns: [R05, R07, R08]
+  - id: integration
+    mode: serial-write
+    owns: [R01, R02, R03, R04, R05, R06, R07, R08]
+  - id: acceptance-audit
+    mode: read-only
+    owns: [R09]

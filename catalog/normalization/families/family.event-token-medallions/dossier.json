@@ -1,0 +1,174 @@
+{
+  "alternatives": [
+    {
+      "decision": "merge",
+      "disposition": "rejected_candidate",
+      "reason": "Shared data does not prove shared semantic or visual component identity."
+    },
+    {
+      "decision": "variant",
+      "disposition": "rejected_candidate_for_cross_consumer_resources",
+      "reason": "Would prematurely promote unrelated listing/exhibition/lab renderers as variants."
+    },
+    {
+      "decision": "split",
+      "disposition": "viable_future",
+      "reason": "May later extract token primitives, but current AS-IS evidence supports the event-detail composition first."
+    },
+    {
+      "decision": "composition",
+      "disposition": "recommended_candidate",
+      "reason": "Matches top/inline groups, roles, kinds and resolver behavior."
+    },
+    {
+      "decision": "preserve",
+      "disposition": "safe_interim",
+      "reason": "Keep all related resources separate until accepted evidence exists."
+    }
+  ],
+  "application_ids": [
+    "application.01c857606abbbadc",
+    "application.6512b51673937c00",
+    "application.925e3b070eb7e489",
+    "application.c0013289d9e0366c"
+  ],
+  "candidate_canonical_contract": {
+    "anatomy": [
+      "token-groups",
+      "optional-top-main-token",
+      "inline-token-group",
+      "token-media-or-pill"
+    ],
+    "axes": {
+      "cardinality": [
+        "zero",
+        "one",
+        "many",
+        "overflow"
+      ],
+      "identity_resolution": [
+        "resolved",
+        "conflicting_source_identity",
+        "ambiguous_venue_identity"
+      ],
+      "kind": [
+        "organizer",
+        "source",
+        "program",
+        "pushkin",
+        "badge",
+        "pill"
+      ],
+      "layout": [
+        "inline",
+        "desktop-slots"
+      ],
+      "role": [
+        "main",
+        "secondary"
+      ],
+      "slot": [
+        "top",
+        "inline"
+      ]
+    },
+    "invariants": [
+      "maximum one main top token",
+      "desktop slots exclude pills",
+      "identity conflicts fail closed",
+      "visible token cap preserves free admission",
+      "asset fallback remains explicit"
+    ]
+  },
+  "candidate_decision": "composition",
+  "compatibility_strategy": "Preserve event/layout/allowTopSlot props and all resolver ordering/filter invariants.",
+  "contract_diff": [
+    "Event-detail token composition is not equivalent to listing/exhibition/lab resources despite shared identity data.",
+    "Geometry is consumer-and-slot-scoped, not one global medallion size.",
+    "Resolver caps and filtering are current behavior, not final design tokens."
+  ],
+  "current_contract_ref": "candidate.event-token-medallions",
+  "decision": "NOT_MERGED",
+  "decision_accepted": false,
+  "decision_status": "candidate_not_accepted",
+  "dependencies": [
+    "organizerMedallions.json",
+    "festivalMedallions.json",
+    "eventMedallions.ts",
+    "desktop Event Detail slot geometry",
+    "Icon"
+  ],
+  "family_id": "family.event-token-medallions",
+  "finding_refs": [
+    "finding.decoder.component.5734f2285cf06960",
+    "finding.decoder.contract.event-token-medallions",
+    "finding.decoder.fragmentation.labels-badges",
+    "finding.decoder.fragmentation.medallions"
+  ],
+  "id": "dossier.event-token-medallions",
+  "implementation_refs": [
+    "component.5734f2285cf06960"
+  ],
+  "intentional_deltas": [
+    "No delta; preserve current consumer-specific geometry and fail-closed identity handling."
+  ],
+  "migration_map": [
+    "future canonical event-detail medallion composition",
+    "current EventTokenMedallions compatibility API",
+    "related consumer resources explicitly out of migration scope"
+  ],
+  "owner_required_decisions": [
+    {
+      "deadline_stage": "target_contract",
+      "question": "Which currently different consumer/slot geometries are intentional target values?",
+      "reason": "Runtime evidence proves the differences but cannot determine desired normalized geometry; external numeric scales were not adopted."
+    }
+  ],
+  "product_value_status": "pending_product_model",
+  "promotion_gate": [
+    "product-value binding no longer pending",
+    "consumer geometry decision receipt",
+    "identity conflict and overflow tests passed",
+    "visual/accessibility review passed"
+  ],
+  "promotion_ready": false,
+  "recommendation": "Preserve EventTokenMedallions as the event-detail identity/admission composition with inline and desktop-slot layouts. Keep listing, mobile-rail, exhibition and lab medallion-like resources separate until their own contracts prove equivalence.",
+  "removal_gate": [
+    "accepted family decision receipt",
+    "all event-detail consumers migrated",
+    "related resources either independently contracted or explicitly preserved",
+    "legacy import count zero"
+  ],
+  "requirement_refs": [
+    "immutable-decoder-v1",
+    "behavioral-supplement-v1.1-final-c676be4f"
+  ],
+  "rollback": "Restore current component import unchanged; no runtime mutation in synthesis.",
+  "runtime_mutation": false,
+  "schema_version": "project_normalization_family_dossier_v1",
+  "scope": {
+    "primary": [
+      "src/components/EventTokenMedallions.astro",
+      "src/lib/eventMedallions.ts"
+    ],
+    "related_not_equivalent": [
+      "src/components/listings/ListingEventCard.astro",
+      "src/components/listings/MobileListingRailRow.astro",
+      "src/components/ExhibitionPrototypeRow.astro",
+      "src/pages/lab/medallions/index.astro",
+      "src/pages/lab/design-system/index.astro"
+    ]
+  },
+  "test_matrix": [
+    "zero/one/many/overflow",
+    "inline main",
+    "desktop top on/off",
+    "secondary-only",
+    "kind matrix and desktop pill filter",
+    "overflow with free-admission retention",
+    "conflicting source and ambiguous venue",
+    "WebP fallback/no-fallback/vector primary",
+    "1023/1024 widths, 720/721 heights, 1279/1280 and 1439/1440 consumer bands",
+    "accessible group labels, image alt and links"
+  ]
+}

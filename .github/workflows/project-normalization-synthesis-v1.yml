@@ -1,0 +1,123 @@
+name: Validate Project Normalization Synthesis v1
+
+on:
+  push:
+    paths:
+      - 'catalog/normalization/**'
+      - 'catalog/component-decoder/behavioral-supplement-v1.1-*/**'
+      - 'contracts/project-normalization-charter.v1.json'
+      - 'contracts/product-value-evidence-binding.v1.schema.json'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/research/ui-normalization-2026-08/07-cross-research-synthesis-and-adoption.md'
+      - 'receipts/normalization/**'
+      - 'scripts/validate-project-normalization-synthesis-v1.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - '.github/workflows/project-normalization-synthesis-v1.yml'
+  pull_request:
+    paths:
+      - 'catalog/normalization/**'
+      - 'catalog/component-decoder/behavioral-supplement-v1.1-*/**'
+      - 'contracts/project-normalization-charter.v1.json'
+      - 'contracts/product-value-evidence-binding.v1.schema.json'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/research/ui-normalization-2026-08/07-cross-research-synthesis-and-adoption.md'
+      - 'receipts/normalization/**'
+      - 'scripts/validate-project-normalization-synthesis-v1.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - '.github/workflows/project-normalization-synthesis-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-normalization-synthesis-v1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout design-system synthesis
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout exact read-only product source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 66bc0d43e36299417626f992021cfb7299ddf704
+          path: _pinned-events-readonly
+          fetch-depth: 1
+
+      - name: Prove pinned product source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C _pinned-events-readonly rev-parse HEAD)" = '66bc0d43e36299417626f992021cfb7299ddf704'
+          test "$(git -C _pinned-events-readonly rev-parse HEAD^{tree})" = '72e24f49ad6642915131438de8c56b804c4826b0'
+          test "$(git -C _pinned-events-readonly rev-parse HEAD:site/src)" = 'd737458f8a87a9b7dad4f4badffd1b3f4ce544dd'
+          test "$(git -C _pinned-events-readonly rev-parse HEAD:site/public)" = 'f42a045ec9ff3b1b2f3396a4df9f54cc6a767934'
+          test -z "$(git -C _pinned-events-readonly status --porcelain)"
+
+      - name: Revalidate immutable Decoder v1
+        run: |
+          test "$(git rev-parse HEAD:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc)" = 'e77fc2457fadfdffb46ed2d90304ebb91e89a715'
+          node scripts/validate-component-decoder-snapshot.mjs \
+            catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc
+
+      - name: Validate final Behavioral Decoder v1.1 closure
+        run: |
+          node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
+            catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc
+
+      - name: Validate Project Normalization Synthesis v1
+        run: |
+          node scripts/validate-project-normalization-synthesis-v1.mjs . \
+            --events-repo _pinned-events-readonly
+
+      - name: Prove synthesis validator fails closed
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="${RUNNER_TEMP}/normalization-corruption-probe"
+          mkdir -p "$target"
+          git archive HEAD | tar -x -C "$target"
+          printf '\n' >> "$target/catalog/normalization/family-registry.jsonl"
+          if node "$target/scripts/validate-project-normalization-synthesis-v1.mjs" "$target" \
+            --events-repo "$GITHUB_WORKSPACE/_pinned-events-readonly"; then
+            echo 'validator accepted a modified registry' >&2
+            exit 1
+          fi
+
+      - name: Enforce analytical-only changed paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='228126dd78a67a6f335272324dc90c1e680cd8c4'
+          git diff --name-only "$base"...HEAD | while IFS= read -r file; do
+            case "$file" in
+              .codex/integration/project-normalization-synthesis-v1/*|\
+              .github/workflows/project-normalization-synthesis-v1.yml|\
+              README.md|RESULTS.md|\
+              catalog/component-decoder/README.md|\
+              catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/*|\
+              catalog/normalization/*|catalog/normalization/**/*|\
+              contracts/project-normalization-charter.v1.json|\
+              contracts/product-value-evidence-binding.v1.schema.json|\
+              docs/index.md|docs/source-first-component-decoder.md|\
+              docs/normalization/*|\
+              docs/research/ui-normalization-2026-08/07-cross-research-synthesis-and-adoption.md|\
+              receipts/normalization/*|\
+              scripts/validate-behavioral-decoder-supplement-v1-1.mjs|\
+              scripts/validate-project-normalization-synthesis-v1.mjs) ;;
+              *) echo "unexpected synthesis path: $file" >&2; exit 1 ;;
+            esac
+          done
+          test -z "$(git -C _pinned-events-readonly status --porcelain)"

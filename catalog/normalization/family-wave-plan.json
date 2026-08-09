@@ -1,0 +1,1692 @@
+{
+  "algorithm": {
+    "first_wave_rule": "exactly three evidence-complete domain families selected from ready_for_contract_decision; no experiment winner and no rail promotion",
+    "hard_gate_precedence": [
+      "experiment_dependent",
+      "implementation_gap_blocked",
+      "product_model_dependent",
+      "insufficient_evidence",
+      "ready_for_contract_decision"
+    ],
+    "score_formula": "round(sum(factor_0_to_5 * weight) / 5)",
+    "tie_break": [
+      "score_desc",
+      "evidence_completeness_desc",
+      "blast_radius_safety_desc",
+      "family_id_asc"
+    ],
+    "weights": {
+      "blast_radius_safety": 5,
+      "consumer_reach": 10,
+      "dependency_leverage": 15,
+      "evidence_completeness": 20,
+      "experiment_readiness": 5,
+      "finding_urgency": 10,
+      "product_model_independence": 5,
+      "product_value_readiness": 5,
+      "reversibility": 10,
+      "semantic_clarity": 15
+    }
+  },
+  "category_counts": {
+    "experiment_dependent": 2,
+    "implementation_gap_blocked": 6,
+    "insufficient_evidence": 25,
+    "product_model_dependent": 9,
+    "ready_for_contract_decision": 5
+  },
+  "decision": "NOT_MERGED",
+  "families": [
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "ready_for_contract_decision",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 5,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 5
+      },
+      "family_id": "family.event-detail-presentation",
+      "id": "wave-family.event-detail-presentation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 7,
+        "contract_count": 1,
+        "dependency_count": 27,
+        "finding_count": 15,
+        "terminal_probe_counts": {
+          "MISMATCH": 9,
+          "PASS": 43
+        }
+      },
+      "score": 84,
+      "selected_first_wave": true
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "split"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 0,
+        "consumer_reach": 5,
+        "dependency_leverage": 4,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.event-preview-representations",
+      "id": "wave-family.event-preview-representations",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 4,
+        "consumer_count": 19,
+        "contract_count": 1,
+        "dependency_count": 11,
+        "finding_count": 7,
+        "terminal_probe_counts": {}
+      },
+      "score": 74,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "ready_for_contract_decision",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 5
+      },
+      "family_id": "family.event-media",
+      "id": "wave-family.event-media",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 3,
+        "contract_count": 1,
+        "dependency_count": 4,
+        "finding_count": 6,
+        "terminal_probe_counts": {}
+      },
+      "score": 73,
+      "selected_first_wave": true
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "ready_for_contract_decision",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 3,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 4,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 5
+      },
+      "family_id": "family.event-token-medallions",
+      "id": "wave-family.event-token-medallions",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 4,
+        "contract_count": 1,
+        "dependency_count": 6,
+        "finding_count": 4,
+        "terminal_probe_counts": {}
+      },
+      "score": 72,
+      "selected_first_wave": true
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "ready_for_contract_decision",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 4,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 5
+      },
+      "family_id": "family.search-results",
+      "id": "wave-family.search-results",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 1,
+        "contract_count": 1,
+        "dependency_count": 5,
+        "finding_count": 4,
+        "terminal_probe_counts": {}
+      },
+      "score": 70,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "experiment_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 1,
+        "consumer_reach": 4,
+        "dependency_leverage": 4,
+        "evidence_completeness": 4,
+        "experiment_readiness": 0,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.transport-kaup-schedule",
+      "id": "wave-family.transport-kaup-schedule",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 8,
+        "contract_count": 1,
+        "dependency_count": 11,
+        "finding_count": 17,
+        "terminal_probe_counts": {
+          "MISMATCH": 2,
+          "PASS": 4
+        }
+      },
+      "score": 65,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.transport-rail-schedule",
+      "id": "wave-family.transport-rail-schedule",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 2,
+        "contract_count": 1,
+        "dependency_count": 4,
+        "finding_count": 3,
+        "terminal_probe_counts": {
+          "PASS": 6
+        }
+      },
+      "score": 64,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.favorites-saved-events",
+      "id": "wave-family.favorites-saved-events",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 1,
+        "contract_count": 1,
+        "dependency_count": 4,
+        "finding_count": 3,
+        "terminal_probe_counts": {
+          "PASS": 7
+        }
+      },
+      "score": 63,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 0,
+        "consumer_reach": 5,
+        "dependency_leverage": 3,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.personalization-and-feed",
+      "id": "wave-family.personalization-and-feed",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 3,
+        "consumer_count": 16,
+        "contract_count": 0,
+        "dependency_count": 5,
+        "finding_count": 12,
+        "terminal_probe_counts": {
+          "MISMATCH": 3,
+          "PASS": 9
+        }
+      },
+      "score": 63,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.amber-artifacts",
+      "id": "wave-family.amber-artifacts",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 2,
+        "contract_count": 1,
+        "dependency_count": 2,
+        "finding_count": 12,
+        "terminal_probe_counts": {
+          "UNREACHABLE_WITH_REASON": 8
+        }
+      },
+      "score": 62,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.focus-egg-artifacts",
+      "id": "wave-family.focus-egg-artifacts",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 2,
+        "contract_count": 1,
+        "dependency_count": 2,
+        "finding_count": 5,
+        "terminal_probe_counts": {
+          "PASS": 6
+        }
+      },
+      "score": 62,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 1,
+        "consumer_reach": 4,
+        "dependency_leverage": 4,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.focus-group-workflows",
+      "id": "wave-family.focus-group-workflows",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 5,
+        "consumer_count": 9,
+        "contract_count": 0,
+        "dependency_count": 10,
+        "finding_count": 6,
+        "terminal_probe_counts": {
+          "PASS": 16
+        }
+      },
+      "score": 62,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "experiment_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 3,
+        "evidence_completeness": 4,
+        "experiment_readiness": 0,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.event-actions",
+      "id": "wave-family.event-actions",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 3,
+        "consumer_count": 4,
+        "contract_count": 1,
+        "dependency_count": 6,
+        "finding_count": 7,
+        "terminal_probe_counts": {
+          "PASS": 7
+        }
+      },
+      "score": 61,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 3,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.listing-rails",
+      "id": "wave-family.listing-rails",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 4,
+        "contract_count": 0,
+        "dependency_count": 6,
+        "finding_count": 6,
+        "terminal_probe_counts": {
+          "PASS": 7
+        }
+      },
+      "score": 61,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "implementation_gap_blocked",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 2
+      },
+      "family_id": "family.exhibitions-personal",
+      "id": "wave-family.exhibitions-personal",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 6,
+        "finding_count": 8,
+        "terminal_probe_counts": {
+          "MISMATCH": 6,
+          "PASS": 8
+        }
+      },
+      "score": 60,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "composition"
+      },
+      "category": "ready_for_contract_decision",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 1,
+        "consumer_reach": 4,
+        "dependency_leverage": 2,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 5
+      },
+      "family_id": "family.brand-identity",
+      "id": "wave-family.brand-identity",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 8,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 3,
+        "terminal_probe_counts": {}
+      },
+      "score": 60,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 4,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.transport-bus-schedule",
+      "id": "wave-family.transport-bus-schedule",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 2,
+        "contract_count": 1,
+        "dependency_count": 3,
+        "finding_count": 3,
+        "terminal_probe_counts": {
+          "PASS": 9
+        }
+      },
+      "score": 59,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.interest-club-catalog",
+      "id": "wave-family.interest-club-catalog",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 5,
+        "finding_count": 13,
+        "terminal_probe_counts": {
+          "UNREACHABLE_WITH_REASON": 10
+        }
+      },
+      "score": 58,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 2,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.event-facts-and-participants",
+      "id": "wave-family.event-facts-and-participants",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 5,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 5,
+        "terminal_probe_counts": {
+          "MISMATCH": 3,
+          "PASS": 3
+        }
+      },
+      "score": 55,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 5,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 4,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.listing-surfaces",
+      "id": "wave-family.listing-surfaces",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 6,
+        "contract_count": 0,
+        "dependency_count": 21,
+        "finding_count": 4,
+        "terminal_probe_counts": {}
+      },
+      "score": 55,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.mobile-menu",
+      "id": "wave-family.mobile-menu",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 5,
+        "finding_count": 2,
+        "terminal_probe_counts": {
+          "PASS": 13
+        }
+      },
+      "score": 54,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.bottom-navigation",
+      "id": "wave-family.bottom-navigation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 2,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 3,
+        "terminal_probe_counts": {
+          "PASS": 3
+        }
+      },
+      "score": 54,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.editorial-collections",
+      "id": "wave-family.editorial-collections",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 2,
+        "contract_count": 0,
+        "dependency_count": 5,
+        "finding_count": 3,
+        "terminal_probe_counts": {
+          "PASS": 4
+        }
+      },
+      "score": 54,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 3,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.listing-controls-and-navigation",
+      "id": "wave-family.listing-controls-and-navigation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 2,
+        "consumer_count": 7,
+        "contract_count": 0,
+        "dependency_count": 4,
+        "finding_count": 12,
+        "terminal_probe_counts": {}
+      },
+      "score": 54,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 2,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 4,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.event-grid",
+      "id": "wave-family.event-grid",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 4,
+        "terminal_probe_counts": {
+          "MISMATCH": 3
+        }
+      },
+      "score": 51,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 2,
+        "evidence_completeness": 3,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.home-hero",
+      "id": "wave-family.home-hero",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 1,
+        "terminal_probe_counts": {
+          "PASS": 3
+        }
+      },
+      "score": 50,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.design-system-primitives",
+      "id": "wave-family.design-system-primitives",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 2,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 6,
+        "terminal_probe_counts": {}
+      },
+      "score": 50,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 3,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 3,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.pwa-lifecycle",
+      "id": "wave-family.pwa-lifecycle",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 5,
+        "finding_count": 3,
+        "terminal_probe_counts": {}
+      },
+      "score": 49,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.popular-listing-layouts",
+      "id": "wave-family.popular-listing-layouts",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 6,
+        "finding_count": 5,
+        "terminal_probe_counts": {}
+      },
+      "score": 49,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 0,
+        "consumer_reach": 5,
+        "dependency_leverage": 1,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.iconography",
+      "id": "wave-family.iconography",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 24,
+        "contract_count": 0,
+        "dependency_count": 1,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 48,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 5,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.listing-chronology",
+      "id": "wave-family.listing-chronology",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 5,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 5,
+        "terminal_probe_counts": {}
+      },
+      "score": 47,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 2,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.weather-date-context",
+      "id": "wave-family.weather-date-context",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 1,
+        "terminal_probe_counts": {
+          "PASS": 4
+        }
+      },
+      "score": 46,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.home-feed",
+      "id": "wave-family.home-feed",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 4,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 45,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 2,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.event-occurrence",
+      "id": "wave-family.event-occurrence",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 6,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 45,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.prelaunch-surface",
+      "id": "wave-family.prelaunch-surface",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 6,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 44,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 3,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.site-footer",
+      "id": "wave-family.site-footer",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 6,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 44,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 2,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.calendar-action",
+      "id": "wave-family.calendar-action",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 1,
+        "consumer_count": 4,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 43,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 2,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.social-share",
+      "id": "wave-family.social-share",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 41,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.unusual-listing",
+      "id": "wave-family.unusual-listing",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 41,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 1,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.onboarding-placement",
+      "id": "wave-family.onboarding-placement",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 1,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 40,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.auth-runtime",
+      "id": "wave-family.auth-runtime",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 3,
+        "contract_count": 0,
+        "dependency_count": 3,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 40,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.event-keyboard-navigation",
+      "id": "wave-family.event-keyboard-navigation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 2,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 40,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 1,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.home-quick-navigation",
+      "id": "wave-family.home-quick-navigation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 1,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 38,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "product_model_dependent",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 0,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 3
+      },
+      "family_id": "family.interest-profile",
+      "id": "wave-family.interest-profile",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 38,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 3,
+        "consumer_reach": 2,
+        "dependency_leverage": 2,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.focus-diagnostics",
+      "id": "wave-family.focus-diagnostics",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 2,
+        "contract_count": 0,
+        "dependency_count": 2,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 38,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 2,
+        "consumer_reach": 3,
+        "dependency_leverage": 1,
+        "evidence_completeness": 0,
+        "experiment_readiness": 5,
+        "finding_urgency": 2,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.breadcrumb-navigation",
+      "id": "wave-family.breadcrumb-navigation",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 6,
+        "contract_count": 0,
+        "dependency_count": 1,
+        "finding_count": 2,
+        "terminal_probe_counts": {}
+      },
+      "score": 38,
+      "selected_first_wave": false
+    },
+    {
+      "candidate_decision": {
+        "accepted": false,
+        "value": "preserve"
+      },
+      "category": "insufficient_evidence",
+      "decision": "NOT_MERGED",
+      "factors": {
+        "blast_radius_safety": 4,
+        "consumer_reach": 1,
+        "dependency_leverage": 0,
+        "evidence_completeness": 1,
+        "experiment_readiness": 5,
+        "finding_urgency": 1,
+        "product_model_independence": 5,
+        "product_value_readiness": 0,
+        "reversibility": 5,
+        "semantic_clarity": 1
+      },
+      "family_id": "family.toast-region",
+      "id": "wave-family.toast-region",
+      "product_value_status": "pending_product_model",
+      "promotion_ready": false,
+      "raw_inputs": {
+        "behavior_contract_count": 0,
+        "consumer_count": 1,
+        "contract_count": 0,
+        "dependency_count": 0,
+        "finding_count": 1,
+        "terminal_probe_counts": {}
+      },
+      "score": 35,
+      "selected_first_wave": false
+    }
+  ],
+  "first_wave_family_ids": [
+    "family.event-detail-presentation",
+    "family.event-media",
+    "family.event-token-medallions"
+  ],
+  "product_value_gate_mode": "observe",
+  "promotion_ready_family_ids": [],
+  "schema_version": "project_normalization_family_wave_plan_v1"
+}

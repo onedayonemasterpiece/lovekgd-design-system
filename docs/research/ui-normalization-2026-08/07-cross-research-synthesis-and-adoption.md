@@ -339,3 +339,20 @@ selection, an experiment winner, Penpot mutation or production Astro/CSS/JS chan
 conflicts remain evidence for the later project-specific synthesis rather than silent fixes.
 The two readiness blockers prevent `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`; the 25 other
 visual conflict rows are retained non-readiness evidence, not silently reclassified blockers.
+
+## 9. Behavioral closure supersession receipt
+
+Section 8 preserves the first append-only import receipt. Its two evidence blockers and incomplete
+status are superseded by the exact closure at `events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704`:
+
+- Actions run `31327863197`, capture head `14be44b108ab4bd0b20d6dd95a20bcc4250adb95`;
+- decoded UI source `ef7aa62e45c60f7a12da6160f490719c0721ec03`;
+- final manifest SHA-256 `c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1`;
+- 293 terminal probes: 236 PASS, 39 MISMATCH, 18 UNREACHABLE_WITH_REASON;
+- 87 unresolved findings, zero readiness blockers;
+- 134/134 full-resolution raster reviews;
+- final evidence status `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`.
+
+The closure authorizes only the project-specific analytical synthesis. It does not change any
+candidate contract from `NOT_MERGED`, select an experiment winner, accept foundations, mutate
+production UI, remove legacy, or change Penpot.
