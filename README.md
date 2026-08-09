@@ -101,6 +101,7 @@ Reviewed compact snapshot: [`catalog/component-decoder/decoder-v1-snapshot-20260
 - [Source-first component decoder](docs/source-first-component-decoder.md)
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
+- [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
 
 ## Инструментальные роли
 
