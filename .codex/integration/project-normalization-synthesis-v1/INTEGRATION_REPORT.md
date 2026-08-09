@@ -26,7 +26,7 @@
 - Project Normalization Synthesis validator with audit pending: PASS (107 paths; 47 families; 239 applications; 222 canonical dispositions / 279 raw refs; 2 first-wave dossiers; 4 queue rows).
 - Product-value Draft 2020-12 schema: 239/239 application rows valid; all product archetype IDs null and all authoritative product foreign-key arrays empty.
 - Node syntax, workflow YAML, JSON/JSONL parse, output hashes/record counts, deterministic category/score replay, corruption rejection, `git diff --check`, forbidden status scan and forbidden path scan: PASS.
-- Independent audit: pending on the implementation commit.
+- Independent audit: PASS on `58e9e5683e0415c3052e62bcb007ecfb2cf7db3a`; report is hash-bound by the strict validator.
 
 ## STOP boundary
 

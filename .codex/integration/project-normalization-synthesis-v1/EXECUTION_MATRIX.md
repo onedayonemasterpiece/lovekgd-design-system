@@ -15,6 +15,6 @@ Pinned inputs:
 | R06 | Full dossiers | family map | dossier lane | dossier schema/references | Done |
 | R07 | Decision queue | delivery map | decision queue | owner only when evidence cannot decide | Done |
 | R08 | Automation, docs, receipt | delivery map | integration lane | deep validator/workflow | Done (audit-pending receipt) |
-| R09 | Independent acceptance audit | independent reviewer | read-only final lane | original requirements + diff | pending |
+| R09 | Independent acceptance audit | independent reviewer | read-only final lane | original requirements + diff | Done |
 
 Strict STOP: no production source mutation, no physical defragmentation, no winner selection, no tokens, no Penpot, no invented product-model IDs, no automatic next phase.
