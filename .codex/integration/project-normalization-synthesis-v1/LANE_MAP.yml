@@ -1,0 +1,109 @@
+schema_version: project-normalization-lane-map.v1
+mode: serial_integrator_with_parallel_read_only_mapping
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: 228126dd78a67a6f335272324dc90c1e680cd8c4
+base_branch: main
+integration_branch: docs/project-normalization-synthesis-v1
+global_constraints:
+  - analytical_only
+  - no_production_ui_mutation
+  - no_component_merge_or_split
+  - no_tokens_or_penpot
+  - no_experiment_winner
+  - no_product_entity_invention
+verification_owner: primary integrator; independent acceptance-audit owns final PASS
+stop_conditions:
+  - any product foreign key not resolved by the pinned product authority
+  - any unresolved source record or logical component disposition
+  - any mutation of immutable Decoder v1 or production site/src/site/public
+lanes:
+  - id: authority-map
+    role: planner
+    agent: normalization_authority_map
+    effort: high
+    requirement_ids: [R01, R02]
+    target: charter conclusions and exact-once findings identities
+    depends_on: []
+    execution_mode: parallel_read_only
+    branch: null
+    worktree: shared-read-only
+    writable_files: []
+    forbidden_files: ['**/*']
+    expected_output: authority hashes, conclusion dispositions, 222/279 identity rules
+    verification_scope: inspection_only
+    status: merged
+  - id: family-map
+    role: planner
+    agent: normalization_family_map
+    effort: high
+    requirement_ids: [R03, R06]
+    target: 107-to-family map and candidate dossier seeds
+    depends_on: [authority-map]
+    execution_mode: parallel_read_only
+    branch: null
+    worktree: shared-read-only
+    writable_files: []
+    forbidden_files: ['**/*']
+    expected_output: 47-family registry seed and first-wave dossier evidence
+    verification_scope: inspection_only
+    status: merged
+  - id: value-map
+    role: planner
+    agent: normalization_value_map
+    effort: high
+    requirement_ids: [R04]
+    target: product authority census and observe-mode binding rules
+    depends_on: []
+    execution_mode: parallel_read_only
+    branch: null
+    worktree: shared-read-only
+    writable_files: []
+    forbidden_files: ['**/*']
+    expected_output: empty authoritative allowlist and fail-closed schema invariants
+    verification_scope: inspection_only
+    status: merged
+  - id: delivery-map
+    role: planner
+    agent: normalization_delivery_map
+    effort: high
+    requirement_ids: [R05, R07, R08]
+    target: prioritization, queue, receipt, validator and delivery model
+    depends_on: [authority-map, family-map, value-map]
+    execution_mode: read_only_until_dependency
+    branch: null
+    worktree: shared-read-only
+    writable_files: []
+    forbidden_files: ['**/*']
+    expected_output: deterministic wave algorithm and delivery gates
+    verification_scope: inspection_only
+    status: merged
+  - id: integration
+    role: merge_reviewer
+    agent: root
+    effort: xhigh
+    requirement_ids: [R01, R02, R03, R04, R05, R06, R07, R08]
+    target: complete synthesis tree
+    depends_on: [authority-map, family-map, value-map, delivery-map]
+    execution_mode: serial_after_dependency
+    branch: docs/project-normalization-synthesis-v1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/project-normalization-synthesis-v1
+    writable_files: [docs/normalization, contracts, catalog/normalization, receipts/normalization, scripts, .github/workflows, approved indexes, .codex/integration]
+    forbidden_files: [penpot, prototypes, site/src, site/public]
+    expected_output: committed validator-clean analytical synthesis
+    verification_scope: full_local
+    status: committed
+  - id: acceptance-audit
+    role: reviewer
+    agent: normalization_final_audit
+    effort: xhigh
+    requirement_ids: [R09]
+    target: original requirements, final diff, hashes and integration report
+    depends_on: [integration]
+    execution_mode: serial_after_dependency
+    branch: null
+    worktree: shared-read-only
+    writable_files: []
+    forbidden_files: ['**/*']
+    expected_output: independent PASS/FAIL report with exact findings
+    verification_scope: full_local
+    status: committed

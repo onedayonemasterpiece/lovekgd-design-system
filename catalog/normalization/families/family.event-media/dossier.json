@@ -1,0 +1,155 @@
+{
+  "alternatives": [
+    {
+      "decision": "merge",
+      "disposition": "rejected_candidate",
+      "reason": "A homogeneous gallery/rail would erase poster-vs-photo semantics and validated scale differences."
+    },
+    {
+      "decision": "variant",
+      "disposition": "viable_but_not_recommended",
+      "reason": "Variant naming alone does not express composition and consumer ownership."
+    },
+    {
+      "decision": "split",
+      "disposition": "viable_but_not_recommended",
+      "reason": "Separate primitives may exist later, but current target should first preserve one media composition contract."
+    },
+    {
+      "decision": "composition",
+      "disposition": "recommended_candidate",
+      "reason": "Directly represents primary, companion poster and small preview roles."
+    },
+    {
+      "decision": "preserve",
+      "disposition": "safe_interim",
+      "reason": "Required until implementation is separately authorized."
+    }
+  ],
+  "application_ids": [
+    "application.139230cad3f58ed4",
+    "application.3df5fd556b837e06",
+    "application.5655a22fd7e94f98"
+  ],
+  "candidate_canonical_contract": {
+    "anatomy": [
+      "primary-large-frame",
+      "poster-companion",
+      "remaining-photo-preview-rail"
+    ],
+    "fit_contract": [
+      "cover-primary-photo",
+      "contain-identity-poster",
+      "aspect-aware-small-preview"
+    ],
+    "resource_formats": [
+      "primary-large-frame",
+      "editorial-large-poster-companion",
+      "editorial-small-photo-rail",
+      "editorial-small-companion-previews",
+      "split-small-photo-rail"
+    ],
+    "state_axes": {
+      "primary_media": [
+        "available",
+        "fallback"
+      ],
+      "selection": [
+        "first",
+        "alternate"
+      ]
+    }
+  },
+  "candidate_decision": "composition",
+  "compatibility_strategy": "Retain current image-set and presentation inputs; introduce no global ratio or fit token.",
+  "consumers": [
+    "src/components/DesktopEventPage.astro",
+    "src/components/EventHero.astro",
+    "src/pages/lab/design-system/index.astro"
+  ],
+  "contract_diff": [
+    "The poster preview is a large companion resource; remaining photos are small preview resources.",
+    "Media identity and consumer context determine fit and geometry; equal thumbnail treatment is invalid.",
+    "Fallback is a media state, not a new component family."
+  ],
+  "current_contract_ref": "candidate.event-media",
+  "decision": "NOT_MERGED",
+  "decision_accepted": false,
+  "decision_status": "candidate_not_accepted",
+  "dependencies": [
+    "family.event-detail-presentation",
+    "media policy matrix",
+    "EventFallbackArt"
+  ],
+  "family_id": "family.event-media",
+  "finding_refs": [
+    "finding.behavioral.unresolved.167491084198e7f5",
+    "finding.behavioral.unresolved.2db15769126cd403",
+    "finding.decoder.component.aa852ac870a2ecec",
+    "finding.decoder.component.aca01b9f7c58d696",
+    "finding.decoder.contract.event-media",
+    "finding.decoder.fragmentation.media-treatments"
+  ],
+  "id": "dossier.event-media",
+  "implementation_refs": [
+    "component.aca01b9f7c58d696",
+    "component.aa852ac870a2ecec"
+  ],
+  "intentional_deltas": [
+    "No delta; explicitly preserve the large poster companion and small remaining-photo preview distinction."
+  ],
+  "migration_map": [
+    "future media composition boundary inside DesktopEventPage",
+    "optional future primary/poster/preview subcomponents",
+    "unchanged event-detail consumer API"
+  ],
+  "owner_required_decisions": [],
+  "product_value_status": "pending_product_model",
+  "promotion_gate": [
+    "product-value binding no longer pending",
+    "consumer media policy accepted",
+    "responsive selector findings reconciled",
+    "visual/accessibility tests passed"
+  ],
+  "promotion_ready": false,
+  "recommendation": "Model Event Detail media as a composition of semantically different resources: primary large photo/fallback, large poster companion, and small remaining-photo previews. Preserve cover/contain/aspect-aware policies by consumer and media type.",
+  "removal_gate": [
+    "accepted composition receipt",
+    "all media consumer roles bound",
+    "no equal-size-preview regression",
+    "old internal path consumer count zero"
+  ],
+  "requirement_refs": [
+    "immutable-decoder-v1",
+    "behavioral-supplement-v1.1-final-c676be4f"
+  ],
+  "rollback": "Keep media rendering inside DesktopEventPage; analysis creates no runtime delta.",
+  "routes": [
+    "/lab/design-system/",
+    "/lab/event-desktop/examples/:scenario/",
+    "/lab/event-mobile/examples/:variant/:scenario/",
+    "/lab/hero/",
+    "/lab/hero/review/:caseId/",
+    "/sobytiya/:slug/"
+  ],
+  "runtime_mutation": false,
+  "schema_version": "project_normalization_family_dossier_v1",
+  "scope": {
+    "consumer": "src/pages/sobytiya/[slug].astro",
+    "primary": [
+      "src/components/DesktopEventPage.astro",
+      "src/components/EventMediaRail.astro",
+      "src/components/EventFallbackArt.astro"
+    ]
+  },
+  "test_matrix": [
+    "landscape primary photo",
+    "portrait/square poster",
+    "editorial large poster companion",
+    "small remaining-photo previews",
+    "split small photo rail",
+    "missing/broken/tiny image fallbacks",
+    "active preview semantics and alt text",
+    "consumer-scoped responsive breakpoints and overflow"
+  ]
+}

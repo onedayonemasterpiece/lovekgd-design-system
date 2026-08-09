@@ -1,21 +1,27 @@
-# Current UI Behavioral Decoder & Experiment Archaeology v1.1
+# Current UI Behavioral Decoder v1.1 closure audit
 
-- Supplement: `behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc`
-- Immutable Decoder v1 manifest SHA-256: `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`
-- Exact source SHA: `ef7aa62e45c60f7a12da6160f490719c0721ec03`
-- Status: **EVIDENCE_COLLECTION_INCOMPLETE**
-- Behavioral packets: 67 (10 exact blockers)
-- Captured phases / rasters: 124
-- Full-resolution visual reviews: 124
-- Family counts: `{"mobile-menu":7,"disclosure":2,"overlay":1,"selection":4,"rail":4,"sticky":7,"cta":6,"transport":6,"media":8,"loading":9}`
-- Actions run: https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/31318132051
-- Permanent evidence: https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-run-31318132051/current-ui-behavioral-decoder-v1-1-capture-31318132051.zip
-- Independent audit: PASS
+- Final status: **READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS**
+- Exact UI source: `ef7aa62e45c60f7a12da6160f490719c0721ec03`
+- Prior reviewed supplement manifest: `c6c62cee8bea4e9440ff85bc75c46bc85cf5abf3e2fdcd4c7357c6ece916436f`
+- Browser probes: **293/293 terminal** — PASS 236, MISMATCH 39, UNREACHABLE_WITH_REASON 18; planned/unconfirmed 0.
+- Probe surface: 32 source paths; 272 media / 21 container; 273 numeric / 20 nonnumeric.
+- New raster evidence: 10; all full-resolution reviewed: **yes**.
+- Rail: ordinary focusable scrollable content list; Home/End is non-required and nonblocking. Tab/focus, Like Space/Enter, Arrow boundaries and current implementation gaps are recorded.
+- Blocking unresolved records: 0.
+- Actions evidence: https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/31327863197.
+- Durable Release evidence: https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-closure-run-31327863197/current-ui-behavioral-decoder-v1-1-closure-31327863197.zip.
+- Independent audit: PASS.
 
-## Evidence boundary
+## Research synthesis publication
 
-This is append-only AS-IS behavioral evidence. Controlled exact-source runtime does not become production observation. Explicit blockers remain blockers rather than synthetic captures. The supplement does not authorize merge, split, deletion, normalization, tokenization, Penpot mutation, production Astro/CSS/JS changes, or an experiment winner.
+R-07 is already published on design-system main `f9cb3c931d6f2200f0a4221f5130b3a6299f7005` after PR #28:
 
-## Required reconciliation retained
+- `docs/research/ui-normalization-2026-08/07-cross-research-synthesis-and-adoption.md` (SHA-256 `cc1997ec4ab024a6fcba3e9b6d5c7632e0a367ed15b80ea2347e4f5bac01d944`)
+- `docs/research/ui-normalization-2026-08/README.md`
+- https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/28
 
-The 4:5 EventCard and 5:4 mobile-rail specimens remain separate consumer contracts. Editorial/landscape and split/portrait Event Detail keep different CTA anatomy. All three transport treatments remain controlled-only and NOT_MERGED; production remains forced off without a winner receipt.
+No design-system research file was rewritten by this closure.
+
+## Strict STOP
+
+No production Astro/CSS/JS was changed. The rail was not fixed, components were not defragmented, experiment winners were not selected, tokens/Penpot were not created or changed, and normalization was not started. Every experimental record remains NOT_MERGED. MISMATCH and UNREACHABLE_WITH_REASON are truthful nonblocking terminal evidence dispositions, not PASS or implementation decisions.

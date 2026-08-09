@@ -33,12 +33,10 @@ catalog/component-decoder/
 ```
 
 Reviewed v1.1 импортирован как evidence-запись с финальным статусом
-`EVIDENCE_COLLECTION_INCOMPLETE`. Все заявленные output bytes/SHA проходят отдельный validator,
-124/124 raster имеют file-level `reviewed-full-resolution`, Actions artifact продублирован
-durable GitHub Release asset, secret scan прошёл, independent audit имеет `PASS`. Два уникальных
-readiness blocker сохранены: отсутствует рабочее native `End`/`Home` поведение mobile rail, а
-полная 293-row breakpoint/container matrix не имеет отдельного truthful runtime probe для каждой
-строки.
+`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`. Все 293 probes имеют terminal disposition
+(236 PASS, 39 MISMATCH, 18 UNREACHABLE_WITH_REASON), 87 unresolved records имеют zero
+readiness blockers, 134/134 raster имеют file-level `reviewed-full-resolution`, Actions artifact
+продублирован durable GitHub Release asset, secret scan прошёл, independent audit имеет `PASS`.
 
 Проверка после импорта:
 
@@ -50,10 +48,9 @@ node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
 Отдельный workflow одновременно повторно проверяет v1 и требует его исходный Git tree
 `e77fc2457fadfdffb46ed2d90304ebb91e89a715`. Behavioral supplement не добавляет, не удаляет,
 не объединяет и не делит компоненты v1; controlled runtime не объявляется production evidence.
-Текущий статус не разрешает следующий project normalization synthesis и тем более не означает
-`READY_FOR_PHYSICAL_DEFRAGMENTATION`. Даже возможный будущий
-`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` будет означать только аналитическую готовность, а не
-автоматическое физическое изменение компонентов.
+Статус разрешает только отдельный аналитический project normalization synthesis и не означает
+автоматическое физическое изменение компонентов. Результат synthesis хранится в
+[`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md).
 
 Воспроизводимая проверка compact tree:
 
