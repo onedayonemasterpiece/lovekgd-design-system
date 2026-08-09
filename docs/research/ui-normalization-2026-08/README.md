@@ -15,6 +15,7 @@
 | R-03 | [Best practices дефрагментации и унификации UI-компонентов](03-ui-component-defragmentation-best-practices.md) | методика inventory → family decision → contract → compatible migration → deprecation |
 | R-04 | [Внешний доказательный корпус best practices](04-external-evidence-corpus.md) | корпус источников, шкала силы evidence и границы доступности источников |
 | R-05 | [Evidence-based Normalization Charter для «Полюбить Калининград Анонсы»](05-normalization-charter-lovekgd.md) | charter, привязанный к reviewed decoder snapshot и project evidence |
+| R-06 | [Глубокое исследование: Best practices дефрагментации и унификации UI-компонентов](06-deep-ui-component-defragmentation-research.md) | самостоятельный deep-dive: архитектура перехода, lifecycle и безопасная миграция UI-компонентов |
 
 ## Provenance и дедупликация
 
@@ -26,5 +27,6 @@
 | `5c4de553-8365-4edb-a0c8-fcded1d99488/pasted-text.txt` | R-03 | `6a27613d9bd66c87f16046a91b14a62334251565aeb0c204197d2a95ade60110` |
 | `acee2202-c3b5-4bc8-a932-3ef825acb962/pasted-text.txt` | R-04 | `189ed301d03d9acfc93a0effc8abc9e98e240b771d1ab4b43f2bb485cb6382e0` |
 | `23c3c597-5c5b-46f2-9e4f-84f262a2cbc2/pasted-text.txt` | R-05 | `afd640e09f38366d0581dc8f3f4dc1f835da0d8af03de847a5b039e5576339ea` |
+| `e6dfc5b6-cdd1-435b-a28f-a16e2528728d/pasted-text.txt` | R-06 | `b2f3a119329f165af32858bb724449945cc5cc16d4a8be922537008c58e26fb2` |
 
 Идентичные SHA-256 R-02 и duplicate подтверждают byte-for-byte дубликат: публикация сохраняет одну полную копию и явную provenance-запись, не раздувая corpus второй одинаковой версией.
