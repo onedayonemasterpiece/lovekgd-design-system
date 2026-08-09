@@ -7,6 +7,13 @@ import path from 'node:path';
 const EXPECTED_SCHEMA = 'current_ui_component_decoder_v1';
 const EXPECTED_VERDICT = 'GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION';
 const EXPECTED_SOURCE_SHA = 'ef7aa62e45c60f7a12da6160f490719c0721ec03';
+const EXPECTED_CAPTURE_DECODER_SHA = '961cd3506f5dc538097299b67c975b4fa117e5c9';
+const EXPECTED_REVIEW_MATERIALIZER_SHA = '25d82f59f891b9d64861cd15b787c5c0f86fd129';
+const EXPECTED_ACTIONS_RUN = 31293484656;
+const EXPECTED_ACTIONS_ARTIFACT = 9032355884;
+const EXPECTED_ACTIONS_DIGEST = 'sha256:add07915b6b70da2a7d825e64e08a91da6d8eb28657d70a0009d087bc0f952b2';
+const EXPECTED_PERMANENT_DIGEST = 'sha256:a6ad9244b3ead55424f303fc15efbd988c07a507843bdf9728626e2850335e9c';
+const EXPECTED_REVIEW_COUNTS = Object.freeze({ rasters: 157, observations: 22, pages: 135, capsules: 6 });
 const EXPECTED_DISPOSITIONS = new Set([
   'composition-layout',
   'dead-unreachable',
@@ -143,18 +150,23 @@ function validateSnapshot(root) {
   assert(ledger.schema_version === 'current_ui_decoder_human_review_v1', 'unexpected review ledger schema');
   assert(ledger.snapshot_id === manifest.snapshot_id, 'review ledger snapshot mismatch');
   assert(sha256(readBuffer(path.join(root, 'review-ledger.json'))) === manifest.review.ledger_sha256, 'review ledger digest mismatch');
-  assert(ledger.raster_reviews?.length === 155, 'manual raster review is incomplete');
-  assert(ledger.observations?.length === 20, 'controlled observation review count mismatch');
-  assert(ledger.page_verifications?.length === 89, 'page verification review count mismatch');
-  assert(ledger.capsules?.length === 6, 'reviewed capsule count mismatch');
+  assert(ledger.raster_reviews?.length === EXPECTED_REVIEW_COUNTS.rasters, 'manual raster review is incomplete');
+  assert(ledger.observations?.length === EXPECTED_REVIEW_COUNTS.observations, 'controlled observation review count mismatch');
+  assert(ledger.page_verifications?.length === EXPECTED_REVIEW_COUNTS.pages, 'page verification review count mismatch');
+  assert(ledger.capsules?.length === EXPECTED_REVIEW_COUNTS.capsules, 'reviewed capsule count mismatch');
+  assert(manifest.review?.raster_review_count === ledger.raster_reviews.length, 'manifest raster review count mismatch');
+  assert(manifest.review?.observation_count === ledger.observations.length, 'manifest observation review count mismatch');
+  assert(manifest.review?.page_verification_count === ledger.page_verifications.length, 'manifest page review count mismatch');
+  assert(ledger.review_materializer?.sha === EXPECTED_REVIEW_MATERIALIZER_SHA, 'unexpected review materializer SHA');
   assert(ledger.reviewer === manifest.review.reviewer && ledger.reviewed_at === manifest.review.reviewed_at, 'reviewer provenance mismatch');
 
   const artifactIndex = readJson(path.join(root, 'artifact-index.json'));
-  assert(artifactIndex.actions?.run_id === 31291052330, 'unexpected Actions run');
-  assert(artifactIndex.actions?.artifact_id === 9031552834, 'unexpected Actions artifact');
-  assert(/^sha256:[0-9a-f]{64}$/u.test(artifactIndex.actions?.artifact_digest || ''), 'invalid Actions artifact digest');
+  assert(manifest.decoder?.sha === EXPECTED_CAPTURE_DECODER_SHA, 'unexpected capture decoder SHA');
+  assert(artifactIndex.actions?.run_id === EXPECTED_ACTIONS_RUN, 'unexpected Actions run');
+  assert(artifactIndex.actions?.artifact_id === EXPECTED_ACTIONS_ARTIFACT, 'unexpected Actions artifact');
+  assert(artifactIndex.actions?.artifact_digest === EXPECTED_ACTIONS_DIGEST, 'unexpected Actions artifact digest');
   assert(artifactIndex.permanent_storage?.backend === 'github-release', 'permanent heavy evidence is missing');
-  assert(/^sha256:[0-9a-f]{64}$/u.test(artifactIndex.permanent_storage?.sha256 || ''), 'invalid permanent artifact digest');
+  assert(artifactIndex.permanent_storage?.sha256 === EXPECTED_PERMANENT_DIGEST, 'unexpected permanent artifact digest');
   assert(/^https:\/\/github\.com\/onedayonemasterpiece\/events-bot-new\/releases\/download\//u.test(artifactIndex.permanent_storage?.uri || ''), 'heavy evidence URI is not immutable release storage');
 
   const penpot = readJson(path.join(root, 'penpot-materialization-candidates.json'));
