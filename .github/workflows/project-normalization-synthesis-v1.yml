@@ -87,8 +87,7 @@ jobs:
         run: |
           set -euo pipefail
           target="${RUNNER_TEMP}/normalization-corruption-probe"
-          mkdir -p "$target"
-          git archive HEAD | tar -x -C "$target"
+          git worktree add --detach "$target" HEAD
           printf '\n' >> "$target/catalog/normalization/family-registry.jsonl"
           if node "$target/scripts/validate-project-normalization-synthesis-v1.mjs" "$target" \
             --events-repo "$GITHUB_WORKSPACE/_pinned-events-readonly"; then
