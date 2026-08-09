@@ -110,6 +110,7 @@ validator проходит на 67 packet plans, 57 captured/reviewed packets, 1
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
 - [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
+- [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)
 
 ## Инструментальные роли
 
