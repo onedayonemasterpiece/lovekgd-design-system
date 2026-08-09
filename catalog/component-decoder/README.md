@@ -15,9 +15,32 @@
 
 Этот verdict разрешает только следующий **аналитический** этап по отдельным семействам. Он не принимает candidate contracts, не объединяет компоненты, не нормализует цвета/типографику, не создаёт токены и не мутирует Penpot или Astro.
 
+## Append-only behavioral supplement v1.1
+
+Для dynamic/media/geometry/interaction evidence зарезервирован sibling-путь:
+
+- `behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`;
+- base: immutable `decoder-v1-snapshot-20260808T124842-4786ac53bc/`;
+- base manifest SHA-256: `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`;
+- expected immutable v1 Git tree: `e77fc2457fadfdffb46ed2d90304ebb91e89a715`;
+- import status: **pending reviewed final supplement**.
+
+Supplement импортируется только после file-level full-resolution review каждого raster,
+durable Actions + GitHub Release provenance, independent audit `PASS` и финального статуса
+`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`. Путь никогда не вкладывается в immutable v1.
+Его данные остаются `NOT_MERGED` и не разрешают merge/split/delete, normalization, tokens,
+experiment winner, Penpot или production Astro/CSS/JS mutation.
+
 Проверка:
 
 ```bash
 node scripts/validate-component-decoder-snapshot.mjs \
   catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc
+```
+
+После импорта supplement:
+
+```bash
+node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
+  catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc
 ```

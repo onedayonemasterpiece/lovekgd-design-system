@@ -19,7 +19,7 @@ decoder snapshot: reviewed v1 committed
 logical current-UI components: 107
 candidate AS-IS contracts: 12 (not accepted)
 reviewed reconciliation capsules: 6
-manually reviewed rasters: 155
+manually reviewed rasters: 157
 promoted resource families: 0
 ```
 
@@ -90,6 +90,12 @@ Astro source and generators
 ```
 
 Reviewed compact snapshot: [`catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/).
+
+Для append-only behavioral evidence v1.1 зарезервирован отдельный sibling-каталог
+`catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`.
+Он не вложен в immutable v1 и не изменяет его component identities или решения. До импорта
+reviewed supplement и PASS его отдельного validator статус остаётся evidence pending; это не
+разрешение на нормализацию, физическую дефрагментацию, токены или Penpot materialization.
 
 Его verdict `GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION` означает только готовность evidence к следующему аналитическому этапу по отдельным семействам. Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
 

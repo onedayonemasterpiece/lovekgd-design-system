@@ -50,7 +50,7 @@ A historical document is not automatically current. Every requirement must be as
 
 - `accepted-current`
 - `implemented-current`
-- `accepted-but-not-implemented`
+- `accepted-not-implemented`
 - `experiment-unresolved`
 - `historical-replaced`
 - `proposal-only`
@@ -299,3 +299,38 @@ DESIGN_SYSTEM_COMPLETE
 ```
 
 After this gate, the next artifact is a project-specific candidate Normalization Charter and family decision dossiers. Physical merges, deletions and token migrations remain separate reversible changes.
+
+## 8. Behavioral supplement v1.1 evidence-adoption receipt
+
+This section is a living, append-only adoption ledger. It does not modify R-01…R-06 and does
+not create a new research report. The initial R-07 source was seeded from SHA-256
+`bc9ba8960fbab631a1d9c317b9a87a00fef74f38e64761021684f1ccc2832ec1`.
+
+### Pending receipt contract
+
+Status: **PENDING REVIEWED FINAL SUPPLEMENT IMPORT**
+
+The receipt may change to `ADOPTED_AS_PROJECT_EVIDENCE` only when all fields below are filled
+from published evidence and the repository validator passes. No run, artifact, asset or audit
+identifier is invented at scaffold time.
+
+| Required field | Pending value / acceptance rule |
+|---|---|
+| sibling compact path | `catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`; must not be nested in immutable v1 |
+| immutable v1 identity | manifest SHA-256 `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`; Git tree `e77fc2457fadfdffb46ed2d90304ebb91e89a715` |
+| exact product source | pending verification against the supplement receipt |
+| source/integration commit | pending exact commit and tree |
+| GitHub Actions run | pending successful run URL, run ID and attempt |
+| Actions artifact | pending artifact ID, URL, digest, byte size, creation and expiry timestamps |
+| durable evidence | pending GitHub Release tag/asset URL, asset ID, SHA-256 and byte size |
+| capture totals | pending validator-confirmed packet/executable/blocker/observation/raster totals |
+| visual review | pending one full-resolution ledger row per raster; hashes/contact sheets are not review substitutes |
+| independent audit | pending reviewer, audited commit, report SHA-256 and `PASS` |
+| secret scan | pending `PASS` |
+| final status | must equal `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` |
+| repository validation | pending PASS of both v1 and behavioral v1.1 validators plus immutable-tree assertion |
+
+Even after adoption, every component/experiment decision remains `NOT_MERGED`. This receipt
+does not authorize component merge/split/delete, typography or color normalization, token
+selection, an experiment winner, Penpot mutation or production Astro/CSS/JS changes. Observed
+conflicts remain evidence for the later project-specific synthesis rather than silent fixes.

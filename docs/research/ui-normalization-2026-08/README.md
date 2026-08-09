@@ -6,6 +6,12 @@
 
 Исследования дают evidence base для family-scoped анализа, component contracts, migration и governance. Они **не** принимают компоненты, токены или варианты автоматически и не отменяют действующий статус `reconstructed` / `NOT_ACCEPTED` в [source-first decoder](../../source-first-component-decoder.md). Любое решение о merge, variant, split, composition, preserve, deprecate или promotion остаётся отдельным проверяемым шагом по конкретному семейству.
 
+R-01…R-06 — immutable imported source reports: их текст не редактируется при последующем
+adoption. R-07 — отдельный living append-only synthesis/adoption ledger, первоначально
+seeded переданным source text с SHA-256
+`bc9ba8960fbab631a1d9c317b9a87a00fef74f38e64761021684f1ccc2832ec1`.
+Новые receipts добавляются в R-07, не переписывая R-01…R-06 и не создавая параллельный R-08.
+
 ## Полные тексты
 
 | ID | Исследование | Роль |
