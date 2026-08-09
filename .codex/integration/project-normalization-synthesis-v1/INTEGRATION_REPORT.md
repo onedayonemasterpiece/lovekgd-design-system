@@ -12,10 +12,10 @@
 
 - 104 significant R-01…R-07 charter conclusions with closed dispositions.
 - 222 canonical findings rows covering 279 exact raw source references: 57 paired probe findings, 30 standalone unresolved findings, 16 fragmentation findings, 12 candidate contracts and 107 logical components.
-- 47 semantic families with exactly one primary family for each of 107 logical components.
-- 242 component applications and 242 product-value readiness rows. The authoritative product registry is absent at the pinned product commit, so all product foreign-key arrays remain empty and every row is `pending_product_model`, `promotion_ready=false`.
-- Reproducible wave model: 5 ready, 9 product-model-dependent, 2 experiment-dependent, 6 implementation-gap-blocked, 25 insufficient-evidence.
-- First wave: Event Detail Presentation, Event Media and Event Token Medallions. Each recommendation is a non-accepted `composition` candidate and does not authorize implementation.
+- 47 semantic families with exactly one primary family for each of 107 logical components. Three source-only/no-consumer component identities remain dispositioned but correctly do not produce application rows.
+- 239 component applications and 239 product-value readiness rows. The authoritative product registry is absent at the pinned product commit, so all product foreign-key arrays remain empty and every row is `pending_product_model`, `promotion_ready=false`.
+- Reproducible wave model: 3 ready, 9 product-model-dependent, 2 experiment-dependent, 7 implementation-gap-blocked, 26 insufficient-evidence.
+- First wave: Event Media and Event Token Medallions. Each recommendation is a non-accepted `composition` candidate and does not authorize implementation. Event Detail remains `insufficient_evidence` because its nine cascade/probe mismatches require reconciliation before a target contract.
 - Four compact owner decisions; no deterministic evidence decision is delegated and no experiment winner is selected.
 - Exact final Behavioral v1.1 compact package imported byte-for-byte; immutable Decoder v1 unchanged.
 
@@ -23,8 +23,9 @@
 
 - Immutable Decoder v1 validator: PASS (107 components, 12 contracts, 6 capsules, 157 raster reviews).
 - Behavioral Decoder v1.1 closure validator: PASS (293 terminal = 236/39/18; 87 unresolved; 134 raster reviews).
-- Project Normalization Synthesis validator with audit pending: PASS (107 paths; 47 families; 242 applications; 222 canonical dispositions / 279 raw refs; 3 first-wave dossiers; 4 queue rows).
-- Node syntax, workflow YAML, JSON/JSONL parse, output hashes/record counts, `git diff --check`, forbidden status scan and forbidden path scan: PASS.
+- Project Normalization Synthesis validator with audit pending: PASS (107 paths; 47 families; 239 applications; 222 canonical dispositions / 279 raw refs; 2 first-wave dossiers; 4 queue rows).
+- Product-value Draft 2020-12 schema: 239/239 application rows valid; all product archetype IDs null and all authoritative product foreign-key arrays empty.
+- Node syntax, workflow YAML, JSON/JSONL parse, output hashes/record counts, deterministic category/score replay, corruption rejection, `git diff --check`, forbidden status scan and forbidden path scan: PASS.
 - Independent audit: pending on the implementation commit.
 
 ## STOP boundary

@@ -6,13 +6,17 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "id",
     "schema_version",
     "application_id",
     "family_id",
+    "component_id",
     "component_contract_id",
     "component_contract_version",
     "consumer",
     "route",
+    "surface_context_id",
+    "surface_context_authority",
     "surface_archetype_id",
     "value_evidence_mode",
     "value_evidence_status",
@@ -27,22 +31,72 @@
     "expected_mechanism",
     "evidence_refs",
     "decision_receipt",
+    "experimental_evidence_satisfied",
+    "experimental_evidence_gaps",
     "product_authority",
     "product_value_gate_mode",
     "promotion_ready",
     "as_is_preservation_allowed"
   ],
   "properties": {
-    "schema_version": { "const": "product_value_evidence_binding_v1" },
-    "application_id": { "type": "string", "pattern": "^application\\.[a-f0-9]{16}$" },
-    "family_id": { "type": "string", "pattern": "^family\\.[a-z0-9][a-z0-9.-]*$" },
-    "component_contract_id": { "type": "string", "minLength": 1 },
-    "component_contract_version": { "type": "string", "minLength": 1 },
-    "consumer": { "type": "string", "minLength": 1 },
-    "route": { "type": ["string", "null"] },
-    "surface_archetype_id": { "type": "string", "minLength": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^application\\.[a-f0-9]{16}$"
+    },
+    "schema_version": {
+      "const": "product_value_evidence_binding_v1"
+    },
+    "application_id": {
+      "type": "string",
+      "pattern": "^application\\.[a-f0-9]{16}$"
+    },
+    "family_id": {
+      "type": "string",
+      "pattern": "^family\\.[a-z0-9][a-z0-9.-]*$"
+    },
+    "component_id": {
+      "type": "string",
+      "pattern": "^component\\.[a-f0-9]{16}$"
+    },
+    "component_contract_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "component_contract_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consumer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "route": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "surface_context_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "surface_context_authority": {
+      "const": "pinned-runtime-page-family-or-source-consumer-context"
+    },
+    "surface_archetype_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
     "value_evidence_mode": {
-      "enum": ["direct", "inherited", "enabler", "experimental"]
+      "enum": [
+        "direct",
+        "inherited",
+        "enabler",
+        "experimental"
+      ]
     },
     "value_evidence_status": {
       "enum": [
@@ -55,71 +109,555 @@
         "rejected"
       ]
     },
-    "need_ids": { "$ref": "#/$defs/idArray" },
-    "job_ids": { "$ref": "#/$defs/idArray" },
-    "journey_ids": { "$ref": "#/$defs/idArray" },
-    "capability_ids": { "$ref": "#/$defs/idArray" },
-    "outcome_ids": { "$ref": "#/$defs/idArray" },
-    "metric_ids": { "$ref": "#/$defs/idArray" },
-    "guardrail_ids": { "$ref": "#/$defs/idArray" },
-    "value_claim": { "type": ["string", "null"] },
-    "expected_mechanism": { "type": ["string", "null"] },
-    "evidence_refs": { "$ref": "#/$defs/idArray" },
-    "decision_receipt": { "type": ["string", "null"] },
-    "parent_application_id": { "type": ["string", "null"], "pattern": "^application\\.[a-f0-9]{16}$" },
+    "need_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "job_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "journey_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "capability_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "outcome_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "metric_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "guardrail_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "value_claim": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_mechanism": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_refs": {
+      "$ref": "#/$defs/idArray"
+    },
+    "decision_receipt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "experimental_evidence_satisfied": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "experimental_evidence_gaps": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "hypothesis",
+          "authoritative_metric",
+          "decision_receipt"
+        ]
+      }
+    },
+    "parent_application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^application\\.[a-f0-9]{16}$"
+    },
     "enabler_kind": {
-      "type": ["string", "null"],
-      "enum": [null, "accessibility", "reliability", "consistency", "defect_reduction", "delivery_efficiency"]
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "accessibility",
+        "reliability",
+        "consistency",
+        "defect_reduction",
+        "delivery_efficiency"
+      ]
     },
     "product_authority": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "commit", "registry_status"],
+      "required": [
+        "repository",
+        "commit",
+        "registry_status"
+      ],
       "properties": {
-        "repository": { "const": "onedayonemasterpiece/events-bot-new" },
-        "commit": { "const": "66bc0d43e36299417626f992021cfb7299ddf704" },
-        "registry_status": { "const": "absent-at-pinned-commit" }
+        "repository": {
+          "const": "onedayonemasterpiece/events-bot-new"
+        },
+        "commit": {
+          "const": "66bc0d43e36299417626f992021cfb7299ddf704"
+        },
+        "registry_status": {
+          "const": "absent-at-pinned-commit"
+        }
       }
     },
-    "product_value_gate_mode": { "const": "observe" },
-    "promotion_ready": { "type": "boolean" },
-    "as_is_preservation_allowed": { "type": "boolean" },
-    "adoption_evidence": { "$ref": "#/$defs/idArray" }
+    "product_value_gate_mode": {
+      "const": "observe"
+    },
+    "promotion_ready": {
+      "type": "boolean"
+    },
+    "as_is_preservation_allowed": {
+      "type": "boolean"
+    },
+    "adoption_evidence": {
+      "$ref": "#/$defs/idArray"
+    }
   },
   "$defs": {
     "idArray": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     }
   },
   "allOf": [
     {
-      "if": { "properties": { "value_evidence_status": { "const": "pending_product_model" } } },
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "pending_product_model"
+          }
+        }
+      },
       "then": {
         "properties": {
-          "need_ids": { "maxItems": 0 },
-          "job_ids": { "maxItems": 0 },
-          "journey_ids": { "maxItems": 0 },
-          "capability_ids": { "maxItems": 0 },
-          "outcome_ids": { "maxItems": 0 },
-          "metric_ids": { "maxItems": 0 },
-          "guardrail_ids": { "maxItems": 0 },
-          "value_claim": { "const": null },
-          "expected_mechanism": { "const": null },
-          "decision_receipt": { "const": null },
-          "promotion_ready": { "const": false },
-          "as_is_preservation_allowed": { "const": true }
+          "need_ids": {
+            "maxItems": 0
+          },
+          "job_ids": {
+            "maxItems": 0
+          },
+          "journey_ids": {
+            "maxItems": 0
+          },
+          "capability_ids": {
+            "maxItems": 0
+          },
+          "outcome_ids": {
+            "maxItems": 0
+          },
+          "metric_ids": {
+            "maxItems": 0
+          },
+          "guardrail_ids": {
+            "maxItems": 0
+          },
+          "value_claim": {
+            "const": null
+          },
+          "expected_mechanism": {
+            "const": null
+          },
+          "decision_receipt": {
+            "const": null
+          },
+          "promotion_ready": {
+            "const": false
+          },
+          "as_is_preservation_allowed": {
+            "const": true
+          }
         }
       }
     },
     {
-      "if": { "properties": { "value_evidence_mode": { "const": "inherited" } } },
-      "then": { "required": ["parent_application_id"] }
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "const": "inherited"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "parent_application_id"
+        ],
+        "properties": {
+          "parent_application_id": {
+            "type": "string",
+            "pattern": "^application\\.[a-f0-9]{16}$"
+          }
+        }
+      }
     },
     {
-      "if": { "properties": { "value_evidence_mode": { "const": "enabler" } } },
-      "then": { "required": ["enabler_kind"] }
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "const": "enabler"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "enabler_kind"
+        ],
+        "properties": {
+          "enabler_kind": {
+            "enum": [
+              "accessibility",
+              "reliability",
+              "consistency",
+              "defect_reduction",
+              "delivery_efficiency"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "const": "experimental"
+          },
+          "value_evidence_status": {
+            "const": "pending_product_model"
+          }
+        },
+        "required": [
+          "value_evidence_mode",
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "experimental_evidence_satisfied": {
+            "const": false
+          },
+          "experimental_evidence_gaps": {
+            "const": [
+              "hypothesis",
+              "authoritative_metric",
+              "decision_receipt"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "const": "experimental"
+          }
+        },
+        "required": [
+          "value_evidence_mode"
+        ],
+        "not": {
+          "properties": {
+            "value_evidence_status": {
+              "const": "pending_product_model"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "experimental_evidence_satisfied": {
+            "const": true
+          },
+          "experimental_evidence_gaps": {
+            "maxItems": 0
+          },
+          "metric_ids": {
+            "minItems": 1
+          },
+          "value_claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_mechanism": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_receipt": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "enum": [
+              "direct",
+              "inherited",
+              "enabler"
+            ]
+          }
+        },
+        "required": [
+          "value_evidence_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "experimental_evidence_satisfied": {
+            "const": null
+          },
+          "experimental_evidence_gaps": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "existing_authoritative_mapping"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "need_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "need_ids"
+            ]
+          },
+          {
+            "properties": {
+              "job_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "job_ids"
+            ]
+          },
+          {
+            "properties": {
+              "journey_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "journey_ids"
+            ]
+          },
+          {
+            "properties": {
+              "capability_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "capability_ids"
+            ]
+          },
+          {
+            "properties": {
+              "outcome_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "outcome_ids"
+            ]
+          },
+          {
+            "properties": {
+              "metric_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "metric_ids"
+            ]
+          },
+          {
+            "properties": {
+              "guardrail_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "guardrail_ids"
+            ]
+          }
+        ],
+        "properties": {
+          "promotion_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "hypothesis_only"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_mechanism": {
+            "type": "string",
+            "minLength": 1
+          },
+          "promotion_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "validated_qualitative"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_mechanism": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "validated_quantitative"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_mechanism": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          },
+          "metric_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "validated_production"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_mechanism": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          },
+          "metric_ids": {
+            "minItems": 1
+          },
+          "decision_receipt": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "rejected"
+          }
+        },
+        "required": [
+          "value_evidence_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision_receipt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "promotion_ready": {
+            "const": false
+          }
+        }
+      }
     }
   ]
 }

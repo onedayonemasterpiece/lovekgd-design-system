@@ -82,6 +82,12 @@
   },
   "candidate_decision": "composition",
   "compatibility_strategy": "Preserve event/layout/allowTopSlot props and all resolver ordering/filter invariants.",
+  "consumers": [
+    "src/components/DesktopEventPage.astro",
+    "src/components/lab/MobileEventReviewPage.astro",
+    "src/pages/lab/design-system/index.astro",
+    "src/pages/sobytiya/[slug].astro"
+  ],
   "contract_diff": [
     "Event-detail token composition is not equivalent to listing/exhibition/lab resources despite shared identity data.",
     "Geometry is consumer-and-slot-scoped, not one global medallion size.",
@@ -144,6 +150,12 @@
     "behavioral-supplement-v1.1-final-c676be4f"
   ],
   "rollback": "Restore current component import unchanged; no runtime mutation in synthesis.",
+  "routes": [
+    "/lab/design-system/",
+    "/lab/event-desktop/examples/:scenario/",
+    "/lab/event-mobile/examples/:variant/:scenario/",
+    "/sobytiya/:slug/"
+  ],
   "runtime_mutation": false,
   "schema_version": "project_normalization_family_dossier_v1",
   "scope": {

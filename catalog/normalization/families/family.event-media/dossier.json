@@ -62,6 +62,11 @@
   },
   "candidate_decision": "composition",
   "compatibility_strategy": "Retain current image-set and presentation inputs; introduce no global ratio or fit token.",
+  "consumers": [
+    "src/components/DesktopEventPage.astro",
+    "src/components/EventHero.astro",
+    "src/pages/lab/design-system/index.astro"
+  ],
   "contract_diff": [
     "The poster preview is a large companion resource; remaining photos are small preview resources.",
     "Media identity and consumer context determine fit and geometry; equal thumbnail treatment is invalid.",
@@ -119,6 +124,14 @@
     "behavioral-supplement-v1.1-final-c676be4f"
   ],
   "rollback": "Keep media rendering inside DesktopEventPage; analysis creates no runtime delta.",
+  "routes": [
+    "/lab/design-system/",
+    "/lab/event-desktop/examples/:scenario/",
+    "/lab/event-mobile/examples/:variant/:scenario/",
+    "/lab/hero/",
+    "/lab/hero/review/:caseId/",
+    "/sobytiya/:slug/"
+  ],
   "runtime_mutation": false,
   "schema_version": "project_normalization_family_dossier_v1",
   "scope": {

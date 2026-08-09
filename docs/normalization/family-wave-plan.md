@@ -12,17 +12,16 @@ Hard category gates run before scoring. Pending product evidence prevents promot
 
 ## First wave
 
-1. [`family.event-detail-presentation`](../../catalog/normalization/families/family.event-detail-presentation/dossier.md)
-2. [`family.event-media`](../../catalog/normalization/families/family.event-media/dossier.md)
-3. [`family.event-token-medallions`](../../catalog/normalization/families/family.event-token-medallions/dossier.md)
+1. [`family.event-media`](../../catalog/normalization/families/family.event-media/dossier.md)
+2. [`family.event-token-medallions`](../../catalog/normalization/families/family.event-token-medallions/dossier.md)
 
 ## Category counts
 
 - `experiment_dependent`: 2
-- `implementation_gap_blocked`: 6
-- `insufficient_evidence`: 25
+- `implementation_gap_blocked`: 7
+- `insufficient_evidence`: 26
 - `product_model_dependent`: 9
-- `ready_for_contract_decision`: 5
+- `ready_for_contract_decision`: 3
 
 ## Explicit exclusions
 

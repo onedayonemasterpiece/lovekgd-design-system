@@ -36,19 +36,18 @@ The machine-readable charter is [`../../contracts/project-normalization-charter.
 
 ## Family model
 
-The registry contains 47 primary families and exactly one primary family disposition for each of 107 logical paths. Cross-cutting candidate contracts remain secondary references rather than duplicate component ownership. Categories: {"ready_for_contract_decision": 5, "implementation_gap_blocked": 6, "experiment_dependent": 2, "insufficient_evidence": 25, "product_model_dependent": 9}.
+The registry contains 47 primary families and exactly one primary family disposition for each of 107 logical paths. Cross-cutting candidate contracts remain secondary references rather than duplicate component ownership. Categories: {"insufficient_evidence": 26, "implementation_gap_blocked": 7, "ready_for_contract_decision": 3, "product_model_dependent": 9, "experiment_dependent": 2}.
 
 First-wave candidate dossiers:
 
-1. `family.event-detail-presentation` — candidate `composition`; preserve Editorial and Split compositions and their CTA placement.
-2. `family.event-media` — candidate `composition`; preserve primary, poster-companion and small-preview roles.
-3. `family.event-token-medallions` — candidate `composition`; preserve top/inline and consumer boundaries.
+1. `family.event-media` — candidate `composition`; preserve primary, poster-companion and small-preview roles.
+2. `family.event-token-medallions` — candidate `composition`; preserve top/inline and consumer boundaries.
 
 None is promotion-ready.
 
 ## Product-value gate
 
-The pinned product repository has no authoritative machine-readable need, Job, Journey, capability, outcome, metric or guardrail IDs. All 242 concrete applications therefore use empty foreign-key arrays and `pending_product_model`. The gate is `observe`; AS-IS preservation is allowed, while promotion is forbidden. Switching to `enforce` requires a separate future receipt.
+The pinned product repository has no authoritative machine-readable need, Job, Journey, capability, outcome, metric or guardrail IDs. All 239 concrete consumer applications therefore use empty foreign-key arrays and `pending_product_model`. The gate is `observe`; AS-IS preservation is allowed, while promotion is forbidden. Three source-only/no-consumer component identities (`PopularCategoryFilter`, `MobileSearchBottomNav`, `WeekendTimeMatrix`) remain fully dispositioned but correctly produce no application row. Switching to `enforce` requires a separate future receipt.
 
 ## Decision boundary
 
