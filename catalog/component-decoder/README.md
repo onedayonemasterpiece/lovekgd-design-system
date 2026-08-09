@@ -23,13 +23,17 @@
 - base: immutable `decoder-v1-snapshot-20260808T124842-4786ac53bc/`;
 - base manifest SHA-256: `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`;
 - expected immutable v1 Git tree: `e77fc2457fadfdffb46ed2d90304ebb91e89a715`;
-- import status: **pending reviewed final supplement**.
+- import status: **reviewed append-only evidence imported**;
+- final status: `EVIDENCE_COLLECTION_INCOMPLETE`;
+- counts: 67 packet plans, 57 captured/reviewed, 10 explicit blockers, 124 observations/rasters/reviews;
+- manifest SHA-256: `c6c62cee8bea4e9440ff85bc75c46bc85cf5abf3e2fdcd4c7357c6ece916436f`.
 
-Supplement импортируется только после file-level full-resolution review каждого raster,
-durable Actions + GitHub Release provenance, independent audit `PASS` и финального статуса
-`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`. Путь никогда не вкладывается в immutable v1.
-Его данные остаются `NOT_MERGED` и не разрешают merge/split/delete, normalization, tokens,
-experiment winner, Penpot или production Astro/CSS/JS mutation.
+Все 124 raster прошли file-level full-resolution review; Actions artifact продублирован durable
+GitHub Release asset, independent audit имеет `PASS`, оба validator проходят. Путь никогда не
+вкладывается в immutable v1. Два уникальных readiness blocker удерживают статус
+`EVIDENCE_COLLECTION_INCOMPLETE`. Данные остаются `NOT_MERGED` и не разрешают
+merge/split/delete, normalization, tokens, experiment winner, Penpot или production
+Astro/CSS/JS mutation.
 
 Проверка:
 

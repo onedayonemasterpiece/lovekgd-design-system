@@ -306,31 +306,36 @@ This section is a living, append-only adoption ledger. It does not modify R-01â€
 not create a new research report. The initial R-07 source was seeded from SHA-256
 `bc9ba8960fbab631a1d9c317b9a87a00fef74f38e64761021684f1ccc2832ec1`.
 
-### Pending receipt contract
+### Adopted evidence receipt
 
-Status: **PENDING REVIEWED FINAL SUPPLEMENT IMPORT**
+Status: **ADOPTED_AS_PROJECT_EVIDENCE Â· `EVIDENCE_COLLECTION_INCOMPLETE`**
 
-The receipt may change to `ADOPTED_AS_PROJECT_EVIDENCE` only when all fields below are filled
-from published evidence and the repository validator passes. No run, artifact, asset or audit
-identifier is invented at scaffold time.
+This append-only receipt is the current evidence-stage status. Section 7 names the desired next
+gate; it is not achieved while the two readiness blockers below remain open.
 
-| Required field | Pending value / acceptance rule |
+| Receipt field | Verified value |
 |---|---|
-| sibling compact path | `catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`; must not be nested in immutable v1 |
+| sibling compact path | `catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`; sibling, never nested in immutable v1 |
+| compact identity | manifest SHA-256 `c6c62cee8bea4e9440ff85bc75c46bc85cf5abf3e2fdcd4c7357c6ece916436f`; receipt SHA-256 `188e433e1cb5061dd3b2a74bf5f713ed0b59f4cbd24a3e464f7c0f0d26997d31`; supplement tree `b558869473397a51d03e4f87220e6a1889a088ea` |
 | immutable v1 identity | manifest SHA-256 `f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc`; Git tree `e77fc2457fadfdffb46ed2d90304ebb91e89a715` |
-| exact product source | pending verification against the supplement receipt |
-| source/integration commit | pending exact commit and tree |
-| GitHub Actions run | pending successful run URL, run ID and attempt |
-| Actions artifact | pending artifact ID, URL, digest, byte size, creation and expiry timestamps |
-| durable evidence | pending GitHub Release tag/asset URL, asset ID, SHA-256 and byte size |
-| capture totals | pending validator-confirmed packet/executable/blocker/observation/raster totals |
-| visual review | pending one full-resolution ledger row per raster; hashes/contact sheets are not review substitutes |
-| independent audit | pending reviewer, audited commit, report SHA-256 and `PASS` |
-| secret scan | pending `PASS` |
-| final status | must equal `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` |
-| repository validation | pending PASS of both v1 and behavioral v1.1 validators plus immutable-tree assertion |
+| exact product source | `events-bot-new@ef7aa62e45c60f7a12da6160f490719c0721ec03` |
+| decoder/materializer | capture `c9ddf0feafcd80f6fc3aef0f221e8d5e058063ab`; reviewed materializer `ec9ae943675a1098e95515cc8c41f2418c659630` |
+| design import | commit `7da6cfb18763e34a81b4890249e490e0945e9a07`; root tree `558c7b82d5da780f936a122bac0f546b5fef40af` |
+| GitHub Actions run | [run 31318132051](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/31318132051), attempt 1, success |
+| Actions artifact | ID `9039433060`; `current-ui-behavioral-decoder-v1-1-capture-31318132051`; digest `sha256:c677f69572ccdbf5b7f1402037a3cb8c164bd2f503fae35eae9168c46eb8d909`; 44,805,665 bytes; created `2026-08-09T14:25:40Z`; expires `2026-09-08T14:25:38Z` |
+| durable evidence | [GitHub Release](https://github.com/onedayonemasterpiece/events-bot-new/releases/tag/current-ui-behavioral-decoder-v1-1-run-31318132051); asset ID `507595606`; same SHA-256 and 44,805,665 bytes |
+| capture totals | 67 packet plans; 57 captured/reviewed; 10 explicit blockers; 124 observations; 124 page-verification rows; 124 raster files |
+| visual review | 124/124 individually opened full-resolution; ledger SHA-256 `97c8cbcf2e4bbc34fd7e8c03454f09219bfb723acd4751b89744d6a8eb0f7731`; perceptual/byte stability is not review |
+| visual findings | 99 capture-valid rows and 25 explicit conflicts: 19 title overlaps, 2 indistinguishable loading/error, 2 bottom-nav restoration, 1 clipped TimeNav popover, 1 broken-image alt overflow |
+| independent audit | `PASS` for truthful incomplete evidence import; reviewer `Archimedes (/root/behavioral_final_audit)`; audit commit `770a9138a63da1dbc2aa5a9b7df7fdacf25e2518`; report SHA-256 `977d62214aa0e7158199b9b4e726fac2b77b92e2a264010e85610a7b4a1475cd` |
+| secret/integrity scans | `PASS`; archive `unzip -t` and 179/179 entry byte comparison PASS; zero strict key/JWT/Bearer/query-token findings in 58 non-PNG files |
+| final status | `EVIDENCE_COLLECTION_INCOMPLETE` |
+| readiness blockers | `unresolved.behavior-blocker.864db42986f38970b1` (rail native `End`/`Home`); `unresolved.behavior-blocker.fdec1149e1f0d6b359` (293-row per-probe runtime coverage) |
+| repository validation | immutable v1 validator PASS; behavioral v1.1 validator PASS (`67/57/10/124/124`); immutable v1 tree assertion PASS |
 
 Even after adoption, every component/experiment decision remains `NOT_MERGED`. This receipt
 does not authorize component merge/split/delete, typography or color normalization, token
 selection, an experiment winner, Penpot mutation or production Astro/CSS/JS changes. Observed
 conflicts remain evidence for the later project-specific synthesis rather than silent fixes.
+The two readiness blockers prevent `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`; the 25 other
+visual conflict rows are retained non-readiness evidence, not silently reclassified blockers.

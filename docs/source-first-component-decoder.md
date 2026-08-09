@@ -32,12 +32,13 @@ catalog/component-decoder/
 └── behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/ # append-only sibling
 ```
 
-На текущем scaffold-этапе импорт v1.1 **pending**. Он становится принятой evidence-записью только
-после того, как compact supplement содержит `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS`, все
-заявленные output bytes/SHA проходят отдельный validator, каждый raster имеет file-level
-`reviewed-full-resolution`, Actions artifact продублирован durable GitHub Release asset, secret
-scan прошёл и independent audit имеет `PASS`. Run/artifact/release IDs не подставляются до
-фактической публикации.
+Reviewed v1.1 импортирован как evidence-запись с финальным статусом
+`EVIDENCE_COLLECTION_INCOMPLETE`. Все заявленные output bytes/SHA проходят отдельный validator,
+124/124 raster имеют file-level `reviewed-full-resolution`, Actions artifact продублирован
+durable GitHub Release asset, secret scan прошёл, independent audit имеет `PASS`. Два уникальных
+readiness blocker сохранены: отсутствует рабочее native `End`/`Home` поведение mobile rail, а
+полная 293-row breakpoint/container matrix не имеет отдельного truthful runtime probe для каждой
+строки.
 
 Проверка после импорта:
 
@@ -49,8 +50,10 @@ node scripts/validate-behavioral-decoder-supplement-v1-1.mjs \
 Отдельный workflow одновременно повторно проверяет v1 и требует его исходный Git tree
 `e77fc2457fadfdffb46ed2d90304ebb91e89a715`. Behavioral supplement не добавляет, не удаляет,
 не объединяет и не делит компоненты v1; controlled runtime не объявляется production evidence.
-Статус `READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` разрешает лишь следующий аналитический
-synthesis и **не** означает `READY_FOR_PHYSICAL_DEFRAGMENTATION`.
+Текущий статус не разрешает следующий project normalization synthesis и тем более не означает
+`READY_FOR_PHYSICAL_DEFRAGMENTATION`. Даже возможный будущий
+`READY_FOR_PROJECT_NORMALIZATION_SYNTHESIS` будет означать только аналитическую готовность, а не
+автоматическое физическое изменение компонентов.
 
 Воспроизводимая проверка compact tree:
 
@@ -284,7 +287,7 @@ catalog/component-decoder/<snapshot-id>/
 Screenshots, traces, detailed DOM, accessibility snapshots, computed styles and full logs остаются в immutable GitHub Actions artifact.
 
 Behavioral v1.1 использует такой же compact/heavy split: diffable JSON/JSONL, receipts и audit
-лежат в sibling supplement, а 99 raster files остаются в Actions artifact и durable Release asset.
+лежат в sibling supplement, а 124 raster files остаются в Actions artifact и durable Release asset.
 Compact `artifact-index.json` обязан связывать каждую raster path/SHA с её full-resolution review.
 
 ## Failure safety

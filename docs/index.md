@@ -7,7 +7,7 @@
 | [`resource-graph-004.md`](resource-graph-004.md) | роль Resource Graph, страницы, lifecycle, MCP/plugin/Actions, promotion | canonical operating contract |
 | [`page-archetype-requirements.md`](page-archetype-requirements.md) | исходные требования, verified routes и Penpot overlays страницы 60 | accepted source-mapping contract |
 | [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |
-| [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 import pending; candidates not accepted |
+| [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 imported but evidence incomplete; candidates not accepted |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
@@ -21,7 +21,7 @@
 | [`../receipts/penpot/resource-graph-to-be-structure-v1.json`](../receipts/penpot/resource-graph-to-be-structure-v1.json) | фактический PASS read-back Resource Graph revision 30 |
 | `../receipts/penpot/page-archetype-requirements-v1.json` | read-back публикации requirements overlays; создаётся только после Penpot validation |
 | [`../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/) | reviewed compact AS-IS decoder snapshot; 107 components, 12 candidate contracts, 6 capsules, 157/157 rasters inspected |
-| `../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/` | reserved sibling import for reviewed behavioral/action/media evidence; pending final provenance and validator PASS |
+| [`../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/) | reviewed sibling behavioral/action/media evidence; validators PASS; `EVIDENCE_COLLECTION_INCOMPLETE` with two retained readiness blockers |
 
 ## Authority routing
 
@@ -56,9 +56,9 @@ Production conformance
 2. Documentation and contracts consolidation        PASS
 3. Page-archetype source requirements mapping       IN PUBLICATION
 4. Source-first decoder                             PASS · IMMUTABLE REVIEWED V1
-5. Behavioral decoder supplement                    PENDING REVIEWED SIBLING V1.1 IMPORT
+5. Behavioral decoder supplement                    PASS IMPORT · EVIDENCE COLLECTION INCOMPLETE
 6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
-7. Project normalization synthesis                  BLOCKED UNTIL V1.1 VALIDATES
+7. Project normalization synthesis                  BLOCKED BY 2 V1.1 READINESS FINDINGS
 8. First bounded native Penpot materialization      NOT STARTED
 9. Three-way conformance pilot                      NOT STARTED
 10. Per-family promotion to design-system-led       0 families
@@ -66,7 +66,8 @@ Production conformance
 
 ## Запреты текущей фазы
 
-До reviewed import и PASS behavioral supplement v1.1 нельзя:
+Несмотря на reviewed import и PASS validator behavioral supplement v1.1, пока два readiness
+blocker не закрыты, нельзя:
 
 - восстанавливать старые Penpot components;
 - использовать старые Penpot object IDs;
