@@ -1,0 +1,820 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.2f3937b9b2f98ec0",
+  "logical_path": "src/components/ServiceShareAction.astro",
+  "name": "ServiceShareAction",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.970ac7b79d2afbf4"
+      ],
+      "content_sha256": "4fd6219431acfc8ee218776b256dc3b8fc086e73547e5eb14d4e0eb34dd17c8c",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.1077f47169c18214",
+        "source.current_root_prelaunch.92a918c8ed4982b1",
+        "source.current_root_prelaunch.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.2f3937b9b2f98ec0",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.970ac7b79d2afbf4"
+      ],
+      "content_sha256": "4fd6219431acfc8ee218776b256dc3b8fc086e73547e5eb14d4e0eb34dd17c8c",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.1077f47169c18214",
+        "source.latest_checked_kaggle_candidate.92a918c8ed4982b1",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.2f3937b9b2f98ec0",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "Astro",
+            "PUBLIC_SERVICE_SHARE_DESKTOP_MODE",
+            "desktopMode",
+            "env",
+            "import",
+            "meta",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "desktopMode",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15
+        },
+        {
+          "identifiers": [
+            "includes",
+            "requestedMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 16
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "manifestUrl",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Astro",
+            "props",
+            "showPrompt"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 19,
+          "name": "showPrompt"
+        },
+        {
+          "dependencies": [
+            "desktopMode",
+            "surface"
+          ],
+          "expression_kind": "TemplateLiteral",
+          "line": 22,
+          "name": "statusId"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_SERVICE_SHARE_DESKTOP_MODE"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 255
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 37,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 39,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 40,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 53,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 71,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 74,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 78,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 93,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 96,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 100,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 115,
+          "name": "hidden"
+        },
+        {
+          "line": 190,
+          "name": "disabled"
+        },
+        {
+          "line": 226,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 25
+        },
+        {
+          "kind": "style",
+          "line": 90
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 10,
+          "name": "class",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [
+            "d0",
+            "d1",
+            "d2"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "desktopMode",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "d0"
+              },
+              {
+                "kind": "literal",
+                "value": "d1"
+              },
+              {
+                "kind": "literal",
+                "value": "d2"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "manifestUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 9,
+          "name": "showPrompt",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "footer",
+            "menu",
+            "lab"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "surface",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "footer"
+              },
+              {
+                "kind": "literal",
+                "value": "menu"
+              },
+              {
+                "kind": "literal",
+                "value": "lab"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 237,
+          "query": "(min-width: 768px)"
+        },
+        {
+          "kind": "media",
+          "line": 241,
+          "query": "(min-width: 1024px)"
+        },
+        {
+          "kind": "media",
+          "line": 244,
+          "query": "(max-width: 767px)"
+        },
+        {
+          "kind": "media",
+          "line": 250,
+          "query": "(prefers-reduced-motion: reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 27,
+          "name": "data-service-share-root"
+        },
+        {
+          "line": 28,
+          "name": "data-service-share-surface"
+        },
+        {
+          "line": 29,
+          "name": "data-service-share-desktop-mode"
+        },
+        {
+          "line": 30,
+          "name": "data-service-share-manifest-url"
+        },
+        {
+          "line": 31,
+          "name": "data-service-share-canonical-url"
+        },
+        {
+          "line": 32,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 47,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 48,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 53,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 56,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 65,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 66,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 71,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 74,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 78,
+          "name": "data-service-shortcut-badge"
+        },
+        {
+          "line": 84,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 85,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 92,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 96,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 100,
+          "name": "data-service-shortcut-badge"
+        },
+        {
+          "line": 106,
+          "name": "data-service-share-status"
+        },
+        {
+          "line": 113,
+          "name": "data-service-share-fallback"
+        },
+        {
+          "line": 206,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 211,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 212,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 213,
+          "name": "data-service-share-state"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "Astro",
+            "PUBLIC_SERVICE_SHARE_DESKTOP_MODE",
+            "desktopMode",
+            "env",
+            "import",
+            "meta",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "desktopMode",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15
+        },
+        {
+          "identifiers": [
+            "includes",
+            "requestedMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 16
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "manifestUrl",
+            "props"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Astro",
+            "props",
+            "showPrompt"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 19,
+          "name": "showPrompt"
+        },
+        {
+          "dependencies": [
+            "desktopMode",
+            "surface"
+          ],
+          "expression_kind": "TemplateLiteral",
+          "line": 22,
+          "name": "statusId"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_SERVICE_SHARE_DESKTOP_MODE"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 255
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 37,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 39,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 40,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 53,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 71,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 74,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 78,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 93,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 96,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 100,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 115,
+          "name": "hidden"
+        },
+        {
+          "line": 190,
+          "name": "disabled"
+        },
+        {
+          "line": 226,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 25
+        },
+        {
+          "kind": "style",
+          "line": 90
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 10,
+          "name": "class",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [
+            "d0",
+            "d1",
+            "d2"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "desktopMode",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "d0"
+              },
+              {
+                "kind": "literal",
+                "value": "d1"
+              },
+              {
+                "kind": "literal",
+                "value": "d2"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "manifestUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 9,
+          "name": "showPrompt",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "footer",
+            "menu",
+            "lab"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "surface",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "footer"
+              },
+              {
+                "kind": "literal",
+                "value": "menu"
+              },
+              {
+                "kind": "literal",
+                "value": "lab"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 237,
+          "query": "(min-width: 768px)"
+        },
+        {
+          "kind": "media",
+          "line": 241,
+          "query": "(min-width: 1024px)"
+        },
+        {
+          "kind": "media",
+          "line": 244,
+          "query": "(max-width: 767px)"
+        },
+        {
+          "kind": "media",
+          "line": 250,
+          "query": "(prefers-reduced-motion: reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 27,
+          "name": "data-service-share-root"
+        },
+        {
+          "line": 28,
+          "name": "data-service-share-surface"
+        },
+        {
+          "line": 29,
+          "name": "data-service-share-desktop-mode"
+        },
+        {
+          "line": 30,
+          "name": "data-service-share-manifest-url"
+        },
+        {
+          "line": 31,
+          "name": "data-service-share-canonical-url"
+        },
+        {
+          "line": 32,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 47,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 48,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 53,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 56,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 65,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 66,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 71,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 74,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 78,
+          "name": "data-service-shortcut-badge"
+        },
+        {
+          "line": 84,
+          "name": "data-service-share-button"
+        },
+        {
+          "line": 85,
+          "name": "data-service-share-intent"
+        },
+        {
+          "line": 92,
+          "name": "data-service-share-icon-default"
+        },
+        {
+          "line": 96,
+          "name": "data-service-share-icon-success"
+        },
+        {
+          "line": 100,
+          "name": "data-service-shortcut-badge"
+        },
+        {
+          "line": 106,
+          "name": "data-service-share-status"
+        },
+        {
+          "line": 113,
+          "name": "data-service-share-fallback"
+        },
+        {
+          "line": 206,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 211,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 212,
+          "name": "data-service-share-state"
+        },
+        {
+          "line": 213,
+          "name": "data-service-share-state"
+        }
+      ]
+    }
+  }
+}

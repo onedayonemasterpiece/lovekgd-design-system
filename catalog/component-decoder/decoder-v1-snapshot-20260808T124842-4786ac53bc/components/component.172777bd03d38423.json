@@ -1,0 +1,234 @@
+{
+  "classification_note": "Runtime/style/keyboard behavior without an independent visual surface contract.",
+  "decision": "NOT_MERGED",
+  "disposition": "nonvisual",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.172777bd03d38423",
+  "logical_path": "src/components/PwaTelemetry.astro",
+  "name": "PwaTelemetry",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.cc9c35075cddb7aa"
+      ],
+      "content_sha256": "57a63adab43b04c3f8aebce66567df69760acf4f1f0eaa3e0ac4b13e67011e40",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9b23c22363fb8c24"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.172777bd03d38423",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.cc9c35075cddb7aa"
+      ],
+      "content_sha256": "57a63adab43b04c3f8aebce66567df69760acf4f1f0eaa3e0ac4b13e67011e40",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9b23c22363fb8c24"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.172777bd03d38423",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "source-only",
+  "reachability_basis": "non-visual-source-evidence-only",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 2
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4
+        },
+        {
+          "identifiers": [
+            "endpoint"
+          ],
+          "kind": "LogicalExpression",
+          "line": 5
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "enabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 20
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 14,
+          "name": "hidden"
+        },
+        {
+          "line": 15,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-pwa-telemetry-config"
+        },
+        {
+          "line": 11,
+          "name": "data-pwa-telemetry-endpoint"
+        },
+        {
+          "line": 12,
+          "name": "data-pwa-telemetry-relay-endpoint"
+        },
+        {
+          "line": 13,
+          "name": "data-pwa-telemetry-key"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 2
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4
+        },
+        {
+          "identifiers": [
+            "endpoint"
+          ],
+          "kind": "LogicalExpression",
+          "line": 5
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "enabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 20
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 14,
+          "name": "hidden"
+        },
+        {
+          "line": 15,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-pwa-telemetry-config"
+        },
+        {
+          "line": 11,
+          "name": "data-pwa-telemetry-endpoint"
+        },
+        {
+          "line": 12,
+          "name": "data-pwa-telemetry-relay-endpoint"
+        },
+        {
+          "line": 13,
+          "name": "data-pwa-telemetry-key"
+        }
+      ]
+    }
+  }
+}

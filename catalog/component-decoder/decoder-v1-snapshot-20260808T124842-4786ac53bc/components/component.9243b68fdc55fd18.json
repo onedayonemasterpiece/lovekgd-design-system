@@ -1,0 +1,302 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.9243b68fdc55fd18",
+  "logical_path": "src/components/HomeHeroTalk.astro",
+  "name": "HomeHeroTalk",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "content_sha256": "bc301051fb19a46ff44debb9d6d40d24f8bbf4919a4db5188a742d1810d54923",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.9243b68fdc55fd18",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.95d291e9ce4c8739"
+      ],
+      "content_sha256": "bc301051fb19a46ff44debb9d6d40d24f8bbf4919a4db5188a742d1810d54923",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.9243b68fdc55fd18",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "event"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 8
+        },
+        {
+          "identifiers": [
+            "event"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 9
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_text_mode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "event",
+            "focal_point",
+            "y"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 11
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 27,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 50,
+          "name": "hidden"
+        },
+        {
+          "line": 73,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 26
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 88,
+          "property": "object-fit",
+          "value": "cover"
+        },
+        {
+          "line": 88,
+          "property": "object-position",
+          "value": "50% var(--home-hero-focal-y)"
+        },
+        {
+          "line": 89,
+          "property": "object-fit",
+          "value": "contain"
+        },
+        {
+          "line": 89,
+          "property": "object-position",
+          "value": "50% 50%"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "PreviewEvent"
+              },
+              "null"
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 95,
+          "query": "(max-width: 820px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 14,
+          "name": "data-home-hero-talk"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "event"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 8
+        },
+        {
+          "identifiers": [
+            "event"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 9
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_text_mode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "event",
+            "focal_point",
+            "y"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 11
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 27,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 50,
+          "name": "hidden"
+        },
+        {
+          "line": 73,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 26
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 88,
+          "property": "object-fit",
+          "value": "cover"
+        },
+        {
+          "line": 88,
+          "property": "object-position",
+          "value": "50% var(--home-hero-focal-y)"
+        },
+        {
+          "line": 89,
+          "property": "object-fit",
+          "value": "contain"
+        },
+        {
+          "line": 89,
+          "property": "object-position",
+          "value": "50% 50%"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "PreviewEvent"
+              },
+              "null"
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 95,
+          "query": "(max-width: 820px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 14,
+          "name": "data-home-hero-talk"
+        }
+      ]
+    }
+  }
+}

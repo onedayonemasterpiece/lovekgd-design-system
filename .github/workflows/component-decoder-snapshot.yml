@@ -1,0 +1,55 @@
+name: Validate current UI component decoder snapshot
+
+on:
+  push:
+    paths:
+      - 'catalog/component-decoder/**'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/index.md'
+      - 'README.md'
+      - '.github/workflows/component-decoder-snapshot.yml'
+  pull_request:
+    paths:
+      - 'catalog/component-decoder/**'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'docs/source-first-component-decoder.md'
+      - 'docs/index.md'
+      - 'README.md'
+      - '.github/workflows/component-decoder-snapshot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: component-decoder-snapshot-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact snapshot tree
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Validate compact snapshot hashes and stop boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-component-decoder-snapshot.mjs \
+            catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc
+
+      - name: Prove fail-closed corruption detection
+        shell: bash
+        run: |
+          set -euo pipefail
+          source='catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc'
+          target="${RUNNER_TEMP}/decoder-corruption-probe"
+          cp -a "$source" "$target"
+          printf '\ncorruption-probe\n' >> "$target/summary.md"
+          if node scripts/validate-component-decoder-snapshot.mjs "$target"; then
+            echo 'validator accepted a modified compact shard' >&2
+            exit 1
+          fi

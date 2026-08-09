@@ -1,0 +1,425 @@
+{
+  "candidate_component_id": "candidate.transport-kaup",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "disclosure expanded state",
+      "route and alert semantics pending capture"
+    ],
+    "anatomy": [
+      "transport-shell",
+      "official-transfer",
+      "public-bus-return",
+      "journey-alerts",
+      "optional-experiment-host"
+    ],
+    "fixture_classes": [
+      "specimen-plan.transport-state.kaup.compact-baseline-off",
+      "specimen-plan.transport-state.kaup.no-trip",
+      "specimen-plan.transport-state.kaup.qa-departure-board",
+      "specimen-plan.transport-state.kaup.qa-next-queue",
+      "specimen-plan.transport-state.kaup.qa-route-strips",
+      "specimen-plan.transport-state.kaup.regular-baseline-off",
+      "specimen-plan.transport-state.kaup.tight-return-present",
+      "specimen-plan.transport-state.kaup.transfer-details-open"
+    ],
+    "invalid_combinations": [
+      {
+        "id": "transport-invalid.kaup.no-trip-with-departure-state",
+        "rule": "!outbound_present => !departure_estimated && !tight"
+      },
+      {
+        "id": "transport-invalid.kaup.off-alternative",
+        "rule": "experiment_mode == off => treatment == departure_board_v1"
+      },
+      {
+        "id": "transport-invalid.kaup.off-with-host",
+        "rule": "experiment_mode == off => !experiment_host_present && !initial_hidden"
+      },
+      {
+        "id": "transport-invalid.kaup.enabled-without-host",
+        "rule": "experiment_mode != off => experiment_host_present"
+      },
+      {
+        "id": "transport-invalid.kaup.alternative-visible-in-source",
+        "rule": "enabled alternative treatment => initial_hidden"
+      }
+    ],
+    "media_contract": [],
+    "nested_component_refs": [
+      "candidate.transport-kaup:departure_board_v1",
+      "candidate.transport-kaup:route_strips_v1",
+      "candidate.transport-kaup:next_departure_queue_v1"
+    ],
+    "props": {
+      "source_props": {
+        "status": "state-aware-extraction-bound-by-logical-source-record"
+      }
+    },
+    "responsive_contract": [
+      {
+        "at": 361,
+        "below": 360,
+        "family": "kaup",
+        "kind": "container",
+        "name": "kaup-narrow"
+      },
+      {
+        "at": 391,
+        "below": 390,
+        "family": "kaup",
+        "kind": "container",
+        "name": "kaup-timetable"
+      },
+      {
+        "at": 561,
+        "below": 560,
+        "family": "kaup",
+        "kind": "container",
+        "name": "kaup-shell"
+      }
+    ],
+    "semantic_role": "Kaup official transfer and public return schedule",
+    "slots": {},
+    "state_axes": {
+      "compact": [
+        false,
+        true
+      ],
+      "departure_estimated": [
+        false,
+        true
+      ],
+      "experiment_host_present": [
+        false,
+        true
+      ],
+      "experiment_mode": [
+        "off",
+        "qa",
+        "focus_group",
+        "live"
+      ],
+      "initial_hidden": [
+        false,
+        true
+      ],
+      "outbound_present": [
+        false,
+        true
+      ],
+      "public_return_available": [
+        false,
+        true
+      ],
+      "tight": [
+        false,
+        true
+      ],
+      "transfer_details_open": [
+        false,
+        true
+      ],
+      "treatment": [
+        "departure_board_v1",
+        "route_strips_v1",
+        "next_departure_queue_v1"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": true,
+          "experiment_host_present": false,
+          "experiment_mode": "off",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "production-reachable-not-observed",
+        "state_record_id": "transport-state.kaup.regular-baseline-off"
+      },
+      {
+        "axes": {
+          "compact": true,
+          "departure_estimated": true,
+          "experiment_host_present": false,
+          "experiment_mode": "off",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "production-reachable-not-observed",
+        "state_record_id": "transport-state.kaup.compact-baseline-off"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": false,
+          "experiment_mode": "off",
+          "initial_hidden": false,
+          "outbound_present": false,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.no-trip"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": true,
+          "experiment_host_present": false,
+          "experiment_mode": "off",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": true,
+          "tight": true,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.tight-return-present"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": false,
+          "experiment_mode": "off",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": true,
+          "tight": false,
+          "transfer_details_open": true,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.transfer-details-open"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": true,
+          "experiment_host_present": true,
+          "experiment_mode": "qa",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.qa-departure-board"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": true,
+          "experiment_host_present": true,
+          "experiment_mode": "qa",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": true,
+          "transfer_details_open": false,
+          "treatment": "route_strips_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.qa-route-strips"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "qa",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": true,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "next_departure_queue_v1"
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.kaup.qa-next-queue"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "focus_group",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.focus_group-departure_board_v1"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "focus_group",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "route_strips_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.focus_group-route_strips_v1"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "focus_group",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "next_departure_queue_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.focus_group-next_departure_queue_v1"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "live",
+          "initial_hidden": false,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "departure_board_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.live-departure_board_v1"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "live",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "route_strips_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.live-route_strips_v1"
+      },
+      {
+        "axes": {
+          "compact": false,
+          "departure_estimated": false,
+          "experiment_host_present": true,
+          "experiment_mode": "live",
+          "initial_hidden": true,
+          "outbound_present": true,
+          "public_return_available": false,
+          "tight": false,
+          "transfer_details_open": false,
+          "treatment": "next_departure_queue_v1"
+        },
+        "reachability": "source-only",
+        "state_record_id": "transport-state.kaup.live-next_departure_queue_v1"
+      }
+    ],
+    "variant_axes": {
+      "timetable_treatment": [
+        "departure_board_v1",
+        "route_strips_v1",
+        "next_departure_queue_v1"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "06005ed8add80ce5570b5559fa0f923fa1f89987bae9ab35c4bf8b546ca76d0d",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.transport-kaup-lane",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/KaupTransportSchedule.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "14 source-derived state records and 8 planned specimens"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.transport-kaup",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "component-scoped capture pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "proof_label": "exact-candidate-real-route-representative",
+      "route_id": 5374
+    }
+  ],
+  "promotion_blockers": [
+    "controlled specimen and real-page reconciliation pending"
+  ],
+  "reachability": "production-baseline-plus-experiment-off-source-implementations",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/KaupTransportSchedule.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/transport/TransportTimetableExperiment.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "source-only-experiment-wrapper",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "baseline and experiment implementations remain NOT_MERGED"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "dependencies": [
+    "src/components/FocusEggArtifact.astro",
+    "src/components/FocusEggCollectionCard.astro",
+    "src/components/FocusEggSavedListDemo.astro",
+    "src/components/artifacts/ArtifactCollection.astro",
+    "src/components/listings/AmberRailArtifact.astro"
+  ],
+  "state_axes": {
+    "artifact-system.amber-research-collectible-v1": {
+      "collection": [
+        "empty",
+        "found",
+        "dialog-open"
+      ],
+      "focus": [
+        "not-focused",
+        "keyboard-focus"
+      ],
+      "motion": [
+        "regular",
+        "reduced"
+      ],
+      "rail": [
+        "idle",
+        "awake",
+        "collecting",
+        "collected"
+      ]
+    },
+    "artifact-system.focus-egg-prototype-v1": {
+      "artifact": [
+        "locked",
+        "eligible",
+        "found",
+        "unavailable"
+      ],
+      "contexts": [
+        "standalone-artifact",
+        "catalog-card",
+        "saved-list-demo"
+      ],
+      "density": [
+        "regular",
+        "compact"
+      ]
+    }
+  },
+  "token_mapping_status": "raw-source-references-only-no-tokenization",
+  "token_refs": [],
+  "transition_records": [
+    "artifact-transition.focus.saved-threshold",
+    "artifact-transition.focus.eligible-to-found",
+    "artifact-transition.focus.catalog-storage-override",
+    "artifact-transition.amber.idle-to-awake",
+    "artifact-transition.amber.awake-to-collected",
+    "artifact-transition.amber.collected-to-detail",
+    "artifact-transition.amber.collection-empty-to-found",
+    "artifact-transition.amber.found-to-dialog-open"
+  ]
+}

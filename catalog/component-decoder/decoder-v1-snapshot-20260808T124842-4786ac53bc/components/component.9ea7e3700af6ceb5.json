@@ -1,0 +1,1184 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.9ea7e3700af6ceb5",
+  "logical_path": "src/components/listings/ListingMobileDensitySwitch.astro",
+  "name": "ListingMobileDensitySwitch",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.05b95b7d51f5bde1"
+      ],
+      "content_sha256": "b5a19c79323118922d66d4a4ed3a8b20f3331227e488455ef0f8b484884faa40",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.9ea7e3700af6ceb5",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.05b95b7d51f5bde1"
+      ],
+      "content_sha256": "b5a19c79323118922d66d4a4ed3a8b20f3331227e488455ef0f8b484884faa40",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.9ea7e3700af6ceb5",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.9bb4a03bad2c43ff"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "dock",
+            "listingDensityReady"
+          ],
+          "kind": "IfStatement",
+          "line": 7,
+          "script_index": 0,
+          "source_line": 27,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "buttons",
+            "length",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 30,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 30,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selected"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 16,
+          "script_index": 0,
+          "source_line": 36,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selected"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 37,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "density"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 21,
+          "script_index": 0,
+          "source_line": 41,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "touches"
+          ],
+          "kind": "IfStatement",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 45,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dockTop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 53,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preferredEventId"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "candidates",
+            "centerDistance",
+            "left",
+            "preferred",
+            "right",
+            "sort",
+            "visibleArea"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 70,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preferred"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 70,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "left",
+            "right",
+            "visibleArea"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 71,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "DENSITIES",
+            "density",
+            "includes"
+          ],
+          "kind": "IfStatement",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 77,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preserveAnchor"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 58,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "active"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 65,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "persist"
+          ],
+          "kind": "IfStatement",
+          "line": 70,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "anchorId",
+            "anchorTop",
+            "isFinite"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "anchorId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "IfStatement",
+          "line": 76,
+          "script_index": 0,
+          "source_line": 96,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "delta"
+          ],
+          "kind": "IfStatement",
+          "line": 78,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "DENSITIES",
+            "dataset",
+            "includes",
+            "mobileCardDensity",
+            "surface"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 86,
+          "script_index": 0,
+          "source_line": 106,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 112,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 112,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 94,
+          "script_index": 0,
+          "source_line": 114,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 95,
+          "script_index": 0,
+          "source_line": 115,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "length",
+            "touches"
+          ],
+          "kind": "IfStatement",
+          "line": 107,
+          "script_index": 0,
+          "source_line": 127,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "matches",
+            "mobileDensityMedia"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance"
+          ],
+          "kind": "IfStatement",
+          "line": 114,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "dataset",
+            "event",
+            "eventId",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 117,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "matches",
+            "mobileDensityMedia"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 140,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance",
+            "pinchStart"
+          ],
+          "kind": "IfStatement",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 142,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance"
+          ],
+          "kind": "LogicalExpression",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 142,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pinchCommitted"
+          ],
+          "kind": "IfStatement",
+          "line": 124,
+          "script_index": 0,
+          "source_line": 144,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ratio"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ratio"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nextDensity"
+          ],
+          "kind": "IfStatement",
+          "line": 127,
+          "script_index": 0,
+          "source_line": 147,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "mobileCardDensity",
+            "nextDensity",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 129,
+          "script_index": 0,
+          "source_line": 149,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "listingPinchEventId",
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 130,
+          "script_index": 0,
+          "source_line": 150,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "density",
+            "querySelector",
+            "surface"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 22,
+          "name": "layoutFor",
+          "script_index": 0,
+          "source_line": 42,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 20
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 10,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 14,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 82,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 3,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 4,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 5,
+          "name": "data-listing-mobile-density-dock"
+        },
+        {
+          "line": 6,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 9,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 13,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 25,
+          "name": "data-listing-mobile-density-dock"
+        },
+        {
+          "line": 27,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 28,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 41,
+          "name": "data-popular-mobile-layout"
+        },
+        {
+          "line": 55,
+          "name": "data-popular-representation"
+        },
+        {
+          "line": 55,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 80,
+          "name": "data-popular-mobile-layout"
+        },
+        {
+          "line": 94,
+          "name": "data-popular-representation"
+        },
+        {
+          "line": 94,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 94,
+          "name": "data-event-id"
+        },
+        {
+          "line": 136,
+          "name": "data-listing-item"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "dock",
+            "listingDensityReady"
+          ],
+          "kind": "IfStatement",
+          "line": 7,
+          "script_index": 0,
+          "source_line": 27,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "buttons",
+            "length",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 30,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 30,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selected"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 16,
+          "script_index": 0,
+          "source_line": 36,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selected"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 37,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "density"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 21,
+          "script_index": 0,
+          "source_line": 41,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "touches"
+          ],
+          "kind": "IfStatement",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 45,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dockTop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 53,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preferredEventId"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "candidates",
+            "centerDistance",
+            "left",
+            "preferred",
+            "right",
+            "sort",
+            "visibleArea"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 70,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preferred"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 70,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "left",
+            "right",
+            "visibleArea"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 71,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "DENSITIES",
+            "density",
+            "includes"
+          ],
+          "kind": "IfStatement",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 77,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preserveAnchor"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 58,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "active"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 65,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "persist"
+          ],
+          "kind": "IfStatement",
+          "line": 70,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "anchorId",
+            "anchorTop",
+            "isFinite"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "anchorId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "IfStatement",
+          "line": 76,
+          "script_index": 0,
+          "source_line": 96,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "delta"
+          ],
+          "kind": "IfStatement",
+          "line": 78,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "DENSITIES",
+            "dataset",
+            "includes",
+            "mobileCardDensity",
+            "surface"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 86,
+          "script_index": 0,
+          "source_line": 106,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 112,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 112,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 94,
+          "script_index": 0,
+          "source_line": 114,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 95,
+          "script_index": 0,
+          "source_line": 115,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "length",
+            "touches"
+          ],
+          "kind": "IfStatement",
+          "line": 107,
+          "script_index": 0,
+          "source_line": 127,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "matches",
+            "mobileDensityMedia"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance"
+          ],
+          "kind": "IfStatement",
+          "line": 114,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "dataset",
+            "event",
+            "eventId",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 117,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "matches",
+            "mobileDensityMedia"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 140,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance",
+            "pinchStart"
+          ],
+          "kind": "IfStatement",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 142,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "distance"
+          ],
+          "kind": "LogicalExpression",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 142,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pinchCommitted"
+          ],
+          "kind": "IfStatement",
+          "line": 124,
+          "script_index": 0,
+          "source_line": 144,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ratio"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ratio"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nextDensity"
+          ],
+          "kind": "IfStatement",
+          "line": 127,
+          "script_index": 0,
+          "source_line": 147,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "mobileCardDensity",
+            "nextDensity",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 129,
+          "script_index": 0,
+          "source_line": 149,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "listingPinchEventId",
+            "surface"
+          ],
+          "kind": "LogicalExpression",
+          "line": 130,
+          "script_index": 0,
+          "source_line": 150,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "density",
+            "querySelector",
+            "surface"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 22,
+          "name": "layoutFor",
+          "script_index": 0,
+          "source_line": 42,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 20
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 10,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 14,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 82,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 3,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 4,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 5,
+          "name": "data-listing-mobile-density-dock"
+        },
+        {
+          "line": 6,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 9,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 13,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 25,
+          "name": "data-listing-mobile-density-dock"
+        },
+        {
+          "line": 27,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 28,
+          "name": "data-listing-density-button"
+        },
+        {
+          "line": 41,
+          "name": "data-popular-mobile-layout"
+        },
+        {
+          "line": 55,
+          "name": "data-popular-representation"
+        },
+        {
+          "line": 55,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 80,
+          "name": "data-popular-mobile-layout"
+        },
+        {
+          "line": 94,
+          "name": "data-popular-representation"
+        },
+        {
+          "line": 94,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 94,
+          "name": "data-event-id"
+        },
+        {
+          "line": 136,
+          "name": "data-listing-item"
+        }
+      ]
+    }
+  }
+}

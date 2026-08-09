@@ -1,0 +1,145 @@
+{
+  "candidate_component_id": "candidate.search-results",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "field label, status live region, result link order and keyboard dismissal require capture"
+    ],
+    "anatomy": [
+      "query-field",
+      "submit-or-clear-actions",
+      "async-status",
+      "result-list",
+      "collection-links"
+    ],
+    "fixture_classes": [
+      "empty-query",
+      "loading",
+      "results",
+      "error-recovery"
+    ],
+    "invalid_combinations": [
+      "treating page shell and result card as one accepted component"
+    ],
+    "media_contract": [],
+    "nested_component_refs": [],
+    "props": {
+      "source_props": {
+        "status": "state-aware-extraction-bound-by-logical-source-record"
+      }
+    },
+    "responsive_contract": [
+      {
+        "kind": "viewport-and-keyboard",
+        "status": "real-page-capture-required"
+      }
+    ],
+    "semantic_role": "Authorized event search form, result collection and recovery states",
+    "slots": {},
+    "state_axes": {
+      "keyboard_focus": [
+        "field",
+        "result",
+        "dismissed"
+      ],
+      "request": [
+        "idle",
+        "loading",
+        "success",
+        "empty",
+        "error"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "loading and error remain distinct async states"
+    ],
+    "variant_axes": {
+      "authorization": [
+        "signed-out",
+        "signed-in"
+      ],
+      "result_density": [
+        "empty",
+        "one",
+        "many"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "a01c809aabe2891182e98a8039f770f950e58f4099ea9935c12769d5e75d7d9f",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.search-source",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/AuthorizedEventSearch.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/pages/poisk/index.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "Search is implemented as a composed page/controller surface rather than a normalized result component"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.search-results",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "result item boundary and async visual states pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "logical_path": "src/pages/poisk/index.astro",
+      "route_family": "page-family.search"
+    }
+  ],
+  "promotion_blockers": [
+    "controlled network-state specimen and real-page verification pending"
+  ],
+  "reachability": "production-reachable",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/AuthorizedEventSearch.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/SearchCollectionLinks.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/poisk/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "production-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "composed search surface",
+    "separate field/status/result candidates"
+  ]
+}

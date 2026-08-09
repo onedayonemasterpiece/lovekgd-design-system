@@ -1,0 +1,342 @@
+{
+  "classification_note": "Transport timetable treatment is source-only with the production experiment disabled.",
+  "decision": "NOT_MERGED",
+  "disposition": "experiment-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.4ff9fbbe31c735d6",
+  "logical_path": "src/components/transport/RouteStripsTimetable.astro",
+  "name": "RouteStripsTimetable",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.be14d827746e93df"
+      ],
+      "content_sha256": "99945b6cdeccae568f937465f558d7d4e24e101799d433c8578691947f6559a8",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9e44e81fa496a4f9",
+        "source.current_root_prelaunch.c9b6d8ba33d4a3ad",
+        "source.current_root_prelaunch.e7adaece90fc305d"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.4ff9fbbe31c735d6",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.be14d827746e93df"
+      ],
+      "content_sha256": "99945b6cdeccae568f937465f558d7d4e24e101799d433c8578691947f6559a8",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9e44e81fa496a4f9",
+        "source.latest_checked_kaggle_candidate.c9b6d8ba33d4a3ad",
+        "source.latest_checked_kaggle_candidate.e7adaece90fc305d"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.4ff9fbbe31c735d6",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "experiment-off",
+  "reachability_basis": "reviewed-disabled-transport-experiment",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 11,
+          "name": "hidden"
+        },
+        {
+          "line": 39,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "arrivalStop",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "options",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "KaupBusOption"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "originMapUrl",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "originName",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "publicReturnAvailable",
+          "optional": false,
+          "required": true,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "route",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "walkRouteUrl",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "container",
+          "line": 56,
+          "query": "kaup-transport (max-width:390px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 11,
+          "name": "data-transport-treatment"
+        },
+        {
+          "line": 19,
+          "name": "data-transport-trip-id"
+        },
+        {
+          "line": 19,
+          "name": "data-departure-at"
+        },
+        {
+          "line": 27,
+          "name": "data-transport-disclosure"
+        },
+        {
+          "line": 28,
+          "name": "data-transport-action"
+        },
+        {
+          "line": 29,
+          "name": "data-transport-trip-id"
+        },
+        {
+          "line": 29,
+          "name": "data-departure-at"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 11,
+          "name": "hidden"
+        },
+        {
+          "line": 39,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "arrivalStop",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "options",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "KaupBusOption"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "originMapUrl",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "originName",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "publicReturnAvailable",
+          "optional": false,
+          "required": true,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "route",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "walkRouteUrl",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "container",
+          "line": 56,
+          "query": "kaup-transport (max-width:390px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 11,
+          "name": "data-transport-treatment"
+        },
+        {
+          "line": 19,
+          "name": "data-transport-trip-id"
+        },
+        {
+          "line": 19,
+          "name": "data-departure-at"
+        },
+        {
+          "line": 27,
+          "name": "data-transport-disclosure"
+        },
+        {
+          "line": 28,
+          "name": "data-transport-action"
+        },
+        {
+          "line": 29,
+          "name": "data-transport-trip-id"
+        },
+        {
+          "line": 29,
+          "name": "data-departure-at"
+        }
+      ]
+    }
+  }
+}

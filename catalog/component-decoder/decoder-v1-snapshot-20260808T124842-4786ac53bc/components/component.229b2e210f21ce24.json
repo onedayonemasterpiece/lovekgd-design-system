@@ -1,0 +1,1566 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.229b2e210f21ce24",
+  "logical_path": "src/components/MobileToastRegion.astro",
+  "name": "MobileToastRegion",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.cc9c35075cddb7aa"
+      ],
+      "content_sha256": "6a4eb88924beb3ce638f900aefbf2108a51f8e5f23925690b1584cf503076564",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.229b2e210f21ce24",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.cc9c35075cddb7aa"
+      ],
+      "content_sha256": "6a4eb88924beb3ce638f900aefbf2108a51f8e5f23925690b1584cf503076564",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.229b2e210f21ce24",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "action",
+            "assertive",
+            "close",
+            "countdown",
+            "message",
+            "polite",
+            "region",
+            "toast"
+          ],
+          "kind": "IfStatement",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "countdown",
+            "message",
+            "polite",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "countdown",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "region"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "timer"
+          ],
+          "kind": "IfStatement",
+          "line": 34,
+          "script_index": 0,
+          "source_line": 48,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "announce",
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 38,
+          "script_index": 0,
+          "source_line": 52,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "type"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 53,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "entry",
+            "id"
+          ],
+          "kind": "IfStatement",
+          "line": 40,
+          "script_index": 0,
+          "source_line": 54,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry",
+            "matches",
+            "reducedMotion"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 64,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "expectedGeneration",
+            "generation"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration",
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "pauseReasons",
+            "reason"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration",
+            "timer"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 79,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry"
+          ],
+          "kind": "LogicalExpression",
+          "line": 84,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "entry",
+            "label"
+          ],
+          "kind": "LogicalExpression",
+          "line": 89,
+          "script_index": 0,
+          "source_line": 103,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "next"
+          ],
+          "kind": "IfStatement",
+          "line": 96,
+          "script_index": 0,
+          "source_line": 110,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "input"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 99,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 100,
+          "script_index": 0,
+          "source_line": 114,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 115,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "String",
+            "includes",
+            "source",
+            "type"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 116,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "source"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 117,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 117,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "label",
+            "rawAction"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 104,
+          "script_index": 0,
+          "source_line": 118,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "type"
+          ],
+          "kind": "LogicalExpression",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 119,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dedupeKey",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 108,
+          "script_index": 0,
+          "source_line": 122,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "persistent"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "duration",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 115,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "dedupeKey",
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 116,
+          "script_index": 0,
+          "source_line": 130,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "queuedIndex"
+          ],
+          "kind": "IfStatement",
+          "line": 119,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "MAX_QUEUE",
+            "length",
+            "queue"
+          ],
+          "kind": "IfStatement",
+          "line": 123,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "FocusEvent",
+            "Node",
+            "contains",
+            "event",
+            "region",
+            "relatedTarget"
+          ],
+          "kind": "IfStatement",
+          "line": 136,
+          "script_index": 0,
+          "source_line": 150,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "document",
+            "hidden"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 142,
+          "script_index": 0,
+          "source_line": 156,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "open"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 146,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "KenigEventsToast",
+            "api",
+            "host"
+          ],
+          "kind": "IfStatement",
+          "line": 150,
+          "script_index": 0,
+          "source_line": 164,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "HTMLDetailsElement",
+            "currentTarget",
+            "event",
+            "open"
+          ],
+          "expression_kind": "MemberExpression",
+          "line": 144,
+          "name": "open",
+          "script_index": 0,
+          "source_line": 158,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "MAX_QUEUE",
+            "Record",
+            "ToastInput",
+            "current",
+            "dedupeKey",
+            "entry",
+            "findIndex",
+            "id",
+            "input",
+            "item",
+            "length",
+            "normalize",
+            "options",
+            "push",
+            "queue",
+            "queuedIndex",
+            "render",
+            "shift"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 113,
+          "name": "show",
+          "script_index": 0,
+          "source_line": 127,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 14
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 1,
+          "name": "hidden"
+        },
+        {
+          "line": 5,
+          "name": "hidden"
+        },
+        {
+          "line": 8,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "hidden"
+        },
+        {
+          "line": 69,
+          "name": "hidden"
+        },
+        {
+          "line": 98,
+          "name": "hidden"
+        },
+        {
+          "line": 101,
+          "name": "hidden"
+        },
+        {
+          "line": 155,
+          "name": "hidden"
+        },
+        {
+          "line": 157,
+          "name": "open"
+        },
+        {
+          "line": 158,
+          "name": "open"
+        },
+        {
+          "line": 159,
+          "name": "open"
+        },
+        {
+          "line": 175,
+          "name": "hidden"
+        },
+        {
+          "line": 176,
+          "name": "hidden"
+        },
+        {
+          "line": 177,
+          "name": "hidden"
+        },
+        {
+          "line": 180,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 188,
+          "query": "(prefers-reduced-motion:reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 1,
+          "name": "data-mobile-toast-region"
+        },
+        {
+          "line": 2,
+          "name": "data-mobile-toast"
+        },
+        {
+          "line": 2,
+          "name": "data-kind"
+        },
+        {
+          "line": 3,
+          "name": "data-mobile-toast-message"
+        },
+        {
+          "line": 5,
+          "name": "data-mobile-toast-action"
+        },
+        {
+          "line": 6,
+          "name": "data-mobile-toast-close"
+        },
+        {
+          "line": 8,
+          "name": "data-mobile-toast-countdown"
+        },
+        {
+          "line": 11,
+          "name": "data-mobile-toast-status"
+        },
+        {
+          "line": 12,
+          "name": "data-mobile-toast-alert"
+        },
+        {
+          "line": 25,
+          "name": "data-mobile-toast-region"
+        },
+        {
+          "line": 26,
+          "name": "data-mobile-toast"
+        },
+        {
+          "line": 27,
+          "name": "data-mobile-toast-message"
+        },
+        {
+          "line": 28,
+          "name": "data-mobile-toast-action"
+        },
+        {
+          "line": 29,
+          "name": "data-mobile-toast-close"
+        },
+        {
+          "line": 30,
+          "name": "data-mobile-toast-countdown"
+        },
+        {
+          "line": 31,
+          "name": "data-mobile-toast-status"
+        },
+        {
+          "line": 32,
+          "name": "data-mobile-toast-alert"
+        },
+        {
+          "line": 156,
+          "name": "data-mobile-discovery-menu"
+        },
+        {
+          "line": 178,
+          "name": "data-kind"
+        },
+        {
+          "line": 179,
+          "name": "data-kind"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "action",
+            "assertive",
+            "close",
+            "countdown",
+            "message",
+            "polite",
+            "region",
+            "toast"
+          ],
+          "kind": "IfStatement",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "countdown",
+            "message",
+            "polite",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "countdown",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "close",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message",
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "region",
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "region"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "timer"
+          ],
+          "kind": "IfStatement",
+          "line": 34,
+          "script_index": 0,
+          "source_line": 48,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "announce",
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 38,
+          "script_index": 0,
+          "source_line": 52,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "type"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 53,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "entry",
+            "id"
+          ],
+          "kind": "IfStatement",
+          "line": 40,
+          "script_index": 0,
+          "source_line": 54,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry",
+            "matches",
+            "reducedMotion"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 64,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "expectedGeneration",
+            "generation"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration",
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "pauseReasons",
+            "reason"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration",
+            "timer"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "duration"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pauseReasons",
+            "size"
+          ],
+          "kind": "IfStatement",
+          "line": 79,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "duration",
+            "entry"
+          ],
+          "kind": "LogicalExpression",
+          "line": 84,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "entry",
+            "label"
+          ],
+          "kind": "LogicalExpression",
+          "line": 89,
+          "script_index": 0,
+          "source_line": 103,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "next"
+          ],
+          "kind": "IfStatement",
+          "line": 96,
+          "script_index": 0,
+          "source_line": 110,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "input"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 99,
+          "script_index": 0,
+          "source_line": 113,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 100,
+          "script_index": 0,
+          "source_line": 114,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 115,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "String",
+            "includes",
+            "source",
+            "type"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 116,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "source"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 117,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "action",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 117,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "label",
+            "rawAction"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 104,
+          "script_index": 0,
+          "source_line": 118,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "type"
+          ],
+          "kind": "LogicalExpression",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 119,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dedupeKey",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 108,
+          "script_index": 0,
+          "source_line": 122,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "persistent"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "duration",
+            "source"
+          ],
+          "kind": "LogicalExpression",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 115,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current",
+            "dedupeKey",
+            "entry"
+          ],
+          "kind": "IfStatement",
+          "line": 116,
+          "script_index": 0,
+          "source_line": 130,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "queuedIndex"
+          ],
+          "kind": "IfStatement",
+          "line": 119,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "MAX_QUEUE",
+            "length",
+            "queue"
+          ],
+          "kind": "IfStatement",
+          "line": 123,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "FocusEvent",
+            "Node",
+            "contains",
+            "event",
+            "region",
+            "relatedTarget"
+          ],
+          "kind": "IfStatement",
+          "line": 136,
+          "script_index": 0,
+          "source_line": 150,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "document",
+            "hidden"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 142,
+          "script_index": 0,
+          "source_line": 156,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "open"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 146,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "KenigEventsToast",
+            "api",
+            "host"
+          ],
+          "kind": "IfStatement",
+          "line": 150,
+          "script_index": 0,
+          "source_line": 164,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "HTMLDetailsElement",
+            "currentTarget",
+            "event",
+            "open"
+          ],
+          "expression_kind": "MemberExpression",
+          "line": 144,
+          "name": "open",
+          "script_index": 0,
+          "source_line": 158,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "MAX_QUEUE",
+            "Record",
+            "ToastInput",
+            "current",
+            "dedupeKey",
+            "entry",
+            "findIndex",
+            "id",
+            "input",
+            "item",
+            "length",
+            "normalize",
+            "options",
+            "push",
+            "queue",
+            "queuedIndex",
+            "render",
+            "shift"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 113,
+          "name": "show",
+          "script_index": 0,
+          "source_line": 127,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 14
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 1,
+          "name": "hidden"
+        },
+        {
+          "line": 5,
+          "name": "hidden"
+        },
+        {
+          "line": 8,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "hidden"
+        },
+        {
+          "line": 69,
+          "name": "hidden"
+        },
+        {
+          "line": 98,
+          "name": "hidden"
+        },
+        {
+          "line": 101,
+          "name": "hidden"
+        },
+        {
+          "line": 155,
+          "name": "hidden"
+        },
+        {
+          "line": 157,
+          "name": "open"
+        },
+        {
+          "line": 158,
+          "name": "open"
+        },
+        {
+          "line": 159,
+          "name": "open"
+        },
+        {
+          "line": 175,
+          "name": "hidden"
+        },
+        {
+          "line": 176,
+          "name": "hidden"
+        },
+        {
+          "line": 177,
+          "name": "hidden"
+        },
+        {
+          "line": 180,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 188,
+          "query": "(prefers-reduced-motion:reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 1,
+          "name": "data-mobile-toast-region"
+        },
+        {
+          "line": 2,
+          "name": "data-mobile-toast"
+        },
+        {
+          "line": 2,
+          "name": "data-kind"
+        },
+        {
+          "line": 3,
+          "name": "data-mobile-toast-message"
+        },
+        {
+          "line": 5,
+          "name": "data-mobile-toast-action"
+        },
+        {
+          "line": 6,
+          "name": "data-mobile-toast-close"
+        },
+        {
+          "line": 8,
+          "name": "data-mobile-toast-countdown"
+        },
+        {
+          "line": 11,
+          "name": "data-mobile-toast-status"
+        },
+        {
+          "line": 12,
+          "name": "data-mobile-toast-alert"
+        },
+        {
+          "line": 25,
+          "name": "data-mobile-toast-region"
+        },
+        {
+          "line": 26,
+          "name": "data-mobile-toast"
+        },
+        {
+          "line": 27,
+          "name": "data-mobile-toast-message"
+        },
+        {
+          "line": 28,
+          "name": "data-mobile-toast-action"
+        },
+        {
+          "line": 29,
+          "name": "data-mobile-toast-close"
+        },
+        {
+          "line": 30,
+          "name": "data-mobile-toast-countdown"
+        },
+        {
+          "line": 31,
+          "name": "data-mobile-toast-status"
+        },
+        {
+          "line": 32,
+          "name": "data-mobile-toast-alert"
+        },
+        {
+          "line": 156,
+          "name": "data-mobile-discovery-menu"
+        },
+        {
+          "line": 178,
+          "name": "data-kind"
+        },
+        {
+          "line": 179,
+          "name": "data-kind"
+        }
+      ]
+    }
+  }
+}

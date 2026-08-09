@@ -1,0 +1,3581 @@
+{
+  "classification_note": "Composition/layout implementation retained separately from leaf visual components.",
+  "decision": "NOT_MERGED",
+  "disposition": "composition-layout",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.8b1fcf1a67c4e2f1",
+  "logical_path": "src/components/listings/MobileListingRailSurface.astro",
+  "name": "MobileListingRailSurface",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.05b95b7d51f5bde1",
+        "source.current_root_prelaunch.79d531506150e348",
+        "source.current_root_prelaunch.a355ce7cec1a3c1b"
+      ],
+      "content_sha256": "58b43192f664e28dfd1d4f99590d9193eb9f6fdd3b19b84be4d9ea8abe044163",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.5c07f96d6ebeaa2a",
+        "source.current_root_prelaunch.afe80a93f248ca63",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.e16e92176acdcbe4",
+        "source.current_root_prelaunch.ee07df600f8fc5e5"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.8b1fcf1a67c4e2f1",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.05b95b7d51f5bde1",
+        "source.latest_checked_kaggle_candidate.79d531506150e348",
+        "source.latest_checked_kaggle_candidate.a355ce7cec1a3c1b"
+      ],
+      "content_sha256": "58b43192f664e28dfd1d4f99590d9193eb9f6fdd3b19b84be4d9ea8abe044163",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.5c07f96d6ebeaa2a",
+        "source.latest_checked_kaggle_candidate.afe80a93f248ca63",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.e16e92176acdcbe4",
+        "source.latest_checked_kaggle_candidate.ee07df600f8fc5e5"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.8b1fcf1a67c4e2f1",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.04ca51ebb498ff85",
+    "runtime.latest_checked_kaggle_candidate.4dc5fb7f5290b6bb",
+    "runtime.latest_checked_kaggle_candidate.4e34da6a2c195846",
+    "runtime.latest_checked_kaggle_candidate.54f4b2d596fa27c8",
+    "runtime.latest_checked_kaggle_candidate.58309633a139a2ac",
+    "runtime.latest_checked_kaggle_candidate.5f45f770c1c24d42",
+    "runtime.latest_checked_kaggle_candidate.67fe72afdfd611dc",
+    "runtime.latest_checked_kaggle_candidate.683d3a0d9fc9f799",
+    "runtime.latest_checked_kaggle_candidate.6f70d24db5866a32",
+    "runtime.latest_checked_kaggle_candidate.6feae45984e6ca40",
+    "runtime.latest_checked_kaggle_candidate.802aea3a00689fbb",
+    "runtime.latest_checked_kaggle_candidate.945e5eb5f6354c22",
+    "runtime.latest_checked_kaggle_candidate.9879dc8700179af1",
+    "runtime.latest_checked_kaggle_candidate.9bb4a03bad2c43ff",
+    "runtime.latest_checked_kaggle_candidate.ad041ad5f4793be8",
+    "runtime.latest_checked_kaggle_candidate.ad1c49fddd94fc38",
+    "runtime.latest_checked_kaggle_candidate.ae25e1b10fe6998f",
+    "runtime.latest_checked_kaggle_candidate.bf5f673cd68b48b1",
+    "runtime.latest_checked_kaggle_candidate.c2efd96670c9fdfd",
+    "runtime.latest_checked_kaggle_candidate.d288890792c007ef",
+    "runtime.latest_checked_kaggle_candidate.d4f5c9ccddc512bb",
+    "runtime.latest_checked_kaggle_candidate.e2a6c3d3ae734cd6",
+    "runtime.latest_checked_kaggle_candidate.f29e92d43ef87473",
+    "runtime.latest_checked_kaggle_candidate.fa07866be1306b73"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "mobileV23Ready",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "countNode"
+          ],
+          "kind": "IfStatement",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 219,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "empty"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 221,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selectedCity"
+          ],
+          "kind": "LogicalExpression",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 224,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cityFiltered"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 225,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cityFiltered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 226,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "toast",
+            "toastText"
+          ],
+          "kind": "IfStatement",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "undo"
+          ],
+          "kind": "LogicalExpression",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 232,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "undoButton"
+          ],
+          "kind": "IfStatement",
+          "line": 59,
+          "script_index": 0,
+          "source_line": 234,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "getAttribute",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 66,
+          "script_index": 0,
+          "source_line": 241,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "getAttribute",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 70,
+          "script_index": 0,
+          "source_line": 245,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "settled"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 248,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target",
+            "toastUndo"
+          ],
+          "kind": "IfStatement",
+          "line": 83,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 83,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm"
+          ],
+          "kind": "IfStatement",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 268,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm"
+          ],
+          "kind": "IfStatement",
+          "line": 96,
+          "script_index": 0,
+          "source_line": 271,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "liked"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "heading"
+          ],
+          "kind": "IfStatement",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "liked"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negative"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 287,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pressed"
+          ],
+          "kind": "IfStatement",
+          "line": 116,
+          "script_index": 0,
+          "source_line": 291,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rememberSwipeConsent"
+          ],
+          "kind": "IfStatement",
+          "line": 117,
+          "script_index": 0,
+          "source_line": 292,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "wasLiked"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 295,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cleared",
+            "getAttribute",
+            "like"
+          ],
+          "kind": "IfStatement",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 297,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cleared"
+          ],
+          "kind": "LogicalExpression",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 297,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hasNegativeSwipeConsent"
+          ],
+          "kind": "IfStatement",
+          "line": 130,
+          "script_index": 0,
+          "source_line": 305,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "confirm",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 137,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 137,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "confirmRow",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 138,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 138,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pinSentinel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 145,
+          "script_index": 0,
+          "source_line": 320,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "city"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 331,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "label"
+          ],
+          "kind": "IfStatement",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 331,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "picker"
+          ],
+          "kind": "IfStatement",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 332,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "mobileV23City"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 334,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rail",
+            "track"
+          ],
+          "kind": "IfStatement",
+          "line": 166,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rail"
+          ],
+          "kind": "LogicalExpression",
+          "line": 166,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "getAttribute",
+            "negativeButton"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 167,
+          "script_index": 0,
+          "source_line": 342,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negative"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 172,
+          "script_index": 0,
+          "source_line": 347,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton",
+            "smallLike"
+          ],
+          "kind": "IfStatement",
+          "line": 173,
+          "script_index": 0,
+          "source_line": 348,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "smallLike"
+          ],
+          "kind": "LogicalExpression",
+          "line": 173,
+          "script_index": 0,
+          "source_line": 348,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton",
+            "querySelector",
+            "textContent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 174,
+          "script_index": 0,
+          "source_line": 349,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "countNode"
+          ],
+          "kind": "IfStatement",
+          "line": 176,
+          "script_index": 0,
+          "source_line": 351,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton"
+          ],
+          "kind": "IfStatement",
+          "line": 182,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negativeButton"
+          ],
+          "kind": "IfStatement",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 358,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "isLiked"
+          ],
+          "kind": "LogicalExpression",
+          "line": 217,
+          "script_index": 0,
+          "source_line": 392,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "atEnd"
+          ],
+          "kind": "LogicalExpression",
+          "line": 220,
+          "script_index": 0,
+          "source_line": 395,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progress"
+          ],
+          "kind": "LogicalExpression",
+          "line": 225,
+          "script_index": 0,
+          "source_line": 400,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 230,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 230,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 239,
+          "script_index": 0,
+          "source_line": 414,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 241,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 259,
+          "script_index": 0,
+          "source_line": 434,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed",
+            "isLiked"
+          ],
+          "kind": "IfStatement",
+          "line": 262,
+          "script_index": 0,
+          "source_line": 437,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 262,
+          "script_index": 0,
+          "source_line": 437,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pressed"
+          ],
+          "kind": "IfStatement",
+          "line": 267,
+          "script_index": 0,
+          "source_line": 442,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "closest",
+            "event",
+            "pointerType",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "pointerType",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "down"
+          ],
+          "kind": "IfStatement",
+          "line": 283,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "dx",
+            "dy",
+            "hypot",
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 287,
+          "script_index": 0,
+          "source_line": 462,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 287,
+          "script_index": 0,
+          "source_line": 462,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "edgeEligible",
+            "horizontal",
+            "startScroll"
+          ],
+          "kind": "IfStatement",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "startScroll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "likeEligible"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 292,
+          "script_index": 0,
+          "source_line": 467,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 297,
+          "script_index": 0,
+          "source_line": 472,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "dx",
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 302,
+          "script_index": 0,
+          "source_line": 477,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 302,
+          "script_index": 0,
+          "source_line": 477,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "likeEligible"
+          ],
+          "kind": "IfStatement",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dragged"
+          ],
+          "kind": "IfStatement",
+          "line": 316,
+          "script_index": 0,
+          "source_line": 491,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 317,
+          "script_index": 0,
+          "source_line": 492,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "IfStatement",
+          "line": 320,
+          "script_index": 0,
+          "source_line": 495,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 496,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dragged"
+          ],
+          "kind": "IfStatement",
+          "line": 327,
+          "script_index": 0,
+          "source_line": 502,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 328,
+          "script_index": 0,
+          "source_line": 503,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 329,
+          "script_index": 0,
+          "source_line": 504,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clientX",
+            "touch"
+          ],
+          "kind": "LogicalExpression",
+          "line": 337,
+          "script_index": 0,
+          "source_line": 512,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clientY",
+            "touch"
+          ],
+          "kind": "LogicalExpression",
+          "line": 338,
+          "script_index": 0,
+          "source_line": 513,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "touch"
+          ],
+          "kind": "IfStatement",
+          "line": 344,
+          "script_index": 0,
+          "source_line": 519,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "dx",
+            "dy",
+            "hypot",
+            "touchMode"
+          ],
+          "kind": "IfStatement",
+          "line": 350,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "touchMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 350,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "edgeEligible",
+            "horizontal",
+            "touchStartScroll"
+          ],
+          "kind": "IfStatement",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "touchStartScroll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "endAt",
+            "length",
+            "trim"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 410,
+          "name": "hasExplicitEnd",
+          "script_index": 0,
+          "source_line": 585,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "_",
+            "getItem",
+            "localStorage",
+            "negativeSwipeConsentKey"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 17,
+          "name": "hasNegativeSwipeConsent",
+          "script_index": 0,
+          "source_line": 192,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "classList",
+            "contains",
+            "row"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 216,
+          "name": "isLiked",
+          "script_index": 0,
+          "source_line": 391,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [],
+          "expression_kind": "StringLiteral",
+          "line": 197,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 372,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "add",
+            "body",
+            "classList",
+            "confirm",
+            "confirmRow",
+            "contains",
+            "copy",
+            "document",
+            "heading",
+            "hidden",
+            "liked",
+            "querySelector",
+            "requestAnimationFrame",
+            "row",
+            "textContent"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 95,
+          "name": "openConfirm",
+          "script_index": 0,
+          "source_line": 270,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "clearTimeout",
+            "hidden",
+            "message",
+            "querySelector",
+            "setTimeout",
+            "textContent",
+            "toast",
+            "toastText",
+            "toastTimer",
+            "toastUndo",
+            "undo",
+            "undoButton"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 53,
+          "name": "showToast",
+          "script_index": 0,
+          "source_line": 228,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "completed",
+            "elapsedListingDayWithoutEnd",
+            "startedEarlier"
+          ],
+          "expression_kind": "ConditionalExpression",
+          "line": 417,
+          "name": "state",
+          "script_index": 0,
+          "source_line": 592,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 175
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 55,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 77,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 95,
+          "name": "hidden"
+        },
+        {
+          "line": 104,
+          "name": "hidden"
+        },
+        {
+          "line": 114,
+          "name": "hidden"
+        },
+        {
+          "line": 144,
+          "name": "hidden"
+        },
+        {
+          "line": 145,
+          "name": "hidden"
+        },
+        {
+          "line": 149,
+          "name": "hidden"
+        },
+        {
+          "line": 151,
+          "name": "hidden"
+        },
+        {
+          "line": 152,
+          "name": "hidden"
+        },
+        {
+          "line": 153,
+          "name": "hidden"
+        },
+        {
+          "line": 157,
+          "name": "hidden"
+        },
+        {
+          "line": 158,
+          "name": "hidden"
+        },
+        {
+          "line": 160,
+          "name": "hidden"
+        },
+        {
+          "line": 162,
+          "name": "hidden"
+        },
+        {
+          "line": 166,
+          "name": "hidden"
+        },
+        {
+          "line": 166,
+          "name": "open"
+        },
+        {
+          "line": 167,
+          "name": "hidden"
+        },
+        {
+          "line": 167,
+          "name": "disabled"
+        },
+        {
+          "line": 168,
+          "name": "hidden"
+        },
+        {
+          "line": 168,
+          "name": "open"
+        },
+        {
+          "line": 168,
+          "name": "disabled"
+        },
+        {
+          "line": 168,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 214,
+          "name": "hidden"
+        },
+        {
+          "line": 215,
+          "name": "hidden"
+        },
+        {
+          "line": 220,
+          "name": "hidden"
+        },
+        {
+          "line": 225,
+          "name": "hidden"
+        },
+        {
+          "line": 233,
+          "name": "hidden"
+        },
+        {
+          "line": 234,
+          "name": "hidden"
+        },
+        {
+          "line": 235,
+          "name": "hidden"
+        },
+        {
+          "line": 260,
+          "name": "hidden"
+        },
+        {
+          "line": 265,
+          "name": "open"
+        },
+        {
+          "line": 266,
+          "name": "open"
+        },
+        {
+          "line": 267,
+          "name": "hidden"
+        },
+        {
+          "line": 279,
+          "name": "hidden"
+        },
+        {
+          "line": 280,
+          "name": "open"
+        },
+        {
+          "line": 281,
+          "name": "open"
+        },
+        {
+          "line": 321,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 331,
+          "name": "open"
+        },
+        {
+          "line": 351,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [
+        {
+          "line": 160,
+          "property": "object-fit",
+          "value": "var(--rail-media-fit)"
+        },
+        {
+          "line": 160,
+          "property": "object-position",
+          "value": "var(--focus-x,50%) var(--focus-y,50%)"
+        },
+        {
+          "line": 163,
+          "property": "object-fit",
+          "value": "contain"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 23,
+          "name": "amberArtifactTailEventId",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 21,
+          "name": "calendarDate",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 20,
+          "name": "calendarToday",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 19,
+          "name": "cities",
+          "optional": true,
+          "required": false,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "City"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 18,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "popular"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 17,
+          "name": "feedMeta",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "feedTitle",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 15,
+          "name": "meta",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [
+            "per-date",
+            "per-family"
+          ],
+          "default": {
+            "observed": true,
+            "value": "per-date"
+          },
+          "line": 13,
+          "name": "occurrenceMode",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "per-date"
+              },
+              {
+                "kind": "literal",
+                "value": "per-family"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 12,
+          "name": "sections",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "Section"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 14,
+          "name": "title",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 24,
+          "name": "weather",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "WeatherContext"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 22,
+          "name": "weekendEnd",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 121,
+          "query": "(max-width:720px)"
+        },
+        {
+          "kind": "media",
+          "line": 170,
+          "query": "(max-width:359px)"
+        },
+        {
+          "kind": "media",
+          "line": 171,
+          "query": "(prefers-reduced-motion:reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 46,
+          "name": "data-mobile-listing-rails"
+        },
+        {
+          "line": 47,
+          "name": "data-mobile-v23-page"
+        },
+        {
+          "line": 48,
+          "name": "data-mobile-listing-date"
+        },
+        {
+          "line": 55,
+          "name": "data-mobile-listing-pin-sentinel"
+        },
+        {
+          "line": 56,
+          "name": "data-mobile-listing-sticky-title"
+        },
+        {
+          "line": 62,
+          "name": "data-mobile-v23-city-picker"
+        },
+        {
+          "line": 63,
+          "name": "data-mobile-v23-city-label"
+        },
+        {
+          "line": 65,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 66,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 73,
+          "name": "data-mobile-v23-group"
+        },
+        {
+          "line": 82,
+          "name": "data-mobile-v23-group-count"
+        },
+        {
+          "line": 95,
+          "name": "data-mobile-v23-empty"
+        },
+        {
+          "line": 104,
+          "name": "data-rail-confirm"
+        },
+        {
+          "line": 109,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 110,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 114,
+          "name": "data-rail-action-toast"
+        },
+        {
+          "line": 151,
+          "name": "data-mobile-v23-page"
+        },
+        {
+          "line": 166,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 166,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 168,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 176,
+          "name": "data-mobile-listing-rails"
+        },
+        {
+          "line": 179,
+          "name": "data-mobile-listing-row"
+        },
+        {
+          "line": 180,
+          "name": "data-mobile-v23-city-label"
+        },
+        {
+          "line": 181,
+          "name": "data-mobile-v23-empty"
+        },
+        {
+          "line": 182,
+          "name": "data-mobile-v23-city-picker"
+        },
+        {
+          "line": 183,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 184,
+          "name": "data-mobile-listing-pin-sentinel"
+        },
+        {
+          "line": 185,
+          "name": "data-mobile-listing-sticky-title"
+        },
+        {
+          "line": 186,
+          "name": "data-rail-confirm"
+        },
+        {
+          "line": 187,
+          "name": "data-rail-action-toast"
+        },
+        {
+          "line": 213,
+          "name": "data-mobile-v23-group"
+        },
+        {
+          "line": 214,
+          "name": "data-mobile-listing-row"
+        },
+        {
+          "line": 217,
+          "name": "data-mobile-v23-group-count"
+        },
+        {
+          "line": 284,
+          "name": "data-rail-negative-control"
+        },
+        {
+          "line": 285,
+          "name": "data-like"
+        },
+        {
+          "line": 311,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 312,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 337,
+          "name": "data-like"
+        },
+        {
+          "line": 338,
+          "name": "data-rail-negative-control"
+        },
+        {
+          "line": 339,
+          "name": "data-small-like"
+        },
+        {
+          "line": 348,
+          "name": "data-like-count"
+        },
+        {
+          "line": 349,
+          "name": "data-small-like-count"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "mobileV23Ready",
+            "surface"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "countNode"
+          ],
+          "kind": "IfStatement",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 219,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "empty"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 221,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "selectedCity"
+          ],
+          "kind": "LogicalExpression",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 224,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cityFiltered"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 225,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cityFiltered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 226,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "toast",
+            "toastText"
+          ],
+          "kind": "IfStatement",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "toast"
+          ],
+          "kind": "LogicalExpression",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "undo"
+          ],
+          "kind": "LogicalExpression",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 232,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "undoButton"
+          ],
+          "kind": "IfStatement",
+          "line": 59,
+          "script_index": 0,
+          "source_line": 234,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "getAttribute",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 66,
+          "script_index": 0,
+          "source_line": 241,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "getAttribute",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 70,
+          "script_index": 0,
+          "source_line": 245,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "settled"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 248,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target",
+            "toastUndo"
+          ],
+          "kind": "IfStatement",
+          "line": 83,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 83,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm"
+          ],
+          "kind": "IfStatement",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 268,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm"
+          ],
+          "kind": "IfStatement",
+          "line": 96,
+          "script_index": 0,
+          "source_line": 271,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "liked"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "heading"
+          ],
+          "kind": "IfStatement",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "liked"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negative"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 287,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pressed"
+          ],
+          "kind": "IfStatement",
+          "line": 116,
+          "script_index": 0,
+          "source_line": 291,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rememberSwipeConsent"
+          ],
+          "kind": "IfStatement",
+          "line": 117,
+          "script_index": 0,
+          "source_line": 292,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "wasLiked"
+          ],
+          "kind": "IfStatement",
+          "line": 120,
+          "script_index": 0,
+          "source_line": 295,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cleared",
+            "getAttribute",
+            "like"
+          ],
+          "kind": "IfStatement",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 297,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cleared"
+          ],
+          "kind": "LogicalExpression",
+          "line": 122,
+          "script_index": 0,
+          "source_line": 297,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hasNegativeSwipeConsent"
+          ],
+          "kind": "IfStatement",
+          "line": 130,
+          "script_index": 0,
+          "source_line": 305,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "confirm",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 137,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirm",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 137,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "confirmRow",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 138,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 138,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pinSentinel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 145,
+          "script_index": 0,
+          "source_line": 320,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "city"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 331,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "label"
+          ],
+          "kind": "IfStatement",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 331,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "picker"
+          ],
+          "kind": "IfStatement",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 332,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "mobileV23City"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 334,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rail",
+            "track"
+          ],
+          "kind": "IfStatement",
+          "line": 166,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "rail"
+          ],
+          "kind": "LogicalExpression",
+          "line": 166,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "getAttribute",
+            "negativeButton"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 167,
+          "script_index": 0,
+          "source_line": 342,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negative"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 172,
+          "script_index": 0,
+          "source_line": 347,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton",
+            "smallLike"
+          ],
+          "kind": "IfStatement",
+          "line": 173,
+          "script_index": 0,
+          "source_line": 348,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "smallLike"
+          ],
+          "kind": "LogicalExpression",
+          "line": 173,
+          "script_index": 0,
+          "source_line": 348,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton",
+            "querySelector",
+            "textContent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 174,
+          "script_index": 0,
+          "source_line": 349,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "countNode"
+          ],
+          "kind": "IfStatement",
+          "line": 176,
+          "script_index": 0,
+          "source_line": 351,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "likeButton"
+          ],
+          "kind": "IfStatement",
+          "line": 182,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "negativeButton"
+          ],
+          "kind": "IfStatement",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 358,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "isLiked"
+          ],
+          "kind": "LogicalExpression",
+          "line": 217,
+          "script_index": 0,
+          "source_line": 392,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "atEnd"
+          ],
+          "kind": "LogicalExpression",
+          "line": 220,
+          "script_index": 0,
+          "source_line": 395,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progress"
+          ],
+          "kind": "LogicalExpression",
+          "line": 225,
+          "script_index": 0,
+          "source_line": 400,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 230,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 230,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "copy"
+          ],
+          "kind": "IfStatement",
+          "line": 239,
+          "script_index": 0,
+          "source_line": 414,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 241,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "reduced"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 259,
+          "script_index": 0,
+          "source_line": 434,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed",
+            "isLiked"
+          ],
+          "kind": "IfStatement",
+          "line": 262,
+          "script_index": 0,
+          "source_line": 437,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 262,
+          "script_index": 0,
+          "source_line": 437,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pressed"
+          ],
+          "kind": "IfStatement",
+          "line": 267,
+          "script_index": 0,
+          "source_line": 442,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "closest",
+            "event",
+            "pointerType",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "pointerType",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 448,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "down"
+          ],
+          "kind": "IfStatement",
+          "line": 283,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "dx",
+            "dy",
+            "hypot",
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 287,
+          "script_index": 0,
+          "source_line": 462,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 287,
+          "script_index": 0,
+          "source_line": 462,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "edgeEligible",
+            "horizontal",
+            "startScroll"
+          ],
+          "kind": "IfStatement",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "startScroll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 288,
+          "script_index": 0,
+          "source_line": 463,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "likeEligible"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 292,
+          "script_index": 0,
+          "source_line": 467,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 297,
+          "script_index": 0,
+          "source_line": 472,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "dx",
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 302,
+          "script_index": 0,
+          "source_line": 477,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 302,
+          "script_index": 0,
+          "source_line": 477,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "likeEligible"
+          ],
+          "kind": "IfStatement",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 308,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dragged"
+          ],
+          "kind": "IfStatement",
+          "line": 316,
+          "script_index": 0,
+          "source_line": 491,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 317,
+          "script_index": 0,
+          "source_line": 492,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "armed"
+          ],
+          "kind": "IfStatement",
+          "line": 320,
+          "script_index": 0,
+          "source_line": 495,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 496,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dragged"
+          ],
+          "kind": "IfStatement",
+          "line": 327,
+          "script_index": 0,
+          "source_line": 502,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 328,
+          "script_index": 0,
+          "source_line": 503,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 329,
+          "script_index": 0,
+          "source_line": 504,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clientX",
+            "touch"
+          ],
+          "kind": "LogicalExpression",
+          "line": 337,
+          "script_index": 0,
+          "source_line": 512,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clientY",
+            "touch"
+          ],
+          "kind": "LogicalExpression",
+          "line": 338,
+          "script_index": 0,
+          "source_line": 513,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "touch"
+          ],
+          "kind": "IfStatement",
+          "line": 344,
+          "script_index": 0,
+          "source_line": 519,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "dx",
+            "dy",
+            "hypot",
+            "touchMode"
+          ],
+          "kind": "IfStatement",
+          "line": 350,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "touchMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 350,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "edgeEligible",
+            "horizontal",
+            "touchStartScroll"
+          ],
+          "kind": "IfStatement",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal",
+            "touchStartScroll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx",
+            "horizontal"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dx"
+          ],
+          "kind": "LogicalExpression",
+          "line": 351,
+          "script_index": 0,
+          "source_line": 526,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "endAt",
+            "length",
+            "trim"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 410,
+          "name": "hasExplicitEnd",
+          "script_index": 0,
+          "source_line": 585,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "_",
+            "getItem",
+            "localStorage",
+            "negativeSwipeConsentKey"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 17,
+          "name": "hasNegativeSwipeConsent",
+          "script_index": 0,
+          "source_line": 192,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "classList",
+            "contains",
+            "row"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 216,
+          "name": "isLiked",
+          "script_index": 0,
+          "source_line": 391,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [],
+          "expression_kind": "StringLiteral",
+          "line": 197,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 372,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "add",
+            "body",
+            "classList",
+            "confirm",
+            "confirmRow",
+            "contains",
+            "copy",
+            "document",
+            "heading",
+            "hidden",
+            "liked",
+            "querySelector",
+            "requestAnimationFrame",
+            "row",
+            "textContent"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 95,
+          "name": "openConfirm",
+          "script_index": 0,
+          "source_line": 270,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "clearTimeout",
+            "hidden",
+            "message",
+            "querySelector",
+            "setTimeout",
+            "textContent",
+            "toast",
+            "toastText",
+            "toastTimer",
+            "toastUndo",
+            "undo",
+            "undoButton"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 53,
+          "name": "showToast",
+          "script_index": 0,
+          "source_line": 228,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "completed",
+            "elapsedListingDayWithoutEnd",
+            "startedEarlier"
+          ],
+          "expression_kind": "ConditionalExpression",
+          "line": 417,
+          "name": "state",
+          "script_index": 0,
+          "source_line": 592,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 175
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 55,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 77,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 95,
+          "name": "hidden"
+        },
+        {
+          "line": 104,
+          "name": "hidden"
+        },
+        {
+          "line": 114,
+          "name": "hidden"
+        },
+        {
+          "line": 144,
+          "name": "hidden"
+        },
+        {
+          "line": 145,
+          "name": "hidden"
+        },
+        {
+          "line": 149,
+          "name": "hidden"
+        },
+        {
+          "line": 151,
+          "name": "hidden"
+        },
+        {
+          "line": 152,
+          "name": "hidden"
+        },
+        {
+          "line": 153,
+          "name": "hidden"
+        },
+        {
+          "line": 157,
+          "name": "hidden"
+        },
+        {
+          "line": 158,
+          "name": "hidden"
+        },
+        {
+          "line": 160,
+          "name": "hidden"
+        },
+        {
+          "line": 162,
+          "name": "hidden"
+        },
+        {
+          "line": 166,
+          "name": "hidden"
+        },
+        {
+          "line": 166,
+          "name": "open"
+        },
+        {
+          "line": 167,
+          "name": "hidden"
+        },
+        {
+          "line": 167,
+          "name": "disabled"
+        },
+        {
+          "line": 168,
+          "name": "hidden"
+        },
+        {
+          "line": 168,
+          "name": "open"
+        },
+        {
+          "line": 168,
+          "name": "disabled"
+        },
+        {
+          "line": 168,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 214,
+          "name": "hidden"
+        },
+        {
+          "line": 215,
+          "name": "hidden"
+        },
+        {
+          "line": 220,
+          "name": "hidden"
+        },
+        {
+          "line": 225,
+          "name": "hidden"
+        },
+        {
+          "line": 233,
+          "name": "hidden"
+        },
+        {
+          "line": 234,
+          "name": "hidden"
+        },
+        {
+          "line": 235,
+          "name": "hidden"
+        },
+        {
+          "line": 260,
+          "name": "hidden"
+        },
+        {
+          "line": 265,
+          "name": "open"
+        },
+        {
+          "line": 266,
+          "name": "open"
+        },
+        {
+          "line": 267,
+          "name": "hidden"
+        },
+        {
+          "line": 279,
+          "name": "hidden"
+        },
+        {
+          "line": 280,
+          "name": "open"
+        },
+        {
+          "line": 281,
+          "name": "open"
+        },
+        {
+          "line": 321,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 331,
+          "name": "open"
+        },
+        {
+          "line": 351,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [
+        {
+          "line": 160,
+          "property": "object-fit",
+          "value": "var(--rail-media-fit)"
+        },
+        {
+          "line": 160,
+          "property": "object-position",
+          "value": "var(--focus-x,50%) var(--focus-y,50%)"
+        },
+        {
+          "line": 163,
+          "property": "object-fit",
+          "value": "contain"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 23,
+          "name": "amberArtifactTailEventId",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 21,
+          "name": "calendarDate",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 20,
+          "name": "calendarToday",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 19,
+          "name": "cities",
+          "optional": true,
+          "required": false,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "City"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 18,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "popular"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 17,
+          "name": "feedMeta",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "feedTitle",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 15,
+          "name": "meta",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [
+            "per-date",
+            "per-family"
+          ],
+          "default": {
+            "observed": true,
+            "value": "per-date"
+          },
+          "line": 13,
+          "name": "occurrenceMode",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "per-date"
+              },
+              {
+                "kind": "literal",
+                "value": "per-family"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 12,
+          "name": "sections",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "Section"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 14,
+          "name": "title",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 24,
+          "name": "weather",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "WeatherContext"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 22,
+          "name": "weekendEnd",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 121,
+          "query": "(max-width:720px)"
+        },
+        {
+          "kind": "media",
+          "line": 170,
+          "query": "(max-width:359px)"
+        },
+        {
+          "kind": "media",
+          "line": 171,
+          "query": "(prefers-reduced-motion:reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 46,
+          "name": "data-mobile-listing-rails"
+        },
+        {
+          "line": 47,
+          "name": "data-mobile-v23-page"
+        },
+        {
+          "line": 48,
+          "name": "data-mobile-listing-date"
+        },
+        {
+          "line": 55,
+          "name": "data-mobile-listing-pin-sentinel"
+        },
+        {
+          "line": 56,
+          "name": "data-mobile-listing-sticky-title"
+        },
+        {
+          "line": 62,
+          "name": "data-mobile-v23-city-picker"
+        },
+        {
+          "line": 63,
+          "name": "data-mobile-v23-city-label"
+        },
+        {
+          "line": 65,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 66,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 73,
+          "name": "data-mobile-v23-group"
+        },
+        {
+          "line": 82,
+          "name": "data-mobile-v23-group-count"
+        },
+        {
+          "line": 95,
+          "name": "data-mobile-v23-empty"
+        },
+        {
+          "line": 104,
+          "name": "data-rail-confirm"
+        },
+        {
+          "line": 109,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 110,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 114,
+          "name": "data-rail-action-toast"
+        },
+        {
+          "line": 151,
+          "name": "data-mobile-v23-page"
+        },
+        {
+          "line": 166,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 166,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 168,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 176,
+          "name": "data-mobile-listing-rails"
+        },
+        {
+          "line": 179,
+          "name": "data-mobile-listing-row"
+        },
+        {
+          "line": 180,
+          "name": "data-mobile-v23-city-label"
+        },
+        {
+          "line": 181,
+          "name": "data-mobile-v23-empty"
+        },
+        {
+          "line": 182,
+          "name": "data-mobile-v23-city-picker"
+        },
+        {
+          "line": 183,
+          "name": "data-mobile-v23-city"
+        },
+        {
+          "line": 184,
+          "name": "data-mobile-listing-pin-sentinel"
+        },
+        {
+          "line": 185,
+          "name": "data-mobile-listing-sticky-title"
+        },
+        {
+          "line": 186,
+          "name": "data-rail-confirm"
+        },
+        {
+          "line": 187,
+          "name": "data-rail-action-toast"
+        },
+        {
+          "line": 213,
+          "name": "data-mobile-v23-group"
+        },
+        {
+          "line": 214,
+          "name": "data-mobile-listing-row"
+        },
+        {
+          "line": 217,
+          "name": "data-mobile-v23-group-count"
+        },
+        {
+          "line": 284,
+          "name": "data-rail-negative-control"
+        },
+        {
+          "line": 285,
+          "name": "data-like"
+        },
+        {
+          "line": 311,
+          "name": "data-rail-confirm-cancel"
+        },
+        {
+          "line": 312,
+          "name": "data-rail-confirm-negative"
+        },
+        {
+          "line": 337,
+          "name": "data-like"
+        },
+        {
+          "line": 338,
+          "name": "data-rail-negative-control"
+        },
+        {
+          "line": 339,
+          "name": "data-small-like"
+        },
+        {
+          "line": 348,
+          "name": "data-like-count"
+        },
+        {
+          "line": 349,
+          "name": "data-small-like-count"
+        }
+      ]
+    }
+  }
+}

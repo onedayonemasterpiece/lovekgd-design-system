@@ -1,0 +1,868 @@
+{
+  "classification_note": "Runtime/style/keyboard behavior without an independent visual surface contract.",
+  "decision": "NOT_MERGED",
+  "disposition": "nonvisual",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.fd924ec24d43ae27",
+  "logical_path": "src/components/auth/StaticSiteAuthRuntime.astro",
+  "name": "StaticSiteAuthRuntime",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.3c3474bd1a27a254",
+        "source.current_root_prelaunch.cc9c35075cddb7aa",
+        "source.current_root_prelaunch.e5c7e9de468ac7b8"
+      ],
+      "content_sha256": "90529571b7be0ece7c9947694db4b55d3a266370710ac35804e634b57791eca1",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9b7a5fb7d152699a",
+        "source.current_root_prelaunch.d0bc52ea3be047eb",
+        "source.current_root_prelaunch.d73473324861ba25"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.fd924ec24d43ae27",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.3c3474bd1a27a254",
+        "source.latest_checked_kaggle_candidate.cc9c35075cddb7aa",
+        "source.latest_checked_kaggle_candidate.e5c7e9de468ac7b8"
+      ],
+      "content_sha256": "90529571b7be0ece7c9947694db4b55d3a266370710ac35804e634b57791eca1",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9b7a5fb7d152699a",
+        "source.latest_checked_kaggle_candidate.d0bc52ea3be047eb",
+        "source.latest_checked_kaggle_candidate.d73473324861ba25"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.fd924ec24d43ae27",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "source-only",
+  "reachability_basis": "non-visual-source-evidence-only",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 2
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4
+        },
+        {
+          "identifiers": [
+            "PUBLIC_YANDEX_AUTH_PROVIDER",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 5
+        },
+        {
+          "identifiers": [
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 6
+        },
+        {
+          "identifiers": [
+            "body",
+            "dataset",
+            "document",
+            "siteBasePath"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 27,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime",
+            "supabaseKey",
+            "supabaseUrl"
+          ],
+          "kind": "IfStatement",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime"
+          ],
+          "kind": "LogicalExpression",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "runtime",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "runtime",
+            "yandexProvider"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 36,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "snapshot",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 41,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 43,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 45,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "node"
+          ],
+          "kind": "IfStatement",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 48,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "node"
+          ],
+          "kind": "IfStatement",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 52,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 56,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "snapshot",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 41,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 66,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "staticAuthBound"
+          ],
+          "kind": "IfStatement",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 72,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "staticAuthBound"
+          ],
+          "kind": "IfStatement",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 73,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 62,
+          "script_index": 0,
+          "source_line": 81,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "PUBLIC_YANDEX_AUTH_PROVIDER",
+        "authEnabled",
+        "enabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 19
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 16,
+          "name": "hidden"
+        },
+        {
+          "line": 43,
+          "name": "hidden"
+        },
+        {
+          "line": 44,
+          "name": "hidden"
+        },
+        {
+          "line": 46,
+          "name": "hidden"
+        },
+        {
+          "line": 47,
+          "name": "disabled"
+        },
+        {
+          "line": 50,
+          "name": "hidden"
+        },
+        {
+          "line": 51,
+          "name": "disabled"
+        },
+        {
+          "line": 80,
+          "name": "disabled"
+        },
+        {
+          "line": 81,
+          "name": "aria-disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 11,
+          "name": "data-auth-enabled"
+        },
+        {
+          "line": 12,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 13,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 14,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 15,
+          "name": "data-yandex-provider"
+        },
+        {
+          "line": 24,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 43,
+          "name": "data-static-auth-signed-in"
+        },
+        {
+          "line": 44,
+          "name": "data-static-auth-signed-out"
+        },
+        {
+          "line": 45,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 49,
+          "name": "data-static-auth-logout"
+        },
+        {
+          "line": 53,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 54,
+          "name": "data-static-auth-initial"
+        },
+        {
+          "line": 57,
+          "name": "data-static-auth-status"
+        },
+        {
+          "line": 64,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 70,
+          "name": "data-static-auth-logout"
+        },
+        {
+          "line": 79,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 83,
+          "name": "data-static-auth-status"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 2
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4
+        },
+        {
+          "identifiers": [
+            "PUBLIC_YANDEX_AUTH_PROVIDER",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 5
+        },
+        {
+          "identifiers": [
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 6
+        },
+        {
+          "identifiers": [
+            "body",
+            "dataset",
+            "document",
+            "siteBasePath"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 27,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime",
+            "supabaseKey",
+            "supabaseUrl"
+          ],
+          "kind": "IfStatement",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "dataset",
+            "runtime"
+          ],
+          "kind": "LogicalExpression",
+          "line": 12,
+          "script_index": 0,
+          "source_line": 31,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "runtime",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 34,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "runtime",
+            "yandexProvider"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 36,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "snapshot",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 41,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 43,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 45,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "node"
+          ],
+          "kind": "IfStatement",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 48,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "node"
+          ],
+          "kind": "IfStatement",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 52,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 56,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "snapshot",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 41,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 66,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "staticAuthBound"
+          ],
+          "kind": "IfStatement",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 67,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 72,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "staticAuthBound"
+          ],
+          "kind": "IfStatement",
+          "line": 54,
+          "script_index": 0,
+          "source_line": 73,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLButtonElement",
+            "button"
+          ],
+          "kind": "IfStatement",
+          "line": 62,
+          "script_index": 0,
+          "source_line": 81,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "PUBLIC_YANDEX_AUTH_PROVIDER",
+        "authEnabled",
+        "enabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 19
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 16,
+          "name": "hidden"
+        },
+        {
+          "line": 43,
+          "name": "hidden"
+        },
+        {
+          "line": 44,
+          "name": "hidden"
+        },
+        {
+          "line": 46,
+          "name": "hidden"
+        },
+        {
+          "line": 47,
+          "name": "disabled"
+        },
+        {
+          "line": 50,
+          "name": "hidden"
+        },
+        {
+          "line": 51,
+          "name": "disabled"
+        },
+        {
+          "line": 80,
+          "name": "disabled"
+        },
+        {
+          "line": 81,
+          "name": "aria-disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 11,
+          "name": "data-auth-enabled"
+        },
+        {
+          "line": 12,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 13,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 14,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 15,
+          "name": "data-yandex-provider"
+        },
+        {
+          "line": 24,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 43,
+          "name": "data-static-auth-signed-in"
+        },
+        {
+          "line": 44,
+          "name": "data-static-auth-signed-out"
+        },
+        {
+          "line": 45,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 49,
+          "name": "data-static-auth-logout"
+        },
+        {
+          "line": 53,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 54,
+          "name": "data-static-auth-initial"
+        },
+        {
+          "line": 57,
+          "name": "data-static-auth-status"
+        },
+        {
+          "line": 64,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 70,
+          "name": "data-static-auth-logout"
+        },
+        {
+          "line": 79,
+          "name": "data-static-auth-login"
+        },
+        {
+          "line": 83,
+          "name": "data-static-auth-status"
+        }
+      ]
+    }
+  }
+}

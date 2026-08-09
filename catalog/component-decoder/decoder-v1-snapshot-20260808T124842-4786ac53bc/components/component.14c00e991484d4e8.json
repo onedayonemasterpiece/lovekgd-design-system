@@ -1,0 +1,662 @@
+{
+  "classification_note": "Composition/layout implementation retained separately from leaf visual components.",
+  "decision": "NOT_MERGED",
+  "disposition": "composition-layout",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.14c00e991484d4e8",
+  "logical_path": "src/components/HomeColdStartFeed.astro",
+  "name": "HomeColdStartFeed",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "content_sha256": "e08dfe0534066afa87be3d8df163ecde8845cb1ee5650e6100be385d59c29fec",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.7db9bc6bb7628a8a",
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.f5862e41276389f5"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.14c00e991484d4e8",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.95d291e9ce4c8739"
+      ],
+      "content_sha256": "e08dfe0534066afa87be3d8df163ecde8845cb1ee5650e6100be385d59c29fec",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.7db9bc6bb7628a8a",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.f5862e41276389f5"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.14c00e991484d4e8",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "PROFILE_KEY",
+            "getItem",
+            "localStorage",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 42,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "dataset",
+            "homeFeedBound",
+            "root"
+          ],
+          "kind": "IfStatement",
+          "line": 13,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 13,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "grid"
+          ],
+          "kind": "IfStatement",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 51,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeTags",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 56,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "eventId",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 58,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeBaseRank",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 59,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeCategory",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "item",
+            "score"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 73,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 43,
+          "script_index": 0,
+          "source_line": 77,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signals"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signals"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 82,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "PROFILE_KEY",
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Element",
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 56,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Element",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 56,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 16,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 50,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 34
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 69,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "events",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "PreviewEvent"
+            },
+            "kind": "array"
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 132,
+          "query": "(max-width: 960px)"
+        },
+        {
+          "kind": "media",
+          "line": 133,
+          "query": "(max-width: 620px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-home-cold-start-feed"
+        },
+        {
+          "line": 16,
+          "name": "data-home-feed-status"
+        },
+        {
+          "line": 18,
+          "name": "data-home-feed-grid"
+        },
+        {
+          "line": 18,
+          "name": "data-home-feed-limit"
+        },
+        {
+          "line": 22,
+          "name": "data-home-feed-item"
+        },
+        {
+          "line": 23,
+          "name": "data-event-id"
+        },
+        {
+          "line": 24,
+          "name": "data-home-base-rank"
+        },
+        {
+          "line": 25,
+          "name": "data-home-category"
+        },
+        {
+          "line": 26,
+          "name": "data-home-tags"
+        },
+        {
+          "line": 38,
+          "name": "data-home-cold-start-feed"
+        },
+        {
+          "line": 48,
+          "name": "data-home-feed-grid"
+        },
+        {
+          "line": 49,
+          "name": "data-home-feed-status"
+        },
+        {
+          "line": 51,
+          "name": "data-home-feed-item"
+        },
+        {
+          "line": 89,
+          "name": "data-feedback-action"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "PROFILE_KEY",
+            "getItem",
+            "localStorage",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 42,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "dataset",
+            "homeFeedBound",
+            "root"
+          ],
+          "kind": "IfStatement",
+          "line": 13,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 13,
+          "script_index": 0,
+          "source_line": 47,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "grid"
+          ],
+          "kind": "IfStatement",
+          "line": 17,
+          "script_index": 0,
+          "source_line": 51,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeTags",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 56,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "eventId",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 58,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeBaseRank",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 59,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeCategory",
+            "item"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 60,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "item",
+            "score"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 73,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 43,
+          "script_index": 0,
+          "source_line": 77,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signals"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signals"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 82,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "PROFILE_KEY",
+            "event",
+            "key"
+          ],
+          "kind": "IfStatement",
+          "line": 53,
+          "script_index": 0,
+          "source_line": 87,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Element",
+            "closest",
+            "event",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 56,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Element",
+            "event",
+            "target"
+          ],
+          "kind": "LogicalExpression",
+          "line": 56,
+          "script_index": 0,
+          "source_line": 90,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 16,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 50,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 34
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 69,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "events",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "PreviewEvent"
+            },
+            "kind": "array"
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 132,
+          "query": "(max-width: 960px)"
+        },
+        {
+          "kind": "media",
+          "line": 133,
+          "query": "(max-width: 620px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 10,
+          "name": "data-home-cold-start-feed"
+        },
+        {
+          "line": 16,
+          "name": "data-home-feed-status"
+        },
+        {
+          "line": 18,
+          "name": "data-home-feed-grid"
+        },
+        {
+          "line": 18,
+          "name": "data-home-feed-limit"
+        },
+        {
+          "line": 22,
+          "name": "data-home-feed-item"
+        },
+        {
+          "line": 23,
+          "name": "data-event-id"
+        },
+        {
+          "line": 24,
+          "name": "data-home-base-rank"
+        },
+        {
+          "line": 25,
+          "name": "data-home-category"
+        },
+        {
+          "line": 26,
+          "name": "data-home-tags"
+        },
+        {
+          "line": 38,
+          "name": "data-home-cold-start-feed"
+        },
+        {
+          "line": 48,
+          "name": "data-home-feed-grid"
+        },
+        {
+          "line": 49,
+          "name": "data-home-feed-status"
+        },
+        {
+          "line": 51,
+          "name": "data-home-feed-item"
+        },
+        {
+          "line": 89,
+          "name": "data-feedback-action"
+        }
+      ]
+    }
+  }
+}

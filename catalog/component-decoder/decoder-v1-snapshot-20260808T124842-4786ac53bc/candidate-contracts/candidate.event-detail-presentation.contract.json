@@ -1,0 +1,305 @@
+{
+  "candidate_component_id": "candidate.event-detail-presentation",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "preserve source landmark and action semantics per rendered branch"
+    ],
+    "anatomy": [
+      "presentation-shell",
+      "primary-media-frame",
+      "content-column",
+      "action-panel-placement",
+      "medallion-slot-context"
+    ],
+    "fixture_classes": [
+      "editorial-landscape",
+      "split-portrait-poster",
+      "split-no-image-fallback"
+    ],
+    "invalid_combinations": [
+      "editorial with split inline action placement",
+      "split with editorial side action placement"
+    ],
+    "media_contract": [
+      {
+        "kind": "orientation-sensitive-layout",
+        "values": [
+          "landscape-editorial",
+          "portrait-or-square-split",
+          "no-image-fallback"
+        ]
+      }
+    ],
+    "nested_component_refs": [
+      "candidate.button-cta-fragmented",
+      "candidate.event-media",
+      "candidate.event-token-medallions"
+    ],
+    "props": {
+      "desktopRelatedEvents": {
+        "default": [],
+        "required": false
+      },
+      "event": {
+        "required": true
+      },
+      "presentation": {
+        "required": true,
+        "source": "buildDesktopEventPresentation result"
+      },
+      "shareImage": {
+        "required": false
+      }
+    },
+    "responsive_contract": [
+      {
+        "at_or_above": "desktop-event-page",
+        "below": "mobile-event-production-surface",
+        "boundary": 1024,
+        "kind": "consumer-viewport"
+      }
+    ],
+    "semantic_role": "Desktop Event Detail presentation selected from current source-derived media conditions",
+    "slots": {},
+    "state_axes": {
+      "action_layout": [
+        "stacked",
+        "inline"
+      ],
+      "media_presence": [
+        "image",
+        "no-image-fallback"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "editorial => action_layout=stacked",
+      "split => action_layout=inline",
+      "split-no-image-fallback => desktop_family=split"
+    ],
+    "variant_axes": {
+      "desktop_family": [
+        "editorial",
+        "split"
+      ],
+      "presentation_reason": [
+        "editorial-landscape",
+        "split-portrait-or-square-visual",
+        "split-low-resolution-portrait-viewer",
+        "split-no-image-fallback"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "observed",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "601244ea179bd1b7b453d0a5cc2509d97db94cbc75d145a33378dc546d8a1eda",
+  "evidence": [
+    {
+      "confidence": "observed",
+      "id": "fact.event-presentation-existing-records",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/DesktopEventPage.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/lib/desktopEventPresentation.ts",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "11 existing Event Detail presentation records supplied; 11 runtime-observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.cta.editorial-side-stacked",
+      "record_id": "event-format.cta.editorial-side-stacked",
+      "runtime_route_count": 96,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.19eaf781ccba58cb",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.cta.split-inline",
+      "record_id": "event-format.cta.split-inline",
+      "runtime_route_count": 1000,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.19eaf781ccba58cb",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.desktop.editorial-landscape",
+      "record_id": "event-format.desktop.editorial-landscape",
+      "runtime_route_count": 96,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.b3b76c52991b6464",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.desktop.no-image-fallback",
+      "record_id": "event-format.desktop.no-image-fallback",
+      "runtime_route_count": 63,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.aca01b9f7c58d696",
+        "source.latest_checked_kaggle_candidate.b3b76c52991b6464",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.desktop.split-portrait-poster",
+      "record_id": "event-format.desktop.split-portrait-poster",
+      "runtime_route_count": 1000,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.b3b76c52991b6464",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.desktop.split-portrait-visual",
+      "record_id": "event-format.desktop.split-portrait-visual",
+      "runtime_route_count": 69,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.b3b76c52991b6464",
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.media.editorial-large-poster-companion",
+      "record_id": "event-format.media.editorial-large-poster-companion",
+      "runtime_route_count": 11,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.media.editorial-small-companion-previews",
+      "record_id": "event-format.media.editorial-small-companion-previews",
+      "runtime_route_count": 8,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.media.editorial-small-photo-rail",
+      "record_id": "event-format.media.editorial-small-photo-rail",
+      "runtime_route_count": 29,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.media.primary-large-frame",
+      "record_id": "event-format.media.primary-large-frame",
+      "runtime_route_count": 1096,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    },
+    {
+      "confidence": "observed",
+      "decision": "NOT_MERGED",
+      "id": "existing.event-format.media.split-small-photo-rail",
+      "record_id": "event-format.media.split-small-photo-rail",
+      "runtime_route_count": 217,
+      "source_component_ids": [
+        "source.latest_checked_kaggle_candidate.ed75207086fc907e"
+      ],
+      "status": "observed"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.event-detail-presentation",
+  "local_overrides": [
+    {
+      "conclusion": "unresolved mapping",
+      "scope": "branch-local component CSS and consumer composition",
+      "source_path": "src/components/DesktopEventPage.astro"
+    }
+  ],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "editorial and split remain distinct AS-IS branches; equivalence is not asserted"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "logical_path": "src/pages/sobytiya/[slug].astro",
+      "proof_label": "exact-candidate-source-consumer",
+      "route_family": "page-family.event-detail"
+    }
+  ],
+  "promotion_blockers": [
+    "component specimen and real-page reconciliation still required"
+  ],
+  "reachability": "production-reachable-records-supplied",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/DesktopEventPage.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/lib/desktopEventPresentation.ts",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "state-resolver",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/sobytiya/[slug].astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "production-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "one candidate family with two variants",
+    "two independent presentation components"
+  ]
+}

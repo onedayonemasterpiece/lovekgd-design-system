@@ -1,0 +1,246 @@
+{
+  "classification_note": "Reviewed obsolete or unreachable implementation; retained as evidence.",
+  "decision": "NOT_MERGED",
+  "disposition": "dead-unreachable",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.02effc1d8ab8434b",
+  "logical_path": "src/components/listings/PopularCategoryFilter.astro",
+  "name": "PopularCategoryFilter",
+  "plane_bindings": [
+    {
+      "consumers": [],
+      "content_sha256": "c22ddc3e1d69e904e7a4b89e38066c2c1c962deda8c35f80bac728d92bd86920",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.31c45b1cad91ba79"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.02effc1d8ab8434b",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [],
+      "content_sha256": "c22ddc3e1d69e904e7a4b89e38066c2c1c962deda8c35f80bac728d92bd86920",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.31c45b1cad91ba79"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.02effc1d8ab8434b",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "dead-or-unreachable",
+  "reachability_basis": "reviewed-zero-consumer-obsolete-source",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "listingTypeReady",
+            "typeFilter"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 35,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "typeFilter"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 35,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 32
+        }
+      ],
+      "interaction_attributes": [],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "categories",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "Category"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "total",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 18,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 18,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 18,
+          "name": "data-listing-type-filter"
+        },
+        {
+          "line": 21,
+          "name": "data-listing-type-input"
+        },
+        {
+          "line": 26,
+          "name": "data-listing-type-input"
+        },
+        {
+          "line": 33,
+          "name": "data-listing-type-filter"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "dataset",
+            "listingTypeReady",
+            "typeFilter"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 35,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "typeFilter"
+          ],
+          "kind": "LogicalExpression",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 35,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 32
+        }
+      ],
+      "interaction_attributes": [],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "categories",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "Category"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "total",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 18,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 18,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 18,
+          "name": "data-listing-type-filter"
+        },
+        {
+          "line": 21,
+          "name": "data-listing-type-input"
+        },
+        {
+          "line": 26,
+          "name": "data-listing-type-input"
+        },
+        {
+          "line": 33,
+          "name": "data-listing-type-filter"
+        }
+      ]
+    }
+  }
+}

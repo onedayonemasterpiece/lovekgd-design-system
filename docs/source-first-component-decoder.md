@@ -2,9 +2,29 @@
 
 ## Статус
 
-Архитектурный контракт принят. Реализация и запуск не начаты.
+Архитектурный контракт принят. Первый ограниченный v1 decoder выполнен, визуально проверен и импортирован как immutable compact snapshot.
 
 Decoder создаёт реконструируемое описание текущего UI и candidate Component Contracts. Он **не** строит дизайн-систему в Penpot и **не** сопоставляет Astro со старыми Penpot-экспериментами.
+
+### Выполненный snapshot
+
+- compact catalog: [`../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/);
+- product source: `events-bot-new@ef7aa62e45c60f7a12da6160f490719c0721ec03`;
+- decoder source: `events-bot-new@ad2fb5a9c565b95aa746d7e6031edfe6e901d929`;
+- [Actions run 31291052330](https://github.com/onedayonemasterpiece/events-bot-new/actions/runs/31291052330), artifact `9031552834`, digest `sha256:69a969f834ff4553ca8357fc2974a972c5d87a0dd719239fe36bd6eba6a3aaa2`;
+- [permanent heavy-evidence release](https://github.com/onedayonemasterpiece/events-bot-new/releases/tag/current-ui-decoder-v1-snapshot-20260808T124842-4786ac53bc), digest `sha256:abbbb5bbe6cd472c3814a9586fa51375a708fc5cfe0319e3b9cfcd0cc4b2d279`;
+- 107 logical component dispositions, 12 candidate AS-IS contracts, 6 reviewed capsules;
+- 155/155 indexed rasters manually inspected;
+- receipt verdict: `GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION`.
+
+`GO` здесь означает, что evidence достаточно для отдельного family-scoped анализа дефрагментации. Это **не** означает принятие contracts, equivalence, merge/split, tokenization, normalization, Penpot materialization или изменение Astro/CSS/runtime. Все candidate contracts имеют `candidate-as-is-not-accepted`, а решения остаются `NOT_MERGED`.
+
+Воспроизводимая проверка compact tree:
+
+```bash
+node scripts/validate-component-decoder-snapshot.mjs \
+  catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc
+```
 
 ## Цель
 

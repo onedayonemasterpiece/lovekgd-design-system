@@ -1,0 +1,3516 @@
+{
+  "classification_note": "Lab/prototype surface; never promoted to production-observed by source presence.",
+  "decision": "NOT_MERGED",
+  "disposition": "lab-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.ae1783a970824a08",
+  "logical_path": "src/components/FocusGroupInviteIntake.astro",
+  "name": "FocusGroupInviteIntake",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.e5c7e9de468ac7b8"
+      ],
+      "content_sha256": "96fc0a4365f288dcf112ba74b81d9cee4f77e8bf549c7a35ed180fbd9a76a128",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.12f4c5eb705d47d6",
+        "source.current_root_prelaunch.141e6eb836c39a04",
+        "source.current_root_prelaunch.38308015c4dc880d",
+        "source.current_root_prelaunch.408fd4ca62897366",
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.d0bc52ea3be047eb"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.ae1783a970824a08",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.e5c7e9de468ac7b8"
+      ],
+      "content_sha256": "96fc0a4365f288dcf112ba74b81d9cee4f77e8bf549c7a35ed180fbd9a76a128",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.12f4c5eb705d47d6",
+        "source.latest_checked_kaggle_candidate.141e6eb836c39a04",
+        "source.latest_checked_kaggle_candidate.38308015c4dc880d",
+        "source.latest_checked_kaggle_candidate.408fd4ca62897366",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.d0bc52ea3be047eb"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.ae1783a970824a08",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "lab-only",
+  "reachability_basis": "reviewed-lab-surface-classification",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "get",
+            "initialUrl",
+            "searchParams"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "get",
+            "initialUrl",
+            "searchParams"
+          ],
+          "kind": "LogicalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 243,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeHref",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset",
+            "supabaseKey",
+            "supabaseUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authRuntime",
+            "dataset",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 55,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authRuntime",
+            "dataset",
+            "yandexProvider"
+          ],
+          "kind": "LogicalExpression",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 267,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resetRequested"
+          ],
+          "kind": "IfStatement",
+          "line": 63,
+          "script_index": 0,
+          "source_line": 273,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 274,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 65,
+          "script_index": 0,
+          "source_line": 275,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 66,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth",
+            "authReset"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth"
+          ],
+          "kind": "LogicalExpression",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 72,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 283,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 311,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "participation",
+            "status",
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status",
+            "storage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pending"
+          ],
+          "kind": "IfStatement",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 315,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation"
+          ],
+          "kind": "IfStatement",
+          "line": 107,
+          "script_index": 0,
+          "source_line": 317,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "error"
+          ],
+          "kind": "IfStatement",
+          "line": 108,
+          "script_index": 0,
+          "source_line": 318,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 319,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 110,
+          "script_index": 0,
+          "source_line": 320,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorMessage"
+          ],
+          "kind": "IfStatement",
+          "line": 111,
+          "script_index": 0,
+          "source_line": 321,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 322,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 113,
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorMessage"
+          ],
+          "kind": "IfStatement",
+          "line": 114,
+          "script_index": 0,
+          "source_line": 324,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactConsent",
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 147,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactConsent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 147,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityHeading"
+          ],
+          "kind": "IfStatement",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 366,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 366,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactChoice"
+          ],
+          "kind": "IfStatement",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 367,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 367,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedOutChoices"
+          ],
+          "kind": "IfStatement",
+          "line": 158,
+          "script_index": 0,
+          "source_line": 368,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedInPanel"
+          ],
+          "kind": "IfStatement",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 369,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailPanel"
+          ],
+          "kind": "IfStatement",
+          "line": 160,
+          "script_index": 0,
+          "source_line": 370,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 160,
+          "script_index": 0,
+          "source_line": 370,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressStep"
+          ],
+          "kind": "IfStatement",
+          "line": 161,
+          "script_index": 0,
+          "source_line": 371,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailCodeStep"
+          ],
+          "kind": "IfStatement",
+          "line": 162,
+          "script_index": 0,
+          "source_line": 372,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 167,
+          "script_index": 0,
+          "source_line": 377,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 168,
+          "script_index": 0,
+          "source_line": 378,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 170,
+          "script_index": 0,
+          "source_line": 380,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 171,
+          "script_index": 0,
+          "source_line": 381,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 175,
+          "script_index": 0,
+          "source_line": 385,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailSend"
+          ],
+          "kind": "IfStatement",
+          "line": 175,
+          "script_index": 0,
+          "source_line": 385,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailDestination"
+          ],
+          "kind": "IfStatement",
+          "line": 181,
+          "script_index": 0,
+          "source_line": 391,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpInput"
+          ],
+          "kind": "IfStatement",
+          "line": 182,
+          "script_index": 0,
+          "source_line": 392,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 187,
+          "script_index": 0,
+          "source_line": 397,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirmationRequested",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 198,
+          "script_index": 0,
+          "source_line": 408,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 198,
+          "script_index": 0,
+          "source_line": 408,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "launchFromApp",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 204,
+          "script_index": 0,
+          "source_line": 414,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 205,
+          "script_index": 0,
+          "source_line": 415,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 206,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restartButton"
+          ],
+          "kind": "IfStatement",
+          "line": 207,
+          "script_index": 0,
+          "source_line": 417,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailCallbackAttempted",
+            "identityChoice",
+            "launchFromApp",
+            "participation"
+          ],
+          "kind": "IfStatement",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityChoice",
+            "launchFromApp",
+            "participation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "launchFromApp"
+          ],
+          "kind": "LogicalExpression",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityChoice",
+            "participation"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 221,
+          "script_index": 0,
+          "source_line": 431,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpInput"
+          ],
+          "kind": "IfStatement",
+          "line": 233,
+          "script_index": 0,
+          "source_line": 443,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "index",
+            "token"
+          ],
+          "kind": "LogicalExpression",
+          "line": 237,
+          "script_index": 0,
+          "source_line": 447,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpVerifying"
+          ],
+          "kind": "LogicalExpression",
+          "line": 241,
+          "script_index": 0,
+          "source_line": 451,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpSubmit"
+          ],
+          "kind": "IfStatement",
+          "line": 245,
+          "script_index": 0,
+          "source_line": 455,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "EMAIL_OTP_LENGTH",
+            "length",
+            "token"
+          ],
+          "kind": "LogicalExpression",
+          "line": 245,
+          "script_index": 0,
+          "source_line": 455,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "agentTestEmail",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "agentTestEmail"
+          ],
+          "kind": "LogicalExpression",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 251,
+          "script_index": 0,
+          "source_line": 461,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 254,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendTimer"
+          ],
+          "kind": "IfStatement",
+          "line": 260,
+          "script_index": 0,
+          "source_line": 470,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 268,
+          "script_index": 0,
+          "source_line": 478,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "remaining"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 269,
+          "script_index": 0,
+          "source_line": 479,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendButton"
+          ],
+          "kind": "IfStatement",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "remaining"
+          ],
+          "kind": "IfStatement",
+          "line": 274,
+          "script_index": 0,
+          "source_line": 484,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 285,
+          "script_index": 0,
+          "source_line": 495,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth",
+            "authReset"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 499,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 499,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 290,
+          "script_index": 0,
+          "source_line": 500,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restarted"
+          ],
+          "kind": "IfStatement",
+          "line": 294,
+          "script_index": 0,
+          "source_line": 504,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 295,
+          "script_index": 0,
+          "source_line": 505,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restartButton"
+          ],
+          "kind": "IfStatement",
+          "line": 301,
+          "script_index": 0,
+          "source_line": 511,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 306,
+          "script_index": 0,
+          "source_line": 516,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completionInFlight"
+          ],
+          "kind": "IfStatement",
+          "line": 307,
+          "script_index": 0,
+          "source_line": 517,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "verified"
+          ],
+          "kind": "IfStatement",
+          "line": 309,
+          "script_index": 0,
+          "source_line": 519,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 310,
+          "script_index": 0,
+          "source_line": 520,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "saved"
+          ],
+          "kind": "IfStatement",
+          "line": 315,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountContinue"
+          ],
+          "kind": "IfStatement",
+          "line": 317,
+          "script_index": 0,
+          "source_line": 527,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 318,
+          "script_index": 0,
+          "source_line": 528,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountContinue"
+          ],
+          "kind": "IfStatement",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 535,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 536,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completed"
+          ],
+          "kind": "IfStatement",
+          "line": 329,
+          "script_index": 0,
+          "source_line": 539,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "activated"
+          ],
+          "kind": "IfStatement",
+          "line": 331,
+          "script_index": 0,
+          "source_line": 541,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 333,
+          "script_index": 0,
+          "source_line": 543,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 338,
+          "script_index": 0,
+          "source_line": 548,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "emailAddressCopy",
+            "emailAddressTitle",
+            "emailInput",
+            "emailSend",
+            "focus",
+            "recovery",
+            "setTimeout",
+            "showIdentityView",
+            "textContent",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 165,
+          "name": "showEmailAddress",
+          "script_index": 0,
+          "source_line": 375,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "dataset",
+            "disabled",
+            "emailDestination",
+            "focus",
+            "lastSubmittedOtp",
+            "otpInput",
+            "otpStatus",
+            "pendingEmail",
+            "renderOtp",
+            "setTimeout",
+            "showIdentityView",
+            "state",
+            "textContent",
+            "value",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 179,
+          "name": "showEmailCode",
+          "script_index": 0,
+          "source_line": 389,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "IdentityView",
+            "contactChoice",
+            "emailAddressStep",
+            "emailCodeStep",
+            "emailPanel",
+            "hidden",
+            "identityHeading",
+            "identityView",
+            "signedInPanel",
+            "signedOutChoices",
+            "view"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 154,
+          "name": "showIdentityView",
+          "script_index": 0,
+          "source_line": 364,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "HTMLElement",
+            "dataset",
+            "focus",
+            "forEach",
+            "hidden",
+            "intakeStage",
+            "node",
+            "querySelector",
+            "root",
+            "setTimeout",
+            "stage",
+            "stages",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 94,
+          "name": "showStage",
+          "script_index": 0,
+          "source_line": 304,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "authEnabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 210
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 21,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 26,
+          "name": "hidden"
+        },
+        {
+          "line": 33,
+          "name": "hidden"
+        },
+        {
+          "line": 57,
+          "name": "hidden"
+        },
+        {
+          "line": 81,
+          "name": "hidden"
+        },
+        {
+          "line": 96,
+          "name": "hidden"
+        },
+        {
+          "line": 107,
+          "name": "hidden"
+        },
+        {
+          "line": 137,
+          "name": "hidden"
+        },
+        {
+          "line": 149,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 178,
+          "name": "disabled"
+        },
+        {
+          "line": 178,
+          "name": "hidden"
+        },
+        {
+          "line": 182,
+          "name": "hidden"
+        },
+        {
+          "line": 195,
+          "name": "hidden"
+        },
+        {
+          "line": 198,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 204,
+          "name": "hidden"
+        },
+        {
+          "line": 304,
+          "name": "hidden"
+        },
+        {
+          "line": 314,
+          "name": "hidden"
+        },
+        {
+          "line": 317,
+          "name": "hidden"
+        },
+        {
+          "line": 365,
+          "name": "hidden"
+        },
+        {
+          "line": 366,
+          "name": "hidden"
+        },
+        {
+          "line": 367,
+          "name": "hidden"
+        },
+        {
+          "line": 368,
+          "name": "hidden"
+        },
+        {
+          "line": 369,
+          "name": "hidden"
+        },
+        {
+          "line": 370,
+          "name": "hidden"
+        },
+        {
+          "line": 371,
+          "name": "hidden"
+        },
+        {
+          "line": 392,
+          "name": "disabled"
+        },
+        {
+          "line": 416,
+          "name": "hidden"
+        },
+        {
+          "line": 454,
+          "name": "disabled"
+        },
+        {
+          "line": 482,
+          "name": "hidden"
+        },
+        {
+          "line": 510,
+          "name": "hidden"
+        },
+        {
+          "line": 559,
+          "name": "disabled"
+        },
+        {
+          "line": 607,
+          "name": "disabled"
+        },
+        {
+          "line": 609,
+          "name": "disabled"
+        },
+        {
+          "line": 637,
+          "name": "disabled"
+        },
+        {
+          "line": 655,
+          "name": "disabled"
+        },
+        {
+          "line": 739,
+          "name": "hidden"
+        },
+        {
+          "line": 753,
+          "name": "disabled"
+        },
+        {
+          "line": 758,
+          "name": "disabled"
+        },
+        {
+          "line": 771,
+          "name": "disabled"
+        },
+        {
+          "line": 774,
+          "name": "disabled"
+        },
+        {
+          "line": 809,
+          "name": "disabled"
+        },
+        {
+          "line": 849,
+          "name": "hidden"
+        },
+        {
+          "line": 850,
+          "name": "hidden"
+        },
+        {
+          "line": 851,
+          "name": "hidden"
+        },
+        {
+          "line": 852,
+          "name": "hidden"
+        },
+        {
+          "line": 853,
+          "name": "hidden"
+        },
+        {
+          "line": 854,
+          "name": "hidden"
+        },
+        {
+          "line": 855,
+          "name": "hidden"
+        },
+        {
+          "line": 950,
+          "name": "disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [
+        {
+          "line": 837,
+          "property": "object-fit",
+          "value": "contain"
+        },
+        {
+          "line": 995,
+          "property": "aspect-ratio",
+          "value": "1 / 1.18"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 1082,
+          "query": "(max-width: 420px)"
+        },
+        {
+          "kind": "media",
+          "line": 1087,
+          "query": "(prefers-reduced-motion: reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 13,
+          "name": "data-focus-intake"
+        },
+        {
+          "line": 14,
+          "name": "data-home-href"
+        },
+        {
+          "line": 20,
+          "name": "data-intake-pending"
+        },
+        {
+          "line": 22,
+          "name": "data-intake-pending-title"
+        },
+        {
+          "line": 23,
+          "name": "data-intake-pending-copy"
+        },
+        {
+          "line": 26,
+          "name": "data-intake-error"
+        },
+        {
+          "line": 28,
+          "name": "data-intake-error-title"
+        },
+        {
+          "line": 29,
+          "name": "data-intake-error-message"
+        },
+        {
+          "line": 33,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 52,
+          "name": "data-focus-install-skip"
+        },
+        {
+          "line": 57,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 60,
+          "name": "data-focus-identity-heading"
+        },
+        {
+          "line": 70,
+          "name": "data-focus-contact-choice"
+        },
+        {
+          "line": 71,
+          "name": "data-focus-contact-consent"
+        },
+        {
+          "line": 81,
+          "name": "data-focus-auth-signed-out"
+        },
+        {
+          "line": 82,
+          "name": "data-focus-email-open"
+        },
+        {
+          "line": 85,
+          "name": "data-focus-yandex"
+        },
+        {
+          "line": 88,
+          "name": "data-focus-skip"
+        },
+        {
+          "line": 96,
+          "name": "data-focus-auth-signed-in"
+        },
+        {
+          "line": 97,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 99,
+          "name": "data-focus-account-continue"
+        },
+        {
+          "line": 102,
+          "name": "data-focus-account-logout"
+        },
+        {
+          "line": 107,
+          "name": "data-focus-email-panel"
+        },
+        {
+          "line": 108,
+          "name": "data-focus-email-address-step"
+        },
+        {
+          "line": 111,
+          "name": "data-focus-email-address-title"
+        },
+        {
+          "line": 112,
+          "name": "data-focus-email-address-copy"
+        },
+        {
+          "line": 116,
+          "name": "data-focus-email-form"
+        },
+        {
+          "line": 128,
+          "name": "data-focus-email-send"
+        },
+        {
+          "line": 132,
+          "name": "data-focus-email-back"
+        },
+        {
+          "line": 137,
+          "name": "data-focus-email-code-step"
+        },
+        {
+          "line": 143,
+          "name": "data-focus-email-destination"
+        },
+        {
+          "line": 146,
+          "name": "data-focus-email-otp-form"
+        },
+        {
+          "line": 149,
+          "name": "data-focus-otp-boxes"
+        },
+        {
+          "line": 150,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 151,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 152,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 153,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 154,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 155,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 174,
+          "name": "data-focus-email-otp-status"
+        },
+        {
+          "line": 178,
+          "name": "data-focus-email-otp-submit"
+        },
+        {
+          "line": 182,
+          "name": "data-focus-email-resend"
+        },
+        {
+          "line": 185,
+          "name": "data-focus-email-resend-status"
+        },
+        {
+          "line": 186,
+          "name": "data-focus-email-change"
+        },
+        {
+          "line": 192,
+          "name": "data-focus-identity-status"
+        },
+        {
+          "line": 195,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 199,
+          "name": "data-focus-done-title"
+        },
+        {
+          "line": 200,
+          "name": "data-focus-done-copy"
+        },
+        {
+          "line": 204,
+          "name": "data-focus-restart"
+        },
+        {
+          "line": 232,
+          "name": "data-focus-intake"
+        },
+        {
+          "line": 245,
+          "name": "data-intake-pending"
+        },
+        {
+          "line": 246,
+          "name": "data-intake-pending-title"
+        },
+        {
+          "line": 247,
+          "name": "data-intake-pending-copy"
+        },
+        {
+          "line": 248,
+          "name": "data-intake-error"
+        },
+        {
+          "line": 249,
+          "name": "data-intake-error-title"
+        },
+        {
+          "line": 250,
+          "name": "data-intake-error-message"
+        },
+        {
+          "line": 251,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 252,
+          "name": "data-focus-identity-status"
+        },
+        {
+          "line": 253,
+          "name": "data-focus-identity-heading"
+        },
+        {
+          "line": 254,
+          "name": "data-focus-done-title"
+        },
+        {
+          "line": 255,
+          "name": "data-focus-done-copy"
+        },
+        {
+          "line": 256,
+          "name": "data-focus-restart"
+        },
+        {
+          "line": 258,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 306,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 328,
+          "name": "data-focus-email-open"
+        },
+        {
+          "line": 329,
+          "name": "data-focus-email-panel"
+        },
+        {
+          "line": 330,
+          "name": "data-focus-email-address-step"
+        },
+        {
+          "line": 331,
+          "name": "data-focus-email-code-step"
+        },
+        {
+          "line": 332,
+          "name": "data-focus-email-address-title"
+        },
+        {
+          "line": 333,
+          "name": "data-focus-email-address-copy"
+        },
+        {
+          "line": 334,
+          "name": "data-focus-email-form"
+        },
+        {
+          "line": 336,
+          "name": "data-focus-email-send"
+        },
+        {
+          "line": 337,
+          "name": "data-focus-email-resend"
+        },
+        {
+          "line": 338,
+          "name": "data-focus-email-resend-status"
+        },
+        {
+          "line": 339,
+          "name": "data-focus-email-destination"
+        },
+        {
+          "line": 340,
+          "name": "data-focus-email-otp-form"
+        },
+        {
+          "line": 342,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 343,
+          "name": "data-focus-email-otp-submit"
+        },
+        {
+          "line": 344,
+          "name": "data-focus-email-otp-status"
+        },
+        {
+          "line": 345,
+          "name": "data-focus-yandex"
+        },
+        {
+          "line": 346,
+          "name": "data-focus-skip"
+        },
+        {
+          "line": 347,
+          "name": "data-focus-auth-signed-in"
+        },
+        {
+          "line": 348,
+          "name": "data-focus-auth-signed-out"
+        },
+        {
+          "line": 349,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 350,
+          "name": "data-focus-account-continue"
+        },
+        {
+          "line": 351,
+          "name": "data-focus-account-logout"
+        },
+        {
+          "line": 352,
+          "name": "data-focus-contact-choice"
+        },
+        {
+          "line": 353,
+          "name": "data-focus-contact-consent"
+        },
+        {
+          "line": 425,
+          "name": "data-focus-install-skip"
+        },
+        {
+          "line": 447,
+          "name": "data-filled"
+        },
+        {
+          "line": 449,
+          "name": "data-active"
+        },
+        {
+          "line": 453,
+          "name": "data-otp-verifying"
+        },
+        {
+          "line": 616,
+          "name": "data-focus-email-back"
+        },
+        {
+          "line": 624,
+          "name": "data-focus-email-change"
+        },
+        {
+          "line": 1004,
+          "name": "data-filled"
+        },
+        {
+          "line": 1005,
+          "name": "data-active"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "get",
+            "initialUrl",
+            "searchParams"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "get",
+            "initialUrl",
+            "searchParams"
+          ],
+          "kind": "LogicalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 243,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "homeHref",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 258,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset",
+            "supabaseKey",
+            "supabaseUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authEnabled",
+            "authRuntime",
+            "dataset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50,
+          "script_index": 0,
+          "source_line": 260,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authRuntime",
+            "dataset",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 55,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "authRuntime",
+            "dataset",
+            "yandexProvider"
+          ],
+          "kind": "LogicalExpression",
+          "line": 57,
+          "script_index": 0,
+          "source_line": 267,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resetRequested"
+          ],
+          "kind": "IfStatement",
+          "line": 63,
+          "script_index": 0,
+          "source_line": 273,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 64,
+          "script_index": 0,
+          "source_line": 274,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 65,
+          "script_index": 0,
+          "source_line": 275,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 66,
+          "script_index": 0,
+          "source_line": 276,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth",
+            "authReset"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth"
+          ],
+          "kind": "LogicalExpression",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 72,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pendingCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 283,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 101,
+          "script_index": 0,
+          "source_line": 311,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "participation",
+            "status",
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status",
+            "storage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102,
+          "script_index": 0,
+          "source_line": 312,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pending"
+          ],
+          "kind": "IfStatement",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 315,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation"
+          ],
+          "kind": "IfStatement",
+          "line": 107,
+          "script_index": 0,
+          "source_line": 317,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "error"
+          ],
+          "kind": "IfStatement",
+          "line": 108,
+          "script_index": 0,
+          "source_line": 318,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 109,
+          "script_index": 0,
+          "source_line": 319,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 110,
+          "script_index": 0,
+          "source_line": 320,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorMessage"
+          ],
+          "kind": "IfStatement",
+          "line": 111,
+          "script_index": 0,
+          "source_line": 321,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "intake",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 112,
+          "script_index": 0,
+          "source_line": 322,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 113,
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "errorMessage"
+          ],
+          "kind": "IfStatement",
+          "line": 114,
+          "script_index": 0,
+          "source_line": 324,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactConsent",
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 147,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactConsent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 147,
+          "script_index": 0,
+          "source_line": 357,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityHeading"
+          ],
+          "kind": "IfStatement",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 366,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 156,
+          "script_index": 0,
+          "source_line": 366,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "contactChoice"
+          ],
+          "kind": "IfStatement",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 367,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 367,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedOutChoices"
+          ],
+          "kind": "IfStatement",
+          "line": 158,
+          "script_index": 0,
+          "source_line": 368,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedInPanel"
+          ],
+          "kind": "IfStatement",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 369,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailPanel"
+          ],
+          "kind": "IfStatement",
+          "line": 160,
+          "script_index": 0,
+          "source_line": 370,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "view"
+          ],
+          "kind": "LogicalExpression",
+          "line": 160,
+          "script_index": 0,
+          "source_line": 370,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressStep"
+          ],
+          "kind": "IfStatement",
+          "line": 161,
+          "script_index": 0,
+          "source_line": 371,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailCodeStep"
+          ],
+          "kind": "IfStatement",
+          "line": 162,
+          "script_index": 0,
+          "source_line": 372,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 167,
+          "script_index": 0,
+          "source_line": 377,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 168,
+          "script_index": 0,
+          "source_line": 378,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailAddressCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 170,
+          "script_index": 0,
+          "source_line": 380,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 171,
+          "script_index": 0,
+          "source_line": 381,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "recovery"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 175,
+          "script_index": 0,
+          "source_line": 385,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailSend"
+          ],
+          "kind": "IfStatement",
+          "line": 175,
+          "script_index": 0,
+          "source_line": 385,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailDestination"
+          ],
+          "kind": "IfStatement",
+          "line": 181,
+          "script_index": 0,
+          "source_line": 391,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpInput"
+          ],
+          "kind": "IfStatement",
+          "line": 182,
+          "script_index": 0,
+          "source_line": 392,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 187,
+          "script_index": 0,
+          "source_line": 397,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "confirmationRequested",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 198,
+          "script_index": 0,
+          "source_line": 408,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 198,
+          "script_index": 0,
+          "source_line": 408,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "launchFromApp",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 204,
+          "script_index": 0,
+          "source_line": 414,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 205,
+          "script_index": 0,
+          "source_line": 415,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 206,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restartButton"
+          ],
+          "kind": "IfStatement",
+          "line": 207,
+          "script_index": 0,
+          "source_line": 417,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "emailCallbackAttempted",
+            "identityChoice",
+            "launchFromApp",
+            "participation"
+          ],
+          "kind": "IfStatement",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityChoice",
+            "launchFromApp",
+            "participation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "launchFromApp"
+          ],
+          "kind": "LogicalExpression",
+          "line": 209,
+          "script_index": 0,
+          "source_line": 419,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityChoice",
+            "participation"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 221,
+          "script_index": 0,
+          "source_line": 431,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpInput"
+          ],
+          "kind": "IfStatement",
+          "line": 233,
+          "script_index": 0,
+          "source_line": 443,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "index",
+            "token"
+          ],
+          "kind": "LogicalExpression",
+          "line": 237,
+          "script_index": 0,
+          "source_line": 447,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpVerifying"
+          ],
+          "kind": "LogicalExpression",
+          "line": 241,
+          "script_index": 0,
+          "source_line": 451,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "otpSubmit"
+          ],
+          "kind": "IfStatement",
+          "line": 245,
+          "script_index": 0,
+          "source_line": 455,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "EMAIL_OTP_LENGTH",
+            "length",
+            "token"
+          ],
+          "kind": "LogicalExpression",
+          "line": 245,
+          "script_index": 0,
+          "source_line": 455,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "agentTestEmail",
+            "participation",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "agentTestEmail"
+          ],
+          "kind": "LogicalExpression",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 458,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 251,
+          "script_index": 0,
+          "source_line": 461,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 254,
+          "script_index": 0,
+          "source_line": 464,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendTimer"
+          ],
+          "kind": "IfStatement",
+          "line": 260,
+          "script_index": 0,
+          "source_line": 470,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 268,
+          "script_index": 0,
+          "source_line": 478,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "remaining"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 269,
+          "script_index": 0,
+          "source_line": 479,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "resendButton"
+          ],
+          "kind": "IfStatement",
+          "line": 273,
+          "script_index": 0,
+          "source_line": 483,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "remaining"
+          ],
+          "kind": "IfStatement",
+          "line": 274,
+          "script_index": 0,
+          "source_line": 484,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 285,
+          "script_index": 0,
+          "source_line": 495,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth",
+            "authReset"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 499,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "auth"
+          ],
+          "kind": "LogicalExpression",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 499,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 290,
+          "script_index": 0,
+          "source_line": 500,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restarted"
+          ],
+          "kind": "IfStatement",
+          "line": 294,
+          "script_index": 0,
+          "source_line": 504,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneCopy"
+          ],
+          "kind": "IfStatement",
+          "line": 295,
+          "script_index": 0,
+          "source_line": 505,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "restartButton"
+          ],
+          "kind": "IfStatement",
+          "line": 301,
+          "script_index": 0,
+          "source_line": 511,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "storage"
+          ],
+          "kind": "IfStatement",
+          "line": 306,
+          "script_index": 0,
+          "source_line": 516,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completionInFlight"
+          ],
+          "kind": "IfStatement",
+          "line": 307,
+          "script_index": 0,
+          "source_line": 517,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "verified"
+          ],
+          "kind": "IfStatement",
+          "line": 309,
+          "script_index": 0,
+          "source_line": 519,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 310,
+          "script_index": 0,
+          "source_line": 520,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "saved"
+          ],
+          "kind": "IfStatement",
+          "line": 315,
+          "script_index": 0,
+          "source_line": 525,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountContinue"
+          ],
+          "kind": "IfStatement",
+          "line": 317,
+          "script_index": 0,
+          "source_line": 527,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 318,
+          "script_index": 0,
+          "source_line": 528,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountContinue"
+          ],
+          "kind": "IfStatement",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 535,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 536,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completed"
+          ],
+          "kind": "IfStatement",
+          "line": 329,
+          "script_index": 0,
+          "source_line": 539,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "activated"
+          ],
+          "kind": "IfStatement",
+          "line": 331,
+          "script_index": 0,
+          "source_line": 541,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "identityStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 333,
+          "script_index": 0,
+          "source_line": 543,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "doneTitle"
+          ],
+          "kind": "IfStatement",
+          "line": 338,
+          "script_index": 0,
+          "source_line": 548,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "emailAddressCopy",
+            "emailAddressTitle",
+            "emailInput",
+            "emailSend",
+            "focus",
+            "recovery",
+            "setTimeout",
+            "showIdentityView",
+            "textContent",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 165,
+          "name": "showEmailAddress",
+          "script_index": 0,
+          "source_line": 375,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "dataset",
+            "disabled",
+            "emailDestination",
+            "focus",
+            "lastSubmittedOtp",
+            "otpInput",
+            "otpStatus",
+            "pendingEmail",
+            "renderOtp",
+            "setTimeout",
+            "showIdentityView",
+            "state",
+            "textContent",
+            "value",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 179,
+          "name": "showEmailCode",
+          "script_index": 0,
+          "source_line": 389,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "IdentityView",
+            "contactChoice",
+            "emailAddressStep",
+            "emailCodeStep",
+            "emailPanel",
+            "hidden",
+            "identityHeading",
+            "identityView",
+            "signedInPanel",
+            "signedOutChoices",
+            "view"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 154,
+          "name": "showIdentityView",
+          "script_index": 0,
+          "source_line": 364,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "HTMLElement",
+            "dataset",
+            "focus",
+            "forEach",
+            "hidden",
+            "intakeStage",
+            "node",
+            "querySelector",
+            "root",
+            "setTimeout",
+            "stage",
+            "stages",
+            "window"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 94,
+          "name": "showStage",
+          "script_index": 0,
+          "source_line": 304,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "authEnabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 210
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 21,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 26,
+          "name": "hidden"
+        },
+        {
+          "line": 33,
+          "name": "hidden"
+        },
+        {
+          "line": 57,
+          "name": "hidden"
+        },
+        {
+          "line": 81,
+          "name": "hidden"
+        },
+        {
+          "line": 96,
+          "name": "hidden"
+        },
+        {
+          "line": 107,
+          "name": "hidden"
+        },
+        {
+          "line": 137,
+          "name": "hidden"
+        },
+        {
+          "line": 149,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 178,
+          "name": "disabled"
+        },
+        {
+          "line": 178,
+          "name": "hidden"
+        },
+        {
+          "line": 182,
+          "name": "hidden"
+        },
+        {
+          "line": 195,
+          "name": "hidden"
+        },
+        {
+          "line": 198,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 204,
+          "name": "hidden"
+        },
+        {
+          "line": 304,
+          "name": "hidden"
+        },
+        {
+          "line": 314,
+          "name": "hidden"
+        },
+        {
+          "line": 317,
+          "name": "hidden"
+        },
+        {
+          "line": 365,
+          "name": "hidden"
+        },
+        {
+          "line": 366,
+          "name": "hidden"
+        },
+        {
+          "line": 367,
+          "name": "hidden"
+        },
+        {
+          "line": 368,
+          "name": "hidden"
+        },
+        {
+          "line": 369,
+          "name": "hidden"
+        },
+        {
+          "line": 370,
+          "name": "hidden"
+        },
+        {
+          "line": 371,
+          "name": "hidden"
+        },
+        {
+          "line": 392,
+          "name": "disabled"
+        },
+        {
+          "line": 416,
+          "name": "hidden"
+        },
+        {
+          "line": 454,
+          "name": "disabled"
+        },
+        {
+          "line": 482,
+          "name": "hidden"
+        },
+        {
+          "line": 510,
+          "name": "hidden"
+        },
+        {
+          "line": 559,
+          "name": "disabled"
+        },
+        {
+          "line": 607,
+          "name": "disabled"
+        },
+        {
+          "line": 609,
+          "name": "disabled"
+        },
+        {
+          "line": 637,
+          "name": "disabled"
+        },
+        {
+          "line": 655,
+          "name": "disabled"
+        },
+        {
+          "line": 739,
+          "name": "hidden"
+        },
+        {
+          "line": 753,
+          "name": "disabled"
+        },
+        {
+          "line": 758,
+          "name": "disabled"
+        },
+        {
+          "line": 771,
+          "name": "disabled"
+        },
+        {
+          "line": 774,
+          "name": "disabled"
+        },
+        {
+          "line": 809,
+          "name": "disabled"
+        },
+        {
+          "line": 849,
+          "name": "hidden"
+        },
+        {
+          "line": 850,
+          "name": "hidden"
+        },
+        {
+          "line": 851,
+          "name": "hidden"
+        },
+        {
+          "line": 852,
+          "name": "hidden"
+        },
+        {
+          "line": 853,
+          "name": "hidden"
+        },
+        {
+          "line": 854,
+          "name": "hidden"
+        },
+        {
+          "line": 855,
+          "name": "hidden"
+        },
+        {
+          "line": 950,
+          "name": "disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [
+        {
+          "line": 837,
+          "property": "object-fit",
+          "value": "contain"
+        },
+        {
+          "line": 995,
+          "property": "aspect-ratio",
+          "value": "1 / 1.18"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 1082,
+          "query": "(max-width: 420px)"
+        },
+        {
+          "kind": "media",
+          "line": 1087,
+          "query": "(prefers-reduced-motion: reduce)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 13,
+          "name": "data-focus-intake"
+        },
+        {
+          "line": 14,
+          "name": "data-home-href"
+        },
+        {
+          "line": 20,
+          "name": "data-intake-pending"
+        },
+        {
+          "line": 22,
+          "name": "data-intake-pending-title"
+        },
+        {
+          "line": 23,
+          "name": "data-intake-pending-copy"
+        },
+        {
+          "line": 26,
+          "name": "data-intake-error"
+        },
+        {
+          "line": 28,
+          "name": "data-intake-error-title"
+        },
+        {
+          "line": 29,
+          "name": "data-intake-error-message"
+        },
+        {
+          "line": 33,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 52,
+          "name": "data-focus-install-skip"
+        },
+        {
+          "line": 57,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 60,
+          "name": "data-focus-identity-heading"
+        },
+        {
+          "line": 70,
+          "name": "data-focus-contact-choice"
+        },
+        {
+          "line": 71,
+          "name": "data-focus-contact-consent"
+        },
+        {
+          "line": 81,
+          "name": "data-focus-auth-signed-out"
+        },
+        {
+          "line": 82,
+          "name": "data-focus-email-open"
+        },
+        {
+          "line": 85,
+          "name": "data-focus-yandex"
+        },
+        {
+          "line": 88,
+          "name": "data-focus-skip"
+        },
+        {
+          "line": 96,
+          "name": "data-focus-auth-signed-in"
+        },
+        {
+          "line": 97,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 99,
+          "name": "data-focus-account-continue"
+        },
+        {
+          "line": 102,
+          "name": "data-focus-account-logout"
+        },
+        {
+          "line": 107,
+          "name": "data-focus-email-panel"
+        },
+        {
+          "line": 108,
+          "name": "data-focus-email-address-step"
+        },
+        {
+          "line": 111,
+          "name": "data-focus-email-address-title"
+        },
+        {
+          "line": 112,
+          "name": "data-focus-email-address-copy"
+        },
+        {
+          "line": 116,
+          "name": "data-focus-email-form"
+        },
+        {
+          "line": 128,
+          "name": "data-focus-email-send"
+        },
+        {
+          "line": 132,
+          "name": "data-focus-email-back"
+        },
+        {
+          "line": 137,
+          "name": "data-focus-email-code-step"
+        },
+        {
+          "line": 143,
+          "name": "data-focus-email-destination"
+        },
+        {
+          "line": 146,
+          "name": "data-focus-email-otp-form"
+        },
+        {
+          "line": 149,
+          "name": "data-focus-otp-boxes"
+        },
+        {
+          "line": 150,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 151,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 152,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 153,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 154,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 155,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 174,
+          "name": "data-focus-email-otp-status"
+        },
+        {
+          "line": 178,
+          "name": "data-focus-email-otp-submit"
+        },
+        {
+          "line": 182,
+          "name": "data-focus-email-resend"
+        },
+        {
+          "line": 185,
+          "name": "data-focus-email-resend-status"
+        },
+        {
+          "line": 186,
+          "name": "data-focus-email-change"
+        },
+        {
+          "line": 192,
+          "name": "data-focus-identity-status"
+        },
+        {
+          "line": 195,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 199,
+          "name": "data-focus-done-title"
+        },
+        {
+          "line": 200,
+          "name": "data-focus-done-copy"
+        },
+        {
+          "line": 204,
+          "name": "data-focus-restart"
+        },
+        {
+          "line": 232,
+          "name": "data-focus-intake"
+        },
+        {
+          "line": 245,
+          "name": "data-intake-pending"
+        },
+        {
+          "line": 246,
+          "name": "data-intake-pending-title"
+        },
+        {
+          "line": 247,
+          "name": "data-intake-pending-copy"
+        },
+        {
+          "line": 248,
+          "name": "data-intake-error"
+        },
+        {
+          "line": 249,
+          "name": "data-intake-error-title"
+        },
+        {
+          "line": 250,
+          "name": "data-intake-error-message"
+        },
+        {
+          "line": 251,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 252,
+          "name": "data-focus-identity-status"
+        },
+        {
+          "line": 253,
+          "name": "data-focus-identity-heading"
+        },
+        {
+          "line": 254,
+          "name": "data-focus-done-title"
+        },
+        {
+          "line": 255,
+          "name": "data-focus-done-copy"
+        },
+        {
+          "line": 256,
+          "name": "data-focus-restart"
+        },
+        {
+          "line": 258,
+          "name": "data-static-site-auth-runtime"
+        },
+        {
+          "line": 306,
+          "name": "data-intake-stage"
+        },
+        {
+          "line": 328,
+          "name": "data-focus-email-open"
+        },
+        {
+          "line": 329,
+          "name": "data-focus-email-panel"
+        },
+        {
+          "line": 330,
+          "name": "data-focus-email-address-step"
+        },
+        {
+          "line": 331,
+          "name": "data-focus-email-code-step"
+        },
+        {
+          "line": 332,
+          "name": "data-focus-email-address-title"
+        },
+        {
+          "line": 333,
+          "name": "data-focus-email-address-copy"
+        },
+        {
+          "line": 334,
+          "name": "data-focus-email-form"
+        },
+        {
+          "line": 336,
+          "name": "data-focus-email-send"
+        },
+        {
+          "line": 337,
+          "name": "data-focus-email-resend"
+        },
+        {
+          "line": 338,
+          "name": "data-focus-email-resend-status"
+        },
+        {
+          "line": 339,
+          "name": "data-focus-email-destination"
+        },
+        {
+          "line": 340,
+          "name": "data-focus-email-otp-form"
+        },
+        {
+          "line": 342,
+          "name": "data-focus-otp-digit"
+        },
+        {
+          "line": 343,
+          "name": "data-focus-email-otp-submit"
+        },
+        {
+          "line": 344,
+          "name": "data-focus-email-otp-status"
+        },
+        {
+          "line": 345,
+          "name": "data-focus-yandex"
+        },
+        {
+          "line": 346,
+          "name": "data-focus-skip"
+        },
+        {
+          "line": 347,
+          "name": "data-focus-auth-signed-in"
+        },
+        {
+          "line": 348,
+          "name": "data-focus-auth-signed-out"
+        },
+        {
+          "line": 349,
+          "name": "data-static-auth-name"
+        },
+        {
+          "line": 350,
+          "name": "data-focus-account-continue"
+        },
+        {
+          "line": 351,
+          "name": "data-focus-account-logout"
+        },
+        {
+          "line": 352,
+          "name": "data-focus-contact-choice"
+        },
+        {
+          "line": 353,
+          "name": "data-focus-contact-consent"
+        },
+        {
+          "line": 425,
+          "name": "data-focus-install-skip"
+        },
+        {
+          "line": 447,
+          "name": "data-filled"
+        },
+        {
+          "line": 449,
+          "name": "data-active"
+        },
+        {
+          "line": 453,
+          "name": "data-otp-verifying"
+        },
+        {
+          "line": 616,
+          "name": "data-focus-email-back"
+        },
+        {
+          "line": 624,
+          "name": "data-focus-email-change"
+        },
+        {
+          "line": 1004,
+          "name": "data-filled"
+        },
+        {
+          "line": 1005,
+          "name": "data-active"
+        }
+      ]
+    }
+  }
+}

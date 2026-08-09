@@ -1,0 +1,1982 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.7db9bc6bb7628a8a",
+  "logical_path": "src/components/EventCard.astro",
+  "name": "EventCard",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.079e66c236ba9725",
+        "source.current_root_prelaunch.14c00e991484d4e8",
+        "source.current_root_prelaunch.2e9e5bd20dfe8938",
+        "source.current_root_prelaunch.5a03f19467c1af8d",
+        "source.current_root_prelaunch.6cedba5d99fd318b",
+        "source.current_root_prelaunch.7026a6dba47444f7",
+        "source.current_root_prelaunch.7e8d05ce7735edff",
+        "source.current_root_prelaunch.82738e7e64b874b6",
+        "source.current_root_prelaunch.bc8d0d2f988373e9",
+        "source.current_root_prelaunch.cc9c35075cddb7aa",
+        "source.current_root_prelaunch.ce0e5905bd8d4e80",
+        "source.current_root_prelaunch.eda68f1397afa904"
+      ],
+      "content_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.b9c030cab91c3850",
+        "source.current_root_prelaunch.ca0b0579e3179c1a",
+        "source.current_root_prelaunch.d3bc1d9393c2c47c",
+        "source.current_root_prelaunch.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.7db9bc6bb7628a8a",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.079e66c236ba9725",
+        "source.latest_checked_kaggle_candidate.14c00e991484d4e8",
+        "source.latest_checked_kaggle_candidate.2e9e5bd20dfe8938",
+        "source.latest_checked_kaggle_candidate.5a03f19467c1af8d",
+        "source.latest_checked_kaggle_candidate.6cedba5d99fd318b",
+        "source.latest_checked_kaggle_candidate.7026a6dba47444f7",
+        "source.latest_checked_kaggle_candidate.7e8d05ce7735edff",
+        "source.latest_checked_kaggle_candidate.82738e7e64b874b6",
+        "source.latest_checked_kaggle_candidate.bc8d0d2f988373e9",
+        "source.latest_checked_kaggle_candidate.cc9c35075cddb7aa",
+        "source.latest_checked_kaggle_candidate.ce0e5905bd8d4e80",
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904"
+      ],
+      "content_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.b9c030cab91c3850",
+        "source.latest_checked_kaggle_candidate.ca0b0579e3179c1a",
+        "source.latest_checked_kaggle_candidate.d3bc1d9393c2c47c",
+        "source.latest_checked_kaggle_candidate.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.7db9bc6bb7628a8a",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src",
+            "startsWith"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 45
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "event",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "includes",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 49
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "match",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 49
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 52
+        },
+        {
+          "identifiers": [
+            "raw"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 53
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 56
+        },
+        {
+          "identifiers": [
+            "raw",
+            "test"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 57
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_media_role",
+            "media_role",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "media_role",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "mediaRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64
+        },
+        {
+          "identifiers": [
+            "height",
+            "primaryImageAsset",
+            "width"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 65
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 65
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 67
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 74
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 75
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 77
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 80
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "relatedMediaDecision"
+          ],
+          "kind": "LogicalExpression",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "cardCrop",
+            "fit"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 94
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "documentMedia",
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "cardObjectPosition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 98
+        },
+        {
+          "identifiers": [
+            "event",
+            "focal_point"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 100
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102
+        },
+        {
+          "identifiers": [
+            "sharesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 103
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 104
+        },
+        {
+          "identifiers": [
+            "runtimeTemplate"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "variant"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 109
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 112
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "relatedMediaDecision",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia",
+            "relatedMediaDecision",
+            "useNaturalAspect"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 117
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Boolean",
+            "desktopRelatedCrop",
+            "documentMedia",
+            "filter",
+            "join",
+            "mobileFlowMedia"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 78,
+          "name": "mediaShellClass"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "desktopRelatedCrop",
+            "desktopRelatedLayout",
+            "documentMedia",
+            "filter",
+            "focalOffset",
+            "focalY",
+            "intrinsicMediaRatio",
+            "join",
+            "mobileFlowMedia",
+            "relatedMediaDecision",
+            "rowRatio"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 111,
+          "name": "mediaShellStyle"
+        },
+        {
+          "dependencies": [
+            "event",
+            "eventAdmissionLabel"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 41,
+          "name": "statusLabel"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 116,
+          "name": "hidden"
+        },
+        {
+          "line": 146,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 170,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 182,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 119
+        },
+        {
+          "kind": "style",
+          "line": 145
+        },
+        {
+          "kind": "style",
+          "line": 151
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 98,
+          "property": "object-fit",
+          "value": "${cardCrop.fit"
+        },
+        {
+          "line": 98,
+          "property": "object-position",
+          "value": "${cardObjectPosition || '50% 50%'"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 29,
+          "name": "desktopRelatedCrop",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 30,
+          "name": "desktopRelatedLayout",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "DesktopRelatedLayout"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 26,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 27,
+          "name": "label",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 32,
+          "name": "mobileFlowMedia",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 31,
+          "name": "runtimeTemplate",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "split-actions"
+          },
+          "line": 28,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "CardVariant"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 121,
+          "name": "data-event-card"
+        },
+        {
+          "line": 122,
+          "name": "data-feed-card-variant"
+        },
+        {
+          "line": 123,
+          "name": "data-calendar-eligible"
+        },
+        {
+          "line": 124,
+          "name": "data-event-id"
+        },
+        {
+          "line": 125,
+          "name": "data-event-title"
+        },
+        {
+          "line": 126,
+          "name": "data-card-href"
+        },
+        {
+          "line": 127,
+          "name": "data-lab-related-card"
+        },
+        {
+          "line": 128,
+          "name": "data-lab-media-kind"
+        },
+        {
+          "line": 129,
+          "name": "data-lab-media-ratio"
+        },
+        {
+          "line": 130,
+          "name": "data-lab-row-media"
+        },
+        {
+          "line": 131,
+          "name": "data-lab-row-index"
+        },
+        {
+          "line": 132,
+          "name": "data-lab-row-column"
+        },
+        {
+          "line": 133,
+          "name": "data-lab-media-treatment"
+        },
+        {
+          "line": 134,
+          "name": "data-lab-crop-reason"
+        },
+        {
+          "line": 135,
+          "name": "data-lab-cover-crop"
+        },
+        {
+          "line": 136,
+          "name": "data-lab-potential-cover-crop"
+        },
+        {
+          "line": 137,
+          "name": "data-lab-row-worst-crop"
+        },
+        {
+          "line": 138,
+          "name": "data-lab-row-cost"
+        },
+        {
+          "line": 143,
+          "name": "data-card-media-link"
+        },
+        {
+          "line": 143,
+          "name": "data-prefetch"
+        },
+        {
+          "line": 145,
+          "name": "data-card-media-shell"
+        },
+        {
+          "line": 145,
+          "name": "data-media-role"
+        },
+        {
+          "line": 146,
+          "name": "data-card-image-fallback"
+        },
+        {
+          "line": 147,
+          "name": "data-card-fallback-date"
+        },
+        {
+          "line": 148,
+          "name": "data-card-fallback-type"
+        },
+        {
+          "line": 149,
+          "name": "data-card-fallback-city"
+        },
+        {
+          "line": 153,
+          "name": "data-card-image"
+        },
+        {
+          "line": 160,
+          "name": "data-card-authoritative-fit"
+        },
+        {
+          "line": 161,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 162,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 163,
+          "name": "data-card-media-review"
+        },
+        {
+          "line": 170,
+          "name": "data-card-media-shell"
+        },
+        {
+          "line": 171,
+          "name": "data-card-fallback-date"
+        },
+        {
+          "line": 172,
+          "name": "data-card-fallback-type"
+        },
+        {
+          "line": 173,
+          "name": "data-card-fallback-city"
+        },
+        {
+          "line": 178,
+          "name": "data-card-title"
+        },
+        {
+          "line": 178,
+          "name": "data-prefetch"
+        },
+        {
+          "line": 180,
+          "name": "data-card-type"
+        },
+        {
+          "line": 181,
+          "name": "data-card-meta"
+        },
+        {
+          "line": 185,
+          "name": "data-card-status"
+        },
+        {
+          "line": 187,
+          "name": "data-card-place"
+        },
+        {
+          "line": 191,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 192,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 192,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 192,
+          "name": "data-event-id"
+        },
+        {
+          "line": 192,
+          "name": "data-event-title"
+        },
+        {
+          "line": 199,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 200,
+          "name": "data-native-share"
+        },
+        {
+          "line": 201,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 202,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 203,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 204,
+          "name": "data-share-title"
+        },
+        {
+          "line": 205,
+          "name": "data-share-text"
+        },
+        {
+          "line": 206,
+          "name": "data-share-url"
+        },
+        {
+          "line": 207,
+          "name": "data-share-image"
+        },
+        {
+          "line": 208,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 209,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 210,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 211,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 212,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 213,
+          "name": "data-share-place"
+        },
+        {
+          "line": 214,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 218,
+          "name": "data-share-label"
+        },
+        {
+          "line": 219,
+          "name": "data-share-count"
+        },
+        {
+          "line": 221,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 221,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 221,
+          "name": "data-event-id"
+        },
+        {
+          "line": 221,
+          "name": "data-event-title"
+        },
+        {
+          "line": 221,
+          "name": "data-base-count"
+        },
+        {
+          "line": 223,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 230,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 231,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 231,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 231,
+          "name": "data-event-id"
+        },
+        {
+          "line": 231,
+          "name": "data-event-title"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-action"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-event-id"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-expiry-day"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-event-title"
+        },
+        {
+          "line": 238,
+          "name": "data-calendar-label"
+        },
+        {
+          "line": 242,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 246,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 247,
+          "name": "data-native-share"
+        },
+        {
+          "line": 248,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 249,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 250,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 251,
+          "name": "data-share-title"
+        },
+        {
+          "line": 252,
+          "name": "data-share-text"
+        },
+        {
+          "line": 253,
+          "name": "data-share-url"
+        },
+        {
+          "line": 254,
+          "name": "data-share-image"
+        },
+        {
+          "line": 255,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 256,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 257,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 258,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 259,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 260,
+          "name": "data-share-place"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src",
+            "startsWith"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 45
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "event",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "includes",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 49
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "match",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 49
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 52
+        },
+        {
+          "identifiers": [
+            "raw"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 53
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 56
+        },
+        {
+          "identifiers": [
+            "raw",
+            "test"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 57
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_media_role",
+            "media_role",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "media_role",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "mediaRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 64
+        },
+        {
+          "identifiers": [
+            "height",
+            "primaryImageAsset",
+            "width"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 65
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 65
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 67
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 74
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 75
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 77
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 80
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "relatedMediaDecision"
+          ],
+          "kind": "LogicalExpression",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "cardCrop",
+            "fit"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 94
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "documentMedia",
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "cardObjectPosition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 98
+        },
+        {
+          "identifiers": [
+            "event",
+            "focal_point"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 100
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 102
+        },
+        {
+          "identifiers": [
+            "sharesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 103
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 104
+        },
+        {
+          "identifiers": [
+            "runtimeTemplate"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "variant"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 109
+        },
+        {
+          "identifiers": [
+            "documentMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 112
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop",
+            "mobileFlowMedia"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedCrop"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "relatedMediaDecision",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "desktopRelatedLayout",
+            "rowRatio"
+          ],
+          "kind": "LogicalExpression",
+          "line": 113
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia",
+            "relatedMediaDecision",
+            "useNaturalAspect"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "mobileFlowMedia"
+          ],
+          "kind": "LogicalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 117
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Boolean",
+            "desktopRelatedCrop",
+            "documentMedia",
+            "filter",
+            "join",
+            "mobileFlowMedia"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 78,
+          "name": "mediaShellClass"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "desktopRelatedCrop",
+            "desktopRelatedLayout",
+            "documentMedia",
+            "filter",
+            "focalOffset",
+            "focalY",
+            "intrinsicMediaRatio",
+            "join",
+            "mobileFlowMedia",
+            "relatedMediaDecision",
+            "rowRatio"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 111,
+          "name": "mediaShellStyle"
+        },
+        {
+          "dependencies": [
+            "event",
+            "eventAdmissionLabel"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 41,
+          "name": "statusLabel"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 116,
+          "name": "hidden"
+        },
+        {
+          "line": 146,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 170,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 182,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 119
+        },
+        {
+          "kind": "style",
+          "line": 145
+        },
+        {
+          "kind": "style",
+          "line": 151
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 98,
+          "property": "object-fit",
+          "value": "${cardCrop.fit"
+        },
+        {
+          "line": 98,
+          "property": "object-position",
+          "value": "${cardObjectPosition || '50% 50%'"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 29,
+          "name": "desktopRelatedCrop",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 30,
+          "name": "desktopRelatedLayout",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "DesktopRelatedLayout"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 26,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 27,
+          "name": "label",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 32,
+          "name": "mobileFlowMedia",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 31,
+          "name": "runtimeTemplate",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "split-actions"
+          },
+          "line": 28,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "CardVariant"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 121,
+          "name": "data-event-card"
+        },
+        {
+          "line": 122,
+          "name": "data-feed-card-variant"
+        },
+        {
+          "line": 123,
+          "name": "data-calendar-eligible"
+        },
+        {
+          "line": 124,
+          "name": "data-event-id"
+        },
+        {
+          "line": 125,
+          "name": "data-event-title"
+        },
+        {
+          "line": 126,
+          "name": "data-card-href"
+        },
+        {
+          "line": 127,
+          "name": "data-lab-related-card"
+        },
+        {
+          "line": 128,
+          "name": "data-lab-media-kind"
+        },
+        {
+          "line": 129,
+          "name": "data-lab-media-ratio"
+        },
+        {
+          "line": 130,
+          "name": "data-lab-row-media"
+        },
+        {
+          "line": 131,
+          "name": "data-lab-row-index"
+        },
+        {
+          "line": 132,
+          "name": "data-lab-row-column"
+        },
+        {
+          "line": 133,
+          "name": "data-lab-media-treatment"
+        },
+        {
+          "line": 134,
+          "name": "data-lab-crop-reason"
+        },
+        {
+          "line": 135,
+          "name": "data-lab-cover-crop"
+        },
+        {
+          "line": 136,
+          "name": "data-lab-potential-cover-crop"
+        },
+        {
+          "line": 137,
+          "name": "data-lab-row-worst-crop"
+        },
+        {
+          "line": 138,
+          "name": "data-lab-row-cost"
+        },
+        {
+          "line": 143,
+          "name": "data-card-media-link"
+        },
+        {
+          "line": 143,
+          "name": "data-prefetch"
+        },
+        {
+          "line": 145,
+          "name": "data-card-media-shell"
+        },
+        {
+          "line": 145,
+          "name": "data-media-role"
+        },
+        {
+          "line": 146,
+          "name": "data-card-image-fallback"
+        },
+        {
+          "line": 147,
+          "name": "data-card-fallback-date"
+        },
+        {
+          "line": 148,
+          "name": "data-card-fallback-type"
+        },
+        {
+          "line": 149,
+          "name": "data-card-fallback-city"
+        },
+        {
+          "line": 153,
+          "name": "data-card-image"
+        },
+        {
+          "line": 160,
+          "name": "data-card-authoritative-fit"
+        },
+        {
+          "line": 161,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 162,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 163,
+          "name": "data-card-media-review"
+        },
+        {
+          "line": 170,
+          "name": "data-card-media-shell"
+        },
+        {
+          "line": 171,
+          "name": "data-card-fallback-date"
+        },
+        {
+          "line": 172,
+          "name": "data-card-fallback-type"
+        },
+        {
+          "line": 173,
+          "name": "data-card-fallback-city"
+        },
+        {
+          "line": 178,
+          "name": "data-card-title"
+        },
+        {
+          "line": 178,
+          "name": "data-prefetch"
+        },
+        {
+          "line": 180,
+          "name": "data-card-type"
+        },
+        {
+          "line": 181,
+          "name": "data-card-meta"
+        },
+        {
+          "line": 185,
+          "name": "data-card-status"
+        },
+        {
+          "line": 187,
+          "name": "data-card-place"
+        },
+        {
+          "line": 191,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 192,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 192,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 192,
+          "name": "data-event-id"
+        },
+        {
+          "line": 192,
+          "name": "data-event-title"
+        },
+        {
+          "line": 199,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 200,
+          "name": "data-native-share"
+        },
+        {
+          "line": 201,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 202,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 203,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 204,
+          "name": "data-share-title"
+        },
+        {
+          "line": 205,
+          "name": "data-share-text"
+        },
+        {
+          "line": 206,
+          "name": "data-share-url"
+        },
+        {
+          "line": 207,
+          "name": "data-share-image"
+        },
+        {
+          "line": 208,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 209,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 210,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 211,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 212,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 213,
+          "name": "data-share-place"
+        },
+        {
+          "line": 214,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 218,
+          "name": "data-share-label"
+        },
+        {
+          "line": 219,
+          "name": "data-share-count"
+        },
+        {
+          "line": 221,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 221,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 221,
+          "name": "data-event-id"
+        },
+        {
+          "line": 221,
+          "name": "data-event-title"
+        },
+        {
+          "line": 221,
+          "name": "data-base-count"
+        },
+        {
+          "line": 223,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 230,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 231,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 231,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 231,
+          "name": "data-event-id"
+        },
+        {
+          "line": 231,
+          "name": "data-event-title"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-action"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-event-id"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-expiry-day"
+        },
+        {
+          "line": 236,
+          "name": "data-calendar-event-title"
+        },
+        {
+          "line": 238,
+          "name": "data-calendar-label"
+        },
+        {
+          "line": 242,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 246,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 247,
+          "name": "data-native-share"
+        },
+        {
+          "line": 248,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 249,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 250,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 251,
+          "name": "data-share-title"
+        },
+        {
+          "line": 252,
+          "name": "data-share-text"
+        },
+        {
+          "line": 253,
+          "name": "data-share-url"
+        },
+        {
+          "line": 254,
+          "name": "data-share-image"
+        },
+        {
+          "line": 255,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 256,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 257,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 258,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 259,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 260,
+          "name": "data-share-place"
+        }
+      ]
+    }
+  }
+}
