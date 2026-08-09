@@ -1,0 +1,148 @@
+{
+  "candidate_component_id": "candidate.event-media",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "preserve meaningful alt text and active preview semantics from source"
+    ],
+    "anatomy": [
+      "primary-large-frame",
+      "poster-companion",
+      "remaining-photo-preview-rail"
+    ],
+    "fixture_classes": [
+      "editorial-poster-companion",
+      "split-poster-thumbnail-rail",
+      "no-image-fallback"
+    ],
+    "invalid_combinations": [
+      "treating every media item as an equal-size preview"
+    ],
+    "media_contract": [
+      {
+        "kind": "fit",
+        "values": [
+          "cover-primary-photo",
+          "contain-identity-poster",
+          "aspect-aware-small-preview"
+        ]
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "image_set": {
+        "required": true
+      },
+      "poster_identity": {
+        "required": false
+      },
+      "presentation": {
+        "required": true
+      }
+    },
+    "responsive_contract": [
+      {
+        "kind": "consumer-scoped",
+        "owner": "src/components/DesktopEventPage.astro",
+        "status": "source-extraction-required"
+      }
+    ],
+    "semantic_role": "Event Detail primary and companion media presentation",
+    "slots": {},
+    "state_axes": {
+      "primary_media": [
+        "available",
+        "fallback"
+      ],
+      "selection": [
+        "first",
+        "alternate"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "large poster companion remains distinct from small remaining-photo previews"
+    ],
+    "variant_axes": {
+      "layout_context": [
+        "editorial",
+        "split"
+      ],
+      "resource_format": [
+        "primary-large-frame",
+        "editorial-large-poster-companion",
+        "editorial-small-photo-rail",
+        "editorial-small-companion-previews",
+        "split-small-photo-rail"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "5d1c969d077477e7a012a7b5bdfea8939ce69460a36f17257f8995912a2e32db",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.media-distinct-formats",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/DesktopEventPage.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "Large poster companion and small remaining-photo previews are separate AS-IS resources"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.event-media",
+  "local_overrides": [
+    {
+      "conclusion": "local production override",
+      "scope": "layout-branch-specific media CSS",
+      "source_path": "src/components/DesktopEventPage.astro"
+    }
+  ],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "isolated component boundary and computed geometry pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "logical_path": "src/components/DesktopEventPage.astro",
+      "route_family": "page-family.event-detail"
+    }
+  ],
+  "promotion_blockers": [
+    "visual and real-page reconciliation pending"
+  ],
+  "reachability": "production-reachable",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/DesktopEventPage.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventMediaRail.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "internal resources of DesktopEventPage",
+    "separate media candidates"
+  ]
+}

@@ -1,0 +1,1325 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.ee07df600f8fc5e5",
+  "logical_path": "src/components/listings/MobileDateAccessory.astro",
+  "name": "MobileDateAccessory",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.8b1fcf1a67c4e2f1"
+      ],
+      "content_sha256": "230a7d3a04fd10420485614b62ca56134ae1d7c31d4813d0c6a708831be97821",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.6e34b780b1956f2f",
+        "source.current_root_prelaunch.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.ee07df600f8fc5e5",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.8b1fcf1a67c4e2f1"
+      ],
+      "content_sha256": "230a7d3a04fd10420485614b62ca56134ae1d7c31d4813d0c6a708831be97821",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.6e34b780b1956f2f",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.ee07df600f8fc5e5",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.04ca51ebb498ff85",
+    "runtime.latest_checked_kaggle_candidate.4dc5fb7f5290b6bb",
+    "runtime.latest_checked_kaggle_candidate.4e34da6a2c195846",
+    "runtime.latest_checked_kaggle_candidate.54f4b2d596fa27c8",
+    "runtime.latest_checked_kaggle_candidate.58309633a139a2ac",
+    "runtime.latest_checked_kaggle_candidate.5f45f770c1c24d42",
+    "runtime.latest_checked_kaggle_candidate.67fe72afdfd611dc",
+    "runtime.latest_checked_kaggle_candidate.683d3a0d9fc9f799",
+    "runtime.latest_checked_kaggle_candidate.6f70d24db5866a32",
+    "runtime.latest_checked_kaggle_candidate.6feae45984e6ca40",
+    "runtime.latest_checked_kaggle_candidate.802aea3a00689fbb",
+    "runtime.latest_checked_kaggle_candidate.945e5eb5f6354c22",
+    "runtime.latest_checked_kaggle_candidate.9879dc8700179af1",
+    "runtime.latest_checked_kaggle_candidate.9bb4a03bad2c43ff",
+    "runtime.latest_checked_kaggle_candidate.ad041ad5f4793be8",
+    "runtime.latest_checked_kaggle_candidate.ad1c49fddd94fc38",
+    "runtime.latest_checked_kaggle_candidate.ae25e1b10fe6998f",
+    "runtime.latest_checked_kaggle_candidate.bf5f673cd68b48b1",
+    "runtime.latest_checked_kaggle_candidate.c2efd96670c9fdfd",
+    "runtime.latest_checked_kaggle_candidate.d288890792c007ef",
+    "runtime.latest_checked_kaggle_candidate.d4f5c9ccddc512bb",
+    "runtime.latest_checked_kaggle_candidate.e2a6c3d3ae734cd6",
+    "runtime.latest_checked_kaggle_candidate.f29e92d43ef87473",
+    "runtime.latest_checked_kaggle_candidate.fa07866be1306b73"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "availability",
+            "selectedDate",
+            "today"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 22
+        },
+        {
+          "identifiers": [
+            "isSaturday"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39
+        },
+        {
+          "identifiers": [
+            "hasEvents"
+          ],
+          "kind": "LogicalExpression",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "destinationAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "iso",
+            "today"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "iso",
+            "tomorrow"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 45
+        },
+        {
+          "identifiers": [
+            "weekendAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "currentWeekendStart",
+            "iso"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "weekendAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "iso",
+            "items"
+          ],
+          "kind": "LogicalExpression",
+          "line": 71
+        },
+        {
+          "identifiers": [
+            "items",
+            "monthLong"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73
+        },
+        {
+          "identifiers": [
+            "month",
+            "monthGroups",
+            "monthKey",
+            "selectedDate",
+            "slice",
+            "some"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 75
+        },
+        {
+          "identifiers": [
+            "current",
+            "weekendEnd"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 78
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 78
+        },
+        {
+          "identifiers": [
+            "isWeekendRange",
+            "item"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "accessory",
+            "calendarReady",
+            "dataset"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 162,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "monthsRoot",
+            "querySelectorAll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "monthLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 18,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "calendarMonthLabel",
+            "dataset",
+            "monthIndex",
+            "months"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "previous"
+          ],
+          "kind": "IfStatement",
+          "line": 19,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "next"
+          ],
+          "kind": "IfStatement",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 179,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hidden",
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "sheet"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 30,
+          "script_index": 0,
+          "source_line": 189,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "sheet",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 205,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "hidden",
+            "key",
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 206,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 206,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "availability",
+            "availableDates",
+            "has",
+            "iso"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 38,
+          "name": "hasEvents"
+        },
+        {
+          "dependencies": [
+            "date",
+            "getUTCDay"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 35,
+          "name": "isSaturday"
+        },
+        {
+          "dependencies": [
+            "date",
+            "getUTCDay"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 36,
+          "name": "isSunday"
+        },
+        {
+          "dependencies": [
+            "add",
+            "classList",
+            "focus",
+            "hidden",
+            "monthIndex",
+            "querySelector",
+            "requestAnimationFrame",
+            "setAttribute",
+            "sheet",
+            "showMonth"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 29,
+          "name": "openSheet",
+          "script_index": 0,
+          "source_line": 188,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Math",
+            "calendarMonthLabel",
+            "dataset",
+            "disabled",
+            "forEach",
+            "hidden",
+            "index",
+            "itemIndex",
+            "length",
+            "max",
+            "min",
+            "month",
+            "monthIndex",
+            "monthLabel",
+            "months",
+            "next",
+            "previous",
+            "textContent"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 15,
+          "name": "showMonth",
+          "script_index": 0,
+          "source_line": 174,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 159
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 112,
+          "name": "disabled"
+        },
+        {
+          "line": 114,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 122,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 125,
+          "name": "hidden"
+        },
+        {
+          "line": 125,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 136,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 139,
+          "name": "hidden"
+        },
+        {
+          "line": 142,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 148,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 175,
+          "name": "hidden"
+        },
+        {
+          "line": 177,
+          "name": "disabled"
+        },
+        {
+          "line": 178,
+          "name": "disabled"
+        },
+        {
+          "line": 182,
+          "name": "hidden"
+        },
+        {
+          "line": 183,
+          "name": "open"
+        },
+        {
+          "line": 184,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 185,
+          "name": "hidden"
+        },
+        {
+          "line": 189,
+          "name": "hidden"
+        },
+        {
+          "line": 190,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 193,
+          "name": "open"
+        },
+        {
+          "line": 205,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 94
+        },
+        {
+          "kind": "class:list",
+          "line": 111
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "selectedDate",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "today",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 9,
+          "name": "weekendEnd",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 87,
+          "name": "data-mobile-date-accessory"
+        },
+        {
+          "line": 88,
+          "name": "data-selected-date"
+        },
+        {
+          "line": 89,
+          "name": "data-calendar-horizon"
+        },
+        {
+          "line": 90,
+          "name": "data-calendar-furthest-event-date"
+        },
+        {
+          "line": 102,
+          "name": "data-date"
+        },
+        {
+          "line": 113,
+          "name": "data-date"
+        },
+        {
+          "line": 121,
+          "name": "data-calendar-open"
+        },
+        {
+          "line": 125,
+          "name": "data-calendar-sheet"
+        },
+        {
+          "line": 129,
+          "name": "data-calendar-close"
+        },
+        {
+          "line": 132,
+          "name": "data-calendar-month-previous"
+        },
+        {
+          "line": 133,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 134,
+          "name": "data-calendar-month-next"
+        },
+        {
+          "line": 137,
+          "name": "data-calendar-months"
+        },
+        {
+          "line": 137,
+          "name": "data-selected-month"
+        },
+        {
+          "line": 139,
+          "name": "data-calendar-month"
+        },
+        {
+          "line": 139,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 144,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 148,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 160,
+          "name": "data-mobile-date-accessory"
+        },
+        {
+          "line": 164,
+          "name": "data-calendar-open"
+        },
+        {
+          "line": 165,
+          "name": "data-calendar-close"
+        },
+        {
+          "line": 167,
+          "name": "data-calendar-months"
+        },
+        {
+          "line": 168,
+          "name": "data-calendar-month"
+        },
+        {
+          "line": 169,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 170,
+          "name": "data-calendar-month-previous"
+        },
+        {
+          "line": 171,
+          "name": "data-calendar-month-next"
+        },
+        {
+          "line": 194,
+          "name": "data-calendar-close"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "availability",
+            "selectedDate",
+            "today"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 22
+        },
+        {
+          "identifiers": [
+            "isSaturday"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39
+        },
+        {
+          "identifiers": [
+            "hasEvents"
+          ],
+          "kind": "LogicalExpression",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "destinationAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "iso",
+            "today"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "iso",
+            "tomorrow"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 45
+        },
+        {
+          "identifiers": [
+            "weekendAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "currentWeekendStart",
+            "iso"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "weekendAvailable"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "iso",
+            "items"
+          ],
+          "kind": "LogicalExpression",
+          "line": 71
+        },
+        {
+          "identifiers": [
+            "items",
+            "monthLong"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73
+        },
+        {
+          "identifiers": [
+            "month",
+            "monthGroups",
+            "monthKey",
+            "selectedDate",
+            "slice",
+            "some"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 75
+        },
+        {
+          "identifiers": [
+            "current",
+            "weekendEnd"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 78
+        },
+        {
+          "identifiers": [
+            "current"
+          ],
+          "kind": "LogicalExpression",
+          "line": 78
+        },
+        {
+          "identifiers": [
+            "isWeekendRange",
+            "item"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "accessory",
+            "calendarReady",
+            "dataset"
+          ],
+          "kind": "IfStatement",
+          "line": 3,
+          "script_index": 0,
+          "source_line": 162,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "monthsRoot",
+            "querySelectorAll"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "monthLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 18,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "calendarMonthLabel",
+            "dataset",
+            "monthIndex",
+            "months"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "previous"
+          ],
+          "kind": "IfStatement",
+          "line": 19,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "next"
+          ],
+          "kind": "IfStatement",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 179,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hidden",
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "sheet"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 30,
+          "script_index": 0,
+          "source_line": 189,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "sheet",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 205,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "hidden",
+            "key",
+            "sheet"
+          ],
+          "kind": "IfStatement",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 206,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "event",
+            "key"
+          ],
+          "kind": "LogicalExpression",
+          "line": 47,
+          "script_index": 0,
+          "source_line": 206,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "availability",
+            "availableDates",
+            "has",
+            "iso"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 38,
+          "name": "hasEvents"
+        },
+        {
+          "dependencies": [
+            "date",
+            "getUTCDay"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 35,
+          "name": "isSaturday"
+        },
+        {
+          "dependencies": [
+            "date",
+            "getUTCDay"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 36,
+          "name": "isSunday"
+        },
+        {
+          "dependencies": [
+            "add",
+            "classList",
+            "focus",
+            "hidden",
+            "monthIndex",
+            "querySelector",
+            "requestAnimationFrame",
+            "setAttribute",
+            "sheet",
+            "showMonth"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 29,
+          "name": "openSheet",
+          "script_index": 0,
+          "source_line": 188,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Math",
+            "calendarMonthLabel",
+            "dataset",
+            "disabled",
+            "forEach",
+            "hidden",
+            "index",
+            "itemIndex",
+            "length",
+            "max",
+            "min",
+            "month",
+            "monthIndex",
+            "monthLabel",
+            "months",
+            "next",
+            "previous",
+            "textContent"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 15,
+          "name": "showMonth",
+          "script_index": 0,
+          "source_line": 174,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 159
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 112,
+          "name": "disabled"
+        },
+        {
+          "line": 114,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 122,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 125,
+          "name": "hidden"
+        },
+        {
+          "line": 125,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 136,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 139,
+          "name": "hidden"
+        },
+        {
+          "line": 142,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 148,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 175,
+          "name": "hidden"
+        },
+        {
+          "line": 177,
+          "name": "disabled"
+        },
+        {
+          "line": 178,
+          "name": "disabled"
+        },
+        {
+          "line": 182,
+          "name": "hidden"
+        },
+        {
+          "line": 183,
+          "name": "open"
+        },
+        {
+          "line": 184,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 185,
+          "name": "hidden"
+        },
+        {
+          "line": 189,
+          "name": "hidden"
+        },
+        {
+          "line": 190,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 193,
+          "name": "open"
+        },
+        {
+          "line": 205,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 94
+        },
+        {
+          "kind": "class:list",
+          "line": 111
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "selectedDate",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "today",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 9,
+          "name": "weekendEnd",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 87,
+          "name": "data-mobile-date-accessory"
+        },
+        {
+          "line": 88,
+          "name": "data-selected-date"
+        },
+        {
+          "line": 89,
+          "name": "data-calendar-horizon"
+        },
+        {
+          "line": 90,
+          "name": "data-calendar-furthest-event-date"
+        },
+        {
+          "line": 102,
+          "name": "data-date"
+        },
+        {
+          "line": 113,
+          "name": "data-date"
+        },
+        {
+          "line": 121,
+          "name": "data-calendar-open"
+        },
+        {
+          "line": 125,
+          "name": "data-calendar-sheet"
+        },
+        {
+          "line": 129,
+          "name": "data-calendar-close"
+        },
+        {
+          "line": 132,
+          "name": "data-calendar-month-previous"
+        },
+        {
+          "line": 133,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 134,
+          "name": "data-calendar-month-next"
+        },
+        {
+          "line": 137,
+          "name": "data-calendar-months"
+        },
+        {
+          "line": 137,
+          "name": "data-selected-month"
+        },
+        {
+          "line": 139,
+          "name": "data-calendar-month"
+        },
+        {
+          "line": 139,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 144,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 148,
+          "name": "data-calendar-date"
+        },
+        {
+          "line": 160,
+          "name": "data-mobile-date-accessory"
+        },
+        {
+          "line": 164,
+          "name": "data-calendar-open"
+        },
+        {
+          "line": 165,
+          "name": "data-calendar-close"
+        },
+        {
+          "line": 167,
+          "name": "data-calendar-months"
+        },
+        {
+          "line": 168,
+          "name": "data-calendar-month"
+        },
+        {
+          "line": 169,
+          "name": "data-calendar-month-label"
+        },
+        {
+          "line": 170,
+          "name": "data-calendar-month-previous"
+        },
+        {
+          "line": 171,
+          "name": "data-calendar-month-next"
+        },
+        {
+          "line": 194,
+          "name": "data-calendar-close"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "candidate_component_id": "candidate.artifacts-focus-egg",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "keyboard focus-visible on eligible find action",
+      "state/status text updates"
+    ],
+    "anatomy": [
+      "artifact-glyph",
+      "state-label",
+      "find-action",
+      "found-label",
+      "catalog-card-or-saved-demo"
+    ],
+    "fixture_classes": [
+      "specimen-plan.artifacts.focus-artifact-locked-regular",
+      "specimen-plan.artifacts.focus-artifact-unavailable-compact",
+      "specimen-plan.artifacts.focus-saved-below-threshold",
+      "specimen-plan.artifacts.focus-saved-eligible-keyboard",
+      "specimen-plan.artifacts.focus-saved-eligible-to-found",
+      "specimen-plan.artifacts.focus-catalog-state-set-small",
+      "specimen-plan.artifacts.focus-catalog-storage-overrides-large"
+    ],
+    "invalid_combinations": [
+      "unknown IDs or payloads over 4096 bytes are rejected"
+    ],
+    "media_contract": [
+      {
+        "capture_status": "pending",
+        "kind": "glyph-or-illustrated-collectible"
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "compact": {
+        "default": false,
+        "required": false
+      },
+      "eggId": {
+        "required": true
+      },
+      "state": {
+        "required": true,
+        "union": [
+          "locked",
+          "eligible",
+          "found",
+          "unavailable"
+        ]
+      },
+      "title": {
+        "required": true
+      }
+    },
+    "responsive_contract": [
+      {
+        "boundary": 420,
+        "id": "responsive.focus-artifact-max-420",
+        "probe_widths": [
+          419,
+          421
+        ],
+        "query": "(max-width: 420px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/components/FocusEggArtifact.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.focus-egg-prototype-v1"
+      },
+      {
+        "boundary": 760,
+        "id": "responsive.focus-saved-min-760",
+        "probe_widths": [
+          759,
+          761
+        ],
+        "query": "(min-width: 760px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/components/FocusEggSavedListDemo.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.focus-egg-prototype-v1"
+      },
+      {
+        "boundary": 680,
+        "id": "responsive.focus-catalog-min-680",
+        "probe_widths": [
+          679,
+          681
+        ],
+        "query": "(min-width: 680px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/pages/fokus-gruppa/kollektsiya/index.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.focus-egg-prototype-v1"
+      },
+      {
+        "boundary": 920,
+        "id": "responsive.focus-catalog-min-920",
+        "probe_widths": [
+          919,
+          921
+        ],
+        "query": "(min-width: 920px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/pages/fokus-gruppa/kollektsiya/index.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.focus-egg-prototype-v1"
+      }
+    ],
+    "semantic_role": "focus-group laboratory prototype",
+    "slots": {},
+    "state_axes": {
+      "artifact": [
+        "locked",
+        "eligible",
+        "found",
+        "unavailable"
+      ],
+      "contexts": [
+        "standalone-artifact",
+        "catalog-card",
+        "saved-list-demo"
+      ],
+      "density": [
+        "regular",
+        "compact"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      {
+        "condition": "distinct_renderable_event_ids >= 3",
+        "id": "focus.saved-list.distinct-renderable-count",
+        "result": "FG-E12 eligible-or-found"
+      },
+      {
+        "condition": "distinct_renderable_event_ids < 3",
+        "id": "focus.saved-list.below-threshold",
+        "result": "FG-E12 absent"
+      },
+      {
+        "condition": "schema=1, collectionVersion=focus-eggs-v1, payload<=4096 bytes, known IDs only",
+        "id": "focus.storage-validity",
+        "result": "accept-and-deduplicate-found-ids"
+      }
+    ],
+    "variant_axes": {
+      "artifact": [
+        "locked",
+        "eligible",
+        "found",
+        "unavailable"
+      ],
+      "contexts": [
+        "standalone-artifact",
+        "catalog-card",
+        "saved-list-demo"
+      ],
+      "density": [
+        "regular",
+        "compact"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "f2fed701bca862c8b0076d78b7132f968a913be613299b43ba36fae833cdee2f",
+  "evidence": [
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/FocusEggArtifact.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/FocusEggCollectionCard.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/FocusEggSavedListDemo.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/lib/focus-easter-eggs.ts",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/pages/fokus-gruppa/kollektsiya/index.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.artifacts-focus-egg",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "source/specimen/page reconciliation pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "classification": "lab-only",
+      "path": "/fokus-gruppa/kollektsiya/",
+      "proof_label": "source-route-binding-exact-candidate"
+    }
+  ],
+  "promotion_blockers": [
+    "must not be promoted to production-observed"
+  ],
+  "reachability": "lab-only",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/FocusEggArtifact.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/FocusEggCollectionCard.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/FocusEggSavedListDemo.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/lib/focus-easter-eggs.ts",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/fokus-gruppa/kollektsiya/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "independent-not-a-variant"
+  ]
+}

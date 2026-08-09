@@ -1,0 +1,174 @@
+{
+  "candidate_component_id": "candidate.transport-bus",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "source landmark/heading semantics pending capture"
+    ],
+    "anatomy": [
+      "route-heading",
+      "outbound-group",
+      "return-group",
+      "boarding-stop-detail"
+    ],
+    "fixture_classes": [
+      "specimen-plan.transport-state.bus.groups-present-estimated",
+      "specimen-plan.transport-state.bus.groups-present-exact",
+      "specimen-plan.transport-state.bus.no-outbound",
+      "specimen-plan.transport-state.bus.no-return"
+    ],
+    "invalid_combinations": [
+      {
+        "id": "transport-invalid.bus.non-boolean-presence",
+        "rule": "presence and estimate axes are boolean"
+      }
+    ],
+    "media_contract": [
+      {
+        "kind": "route-map",
+        "state": "optional-consumer-media"
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "source_props": {
+        "status": "state-aware-extraction-bound-by-logical-source-record"
+      }
+    },
+    "responsive_contract": [
+      {
+        "at": 540,
+        "below": 539,
+        "family": "bus",
+        "kind": "container",
+        "name": "event-bus-primary"
+      },
+      {
+        "at": 700,
+        "below": 699,
+        "family": "bus",
+        "kind": "container",
+        "name": "event-bus-map"
+      },
+      {
+        "at": 721,
+        "below": 720,
+        "family": "bus",
+        "kind": "viewport-media",
+        "name": "event-bus-map-picture"
+      }
+    ],
+    "semantic_role": "Event bus outbound and return schedule",
+    "slots": {},
+    "state_axes": {
+      "boarding_estimated": [
+        false,
+        true
+      ],
+      "outbound_present": [
+        false,
+        true
+      ],
+      "return_present": [
+        false,
+        true
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      {
+        "axes": {
+          "boarding_estimated": false,
+          "outbound_present": true,
+          "return_present": true
+        },
+        "reachability": "production-reachable-not-observed",
+        "state_record_id": "transport-state.bus.groups-present-exact"
+      },
+      {
+        "axes": {
+          "boarding_estimated": true,
+          "outbound_present": true,
+          "return_present": true
+        },
+        "reachability": "production-reachable-not-observed",
+        "state_record_id": "transport-state.bus.groups-present-estimated"
+      },
+      {
+        "axes": {
+          "boarding_estimated": false,
+          "outbound_present": false,
+          "return_present": true
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.bus.no-outbound"
+      },
+      {
+        "axes": {
+          "boarding_estimated": true,
+          "outbound_present": true,
+          "return_present": false
+        },
+        "reachability": "controlled-specimen-only",
+        "state_record_id": "transport-state.bus.no-return"
+      }
+    ],
+    "variant_axes": {},
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "7226e2f75363ddbf0591655a85572e3c4020d9e62b3311d96f5280e65b01e01c",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.transport-bus-lane",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/EventBusTransportSchedule.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "4 source-derived state records and 4 planned specimens"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.transport-bus",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "component-scoped capture pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "proof_label": "exact-candidate-real-route-representative",
+      "route_id": 6710
+    },
+    {
+      "proof_label": "exact-candidate-real-route-representative",
+      "route_id": 6365
+    }
+  ],
+  "promotion_blockers": [
+    "controlled specimen and real-page reconciliation pending"
+  ],
+  "reachability": "production-reachable-not-observed-by-this-lane",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-one",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventBusTransportSchedule.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": []
+}

@@ -15,7 +15,11 @@ native components: 0
 variants: 0
 tokens/styles: 0
 imported assets: 0
-decoder snapshot: not created
+decoder snapshot: reviewed v1 committed
+logical current-UI components: 107
+candidate AS-IS contracts: 12 (not accepted)
+reviewed reconciliation capsules: 6
+manually reviewed rasters: 155
 promoted resource families: 0
 ```
 
@@ -70,9 +74,9 @@ Component Contract
 
 Подробности: [`docs/component-contract-authority.md`](docs/component-contract-authority.md).
 
-## Ближайшая работа
+## Завершённый source-first decoder
 
-Следующий отдельный этап — source-first decoder:
+Первый ограниченный source-first decoder завершён на exact source и runtime evidence:
 
 ```text
 Astro source and generators
@@ -80,10 +84,14 @@ Astro source and generators
 → verification on real generated pages
 → candidate Component Contracts
 → mismatches and unresolved mappings
-→ STOP before Penpot materialization
+→ manual visual review of 155/155 rasters
+→ immutable compact snapshot + permanent heavy evidence
+→ STOP before normalization and Penpot materialization
 ```
 
-Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
+Reviewed compact snapshot: [`catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/).
+
+Его verdict `GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION` означает только готовность evidence к следующему аналитическому этапу по отдельным семействам. Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
 
 ## Канонические документы
 

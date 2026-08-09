@@ -1,0 +1,552 @@
+{
+  "classification_note": "Transport timetable treatment is source-only with the production experiment disabled.",
+  "decision": "NOT_MERGED",
+  "disposition": "experiment-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.be14d827746e93df",
+  "logical_path": "src/components/transport/TransportTimetableExperiment.astro",
+  "name": "TransportTimetableExperiment",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.cadac143d8102aea"
+      ],
+      "content_sha256": "a002462763fea6f837c278cdbc5894cd33a1acb197081b56954dedc8132e285a",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.4ce7179f75f7492e",
+        "source.current_root_prelaunch.4ff9fbbe31c735d6",
+        "source.current_root_prelaunch.644cb34cd01d1a9b",
+        "source.current_root_prelaunch.b813e2d30483ef22",
+        "source.current_root_prelaunch.c5338c3238373fa5",
+        "source.current_root_prelaunch.c9b6d8ba33d4a3ad"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.be14d827746e93df",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.cadac143d8102aea"
+      ],
+      "content_sha256": "a002462763fea6f837c278cdbc5894cd33a1acb197081b56954dedc8132e285a",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.4ce7179f75f7492e",
+        "source.latest_checked_kaggle_candidate.4ff9fbbe31c735d6",
+        "source.latest_checked_kaggle_candidate.644cb34cd01d1a9b",
+        "source.latest_checked_kaggle_candidate.b813e2d30483ef22",
+        "source.latest_checked_kaggle_candidate.c5338c3238373fa5",
+        "source.latest_checked_kaggle_candidate.c9b6d8ba33d4a3ad"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.be14d827746e93df",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "experiment-off",
+  "reachability_basis": "reviewed-disabled-transport-experiment",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "releaseId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseKey"
+          ],
+          "kind": "LogicalExpression",
+          "line": 29
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Astro",
+            "mode",
+            "normalizeTransportExperimentMode",
+            "props"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 25,
+          "name": "mode"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "TRANSPORT_EXPERIMENT_ALGORITHM",
+        "TRANSPORT_EXPERIMENT_CONFIG_HASH",
+        "TRANSPORT_EXPERIMENT_KEY",
+        "TRANSPORT_EXPERIMENT_VERSION",
+        "initTransportTimetableExperiments",
+        "normalizeTransportExperimentMode"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 78
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 42,
+          "name": "hidden"
+        },
+        {
+          "line": 69,
+          "name": "hidden"
+        },
+        {
+          "line": 71,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        },
+        {
+          "line": 85,
+          "name": "hidden"
+        },
+        {
+          "line": 86,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 15,
+          "name": "eventId",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 17,
+          "name": "mode",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 18,
+          "name": "releaseId",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "suggestion",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "KaupTransportSuggestion"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 21,
+          "name": "supabaseKey",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 20,
+          "name": "supabaseRelayUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 19,
+          "name": "supabaseUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 47,
+          "name": "data-transport-experiment"
+        },
+        {
+          "line": 48,
+          "name": "data-experiment-key"
+        },
+        {
+          "line": 49,
+          "name": "data-experiment-version"
+        },
+        {
+          "line": 50,
+          "name": "data-experiment-algorithm"
+        },
+        {
+          "line": 51,
+          "name": "data-experiment-config-hash"
+        },
+        {
+          "line": 52,
+          "name": "data-experiment-mode"
+        },
+        {
+          "line": 53,
+          "name": "data-event-id"
+        },
+        {
+          "line": 54,
+          "name": "data-release-id"
+        },
+        {
+          "line": 55,
+          "name": "data-transport-snapshot-hash"
+        },
+        {
+          "line": 56,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 57,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 58,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 71,
+          "name": "data-transport-treatment-set"
+        },
+        {
+          "line": 84,
+          "name": "data-transport-treatment-set"
+        },
+        {
+          "line": 85,
+          "name": "data-transport-treatment"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "releaseId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseRelayUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28
+        },
+        {
+          "identifiers": [
+            "Astro",
+            "props",
+            "supabaseKey"
+          ],
+          "kind": "LogicalExpression",
+          "line": 29
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Astro",
+            "mode",
+            "normalizeTransportExperimentMode",
+            "props"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 25,
+          "name": "mode"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "TRANSPORT_EXPERIMENT_ALGORITHM",
+        "TRANSPORT_EXPERIMENT_CONFIG_HASH",
+        "TRANSPORT_EXPERIMENT_KEY",
+        "TRANSPORT_EXPERIMENT_VERSION",
+        "initTransportTimetableExperiments",
+        "normalizeTransportExperimentMode"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 78
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 42,
+          "name": "hidden"
+        },
+        {
+          "line": 69,
+          "name": "hidden"
+        },
+        {
+          "line": 71,
+          "name": "hidden"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        },
+        {
+          "line": 85,
+          "name": "hidden"
+        },
+        {
+          "line": 86,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 15,
+          "name": "eventId",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 17,
+          "name": "mode",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 18,
+          "name": "releaseId",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "suggestion",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "KaupTransportSuggestion"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 21,
+          "name": "supabaseKey",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 20,
+          "name": "supabaseRelayUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 19,
+          "name": "supabaseUrl",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 47,
+          "name": "data-transport-experiment"
+        },
+        {
+          "line": 48,
+          "name": "data-experiment-key"
+        },
+        {
+          "line": 49,
+          "name": "data-experiment-version"
+        },
+        {
+          "line": 50,
+          "name": "data-experiment-algorithm"
+        },
+        {
+          "line": 51,
+          "name": "data-experiment-config-hash"
+        },
+        {
+          "line": 52,
+          "name": "data-experiment-mode"
+        },
+        {
+          "line": 53,
+          "name": "data-event-id"
+        },
+        {
+          "line": 54,
+          "name": "data-release-id"
+        },
+        {
+          "line": 55,
+          "name": "data-transport-snapshot-hash"
+        },
+        {
+          "line": 56,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 57,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 58,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 71,
+          "name": "data-transport-treatment-set"
+        },
+        {
+          "line": 84,
+          "name": "data-transport-treatment-set"
+        },
+        {
+          "line": 85,
+          "name": "data-transport-treatment"
+        }
+      ]
+    }
+  }
+}

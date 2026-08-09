@@ -1,0 +1,640 @@
+{
+  "classification_note": "Lab/prototype surface; never promoted to production-observed by source presence.",
+  "decision": "NOT_MERGED",
+  "disposition": "lab-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.bb503195d46c3d86",
+  "logical_path": "src/components/design-system/Button.astro",
+  "name": "Button",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.8547d686f3a940bb",
+        "source.current_root_prelaunch.eda68f1397afa904"
+      ],
+      "content_sha256": "b4b0fd9b66f51bbe6217e36253327423dc282b14b7279479ca5e56387d7a2c57",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.bb503195d46c3d86",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.8547d686f3a940bb",
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904"
+      ],
+      "content_sha256": "b4b0fd9b66f51bbe6217e36253327423dc282b14b7279479ca5e56387d7a2c57",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.bb503195d46c3d86",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "lab-only",
+  "reachability_basis": "reviewed-lab-surface-classification",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "state"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "size"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "iconOnly"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 28
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "state"
+          ],
+          "expression_kind": "LogicalExpression",
+          "line": 23,
+          "name": "disabled"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 5,
+          "name": "disabled"
+        },
+        {
+          "line": 23,
+          "name": "disabled"
+        },
+        {
+          "line": 34,
+          "name": "disabled"
+        },
+        {
+          "line": 35,
+          "name": "disabled"
+        },
+        {
+          "line": 37,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 37,
+          "name": "disabled"
+        },
+        {
+          "line": 40,
+          "name": "disabled"
+        },
+        {
+          "line": 43,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 53,
+          "name": "disabled"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "ariaLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "href",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 9,
+          "name": "iconOnly",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 10,
+          "name": "pressed",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "compact",
+            "default",
+            "large"
+          ],
+          "default": {
+            "observed": true,
+            "value": "default"
+          },
+          "line": 4,
+          "name": "size",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "compact"
+              },
+              {
+                "kind": "literal",
+                "value": "default"
+              },
+              {
+                "kind": "literal",
+                "value": "large"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "default",
+            "hover",
+            "focus",
+            "pressed",
+            "loading",
+            "disabled"
+          ],
+          "default": {
+            "observed": true,
+            "value": "default"
+          },
+          "line": 5,
+          "name": "state",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "default"
+              },
+              {
+                "kind": "literal",
+                "value": "hover"
+              },
+              {
+                "kind": "literal",
+                "value": "focus"
+              },
+              {
+                "kind": "literal",
+                "value": "pressed"
+              },
+              {
+                "kind": "literal",
+                "value": "loading"
+              },
+              {
+                "kind": "literal",
+                "value": "disabled"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "button",
+            "submit",
+            "reset"
+          ],
+          "default": {
+            "observed": true,
+            "value": "button"
+          },
+          "line": 7,
+          "name": "type",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "button"
+              },
+              {
+                "kind": "literal",
+                "value": "submit"
+              },
+              {
+                "kind": "literal",
+                "value": "reset"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "primary",
+            "secondary",
+            "quiet",
+            "inverse",
+            "danger"
+          ],
+          "default": {
+            "observed": true,
+            "value": "primary"
+          },
+          "line": 3,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "primary"
+              },
+              {
+                "kind": "literal",
+                "value": "secondary"
+              },
+              {
+                "kind": "literal",
+                "value": "quiet"
+              },
+              {
+                "kind": "literal",
+                "value": "inverse"
+              },
+              {
+                "kind": "literal",
+                "value": "danger"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 41,
+          "name": "data-preview-state"
+        },
+        {
+          "line": 54,
+          "name": "data-preview-state"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "state"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "size"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "iconOnly"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 28
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "state"
+          ],
+          "expression_kind": "LogicalExpression",
+          "line": 23,
+          "name": "disabled"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 5,
+          "name": "disabled"
+        },
+        {
+          "line": 23,
+          "name": "disabled"
+        },
+        {
+          "line": 34,
+          "name": "disabled"
+        },
+        {
+          "line": 35,
+          "name": "disabled"
+        },
+        {
+          "line": 37,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 37,
+          "name": "disabled"
+        },
+        {
+          "line": 40,
+          "name": "disabled"
+        },
+        {
+          "line": 43,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 53,
+          "name": "disabled"
+        },
+        {
+          "line": 56,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "ariaLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "href",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 9,
+          "name": "iconOnly",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 10,
+          "name": "pressed",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "compact",
+            "default",
+            "large"
+          ],
+          "default": {
+            "observed": true,
+            "value": "default"
+          },
+          "line": 4,
+          "name": "size",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "compact"
+              },
+              {
+                "kind": "literal",
+                "value": "default"
+              },
+              {
+                "kind": "literal",
+                "value": "large"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "default",
+            "hover",
+            "focus",
+            "pressed",
+            "loading",
+            "disabled"
+          ],
+          "default": {
+            "observed": true,
+            "value": "default"
+          },
+          "line": 5,
+          "name": "state",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "default"
+              },
+              {
+                "kind": "literal",
+                "value": "hover"
+              },
+              {
+                "kind": "literal",
+                "value": "focus"
+              },
+              {
+                "kind": "literal",
+                "value": "pressed"
+              },
+              {
+                "kind": "literal",
+                "value": "loading"
+              },
+              {
+                "kind": "literal",
+                "value": "disabled"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "button",
+            "submit",
+            "reset"
+          ],
+          "default": {
+            "observed": true,
+            "value": "button"
+          },
+          "line": 7,
+          "name": "type",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "button"
+              },
+              {
+                "kind": "literal",
+                "value": "submit"
+              },
+              {
+                "kind": "literal",
+                "value": "reset"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "primary",
+            "secondary",
+            "quiet",
+            "inverse",
+            "danger"
+          ],
+          "default": {
+            "observed": true,
+            "value": "primary"
+          },
+          "line": 3,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "primary"
+              },
+              {
+                "kind": "literal",
+                "value": "secondary"
+              },
+              {
+                "kind": "literal",
+                "value": "quiet"
+              },
+              {
+                "kind": "literal",
+                "value": "inverse"
+              },
+              {
+                "kind": "literal",
+                "value": "danger"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 41,
+          "name": "data-preview-state"
+        },
+        {
+          "line": 54,
+          "name": "data-preview-state"
+        }
+      ]
+    }
+  }
+}

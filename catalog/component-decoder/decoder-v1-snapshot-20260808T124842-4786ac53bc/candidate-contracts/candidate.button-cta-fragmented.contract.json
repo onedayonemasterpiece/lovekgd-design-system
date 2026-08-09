@@ -1,0 +1,246 @@
+{
+  "candidate_component_id": "candidate.button-cta-fragmented",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "aria-busy for loading/copy",
+      "aria-disabled and tabindex=-1 for disabled link",
+      "disabled attribute for disabled button",
+      "aria-live status for phone copy",
+      "aria-pressed where applicable"
+    ],
+    "anatomy": [
+      "interactive-root",
+      "label-slot-or-derived-label",
+      "optional-spinner-or-icon",
+      "optional-live-status"
+    ],
+    "fixture_classes": [
+      "generic-button-state-matrix",
+      "editorial-stacked-cta",
+      "split-inline-cta",
+      "phone-copy-success-error",
+      "disabled-and-loading"
+    ],
+    "invalid_combinations": [
+      "claiming source implementations are equivalent before reconciliation",
+      "loading link retaining active href"
+    ],
+    "media_contract": [],
+    "nested_component_refs": [],
+    "props": {
+      "family": {
+        "default": "editorial",
+        "owner": "DesktopEventActionPanel",
+        "required": false,
+        "union": [
+          "split",
+          "editorial"
+        ]
+      },
+      "href": {
+        "owner": "Button",
+        "required": false
+      },
+      "iconOnly": {
+        "default": false,
+        "owner": "Button",
+        "required": false
+      },
+      "size": {
+        "default": "default",
+        "owner": "Button",
+        "required": false,
+        "union": [
+          "compact",
+          "default",
+          "large"
+        ]
+      },
+      "state": {
+        "default": "default",
+        "owner": "Button",
+        "required": false,
+        "union": [
+          "default",
+          "hover",
+          "focus",
+          "pressed",
+          "loading",
+          "disabled"
+        ]
+      },
+      "type": {
+        "default": "button",
+        "owner": "Button",
+        "required": false,
+        "union": [
+          "button",
+          "submit",
+          "reset"
+        ]
+      },
+      "variant": {
+        "default": "primary",
+        "owner": "Button",
+        "required": false,
+        "union": [
+          "primary",
+          "secondary",
+          "quiet",
+          "inverse",
+          "danger"
+        ]
+      }
+    },
+    "responsive_contract": [
+      {
+        "detail": "phone-copy toast path checks max-width 759",
+        "kind": "consumer-scoped",
+        "owner": "DesktopEventActionPanel"
+      }
+    ],
+    "semantic_role": "Button-like action family spanning generic Button and Event Detail CTA implementations",
+    "slots": {
+      "default": {
+        "owner": "Button",
+        "required": true
+      }
+    },
+    "state_axes": {
+      "interaction": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "loading",
+        "disabled"
+      ],
+      "phone_copy": [
+        "hidden",
+        "busy",
+        "success",
+        "error"
+      ],
+      "semantic_root": [
+        "anchor",
+        "button",
+        "status-span"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "Button href => anchor",
+      "Button !href => button",
+      "loading or disabled => disabled semantics",
+      "split action family => inline layout",
+      "editorial action family => stacked layout"
+    ],
+    "variant_axes": {
+      "action_family": [
+        "editorial",
+        "split"
+      ],
+      "implementation": [
+        "design-system-button",
+        "desktop-event-primary-action",
+        "calendar-link",
+        "phone-copy",
+        "disabled-status"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "ee1f83840127ac8ad8ede31f54c4fdc4d2add03b68c7f54a242d3e967cb454ce",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.button-closed-axes",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/design-system/Button.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "Button declares closed variant, size and state unions with defaults"
+    },
+    {
+      "confidence": "deterministic",
+      "id": "fact.cta-distinct-family",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/DesktopEventActionPanel.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "DesktopEventActionPanel selects stacked/editorial versus inline/split placement"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.button-cta-fragmented",
+  "local_overrides": [
+    {
+      "conclusion": "local production override",
+      "scope": "desktop action placement CSS",
+      "source_path": "src/components/DesktopEventPage.astro"
+    }
+  ],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "fragmented implementations are recorded, not merged",
+    "consumer inventory and specimens pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "logical_path": "src/components/DesktopEventPage.astro",
+      "route_family": "page-family.event-detail"
+    }
+  ],
+  "promotion_blockers": [
+    "human review of fragmentation",
+    "source/specimen/page reconciliation"
+  ],
+  "reachability": "mixed-production-and-lab-reachability-needs-consumer-reconciliation",
+  "recommendation": "unresolved",
+  "relationship_kind": "unresolved",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/design-system/Button.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/DesktopEventActionPanel.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/CalendarLink.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "nested-action",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "one generic Button with CTA compositions",
+    "separate action candidates by semantics",
+    "retain duplicated implementation"
+  ]
+}

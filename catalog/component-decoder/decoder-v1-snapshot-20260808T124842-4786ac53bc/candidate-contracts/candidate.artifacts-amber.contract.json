@@ -1,0 +1,322 @@
+{
+  "candidate_component_id": "candidate.artifacts-amber",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "aria-pressed transition",
+      "dialog close and focus restoration",
+      "live-region collection status"
+    ],
+    "anatomy": [
+      "mobile-rail-artifact",
+      "collection-slot",
+      "open-detail-action",
+      "dialog"
+    ],
+    "fixture_classes": [
+      "specimen-plan.artifacts.amber-production-unavailable",
+      "specimen-plan.artifacts.amber-collection-empty",
+      "specimen-plan.artifacts.amber-collection-found-dialog",
+      "specimen-plan.artifacts.amber-rail-idle-focus",
+      "specimen-plan.artifacts.amber-rail-awake-collected",
+      "specimen-plan.artifacts.amber-rail-reduced-motion"
+    ],
+    "invalid_combinations": [
+      "production site mode can never enable Amber rail or active collection"
+    ],
+    "media_contract": [
+      {
+        "capture_status": "pending",
+        "kind": "glyph-or-illustrated-collectible"
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "source_contract": {
+        "status": "multiple-components-and-runtime-persistence"
+      }
+    },
+    "responsive_contract": [
+      {
+        "boundary": 430,
+        "id": "responsive.amber-collection-max-430",
+        "probe_widths": [
+          429,
+          431
+        ],
+        "query": "(max-width: 430px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/components/artifacts/ArtifactCollection.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.amber-research-collectible-v1"
+      },
+      {
+        "boundary": 850,
+        "id": "responsive.amber-collection-max-850",
+        "probe_widths": [
+          849,
+          851
+        ],
+        "query": "(max-width: 850px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/components/artifacts/ArtifactCollection.astro",
+          "source_scope": null,
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.amber-research-collectible-v1"
+      },
+      {
+        "boundary": 720,
+        "id": "responsive.amber-rail-consumer-max-720",
+        "probe_widths": [
+          719,
+          721
+        ],
+        "query": "(max-width: 720px)",
+        "source": {
+          "kind": "source-css-breakpoint-exact-candidate",
+          "source_path": "src/components/listings/MobileListingRailSurface.astro",
+          "source_scope": "consumer-visibility",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "system_id": "artifact-system.amber-research-collectible-v1"
+      }
+    ],
+    "semantic_role": "non-production research-only collectible",
+    "slots": {},
+    "state_axes": {
+      "collection": [
+        "empty",
+        "found",
+        "dialog-open"
+      ],
+      "focus": [
+        "not-focused",
+        "keyboard-focus"
+      ],
+      "motion": [
+        "regular",
+        "reduced"
+      ],
+      "rail": [
+        "idle",
+        "awake",
+        "collecting",
+        "collected"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      {
+        "expression": "siteMode !== 'production' && flag === 'tail'",
+        "id": "amber.production-hard-block",
+        "invariant": "No production flag value enables the Amber rail or collection.",
+        "proof": {
+          "kind": "source-route-gate-exact-candidate",
+          "source_path": "src/lib/artifacts.mjs",
+          "source_scope": "isAmberArtifactResearchEnabled",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        "truth_table": [
+          {
+            "enabled": false,
+            "flag": "off",
+            "site_mode": "production"
+          },
+          {
+            "enabled": false,
+            "flag": "tail",
+            "site_mode": "production"
+          },
+          {
+            "enabled": false,
+            "flag": "off",
+            "site_mode": "secret_candidate"
+          },
+          {
+            "enabled": true,
+            "flag": "tail",
+            "site_mode": "secret_candidate"
+          }
+        ]
+      },
+      {
+        "condition": "enabled and at least one unique valid event on weekend boundary dates",
+        "id": "amber.assignment",
+        "result": "one deterministic event ID or null"
+      },
+      {
+        "condition": "placement='tail'",
+        "id": "amber.rail-placement",
+        "result": "render at mobile event rail tail only"
+      }
+    ],
+    "variant_axes": {
+      "collection": [
+        "empty",
+        "found",
+        "dialog-open"
+      ],
+      "focus": [
+        "not-focused",
+        "keyboard-focus"
+      ],
+      "motion": [
+        "regular",
+        "reduced"
+      ],
+      "rail": [
+        "idle",
+        "awake",
+        "collecting",
+        "collected"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "37e41c9476c0c4b7697bf8265d1071997e9f157d060cf5da80bfc24b2ea49b1b",
+  "evidence": [
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/artifacts/ArtifactCollection.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/listings/AmberRailArtifact.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/listings/MobileListingRailRow.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/listings/MobileListingRailSurface.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/components/listings/WeekendListingSurface.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/lib/artifacts.mjs",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/pages/artefakty/index.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "kind": "source-ast-exact-candidate",
+      "source_path": "src/pages/vyhodnye/index.astro",
+      "source_scope": null,
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.artifacts-amber",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "source/specimen/page reconciliation pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "path": "/vyhodnye/",
+      "public_production": "hard-blocked",
+      "role": "tail-rail-discovery"
+    },
+    {
+      "path": "/artefakty/",
+      "public_production": "unavailable-shell-only",
+      "role": "collection-or-unavailable-shell"
+    }
+  ],
+  "promotion_blockers": [
+    "must not be promoted to production-observed"
+  ],
+  "reachability": "source-only",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/artifacts/ArtifactCollection.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/AmberRailArtifact.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/MobileListingRailRow.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/MobileListingRailSurface.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/WeekendListingSurface.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/lib/artifacts.mjs",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/artefakty/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/vyhodnye/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition-or-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "independent-not-a-variant"
+  ]
+}

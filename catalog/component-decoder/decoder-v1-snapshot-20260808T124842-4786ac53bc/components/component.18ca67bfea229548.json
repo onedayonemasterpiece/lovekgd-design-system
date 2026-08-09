@@ -1,0 +1,1114 @@
+{
+  "classification_note": "Support/data module, not a visual component contract.",
+  "decision": "NOT_MERGED",
+  "disposition": "support-data",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.18ca67bfea229548",
+  "logical_path": "src/components/clubCatalogNavigation.mjs",
+  "name": "clubCatalogNavigation",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.dcff420ab24a4111"
+      ],
+      "content_sha256": "ae3fdfefa09879b2853d947af1b48053eb15c5c11244b26a107a76ba57a85b81",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.18ca67bfea229548",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.dcff420ab24a4111"
+      ],
+      "content_sha256": "ae3fdfefa09879b2853d947af1b48053eb15c5c11244b26a107a76ba57a85b81",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.18ca67bfea229548",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "source-only",
+  "reachability_basis": "non-visual-source-evidence-only",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "cards"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "left",
+            "rect",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "rect",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "left",
+            "rect",
+            "right",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "entry",
+            "rect",
+            "row",
+            "rowTolerance",
+            "top"
+          ],
+          "kind": "IfStatement",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "row"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "index"
+          ],
+          "kind": "IfStatement",
+          "line": 39
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "at",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "index",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "index",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 44
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "LogicalExpression",
+          "line": 44
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "destinationRow"
+          ],
+          "kind": "IfStatement",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "candidate",
+            "card",
+            "cards",
+            "centerX",
+            "currentEntry",
+            "destinationRow",
+            "nearest",
+            "reduce"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "candidate",
+            "centerX",
+            "currentEntry",
+            "nearest"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 51
+        },
+        {
+          "identifiers": [
+            "nearest"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51
+        },
+        {
+          "identifiers": [
+            "document",
+            "options"
+          ],
+          "kind": "LogicalExpression",
+          "line": 59
+        },
+        {
+          "identifiers": [
+            "options",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "options",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 61
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "root",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "hidden",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "LogicalExpression",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "display",
+            "height",
+            "rect",
+            "style",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "height",
+            "rect",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "rect",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "status",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 76
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 79
+        },
+        {
+          "identifiers": [
+            "card",
+            "clubName",
+            "dataset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 82
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "complete",
+            "image",
+            "naturalWidth"
+          ],
+          "kind": "IfStatement",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "complete",
+            "image"
+          ],
+          "kind": "LogicalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches",
+            "metaKey",
+            "shiftKey"
+          ],
+          "kind": "IfStatement",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches",
+            "metaKey"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopKeyboard",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "Element",
+            "target",
+            "win"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 105
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "contains",
+            "root",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "LogicalExpression",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "card",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 110
+        },
+        {
+          "identifiers": [
+            "code",
+            "event"
+          ],
+          "kind": "IfStatement",
+          "line": 111
+        },
+        {
+          "identifiers": [
+            "code",
+            "event",
+            "repeat"
+          ],
+          "kind": "IfStatement",
+          "line": 118
+        },
+        {
+          "identifiers": [
+            "code",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 118
+        },
+        {
+          "identifiers": [
+            "HTMLAnchorElement",
+            "primary",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 120
+        },
+        {
+          "identifiers": [
+            "code",
+            "event",
+            "includes"
+          ],
+          "kind": "IfStatement",
+          "line": 127
+        },
+        {
+          "identifiers": [
+            "card",
+            "destination"
+          ],
+          "kind": "IfStatement",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "destination"
+          ],
+          "kind": "LogicalExpression",
+          "line": 129
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "HTMLElement",
+            "card",
+            "closest",
+            "coverState",
+            "dataset",
+            "hidden",
+            "image",
+            "win"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 84,
+          "name": "showCoverFallback"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 67,
+          "name": "status"
+        }
+      ],
+      "enums": [],
+      "flags": [],
+      "interaction_attributes": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": []
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "cards"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "left",
+            "rect",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "rect",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 17
+        },
+        {
+          "identifiers": [
+            "left",
+            "rect",
+            "right",
+            "top"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "entry",
+            "rect",
+            "row",
+            "rowTolerance",
+            "top"
+          ],
+          "kind": "IfStatement",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "row"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "index"
+          ],
+          "kind": "IfStatement",
+          "line": 39
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 40
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "at",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 41
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "index",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 42
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "index",
+            "ordered"
+          ],
+          "kind": "LogicalExpression",
+          "line": 43
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "IfStatement",
+          "line": 44
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "LogicalExpression",
+          "line": 44
+        },
+        {
+          "identifiers": [
+            "code"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 47
+        },
+        {
+          "identifiers": [
+            "destinationRow"
+          ],
+          "kind": "IfStatement",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "candidate",
+            "card",
+            "cards",
+            "centerX",
+            "currentEntry",
+            "destinationRow",
+            "nearest",
+            "reduce"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50
+        },
+        {
+          "identifiers": [
+            "Math",
+            "abs",
+            "candidate",
+            "centerX",
+            "currentEntry",
+            "nearest"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 51
+        },
+        {
+          "identifiers": [
+            "nearest"
+          ],
+          "kind": "LogicalExpression",
+          "line": 51
+        },
+        {
+          "identifiers": [
+            "document",
+            "options"
+          ],
+          "kind": "LogicalExpression",
+          "line": 59
+        },
+        {
+          "identifiers": [
+            "options",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "options",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 61
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "root",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 62
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "hidden",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "LogicalExpression",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "display",
+            "height",
+            "rect",
+            "style",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "height",
+            "rect",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "rect",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "status",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 76
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 79
+        },
+        {
+          "identifiers": [
+            "card",
+            "clubName",
+            "dataset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 82
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 86
+        },
+        {
+          "identifiers": [
+            "complete",
+            "image",
+            "naturalWidth"
+          ],
+          "kind": "IfStatement",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "complete",
+            "image"
+          ],
+          "kind": "LogicalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches",
+            "metaKey",
+            "shiftKey"
+          ],
+          "kind": "IfStatement",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches",
+            "metaKey"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "ctrlKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "altKey",
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "isComposing",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "defaultPrevented",
+            "desktopKeyboard",
+            "event",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "desktopKeyboard",
+            "matches"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "Element",
+            "target",
+            "win"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 105
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "contains",
+            "root",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "HTMLElement",
+            "card",
+            "win"
+          ],
+          "kind": "LogicalExpression",
+          "line": 106
+        },
+        {
+          "identifiers": [
+            "card",
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 110
+        },
+        {
+          "identifiers": [
+            "code",
+            "event"
+          ],
+          "kind": "IfStatement",
+          "line": 111
+        },
+        {
+          "identifiers": [
+            "code",
+            "event",
+            "repeat"
+          ],
+          "kind": "IfStatement",
+          "line": 118
+        },
+        {
+          "identifiers": [
+            "code",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 118
+        },
+        {
+          "identifiers": [
+            "HTMLAnchorElement",
+            "primary",
+            "win"
+          ],
+          "kind": "IfStatement",
+          "line": 120
+        },
+        {
+          "identifiers": [
+            "code",
+            "event",
+            "includes"
+          ],
+          "kind": "IfStatement",
+          "line": 127
+        },
+        {
+          "identifiers": [
+            "card",
+            "destination"
+          ],
+          "kind": "IfStatement",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "destination"
+          ],
+          "kind": "LogicalExpression",
+          "line": 129
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "HTMLElement",
+            "card",
+            "closest",
+            "coverState",
+            "dataset",
+            "hidden",
+            "image",
+            "win"
+          ],
+          "expression_kind": "ArrowFunctionExpression",
+          "line": 84,
+          "name": "showCoverFallback"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 67,
+          "name": "status"
+        }
+      ],
+      "enums": [],
+      "flags": [],
+      "interaction_attributes": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [],
+      "responsive_contexts": [],
+      "state_attributes": []
+    }
+  }
+}

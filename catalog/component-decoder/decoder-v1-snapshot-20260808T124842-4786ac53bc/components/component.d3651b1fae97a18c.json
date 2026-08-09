@@ -1,0 +1,317 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.d3651b1fae97a18c",
+  "logical_path": "src/components/listings/ListingPageHeader.astro",
+  "name": "ListingPageHeader",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.05b95b7d51f5bde1",
+        "source.current_root_prelaunch.79d531506150e348",
+        "source.current_root_prelaunch.a355ce7cec1a3c1b",
+        "source.current_root_prelaunch.eda68f1397afa904"
+      ],
+      "content_sha256": "0d0fe29c9abf650927699536457034869439f09fa9963d648252cb91396cd403",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.31c45b1cad91ba79",
+        "source.current_root_prelaunch.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.d3651b1fae97a18c",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.05b95b7d51f5bde1",
+        "source.latest_checked_kaggle_candidate.79d531506150e348",
+        "source.latest_checked_kaggle_candidate.a355ce7cec1a3c1b",
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904"
+      ],
+      "content_sha256": "0d0fe29c9abf650927699536457034869439f09fa9963d648252cb91396cd403",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.31c45b1cad91ba79",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.d3651b1fae97a18c",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.04ca51ebb498ff85",
+    "runtime.latest_checked_kaggle_candidate.4dc5fb7f5290b6bb",
+    "runtime.latest_checked_kaggle_candidate.4e34da6a2c195846",
+    "runtime.latest_checked_kaggle_candidate.54f4b2d596fa27c8",
+    "runtime.latest_checked_kaggle_candidate.58309633a139a2ac",
+    "runtime.latest_checked_kaggle_candidate.5f45f770c1c24d42",
+    "runtime.latest_checked_kaggle_candidate.67fe72afdfd611dc",
+    "runtime.latest_checked_kaggle_candidate.683d3a0d9fc9f799",
+    "runtime.latest_checked_kaggle_candidate.6f70d24db5866a32",
+    "runtime.latest_checked_kaggle_candidate.6feae45984e6ca40",
+    "runtime.latest_checked_kaggle_candidate.802aea3a00689fbb",
+    "runtime.latest_checked_kaggle_candidate.945e5eb5f6354c22",
+    "runtime.latest_checked_kaggle_candidate.9879dc8700179af1",
+    "runtime.latest_checked_kaggle_candidate.9bb4a03bad2c43ff",
+    "runtime.latest_checked_kaggle_candidate.ad041ad5f4793be8",
+    "runtime.latest_checked_kaggle_candidate.ad1c49fddd94fc38",
+    "runtime.latest_checked_kaggle_candidate.ae25e1b10fe6998f",
+    "runtime.latest_checked_kaggle_candidate.bf5f673cd68b48b1",
+    "runtime.latest_checked_kaggle_candidate.c2efd96670c9fdfd",
+    "runtime.latest_checked_kaggle_candidate.d288890792c007ef",
+    "runtime.latest_checked_kaggle_candidate.d4f5c9ccddc512bb",
+    "runtime.latest_checked_kaggle_candidate.e2a6c3d3ae734cd6",
+    "runtime.latest_checked_kaggle_candidate.f29e92d43ef87473",
+    "runtime.latest_checked_kaggle_candidate.fa07866be1306b73"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 30,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "count",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        },
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 9,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "popular"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "dateLabel",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "title",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 19,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 19,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 23,
+          "name": "data-listing-page-count"
+        },
+        {
+          "line": 24,
+          "name": "data-listing-page-count-value"
+        },
+        {
+          "line": 24,
+          "name": "data-listing-page-count-label"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 30,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "count",
+          "optional": false,
+          "required": true,
+          "type": "number"
+        },
+        {
+          "allowed_literals": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "default": {
+            "observed": false
+          },
+          "line": 9,
+          "name": "current",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "today"
+              },
+              {
+                "kind": "literal",
+                "value": "tomorrow"
+              },
+              {
+                "kind": "literal",
+                "value": "weekend"
+              },
+              {
+                "kind": "literal",
+                "value": "popular"
+              },
+              {
+                "kind": "literal",
+                "value": "date"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "dateLabel",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "title",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 19,
+          "name": "data-ds-component"
+        },
+        {
+          "line": 19,
+          "name": "data-ds-version"
+        },
+        {
+          "line": 23,
+          "name": "data-listing-page-count"
+        },
+        {
+          "line": 24,
+          "name": "data-listing-page-count-value"
+        },
+        {
+          "line": 24,
+          "name": "data-listing-page-count-label"
+        }
+      ]
+    }
+  }
+}

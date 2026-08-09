@@ -1,0 +1,122 @@
+{
+  "dependencies": [
+    "src/components/EventBusTransportSchedule.astro",
+    "src/components/transport/DepartureBoardTimetable.astro",
+    "src/components/transport/TransportTimetableExperiment.astro",
+    "src/components/transport/TransportJourneyAlerts.astro",
+    "src/components/KaupTransportSchedule.astro",
+    "src/components/transport/NextDepartureQueueTimetable.astro",
+    "src/components/EventTransportSchedule.astro",
+    "src/components/transport/TransportRouteHeading.astro",
+    "src/components/transport/RouteStripsTimetable.astro"
+  ],
+  "invalid_combinations": [
+    "transport-invalid.rail.cutoff-with-known-end",
+    "transport-invalid.rail.cutoff-with-proposed-return",
+    "transport-invalid.rail.forecast-without-estimate",
+    "transport-invalid.rail.forecast-next-day",
+    "transport-invalid.rail.explicit-estimated",
+    "transport-invalid.rail.next-day-without-return",
+    "transport-invalid.rail.warning-with-return",
+    "transport-invalid.bus.non-boolean-presence",
+    "transport-invalid.kaup.no-trip-with-departure-state",
+    "transport-invalid.kaup.off-alternative",
+    "transport-invalid.kaup.off-with-host",
+    "transport-invalid.kaup.enabled-without-host",
+    "transport-invalid.kaup.alternative-visible-in-source"
+  ],
+  "state_axes": {
+    "bus": {
+      "boarding_estimated": [
+        false,
+        true
+      ],
+      "outbound_present": [
+        false,
+        true
+      ],
+      "return_present": [
+        false,
+        true
+      ]
+    },
+    "kaup": {
+      "compact": [
+        false,
+        true
+      ],
+      "departure_estimated": [
+        false,
+        true
+      ],
+      "experiment_host_present": [
+        false,
+        true
+      ],
+      "experiment_mode": [
+        "off",
+        "qa",
+        "focus_group",
+        "live"
+      ],
+      "initial_hidden": [
+        false,
+        true
+      ],
+      "outbound_present": [
+        false,
+        true
+      ],
+      "public_return_available": [
+        false,
+        true
+      ],
+      "tight": [
+        false,
+        true
+      ],
+      "transfer_details_open": [
+        false,
+        true
+      ],
+      "treatment": [
+        "departure_board_v1",
+        "route_strips_v1",
+        "next_departure_queue_v1"
+      ]
+    },
+    "rail": {
+      "estimated_end": [
+        false,
+        true
+      ],
+      "event_end_basis": [
+        "explicit",
+        "forecast",
+        "schedule_cutoff"
+      ],
+      "event_end_present": [
+        false,
+        true
+      ],
+      "next_day_return": [
+        false,
+        true
+      ],
+      "outbound_present": [
+        false,
+        true
+      ],
+      "return_present": [
+        false,
+        true
+      ],
+      "warning": [
+        false,
+        true
+      ]
+    }
+  },
+  "token_mapping_status": "raw-source-references-only-no-tokenization",
+  "token_refs": []
+}

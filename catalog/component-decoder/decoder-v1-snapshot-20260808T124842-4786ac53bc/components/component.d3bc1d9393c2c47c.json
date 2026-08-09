@@ -1,0 +1,282 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.d3bc1d9393c2c47c",
+  "logical_path": "src/components/EventOccurrenceLabel.astro",
+  "name": "EventOccurrenceLabel",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.3f7eda288dc4dadf",
+        "source.current_root_prelaunch.4994b1c804847377",
+        "source.current_root_prelaunch.7db9bc6bb7628a8a",
+        "source.current_root_prelaunch.c589cae3720ce10c"
+      ],
+      "content_sha256": "6bb7fe978360dec278d10c776de8204acb46269d32ed39479622e40ade7d2de1",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.a5df8f6c0cda40db"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.d3bc1d9393c2c47c",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.3f7eda288dc4dadf",
+        "source.latest_checked_kaggle_candidate.4994b1c804847377",
+        "source.latest_checked_kaggle_candidate.7db9bc6bb7628a8a",
+        "source.latest_checked_kaggle_candidate.c589cae3720ce10c"
+      ],
+      "content_sha256": "6bb7fe978360dec278d10c776de8204acb46269d32ed39479622e40ade7d2de1",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.a5df8f6c0cda40db"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.d3bc1d9393c2c47c",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "public-root-runtime-observed",
+  "reachability": "production-observed",
+  "reachability_basis": "exact-public-root-route-transitive-import",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.current_root_prelaunch.8a5edab282632443"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 23,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 26,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 27,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 31,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 32,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "className",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "presentation",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "OccurrencePresentation"
+          }
+        },
+        {
+          "allowed_literals": [
+            "inline",
+            "rail-time-first",
+            "rail-date-first"
+          ],
+          "default": {
+            "observed": true,
+            "value": "inline"
+          },
+          "line": 6,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "inline"
+              },
+              {
+                "kind": "literal",
+                "value": "rail-time-first"
+              },
+              {
+                "kind": "literal",
+                "value": "rail-date-first"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 17,
+          "name": "data-occurrence-label"
+        },
+        {
+          "line": 18,
+          "name": "data-occurrence-label-variant"
+        },
+        {
+          "line": 19,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 20,
+          "name": "data-occurrence-complex"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 23,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 26,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 27,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 31,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 32,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "className",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "presentation",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "OccurrencePresentation"
+          }
+        },
+        {
+          "allowed_literals": [
+            "inline",
+            "rail-time-first",
+            "rail-date-first"
+          ],
+          "default": {
+            "observed": true,
+            "value": "inline"
+          },
+          "line": 6,
+          "name": "variant",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "inline"
+              },
+              {
+                "kind": "literal",
+                "value": "rail-time-first"
+              },
+              {
+                "kind": "literal",
+                "value": "rail-date-first"
+              }
+            ]
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 17,
+          "name": "data-occurrence-label"
+        },
+        {
+          "line": 18,
+          "name": "data-occurrence-label-variant"
+        },
+        {
+          "line": 19,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 20,
+          "name": "data-occurrence-complex"
+        }
+      ]
+    }
+  }
+}

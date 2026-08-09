@@ -1,0 +1,624 @@
+{
+  "classification_note": "Lab/prototype surface; never promoted to production-observed by source presence.",
+  "decision": "NOT_MERGED",
+  "disposition": "lab-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.c589cae3720ce10c",
+  "logical_path": "src/components/EventCtaPanel.astro",
+  "name": "EventCtaPanel",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.eda68f1397afa904"
+      ],
+      "content_sha256": "73974d41485f68fb9ac8cbabfbe45f3da97e38d244bf79353dd87f09197488ac",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.79fa8695c4b33bde",
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.b9c030cab91c3850",
+        "source.current_root_prelaunch.d3bc1d9393c2c47c",
+        "source.current_root_prelaunch.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.c589cae3720ce10c",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904"
+      ],
+      "content_sha256": "73974d41485f68fb9ac8cbabfbe45f3da97e38d244bf79353dd87f09197488ac",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.79fa8695c4b33bde",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.b9c030cab91c3850",
+        "source.latest_checked_kaggle_candidate.d3bc1d9393c2c47c",
+        "source.latest_checked_kaggle_candidate.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.c589cae3720ce10c",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "lab-only",
+  "reachability_basis": "reviewed-lab-surface-classification",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "event",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "includes",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "match",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "external"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 21
+        },
+        {
+          "identifiers": [
+            "event",
+            "href",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "telephone",
+            "ticket"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "href",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "soldOut"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "address",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24
+        },
+        {
+          "identifiers": [
+            "canAddToCalendar"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "href"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 29
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Boolean",
+            "address",
+            "event",
+            "map_query"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 24,
+          "name": "hasReliableMap"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 63,
+          "name": "disabled"
+        },
+        {
+          "line": 63,
+          "name": "aria-disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 51,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 66,
+          "name": "data-feedback-scope"
+        },
+        {
+          "line": 66,
+          "name": "data-event-cta-action-row"
+        },
+        {
+          "line": 68,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 68,
+          "name": "data-native-share"
+        },
+        {
+          "line": 68,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 68,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 68,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 68,
+          "name": "data-share-title"
+        },
+        {
+          "line": 68,
+          "name": "data-share-text"
+        },
+        {
+          "line": 68,
+          "name": "data-share-url"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 68,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 68,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 68,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 68,
+          "name": "data-share-place"
+        },
+        {
+          "line": 68,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 68,
+          "name": "data-share-count"
+        },
+        {
+          "line": 69,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 69,
+          "name": "data-event-id"
+        },
+        {
+          "line": 69,
+          "name": "data-event-title"
+        },
+        {
+          "line": 69,
+          "name": "data-base-count"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-count"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "event",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "includes",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "imageUrl",
+            "match",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "external"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 21
+        },
+        {
+          "identifiers": [
+            "event",
+            "href",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "telephone",
+            "ticket"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "href",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "price_label",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "soldOut",
+            "ticket"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "soldOut"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "address",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24
+        },
+        {
+          "identifiers": [
+            "canAddToCalendar"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "href"
+          ],
+          "kind": "LogicalExpression",
+          "line": 27
+        },
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 29
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Boolean",
+            "address",
+            "event",
+            "map_query"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 24,
+          "name": "hasReliableMap"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 63,
+          "name": "disabled"
+        },
+        {
+          "line": 63,
+          "name": "aria-disabled"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 51,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 66,
+          "name": "data-feedback-scope"
+        },
+        {
+          "line": 66,
+          "name": "data-event-cta-action-row"
+        },
+        {
+          "line": 68,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 68,
+          "name": "data-native-share"
+        },
+        {
+          "line": 68,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 68,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 68,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 68,
+          "name": "data-share-title"
+        },
+        {
+          "line": 68,
+          "name": "data-share-text"
+        },
+        {
+          "line": 68,
+          "name": "data-share-url"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 68,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 68,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 68,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 68,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 68,
+          "name": "data-share-place"
+        },
+        {
+          "line": 68,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 68,
+          "name": "data-share-count"
+        },
+        {
+          "line": 69,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 69,
+          "name": "data-event-id"
+        },
+        {
+          "line": 69,
+          "name": "data-event-title"
+        },
+        {
+          "line": 69,
+          "name": "data-base-count"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-count"
+        }
+      ]
+    }
+  }
+}

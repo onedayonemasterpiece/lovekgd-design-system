@@ -1,0 +1,336 @@
+{
+  "classification_note": "Lab/prototype surface; never promoted to production-observed by source presence.",
+  "decision": "NOT_MERGED",
+  "disposition": "lab-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.aa852ac870a2ecec",
+  "logical_path": "src/components/EventMediaRail.astro",
+  "name": "EventMediaRail",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.eda68f1397afa904"
+      ],
+      "content_sha256": "2d7d6e035cfce23cdc83fbb9d2e461df2e9e42509bcedecc4af458c24a11b86f",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.aa852ac870a2ecec",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904"
+      ],
+      "content_sha256": "2d7d6e035cfce23cdc83fbb9d2e461df2e9e42509bcedecc4af458c24a11b86f",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.aa852ac870a2ecec",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "lab-only",
+  "reachability_basis": "reviewed-lab-surface-classification",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "asset",
+            "thumbnail_sources"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        },
+        {
+          "identifiers": [
+            "asset",
+            "derivatives",
+            "eventImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "derivatives",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "asset",
+            "thumbnail_sources"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Math",
+            "assets",
+            "length",
+            "max",
+            "visibleAssets"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 15,
+          "name": "hiddenCount"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 29
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "assets",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "EventImageAsset"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "eventTitle",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "galleryId",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": 6
+          },
+          "line": 9,
+          "name": "maxVisible",
+          "optional": true,
+          "required": false,
+          "type": "number"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 29,
+          "name": "data-event-media-rail"
+        },
+        {
+          "line": 34,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 35,
+          "name": "data-hero-gallery-index"
+        },
+        {
+          "line": 54,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 55,
+          "name": "data-hero-gallery-index"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "asset",
+            "thumbnail_sources"
+          ],
+          "kind": "LogicalExpression",
+          "line": 18
+        },
+        {
+          "identifiers": [
+            "asset",
+            "derivatives",
+            "eventImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "derivatives",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 19
+        },
+        {
+          "identifiers": [
+            "asset",
+            "thumbnail_sources"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Math",
+            "assets",
+            "length",
+            "max",
+            "visibleAssets"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 15,
+          "name": "hiddenCount"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 29
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 6,
+          "name": "assets",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "EventImageAsset"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 8,
+          "name": "eventTitle",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "galleryId",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": 6
+          },
+          "line": 9,
+          "name": "maxVisible",
+          "optional": true,
+          "required": false,
+          "type": "number"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 29,
+          "name": "data-event-media-rail"
+        },
+        {
+          "line": 34,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 35,
+          "name": "data-hero-gallery-index"
+        },
+        {
+          "line": 54,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 55,
+          "name": "data-hero-gallery-index"
+        }
+      ]
+    }
+  }
+}

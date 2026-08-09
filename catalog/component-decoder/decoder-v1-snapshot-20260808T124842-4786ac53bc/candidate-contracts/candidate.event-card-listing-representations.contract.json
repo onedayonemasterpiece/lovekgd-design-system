@@ -1,0 +1,173 @@
+{
+  "candidate_component_id": "candidate.event-card-listing-representations",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "link name, image alt and nested action order require component capture"
+    ],
+    "anatomy": [
+      "media-or-fallback",
+      "date-time",
+      "title",
+      "venue-or-location",
+      "badges-or-medallions",
+      "optional-action"
+    ],
+    "fixture_classes": [
+      "image-card",
+      "fallback-card",
+      "dense-listing-row",
+      "mobile-rail-row"
+    ],
+    "invalid_combinations": [
+      "claiming card implementations interchangeable before reconciliation"
+    ],
+    "media_contract": [
+      {
+        "kind": "preview-media",
+        "states": [
+          "image",
+          "fallback",
+          "crop-override"
+        ]
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "context": {
+        "status": "implementation-specific-source-prop"
+      },
+      "event": {
+        "required": true
+      }
+    },
+    "responsive_contract": [
+      {
+        "kind": "consumer-scoped",
+        "status": "component-boundary-capture-required"
+      }
+    ],
+    "semantic_role": "Event preview representations across feed, listing and compact mobile rail contexts",
+    "slots": {},
+    "state_axes": {
+      "favorite": [
+        "unknown",
+        "saved",
+        "not-saved"
+      ],
+      "temporal": [
+        "upcoming",
+        "today",
+        "archive"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "each implementation remains bound to its current consumer context"
+    ],
+    "variant_axes": {
+      "implementation": [
+        "event-card",
+        "listing-event-card",
+        "mobile-listing-rail-row",
+        "event-list-item-lab"
+      ],
+      "media_presence": [
+        "image",
+        "fallback"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "8884be7329906d9107aa8cda9f8ed3c866930b4c9cac79462bd2a6fe5a928881",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.event-card-fragmentation",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/EventCard.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/listings/ListingEventCard.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/listings/MobileListingRailRow.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/EventListItem.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "Four source implementations render event preview information in distinct contexts"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.event-card-listing-representations",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "source-to-consumer and crop override reconciliation pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [],
+  "promotion_blockers": [
+    "controlled and real-page component captures pending"
+  ],
+  "reachability": "mixed-production-and-lab-reachability-needs-consumer-reconciliation",
+  "recommendation": "unresolved",
+  "relationship_kind": "unresolved",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventCard.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/ListingEventCard.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/MobileListingRailRow.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventListItem.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "one card family",
+    "context-specific card candidates"
+  ]
+}

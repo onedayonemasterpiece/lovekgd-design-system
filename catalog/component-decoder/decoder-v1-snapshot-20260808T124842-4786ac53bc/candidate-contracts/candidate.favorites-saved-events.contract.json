@@ -1,0 +1,139 @@
+{
+  "candidate_component_id": "candidate.favorites-saved-events",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "empty/status announcement and saved item action order require capture"
+    ],
+    "anatomy": [
+      "surface-heading",
+      "empty-or-unavailable-state",
+      "saved-event-list",
+      "runtime-update-region"
+    ],
+    "fixture_classes": [
+      "empty",
+      "one-saved",
+      "many-saved",
+      "storage-unavailable"
+    ],
+    "invalid_combinations": [
+      "promoting storage/runtime behavior to a visual variant without capture"
+    ],
+    "media_contract": [
+      {
+        "kind": "nested-event-preview",
+        "status": "implementation-specific"
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "source_props": {
+        "status": "state-aware-extraction-bound-by-logical-source-record"
+      }
+    },
+    "responsive_contract": [
+      {
+        "kind": "consumer-scoped",
+        "status": "component-boundary-capture-required"
+      }
+    ],
+    "semantic_role": "Saved-event collection surface and its empty/populated/runtime states",
+    "slots": {},
+    "state_axes": {
+      "collection": [
+        "empty",
+        "populated",
+        "stale-entry"
+      ],
+      "hydration": [
+        "server-shell",
+        "runtime-ready"
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      "empty and storage-unavailable remain distinct"
+    ],
+    "variant_axes": {
+      "count": [
+        "zero",
+        "one",
+        "many"
+      ],
+      "storage_availability": [
+        "available",
+        "unavailable"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "a99ce4ab4ffdb22e11a450b4aa7903f8469dfbd7b4331db0ede080a380a2c091",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.favorites-source",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/FavoritesSurface.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        },
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/pages/izbrannoe/index.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "FavoritesSurface composes saved-event states on the favorites route"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.favorites-saved-events",
+  "local_overrides": [],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "runtime storage states and nested card boundaries pending"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "logical_path": "src/pages/izbrannoe/index.astro",
+      "route_family": "page-family.favorites"
+    }
+  ],
+  "promotion_blockers": [
+    "controlled localStorage specimens and real-page verification pending"
+  ],
+  "reachability": "production-reachable",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/FavoritesSurface.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/izbrannoe/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "production-consumer",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    "collection composition",
+    "standalone saved-event component family"
+  ]
+}

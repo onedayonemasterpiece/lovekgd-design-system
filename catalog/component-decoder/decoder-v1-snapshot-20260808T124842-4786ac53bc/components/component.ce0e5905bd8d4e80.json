@@ -1,0 +1,550 @@
+{
+  "classification_note": "Composition/layout implementation retained separately from leaf visual components.",
+  "decision": "NOT_MERGED",
+  "disposition": "composition-layout",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.ce0e5905bd8d4e80",
+  "logical_path": "src/components/UnusualListingSurface.astro",
+  "name": "UnusualListingSurface",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.c73512eaf92d4700"
+      ],
+      "content_sha256": "f36b06d751ce14678db80e125ea3679bf772d476716dbab8f5d175b1625b02af",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.447f542b1238ef68",
+        "source.current_root_prelaunch.7db9bc6bb7628a8a"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.ce0e5905bd8d4e80",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.c73512eaf92d4700"
+      ],
+      "content_sha256": "f36b06d751ce14678db80e125ea3679bf772d476716dbab8f5d175b1625b02af",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.447f542b1238ef68",
+        "source.latest_checked_kaggle_candidate.7db9bc6bb7628a8a"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.ce0e5905bd8d4e80",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.f839b264f26932b2"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "approved",
+            "feed"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 7
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "feed",
+            "unusualViewBound"
+          ],
+          "kind": "IfStatement",
+          "line": 4,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "feed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "unusualConceptId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 84,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId",
+            "document",
+            "has",
+            "viewed",
+            "visibilityState"
+          ],
+          "kind": "IfStatement",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId",
+            "has",
+            "viewed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "box",
+            "height",
+            "min",
+            "visibleHeight"
+          ],
+          "kind": "IfStatement",
+          "line": 14,
+          "script_index": 0,
+          "source_line": 88,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "window"
+          ],
+          "kind": "IfStatement",
+          "line": 19,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "intersectionRatio",
+            "isIntersecting"
+          ],
+          "kind": "IfStatement",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "isIntersecting"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 74
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 16,
+          "name": "hidden"
+        },
+        {
+          "line": 52,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "feed",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "UnusualFeed"
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 63,
+          "query": "(max-width:759px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 9,
+          "name": "data-unusual-page"
+        },
+        {
+          "line": 9,
+          "name": "data-unusual-feed-status"
+        },
+        {
+          "line": 16,
+          "name": "data-unusual-mark-seen"
+        },
+        {
+          "line": 21,
+          "name": "data-unusual-feed-ready"
+        },
+        {
+          "line": 21,
+          "name": "data-unusual-feed-build"
+        },
+        {
+          "line": 26,
+          "name": "data-unusual-event-cards"
+        },
+        {
+          "line": 30,
+          "name": "data-unusual-card"
+        },
+        {
+          "line": 31,
+          "name": "data-unusual-concept-id"
+        },
+        {
+          "line": 32,
+          "name": "data-unusual-tier"
+        },
+        {
+          "line": 33,
+          "name": "data-unusual-notify-eligible"
+        },
+        {
+          "line": 41,
+          "name": "data-unusual-feed-empty"
+        },
+        {
+          "line": 61,
+          "name": "data-unusual-card-viewed"
+        },
+        {
+          "line": 75,
+          "name": "data-unusual-page"
+        },
+        {
+          "line": 76,
+          "name": "data-unusual-feed-ready"
+        },
+        {
+          "line": 79,
+          "name": "data-unusual-card"
+        },
+        {
+          "line": 79,
+          "name": "data-unusual-concept-id"
+        },
+        {
+          "line": 103,
+          "name": "data-unusual-mark-seen"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "approved",
+            "feed"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 7
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "feed",
+            "unusualViewBound"
+          ],
+          "kind": "IfStatement",
+          "line": 4,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "feed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 4,
+          "script_index": 0,
+          "source_line": 78,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "unusualConceptId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10,
+          "script_index": 0,
+          "source_line": 84,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId",
+            "document",
+            "has",
+            "viewed",
+            "visibilityState"
+          ],
+          "kind": "IfStatement",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId",
+            "has",
+            "viewed"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "conceptId"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11,
+          "script_index": 0,
+          "source_line": 85,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Math",
+            "box",
+            "height",
+            "min",
+            "visibleHeight"
+          ],
+          "kind": "IfStatement",
+          "line": 14,
+          "script_index": 0,
+          "source_line": 88,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "window"
+          ],
+          "kind": "IfStatement",
+          "line": 19,
+          "script_index": 0,
+          "source_line": 93,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "intersectionRatio",
+            "isIntersecting"
+          ],
+          "kind": "IfStatement",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "entry",
+            "isIntersecting"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 98,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 74
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 16,
+          "name": "hidden"
+        },
+        {
+          "line": 52,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 5,
+          "name": "feed",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "UnusualFeed"
+          }
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 63,
+          "query": "(max-width:759px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 9,
+          "name": "data-unusual-page"
+        },
+        {
+          "line": 9,
+          "name": "data-unusual-feed-status"
+        },
+        {
+          "line": 16,
+          "name": "data-unusual-mark-seen"
+        },
+        {
+          "line": 21,
+          "name": "data-unusual-feed-ready"
+        },
+        {
+          "line": 21,
+          "name": "data-unusual-feed-build"
+        },
+        {
+          "line": 26,
+          "name": "data-unusual-event-cards"
+        },
+        {
+          "line": 30,
+          "name": "data-unusual-card"
+        },
+        {
+          "line": 31,
+          "name": "data-unusual-concept-id"
+        },
+        {
+          "line": 32,
+          "name": "data-unusual-tier"
+        },
+        {
+          "line": 33,
+          "name": "data-unusual-notify-eligible"
+        },
+        {
+          "line": 41,
+          "name": "data-unusual-feed-empty"
+        },
+        {
+          "line": 61,
+          "name": "data-unusual-card-viewed"
+        },
+        {
+          "line": 75,
+          "name": "data-unusual-page"
+        },
+        {
+          "line": 76,
+          "name": "data-unusual-feed-ready"
+        },
+        {
+          "line": 79,
+          "name": "data-unusual-card"
+        },
+        {
+          "line": 79,
+          "name": "data-unusual-concept-id"
+        },
+        {
+          "line": 103,
+          "name": "data-unusual-mark-seen"
+        }
+      ]
+    }
+  }
+}

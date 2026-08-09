@@ -1,0 +1,1636 @@
+{
+  "classification_note": "Composition/layout implementation retained separately from leaf visual components.",
+  "decision": "NOT_MERGED",
+  "disposition": "composition-layout",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.79d531506150e348",
+  "logical_path": "src/components/listings/WeekendListingSurface.astro",
+  "name": "WeekendListingSurface",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.804202f8c42cf895",
+        "source.current_root_prelaunch.99fbeb69140dbe08"
+      ],
+      "content_sha256": "d3c6912e00dedc7ed1714a3d39770dc515ae5f797ee587d63896d0e75a3da51e",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.250b7bc70eb7bcdd",
+        "source.current_root_prelaunch.31c45b1cad91ba79",
+        "source.current_root_prelaunch.452dedc25c2c5f78",
+        "source.current_root_prelaunch.8b1fcf1a67c4e2f1",
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.d3651b1fae97a18c",
+        "source.current_root_prelaunch.dd213fc29413bd43",
+        "source.current_root_prelaunch.e16e92176acdcbe4",
+        "source.current_root_prelaunch.e6d2362f72209bbb",
+        "source.current_root_prelaunch.f7b2d488a9d9a09f"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.79d531506150e348",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.804202f8c42cf895",
+        "source.latest_checked_kaggle_candidate.99fbeb69140dbe08"
+      ],
+      "content_sha256": "d3c6912e00dedc7ed1714a3d39770dc515ae5f797ee587d63896d0e75a3da51e",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.250b7bc70eb7bcdd",
+        "source.latest_checked_kaggle_candidate.31c45b1cad91ba79",
+        "source.latest_checked_kaggle_candidate.452dedc25c2c5f78",
+        "source.latest_checked_kaggle_candidate.8b1fcf1a67c4e2f1",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.d3651b1fae97a18c",
+        "source.latest_checked_kaggle_candidate.dd213fc29413bd43",
+        "source.latest_checked_kaggle_candidate.e16e92176acdcbe4",
+        "source.latest_checked_kaggle_candidate.e6d2362f72209bbb",
+        "source.latest_checked_kaggle_candidate.f7b2d488a9d9a09f"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.79d531506150e348",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.04ca51ebb498ff85",
+    "runtime.latest_checked_kaggle_candidate.4dc5fb7f5290b6bb",
+    "runtime.latest_checked_kaggle_candidate.4e34da6a2c195846",
+    "runtime.latest_checked_kaggle_candidate.58309633a139a2ac",
+    "runtime.latest_checked_kaggle_candidate.5f45f770c1c24d42",
+    "runtime.latest_checked_kaggle_candidate.683d3a0d9fc9f799",
+    "runtime.latest_checked_kaggle_candidate.6f70d24db5866a32",
+    "runtime.latest_checked_kaggle_candidate.6feae45984e6ca40",
+    "runtime.latest_checked_kaggle_candidate.802aea3a00689fbb",
+    "runtime.latest_checked_kaggle_candidate.945e5eb5f6354c22",
+    "runtime.latest_checked_kaggle_candidate.9879dc8700179af1",
+    "runtime.latest_checked_kaggle_candidate.ad041ad5f4793be8",
+    "runtime.latest_checked_kaggle_candidate.ad1c49fddd94fc38",
+    "runtime.latest_checked_kaggle_candidate.ae25e1b10fe6998f",
+    "runtime.latest_checked_kaggle_candidate.bf5f673cd68b48b1",
+    "runtime.latest_checked_kaggle_candidate.c2efd96670c9fdfd",
+    "runtime.latest_checked_kaggle_candidate.d288890792c007ef",
+    "runtime.latest_checked_kaggle_candidate.d4f5c9ccddc512bb",
+    "runtime.latest_checked_kaggle_candidate.e2a6c3d3ae734cd6",
+    "runtime.latest_checked_kaggle_candidate.f29e92d43ef87473",
+    "runtime.latest_checked_kaggle_candidate.fa07866be1306b73"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "city",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "city",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24
+        },
+        {
+          "identifiers": [
+            "count",
+            "left",
+            "right"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 118,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "group",
+            "listingDate"
+          ],
+          "kind": "LogicalExpression",
+          "line": 14,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "eventEndAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 124,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "eventStartAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 16,
+          "script_index": 0,
+          "source_line": 125,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "finiteEnd"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "date"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21,
+          "script_index": 0,
+          "source_line": 130,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "clock",
+            "date",
+            "explicitlyEnded",
+            "finiteEnd",
+            "isFinite",
+            "pastDay",
+            "startMs"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "date",
+            "explicitlyEnded",
+            "finiteEnd",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "finiteEnd",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "startedEarlier"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 27,
+          "script_index": 0,
+          "source_line": 136,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pastDay"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "startedEarlier"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 34,
+          "script_index": 0,
+          "source_line": 143,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "currentDate",
+            "dataset",
+            "date",
+            "weekendEnd",
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 36,
+          "script_index": 0,
+          "source_line": 145,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "dataset",
+            "date",
+            "weekendEnd",
+            "weekendRoot"
+          ],
+          "kind": "LogicalExpression",
+          "line": 36,
+          "script_index": 0,
+          "source_line": 145,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "matchMedia",
+            "matches",
+            "scrollY"
+          ],
+          "kind": "IfStatement",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "scrollY"
+          ],
+          "kind": "LogicalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location"
+          ],
+          "kind": "LogicalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nav",
+            "type"
+          ],
+          "kind": "IfStatement",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 148,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nav",
+            "type"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 148,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cancelled",
+            "scrollY"
+          ],
+          "kind": "IfStatement",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cancelled"
+          ],
+          "kind": "LogicalExpression",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "dataset",
+            "group",
+            "listingTime",
+            "time"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 155,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "group",
+            "listingTime"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 155,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 157,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "startsWith",
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 60,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 62,
+          "script_index": 0,
+          "source_line": 171,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "card",
+            "querySelector"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 26,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 135,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "weekendRoot"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 50,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 159,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 109
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 58,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 77,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 80,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        },
+        {
+          "line": 136,
+          "name": "hidden"
+        },
+        {
+          "line": 154,
+          "name": "hidden"
+        },
+        {
+          "line": 160,
+          "name": "hidden"
+        },
+        {
+          "line": 162,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 60
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "amberArtifactTailEventId",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 16,
+          "name": "currentDate",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "dateLabel",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "end",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "events",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "PreviewEvent"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "next",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "WeekendLink"
+              },
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "previous",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "WeekendLink"
+              },
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "ranges",
+          "optional": true,
+          "required": false,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "WeekendRangeLink"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "start",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 104,
+          "query": "(max-width: 720px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 30,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 30,
+          "name": "data-listing-variant"
+        },
+        {
+          "line": 30,
+          "name": "data-listing-has-time-nav"
+        },
+        {
+          "line": 30,
+          "name": "data-weekend-start"
+        },
+        {
+          "line": 30,
+          "name": "data-weekend-end"
+        },
+        {
+          "line": 30,
+          "name": "data-current-date"
+        },
+        {
+          "line": 30,
+          "name": "data-amber-artifact-research"
+        },
+        {
+          "line": 30,
+          "name": "data-amber-artifact-event-id"
+        },
+        {
+          "line": 55,
+          "name": "data-listing-representation"
+        },
+        {
+          "line": 60,
+          "name": "data-weekend-day-summary"
+        },
+        {
+          "line": 66,
+          "name": "data-weekend-day-count"
+        },
+        {
+          "line": 66,
+          "name": "data-weekend-day-count-value"
+        },
+        {
+          "line": 84,
+          "name": "data-weekend-autoposition-status"
+        },
+        {
+          "line": 85,
+          "name": "data-weekend-back-to-top"
+        },
+        {
+          "line": 110,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 120,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 121,
+          "name": "data-listing-time-group"
+        },
+        {
+          "line": 134,
+          "name": "data-listing-temporal-status"
+        },
+        {
+          "line": 153,
+          "name": "data-listing-day"
+        },
+        {
+          "line": 153,
+          "name": "data-listing-time"
+        },
+        {
+          "line": 157,
+          "name": "data-weekend-time-row"
+        },
+        {
+          "line": 158,
+          "name": "data-weekend-autoposition-status"
+        },
+        {
+          "line": 166,
+          "name": "data-weekend-back-to-top"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "city",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 23
+        },
+        {
+          "identifiers": [
+            "city",
+            "event"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24
+        },
+        {
+          "identifiers": [
+            "count",
+            "left",
+            "right"
+          ],
+          "kind": "LogicalExpression",
+          "line": 25
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 118,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "group",
+            "listingDate"
+          ],
+          "kind": "LogicalExpression",
+          "line": 14,
+          "script_index": 0,
+          "source_line": 123,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "eventEndAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 124,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "card",
+            "dataset",
+            "eventStartAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 16,
+          "script_index": 0,
+          "source_line": 125,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "finiteEnd"
+          ],
+          "kind": "LogicalExpression",
+          "line": 20,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "date"
+          ],
+          "kind": "LogicalExpression",
+          "line": 21,
+          "script_index": 0,
+          "source_line": 130,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "clock",
+            "date",
+            "explicitlyEnded",
+            "finiteEnd",
+            "isFinite",
+            "pastDay",
+            "startMs"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "date",
+            "explicitlyEnded",
+            "finiteEnd",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "finiteEnd",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 22,
+          "script_index": 0,
+          "source_line": 131,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "LogicalExpression",
+          "line": 24,
+          "script_index": 0,
+          "source_line": 133,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "startedEarlier"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 25,
+          "script_index": 0,
+          "source_line": 134,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 27,
+          "script_index": 0,
+          "source_line": 136,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded",
+            "pastDay"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "LogicalExpression",
+          "line": 28,
+          "script_index": 0,
+          "source_line": 137,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "explicitlyEnded"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pastDay"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "startedEarlier"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 29,
+          "script_index": 0,
+          "source_line": 138,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 34,
+          "script_index": 0,
+          "source_line": 143,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "currentDate",
+            "dataset",
+            "date",
+            "weekendEnd",
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 36,
+          "script_index": 0,
+          "source_line": 145,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "dataset",
+            "date",
+            "weekendEnd",
+            "weekendRoot"
+          ],
+          "kind": "LogicalExpression",
+          "line": 36,
+          "script_index": 0,
+          "source_line": 145,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "matchMedia",
+            "matches",
+            "scrollY"
+          ],
+          "kind": "IfStatement",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "scrollY"
+          ],
+          "kind": "LogicalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location"
+          ],
+          "kind": "LogicalExpression",
+          "line": 37,
+          "script_index": 0,
+          "source_line": 146,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nav",
+            "type"
+          ],
+          "kind": "IfStatement",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 148,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "nav",
+            "type"
+          ],
+          "kind": "LogicalExpression",
+          "line": 39,
+          "script_index": 0,
+          "source_line": 148,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cancelled",
+            "scrollY"
+          ],
+          "kind": "IfStatement",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "cancelled"
+          ],
+          "kind": "LogicalExpression",
+          "line": 44,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "clock",
+            "dataset",
+            "group",
+            "listingTime",
+            "time"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 155,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "group",
+            "listingTime"
+          ],
+          "kind": "LogicalExpression",
+          "line": 46,
+          "script_index": 0,
+          "source_line": 155,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 48,
+          "script_index": 0,
+          "source_line": 157,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 51,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "hash",
+            "location",
+            "startsWith",
+            "weekendRoot"
+          ],
+          "kind": "IfStatement",
+          "line": 60,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "weekendRoot"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "target"
+          ],
+          "kind": "IfStatement",
+          "line": 62,
+          "script_index": 0,
+          "source_line": 171,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "card",
+            "querySelector"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 26,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 135,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "weekendRoot"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 50,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 159,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 109
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 58,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 77,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 80,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 84,
+          "name": "hidden"
+        },
+        {
+          "line": 136,
+          "name": "hidden"
+        },
+        {
+          "line": 154,
+          "name": "hidden"
+        },
+        {
+          "line": 160,
+          "name": "hidden"
+        },
+        {
+          "line": 162,
+          "name": "hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 60
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "amberArtifactTailEventId",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": ""
+          },
+          "line": 16,
+          "name": "currentDate",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "dateLabel",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "end",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "events",
+          "optional": false,
+          "required": true,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "PreviewEvent"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "next",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "WeekendLink"
+              },
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": null
+          },
+          "line": 16,
+          "name": "previous",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "reference",
+                "name": "WeekendLink"
+              },
+              "null"
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "ranges",
+          "optional": true,
+          "required": false,
+          "type": {
+            "element": {
+              "kind": "reference",
+              "name": "WeekendRangeLink"
+            },
+            "kind": "array"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 16,
+          "name": "start",
+          "optional": false,
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 104,
+          "query": "(max-width: 720px)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 30,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 30,
+          "name": "data-listing-variant"
+        },
+        {
+          "line": 30,
+          "name": "data-listing-has-time-nav"
+        },
+        {
+          "line": 30,
+          "name": "data-weekend-start"
+        },
+        {
+          "line": 30,
+          "name": "data-weekend-end"
+        },
+        {
+          "line": 30,
+          "name": "data-current-date"
+        },
+        {
+          "line": 30,
+          "name": "data-amber-artifact-research"
+        },
+        {
+          "line": 30,
+          "name": "data-amber-artifact-event-id"
+        },
+        {
+          "line": 55,
+          "name": "data-listing-representation"
+        },
+        {
+          "line": 60,
+          "name": "data-weekend-day-summary"
+        },
+        {
+          "line": 66,
+          "name": "data-weekend-day-count"
+        },
+        {
+          "line": 66,
+          "name": "data-weekend-day-count-value"
+        },
+        {
+          "line": 84,
+          "name": "data-weekend-autoposition-status"
+        },
+        {
+          "line": 85,
+          "name": "data-weekend-back-to-top"
+        },
+        {
+          "line": 110,
+          "name": "data-date-listing"
+        },
+        {
+          "line": 120,
+          "name": "data-listing-item"
+        },
+        {
+          "line": 121,
+          "name": "data-listing-time-group"
+        },
+        {
+          "line": 134,
+          "name": "data-listing-temporal-status"
+        },
+        {
+          "line": 153,
+          "name": "data-listing-day"
+        },
+        {
+          "line": 153,
+          "name": "data-listing-time"
+        },
+        {
+          "line": 157,
+          "name": "data-weekend-time-row"
+        },
+        {
+          "line": 158,
+          "name": "data-weekend-autoposition-status"
+        },
+        {
+          "line": 166,
+          "name": "data-weekend-back-to-top"
+        }
+      ]
+    }
+  }
+}

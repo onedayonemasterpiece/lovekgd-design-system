@@ -1,0 +1,3335 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.081bcc0bd9959252",
+  "logical_path": "src/components/EventHero.astro",
+  "name": "EventHero",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.6cc8af07deb465ec",
+        "source.current_root_prelaunch.7026a6dba47444f7",
+        "source.current_root_prelaunch.7e8d05ce7735edff",
+        "source.current_root_prelaunch.b267a4bc7fb0b6a2",
+        "source.current_root_prelaunch.eda68f1397afa904",
+        "source.current_root_prelaunch.fc5adca084569e5a"
+      ],
+      "content_sha256": "7286c64af928741eb31d86adf336e33e74c04ad19de0716cf786fd78c9a42cd5",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.04b3f9946601efca",
+        "source.current_root_prelaunch.538f6bafce9c10bf",
+        "source.current_root_prelaunch.79fa8695c4b33bde",
+        "source.current_root_prelaunch.7f7a35c911518098",
+        "source.current_root_prelaunch.9b82428496cb1561",
+        "source.current_root_prelaunch.a5df8f6c0cda40db",
+        "source.current_root_prelaunch.aca01b9f7c58d696",
+        "source.current_root_prelaunch.b8b77f5be18cf56d",
+        "source.current_root_prelaunch.b9c030cab91c3850",
+        "source.current_root_prelaunch.bd4a760da5f234d4",
+        "source.current_root_prelaunch.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.081bcc0bd9959252",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.6cc8af07deb465ec",
+        "source.latest_checked_kaggle_candidate.7026a6dba47444f7",
+        "source.latest_checked_kaggle_candidate.7e8d05ce7735edff",
+        "source.latest_checked_kaggle_candidate.b267a4bc7fb0b6a2",
+        "source.latest_checked_kaggle_candidate.eda68f1397afa904",
+        "source.latest_checked_kaggle_candidate.fc5adca084569e5a"
+      ],
+      "content_sha256": "7286c64af928741eb31d86adf336e33e74c04ad19de0716cf786fd78c9a42cd5",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.04b3f9946601efca",
+        "source.latest_checked_kaggle_candidate.538f6bafce9c10bf",
+        "source.latest_checked_kaggle_candidate.79fa8695c4b33bde",
+        "source.latest_checked_kaggle_candidate.7f7a35c911518098",
+        "source.latest_checked_kaggle_candidate.9b82428496cb1561",
+        "source.latest_checked_kaggle_candidate.a5df8f6c0cda40db",
+        "source.latest_checked_kaggle_candidate.aca01b9f7c58d696",
+        "source.latest_checked_kaggle_candidate.b8b77f5be18cf56d",
+        "source.latest_checked_kaggle_candidate.b9c030cab91c3850",
+        "source.latest_checked_kaggle_candidate.bd4a760da5f234d4",
+        "source.latest_checked_kaggle_candidate.faaaf50edcff9303"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.081bcc0bd9959252",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.00aef3b63a0ba343",
+    "runtime.latest_checked_kaggle_candidate.00e1e4b0343984c2",
+    "runtime.latest_checked_kaggle_candidate.010147fa6abf715e",
+    "runtime.latest_checked_kaggle_candidate.016678a0b7de5285",
+    "runtime.latest_checked_kaggle_candidate.016c2c3ccd8e7746",
+    "runtime.latest_checked_kaggle_candidate.01949f7206f6def0",
+    "runtime.latest_checked_kaggle_candidate.01fe8d10ba851e50",
+    "runtime.latest_checked_kaggle_candidate.0295bf317d97a867",
+    "runtime.latest_checked_kaggle_candidate.02f261dc9cece1d7",
+    "runtime.latest_checked_kaggle_candidate.0348abee590322f2",
+    "runtime.latest_checked_kaggle_candidate.035346ca53935a33",
+    "runtime.latest_checked_kaggle_candidate.036c2e8c19bbdeca",
+    "runtime.latest_checked_kaggle_candidate.038c60dcd86dddd1",
+    "runtime.latest_checked_kaggle_candidate.03a805695474d550",
+    "runtime.latest_checked_kaggle_candidate.03a93ab82c418071",
+    "runtime.latest_checked_kaggle_candidate.03ac728131779c75",
+    "runtime.latest_checked_kaggle_candidate.03b788808ca8f09b",
+    "runtime.latest_checked_kaggle_candidate.0464166e4040814e",
+    "runtime.latest_checked_kaggle_candidate.0467f7e017c962d0",
+    "runtime.latest_checked_kaggle_candidate.04a05e5e4b202af5",
+    "runtime.latest_checked_kaggle_candidate.04a6c17186ce456b",
+    "runtime.latest_checked_kaggle_candidate.04eb748ff2eb94dc",
+    "runtime.latest_checked_kaggle_candidate.055a7b8511b94649",
+    "runtime.latest_checked_kaggle_candidate.056e638874c53018",
+    "runtime.latest_checked_kaggle_candidate.05b5c1269b49bfd0",
+    "runtime.latest_checked_kaggle_candidate.0604040d47da4b2b",
+    "runtime.latest_checked_kaggle_candidate.06e9889cd72054f8",
+    "runtime.latest_checked_kaggle_candidate.07560fa50edaffc9",
+    "runtime.latest_checked_kaggle_candidate.0789342a9fe2c58b",
+    "runtime.latest_checked_kaggle_candidate.07a887c3ea531a84",
+    "runtime.latest_checked_kaggle_candidate.081960e4b547bd00",
+    "runtime.latest_checked_kaggle_candidate.082a64d4f41bba5a",
+    "runtime.latest_checked_kaggle_candidate.08569ce4da807db2",
+    "runtime.latest_checked_kaggle_candidate.08affee56de2271b",
+    "runtime.latest_checked_kaggle_candidate.093e01fa24017145",
+    "runtime.latest_checked_kaggle_candidate.09a91d7c8c176516",
+    "runtime.latest_checked_kaggle_candidate.0a24c56905e4cce8",
+    "runtime.latest_checked_kaggle_candidate.0a5b0b2493b6af62",
+    "runtime.latest_checked_kaggle_candidate.0af34e447a72d5ec",
+    "runtime.latest_checked_kaggle_candidate.0b0b468adfff55b5",
+    "runtime.latest_checked_kaggle_candidate.0b5bd11ab6edd9c1",
+    "runtime.latest_checked_kaggle_candidate.0b630ba57d505343",
+    "runtime.latest_checked_kaggle_candidate.0b85bbd78d8930e0",
+    "runtime.latest_checked_kaggle_candidate.0b920ae82de26726",
+    "runtime.latest_checked_kaggle_candidate.0ba178d97cd481b3",
+    "runtime.latest_checked_kaggle_candidate.0ba7bff8678bf935",
+    "runtime.latest_checked_kaggle_candidate.0c13c2e4a0a144d3",
+    "runtime.latest_checked_kaggle_candidate.0c5be6119d9d9ca7",
+    "runtime.latest_checked_kaggle_candidate.0c65f2ae7f67b840",
+    "runtime.latest_checked_kaggle_candidate.0cc7ae20b2f4d222",
+    "runtime.latest_checked_kaggle_candidate.0ce10a1035afa9f6",
+    "runtime.latest_checked_kaggle_candidate.0cffe3ef0303efeb",
+    "runtime.latest_checked_kaggle_candidate.0d0cb43cf3282abf",
+    "runtime.latest_checked_kaggle_candidate.0d98152cc8bc931e",
+    "runtime.latest_checked_kaggle_candidate.0db39de20139c951",
+    "runtime.latest_checked_kaggle_candidate.0dfc5996d13ce5be",
+    "runtime.latest_checked_kaggle_candidate.0e10a9536d682ecd",
+    "runtime.latest_checked_kaggle_candidate.0e449a182d3e0623",
+    "runtime.latest_checked_kaggle_candidate.0f3bba2a0ba49d80",
+    "runtime.latest_checked_kaggle_candidate.0f3ec6d8baefe2ec",
+    "runtime.latest_checked_kaggle_candidate.0f6b7606aca8d83f",
+    "runtime.latest_checked_kaggle_candidate.0f8169335022d2fd",
+    "runtime.latest_checked_kaggle_candidate.0fb7b2d53e097cb2",
+    "runtime.latest_checked_kaggle_candidate.0fddac5d38033c10",
+    "runtime.latest_checked_kaggle_candidate.1010505469dff9dc",
+    "runtime.latest_checked_kaggle_candidate.1063d3ec85788b5a",
+    "runtime.latest_checked_kaggle_candidate.1068f2568a0d273d",
+    "runtime.latest_checked_kaggle_candidate.1079a213a8726f4c",
+    "runtime.latest_checked_kaggle_candidate.11065db36d517dd8",
+    "runtime.latest_checked_kaggle_candidate.11a067a8d0f40668",
+    "runtime.latest_checked_kaggle_candidate.11adfd493a675a80",
+    "runtime.latest_checked_kaggle_candidate.121cac2a68de8e33",
+    "runtime.latest_checked_kaggle_candidate.123cec7530f101a5",
+    "runtime.latest_checked_kaggle_candidate.1277d7dacdc6269a",
+    "runtime.latest_checked_kaggle_candidate.12808983b124a77a",
+    "runtime.latest_checked_kaggle_candidate.128394711f5fd3e7",
+    "runtime.latest_checked_kaggle_candidate.129681fc8fc68041",
+    "runtime.latest_checked_kaggle_candidate.12da5d5bff47396f",
+    "runtime.latest_checked_kaggle_candidate.130d150498adcaa2",
+    "runtime.latest_checked_kaggle_candidate.13294b35a0badde9",
+    "runtime.latest_checked_kaggle_candidate.137ff4c614cc6102",
+    "runtime.latest_checked_kaggle_candidate.1392fab8079ad599",
+    "runtime.latest_checked_kaggle_candidate.13aca3c4ad6151d8",
+    "runtime.latest_checked_kaggle_candidate.13fda2f2908467a9",
+    "runtime.latest_checked_kaggle_candidate.1413d296eedc2125",
+    "runtime.latest_checked_kaggle_candidate.148c11f6fc5298fc",
+    "runtime.latest_checked_kaggle_candidate.152bcf53da174c11",
+    "runtime.latest_checked_kaggle_candidate.15776f4f1cb5674d",
+    "runtime.latest_checked_kaggle_candidate.15838447c25aeec4",
+    "runtime.latest_checked_kaggle_candidate.159e4b6d40231f75",
+    "runtime.latest_checked_kaggle_candidate.15e4246cec86c69a",
+    "runtime.latest_checked_kaggle_candidate.16c9a2c5bd860d70",
+    "runtime.latest_checked_kaggle_candidate.1716455f76b7cde2",
+    "runtime.latest_checked_kaggle_candidate.172e042857722f55",
+    "runtime.latest_checked_kaggle_candidate.17530914ab139714",
+    "runtime.latest_checked_kaggle_candidate.1761b59e9617c23e",
+    "runtime.latest_checked_kaggle_candidate.1768b30a35549b51",
+    "runtime.latest_checked_kaggle_candidate.17f699931e852500",
+    "runtime.latest_checked_kaggle_candidate.1827fa16f394c391",
+    "runtime.latest_checked_kaggle_candidate.18bc4899dd0c555b",
+    "runtime.latest_checked_kaggle_candidate.190b91faf9323352",
+    "runtime.latest_checked_kaggle_candidate.19360c1fc6bfea6a",
+    "runtime.latest_checked_kaggle_candidate.19764689200fecbb",
+    "runtime.latest_checked_kaggle_candidate.1a3d0f3e202dec38",
+    "runtime.latest_checked_kaggle_candidate.1a4cec1b463cfc7f",
+    "runtime.latest_checked_kaggle_candidate.1a63801e49e2ce23",
+    "runtime.latest_checked_kaggle_candidate.1a6e340728bea8f8",
+    "runtime.latest_checked_kaggle_candidate.1b1868a52c75d8fd",
+    "runtime.latest_checked_kaggle_candidate.1b2fe659bf30f0fa",
+    "runtime.latest_checked_kaggle_candidate.1b6037f377cf8cd4",
+    "runtime.latest_checked_kaggle_candidate.1b8925c675a665ac",
+    "runtime.latest_checked_kaggle_candidate.1b9780531efe5646",
+    "runtime.latest_checked_kaggle_candidate.1bbc2445841f7af7",
+    "runtime.latest_checked_kaggle_candidate.1bcbe2d26d20c21d",
+    "runtime.latest_checked_kaggle_candidate.1bdaf202aa2f7bfe",
+    "runtime.latest_checked_kaggle_candidate.1c1c0f2ed486cc9d",
+    "runtime.latest_checked_kaggle_candidate.1d0c4cf1326fd0d9",
+    "runtime.latest_checked_kaggle_candidate.1db08a8779cfab52",
+    "runtime.latest_checked_kaggle_candidate.1dbb673a9e506433",
+    "runtime.latest_checked_kaggle_candidate.1dc11f54c936bf80",
+    "runtime.latest_checked_kaggle_candidate.1e31659faae5923c",
+    "runtime.latest_checked_kaggle_candidate.1f233920c4a7e52f",
+    "runtime.latest_checked_kaggle_candidate.1f74a57c2cd09eef",
+    "runtime.latest_checked_kaggle_candidate.1f9c1a848107c046",
+    "runtime.latest_checked_kaggle_candidate.1fd9a4d9b05c4fe6",
+    "runtime.latest_checked_kaggle_candidate.1ffea4ea91082042",
+    "runtime.latest_checked_kaggle_candidate.204ab76c195adffd",
+    "runtime.latest_checked_kaggle_candidate.2097fb8cd7935983",
+    "runtime.latest_checked_kaggle_candidate.20a4d150069d6e64",
+    "runtime.latest_checked_kaggle_candidate.20b013e686df731f",
+    "runtime.latest_checked_kaggle_candidate.20b181f062a6c29b",
+    "runtime.latest_checked_kaggle_candidate.20be45d84bd2ec26",
+    "runtime.latest_checked_kaggle_candidate.20c57a50c7561ae0",
+    "runtime.latest_checked_kaggle_candidate.20d2901b32871eb5",
+    "runtime.latest_checked_kaggle_candidate.20e5dfe24cd0dbd1",
+    "runtime.latest_checked_kaggle_candidate.213dcf69bbb46985",
+    "runtime.latest_checked_kaggle_candidate.21620306979731e0",
+    "runtime.latest_checked_kaggle_candidate.21cbad48f76871f1",
+    "runtime.latest_checked_kaggle_candidate.21e0250529908415",
+    "runtime.latest_checked_kaggle_candidate.220f77caa2a64b60",
+    "runtime.latest_checked_kaggle_candidate.224496d4c19772ab",
+    "runtime.latest_checked_kaggle_candidate.227029bbb7211fe4",
+    "runtime.latest_checked_kaggle_candidate.22d1c390057bbf32",
+    "runtime.latest_checked_kaggle_candidate.2303d59bd8c39e02",
+    "runtime.latest_checked_kaggle_candidate.23ac7e3e66ef0be0",
+    "runtime.latest_checked_kaggle_candidate.23ff0d726ffb0a57",
+    "runtime.latest_checked_kaggle_candidate.243a59900ed4036c",
+    "runtime.latest_checked_kaggle_candidate.24823113e6cf239b",
+    "runtime.latest_checked_kaggle_candidate.24b87fe1ffcf962c",
+    "runtime.latest_checked_kaggle_candidate.24f9fe628817cf09",
+    "runtime.latest_checked_kaggle_candidate.25659afa137a80f0",
+    "runtime.latest_checked_kaggle_candidate.25aba60ef82ba889",
+    "runtime.latest_checked_kaggle_candidate.25aba9fe21fc7be3",
+    "runtime.latest_checked_kaggle_candidate.263dbc4e0eef8d92",
+    "runtime.latest_checked_kaggle_candidate.26579910dc951117",
+    "runtime.latest_checked_kaggle_candidate.26f004f7a6a35bfd",
+    "runtime.latest_checked_kaggle_candidate.270931ebf5978328",
+    "runtime.latest_checked_kaggle_candidate.27178e56ac0413ba",
+    "runtime.latest_checked_kaggle_candidate.278c7a70acfab800",
+    "runtime.latest_checked_kaggle_candidate.27ce60e775a1c68f",
+    "runtime.latest_checked_kaggle_candidate.280557f551bba5d2",
+    "runtime.latest_checked_kaggle_candidate.281db4b054fb278e",
+    "runtime.latest_checked_kaggle_candidate.282699aee316f8a3",
+    "runtime.latest_checked_kaggle_candidate.2870467739bafb32",
+    "runtime.latest_checked_kaggle_candidate.28df1bc173412239",
+    "runtime.latest_checked_kaggle_candidate.28e74496cfa06b4d",
+    "runtime.latest_checked_kaggle_candidate.290f4c8d424f46e0",
+    "runtime.latest_checked_kaggle_candidate.292af8df169d7b3f",
+    "runtime.latest_checked_kaggle_candidate.292dc4d172767861",
+    "runtime.latest_checked_kaggle_candidate.29cf4a25732ba6ce",
+    "runtime.latest_checked_kaggle_candidate.29d0c792931289c4",
+    "runtime.latest_checked_kaggle_candidate.29f8de52e03e9ebc",
+    "runtime.latest_checked_kaggle_candidate.2a04ac025c7d5b53",
+    "runtime.latest_checked_kaggle_candidate.2a43401a8fa238e1",
+    "runtime.latest_checked_kaggle_candidate.2a7fb8e42eef1d4c",
+    "runtime.latest_checked_kaggle_candidate.2a96eca4774ede94",
+    "runtime.latest_checked_kaggle_candidate.2aa6ef8b23f4cd9f",
+    "runtime.latest_checked_kaggle_candidate.2b146e5c84dd5164",
+    "runtime.latest_checked_kaggle_candidate.2b57052823df194a",
+    "runtime.latest_checked_kaggle_candidate.2b6e31c59959650f",
+    "runtime.latest_checked_kaggle_candidate.2ba3c9fa3f5fcbe3",
+    "runtime.latest_checked_kaggle_candidate.2bbce77394443324",
+    "runtime.latest_checked_kaggle_candidate.2bbf2d1a289e47c8",
+    "runtime.latest_checked_kaggle_candidate.2c16f86854e6c539",
+    "runtime.latest_checked_kaggle_candidate.2c6773f77b44f5b5",
+    "runtime.latest_checked_kaggle_candidate.2cbe77c4d4b8f6ce",
+    "runtime.latest_checked_kaggle_candidate.2cc69265c98e2fe3",
+    "runtime.latest_checked_kaggle_candidate.2d4193b5921a98d4",
+    "runtime.latest_checked_kaggle_candidate.2d76fc950abfbf83",
+    "runtime.latest_checked_kaggle_candidate.2df078d12c42a40b",
+    "runtime.latest_checked_kaggle_candidate.2ebc429e62a8fb31",
+    "runtime.latest_checked_kaggle_candidate.2f209bda3349abff",
+    "runtime.latest_checked_kaggle_candidate.2fee241597eb7f4f",
+    "runtime.latest_checked_kaggle_candidate.2ffce885404680e6",
+    "runtime.latest_checked_kaggle_candidate.303d3bf6b23806d1",
+    "runtime.latest_checked_kaggle_candidate.315165f926b59fc4",
+    "runtime.latest_checked_kaggle_candidate.31545be71430b617",
+    "runtime.latest_checked_kaggle_candidate.318e03591fff639e",
+    "runtime.latest_checked_kaggle_candidate.31c11be1faf50f6f",
+    "runtime.latest_checked_kaggle_candidate.321138868b2253b1",
+    "runtime.latest_checked_kaggle_candidate.322b05dabdcbb401",
+    "runtime.latest_checked_kaggle_candidate.32b57d8669aabb63",
+    "runtime.latest_checked_kaggle_candidate.32c54ec56002681c",
+    "runtime.latest_checked_kaggle_candidate.32f6a9f349fa950b",
+    "runtime.latest_checked_kaggle_candidate.3302528d1fadc729",
+    "runtime.latest_checked_kaggle_candidate.3305ef3d0d7efb57",
+    "runtime.latest_checked_kaggle_candidate.332255e25b8345ea",
+    "runtime.latest_checked_kaggle_candidate.332a8f6f22046ea7",
+    "runtime.latest_checked_kaggle_candidate.336aa30812285426",
+    "runtime.latest_checked_kaggle_candidate.342593378b77ca1d",
+    "runtime.latest_checked_kaggle_candidate.345e286436e306a0",
+    "runtime.latest_checked_kaggle_candidate.34db438dcc509070",
+    "runtime.latest_checked_kaggle_candidate.35305f9821c89cc6",
+    "runtime.latest_checked_kaggle_candidate.354d16c081b11014",
+    "runtime.latest_checked_kaggle_candidate.35d88319dff914ec",
+    "runtime.latest_checked_kaggle_candidate.35df178f71291b18",
+    "runtime.latest_checked_kaggle_candidate.36048bac1b23d973",
+    "runtime.latest_checked_kaggle_candidate.366a62305f11fd81",
+    "runtime.latest_checked_kaggle_candidate.368a6ba1c43651ef",
+    "runtime.latest_checked_kaggle_candidate.369290255a126cb5",
+    "runtime.latest_checked_kaggle_candidate.36b98e01fb844cdc",
+    "runtime.latest_checked_kaggle_candidate.36cfe469dc650669",
+    "runtime.latest_checked_kaggle_candidate.36d1da7960b0bb76",
+    "runtime.latest_checked_kaggle_candidate.371c616b2553fa8a",
+    "runtime.latest_checked_kaggle_candidate.3758c0d90cebd322",
+    "runtime.latest_checked_kaggle_candidate.3788776ef14aaf34",
+    "runtime.latest_checked_kaggle_candidate.37923c21a6a32296",
+    "runtime.latest_checked_kaggle_candidate.382082078c873105",
+    "runtime.latest_checked_kaggle_candidate.38468376fa4f5146",
+    "runtime.latest_checked_kaggle_candidate.388002af507c4b98",
+    "runtime.latest_checked_kaggle_candidate.389305132d7addbb",
+    "runtime.latest_checked_kaggle_candidate.38a45a0517479557",
+    "runtime.latest_checked_kaggle_candidate.38dcb4c3529643bf",
+    "runtime.latest_checked_kaggle_candidate.38f54aec4021e4a5",
+    "runtime.latest_checked_kaggle_candidate.38fa84a5908bf58f",
+    "runtime.latest_checked_kaggle_candidate.3954998f13eb1aad",
+    "runtime.latest_checked_kaggle_candidate.3955ad8c43887066",
+    "runtime.latest_checked_kaggle_candidate.3964a54a32c4ac64",
+    "runtime.latest_checked_kaggle_candidate.3975d2271022df7d",
+    "runtime.latest_checked_kaggle_candidate.39f8eb3dbb7b8729",
+    "runtime.latest_checked_kaggle_candidate.3a5eb4d7cc4dd5d1",
+    "runtime.latest_checked_kaggle_candidate.3ab5a4e9e33fef91",
+    "runtime.latest_checked_kaggle_candidate.3ab6f1a908668010",
+    "runtime.latest_checked_kaggle_candidate.3ac368a0aa0ebb36",
+    "runtime.latest_checked_kaggle_candidate.3adf6eb32cec6068",
+    "runtime.latest_checked_kaggle_candidate.3aff6a01b8f498d9",
+    "runtime.latest_checked_kaggle_candidate.3b01974f83816022",
+    "runtime.latest_checked_kaggle_candidate.3b409c2524300761",
+    "runtime.latest_checked_kaggle_candidate.3b9e9e0a1ee3c848",
+    "runtime.latest_checked_kaggle_candidate.3bb50e0235a4ad40",
+    "runtime.latest_checked_kaggle_candidate.3c6add85fd2e58aa",
+    "runtime.latest_checked_kaggle_candidate.3c9059d2caf58a0d",
+    "runtime.latest_checked_kaggle_candidate.3ce7170d559d137b",
+    "runtime.latest_checked_kaggle_candidate.3d017e2f469746b5",
+    "runtime.latest_checked_kaggle_candidate.3d3d3b31b1a6a4f8",
+    "runtime.latest_checked_kaggle_candidate.3dc6b7614c3b8dff",
+    "runtime.latest_checked_kaggle_candidate.3e3fa40c315930d9",
+    "runtime.latest_checked_kaggle_candidate.3e4ce7a7804152d6",
+    "runtime.latest_checked_kaggle_candidate.3edfb13d40f2fa57",
+    "runtime.latest_checked_kaggle_candidate.3eefd9f4f64abf57",
+    "runtime.latest_checked_kaggle_candidate.3f566a2713ceac0d",
+    "runtime.latest_checked_kaggle_candidate.3f87cc836a6954ab",
+    "runtime.latest_checked_kaggle_candidate.3ff8da756fd1613e",
+    "runtime.latest_checked_kaggle_candidate.40319e8638353899",
+    "runtime.latest_checked_kaggle_candidate.4072be3cc357a190",
+    "runtime.latest_checked_kaggle_candidate.40937339e30f6d7e",
+    "runtime.latest_checked_kaggle_candidate.40e6feb4d3caf5a4",
+    "runtime.latest_checked_kaggle_candidate.40e8acee1ffe6051",
+    "runtime.latest_checked_kaggle_candidate.41676e06718d1a59",
+    "runtime.latest_checked_kaggle_candidate.41a74d3dcebf201c",
+    "runtime.latest_checked_kaggle_candidate.41c5d1a1aba5c8f5",
+    "runtime.latest_checked_kaggle_candidate.41c61a97846639de",
+    "runtime.latest_checked_kaggle_candidate.41c8861d78358ab7",
+    "runtime.latest_checked_kaggle_candidate.41d6f34338de6d74",
+    "runtime.latest_checked_kaggle_candidate.4225c27f41592d65",
+    "runtime.latest_checked_kaggle_candidate.4234b02416df8db6",
+    "runtime.latest_checked_kaggle_candidate.427d3c568acaedc5",
+    "runtime.latest_checked_kaggle_candidate.42838648769e059c",
+    "runtime.latest_checked_kaggle_candidate.43046e319093f350",
+    "runtime.latest_checked_kaggle_candidate.4365e9940e4b6536",
+    "runtime.latest_checked_kaggle_candidate.43e07fc7ea4371a0",
+    "runtime.latest_checked_kaggle_candidate.43e2b8a104313a3c",
+    "runtime.latest_checked_kaggle_candidate.44064fb723a5c6c4",
+    "runtime.latest_checked_kaggle_candidate.442061e6b672cd21",
+    "runtime.latest_checked_kaggle_candidate.44276da0d9db0bf0",
+    "runtime.latest_checked_kaggle_candidate.44a2dd4bcfcd8eda",
+    "runtime.latest_checked_kaggle_candidate.450aaff9dc45002b",
+    "runtime.latest_checked_kaggle_candidate.450e6a9febc8b2ff",
+    "runtime.latest_checked_kaggle_candidate.45205b976101edf8",
+    "runtime.latest_checked_kaggle_candidate.4539c03e2cac267a",
+    "runtime.latest_checked_kaggle_candidate.454beae6a972aee5",
+    "runtime.latest_checked_kaggle_candidate.4568e205d60ba4d3",
+    "runtime.latest_checked_kaggle_candidate.45c448030995ae28",
+    "runtime.latest_checked_kaggle_candidate.460a4e97639133d8",
+    "runtime.latest_checked_kaggle_candidate.460ed360ffe8f2a6",
+    "runtime.latest_checked_kaggle_candidate.464fbad927d360cc",
+    "runtime.latest_checked_kaggle_candidate.46724b37e407174e",
+    "runtime.latest_checked_kaggle_candidate.46d6b5a51952f8ff",
+    "runtime.latest_checked_kaggle_candidate.46dba5e39d505436",
+    "runtime.latest_checked_kaggle_candidate.478e45d16587616c",
+    "runtime.latest_checked_kaggle_candidate.47a1b1573c7107e2",
+    "runtime.latest_checked_kaggle_candidate.47a8b91cc7467b88",
+    "runtime.latest_checked_kaggle_candidate.47f311b4a76d43de",
+    "runtime.latest_checked_kaggle_candidate.488d58489e72c17c",
+    "runtime.latest_checked_kaggle_candidate.48c1c3a3068c9d50",
+    "runtime.latest_checked_kaggle_candidate.49123c0461324c80",
+    "runtime.latest_checked_kaggle_candidate.4912755d08481732",
+    "runtime.latest_checked_kaggle_candidate.491f3f2cce032278",
+    "runtime.latest_checked_kaggle_candidate.4931a83e068e21d0",
+    "runtime.latest_checked_kaggle_candidate.49337fbd76bad561",
+    "runtime.latest_checked_kaggle_candidate.493efb1ffb060056",
+    "runtime.latest_checked_kaggle_candidate.495acf15df433450",
+    "runtime.latest_checked_kaggle_candidate.499e1609d11e5758",
+    "runtime.latest_checked_kaggle_candidate.4a3a30ffca48aeaf",
+    "runtime.latest_checked_kaggle_candidate.4a3bf3bc28c5844c",
+    "runtime.latest_checked_kaggle_candidate.4a47451888ffffed",
+    "runtime.latest_checked_kaggle_candidate.4b9ef20d6336b638",
+    "runtime.latest_checked_kaggle_candidate.4bc6a05d7d31349e",
+    "runtime.latest_checked_kaggle_candidate.4c0bd51f66540f5a",
+    "runtime.latest_checked_kaggle_candidate.4c23199bd9f2ec7a",
+    "runtime.latest_checked_kaggle_candidate.4c60a5dfabeb2dea",
+    "runtime.latest_checked_kaggle_candidate.4c66b80364f67135",
+    "runtime.latest_checked_kaggle_candidate.4c75776efbc1cdda",
+    "runtime.latest_checked_kaggle_candidate.4cc0b15650622149",
+    "runtime.latest_checked_kaggle_candidate.4cfcb14bf8fc0718",
+    "runtime.latest_checked_kaggle_candidate.4d46f8767c58a1aa",
+    "runtime.latest_checked_kaggle_candidate.4d548860a3a1bcdd",
+    "runtime.latest_checked_kaggle_candidate.4dcb91e09208f199",
+    "runtime.latest_checked_kaggle_candidate.4de4a57529c56056",
+    "runtime.latest_checked_kaggle_candidate.4de8d4317f3382ab",
+    "runtime.latest_checked_kaggle_candidate.4e10900a63e9b513",
+    "runtime.latest_checked_kaggle_candidate.4e2cd6fef3081db0",
+    "runtime.latest_checked_kaggle_candidate.4f0ee0f6091c8a5d",
+    "runtime.latest_checked_kaggle_candidate.4f9a2a9bc54bdc7d",
+    "runtime.latest_checked_kaggle_candidate.5033a8a2b8586b19",
+    "runtime.latest_checked_kaggle_candidate.513d5ff69b6aab0a",
+    "runtime.latest_checked_kaggle_candidate.517b2ca14e791e17",
+    "runtime.latest_checked_kaggle_candidate.51beaf888b3b76b9",
+    "runtime.latest_checked_kaggle_candidate.51f590b8810b9011",
+    "runtime.latest_checked_kaggle_candidate.522c8aa7d7baf4c5",
+    "runtime.latest_checked_kaggle_candidate.5230da52a48eff75",
+    "runtime.latest_checked_kaggle_candidate.52516b0fa5362527",
+    "runtime.latest_checked_kaggle_candidate.52f944a729d8c867",
+    "runtime.latest_checked_kaggle_candidate.531435bd3461d632",
+    "runtime.latest_checked_kaggle_candidate.5339744eca13320b",
+    "runtime.latest_checked_kaggle_candidate.53637e7a12b7091c",
+    "runtime.latest_checked_kaggle_candidate.536d63b500869efb",
+    "runtime.latest_checked_kaggle_candidate.5383a3bcb1eb92e3",
+    "runtime.latest_checked_kaggle_candidate.53e092117a48af9e",
+    "runtime.latest_checked_kaggle_candidate.544b850aa1c01dc4",
+    "runtime.latest_checked_kaggle_candidate.545e6ff8067da886",
+    "runtime.latest_checked_kaggle_candidate.546f5c795b6f3fee",
+    "runtime.latest_checked_kaggle_candidate.54bf1cfce8a0b320",
+    "runtime.latest_checked_kaggle_candidate.54ca7e6debd12d99",
+    "runtime.latest_checked_kaggle_candidate.54fb7d161a8d403c",
+    "runtime.latest_checked_kaggle_candidate.5506edc6d01fcce4",
+    "runtime.latest_checked_kaggle_candidate.55702f8713dae04c",
+    "runtime.latest_checked_kaggle_candidate.5597e002c392a295",
+    "runtime.latest_checked_kaggle_candidate.55afd789521afd68",
+    "runtime.latest_checked_kaggle_candidate.56028ca47271da42",
+    "runtime.latest_checked_kaggle_candidate.56676dc01d8a09d6",
+    "runtime.latest_checked_kaggle_candidate.5670195fbe5a12a6",
+    "runtime.latest_checked_kaggle_candidate.56c242b6e3fe18cf",
+    "runtime.latest_checked_kaggle_candidate.57342315244fd866",
+    "runtime.latest_checked_kaggle_candidate.57f09ca79ca73fe9",
+    "runtime.latest_checked_kaggle_candidate.57f348a413059446",
+    "runtime.latest_checked_kaggle_candidate.580731207f6ff0b3",
+    "runtime.latest_checked_kaggle_candidate.5808eff3138c4a37",
+    "runtime.latest_checked_kaggle_candidate.5812211f0e1b1c3b",
+    "runtime.latest_checked_kaggle_candidate.5841baf4f25feeb4",
+    "runtime.latest_checked_kaggle_candidate.58604377eaed8faf",
+    "runtime.latest_checked_kaggle_candidate.58b3eb9e12217b6e",
+    "runtime.latest_checked_kaggle_candidate.58e8fe82375fa615",
+    "runtime.latest_checked_kaggle_candidate.590c185410af90f0",
+    "runtime.latest_checked_kaggle_candidate.594722213747d68c",
+    "runtime.latest_checked_kaggle_candidate.59737f4236583320",
+    "runtime.latest_checked_kaggle_candidate.59ab92133b251533",
+    "runtime.latest_checked_kaggle_candidate.59bc1ba4bb25f9f4",
+    "runtime.latest_checked_kaggle_candidate.5a04027c867b9e8e",
+    "runtime.latest_checked_kaggle_candidate.5a1a1866c28a4a59",
+    "runtime.latest_checked_kaggle_candidate.5a6e503fae6ea1c9",
+    "runtime.latest_checked_kaggle_candidate.5a9bf75fb8faa747",
+    "runtime.latest_checked_kaggle_candidate.5aa1e3185ecf3cd9",
+    "runtime.latest_checked_kaggle_candidate.5aaa9df075088a0f",
+    "runtime.latest_checked_kaggle_candidate.5ab05814cab70f32",
+    "runtime.latest_checked_kaggle_candidate.5ac773b62398afc4",
+    "runtime.latest_checked_kaggle_candidate.5b007b134e25c202",
+    "runtime.latest_checked_kaggle_candidate.5b4446e918b2f464",
+    "runtime.latest_checked_kaggle_candidate.5b51a2daf3238953",
+    "runtime.latest_checked_kaggle_candidate.5b737e51d0dcb255",
+    "runtime.latest_checked_kaggle_candidate.5be3c821a52ea6f3",
+    "runtime.latest_checked_kaggle_candidate.5bfafd8c4e04e5d6",
+    "runtime.latest_checked_kaggle_candidate.5c33e3c97ef7ac19",
+    "runtime.latest_checked_kaggle_candidate.5cb2d4d2b9b920b4",
+    "runtime.latest_checked_kaggle_candidate.5d0126fe0a4af646",
+    "runtime.latest_checked_kaggle_candidate.5d353a4164dd63ae",
+    "runtime.latest_checked_kaggle_candidate.5d5e7d3e28e2d127",
+    "runtime.latest_checked_kaggle_candidate.5d8e1da3076291f5",
+    "runtime.latest_checked_kaggle_candidate.5de29ed1ea6f87e6",
+    "runtime.latest_checked_kaggle_candidate.5e3c3961dc9d41ca",
+    "runtime.latest_checked_kaggle_candidate.5e9a2fe1a2ce57df",
+    "runtime.latest_checked_kaggle_candidate.5ec34d050a0ec359",
+    "runtime.latest_checked_kaggle_candidate.5ed7203fa9d0928c",
+    "runtime.latest_checked_kaggle_candidate.5f160c1c8b7730eb",
+    "runtime.latest_checked_kaggle_candidate.5f4688a74bda44eb",
+    "runtime.latest_checked_kaggle_candidate.5f89700a7980f686",
+    "runtime.latest_checked_kaggle_candidate.5fa39f8da7a523cf",
+    "runtime.latest_checked_kaggle_candidate.5fabf8c0c1abad64",
+    "runtime.latest_checked_kaggle_candidate.600aa3c4a479a3d5",
+    "runtime.latest_checked_kaggle_candidate.600b07c61428bd44",
+    "runtime.latest_checked_kaggle_candidate.6068cb7e1ece64a2",
+    "runtime.latest_checked_kaggle_candidate.6082ac6c60ea998e",
+    "runtime.latest_checked_kaggle_candidate.612a5a1d04cf355c",
+    "runtime.latest_checked_kaggle_candidate.6148fc95db5adfeb",
+    "runtime.latest_checked_kaggle_candidate.61726c984f77d4b3",
+    "runtime.latest_checked_kaggle_candidate.61c3d24129373f97",
+    "runtime.latest_checked_kaggle_candidate.61eca78bd20db651",
+    "runtime.latest_checked_kaggle_candidate.6205e57a8b1accb5",
+    "runtime.latest_checked_kaggle_candidate.6209b18e12f075f4",
+    "runtime.latest_checked_kaggle_candidate.620b42c98a2876c4",
+    "runtime.latest_checked_kaggle_candidate.62859940f856c16f",
+    "runtime.latest_checked_kaggle_candidate.62aed19769e1f3ab",
+    "runtime.latest_checked_kaggle_candidate.62b31c613355bdbb",
+    "runtime.latest_checked_kaggle_candidate.62b58be6c694f61a",
+    "runtime.latest_checked_kaggle_candidate.62cbe1ecee816c79",
+    "runtime.latest_checked_kaggle_candidate.62e8f348e6167b92",
+    "runtime.latest_checked_kaggle_candidate.6351fbf4a73c1324",
+    "runtime.latest_checked_kaggle_candidate.636e103cd33a6cc0",
+    "runtime.latest_checked_kaggle_candidate.63a7fffb7d17ed98",
+    "runtime.latest_checked_kaggle_candidate.63afbf2b3a3ce606",
+    "runtime.latest_checked_kaggle_candidate.63bf640513cff77a",
+    "runtime.latest_checked_kaggle_candidate.63d4282bec80ce60",
+    "runtime.latest_checked_kaggle_candidate.63e77cc50ceb2d02",
+    "runtime.latest_checked_kaggle_candidate.63f493fa70d4af23",
+    "runtime.latest_checked_kaggle_candidate.641413ede148bdd4",
+    "runtime.latest_checked_kaggle_candidate.644648ae7988e6e8",
+    "runtime.latest_checked_kaggle_candidate.6446a3e32ac4df1e",
+    "runtime.latest_checked_kaggle_candidate.645bcabbbeca1b62",
+    "runtime.latest_checked_kaggle_candidate.64621c6bfe5e9b33",
+    "runtime.latest_checked_kaggle_candidate.6467378a2689601a",
+    "runtime.latest_checked_kaggle_candidate.66454d0a48077a59",
+    "runtime.latest_checked_kaggle_candidate.6646d44ea2452929",
+    "runtime.latest_checked_kaggle_candidate.668ba92fedd18971",
+    "runtime.latest_checked_kaggle_candidate.66e11bea2463f1e4",
+    "runtime.latest_checked_kaggle_candidate.67c9c0f04a19ad45",
+    "runtime.latest_checked_kaggle_candidate.6873df06f0777923",
+    "runtime.latest_checked_kaggle_candidate.690549610a9f25fe",
+    "runtime.latest_checked_kaggle_candidate.69249ce911310e6d",
+    "runtime.latest_checked_kaggle_candidate.69e6b4dd94798036",
+    "runtime.latest_checked_kaggle_candidate.6a0dfb047f860f7b",
+    "runtime.latest_checked_kaggle_candidate.6a147f0b20044ba5",
+    "runtime.latest_checked_kaggle_candidate.6a1aa5f8bdafb614",
+    "runtime.latest_checked_kaggle_candidate.6a45cb61dae1baeb",
+    "runtime.latest_checked_kaggle_candidate.6a7be2db4a576aa9",
+    "runtime.latest_checked_kaggle_candidate.6b05eb79524c650b",
+    "runtime.latest_checked_kaggle_candidate.6b2a52906e699de9",
+    "runtime.latest_checked_kaggle_candidate.6bcd39e4d742d812",
+    "runtime.latest_checked_kaggle_candidate.6c355ad6a9c40ec6",
+    "runtime.latest_checked_kaggle_candidate.6c98a36b95e367f5",
+    "runtime.latest_checked_kaggle_candidate.6d190bc50389c779",
+    "runtime.latest_checked_kaggle_candidate.6d3919f7e5370653",
+    "runtime.latest_checked_kaggle_candidate.6daad2f1c060860d",
+    "runtime.latest_checked_kaggle_candidate.6e7f54e4abfbac94",
+    "runtime.latest_checked_kaggle_candidate.6ecdaffa27595dfb",
+    "runtime.latest_checked_kaggle_candidate.6efd23b194699118",
+    "runtime.latest_checked_kaggle_candidate.6f009b2a47ceb4c0",
+    "runtime.latest_checked_kaggle_candidate.6f0410ea235e159e",
+    "runtime.latest_checked_kaggle_candidate.6f22783537072347",
+    "runtime.latest_checked_kaggle_candidate.7029e0d791f74798",
+    "runtime.latest_checked_kaggle_candidate.7095f919c06576f8",
+    "runtime.latest_checked_kaggle_candidate.713a0457d4dfe922",
+    "runtime.latest_checked_kaggle_candidate.71409785ecdeda5b",
+    "runtime.latest_checked_kaggle_candidate.715a5037126ee653",
+    "runtime.latest_checked_kaggle_candidate.71f17850fe655973",
+    "runtime.latest_checked_kaggle_candidate.720a8e3a8173d0d1",
+    "runtime.latest_checked_kaggle_candidate.72158f6d7bfad783",
+    "runtime.latest_checked_kaggle_candidate.72331b3d78fa7127",
+    "runtime.latest_checked_kaggle_candidate.7254f2e296077d4f",
+    "runtime.latest_checked_kaggle_candidate.72678ba4393c16bf",
+    "runtime.latest_checked_kaggle_candidate.726f81073ede84a5",
+    "runtime.latest_checked_kaggle_candidate.7282699a58e7a004",
+    "runtime.latest_checked_kaggle_candidate.72e22fb50565fa6c",
+    "runtime.latest_checked_kaggle_candidate.7396b5a6ab7621ff",
+    "runtime.latest_checked_kaggle_candidate.7418fc9ea7e88dfe",
+    "runtime.latest_checked_kaggle_candidate.749c423f5bc8c722",
+    "runtime.latest_checked_kaggle_candidate.74d32b65a3d4a23a",
+    "runtime.latest_checked_kaggle_candidate.74d37651e75f4c5f",
+    "runtime.latest_checked_kaggle_candidate.755727e4ac8e6876",
+    "runtime.latest_checked_kaggle_candidate.7565dca6c5621838",
+    "runtime.latest_checked_kaggle_candidate.758fffacc12f39fa",
+    "runtime.latest_checked_kaggle_candidate.75b91b2153bf6f40",
+    "runtime.latest_checked_kaggle_candidate.75eb8e39613a3b38",
+    "runtime.latest_checked_kaggle_candidate.765c3e73df8fb68d",
+    "runtime.latest_checked_kaggle_candidate.7716fe2c7ebbd375",
+    "runtime.latest_checked_kaggle_candidate.77cbdc59b569095b",
+    "runtime.latest_checked_kaggle_candidate.781f8919458ce796",
+    "runtime.latest_checked_kaggle_candidate.784e416ca784bcb4",
+    "runtime.latest_checked_kaggle_candidate.78d9cb2a6cec0f5e",
+    "runtime.latest_checked_kaggle_candidate.790fc0950836a970",
+    "runtime.latest_checked_kaggle_candidate.7915d1ea98894b7f",
+    "runtime.latest_checked_kaggle_candidate.794a21b646d3ce20",
+    "runtime.latest_checked_kaggle_candidate.795ccf400e9554c0",
+    "runtime.latest_checked_kaggle_candidate.799e4ad75703301a",
+    "runtime.latest_checked_kaggle_candidate.79e6bce41abda13e",
+    "runtime.latest_checked_kaggle_candidate.79ee8c617aa2bcb7",
+    "runtime.latest_checked_kaggle_candidate.7ac54bf513ca7fcd",
+    "runtime.latest_checked_kaggle_candidate.7ad0835cacfb0600",
+    "runtime.latest_checked_kaggle_candidate.7adb69d95df537f2",
+    "runtime.latest_checked_kaggle_candidate.7b1ef721214897e7",
+    "runtime.latest_checked_kaggle_candidate.7b4c9124349232bc",
+    "runtime.latest_checked_kaggle_candidate.7b767dfa5c835c7b",
+    "runtime.latest_checked_kaggle_candidate.7b8d821a734a1708",
+    "runtime.latest_checked_kaggle_candidate.7bebaf10e71045e5",
+    "runtime.latest_checked_kaggle_candidate.7bf9b03217f1eacc",
+    "runtime.latest_checked_kaggle_candidate.7c456aafbf95b5a6",
+    "runtime.latest_checked_kaggle_candidate.7c7024dc4561033d",
+    "runtime.latest_checked_kaggle_candidate.7cb28ba2560fbab1",
+    "runtime.latest_checked_kaggle_candidate.7d130f4a0b7c76b9",
+    "runtime.latest_checked_kaggle_candidate.7d3ad84268bff28a",
+    "runtime.latest_checked_kaggle_candidate.7d4ec6cfc0204de7",
+    "runtime.latest_checked_kaggle_candidate.7d6ddae13a003e80",
+    "runtime.latest_checked_kaggle_candidate.7db31e08213805e7",
+    "runtime.latest_checked_kaggle_candidate.7de795cf62c82de8",
+    "runtime.latest_checked_kaggle_candidate.7e5c7b58fc3f35e9",
+    "runtime.latest_checked_kaggle_candidate.7eafbc6390d40e59",
+    "runtime.latest_checked_kaggle_candidate.7edd0ab23af6ca38",
+    "runtime.latest_checked_kaggle_candidate.7ee3edf1b0392842",
+    "runtime.latest_checked_kaggle_candidate.7f7916d4634a8d2c",
+    "runtime.latest_checked_kaggle_candidate.7f8f773c4dd79e1b",
+    "runtime.latest_checked_kaggle_candidate.800173aec3dac0ef",
+    "runtime.latest_checked_kaggle_candidate.8017ec0524f3ae23",
+    "runtime.latest_checked_kaggle_candidate.807ec0db034211ed",
+    "runtime.latest_checked_kaggle_candidate.811c9e721fcff3d2",
+    "runtime.latest_checked_kaggle_candidate.8131c321d0a8eb44",
+    "runtime.latest_checked_kaggle_candidate.816d05f8b34cc4c5",
+    "runtime.latest_checked_kaggle_candidate.81943463a1955042",
+    "runtime.latest_checked_kaggle_candidate.81953f66a17ca622",
+    "runtime.latest_checked_kaggle_candidate.81dc4a5dcbfb8769",
+    "runtime.latest_checked_kaggle_candidate.81dc8c59a2d8aa6c",
+    "runtime.latest_checked_kaggle_candidate.81de0ad03036f4c2",
+    "runtime.latest_checked_kaggle_candidate.820693af3472f5fa",
+    "runtime.latest_checked_kaggle_candidate.82284f3d8d8d270f",
+    "runtime.latest_checked_kaggle_candidate.823abf4af84849ab",
+    "runtime.latest_checked_kaggle_candidate.82546a4a8286f6bb",
+    "runtime.latest_checked_kaggle_candidate.82bb11b3beb5259a",
+    "runtime.latest_checked_kaggle_candidate.82d86592884afe7e",
+    "runtime.latest_checked_kaggle_candidate.8345770463a67eb1",
+    "runtime.latest_checked_kaggle_candidate.837d8d9c85d410b0",
+    "runtime.latest_checked_kaggle_candidate.83c6fef0d8724dfe",
+    "runtime.latest_checked_kaggle_candidate.840083b8da3c20d7",
+    "runtime.latest_checked_kaggle_candidate.8490746e7d2a9790",
+    "runtime.latest_checked_kaggle_candidate.8495e9df66ea2b89",
+    "runtime.latest_checked_kaggle_candidate.849e1aa4f960d01c",
+    "runtime.latest_checked_kaggle_candidate.84df874705ac0e06",
+    "runtime.latest_checked_kaggle_candidate.859b75da5471806e",
+    "runtime.latest_checked_kaggle_candidate.85a2789625733919",
+    "runtime.latest_checked_kaggle_candidate.85aad4f41b4891ac",
+    "runtime.latest_checked_kaggle_candidate.85ee2e8fb75138a8",
+    "runtime.latest_checked_kaggle_candidate.86186d87ca2afc84",
+    "runtime.latest_checked_kaggle_candidate.861d756f7350479a",
+    "runtime.latest_checked_kaggle_candidate.863ebba4fd676263",
+    "runtime.latest_checked_kaggle_candidate.8655d0f6053306a8",
+    "runtime.latest_checked_kaggle_candidate.86d1e57b4f8ecff5",
+    "runtime.latest_checked_kaggle_candidate.8790fb462880325c",
+    "runtime.latest_checked_kaggle_candidate.879d8e7b438a593d",
+    "runtime.latest_checked_kaggle_candidate.87b448326b3d7032",
+    "runtime.latest_checked_kaggle_candidate.87f7b15c27d4f3ef",
+    "runtime.latest_checked_kaggle_candidate.880809c9da18d107",
+    "runtime.latest_checked_kaggle_candidate.8813c1f105034b13",
+    "runtime.latest_checked_kaggle_candidate.885cda05be416bd2",
+    "runtime.latest_checked_kaggle_candidate.889486e8e87d0f28",
+    "runtime.latest_checked_kaggle_candidate.889676b7093e1909",
+    "runtime.latest_checked_kaggle_candidate.89305a96e0a09ff6",
+    "runtime.latest_checked_kaggle_candidate.893102a025eac9c8",
+    "runtime.latest_checked_kaggle_candidate.8958543a926c8bfc",
+    "runtime.latest_checked_kaggle_candidate.898d889da141982f",
+    "runtime.latest_checked_kaggle_candidate.89acf95db3ca40f3",
+    "runtime.latest_checked_kaggle_candidate.89b6e5f61e94b6d8",
+    "runtime.latest_checked_kaggle_candidate.89db963410485318",
+    "runtime.latest_checked_kaggle_candidate.89de0bd37d564c87",
+    "runtime.latest_checked_kaggle_candidate.89e18496aa4d8056",
+    "runtime.latest_checked_kaggle_candidate.8a214b696c619044",
+    "runtime.latest_checked_kaggle_candidate.8acbb22ac747ffeb",
+    "runtime.latest_checked_kaggle_candidate.8bc14fcd7eaba462",
+    "runtime.latest_checked_kaggle_candidate.8cf30f0061117bcc",
+    "runtime.latest_checked_kaggle_candidate.8cfda3e3b33a6885",
+    "runtime.latest_checked_kaggle_candidate.8d52e71cef831c56",
+    "runtime.latest_checked_kaggle_candidate.8d58a28af6dbd786",
+    "runtime.latest_checked_kaggle_candidate.8d86eefd6a2413e0",
+    "runtime.latest_checked_kaggle_candidate.8d8892f24dd8551f",
+    "runtime.latest_checked_kaggle_candidate.8dbcdc660eeda105",
+    "runtime.latest_checked_kaggle_candidate.8e4f635ebb8aaddd",
+    "runtime.latest_checked_kaggle_candidate.8e668519815f0fd7",
+    "runtime.latest_checked_kaggle_candidate.8ea2aa4feaf58240",
+    "runtime.latest_checked_kaggle_candidate.8efdf9e022adde4b",
+    "runtime.latest_checked_kaggle_candidate.8efe5160f703d90a",
+    "runtime.latest_checked_kaggle_candidate.8f0712b84f81f4cd",
+    "runtime.latest_checked_kaggle_candidate.8f33d3e7efc96b61",
+    "runtime.latest_checked_kaggle_candidate.8f3947a06355651b",
+    "runtime.latest_checked_kaggle_candidate.8f49c7da75b36746",
+    "runtime.latest_checked_kaggle_candidate.8f704113c69b4f60",
+    "runtime.latest_checked_kaggle_candidate.8f7e1ccd776b6cd7",
+    "runtime.latest_checked_kaggle_candidate.8fa1462dd228f6a7",
+    "runtime.latest_checked_kaggle_candidate.8fce6c5cd906cc67",
+    "runtime.latest_checked_kaggle_candidate.8fef4f958dd4c5c6",
+    "runtime.latest_checked_kaggle_candidate.9098b9dcbf50b337",
+    "runtime.latest_checked_kaggle_candidate.90e55a915bc1e8ed",
+    "runtime.latest_checked_kaggle_candidate.914893956603ee99",
+    "runtime.latest_checked_kaggle_candidate.91629dba895de17f",
+    "runtime.latest_checked_kaggle_candidate.916bb4d48ce82cbd",
+    "runtime.latest_checked_kaggle_candidate.92431ca53cb3989e",
+    "runtime.latest_checked_kaggle_candidate.92f3e29dc453f04a",
+    "runtime.latest_checked_kaggle_candidate.9312835c93093791",
+    "runtime.latest_checked_kaggle_candidate.931ddca70a6d6d78",
+    "runtime.latest_checked_kaggle_candidate.936e9c85b497810b",
+    "runtime.latest_checked_kaggle_candidate.9375f95c38a193cc",
+    "runtime.latest_checked_kaggle_candidate.93a34d7d0e853d28",
+    "runtime.latest_checked_kaggle_candidate.93aad79c41a1a744",
+    "runtime.latest_checked_kaggle_candidate.93d1ecbc9781706f",
+    "runtime.latest_checked_kaggle_candidate.94400e1734298fb1",
+    "runtime.latest_checked_kaggle_candidate.946fd346ce6a0e54",
+    "runtime.latest_checked_kaggle_candidate.94a833e7c10e10d8",
+    "runtime.latest_checked_kaggle_candidate.94cb7c2b3343b17f",
+    "runtime.latest_checked_kaggle_candidate.94eb6375cccbb121",
+    "runtime.latest_checked_kaggle_candidate.95201992f41eae13",
+    "runtime.latest_checked_kaggle_candidate.952f9096899b12c7",
+    "runtime.latest_checked_kaggle_candidate.953b66fd87414963",
+    "runtime.latest_checked_kaggle_candidate.956452d44ef42972",
+    "runtime.latest_checked_kaggle_candidate.9602d80fd914c905",
+    "runtime.latest_checked_kaggle_candidate.962afbba32b8edea",
+    "runtime.latest_checked_kaggle_candidate.9688d67e64463a84",
+    "runtime.latest_checked_kaggle_candidate.96b5ee2ceeaf4ee5",
+    "runtime.latest_checked_kaggle_candidate.96d88bc524a60bc5",
+    "runtime.latest_checked_kaggle_candidate.971bc4656395e9b9",
+    "runtime.latest_checked_kaggle_candidate.975ea10d81b373c4",
+    "runtime.latest_checked_kaggle_candidate.9783aea2fd0ef4f8",
+    "runtime.latest_checked_kaggle_candidate.97c79c305776208a",
+    "runtime.latest_checked_kaggle_candidate.97cdb8f302b31a05",
+    "runtime.latest_checked_kaggle_candidate.97d5f18b20b0dba2",
+    "runtime.latest_checked_kaggle_candidate.97fc315b32edf9ed",
+    "runtime.latest_checked_kaggle_candidate.981a6d426d1547cf",
+    "runtime.latest_checked_kaggle_candidate.9878ce2ab4e68c30",
+    "runtime.latest_checked_kaggle_candidate.988d96548b74cc98",
+    "runtime.latest_checked_kaggle_candidate.98afa0cd65e244ab",
+    "runtime.latest_checked_kaggle_candidate.98b388a514ccc2e6",
+    "runtime.latest_checked_kaggle_candidate.98f1d097b2f98ee0",
+    "runtime.latest_checked_kaggle_candidate.990d0dd0b4632c1a",
+    "runtime.latest_checked_kaggle_candidate.995eb842dfc82b4c",
+    "runtime.latest_checked_kaggle_candidate.9a32c21716a94746",
+    "runtime.latest_checked_kaggle_candidate.9a86cf176e3cd95f",
+    "runtime.latest_checked_kaggle_candidate.9ad841fcae3aef0d",
+    "runtime.latest_checked_kaggle_candidate.9b067b74cbcb8d2c",
+    "runtime.latest_checked_kaggle_candidate.9b41d822bf81e16b",
+    "runtime.latest_checked_kaggle_candidate.9bd04fd0d8bdd7fd",
+    "runtime.latest_checked_kaggle_candidate.9bda8ad4d69af1ab",
+    "runtime.latest_checked_kaggle_candidate.9beefe4554dec196",
+    "runtime.latest_checked_kaggle_candidate.9c0255ad3a8ea698",
+    "runtime.latest_checked_kaggle_candidate.9c29d9aecf199672",
+    "runtime.latest_checked_kaggle_candidate.9c663da9c5236dd5",
+    "runtime.latest_checked_kaggle_candidate.9c7a6c32a3c1d3d5",
+    "runtime.latest_checked_kaggle_candidate.9ca7364af7cc827d",
+    "runtime.latest_checked_kaggle_candidate.9cd6e0daf9c11e4b",
+    "runtime.latest_checked_kaggle_candidate.9d096a00970b5ba9",
+    "runtime.latest_checked_kaggle_candidate.9d0baca197d252bf",
+    "runtime.latest_checked_kaggle_candidate.9d1b23535a7a47f7",
+    "runtime.latest_checked_kaggle_candidate.9d27cc2cde37bb1d",
+    "runtime.latest_checked_kaggle_candidate.9d6473f0c6bc1958",
+    "runtime.latest_checked_kaggle_candidate.9ec13e493bca2389",
+    "runtime.latest_checked_kaggle_candidate.9fc12d8656533fbc",
+    "runtime.latest_checked_kaggle_candidate.9fd5359cc13417d7",
+    "runtime.latest_checked_kaggle_candidate.a0afa7d7cf2df01a",
+    "runtime.latest_checked_kaggle_candidate.a0d5ce19bacc8983",
+    "runtime.latest_checked_kaggle_candidate.a142d29217687132",
+    "runtime.latest_checked_kaggle_candidate.a1477385397809fb",
+    "runtime.latest_checked_kaggle_candidate.a18544dfc9493391",
+    "runtime.latest_checked_kaggle_candidate.a18e8356d1982aac",
+    "runtime.latest_checked_kaggle_candidate.a1909403f4799c45",
+    "runtime.latest_checked_kaggle_candidate.a20434a5512b6b25",
+    "runtime.latest_checked_kaggle_candidate.a2075ca3c50c1972",
+    "runtime.latest_checked_kaggle_candidate.a21c7200ede2e872",
+    "runtime.latest_checked_kaggle_candidate.a25de7149a2b4f0c",
+    "runtime.latest_checked_kaggle_candidate.a2a16351f5ac8140",
+    "runtime.latest_checked_kaggle_candidate.a2afa6371077becd",
+    "runtime.latest_checked_kaggle_candidate.a2c6ed5b5935e8f2",
+    "runtime.latest_checked_kaggle_candidate.a2f625b77f47cc86",
+    "runtime.latest_checked_kaggle_candidate.a328d082440ed555",
+    "runtime.latest_checked_kaggle_candidate.a34dcb0ad7267525",
+    "runtime.latest_checked_kaggle_candidate.a3b56ea83c2ae754",
+    "runtime.latest_checked_kaggle_candidate.a4195a65d8015e2d",
+    "runtime.latest_checked_kaggle_candidate.a42cd7378f79855a",
+    "runtime.latest_checked_kaggle_candidate.a43bfa5b0f98430b",
+    "runtime.latest_checked_kaggle_candidate.a43e79c1f4f907e1",
+    "runtime.latest_checked_kaggle_candidate.a49f93094942c0a4",
+    "runtime.latest_checked_kaggle_candidate.a4a41f5952cde834",
+    "runtime.latest_checked_kaggle_candidate.a4b0dc4dc961dde3",
+    "runtime.latest_checked_kaggle_candidate.a4b9fb67411af171",
+    "runtime.latest_checked_kaggle_candidate.a569211d1f95d8fc",
+    "runtime.latest_checked_kaggle_candidate.a573a2329ba5f940",
+    "runtime.latest_checked_kaggle_candidate.a597f028bde48aa9",
+    "runtime.latest_checked_kaggle_candidate.a621dbcd83b013a2",
+    "runtime.latest_checked_kaggle_candidate.a6b873c5286d1d0b",
+    "runtime.latest_checked_kaggle_candidate.a6cb0138c4046fbe",
+    "runtime.latest_checked_kaggle_candidate.a74ee919d21c993b",
+    "runtime.latest_checked_kaggle_candidate.a76bb5a076067c11",
+    "runtime.latest_checked_kaggle_candidate.a79ce624ccbc97cd",
+    "runtime.latest_checked_kaggle_candidate.a82decfe082f47fe",
+    "runtime.latest_checked_kaggle_candidate.a84b46cc4f299119",
+    "runtime.latest_checked_kaggle_candidate.a883acd3738b20a7",
+    "runtime.latest_checked_kaggle_candidate.a8a829a4ccc81514",
+    "runtime.latest_checked_kaggle_candidate.a8f3b6c5ca8b419c",
+    "runtime.latest_checked_kaggle_candidate.a8fb9848e601f8a1",
+    "runtime.latest_checked_kaggle_candidate.a9675ab293af69f5",
+    "runtime.latest_checked_kaggle_candidate.a97c43e78b0e7f20",
+    "runtime.latest_checked_kaggle_candidate.a9c2a0d4f2b5cb38",
+    "runtime.latest_checked_kaggle_candidate.a9ea290bb59e7d72",
+    "runtime.latest_checked_kaggle_candidate.a9ef1d6cce8c9b0a",
+    "runtime.latest_checked_kaggle_candidate.aa7f8b7a2ee8d3b5",
+    "runtime.latest_checked_kaggle_candidate.ab1d05a4e0e7c908",
+    "runtime.latest_checked_kaggle_candidate.ab8082b4d6c00d33",
+    "runtime.latest_checked_kaggle_candidate.ab8b02473644ec7c",
+    "runtime.latest_checked_kaggle_candidate.ab98a0d97465c741",
+    "runtime.latest_checked_kaggle_candidate.abb82eda1535a044",
+    "runtime.latest_checked_kaggle_candidate.ac299b5280c5cdba",
+    "runtime.latest_checked_kaggle_candidate.ac8d1867e3218b0b",
+    "runtime.latest_checked_kaggle_candidate.acca84a37b3cd0c9",
+    "runtime.latest_checked_kaggle_candidate.acec9b8537a26d7e",
+    "runtime.latest_checked_kaggle_candidate.acee342cac50075a",
+    "runtime.latest_checked_kaggle_candidate.ad53845812549b9f",
+    "runtime.latest_checked_kaggle_candidate.ad705d2638ca88bd",
+    "runtime.latest_checked_kaggle_candidate.ae225a0e56b33eda",
+    "runtime.latest_checked_kaggle_candidate.ae7be9d19db88c9a",
+    "runtime.latest_checked_kaggle_candidate.aea153a6efeba77b",
+    "runtime.latest_checked_kaggle_candidate.afe2b2eeb722c34b",
+    "runtime.latest_checked_kaggle_candidate.b0286c4b454b552f",
+    "runtime.latest_checked_kaggle_candidate.b034ea2f3c9246de",
+    "runtime.latest_checked_kaggle_candidate.b13ce9095d302dea",
+    "runtime.latest_checked_kaggle_candidate.b17d79c5659464d1",
+    "runtime.latest_checked_kaggle_candidate.b1c42658e3efe112",
+    "runtime.latest_checked_kaggle_candidate.b1e2fa9fa87b08d0",
+    "runtime.latest_checked_kaggle_candidate.b254976cefe2c9af",
+    "runtime.latest_checked_kaggle_candidate.b34619302295f2d9",
+    "runtime.latest_checked_kaggle_candidate.b3cd9164419da696",
+    "runtime.latest_checked_kaggle_candidate.b3e28266ff31c78e",
+    "runtime.latest_checked_kaggle_candidate.b41275c50f321910",
+    "runtime.latest_checked_kaggle_candidate.b472c4e66fa255ba",
+    "runtime.latest_checked_kaggle_candidate.b4ed022ed69c735f",
+    "runtime.latest_checked_kaggle_candidate.b556d4e98f708f57",
+    "runtime.latest_checked_kaggle_candidate.b5dad084c083353d",
+    "runtime.latest_checked_kaggle_candidate.b5ea8f367288cd2f",
+    "runtime.latest_checked_kaggle_candidate.b657b03fe4767edb",
+    "runtime.latest_checked_kaggle_candidate.b686943615878468",
+    "runtime.latest_checked_kaggle_candidate.b695360db075d95f",
+    "runtime.latest_checked_kaggle_candidate.b6d9d3a3b2a66570",
+    "runtime.latest_checked_kaggle_candidate.b6e478300b5e8dba",
+    "runtime.latest_checked_kaggle_candidate.b7020ceb8d44211a",
+    "runtime.latest_checked_kaggle_candidate.b767010b3f81cdb2",
+    "runtime.latest_checked_kaggle_candidate.b7776ea2e3e7eb1e",
+    "runtime.latest_checked_kaggle_candidate.b7a241dbc8fa5327",
+    "runtime.latest_checked_kaggle_candidate.b7c854ef4484b533",
+    "runtime.latest_checked_kaggle_candidate.b8640d9a06f624fa",
+    "runtime.latest_checked_kaggle_candidate.b8723db8c09b232d",
+    "runtime.latest_checked_kaggle_candidate.b8c321f6beca0bd3",
+    "runtime.latest_checked_kaggle_candidate.b8c3d2c97d4ffbf8",
+    "runtime.latest_checked_kaggle_candidate.b8c44bb78a2be759",
+    "runtime.latest_checked_kaggle_candidate.b96e151dfcaae564",
+    "runtime.latest_checked_kaggle_candidate.b9e25a7461fbdf76",
+    "runtime.latest_checked_kaggle_candidate.b9e9f13d94b50132",
+    "runtime.latest_checked_kaggle_candidate.b9fd2327344d4564",
+    "runtime.latest_checked_kaggle_candidate.ba62f565c0ec3124",
+    "runtime.latest_checked_kaggle_candidate.bacbbe7d9e133fe0",
+    "runtime.latest_checked_kaggle_candidate.bad5a7acdaf6d197",
+    "runtime.latest_checked_kaggle_candidate.bafa1de8d7c9a236",
+    "runtime.latest_checked_kaggle_candidate.bb1f7e096ae80339",
+    "runtime.latest_checked_kaggle_candidate.bb20d4239c14211f",
+    "runtime.latest_checked_kaggle_candidate.bb496c7f494c9860",
+    "runtime.latest_checked_kaggle_candidate.bbc03be95d7adea6",
+    "runtime.latest_checked_kaggle_candidate.bbdd549646752005",
+    "runtime.latest_checked_kaggle_candidate.bbf7a8b05054eff6",
+    "runtime.latest_checked_kaggle_candidate.bc0416ebb335b0be",
+    "runtime.latest_checked_kaggle_candidate.bc662e6068272315",
+    "runtime.latest_checked_kaggle_candidate.bc89a9f407e8c881",
+    "runtime.latest_checked_kaggle_candidate.bd587bf18249b16f",
+    "runtime.latest_checked_kaggle_candidate.bd679bc1401ea399",
+    "runtime.latest_checked_kaggle_candidate.bd86e18fcdd99132",
+    "runtime.latest_checked_kaggle_candidate.be02dd78ad6601d4",
+    "runtime.latest_checked_kaggle_candidate.be162ae467f91df9",
+    "runtime.latest_checked_kaggle_candidate.bee3aa87490bb648",
+    "runtime.latest_checked_kaggle_candidate.bf16bfd9b547f3a0",
+    "runtime.latest_checked_kaggle_candidate.bf4e96daac799ede",
+    "runtime.latest_checked_kaggle_candidate.bf57833bfa82425f",
+    "runtime.latest_checked_kaggle_candidate.c00eccd98825f6c8",
+    "runtime.latest_checked_kaggle_candidate.c09d1ca2ab53511f",
+    "runtime.latest_checked_kaggle_candidate.c0b2db815073e642",
+    "runtime.latest_checked_kaggle_candidate.c0d59678395351cf",
+    "runtime.latest_checked_kaggle_candidate.c157e0b9c6c85247",
+    "runtime.latest_checked_kaggle_candidate.c15a064c1de2fb57",
+    "runtime.latest_checked_kaggle_candidate.c1acfe7310ce249e",
+    "runtime.latest_checked_kaggle_candidate.c1f4235f43e42029",
+    "runtime.latest_checked_kaggle_candidate.c20c0aab79b595b1",
+    "runtime.latest_checked_kaggle_candidate.c278ecda761278a7",
+    "runtime.latest_checked_kaggle_candidate.c332f0d4d8611f29",
+    "runtime.latest_checked_kaggle_candidate.c3b7ad0325c64377",
+    "runtime.latest_checked_kaggle_candidate.c457002cf04cd186",
+    "runtime.latest_checked_kaggle_candidate.c49137b15dcbf22b",
+    "runtime.latest_checked_kaggle_candidate.c5090a2f3a340139",
+    "runtime.latest_checked_kaggle_candidate.c50b9844722dd09c",
+    "runtime.latest_checked_kaggle_candidate.c51c96291083dd9e",
+    "runtime.latest_checked_kaggle_candidate.c5c30e467d68ff95",
+    "runtime.latest_checked_kaggle_candidate.c5ea45954fafa8d4",
+    "runtime.latest_checked_kaggle_candidate.c616218ca7dafeec",
+    "runtime.latest_checked_kaggle_candidate.c63b60ed76e64e26",
+    "runtime.latest_checked_kaggle_candidate.c6851c6d2845e83f",
+    "runtime.latest_checked_kaggle_candidate.c69b5fac93e1d85a",
+    "runtime.latest_checked_kaggle_candidate.c6c1771cd4cb5054",
+    "runtime.latest_checked_kaggle_candidate.c820127433eb17a9",
+    "runtime.latest_checked_kaggle_candidate.c82da9a2a8593598",
+    "runtime.latest_checked_kaggle_candidate.c8714aafa61df8e4",
+    "runtime.latest_checked_kaggle_candidate.c8a3841b91cddfc5",
+    "runtime.latest_checked_kaggle_candidate.c8b27967b827282d",
+    "runtime.latest_checked_kaggle_candidate.c8c47095fc61cedb",
+    "runtime.latest_checked_kaggle_candidate.c8eed16b27a25874",
+    "runtime.latest_checked_kaggle_candidate.c9415536e00273b3",
+    "runtime.latest_checked_kaggle_candidate.c958732b06dbda7e",
+    "runtime.latest_checked_kaggle_candidate.c97b879bef5f9a94",
+    "runtime.latest_checked_kaggle_candidate.c9d308e7526962a9",
+    "runtime.latest_checked_kaggle_candidate.c9fbc9d0399146da",
+    "runtime.latest_checked_kaggle_candidate.ca17dbd028f7e164",
+    "runtime.latest_checked_kaggle_candidate.ca5434cc2bc4f820",
+    "runtime.latest_checked_kaggle_candidate.ca54b86808048528",
+    "runtime.latest_checked_kaggle_candidate.cac90702516bef37",
+    "runtime.latest_checked_kaggle_candidate.cae8c340820b861c",
+    "runtime.latest_checked_kaggle_candidate.cafb8ff0d3cd4b3a",
+    "runtime.latest_checked_kaggle_candidate.cb1fb4ee88e9f039",
+    "runtime.latest_checked_kaggle_candidate.cb315cecd0f50558",
+    "runtime.latest_checked_kaggle_candidate.cb79da561d46df6d",
+    "runtime.latest_checked_kaggle_candidate.cba666551ced57c8",
+    "runtime.latest_checked_kaggle_candidate.cc2e0709579dca4f",
+    "runtime.latest_checked_kaggle_candidate.cc34491196c6bca9",
+    "runtime.latest_checked_kaggle_candidate.cc82a2c273fb2096",
+    "runtime.latest_checked_kaggle_candidate.cc9fc89fb87326ea",
+    "runtime.latest_checked_kaggle_candidate.cd6017694844dce1",
+    "runtime.latest_checked_kaggle_candidate.ce0a6fcafbc5cf18",
+    "runtime.latest_checked_kaggle_candidate.ce3b123b9cc80d55",
+    "runtime.latest_checked_kaggle_candidate.ce4ea9a52fb94ac1",
+    "runtime.latest_checked_kaggle_candidate.cea65036922562de",
+    "runtime.latest_checked_kaggle_candidate.ceb684040c424cb2",
+    "runtime.latest_checked_kaggle_candidate.cebbd8a20f80a42f",
+    "runtime.latest_checked_kaggle_candidate.cec87e14c9d693ca",
+    "runtime.latest_checked_kaggle_candidate.ceeb4e937c870129",
+    "runtime.latest_checked_kaggle_candidate.cf1022f7bdf27d9c",
+    "runtime.latest_checked_kaggle_candidate.cf2953fadf9b1b4c",
+    "runtime.latest_checked_kaggle_candidate.cf66e98ef7b258e3",
+    "runtime.latest_checked_kaggle_candidate.cf8da651a9c53f0e",
+    "runtime.latest_checked_kaggle_candidate.cfbf158f3d8acb41",
+    "runtime.latest_checked_kaggle_candidate.cff2ed0b243112bf",
+    "runtime.latest_checked_kaggle_candidate.d027eb4db58f11ec",
+    "runtime.latest_checked_kaggle_candidate.d03e934003425bc3",
+    "runtime.latest_checked_kaggle_candidate.d064b843ab5d57e2",
+    "runtime.latest_checked_kaggle_candidate.d06c0950ae1a03e3",
+    "runtime.latest_checked_kaggle_candidate.d080c734d6256f0a",
+    "runtime.latest_checked_kaggle_candidate.d08ce73113e8c97c",
+    "runtime.latest_checked_kaggle_candidate.d0ffaccca3d0e5b9",
+    "runtime.latest_checked_kaggle_candidate.d14b2950967d4647",
+    "runtime.latest_checked_kaggle_candidate.d14c43750ccf6bfe",
+    "runtime.latest_checked_kaggle_candidate.d1c915c66fa9b26b",
+    "runtime.latest_checked_kaggle_candidate.d1d99cb2b9ad9e18",
+    "runtime.latest_checked_kaggle_candidate.d1e2216fc11eb448",
+    "runtime.latest_checked_kaggle_candidate.d274e8a1a54952f9",
+    "runtime.latest_checked_kaggle_candidate.d2dfaf52e4142073",
+    "runtime.latest_checked_kaggle_candidate.d3687da19612eade",
+    "runtime.latest_checked_kaggle_candidate.d3af91bdba0bb69e",
+    "runtime.latest_checked_kaggle_candidate.d3b32976634d27a2",
+    "runtime.latest_checked_kaggle_candidate.d3f2615ca1794933",
+    "runtime.latest_checked_kaggle_candidate.d41897e8a4b1a8ed",
+    "runtime.latest_checked_kaggle_candidate.d4301639eb91bb41",
+    "runtime.latest_checked_kaggle_candidate.d4d957229f9d7c70",
+    "runtime.latest_checked_kaggle_candidate.d4f29c02e7de0c73",
+    "runtime.latest_checked_kaggle_candidate.d507a18fe631363f",
+    "runtime.latest_checked_kaggle_candidate.d52ae442a7f6d7c7",
+    "runtime.latest_checked_kaggle_candidate.d54e441c41a63cac",
+    "runtime.latest_checked_kaggle_candidate.d5584a7bdd355473",
+    "runtime.latest_checked_kaggle_candidate.d679eb142c829601",
+    "runtime.latest_checked_kaggle_candidate.d6859edc8c8717c5",
+    "runtime.latest_checked_kaggle_candidate.d696c328a52adb51",
+    "runtime.latest_checked_kaggle_candidate.d6ab467a2278a618",
+    "runtime.latest_checked_kaggle_candidate.d6c44a5952c564c0",
+    "runtime.latest_checked_kaggle_candidate.d6c6410ed9e3dd50",
+    "runtime.latest_checked_kaggle_candidate.d6ebe0bf4f70f7fd",
+    "runtime.latest_checked_kaggle_candidate.d6f59d56318f2eb4",
+    "runtime.latest_checked_kaggle_candidate.d707377dcfbf7c1f",
+    "runtime.latest_checked_kaggle_candidate.d7810f87550d4871",
+    "runtime.latest_checked_kaggle_candidate.d78679d172950831",
+    "runtime.latest_checked_kaggle_candidate.d7c4bae1955b48e7",
+    "runtime.latest_checked_kaggle_candidate.d7d9e8f741dbf3e7",
+    "runtime.latest_checked_kaggle_candidate.d80828cc0ca30e29",
+    "runtime.latest_checked_kaggle_candidate.d81f516fb403f50f",
+    "runtime.latest_checked_kaggle_candidate.d858914e8daedfa5",
+    "runtime.latest_checked_kaggle_candidate.d86b5fda133a65e5",
+    "runtime.latest_checked_kaggle_candidate.d86f30ca7f1aad36",
+    "runtime.latest_checked_kaggle_candidate.d88ff0fab97e6f34",
+    "runtime.latest_checked_kaggle_candidate.d8c5873f4e2170e1",
+    "runtime.latest_checked_kaggle_candidate.d8ce662dbbc42cac",
+    "runtime.latest_checked_kaggle_candidate.d97629ec97b8f29c",
+    "runtime.latest_checked_kaggle_candidate.d9e7071e66fbdcea",
+    "runtime.latest_checked_kaggle_candidate.da063a78a220a750",
+    "runtime.latest_checked_kaggle_candidate.da47bb156c9ff38d",
+    "runtime.latest_checked_kaggle_candidate.da543e3f38260cfc",
+    "runtime.latest_checked_kaggle_candidate.da6bdaf54851a41b",
+    "runtime.latest_checked_kaggle_candidate.daa23d11f9d31f9f",
+    "runtime.latest_checked_kaggle_candidate.daa73560a80e4e39",
+    "runtime.latest_checked_kaggle_candidate.daabacd3eb1d091e",
+    "runtime.latest_checked_kaggle_candidate.db08f1e4acbf5565",
+    "runtime.latest_checked_kaggle_candidate.db294d7b051e6467",
+    "runtime.latest_checked_kaggle_candidate.db2d2e6ca53e41df",
+    "runtime.latest_checked_kaggle_candidate.db428dfb47e74164",
+    "runtime.latest_checked_kaggle_candidate.db46e2bfae69ba58",
+    "runtime.latest_checked_kaggle_candidate.db722b483eadbbbc",
+    "runtime.latest_checked_kaggle_candidate.dbae9c3fed5ac955",
+    "runtime.latest_checked_kaggle_candidate.dbc60816faf242c4",
+    "runtime.latest_checked_kaggle_candidate.dbe0021325a0f776",
+    "runtime.latest_checked_kaggle_candidate.dbe86f277415c0de",
+    "runtime.latest_checked_kaggle_candidate.dc19e993bff261f8",
+    "runtime.latest_checked_kaggle_candidate.dc1ab34cd71d1a90",
+    "runtime.latest_checked_kaggle_candidate.dc2bec493e1c066a",
+    "runtime.latest_checked_kaggle_candidate.dc6805d892db38ce",
+    "runtime.latest_checked_kaggle_candidate.dc83d59cf2ad1c68",
+    "runtime.latest_checked_kaggle_candidate.dca00400c786bc19",
+    "runtime.latest_checked_kaggle_candidate.dcbd01f066f4773d",
+    "runtime.latest_checked_kaggle_candidate.dcdb1c41f254948c",
+    "runtime.latest_checked_kaggle_candidate.dcf4e8998a85df16",
+    "runtime.latest_checked_kaggle_candidate.dd38a738567f1c4e",
+    "runtime.latest_checked_kaggle_candidate.dd5762f88e7b17e0",
+    "runtime.latest_checked_kaggle_candidate.dd6554c034ff9d02",
+    "runtime.latest_checked_kaggle_candidate.dd6a1c8246d873d6",
+    "runtime.latest_checked_kaggle_candidate.df255b4b3ebf879a",
+    "runtime.latest_checked_kaggle_candidate.df42bfa720200f66",
+    "runtime.latest_checked_kaggle_candidate.df613230c387b76c",
+    "runtime.latest_checked_kaggle_candidate.e007525a64c310ea",
+    "runtime.latest_checked_kaggle_candidate.e067b3e5fefb6563",
+    "runtime.latest_checked_kaggle_candidate.e0abfbc9b870f0e9",
+    "runtime.latest_checked_kaggle_candidate.e0b6d443416f46be",
+    "runtime.latest_checked_kaggle_candidate.e0dfe8baeb9c026e",
+    "runtime.latest_checked_kaggle_candidate.e0fa4ad3791ed0e0",
+    "runtime.latest_checked_kaggle_candidate.e109186ab467d100",
+    "runtime.latest_checked_kaggle_candidate.e127404122f65858",
+    "runtime.latest_checked_kaggle_candidate.e15f66cb1f22608a",
+    "runtime.latest_checked_kaggle_candidate.e18b9dd14cda1221",
+    "runtime.latest_checked_kaggle_candidate.e1a992767fd86066",
+    "runtime.latest_checked_kaggle_candidate.e1edc17d78767636",
+    "runtime.latest_checked_kaggle_candidate.e23973be236d4701",
+    "runtime.latest_checked_kaggle_candidate.e251affdc6268276",
+    "runtime.latest_checked_kaggle_candidate.e2dce926fe6e4f18",
+    "runtime.latest_checked_kaggle_candidate.e2e09d2cae6cd52c",
+    "runtime.latest_checked_kaggle_candidate.e3124d8ee898b932",
+    "runtime.latest_checked_kaggle_candidate.e33658cdca0f60f5",
+    "runtime.latest_checked_kaggle_candidate.e37e78b330f2069a",
+    "runtime.latest_checked_kaggle_candidate.e3863205a4148602",
+    "runtime.latest_checked_kaggle_candidate.e3aed97b20f63000",
+    "runtime.latest_checked_kaggle_candidate.e3de5a480ed5dd12",
+    "runtime.latest_checked_kaggle_candidate.e3ebb3e6cb5638c3",
+    "runtime.latest_checked_kaggle_candidate.e41480b7187146cc",
+    "runtime.latest_checked_kaggle_candidate.e42b10f3040074d1",
+    "runtime.latest_checked_kaggle_candidate.e42f07e153d40bb3",
+    "runtime.latest_checked_kaggle_candidate.e4877d3dafd62b97",
+    "runtime.latest_checked_kaggle_candidate.e498084be07ea22e",
+    "runtime.latest_checked_kaggle_candidate.e49b3b0287dd548c",
+    "runtime.latest_checked_kaggle_candidate.e4e1e466ab005978",
+    "runtime.latest_checked_kaggle_candidate.e538e8f4a887e8ea",
+    "runtime.latest_checked_kaggle_candidate.e53f9c8eb8ef19b8",
+    "runtime.latest_checked_kaggle_candidate.e56056f49ca8274c",
+    "runtime.latest_checked_kaggle_candidate.e5754222a0f6435e",
+    "runtime.latest_checked_kaggle_candidate.e5b4da751af11c45",
+    "runtime.latest_checked_kaggle_candidate.e5dc92bc351f2fa9",
+    "runtime.latest_checked_kaggle_candidate.e5e5948079d426a4",
+    "runtime.latest_checked_kaggle_candidate.e5f4c212f344927c",
+    "runtime.latest_checked_kaggle_candidate.e61045de8472978e",
+    "runtime.latest_checked_kaggle_candidate.e61835e8c5536d23",
+    "runtime.latest_checked_kaggle_candidate.e6326bc06f841fe7",
+    "runtime.latest_checked_kaggle_candidate.e6396e326de9b6a8",
+    "runtime.latest_checked_kaggle_candidate.e65b106992addc18",
+    "runtime.latest_checked_kaggle_candidate.e7164ca529fd0cb0",
+    "runtime.latest_checked_kaggle_candidate.e7997475a657fb29",
+    "runtime.latest_checked_kaggle_candidate.e7b43c66689c370f",
+    "runtime.latest_checked_kaggle_candidate.e81555d8da0ebd8f",
+    "runtime.latest_checked_kaggle_candidate.e880d4a62b416526",
+    "runtime.latest_checked_kaggle_candidate.e8c851114370e432",
+    "runtime.latest_checked_kaggle_candidate.e8d3c5776952d8d9",
+    "runtime.latest_checked_kaggle_candidate.e8fe0e3767172f27",
+    "runtime.latest_checked_kaggle_candidate.e90fa6d7f03ef4f9",
+    "runtime.latest_checked_kaggle_candidate.e91d76e797e800be",
+    "runtime.latest_checked_kaggle_candidate.e936aea8da96d1a5",
+    "runtime.latest_checked_kaggle_candidate.e9a402a13084243f",
+    "runtime.latest_checked_kaggle_candidate.e9e2df7c16bdd98b",
+    "runtime.latest_checked_kaggle_candidate.ea1d91aa463426a2",
+    "runtime.latest_checked_kaggle_candidate.ea560e4ba3b8f294",
+    "runtime.latest_checked_kaggle_candidate.ea6daab935e0372e",
+    "runtime.latest_checked_kaggle_candidate.ea9e25d72b649131",
+    "runtime.latest_checked_kaggle_candidate.eac18784da437a98",
+    "runtime.latest_checked_kaggle_candidate.eb69f52dbe23f18c",
+    "runtime.latest_checked_kaggle_candidate.eb7225df90163e97",
+    "runtime.latest_checked_kaggle_candidate.eb976fe6615ac485",
+    "runtime.latest_checked_kaggle_candidate.eb9b17eac679aa00",
+    "runtime.latest_checked_kaggle_candidate.ec05b532088abbaa",
+    "runtime.latest_checked_kaggle_candidate.ec8496e909588298",
+    "runtime.latest_checked_kaggle_candidate.eccb5cb5f81b6747",
+    "runtime.latest_checked_kaggle_candidate.ecd0db0ed95443f6",
+    "runtime.latest_checked_kaggle_candidate.ecf8229bba6926ba",
+    "runtime.latest_checked_kaggle_candidate.ed019c88d34b8d81",
+    "runtime.latest_checked_kaggle_candidate.ed13433800cf4e3c",
+    "runtime.latest_checked_kaggle_candidate.ed4a82814a02b5bc",
+    "runtime.latest_checked_kaggle_candidate.ed599bffaae83696",
+    "runtime.latest_checked_kaggle_candidate.ed877de4a8a5390d",
+    "runtime.latest_checked_kaggle_candidate.edbdbc1f12ccbc34",
+    "runtime.latest_checked_kaggle_candidate.eddaece8eea92f28",
+    "runtime.latest_checked_kaggle_candidate.ee373ebd2efbe1f2",
+    "runtime.latest_checked_kaggle_candidate.ee6d6b2aa703789d",
+    "runtime.latest_checked_kaggle_candidate.eeee26acbfca6c3a",
+    "runtime.latest_checked_kaggle_candidate.ef0455293af30908",
+    "runtime.latest_checked_kaggle_candidate.ef3e9c8e5145f448",
+    "runtime.latest_checked_kaggle_candidate.ef4ba2a74efcdc3a",
+    "runtime.latest_checked_kaggle_candidate.ef667e1eeb0bd1b2",
+    "runtime.latest_checked_kaggle_candidate.ef67ac3f398b82fe",
+    "runtime.latest_checked_kaggle_candidate.ef6d50e65b9552e2",
+    "runtime.latest_checked_kaggle_candidate.efe36b4fda21ce7b",
+    "runtime.latest_checked_kaggle_candidate.f014afd3ac0b42d9",
+    "runtime.latest_checked_kaggle_candidate.f05fc0d2ba61626a",
+    "runtime.latest_checked_kaggle_candidate.f08b712608f3e3fc",
+    "runtime.latest_checked_kaggle_candidate.f09ddef6e10d59b7",
+    "runtime.latest_checked_kaggle_candidate.f0aa9d26baa9377e",
+    "runtime.latest_checked_kaggle_candidate.f0c66c3477db5c12",
+    "runtime.latest_checked_kaggle_candidate.f0da05f595f568e0",
+    "runtime.latest_checked_kaggle_candidate.f1163b300910187c",
+    "runtime.latest_checked_kaggle_candidate.f156a9583495d59f",
+    "runtime.latest_checked_kaggle_candidate.f21f1181cd90985f",
+    "runtime.latest_checked_kaggle_candidate.f25c89853f63688d",
+    "runtime.latest_checked_kaggle_candidate.f278a50c01264369",
+    "runtime.latest_checked_kaggle_candidate.f27a152ebb70a065",
+    "runtime.latest_checked_kaggle_candidate.f2ee34fb8ea710e5",
+    "runtime.latest_checked_kaggle_candidate.f330260514611e9d",
+    "runtime.latest_checked_kaggle_candidate.f3731c3b1be54bda",
+    "runtime.latest_checked_kaggle_candidate.f37d96af368541c7",
+    "runtime.latest_checked_kaggle_candidate.f382e31f3e50afd0",
+    "runtime.latest_checked_kaggle_candidate.f39d0334c6a2621e",
+    "runtime.latest_checked_kaggle_candidate.f3c41922cbe0962e",
+    "runtime.latest_checked_kaggle_candidate.f3fa66edf440e4fa",
+    "runtime.latest_checked_kaggle_candidate.f40a8a7bccf31dc6",
+    "runtime.latest_checked_kaggle_candidate.f41299a9528c5020",
+    "runtime.latest_checked_kaggle_candidate.f48e475543ccd02c",
+    "runtime.latest_checked_kaggle_candidate.f5bc3bd86976d32f",
+    "runtime.latest_checked_kaggle_candidate.f5f3cacfcde69452",
+    "runtime.latest_checked_kaggle_candidate.f60efe604b3190dc",
+    "runtime.latest_checked_kaggle_candidate.f62fe2e662f20217",
+    "runtime.latest_checked_kaggle_candidate.f67d0d8eb9d34652",
+    "runtime.latest_checked_kaggle_candidate.f7814589f3f071fa",
+    "runtime.latest_checked_kaggle_candidate.f8325e20ff9206e2",
+    "runtime.latest_checked_kaggle_candidate.f8755d3e0fd29160",
+    "runtime.latest_checked_kaggle_candidate.f8c2b59f1f9c6808",
+    "runtime.latest_checked_kaggle_candidate.f8dd1c32c2ef8169",
+    "runtime.latest_checked_kaggle_candidate.f8e5be6b18d2bdc8",
+    "runtime.latest_checked_kaggle_candidate.f946f74eca89bd03",
+    "runtime.latest_checked_kaggle_candidate.f975bc1e91f4ef37",
+    "runtime.latest_checked_kaggle_candidate.f99abad8caad754f",
+    "runtime.latest_checked_kaggle_candidate.f9afde717b2dfe52",
+    "runtime.latest_checked_kaggle_candidate.f9d4e129f2274fb9",
+    "runtime.latest_checked_kaggle_candidate.fa1665578a8c00a3",
+    "runtime.latest_checked_kaggle_candidate.fa5c47a24beaf409",
+    "runtime.latest_checked_kaggle_candidate.faa28c5eac968ffb",
+    "runtime.latest_checked_kaggle_candidate.fac7c2609868116b",
+    "runtime.latest_checked_kaggle_candidate.fad848abc39d04fe",
+    "runtime.latest_checked_kaggle_candidate.fae4e161796fa148",
+    "runtime.latest_checked_kaggle_candidate.fafaae8874f174f1",
+    "runtime.latest_checked_kaggle_candidate.fb4452bbcecd25e8",
+    "runtime.latest_checked_kaggle_candidate.fb682f421698201a",
+    "runtime.latest_checked_kaggle_candidate.fb9443956d132c77",
+    "runtime.latest_checked_kaggle_candidate.fb9f17fb82c133d6",
+    "runtime.latest_checked_kaggle_candidate.fbbf59e1f01e0c99",
+    "runtime.latest_checked_kaggle_candidate.fbde2f9b61784556",
+    "runtime.latest_checked_kaggle_candidate.fc173bad77ffe129",
+    "runtime.latest_checked_kaggle_candidate.fc65129eb99b952b",
+    "runtime.latest_checked_kaggle_candidate.fc6dc55e6798b232",
+    "runtime.latest_checked_kaggle_candidate.fca7119e31dd1c62",
+    "runtime.latest_checked_kaggle_candidate.fcb03629c9eed2ab",
+    "runtime.latest_checked_kaggle_candidate.fd9931b4a57a5184",
+    "runtime.latest_checked_kaggle_candidate.fdba1df5ceb8f363",
+    "runtime.latest_checked_kaggle_candidate.fdec5840b42df720",
+    "runtime.latest_checked_kaggle_candidate.fdf9bf52ca073df8",
+    "runtime.latest_checked_kaggle_candidate.fe315a92b19bb5f7",
+    "runtime.latest_checked_kaggle_candidate.fe340389e202571f",
+    "runtime.latest_checked_kaggle_candidate.fe5b6b96537ae02f",
+    "runtime.latest_checked_kaggle_candidate.fe62ee1caf5c2a41",
+    "runtime.latest_checked_kaggle_candidate.fe8cafc2a4626d00",
+    "runtime.latest_checked_kaggle_candidate.febc3be54e4a9743",
+    "runtime.latest_checked_kaggle_candidate.ff9576a51cd06e97",
+    "runtime.latest_checked_kaggle_candidate.ff9f20a1bc358588",
+    "runtime.latest_checked_kaggle_candidate.ffaa4526e8219cd8",
+    "runtime.latest_checked_kaggle_candidate.ffe012c1fc552629"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "occurrencePresentation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_assets"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "asset",
+            "eventImageUrl",
+            "find",
+            "requestedPrimaryImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 54
+        },
+        {
+          "identifiers": [
+            "semanticStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 59
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "length",
+            "primaryImageTextMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "length"
+          ],
+          "kind": "LogicalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 70
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "primaryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "modeOverride"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 74
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 76
+        },
+        {
+          "identifiers": [
+            "composition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 79
+        },
+        {
+          "identifiers": [
+            "compactLabel",
+            "resolvedOccurrencePresentation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 80
+        },
+        {
+          "identifiers": [
+            "Boolean",
+            "city",
+            "event",
+            "filter",
+            "join",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "ticket"
+          ],
+          "kind": "IfStatement",
+          "line": 88
+        },
+        {
+          "identifiers": [
+            "includes",
+            "primaryImageUrl",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "match",
+            "primaryImageUrl",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 96
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 98
+        },
+        {
+          "identifiers": [
+            "sharesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 99
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 100
+        },
+        {
+          "identifiers": [
+            "event",
+            "topics"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 103
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 104
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 105
+        },
+        {
+          "identifiers": [
+            "primaryLowResolutionPortrait"
+          ],
+          "kind": "LogicalExpression",
+          "line": 108
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_alt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 109
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 111
+        },
+        {
+          "identifiers": [
+            "raw",
+            "test"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 112
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 116
+        },
+        {
+          "identifiers": [
+            "primaryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126
+        },
+        {
+          "identifiers": [
+            "normalizeObjectPosition",
+            "primaryImageAsset",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 127
+        },
+        {
+          "identifiers": [
+            "fit",
+            "heroMode",
+            "primaryHeroCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "image",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 139
+        },
+        {
+          "identifiers": [
+            "has",
+            "seen",
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 140
+        },
+        {
+          "identifiers": [
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 140
+        },
+        {
+          "identifiers": [
+            "isReliableHeroGalleryImageUrl",
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 141
+        },
+        {
+          "identifiers": [
+            "alt",
+            "image"
+          ],
+          "kind": "LogicalExpression",
+          "line": 145
+        },
+        {
+          "identifiers": [
+            "event",
+            "image",
+            "image_text_mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 146
+        },
+        {
+          "identifiers": [
+            "image",
+            "image_text_mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 146
+        },
+        {
+          "identifiers": [
+            "image",
+            "normalizeObjectPosition",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 148
+        },
+        {
+          "identifiers": [
+            "image",
+            "protected_crop_fit"
+          ],
+          "kind": "LogicalExpression",
+          "line": 153
+        },
+        {
+          "identifiers": [
+            "image",
+            "protected_crop_reason"
+          ],
+          "kind": "LogicalExpression",
+          "line": 154
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "IfStatement",
+          "line": 157
+        },
+        {
+          "identifiers": [
+            "heroObjectPosition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 162
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 163
+        },
+        {
+          "identifiers": [
+            "media_semantic_status",
+            "primaryImageAsset"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 164
+        },
+        {
+          "identifiers": [
+            "galleryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 176
+        },
+        {
+          "identifiers": [
+            "asset",
+            "normalizeObjectPosition",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177
+        },
+        {
+          "identifiers": [
+            "asset",
+            "eventImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 180
+        },
+        {
+          "identifiers": [
+            "alt",
+            "asset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 181
+        },
+        {
+          "identifiers": [
+            "fit",
+            "galleryCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 183
+        },
+        {
+          "identifiers": [
+            "asset",
+            "media_semantic_status"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 185
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "galleryImageTextMode",
+            "length"
+          ],
+          "kind": "LogicalExpression",
+          "line": 188
+        },
+        {
+          "identifiers": [
+            "galleryImageTextMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 188
+        },
+        {
+          "identifiers": [
+            "galleryCta"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 199
+        },
+        {
+          "identifiers": [
+            "height",
+            "image",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201
+        },
+        {
+          "identifiers": [
+            "image",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201
+        },
+        {
+          "identifiers": [
+            "galleryPhotoCount"
+          ],
+          "kind": "LogicalExpression",
+          "line": 202
+        },
+        {
+          "identifiers": [
+            "galleryPhotoCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 203
+        },
+        {
+          "identifiers": [
+            "canAddToCalendar"
+          ],
+          "kind": "LogicalExpression",
+          "line": 204
+        },
+        {
+          "identifiers": [
+            "ctaHref"
+          ],
+          "kind": "LogicalExpression",
+          "line": 204
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "galleryImages",
+            "length"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 196,
+          "name": "hasGallery"
+        },
+        {
+          "dependencies": [
+            "rawImageAssets",
+            "selectEventMediaByQuality"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 51,
+          "name": "mediaQualitySelection"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "ctaHref"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 205,
+          "name": "showTicketCta"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "event",
+            "event_type",
+            "filter",
+            "heroAdmissionLabel",
+            "join"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 92,
+          "name": "statusText"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 229,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 234,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 241,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 255,
+          "name": "disabled"
+        },
+        {
+          "line": 255,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 276,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 284,
+          "name": "hidden"
+        },
+        {
+          "line": 285,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 301,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 330,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 342,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 211
+        },
+        {
+          "kind": "style",
+          "line": 296
+        },
+        {
+          "kind": "style",
+          "line": 304
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 222,
+          "property": "object-fit",
+          "value": "${primaryLowResolutionPortrait ? 'contain' : primaryHeroCrop.fit"
+        },
+        {
+          "line": 223,
+          "property": "object-position",
+          "value": "${heroObjectPosition"
+        },
+        {
+          "line": 320,
+          "property": "object-fit",
+          "value": {
+            "length": 83,
+            "redacted": true,
+            "sha256": "2dc527375e62d0467ce5a87ab4f5af8eef4d0e9792ff7779e77b91adce301a92"
+          }
+        },
+        {
+          "line": 321,
+          "property": "object-position",
+          "value": "${image.recommended_object_position"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 26,
+          "name": "composition",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroComposition"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 24,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 28,
+          "name": "galleryCta",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroGalleryCta"
+          }
+        },
+        {
+          "allowed_literals": [
+            "h1",
+            "h2",
+            "h3"
+          ],
+          "default": {
+            "observed": true,
+            "value": "h1"
+          },
+          "line": 27,
+          "name": "headingTag",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "h1"
+              },
+              {
+                "kind": "literal",
+                "value": "h2"
+              },
+              {
+                "kind": "literal",
+                "value": "h3"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "standard",
+            "weekday-panel",
+            "responsive-weekday-panel"
+          ],
+          "default": {
+            "observed": true,
+            "value": "standard"
+          },
+          "line": 29,
+          "name": "metaTreatment",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "standard"
+              },
+              {
+                "kind": "literal",
+                "value": "weekday-panel"
+              },
+              {
+                "kind": "literal",
+                "value": "responsive-weekday-panel"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 25,
+          "name": "modeOverride",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroMode"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 30,
+          "name": "occurrencePresentation",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "OccurrencePresentation"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 207,
+          "name": "data-event-hero"
+        },
+        {
+          "line": 207,
+          "name": "data-feedback-scope"
+        },
+        {
+          "line": 207,
+          "name": "data-event-id"
+        },
+        {
+          "line": 207,
+          "name": "data-event-title"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-mode"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-composition"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-image-text-mode"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-quality-hidden-count"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-low-resolution-portrait"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-tint"
+        },
+        {
+          "line": 207,
+          "name": "data-presentation-fallback"
+        },
+        {
+          "line": 209,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 209,
+          "name": "data-hero-gallery-index"
+        },
+        {
+          "line": 218,
+          "name": "data-low-resolution-portrait"
+        },
+        {
+          "line": 219,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 220,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 257,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 257,
+          "name": "data-native-share"
+        },
+        {
+          "line": 257,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 257,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 257,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 257,
+          "name": "data-share-title"
+        },
+        {
+          "line": 257,
+          "name": "data-share-text"
+        },
+        {
+          "line": 257,
+          "name": "data-share-url"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 257,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 257,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 257,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 257,
+          "name": "data-share-place"
+        },
+        {
+          "line": 257,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 259,
+          "name": "data-share-label"
+        },
+        {
+          "line": 260,
+          "name": "data-share-count"
+        },
+        {
+          "line": 262,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 262,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 262,
+          "name": "data-event-id"
+        },
+        {
+          "line": 262,
+          "name": "data-event-title"
+        },
+        {
+          "line": 262,
+          "name": "data-base-count"
+        },
+        {
+          "line": 264,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 284,
+          "name": "data-hero-gallery"
+        },
+        {
+          "line": 284,
+          "name": "data-efficient-portrait-viewer"
+        },
+        {
+          "line": 284,
+          "name": "data-active-index"
+        },
+        {
+          "line": 291,
+          "name": "data-hero-gallery-close"
+        },
+        {
+          "line": 294,
+          "name": "data-hero-gallery-track"
+        },
+        {
+          "line": 298,
+          "name": "data-hero-gallery-slide"
+        },
+        {
+          "line": 299,
+          "name": "data-gallery-slide-kind"
+        },
+        {
+          "line": 300,
+          "name": "data-gallery-index"
+        },
+        {
+          "line": 306,
+          "name": "data-gallery-src"
+        },
+        {
+          "line": 310,
+          "name": "data-image-text-mode"
+        },
+        {
+          "line": 311,
+          "name": "data-media-role"
+        },
+        {
+          "line": 312,
+          "name": "data-event-id"
+        },
+        {
+          "line": 313,
+          "name": "data-event-title"
+        },
+        {
+          "line": 314,
+          "name": "data-low-resolution-portrait"
+        },
+        {
+          "line": 315,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 316,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 330,
+          "name": "data-hero-gallery-slide"
+        },
+        {
+          "line": 330,
+          "name": "data-gallery-slide-kind"
+        },
+        {
+          "line": 330,
+          "name": "data-gallery-index"
+        },
+        {
+          "line": 331,
+          "name": "data-gallery-src"
+        },
+        {
+          "line": 345,
+          "name": "data-hero-gallery-prev"
+        },
+        {
+          "line": 346,
+          "name": "data-hero-gallery-next"
+        },
+        {
+          "line": 349,
+          "name": "data-hero-gallery-counter"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "occurrencePresentation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 48
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_assets"
+          ],
+          "kind": "LogicalExpression",
+          "line": 50
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "asset",
+            "eventImageUrl",
+            "find",
+            "requestedPrimaryImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 54
+        },
+        {
+          "identifiers": [
+            "semanticStatus"
+          ],
+          "kind": "IfStatement",
+          "line": 59
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 60
+        },
+        {
+          "identifiers": [
+            "image_text_mode",
+            "primaryImageAsset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 63
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "length",
+            "primaryImageTextMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "length"
+          ],
+          "kind": "LogicalExpression",
+          "line": 66
+        },
+        {
+          "identifiers": [
+            "primaryImageAsset",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 69
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 70
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "primaryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 72
+        },
+        {
+          "identifiers": [
+            "modeOverride"
+          ],
+          "kind": "LogicalExpression",
+          "line": 73
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 74
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 76
+        },
+        {
+          "identifiers": [
+            "composition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 79
+        },
+        {
+          "identifiers": [
+            "compactLabel",
+            "resolvedOccurrencePresentation"
+          ],
+          "kind": "LogicalExpression",
+          "line": 80
+        },
+        {
+          "identifiers": [
+            "Boolean",
+            "city",
+            "event",
+            "filter",
+            "join",
+            "venue_name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 81
+        },
+        {
+          "identifiers": [
+            "event",
+            "is_free",
+            "ticket"
+          ],
+          "kind": "IfStatement",
+          "line": 88
+        },
+        {
+          "identifiers": [
+            "includes",
+            "primaryImageUrl",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "match",
+            "primaryImageUrl",
+            "toLowerCase"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93
+        },
+        {
+          "identifiers": [
+            "event",
+            "likes_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 96
+        },
+        {
+          "identifiers": [
+            "event",
+            "shares_count"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 98
+        },
+        {
+          "identifiers": [
+            "sharesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 99
+        },
+        {
+          "identifiers": [
+            "likesCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 100
+        },
+        {
+          "identifiers": [
+            "event",
+            "topics"
+          ],
+          "kind": "LogicalExpression",
+          "line": 102
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 103
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 104
+        },
+        {
+          "identifiers": [
+            "haystack",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 105
+        },
+        {
+          "identifiers": [
+            "primaryLowResolutionPortrait"
+          ],
+          "kind": "LogicalExpression",
+          "line": 108
+        },
+        {
+          "identifiers": [
+            "event",
+            "image_alt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 109
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 111
+        },
+        {
+          "identifiers": [
+            "raw",
+            "test"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 112
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 115
+        },
+        {
+          "identifiers": [
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 116
+        },
+        {
+          "identifiers": [
+            "primaryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 126
+        },
+        {
+          "identifiers": [
+            "normalizeObjectPosition",
+            "primaryImageAsset",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 127
+        },
+        {
+          "identifiers": [
+            "fit",
+            "heroMode",
+            "primaryHeroCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 129
+        },
+        {
+          "identifiers": [
+            "image",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 139
+        },
+        {
+          "identifiers": [
+            "has",
+            "seen",
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 140
+        },
+        {
+          "identifiers": [
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 140
+        },
+        {
+          "identifiers": [
+            "isReliableHeroGalleryImageUrl",
+            "src"
+          ],
+          "kind": "IfStatement",
+          "line": 141
+        },
+        {
+          "identifiers": [
+            "alt",
+            "image"
+          ],
+          "kind": "LogicalExpression",
+          "line": 145
+        },
+        {
+          "identifiers": [
+            "event",
+            "image",
+            "image_text_mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 146
+        },
+        {
+          "identifiers": [
+            "image",
+            "image_text_mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 146
+        },
+        {
+          "identifiers": [
+            "image",
+            "normalizeObjectPosition",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 148
+        },
+        {
+          "identifiers": [
+            "image",
+            "protected_crop_fit"
+          ],
+          "kind": "LogicalExpression",
+          "line": 153
+        },
+        {
+          "identifiers": [
+            "image",
+            "protected_crop_reason"
+          ],
+          "kind": "LogicalExpression",
+          "line": 154
+        },
+        {
+          "identifiers": [
+            "primaryImageUrl"
+          ],
+          "kind": "IfStatement",
+          "line": 157
+        },
+        {
+          "identifiers": [
+            "heroObjectPosition"
+          ],
+          "kind": "LogicalExpression",
+          "line": 162
+        },
+        {
+          "identifiers": [
+            "heroMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 163
+        },
+        {
+          "identifiers": [
+            "media_semantic_status",
+            "primaryImageAsset"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 164
+        },
+        {
+          "identifiers": [
+            "galleryImageTextMode"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 176
+        },
+        {
+          "identifiers": [
+            "asset",
+            "normalizeObjectPosition",
+            "recommended_object_position"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177
+        },
+        {
+          "identifiers": [
+            "asset",
+            "eventImageUrl",
+            "src"
+          ],
+          "kind": "LogicalExpression",
+          "line": 180
+        },
+        {
+          "identifiers": [
+            "alt",
+            "asset"
+          ],
+          "kind": "LogicalExpression",
+          "line": 181
+        },
+        {
+          "identifiers": [
+            "fit",
+            "galleryCrop"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 183
+        },
+        {
+          "identifiers": [
+            "asset",
+            "media_semantic_status"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 185
+        },
+        {
+          "identifiers": [
+            "admittedImageAssets",
+            "galleryImageTextMode",
+            "length"
+          ],
+          "kind": "LogicalExpression",
+          "line": 188
+        },
+        {
+          "identifiers": [
+            "galleryImageTextMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 188
+        },
+        {
+          "identifiers": [
+            "galleryCta"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 199
+        },
+        {
+          "identifiers": [
+            "height",
+            "image",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201
+        },
+        {
+          "identifiers": [
+            "image",
+            "width"
+          ],
+          "kind": "LogicalExpression",
+          "line": 201
+        },
+        {
+          "identifiers": [
+            "galleryPhotoCount"
+          ],
+          "kind": "LogicalExpression",
+          "line": 202
+        },
+        {
+          "identifiers": [
+            "galleryPhotoCount"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 203
+        },
+        {
+          "identifiers": [
+            "canAddToCalendar"
+          ],
+          "kind": "LogicalExpression",
+          "line": 204
+        },
+        {
+          "identifiers": [
+            "ctaHref"
+          ],
+          "kind": "LogicalExpression",
+          "line": 204
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "galleryImages",
+            "length"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 196,
+          "name": "hasGallery"
+        },
+        {
+          "dependencies": [
+            "rawImageAssets",
+            "selectEventMediaByQuality"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 51,
+          "name": "mediaQualitySelection"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "ctaHref"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 205,
+          "name": "showTicketCta"
+        },
+        {
+          "dependencies": [
+            "Boolean",
+            "event",
+            "event_type",
+            "filter",
+            "heroAdmissionLabel",
+            "join"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 92,
+          "name": "statusText"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [],
+      "interaction_attributes": [
+        {
+          "line": 229,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 234,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 241,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 255,
+          "name": "disabled"
+        },
+        {
+          "line": 255,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 276,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 284,
+          "name": "hidden"
+        },
+        {
+          "line": 285,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 301,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 330,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 342,
+          "name": "aria-hidden"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "style",
+          "line": 211
+        },
+        {
+          "kind": "style",
+          "line": 296
+        },
+        {
+          "kind": "style",
+          "line": 304
+        }
+      ],
+      "media_rules": [
+        {
+          "line": 222,
+          "property": "object-fit",
+          "value": "${primaryLowResolutionPortrait ? 'contain' : primaryHeroCrop.fit"
+        },
+        {
+          "line": 223,
+          "property": "object-position",
+          "value": "${heroObjectPosition"
+        },
+        {
+          "line": 320,
+          "property": "object-fit",
+          "value": {
+            "length": 83,
+            "redacted": true,
+            "sha256": "2dc527375e62d0467ce5a87ab4f5af8eef4d0e9792ff7779e77b91adce301a92"
+          }
+        },
+        {
+          "line": 321,
+          "property": "object-position",
+          "value": "${image.recommended_object_position"
+        }
+      ],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 26,
+          "name": "composition",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroComposition"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 24,
+          "name": "event",
+          "optional": false,
+          "required": true,
+          "type": {
+            "kind": "reference",
+            "name": "PreviewEvent"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 28,
+          "name": "galleryCta",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroGalleryCta"
+          }
+        },
+        {
+          "allowed_literals": [
+            "h1",
+            "h2",
+            "h3"
+          ],
+          "default": {
+            "observed": true,
+            "value": "h1"
+          },
+          "line": 27,
+          "name": "headingTag",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "h1"
+              },
+              {
+                "kind": "literal",
+                "value": "h2"
+              },
+              {
+                "kind": "literal",
+                "value": "h3"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [
+            "standard",
+            "weekday-panel",
+            "responsive-weekday-panel"
+          ],
+          "default": {
+            "observed": true,
+            "value": "standard"
+          },
+          "line": 29,
+          "name": "metaTreatment",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "standard"
+              },
+              {
+                "kind": "literal",
+                "value": "weekday-panel"
+              },
+              {
+                "kind": "literal",
+                "value": "responsive-weekday-panel"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 25,
+          "name": "modeOverride",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "HeroMode"
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 30,
+          "name": "occurrencePresentation",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "reference",
+            "name": "OccurrencePresentation"
+          }
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 207,
+          "name": "data-event-hero"
+        },
+        {
+          "line": 207,
+          "name": "data-feedback-scope"
+        },
+        {
+          "line": 207,
+          "name": "data-event-id"
+        },
+        {
+          "line": 207,
+          "name": "data-event-title"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-mode"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-composition"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-image-text-mode"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-quality-hidden-count"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-low-resolution-portrait"
+        },
+        {
+          "line": 207,
+          "name": "data-hero-tint"
+        },
+        {
+          "line": 207,
+          "name": "data-presentation-fallback"
+        },
+        {
+          "line": 209,
+          "name": "data-hero-gallery-open"
+        },
+        {
+          "line": 209,
+          "name": "data-hero-gallery-index"
+        },
+        {
+          "line": 218,
+          "name": "data-low-resolution-portrait"
+        },
+        {
+          "line": 219,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 220,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 257,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 257,
+          "name": "data-native-share"
+        },
+        {
+          "line": 257,
+          "name": "data-share-event-id"
+        },
+        {
+          "line": 257,
+          "name": "data-share-event-title"
+        },
+        {
+          "line": 257,
+          "name": "data-share-base-count"
+        },
+        {
+          "line": 257,
+          "name": "data-share-title"
+        },
+        {
+          "line": 257,
+          "name": "data-share-text"
+        },
+        {
+          "line": 257,
+          "name": "data-share-url"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image-type"
+        },
+        {
+          "line": 257,
+          "name": "data-share-image-text-mode"
+        },
+        {
+          "line": 257,
+          "name": "data-share-brand-image"
+        },
+        {
+          "line": 257,
+          "name": "data-share-file-name"
+        },
+        {
+          "line": 257,
+          "name": "data-share-date-time"
+        },
+        {
+          "line": 257,
+          "name": "data-share-place"
+        },
+        {
+          "line": 257,
+          "name": "data-share-admission"
+        },
+        {
+          "line": 259,
+          "name": "data-share-label"
+        },
+        {
+          "line": 260,
+          "name": "data-share-count"
+        },
+        {
+          "line": 262,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 262,
+          "name": "data-feedback-action"
+        },
+        {
+          "line": 262,
+          "name": "data-event-id"
+        },
+        {
+          "line": 262,
+          "name": "data-event-title"
+        },
+        {
+          "line": 262,
+          "name": "data-base-count"
+        },
+        {
+          "line": 264,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 284,
+          "name": "data-hero-gallery"
+        },
+        {
+          "line": 284,
+          "name": "data-efficient-portrait-viewer"
+        },
+        {
+          "line": 284,
+          "name": "data-active-index"
+        },
+        {
+          "line": 291,
+          "name": "data-hero-gallery-close"
+        },
+        {
+          "line": 294,
+          "name": "data-hero-gallery-track"
+        },
+        {
+          "line": 298,
+          "name": "data-hero-gallery-slide"
+        },
+        {
+          "line": 299,
+          "name": "data-gallery-slide-kind"
+        },
+        {
+          "line": 300,
+          "name": "data-gallery-index"
+        },
+        {
+          "line": 306,
+          "name": "data-gallery-src"
+        },
+        {
+          "line": 310,
+          "name": "data-image-text-mode"
+        },
+        {
+          "line": 311,
+          "name": "data-media-role"
+        },
+        {
+          "line": 312,
+          "name": "data-event-id"
+        },
+        {
+          "line": 313,
+          "name": "data-event-title"
+        },
+        {
+          "line": 314,
+          "name": "data-low-resolution-portrait"
+        },
+        {
+          "line": 315,
+          "name": "data-protected-crop-fit"
+        },
+        {
+          "line": 316,
+          "name": "data-protected-crop-reason"
+        },
+        {
+          "line": 330,
+          "name": "data-hero-gallery-slide"
+        },
+        {
+          "line": 330,
+          "name": "data-gallery-slide-kind"
+        },
+        {
+          "line": 330,
+          "name": "data-gallery-index"
+        },
+        {
+          "line": 331,
+          "name": "data-gallery-src"
+        },
+        {
+          "line": 345,
+          "name": "data-hero-gallery-prev"
+        },
+        {
+          "line": 346,
+          "name": "data-hero-gallery-next"
+        },
+        {
+          "line": 349,
+          "name": "data-hero-gallery-counter"
+        }
+      ]
+    }
+  }
+}

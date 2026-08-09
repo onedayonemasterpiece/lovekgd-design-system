@@ -1,0 +1,347 @@
+{
+  "candidate_component_id": "candidate.event-token-medallions",
+  "candidate_contract": {
+    "accessibility_contract": [
+      "image alt and link semantics pending component capture"
+    ],
+    "anatomy": [
+      "token-groups",
+      "optional-top-main-token",
+      "inline-token-group",
+      "token-media-or-pill"
+    ],
+    "fixture_classes": [
+      "specimen-plan.medallions-route-2601",
+      "specimen-plan.medallions-route-5336",
+      "specimen-plan.medallions-route-6856",
+      "specimen-plan.medallions-route-698",
+      "specimen-plan.medallions-route-6994",
+      "specimen-plan.medallions-route-7040",
+      "specimen-plan.medallions-route-6591",
+      "specimen-plan.medallions-route-6562",
+      "specimen-plan.medallions-route-6990",
+      "specimen-plan.medallions-route-5829",
+      "specimen-plan.medallions-route-5278",
+      "specimen-plan.medallions-controlled-defaults-empty",
+      "specimen-plan.medallions-controlled-inline-main",
+      "specimen-plan.medallions-controlled-desktop-main-top-on",
+      "specimen-plan.medallions-controlled-desktop-main-top-off",
+      "specimen-plan.medallions-controlled-secondary-only",
+      "specimen-plan.medallions-controlled-kind-matrix",
+      "specimen-plan.medallions-controlled-desktop-pill-filter",
+      "specimen-plan.medallions-controlled-token-overflow-head-six",
+      "specimen-plan.medallions-controlled-token-overflow-free-retained",
+      "specimen-plan.medallions-controlled-conflicting-source",
+      "specimen-plan.medallions-controlled-ambiguous-venue",
+      "specimen-plan.medallions-controlled-media-webp-fallback",
+      "specimen-plan.medallions-controlled-media-webp-no-fallback",
+      "specimen-plan.medallions-controlled-media-vector-primary"
+    ],
+    "invalid_combinations": [
+      "desktop-slots must not retain pill tokens",
+      "conflicting source identity must not emit organizer identity tokens",
+      "top slot contains at most one Main token"
+    ],
+    "media_contract": [
+      {
+        "kind": "image-fallback",
+        "states": [
+          "local-vector-or-raster-primary",
+          "webp-with-fallback",
+          "webp-without-fallback"
+        ]
+      }
+    ],
+    "nested_component_refs": [],
+    "props": {
+      "allowTopSlot": {
+        "default": true,
+        "required": false,
+        "union": [
+          true,
+          false
+        ]
+      },
+      "event": {
+        "required": true
+      },
+      "layout": {
+        "default": "inline",
+        "required": false,
+        "union": [
+          "inline",
+          "desktop-slots"
+        ]
+      }
+    },
+    "responsive_contract": [
+      {
+        "boundary": 1024,
+        "id": "responsive.medallions-desktop-min-1024",
+        "owner": "src/components/DesktopEventPage.astro",
+        "probe_widths": [
+          1023,
+          1024
+        ],
+        "query": "(min-width:1024px)"
+      },
+      {
+        "boundary": 720,
+        "id": "responsive.medallions-desktop-compact-height-720",
+        "owner": "src/components/DesktopEventPage.astro",
+        "probe_heights": [
+          720,
+          721
+        ],
+        "query": "(min-width:1024px) and (max-height:720px)"
+      },
+      {
+        "boundary": 1280,
+        "id": "responsive.medallions-desktop-band-max-1279",
+        "owner": "src/components/DesktopEventPage.astro",
+        "probe_widths": [
+          1279,
+          1280
+        ],
+        "query": "(min-width:1024px) and (max-width:1279px)",
+        "scope": "consumer-composition-context"
+      },
+      {
+        "boundary": 1440,
+        "id": "responsive.medallions-wide-min-1440",
+        "owner": "src/components/DesktopEventPage.astro",
+        "probe_widths": [
+          1439,
+          1440
+        ],
+        "query": "(min-width:1440px)",
+        "scope": "consumer-composition-context"
+      }
+    ],
+    "semantic_role": "Event identity, source, program, admission and badge tokens",
+    "slots": {},
+    "state_axes": {
+      "media": [
+        "local-vector-or-raster-primary",
+        "webp-with-fallback",
+        "webp-without-fallback"
+      ],
+      "rendered": [
+        false,
+        true
+      ]
+    },
+    "token_evidence_status": "raw-source-references-only-no-tokenization",
+    "token_refs": [],
+    "valid_combinations": [
+      {
+        "id": "medallion-transition.identity-candidate-cap",
+        "rule": "take first 3 after fail-closed venue/source conflict handling"
+      },
+      {
+        "id": "medallion-transition.visible-token-cap",
+        "rule": "take first 6; if free-admission is later, retain first 5 plus free"
+      },
+      {
+        "id": "medallion-transition.desktop-kind-filter",
+        "rule": "retain organizer/source/program/pushkin/badge and remove pill"
+      },
+      {
+        "id": "medallion-transition.desktop-top-slot",
+        "rule": "first Main moves to top only when allowTopSlot; at most one"
+      },
+      {
+        "id": "medallion-transition.media-fallback",
+        "rule": "WebP plus fallback uses WebP source and fallback img; otherwise primary asset remains img"
+      }
+    ],
+    "variant_axes": {
+      "cardinality": [
+        "zero",
+        "one",
+        "many",
+        "overflow"
+      ],
+      "identity_resolution": [
+        "resolved",
+        "conflicting_source_identity",
+        "ambiguous_venue_identity"
+      ],
+      "kind": [
+        "organizer",
+        "source",
+        "program",
+        "pushkin",
+        "badge",
+        "pill"
+      ],
+      "layout": [
+        "inline",
+        "desktop-slots"
+      ],
+      "role": [
+        "main",
+        "secondary"
+      ],
+      "slot": [
+        "top",
+        "inline"
+      ]
+    },
+    "version": "0.1.0-candidate"
+  },
+  "confidence": "deterministic",
+  "decision": "NOT_MERGED",
+  "detached_contract_sha256": "726d11d6d6bce9e26347b72ac855a97d91e1989935d04a3c377792f5e3612298",
+  "evidence": [
+    {
+      "confidence": "deterministic",
+      "id": "fact.medallion-projection",
+      "observation_scope": "source-only-until-reconciled",
+      "source_bindings": [
+        {
+          "confidence": "deterministic",
+          "logical_path": "src/components/EventTokenMedallions.astro",
+          "proof_label": "exact-candidate-source-derived",
+          "relation": "definition",
+          "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+        }
+      ],
+      "statement": "Source projection caps identities at 3, visible tokens at 6 and top-slot tokens at 1"
+    }
+  ],
+  "human_review_status": "pending",
+  "id": "candidate.event-token-medallions",
+  "local_overrides": [
+    {
+      "conclusion": "local production override",
+      "scope": "consumer-and-slot geometry",
+      "source_path": "src/components/DesktopEventPage.astro"
+    }
+  ],
+  "normalization_allowed": false,
+  "normalization_gaps": [
+    "related medallion-like resources remain distinct",
+    "consumer-scoped geometry requires captures"
+  ],
+  "normative_status": "candidate-as-is-not-accepted",
+  "production_consumers": [
+    {
+      "id": "specimen-plan.medallions-route-2601"
+    },
+    {
+      "id": "specimen-plan.medallions-route-5336"
+    },
+    {
+      "id": "specimen-plan.medallions-route-6856"
+    },
+    {
+      "id": "specimen-plan.medallions-route-698"
+    },
+    {
+      "id": "specimen-plan.medallions-route-6994"
+    },
+    {
+      "id": "specimen-plan.medallions-route-7040"
+    },
+    {
+      "id": "specimen-plan.medallions-route-6591"
+    },
+    {
+      "id": "specimen-plan.medallions-route-6562"
+    },
+    {
+      "id": "specimen-plan.medallions-route-6990"
+    },
+    {
+      "id": "specimen-plan.medallions-route-5829"
+    },
+    {
+      "id": "specimen-plan.medallions-route-5278"
+    }
+  ],
+  "promotion_blockers": [
+    "identity conflicts and overflow require controlled specimens"
+  ],
+  "reachability": "mixed-production-lab-and-source-only-resources",
+  "recommendation": "unresolved",
+  "relationship_kind": "one-to-many",
+  "schema_version": "current_ui_candidate_as_is_contract_v1",
+  "source_bindings": [
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventTokenMedallions.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "definition",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/EventTokenMedallions.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/ListingEventCard.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/listings/MobileListingRailRow.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/components/ExhibitionPrototypeRow.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/lab/medallions/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    },
+    {
+      "confidence": "deterministic",
+      "logical_path": "src/pages/lab/design-system/index.astro",
+      "proof_label": "exact-candidate-source-derived",
+      "relation": "related-resource",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03"
+    }
+  ],
+  "unresolved_alternatives": [
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "event-detail"
+    },
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "listing-card"
+    },
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "mobile-listing-rail"
+    },
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "exhibition-row"
+    },
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "medallion-catalog-lab"
+    },
+    {
+      "equivalence_status": "NOT_MERGED",
+      "resource_family": "design-system-lab-instance"
+    }
+  ]
+}

@@ -1,0 +1,882 @@
+{
+  "classification_note": "Lab/prototype surface; never promoted to production-observed by source presence.",
+  "decision": "NOT_MERGED",
+  "disposition": "lab-only",
+  "disposition_basis": "reviewed-path-registry-v1",
+  "id": "component.3088a60c17ffce71",
+  "logical_path": "src/components/FocusGroupFeedback.astro",
+  "name": "FocusGroupFeedback",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.3c3474bd1a27a254",
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "content_sha256": "675d107c0724edf78f19ca48660108489b057ca4084bb70b2da654137ff426ad",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.3088a60c17ffce71",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.3c3474bd1a27a254",
+        "source.latest_checked_kaggle_candidate.a6e5eade1c908bf6"
+      ],
+      "content_sha256": "675d107c0724edf78f19ca48660108489b057ca4084bb70b2da654137ff426ad",
+      "direct_dependencies": [],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.3088a60c17ffce71",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-classification-only",
+  "reachability": "lab-only",
+  "reachability_basis": "reviewed-lab-surface-classification",
+  "recommendation": "unresolved",
+  "runtime_evidence": [],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "closeButton",
+            "dialog",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closeButton",
+            "dialog"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dialog"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackKind",
+            "kind"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 207,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "defaultKind",
+            "feedbackOpen",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 218,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackOpen"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 218,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackKind"
+          ],
+          "kind": "LogicalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 225,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "counter"
+          ],
+          "kind": "IfStatement",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 241,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Array",
+            "HTMLButtonElement",
+            "from",
+            "querySelectorAll",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 5,
+          "name": "kindButtons",
+          "script_index": 0,
+          "source_line": 197,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "HTMLElement",
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 8,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 200,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 192
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 70,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 83,
+          "name": "hidden"
+        },
+        {
+          "line": 97,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 102,
+          "name": "hidden"
+        },
+        {
+          "line": 116,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 121,
+          "name": "hidden"
+        },
+        {
+          "line": 140,
+          "name": "hidden"
+        },
+        {
+          "line": 209,
+          "name": "hidden"
+        },
+        {
+          "line": 346,
+          "name": "hidden"
+        },
+        {
+          "line": 431,
+          "name": "open"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "eventId",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "событие из демонстрационного сценария"
+          },
+          "line": 8,
+          "name": "eventLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 5,
+          "name": "overallNpsDue",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "home"
+          },
+          "line": 3,
+          "name": "pageFamily",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "эта страница"
+          },
+          "line": 4,
+          "name": "pageLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 6,
+          "name": "showEventIssue",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 414,
+          "query": "(max-width: 800px)"
+        },
+        {
+          "kind": "media",
+          "line": 419,
+          "query": "(max-width: 640px)"
+        },
+        {
+          "kind": "media",
+          "line": 430,
+          "query": "(prefers-reduced-motion: no-preference)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 24,
+          "name": "data-focus-feedback"
+        },
+        {
+          "line": 25,
+          "name": "data-default-kind"
+        },
+        {
+          "line": 39,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 43,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 46,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 50,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 62,
+          "name": "data-feedback-dialog"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-close"
+        },
+        {
+          "line": 75,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 76,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 77,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 79,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 83,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 83,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 102,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 102,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 121,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 121,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 130,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 134,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 140,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 140,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 172,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 181,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 187,
+          "name": "data-feedback-status"
+        },
+        {
+          "line": 193,
+          "name": "data-focus-feedback"
+        },
+        {
+          "line": 194,
+          "name": "data-feedback-dialog"
+        },
+        {
+          "line": 195,
+          "name": "data-feedback-close"
+        },
+        {
+          "line": 196,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 197,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 198,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 199,
+          "name": "data-feedback-status"
+        },
+        {
+          "line": 230,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 237,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 239,
+          "name": "data-feedback-count"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "closeButton",
+            "dialog",
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "closeButton",
+            "dialog"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dialog"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9,
+          "script_index": 0,
+          "source_line": 201,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackKind",
+            "kind"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 15,
+          "script_index": 0,
+          "source_line": 207,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "defaultKind",
+            "feedbackOpen",
+            "root"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 218,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackOpen"
+          ],
+          "kind": "LogicalExpression",
+          "line": 26,
+          "script_index": 0,
+          "source_line": 218,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "button",
+            "dataset",
+            "feedbackKind"
+          ],
+          "kind": "LogicalExpression",
+          "line": 33,
+          "script_index": 0,
+          "source_line": 225,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "counter"
+          ],
+          "kind": "IfStatement",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 241,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "Array",
+            "HTMLButtonElement",
+            "from",
+            "querySelectorAll",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 5,
+          "name": "kindButtons",
+          "script_index": 0,
+          "source_line": 197,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "HTMLElement",
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 8,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 200,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 192
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 70,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 83,
+          "name": "hidden"
+        },
+        {
+          "line": 97,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 102,
+          "name": "hidden"
+        },
+        {
+          "line": 116,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 121,
+          "name": "hidden"
+        },
+        {
+          "line": 140,
+          "name": "hidden"
+        },
+        {
+          "line": 209,
+          "name": "hidden"
+        },
+        {
+          "line": 346,
+          "name": "hidden"
+        },
+        {
+          "line": 431,
+          "name": "open"
+        }
+      ],
+      "local_style_overrides": [],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": false
+          },
+          "line": 7,
+          "name": "eventId",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "событие из демонстрационного сценария"
+          },
+          "line": 8,
+          "name": "eventLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 5,
+          "name": "overallNpsDue",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "home"
+          },
+          "line": 3,
+          "name": "pageFamily",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": "эта страница"
+          },
+          "line": 4,
+          "name": "pageLabel",
+          "optional": true,
+          "required": false,
+          "type": "string"
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 6,
+          "name": "showEventIssue",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        }
+      ],
+      "responsive_contexts": [
+        {
+          "kind": "media",
+          "line": 414,
+          "query": "(max-width: 800px)"
+        },
+        {
+          "kind": "media",
+          "line": 419,
+          "query": "(max-width: 640px)"
+        },
+        {
+          "kind": "media",
+          "line": 430,
+          "query": "(prefers-reduced-motion: no-preference)"
+        }
+      ],
+      "state_attributes": [
+        {
+          "line": 24,
+          "name": "data-focus-feedback"
+        },
+        {
+          "line": 25,
+          "name": "data-default-kind"
+        },
+        {
+          "line": 39,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 43,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 46,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 50,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 62,
+          "name": "data-feedback-dialog"
+        },
+        {
+          "line": 69,
+          "name": "data-feedback-close"
+        },
+        {
+          "line": 75,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 76,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 77,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 79,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 83,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 83,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 102,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 102,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 121,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 121,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 130,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 134,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 140,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 140,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 172,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 181,
+          "name": "data-feedback-count"
+        },
+        {
+          "line": 187,
+          "name": "data-feedback-status"
+        },
+        {
+          "line": 193,
+          "name": "data-focus-feedback"
+        },
+        {
+          "line": 194,
+          "name": "data-feedback-dialog"
+        },
+        {
+          "line": 195,
+          "name": "data-feedback-close"
+        },
+        {
+          "line": 196,
+          "name": "data-feedback-kind"
+        },
+        {
+          "line": 197,
+          "name": "data-feedback-panel"
+        },
+        {
+          "line": 198,
+          "name": "data-feedback-open"
+        },
+        {
+          "line": 199,
+          "name": "data-feedback-status"
+        },
+        {
+          "line": 230,
+          "name": "data-feedback-form"
+        },
+        {
+          "line": 237,
+          "name": "data-feedback-text"
+        },
+        {
+          "line": 239,
+          "name": "data-feedback-count"
+        }
+      ]
+    }
+  }
+}

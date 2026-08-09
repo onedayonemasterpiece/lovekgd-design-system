@@ -1,0 +1,3504 @@
+{
+  "classification_note": "Visual implementation retained AS-IS; classification is not a normalization decision.",
+  "decision": "NOT_MERGED",
+  "disposition": "production-ui",
+  "disposition_basis": "reviewed-candidate-complement-v1",
+  "id": "component.50489ce162094543",
+  "logical_path": "src/components/AuthorizedEventSearch.astro",
+  "name": "AuthorizedEventSearch",
+  "plane_bindings": [
+    {
+      "consumers": [
+        "source.current_root_prelaunch.522156cb5ef13326"
+      ],
+      "content_sha256": "3b83ea46fa86e0a0dd9981e9e6005378f95bbc57f6d3a35917d9ca0079f842d5",
+      "direct_dependencies": [
+        "source.current_root_prelaunch.9b7a5fb7d152699a",
+        "source.current_root_prelaunch.ca0b0579e3179c1a",
+        "source.current_root_prelaunch.d0bc52ea3be047eb"
+      ],
+      "parser_status": "parsed",
+      "plane": "current_root_prelaunch",
+      "source_id": "source.current_root_prelaunch.50489ce162094543",
+      "state_parser_status": "parsed"
+    },
+    {
+      "consumers": [
+        "source.latest_checked_kaggle_candidate.522156cb5ef13326"
+      ],
+      "content_sha256": "3b83ea46fa86e0a0dd9981e9e6005378f95bbc57f6d3a35917d9ca0079f842d5",
+      "direct_dependencies": [
+        "source.latest_checked_kaggle_candidate.9b7a5fb7d152699a",
+        "source.latest_checked_kaggle_candidate.ca0b0579e3179c1a",
+        "source.latest_checked_kaggle_candidate.d0bc52ea3be047eb"
+      ],
+      "parser_status": "parsed",
+      "plane": "latest_checked_kaggle_candidate",
+      "source_id": "source.latest_checked_kaggle_candidate.50489ce162094543",
+      "state_parser_status": "parsed"
+    }
+  ],
+  "proof_label": "source-or-candidate-reachable-not-production-observed",
+  "reachability": "production-reachable-not-observed",
+  "reachability_basis": "exact-candidate-route-not-public-root-observation",
+  "recommendation": "unresolved",
+  "runtime_evidence": [
+    "runtime.latest_checked_kaggle_candidate.4cf87e05535fa352"
+  ],
+  "source_state_by_plane": {
+    "current_root_prelaunch": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "PUBLIC_YANDEX_AUTH_PROVIDER",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11
+        },
+        {
+          "identifiers": [
+            "PUBLIC_AUTHORIZED_SEARCH_TRANSPORT",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 12
+        },
+        {
+          "identifiers": [
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 16
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "root",
+            "searchBound"
+          ],
+          "kind": "IfStatement",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 88,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "more",
+            "textContent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 30,
+          "script_index": 0,
+          "source_line": 110,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "__KENIGEVENTS_SEARCH_TEST_TIMEOUTS__",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 52,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 52,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 151,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72,
+          "script_index": 0,
+          "source_line": 152,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "kind"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "state",
+            "terminalStates"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 80,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "user",
+            "user_metadata"
+          ],
+          "kind": "LogicalExpression",
+          "line": 84,
+          "script_index": 0,
+          "source_line": 164,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 86,
+          "script_index": 0,
+          "source_line": 166,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "user"
+          ],
+          "kind": "LogicalExpression",
+          "line": 88,
+          "script_index": 0,
+          "source_line": 168,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "metadata",
+            "preferred_username"
+          ],
+          "kind": "LogicalExpression",
+          "line": 89,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "humanName",
+            "length",
+            "username"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "humanName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "humanName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "username"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 172,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "id",
+            "user"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 173,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "normalized"
+          ],
+          "kind": "IfStatement",
+          "line": 98,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Intl",
+            "Segmenter"
+          ],
+          "kind": "IfStatement",
+          "line": 99,
+          "script_index": 0,
+          "source_line": 179,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "grapheme"
+          ],
+          "kind": "IfStatement",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Array",
+            "from",
+            "normalized",
+            "toLocaleUpperCase"
+          ],
+          "kind": "LogicalExpression",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 185,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "avatarInitial"
+          ],
+          "kind": "IfStatement",
+          "line": 110,
+          "script_index": 0,
+          "source_line": 190,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountToggle"
+          ],
+          "kind": "IfStatement",
+          "line": 113,
+          "script_index": 0,
+          "source_line": 193,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 118,
+          "script_index": 0,
+          "source_line": 198,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 124,
+          "script_index": 0,
+          "source_line": 204,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "query"
+          ],
+          "kind": "LogicalExpression",
+          "line": 149,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "updated_at"
+          ],
+          "kind": "LogicalExpression",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 237,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Date",
+            "Number",
+            "draft",
+            "isFinite",
+            "now",
+            "query",
+            "searchDraftMaxAgeMs",
+            "updatedAt"
+          ],
+          "kind": "IfStatement",
+          "line": 158,
+          "script_index": 0,
+          "source_line": 238,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "draft",
+            "isFinite",
+            "query",
+            "updatedAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "query"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ok",
+            "validation"
+          ],
+          "kind": "IfStatement",
+          "line": 168,
+          "script_index": 0,
+          "source_line": 248,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "input",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "input"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "loading",
+            "pending"
+          ],
+          "kind": "IfStatement",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 263,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "pending"
+          ],
+          "kind": "LogicalExpression",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 263,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "input"
+          ],
+          "kind": "IfStatement",
+          "line": 185,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "login"
+          ],
+          "kind": "IfStatement",
+          "line": 193,
+          "script_index": 0,
+          "source_line": 273,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 194,
+          "script_index": 0,
+          "source_line": 274,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "logout"
+          ],
+          "kind": "IfStatement",
+          "line": 197,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "form"
+          ],
+          "kind": "IfStatement",
+          "line": 200,
+          "script_index": 0,
+          "source_line": 280,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "userBadge"
+          ],
+          "kind": "IfStatement",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn",
+            "userName"
+          ],
+          "kind": "IfStatement",
+          "line": 202,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "userName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 202,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "IfStatement",
+          "line": 203,
+          "script_index": 0,
+          "source_line": 283,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountMenu"
+          ],
+          "kind": "IfStatement",
+          "line": 204,
+          "script_index": 0,
+          "source_line": 284,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "IfStatement",
+          "line": 207,
+          "script_index": 0,
+          "source_line": 287,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery",
+            "input",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery",
+            "input"
+          ],
+          "kind": "LogicalExpression",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery"
+          ],
+          "kind": "LogicalExpression",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preserveError"
+          ],
+          "kind": "IfStatement",
+          "line": 211,
+          "script_index": 0,
+          "source_line": 291,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 218,
+          "script_index": 0,
+          "source_line": 298,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "query"
+          ],
+          "kind": "IfStatement",
+          "line": 223,
+          "script_index": 0,
+          "source_line": 303,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "maxQueryLength",
+            "query"
+          ],
+          "kind": "IfStatement",
+          "line": 224,
+          "script_index": 0,
+          "source_line": 304,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pattern",
+            "query",
+            "some",
+            "test",
+            "unsafePatterns"
+          ],
+          "kind": "IfStatement",
+          "line": 233,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "query",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 236,
+          "script_index": 0,
+          "source_line": 316,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 243,
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "mode",
+            "searchExecutionModes"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 244,
+          "script_index": 0,
+          "source_line": 324,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "root",
+            "searchExecutionModeControl"
+          ],
+          "kind": "IfStatement",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 328,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "normalizeSearchExecutionMode",
+            "root",
+            "searchExecutionMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 253,
+          "script_index": 0,
+          "source_line": 333,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 255,
+          "script_index": 0,
+          "source_line": 335,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 261,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "crypto",
+            "globalThis",
+            "randomUUID"
+          ],
+          "kind": "IfStatement",
+          "line": 269,
+          "script_index": 0,
+          "source_line": 349,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 369,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ok",
+            "validation"
+          ],
+          "kind": "IfStatement",
+          "line": 295,
+          "script_index": 0,
+          "source_line": 375,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 401,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 401,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 322,
+          "script_index": 0,
+          "source_line": 402,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 322,
+          "script_index": 0,
+          "source_line": 402,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 324,
+          "script_index": 0,
+          "source_line": 404,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 324,
+          "script_index": 0,
+          "source_line": 404,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 327,
+          "script_index": 0,
+          "source_line": 407,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progressLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 331,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressMilestoneRank",
+            "rank"
+          ],
+          "kind": "IfStatement",
+          "line": 333,
+          "script_index": 0,
+          "source_line": 413,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressLabel",
+            "progressMilestoneRank",
+            "rank",
+            "textContent"
+          ],
+          "kind": "IfStatement",
+          "line": 336,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressMilestoneRank",
+            "rank"
+          ],
+          "kind": "LogicalExpression",
+          "line": 336,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progress"
+          ],
+          "kind": "IfStatement",
+          "line": 340,
+          "script_index": 0,
+          "source_line": 420,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "epoch",
+            "isCurrentSearchEpoch"
+          ],
+          "kind": "IfStatement",
+          "line": 344,
+          "script_index": 0,
+          "source_line": 424,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completionResetTimer"
+          ],
+          "kind": "IfStatement",
+          "line": 348,
+          "script_index": 0,
+          "source_line": 428,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "collapseSearchOccurrenceFamilies",
+            "rawFallbackItems",
+            "seenFamilies"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 816,
+          "name": "fallbackItems",
+          "script_index": 0,
+          "source_line": 896,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Array",
+            "data",
+            "fallback_items",
+            "isArray"
+          ],
+          "expression_kind": "ConditionalExpression",
+          "line": 1208,
+          "name": "fallbackItems",
+          "script_index": 0,
+          "source_line": 1288,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Set",
+            "map",
+            "pendingFallbackItems",
+            "searchOccurrenceFamilyKey"
+          ],
+          "expression_kind": "NewExpression",
+          "line": 844,
+          "name": "fallbackKeys",
+          "script_index": 0,
+          "source_line": 924,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [],
+          "expression_kind": "BooleanLiteral",
+          "line": 36,
+          "name": "fallbackStarted",
+          "script_index": 0,
+          "source_line": 116,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "phase"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 807,
+          "name": "isVector",
+          "script_index": 0,
+          "source_line": 887,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "String",
+            "trim",
+            "value"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 243,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "dataset",
+            "get",
+            "normalizeSearchExecutionMode",
+            "params",
+            "root",
+            "searchExecutionMode"
+          ],
+          "expression_kind": "LogicalExpression",
+          "line": 253,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 333,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "executionMode",
+            "normalizeSearchExecutionMode"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 279,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 359,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 11,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 91,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Number",
+            "context",
+            "error",
+            "status"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 1188,
+          "name": "statusCode",
+          "script_index": 0,
+          "source_line": 1268,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_AUTHORIZED_SEARCH_TRANSPORT",
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "PUBLIC_SITE_MODE",
+        "PUBLIC_YANDEX_AUTH_PROVIDER",
+        "enabled",
+        "searchEnabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 80
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 28,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 31,
+          "name": "hidden"
+        },
+        {
+          "line": 33,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 48,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 55,
+          "name": "disabled"
+        },
+        {
+          "line": 59,
+          "name": "hidden"
+        },
+        {
+          "line": 60,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 62,
+          "name": "hidden"
+        },
+        {
+          "line": 64,
+          "name": "hidden"
+        },
+        {
+          "line": 64,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 76,
+          "name": "hidden"
+        },
+        {
+          "line": 77,
+          "name": "hidden"
+        },
+        {
+          "line": 273,
+          "name": "hidden"
+        },
+        {
+          "line": 274,
+          "name": "disabled"
+        },
+        {
+          "line": 276,
+          "name": "hidden"
+        },
+        {
+          "line": 279,
+          "name": "hidden"
+        },
+        {
+          "line": 280,
+          "name": "hidden"
+        },
+        {
+          "line": 283,
+          "name": "open"
+        },
+        {
+          "line": 418,
+          "name": "hidden"
+        },
+        {
+          "line": 432,
+          "name": "hidden"
+        },
+        {
+          "line": 456,
+          "name": "hidden"
+        },
+        {
+          "line": 480,
+          "name": "hidden"
+        },
+        {
+          "line": 492,
+          "name": "hidden"
+        },
+        {
+          "line": 508,
+          "name": "hidden"
+        },
+        {
+          "line": 517,
+          "name": "disabled"
+        },
+        {
+          "line": 526,
+          "name": "disabled"
+        },
+        {
+          "line": 629,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 637,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 741,
+          "name": "disabled"
+        },
+        {
+          "line": 826,
+          "name": "hidden"
+        },
+        {
+          "line": 828,
+          "name": "hidden"
+        },
+        {
+          "line": 902,
+          "name": "hidden"
+        },
+        {
+          "line": 959,
+          "name": "hidden"
+        },
+        {
+          "line": 1225,
+          "name": "hidden"
+        },
+        {
+          "line": 1293,
+          "name": "hidden"
+        },
+        {
+          "line": 1376,
+          "name": "open"
+        },
+        {
+          "line": 1378,
+          "name": "open"
+        },
+        {
+          "line": 1381,
+          "name": "open"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 19
+        },
+        {
+          "kind": "class:list",
+          "line": 49
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 3,
+          "name": "compact",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "h1",
+            "h2"
+          ],
+          "default": {
+            "observed": true,
+            "value": "h2"
+          },
+          "line": 5,
+          "name": "headingLevel",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "h1"
+              },
+              {
+                "kind": "literal",
+                "value": "h2"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 4,
+          "name": "standalone",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 19,
+          "name": "data-authorized-search"
+        },
+        {
+          "line": 19,
+          "name": "data-search-enabled"
+        },
+        {
+          "line": 19,
+          "name": "data-search-transport"
+        },
+        {
+          "line": 19,
+          "name": "data-search-execution-mode-control"
+        },
+        {
+          "line": 19,
+          "name": "data-search-state"
+        },
+        {
+          "line": 19,
+          "name": "data-search-terminal"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 19,
+          "name": "data-yandex-provider"
+        },
+        {
+          "line": 19,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 27,
+          "name": "data-search-login"
+        },
+        {
+          "line": 31,
+          "name": "data-search-user"
+        },
+        {
+          "line": 31,
+          "name": "data-search-account"
+        },
+        {
+          "line": 32,
+          "name": "data-search-account-toggle"
+        },
+        {
+          "line": 33,
+          "name": "data-search-avatar"
+        },
+        {
+          "line": 34,
+          "name": "data-search-avatar-initial"
+        },
+        {
+          "line": 38,
+          "name": "data-search-account-popover"
+        },
+        {
+          "line": 41,
+          "name": "data-search-user-name"
+        },
+        {
+          "line": 43,
+          "name": "data-search-logout"
+        },
+        {
+          "line": 48,
+          "name": "data-search-form"
+        },
+        {
+          "line": 51,
+          "name": "data-search-input"
+        },
+        {
+          "line": 53,
+          "name": "data-search-input"
+        },
+        {
+          "line": 55,
+          "name": "data-search-submit"
+        },
+        {
+          "line": 56,
+          "name": "data-search-submit-label"
+        },
+        {
+          "line": 59,
+          "name": "data-search-progress"
+        },
+        {
+          "line": 60,
+          "name": "data-search-progress-bar"
+        },
+        {
+          "line": 62,
+          "name": "data-search-progress-label"
+        },
+        {
+          "line": 63,
+          "name": "data-search-status"
+        },
+        {
+          "line": 64,
+          "name": "data-search-skeletons"
+        },
+        {
+          "line": 76,
+          "name": "data-search-results"
+        },
+        {
+          "line": 77,
+          "name": "data-search-more"
+        },
+        {
+          "line": 85,
+          "name": "data-authorized-search"
+        },
+        {
+          "line": 90,
+          "name": "data-search-status"
+        },
+        {
+          "line": 91,
+          "name": "data-search-login"
+        },
+        {
+          "line": 92,
+          "name": "data-search-logout"
+        },
+        {
+          "line": 93,
+          "name": "data-search-form"
+        },
+        {
+          "line": 94,
+          "name": "data-search-input"
+        },
+        {
+          "line": 95,
+          "name": "data-search-submit"
+        },
+        {
+          "line": 96,
+          "name": "data-search-submit-label"
+        },
+        {
+          "line": 97,
+          "name": "data-search-progress"
+        },
+        {
+          "line": 98,
+          "name": "data-search-progress-bar"
+        },
+        {
+          "line": 99,
+          "name": "data-search-progress-label"
+        },
+        {
+          "line": 100,
+          "name": "data-search-user"
+        },
+        {
+          "line": 101,
+          "name": "data-search-user-name"
+        },
+        {
+          "line": 102,
+          "name": "data-search-account"
+        },
+        {
+          "line": 103,
+          "name": "data-search-account-toggle"
+        },
+        {
+          "line": 105,
+          "name": "data-search-avatar-initial"
+        },
+        {
+          "line": 106,
+          "name": "data-search-results"
+        },
+        {
+          "line": 107,
+          "name": "data-search-skeletons"
+        },
+        {
+          "line": 108,
+          "name": "data-search-more"
+        },
+        {
+          "line": 586,
+          "name": "data-search-card-render-unavailable"
+        },
+        {
+          "line": 628,
+          "name": "data-search-vector-card"
+        },
+        {
+          "line": 628,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 628,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 628,
+          "name": "data-event-id"
+        },
+        {
+          "line": 628,
+          "name": "data-search-response-id"
+        },
+        {
+          "line": 628,
+          "name": "data-search-family-id"
+        },
+        {
+          "line": 628,
+          "name": "data-event-title"
+        },
+        {
+          "line": 628,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 628,
+          "name": "data-card-href"
+        },
+        {
+          "line": 628,
+          "name": "data-rank"
+        },
+        {
+          "line": 628,
+          "name": "data-score"
+        },
+        {
+          "line": 656,
+          "name": "data-search-empty-exact"
+        },
+        {
+          "line": 666,
+          "name": "data-search-section"
+        },
+        {
+          "line": 666,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 667,
+          "name": "data-search-empty-exact"
+        },
+        {
+          "line": 731,
+          "name": "data-search-feedback"
+        },
+        {
+          "line": 732,
+          "name": "data-search-feedback"
+        },
+        {
+          "line": 841,
+          "name": "data-event-card"
+        },
+        {
+          "line": 844,
+          "name": "data-event-id"
+        },
+        {
+          "line": 846,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 858,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 858,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 859,
+          "name": "data-search-vector-note"
+        },
+        {
+          "line": 859,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 889,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 891,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 892,
+          "name": "data-event-id"
+        }
+      ]
+    },
+    "latest_checked_kaggle_candidate": {
+      "branches": [
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 8
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 9
+        },
+        {
+          "identifiers": [
+            "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 10
+        },
+        {
+          "identifiers": [
+            "PUBLIC_YANDEX_AUTH_PROVIDER",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "LogicalExpression",
+          "line": 11
+        },
+        {
+          "identifiers": [
+            "PUBLIC_AUTHORIZED_SEARCH_TRANSPORT",
+            "env",
+            "import",
+            "meta"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 12
+        },
+        {
+          "identifiers": [
+            "supabaseUrl"
+          ],
+          "kind": "LogicalExpression",
+          "line": 16
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "root",
+            "searchBound"
+          ],
+          "kind": "IfStatement",
+          "line": 8,
+          "script_index": 0,
+          "source_line": 88,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "more",
+            "textContent"
+          ],
+          "kind": "LogicalExpression",
+          "line": 30,
+          "script_index": 0,
+          "source_line": 110,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "__KENIGEVENTS_SEARCH_TEST_TIMEOUTS__",
+            "window"
+          ],
+          "kind": "LogicalExpression",
+          "line": 49,
+          "script_index": 0,
+          "source_line": 129,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 52,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "isFinite",
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 52,
+          "script_index": 0,
+          "source_line": 132,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "status"
+          ],
+          "kind": "IfStatement",
+          "line": 71,
+          "script_index": 0,
+          "source_line": 151,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "message"
+          ],
+          "kind": "LogicalExpression",
+          "line": 72,
+          "script_index": 0,
+          "source_line": 152,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "kind"
+          ],
+          "kind": "IfStatement",
+          "line": 73,
+          "script_index": 0,
+          "source_line": 153,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "state",
+            "terminalStates"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 80,
+          "script_index": 0,
+          "source_line": 160,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "user",
+            "user_metadata"
+          ],
+          "kind": "LogicalExpression",
+          "line": 84,
+          "script_index": 0,
+          "source_line": 164,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 86,
+          "script_index": 0,
+          "source_line": 166,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "user"
+          ],
+          "kind": "LogicalExpression",
+          "line": 88,
+          "script_index": 0,
+          "source_line": 168,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "metadata",
+            "preferred_username"
+          ],
+          "kind": "LogicalExpression",
+          "line": 89,
+          "script_index": 0,
+          "source_line": 169,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "humanName",
+            "length",
+            "username"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "email",
+            "humanName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "humanName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 90,
+          "script_index": 0,
+          "source_line": 170,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "username"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 92,
+          "script_index": 0,
+          "source_line": 172,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "id",
+            "user"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 93,
+          "script_index": 0,
+          "source_line": 173,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "name"
+          ],
+          "kind": "LogicalExpression",
+          "line": 97,
+          "script_index": 0,
+          "source_line": 177,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "normalized"
+          ],
+          "kind": "IfStatement",
+          "line": 98,
+          "script_index": 0,
+          "source_line": 178,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Intl",
+            "Segmenter"
+          ],
+          "kind": "IfStatement",
+          "line": 99,
+          "script_index": 0,
+          "source_line": 179,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "grapheme"
+          ],
+          "kind": "IfStatement",
+          "line": 103,
+          "script_index": 0,
+          "source_line": 183,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Array",
+            "from",
+            "normalized",
+            "toLocaleUpperCase"
+          ],
+          "kind": "LogicalExpression",
+          "line": 105,
+          "script_index": 0,
+          "source_line": 185,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "avatarInitial"
+          ],
+          "kind": "IfStatement",
+          "line": 110,
+          "script_index": 0,
+          "source_line": 190,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountToggle"
+          ],
+          "kind": "IfStatement",
+          "line": 113,
+          "script_index": 0,
+          "source_line": 193,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 118,
+          "script_index": 0,
+          "source_line": 198,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 124,
+          "script_index": 0,
+          "source_line": 204,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "query"
+          ],
+          "kind": "LogicalExpression",
+          "line": 149,
+          "script_index": 0,
+          "source_line": 229,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "updated_at"
+          ],
+          "kind": "LogicalExpression",
+          "line": 157,
+          "script_index": 0,
+          "source_line": 237,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Date",
+            "Number",
+            "draft",
+            "isFinite",
+            "now",
+            "query",
+            "searchDraftMaxAgeMs",
+            "updatedAt"
+          ],
+          "kind": "IfStatement",
+          "line": 158,
+          "script_index": 0,
+          "source_line": 238,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "Number",
+            "draft",
+            "isFinite",
+            "query",
+            "updatedAt"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "query"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft"
+          ],
+          "kind": "LogicalExpression",
+          "line": 159,
+          "script_index": 0,
+          "source_line": 239,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ok",
+            "validation"
+          ],
+          "kind": "IfStatement",
+          "line": 168,
+          "script_index": 0,
+          "source_line": 248,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "input",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "input"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft"
+          ],
+          "kind": "LogicalExpression",
+          "line": 177,
+          "script_index": 0,
+          "source_line": 257,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "loading",
+            "pending"
+          ],
+          "kind": "IfStatement",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 263,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "draft",
+            "pending"
+          ],
+          "kind": "LogicalExpression",
+          "line": 183,
+          "script_index": 0,
+          "source_line": 263,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "input"
+          ],
+          "kind": "IfStatement",
+          "line": 185,
+          "script_index": 0,
+          "source_line": 265,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "login"
+          ],
+          "kind": "IfStatement",
+          "line": 193,
+          "script_index": 0,
+          "source_line": 273,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "LogicalExpression",
+          "line": 194,
+          "script_index": 0,
+          "source_line": 274,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "logout"
+          ],
+          "kind": "IfStatement",
+          "line": 197,
+          "script_index": 0,
+          "source_line": 277,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "form"
+          ],
+          "kind": "IfStatement",
+          "line": 200,
+          "script_index": 0,
+          "source_line": 280,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "userBadge"
+          ],
+          "kind": "IfStatement",
+          "line": 201,
+          "script_index": 0,
+          "source_line": 281,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn",
+            "userName"
+          ],
+          "kind": "IfStatement",
+          "line": 202,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "userName"
+          ],
+          "kind": "LogicalExpression",
+          "line": 202,
+          "script_index": 0,
+          "source_line": 282,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "IfStatement",
+          "line": 203,
+          "script_index": 0,
+          "source_line": 283,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "accountMenu"
+          ],
+          "kind": "IfStatement",
+          "line": 204,
+          "script_index": 0,
+          "source_line": 284,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "signedIn"
+          ],
+          "kind": "IfStatement",
+          "line": 207,
+          "script_index": 0,
+          "source_line": 287,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery",
+            "input",
+            "value"
+          ],
+          "kind": "IfStatement",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery",
+            "input"
+          ],
+          "kind": "LogicalExpression",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "initialQuery"
+          ],
+          "kind": "LogicalExpression",
+          "line": 210,
+          "script_index": 0,
+          "source_line": 290,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "preserveError"
+          ],
+          "kind": "IfStatement",
+          "line": 211,
+          "script_index": 0,
+          "source_line": 291,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 218,
+          "script_index": 0,
+          "source_line": 298,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "query"
+          ],
+          "kind": "IfStatement",
+          "line": 223,
+          "script_index": 0,
+          "source_line": 303,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "length",
+            "maxQueryLength",
+            "query"
+          ],
+          "kind": "IfStatement",
+          "line": 224,
+          "script_index": 0,
+          "source_line": 304,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "pattern",
+            "query",
+            "some",
+            "test",
+            "unsafePatterns"
+          ],
+          "kind": "IfStatement",
+          "line": 233,
+          "script_index": 0,
+          "source_line": 313,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "query",
+            "test"
+          ],
+          "kind": "IfStatement",
+          "line": 236,
+          "script_index": 0,
+          "source_line": 316,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "value"
+          ],
+          "kind": "LogicalExpression",
+          "line": 243,
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "has",
+            "mode",
+            "searchExecutionModes"
+          ],
+          "kind": "ConditionalExpression",
+          "line": 244,
+          "script_index": 0,
+          "source_line": 324,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "root",
+            "searchExecutionModeControl"
+          ],
+          "kind": "IfStatement",
+          "line": 248,
+          "script_index": 0,
+          "source_line": 328,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "dataset",
+            "normalizeSearchExecutionMode",
+            "root",
+            "searchExecutionMode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 253,
+          "script_index": 0,
+          "source_line": 333,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 255,
+          "script_index": 0,
+          "source_line": 335,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "LogicalExpression",
+          "line": 261,
+          "script_index": 0,
+          "source_line": 341,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "crypto",
+            "globalThis",
+            "randomUUID"
+          ],
+          "kind": "IfStatement",
+          "line": 269,
+          "script_index": 0,
+          "source_line": 349,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "mode"
+          ],
+          "kind": "IfStatement",
+          "line": 289,
+          "script_index": 0,
+          "source_line": 369,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "ok",
+            "validation"
+          ],
+          "kind": "IfStatement",
+          "line": 295,
+          "script_index": 0,
+          "source_line": 375,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 401,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 321,
+          "script_index": 0,
+          "source_line": 401,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 322,
+          "script_index": 0,
+          "source_line": 402,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 322,
+          "script_index": 0,
+          "source_line": 402,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 323,
+          "script_index": 0,
+          "source_line": 403,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 324,
+          "script_index": 0,
+          "source_line": 404,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 324,
+          "script_index": 0,
+          "source_line": 404,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 325,
+          "script_index": 0,
+          "source_line": 405,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "IfStatement",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "stage"
+          ],
+          "kind": "LogicalExpression",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 326,
+          "script_index": 0,
+          "source_line": 406,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "fallbackLabel"
+          ],
+          "kind": "LogicalExpression",
+          "line": 327,
+          "script_index": 0,
+          "source_line": 407,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progressLabel"
+          ],
+          "kind": "IfStatement",
+          "line": 331,
+          "script_index": 0,
+          "source_line": 411,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressMilestoneRank",
+            "rank"
+          ],
+          "kind": "IfStatement",
+          "line": 333,
+          "script_index": 0,
+          "source_line": 413,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressLabel",
+            "progressMilestoneRank",
+            "rank",
+            "textContent"
+          ],
+          "kind": "IfStatement",
+          "line": 336,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "milestone",
+            "progressMilestoneRank",
+            "rank"
+          ],
+          "kind": "LogicalExpression",
+          "line": 336,
+          "script_index": 0,
+          "source_line": 416,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "progress"
+          ],
+          "kind": "IfStatement",
+          "line": 340,
+          "script_index": 0,
+          "source_line": 420,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "epoch",
+            "isCurrentSearchEpoch"
+          ],
+          "kind": "IfStatement",
+          "line": 344,
+          "script_index": 0,
+          "source_line": 424,
+          "source_scope": "inline_script"
+        },
+        {
+          "identifiers": [
+            "completionResetTimer"
+          ],
+          "kind": "IfStatement",
+          "line": 348,
+          "script_index": 0,
+          "source_line": 428,
+          "source_scope": "inline_script"
+        }
+      ],
+      "derived_state": [
+        {
+          "dependencies": [
+            "collapseSearchOccurrenceFamilies",
+            "rawFallbackItems",
+            "seenFamilies"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 816,
+          "name": "fallbackItems",
+          "script_index": 0,
+          "source_line": 896,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Array",
+            "data",
+            "fallback_items",
+            "isArray"
+          ],
+          "expression_kind": "ConditionalExpression",
+          "line": 1208,
+          "name": "fallbackItems",
+          "script_index": 0,
+          "source_line": 1288,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Set",
+            "map",
+            "pendingFallbackItems",
+            "searchOccurrenceFamilyKey"
+          ],
+          "expression_kind": "NewExpression",
+          "line": 844,
+          "name": "fallbackKeys",
+          "script_index": 0,
+          "source_line": 924,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [],
+          "expression_kind": "BooleanLiteral",
+          "line": 36,
+          "name": "fallbackStarted",
+          "script_index": 0,
+          "source_line": 116,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "phase"
+          ],
+          "expression_kind": "BinaryExpression",
+          "line": 807,
+          "name": "isVector",
+          "script_index": 0,
+          "source_line": 887,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "String",
+            "trim",
+            "value"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 243,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 323,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "dataset",
+            "get",
+            "normalizeSearchExecutionMode",
+            "params",
+            "root",
+            "searchExecutionMode"
+          ],
+          "expression_kind": "LogicalExpression",
+          "line": 253,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 333,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "executionMode",
+            "normalizeSearchExecutionMode"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 279,
+          "name": "mode",
+          "script_index": 0,
+          "source_line": 359,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "querySelector",
+            "root"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 11,
+          "name": "status",
+          "script_index": 0,
+          "source_line": 91,
+          "source_scope": "inline_script"
+        },
+        {
+          "dependencies": [
+            "Number",
+            "context",
+            "error",
+            "status"
+          ],
+          "expression_kind": "CallExpression",
+          "line": 1188,
+          "name": "statusCode",
+          "script_index": 0,
+          "source_line": 1268,
+          "source_scope": "inline_script"
+        }
+      ],
+      "enums": [],
+      "extraction_limits": {
+        "max_facts_per_kind": 96,
+        "max_literal_length": 80
+      },
+      "flags": [
+        "PUBLIC_AUTHORIZED_SEARCH_TRANSPORT",
+        "PUBLIC_PERSONALIZATION_SUPABASE_PUBLISHABLE_KEY",
+        "PUBLIC_PERSONALIZATION_SUPABASE_RELAY_URL",
+        "PUBLIC_PERSONALIZATION_SUPABASE_URL",
+        "PUBLIC_SITE_MODE",
+        "PUBLIC_YANDEX_AUTH_PROVIDER",
+        "enabled",
+        "searchEnabled"
+      ],
+      "inline_script_parsers": [
+        {
+          "index": 0,
+          "parser_status": "parsed",
+          "reason_sha256": null,
+          "source_line_offset": 80
+        }
+      ],
+      "interaction_attributes": [
+        {
+          "line": 28,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 31,
+          "name": "hidden"
+        },
+        {
+          "line": 33,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 48,
+          "name": "aria-disabled"
+        },
+        {
+          "line": 55,
+          "name": "disabled"
+        },
+        {
+          "line": 59,
+          "name": "hidden"
+        },
+        {
+          "line": 60,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 62,
+          "name": "hidden"
+        },
+        {
+          "line": 64,
+          "name": "hidden"
+        },
+        {
+          "line": 64,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 76,
+          "name": "hidden"
+        },
+        {
+          "line": 77,
+          "name": "hidden"
+        },
+        {
+          "line": 273,
+          "name": "hidden"
+        },
+        {
+          "line": 274,
+          "name": "disabled"
+        },
+        {
+          "line": 276,
+          "name": "hidden"
+        },
+        {
+          "line": 279,
+          "name": "hidden"
+        },
+        {
+          "line": 280,
+          "name": "hidden"
+        },
+        {
+          "line": 283,
+          "name": "open"
+        },
+        {
+          "line": 418,
+          "name": "hidden"
+        },
+        {
+          "line": 432,
+          "name": "hidden"
+        },
+        {
+          "line": 456,
+          "name": "hidden"
+        },
+        {
+          "line": 480,
+          "name": "hidden"
+        },
+        {
+          "line": 492,
+          "name": "hidden"
+        },
+        {
+          "line": 508,
+          "name": "hidden"
+        },
+        {
+          "line": 517,
+          "name": "disabled"
+        },
+        {
+          "line": 526,
+          "name": "disabled"
+        },
+        {
+          "line": 629,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 637,
+          "name": "aria-hidden"
+        },
+        {
+          "line": 741,
+          "name": "disabled"
+        },
+        {
+          "line": 826,
+          "name": "hidden"
+        },
+        {
+          "line": 828,
+          "name": "hidden"
+        },
+        {
+          "line": 902,
+          "name": "hidden"
+        },
+        {
+          "line": 959,
+          "name": "hidden"
+        },
+        {
+          "line": 1225,
+          "name": "hidden"
+        },
+        {
+          "line": 1293,
+          "name": "hidden"
+        },
+        {
+          "line": 1376,
+          "name": "open"
+        },
+        {
+          "line": 1378,
+          "name": "open"
+        },
+        {
+          "line": 1381,
+          "name": "open"
+        }
+      ],
+      "local_style_overrides": [
+        {
+          "kind": "class:list",
+          "line": 19
+        },
+        {
+          "kind": "class:list",
+          "line": 49
+        }
+      ],
+      "media_rules": [],
+      "parser": "@babel/parser",
+      "parser_status": "parsed",
+      "props": [
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 3,
+          "name": "compact",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "allowed_literals": [
+            "h1",
+            "h2"
+          ],
+          "default": {
+            "observed": true,
+            "value": "h2"
+          },
+          "line": 5,
+          "name": "headingLevel",
+          "optional": true,
+          "required": false,
+          "type": {
+            "kind": "union",
+            "members": [
+              {
+                "kind": "literal",
+                "value": "h1"
+              },
+              {
+                "kind": "literal",
+                "value": "h2"
+              }
+            ]
+          }
+        },
+        {
+          "allowed_literals": [],
+          "default": {
+            "observed": true,
+            "value": false
+          },
+          "line": 4,
+          "name": "standalone",
+          "optional": true,
+          "required": false,
+          "type": "boolean"
+        }
+      ],
+      "responsive_contexts": [],
+      "state_attributes": [
+        {
+          "line": 19,
+          "name": "data-authorized-search"
+        },
+        {
+          "line": 19,
+          "name": "data-search-enabled"
+        },
+        {
+          "line": 19,
+          "name": "data-search-transport"
+        },
+        {
+          "line": 19,
+          "name": "data-search-execution-mode-control"
+        },
+        {
+          "line": 19,
+          "name": "data-search-state"
+        },
+        {
+          "line": 19,
+          "name": "data-search-terminal"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-url"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-relay-url"
+        },
+        {
+          "line": 19,
+          "name": "data-supabase-key"
+        },
+        {
+          "line": 19,
+          "name": "data-yandex-provider"
+        },
+        {
+          "line": 19,
+          "name": "data-nosnippet"
+        },
+        {
+          "line": 27,
+          "name": "data-search-login"
+        },
+        {
+          "line": 31,
+          "name": "data-search-user"
+        },
+        {
+          "line": 31,
+          "name": "data-search-account"
+        },
+        {
+          "line": 32,
+          "name": "data-search-account-toggle"
+        },
+        {
+          "line": 33,
+          "name": "data-search-avatar"
+        },
+        {
+          "line": 34,
+          "name": "data-search-avatar-initial"
+        },
+        {
+          "line": 38,
+          "name": "data-search-account-popover"
+        },
+        {
+          "line": 41,
+          "name": "data-search-user-name"
+        },
+        {
+          "line": 43,
+          "name": "data-search-logout"
+        },
+        {
+          "line": 48,
+          "name": "data-search-form"
+        },
+        {
+          "line": 51,
+          "name": "data-search-input"
+        },
+        {
+          "line": 53,
+          "name": "data-search-input"
+        },
+        {
+          "line": 55,
+          "name": "data-search-submit"
+        },
+        {
+          "line": 56,
+          "name": "data-search-submit-label"
+        },
+        {
+          "line": 59,
+          "name": "data-search-progress"
+        },
+        {
+          "line": 60,
+          "name": "data-search-progress-bar"
+        },
+        {
+          "line": 62,
+          "name": "data-search-progress-label"
+        },
+        {
+          "line": 63,
+          "name": "data-search-status"
+        },
+        {
+          "line": 64,
+          "name": "data-search-skeletons"
+        },
+        {
+          "line": 76,
+          "name": "data-search-results"
+        },
+        {
+          "line": 77,
+          "name": "data-search-more"
+        },
+        {
+          "line": 85,
+          "name": "data-authorized-search"
+        },
+        {
+          "line": 90,
+          "name": "data-search-status"
+        },
+        {
+          "line": 91,
+          "name": "data-search-login"
+        },
+        {
+          "line": 92,
+          "name": "data-search-logout"
+        },
+        {
+          "line": 93,
+          "name": "data-search-form"
+        },
+        {
+          "line": 94,
+          "name": "data-search-input"
+        },
+        {
+          "line": 95,
+          "name": "data-search-submit"
+        },
+        {
+          "line": 96,
+          "name": "data-search-submit-label"
+        },
+        {
+          "line": 97,
+          "name": "data-search-progress"
+        },
+        {
+          "line": 98,
+          "name": "data-search-progress-bar"
+        },
+        {
+          "line": 99,
+          "name": "data-search-progress-label"
+        },
+        {
+          "line": 100,
+          "name": "data-search-user"
+        },
+        {
+          "line": 101,
+          "name": "data-search-user-name"
+        },
+        {
+          "line": 102,
+          "name": "data-search-account"
+        },
+        {
+          "line": 103,
+          "name": "data-search-account-toggle"
+        },
+        {
+          "line": 105,
+          "name": "data-search-avatar-initial"
+        },
+        {
+          "line": 106,
+          "name": "data-search-results"
+        },
+        {
+          "line": 107,
+          "name": "data-search-skeletons"
+        },
+        {
+          "line": 108,
+          "name": "data-search-more"
+        },
+        {
+          "line": 586,
+          "name": "data-search-card-render-unavailable"
+        },
+        {
+          "line": 628,
+          "name": "data-search-vector-card"
+        },
+        {
+          "line": 628,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 628,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 628,
+          "name": "data-event-id"
+        },
+        {
+          "line": 628,
+          "name": "data-search-response-id"
+        },
+        {
+          "line": 628,
+          "name": "data-search-family-id"
+        },
+        {
+          "line": 628,
+          "name": "data-event-title"
+        },
+        {
+          "line": 628,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 628,
+          "name": "data-card-href"
+        },
+        {
+          "line": 628,
+          "name": "data-rank"
+        },
+        {
+          "line": 628,
+          "name": "data-score"
+        },
+        {
+          "line": 656,
+          "name": "data-search-empty-exact"
+        },
+        {
+          "line": 666,
+          "name": "data-search-section"
+        },
+        {
+          "line": 666,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 667,
+          "name": "data-search-empty-exact"
+        },
+        {
+          "line": 731,
+          "name": "data-search-feedback"
+        },
+        {
+          "line": 732,
+          "name": "data-search-feedback"
+        },
+        {
+          "line": 841,
+          "name": "data-event-card"
+        },
+        {
+          "line": 844,
+          "name": "data-event-id"
+        },
+        {
+          "line": 846,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 858,
+          "name": "data-search-phase"
+        },
+        {
+          "line": 858,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 859,
+          "name": "data-search-vector-note"
+        },
+        {
+          "line": 859,
+          "name": "data-search-page-offset"
+        },
+        {
+          "line": 889,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 891,
+          "name": "data-occurrence-member-ids"
+        },
+        {
+          "line": 892,
+          "name": "data-event-id"
+        }
+      ]
+    }
+  }
+}
