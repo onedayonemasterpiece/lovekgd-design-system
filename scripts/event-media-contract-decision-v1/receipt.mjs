@@ -53,10 +53,11 @@ const outputEntry = (root, relative) => {
 const validDelivery = (number, url) => Number.isInteger(number) && number > 0
   && url === `https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/${number}`;
 
-export const buildReceipt = ({ root = '.', eventsRoot, materializationParent, prNumber, prUrl }) => {
+export const buildReceipt = ({ root = '.', eventsRoot, materializationParent, prNumber, prUrl, branch }) => {
   const absoluteRoot = path.resolve(root);
   requireValue(/^[a-f0-9]{40}$/u.test(materializationParent ?? ''), 'EMV_RECEIPT_PARENT_INVALID', 'receipt', RECEIPT_PATH, '/lineage/materialization_parent_commit', 'materialization parent must be an exact commit');
   requireValue(validDelivery(prNumber, prUrl), 'EMV_DELIVERY_METADATA_INVALID', 'delivery', RECEIPT_PATH, '/delivery/pull_request', 'draft PR number and canonical URL are both required');
+  requireValue(typeof branch === 'string' && branch.length > 0, 'EMV_DELIVERY_BRANCH_INVALID', 'delivery', RECEIPT_PATH, '/branch', 'materialization branch is required');
   try { gitCommand(absoluteRoot, ['merge-base', '--is-ancestor', BASE_SHA, materializationParent]); }
   catch { fail('EMV_RECEIPT_ANCESTRY_INVALID', 'receipt', RECEIPT_PATH, '/lineage', 'design base is not an ancestor of materialization parent'); }
   const result = collectAndValidate({ root: absoluteRoot, eventsRoot });
@@ -68,7 +69,7 @@ export const buildReceipt = ({ root = '.', eventsRoot, materializationParent, pr
     schema_version: 'event_media_contract_decision_receipt_v1',
     decision_id: 'event-media-contract-decision-v1',
     repository: 'onedayonemasterpiece/lovekgd-design-system',
-    branch: gitCommand(absoluteRoot, ['branch', '--show-current']),
+    branch,
     status: 'BOUNDARY_COMPLETE_NOT_READY_WITH_EXACT_BLOCKERS',
     lineage: {
       design_base_commit: BASE_SHA,
@@ -175,6 +176,7 @@ export const readReceiptMetadata = (root) => {
     materializationParent: receipt.lineage?.materialization_parent_commit,
     prNumber: receipt.delivery?.pull_request?.number,
     prUrl: receipt.delivery?.pull_request?.url,
+    branch: receipt.branch,
   };
 };
 

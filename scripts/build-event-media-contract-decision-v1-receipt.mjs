@@ -20,20 +20,22 @@ try {
   let materializationParent;
   let prNumber;
   let prUrl;
+  let branch;
   if (write) {
     const dirtyTracked = gitCommand(root, ['status', '--porcelain', '--untracked-files=no']);
     if (dirtyTracked) throw new Error('tracked worktree must be clean before --write');
     materializationParent = gitCommand(root, ['rev-parse', 'HEAD']);
     prNumber = Number(valueAfter('--pr-number'));
     prUrl = valueAfter('--pr-url');
+    branch = gitCommand(root, ['branch', '--show-current']);
   } else {
-    ({ materializationParent, prNumber, prUrl } = readReceiptMetadata(root));
+    ({ materializationParent, prNumber, prUrl, branch } = readReceiptMetadata(root));
     const numberArg = valueAfter('--pr-number');
     const urlArg = valueAfter('--pr-url');
     if (numberArg !== null) prNumber = Number(numberArg);
     if (urlArg !== null) prUrl = urlArg;
   }
-  const receipt = buildReceipt({ root, eventsRoot, materializationParent, prNumber, prUrl });
+  const receipt = buildReceipt({ root, eventsRoot, materializationParent, prNumber, prUrl, branch });
   if (write) {
     const destination = path.join(root, RECEIPT_PATH);
     fs.mkdirSync(path.dirname(destination), { recursive: true });
