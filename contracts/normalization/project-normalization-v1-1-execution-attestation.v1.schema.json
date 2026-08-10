@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json",
+  "title": "Project normalization v1.1 exact-head execution attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "generated_at",
+    "source",
+    "product_evidence",
+    "audit_inputs",
+    "runtime_versions_path",
+    "command_ledger",
+    "mutation_run",
+    "replay",
+    "artifact_integrity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "project_normalization_execution_attestation_v1"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "requested_sha",
+        "checked_out_sha",
+        "clean_before",
+        "clean_after"
+      ],
+      "properties": {
+        "repository": { "const": "onedayonemasterpiece/lovekgd-design-system" },
+        "requested_sha": { "pattern": "^[a-f0-9]{40}$", "type": "string" },
+        "checked_out_sha": { "pattern": "^[a-f0-9]{40}$", "type": "string" },
+        "clean_before": { "type": "boolean" },
+        "clean_after": { "type": "boolean" }
+      }
+    },
+    "product_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "requested_sha",
+        "checked_out_sha",
+        "clean_before",
+        "clean_after"
+      ],
+      "properties": {
+        "repository": { "const": "onedayonemasterpiece/events-bot-new" },
+        "requested_sha": { "const": "66bc0d43e36299417626f992021cfb7299ddf704" },
+        "checked_out_sha": { "const": "66bc0d43e36299417626f992021cfb7299ddf704" },
+        "clean_before": { "type": "boolean" },
+        "clean_after": { "type": "boolean" }
+      }
+    },
+    "audit_inputs": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "bytes", "sha256", "byte_exact"],
+        "properties": {
+          "path": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "sha256": { "pattern": "^[a-f0-9]{64}$", "type": "string" },
+          "byte_exact": { "type": "boolean" }
+        }
+      }
+    },
+    "runtime_versions_path": { "const": "versions.json" },
+    "command_ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "entries", "all_exit_zero", "sha256"],
+      "properties": {
+        "path": { "const": "command-ledger.jsonl" },
+        "entries": { "type": "integer", "minimum": 1 },
+        "all_exit_zero": { "type": "boolean" },
+        "sha256": { "pattern": "^[a-f0-9]{64}$", "type": "string" }
+      }
+    },
+    "mutation_run": { "type": "object" },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script", "historical_v1_replayed", "full_current_validators_replayed", "full_negative_suites_replayed"],
+      "properties": {
+        "script": { "const": "replay.sh" },
+        "historical_v1_replayed": { "type": "boolean" },
+        "full_current_validators_replayed": { "type": "boolean" },
+        "full_negative_suites_replayed": { "type": "boolean" }
+      }
+    },
+    "artifact_integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256_manifest", "upload_transport_immutability_claimed", "limitation"],
+      "properties": {
+        "sha256_manifest": { "const": "SHA256SUMS" },
+        "upload_transport_immutability_claimed": { "const": false },
+        "limitation": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

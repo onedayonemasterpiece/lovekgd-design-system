@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/project-normalization-v1-1-input-paths.schema.json",
+  "title": "Project normalization v1.1 workflow input paths",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workflow_path",
+    "trigger_events",
+    "path_patterns",
+    "mandatory_authority_patterns"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "project_normalization_workflow_input_paths_v1"
+    },
+    "workflow_path": {
+      "const": ".github/workflows/project-normalization-synthesis-v1-1.yml"
+    },
+    "trigger_events": {
+      "const": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "path_patterns": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "contains": {
+        "const": ".github/workflows/project-normalization-synthesis-v1-1.yml"
+      }
+    },
+    "mandatory_authority_patterns": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
