@@ -46,7 +46,7 @@ dropped or silently superseded.
 | R12 | Done | 239 application/readiness rows bound to an independent 239-edge raw-Git census; observe mode preserved |
 | R13 | Done | normative lifecycle reconciled across contract and authority docs |
 | R14 | Done | required docs, schemas, catalogs, dossiers, validators and manifest receipt are enumerated |
-| R15 | Partial until CI | local positive/negative/immutable/archive/secret/diff gates pass; draft PR [#31](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31) is open and intentionally unmerged for independent re-audit |
+| R15 | Done | local and CI positive/negative/immutable/archive/secret/diff gates pass; draft PR [#31](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31) is open and intentionally unmerged for independent re-audit |
 
 ## Verified counts
 
@@ -84,6 +84,11 @@ lifecycle states / transitions        11 / 10
 - Independent Git-object census replay: 239/239 active edges.
 - Release ZIP replay: 134/134 entry SHA-256 and bytes verified.
 - Forbidden-path and secret scans: PASS.
+- GitHub historical-v1 gate: [PASS](https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/31369957789/job/93396489684).
+- GitHub v1.1 validation gate: [PASS](https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/31369957766/job/93396489763).
+- Read-only implementation checklist: `PASS`; see
+  [`CHECKLIST_REVIEW.md`](CHECKLIST_REVIEW.md). This is not the future independent
+  red-team re-audit.
 
 ## Delivery boundary
 
@@ -91,4 +96,7 @@ Branch `remediation/project-normalization-synthesis-v1-1` is published and draft
 PR [#31](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31)
 must remain open and unmerged for a separate independent re-audit. This
 integration report is an implementation checklist, not that re-audit and not a
-promotion, target-contract or physical-defragmentation decision.
+promotion, target-contract or physical-defragmentation decision. Because
+`origin/main` advanced after the exact pinned base, GitHub currently reports the
+PR as conflicting; post-audit reconciliation must rerun all gates and re-establish
+audit applicability before any merge.
