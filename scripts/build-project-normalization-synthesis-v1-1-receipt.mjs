@@ -45,7 +45,7 @@ const stable = (value) => JSON.stringify(value, (_key, item) => item && typeof i
 const allowed = (relative) => [
   /^\.codex\/integration\/project-normalization-synthesis-v1-1(?:-1)?\//,
   /^\.codex\/lanes\/project-normalization-v1-1(?:-1)?-/,
-  /^\.github\/workflows\/project-normalization-synthesis-v1-1\.yml$/,
+  /^\.github\/workflows\/project-normalization-synthesis-v1(?:-1)?\.yml$/,
   /^README\.md$/,
   /^RESULTS\.md$/,
   /^catalog\/normalization\//,
