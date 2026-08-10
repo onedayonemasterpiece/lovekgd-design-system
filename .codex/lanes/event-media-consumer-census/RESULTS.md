@@ -57,6 +57,8 @@ source has a standalone skeleton UI.
 - Every policy cell carries evidence references. Each row also has non-empty,
   pinned provenance channels for current source, requirements, tests,
   fixtures, Decoder v1, Behavioral Decoder v1.1, Git history and experiments.
+  Provenance reference lists are deterministically de-duplicated while
+  preserving first-seen evidence order.
 
 The application ratio vocabulary is exact and intentionally consumer-local:
 `4:5`, `5:4`, `3:2`, `2:3`, `1:1`, `intrinsic/source`, `16:10`, `27:20`,
@@ -119,7 +121,7 @@ def load(path):
     return rows
 
 matrix, semantic = load(matrix_path), load(semantic_path)
-assert hashlib.sha256(matrix_path.read_bytes()).hexdigest() == '1c3eff4cf1acc489b5db8633cfbcae77f576fbb6da0924c2952d9b6e9a544718'
+assert hashlib.sha256(matrix_path.read_bytes()).hexdigest() == 'b3f041ad3e64cce6c4690c84a12515fbdef6f8ce649ab85fecc9d03c3d89c009'
 assert hashlib.sha256(semantic_path.read_bytes()).hexdigest() == '8989734d1057fb3785dbd05403d7803c052de804eb798e3faeb21b56208e81ee'
 assert len(matrix) == 52
 assert collections.Counter(row['census_cohort'] for row in matrix) == {
@@ -155,6 +157,11 @@ for row in matrix:
     assert row['source_component']['commit'] == '66bc0d43e36299417626f992021cfb7299ddf704'
     assert set(row['cell_level_provenance']) == provenance
     assert all(row['cell_level_provenance'][key]['refs'] for key in provenance)
+    assert all(
+        len(row['cell_level_provenance'][key]['refs'])
+        == len(dict.fromkeys(row['cell_level_provenance'][key]['refs']))
+        for key in provenance
+    )
     assert all(row[key]['evidence_refs'] for key in policy_cells)
     assert row['aspect_ratio_policy']['target_ratio_selected'] is False
     assert all(ratio['global_token_selected'] is False and ratio['evidence_refs'] for ratio in row['aspect_ratio_policy']['ratios'])
@@ -166,14 +173,14 @@ ratios = {ratio['notation'] for row in matrix for ratio in row['aspect_ratio_pol
 assert {'4:5', '5:4', '3:2', '2:3', '1:1', 'intrinsic/source'} <= ratios
 assert len(ratios) == 24 and len(semantic_rows) == 18 and len(exclusions) == 5
 assert all(row['census_included'] is False and row['excluded_from_52_application_count'] is True and row['boundary_model_ref'] for row in exclusions)
-print('PASS: matrix=52 active=37 lab_dormant=15 semantic=18 adjacent_exclusions=5 ratios=24 canonical_jsonl=yes gates=observe/NOT_MERGED')
+print('PASS: matrix=52 active=37 lab_dormant=15 provenance_ref_duplicates=0 semantic=18 adjacent_exclusions=5 ratios=24 canonical_jsonl=yes gates=observe/NOT_MERGED')
 PY
 ```
 
 Result:
 
 ```text
-PASS: matrix=52 active=37 lab_dormant=15 semantic=18 adjacent_exclusions=5 ratios=24 canonical_jsonl=yes gates=observe/NOT_MERGED
+PASS: matrix=52 active=37 lab_dormant=15 provenance_ref_duplicates=0 semantic=18 adjacent_exclusions=5 ratios=24 canonical_jsonl=yes gates=observe/NOT_MERGED
 ```
 
 Additional provenance resolution used inline Python with `git cat-file -e`
