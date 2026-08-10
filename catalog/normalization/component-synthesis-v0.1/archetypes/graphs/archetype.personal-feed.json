@@ -87,7 +87,9 @@
       "state": "error"
     }
   ],
-  "gap_refs": [],
+  "gap_refs": [
+    "gap.personal-feed.01"
+  ],
   "instance_graph": {
     "edges": [
       {
@@ -313,7 +315,6 @@
       },
       {
         "detached": false,
-        "entity_ref": "personalization.filter",
         "fixture_refs": [
           "fixture.personal-feed.cold-start",
           "fixture.personal-feed.personalized",
@@ -321,9 +322,18 @@
           "fixture.personal-feed.empty",
           "fixture.personal-feed.error"
         ],
+        "gap": {
+          "gap_id": "gap.personal-feed.01",
+          "reason": "personalization.filter is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#personalization.filter",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: personalization.filter"
+        },
         "local_overrides": [],
         "node_id": "node.personal-feed.010",
-        "node_kind": "component_instance",
+        "node_kind": "gap_placeholder",
         "order": 1,
         "viewport_modes": [
           "mobile",
@@ -369,10 +379,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.cold-start",
       "matrix_id": "matrix.personal-feed.mobile.cold-start",
       "state": "cold-start",
@@ -388,10 +399,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.personalized",
       "matrix_id": "matrix.personal-feed.mobile.personalized",
       "state": "personalized",
@@ -407,10 +419,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.stale-refresh",
       "matrix_id": "matrix.personal-feed.mobile.stale-refresh",
       "state": "stale-refresh",
@@ -426,10 +439,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.empty",
       "matrix_id": "matrix.personal-feed.mobile.empty",
       "state": "empty",
@@ -445,10 +459,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.error",
       "matrix_id": "matrix.personal-feed.mobile.error",
       "state": "error",
@@ -464,10 +479,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.cold-start",
       "matrix_id": "matrix.personal-feed.desktop.cold-start",
       "state": "cold-start",
@@ -483,10 +499,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.personalized",
       "matrix_id": "matrix.personal-feed.desktop.personalized",
       "state": "personalized",
@@ -502,10 +519,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.stale-refresh",
       "matrix_id": "matrix.personal-feed.desktop.stale-refresh",
       "state": "stale-refresh",
@@ -521,10 +539,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.empty",
       "matrix_id": "matrix.personal-feed.desktop.empty",
       "state": "empty",
@@ -540,10 +559,11 @@
         "node.personal-feed.006",
         "node.personal-feed.007",
         "node.personal-feed.008",
-        "node.personal-feed.009",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
         "node.personal-feed.010"
       ],
-      "expected_gap_node_ids": [],
       "fixture_ref": "fixture.personal-feed.error",
       "matrix_id": "matrix.personal-feed.desktop.error",
       "state": "error",

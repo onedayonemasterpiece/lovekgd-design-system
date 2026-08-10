@@ -72,7 +72,9 @@
       "state": "error"
     }
   ],
-  "gap_refs": [],
+  "gap_refs": [
+    "gap.exhibitions.01"
+  ],
   "instance_graph": {
     "edges": [
       {
@@ -115,16 +117,24 @@
     "nodes": [
       {
         "detached": false,
-        "entity_ref": "exhibitions.personal-surface",
         "fixture_refs": [
           "fixture.exhibitions.static",
           "fixture.exhibitions.personalized",
           "fixture.exhibitions.empty",
           "fixture.exhibitions.error"
         ],
+        "gap": {
+          "gap_id": "gap.exhibitions.01",
+          "reason": "exhibitions.personal-surface is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#exhibitions.personal-surface",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: exhibitions.personal-surface"
+        },
         "local_overrides": [],
         "node_id": "node.exhibitions.001",
-        "node_kind": "pattern_instance",
+        "node_kind": "gap_placeholder",
         "order": 0,
         "viewport_modes": [
           "mobile",
@@ -307,7 +317,6 @@
   "state_matrix": [
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -317,7 +326,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.static",
       "matrix_id": "matrix.exhibitions.mobile.static",
       "state": "static",
@@ -325,7 +336,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -335,7 +345,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.personalized",
       "matrix_id": "matrix.exhibitions.mobile.personalized",
       "state": "personalized",
@@ -343,7 +355,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -353,7 +364,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.empty",
       "matrix_id": "matrix.exhibitions.mobile.empty",
       "state": "empty",
@@ -361,7 +374,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -371,7 +383,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.error",
       "matrix_id": "matrix.exhibitions.mobile.error",
       "state": "error",
@@ -379,7 +393,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -389,7 +402,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.static",
       "matrix_id": "matrix.exhibitions.desktop.static",
       "state": "static",
@@ -397,7 +412,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -407,7 +421,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.personalized",
       "matrix_id": "matrix.exhibitions.desktop.personalized",
       "state": "personalized",
@@ -415,7 +431,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -425,7 +440,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.empty",
       "matrix_id": "matrix.exhibitions.desktop.empty",
       "state": "empty",
@@ -433,7 +450,6 @@
     },
     {
       "active_node_ids": [
-        "node.exhibitions.001",
         "node.exhibitions.002",
         "node.exhibitions.003",
         "node.exhibitions.004",
@@ -443,7 +459,9 @@
         "node.exhibitions.008",
         "node.exhibitions.009"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
       "fixture_ref": "fixture.exhibitions.error",
       "matrix_id": "matrix.exhibitions.desktop.error",
       "state": "error",

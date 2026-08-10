@@ -43,17 +43,11 @@
     }
   ],
   "gap_refs": [
-    "gap.documents-legal.01"
+    "gap.documents-legal.01",
+    "gap.documents-legal.02"
   ],
   "instance_graph": {
-    "edges": [
-      {
-        "from_node_id": "node.documents-legal.002",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.documents-legal.003"
-      }
-    ],
+    "edges": [],
     "nodes": [
       {
         "detached": false,
@@ -73,31 +67,23 @@
       },
       {
         "detached": false,
-        "entity_ref": "site.footer",
         "fixture_refs": [
           "fixture.documents-legal.short",
           "fixture.documents-legal.long-document"
         ],
+        "gap": {
+          "gap_id": "gap.documents-legal.01",
+          "reason": "site.footer is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#site.footer",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: site.footer"
+        },
         "local_overrides": [],
         "node_id": "node.documents-legal.002",
-        "node_kind": "component_instance",
+        "node_kind": "gap_placeholder",
         "order": 1,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "core.icon",
-        "fixture_refs": [
-          "fixture.documents-legal.short",
-          "fixture.documents-legal.long-document"
-        ],
-        "local_overrides": [],
-        "node_id": "node.documents-legal.003",
-        "node_kind": "component_instance",
-        "order": 0,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -110,7 +96,7 @@
           "fixture.documents-legal.long-document"
         ],
         "gap": {
-          "gap_id": "gap.documents-legal.01",
+          "gap_id": "gap.documents-legal.02",
           "reason": "Exact current route/template binding and document typography composition.",
           "source_evidence_refs": [
             "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.documents-legal"
@@ -118,7 +104,7 @@
           "uncovered_region": "Exact current route/template binding and document typography composition."
         },
         "local_overrides": [],
-        "node_id": "node.documents-legal.004",
+        "node_id": "node.documents-legal.003",
         "node_kind": "gap_placeholder",
         "order": 2,
         "viewport_modes": [
@@ -130,7 +116,7 @@
     "root_node_ids": [
       "node.documents-legal.001",
       "node.documents-legal.002",
-      "node.documents-legal.004"
+      "node.documents-legal.003"
     ]
   },
   "materialization_policy": {
@@ -156,12 +142,11 @@
   "state_matrix": [
     {
       "active_node_ids": [
-        "node.documents-legal.001",
-        "node.documents-legal.002",
-        "node.documents-legal.003"
+        "node.documents-legal.001"
       ],
       "expected_gap_node_ids": [
-        "node.documents-legal.004"
+        "node.documents-legal.002",
+        "node.documents-legal.003"
       ],
       "fixture_ref": "fixture.documents-legal.short",
       "matrix_id": "matrix.documents-legal.mobile.short",
@@ -170,12 +155,11 @@
     },
     {
       "active_node_ids": [
-        "node.documents-legal.001",
-        "node.documents-legal.002",
-        "node.documents-legal.003"
+        "node.documents-legal.001"
       ],
       "expected_gap_node_ids": [
-        "node.documents-legal.004"
+        "node.documents-legal.002",
+        "node.documents-legal.003"
       ],
       "fixture_ref": "fixture.documents-legal.long-document",
       "matrix_id": "matrix.documents-legal.mobile.long-document",
@@ -184,12 +168,11 @@
     },
     {
       "active_node_ids": [
-        "node.documents-legal.001",
-        "node.documents-legal.002",
-        "node.documents-legal.003"
+        "node.documents-legal.001"
       ],
       "expected_gap_node_ids": [
-        "node.documents-legal.004"
+        "node.documents-legal.002",
+        "node.documents-legal.003"
       ],
       "fixture_ref": "fixture.documents-legal.short",
       "matrix_id": "matrix.documents-legal.desktop.short",
@@ -198,12 +181,11 @@
     },
     {
       "active_node_ids": [
-        "node.documents-legal.001",
-        "node.documents-legal.002",
-        "node.documents-legal.003"
+        "node.documents-legal.001"
       ],
       "expected_gap_node_ids": [
-        "node.documents-legal.004"
+        "node.documents-legal.002",
+        "node.documents-legal.003"
       ],
       "fixture_ref": "fixture.documents-legal.long-document",
       "matrix_id": "matrix.documents-legal.desktop.long-document",

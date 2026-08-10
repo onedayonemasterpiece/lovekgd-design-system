@@ -72,222 +72,40 @@
       "state": "empty/error-safe"
     }
   ],
-  "gap_refs": [],
+  "gap_refs": [
+    "gap.home.01"
+  ],
   "instance_graph": {
     "edges": [
-      {
-        "from_node_id": "node.home.001",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.002"
-      },
-      {
-        "from_node_id": "node.home.002",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.003"
-      },
       {
         "from_node_id": "node.home.003",
         "order": 0,
         "relation": "contains_instance",
         "to_node_id": "node.home.004"
-      },
-      {
-        "from_node_id": "node.home.003",
-        "order": 1,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.005"
-      },
-      {
-        "from_node_id": "node.home.003",
-        "order": 2,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.006"
-      },
-      {
-        "from_node_id": "node.home.003",
-        "order": 3,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.007"
-      },
-      {
-        "from_node_id": "node.home.007",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.008"
-      },
-      {
-        "from_node_id": "node.home.003",
-        "order": 4,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.009"
-      },
-      {
-        "from_node_id": "node.home.011",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.home.012"
       }
     ],
     "nodes": [
       {
         "detached": false,
-        "entity_ref": "home.cold-start-feed",
         "fixture_refs": [
           "fixture.home.cold-start",
           "fixture.home.reranked",
           "fixture.home.static-fallback",
           "fixture.home.empty-error-safe"
         ],
+        "gap": {
+          "gap_id": "gap.home.01",
+          "reason": "home.cold-start-feed is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#home.cold-start-feed",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: home.cold-start-feed"
+        },
         "local_overrides": [],
         "node_id": "node.home.001",
-        "node_kind": "pattern_instance",
+        "node_kind": "gap_placeholder",
         "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.card-grid",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.002",
-        "node_kind": "pattern_instance",
-        "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.card",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.003",
-        "node_kind": "component_instance",
-        "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "core.badge",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.004",
-        "node_kind": "component_instance",
-        "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "core.favorite-action",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.005",
-        "node_kind": "component_instance",
-        "order": 1,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "core.share-action",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.006",
-        "node_kind": "component_instance",
-        "order": 2,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.media-frame",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.007",
-        "node_kind": "component_instance",
-        "order": 3,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.fallback-art",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.008",
-        "node_kind": "component_instance",
-        "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.occurrence-label",
-        "fixture_refs": [
-          "fixture.home.cold-start",
-          "fixture.home.reranked",
-          "fixture.home.static-fallback",
-          "fixture.home.empty-error-safe"
-        ],
-        "local_overrides": [],
-        "node_id": "node.home.009",
-        "node_kind": "component_instance",
-        "order": 4,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -303,7 +121,7 @@
           "fixture.home.empty-error-safe"
         ],
         "local_overrides": [],
-        "node_id": "node.home.010",
+        "node_id": "node.home.002",
         "node_kind": "component_instance",
         "order": 1,
         "viewport_modes": [
@@ -321,7 +139,7 @@
           "fixture.home.empty-error-safe"
         ],
         "local_overrides": [],
-        "node_id": "node.home.011",
+        "node_id": "node.home.003",
         "node_kind": "component_instance",
         "order": 2,
         "viewport_modes": [
@@ -339,7 +157,7 @@
           "fixture.home.empty-error-safe"
         ],
         "local_overrides": [],
-        "node_id": "node.home.012",
+        "node_id": "node.home.004",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -350,8 +168,8 @@
     ],
     "root_node_ids": [
       "node.home.001",
-      "node.home.010",
-      "node.home.011"
+      "node.home.002",
+      "node.home.003"
     ]
   },
   "materialization_policy": {
@@ -379,20 +197,13 @@
   "state_matrix": [
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.cold-start",
       "matrix_id": "matrix.home.mobile.cold-start",
       "state": "cold-start",
@@ -400,20 +211,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.reranked",
       "matrix_id": "matrix.home.mobile.reranked",
       "state": "reranked",
@@ -421,20 +225,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.static-fallback",
       "matrix_id": "matrix.home.mobile.static-fallback",
       "state": "static-fallback",
@@ -442,20 +239,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.empty-error-safe",
       "matrix_id": "matrix.home.mobile.empty-error-safe",
       "state": "empty/error-safe",
@@ -463,20 +253,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.cold-start",
       "matrix_id": "matrix.home.desktop.cold-start",
       "state": "cold-start",
@@ -484,20 +267,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.reranked",
       "matrix_id": "matrix.home.desktop.reranked",
       "state": "reranked",
@@ -505,20 +281,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.static-fallback",
       "matrix_id": "matrix.home.desktop.static-fallback",
       "state": "static-fallback",
@@ -526,20 +295,13 @@
     },
     {
       "active_node_ids": [
-        "node.home.001",
         "node.home.002",
         "node.home.003",
-        "node.home.004",
-        "node.home.005",
-        "node.home.006",
-        "node.home.007",
-        "node.home.008",
-        "node.home.009",
-        "node.home.010",
-        "node.home.011",
-        "node.home.012"
+        "node.home.004"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
       "fixture_ref": "fixture.home.empty-error-safe",
       "matrix_id": "matrix.home.desktop.empty-error-safe",
       "state": "empty/error-safe",

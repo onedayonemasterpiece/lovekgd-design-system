@@ -73,7 +73,8 @@
     }
   ],
   "gap_refs": [
-    "gap.festival.01"
+    "gap.festival.01",
+    "gap.festival.02"
   ],
   "instance_graph": {
     "edges": [
@@ -148,12 +149,6 @@
         "order": 4,
         "relation": "contains_instance",
         "to_node_id": "node.festival.014"
-      },
-      {
-        "from_node_id": "node.festival.015",
-        "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.festival.016"
       }
     ],
     "nodes": [
@@ -411,35 +406,25 @@
       },
       {
         "detached": false,
-        "entity_ref": "site.footer",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
           "fixture.festival.many",
           "fixture.festival.overflow"
         ],
+        "gap": {
+          "gap_id": "gap.festival.01",
+          "reason": "site.footer is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#site.footer",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: site.footer"
+        },
         "local_overrides": [],
         "node_id": "node.festival.015",
-        "node_kind": "component_instance",
+        "node_kind": "gap_placeholder",
         "order": 2,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "core.icon",
-        "fixture_refs": [
-          "fixture.festival.timeline",
-          "fixture.festival.0",
-          "fixture.festival.many",
-          "fixture.festival.overflow"
-        ],
-        "local_overrides": [],
-        "node_id": "node.festival.016",
-        "node_kind": "component_instance",
-        "order": 0,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -454,7 +439,7 @@
           "fixture.festival.overflow"
         ],
         "gap": {
-          "gap_id": "gap.festival.01",
+          "gap_id": "gap.festival.02",
           "reason": "Exact current festival route/template binding and festival-specific header/content regions.",
           "source_evidence_refs": [
             "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.festival"
@@ -462,7 +447,7 @@
           "uncovered_region": "Exact current festival route/template binding and festival-specific header/content regions."
         },
         "local_overrides": [],
-        "node_id": "node.festival.017",
+        "node_id": "node.festival.016",
         "node_kind": "gap_placeholder",
         "order": 3,
         "viewport_modes": [
@@ -475,7 +460,7 @@
       "node.festival.001",
       "node.festival.008",
       "node.festival.015",
-      "node.festival.017"
+      "node.festival.016"
     ]
   },
   "materialization_policy": {
@@ -514,12 +499,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.timeline",
       "matrix_id": "matrix.festival.mobile.timeline",
@@ -541,12 +525,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.0",
       "matrix_id": "matrix.festival.mobile.0",
@@ -568,12 +551,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.many",
       "matrix_id": "matrix.festival.mobile.many",
@@ -595,12 +577,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.overflow",
       "matrix_id": "matrix.festival.mobile.overflow",
@@ -622,12 +603,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.timeline",
       "matrix_id": "matrix.festival.desktop.timeline",
@@ -649,12 +629,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.0",
       "matrix_id": "matrix.festival.desktop.0",
@@ -676,12 +655,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.many",
       "matrix_id": "matrix.festival.desktop.many",
@@ -703,12 +681,11 @@
         "node.festival.011",
         "node.festival.012",
         "node.festival.013",
-        "node.festival.014",
-        "node.festival.015",
-        "node.festival.016"
+        "node.festival.014"
       ],
       "expected_gap_node_ids": [
-        "node.festival.017"
+        "node.festival.015",
+        "node.festival.016"
       ],
       "fixture_ref": "fixture.festival.overflow",
       "matrix_id": "matrix.festival.desktop.overflow",

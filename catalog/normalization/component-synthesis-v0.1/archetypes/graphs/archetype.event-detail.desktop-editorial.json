@@ -86,7 +86,9 @@
       "state": "continuation"
     }
   ],
-  "gap_refs": [],
+  "gap_refs": [
+    "gap.event-detail.desktop-editorial.01"
+  ],
   "instance_graph": {
     "edges": [
       {
@@ -957,7 +959,6 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.participants",
         "fixture_refs": [
           "fixture.event-detail.desktop-editorial.landscape",
           "fixture.event-detail.desktop-editorial.gallery",
@@ -965,9 +966,18 @@
           "fixture.event-detail.desktop-editorial.transport",
           "fixture.event-detail.desktop-editorial.continuation"
         ],
+        "gap": {
+          "gap_id": "gap.event-detail.desktop-editorial.01",
+          "reason": "event.participants is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#event.participants",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: event.participants"
+        },
         "local_overrides": [],
         "node_id": "node.event-detail.desktop-editorial.034",
-        "node_kind": "component_instance",
+        "node_kind": "gap_placeholder",
         "order": 3,
         "viewport_modes": [
           "desktop"
@@ -1329,7 +1339,6 @@
         "node.event-detail.desktop-editorial.031",
         "node.event-detail.desktop-editorial.032",
         "node.event-detail.desktop-editorial.033",
-        "node.event-detail.desktop-editorial.034",
         "node.event-detail.desktop-editorial.035",
         "node.event-detail.desktop-editorial.046",
         "node.event-detail.desktop-editorial.047",
@@ -1337,7 +1346,9 @@
         "node.event-detail.desktop-editorial.049",
         "node.event-detail.desktop-editorial.050"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.event-detail.desktop-editorial.034"
+      ],
       "fixture_ref": "fixture.event-detail.desktop-editorial.landscape",
       "matrix_id": "matrix.event-detail.desktop-editorial.desktop.landscape",
       "state": "landscape",
@@ -1378,7 +1389,6 @@
         "node.event-detail.desktop-editorial.031",
         "node.event-detail.desktop-editorial.032",
         "node.event-detail.desktop-editorial.033",
-        "node.event-detail.desktop-editorial.034",
         "node.event-detail.desktop-editorial.035",
         "node.event-detail.desktop-editorial.046",
         "node.event-detail.desktop-editorial.047",
@@ -1386,7 +1396,9 @@
         "node.event-detail.desktop-editorial.049",
         "node.event-detail.desktop-editorial.050"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.event-detail.desktop-editorial.034"
+      ],
       "fixture_ref": "fixture.event-detail.desktop-editorial.gallery",
       "matrix_id": "matrix.event-detail.desktop-editorial.desktop.gallery",
       "state": "gallery",
@@ -1427,7 +1439,6 @@
         "node.event-detail.desktop-editorial.031",
         "node.event-detail.desktop-editorial.032",
         "node.event-detail.desktop-editorial.033",
-        "node.event-detail.desktop-editorial.034",
         "node.event-detail.desktop-editorial.035",
         "node.event-detail.desktop-editorial.046",
         "node.event-detail.desktop-editorial.047",
@@ -1435,7 +1446,9 @@
         "node.event-detail.desktop-editorial.049",
         "node.event-detail.desktop-editorial.050"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.event-detail.desktop-editorial.034"
+      ],
       "fixture_ref": "fixture.event-detail.desktop-editorial.poster-companion",
       "matrix_id": "matrix.event-detail.desktop-editorial.desktop.poster-companion",
       "state": "poster-companion",
@@ -1476,7 +1489,6 @@
         "node.event-detail.desktop-editorial.031",
         "node.event-detail.desktop-editorial.032",
         "node.event-detail.desktop-editorial.033",
-        "node.event-detail.desktop-editorial.034",
         "node.event-detail.desktop-editorial.035",
         "node.event-detail.desktop-editorial.046",
         "node.event-detail.desktop-editorial.047",
@@ -1484,7 +1496,9 @@
         "node.event-detail.desktop-editorial.049",
         "node.event-detail.desktop-editorial.050"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.event-detail.desktop-editorial.034"
+      ],
       "fixture_ref": "fixture.event-detail.desktop-editorial.transport",
       "matrix_id": "matrix.event-detail.desktop-editorial.desktop.transport",
       "state": "transport",
@@ -1525,7 +1539,6 @@
         "node.event-detail.desktop-editorial.031",
         "node.event-detail.desktop-editorial.032",
         "node.event-detail.desktop-editorial.033",
-        "node.event-detail.desktop-editorial.034",
         "node.event-detail.desktop-editorial.035",
         "node.event-detail.desktop-editorial.046",
         "node.event-detail.desktop-editorial.047",
@@ -1533,7 +1546,9 @@
         "node.event-detail.desktop-editorial.049",
         "node.event-detail.desktop-editorial.050"
       ],
-      "expected_gap_node_ids": [],
+      "expected_gap_node_ids": [
+        "node.event-detail.desktop-editorial.034"
+      ],
       "fixture_ref": "fixture.event-detail.desktop-editorial.continuation",
       "matrix_id": "matrix.event-detail.desktop-editorial.desktop.continuation",
       "state": "continuation",
