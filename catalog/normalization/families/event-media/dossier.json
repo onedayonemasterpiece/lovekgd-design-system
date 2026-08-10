@@ -1,0 +1,3665 @@
+{
+  "schema_version": "project_normalization_event_media_dossier_v1_1",
+  "id": "dossier.event-media.v1-1",
+  "family_id": "family.event-media",
+  "decision": "NOT_MERGED",
+  "decision_accepted": false,
+  "normalization_allowed": false,
+  "runtime_mutation": false,
+  "promotion_ready": false,
+  "target_ratio_selection": null,
+  "token_changes": [],
+  "merge_split_decision": null,
+  "accepted_contract_decision": null,
+  "purpose": "Positive-evidence readiness dossier; records current evidence and exact blockers without selecting a target contract.",
+  "authorities": {
+    "design_base_sha": "50f51565041a9ea36768784d1cc9ca1d7345acb7",
+    "candidate_contract_ref": "candidate.event-media",
+    "candidate_contract_sha256": "a48be25686f4f3434d4d06e3fa7cd7fea8333fdc5f0220743a16d7d425d15c04",
+    "historical_v1_dossier_path": "catalog/normalization/families/family.event-media/dossier.json",
+    "historical_v1_dossier_sha256": "72c8ed2ec07835181b1f4e25a13ff54ca50ac7177004ea9a4a3816df1fd7e44d",
+    "behavioral_manifest_sha256": "c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1",
+    "events_source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+    "events_closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+    "relevant_source_files_byte_identical_at_closure": true,
+    "independent_audit_sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76"
+  },
+  "status_vocabulary": {
+    "PROVEN_AS_IS_NOT_ACCEPTED": "Positive evidence of current AS-IS behavior only; never an accepted target contract.",
+    "PARTIAL_EVIDENCE": "Some evidence exists, but required reconciliation or coverage is incomplete.",
+    "CONFLICT": "Authoritative source, requirement, consumer behavior or runtime evidence conflicts.",
+    "UNBOUND": "No positive consumer-scoped binding or explicit non-applicability decision.",
+    "NOT_APPLICABLE_WITH_REASON": "The cell is inapplicable for this semantic slot and carries a positive reason.",
+    "EVIDENCE_ONLY_OUT_OF_SCOPE": "Adjacent evidence retained for vocabulary/boundary review; not included in family scope."
+  },
+  "required_matrix_dimensions": {
+    "ratios": [
+      "4:5",
+      "5:4",
+      "3:2",
+      "2:3",
+      "1:1",
+      "intrinsic_source",
+      "other_observed"
+    ],
+    "media_types": [
+      "photography",
+      "poster_artwork",
+      "ocr_document",
+      "unknown_text"
+    ],
+    "fit_crop_and_focus": [
+      "cover",
+      "contain",
+      "crop_permission",
+      "focal_point",
+      "safe_area",
+      "object_position"
+    ],
+    "upscale_tiny_source": true,
+    "fallback_states": [
+      "missing",
+      "broken",
+      "tiny_source"
+    ],
+    "loading_and_layout": [
+      "skeleton",
+      "layout_reservation"
+    ],
+    "responsive_art_direction": [
+      "resource_selection",
+      "art_direction",
+      "breakpoints"
+    ],
+    "provenance": [
+      "source_refs",
+      "requirement_refs",
+      "runtime_refs"
+    ],
+    "runtime_evidence": true
+  },
+  "scope": {
+    "canonical_route": "/sobytiya/:slug/",
+    "in_scope_consumer_ids": [
+      "event-detail.desktop.primary-stage",
+      "event-detail.desktop.fullscreen-gallery",
+      "event-detail.desktop.poster-companion",
+      "event-detail.desktop.preview-rails",
+      "event-detail.mobile.primary-stage",
+      "event-detail.mobile.fullscreen-gallery",
+      "event-detail.shared.missing-fallback"
+    ],
+    "evidence_only_consumer_ids": [
+      "lab.event-media-rail"
+    ],
+    "boundary_pending_consumer_ids": [
+      "boundary.related-event-card",
+      "boundary.mobile-listing-rail"
+    ],
+    "boundary_rule": "Boundary evidence never expands family scope without an owner decision receipt; no merge/split is inferred."
+  },
+  "evidence_catalog": [
+    {
+      "id": "E-AUDIT-001",
+      "kind": "independent_audit",
+      "path": "docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md",
+      "locator": "lines 23-24",
+      "sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76",
+      "claim": "Event Media is explicitly NOT_READY and lacks the required consumer-scoped vocabulary and policies."
+    },
+    {
+      "id": "E-CANDIDATE-001",
+      "kind": "immutable_candidate_contract",
+      "path": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/candidate-contracts/candidate.event-media.contract.json",
+      "locator": "JSON pointers recorded in blocker_supersession",
+      "sha256": "a48be25686f4f3434d4d06e3fa7cd7fea8333fdc5f0220743a16d7d425d15c04",
+      "claim": "Immutable Event Media candidate and its unresolved blockers."
+    },
+    {
+      "id": "E-V1-DOSSIER-001",
+      "kind": "historical_input",
+      "path": "catalog/normalization/families/family.event-media/dossier.json",
+      "locator": "entire file",
+      "sha256": "72c8ed2ec07835181b1f4e25a13ff54ca50ac7177004ea9a4a3816df1fd7e44d",
+      "claim": "Historical v1 dossier; preserved, not superseded in place."
+    },
+    {
+      "id": "E-FIND-CROP",
+      "kind": "finding",
+      "path": "catalog/normalization/findings-disposition.jsonl",
+      "locator": "finding.behavioral.unresolved.167491084198e7f5 (line 60)",
+      "claim": "Consumer-local crop policies are not one proven global crop contract."
+    },
+    {
+      "id": "E-FIND-2X3",
+      "kind": "finding",
+      "path": "catalog/normalization/findings-disposition.jsonl",
+      "locator": "finding.behavioral.unresolved.2db15769126cd403 (line 64)",
+      "claim": "2:3 is observed intrinsic orientation, not a normative universal frame/token."
+    },
+    {
+      "id": "E-CHARTER-MEDIA",
+      "kind": "requirement",
+      "path": "docs/research/ui-normalization-2026-08/05-normalization-charter-lovekgd.md",
+      "locator": "lines 168-205, 374-387, 610-671",
+      "claim": "Initial media vocabulary, responsive-resource distinctions, deterministic fallback, layout reservation, and no artificial SSG skeleton."
+    },
+    {
+      "id": "E-REQ-DESKTOP-CORE",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 19-37",
+      "claim": "Photo/OCR/unknown fit and crop rules."
+    },
+    {
+      "id": "E-REQ-DESKTOP-ROUTING",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 39-56",
+      "claim": "Desktop routing, media geometry and 1024px surface split."
+    },
+    {
+      "id": "E-REQ-DESKTOP-QUALITY",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 181-193",
+      "claim": "Resolution-constrained images are not automatically bad; editorial promotion needs more than geometry."
+    },
+    {
+      "id": "E-REQ-DESKTOP-COMPANION",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 461-481, 525-538, 552-570",
+      "claim": "Exact-ratio contained companion and role/aspect-aware preview rules."
+    },
+    {
+      "id": "E-REQ-RELATED-LOADING",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 814-850",
+      "claim": "Desktop continuation rows bind server-known ratio, identical skeleton/image/error geometry and terminal aria-busy behavior."
+    },
+    {
+      "id": "E-REQ-DESKTOP-V12",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md",
+      "locator": "lines 852-880",
+      "claim": "Current hero/gallery media-type matrix and unresolved scenario reconciliation."
+    },
+    {
+      "id": "E-REQ-HERO-SAFE",
+      "kind": "requirement",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "path": "docs/features/static-site-pages/event-hero-lab-2026-06-27.md",
+      "locator": "lines 36, 46, 91, 101-116",
+      "claim": "Mobile photo/poster policy and required focal/safe-area enrichment."
+    },
+    {
+      "id": "E-SRC-TYPES",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/lib/types.ts",
+      "locator": "lines 3-81",
+      "file_sha256": "34453c441fb25b94dbac0aa170ebb9500bf9e00c5c623ef412b6664f0a2b8904",
+      "claim": "Media roles, text modes, geometry, focal, safe-crop and intrinsic dimension fields."
+    },
+    {
+      "id": "E-SRC-QUALITY",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/lib/eventMediaQuality.ts",
+      "locator": "lines 8-61",
+      "file_sha256": "665954f20edac5bfffa09c54b4d65484a7b54826e3e0e2506567ede9bc580aa5",
+      "claim": "720 long-edge, 450000 area, quality-score 10 and preserve-weak-when-no-strong policy."
+    },
+    {
+      "id": "E-SRC-DESKTOP-CROP",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/components/DesktopEventPage.astro",
+      "locator": "lines 128-168, 194-241, 663-681",
+      "file_sha256": "48b05df26397b8a87ad71472437b8acb98d94ca610490783d9290d62847ac2fe",
+      "claim": "Desktop source ratio, fail-closed text mode, current cover/contain/object-position behavior and fullscreen media."
+    },
+    {
+      "id": "E-SRC-DESKTOP-SLOTS",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/components/DesktopEventPage.astro",
+      "locator": "lines 248-288, 339-500, 2197, 2222-2231, 2296-2346, 2430, 2563-2564, 2609-2612",
+      "file_sha256": "48b05df26397b8a87ad71472437b8acb98d94ca610490783d9290d62847ac2fe",
+      "claim": "Primary, companion, preview, rail, source-ratio, derivative and viewer slots."
+    },
+    {
+      "id": "E-SRC-HERO",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/components/EventHero.astro",
+      "locator": "lines 50-79, 110-189, 207-222, 284-349",
+      "file_sha256": "7286c64af928741eb31d86adf336e33e74c04ad19de0716cf786fd78c9a42cd5",
+      "claim": "Mobile primary/gallery selection, fit, object position, fallback and unreachable low-resolution predicate."
+    },
+    {
+      "id": "E-SRC-LAYOUT",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/layouts/EventLayout.astro",
+      "locator": "lines 701-730, 1291-1316, 1393-1431, 2079-2240, 2348",
+      "file_sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483",
+      "claim": "Mobile ratios, shared gallery behavior, lab rail cover, 4:5 EventCard and responsive styles."
+    },
+    {
+      "id": "E-SRC-ROUTE",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/pages/sobytiya/[slug].astro",
+      "locator": "lines 94-99, 109-152, 178-192, 209-213",
+      "file_sha256": "af6c94e63981db9feee81dc96271232c292fdeb2bdb69b1178a7c32e649dbd87",
+      "claim": "Production desktop/mobile consumers and related EventCard boundary."
+    },
+    {
+      "id": "E-SRC-RAIL",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/components/EventMediaRail.astro",
+      "locator": "lines 12-61",
+      "file_sha256": "2d7d6e035cfce23cdc83fbb9d2e461df2e9e42509bcedecc4af458c24a11b86f",
+      "claim": "Lab-only rail intrinsic thumbnails, srcset/sizes and preview actions."
+    },
+    {
+      "id": "E-SRC-FALLBACK",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/components/EventFallbackArt.astro",
+      "locator": "lines 14-30",
+      "file_sha256": "31cd9fce50d36ebb9214f8d4a64c73f6c1cc3a8a7c00e34c70b0ee33c10c4ca0",
+      "claim": "1:1 contained decorative missing-media fallback."
+    },
+    {
+      "id": "E-SRC-FALLBACK-MAP",
+      "kind": "source",
+      "external_repo": "events-bot-new",
+      "source_sha": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+      "closure_sha": "66bc0d43e36299417626f992021cfb7299ddf704",
+      "path": "site/src/lib/eventFallbackArt.ts",
+      "locator": "lines 3-45",
+      "file_sha256": "37f51a9ea87bb9db5110399b52b0151858629ae8efade8b56a11b2ed5ffbc73d",
+      "claim": "Concert/lecture typed fallback map binds 1280x1280, 1:1 and contain."
+    },
+    {
+      "id": "E-RUNTIME-MISSING",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-specimen-plan.jsonl",
+      "locator": "behavior-packet.media-missing; behavior-observation.65d2c7d1a47c134ce6",
+      "claim": "Reviewed event-detail missing fallback; candidate runtime, not production-equivalent."
+    },
+    {
+      "id": "E-RUNTIME-TINY",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-specimen-plan.jsonl",
+      "locator": "behavior-packet.media-tiny; behavior-observation.d5ce4f9d8c4a8bd96d",
+      "claim": "Reviewed event-detail tiny source; candidate runtime, not production-equivalent."
+    },
+    {
+      "id": "E-RUNTIME-PRIMARY-PREVIEWS",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-specimen-plan.jsonl",
+      "locator": "behavior-packet.media-primary-and-previews; behavior-observation.03703bd814dcee496c",
+      "claim": "Reviewed controlled EventMediaRail primary/previews; not production-equivalent."
+    },
+    {
+      "id": "E-RUNTIME-4X5",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-specimen-plan.jsonl",
+      "locator": "behavior-packet.media-real-4x5; behavior-observation.637cdd0643c2d3ec87",
+      "claim": "Reviewed 4:5 EventCard consumer; candidate runtime, outside candidate Event Detail boundary."
+    },
+    {
+      "id": "E-RUNTIME-5X4",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-specimen-plan.jsonl",
+      "locator": "behavior-packet.media-real-5x4; behavior-observation.e68a7cadc6e9b002c1",
+      "claim": "Reviewed 5:4 mobile listing rail; candidate runtime, outside candidate Event Detail boundary."
+    },
+    {
+      "id": "E-RUNTIME-BROKEN",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/manual-visual-review-ledger.jsonl",
+      "locator": "behavior-packet.media-broken; observations behavior-observation.1a1760cccf604f8abc and .271a0cef68a1acbfad",
+      "claim": "Loading and error are visually indistinguishable in mobile listing rail."
+    },
+    {
+      "id": "E-RUNTIME-LISTING-BROKEN",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/manual-visual-review-ledger.jsonl",
+      "locator": "behavior-packet.listing-card-media-loading-error; behavior-observation.d23ba51cf3032cf5c8",
+      "claim": "Broken ListingEventCard exposes browser marker and alt overflow."
+    },
+    {
+      "id": "E-RUNTIME-BREAKPOINTS",
+      "kind": "runtime",
+      "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/breakpoint-and-container-matrix.jsonl",
+      "locator": "nine DesktopEventPage MISMATCH IDs listed in responsive_probe_blockers",
+      "claim": "Exact consumer cascade is unreconciled at 1024/1200/1440 boundaries."
+    }
+  ],
+  "consumer_policy_matrix": [
+    {
+      "consumer_id": "event-detail.desktop.primary-stage",
+      "component": "src/components/DesktopEventPage.astro",
+      "slot_id": "primary-large-frame",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "desktop >=1024px",
+      "ratios": {
+        "4:5": {
+          "status": "UNBOUND",
+          "current_behavior": "No 4:5 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "5:4": {
+          "status": "UNBOUND",
+          "current_behavior": "No 5:4 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "3:2": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Observed landscape source orientation and documented event-landscape vocabulary; no target frame selected.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-REQ-DESKTOP-ROUTING",
+            "E-FIND-2X3"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Observed portrait/poster orientation only; no universal frame or token.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Square sources route by current presentation logic; no target frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-REQ-DESKTOP-ROUTING"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Preferred source width/height drives ratio; absent dimensions fall back to 1600x1000.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current logic admits arbitrary source ratios and a 1.25 landscape routing threshold.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-ROUTING"
+          ],
+          "values": [
+            "1600:1000 fallback",
+            "1.25 routing threshold",
+            "1.33 specimen",
+            "1.50 specimen",
+            "2.36 specimen"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "visual_only primary fills with cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "poster_artwork": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Poster identity may be a distinct companion; poster-as-primary behavior depends on routing and semantic reconciliation.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "ocr_document": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "ocr_text and semantic document primary are kept whole with contain.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-CORE"
+          ]
+        },
+        "unknown_text": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Semantic error/missing classification fails closed to unknown and contain.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-CORE"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current visual_only primary uses cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current non-visual-only primary uses contain and center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "crop_permission": {
+          "status": "CONFLICT",
+          "current_behavior": "Current visual_only cover is not gated by safe_crop; requirement and consumer-local crop findings remain unreconciled.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-CORE",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Upstream focal metadata exists, but the renderer consumes only a precomputed object-position string.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "safe_crop and geometry boxes exist but do not gate the current primary fit decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Explicit hero object-position, then asset recommendation, then 50% 50%; contain is centered.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "PARTIAL_EVIDENCE",
+        "current_behavior": "Quality admission has 720px long-edge, 450000px area and score 10 gates, but no maximum rendered/source scale or accepted upscale threshold.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-QUALITY",
+          "E-REQ-DESKTOP-QUALITY",
+          "E-RUNTIME-TINY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Missing URL resolves typed or generic fallback at the parent surface.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-SRC-FALLBACK"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "No primary img error convergence to semantic fallback is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "A tiny-source candidate capture exists, but it does not establish an accepted upscale rule.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-TINY",
+            "E-SRC-QUALITY"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Primary is static SSG content already present in initial HTML; an artificial initial skeleton is forbidden.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "No genuine asynchronous data-loading phase."
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Desktop primary emits source width and height and reserves current geometry.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Primary uses one full source; derivative resource selection is proven only for preview slots.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "art_direction": {
+          "status": "UNBOUND",
+          "current_behavior": "No <picture>-style primary art-direction contract is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-AUDIT-001"
+          ]
+        },
+        "breakpoints": {
+          "status": "CONFLICT",
+          "current_behavior": "Route switch is proven, but nine exact Desktop consumer probes have unreconciled cascade.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-RUNTIME-BREAKPOINTS"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-DESKTOP-CROP",
+          "E-SRC-DESKTOP-SLOTS",
+          "E-SRC-QUALITY"
+        ],
+        "requirement_refs": [
+          "E-REQ-DESKTOP-CORE",
+          "E-REQ-DESKTOP-ROUTING",
+          "E-REQ-DESKTOP-V12",
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-TINY",
+          "E-RUNTIME-BREAKPOINTS"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "PARTIAL_EVIDENCE",
+        "packet_refs": [
+          "E-RUNTIME-TINY"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.desktop.fullscreen-gallery",
+      "component": "src/components/DesktopEventPage.astro",
+      "slot_id": "fullscreen-gallery",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "desktop >=1024px when opened",
+      "ratios": {
+        "4:5": {
+          "status": "UNBOUND",
+          "current_behavior": "No 4:5 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "5:4": {
+          "status": "UNBOUND",
+          "current_behavior": "No 5:4 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "3:2": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Can occur as intrinsic gallery source; no frame decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Can occur as intrinsic gallery source; no universal frame decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Can occur as intrinsic gallery source; no target.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Every gallery slide carries intrinsic width and height.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Arbitrary source ratios are admitted; viewer geometry is viewport-bound.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ],
+          "values": [
+            "arbitrary source ratio",
+            "viewport-bounded contain/cover"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "visual_only slide covers.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "poster_artwork": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Identity poster role is carried, but role-to-fit reconciliation is incomplete.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "ocr_document": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "OCR/document slide contains.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "unknown_text": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Unknown text contains.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current visual_only gallery fit is cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current non-visual-only gallery fit is contain.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "crop_permission": {
+          "status": "CONFLICT",
+          "current_behavior": "Image-text mode, not safe-area proof, is the active crop gate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Only recommended object-position is consumed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-DESKTOP-CROP"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "safe_crop is carried but does not gate fullscreen fit.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Recommended position or center is applied to cover media.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "PARTIAL_EVIDENCE",
+        "current_behavior": "Quality selection affects admitted assets; no gallery-specific upscale ceiling.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-QUALITY",
+          "E-REQ-DESKTOP-QUALITY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Absent sources are excluded before slide creation.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ],
+          "reason": "Missing media does not create a gallery slide."
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "No broken gallery image fallback is positively captured.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Weak assets may be preserved if no strong alternative exists; no render-scale ceiling.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-QUALITY"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "UNBOUND",
+          "current_behavior": "Gallery sources load lazily after opening, but no accepted visible loading/skeleton contract is bound.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-AUDIT-001"
+          ]
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Slides carry source width and height.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Full-size source is retained for the viewer; thumbnails use derivatives elsewhere.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "art_direction": {
+          "status": "UNBOUND",
+          "current_behavior": "No viewport-specific source art direction is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "breakpoints": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Viewer is viewport bounded, but exact production runtime is unobserved.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-CROP",
+            "E-RUNTIME-BREAKPOINTS"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-DESKTOP-CROP",
+          "E-SRC-QUALITY"
+        ],
+        "requirement_refs": [
+          "E-REQ-DESKTOP-V12",
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": []
+      },
+      "runtime_evidence": {
+        "status": "UNBOUND",
+        "packet_refs": [],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false,
+        "reason": "No exact fullscreen Event Detail media packet in the pinned supplement."
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-LAYOUT-007",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.desktop.poster-companion",
+      "component": "src/components/DesktopEventPage.astro",
+      "slot_id": "editorial-large-poster-companion",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "desktop >=1024px editorial companion branches",
+      "ratios": {
+        "4:5": {
+          "status": "UNBOUND",
+          "current_behavior": "No explicit 4:5 companion decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "5:4": {
+          "status": "UNBOUND",
+          "current_behavior": "No explicit 5:4 companion decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "3:2": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "This semantic poster slot does not select a landscape frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Companion preserves source artwork ratio instead."
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Portrait poster vocabulary is relevant, but actual companion remains source-ratio exact.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Square identity poster can remain source-ratio exact; no fixed target.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Companion uses --ocr-ratio from source width/height; real requirement example is 1179x1523.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-REQ-DESKTOP-COMPANION"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Any positive source-artwork ratio is supported.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ],
+          "values": [
+            "1179:1523 evidence",
+            "800:1200 fallback dimensions"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Photographs belong to primary/preview slots, not the identity-poster companion.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Semantic slot is explicitly identity poster/document."
+        },
+        "poster_artwork": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Classified event_identity_poster is the admission role.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "ocr_document": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Poster is kept whole and fully contained.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-REQ-DESKTOP-COMPANION"
+          ]
+        },
+        "unknown_text": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Unknown documents may not be promoted to identity-poster companion.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-V12"
+          ],
+          "reason": "Poster identity must be positively classified."
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Cover is forbidden for the contained identity-poster companion.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Artwork integrity and embedded text require the full source."
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Companion image uses contain and center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "crop_permission": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Crop is forbidden.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Source-ratio exact companion."
+        },
+        "focal_point": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Focal crop is irrelevant when no crop is allowed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Contained full artwork."
+        },
+        "safe_area": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Safe-area crop calculation is irrelevant when no crop is allowed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION"
+          ],
+          "reason": "Contained full artwork."
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Centered contained object position.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "UNBOUND",
+        "current_behavior": "No companion-specific tiny-source or maximum upscale policy is proven.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-AUDIT-001",
+          "E-REQ-DESKTOP-QUALITY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Absent semantic companion omits the slot; it does not invent poster identity.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "Broken companion URL recovery is unproven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "UNBOUND",
+          "current_behavior": "Tiny identity-poster behavior is unbound.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Companion is static SSG media, not async data.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "No genuine initial data-loading state."
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Width, height and aspect-ratio reserve the companion pane.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Companion uses full source while adjacent previews use derivatives.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "art_direction": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Pane size follows source ratio, but no alternate crop/source art direction exists.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "breakpoints": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Responsive source geometry exists; production-equivalent runtime is absent.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION",
+            "E-RUNTIME-BREAKPOINTS"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-DESKTOP-SLOTS"
+        ],
+        "requirement_refs": [
+          "E-REQ-DESKTOP-COMPANION",
+          "E-REQ-DESKTOP-V12"
+        ],
+        "runtime_refs": []
+      },
+      "runtime_evidence": {
+        "status": "UNBOUND",
+        "packet_refs": [],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false,
+        "reason": "No exact companion production-equivalent runtime packet."
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.desktop.preview-rails",
+      "component": "src/components/DesktopEventPage.astro",
+      "slot_id": "editorial-and-split-small-previews",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "desktop >=1024px",
+      "ratios": {
+        "4:5": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "A 4:5 source can flow through intrinsic preview geometry; no 4:5-specific slot rule.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-RUNTIME-4X5"
+          ]
+        },
+        "5:4": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "A 5:4 source can flow through intrinsic preview geometry; no 5:4-specific slot rule.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-RUNTIME-5X4"
+          ]
+        },
+        "3:2": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Landscape preview bucket admits this source ratio; no target selected.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Portrait preview evidence exists, but 2:3 is not a universal frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Square preview bucket admits this source ratio; no target selected.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Preview ratio and dimensions derive from the source/thumbnail derivative.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Aspect bucket thresholds and clamped width are current source behavior.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ],
+          "values": [
+            "portrait <0.9",
+            "square 0.9..1.18",
+            "landscape >1.18",
+            "ratio clamp 0.38..2.2",
+            "split width 88..196px"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "event_photo previews use edge-to-edge cover in role-aware branches.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-REQ-DESKTOP-COMPANION"
+          ]
+        },
+        "poster_artwork": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Identity posters belong to companion/fullscreen; small preview role requires branch reconciliation.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "ocr_document": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Semantic documents generally contain, but earlier/general CSS cover rules and viewport-cover overrides conflict.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "unknown_text": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Unknown documents generally contain in role-aware branches; not all selectors are reconciled.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Photo previews cover; some generic preview selectors cover all media.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "contain": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Non-photo role-aware branches contain.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "crop_permission": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Preview-only crop is documented, but cannot authorize primary/fullscreen crop.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-DESKTOP-COMPANION",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "UNBOUND",
+          "current_behavior": "Preview cover does not consume focal_point.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "Preview crop is not gated by safe-area metadata.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "object_position": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Most previews use center; current selected source may carry a position separately.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "PARTIAL_EVIDENCE",
+        "current_behavior": "256/512 derivatives and visible-subset loading limit bytes, but no tiny thumbnail/upscale ceiling is accepted.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-DESKTOP-SLOTS",
+          "E-REQ-DESKTOP-QUALITY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Empty/duplicate-filtered rails may be omitted.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "No consumer-specific broken thumbnail semantic fallback is positively proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "UNBOUND",
+          "current_behavior": "No tiny-source preview fallback threshold.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Transparent deferred placeholders exist for preview resources, but this is not a reconciled skeleton/error contract.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Thumbnail width and height reserve each preview cell.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "256/512 WebP srcset, sizes and visible-subset activation are source-proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS",
+            "E-REQ-DESKTOP-COMPANION"
+          ]
+        },
+        "art_direction": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Geometry adapts by source ratio and available width; no alternate-source art direction.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-DESKTOP-SLOTS"
+          ]
+        },
+        "breakpoints": {
+          "status": "CONFLICT",
+          "current_behavior": "Responsive rail logic exists, but component breakpoint cascade has nine mismatches.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-BREAKPOINTS"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-DESKTOP-SLOTS",
+          "E-SRC-TYPES"
+        ],
+        "requirement_refs": [
+          "E-REQ-DESKTOP-COMPANION",
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-PRIMARY-PREVIEWS",
+          "E-RUNTIME-BREAKPOINTS"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "PARTIAL_EVIDENCE",
+        "packet_refs": [
+          "E-RUNTIME-PRIMARY-PREVIEWS"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-LAYOUT-007",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.mobile.primary-stage",
+      "component": "src/components/EventHero.astro",
+      "slot_id": "mobile-primary-stage",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "mobile <1024px",
+      "ratios": {
+        "4:5": {
+          "status": "UNBOUND",
+          "current_behavior": "No 4:5 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "5:4": {
+          "status": "UNBOUND",
+          "current_behavior": "No 5:4 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "3:2": {
+          "status": "UNBOUND",
+          "current_behavior": "No mobile primary 3:2 decision is bound.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Portrait poster source can render intrinsically; no universal frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-HERO-SAFE",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Square poster source can render intrinsically; no target frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Poster stage uses intrinsic height, while photo stage uses a container ratio.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Photo-cover mobile shell uses 16:10; source portrait/gallery thresholds are separate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT"
+          ],
+          "values": [
+            "16:10 photo shell",
+            "source ratio poster"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "visual_only selects photo-cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "poster_artwork": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Poster/artwork presentation depends on text mode more than positively reconciled media role.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "ocr_document": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "OCR/error media selects contained poster-stage.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "unknown_text": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Unknown text fails closed to contained poster-stage.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-HERO-SAFE"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current visual_only primary uses cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current OCR/unknown primary uses contain.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "crop_permission": {
+          "status": "CONFLICT",
+          "current_behavior": "visual_only cover is not gated by safe_crop or positively classified non-photo document role.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-DESKTOP-V12",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Only recommended_object_position is consumed, not focal_point directly.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-HERO"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "safe_crop/boxes do not gate primary cover.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-HERO",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Validated recommended object position or center is used for photo cover; documents center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "CONFLICT",
+        "current_behavior": "Low-resolution contain branch is unreachable: caller requires non-visual_only while helper accepts only visual_only photo-like assets.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-HERO",
+          "E-SRC-QUALITY",
+          "E-RUNTIME-TINY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Missing primary URL uses typed fallback art when available, otherwise generic fallback.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-SRC-FALLBACK",
+            "E-RUNTIME-MISSING"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "No broken primary img convergence to fallback is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "CONFLICT",
+          "current_behavior": "Tiny portrait branch is unreachable and has no accepted replacement.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-SRC-QUALITY"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Primary is static SSG content, so no artificial data skeleton.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "No genuine async data-fetch state."
+        },
+        "layout_reservation": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Photo shell reserves 16:10 geometry, but primary poster img does not consistently emit intrinsic width/height attributes.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-SRC-LAYOUT"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Primary uses one source; gallery assets are deferred separately.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "art_direction": {
+          "status": "UNBOUND",
+          "current_behavior": "No <picture>-style primary art direction or focal crop alternative source.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "breakpoints": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Production route hides this root at >=1024px and uses mobile CSS below it.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-SRC-LAYOUT"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-HERO",
+          "E-SRC-LAYOUT",
+          "E-SRC-QUALITY"
+        ],
+        "requirement_refs": [
+          "E-REQ-HERO-SAFE",
+          "E-REQ-DESKTOP-V12",
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-MISSING"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "PARTIAL_EVIDENCE",
+        "packet_refs": [
+          "E-RUNTIME-MISSING"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-LAYOUT-007",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.mobile.fullscreen-gallery",
+      "component": "src/components/EventHero.astro",
+      "slot_id": "mobile-fullscreen-gallery-and-portrait-viewer",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "mobile <1024px when opened",
+      "ratios": {
+        "4:5": {
+          "status": "UNBOUND",
+          "current_behavior": "No 4:5 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "5:4": {
+          "status": "UNBOUND",
+          "current_behavior": "No 5:4 consumer-specific frame or explicit non-applicability decision is proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001",
+            "E-FIND-2X3"
+          ]
+        },
+        "3:2": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Can occur as source photo; no gallery target frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Portrait source is admitted; no universal 2:3 frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Square source is admitted; no target frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Gallery records source width/height and viewer uses source/viewport geometry.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Portrait family threshold is ratio <0.9; current media shells remain viewport-defined.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ],
+          "values": [
+            "portrait <0.9",
+            "at least five assets and 60% portrait for multi-viewer"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "visual_only gallery image covers and may pan.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "poster_artwork": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Poster identity is carried as role but fit is primarily text-mode driven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-REQ-DESKTOP-V12"
+          ]
+        },
+        "ocr_document": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "OCR/document gallery image contains.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "unknown_text": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Unknown text contains.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "visual_only current gallery behavior covers.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "OCR/unknown current behavior contains.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "crop_permission": {
+          "status": "CONFLICT",
+          "current_behavior": "Crop gate does not consume safe_crop/regions.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Recommended object-position only.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-HERO"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "Safe-area proof is not enforced for covered gallery media.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-TYPES",
+            "E-SRC-HERO",
+            "E-REQ-HERO-SAFE"
+          ]
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Recommended object-position or center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "CONFLICT",
+        "current_behavior": "Gallery low-resolution portrait state derives from the same contradictory helper/caller assumptions and has no accepted scale ceiling.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-HERO",
+          "E-SRC-QUALITY"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Missing assets are excluded from the gallery set.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ],
+          "reason": "No missing slide is constructed."
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "No broken slide semantic fallback is captured.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "CONFLICT",
+          "current_behavior": "Low-resolution containment is not positively reachable under current predicate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-SRC-QUALITY"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "UNBOUND",
+          "current_behavior": "Gallery sources are lazy/deferred, but no accepted loading/error skeleton is bound.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO",
+            "E-AUDIT-001"
+          ]
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Gallery images carry source width and height.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Deferred gallery source selection exists; no accepted derivative policy for full slides.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        },
+        "art_direction": {
+          "status": "UNBOUND",
+          "current_behavior": "No alternate-source art direction; fit changes by semantic mode only.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ]
+        },
+        "breakpoints": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Mobile viewer and portrait family source rules exist, but runtime equivalence is unproven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-HERO"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-HERO",
+          "E-SRC-QUALITY"
+        ],
+        "requirement_refs": [
+          "E-REQ-HERO-SAFE",
+          "E-REQ-DESKTOP-V12"
+        ],
+        "runtime_refs": []
+      },
+      "runtime_evidence": {
+        "status": "UNBOUND",
+        "packet_refs": [],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false,
+        "reason": "No exact mobile fullscreen gallery packet in the pinned supplement."
+      },
+      "blocker_refs": [
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-LAYOUT-007",
+        "EM-RESP-008",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "event-detail.shared.missing-fallback",
+      "component": "src/components/EventFallbackArt.astro",
+      "slot_id": "missing-media-fallback",
+      "scope_status": "in_scope_candidate",
+      "route_family": "/sobytiya/:slug/",
+      "viewport_scope": "mobile and desktop parent surfaces",
+      "ratios": {
+        "4:5": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is fixed 1:1, not a 4:5 content frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Dedicated decorative fallback asset."
+        },
+        "5:4": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is fixed 1:1, not a 5:4 content frame.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Dedicated decorative fallback asset."
+        },
+        "3:2": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is fixed 1:1.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Dedicated decorative fallback asset."
+        },
+        "2:3": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is fixed 1:1.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Dedicated decorative fallback asset."
+        },
+        "1:1": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Typed fallback assets are 1280x1280.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Width and height are emitted from fallback asset metadata.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        },
+        "other_observed": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "No other ratio is used by this fixed fallback.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Single fixed 1:1 asset family.",
+          "values": []
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is not event photography.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Decorative semantic fallback."
+        },
+        "poster_artwork": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art is not claimed as event poster identity.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Decorative semantic fallback."
+        },
+        "ocr_document": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback art contains no event document/OCR claim.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Decorative semantic fallback."
+        },
+        "unknown_text": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Unknown-text classification is irrelevant.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "No source event media exists."
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Cover is not used.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Full fallback art is contained."
+        },
+        "contain": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Fallback art contains and centers.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        },
+        "crop_permission": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Crop is forbidden.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Contained decorative artwork."
+        },
+        "focal_point": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "No focal crop.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "No crop."
+        },
+        "safe_area": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "No safe-area crop calculation.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "No crop."
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "UNBOUND",
+        "current_behavior": "The fixed 1280x1280 fallback has no explicit maximum upscale policy.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-AUDIT-001"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "This is the current missing-media semantic fallback.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-RUNTIME-MISSING",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "Failure of the fallback asset itself and broken parent media are not reconciled.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-AUDIT-001"
+          ]
+        },
+        "tiny_source": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Tiny source does not select this fallback under current policy.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Selected only by missing URL, not source quality."
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Fallback is emitted in static HTML.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "No async data-loading state."
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "1280x1280 width/height plus mobile min-height/desktop inset reserve geometry.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "One fallback source serves both surfaces.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        },
+        "art_direction": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "No art-direction variant.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ],
+          "reason": "Same contained decorative asset."
+        },
+        "breakpoints": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Mobile min-height clamp and desktop absolute fill are source-proven.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-FALLBACK",
+            "E-SRC-FALLBACK-MAP"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-FALLBACK",
+          "E-SRC-FALLBACK-MAP"
+        ],
+        "requirement_refs": [
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-MISSING"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "PARTIAL_EVIDENCE",
+        "packet_refs": [
+          "E-RUNTIME-MISSING"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "lab.event-media-rail",
+      "component": "src/components/EventMediaRail.astro",
+      "slot_id": "lab-preview-rail",
+      "scope_status": "evidence_only_preserve",
+      "route_family": "/lab/design-system/ and /behavior-specimens/media-rail/",
+      "viewport_scope": "lab wrapper 1024x900",
+      "ratios": {
+        "4:5": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Intrinsic 4:5 asset can render, but there is no 4:5-specific contract.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-RUNTIME-4X5"
+          ]
+        },
+        "5:4": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Intrinsic 5:4 asset can render, but there is no 5:4-specific contract.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-RUNTIME-5X4"
+          ]
+        },
+        "3:2": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Intrinsic source can render; no target.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "2:3": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Intrinsic source can render; no target/token.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-FIND-2X3"
+          ]
+        },
+        "1:1": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "Intrinsic source can render; no target.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "intrinsic_source": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Thumbnail derivative/source width and height are emitted.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "other_observed": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Any source ratio can enter a uniform lab rail cell.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ],
+          "values": [
+            "arbitrary source ratio",
+            "uniform current rail box"
+          ]
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Photography is admitted.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "poster_artwork": {
+          "status": "CONFLICT",
+          "current_behavior": "Poster/artwork is admitted but receives the same cover box and photo-oriented rail labeling.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "ocr_document": {
+          "status": "CONFLICT",
+          "current_behavior": "OCR/document is admitted but unconditional CSS cover erases document policy.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "unknown_text": {
+          "status": "CONFLICT",
+          "current_behavior": "Unknown text is admitted but unconditional CSS cover erases fail-closed policy.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-SRC-LAYOUT"
+          ]
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "CONFLICT",
+          "current_behavior": "EventLayout forces object-fit cover for every rail image.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "contain": {
+          "status": "UNBOUND",
+          "current_behavior": "No document contain branch in EventMediaRail.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "crop_permission": {
+          "status": "CONFLICT",
+          "current_behavior": "Crop permission ignores semantic type and safe metadata.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ]
+        },
+        "focal_point": {
+          "status": "UNBOUND",
+          "current_behavior": "No focal point consumption.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "safe_area": {
+          "status": "CONFLICT",
+          "current_behavior": "No safe-area gate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-SRC-LAYOUT"
+          ]
+        },
+        "object_position": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Current uniform cover defaults to center.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT"
+          ]
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "PARTIAL_EVIDENCE",
+        "current_behavior": "Small derivatives are selected, but no source-quality/upscale policy.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-SRC-RAIL"
+        ]
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "UNBOUND",
+          "current_behavior": "Missing asset handling is not defined.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "broken": {
+          "status": "UNBOUND",
+          "current_behavior": "Broken thumbnail handling is not defined.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-RUNTIME-PRIMARY-PREVIEWS"
+          ]
+        },
+        "tiny_source": {
+          "status": "UNBOUND",
+          "current_behavior": "Tiny source behavior is not defined.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "NOT_APPLICABLE_WITH_REASON",
+          "current_behavior": "Rail is static and eager.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "No genuine async data-loading state."
+        },
+        "layout_reservation": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "Thumbnail width and height reserve cells.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "PROVEN_AS_IS_NOT_ACCEPTED",
+          "current_behavior": "srcset and sizes are emitted.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "art_direction": {
+          "status": "UNBOUND",
+          "current_behavior": "No art direction by semantic type or viewport.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        },
+        "breakpoints": {
+          "status": "PARTIAL_EVIDENCE",
+          "current_behavior": "sizes includes desktop 92px, but implementation is lab-only and overflow behavior is unresolved.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-RAIL"
+          ]
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-RAIL",
+          "E-SRC-LAYOUT"
+        ],
+        "requirement_refs": [
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-PRIMARY-PREVIEWS"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "PARTIAL_EVIDENCE",
+        "packet_refs": [
+          "E-RUNTIME-PRIMARY-PREVIEWS"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false,
+        "reachability": "controlled-exact-component-runtime"
+      },
+      "blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-TINY-005",
+        "EM-FALLBACK-006",
+        "EM-LABRAIL-011",
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "consumer_id": "boundary.related-event-card",
+      "component": "src/components/EventCard.astro via event-detail related feed",
+      "slot_id": "adjacent-related-card-media",
+      "scope_status": "boundary_pending_do_not_merge",
+      "route_family": "/sobytiya/:slug/#discovery-feed",
+      "viewport_scope": "mobile/desktop related feed",
+      "ratios": {
+        "4:5": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "4:5 is positively observed for the adjacent EventCard consumer.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-SRC-LAYOUT",
+            "E-RUNTIME-4X5"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "5:4": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "5:4 is not an EventCard target decision.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "3:2": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "3:2 exists in earlier EventCard vocabulary but is not reconciled with the current 4:5 surface.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "2:3": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "2:3 remains intrinsic evidence only.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "1:1": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "1:1 is not selected for this consumer.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "intrinsic_source": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Source ratio is retained as metadata.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "other_observed": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Desktop continuation rows can use server-selected compatible row ratios.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-ROUTE",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Photo card behavior is adjacent evidence.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-REQ-DESKTOP-CORE"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "poster_artwork": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Poster/artwork card behavior is adjacent evidence.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-REQ-DESKTOP-CORE"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "ocr_document": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "OCR/document row behavior is adjacent evidence.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-REQ-DESKTOP-CORE"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "unknown_text": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Unknown-text row behavior is adjacent evidence.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-REQ-DESKTOP-CORE"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Photo cover behavior exists.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "contain": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Document contain/limited-cover behavior exists in requirements.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "crop_permission": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Crop budget is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "focal_point": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Reviewed focal region is future/partial.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "safe_area": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Safe-area contract is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "object_position": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Current fallback position is centered.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+        "current_behavior": "Separate EventCard quality policy; no transfer to Event Detail primary.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-CHARTER-MEDIA"
+        ],
+        "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Separate card missing fallback.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "broken": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Broken ListingEventCard conflict is captured.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-LISTING-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "tiny_source": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Separate card tiny-source behavior.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Desktop continuation requirement includes a true per-image load/error skeleton.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-RELATED-LOADING"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "layout_reservation": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Skeleton/image/error reserve identical row geometry by requirement.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-REQ-RELATED-LOADING",
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Card resource selection is separate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "art_direction": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Card art direction is separate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "breakpoints": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Card breakpoints are separate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-SRC-LAYOUT"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "provenance": {
+        "source_refs": [
+          "E-SRC-ROUTE",
+          "E-SRC-LAYOUT"
+        ],
+        "requirement_refs": [
+          "E-CHARTER-MEDIA",
+          "E-REQ-RELATED-LOADING"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-4X5",
+          "E-RUNTIME-LISTING-BROKEN"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+        "packet_refs": [
+          "E-RUNTIME-4X5",
+          "E-RUNTIME-LISTING-BROKEN"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-RATIO-002",
+        "EM-CROP-004",
+        "EM-FALLBACK-006",
+        "EM-PROVENANCE-012"
+      ]
+    },
+    {
+      "consumer_id": "boundary.mobile-listing-rail",
+      "component": "src/components/listings/MobileListingRailSurface.astro",
+      "slot_id": "adjacent-mobile-listing-media",
+      "scope_status": "boundary_pending_do_not_merge",
+      "route_family": "/segodnya/",
+      "viewport_scope": "mobile 390x844",
+      "ratios": {
+        "4:5": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "4:5 belongs to a different adjacent card consumer.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "5:4": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "5:4 safe-visual landscape is positively observed for this adjacent rail.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "3:2": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "3:2 is not selected by this runtime record.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "2:3": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "2:3 remains intrinsic evidence only.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "1:1": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "1:1 is not selected by this runtime record.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "intrinsic_source": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Source dimensions remain adjacent consumer data.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "other_observed": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Horizontal rail geometry is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-CHARTER-MEDIA"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "media_types": {
+        "photography": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Classified visual photo is observed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "poster_artwork": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Poster/artwork policy is outside candidate scope.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "ocr_document": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "OCR/document policy is outside candidate scope.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "unknown_text": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Unknown-text policy is outside candidate scope.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "fit_crop_and_focus": {
+        "cover": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Safe-visual landscape cover is observed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "contain": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Contain rules are consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "crop_permission": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Crop gate is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "focal_point": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Focal policy is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "safe_area": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Safe-area policy is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "object_position": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Object position is consumer-local.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4",
+            "E-FIND-CROP"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "upscale_tiny_source": {
+        "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+        "current_behavior": "Separate listing-rail upscale/tiny policy.",
+        "target_decision": null,
+        "evidence_refs": [
+          "E-RUNTIME-5X4"
+        ],
+        "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+      },
+      "fallback_states": {
+        "missing": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Separate listing missing fallback.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "broken": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Broken error is visually indistinguishable from loading in reviewed runtime.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "tiny_source": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Separate listing tiny-source state.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "loading_and_layout": {
+        "skeleton": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "A neutral loading state is runtime-observed.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "layout_reservation": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Loading and error retain geometry but lack semantic distinction.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-BROKEN"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "responsive_art_direction": {
+        "resource_selection": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Listing rail resource selection is separate.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "art_direction": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "5:4 is a consumer-local presentation, not Event Detail art direction.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        },
+        "breakpoints": {
+          "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+          "current_behavior": "Observed at 390x844 candidate runtime only.",
+          "target_decision": null,
+          "evidence_refs": [
+            "E-RUNTIME-5X4"
+          ],
+          "reason": "Adjacent consumer evidence is recorded for vocabulary completeness; inclusion in family.event-media requires an owner boundary decision."
+        }
+      },
+      "provenance": {
+        "source_refs": [],
+        "requirement_refs": [
+          "E-CHARTER-MEDIA"
+        ],
+        "runtime_refs": [
+          "E-RUNTIME-5X4",
+          "E-RUNTIME-BROKEN"
+        ]
+      },
+      "runtime_evidence": {
+        "status": "EVIDENCE_ONLY_OUT_OF_SCOPE",
+        "packet_refs": [
+          "E-RUNTIME-5X4",
+          "E-RUNTIME-BROKEN"
+        ],
+        "production_state_claimed": false,
+        "production_equivalence": false,
+        "production_observed": false
+      },
+      "blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-RATIO-002",
+        "EM-SEMANTIC-003",
+        "EM-CROP-004",
+        "EM-FALLBACK-006",
+        "EM-PROVENANCE-012"
+      ]
+    }
+  ],
+  "responsive_probe_blockers": [
+    "breakpoint.017c006b1fb4a73e",
+    "breakpoint.2b71e3365f6f4029",
+    "breakpoint.657255de26bb8525",
+    "breakpoint.9007467d208ac7bd",
+    "breakpoint.9274460842120519",
+    "breakpoint.a2ab8c7ff2962a9a",
+    "breakpoint.c86f2675dac5c0dc",
+    "breakpoint.e4bb42b01042b720",
+    "breakpoint.f573562b45bea1dd"
+  ],
+  "blocker_supersession": [
+    {
+      "source_pointer": "/candidate_contract/responsive_contract/0/status",
+      "original_text": "source-extraction-required",
+      "status": "resolved_by_evidence",
+      "superseded_by_refs": [
+        "E-SRC-DESKTOP-SLOTS",
+        "E-RUNTIME-BREAKPOINTS"
+      ],
+      "residual_blocker_refs": [
+        "EM-RESP-008"
+      ],
+      "rationale": "Extraction exists; semantic/cascade reconciliation does not."
+    },
+    {
+      "source_pointer": "/evidence/0/observation_scope",
+      "original_text": "source-only-until-reconciled",
+      "status": "still_open",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-RUNTIME-009"
+      ],
+      "rationale": "All pinned packets explicitly deny production equivalence and observation."
+    },
+    {
+      "source_pointer": "/human_review_status",
+      "original_text": "pending",
+      "status": "still_open",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-GOV-010"
+      ],
+      "rationale": "No accepted review receipt."
+    },
+    {
+      "source_pointer": "/normalization_allowed",
+      "original_text": "false",
+      "status": "still_open",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-GOV-010"
+      ],
+      "rationale": "Immutable candidate remains normalization-disallowed."
+    },
+    {
+      "source_pointer": "/normalization_gaps/0",
+      "original_text": "isolated component boundary and computed geometry pending",
+      "status": "replaced_by_requirement",
+      "superseded_by_refs": [
+        "EM-CENSUS-001",
+        "EM-RATIO-002",
+        "EM-LAYOUT-007",
+        "EM-RESP-008"
+      ],
+      "residual_blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-RATIO-002",
+        "EM-LAYOUT-007",
+        "EM-RESP-008"
+      ],
+      "rationale": "The vague gap is replaced by exact v1.1 positive requirements; their blockers remain open."
+    },
+    {
+      "source_pointer": "/promotion_blockers/0",
+      "original_text": "visual and real-page reconciliation pending",
+      "status": "still_open",
+      "superseded_by_refs": [
+        "E-RUNTIME-MISSING",
+        "E-RUNTIME-TINY",
+        "E-RUNTIME-PRIMARY-PREVIEWS"
+      ],
+      "residual_blocker_refs": [
+        "EM-RUNTIME-009"
+      ],
+      "rationale": "Controlled visual evidence is partial; real production equivalence remains false."
+    },
+    {
+      "source_pointer": "/recommendation",
+      "original_text": "unresolved",
+      "status": "owner_decision_required",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-GOV-010"
+      ],
+      "rationale": "A v1 dossier recommendation is not an accepted owner decision."
+    },
+    {
+      "source_pointer": "/unresolved_alternatives/0",
+      "original_text": "internal resources of DesktopEventPage",
+      "status": "owner_decision_required",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-GOV-010"
+      ],
+      "rationale": "Internal composition boundary is undecided."
+    },
+    {
+      "source_pointer": "/unresolved_alternatives/1",
+      "original_text": "separate media candidates",
+      "status": "owner_decision_required",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-CENSUS-001",
+        "EM-GOV-010"
+      ],
+      "rationale": "No merge/split decision is authorized."
+    },
+    {
+      "source_pointer": "/normative_status",
+      "original_text": "candidate-as-is-not-accepted",
+      "status": "still_open",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-GOV-010"
+      ],
+      "rationale": "Current immutable normative status."
+    },
+    {
+      "source_pointer": "/decision",
+      "original_text": "NOT_MERGED",
+      "status": "owner_decision_required",
+      "superseded_by_refs": [],
+      "residual_blocker_refs": [
+        "EM-GOV-010"
+      ],
+      "rationale": "Preserved boundary decision; not an operational disposition or accepted contract."
+    }
+  ],
+  "exact_blockers": [
+    {
+      "id": "EM-CENSUS-001",
+      "dimension": "family_boundary",
+      "blocks_before": "target_contract",
+      "statement": "No accepted family boundary distinguishes Event Detail primary/companion/previews from related EventCard, mobile listing media, and the lab-only rail.",
+      "evidence_refs": [
+        "E-CANDIDATE-001",
+        "E-SRC-ROUTE",
+        "E-RUNTIME-4X5",
+        "E-RUNTIME-5X4"
+      ],
+      "closure_condition": "Owner receipt classifies every boundary-pending consumer without merge/split inference.",
+      "status": "open"
+    },
+    {
+      "id": "EM-RATIO-002",
+      "dimension": "required_ratio_vocabulary",
+      "blocks_before": "target_contract",
+      "statement": "4:5, 5:4, 3:2, 2:3, 1:1, intrinsic/source and other observed ratios are not positively bound or explicitly non-applicable for every accepted consumer.",
+      "evidence_refs": [
+        "E-AUDIT-001",
+        "E-FIND-2X3",
+        "E-CHARTER-MEDIA"
+      ],
+      "closure_condition": "Every accepted consumer/slot ratio cell is reconciled without selecting a global target ratio.",
+      "status": "open"
+    },
+    {
+      "id": "EM-SEMANTIC-003",
+      "dimension": "semantic_media_types",
+      "blocks_before": "target_contract",
+      "statement": "Photography, poster/artwork, OCR/document, unknown-text and classified non-photo document behavior is not reconciled across Desktop, EventHero and EventMediaRail.",
+      "evidence_refs": [
+        "E-AUDIT-001",
+        "E-REQ-DESKTOP-V12",
+        "E-SRC-HERO",
+        "E-SRC-RAIL"
+      ],
+      "closure_condition": "Every accepted consumer binds all media types with no source/requirement conflict.",
+      "status": "open"
+    },
+    {
+      "id": "EM-CROP-004",
+      "dimension": "crop_focal_safe_object",
+      "blocks_before": "target_contract",
+      "statement": "Focal point, safe area, crop permission and object-position are not one proven policy; metadata exists but focal/safe data does not gate current cover.",
+      "evidence_refs": [
+        "E-FIND-CROP",
+        "E-SRC-TYPES",
+        "E-SRC-DESKTOP-CROP",
+        "E-SRC-HERO"
+      ],
+      "closure_condition": "Covered media has a consumer-specific, positively evidenced crop/safe/focal rule or explicit non-applicability.",
+      "status": "open"
+    },
+    {
+      "id": "EM-TINY-005",
+      "dimension": "upscale_tiny_source",
+      "blocks_before": "target_contract",
+      "statement": "No accepted upscale ceiling exists, and EventHero low-resolution containment is logically unreachable.",
+      "evidence_refs": [
+        "E-SRC-QUALITY",
+        "E-SRC-HERO",
+        "E-RUNTIME-TINY"
+      ],
+      "closure_condition": "A tested consumer-specific tiny/upscale policy replaces the contradictory branch without introducing a ratio token.",
+      "status": "open"
+    },
+    {
+      "id": "EM-FALLBACK-006",
+      "dimension": "missing_broken_tiny_fallback",
+      "blocks_before": "target_contract",
+      "statement": "Missing fallback exists, but broken-image convergence is unproven for Event Detail primary, companion, gallery and previews.",
+      "evidence_refs": [
+        "E-RUNTIME-MISSING",
+        "E-RUNTIME-BROKEN",
+        "E-RUNTIME-LISTING-BROKEN"
+      ],
+      "closure_condition": "Missing and broken states have tested consumer-specific semantic convergence and preserved geometry.",
+      "status": "open"
+    },
+    {
+      "id": "EM-LAYOUT-007",
+      "dimension": "skeleton_layout_reservation",
+      "blocks_before": "target_contract",
+      "statement": "Mobile primary/poster reservation and genuine lazy gallery loading treatment are incomplete; skeleton applicability is not adjudicated for every slot.",
+      "evidence_refs": [
+        "E-CHARTER-MEDIA",
+        "E-SRC-HERO",
+        "E-AUDIT-001"
+      ],
+      "closure_condition": "Every slot proves reservation and either a genuine loading state or a reasoned SSG non-applicability.",
+      "status": "open"
+    },
+    {
+      "id": "EM-RESP-008",
+      "dimension": "responsive_art_direction",
+      "blocks_before": "target_contract",
+      "statement": "No complete responsive art-direction contract exists; primary media lacks alternate-source art direction and nine Desktop cascade probes are unreconciled.",
+      "evidence_refs": [
+        "E-RUNTIME-BREAKPOINTS",
+        "E-CHARTER-MEDIA",
+        "E-SRC-ROUTE"
+      ],
+      "closure_condition": "All required responsive cells are reconciled and all nine probes have terminal positive evidence or exact accepted non-applicability.",
+      "status": "open"
+    },
+    {
+      "id": "EM-RUNTIME-009",
+      "dimension": "runtime_production_equivalence",
+      "blocks_before": "target_contract",
+      "statement": "All relevant supplement captures are candidate or controlled runtime; none is production-equivalent or production-observed.",
+      "evidence_refs": [
+        "E-RUNTIME-MISSING",
+        "E-RUNTIME-TINY",
+        "E-RUNTIME-PRIMARY-PREVIEWS",
+        "E-RUNTIME-4X5",
+        "E-RUNTIME-5X4"
+      ],
+      "closure_condition": "Exact production route/consumer runtime evidence is reviewed and positively bound.",
+      "status": "open"
+    },
+    {
+      "id": "EM-GOV-010",
+      "dimension": "immutable_candidate_governance",
+      "blocks_before": "target_contract",
+      "statement": "Human review remains pending, normalization is disallowed, recommendation is unresolved and no owner decision receipt exists.",
+      "evidence_refs": [
+        "E-CANDIDATE-001"
+      ],
+      "closure_condition": "A separate accepted receipt resolves review, recommendation and normalization permission without mutating immutable evidence.",
+      "status": "open"
+    },
+    {
+      "id": "EM-LABRAIL-011",
+      "dimension": "lab_rail_semantics",
+      "blocks_before": "target_contract",
+      "statement": "Lab-only EventMediaRail covers OCR/documents and lacks broken/missing/tiny plus overflow/keyboard closure.",
+      "evidence_refs": [
+        "E-SRC-RAIL",
+        "E-SRC-LAYOUT",
+        "E-RUNTIME-PRIMARY-PREVIEWS"
+      ],
+      "closure_condition": "Owner excludes it with reason or reconciles semantics and runtime without promoting lab evidence as production.",
+      "status": "open"
+    },
+    {
+      "id": "EM-PROVENANCE-012",
+      "dimension": "cell_level_provenance",
+      "blocks_before": "target_contract",
+      "statement": "Historical dossier has global provenance lists, not reconciled source + requirement + runtime evidence per consumer cell.",
+      "evidence_refs": [
+        "E-V1-DOSSIER-001",
+        "E-AUDIT-001"
+      ],
+      "closure_condition": "Every accepted cell has resolvable source and requirement evidence plus runtime evidence or an explicit reasoned absence.",
+      "status": "open"
+    }
+  ],
+  "positive_readiness_checklist": [
+    {
+      "id": "EM-CHECK-001",
+      "dimension": "authority_and_byte_integrity",
+      "status": "PASS",
+      "evidence_refs": [
+        "E-CANDIDATE-001",
+        "E-V1-DOSSIER-001"
+      ],
+      "reason": "Immutable candidate, v1 dossier and source/closure hashes are pinned."
+    },
+    {
+      "id": "EM-CHECK-002",
+      "dimension": "accepted_consumer_census",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-CENSUS-001"
+      ]
+    },
+    {
+      "id": "EM-CHECK-003",
+      "dimension": "required_ratio_vocabulary_per_consumer",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-RATIO-002"
+      ]
+    },
+    {
+      "id": "EM-CHECK-004",
+      "dimension": "media_types_per_consumer",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-SEMANTIC-003"
+      ]
+    },
+    {
+      "id": "EM-CHECK-005",
+      "dimension": "fit_crop_focal_safe_object",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-CROP-004"
+      ]
+    },
+    {
+      "id": "EM-CHECK-006",
+      "dimension": "upscale_tiny_source",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-TINY-005"
+      ]
+    },
+    {
+      "id": "EM-CHECK-007",
+      "dimension": "missing_broken_tiny_fallback",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-FALLBACK-006"
+      ]
+    },
+    {
+      "id": "EM-CHECK-008",
+      "dimension": "skeleton_and_layout_reservation",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-LAYOUT-007"
+      ]
+    },
+    {
+      "id": "EM-CHECK-009",
+      "dimension": "responsive_art_direction",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-RESP-008"
+      ]
+    },
+    {
+      "id": "EM-CHECK-010",
+      "dimension": "production_equivalent_runtime",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-RUNTIME-009"
+      ]
+    },
+    {
+      "id": "EM-CHECK-011",
+      "dimension": "immutable_candidate_governance",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-GOV-010"
+      ]
+    },
+    {
+      "id": "EM-CHECK-012",
+      "dimension": "lab_rail_boundary_and_semantics",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-LABRAIL-011"
+      ]
+    },
+    {
+      "id": "EM-CHECK-013",
+      "dimension": "cell_level_provenance",
+      "status": "BLOCKED",
+      "blocker_refs": [
+        "EM-PROVENANCE-012"
+      ]
+    }
+  ],
+  "readiness_algorithm": {
+    "mode": "positive_fail_closed",
+    "ready_status": "READY_FOR_CONTRACT_DECISION_REVIEW",
+    "not_ready_status": "NOT_READY_WITH_EXACT_BLOCKERS",
+    "ready_only_if": [
+      "Every required matrix cell for every accepted in-scope consumer is reconciled by positive evidence or NOT_APPLICABLE_WITH_REASON.",
+      "No CONFLICT, UNBOUND or unresolved PARTIAL_EVIDENCE remains in an accepted in-scope row.",
+      "Every original blocker has a non-open supersession backed by evidence or an accepted owner receipt.",
+      "Every positive checklist item is PASS.",
+      "No target ratio, token, merge/split, UI change or accepted decision is introduced by the dossier."
+    ],
+    "current_evaluation": "fail"
+  },
+  "verdict": {
+    "status": "NOT_READY_WITH_EXACT_BLOCKERS",
+    "exact_blocker_ids": [
+      "EM-CENSUS-001",
+      "EM-RATIO-002",
+      "EM-SEMANTIC-003",
+      "EM-CROP-004",
+      "EM-TINY-005",
+      "EM-FALLBACK-006",
+      "EM-LAYOUT-007",
+      "EM-RESP-008",
+      "EM-RUNTIME-009",
+      "EM-GOV-010",
+      "EM-LABRAIL-011",
+      "EM-PROVENANCE-012"
+    ],
+    "ready_for_contract_decision_review": false,
+    "reason": "Positive evidence is incomplete and conflicting across required consumer-scoped dimensions; immutable governance and production-equivalent runtime remain open."
+  }
+}
