@@ -1,0 +1,114 @@
+mode: worktree_worker
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: 317938bc72cf7a47ea798b2614d92d3d285dd97a
+base_branch: main
+integration_branch: remediation/project-normalization-synthesis-v1-1
+global_constraints:
+  - analytical remediation only
+  - events-bot-new is read-only evidence
+  - no production UI, Penpot, tokens, winner, component merge/split/delete, or product-model invention
+  - PR remains open pending independent re-audit
+verification_owner: L7-integrator
+stop_conditions:
+  - missing byte-exact independent audit is reported and must be resolved before completion
+  - immutable evidence drift
+  - any mutation to forbidden runtime/design paths
+lanes:
+  - id: L1-raw-audit
+    role: worker
+    effort: xhigh
+    requirement_ids: [R01, R02, R06]
+    target: audit disposition, authoritative raw universe, aliases, partition, typed finding schema/catalog
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1/raw-audit
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-raw-audit
+    writable_files: [docs/audits/project-normalization-synthesis-v1-audit-disposition.md, contracts/normalization/findings-disposition.v1.schema.json, catalog/normalization/authoritative-raw-universe.jsonl, catalog/normalization/raw-alias-registry.jsonl, catalog/normalization/raw-to-canonical-partition.jsonl, catalog/normalization/findings-disposition.jsonl, .codex/lanes/project-normalization-v1-1-raw-audit/RESULTS.md]
+    forbidden_files: [catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc, penpot, prototypes]
+    expected_output: committed raw/audit lane
+    verification_scope: targeted
+    status: planned
+  - id: L2-registry-readiness
+    role: worker
+    effort: xhigh
+    requirement_ids: [R04, R05, R10]
+    target: typed analytical group registry, positive semantic readiness, recalculated wave
+    depends_on: [L1-raw-audit]
+    execution_mode: serial_after_dependency
+    branch: agent/project-normalization-v1-1/registry-readiness
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-registry-readiness
+    writable_files: [contracts/normalization/analytical-entity-kinds.v1.schema.json, contracts/normalization/semantic-readiness.v1.schema.json, catalog/normalization/analysis-group-registry.jsonl, catalog/normalization/semantic-readiness.jsonl, catalog/normalization/family-wave-plan.json, docs/normalization/family-wave-plan-v1-1.md, .codex/lanes/project-normalization-v1-1-registry-readiness/RESULTS.md]
+    forbidden_files: [penpot, prototypes]
+    expected_output: committed registry/readiness lane
+    verification_scope: targeted
+    status: planned
+  - id: L3-event-media
+    role: worker
+    effort: xhigh
+    requirement_ids: [R08]
+    target: exhaustive consumer-scoped Event Media dossier and blocker supersession
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1/event-media
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-event-media
+    writable_files: [catalog/normalization/families/event-media/dossier.json, catalog/normalization/families/event-media/dossier.md, .codex/lanes/project-normalization-v1-1-event-media/RESULTS.md]
+    forbidden_files: [site/src, site/public, penpot, prototypes]
+    expected_output: committed dossier lane
+    verification_scope: targeted
+    status: planned
+  - id: L4-medallions-navigation
+    role: worker
+    effort: xhigh
+    requirement_ids: [R07, R09]
+    target: medallion taxonomy dossier and fail-closed unreachable/mobile-nav lifecycle records
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1/medallions-navigation
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-medallions-navigation
+    writable_files: [catalog/normalization/families/event-token-medallions/dossier.json, catalog/normalization/families/event-token-medallions/dossier.md, catalog/normalization/unreachable-implementation-lifecycle.jsonl, .codex/lanes/project-normalization-v1-1-medallions-navigation/RESULTS.md]
+    forbidden_files: [site/src, site/public, penpot, prototypes]
+    expected_output: committed taxonomy/lifecycle lane
+    verification_scope: targeted
+    status: planned
+  - id: L5-evidence-value
+    role: worker
+    effort: xhigh
+    requirement_ids: [R11, R12]
+    target: row-level visual evidence/count namespace and Product Value observe gate
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1/evidence-value
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-evidence-value
+    writable_files: [contracts/product-value-evidence-binding.v1.schema.json, catalog/normalization/component-applications.jsonl, catalog/normalization/product-value-readiness.jsonl, catalog/normalization/visual-review-evidence.jsonl, catalog/normalization/behavioral-manifest-counts.json, .codex/lanes/project-normalization-v1-1-evidence-value/RESULTS.md]
+    forbidden_files: [site/src, site/public, penpot, prototypes]
+    expected_output: committed evidence/value lane
+    verification_scope: targeted
+    status: planned
+  - id: L6-lifecycle
+    role: worker
+    effort: xhigh
+    requirement_ids: [R13]
+    target: normative family lifecycle contract and reconciled authority docs
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1/lifecycle
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-lifecycle
+    writable_files: [contracts/normalization/family-lifecycle.v1.schema.json, contracts/normalization/family-lifecycle.v1.json, docs/normalization/design-system-family-lifecycle.md, docs/features/static-site-pages/design-system/penpot-resource-graph-004.md, docs/component-contract-authority.md, .codex/lanes/project-normalization-v1-1-lifecycle/RESULTS.md]
+    forbidden_files: [penpot, prototypes, site/src, site/public]
+    expected_output: committed lifecycle lane
+    verification_scope: targeted
+    status: planned
+  - id: L7-integrator
+    role: merge_reviewer
+    effort: xhigh
+    requirement_ids: [R03, R14, R15]
+    target: integrate lanes, validator, semantic mutation suite, report/receipt/workflow/PR
+    depends_on: [L1-raw-audit, L2-registry-readiness, L3-event-media, L4-medallions-navigation, L5-evidence-value, L6-lifecycle]
+    execution_mode: serial_after_dependency
+    branch: remediation/project-normalization-synthesis-v1-1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/project-normalization-synthesis-v1-1
+    writable_files: [scripts/validate-project-normalization-synthesis-v1.mjs, scripts/validate-project-normalization-synthesis-v1-1.mjs, tests/project-normalization-synthesis-v1-1-negative.mjs, docs/normalization/project-normalization-synthesis-v1-1.md, docs/audits/project-normalization-synthesis-v1-1-remediation-report.md, receipts/normalization/project-normalization-synthesis-v1-1.json, .github/workflows/project-normalization-synthesis-v1-1.yml, .codex/integration/project-normalization-synthesis-v1-1/INTEGRATION_REPORT.md]
+    forbidden_files: [penpot, prototypes, site/src, site/public]
+    expected_output: open unmerged PR ready for independent re-audit
+    verification_scope: full_local
+    status: planned
