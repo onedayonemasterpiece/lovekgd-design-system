@@ -13,6 +13,7 @@ import {
   extractEventPaths,
   validateWorkflowPathFilters,
 } from '../scripts/normalization-v1-1/validate-workflow-path-filters.mjs';
+import { captureRunnerProvenance } from '../scripts/normalization-v1-1/runner-version-provenance.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const registryRelative = 'contracts/normalization/project-normalization-v1-1-input-paths.json';
@@ -48,6 +49,46 @@ test('replay workflow binds the branch head and every events census source objec
   }
   assert.match(workflow, /git -C "\$events_source" cat-file -e "\$NORMALIZATION_CURRENT_ROOT_SHA\^\{commit\}"/u);
   assert.match(workflow, /git -C "\$events_source" cat-file -e "\$NORMALIZATION_BEHAVIORAL_SOURCE_SHA\^\{commit\}"/u);
+  for (const context of ['name', 'os', 'arch', 'environment']) {
+    assert.match(workflow, new RegExp(`NORMALIZATION_RUNNER_[A-Z]+: \\$\\{\\{ runner\\.${context} \\}\\}`, 'u'));
+  }
+});
+
+test('hosted runner provenance is truthful when semantic runner version is not exposed', () => {
+  const runner = captureRunnerProvenance({
+    env: {
+      GITHUB_ACTIONS: 'true',
+      NORMALIZATION_RUNNER_NAME: 'GitHub Actions 1000000000',
+      NORMALIZATION_RUNNER_OS: 'Linux',
+      NORMALIZATION_RUNNER_ARCH: 'X64',
+      NORMALIZATION_RUNNER_ENVIRONMENT: 'github-hosted',
+      ImageOS: 'ubuntu24',
+      ImageVersion: '20260805.1',
+      NORMALIZATION_RUNS_ON: 'ubuntu-24.04',
+    },
+    resolvedVersion: null,
+    requireActionsContext: true,
+  });
+  assert.equal(runner.actions_runner_version, null);
+  assert.equal(runner.version_resolution_status, 'not_exposed_by_hosted_runner');
+  assert.equal(runner.image_os, 'ubuntu24');
+  assert.equal(runner.image_version, '20260805.1');
+});
+
+test('hosted runner provenance rejects incomplete image identity', () => {
+  assert.throws(() => captureRunnerProvenance({
+    env: {
+      GITHUB_ACTIONS: 'true',
+      NORMALIZATION_RUNNER_NAME: 'GitHub Actions 1000000000',
+      NORMALIZATION_RUNNER_OS: 'Linux',
+      NORMALIZATION_RUNNER_ARCH: 'X64',
+      NORMALIZATION_RUNNER_ENVIRONMENT: 'github-hosted',
+      ImageOS: 'ubuntu24',
+      NORMALIZATION_RUNS_ON: 'ubuntu-24.04',
+    },
+    resolvedVersion: null,
+    requireActionsContext: true,
+  }), /runner provenance field is missing: image_version/u);
 });
 
 test('a required contracts authority omission is rejected in one event', () => {

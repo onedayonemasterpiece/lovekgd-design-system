@@ -96,6 +96,7 @@ env:
   NORMALIZATION_RUN_ATTEMPT: ${{ github.run_attempt }}
   NORMALIZATION_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
   NORMALIZATION_RUN_EVENT: ${{ github.event_name }}
+  NORMALIZATION_RUNS_ON: 'ubuntu-24.04'
   NORMALIZATION_PRIOR_SHA256: 'c677f69572ccdbf5b7f1402037a3cb8c164bd2f503fae35eae9168c46eb8d909'
   NORMALIZATION_CLOSURE_SHA256: '8bb8712effaa0ba3b08a672a784d9e1b90d876c6ca6d039a417bfc0617723523'
 
@@ -208,6 +209,11 @@ jobs:
       - name: Replay full corpus in clean secondary checkouts
         id: replay
         continue-on-error: true
+        env:
+          NORMALIZATION_RUNNER_NAME: ${{ runner.name }}
+          NORMALIZATION_RUNNER_OS: ${{ runner.os }}
+          NORMALIZATION_RUNNER_ARCH: ${{ runner.arch }}
+          NORMALIZATION_RUNNER_ENVIRONMENT: ${{ runner.environment }}
         shell: bash
         run: |
           set -euo pipefail
@@ -244,7 +250,8 @@ jobs:
           (cd "$artifact" && sha256sum --check --strict SHA256SUMS)
           python3 scripts/validate-normalization-schemas-v1-1.py . \
             --mutation-result "$artifact/project-normalization-v1-1-mutation-results.json" \
-            --execution-attestation "$artifact/project-normalization-v1-1-execution-attestation.json"
+            --execution-attestation "$artifact/project-normalization-v1-1-execution-attestation.json" \
+            --runtime-versions "$artifact/versions.json"
 
       - name: Upload reproducibility evidence
         if: always()

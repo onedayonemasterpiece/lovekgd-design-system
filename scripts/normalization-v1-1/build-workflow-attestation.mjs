@@ -5,6 +5,8 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { captureRunnerProvenance } from './runner-version-provenance.mjs';
+
 const BASE_SHA = '317938bc72cf7a47ea798b2614d92d3d285dd97a';
 const EVENTS_SHA = '66bc0d43e36299417626f992021cfb7299ddf704';
 const EVENTS_EVIDENCE_SOURCES = [
@@ -161,25 +163,6 @@ const executionContext = () => {
   };
 };
 
-const resolveRunnerVersion = () => {
-  if (/^\d+\.\d+\.\d+$/.test(process.env.ACTIONS_RUNNER_VERSION ?? '')) return process.env.ACTIONS_RUNNER_VERSION;
-  let pid = process.ppid;
-  for (let depth = 0; depth < 12 && pid > 1; depth += 1) {
-    try {
-      const executable = fs.readlinkSync(`/proc/${pid}/exe`);
-      const match = executable.match(/\/runners\/(\d+\.\d+\.\d+)\/bin\/Runner\.(?:Worker|Listener)$/);
-      if (match) return match[1];
-      const status = fs.readFileSync(`/proc/${pid}/status`, 'utf8');
-      pid = Number(status.match(/^PPid:\s+(\d+)$/m)?.[1] ?? 0);
-    } catch { break; }
-  }
-  try {
-    const rootEntries = fs.readdirSync('/home/runner/runners', { withFileTypes: true });
-    const versions = rootEntries.filter((entry) => entry.isDirectory() && /^\d+\.\d+\.\d+$/.test(entry.name)).map((entry) => entry.name);
-    return versions.sort((left, right) => left.localeCompare(right, undefined, { numeric: true })).at(-1) ?? null;
-  } catch { return null; }
-};
-
 const captureVersions = () => {
   const pythonDetails = JSON.parse(commandText('python3', ['-c', [
     'import importlib.metadata as m, json, platform',
@@ -200,23 +183,12 @@ const captureVersions = () => {
   if (requested.node) assert(resolved.node === requested.node, `resolved Node ${resolved.node} differs from requested ${requested.node}`);
   if (requested.python) assert(resolved.python === requested.python, `resolved Python ${resolved.python} differs from requested ${requested.python}`);
   if (requested.jsonschema) assert(resolved.python_packages.jsonschema === requested.jsonschema, `resolved jsonschema ${resolved.python_packages.jsonschema} differs from requested ${requested.jsonschema}`);
-  const runnerVersion = resolveRunnerVersion();
-  if (requireRunnerVersion) assert(runnerVersion !== null, 'GitHub Actions runner version could not be resolved');
   return {
     schema_version: 'project_normalization_workflow_versions_v1',
     captured_at: new Date().toISOString(),
     requested,
     resolved,
-    runner: {
-      actions_runner_version: runnerVersion,
-      name: process.env.RUNNER_NAME ?? null,
-      os: process.env.RUNNER_OS ?? process.platform,
-      arch: process.env.RUNNER_ARCH ?? process.arch,
-      environment: process.env.RUNNER_ENVIRONMENT ?? null,
-      image_os: process.env.ImageOS ?? null,
-      image_version: process.env.ImageVersion ?? null,
-      runs_on: 'ubuntu-24.04',
-    },
+    runner: captureRunnerProvenance({ requireActionsContext: requireRunnerVersion }),
   };
 };
 

@@ -216,6 +216,7 @@ const receipt = {
     workflow_input_registry: binding('contracts/normalization/project-normalization-v1-1-input-paths.json'),
     workflow_input_schema: binding('contracts/normalization/project-normalization-v1-1-input-paths.schema.json'),
     execution_attestation_schema: binding('contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json'),
+    runtime_versions_schema: binding('contracts/normalization/project-normalization-workflow-versions.v1.schema.json'),
   },
   execution_attestation_contract: {
     status: 'required_external',

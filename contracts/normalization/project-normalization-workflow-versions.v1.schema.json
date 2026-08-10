@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/project-normalization-workflow-versions.v1.schema.json",
+  "title": "Project normalization workflow runtime versions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "captured_at", "requested", "resolved", "runner"],
+  "properties": {
+    "schema_version": { "const": "project_normalization_workflow_versions_v1" },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "requested": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "python", "jsonschema"],
+      "properties": {
+        "node": { "type": ["string", "null"] },
+        "python": { "type": ["string", "null"] },
+        "jsonschema": { "type": ["string", "null"] }
+      }
+    },
+    "resolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["git", "node", "python", "python_packages"],
+      "properties": {
+        "git": { "type": "string", "minLength": 1 },
+        "node": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "python": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "python_packages": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["attrs", "jsonschema", "jsonschema-specifications", "referencing", "rpds-py"],
+          "properties": {
+            "attrs": { "type": "string", "minLength": 1 },
+            "jsonschema": { "type": "string", "minLength": 1 },
+            "jsonschema-specifications": { "type": "string", "minLength": 1 },
+            "referencing": { "type": "string", "minLength": 1 },
+            "rpds-py": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actions_runner_version",
+        "version_resolution_status",
+        "name",
+        "os",
+        "arch",
+        "environment",
+        "image_os",
+        "image_version",
+        "runs_on"
+      ],
+      "properties": {
+        "actions_runner_version": { "type": ["string", "null"] },
+        "version_resolution_status": {
+          "enum": ["resolved", "not_exposed_by_hosted_runner", "not_applicable_local_replay"]
+        },
+        "name": { "type": ["string", "null"] },
+        "os": { "type": "string", "minLength": 1 },
+        "arch": { "type": "string", "minLength": 1 },
+        "environment": { "type": ["string", "null"] },
+        "image_os": { "type": ["string", "null"] },
+        "image_version": { "type": ["string", "null"] },
+        "runs_on": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "version_resolution_status": { "const": "resolved" } } },
+          "then": {
+            "properties": {
+              "actions_runner_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "version_resolution_status": { "const": "not_exposed_by_hosted_runner" } } },
+          "then": {
+            "properties": {
+              "actions_runner_version": { "const": null },
+              "name": { "type": "string", "minLength": 1 },
+              "environment": { "const": "github-hosted" },
+              "image_os": { "type": "string", "minLength": 1 },
+              "image_version": { "type": "string", "minLength": 1 },
+              "runs_on": { "const": "ubuntu-24.04" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "version_resolution_status": { "const": "not_applicable_local_replay" } } },
+          "then": {
+            "properties": {
+              "actions_runner_version": { "const": null },
+              "runs_on": { "const": null }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

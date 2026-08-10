@@ -76,6 +76,7 @@ TARGETS = (
 SCHEMA_ONLY = (
     "contracts/normalization/project-normalization-mutation-run.v1.schema.json",
     "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json",
+    "contracts/normalization/project-normalization-workflow-versions.v1.schema.json",
 )
 
 
@@ -109,6 +110,10 @@ RUNTIME_TARGETS = (
     (
         "--execution-attestation",
         "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json",
+    ),
+    (
+        "--runtime-versions",
+        "contracts/normalization/project-normalization-workflow-versions.v1.schema.json",
     ),
 )
 for flag, schema_path in RUNTIME_TARGETS:
