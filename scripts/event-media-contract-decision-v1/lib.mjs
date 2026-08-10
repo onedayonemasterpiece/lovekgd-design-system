@@ -211,6 +211,7 @@ const immutableChecks = (root, eventsRoot, fixtureMode) => {
     ? Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b))) : value);
   requireValue(shaBuffer(Buffer.from(canonicalBlockers)) === EXACT_BLOCKERS_SHA256, 'EMV_SOURCE_BLOCKERS_DRIFT', 'immutable', 'event-media-dossier', '/exact_blockers', 'exact blocker source changed');
   if (!fixtureMode) {
+    requireValue(git(root, ['status', '--porcelain']) === '', 'EMV_DESIGN_DIRTY', 'immutable', 'lovekgd-design-system', '/', 'design-system checkout is dirty');
     requireValue(git(root, ['rev-parse', `HEAD:${DECODER}`]) === DECODER_TREE, 'EMV_IMMUTABLE_DECODER_TREE', 'immutable', 'decoder-v1', '/', 'Decoder v1 tree changed');
     requireValue(git(root, ['rev-parse', 'HEAD:catalog/component-decoder']) === COMPONENT_DECODER_TREE, 'EMV_IMMUTABLE_COMPONENT_DECODER_TREE', 'immutable', 'component-decoder', '/', 'component decoder tree changed');
     requireValue(git(root, ['rev-parse', 'HEAD:penpot']) === PENPOT_TREE, 'EMV_PENPOT_TREE_CHANGED', 'stop', 'penpot', '/', 'Penpot tree changed');
@@ -364,7 +365,9 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     if (boundary.candidate_contract_ref !== null) {
       requireValue(boundary.entity_kind === 'component_identity_candidate', 'EMV_COMPOSITION_AS_COMPONENT', 'boundary', boundary.id, '/candidate_contract_ref', 'only a component identity candidate may own a contract');
       requireValue(fs.existsSync(absolute(absoluteRoot, boundary.candidate_contract_ref)), 'EMV_CANDIDATE_CONTRACT_REF', 'boundary', boundary.id, '/candidate_contract_ref', 'candidate contract file is missing');
-      candidateBoundaryIds.add(path.basename(boundary.candidate_contract_ref, '.json'));
+      const candidateId = path.basename(boundary.candidate_contract_ref, '.json');
+      requireValue(boundary.id === `event-media.boundary.${candidateId}`, 'EMV_BOUNDARY_CANDIDATE_IDENTITY', 'boundary', boundary.id, '/candidate_contract_ref', 'boundary identity and candidate contract identity differ');
+      candidateBoundaryIds.add(candidateId);
     } else requireValue(boundary.entity_kind !== 'component_identity_candidate', 'EMV_CANDIDATE_CONTRACT_MISSING', 'boundary', boundary.id, '/candidate_contract_ref', 'component identity candidate lacks a contract');
   }
   requireValue(boundaryById.get('event-media.boundary.family.event-media')?.entity_kind === 'composition_pattern' && boundaryById.get('event-media.boundary.family.event-media')?.candidate_contract_ref === null, 'EMV_FAMILY_COMPOSITION_ESCAPED', 'boundary', 'family.event-media', '/', 'Event Media analytical family must remain a composition pattern');
@@ -435,6 +438,11 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(sameSet(candidate.owner_question_refs, expectedCandidateOwners)
       && expectedCandidateOwners.every((id) => ownerQueue.some((row) => row.id === id)), 'EMV_CANDIDATE_OWNER_JOIN', 'owner-queue', record, '/owner_question_refs', 'candidate owner question set does not recompute from its exact blockers');
     verifyRefs(absoluteRoot, absoluteEvents, candidate.evidence_refs, record, '/evidence_refs', fixtureMode);
+    const expectedBoundaryId = `event-media.boundary.${record}`;
+    const candidateBoundary = boundaryById.get(expectedBoundaryId);
+    requireValue(candidateBoundary?.entity_kind === 'component_identity_candidate'
+      && candidateBoundary?.candidate_contract_ref === candidatePath,
+    'EMV_BOUNDARY_CANDIDATE_IDENTITY', 'candidate', record, '/candidate_component_id', 'candidate contract does not resolve to its own identity boundary');
     candidateById.set(record, candidate);
   }
   requireValue(sameSet(candidateById.keys(), CANDIDATE_IDS), 'EMV_CANDIDATE_SET_MISMATCH', 'candidate', 'candidate-set', '/', 'candidate file set differs');
@@ -455,6 +463,18 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
   for (const row of readiness) {
     const candidate = candidateById.get(row.subject_id);
     requireValue(candidate && row.subject_entity_kind === 'component_identity_candidate', 'EMV_READINESS_SUBJECT_INVALID', 'readiness', row.id, '/subject_id', 'readiness subject is not a candidate identity');
+    const expectedBoundaryId = `event-media.boundary.${row.subject_id}`;
+    const expectedContractRef = `catalog/normalization/event-media/candidate-contracts/${row.subject_id}.json`;
+    requireValue(row.id === `event-media.readiness.${row.subject_id.replace(/^candidate\./u, '')}`
+      && row.candidate_contract_ref === expectedContractRef
+      && candidate.candidate_component_id === row.subject_id
+      && candidate.contract_version === row.candidate_contract_version,
+    'EMV_READINESS_CANDIDATE_IDENTITY', 'readiness', row.id, '/candidate_contract_ref', 'readiness subject and candidate contract identity differ');
+    const subjectBoundary = boundaryById.get(row.boundary_ref);
+    requireValue(row.boundary_ref === expectedBoundaryId
+      && subjectBoundary?.entity_kind === 'component_identity_candidate'
+      && subjectBoundary?.candidate_contract_ref === expectedContractRef,
+    'EMV_READINESS_BOUNDARY_IDENTITY', 'readiness', row.id, '/boundary_ref', 'readiness subject and boundary identity differ');
     requireValue(row.checklist.length === READINESS_CHECK_IDS.length && sameSet(row.checklist.map((item) => item.check_id), READINESS_CHECK_IDS), 'EMV_READINESS_DIMENSION_MISSING', 'readiness', row.id, '/checklist', 'positive readiness checklist is incomplete');
     unique(row.checklist.map((item) => item.check_id), 'EMV_READINESS_DIMENSION_DUPLICATE', 'readiness', row.id, '/checklist');
     for (const check of row.checklist) {
@@ -480,7 +500,9 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(sameSet(row.open_blocker_refs, row.blocker_closure_refs.filter((id) => blockerById.get(id)?.status === 'still_open')),
       'EMV_READINESS_OPEN_BLOCKER_JOIN', 'readiness', row.id, '/open_blocker_refs', 'open blocker set does not recompute from the closure ledger');
     requireValue(row.blocker_closure_refs.every((id) => blockerById.has(id)), 'EMV_READINESS_BLOCKER_JOIN', 'readiness', row.id, '/blocker_closure_refs', 'readiness blocker reference is unresolved');
-    const expectedOwner = [...new Set(row.owner_decision_blocker_refs.map((id) => blockerById.get(id)?.owner_question_id).filter(Boolean))];
+    const expectedOwnerBlockers = row.blocker_closure_refs.filter((id) => blockerById.get(id)?.status === 'owner_decision_required');
+    requireValue(sameSet(row.owner_decision_blocker_refs, expectedOwnerBlockers), 'EMV_READINESS_OWNER_BLOCKER_JOIN', 'readiness', row.id, '/owner_decision_blocker_refs', 'owner blocker set does not recompute from the closure ledger');
+    const expectedOwner = [...new Set(expectedOwnerBlockers.map((id) => blockerById.get(id)?.owner_question_id).filter(Boolean))];
     requireValue(sameSet(row.owner_question_refs, expectedOwner) && expectedOwner.every((id) => ownerById.has(id)), 'EMV_READINESS_OWNER_JOIN', 'readiness', row.id, '/owner_question_refs', 'readiness owner queue join differs');
     verifyRefs(absoluteRoot, absoluteEvents, row.evidence_refs, row.id, '/evidence_refs', fixtureMode);
     verifyRefs(absoluteRoot, absoluteEvents, [...row.product_value_application_refs, ...row.product_value_readiness_refs], row.id, '/product_value_refs', fixtureMode);

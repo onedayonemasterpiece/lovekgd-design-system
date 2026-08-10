@@ -6,6 +6,7 @@ import path from 'node:path';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const workflowPath = '.github/workflows/event-media-contract-decision-v1.yml';
 const workflow = fs.readFileSync(path.join(root, workflowPath), 'utf8');
+const legacyWorkflow = fs.readFileSync(path.join(root, '.github/workflows/project-normalization-synthesis-v1-1.yml'), 'utf8');
 const replay = fs.readFileSync(path.join(root, 'scripts/normalization-v1-1/replay-normalization-workflow.sh'), 'utf8');
 
 const eventPaths = (event) => {
@@ -40,6 +41,9 @@ assert.deepEqual(push, pullRequest, 'push and pull_request path filters must be 
 assert.equal(new Set(push).size, push.length, 'path filters must not contain duplicates');
 
 const requiredInputs = [
+  '.codex/integration/event-media-contract-decision-v1/EXECUTION_MATRIX.md',
+  '.codex/integration/event-media-contract-decision-v1/INTEGRATION_REPORT.md',
+  '.codex/integration/event-media-contract-decision-v1/LANE_MAP.yml',
   '.codex/lanes/event-media-validation/RESULTS.md',
   '.github/workflows/event-media-contract-decision-v1.yml',
   '.github/workflows/project-normalization-synthesis-v1-1.yml',
@@ -89,6 +93,8 @@ assert.match(workflow, /fetch --no-tags origin "\$EVENT_MEDIA_EVENTS_SHA"/u);
 assert.doesNotMatch(workflow, /fetch[^\n]*--depth/u);
 assert.doesNotMatch(workflow, /pull_request_target|secrets\.|permissions:\s*write|gh pr merge|git push|deploy/iu);
 assert.match(workflow, /persist-credentials: false/u);
+assert.match(workflow, /group: event-media-contract-decision-v1-\$\{\{ github\.event_name \}\}-/u, 'push and pull_request runs must not cancel each other');
+assert.match(legacyWorkflow, /group: project-normalization-synthesis-v1-1-\$\{\{ github\.event_name \}\}-/u, 'legacy push and pull_request runs must not cancel each other');
 
 assert.match(replay, /EVENT_MEDIA_RECEIPT_FROZEN_SHA='45288b001d724e0d3603d0c44d392ff370407bd0'/u);
 const frozenStart = replay.indexOf('run validate-event-media-receipt-frozen');

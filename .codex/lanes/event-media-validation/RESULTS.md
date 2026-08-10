@@ -10,8 +10,8 @@ Owned delivery/validation lane for Event Media boundary and contract decision v1
 - Final statuses: `EVENT_MEDIA_BOUNDARY_MODEL_COMPLETE` and `EVENT_MEDIA_NOT_READY_WITH_EXACT_BLOCKERS`.
 - Exact facts: 52 consumers, 23 semantic records, 31 boundaries, 12 exact blockers, 3 candidate contracts, 31 alternatives, 3 readiness rows, 2 owner questions, 23 readiness checks per candidate.
 - Readiness: 0 ready / 3 blocked; global baseline 47/47 not ready, 0 scored, 0 first-wave; 239 Product Value rows pending; six experiments `NOT_MERGED`.
-- Negative suite: exactly 56 named cases; 54 aggregate semantic rejections plus 2 STOP path rejections; stable expected/actual `EMV_*` codes; baseline restored.
-- Receipt is intentionally absent for L0 Draft-PR metadata materialization. Default schema, validator and builder commands reject absence with `EMV_RECEIPT_MISSING`; `--skip-receipt` is explicit and limited to pre-receipt/local or current-head legacy semantic validation.
+- Negative suite: exactly 60 named cases; 58 aggregate semantic rejections plus 2 STOP path rejections; stable expected/actual `EMV_*` codes; baseline restored. The four audit-added cases reject boundary/candidate identity swaps, readiness contract/boundary rebinding and owner-blocker omission.
+- Receipt materialization is deliberate and Draft-PR-bound. Default schema, validator and builder commands require and reconstruct the committed receipt; `--skip-receipt` remains explicit and limited to pre-receipt fixtures or current-head legacy semantic validation.
 
 ## Dependency commits kept separate
 
@@ -32,7 +32,7 @@ All commands used the clean exact events checkout at `/home/dev/.codex/worktrees
 
 - `python3 scripts/validate-event-media-contract-decision-schemas-v1.py --root . --skip-receipt` — PASS, Draft 2020-12, exact 52/23/31/12/31/3/2 catalog counts plus 3 candidates.
 - `node scripts/validate-event-media-contract-decision-v1.mjs --root . --events-repo <exact-events> --skip-receipt` — PASS, exact two final statuses.
-- `node tests/event-media-contract-decision-v1-negative.mjs` — PASS, 56/56 rejected as expected and restored baseline.
+- `node tests/event-media-contract-decision-v1-negative.mjs` — PASS, 60/60 rejected as expected and restored baseline.
 - `node tests/event-media-contract-decision-v1-workflow-path-filters.mjs` — PASS, 16 identical push/pull patterns covering 34 concrete authorities; pinned actions/runtimes and legacy bridge verified.
 - `node scripts/normalization-v1-1/validate-workflow-path-filters.mjs --root .` — PASS.
 - `node --test tests/project-normalization-v1-1-workflow-path-filters.mjs` — PASS.
@@ -59,6 +59,6 @@ The replay now proves the frozen receipt at exact `45288b…` with receipt valid
 
 Current-head `--skip-receipt` is safe only because the new Event Media workflow performs full current receipt validation after L0 materializes Draft PR metadata. Removing either half would reopen a guaranteed-red or unreceipted gap.
 
-## Remaining delivery action (L0)
+## Delivery boundary (L0)
 
-After the Draft PR exists, run the builder once with `--write --pr-number N --pr-url https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/N`, commit only the generated receipt, and rerun schema, semantic and builder commands without `--skip-receipt`/`--write`. The committed receipt records content hashes and constraints but explicitly does not self-assert CI execution.
+The integrator materializes the receipt once with `--write --pr-number N --pr-url https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/N`, commits only that generated receipt in a follow-up commit, and reruns schema, semantic and builder commands without `--skip-receipt`/`--write`. The committed receipt records content hashes and constraints but explicitly does not self-assert CI execution or the external read-only audit.

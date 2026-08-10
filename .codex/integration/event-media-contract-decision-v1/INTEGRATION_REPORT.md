@@ -11,18 +11,18 @@
 
 | Lane | Requirement IDs | Worker branch | Source head / corrections | Integration result | Evidence |
 |---|---|---|---|---|---|
-| L1 | R01, R02 | `agent/event-media-contract-decision-v1/consumer-census` | `e359d53a2da3c1004dab753be486208f7783cf35`, correction `f4db09a8e0d081bb201e2f182bfba74b14f8622d` | merged | 52 applications = 37 active + 15 current-source nonproduction; 18 semantic rows + 5 adjacent exclusions; zero duplicate provenance refs |
-| L2 | R04 | `agent/event-media-contract-decision-v1/blockers` | `2d306b2d54c24551f57d8b453b93fcee02b7a9f5` | merged | exact 12 dossier blockers; 3 owner-required + 9 still-open; no false closure |
-| L3 | R03, R05, R06 | `agent/event-media-contract-decision-v1/contracts` | `ad34c571228bc1b041aaac3924af95ec867f1e0a`, corrections `2a57ce6dcce0aa3b5bd6301111d1a808ea94ff01`, `f8fbce98eea2f417347033040f0facdf4d81e475`, `96c779e7a8a1960705495edf3cdf0318a8723d27` | merged | 31 boundaries, 23/23 forward refs, 31 six-option comparisons, exactly 3 candidate-only contracts |
-| L4 | R07, R08, R09 | `agent/event-media-contract-decision-v1/readiness` | `600766d33bad31a921b1a3243183f52ad90881ba`, corrections `62da2649d85b0eb3ccbf7ef433e213eaf180783f`, `98409e9c8445bf58d3bc123265605865c83c1c27` | merged | 3 candidates × 23 checks; 0 ready/scored/first-wave; 2 owner questions; Product Value observe/pending; Penpot unmaterialized |
-| L5 | R10 | `agent/event-media-contract-decision-v1/validation` | `f7d3216cd473e010ef4de0dd6be202e88302325d` through `d17250369fd9726cab72546749719243227e0479` (owned commits only) | merged | Draft 2020-12 schemas, strict `EMV_*` validator, deterministic receipt builder, 56 negative mutations, workflow/path gates, frozen legacy bridge, primary document |
-| L6 | closure review | read-only reviewer | pending after receipt and exact-head CI | planned | requirement-by-requirement, immutable/STOP, delivery and Draft-PR audit |
+| L1 | R01, R02 | `agent/event-media-contract-decision-v1/consumer-census` | `e359d53a2da3c1004dab753be486208f7783cf35`, correction `f4db09a8e0d081bb201e2f182bfba74b14f8622d` | patch-integrated by cherry-pick | 52 applications = 37 active + 15 current-source nonproduction; 18 semantic rows + 5 adjacent exclusions; zero duplicate provenance refs |
+| L2 | R04 | `agent/event-media-contract-decision-v1/blockers` | `2d306b2d54c24551f57d8b453b93fcee02b7a9f5` | patch-integrated by cherry-pick | exact 12 dossier blockers; 3 owner-required + 9 still-open; no false closure |
+| L3 | R03, R05, R06 | `agent/event-media-contract-decision-v1/contracts` | `ad34c571228bc1b041aaac3924af95ec867f1e0a`, corrections `2a57ce6dcce0aa3b5bd6301111d1a808ea94ff01`, `f8fbce98eea2f417347033040f0facdf4d81e475`, `96c779e7a8a1960705495edf3cdf0318a8723d27` | patch-integrated by cherry-pick | 31 boundaries, 23/23 forward refs, 31 six-option comparisons, exactly 3 candidate-only contracts |
+| L4 | R07, R08, R09 | `agent/event-media-contract-decision-v1/readiness` | `600766d33bad31a921b1a3243183f52ad90881ba`, corrections `62da2649d85b0eb3ccbf7ef433e213eaf180783f`, `98409e9c8445bf58d3bc123265605865c83c1c27` | patch-integrated by cherry-pick | 3 candidates × 23 checks; 0 ready/scored/first-wave; 2 owner questions; Product Value observe/pending; Penpot unmaterialized |
+| L5 | R10 | `agent/event-media-contract-decision-v1/validation` | `f7d3216cd473e010ef4de0dd6be202e88302325d` through `d17250369fd9726cab72546749719243227e0479` (owned commits only) | patch-integrated by cherry-pick | Draft 2020-12 schemas, strict `EMV_*` validator, deterministic receipt builder, 60 negative mutations, workflow/path gates, frozen legacy bridge, primary document |
+| L6 | closure review | read-only reviewer | external post-head audit | not receipt-bound | requirement-by-requirement, immutable/STOP, delivery and Draft-PR audit; findings require a correction/re-audit cycle rather than a self-asserted receipt claim |
 
 No worker change was accepted without inspecting its `RESULTS.md`, exact file
 scope and diff. Cross-lane defects found by the strict validator were corrected
 by the owning lane and rebound downstream rather than hidden in the validator.
 
-## Integrated result before receipt materialization
+## Integrated result
 
 - Consumer applications: **52**.
 - Semantic ledger records: **23** (18 in-boundary + 5 adjacent exclusions).
@@ -51,13 +51,14 @@ The exact fail-closed status projection is:
 No candidate qualifies for `READY_FOR_CONTRACT_DECISION_REVIEW`, so the owner
 status is not promoted.
 
-## Validation before delivery receipt
+## Deterministic validation contract
 
 - Event Media Draft 2020-12 catalog and candidate schemas: PASS.
 - Strict current-head semantic validation with explicit pre-receipt
   `--skip-receipt`: PASS.
-- Exact 56 named negative mutations: PASS (54 aggregate semantic rejections +
-  2 STOP-path rejections, restored baseline after each case).
+- Exact 60 named negative mutations: PASS (58 aggregate semantic rejections +
+  2 STOP-path rejections, restored baseline after each case), including
+  boundary/candidate/readiness identity joins and owner-blocker recomputation.
 - Workflow input/path tests: PASS.
 - Current-head Project Normalization v1.1.1 semantic replay with historical
   receipt explicitly skipped: PASS.
@@ -79,11 +80,11 @@ authorize production UI, runtime component merge/split, legacy deletion,
 global media tokens or ratios, typography/spacing, Penpot, page archetypes,
 Product Value enforcement, experiment winners, migration, deploy or merge.
 
-## Remaining delivery steps
+## External delivery and audit boundary
 
-1. Push the exact integration branch and open a Draft PR.
-2. Materialize the deterministic receipt with that Draft PR number and URL.
-3. Commit and push only the receipt update.
-4. Run schema, semantic and receipt reconstruction without skip/write flags.
-5. Require exact-head GitHub checks to pass.
-6. Run L6 read-only closure audit and leave the Draft PR open and unmerged.
+The deterministic receipt binds the Draft PR identity and every self-excluding
+output byte, but deliberately does not self-assert GitHub Actions or the final
+read-only audit. Live delivery acceptance must verify the exact PR head, all
+push and pull-request workflow runs, worktree cleanliness and the L6 verdict.
+Any L6 finding requires a new correction commit, receipt rematerialization,
+exact-head CI and post-fix re-audit. The Draft PR must remain open and unmerged.

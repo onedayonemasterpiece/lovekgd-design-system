@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -22,6 +23,7 @@ const A = 'catalog/normalization/event-media/alternatives-and-recommendations.js
 const R = 'catalog/normalization/event-media/readiness.jsonl';
 const Q = 'catalog/normalization/event-media/owner-decision-queue.jsonl';
 const PRIMARY = 'catalog/normalization/event-media/candidate-contracts/candidate.event-primary-media.json';
+const FALLBACK = 'catalog/normalization/event-media/candidate-contracts/candidate.event-fallback-art.json';
 const DECODER_MANIFEST = 'catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json';
 const BEHAVIOR_MANIFEST = 'catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/manifest.json';
 const DOSSIER = 'catalog/normalization/families/event-media/dossier.json';
@@ -80,6 +82,11 @@ const cases = [
   { id: 'boundary-entity-kind-reconciled', code: 'EMV_ENTITY_KIND_UNRECONCILED', files: [B], mutate: () => mutateJsonl(B, (rows) => { rows[0].entity_kind_reconciled = false; }) },
   { id: 'composition-cannot-own-candidate-contract', code: 'EMV_COMPOSITION_AS_COMPONENT', files: [B], mutate: () => mutateJsonl(B, (rows) => { findBoundary(rows, 'event-media.boundary.family.event-media').candidate_contract_ref = PRIMARY; }) },
   { id: 'component-candidate-must-own-contract', code: 'EMV_CANDIDATE_CONTRACT_MISSING', files: [B], mutate: () => mutateJsonl(B, (rows) => { rows.find((row) => row.entity_kind === 'component_identity_candidate').candidate_contract_ref = null; }) },
+  { id: 'boundary-candidate-identity-join', code: 'EMV_BOUNDARY_CANDIDATE_IDENTITY', files: [B], mutate: () => mutateJsonl(B, (rows) => {
+    const primary = findBoundary(rows, 'event-media.boundary.candidate.event-primary-media');
+    const viewer = findBoundary(rows, 'event-media.boundary.candidate.event-media-viewer');
+    [primary.candidate_contract_ref, viewer.candidate_contract_ref] = [viewer.candidate_contract_ref, primary.candidate_contract_ref];
+  }) },
   { id: 'event-media-family-remains-composition', code: 'EMV_FAMILY_COMPOSITION_ESCAPED', files: [B], mutate: () => mutateJsonl(B, (rows) => { findBoundary(rows, 'event-media.boundary.family.event-media').entity_kind = 'implementation_detail'; }) },
 
   { id: 'blocker-exact-set', code: 'EMV_BLOCKER_SET_MISMATCH', files: [K], mutate: () => mutateJsonl(K, (rows) => { rows[0].blocker_id = 'EM-OTHER-999'; }) },
@@ -102,9 +109,17 @@ const cases = [
   { id: 'owner-decision-remains-pending', code: 'EMV_OWNER_DECISION_ACCEPTED', files: [Q], mutate: () => mutateJsonl(Q, (rows) => { rows[0].status = 'DECIDED'; }) },
   { id: 'readiness-recomputed-from-blocked-checks', code: 'EMV_READINESS_RECOMPUTATION', files: [R], mutate: () => mutateJsonl(R, (rows) => { rows[0].not_ready_reason_codes.pop(); }) },
   { id: 'readiness-cannot-fail-open', code: 'EMV_FALSE_POSITIVE_READINESS', files: [R], mutate: () => mutateJsonl(R, (rows) => { const row = rows[0]; row.checklist.forEach((check) => { if (check.status === 'BLOCKED') check.status = 'PASS'; }); row.not_ready_reason_codes = []; }) },
+  { id: 'readiness-owner-blockers-recomputed', code: 'EMV_READINESS_OWNER_BLOCKER_JOIN', files: [R], mutate: () => mutateJsonl(R, (rows) => { rows[0].owner_decision_blocker_refs = []; rows[0].owner_question_refs = []; }) },
+  { id: 'readiness-candidate-identity-join', code: 'EMV_READINESS_CANDIDATE_IDENTITY', files: [R], mutate: () => mutateJsonl(R, (rows) => {
+    const fallback = JSON.parse(fs.readFileSync(absolute(FALLBACK), 'utf8'));
+    rows[0].candidate_contract_ref = FALLBACK;
+    rows[0].candidate_contract_sha256 = crypto.createHash('sha256').update(fs.readFileSync(absolute(FALLBACK))).digest('hex');
+    rows[0].candidate_contract_version = fallback.contract_version;
+  }) },
+  { id: 'readiness-boundary-identity-join', code: 'EMV_READINESS_BOUNDARY_IDENTITY', files: [R], mutate: () => mutateJsonl(R, (rows) => { rows[0].boundary_ref = rows[1].boundary_ref; }) },
 ];
 
-assert.equal(cases.length, 56, 'negative catalog must remain exactly 56 deterministic cases');
+assert.equal(cases.length, 60, 'negative catalog must remain exactly 60 deterministic cases');
 const baseline = collectAndValidate({ root: fixtureRoot, fixtureMode: true });
 assert.deepEqual(baseline.finalStatuses, ['EVENT_MEDIA_BOUNDARY_MODEL_COMPLETE', 'EVENT_MEDIA_NOT_READY_WITH_EXACT_BLOCKERS']);
 const results = [];

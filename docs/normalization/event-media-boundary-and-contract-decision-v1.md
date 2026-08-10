@@ -128,7 +128,7 @@ The surrounding baseline is unchanged: 47 analytical groups, 107 component membe
 - Receipt: `contracts/normalization/event-media-contract-decision-receipt.v1.schema.json`.
 - Semantic validator: `scripts/validate-event-media-contract-decision-v1.mjs`.
 - Deterministic receipt builder/checker: `scripts/build-event-media-contract-decision-v1-receipt.mjs`; default is check-only and `--write` is deliberate.
-- Negative validation: exactly 56 named mutations, stable `EMV_*` errors, aggregate rejection and baseline restoration.
+- Negative validation: exactly 60 named mutations, including fail-closed boundary/candidate/readiness identity and owner-blocker joins, stable `EMV_*` errors, aggregate rejection and baseline restoration.
 - Workflow: `.github/workflows/event-media-contract-decision-v1.yml`, pinned runtime/actions, exact events ancestry, no secrets, no merge/deploy.
 
 The receipt excludes itself from its output inventory and records each other output's bytes, SHA-256 and JSONL record count. It binds immutable authority, exact counts, final non-ready statuses, STOP constraints and Draft PR metadata. `committed_receipt_asserts_ci` is false: workflow execution is external evidence and cannot be self-asserted by committed JSON.

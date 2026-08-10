@@ -3,6 +3,7 @@ name: Validate Event Media Contract Decision v1
 on:
   push:
     paths:
+      - '.codex/integration/event-media-contract-decision-v1/**'
       - '.codex/lanes/event-media-*/**'
       - '.github/workflows/event-media-contract-decision-v1.yml'
       - '.github/workflows/project-normalization-synthesis-v1-1.yml'
@@ -21,6 +22,7 @@ on:
       - 'tests/*event-media-contract-decision-v1*.mjs'
   pull_request:
     paths:
+      - '.codex/integration/event-media-contract-decision-v1/**'
       - '.codex/lanes/event-media-*/**'
       - '.github/workflows/event-media-contract-decision-v1.yml'
       - '.github/workflows/project-normalization-synthesis-v1-1.yml'
@@ -43,7 +45,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: event-media-contract-decision-v1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  group: event-media-contract-decision-v1-${{ github.event_name }}-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 
 env:
