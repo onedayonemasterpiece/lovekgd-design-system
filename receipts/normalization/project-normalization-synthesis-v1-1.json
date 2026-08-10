@@ -1,21 +1,63 @@
 {
+  "allowed_completion_statuses": [
+    "PROJECT_NORMALIZATION_SYNTHESIS_V1_1_1_PROOF_CLOSURE_COMPLETE",
+    "READY_FOR_INDEPENDENT_DELTA_REAUDIT"
+  ],
+  "audits": {
+    "independent_delta_reaudit": {
+      "merge_authorized": false,
+      "report_path": null,
+      "report_sha256": null,
+      "required_before_merge": true,
+      "status": "pending"
+    },
+    "independent_reaudit": {
+      "accepted_finding_ids": [
+        "REAUDIT-PN-001",
+        "REAUDIT-PN-002",
+        "REAUDIT-PN-003",
+        "REAUDIT-PN-004",
+        "MERGE-PN-001",
+        "MERGE-PN-002"
+      ],
+      "bytes": 61775,
+      "disposition_path": "docs/audits/project-normalization-synthesis-v1-1-reaudit-disposition.md",
+      "path": "docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md",
+      "sha256": "7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41"
+    },
+    "original": {
+      "bytes": 8046,
+      "disposition_count": 13,
+      "path": "docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md",
+      "sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76"
+    }
+  },
   "branch": "remediation/project-normalization-synthesis-v1-1",
+  "checklist_provenance": {
+    "path": ".codex/integration/project-normalization-synthesis-v1-1/CHECKLIST_REVIEW.md",
+    "reviewed_head": "e005a1c3fa5ffda07a8e76d994aa1d96b53ec45b",
+    "status": "historical_non_authoritative",
+    "superseded_by": "exact-head-actions-execution-attestation"
+  },
   "constraints": {
     "experiment_winner_selected": false,
+    "family_readiness_promoted": false,
     "next_phase_started": false,
     "penpot_changed": false,
     "penpot_components_materialized": false,
     "physical_defragmentation_authorized": false,
     "product_model_created": false,
+    "product_value_gate_enforced": false,
     "production_site_public_changed": false,
     "production_site_src_changed": false,
     "production_ui_changed": false,
+    "pull_request_merged_or_closed": false,
     "runtime_components_merged_or_split": false,
     "tokens_created_or_selected": false,
-    "typography_model_selected": false,
+    "typography_or_media_target_selected": false,
     "unreachable_component_deleted": false
   },
-  "counts": {
+  "corpus_facts": {
     "analytical_groups": 47,
     "applications": 239,
     "canonical_findings": 222,
@@ -26,7 +68,6 @@
     "independent_census_rows": 242,
     "independent_plane_occurrences": 477,
     "independent_zero_consumer_components": 3,
-    "lane_semantic_mutations": 91,
     "lifecycle_states": 11,
     "lifecycle_transitions": 10,
     "logical_components": 107,
@@ -37,7 +78,7 @@
     "raw_partition_rows": 279,
     "raw_unresolved_records": 87,
     "readiness_operational_blockers": 192,
-    "required_aggregate_semantic_mutations": 14,
+    "scored_groups": 0,
     "semantic_readiness_rows": 47,
     "standalone_canonical_unresolved_identities": 30,
     "strict_ready_groups": 0,
@@ -45,18 +86,62 @@
     "value_readiness_rows": 239,
     "visual_reviews": 134
   },
+  "definition_bindings": {
+    "aggregate_validator": {
+      "bytes": 26411,
+      "path": "scripts/validate-project-normalization-synthesis-v1-1.mjs",
+      "sha256": "226f1407a84d2138678306dc8e6af629250915b88f0175a2f8a4e1a33395dd42"
+    },
+    "candidate_validator": {
+      "bytes": 14564,
+      "path": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "sha256": "61c55ad73f50d983dcea9d6b4b58bd506bacd13c06295f0ff5436f6d775c8758"
+    },
+    "execution_attestation_schema": {
+      "bytes": 3911,
+      "path": "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json",
+      "sha256": "3fd63b9cf4f52f9b25e6352eac4dc8fd7f16d02b83527fc63381f033966623f8"
+    },
+    "mutation_catalog_schema": {
+      "bytes": 5605,
+      "path": "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json",
+      "sha256": "3cd6e9b11481dffb33518cfdad87adf6233bdd6e25c3e723ff6e4602652db705"
+    },
+    "mutation_result_schema": {
+      "bytes": 2806,
+      "path": "contracts/normalization/project-normalization-mutation-run.v1.schema.json",
+      "sha256": "ba7f5ee6df7d1746a55a76eec1d79230968c1fef5e19a6d765a4234c9de61e35"
+    },
+    "receipt_builder": {
+      "bytes": 20303,
+      "path": "scripts/build-project-normalization-synthesis-v1-1-receipt.mjs",
+      "sha256": "37b5b2b4288acc1ee961fd398896f0173405d386296099cc13013d53f18f6a5c"
+    },
+    "structured_error_api": {
+      "bytes": 887,
+      "path": "scripts/normalization-v1-1/structured-validation-error.mjs",
+      "sha256": "430a4d31eeb0e88b845fa98ffdf3e942e899ac62e78ed57e210252ce612eccb5"
+    },
+    "workflow_input_registry": {
+      "bytes": 2181,
+      "path": "contracts/normalization/project-normalization-v1-1-input-paths.json",
+      "sha256": "c4ebcff166c22f9de831e4159048544f46be570c54389729dfa7d3f49d9afe9e"
+    },
+    "workflow_input_schema": {
+      "bytes": 1221,
+      "path": "contracts/normalization/project-normalization-v1-1-input-paths.schema.json",
+      "sha256": "2a78ea0bf30d8e2e9e4ba921d55f4f51e613f4f20054345b29c74665f8bdee9b"
+    }
+  },
   "delivery": {
     "pull_request": {
+      "draft": true,
+      "merge_authorized": false,
       "merge_requested": false,
       "number": 31,
       "status": "open",
       "url": "https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31"
     }
-  },
-  "design_baseline": {
-    "commit": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
-    "immutable_decoder_manifest_sha256": "f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc",
-    "immutable_decoder_tree": "e77fc2457fadfdffb46ed2d90304ebb91e89a715"
   },
   "dossier_results": {
     "event_media": "NOT_READY_WITH_EXACT_BLOCKERS",
@@ -78,43 +163,225 @@
       "sha256": "c677f69572ccdbf5b7f1402037a3cb8c164bd2f503fae35eae9168c46eb8d909"
     }
   },
-  "entity_kind_counts": {
-    "component_catalog": 10,
-    "component_identity_family": 11,
-    "composition_pattern": 7,
-    "evidence_or_lab_group": 1,
-    "foundation": 2,
-    "page_surface": 8,
-    "runtime_enabler": 4,
-    "unresolved_boundary": 2,
-    "workflow": 2
+  "execution_attestation_contract": {
+    "artifact_name_template": "project-normalization-v1-1-reproducibility-${GITHUB_RUN_ID}",
+    "committed_receipt_asserts_execution_pass": false,
+    "exact_head_source": "GITHUB_SHA",
+    "execution_attestation_path": "project-normalization-v1-1-execution-attestation.json",
+    "mutation_result_path": "project-normalization-v1-1-mutation-results.json",
+    "required_evidence": [
+      "exact_head",
+      "run_id",
+      "commands",
+      "exit_codes",
+      "versions",
+      "mutation_catalog_sha256",
+      "expected_actual_error_codes",
+      "derived_negative_counts",
+      "clean_design_checkout",
+      "clean_events_checkout",
+      "artifact_sha256s"
+    ],
+    "status": "required_external",
+    "workflow_path": ".github/workflows/project-normalization-synthesis-v1-1.yml"
   },
-  "final_statuses": [
-    "PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED",
-    "READY_FOR_INDEPENDENT_REAUDIT"
-  ],
-  "independent_reaudit": {
-    "merge_authorized": false,
-    "report_path": null,
-    "report_sha256": null,
-    "required_before_merge": true,
-    "status": "pending"
+  "immutable_authority": {
+    "behavioral_manifest_sha256": "c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1",
+    "decoder_manifest_sha256": "f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc",
+    "decoder_tree": "e77fc2457fadfdffb46ed2d90304ebb91e89a715"
   },
   "lifecycle": {
     "authority_changes_only_at": "FAMILY_AND_ARCHETYPE_PROMOTION",
     "current_state": "AS_IS_RECONSTRUCTED",
     "penpot_candidate_is_pre_promotion": true
   },
+  "lineage": {
+    "audited_head": "bcdff9de56663bb77f15f32660ab0156c937e77b",
+    "main_at_reconciliation": "1daeb4f3ed2b86319b91e4e5b9d97a8691a72705",
+    "materialization_parent_commit": "ffb97d6190a8f178c6fcc6b8674a5e9003bf84ad",
+    "merge_base": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
+    "original_synthesis_base": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
+    "reconciliation_commit": "28a8449396cdfe4531302534d8e82fb9111378cd",
+    "required_ancestry": [
+      "bcdff9de56663bb77f15f32660ab0156c937e77b",
+      "1daeb4f3ed2b86319b91e4e5b9d97a8691a72705"
+    ]
+  },
+  "mutation_proof_definitions": {
+    "actual_results_location": "actions-attestation-only",
+    "catalog_path": "receipts/normalization/project-normalization-v1-1-mutation-catalog.json",
+    "catalog_schema_path": "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json",
+    "catalog_sha256": "fe239c2f4549e8759c13d6a1823aabe775492d51251fb70bdaf98f2196fe1892",
+    "mandatory_cases": [
+      {
+        "affected_path": "catalog/normalization/analysis-group-registry.jsonl#/0/member_component_ids/0",
+        "affected_record": "family.amber-artifacts",
+        "case_id": "missing-component-path",
+        "expected_error_code": "PNV_COMPONENT_PATH_UNRESOLVED",
+        "mutation_files": [
+          "catalog/normalization/analysis-group-registry.jsonl"
+        ],
+        "validation_stage": "analysis-registry"
+      },
+      {
+        "affected_path": "catalog/normalization/analysis-group-registry.jsonl#/47/id",
+        "affected_record": "family.amber-artifacts",
+        "case_id": "duplicate-stable-id",
+        "expected_error_code": "PNV_STABLE_ID_DUPLICATE",
+        "mutation_files": [
+          "catalog/normalization/analysis-group-registry.jsonl"
+        ],
+        "validation_stage": "analysis-registry"
+      },
+      {
+        "affected_path": "catalog/normalization/component-applications.jsonl#/0/family_id",
+        "affected_record": "application.008609f0d8967797",
+        "case_id": "broken-foreign-key",
+        "expected_error_code": "PNV_FOREIGN_KEY_UNRESOLVED",
+        "mutation_files": [
+          "catalog/normalization/component-applications.jsonl"
+        ],
+        "validation_stage": "application-registry"
+      },
+      {
+        "affected_path": "catalog/normalization/raw-to-canonical-partition.jsonl#/278/raw_identity_id",
+        "affected_record": "raw.logical_component.component.fd924ec24d43ae27",
+        "case_id": "missing-raw-identity",
+        "expected_error_code": "PNV_RAW_IDENTITY_MISSING",
+        "mutation_files": [
+          "catalog/normalization/authoritative-raw-universe.jsonl"
+        ],
+        "validation_stage": "raw-universe"
+      },
+      {
+        "affected_path": "catalog/normalization/authoritative-raw-universe.jsonl#/279/raw_identity_id",
+        "affected_record": "raw.behavioral_terminal_probe.breakpoint.017c006b1fb4a73e",
+        "case_id": "duplicate-raw-identity",
+        "expected_error_code": "PNV_RAW_IDENTITY_DUPLICATE",
+        "mutation_files": [
+          "catalog/normalization/authoritative-raw-universe.jsonl"
+        ],
+        "validation_stage": "raw-universe"
+      },
+      {
+        "affected_path": "catalog/normalization/raw-alias-registry.jsonl#/0",
+        "affected_record": "alias.behavioral_probe_unresolved.017c006b1fb4a73e",
+        "case_id": "invalid-typed-alias",
+        "expected_error_code": "PNV_TYPED_ALIAS_INVALID",
+        "mutation_files": [
+          "catalog/normalization/raw-alias-registry.jsonl"
+        ],
+        "validation_stage": "alias-registry"
+      },
+      {
+        "affected_path": "catalog/normalization/findings-disposition.jsonl#/0/operational_disposition",
+        "affected_record": "finding.behavioral.probe.017c006b1fb4a73e",
+        "case_id": "finding-without-operational-disposition",
+        "expected_error_code": "PNV_OPERATIONAL_DISPOSITION_MISSING",
+        "mutation_files": [
+          "catalog/normalization/findings-disposition.jsonl"
+        ],
+        "validation_stage": "findings-disposition"
+      },
+      {
+        "affected_path": "catalog/normalization/component-applications.jsonl#/0/need_ids/0",
+        "affected_record": "application.008609f0d8967797",
+        "case_id": "invented-product-id",
+        "expected_error_code": "PNV_PRODUCT_ID_UNAUTHORIZED",
+        "mutation_files": [
+          "catalog/normalization/component-applications.jsonl"
+        ],
+        "validation_stage": "product-value"
+      },
+      {
+        "affected_path": "catalog/normalization/component-applications.jsonl#/0/promotion_ready",
+        "affected_record": "application.008609f0d8967797",
+        "case_id": "promotion-ready-while-product-model-pending",
+        "expected_error_code": "PNV_PROMOTION_PENDING_PRODUCT_MODEL",
+        "mutation_files": [
+          "catalog/normalization/component-applications.jsonl"
+        ],
+        "validation_stage": "product-value"
+      },
+      {
+        "affected_path": "catalog/normalization/component-applications.jsonl#/10/decision_receipt",
+        "affected_record": "application.044e0a8665d616d5",
+        "case_id": "accepted-experiment-without-decision-receipt",
+        "expected_error_code": "PNV_EXPERIMENT_DECISION_RECEIPT_MISSING",
+        "mutation_files": [
+          "catalog/normalization/component-applications.jsonl"
+        ],
+        "validation_stage": "product-value"
+      },
+      {
+        "affected_path": "catalog/normalization/authoritative-raw-universe.jsonl#/144/runtime_evidence",
+        "affected_record": "raw.candidate_as_is_contract.candidate.artifacts-amber",
+        "case_id": "source-only-relabeled-runtime-observed",
+        "expected_error_code": "PNV_RUNTIME_EVIDENCE_PROVENANCE_MISMATCH",
+        "mutation_files": [
+          "catalog/normalization/authoritative-raw-universe.jsonl"
+        ],
+        "validation_stage": "evidence-lineage"
+      },
+      {
+        "affected_path": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json",
+        "affected_record": "immutable-decoder-v1",
+        "case_id": "immutable-decoder-v1-mutation",
+        "expected_error_code": "PNV_IMMUTABLE_DECODER_MANIFEST_DRIFT",
+        "mutation_files": [
+          "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json"
+        ],
+        "validation_stage": "immutable-evidence"
+      },
+      {
+        "affected_path": "catalog/normalization/families/event-media/dossier.json#/consumer_policy_matrix/0/loading_and_layout",
+        "affected_record": "event-detail.desktop.primary-stage",
+        "case_id": "incomplete-family-dossier-dimensions",
+        "expected_error_code": "PNV_EVENT_MEDIA_DIMENSION_MISSING",
+        "mutation_files": [
+          "catalog/normalization/families/event-media/dossier.json"
+        ],
+        "validation_stage": "event-media-dossier"
+      },
+      {
+        "affected_path": "catalog/normalization/family-wave-plan.json#/first_wave_family_ids/0",
+        "affected_record": "family.event-media",
+        "case_id": "first-wave-without-positive-readiness",
+        "expected_error_code": "PNV_FIRST_WAVE_READINESS_VIOLATION",
+        "mutation_files": [
+          "catalog/normalization/family-wave-plan.json"
+        ],
+        "validation_stage": "wave-readiness"
+      }
+    ],
+    "receipt_validation_enabled_during_mutation": false,
+    "result_schema_path": "contracts/normalization/project-normalization-mutation-run.v1.schema.json"
+  },
   "outputs": {
-    ".codex/integration/project-normalization-synthesis-v1-1/CHECKLIST_REVIEW.md": {
-      "bytes": 4234,
+    ".codex/integration/project-normalization-synthesis-v1-1-1/EXECUTION_MATRIX.md": {
+      "bytes": 2730,
       "records": null,
-      "sha256": "2aa99a1d5a6b89eb9b3acec753941aa557fc9ad6fde9fd65d4f87ca9034e7176"
+      "sha256": "36eacac648a3014afe63ca49fd2e611939360da4660e70ace88bb90adaf0e672"
+    },
+    ".codex/integration/project-normalization-synthesis-v1-1-1/INTEGRATION_REPORT.md": {
+      "bytes": 5523,
+      "records": null,
+      "sha256": "baa3ba4d436978787c699cc3d8cca4ba4d236e407eeabe3658673625f1d42b26"
+    },
+    ".codex/integration/project-normalization-synthesis-v1-1-1/LANE_MAP.yml": {
+      "bytes": 4323,
+      "records": null,
+      "sha256": "ee4ec7b148debe7bc7b4f8552199f12ae9f58eab30ae332bd5bc905e8bf0ca18"
+    },
+    ".codex/integration/project-normalization-synthesis-v1-1/CHECKLIST_REVIEW.md": {
+      "bytes": 4765,
+      "records": null,
+      "sha256": "1538182452438c6c6afc2bb6411ea84b40b0c4b84a0bb696ac0feb488bbc7b5b"
     },
     ".codex/integration/project-normalization-synthesis-v1-1/EXECUTION_MATRIX.md": {
-      "bytes": 3280,
+      "bytes": 3343,
       "records": null,
-      "sha256": "48b97036fa24c51c92e37e3bfc75c14fed9f31a2b7ebac254f3c4fb9b504f94c"
+      "sha256": "7046079a01208e33051f1061ff89ca08ecfcbbeec8a301eb57e33d5b505ee454"
     },
     ".codex/integration/project-normalization-synthesis-v1-1/INTEGRATION_REPORT.md": {
       "bytes": 6694,
@@ -125,6 +392,21 @@
       "bytes": 7537,
       "records": null,
       "sha256": "6543da03be9d82861df5bbc060c3e06dcf45222167f05c20b922429d46747959"
+    },
+    ".codex/lanes/project-normalization-v1-1-1-audit-docs/RESULTS.md": {
+      "bytes": 1785,
+      "records": null,
+      "sha256": "7196d37905bb7fdd669db73330bf4f800563bdd3a7551ac82a256faadfe9c081"
+    },
+    ".codex/lanes/project-normalization-v1-1-1-mutation-proof/RESULTS.md": {
+      "bytes": 5035,
+      "records": null,
+      "sha256": "57a366e79d3c7a17e627885049b67146bc28c6dc773928d73186e87259e0981c"
+    },
+    ".codex/lanes/project-normalization-v1-1-1-reproducibility/RESULTS.md": {
+      "bytes": 5756,
+      "records": null,
+      "sha256": "47322d5a5bcfe04a4f8e57dccb1932660ed11f3a467eb79776e60aa0ddbd3d5f"
     },
     ".codex/lanes/project-normalization-v1-1-event-media/RESULTS.md": {
       "bytes": 4325,
@@ -157,9 +439,9 @@
       "sha256": "f301fc023216929ee721402cc3f9a91f218c17f71ceb00646a318551e4968879"
     },
     ".github/workflows/project-normalization-synthesis-v1-1.yml": {
-      "bytes": 6969,
+      "bytes": 11066,
       "records": null,
-      "sha256": "656ab90316d0603434f61cc3c02db097d4faaeb7e089f62ebf14138cca967954"
+      "sha256": "66ccdd7d6c5ff1bea10f55fee405b017ea6c43bac47a5b03c9d7bea12394f690"
     },
     ".github/workflows/project-normalization-synthesis-v1.yml": {
       "bytes": 2642,
@@ -276,6 +558,31 @@
       "records": null,
       "sha256": "b3a73e3c1879e43f9c1d617fe738b50d4344687d2dba0be00849f7f873144a0f"
     },
+    "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json": {
+      "bytes": 5605,
+      "records": null,
+      "sha256": "3cd6e9b11481dffb33518cfdad87adf6233bdd6e25c3e723ff6e4602652db705"
+    },
+    "contracts/normalization/project-normalization-mutation-run.v1.schema.json": {
+      "bytes": 2806,
+      "records": null,
+      "sha256": "ba7f5ee6df7d1746a55a76eec1d79230968c1fef5e19a6d765a4234c9de61e35"
+    },
+    "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json": {
+      "bytes": 3911,
+      "records": null,
+      "sha256": "3fd63b9cf4f52f9b25e6352eac4dc8fd7f16d02b83527fc63381f033966623f8"
+    },
+    "contracts/normalization/project-normalization-v1-1-input-paths.json": {
+      "bytes": 2181,
+      "records": null,
+      "sha256": "c4ebcff166c22f9de831e4159048544f46be570c54389729dfa7d3f49d9afe9e"
+    },
+    "contracts/normalization/project-normalization-v1-1-input-paths.schema.json": {
+      "bytes": 1221,
+      "records": null,
+      "sha256": "2a78ea0bf30d8e2e9e4ba921d55f4f51e613f4f20054345b29c74665f8bdee9b"
+    },
     "contracts/normalization/semantic-readiness.v1.schema.json": {
       "bytes": 5921,
       "records": null,
@@ -296,6 +603,21 @@
       "records": null,
       "sha256": "013607d8ff0c68aa97ecd5f0528dd236f4524a36ecdf3e4507d2347c47aeda45"
     },
+    "docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md": {
+      "bytes": 9641,
+      "records": null,
+      "sha256": "5175d740436d4124dfc64fdf584d4f93a5929fd56710a35359c1e8c136e5f94e"
+    },
+    "docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md": {
+      "bytes": 61775,
+      "records": null,
+      "sha256": "7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41"
+    },
+    "docs/audits/project-normalization-synthesis-v1-1-reaudit-disposition.md": {
+      "bytes": 8008,
+      "records": null,
+      "sha256": "38a790fd4d12bfbe97d0b04c1776f98d97d8e3f63f1bf4c082c5652d1a792888"
+    },
     "docs/audits/project-normalization-synthesis-v1-1-remediation-report.md": {
       "bytes": 4501,
       "records": null,
@@ -312,14 +634,14 @@
       "sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76"
     },
     "docs/component-contract-authority.md": {
-      "bytes": 11019,
+      "bytes": 15757,
       "records": null,
-      "sha256": "b03ee155aa7b1d7cdc6a050b43f47fb405b8c63366c402e496e64e747a118679"
+      "sha256": "f2af10ec7b1420211fb5a714739ce624c317a39d1dcc7eba87a670144d6c6a7b"
     },
     "docs/index.md": {
-      "bytes": 9408,
+      "bytes": 10115,
       "records": null,
-      "sha256": "cc6d25f0ff918be80f693ff151c11b1fc4de171c0f52a6407a9391d9d1ab002c"
+      "sha256": "a72e08caa55e1986f84746a8e8b232dc2685a4c2282d3c17cc0a0fecd3d546ec"
     },
     "docs/normalization/decision-queue.md": {
       "bytes": 1150,
@@ -332,9 +654,9 @@
       "sha256": "11fc94179913658272bd37e63214a123a832170126297b76b596f0fd99392256"
     },
     "docs/normalization/family-wave-plan-v1-1.md": {
-      "bytes": 5407,
+      "bytes": 5584,
       "records": null,
-      "sha256": "07097116fa378a5dd4cbb73e1f03bbfc8c8ec36c512e552f9a6064a88ebd32d5"
+      "sha256": "d235139cbe984a1d50cc03a0d540a5a7bddb49d4dd3f78a10c819390c27db0fa"
     },
     "docs/normalization/family-wave-plan.md": {
       "bytes": 1791,
@@ -342,9 +664,9 @@
       "sha256": "8fd4b608edf5fb5918a95302493806c422066834a67e78e46428795168dfe181"
     },
     "docs/normalization/project-normalization-synthesis-v1-1.md": {
-      "bytes": 4615,
+      "bytes": 4828,
       "records": null,
-      "sha256": "8d8a7b4ccb4b0df6db905b825eba317d24b6f886f47f066afa69bb6f7d52b221"
+      "sha256": "00dbdc0be1ba29c947f9d3c782af1a1c242344318fedc85f9f28727ac38d6a0e"
     },
     "docs/normalization/project-normalization-synthesis-v1.md": {
       "bytes": 4113,
@@ -362,14 +684,19 @@
       "sha256": "cfa1caee098770515d69db26f6dc92923165e04b7ca0b6ae3cd8010facc822e7"
     },
     "docs/resource-graph-004.md": {
-      "bytes": 20541,
+      "bytes": 22578,
       "records": null,
-      "sha256": "595568b167e6b19a14f82d490170333b31ea056e2c3ef44e22b8ce7806eb493c"
+      "sha256": "c15fdb3df993f46fc1102a72a705f591d4aa28c66f86d0661396a9827efcf823"
     },
     "README.md": {
-      "bytes": 9104,
+      "bytes": 9539,
       "records": null,
-      "sha256": "c15a69fd40a4b7ad74409a9496cb56255db6dff497a9681bb90d510235643e72"
+      "sha256": "8a450b4f00dfbe8d6c0568b2fe0554c0b0b16997fa04ca93c2529dbba661426c"
+    },
+    "receipts/normalization/project-normalization-v1-1-mutation-catalog.json": {
+      "bytes": 22198,
+      "records": null,
+      "sha256": "fe239c2f4549e8759c13d6a1823aabe775492d51251fb70bdaf98f2196fe1892"
     },
     "RESULTS.md": {
       "bytes": 7655,
@@ -382,9 +709,9 @@
       "sha256": "b313a803bcfd3714f8d8ef98bb4b40252fa6439fdc07731d03787ee7e9d997f0"
     },
     "scripts/build-project-normalization-synthesis-v1-1-receipt.mjs": {
-      "bytes": 13883,
+      "bytes": 20303,
       "records": null,
-      "sha256": "3e334cefd506787f59769891ac352e11fc7d16106be1932437c43fafb8920f0f"
+      "sha256": "37b5b2b4288acc1ee961fd398896f0173405d386296099cc13013d53f18f6a5c"
     },
     "scripts/evidence-value-gates-v1-1-lib.mjs": {
       "bytes": 34440,
@@ -401,6 +728,26 @@
       "records": null,
       "sha256": "9688ec38fe1129cbf2725ce50f008701a14e47dd35e0db20c841e17b4ccc6e6b"
     },
+    "scripts/normalization-v1-1/build-workflow-attestation.mjs": {
+      "bytes": 14893,
+      "records": null,
+      "sha256": "edf53e3ccb09b4fc03f582055679ba426c3e6282f6ede14a23dc72980668685e"
+    },
+    "scripts/normalization-v1-1/project-normalization-mutation-proof.mjs": {
+      "bytes": 20756,
+      "records": null,
+      "sha256": "81f3fa2702551a9e6586a22ab21762922e916ed435ae0657c81ae755083a84a8"
+    },
+    "scripts/normalization-v1-1/replay-normalization-workflow.sh": {
+      "bytes": 7595,
+      "records": null,
+      "sha256": "adc2bb7a8d58c7f53c1cad4e1b8aeb837b6cd367e52c32316894e29d74084999"
+    },
+    "scripts/normalization-v1-1/structured-validation-error.mjs": {
+      "bytes": 887,
+      "records": null,
+      "sha256": "430a4d31eeb0e88b845fa98ffdf3e942e899ac62e78ed57e210252ce612eccb5"
+    },
     "scripts/normalization-v1-1/test-event-media-dossier-validator.mjs": {
       "bytes": 2551,
       "records": null,
@@ -410,6 +757,21 @@
       "bytes": 18259,
       "records": null,
       "sha256": "e9ace531e42e8dbfd3d457d835fe16111ba50e5038c1a4008bbc35ab22d5e219"
+    },
+    "scripts/normalization-v1-1/validate-mutation-candidate.mjs": {
+      "bytes": 14564,
+      "records": null,
+      "sha256": "61c55ad73f50d983dcea9d6b4b58bd506bacd13c06295f0ff5436f6d775c8758"
+    },
+    "scripts/normalization-v1-1/validate-workflow-path-filters.mjs": {
+      "bytes": 6875,
+      "records": null,
+      "sha256": "78b4b4f9d9da0a1366bc2627aa3a22d3e3b3eee1b364f7e1b9953f3c87ffe32c"
+    },
+    "scripts/normalization-v1-1/workflow-command-ledger.mjs": {
+      "bytes": 3775,
+      "records": null,
+      "sha256": "82768ed6b51cc0da473924d1d9c2127792b92925836d23026f3f9aae375887de"
     },
     "scripts/scan-normalization-v1-1-secrets.py": {
       "bytes": 1427,
@@ -437,9 +799,9 @@
       "sha256": "4e2f59221b61e4b1089e07dfc46f6a2e2078d9704672978ced3449c8a10c5afe"
     },
     "scripts/validate-project-normalization-synthesis-v1-1.mjs": {
-      "bytes": 21300,
+      "bytes": 26411,
       "records": null,
-      "sha256": "5b5b1eb8c73371c4c4076dcf31aa3c3aec93c5fcb6705fc75b737e651bad8d27"
+      "sha256": "226f1407a84d2138678306dc8e6af629250915b88f0175a2f8a4e1a33395dd42"
     },
     "scripts/validate-project-normalization-v1-1-medallions-navigation.mjs": {
       "bytes": 31278,
@@ -467,13 +829,17 @@
       "sha256": "b5321911b0cbbd766afd5ff3f457dfc6ec5826722644bd34312afd1eb89d77c1"
     },
     "tests/project-normalization-synthesis-v1-1-negative.mjs": {
-      "bytes": 7872,
+      "bytes": 2946,
       "records": null,
-      "sha256": "63375a4cdea2a9c1155fdec9138f5a8090812e34b48696bf69af2ea389bb56e5"
+      "sha256": "d46ddcbe94567729983f88d18fb75c7d78fa9d2ea9c8db5abd6227f58e7acf17"
+    },
+    "tests/project-normalization-v1-1-workflow-path-filters.mjs": {
+      "bytes": 5986,
+      "records": null,
+      "sha256": "4c2eeca62af60089c5ea782ea17948e34623427924b5d35432b1206cb10ed016"
     }
   },
   "product_evidence": {
-    "behavioral_manifest_sha256": "c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1",
     "behavioral_source_commit": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
     "behavioral_source_site_src_tree": "d46996c4444171d7e10ff648aefd35c5620e17bc",
     "closure_commit": "66bc0d43e36299417626f992021cfb7299ddf704",
@@ -491,28 +857,26 @@
     "pending_applications": 239,
     "promotion_ready_applications": 0
   },
-  "remediation": {
-    "audit_dispositions": 13,
-    "audit_findings": 13,
-    "audit_preservation_commit": "50f51565041a9ea36768784d1cc9ca1d7345acb7",
-    "audit_source_path": "docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md",
-    "audit_source_sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76",
-    "materialization_parent_commit": "c72d5408dde8dbaecb47a153cba668ff60b6ec2f"
-  },
   "repository": "onedayonemasterpiece/lovekgd-design-system",
-  "schema_version": "project_normalization_synthesis_receipt_v1_1",
-  "status": "complete",
-  "synthesis_id": "project-normalization-synthesis-v1-1-audit-remediation",
-  "validations": {
-    "exact_once_partition": "PASS",
-    "git_diff_check": "PASS",
-    "immutable_evidence": "PASS",
-    "lifecycle": "PASS",
-    "positive_readiness": "PASS",
-    "product_value_observe_gate": "PASS",
-    "schemas_draft_2020_12": "PASS",
-    "secret_scan": "PASS",
-    "semantic_negative_mutations": "PASS",
-    "visual_row_and_archive_lineage": "PASS"
-  }
+  "schema_version": "project_normalization_synthesis_receipt_v1_1_1",
+  "status": "definitions_materialized_execution_attestation_required",
+  "structured_diff_contract": {
+    "base": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
+    "exact_byte_exceptions": [
+      {
+        "bytes": 8046,
+        "path": "docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md",
+        "sha256": "a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76"
+      },
+      {
+        "bytes": 61775,
+        "path": "docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md",
+        "sha256": "7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41"
+      }
+    ],
+    "execution_result_location": "actions-attestation-only",
+    "other_exceptions_allowed": false,
+    "scope": "full_committed_range_except_byte_preserved_audits"
+  },
+  "synthesis_id": "project-normalization-synthesis-v1-1-1-proof-closure"
 }
