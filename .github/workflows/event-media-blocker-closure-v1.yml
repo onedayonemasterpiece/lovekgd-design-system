@@ -55,6 +55,7 @@ concurrency:
 env:
   EMC_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   EMC_MERGED_MAIN: '3cbe35326ead04ac67070e5b400d30d9edc6eb01'
+  EMC_CLOSURE_MERGED_MAIN: 'd97aa52f206dc08ece860deb3aa6156e3bdd28e3'
   EMC_AUDITED_HEAD: '20eab45534e2c64497e4db661e6a5ca8582229ea'
   EMC_EVENTS_SHA: '66bc0d43e36299417626f992021cfb7299ddf704'
   EMC_NODE_VERSION: '22.18.0'
@@ -116,8 +117,8 @@ jobs:
           test -z "$(git -C "$events" status --porcelain)"
           echo "EMC_EVENTS_ROOT=$events" >> "$GITHUB_ENV"
           frozen_closure="$RUNNER_TEMP/frozen-blocker-closure"
-          git worktree add --detach "$frozen_closure" "$EMC_MERGED_MAIN"
-          test "$(git -C "$frozen_closure" rev-parse HEAD)" = "$EMC_MERGED_MAIN"
+          git worktree add --detach "$frozen_closure" "$EMC_CLOSURE_MERGED_MAIN"
+          test "$(git -C "$frozen_closure" rev-parse HEAD)" = "$EMC_CLOSURE_MERGED_MAIN"
           test -z "$(git -C "$frozen_closure" status --porcelain)"
           echo "EMC_FROZEN_CLOSURE_ROOT=$frozen_closure" >> "$GITHUB_ENV"
           mkdir -p "$RUNNER_TEMP/emc-results"
