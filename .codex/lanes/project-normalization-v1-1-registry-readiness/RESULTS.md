@@ -34,7 +34,8 @@ committed
 - Replaced the v1 fail-open/minimum-two wave with an eligibility-before-score,
   zero-minimum model.
 - Current result: 47 `NOT_READY`, 0 eligible, 0 scored, 0 first-wave.
-- Added a deterministic generator/checker and ten semantic mutations.
+- Added a deterministic generator/checker and eleven semantic mutations,
+  including rejection of the legacy non-contract enum aliases.
 
 ## Files changed
 
@@ -62,22 +63,24 @@ git diff --check
 
 - 47 analytical groups; exact legacy-ID set equality.
 - 107 component memberships; exact set equality and multiplicity one.
-- Entity-kind counts: 10 catalog, 11 component identity, 7 composition,
-  8 page, 4 runtime, 2 foundation, 2 workflow, 1 evidence, 2 unresolved.
+- Entity-kind counts: 11 `component_identity_family`, 10 `component_catalog`,
+  7 `composition_pattern`, 8 `page_surface`, 2 `workflow`,
+  4 `runtime_enabler`, 2 `foundation`, 1 `evidence_or_lab_group`, and
+  2 `unresolved_boundary`.
 - 239 typed operational finding/family edges reproduced from 222 findings.
 - 47 readiness rows, each with all 16 check IDs and nonempty evidence.
 - 0 strict-ready, 0 scored, 0 selected; first wave empty; minimum zero.
-- Ten semantic mutations rejected.
+- Eleven semantic mutations rejected.
 
 ## Generated artifact hashes
 
 | Artifact | Rows | SHA-256 |
 |---|---:|---|
-| `catalog/normalization/analysis-group-registry.jsonl` | 47 | `fe99a9cd0e3ef58bacdabb3f3d6ef77fcdf711cba1f2d4c733f43b685fa7e9c0` |
-| `catalog/normalization/semantic-readiness.jsonl` | 47 | `646bd92a27bd01ced385b743428a98cd741933c84f8fb8cdb975c2aac184d17e` |
-| `catalog/normalization/family-wave-plan.json` | JSON | `b6e8e655ead72a6de8bf4caea79a0f4d95c3c82c8f9a3744570f1e04a2eb7cdf` |
-| `contracts/normalization/analytical-entity-kinds.v1.schema.json` | schema | `82010869f7dc744aca1cb17a2f7c28ae7c1353d00907ccb52c7344314c3d5b85` |
-| `contracts/normalization/semantic-readiness.v1.schema.json` | schema | `22c64269b8b61ac5639dca1d9a2ebd199d8e4c09e536f6dc9bdf6e2799fb17ef` |
+| `catalog/normalization/analysis-group-registry.jsonl` | 47 | `b237b4fb1cb993969e423f8d2621fc1ff2960e3a440939a9506a375ae998c90d` |
+| `catalog/normalization/semantic-readiness.jsonl` | 47 | `fdbbdf21e5b8b9aa617a6b72f74b008211ca55d67283130460717439fb6c02a9` |
+| `catalog/normalization/family-wave-plan.json` | JSON | `a524b8b29e540025f83db3abe7727e5ccbe180cd9471383af923c607980bd141` |
+| `contracts/normalization/analytical-entity-kinds.v1.schema.json` | schema | `79720b5a5ca03a2c1d9e062fb30d1af74b9de681d31e8c7403dae9c65651200c` |
+| `contracts/normalization/semantic-readiness.v1.schema.json` | schema | `a9f6ac0d86bf69a862dc886f89d5078079b4d6563d1fd6855872590f83b17659` |
 
 ## Risks / merge notes
 

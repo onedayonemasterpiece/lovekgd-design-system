@@ -17,15 +17,15 @@ classifies the rows as:
 
 | Entity kind | Groups |
 |---|---:|
-| `catalog_family` | 10 |
+| `component_catalog` | 10 |
 | `component_identity_family` | 11 |
-| `composition_family` | 7 |
-| `evidence_family` | 1 |
-| `foundation_family` | 2 |
-| `page_family` | 8 |
-| `runtime_family` | 4 |
-| `unresolved_family` | 2 |
-| `workflow_family` | 2 |
+| `composition_pattern` | 7 |
+| `evidence_or_lab_group` | 1 |
+| `foundation` | 2 |
+| `page_surface` | 8 |
+| `runtime_enabler` | 4 |
+| `unresolved_boundary` | 2 |
+| `workflow` | 2 |
 | **Total** | **47** |
 
 Every one of the 107 logical component IDs has exactly one analytical
@@ -130,6 +130,7 @@ node tests/normalization-v1-1-registry-readiness.mjs
 ```
 
 The semantic mutations must reject missing/duplicate component membership,
-audit-mandated kind drift, typed-finding drift, empty positive evidence,
-blocker-absence readiness, scoring of a non-ready row, a forced minimum wave,
-Event Media selection and physical-operation authorization.
+audit-mandated kind drift, any legacy entity-kind alias, typed-finding drift,
+empty positive evidence, blocker-absence readiness, scoring of a non-ready row,
+a forced minimum wave, Event Media selection and physical-operation
+authorization.

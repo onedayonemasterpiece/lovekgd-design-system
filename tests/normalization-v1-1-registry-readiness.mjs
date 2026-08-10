@@ -18,7 +18,7 @@ if (result.status !== 'valid'
   || result.readiness_rows !== 47
   || result.strict_ready !== 0
   || result.first_wave !== 0
-  || result.semantic_mutations_rejected !== 10) {
+  || result.semantic_mutations_rejected !== 11) {
   throw new Error(`unexpected registry/readiness validation result: ${output}`);
 }
 

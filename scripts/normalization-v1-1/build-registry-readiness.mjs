@@ -20,66 +20,76 @@ const PATHS = {
 };
 
 const KIND_MAP = Object.freeze({
-  'family.amber-artifacts': 'catalog_family',
-  'family.auth-runtime': 'runtime_family',
-  'family.bottom-navigation': 'unresolved_family',
-  'family.brand-identity': 'foundation_family',
+  'family.amber-artifacts': 'component_catalog',
+  'family.auth-runtime': 'runtime_enabler',
+  'family.bottom-navigation': 'unresolved_boundary',
+  'family.brand-identity': 'foundation',
   'family.breadcrumb-navigation': 'component_identity_family',
   'family.calendar-action': 'component_identity_family',
-  'family.design-system-primitives': 'catalog_family',
-  'family.editorial-collections': 'page_family',
-  'family.event-actions': 'catalog_family',
-  'family.event-detail-presentation': 'page_family',
-  'family.event-facts-and-participants': 'catalog_family',
-  'family.event-grid': 'composition_family',
-  'family.event-keyboard-navigation': 'runtime_family',
-  'family.event-media': 'composition_family',
-  'family.event-occurrence': 'catalog_family',
-  'family.event-preview-representations': 'catalog_family',
-  'family.event-token-medallions': 'composition_family',
-  'family.exhibitions-personal': 'page_family',
-  'family.favorites-saved-events': 'page_family',
-  'family.focus-diagnostics': 'evidence_family',
-  'family.focus-egg-artifacts': 'catalog_family',
-  'family.focus-group-workflows': 'workflow_family',
-  'family.home-feed': 'composition_family',
+  'family.design-system-primitives': 'component_catalog',
+  'family.editorial-collections': 'page_surface',
+  'family.event-actions': 'component_catalog',
+  'family.event-detail-presentation': 'page_surface',
+  'family.event-facts-and-participants': 'component_catalog',
+  'family.event-grid': 'composition_pattern',
+  'family.event-keyboard-navigation': 'runtime_enabler',
+  'family.event-media': 'composition_pattern',
+  'family.event-occurrence': 'component_catalog',
+  'family.event-preview-representations': 'component_catalog',
+  'family.event-token-medallions': 'composition_pattern',
+  'family.exhibitions-personal': 'page_surface',
+  'family.favorites-saved-events': 'page_surface',
+  'family.focus-diagnostics': 'evidence_or_lab_group',
+  'family.focus-egg-artifacts': 'component_catalog',
+  'family.focus-group-workflows': 'workflow',
+  'family.home-feed': 'composition_pattern',
   'family.home-hero': 'component_identity_family',
   'family.home-quick-navigation': 'component_identity_family',
-  'family.iconography': 'foundation_family',
-  'family.interest-club-catalog': 'catalog_family',
+  'family.iconography': 'foundation',
+  'family.interest-club-catalog': 'component_catalog',
   'family.interest-profile': 'component_identity_family',
-  'family.listing-chronology': 'catalog_family',
-  'family.listing-controls-and-navigation': 'catalog_family',
-  'family.listing-rails': 'composition_family',
-  'family.listing-surfaces': 'page_family',
-  'family.mobile-menu': 'composition_family',
-  'family.onboarding-placement': 'runtime_family',
-  'family.personalization-and-feed': 'workflow_family',
-  'family.popular-listing-layouts': 'composition_family',
-  'family.prelaunch-surface': 'page_family',
-  'family.pwa-lifecycle': 'runtime_family',
-  'family.search-results': 'page_family',
+  'family.listing-chronology': 'component_catalog',
+  'family.listing-controls-and-navigation': 'component_catalog',
+  'family.listing-rails': 'composition_pattern',
+  'family.listing-surfaces': 'page_surface',
+  'family.mobile-menu': 'composition_pattern',
+  'family.onboarding-placement': 'runtime_enabler',
+  'family.personalization-and-feed': 'workflow',
+  'family.popular-listing-layouts': 'composition_pattern',
+  'family.prelaunch-surface': 'page_surface',
+  'family.pwa-lifecycle': 'runtime_enabler',
+  'family.search-results': 'page_surface',
   'family.site-footer': 'component_identity_family',
   'family.social-share': 'component_identity_family',
   'family.toast-region': 'component_identity_family',
   'family.transport-bus-schedule': 'component_identity_family',
-  'family.transport-kaup-schedule': 'unresolved_family',
+  'family.transport-kaup-schedule': 'unresolved_boundary',
   'family.transport-rail-schedule': 'component_identity_family',
-  'family.unusual-listing': 'page_family',
+  'family.unusual-listing': 'page_surface',
   'family.weather-date-context': 'component_identity_family'
 });
 
-const KINDS = [...new Set(Object.values(KIND_MAP))].sort();
+const KINDS = Object.freeze([
+  'component_identity_family',
+  'component_catalog',
+  'composition_pattern',
+  'page_surface',
+  'workflow',
+  'runtime_enabler',
+  'foundation',
+  'evidence_or_lab_group',
+  'unresolved_boundary'
+]);
 const RELATION_BY_KIND = Object.freeze({
-  catalog_family: 'catalog_member',
+  component_catalog: 'catalog_member',
   component_identity_family: 'candidate_implementation_of_identity',
-  composition_family: 'composition_member',
-  evidence_family: 'evidence_instrument',
-  foundation_family: 'foundation_resource',
-  page_family: 'surface_member',
-  runtime_family: 'runtime_enabler',
-  unresolved_family: 'unresolved_relation',
-  workflow_family: 'workflow_stage'
+  composition_pattern: 'composition_member',
+  evidence_or_lab_group: 'evidence_instrument',
+  foundation: 'foundation_resource',
+  page_surface: 'surface_member',
+  runtime_enabler: 'runtime_enabler',
+  unresolved_boundary: 'unresolved_relation',
+  workflow: 'workflow_stage'
 });
 
 const CHECK_IDS = Object.freeze([
@@ -103,15 +113,15 @@ const CHECK_IDS = Object.freeze([
 
 const CORE_CHECKS = new Set(CHECK_IDS.slice(0, 12));
 const NAMED_KIND_ASSERTIONS = Object.freeze({
-  'family.design-system-primitives': 'catalog_family',
-  'family.event-detail-presentation': 'page_family',
-  'family.focus-group-workflows': 'workflow_family',
-  'family.listing-controls-and-navigation': 'catalog_family',
-  'family.personalization-and-feed': 'workflow_family',
-  'family.brand-identity': 'foundation_family',
-  'family.event-media': 'composition_family',
-  'family.event-token-medallions': 'composition_family',
-  'family.bottom-navigation': 'unresolved_family'
+  'family.design-system-primitives': 'component_catalog',
+  'family.event-detail-presentation': 'page_surface',
+  'family.focus-group-workflows': 'workflow',
+  'family.listing-controls-and-navigation': 'component_catalog',
+  'family.personalization-and-feed': 'workflow',
+  'family.brand-identity': 'foundation',
+  'family.event-media': 'composition_pattern',
+  'family.event-token-medallions': 'composition_pattern',
+  'family.bottom-navigation': 'unresolved_boundary'
 });
 
 const fail = (message) => { throw new Error(message); };
@@ -309,7 +319,7 @@ const findingCounts = (rows) => ({
 
 const semanticClaim = (kind) => kind === 'component_identity_family'
   ? 'candidate_identity_not_accepted'
-  : kind === 'unresolved_family' ? 'unresolved' : 'not_a_component_identity';
+  : kind === 'unresolved_boundary' ? 'unresolved' : 'not_a_component_identity';
 
 const buildAnalysis = () => legacyFamilies.map((family) => {
   const entityKind = KIND_MAP[family.id];
@@ -553,20 +563,21 @@ const buildWave = (analysis, readiness) => ({
 const validate = ({ analysis, readiness, wave }) => {
   assert(legacyFamilies.length === 47, 'legacy family census must contain 47 rows');
   assert(Object.keys(KIND_MAP).length === 47, 'kind map must contain 47 rows');
+  assert(same(sorted([...new Set(Object.values(KIND_MAP))]), sorted(KINDS)), 'entity-kind map does not use the exact v1.1 enum');
   assert(same(sorted(Object.keys(KIND_MAP)), legacyFamilies.map((row) => row.id)), 'kind map differs from legacy family census');
   unique(analysis.map((row) => row.id), 'analysis groups');
   assert(analysis.length === 47, 'analysis registry must contain 47 rows');
   assert(same(analysis.map((row) => row.id), legacyFamilies.map((row) => row.id)), 'analysis group IDs/order differ');
   const expectedKindCounts = {
-    catalog_family: 10,
+    component_catalog: 10,
     component_identity_family: 11,
-    composition_family: 7,
-    evidence_family: 1,
-    foundation_family: 2,
-    page_family: 8,
-    runtime_family: 4,
-    unresolved_family: 2,
-    workflow_family: 2
+    composition_pattern: 7,
+    evidence_or_lab_group: 1,
+    foundation: 2,
+    page_surface: 8,
+    runtime_enabler: 4,
+    unresolved_boundary: 2,
+    workflow: 2
   };
   assert(same(countBy(analysis.map((row) => row.entity_kind)), expectedKindCounts), 'entity-kind counts differ');
   for (const [familyId, kind] of Object.entries(NAMED_KIND_ASSERTIONS)) {
@@ -671,6 +682,7 @@ if (SELF_TEST) {
   expectRejected('missing component membership', (x) => x.analysis[0].member_component_ids.pop());
   expectRejected('duplicate component membership', (x) => x.analysis[0].member_component_ids.push(x.analysis[1].member_component_ids[0]));
   expectRejected('catalog promoted to identity', (x) => { x.analysis.find((row) => row.id === 'family.design-system-primitives').entity_kind = 'component_identity_family'; });
+  expectRejected('legacy entity-kind alias', (x) => { x.analysis.find((row) => row.id === 'family.amber-artifacts').entity_kind = 'catalog_family'; });
   expectRejected('typed operational disposition drift', (x) => { x.analysis[0].operational_findings[0].operational_disposition = 'accepted_current_difference'; });
   expectRejected('empty positive evidence', (x) => { x.readiness[0].checklist[0].evidence_refs = []; });
   expectRejected('blocker absence implies ready', (x) => { const row = x.readiness.find((item) => item.analysis_group_id === 'family.brand-identity'); row.operational_blocker_refs = []; row.strict_ready = true; row.status = 'READY_FOR_CONTRACT_DECISION'; row.eligible_for_scoring = true; row.score = 50; });
@@ -678,7 +690,7 @@ if (SELF_TEST) {
   expectRejected('forced minimum wave', (x) => { x.wave.first_wave_family_ids = ['family.event-media', 'family.event-token-medallions']; });
   expectRejected('event media selected', (x) => { x.wave.families.find((row) => row.family_id === 'family.event-media').selected_first_wave = true; });
   expectRejected('physical operation authorized', (x) => { x.analysis[0].physical_operation_authorized = true; });
-  assert(rejected === 10, 'semantic self-test count differs');
+  assert(rejected === 11, 'semantic self-test count differs');
 }
 
 process.stdout.write(`${JSON.stringify({
