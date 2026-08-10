@@ -1,0 +1,106 @@
+{
+  "schema_version": "behavioral_manifest_counts_v1_1",
+  "source_manifest": {
+    "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/manifest.json",
+    "sha256": "c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1"
+  },
+  "namespace_policy": "canonical values derive from manifest.outputs records or explicit terminal/visual projections; deprecated legacy keys are never read as authority",
+  "canonical_counts": {
+    "outputs": {
+      "action-packet-index.jsonl": 67,
+      "automation-evidence-ledger.jsonl": 294,
+      "behavior-contracts.jsonl": 55,
+      "behavior-page-verification.jsonl": 134,
+      "behavior-specimen-observations.jsonl": 134,
+      "behavior-specimen-plan.jsonl": 67,
+      "breakpoint-and-container-matrix.jsonl": 293,
+      "breakpoint-probe-observations.jsonl": 293,
+      "breakpoint-probe-raster-index.jsonl": 8,
+      "dynamic-region-loading-matrix.jsonl": 13,
+      "experiment-registry.jsonl": 6,
+      "geometry-constraints.jsonl": 3818,
+      "historical-variant-evidence.jsonl": 448,
+      "interaction-state-machines.jsonl": 55,
+      "loading-recovery-states.jsonl": 111,
+      "manual-visual-review-ledger.jsonl": 134,
+      "media-behavior.jsonl": 847,
+      "media-policy-matrix.jsonl": 866,
+      "overlays-disclosures-selection.jsonl": 8,
+      "positioning-sticky-fixed.jsonl": 118,
+      "rail-keyboard-raster-index.jsonl": 2,
+      "requirements-provenance-ledger.jsonl": 3037,
+      "shelves-and-rails.jsonl": 5,
+      "unresolved.jsonl": 87,
+      "visual-review-ledger.jsonl": 134
+    },
+    "packets": {
+      "planned": 67,
+      "executable": 59,
+      "explicit_blockers": 8,
+      "observed_states": 134
+    },
+    "terminal_probes": {
+      "total": 293,
+      "pass": 236,
+      "mismatch": 39,
+      "unreachable": 18
+    },
+    "visual": {
+      "rasters": 134,
+      "prior_reviewed": 124,
+      "closure_new": 10,
+      "reviews": 134,
+      "review_conflicts": 25,
+      "capture_valid": 109
+    },
+    "findings": {
+      "unresolved_records": 87,
+      "blocking_unresolved_records": 0
+    },
+    "automation_evidence": 294
+  },
+  "deprecated_legacy_conflicts": [
+    {
+      "legacy_pointer": "counts.actionPacketIndex",
+      "legacy_key": "actionPacketIndex",
+      "legacy_value": 0,
+      "canonical_pointer": "outputs.action-packet-index.jsonl.records",
+      "canonical_value": 67,
+      "disposition": "deprecated-stale-conflict"
+    },
+    {
+      "legacy_pointer": "counts.pageVerification",
+      "legacy_key": "pageVerification",
+      "legacy_value": 0,
+      "canonical_pointer": "outputs.behavior-page-verification.jsonl.records",
+      "canonical_value": 134,
+      "disposition": "deprecated-stale-conflict"
+    },
+    {
+      "legacy_pointer": "counts.plans",
+      "legacy_key": "plans",
+      "legacy_value": 35,
+      "canonical_pointer": "outputs.behavior-specimen-plan.jsonl.records",
+      "canonical_value": 67,
+      "disposition": "deprecated-stale-conflict"
+    },
+    {
+      "legacy_pointer": "counts.unresolved",
+      "legacy_key": "unresolved",
+      "legacy_value": 19,
+      "canonical_pointer": "outputs.unresolved.jsonl.records",
+      "canonical_value": 87,
+      "disposition": "deprecated-stale-conflict"
+    },
+    {
+      "legacy_pointer": "counts.visualReviewLedger",
+      "legacy_key": "visualReviewLedger",
+      "legacy_value": 0,
+      "canonical_pointer": "outputs.visual-review-ledger.jsonl.records",
+      "canonical_value": 134,
+      "disposition": "deprecated-stale-conflict"
+    }
+  ],
+  "conflict_count": 5,
+  "source_manifest_mutated": false
+}
