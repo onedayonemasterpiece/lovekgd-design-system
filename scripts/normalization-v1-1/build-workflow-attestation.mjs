@@ -201,10 +201,28 @@ const parseMutationRun = () => {
   assert(/^[a-f0-9]{64}$/.test(result.catalog_sha256 ?? ''), 'mutation catalog SHA-256 is invalid');
   const catalog = read(path.join(root, result.catalog_path));
   assert(sha256(catalog) === result.catalog_sha256, 'captured mutation catalog SHA-256 differs from the exact checkout');
-  assert(result.total_cases === 14 && result.passed_cases === 14 && result.failed_cases === 0, 'mandatory mutation case counts differ');
-  assert(result.lane_negative_mutation_count === 90 && result.positive_baseline_count === 1 && result.total_negative_mutation_count === 104, 'derived lane/positive/total mutation counts differ');
-  assert(result.baseline_rechecks === 15, 'mutation baseline recheck count differs');
-  assert(Array.isArray(result.cases) && result.cases.length === 14 && new Set(result.cases.map((item) => item.id)).size === 14, 'mutation case list cardinality differs');
+  const catalogDocument = JSON.parse(catalog.toString('utf8'));
+  const mandatoryDefinitions = catalogDocument.mandatory_cases;
+  const laneDefinitions = catalogDocument.lane_suites;
+  assert(Array.isArray(mandatoryDefinitions) && mandatoryDefinitions.length === 14, 'mandatory mutation definition set differs');
+  assert(Array.isArray(laneDefinitions) && laneDefinitions.length > 0, 'lane mutation definitions are missing');
+  assert(laneDefinitions.every((lane) => lane.negative_count === lane.negative_cases.length
+    && lane.positive_baseline_count === lane.positive_baseline_cases.length
+    && lane.positive_preservation_count === lane.positive_preservation_cases.length), 'lane mutation definition counts are not derived from their case arrays');
+  const derivedLaneNegatives = laneDefinitions.reduce((total, lane) => total + lane.negative_cases.length, 0);
+  const derivedPositiveBaselines = laneDefinitions.reduce((total, lane) => total + lane.positive_baseline_cases.length, 0);
+  const derivedTotalNegatives = mandatoryDefinitions.length + derivedLaneNegatives;
+  const derivedBaselineRechecks = mandatoryDefinitions.length + 1;
+  assert(result.total_cases === mandatoryDefinitions.length
+    && result.passed_cases === mandatoryDefinitions.length
+    && result.failed_cases === 0, 'mandatory mutation case counts differ from the catalog definitions');
+  assert(result.lane_negative_mutation_count === derivedLaneNegatives
+    && result.positive_baseline_count === derivedPositiveBaselines
+    && result.total_negative_mutation_count === derivedTotalNegatives, 'live lane/positive/total mutation counts differ from executable catalog definitions');
+  assert(result.baseline_rechecks === derivedBaselineRechecks, 'mutation baseline recheck count differs from the mandatory definition cardinality');
+  assert(Array.isArray(result.cases) && result.cases.length === mandatoryDefinitions.length
+    && new Set(result.cases.map((item) => item.id)).size === mandatoryDefinitions.length, 'mutation case list cardinality differs');
+  assert(JSON.stringify(result.cases.map((item) => item.id)) === JSON.stringify(mandatoryDefinitions.map((item) => item.id)), 'live mutation case order/identity differs from the catalog definitions');
   assert(result.cases.every((item) => typeof item.expected_error_code === 'string' && item.expected_error_code === item.actual_error_code
     && item.targeted_rejected === true && item.aggregate_rejected === true && item.receipt_validation_enabled === false
     && item.bytes_restored === true && item.baseline_passed === true && item.pass === true
