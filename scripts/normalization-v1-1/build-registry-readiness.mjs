@@ -12,6 +12,8 @@ const PATHS = {
   legacyRegistry: 'catalog/normalization/family-registry.jsonl',
   applications: 'catalog/normalization/component-applications.jsonl',
   findings: 'catalog/normalization/findings-disposition.jsonl',
+  decisionQueue: 'catalog/normalization/decision-queue.jsonl',
+  behaviorContracts: 'catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/behavior-contracts.jsonl',
   analysisSchema: 'contracts/normalization/analytical-entity-kinds.v1.schema.json',
   readinessSchema: 'contracts/normalization/semantic-readiness.v1.schema.json',
   analysisRegistry: 'catalog/normalization/analysis-group-registry.jsonl',
@@ -95,7 +97,11 @@ const RELATION_BY_KIND = Object.freeze({
 const CHECK_IDS = Object.freeze([
   'entity_kind_component_identity',
   'semantic_role_contract',
+  'explicit_non_goals',
+  'requirement_provenance_reconciled',
   'identity_boundary',
+  'anatomy_contract',
+  'content_model_contract',
   'implementation_membership',
   'consumer_application_census',
   'route_surface_context',
@@ -104,14 +110,17 @@ const CHECK_IDS = Object.freeze([
   'accessibility_contract',
   'runtime_visual_reconciliation',
   'operational_finding_closure',
+  'unresolved_decision_blockers_absent',
   'candidate_contract_review',
+  'migration_and_rollback',
+  'evidence_refs_exist',
   'media_consumer_policy',
   'loading_recovery',
   'experiment_decision',
   'product_model_dependency'
 ]);
 
-const CORE_CHECKS = new Set(CHECK_IDS.slice(0, 12));
+const CORE_CHECKS = new Set(CHECK_IDS.slice(0, 19));
 const NAMED_KIND_ASSERTIONS = Object.freeze({
   'family.design-system-primitives': 'component_catalog',
   'family.event-detail-presentation': 'page_surface',
@@ -242,11 +251,18 @@ const readinessSchema = {
         required: ['check_id', 'applicability', 'status', 'assertion', 'evidence_refs'],
         properties: {
           check_id: { enum: CHECK_IDS },
-          applicability: { enum: ['required', 'conditional', 'not_applicable'] },
-          status: { enum: ['pass', 'fail', 'not_applicable'] },
+          applicability: { enum: ['REQUIRED', 'CONDITIONAL', 'NOT_APPLICABLE'] },
+          status: { enum: ['PASS', 'BLOCKED', 'NOT_APPLICABLE_WITH_REASON'] },
           assertion: { type: 'string', minLength: 1 },
           evidence_refs: { type: 'array', minItems: 1, uniqueItems: true, items: { type: 'string', minLength: 1 } }
-        }
+        },
+        allOf: [
+          {
+            if: { properties: { applicability: { const: 'NOT_APPLICABLE' } }, required: ['applicability'] },
+            then: { properties: { status: { const: 'NOT_APPLICABLE_WITH_REASON' } } },
+            else: { properties: { status: { enum: ['PASS', 'BLOCKED'] } } }
+          }
+        ]
       }
     },
     operational_blocker_refs: { type: 'array', uniqueItems: true, items: { type: 'string', pattern: '^finding\\.' } },
@@ -288,6 +304,8 @@ const readinessSchema = {
 const legacyFamilies = readJsonl(PATHS.legacyRegistry).sort((left, right) => left.id.localeCompare(right.id));
 const applications = readJsonl(PATHS.applications);
 const findings = readJsonl(PATHS.findings);
+const decisions = readJsonl(PATHS.decisionQueue);
+const behaviorContracts = readJsonl(PATHS.behaviorContracts);
 const familyById = new Map(legacyFamilies.map((row) => [row.id, row]));
 const findingsByFamily = new Map(legacyFamilies.map((row) => [row.id, []]));
 for (const finding of findings) for (const familyId of finding.family_ids) {
@@ -301,6 +319,34 @@ for (const application of applications) {
   applicationsByFamily.get(application.family_id).push(application);
 }
 for (const rows of applicationsByFamily.values()) rows.sort((left, right) => left.id.localeCompare(right.id));
+const decisionsByFamily = new Map(legacyFamilies.map((row) => [row.id, []]));
+for (const decision of decisions) {
+  assert(decisionsByFamily.has(decision.family_id), `${decision.id}: unknown decision family ${decision.family_id}`);
+  decisionsByFamily.get(decision.family_id).push(decision);
+}
+for (const rows of decisionsByFamily.values()) rows.sort((left, right) => left.id.localeCompare(right.id));
+
+const knownComponentIds = new Set(legacyFamilies.flatMap((row) => row.implementations.map((item) => item.component_id)));
+const knownFindingIds = new Set(findings.map((row) => row.id));
+const knownApplicationIds = new Set(applications.map((row) => row.id));
+const knownDecisionIds = new Set(decisions.map((row) => row.id));
+const knownBehaviorIds = new Set(behaviorContracts.map((row) => row.id));
+const knownAuditIds = new Set(Array.from({ length: 13 }, (_, index) => `AUD-PN-${String(index + 1).padStart(3, '0')}`));
+const knownAuthorityRefs = new Set(legacyFamilies.flatMap((row) => [
+  ...(row.requirement_provenance ?? []),
+  ...(row.readiness_evidence?.hard_gate_inputs?.product_model_dependency_refs ?? [])
+]));
+const evidenceRefExists = (ref) => {
+  if (knownAuditIds.has(ref) || knownComponentIds.has(ref) || knownFindingIds.has(ref)
+    || knownApplicationIds.has(ref) || knownDecisionIds.has(ref) || knownBehaviorIds.has(ref)
+    || knownAuthorityRefs.has(ref)) return true;
+  if (ref.startsWith('family-registry.jsonl#')) return familyById.has(ref.slice('family-registry.jsonl#'.length));
+  return false;
+};
+const assertEvidenceRefsResolve = (refs, label) => {
+  assert(Array.isArray(refs) && refs.length > 0, `${label}: evidence is empty`);
+  for (const ref of refs) assert(evidenceRefExists(ref), `${label}: unresolved evidence ref ${ref}`);
+};
 
 const findingProjection = (finding) => ({
   finding_id: finding.id,
@@ -369,6 +415,12 @@ const buildChecklist = (family, entityKind, linkedFindings, familyApplications) 
   const evidence = (...refs) => refs.flat().filter(Boolean);
   const contractFindings = linkedFindings.filter((item) => item.source_kind === 'candidate_as_is_contract');
   const blockingFindings = linkedFindings.filter((item) => item.blocking_scope !== 'none');
+  const pendingDecisions = decisionsByFamily.get(family.id).filter((item) => item.status === 'pending');
+  const unresolvedDecisionRefs = sorted([...new Set([
+    ...blockingFindings.map((item) => item.id),
+    ...pendingDecisions.map((item) => item.id)
+  ])]);
+  const requirementRefs = family.requirement_provenance ?? [];
   const behaviorRefs = family.states_events.behavior_contract_refs ?? [];
   const terminalCounts = family.responsive_container_behavior.terminal_probe_counts ?? {};
   const terminalTotal = Object.values(terminalCounts).reduce((sum, value) => sum + value, 0);
@@ -384,86 +436,112 @@ const buildChecklist = (family, entityKind, linkedFindings, familyApplications) 
   const productRefs = family.readiness_evidence.hard_gate_inputs.product_model_dependency_refs ?? [];
 
   const rows = [];
-  rows.push(check('entity_kind_component_identity', 'required',
-    entityKind === 'component_identity_family' ? 'pass' : 'fail',
+  rows.push(check('entity_kind_component_identity', 'REQUIRED',
+    entityKind === 'component_identity_family' ? 'PASS' : 'BLOCKED',
     entityKind === 'component_identity_family'
       ? 'The analytical classification is a candidate component identity; this does not accept the identity.'
       : `The analytical group is ${entityKind}, so it cannot enter component-family scoring.`,
     evidence('AUD-PN-006', familyRef, componentRefs)));
-  rows.push(check('semantic_role_contract', 'required', contractFindings.length ? 'pass' : 'fail',
+  rows.push(check('semantic_role_contract', 'REQUIRED', contractFindings.length ? 'PASS' : 'BLOCKED',
     contractFindings.length
       ? 'A candidate AS-IS contract records a semantic role, but its review status is evaluated separately.'
       : 'No candidate AS-IS contract positively closes the semantic role.',
     evidence(contractFindings.map((item) => item.id), familyRef)));
-  rows.push(check('identity_boundary', 'required', 'fail',
+  rows.push(check('explicit_non_goals', 'REQUIRED', 'BLOCKED',
+    'No accepted component contract explicitly binds family-specific non-goals.',
+    evidence('AUD-PN-003', familyRef, contractFindings.map((item) => item.id))));
+  rows.push(check('requirement_provenance_reconciled', 'REQUIRED', 'BLOCKED',
+    'Pinned authority labels exist, but no family-specific receipt reconciles requirements with the candidate semantic boundary.',
+    evidence('AUD-PN-003', familyRef, requirementRefs)));
+  rows.push(check('identity_boundary', 'REQUIRED', 'BLOCKED',
     'No accepted receipt proves identity, variant equivalence, or a closed merge/split boundary.',
     evidence('AUD-PN-006', familyRef, componentRefs)));
-  rows.push(check('implementation_membership', 'required', 'pass',
+  rows.push(check('anatomy_contract', 'REQUIRED', 'BLOCKED',
+    `Anatomy remains ${family.anatomy.status}; source extraction is not accepted contract closure.`,
+    evidence('AUD-PN-003', familyRef, componentRefs)));
+  rows.push(check('content_model_contract', 'REQUIRED', 'BLOCKED',
+    'No accepted content model binds props, slots, limits, valid values, invalid combinations and stress fixtures.',
+    evidence('AUD-PN-003', familyRef, contractFindings.map((item) => item.id))));
+  rows.push(check('implementation_membership', 'REQUIRED', 'PASS',
     'The immutable 107-component census maps every member exactly once to this analytical group.',
     evidence(componentRefs, familyRef)));
-  rows.push(check('consumer_application_census', 'required', 'pass',
+  rows.push(check('consumer_application_census', 'REQUIRED', 'PASS',
     familyApplications.length
       ? 'Concrete component/consumer applications reconcile with the legacy analytical group.'
       : 'The no-application state is explicit in the immutable component census and is not deletion evidence.',
     evidence(applicationEvidence, familyRef)));
-  rows.push(check('route_surface_context', 'required', 'pass',
+  rows.push(check('route_surface_context', 'REQUIRED', 'PASS',
     'Consumer and route contexts are explicitly retained as analytical evidence.',
     evidence(familyRef, applicationEvidence)));
-  rows.push(check('state_event_contract', 'required', behaviorRefs.length ? 'pass' : 'fail',
+  rows.push(check('state_event_contract', 'REQUIRED', behaviorRefs.length ? 'PASS' : 'BLOCKED',
     behaviorRefs.length
       ? 'At least one pinned behavior contract is linked.'
       : 'No positive behavior contract is linked.',
     evidence(behaviorRefs, familyRef)));
-  rows.push(check('responsive_container_contract', 'required', terminalClean ? 'pass' : 'fail',
+  rows.push(check('responsive_container_contract', 'REQUIRED', terminalClean ? 'PASS' : 'BLOCKED',
     terminalClean
       ? 'Pinned terminal coverage contains positive observations and no mismatch or unreachable terminal.'
       : terminalTotal
         ? 'Terminal coverage contains a mismatch or unreachable result and is not positive closure.'
         : 'No positive terminal probe coverage is linked.',
     evidence(findingRefs, familyRef)));
-  rows.push(check('accessibility_contract', 'required', 'fail',
+  rows.push(check('accessibility_contract', 'REQUIRED', 'BLOCKED',
     `Accessibility target status remains ${family.accessibility.target_contract_status}.`,
     evidence(findingRefs, familyRef)));
-  rows.push(check('runtime_visual_reconciliation', 'required', observed && terminalClean ? 'pass' : 'fail',
+  rows.push(check('runtime_visual_reconciliation', 'REQUIRED', observed && terminalClean ? 'PASS' : 'BLOCKED',
     observed && terminalClean
       ? 'Production observation and clean terminal coverage are both present.'
       : 'Production observation plus clean terminal and visual reconciliation is not positively proven.',
     evidence(findingRefs, componentRefs, familyRef)));
-  rows.push(check('operational_finding_closure', 'required', blockingFindings.length ? 'fail' : 'pass',
+  rows.push(check('operational_finding_closure', 'REQUIRED', blockingFindings.length ? 'BLOCKED' : 'PASS',
     blockingFindings.length
       ? 'Typed operational findings remain blocking beyond observation-only scope.'
       : 'All typed operational findings for the group are non-blocking.',
     evidence(blockingFindings.map((item) => item.id), findingRefs, familyRef)));
-  rows.push(check('candidate_contract_review', 'required', 'fail',
+  rows.push(check('unresolved_decision_blockers_absent', 'REQUIRED', unresolvedDecisionRefs.length ? 'BLOCKED' : 'PASS',
+    unresolvedDecisionRefs.length
+      ? 'Typed blocking findings or pending decision-queue records remain unresolved.'
+      : 'The typed finding join and decision queue contain no unresolved decision blocker for this group.',
+    evidence(unresolvedDecisionRefs, 'AUD-PN-003', familyRef)));
+  rows.push(check('candidate_contract_review', 'REQUIRED', 'BLOCKED',
     contractFindings.length
       ? 'Candidate evidence remains unaccepted; no superseding positive review receipt closes all normalization gaps.'
       : 'No reviewed candidate contract and positive decision dossier are bound.',
     evidence(contractFindings.map((item) => item.id), familyRef)));
-  rows.push(check('media_consumer_policy', hasMedia ? 'conditional' : 'not_applicable',
-    hasMedia ? 'fail' : 'not_applicable',
+  rows.push(check('migration_and_rollback', 'REQUIRED', 'BLOCKED',
+    'Only analysis-level rollback feasibility is recorded; no accepted reversible migration map and rollback receipt exist.',
+    evidence('AUD-PN-009', familyRef, blockingFindings.map((item) => item.id))));
+  const precedingEvidenceRefs = rows.flatMap((item) => item.evidence_refs);
+  for (const ref of precedingEvidenceRefs) assert(evidenceRefExists(ref), `${family.id}/evidence_refs_exist: unresolved evidence ref ${ref}`);
+  rows.push(check('evidence_refs_exist', 'REQUIRED', 'PASS',
+    'Every evidence reference in the positive checklist resolves to a pinned catalog identity or declared authority reference.',
+    evidence('AUD-PN-003', familyRef)));
+  rows.push(check('media_consumer_policy', hasMedia ? 'CONDITIONAL' : 'NOT_APPLICABLE',
+    hasMedia ? 'BLOCKED' : 'NOT_APPLICABLE_WITH_REASON',
     hasMedia
       ? 'Media rules exist, but consumer-scoped vocabulary, policy and review closure are not positively complete.'
       : 'No media rule is present in this analytical group; applicability was explicitly evaluated.',
     evidence(findingRefs, familyRef, family.id === 'family.event-media' ? 'AUD-PN-004' : [])));
-  rows.push(check('loading_recovery', hasLoading ? 'conditional' : 'not_applicable',
-    hasLoading ? 'fail' : 'not_applicable',
+  rows.push(check('loading_recovery', hasLoading ? 'CONDITIONAL' : 'NOT_APPLICABLE',
+    hasLoading ? 'BLOCKED' : 'NOT_APPLICABLE_WITH_REASON',
     hasLoading
       ? 'A dynamic region exists, but loading and recovery review is not positively closed.'
       : 'No dynamic region is linked; applicability was explicitly evaluated.',
     evidence(findingRefs, familyRef)));
-  rows.push(check('experiment_decision', hasExperiment ? 'conditional' : 'not_applicable',
-    hasExperiment ? 'fail' : 'not_applicable',
+  rows.push(check('experiment_decision', hasExperiment ? 'CONDITIONAL' : 'NOT_APPLICABLE',
+    hasExperiment ? 'BLOCKED' : 'NOT_APPLICABLE_WITH_REASON',
     hasExperiment
       ? 'The experiment has no accepted winner decision receipt.'
       : 'No experiment decision is required for this group.',
     evidence(findingRefs, familyRef)));
-  rows.push(check('product_model_dependency', 'conditional', productRefs.length ? 'fail' : 'pass',
+  rows.push(check('product_model_dependency', 'CONDITIONAL', productRefs.length ? 'BLOCKED' : 'PASS',
     productRefs.length
       ? 'Target semantics depend on the absent authoritative product model.'
       : 'No family-specific product-model dependency is asserted; the global observe gate still forbids promotion.',
     evidence(productRefs, familyRef)));
   assert(rows.length === CHECK_IDS.length, `${family.id}: checklist length drift`);
   assert(same(rows.map((row) => row.check_id), CHECK_IDS), `${family.id}: checklist order drift`);
+  for (const item of rows) assertEvidenceRefsResolve(item.evidence_refs, `${family.id}/${item.check_id}`);
   return rows;
 };
 
@@ -484,7 +562,7 @@ const buildReadiness = () => legacyFamilies.map((family) => {
   const entityKind = KIND_MAP[family.id];
   const linkedFindings = findingsByFamily.get(family.id);
   const checklist = buildChecklist(family, entityKind, linkedFindings, applicationsByFamily.get(family.id));
-  const failedChecks = checklist.filter((item) => item.status === 'fail').map((item) => `check-failed:${item.check_id}`);
+  const blockedChecks = checklist.filter((item) => item.status === 'BLOCKED').map((item) => `check-blocked:${item.check_id}`);
   const operationalBlockers = sorted(linkedFindings.filter((item) => item.blocking_scope !== 'none').map((item) => item.id));
   return {
     schema_version: 'normalization_semantic_readiness_v1_1',
@@ -493,7 +571,7 @@ const buildReadiness = () => legacyFamilies.map((family) => {
     entity_kind: entityKind,
     checklist,
     operational_blocker_refs: operationalBlockers,
-    not_ready_reason_codes: sorted([...new Set([...failedChecks, ...extraReasons(family.id)])]),
+    not_ready_reason_codes: sorted([...new Set([...blockedChecks, ...extraReasons(family.id)])]),
     status: 'NOT_READY',
     strict_ready: false,
     eligible_for_scoring: false,
@@ -598,6 +676,8 @@ const validate = ({ analysis, readiness, wave }) => {
     assert(group.member_relations.length === group.member_component_ids.length, `${group.id}: relation/member cardinality differs`);
     assert(same(sorted(group.member_relations.map((item) => item.component_id)), group.member_component_ids), `${group.id}: member relation set differs`);
     assert(group.member_relations.every((item) => item.relation_kind === RELATION_BY_KIND[group.entity_kind]), `${group.id}: relation kind differs`);
+    assertEvidenceRefsResolve(group.classification_evidence_refs, `${group.id}/classification_evidence_refs`);
+    for (const relation of group.member_relations) assertEvidenceRefsResolve(relation.evidence_refs, `${group.id}/${relation.component_id}`);
     const expectedFindings = findingsByFamily.get(group.id).map(findingProjection);
     assert(same(group.operational_findings, expectedFindings), `${group.id}: typed operational finding cross-join differs`);
     assert(same(group.operational_finding_counts, findingCounts(findingsByFamily.get(group.id))), `${group.id}: finding counts differ`);
@@ -611,13 +691,14 @@ const validate = ({ analysis, readiness, wave }) => {
     assert(group && row.entity_kind === group.entity_kind, `${row.id}: entity kind differs from analysis registry`);
     assert(row.checklist.length === CHECK_IDS.length && same(row.checklist.map((item) => item.check_id), CHECK_IDS), `${row.id}: checklist is incomplete`);
     for (const item of row.checklist) {
-      assert(item.evidence_refs.length > 0, `${row.id}/${item.check_id}: evidence is empty`);
+      assertEvidenceRefsResolve(item.evidence_refs, `${row.id}/${item.check_id}`);
       assert(item.assertion.length > 0, `${row.id}/${item.check_id}: assertion is empty`);
-      if (CORE_CHECKS.has(item.check_id)) assert(item.applicability === 'required', `${row.id}/${item.check_id}: core check not required`);
-      if (item.applicability === 'not_applicable') assert(item.status === 'not_applicable', `${row.id}/${item.check_id}: invalid N/A state`);
+      if (CORE_CHECKS.has(item.check_id)) assert(item.applicability === 'REQUIRED', `${row.id}/${item.check_id}: core check not required`);
+      if (item.applicability === 'NOT_APPLICABLE') assert(item.status === 'NOT_APPLICABLE_WITH_REASON', `${row.id}/${item.check_id}: invalid N/A state`);
+      else assert(['PASS', 'BLOCKED'].includes(item.status), `${row.id}/${item.check_id}: applicable check has invalid status`);
     }
     const positiveGate = row.entity_kind === 'component_identity_family'
-      && row.checklist.every((item) => item.applicability === 'not_applicable' || item.status === 'pass')
+      && row.checklist.every((item) => item.applicability === 'NOT_APPLICABLE' || item.status === 'PASS')
       && row.operational_blocker_refs.length === 0;
     assert(row.strict_ready === positiveGate, `${row.id}: strict readiness is not recomputed from positive evidence`);
     assert(row.strict_ready === false && row.status === 'NOT_READY', `${row.id}: current audit requires NOT_READY`);
@@ -685,12 +766,17 @@ if (SELF_TEST) {
   expectRejected('legacy entity-kind alias', (x) => { x.analysis.find((row) => row.id === 'family.amber-artifacts').entity_kind = 'catalog_family'; });
   expectRejected('typed operational disposition drift', (x) => { x.analysis[0].operational_findings[0].operational_disposition = 'accepted_current_difference'; });
   expectRejected('empty positive evidence', (x) => { x.readiness[0].checklist[0].evidence_refs = []; });
+  expectRejected('unresolvable positive evidence', (x) => { x.readiness[0].checklist[0].evidence_refs = ['missing.evidence.ref']; });
+  expectRejected('not-applicable without reason status', (x) => {
+    const row = x.readiness.find((item) => item.analysis_group_id === 'family.brand-identity');
+    row.checklist.find((item) => item.check_id === 'media_consumer_policy').status = 'PASS';
+  });
   expectRejected('blocker absence implies ready', (x) => { const row = x.readiness.find((item) => item.analysis_group_id === 'family.brand-identity'); row.operational_blocker_refs = []; row.strict_ready = true; row.status = 'READY_FOR_CONTRACT_DECISION'; row.eligible_for_scoring = true; row.score = 50; });
   expectRejected('non-ready score', (x) => { x.readiness[0].score = 50; });
   expectRejected('forced minimum wave', (x) => { x.wave.first_wave_family_ids = ['family.event-media', 'family.event-token-medallions']; });
   expectRejected('event media selected', (x) => { x.wave.families.find((row) => row.family_id === 'family.event-media').selected_first_wave = true; });
   expectRejected('physical operation authorized', (x) => { x.analysis[0].physical_operation_authorized = true; });
-  assert(rejected === 11, 'semantic self-test count differs');
+  assert(rejected === 13, 'semantic self-test count differs');
 }
 
 process.stdout.write(`${JSON.stringify({

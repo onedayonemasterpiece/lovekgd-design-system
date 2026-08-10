@@ -69,12 +69,43 @@
     "checklist": {
       "items": {
         "additionalProperties": false,
+        "allOf": [
+          {
+            "else": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "PASS",
+                    "BLOCKED"
+                  ]
+                }
+              }
+            },
+            "if": {
+              "properties": {
+                "applicability": {
+                  "const": "NOT_APPLICABLE"
+                }
+              },
+              "required": [
+                "applicability"
+              ]
+            },
+            "then": {
+              "properties": {
+                "status": {
+                  "const": "NOT_APPLICABLE_WITH_REASON"
+                }
+              }
+            }
+          }
+        ],
         "properties": {
           "applicability": {
             "enum": [
-              "required",
-              "conditional",
-              "not_applicable"
+              "REQUIRED",
+              "CONDITIONAL",
+              "NOT_APPLICABLE"
             ]
           },
           "assertion": {
@@ -85,7 +116,11 @@
             "enum": [
               "entity_kind_component_identity",
               "semantic_role_contract",
+              "explicit_non_goals",
+              "requirement_provenance_reconciled",
               "identity_boundary",
+              "anatomy_contract",
+              "content_model_contract",
               "implementation_membership",
               "consumer_application_census",
               "route_surface_context",
@@ -94,7 +129,10 @@
               "accessibility_contract",
               "runtime_visual_reconciliation",
               "operational_finding_closure",
+              "unresolved_decision_blockers_absent",
               "candidate_contract_review",
+              "migration_and_rollback",
+              "evidence_refs_exist",
               "media_consumer_policy",
               "loading_recovery",
               "experiment_decision",
@@ -112,9 +150,9 @@
           },
           "status": {
             "enum": [
-              "pass",
-              "fail",
-              "not_applicable"
+              "PASS",
+              "BLOCKED",
+              "NOT_APPLICABLE_WITH_REASON"
             ]
           }
         },
@@ -127,8 +165,8 @@
         ],
         "type": "object"
       },
-      "maxItems": 16,
-      "minItems": 16,
+      "maxItems": 23,
+      "minItems": 23,
       "type": "array"
     },
     "decision": {

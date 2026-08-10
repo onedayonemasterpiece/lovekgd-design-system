@@ -50,27 +50,38 @@ The audit-named boundary corrections are explicit:
 ## Positive checklist
 
 [`semantic-readiness.jsonl`](../../catalog/normalization/semantic-readiness.jsonl)
-contains one full 16-item checklist for every analytical group. It covers:
+contains one full 23-item checklist for every analytical group. It covers:
 
 1. component-identity entity kind;
 2. explicit semantic-role contract;
-3. closed identity/variant boundary;
-4. exact implementation membership;
-5. consumer/application census;
-6. route and surface context;
-7. state and event contract;
-8. responsive/container contract;
-9. accessibility contract;
-10. runtime and visual reconciliation;
-11. typed operational-finding closure;
-12. candidate-contract review;
-13. conditional media policy;
-14. conditional loading/recovery behavior;
-15. conditional experiment decision;
-16. family-specific product-model dependency.
+3. explicit non-goals;
+4. reconciled requirement provenance;
+5. closed identity/variant boundary;
+6. anatomy contract;
+7. content-model contract;
+8. exact implementation membership;
+9. consumer/application census;
+10. route and surface context;
+11. state and event contract;
+12. responsive/container contract;
+13. accessibility contract;
+14. runtime and visual reconciliation;
+15. typed operational-finding closure;
+16. absence of unresolved decision blockers;
+17. candidate-contract review;
+18. reversible migration and rollback evidence;
+19. existence and resolution of every evidence reference;
+20. conditional media policy;
+21. conditional loading/recovery behavior;
+22. conditional experiment decision;
+23. family-specific product-model dependency.
 
-Every `pass`, `fail` and `not_applicable` assertion has positive evidence refs.
-`not_applicable` is an evidenced applicability decision, not an omitted check.
+Every checklist status uses the exact vocabulary `PASS`, `BLOCKED` or
+`NOT_APPLICABLE_WITH_REASON`. Every assertion has nonempty evidence refs, and
+the validator resolves every ref against the pinned family/component/finding/
+application/decision/behavior/authority identities. `NOT_APPLICABLE_WITH_REASON`
+requires an explicit `NOT_APPLICABLE` applicability classification and a
+nonempty reason; it is not an omitted check.
 
 Strict readiness is true only when:
 
@@ -129,8 +140,8 @@ node scripts/normalization-v1-1/build-registry-readiness.mjs --check --self-test
 node tests/normalization-v1-1-registry-readiness.mjs
 ```
 
-The semantic mutations must reject missing/duplicate component membership,
+The thirteen semantic mutations must reject missing/duplicate component membership,
 audit-mandated kind drift, any legacy entity-kind alias, typed-finding drift,
-empty positive evidence, blocker-absence readiness, scoring of a non-ready row,
-a forced minimum wave, Event Media selection and physical-operation
-authorization.
+empty or unresolvable positive evidence, invalid applicability/status pairing,
+blocker-absence readiness, scoring of a non-ready row, a forced minimum wave,
+Event Media selection and physical-operation authorization.
