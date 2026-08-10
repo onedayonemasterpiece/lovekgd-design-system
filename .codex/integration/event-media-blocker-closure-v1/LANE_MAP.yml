@@ -1,0 +1,154 @@
+mode: full_fanout_then_serial_integration
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: 3cbe35326ead04ac67070e5b400d30d9edc6eb01
+base_branch: main
+integration_branch: normalization/event-media-blocker-closure-v1
+global_constraints:
+  - no production events-bot-new mutation
+  - no site/src or site/public mutation
+  - no physical component merge or split
+  - no legacy deletion
+  - no candidate contract acceptance
+  - no owner decision selection
+  - no final media tokens
+  - no Penpot or page archetype mutation
+  - no experiment winner or migration
+  - Product Value remains observe/pending_product_model/promotion_ready_false
+verification_owner: L0
+stop_conditions:
+  - immutable corpus drift
+  - unsupported blocker closure
+  - owner decision acceptance overclaim
+  - protected tree mutation
+lanes:
+  - id: L0
+    role: merge_reviewer
+    requirement_ids: [R02]
+    target: integration and GitHub delivery
+    depends_on: [R01, L1, L2, L3, L4, L5]
+    execution_mode: serial_integrator
+    branch: normalization/event-media-blocker-closure-v1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-blocker-closure-v1
+    writable_files:
+      - .codex/integration/event-media-blocker-closure-v1/**
+      - receipts/normalization/event-media-blocker-closure-v1.json
+    forbidden_files: [penpot/**, prototypes/penpot-*/**, site/src/**, site/public/**]
+    expected_output: integrated clean branch and Draft PR
+    verification_scope: full_local
+    effort: xhigh
+    status: in_progress
+  - id: L1
+    role: worker
+    requirement_ids: [R03, R04]
+    target: exact corpus and nine evidence blockers
+    depends_on: [R01]
+    execution_mode: parallel
+    branch: agent/event-media-blocker-closure-v1/evidence
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-blocker-evidence
+    writable_files:
+      - catalog/normalization/event-media/blocker-closure-v1.jsonl
+      - .codex/lanes/event-media-blocker-evidence/RESULTS.md
+    forbidden_files: [catalog/normalization/event-media/blocker-closure.jsonl, penpot/**, prototypes/**, site/**]
+    expected_output: exact terminal evidence ledger
+    verification_scope: targeted
+    effort: xhigh
+    status: completed
+    source_commit: fa406b0d1b80f827cbdbcfc9838da7eb5dc998df
+    integration_commit: 262af8b
+  - id: L2
+    role: worker
+    requirement_ids: [R05]
+    target: three owner decision cards and fixture specification
+    depends_on: [R01]
+    execution_mode: parallel
+    branch: agent/event-media-blocker-closure-v1/owner-decisions
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-owner-decisions
+    writable_files:
+      - catalog/normalization/event-media/owner-decisions.jsonl
+      - catalog/normalization/event-media/decision-fixtures.jsonl
+      - .codex/lanes/event-media-owner-decisions/RESULTS.md
+    forbidden_files: [catalog/normalization/event-media/owner-decision-queue.jsonl, penpot/**, prototypes/**, site/**]
+    expected_output: three unaccepted decision records and shared fixture manifest
+    verification_scope: targeted
+    effort: high
+    status: completed
+    source_commit: 707904b3e164d21328bd3df345d92eeb6fdcfb95
+    integration_commit: 95f6c32
+  - id: L3
+    role: worker
+    requirement_ids: [R06]
+    target: deterministic HTML/PNG decision pack and review ledger
+    depends_on: [L2]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-blocker-closure-v1/visual-pack
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-visual-pack
+    writable_files:
+      - prototypes/event-media-decision-pack/**
+      - catalog/normalization/event-media/decision-visual-review-ledger.jsonl
+      - .codex/lanes/event-media-visual-pack/RESULTS.md
+    forbidden_files: [penpot/**, site/**]
+    expected_output: deterministic boards, PNGs and full-resolution review ledger
+    verification_scope: full_local
+    effort: xhigh
+    status: completed
+    source_commit: 7519bccffd5904a772ee93bb33abbbc7430c0aeb
+    integration_commit: 65190a9
+  - id: L4
+    role: worker
+    requirement_ids: [R07]
+    target: positive readiness replay
+    depends_on: [L1, L2, L3]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-blocker-closure-v1/readiness
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-blocker-readiness
+    writable_files:
+      - catalog/normalization/event-media/readiness-v1.jsonl
+      - .codex/lanes/event-media-blocker-readiness/RESULTS.md
+    forbidden_files: [catalog/normalization/event-media/readiness.jsonl, penpot/**, prototypes/**, site/**]
+    expected_output: exact 3 by 23 positive readiness matrix
+    verification_scope: full_local
+    effort: xhigh
+    status: completed
+    source_commit: b4a32c44b593ae0bd8a31398cc78c7f7e89fb11d
+    integration_commit: d0c264d
+  - id: L5
+    role: worker
+    requirement_ids: [R08]
+    target: schemas validators mutations docs workflow and receipt inputs
+    depends_on: [L1, L2, L3, L4]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-blocker-closure-v1/validation
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-blocker-validation
+    writable_files:
+      - contracts/normalization/event-media-blocker-closure-*.json
+      - scripts/event-media-blocker-closure-v1/**
+      - scripts/validate-event-media-blocker-closure-v1.mjs
+      - scripts/build-event-media-blocker-closure-v1-receipt.mjs
+      - tests/event-media-blocker-closure-v1-*.mjs
+      - .github/workflows/event-media-blocker-closure-v1.yml
+      - .github/workflows/event-media-contract-decision-v1.yml
+      - scripts/validate-project-normalization-synthesis-v1-1.mjs
+      - docs/normalization/event-media-blocker-closure-v1.md
+      - docs/normalization/event-media-owner-decision-pack.md
+      - .codex/lanes/event-media-blocker-validation/RESULTS.md
+    forbidden_files: [penpot/**, site/**, catalog/component-decoder/**]
+    expected_output: deterministic fail-closed validation package
+    verification_scope: full_local
+    effort: xhigh
+    status: completed
+    source_commit: d99839a4e3b34bbe2f14eb5bacfd02c37bde99df
+    integration_commit: a16306d
+  - id: L6
+    role: reviewer
+    requirement_ids: []
+    target: final checklist review
+    depends_on: [L0]
+    execution_mode: reviewer
+    branch: null
+    worktree: null
+    writable_files: []
+    forbidden_files: ['**']
+    expected_output: requirement-by-requirement PASS or exact blockers
+    verification_scope: inspection_only
+    effort: xhigh
+    status: planned

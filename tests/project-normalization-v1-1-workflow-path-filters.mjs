@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import {
   WorkflowPathFilterError,
   extractEventPaths,
+  isForbiddenProjectNormalizationStopPath,
   validateWorkflowPathFilters,
 } from '../scripts/normalization-v1-1/validate-workflow-path-filters.mjs';
 import { captureRunnerProvenance } from '../scripts/normalization-v1-1/runner-version-provenance.mjs';
@@ -34,6 +35,15 @@ test('committed push and pull_request filters equal the machine registry', () =>
   const result = validateWorkflowPathFilters({ root });
   assert.equal(result.status, 'PASS');
   assert.equal(result.trigger_events.length, 2);
+});
+
+test('STOP-path guard permits only the Event Media decision pack prototype', () => {
+  assert.equal(isForbiddenProjectNormalizationStopPath('prototypes/event-media-decision-pack/index.html'), false);
+  assert.equal(isForbiddenProjectNormalizationStopPath('prototypes/event-media-decision-pack/screenshots/board.png'), false);
+  assert.equal(isForbiddenProjectNormalizationStopPath('prototypes/another-pack/index.html'), true);
+  assert.equal(isForbiddenProjectNormalizationStopPath('penpot/component.json'), true);
+  assert.equal(isForbiddenProjectNormalizationStopPath('nested/site/src/component.ts'), true);
+  assert.equal(isForbiddenProjectNormalizationStopPath('nested/site/public/asset.png'), true);
 });
 
 test('replay workflow binds the branch head and every events census source object', () => {

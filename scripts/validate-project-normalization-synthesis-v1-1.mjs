@@ -4,6 +4,7 @@ import childProcess from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { isForbiddenProjectNormalizationStopPath } from './normalization-v1-1/validate-workflow-path-filters.mjs';
 
 const args = process.argv.slice(2);
 const valueAfter = (flag) => {
@@ -128,8 +129,7 @@ if (!fixtureMode) {
   exec('git', ['cat-file', '-e', `${RECONCILIATION_COMMIT}^{commit}`], { capture: true });
   const changed = exec('git', ['diff', '--name-only', `${BASE}...HEAD`], { capture: true }).split('\n').filter(Boolean);
   for (const relative of changed) {
-    assert(!/^(penpot|prototypes)\//.test(relative), `forbidden design path changed: ${relative}`);
-    assert(!/(^|\/)site\/(src|public)(\/|$)/.test(relative), `forbidden runtime path changed: ${relative}`);
+    assert(!isForbiddenProjectNormalizationStopPath(relative), `forbidden design/runtime path changed: ${relative}`);
   }
 }
 if (eventsRepo) {

@@ -1,0 +1,605 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/onedayonemasterpiece/lovekgd-design-system/contracts/normalization/event-media-blocker-closure-receipt.v1.schema.json",
+  "title": "Event Media blocker closure receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "closure_id",
+    "repository",
+    "branch",
+    "status",
+    "lineage",
+    "frozen_pr32",
+    "product_evidence",
+    "derived_state",
+    "delivery",
+    "protected_trees",
+    "constraints",
+    "verification_contract",
+    "output_count",
+    "output_bytes",
+    "outputs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "event_media_blocker_closure_receipt_v1"
+    },
+    "closure_id": {
+      "const": "event-media-blocker-closure-v1"
+    },
+    "repository": {
+      "const": "onedayonemasterpiece/lovekgd-design-system"
+    },
+    "branch": {
+      "const": "normalization/event-media-blocker-closure-v1"
+    },
+    "status": {
+      "const": "EVENT_MEDIA_BLOCKER_CLOSURE_INCOMPLETE"
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "merged_main",
+        "audited_pr32_head",
+        "merge_parent_1",
+        "merge_parent_2",
+        "materialization_parent_commit"
+      ],
+      "properties": {
+        "merged_main": {
+          "const": "3cbe35326ead04ac67070e5b400d30d9edc6eb01"
+        },
+        "audited_pr32_head": {
+          "const": "20eab45534e2c64497e4db661e6a5ca8582229ea"
+        },
+        "merge_parent_1": {
+          "const": "45288b001d724e0d3603d0c44d392ff370407bd0"
+        },
+        "merge_parent_2": {
+          "const": "20eab45534e2c64497e4db661e6a5ca8582229ea"
+        },
+        "materialization_parent_commit": {
+          "$ref": "#/$defs/gitSha"
+        }
+      }
+    },
+    "frozen_pr32": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_applications",
+        "semantic_records",
+        "boundary_records",
+        "source_blockers",
+        "owner_required_blockers",
+        "source_still_open_blockers",
+        "candidate_contracts",
+        "readiness_rows",
+        "readiness_checks_per_candidate",
+        "files"
+      ],
+      "properties": {
+        "consumer_applications": {
+          "const": 52
+        },
+        "semantic_records": {
+          "const": 23
+        },
+        "boundary_records": {
+          "const": 31
+        },
+        "source_blockers": {
+          "const": 12
+        },
+        "owner_required_blockers": {
+          "const": 3
+        },
+        "source_still_open_blockers": {
+          "const": 9
+        },
+        "candidate_contracts": {
+          "const": 3
+        },
+        "readiness_rows": {
+          "const": 3
+        },
+        "readiness_checks_per_candidate": {
+          "const": 23
+        },
+        "files": {
+          "type": "object",
+          "minProperties": 10,
+          "patternProperties": {
+            "^.+$": {
+              "$ref": "#/$defs/frozenFile"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "product_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "tree",
+        "site_src_tree",
+        "site_public_tree",
+        "production_source_mutated"
+      ],
+      "properties": {
+        "repository": {
+          "const": "onedayonemasterpiece/events-bot-new"
+        },
+        "commit": {
+          "const": "66bc0d43e36299417626f992021cfb7299ddf704"
+        },
+        "tree": {
+          "const": "72e24f49ad6642915131438de8c56b804c4826b0"
+        },
+        "site_src_tree": {
+          "const": "d737458f8a87a9b7dad4f4badffd1b3f4ce544dd"
+        },
+        "site_public_tree": {
+          "const": "f42a045ec9ff3b1b2f3396a4df9f54cc6a767934"
+        },
+        "production_source_mutated": {
+          "const": false
+        }
+      }
+    },
+    "derived_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_blockers",
+        "incomplete_evidence_blockers",
+        "resolved_or_invalidated_blockers",
+        "incomplete_blocker_ids",
+        "exact_missing_facts",
+        "decision_cards",
+        "options",
+        "fixtures",
+        "vendored_assets",
+        "behavioral_bindings",
+        "pngs",
+        "full_resolution_reviews",
+        "readiness_rows",
+        "readiness_checks",
+        "readiness_pass",
+        "readiness_blocked",
+        "readiness_not_applicable",
+        "ready_candidates",
+        "not_ready_candidates",
+        "experiments_not_merged",
+        "product_value"
+      ],
+      "properties": {
+        "owner_blockers": {
+          "const": 3
+        },
+        "incomplete_evidence_blockers": {
+          "const": 9
+        },
+        "resolved_or_invalidated_blockers": {
+          "const": 0
+        },
+        "incomplete_blocker_ids": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "EM-RATIO-002"
+            },
+            {
+              "const": "EM-SEMANTIC-003"
+            },
+            {
+              "const": "EM-CROP-004"
+            },
+            {
+              "const": "EM-TINY-005"
+            },
+            {
+              "const": "EM-FALLBACK-006"
+            },
+            {
+              "const": "EM-LAYOUT-007"
+            },
+            {
+              "const": "EM-RESP-008"
+            },
+            {
+              "const": "EM-RUNTIME-009"
+            },
+            {
+              "const": "EM-PROVENANCE-012"
+            }
+          ],
+          "items": false,
+          "minItems": 9,
+          "maxItems": 9
+        },
+        "exact_missing_facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "EM-RATIO-002",
+            "EM-SEMANTIC-003",
+            "EM-CROP-004",
+            "EM-TINY-005",
+            "EM-FALLBACK-006",
+            "EM-LAYOUT-007",
+            "EM-RESP-008",
+            "EM-RUNTIME-009",
+            "EM-PROVENANCE-012"
+          ],
+          "properties": {
+            "EM-RATIO-002": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-SEMANTIC-003": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-CROP-004": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-TINY-005": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-FALLBACK-006": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-LAYOUT-007": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-RESP-008": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-RUNTIME-009": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            },
+            "EM-PROVENANCE-012": {
+              "$ref": "#/$defs/nonEmptyStrings"
+            }
+          }
+        },
+        "decision_cards": {
+          "const": 3
+        },
+        "options": {
+          "const": 9
+        },
+        "fixtures": {
+          "const": 13
+        },
+        "vendored_assets": {
+          "const": 9
+        },
+        "behavioral_bindings": {
+          "const": 9
+        },
+        "pngs": {
+          "const": 4
+        },
+        "full_resolution_reviews": {
+          "const": 4
+        },
+        "readiness_rows": {
+          "const": 3
+        },
+        "readiness_checks": {
+          "const": 69
+        },
+        "readiness_pass": {
+          "const": 33
+        },
+        "readiness_blocked": {
+          "const": 33
+        },
+        "readiness_not_applicable": {
+          "const": 3
+        },
+        "ready_candidates": {
+          "const": 0
+        },
+        "not_ready_candidates": {
+          "const": 3
+        },
+        "experiments_not_merged": {
+          "const": 6
+        },
+        "product_value": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "value_evidence_status",
+            "promotion_ready",
+            "authoritative_product_ids"
+          ],
+          "properties": {
+            "mode": {
+              "const": "observe"
+            },
+            "value_evidence_status": {
+              "const": "pending_product_model"
+            },
+            "promotion_ready": {
+              "const": false
+            },
+            "authoritative_product_ids": {
+              "const": 0
+            }
+          }
+        }
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pull_request"
+      ],
+      "properties": {
+        "pull_request": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "number",
+            "url",
+            "draft",
+            "state",
+            "merged",
+            "merge_requested",
+            "merge_authorized"
+          ],
+          "properties": {
+            "number": {
+              "const": 33
+            },
+            "url": {
+              "const": "https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/33"
+            },
+            "draft": {
+              "const": true
+            },
+            "state": {
+              "const": "open"
+            },
+            "merged": {
+              "const": false
+            },
+            "merge_requested": {
+              "const": false
+            },
+            "merge_authorized": {
+              "const": false
+            }
+          }
+        }
+      }
+    },
+    "protected_trees": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "penpot_tree",
+        "component_decoder_tree",
+        "authorized_prototype_path",
+        "other_prototype_paths_changed",
+        "production_site_src_changed",
+        "production_site_public_changed"
+      ],
+      "properties": {
+        "penpot_tree": {
+          "const": "b5cc94d35586f34554e8873e3a4380111057116d"
+        },
+        "component_decoder_tree": {
+          "const": "c2af02d0796f91b7510422db9b9e6179c70f606e"
+        },
+        "authorized_prototype_path": {
+          "const": "prototypes/event-media-decision-pack/**"
+        },
+        "other_prototype_paths_changed": {
+          "const": false
+        },
+        "production_site_src_changed": {
+          "const": false
+        },
+        "production_site_public_changed": {
+          "const": false
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_contract_accepted",
+        "owner_decision_accepted",
+        "production_ui_changed",
+        "penpot_changed",
+        "final_media_tokens_created",
+        "page_archetypes_created",
+        "physical_component_operation",
+        "legacy_deleted",
+        "migration_started",
+        "experiment_winner_selected",
+        "implementation_started",
+        "normalization_allowed",
+        "promotion_ready",
+        "merge_or_deploy_authorized"
+      ],
+      "properties": {
+        "candidate_contract_accepted": {
+          "const": false
+        },
+        "owner_decision_accepted": {
+          "const": false
+        },
+        "production_ui_changed": {
+          "const": false
+        },
+        "penpot_changed": {
+          "const": false
+        },
+        "final_media_tokens_created": {
+          "const": false
+        },
+        "page_archetypes_created": {
+          "const": false
+        },
+        "physical_component_operation": {
+          "const": false
+        },
+        "legacy_deleted": {
+          "const": false
+        },
+        "migration_started": {
+          "const": false
+        },
+        "experiment_winner_selected": {
+          "const": false
+        },
+        "implementation_started": {
+          "const": false
+        },
+        "normalization_allowed": {
+          "const": false
+        },
+        "promotion_ready": {
+          "const": false
+        },
+        "merge_or_deploy_authorized": {
+          "const": false
+        }
+      }
+    },
+    "verification_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflow_path",
+        "committed_receipt_asserts_ci_pass",
+        "runtime_execution_evidence",
+        "required_commands"
+      ],
+      "properties": {
+        "workflow_path": {
+          "const": ".github/workflows/event-media-blocker-closure-v1.yml"
+        },
+        "committed_receipt_asserts_ci_pass": {
+          "const": false
+        },
+        "runtime_execution_evidence": {
+          "const": "github-actions-run-and-artifact-only"
+        },
+        "required_commands": {
+          "type": "array",
+          "minItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "output_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "output_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "outputs": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "not": {
+          "const": "receipts/normalization/event-media-blocker-closure-v1.json"
+        }
+      },
+      "patternProperties": {
+        "^(?!receipts/normalization/event-media-blocker-closure-v1\\.json$).+$": {
+          "$ref": "#/$defs/output"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "gitSha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "frozenFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "sha256",
+        "records"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "records": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "sha256",
+        "records"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "records": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

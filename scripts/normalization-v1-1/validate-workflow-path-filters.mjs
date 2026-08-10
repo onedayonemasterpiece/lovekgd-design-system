@@ -17,6 +17,13 @@ const REQUIRED_AUTHORITY_PATTERNS = [
   'tests/**',
   EXPECTED_WORKFLOW,
 ];
+const AUTHORIZED_PROTOTYPE_PREFIX = 'prototypes/event-media-decision-pack/';
+
+export const isForbiddenProjectNormalizationStopPath = (relative) => (
+  /^penpot\//u.test(relative)
+  || (/^prototypes\//u.test(relative) && !relative.startsWith(AUTHORIZED_PROTOTYPE_PREFIX))
+  || /(^|\/)site\/(src|public)(\/|$)/u.test(relative)
+);
 
 export class WorkflowPathFilterError extends Error {
   constructor(code, message) {
