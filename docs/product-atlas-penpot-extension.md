@@ -84,7 +84,7 @@ Host acceptance двух plugins блокируется, пока обе сто�
 
 ### Product Atlas
 
-Использует:
+Использует существующую page topology:
 
 ```text
 00 — Executive / Problem Radar
@@ -98,6 +98,20 @@ Host acceptance двух plugins блокируется, пока обе сто�
 99 — Technical diagnostics
 ```
 
+Первая action-map версия переиспользует страницы `40` и `50`; новая страница `45 — Product analytics evidence` не создаётся:
+
+```text
+50 — UI and design evidence
+  reviewed page/component action maps
+  scope, denominator, release/model/layout/component versions
+  immutable evidence package link
+
+40 — Findings, incidents and decisions
+  accepted finding
+  competing explanations and limitations
+  options, owner decision and follow-up campaign
+```
+
 Связь между файлами выполняется stable IDs и deep links:
 
 ```text
@@ -106,9 +120,30 @@ Product Atlas capability / UI gap
 ↔ actual / baseline / diff evidence
 ```
 
-Product Atlas plugin может создать link/evidence card. Он не копирует всю design-system library и не вызывает её mutation phases.
+Product Atlas plugin может создать link/evidence card. Он не копирует всю design-system library и не вызывает её mutation phases. Evidence cards и findings сохраняют stable deep links на Resource Graph page-level maps (`90–92`) и component-local maps (`93`); Resource Graph references, в свою очередь, сохраняют Product Atlas stable IDs. Generic text URL без stable entity/page identity не считается достаточной связью.
 
-## 5. Visual foundations
+## 5. Action-map evidence ingest и review boundary
+
+Единственный action-map input — immutable reviewed `ProductAnalyticsEvidencePackage` из конкретного canonical analysis record в `events-bot-new`. Plugin проверяет schema/hash, evidence ID и зафиксированные scope/release/model/layout/component identities; он не читает raw summaries и не интерпретирует метрики.
+
+Минимальная projection package включает:
+
+```text
+evidence_id + measurement_question + decision_use
+scope (campaign/date/release/page/layout/component/model/experiment)
+quality (eligible/captured views, delivery coverage, unmapped rate, performance parity)
+facts + limitations
+reviewed finding status: accepted | rejected | insufficient-data
+options + owner decision
+immutable artifact refs
+product_atlas_ids + resource_graph_ids
+```
+
+Reviewed package может быть показан на `50`. Только finding со статусом `accepted` может появиться на `40`, создать `ProblemBubble` или стать источником accepted UI gap; hotspot этого не делает. Package и его provenance после ingest не переписываются — новая ревизия публикуется как новая immutable identity.
+
+`common-analytics` остаётся источником общей methodology/schema guidance, но не является runtime input или direct Product Atlas input. Product-specific campaign, analysis, finding, decision и evidence package остаются в `events-bot-new`.
+
+## 6. Visual foundations
 
 Product Atlas наследует семантику LoveKGD:
 
@@ -123,7 +158,7 @@ Product Atlas наследует семантику LoveKGD:
 
 Первая версия может использовать проверяемый compact token snapshot с exact design-system revision. Это не делает Product Atlas источником tokens.
 
-## 6. Internal visualization components
+## 7. Internal visualization components
 
 Namespace:
 
@@ -152,7 +187,7 @@ Internal/ProductAtlas/*
 
 Компоненты могут быть неполными в первой версии. Missing/fragmented component coverage отображается как данные Product Atlas, а не скрывается.
 
-## 7. Product Problem Radar
+## 8. Product Problem Radar
 
 `00 — Executive / Problem Radar` содержит до семи generated problem bubbles.
 
@@ -179,7 +214,7 @@ Bubble types:
 
 Размер только `S/M/L`; continuous opaque score запрещён.
 
-## 8. Product Atlas plugin UX
+## 9. Product Atlas plugin UX
 
 Пользователь открывает отдельный plugin один раз.
 
@@ -188,6 +223,8 @@ Bubble types:
 1. `Проверить актуальность` — optional preflight;
 2. `Обновить Product Atlas` — единственная mutation-команда;
 3. `Собрать системный промпт` — feedback output.
+
+`Обновить Product Atlas` — единственная команда, которая читает выбранный immutable reviewed catalog/package и меняет managed Product Atlas projection. Plugin не имеет live DB connection, не опрашивает production DB/raw analytics и не выполняет background refresh, timer/polling или mutation при открытии файла. `Проверить актуальность` только сравнивает явные snapshot identities и ничего не обновляет; каждая новая ревизия требует отдельной пользовательской команды `Обновить Product Atlas`.
 
 Запрещены действия:
 
@@ -201,7 +238,7 @@ write-to-github
 close-comments-automatically
 ```
 
-## 9. Reuse proven orchestration, not the user-facing plugin
+## 10. Reuse proven orchestration, not the user-facing plugin
 
 Из Resource Graph 004a.2 переиспользуются внутренние принципы:
 
@@ -217,7 +254,7 @@ close-comments-automatically
 
 Рекомендуется вынести повторяемые pure helpers в internal source module/build step. Две published plugin bundles остаются независимыми.
 
-## 10. Update semantics
+## 11. Update semantics
 
 ### Stable entity identity
 
@@ -252,7 +289,7 @@ catalog_sha256
 
 Generic `CURRENT` запрещён. Актуальность показывается отдельно по model, evidence, incidents, visual resources и review.
 
-## 11. Комплексная обратная связь
+## 12. Комплексная обратная связь
 
 Комментарии могут находиться на разных pages и сущностях. Product Atlas plugin собирает один prompt по всем незакрытым комментариям или по явно выбранному scope.
 
@@ -289,7 +326,7 @@ Prompt начинается с системной задачи:
 
 Plugin не закрывает comments, не создаёт Issues и не меняет product model. Результат после проверки сохраняется в `events-bot-new` как analysis/decision record.
 
-## 12. Penpot MCP
+## 13. Penpot MCP
 
 Penpot MCP остаётся вспомогательным инструментом для read/inspect и candidate prototyping.
 
@@ -302,7 +339,7 @@ Penpot MCP остаётся вспомогательным инструмент�
 - comment preservation;
 - deterministic prompt.
 
-## 13. Pilot acceptance
+## 14. Pilot acceptance
 
 Первая версия должна доказать в реальном Penpot:
 
@@ -310,6 +347,9 @@ Penpot MCP остаётся вспомогательным инструмент�
 - отказ Product Atlas plugin в design-system-файле;
 - отказ Resource Graph plugin в Product Atlas-файле;
 - one update action;
+- action-map projection только на существующие pages `40`/`50`, без page `45`;
+- ingest immutable reviewed evidence package с deep links на Resource Graph `90–93`;
+- доказанное отсутствие live DB connection и background refresh;
 - один Job, два journeys и 5–8 capabilities;
 - problem radar;
 - независимые status facets;

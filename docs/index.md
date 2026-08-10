@@ -10,6 +10,7 @@
 | [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 closure complete; candidates not accepted |
 | [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | charter candidate, 47-family registry, evidence dispositions, first-wave dossiers и product-value observe gate | synthesis complete; ready for family decision review; no physical work authorized |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
+| [`product-atlas-penpot-extension.md`](product-atlas-penpot-extension.md) | Product Atlas Penpot projection, reviewed action-map evidence на pages 40/50, explicit on-demand sync и deep links | canonical Product Atlas plugin boundary |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
 | [`research/first-party-action-map-2026-08/README.md`](research/first-party-action-map-2026-08/README.md) | semantic signals for component-level action observability | research input; not an acceptance decision |
@@ -33,7 +34,8 @@
 
 ```text
 Product meaning and UI-gap identity
-→ events-bot-new product model + Product Atlas
+→ events-bot-new product model
+→ Product Atlas projection contract: product-atlas-penpot-extension.md
 
 Original page requirements and current route evidence
 → events-bot-new source map at an exact SHA

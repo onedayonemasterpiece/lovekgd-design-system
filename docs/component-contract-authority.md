@@ -84,11 +84,88 @@ accessibility_requirements: []
 penpot_binding: {}
 astro_binding: {}
 runtime_binding: {}
+observability: {}
 promotion_receipt_ref: ...
 rollback_ref: ...
 ```
 
 Contract не дублирует HTML/CSS. Он определяет identity, API, семантические axes и инварианты, из которых генерируются типы, valid state keys, specimen plan и Penpot materialization manifest.
+
+## Action-map observability contract
+
+Временная action-map campaign использует семантику уже существующего Component Contract, а не выводит её из CSS class, DOM path, видимого текста, Astro filename или Penpot layer name. Для eligible component contract описывает стабильные зоны и действия вместе с ожидаемым эффектом:
+
+```yaml
+component_id: announcements.event-card
+contract_version: 5.0.0
+state_key: portrait.compact.default
+runtime_binding:
+  astro: EventCard.astro
+
+observability:
+  action_map_eligible: true
+  owner_boundary: component
+  zones:
+    media:
+      role: content_open_target
+      map_eligible: true
+      allowed_actions: [open_event]
+    body:
+      role: content_summary
+      map_eligible: true
+      allowed_actions: [open_event]
+    favorite:
+      role: explicit_action
+      map_eligible: true
+      allowed_actions: [favorite_toggle]
+  actions:
+    open_event:
+      interaction_mode: single_shot
+      expected_effect: route_change
+    favorite_toggle:
+      interaction_mode: toggle
+      expected_effect: authoritative_state_ack
+```
+
+`zones` задаёт component-local semantic boundaries, их роль, eligibility и allowlist действий. `actions` связывает semantic action с `interaction_mode` и конкретным `expected_effect`; generic DOM-change heuristic не заменяет этот контракт. Повторы интерпретируются с учётом режима (`single_shot`, `toggle`, `repeatable`, `carousel/stepper`, `drag/hold`), поэтому «dead click» или «rage click» могут быть только reviewed finding, но не первичным runtime-фактом.
+
+Identity hierarchy для evidence:
+
+```text
+page_archetype_id
+→ layout_contract_id
+→ component_id + contract_version + state_key
+→ component_instance_id
+→ semantic_zone_id
+→ semantic_action_id
+```
+
+### Active-build binding и OFF omission
+
+Observability metadata разрешает binding, но сама по себе не включает capture. Только active build конкретной approved campaign компилирует canonical IDs в короткий словарь и может эмитить compact binding, например:
+
+```text
+17 → announcements.event-card@5
+2  → media
+4  → open_event
+
+<article data-am-c="17" data-am-v="5" data-am-z="2" data-am-i="7">
+```
+
+В OFF build action-map collector, его import/chunk/request/listeners и `data-am-*` binding отсутствуют. Отдельный marker может остаться только если он нужен другой принятой функции и имеет собственный контракт; action-map eligibility не является таким основанием.
+
+### Migration из AS-IS identity
+
+Пока family находится в `reconstructed`, evidence может использовать только явно версионированную временную identity:
+
+```yaml
+authority_mode: reconstructed
+as_is_contract_id: as-is.announcements.event-card.source-a
+source_snapshot_sha: ...
+observed_state_key: ...
+```
+
+Переход к accepted Component Contract выполняется отдельным reviewed mapping receipt, который фиксирует исходные `as_is_contract_id`/`source_snapshot_sha`, целевые `component_id`/`contract_version`/`state_key`, disposition, reviewer/owner acceptance и evidence refs. Визуальное сходство и action-map data не разрешают автоматически объединять AS-IS IDs, принимать contract или продвигать family. Исторические evidence packages навсегда сохраняют исходную identity/version; mapping добавляет трассировку к accepted contract, но не переписывает прошлое и не заменяет обычный promotion gate.
 
 ## Structural states и fixtures
 
