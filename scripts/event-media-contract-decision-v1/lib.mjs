@@ -301,6 +301,9 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(consumer.family_id === 'family.event-media' && consumer.decision === 'NOT_MERGED', 'EMV_CONSUMER_BOUNDARY', 'census', record, '/', 'consumer escaped family boundary');
     requireValue(consumer.normalization_allowed === false && consumer.physical_ui_change_authorized === false && consumer.candidate_contract_accepted === false, 'EMV_CONSUMER_MUTATION_AUTHORIZED', 'stop', record, '/', 'consumer authorizes mutation or acceptance');
     assertProductBoundary(consumer, record);
+    requireValue(nonEmptyStrings([consumer.consumer, consumer.census_definition, consumer.layout_composition_placement])
+      && ['active_current_source_production_reachable_runtime_not_production_observed', 'deprecated_but_preserved_no_deletion_authority', 'hidden_inert_preserved', 'controlled_specimen_preserved'].includes(consumer.lifecycle_status),
+    'EMV_CONSUMER_FIELD_MISSING', 'census', record, '/', 'consumer, census, placement or lifecycle field is missing/invalid');
     requireValue(consumer.source_component?.repository === 'onedayonemasterpiece/events-bot-new' && consumer.source_component?.commit === EVENTS_SHA && typeof consumer.source_component?.path === 'string', 'EMV_SOURCE_COMPONENT_INVALID', 'census', record, '/source_component', 'source component must bind exact events evidence');
     if (!fixtureMode && absoluteEvents) {
       try { git(absoluteEvents, ['cat-file', '-e', `${EVENTS_SHA}:${consumer.source_component.path}`]); }
@@ -323,6 +326,7 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     verifyRefs(absoluteRoot, absoluteEvents, consumer.evidence_refs, record, '/evidence_refs', fixtureMode);
     for (const field of ['requirement_authority', 'geometry', 'fit_policy', 'crop_permission', 'focal_point_policy', 'safe_area_policy', 'object_position_policy', 'upscale_tiny_source_policy', 'loading_skeleton_policy', 'missing_broken_fallback_policy', 'responsive_art_direction', 'accessibility_alt_behavior']) {
       requireValue(consumer[field] && typeof consumer[field].status === 'string', 'EMV_CONSUMER_DIMENSION_MISSING', 'census', record, `/${field}`, 'required consumer policy dimension is missing');
+      if (field !== 'requirement_authority') requireValue(Object.hasOwn(consumer[field], 'value') && consumer[field].value !== null, 'EMV_CONSUMER_DIMENSION_MISSING', 'census', record, `/${field}/value`, 'consumer policy dimension has no explicit value');
       verifyRefs(absoluteRoot, absoluteEvents, consumer[field].evidence_refs ?? consumer[field].refs, record, `/${field}/evidence_refs`, fixtureMode);
     }
     requireValue(consumer.runtime_evidence?.production_equivalent === false && consumer.runtime_evidence?.production_observed === false, 'EMV_RUNTIME_OVERCLAIM', 'runtime', record, '/runtime_evidence', 'pinned evidence is not production-equivalent or production-observed');
@@ -355,6 +359,8 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(ENTITY_KINDS.includes(boundary.entity_kind), 'EMV_ENTITY_KIND_INVALID', 'boundary', boundary.id, '/entity_kind', 'boundary entity kind is invalid');
     requireValue(boundary.entity_kind_reconciled === true, 'EMV_ENTITY_KIND_UNRECONCILED', 'boundary', boundary.id, '/entity_kind_reconciled', 'boundary kind reconciliation is incomplete');
     verifyRefs(absoluteRoot, absoluteEvents, boundary.supporting_evidence_refs, boundary.id, '/supporting_evidence_refs', fixtureMode);
+    requireValue(boundary.owner_decision_required === (boundary.owner_question_refs.length > 0)
+      && boundary.owner_question_refs.every((id) => ownerQueue.some((row) => row.id === id)), 'EMV_BOUNDARY_OWNER_JOIN', 'owner-queue', boundary.id, '/owner_question_refs', 'boundary owner decision join differs');
     if (boundary.candidate_contract_ref !== null) {
       requireValue(boundary.entity_kind === 'component_identity_candidate', 'EMV_COMPOSITION_AS_COMPONENT', 'boundary', boundary.id, '/candidate_contract_ref', 'only a component identity candidate may own a contract');
       requireValue(fs.existsSync(absolute(absoluteRoot, boundary.candidate_contract_ref)), 'EMV_CANDIDATE_CONTRACT_REF', 'boundary', boundary.id, '/candidate_contract_ref', 'candidate contract file is missing');
@@ -373,7 +379,11 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
   requireValue(sameSet(blockerById.keys(), BLOCKER_IDS), 'EMV_BLOCKER_SET_MISMATCH', 'blockers', 'blocker-closure', '/', 'closure ledger is not the exact 12-blocker set');
   for (const blocker of blockers) {
     const record = blocker.blocker_id;
-    requireValue(sourceById.get(record)?.statement === blocker.source_text, 'EMV_BLOCKER_SOURCE_TEXT_DRIFT', 'blockers', record, '/source_text', 'source blocker text is not exact');
+    const sourceBlocker = sourceById.get(record);
+    requireValue(sourceBlocker?.statement === blocker.source_text, 'EMV_BLOCKER_SOURCE_TEXT_DRIFT', 'blockers', record, '/source_text', 'source blocker text is not exact');
+    requireValue(sourceBlocker?.dimension === blocker.dimension && sameSet(sourceBlocker?.evidence_refs ?? [], blocker.source_evidence_ref_ids)
+      && blocker.blocking_stage?.dossier_blocks_before === sourceBlocker?.blocks_before,
+    'EMV_BLOCKER_SOURCE_EVIDENCE_DRIFT', 'blockers', record, '/source_evidence_ref_ids', 'source blocker dimension, evidence IDs or blocking stage differs');
     requireValue(['resolved_by_existing_evidence', 'resolved_by_requirement', 'invalidated', 'owner_decision_required', 'still_open'].includes(blocker.status), 'EMV_BLOCKER_STATUS_INVALID', 'blockers', record, '/status', 'blocker status is invalid');
     requireValue(blocker.field_presence_closes_blocker === false && blocker.owner_decision_accepted === false && blocker.closure_receipt === null && blocker.production_state_claimed === false && blocker.promotion_ready === false, 'EMV_BLOCKER_FAIL_OPEN', 'blockers', record, '/', 'blocker was closed or promoted without evidence');
     requireValue(Array.isArray(blocker.actual_evidence) && blocker.actual_evidence.length > 0 && blocker.actual_evidence.every((item) => item.ref && item.finding && item.limitation), 'EMV_BLOCKER_EVIDENCE_MISSING', 'blockers', record, '/actual_evidence', 'blocker evidence must include finding and limitation');
@@ -396,6 +406,9 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(sameSet(row.option_assessments.map((item) => item.option), ALTERNATIVES)
       && row.option_assessments.find((item) => item.status === 'recommended')?.option === row.recommendation, 'EMV_OPTION_ASSESSMENT_SET', 'alternatives', row.id, '/option_assessments', 'assessment options or recommended assessment differ');
     requireValue(typeof row.recommendation_support === 'string' && row.recommendation_support.length > 0 && nonEmptyStrings(row.intentional_differences), 'EMV_RECOMMENDATION_EVIDENCE_MISSING', 'alternatives', row.id, '/', 'recommendation evidence/differences are missing');
+    requireValue(nonEmptyStrings([row.migration_risk, row.reversibility])
+      && row.owner_decision_required === (row.owner_question_refs.length > 0)
+      && row.owner_question_refs.every((id) => ownerQueue.some((owner) => owner.id === id)), 'EMV_ALTERNATIVE_DECISION_METADATA', 'alternatives', row.id, '/', 'migration, reversibility or owner-decision metadata is incomplete');
     verifyRefs(absoluteRoot, absoluteEvents, row.supporting_evidence_refs, row.id, '/supporting_evidence_refs', fixtureMode);
     alternativeByBoundary.set(row.boundary_ref, row);
   }
@@ -432,6 +445,9 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(row.decision === 'NOT_MERGED' && row.implementation_authorized === false && row.candidate_contract_acceptance_authorized === false && row.normalization_allowed === false && row.migration_started === false && row.promotion_ready === false, 'EMV_OWNER_QUEUE_AUTHORIZED', 'owner-queue', row.id, '/', 'owner queue authorized downstream work');
     requireValue(row.penpot_binding === null && row.penpot_materialization_status === 'unmaterialized' && row.penpot_mutation_performed === false, 'EMV_OWNER_QUEUE_PENPOT', 'owner-queue', row.id, '/penpot_binding', 'owner queue changed Penpot');
     assertProductBoundary(row, row.id);
+    requireValue(row.experiment_decision === 'NOT_MERGED' && nonEmptyStrings([row.question, row.decision_scope, row.readiness_effect])
+      && Array.isArray(row.options) && row.options.length > 1 && new Set(row.options.map((option) => option.option_id)).size === row.options.length
+      && row.options.some((option) => option.option_id === row.recommendation_option_id), 'EMV_OWNER_QUEUE_OPTIONS_INVALID', 'owner-queue', row.id, '/options', 'owner options/recommendation or experiment boundary is invalid');
     requireValue(row.blocking_refs.every((id) => blockerById.has(id)) && row.alternative_refs.every((id) => alternatives.some((item) => item.id === id)), 'EMV_OWNER_QUEUE_REF', 'owner-queue', row.id, '/', 'owner queue foreign key is unresolved');
   }
   for (const blocker of blockers.filter((row) => row.status === 'owner_decision_required')) requireValue(ownerById.has(blocker.owner_question_id), 'EMV_BLOCKER_OWNER_QUEUE_MISSING', 'owner-queue', blocker.blocker_id, '/owner_question_id', 'blocker owner queue reference is unresolved');
@@ -451,7 +467,12 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     const expectedReasons = blocked.map((item) => `check-blocked:${item.check_id}`);
     requireValue(sameSet(row.not_ready_reason_codes, expectedReasons), 'EMV_READINESS_RECOMPUTATION', 'readiness', row.id, '/not_ready_reason_codes', 'not-ready reasons do not recompute from blocked checklist dimensions');
     requireValue(blocked.length > 0 && row.status === 'NOT_READY_WITH_EXACT_BLOCKERS' && row.strict_ready === false && row.eligible_for_scoring === false && row.score === null && row.selected_first_wave === false, 'EMV_FALSE_POSITIVE_READINESS', 'readiness', row.id, '/', 'blocked candidate escaped fail-closed readiness');
-    requireValue(row.candidate_contract_accepted === false && row.canonical === false && row.promotion_ready === false && row.normalization_allowed === false && row.physical_operation_authorized === false, 'EMV_READINESS_PROMOTED', 'readiness', row.id, '/', 'readiness accepted/promoted a candidate');
+    requireValue(row.candidate_contract_accepted === false && row.canonical === false && row.promotion_ready === false && row.normalization_allowed === false && row.physical_operation_authorized === false
+      && row.migration_started === false && row.decision === 'NOT_MERGED' && row.promotion_receipt_ref === null && row.decision_receipt_ref === null,
+    'EMV_READINESS_PROMOTED', 'readiness', row.id, '/', 'readiness accepted/promoted a candidate');
+    requireValue(row.penpot_binding === null && row.penpot_materialization_status === 'unmaterialized'
+      && row.penpot_materialization_authorized === false && row.penpot_mutation_performed === false && row.screenshots_role === 'evidence_only',
+    'EMV_READINESS_PENPOT', 'penpot', row.id, '/', 'readiness materialized or mutated Penpot');
     requireValue(row.product_value_gate_mode === 'observe' && row.value_evidence_status === 'pending_product_model' && ['need_ids', 'job_ids', 'journey_ids', 'capability_ids', 'outcome_ids', 'metric_ids', 'guardrail_ids'].every((field) => row[field].length === 0), 'EMV_PRODUCT_ID_CREATED', 'product-value', row.id, '/', 'readiness invented product IDs');
     requireValue(row.experiment_decision === 'NOT_MERGED', 'EMV_EXPERIMENT_WINNER_SELECTED', 'experiments', row.id, '/experiment_decision', 'readiness selected an experiment');
     requireValue(sha(absoluteRoot, row.candidate_contract_ref) === row.candidate_contract_sha256, 'EMV_CANDIDATE_HASH_MISMATCH', 'readiness', row.id, '/candidate_contract_sha256', 'readiness candidate hash differs');
