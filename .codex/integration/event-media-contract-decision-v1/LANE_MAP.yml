@@ -83,7 +83,7 @@ lanes:
     expected_output: fail-closed candidate readiness and owner queue
     verification_scope: targeted
     effort: xhigh
-    status: spawned
+    status: merged
   - id: L5
     role: worker
     requirement_ids: [R10]
@@ -92,12 +92,12 @@ lanes:
     execution_mode: serial_after_dependency
     branch: agent/event-media-contract-decision-v1/validation
     worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-validation
-    writable_files: [docs/normalization/event-media-boundary-and-contract-decision-v1.md, scripts/**event-media**, tests/**event-media**, contracts/normalization/**event-media*.schema.json, .github/workflows/**event-media**, .codex/lanes/event-media-validation/RESULTS.md]
+    writable_files: [docs/normalization/event-media-boundary-and-contract-decision-v1.md, docs/index.md, scripts/**event-media**, scripts/normalization-v1-1/replay-normalization-workflow.sh, tests/**event-media**, contracts/normalization/**event-media*.schema.json, .github/workflows/**event-media**, .github/workflows/project-normalization-synthesis-v1-1.yml, .codex/lanes/event-media-validation/RESULTS.md]
     forbidden_files: [penpot/**, prototypes/**, catalog/component-decoder/**]
     expected_output: deterministic full-package gate
     verification_scope: full_local
     effort: xhigh
-    status: planned
+    status: spawned
   - id: L6
     role: reviewer
     requirement_ids: []
