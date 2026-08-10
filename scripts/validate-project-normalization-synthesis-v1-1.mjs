@@ -154,6 +154,7 @@ const unreachableLifecycle = jsonl('catalog/normalization/unreachable-implementa
 const navigation = json('catalog/normalization/mobile-search-navigation-capability.json');
 const eventMedia = json('catalog/normalization/families/event-media/dossier.json');
 const medallions = json('catalog/normalization/families/event-token-medallions/dossier.json');
+const behaviorCounts = json('catalog/normalization/behavioral-manifest-counts.json');
 const experiments = jsonl(`${BEHAVIOR}/experiment-registry.jsonl`);
 const rawUnresolvedIds = new Set(universe
   .filter((row) => row.raw_kind === 'behavioral_unresolved')
@@ -196,8 +197,12 @@ assert(findings.every((row) => operationEnums.has(row.operational_disposition) &
 
 assert(eventMedia.verdict?.status === 'NOT_READY_WITH_EXACT_BLOCKERS' && eventMedia.verdict?.ready_for_contract_decision_review === false && eventMedia.promotion_ready === false && eventMedia.normalization_allowed === false && eventMedia.target_ratio_selection === null, 'Event Media escaped exact not-ready status');
 assert(medallions.verdict === 'BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED' && medallions.readiness === 'NOT_READY' && medallions.promotion_ready === false && medallions.decision === 'NOT_MERGED', 'Medallions escaped boundary/taxonomy review');
-assert(navigation.implementations.some((row) => row.component_id === 'component.29e9aebbf63be827' && row.reachability_status === 'not_observed_under_pinned_evidence' && row.lifecycle_status === 'preserve_pending_reconciliation' && row.deprecation_allowed === false && row.deletion_allowed === false), 'MobileSearchBottomNav fail-closed lifecycle missing');
-assert(unreachableLifecycle.length === 3 && unreachableLifecycle.every((row) => row.deletion_allowed === false && row.preservation_required === true), 'unreachable implementation deletion invariant escaped');
+const lifecycleGateIds = ['full_census', 'migration_closure', 'owner_receipt', 'replacement_coverage', 'requirement_reconciliation', 'rollback_evidence'];
+const hasOpenLifecycleGates = (row) => ['deletion_gates', 'deprecation_gates'].every((field) => stable(row[field].map((gate) => gate.gate_id).sort()) === stable(lifecycleGateIds)
+  && row[field].every((gate) => gate.status === 'open' && gate.evidence_refs.length === 0));
+assert(navigation.implementations.some((row) => row.component_id === 'component.29e9aebbf63be827' && row.reachability_status === 'not_observed_under_pinned_evidence' && row.lifecycle_status === 'preserve_pending_reconciliation' && row.deprecation_allowed === false && row.deletion_allowed === false && row.deprecation_eligible === false && row.deletion_eligible === false && hasOpenLifecycleGates(row)), 'MobileSearchBottomNav fail-closed lifecycle missing');
+assert(unreachableLifecycle.length === 3 && unreachableLifecycle.every((row) => row.deletion_allowed === false && row.deprecation_allowed === false && row.deletion_eligible === false && row.deprecation_eligible === false && row.preservation_required === true && hasOpenLifecycleGates(row)), 'unreachable implementation deletion invariant escaped');
+assert(behaviorCounts.conflict_count === 0 && behaviorCounts.current_conflicts.length === 0 && behaviorCounts.active_legacy_aliases.length === 0 && behaviorCounts.source_audit.observed_excluded_conflict_count === 5, 'canonical count namespace retained an active conflict or legacy alias');
 
 assert(applications.every((row) => row.value_evidence_status === 'pending_product_model' && row.promotion_ready === false && row.as_is_preservation_allowed === true && row.surface_archetype_id === null), 'Product Value observe gate escaped');
 assert(valueReadiness.every((row) => row.value_evidence_status === 'pending_product_model' && row.promotion_ready === false && row.as_is_preservation_allowed === true), 'Product Value readiness escaped');

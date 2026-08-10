@@ -12,8 +12,8 @@ independent re-audit.
 | Finding | Correction | Validation proving closure |
 |---|---|---|
 | AUD-PN-001 | Authoritative 279-row universe, typed alias registry and exact partition | Set equality, multiplicity one and all 57 two-member semantic aliases replayed |
-| AUD-PN-002 | Separate semantic mutation suite | 14/14 required aggregate mutations plus 77 lane mutations rejected |
-| AUD-PN-003 | Positive 16-check readiness | 47 assessed, 47 `NOT_READY`, 0 scored, 0 selected |
+| AUD-PN-002 | Separate semantic mutation suite | 14/14 required aggregate mutations plus 91 lane mutations rejected |
+| AUD-PN-003 | Positive 23-dimension readiness | 47 assessed, 47 `NOT_READY`, 0 scored, 0 selected; exact statuses are `PASS`, `BLOCKED`, or `NOT_APPLICABLE_WITH_REASON` |
 | AUD-PN-004 | Event Media consumer-policy dossier | 10 consumers/slots, 11 blocker-supersession rows, 12 exact blockers; `NOT_READY_WITH_EXACT_BLOCKERS` |
 | AUD-PN-005 | Medallion taxonomy dossier | 10 mappings and explicit boundary/geometry/a11y gaps; `BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED` |
 | AUD-PN-006 | Nine exact analytical entity kinds | 47 stable analytical IDs and 107 exact-once component memberships; no accepted identity |

@@ -17,9 +17,9 @@ entity was changed or selected.
 | Lane | Requirements | Worker commit | Integration commit | Result |
 |---|---|---|---|---|
 | L1 raw/audit | R01, R02, R06 | `3fdc2ae69660573ffc2c21b8439348fdd951e3d8` | `d4e7224` | 279 universe, 57 aliases, 279 partition, 222 operational findings |
-| L2 registry/readiness | R04, R05, R10 | `2cf6d10`, enum correction `6b194170f68debff75d3f4678c5049a96e78b756` | `1ac913c`, `907a1a6` | exact nine entity kinds; 47 `NOT_READY`; first wave empty |
+| L2 registry/readiness | R04, R05, R10 | `2cf6d10`, enum correction `6b194170f68debff75d3f4678c5049a96e78b756`, checklist completion `8538d6f` | `1ac913c`, `907a1a6`, `1302018` | exact nine entity kinds; 23 positive dimensions; 47 `NOT_READY`; first wave empty |
 | L3 Event Media | R08 | `6b1940da8edf6587dc72f98c64ef4aeb1e5c5b52` | `a421055` | full consumer matrix; 12 exact blockers; not ready |
-| L4 Medallions/navigation | R07, R09 | `0d41f64ce0927ac6f78250c3dd8c917aeb368a75` | `a759b14` | taxonomy/boundary review required; unreachable implementations preserved |
+| L4 Medallions/navigation | R07, R09 | `0d41f64ce0927ac6f78250c3dd8c917aeb368a75`; lifecycle follow-up `9a78e405bf2e1ddf56741132c4fc7f21e7ffd6a4` | `a759b14`, `0736eae` | taxonomy/boundary review required; unreachable implementations preserved behind six open lifecycle gates |
 | L5 evidence/value | R11, R12 | `b8cde833fdb3defceb28e0bdb59a392e217019e8`; follow-ups `703176e`, `3904006` | `bc4d01e`, `7c39c4a`, `b90deed` | 134 reviewed visual rows, sole canonical count namespace, independent census, fail-closed observe gate |
 | L6 lifecycle | R13 | `9a55efba51db11443e8edf2195b692af9258fb6d` | `56eb425` | exact 11-state/10-transition lifecycle; authority changes only at promotion |
 | L7 integration | R03, R14, R15 | integrator-owned | current branch | aggregate validator, 14 mutations, schemas, workflows, receipt and PR delivery |
@@ -36,7 +36,7 @@ dropped or silently superseded.
 | R02 | Done | 279/279 exact set equality and multiplicity one; 57 typed aliases |
 | R03 | Done | 14/14 required aggregate semantic mutations rejected; lane suites remain additive |
 | R04 | Done | 47 analytical groups use the exact nine-value entity-kind vocabulary; 107 memberships exact-once |
-| R05 | Done | 16 positive checks per group; 47 not ready; no blocker-absence readiness |
+| R05 | Done | 23 positive dimensions per group with exact terminal status vocabulary; 47 not ready; no blocker-absence readiness |
 | R06 | Done | 222/222 findings have typed operation, provenance, scope and resolution stage |
 | R07 | Done | mobile capability, shared implementation and wrapper reachability/lifecycle separated |
 | R08 | Done | Event Media dossier has ten consumer/slot rows and exact not-ready blockers |
@@ -74,11 +74,11 @@ lifecycle states / transitions        11 / 10
 - Behavioral closure validator: PASS; manifest `c676be4f…`.
 - Draft 2020-12 schemas: PASS for 222 findings, 47 groups, 47 readiness rows,
   239 applications and the lifecycle contract.
-- Exact raw partition/readiness builders: deterministic `--check`; 7 and 11
+- Exact raw partition/readiness builders: deterministic `--check`; 7 and 13
   built-in semantic mutations rejected.
 - Event Media: 8 mutations rejected.
-- Medallions/navigation: 12 mutations rejected.
-- Evidence/value: 23 mutations rejected and one preservation-positive case.
+- Medallions/navigation: 20 mutations rejected.
+- Evidence/value: 27 mutations rejected and one preservation-positive case.
 - Lifecycle: 16 mutations rejected.
 - Aggregate required suite: 14/14 mutations rejected.
 - Independent Git-object census replay: 239/239 active edges.

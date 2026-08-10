@@ -176,7 +176,7 @@ const receipt = {
     lifecycle_states: lifecycle.states.length,
     lifecycle_transitions: lifecycle.transitions.length,
     required_aggregate_semantic_mutations: 14,
-    lane_semantic_mutations: 77,
+    lane_semantic_mutations: 91,
   },
   entity_kind_counts: wave.counts.entity_kinds,
   product_value_gate: {
