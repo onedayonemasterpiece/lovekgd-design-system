@@ -46,6 +46,11 @@ Base main: `3cbe35326ead04ac67070e5b400d30d9edc6eb01`.
 - The current Project Normalization bridge authorizes only
   `prototypes/event-media-decision-pack/**`; every other prototype and all
   Penpot paths remain protected.
+- Exact-head Actions exposed a second, duplicated STOP guard in the Project
+  Normalization workflow-attestation builder. The aggregate validator and
+  attestation builder now consume one tested guard that permits only that
+  exact decision-pack prefix and rejects every other prototype, Penpot and
+  runtime `site/src`/`site/public` path.
 - The historical Event Media workflow replays the unchanged PR #32 proof at
   audited head `20eab45534e2c64497e4db661e6a5ca8582229ea`; the new workflow is the
   exact-head authority for this derived closure pack.

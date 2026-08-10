@@ -105,7 +105,9 @@ export const allowedChangedPath = (relative) => [
   /^scripts\/event-media-blocker-closure-v1\//u,
   /^scripts\/(?:validate-event-media-blocker-closure-v1|build-event-media-blocker-closure-v1-receipt)\.mjs$/u,
   /^scripts\/validate-project-normalization-synthesis-v1-1\.mjs$/u,
+  /^scripts\/normalization-v1-1\/(?:build-workflow-attestation|validate-workflow-path-filters)\.mjs$/u,
   /^tests\/event-media-blocker-closure-v1-[^/]+\.mjs$/u,
+  /^tests\/project-normalization-v1-1-workflow-path-filters\.mjs$/u,
 ].some((pattern) => pattern.test(relative));
 
 export const validateChangedPaths = (paths) => {

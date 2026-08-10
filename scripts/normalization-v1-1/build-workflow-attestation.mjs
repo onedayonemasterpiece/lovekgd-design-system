@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { captureRunnerProvenance } from './runner-version-provenance.mjs';
+import { isForbiddenProjectNormalizationStopPath } from './validate-workflow-path-filters.mjs';
 
 const BASE_SHA = '317938bc72cf7a47ea798b2614d92d3d285dd97a';
 const EVENTS_SHA = '66bc0d43e36299417626f992021cfb7299ddf704';
@@ -122,7 +123,7 @@ const verifyInputs = () => {
     `:(exclude)${AUDITS[1].path}`,
   ], { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] });
   const changed = git(root, ['diff', '--name-only', `${BASE_SHA}...${sourceSha}`, '--']).split('\n').filter(Boolean);
-  const forbidden = changed.filter((relative) => /^(penpot|prototypes)\//.test(relative) || /(^|\/)site\/(src|public)(\/|$)/.test(relative));
+  const forbidden = changed.filter(isForbiddenProjectNormalizationStopPath);
   assert(forbidden.length === 0, `forbidden STOP paths changed: ${forbidden.join(', ')}`);
   assert(git(root, ['status', '--porcelain']) === '', 'secondary design checkout is dirty');
   assert(git(eventsRoot, ['status', '--porcelain']) === '', 'secondary events checkout is dirty');
