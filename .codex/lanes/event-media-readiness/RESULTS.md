@@ -134,13 +134,13 @@ git diff --name-only
 - Project Normalization v1.1.1 semantic aggregate with receipt skipped: **PASS**.
 - Scoped `git diff --check`: **PASS**.
 - Output SHA-256:
-  - readiness: `67d1ddff1d505bb47fe1b2412bad0c6812b2ce43d14cf3239f8f027d1e576cd5`;
+  - readiness: `87bf003c9f9ffc80afcfd361f5a257e1ff56a227d5a41138665c4e6e886a5204`;
   - owner queue: `19ca340ef0e8e42717fb1a849875aa8082fe5ccff0ccab15812c3b9db708de39`;
   - owner queue doc: `cd2d30aeb1b89ed0330dee3ffd25c6604b150fa625cf59045d6ff675980b9416`.
 
 ## Dependency hash correction
 
-The upstream L3 dependency `f8fbce98eea2f417347033040f0facdf4d81e475` adds the lab-rail join to `candidate.event-media-viewer`. It was cherry-picked as a separate dependency commit before this L4 correction. The viewer contract SHA-256 is now `c54211bb93928930d377e2411eba8a3ef2952cbfe2b198be20957deb49aa72df`, and exactly one readiness field (`candidate.event-media-viewer.candidate_contract_sha256`) was rebound to it. Candidate semantics, all 3×23 checklist rows, blocker/owner joins, queue content and status projections are unchanged.
+The upstream L3 dependencies `f8fbce98eea2f417347033040f0facdf4d81e475` and `96c779e7a8a1960705495edf3cdf0318a8723d27` add the lab-rail blocker and owner-question joins to `candidate.event-media-viewer`. They were cherry-picked as separate dependency commits before the corresponding L4 corrections. The latest viewer contract SHA-256 is `f1983b68fecdf715cd176a3ef5b4229936aad71bec420f91582beec4bed6375a`, and exactly one readiness field (`candidate.event-media-viewer.candidate_contract_sha256`) was rebound after the latest dependency. Candidate semantics, all 3×23 checklist rows, blocker/owner joins, queue content and status projections are unchanged.
 
 ## Risks
 
