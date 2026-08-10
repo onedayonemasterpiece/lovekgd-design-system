@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/onedayonemasterpiece/lovekgd-design-system/contracts/normalization/event-media-blocker-closure-prototype.v1.schema.json",
+  "title": "Event Media decision-pack provenance rows v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/fixture_provenance"
+    },
+    {
+      "$ref": "#/$defs/behavioral_provenance"
+    }
+  ],
+  "$defs": {
+    "fixture_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "decision",
+        "derived",
+        "fixture_id",
+        "height",
+        "license_research_performed",
+        "path",
+        "pixel_sha256",
+        "raw_sha256",
+        "redistribution_rights_claimed",
+        "source_commit",
+        "source_ref",
+        "usage_scope",
+        "width"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "derivation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "engine",
+            "fit",
+            "format",
+            "height",
+            "position",
+            "quality",
+            "source_raw_sha256",
+            "width",
+            "without_enlargement"
+          ],
+          "properties": {
+            "engine": {
+              "type": "string",
+              "minLength": 1
+            },
+            "fit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "format": {
+              "type": "string",
+              "minLength": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "position": {
+              "type": "string",
+              "minLength": 1
+            },
+            "quality": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "source_raw_sha256": {
+              "type": "string",
+              "minLength": 1
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "without_enlargement": {
+              "type": "boolean"
+            }
+          }
+        },
+        "derived": {
+          "type": "boolean"
+        },
+        "fixture_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "license_research_performed": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pixel_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redistribution_rights_claimed": {
+          "type": "boolean"
+        },
+        "source_commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "usage_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "behavioral_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "capture_root_ref",
+        "decision",
+        "fixture_ids",
+        "height",
+        "path",
+        "review_authority",
+        "sha256",
+        "used_for",
+        "width"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capture_root_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fixture_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_authority": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "used_for": {
+          "type": "string",
+          "minLength": 1
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

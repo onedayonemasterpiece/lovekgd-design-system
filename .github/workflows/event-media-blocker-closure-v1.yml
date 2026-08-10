@@ -1,0 +1,172 @@
+name: Validate Event Media Blocker Closure v1
+
+on:
+  push:
+    paths:
+      - '.codex/integration/event-media-blocker-closure-v1/**'
+      - '.codex/lanes/event-media-blocker-*/**'
+      - '.codex/lanes/event-media-owner-decisions/**'
+      - '.codex/lanes/event-media-visual-pack/**'
+      - '.github/workflows/event-media-blocker-closure-v1.yml'
+      - '.github/workflows/event-media-contract-decision-v1.yml'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/event-media/**'
+      - 'contracts/normalization/event-media-**'
+      - 'docs/normalization/event-media-**'
+      - 'penpot/**'
+      - 'prototypes/**'
+      - 'receipts/normalization/event-media-blocker-closure-v1.json'
+      - 'scripts/event-media-blocker-closure-v1/**'
+      - 'scripts/*event-media-blocker-closure-v1*.mjs'
+      - 'scripts/validate-project-normalization-synthesis-v1-1.mjs'
+      - 'tests/event-media-blocker-closure-v1-*.mjs'
+  pull_request:
+    paths:
+      - '.codex/integration/event-media-blocker-closure-v1/**'
+      - '.codex/lanes/event-media-blocker-*/**'
+      - '.codex/lanes/event-media-owner-decisions/**'
+      - '.codex/lanes/event-media-visual-pack/**'
+      - '.github/workflows/event-media-blocker-closure-v1.yml'
+      - '.github/workflows/event-media-contract-decision-v1.yml'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/event-media/**'
+      - 'contracts/normalization/event-media-**'
+      - 'docs/normalization/event-media-**'
+      - 'penpot/**'
+      - 'prototypes/**'
+      - 'receipts/normalization/event-media-blocker-closure-v1.json'
+      - 'scripts/event-media-blocker-closure-v1/**'
+      - 'scripts/*event-media-blocker-closure-v1*.mjs'
+      - 'scripts/validate-project-normalization-synthesis-v1-1.mjs'
+      - 'tests/event-media-blocker-closure-v1-*.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: event-media-blocker-closure-v1-${{ github.event_name }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  EMC_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  EMC_MERGED_MAIN: '3cbe35326ead04ac67070e5b400d30d9edc6eb01'
+  EMC_AUDITED_HEAD: '20eab45534e2c64497e4db661e6a5ca8582229ea'
+  EMC_EVENTS_SHA: '66bc0d43e36299417626f992021cfb7299ddf704'
+  EMC_NODE_VERSION: '22.18.0'
+  EMC_PYTHON_VERSION: '3.13.7'
+  EMC_JSONSCHEMA_VERSION: '4.25.1'
+  EMC_PLAYWRIGHT_VERSION: '1.58.2'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact closure head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ env.EMC_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up exact Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.18.0'
+          check-latest: false
+      - name: Set up exact Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: '3.13.7'
+          check-latest: false
+      - name: Install exact validation and browser runtimes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check 'jsonschema==4.25.1'
+          npm install --prefix "$RUNNER_TEMP/emc-playwright" --no-audit --no-fund --save-exact 'playwright@1.58.2'
+          sudo mkdir -p /opt/nodejs/lib/node_modules /opt/ms-playwright
+          sudo ln -s "$RUNNER_TEMP/emc-playwright/node_modules/playwright" /opt/nodejs/lib/node_modules/playwright
+          sudo env PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright "$RUNNER_TEMP/emc-playwright/node_modules/.bin/playwright" install --with-deps chromium
+          test "$(node --version)" = 'v22.18.0'
+          test "$(python3 --version)" = 'Python 3.13.7'
+          test "$(python3 -c 'import jsonschema; print(jsonschema.__version__)')" = '4.25.1'
+          test "$(node -p "require('/opt/nodejs/lib/node_modules/playwright/package.json').version")" = '1.58.2'
+      - name: Verify merge lineage and materialize full pinned events ancestry
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EMC_SOURCE_SHA"
+          git merge-base --is-ancestor "$EMC_MERGED_MAIN" HEAD
+          test "$(git rev-parse "$EMC_MERGED_MAIN^1")" = '45288b001d724e0d3603d0c44d392ff370407bd0'
+          test "$(git rev-parse "$EMC_MERGED_MAIN^2")" = "$EMC_AUDITED_HEAD"
+          events="$RUNNER_TEMP/events-bot-new"
+          git init "$events"
+          git -C "$events" remote add origin https://github.com/onedayonemasterpiece/events-bot-new.git
+          git -C "$events" fetch --no-tags origin "$EMC_EVENTS_SHA"
+          git -C "$events" checkout --detach FETCH_HEAD
+          test ! -f "$events/.git/shallow"
+          test "$(git -C "$events" rev-parse HEAD)" = "$EMC_EVENTS_SHA"
+          test "$(git -C "$events" rev-parse HEAD:site/src)" = 'd737458f8a87a9b7dad4f4badffd1b3f4ce544dd'
+          test "$(git -C "$events" rev-parse HEAD:site/public)" = 'f42a045ec9ff3b1b2f3396a4df9f54cc6a767934'
+          test -z "$(git -C "$events" status --porcelain)"
+          echo "EMC_EVENTS_ROOT=$events" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/emc-results"
+      - name: Validate schemas joins receipt mutations and bridges
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/event-media-blocker-closure-v1/validate-schemas.py --root . | tee "$RUNNER_TEMP/emc-results/schema.json"
+          node scripts/validate-event-media-blocker-closure-v1.mjs --root . --events-repo "$EMC_EVENTS_ROOT" | tee "$RUNNER_TEMP/emc-results/semantic.json"
+          node scripts/build-event-media-blocker-closure-v1-receipt.mjs --root . --events-repo "$EMC_EVENTS_ROOT" | tee "$RUNNER_TEMP/emc-results/receipt.json"
+          node tests/event-media-blocker-closure-v1-negative.mjs | tee "$RUNNER_TEMP/emc-results/negative.json"
+          node tests/event-media-blocker-closure-v1-workflow-path-filters.mjs | tee "$RUNNER_TEMP/emc-results/workflow.json"
+          node scripts/validate-project-normalization-synthesis-v1-1.mjs . --events-repo "$EMC_EVENTS_ROOT" --skip-receipt --semantic-only | tee "$RUNNER_TEMP/emc-results/project-normalization-current.json"
+      - name: Rebuild standalone HTML and render twice outside the repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 prototypes/event-media-decision-pack/scripts/build-index.py --output "$RUNNER_TEMP/emc-index.html" | tee "$RUNNER_TEMP/emc-results/index-build.json"
+          cmp --silent prototypes/event-media-decision-pack/index.html "$RUNNER_TEMP/emc-index.html"
+          node prototypes/event-media-decision-pack/scripts/render.mjs --output-dir "$RUNNER_TEMP/render-a" | tee "$RUNNER_TEMP/emc-results/render-a.json"
+          node prototypes/event-media-decision-pack/scripts/render.mjs --output-dir "$RUNNER_TEMP/render-b" | tee "$RUNNER_TEMP/emc-results/render-b.json"
+          for name in decision.EM-CENSUS-001.png decision.EM-GOV-010.png decision.EM-LABRAIL-011.png; do
+            cmp --silent "$RUNNER_TEMP/render-a/$name" "$RUNNER_TEMP/render-b/$name"
+            cmp --silent "$RUNNER_TEMP/render-a/$name" "prototypes/event-media-decision-pack/screenshots/$name"
+          done
+      - name: Replay exact frozen PR 32 proof in isolated worktree
+        shell: bash
+        run: |
+          set -euo pipefail
+          frozen="$RUNNER_TEMP/frozen-pr32"
+          git worktree add --detach "$frozen" "$EMC_AUDITED_HEAD"
+          python3 "$frozen/scripts/validate-event-media-contract-decision-schemas-v1.py" --root "$frozen"
+          node "$frozen/scripts/validate-event-media-contract-decision-v1.mjs" --root "$frozen" --events-repo "$EMC_EVENTS_ROOT"
+          node "$frozen/scripts/build-event-media-contract-decision-v1-receipt.mjs" --root "$frozen" --events-repo "$EMC_EVENTS_ROOT"
+          node "$frozen/tests/event-media-contract-decision-v1-negative.mjs"
+          test -z "$(git -C "$frozen" status --porcelain)"
+          git worktree remove "$frozen"
+      - name: Secret diff and clean-tree gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/scan-normalization-v1-1-secrets.py . "$EMC_MERGED_MAIN" | tee "$RUNNER_TEMP/emc-results/secrets.txt"
+          git diff --check "$EMC_MERGED_MAIN...HEAD" --
+          test -z "$(git status --porcelain)"
+          test -z "$(git -C "$EMC_EVENTS_ROOT" status --porcelain)"
+      - name: Stage exact generated evidence for upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/emc-artifact/boards" "$RUNNER_TEMP/emc-artifact/results"
+          cp "$RUNNER_TEMP"/render-a/*.png "$RUNNER_TEMP/emc-artifact/boards/" 2>/dev/null || true
+          cp "$RUNNER_TEMP"/emc-results/* "$RUNNER_TEMP/emc-artifact/results/" 2>/dev/null || true
+      - name: Upload generated boards and validation results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: event-media-blocker-closure-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/emc-artifact
+          if-no-files-found: error
+          retention-days: 14

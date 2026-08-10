@@ -128,7 +128,8 @@ if (!fixtureMode) {
   exec('git', ['cat-file', '-e', `${RECONCILIATION_COMMIT}^{commit}`], { capture: true });
   const changed = exec('git', ['diff', '--name-only', `${BASE}...HEAD`], { capture: true }).split('\n').filter(Boolean);
   for (const relative of changed) {
-    assert(!/^(penpot|prototypes)\//.test(relative), `forbidden design path changed: ${relative}`);
+    assert(!/^penpot\//.test(relative), `forbidden design path changed: ${relative}`);
+    assert(!/^prototypes\//.test(relative) || /^prototypes\/event-media-decision-pack\//.test(relative), `forbidden design path changed: ${relative}`);
     assert(!/(^|\/)site\/(src|public)(\/|$)/.test(relative), `forbidden runtime path changed: ${relative}`);
   }
 }
