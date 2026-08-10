@@ -1,0 +1,833 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_id": "lovekgd.family-lifecycle.v1",
+  "schema_version": "family_lifecycle_v1",
+  "normative_status": "accepted",
+  "lifecycle_id": "lovekgd-design-system-family-and-archetype-lifecycle-v1",
+  "scope": {
+    "unit": "bounded-candidate-family-subject-and-affected-archetype-set",
+    "initial_subject_may_be_analysis_group": true,
+    "semantic_family_identity_begins_at": "FAMILY_HYPOTHESIS_REVIEWED",
+    "global_promotion_forbidden": true
+  },
+  "current_repository_state": {
+    "state": "AS_IS_RECONSTRUCTED",
+    "reason": "No native Penpot components or accepted visual archetypes exist; all current family/application promotion flags are false and the Product Value Gate is observe/pending.",
+    "promotion_claim_allowed": false
+  },
+  "initial_state": "AS_IS_RECONSTRUCTED",
+  "terminal_state": "FAMILY_AND_ARCHETYPE_PROMOTION",
+  "state_order": [
+    "AS_IS_RECONSTRUCTED",
+    "FAMILY_HYPOTHESIS_REVIEWED",
+    "CANDIDATE_CONTRACT_ACCEPTED",
+    "CANONICAL_CODE_CANDIDATE",
+    "PENPOT_COMPONENT_CANDIDATE",
+    "COMPONENT_THREE_WAY_CONFORMANCE",
+    "PAGE_ARCHETYPE_CANDIDATE",
+    "PRODUCT_REPRESENTATIONS",
+    "GEMINI_MCP_VISUAL_AUDIT",
+    "REVIEWED_CORRECTIONS",
+    "FAMILY_AND_ARCHETYPE_PROMOTION"
+  ],
+  "states": [
+    {
+      "state": "AS_IS_RECONSTRUCTED",
+      "ordinal": 1,
+      "meaning": "Exact-source reconstruction of current implementation, consumers, states, reachability, gaps and evidence; no semantic family identity is accepted.",
+      "entry_transition_id": null,
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "current implementation reconstructed at a pinned identity",
+        "candidate family subject exists"
+      ],
+      "forbidden_claims": [
+        "semantic family accepted",
+        "candidate contract accepted",
+        "Penpot component accepted",
+        "promotion ready"
+      ]
+    },
+    {
+      "state": "FAMILY_HYPOTHESIS_REVIEWED",
+      "ordinal": 2,
+      "meaning": "A bounded semantic-family hypothesis has passed positive evidence review; an analytical group is not promoted merely because blockers are absent.",
+      "entry_transition_id": "T01_REVIEW_FAMILY_HYPOTHESIS",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "semantic-family hypothesis reviewed",
+        "target contract work may begin"
+      ],
+      "forbidden_claims": [
+        "candidate contract accepted",
+        "implementation authorized",
+        "Penpot materialization authorized",
+        "promotion ready"
+      ]
+    },
+    {
+      "state": "CANDIDATE_CONTRACT_ACCEPTED",
+      "ordinal": 3,
+      "meaning": "The owner accepted a versioned candidate target contract, reversible migration and rollback plan, and the definition of the final promotion gate.",
+      "entry_transition_id": "T02_ACCEPT_CANDIDATE_CONTRACT",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "candidate target contract accepted for evaluation",
+        "candidate implementation authorized"
+      ],
+      "forbidden_claims": [
+        "contract promoted",
+        "production import authorized",
+        "Penpot normative",
+        "authority transferred"
+      ]
+    },
+    {
+      "state": "CANONICAL_CODE_CANDIDATE",
+      "ordinal": 4,
+      "meaning": "The accepted candidate contract is implemented in the canonical future package location with generated types, fixtures, specimens and tests, but is not a production authority.",
+      "entry_transition_id": "T03_BUILD_CANONICAL_CODE_CANDIDATE",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "canonical-location code candidate exists",
+        "preview and specimen execution allowed"
+      ],
+      "forbidden_claims": [
+        "production consumer migrated",
+        "package promoted",
+        "Penpot accepted baseline"
+      ]
+    },
+    {
+      "state": "PENPOT_COMPONENT_CANDIDATE",
+      "ordinal": 5,
+      "meaning": "Native Penpot masters and variants are materialized from the same candidate contract and code hash as noncanonical evidence-producing candidates.",
+      "entry_transition_id": "T04_MATERIALIZE_PENPOT_COMPONENT_CANDIDATE",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "native Penpot candidate exists",
+        "candidate visual comparison allowed"
+      ],
+      "forbidden_claims": [
+        "Penpot object canonical",
+        "accepted component library exists",
+        "visual plausibility proves conformance",
+        "authority transferred"
+      ]
+    },
+    {
+      "state": "COMPONENT_THREE_WAY_CONFORMANCE",
+      "ordinal": 6,
+      "meaning": "Native Penpot, isolated Astro specimen and real generated-page instance pass the same hash-bound component/state/fixture/viewport capsule.",
+      "entry_transition_id": "T05_PASS_COMPONENT_THREE_WAY_CONFORMANCE",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "candidate component three-way capsule passed"
+      ],
+      "forbidden_claims": [
+        "family promoted",
+        "page archetype accepted",
+        "production conformance permanently proven"
+      ]
+    },
+    {
+      "state": "PAGE_ARCHETYPE_CANDIDATE",
+      "ordinal": 7,
+      "meaning": "Affected page-family archetypes are composed as candidate contracts from conformant or already promoted native instances and linked to source requirements and verified routes.",
+      "entry_transition_id": "T06_BUILD_PAGE_ARCHETYPE_CANDIDATE",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "page archetype candidate exists"
+      ],
+      "forbidden_claims": [
+        "visual archetype accepted",
+        "detached copies allowed",
+        "product representations complete"
+      ]
+    },
+    {
+      "state": "PRODUCT_REPRESENTATIONS",
+      "ordinal": 8,
+      "meaning": "Real configured ProductScreen states cover required viewports and product states while retaining exact archetype, instance, fixture, flow and runtime-evidence links.",
+      "entry_transition_id": "T07_COMPLETE_PRODUCT_REPRESENTATIONS",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "candidate product representations complete for declared scope"
+      ],
+      "forbidden_claims": [
+        "independent mockup is an archetype",
+        "missing state is positive coverage",
+        "representations are promoted"
+      ]
+    },
+    {
+      "state": "GEMINI_MCP_VISUAL_AUDIT",
+      "ordinal": 9,
+      "meaning": "An allowed Gemini Pro model completed an advisory visual audit over a hash-bound full-resolution bundle through read-only Penpot MCP inspection/export.",
+      "entry_transition_id": "T08_COMPLETE_GEMINI_MCP_VISUAL_AUDIT",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "advisory visual audit complete",
+        "structured visual findings recorded"
+      ],
+      "forbidden_claims": [
+        "Gemini proved conformance",
+        "Gemini accepted the contract",
+        "Gemini changed Penpot",
+        "Gemini promoted the family"
+      ]
+    },
+    {
+      "state": "REVIEWED_CORRECTIONS",
+      "ordinal": 10,
+      "meaning": "All audit findings, comments and gaps are owner-dispositioned; accepted corrections are applied and every invalidated deterministic gate is replayed against current hashes.",
+      "entry_transition_id": "T09_REVIEW_AND_REPLAY_CORRECTIONS",
+      "authority_mode": "reconstructed",
+      "allowed_claims": [
+        "corrections reviewed and evidence current",
+        "final promotion review may begin"
+      ],
+      "forbidden_claims": [
+        "authority transferred",
+        "stale pre-correction evidence accepted",
+        "critical finding ignored"
+      ]
+    },
+    {
+      "state": "FAMILY_AND_ARCHETYPE_PROMOTION",
+      "ordinal": 11,
+      "meaning": "One bounded family and its affected archetype set are atomically promoted with an accepted package, Penpot binding, pinned product consumer, runtime proof and rollback receipt.",
+      "entry_transition_id": "T10_PROMOTE_FAMILY_AND_ARCHETYPES",
+      "authority_mode": "design-system-led",
+      "allowed_claims": [
+        "bounded family contract is normative",
+        "affected archetypes are accepted",
+        "application consumes pinned package version"
+      ],
+      "forbidden_claims": [
+        "global design-system switch",
+        "unreceipted baseline update",
+        "unbounded archetype promotion"
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "T01_REVIEW_FAMILY_HYPOTHESIS",
+      "from": "AS_IS_RECONSTRUCTED",
+      "to": "FAMILY_HYPOTHESIS_REVIEWED",
+      "gate": {
+        "gate_id": "G01_POSITIVE_SEMANTIC_FAMILY_EVIDENCE",
+        "mode": "all_of",
+        "requirements": [
+          "exact AS-IS source, consumer, route, reachability and state census is complete",
+          "positive semantic readiness covers role, anatomy, states, behavior, accessibility, responsive behavior and consumer equivalence",
+          "analytical group and semantic family identities remain separately typed",
+          "reviewer records alternatives, confidence and unresolved evidence"
+        ],
+        "blocking_conditions": [
+          "missing positive checklist item",
+          "identity blocker",
+          "dead and unreachable evidence conflated"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "as-is-reconstruction-receipt",
+          "semantic-readiness-record",
+          "family-hypothesis-review-receipt"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_id",
+          "contract_version",
+          "contract_sha256",
+          "source_repo_sha",
+          "evidence_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T02_ACCEPT_CANDIDATE_CONTRACT",
+      "from": "FAMILY_HYPOTHESIS_REVIEWED",
+      "to": "CANDIDATE_CONTRACT_ACCEPTED",
+      "gate": {
+        "gate_id": "G02_OWNER_ACCEPTED_TARGET_AND_REVERSIBILITY",
+        "mode": "all_of",
+        "requirements": [
+          "stable candidate contract ID, semantic version and SHA-256 exist",
+          "owner accepts the candidate target contract rather than the synthesis recommendation",
+          "all findings due before target_contract are dispositioned",
+          "reversible migration, compatibility and rollback plans are accepted",
+          "the final promotion checklist is defined but not represented as passed"
+        ],
+        "blocking_conditions": [
+          "candidate decision has no independent receipt",
+          "experiment winner missing",
+          "target-contract blocker open",
+          "rollback undefined"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "candidate-contract-acceptance-receipt",
+          "migration-plan",
+          "rollback-plan",
+          "promotion-gate-definition"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_id",
+          "contract_version",
+          "contract_sha256",
+          "decision_receipt_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T03_BUILD_CANONICAL_CODE_CANDIDATE",
+      "from": "CANDIDATE_CONTRACT_ACCEPTED",
+      "to": "CANONICAL_CODE_CANDIDATE",
+      "gate": {
+        "gate_id": "G03_HASH_BOUND_CODE_CANDIDATE",
+        "mode": "all_of",
+        "requirements": [
+          "candidate package is built in the canonical future package location",
+          "Astro presentation, generated types, fixtures, specimens and tests bind the accepted candidate contract hash",
+          "compatibility and rollback rehearsal pass",
+          "production import remains absent"
+        ],
+        "blocking_conditions": [
+          "package hash differs from contract binding",
+          "production consumer migrated before promotion",
+          "tests failed"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "code-candidate-manifest",
+          "build-and-test-receipt",
+          "specimen-manifest",
+          "rollback-rehearsal"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_id",
+          "contract_version",
+          "contract_sha256",
+          "code_candidate_repo_sha",
+          "package_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T04_MATERIALIZE_PENPOT_COMPONENT_CANDIDATE",
+      "from": "CANONICAL_CODE_CANDIDATE",
+      "to": "PENPOT_COMPONENT_CANDIDATE",
+      "gate": {
+        "gate_id": "G04_NONCANONICAL_NATIVE_PENPOT_CANDIDATE",
+        "mode": "all_of",
+        "requirements": [
+          "native Penpot masters and variants bind the exact candidate contract and code candidate hashes",
+          "all managed objects carry required lifecycle candidate metadata",
+          "materialization is idempotent and read-back validated",
+          "rollback reference exists and no detached copies are introduced"
+        ],
+        "blocking_conditions": [
+          "contract acceptance missing",
+          "code candidate missing",
+          "canonical=true before promotion",
+          "promotion receipt present before promotion",
+          "raster component master"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "penpot-materialization-manifest",
+          "penpot-readback-receipt",
+          "candidate-export-manifest",
+          "layout-validation-receipt",
+          "rollback-reference"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_id",
+          "contract_version",
+          "contract_sha256",
+          "code_candidate_repo_sha",
+          "penpot_file_id",
+          "penpot_revision",
+          "evidence_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T05_PASS_COMPONENT_THREE_WAY_CONFORMANCE",
+      "from": "PENPOT_COMPONENT_CANDIDATE",
+      "to": "COMPONENT_THREE_WAY_CONFORMANCE",
+      "gate": {
+        "gate_id": "G05_EXACT_THREE_WAY_COMPONENT_CAPSULE",
+        "mode": "all_of",
+        "requirements": [
+          "Penpot, isolated Astro specimen and real generated-page instance are all present",
+          "all surfaces share component ID, contract version/hash, state key, fixture, viewport and candidate package SHA",
+          "all required checks pass, including interaction and accessibility where applicable",
+          "unknown states and forbidden consumer overrides are absent"
+        ],
+        "blocking_conditions": [
+          "surface missing",
+          "identity tuple mismatch",
+          "required state uncovered",
+          "unknown state",
+          "forbidden local override",
+          "failed check"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "penpot-component-capsule",
+          "isolated-astro-specimen-capsule",
+          "generated-page-instance-capsule",
+          "three-way-conformance-receipt"
+        ],
+        "identity_fields": [
+          "component_id",
+          "contract_version",
+          "contract_sha256",
+          "state_key",
+          "fixture_id",
+          "viewport_id",
+          "candidate_package_sha"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T06_BUILD_PAGE_ARCHETYPE_CANDIDATE",
+      "from": "COMPONENT_THREE_WAY_CONFORMANCE",
+      "to": "PAGE_ARCHETYPE_CANDIDATE",
+      "gate": {
+        "gate_id": "G06_INSTANCE_BOUND_ARCHETYPE_CANDIDATE",
+        "mode": "all_of",
+        "requirements": [
+          "all component dependencies are three-way conformant or already promoted at the referenced version",
+          "archetype uses native nested instances without detached copies",
+          "stable archetype version/hash binds source requirements, verified routes, page family, state axes and gaps",
+          "affected archetype scope is explicit"
+        ],
+        "blocking_conditions": [
+          "dependency below conformance",
+          "detached Penpot copy",
+          "source overlay missing",
+          "route-family binding missing"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "page-archetype-manifest",
+          "component-instance-graph",
+          "source-requirements-binding",
+          "archetype-review-receipt"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "archetype_id",
+          "archetype_version",
+          "archetype_sha256",
+          "contract_sha256",
+          "source_map_sha",
+          "route_snapshot_sha"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T07_COMPLETE_PRODUCT_REPRESENTATIONS",
+      "from": "PAGE_ARCHETYPE_CANDIDATE",
+      "to": "PRODUCT_REPRESENTATIONS",
+      "gate": {
+        "gate_id": "G07_REAL_CONFIGURED_SCREEN_COVERAGE",
+        "mode": "all_of",
+        "requirements": [
+          "each ProductScreen state references exactly one candidate archetype and exact native instance graph",
+          "fixture, viewport, product state, flow and runtime evidence are explicit",
+          "mobile and desktop representations exist for every affected archetype",
+          "tablet representation exists where a responsive boundary is declared",
+          "positive, negative, unavailable, authorization, media and stress obligations are covered or explicit blockers"
+        ],
+        "blocking_conditions": [
+          "detached screen mockup",
+          "missing mobile or desktop representation",
+          "boundary-relevant tablet missing",
+          "unknown state hidden as coverage",
+          "product evidence pending for promotion"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "product-screen-manifest",
+          "product-state-matrix",
+          "viewport-evidence-manifest",
+          "ux-flow-binding",
+          "runtime-evidence-binding"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "archetype_id",
+          "archetype_sha256",
+          "screen_id",
+          "screen_state_id",
+          "fixture_id",
+          "viewport_id",
+          "evidence_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T08_COMPLETE_GEMINI_MCP_VISUAL_AUDIT",
+      "from": "PRODUCT_REPRESENTATIONS",
+      "to": "GEMINI_MCP_VISUAL_AUDIT",
+      "gate": {
+        "gate_id": "G08_ALLOWED_PRO_READ_ONLY_VISUAL_AUDIT",
+        "mode": "all_of",
+        "requirements": [
+          "the full-resolution hash-bound audit bundle is complete and retrievable",
+          "the exact model is gemini-3-pro-preview or gemini-3.1-pro-preview",
+          "Penpot MCP access is read-only inspection/export with a complete tool log",
+          "the report records structured findings, alternatives, confidence and explicit nonvisual limitations"
+        ],
+        "blocking_conditions": [
+          "non-Pro model used as consultant",
+          "MCP mutation enabled",
+          "quota or provider failure",
+          "input/output hash missing",
+          "full-resolution review absent",
+          "limitations missing"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "gemini-mcp-audit-input-manifest",
+          "gemini-mcp-tool-log",
+          "gemini-pro-visual-audit-report",
+          "gemini-audit-receipt"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "model_id",
+          "prompt_sha256",
+          "input_manifest_sha256",
+          "tool_log_sha256",
+          "response_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T09_REVIEW_AND_REPLAY_CORRECTIONS",
+      "from": "GEMINI_MCP_VISUAL_AUDIT",
+      "to": "REVIEWED_CORRECTIONS",
+      "gate": {
+        "gate_id": "G09_OWNER_DISPOSITION_AND_CURRENT_REPLAY",
+        "mode": "all_of",
+        "requirements": [
+          "every Gemini finding and associated Penpot comment/gap has an owner disposition",
+          "accepted corrections are applied to candidate code, Penpot, archetypes and representations as applicable",
+          "all invalidated gates are replayed against current hashes",
+          "visual deltas receive focused re-audit and no critical finding remains open"
+        ],
+        "blocking_conditions": [
+          "undispositioned finding",
+          "critical issue open",
+          "stale evidence reused",
+          "changed contract without lifecycle restart",
+          "invalidated gate not replayed"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "reconstructed",
+        "authority_change": false
+      },
+      "evidence": {
+        "required_kinds": [
+          "audit-finding-disposition-ledger",
+          "owner-correction-review-receipt",
+          "candidate-change-manifest",
+          "replayed-gate-receipts",
+          "focused-visual-reaudit"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_sha256",
+          "candidate_change_sha256",
+          "disposition_ledger_sha256",
+          "replayed_gate_set_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    },
+    {
+      "transition_id": "T10_PROMOTE_FAMILY_AND_ARCHETYPES",
+      "from": "REVIEWED_CORRECTIONS",
+      "to": "FAMILY_AND_ARCHETYPE_PROMOTION",
+      "gate": {
+        "gate_id": "G10_ATOMIC_FAMILY_AND_ARCHETYPE_PROMOTION",
+        "mode": "all_of",
+        "requirements": [
+          "all prior lifecycle gates are current for one uninterrupted hash-bound candidate version",
+          "every concrete application is product-value promotion ready and no pending product model remains",
+          "accepted production release identity and pinned package consumer are proven",
+          "owner promotion, accepted baseline/export and rollback receipts exist",
+          "post-deploy component, archetype and runtime conformance pass",
+          "no unresolved critical gap contradicts the contract",
+          "authority changes atomically only for the bounded family and affected archetype set"
+        ],
+        "blocking_conditions": [
+          "product gate observe or pending",
+          "application promotion_ready=false",
+          "receipt missing",
+          "accepted release missing",
+          "post-deploy conformance failed",
+          "critical gap open",
+          "hash drift",
+          "global switch requested"
+        ]
+      },
+      "authority": {
+        "before": "reconstructed",
+        "after": "design-system-led",
+        "authority_change": true
+      },
+      "evidence": {
+        "required_kinds": [
+          "owner-promotion-receipt",
+          "promotion-receipt",
+          "package-release-receipt",
+          "pinned-consumer-release-receipt",
+          "accepted-reference-manifest",
+          "post-deploy-conformance-receipt",
+          "rollback-receipt"
+        ],
+        "identity_fields": [
+          "subject_id",
+          "contract_id",
+          "contract_version",
+          "contract_sha256",
+          "package_version",
+          "package_sha256",
+          "release_repo_sha",
+          "build_id",
+          "promotion_receipt_sha256"
+        ],
+        "all_refs_sha256_bound": true
+      }
+    }
+  ],
+  "penpot_pre_promotion_semantics": {
+    "materialization_state": "PENPOT_COMPONENT_CANDIDATE",
+    "requires_states_completed": [
+      "CANDIDATE_CONTRACT_ACCEPTED",
+      "CANONICAL_CODE_CANDIDATE"
+    ],
+    "authority_mode": "reconstructed",
+    "status": "candidate",
+    "canonical": false,
+    "promotion_receipt_ref": null,
+    "required_metadata": [
+      "lifecycle_contract_ref",
+      "lifecycle_state",
+      "subject_id",
+      "candidate_contract_id",
+      "candidate_contract_version",
+      "candidate_contract_sha256",
+      "code_candidate_repo_sha",
+      "authority_mode",
+      "status",
+      "canonical",
+      "promotion_receipt_ref",
+      "materialization_receipt_ref",
+      "rollback_ref"
+    ],
+    "promotion_side_effect_forbidden": true
+  },
+  "three_way_conformance": {
+    "surfaces": [
+      "penpot",
+      "astro_specimen",
+      "generated_page"
+    ],
+    "equality_tuple": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "required_checks": [
+      "anatomy",
+      "variant_mapping",
+      "nested_components",
+      "token_mapping",
+      "geometry",
+      "media_behavior",
+      "text_behavior",
+      "interaction",
+      "accessibility",
+      "local_overrides"
+    ],
+    "all_required_surfaces_must_pass": true,
+    "screenshot_alone_sufficient": false
+  },
+  "archetype_and_representation_semantics": {
+    "source_requirements_overlay_is_archetype": false,
+    "page_archetype_candidate_requires": [
+      "source-requirements-binding",
+      "verified-route-family",
+      "native-component-instance-graph",
+      "state-axes",
+      "gap-and-decision-refs"
+    ],
+    "product_representation_requires": [
+      "one-archetype-ref",
+      "exact-instance-graph",
+      "fixture-id",
+      "viewport-id",
+      "screen-state-id",
+      "ux-flow-ref",
+      "runtime-evidence-ref"
+    ],
+    "minimum_viewport_classes": [
+      "mobile",
+      "desktop"
+    ],
+    "tablet_required_when_responsive_boundary": true,
+    "detached_mockup_forbidden": true
+  },
+  "gemini_mcp_visual_audit": {
+    "role": "advisory-visual-and-semantic-review",
+    "allowed_model_ids": [
+      "gemini-3-pro-preview",
+      "gemini-3.1-pro-preview"
+    ],
+    "mcp_mode": "read-only",
+    "mutation_allowed": false,
+    "comment_resolution_allowed": false,
+    "authority_change_allowed": false,
+    "may_review": [
+      "visual hierarchy",
+      "composition",
+      "native component reuse",
+      "visible state coverage",
+      "responsive consistency",
+      "visible accessibility risks"
+    ],
+    "cannot_prove": [
+      "DOM semantics",
+      "accessibility tree",
+      "keyboard behavior",
+      "runtime reachability",
+      "contract or hash equality",
+      "state completeness",
+      "three-way conformance",
+      "owner acceptance",
+      "production release",
+      "promotion"
+    ],
+    "supplementary_models_do_not_satisfy_gate": true,
+    "provider_failure_status": "blocked",
+    "required_receipt_fields": [
+      "model_id",
+      "provider",
+      "prompt_sha256",
+      "input_manifest_sha256",
+      "tool_log_sha256",
+      "response_sha256",
+      "started_at",
+      "completed_at",
+      "full_resolution_inputs_reviewed",
+      "limitations"
+    ]
+  },
+  "invalidation_rules": [
+    {
+      "change": "contract identity, public API, anatomy or state vocabulary",
+      "restart_at": "CANDIDATE_CONTRACT_ACCEPTED"
+    },
+    {
+      "change": "candidate code only",
+      "replay_from": "CANONICAL_CODE_CANDIDATE"
+    },
+    {
+      "change": "Penpot implementation only",
+      "replay_from": "PENPOT_COMPONENT_CANDIDATE"
+    },
+    {
+      "change": "archetype composition only",
+      "replay_from": "PAGE_ARCHETYPE_CANDIDATE"
+    },
+    {
+      "change": "representation or fixture only",
+      "replay_from": "PRODUCT_REPRESENTATIONS"
+    },
+    {
+      "change": "any visual output after Gemini audit",
+      "requires": "focused Pro-class visual re-audit before promotion"
+    }
+  ],
+  "promotion_invariants": [
+    "authority_mode remains reconstructed through REVIEWED_CORRECTIONS",
+    "only T10_PROMOTE_FAMILY_AND_ARCHETYPES changes authority",
+    "promotion is atomic for one bounded family and its affected archetype set",
+    "no application with pending_product_model or promotion_ready=false may be promoted",
+    "Penpot is a visual implementation of the promoted contract, not the sole executable authority",
+    "actual runtime evidence never updates an accepted baseline automatically"
+  ]
+}

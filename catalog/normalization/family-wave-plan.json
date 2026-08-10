@@ -1,34 +1,18 @@
 {
   "algorithm": {
+    "blocker_absence_is_sufficient": false,
     "bucket": "0=>0, 1=>1, 2..3=>2, 4..7=>3, 8..15=>4, >=16=>5",
-    "factor_derivation": {
-      "blast_radius_safety": "max(0, 5 - bucket(consumer_count))",
-      "consumer_reach": "bucket(consumer_count)",
-      "dependency_leverage": "bucket(dependency_count)",
-      "evidence_completeness": "sum of five booleans: component census, consumer/route census, candidate AS-IS contract, behavior contract, runtime observation or terminal probe",
-      "experiment_readiness": "0 only for experiment_dependent, else 5",
-      "finding_urgency": "min(5, finding_count)",
-      "product_model_independence": "0 only for product_model_dependent, else 5",
-      "product_value_readiness": "0 while every application is pending_product_model",
-      "reversibility": "migration-risk map low=5, medium=3, high=1",
-      "semantic_clarity": "category map ready=5, product=4, implementation=3, insufficient=2, experiment=1"
-    },
-    "first_wave_rule": "take the top 2–4 sorted ready_for_contract_decision families whose evidence_completeness is at least 4; no experiment winner and no rail promotion",
-    "hard_gate_precedence": [
-      "experiment_dependent",
-      "implementation_gap_blocked",
-      "product_model_dependent",
-      "insufficient_evidence",
-      "ready_for_contract_decision"
+    "gate_order": [
+      "positive_semantic_readiness",
+      "score_eligible_only",
+      "sort",
+      "take_up_to_maximum"
     ],
-    "hard_gate_predicates": {
-      "experiment_dependent": "experiment_decision_refs non-empty",
-      "implementation_gap_blocked": "implementation_gap_refs non-empty after experiment gate",
-      "insufficient_evidence": "insufficient_evidence_refs non-empty after earlier gates",
-      "product_model_dependent": "product_model_dependency_refs non-empty after earlier gates",
-      "ready_for_contract_decision": "all four hard-gate ref arrays empty"
-    },
-    "score_formula": "round(sum(factor_0_to_5 * weight) / 5)",
+    "maximum_family_count": 4,
+    "minimum_family_count": 0,
+    "positive_ready_rule": "entity_kind is component_identity_family AND every required/applicable positive checklist item passes AND operational_blocker_refs is empty",
+    "score_formula": "round(sum(factor_0_to_5 * weight) / 5), evaluated only after the positive gate",
+    "score_non_ready_families": false,
     "tie_break": [
       "score_desc",
       "evidence_completeness_desc",
@@ -48,2589 +32,1722 @@
       "semantic_clarity": 15
     }
   },
-  "category_counts": {
-    "experiment_dependent": 2,
-    "implementation_gap_blocked": 7,
-    "insufficient_evidence": 26,
-    "product_model_dependent": 9,
-    "ready_for_contract_decision": 3
+  "counts": {
+    "analytical_groups": 47,
+    "component_memberships": 107,
+    "eligible_for_scoring": 0,
+    "entity_kinds": {
+      "component_catalog": 10,
+      "component_identity_family": 11,
+      "composition_pattern": 7,
+      "evidence_or_lab_group": 1,
+      "foundation": 2,
+      "page_surface": 8,
+      "runtime_enabler": 4,
+      "unresolved_boundary": 2,
+      "workflow": 2
+    },
+    "not_ready": 47,
+    "selected_first_wave": 0,
+    "strict_ready": 0
   },
   "decision": "NOT_MERGED",
+  "eligible_family_ids": [],
   "families": [
     {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.017c006b1fb4a73e",
-          "finding.behavioral.probe.18e09a553f004c97",
-          "finding.behavioral.probe.2b71e3365f6f4029",
-          "finding.behavioral.probe.657255de26bb8525",
-          "finding.behavioral.probe.6580ba5f67bfdc8f",
-          "finding.behavioral.probe.831ca48b02b21f6a",
-          "finding.behavioral.probe.9007467d208ac7bd",
-          "finding.behavioral.probe.9274460842120519",
-          "finding.behavioral.probe.a2ab8c7ff2962a9a",
-          "finding.behavioral.probe.c86f2675dac5c0dc",
-          "finding.behavioral.probe.e4bb42b01042b720",
-          "finding.behavioral.probe.f573562b45bea1dd"
-        ],
-        "product_model_dependency_refs": []
-      },
       "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 5,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.event-detail-presentation",
-      "id": "wave-family.event-detail-presentation",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 4,
-        "consumer_count": 7,
-        "contract_count": 1,
-        "dependency_count": 27,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 18,
-        "hard_gate_reference_count": 12,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 52
-      },
-      "score": 75,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "split"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.b2305c4b25a99927",
-          "finding.behavioral.unresolved.c434d2587fe91aa8"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 0,
-        "consumer_reach": 5,
-        "dependency_leverage": 4,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.event-preview-representations",
-      "id": "wave-family.event-preview-representations",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 4,
-        "component_count": 4,
-        "consumer_count": 19,
-        "contract_count": 1,
-        "dependency_count": 11,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 10,
-        "hard_gate_reference_count": 2,
-        "migration_risk": "high",
-        "production_observed_count": 1,
-        "route_count": 15,
-        "terminal_probe_count": 0
-      },
-      "score": 73,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "ready_for_contract_decision",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 5
-      },
-      "family_id": "family.event-media",
-      "id": "wave-family.event-media",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 2,
-        "consumer_count": 3,
-        "contract_count": 1,
-        "dependency_count": 4,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 6,
-        "hard_gate_reference_count": 0,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 73,
-      "selected_first_wave": true
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "ready_for_contract_decision",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 4,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 5
-      },
-      "family_id": "family.event-token-medallions",
-      "id": "wave-family.event-token-medallions",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 4,
-        "contract_count": 1,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 4,
-        "hard_gate_reference_count": 0,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 4,
-        "terminal_probe_count": 0
-      },
-      "score": 72,
-      "selected_first_wave": true
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.06ced1939a5a95ba"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
       "family_id": "family.amber-artifacts",
-      "id": "wave-family.amber-artifacts",
-      "product_value_status": "pending_product_model",
+      "id": "wave.family.amber-artifacts",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.06ced1939a5a95ba",
+        "finding.behavioral.probe.1db97eb386e678d8",
+        "finding.behavioral.probe.719bd9ff598c6e05",
+        "finding.behavioral.probe.72596c85ecc7ce14",
+        "finding.behavioral.probe.7d6d6f68d5054cf9",
+        "finding.behavioral.probe.94eaec171ed8cda0",
+        "finding.behavioral.probe.9858666d0b34dad5",
+        "finding.behavioral.probe.b03d2b27484382aa",
+        "finding.decoder.component.03121ac002bdc59b",
+        "finding.decoder.component.39c73ac1c06033f2",
+        "finding.decoder.contract.artifacts-amber",
+        "finding.decoder.fragmentation.collections"
+      ],
       "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 2,
-        "consumer_count": 2,
-        "contract_count": 1,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 12,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 7,
-        "terminal_probe_count": 8
-      },
-      "score": 69,
-      "selected_first_wave": false
+      "readiness_id": "readiness.family.amber-artifacts",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
     },
     {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.51629368d450b5e4"
-        ],
-        "product_model_dependency_refs": []
-      },
       "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.focus-egg-artifacts",
-      "id": "wave-family.focus-egg-artifacts",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 3,
-        "consumer_count": 2,
-        "contract_count": 1,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 5,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 6
-      },
-      "score": 69,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.1aac6f9b95922eeb",
-          "finding.behavioral.unresolved.b2305c4b25a99927",
-          "finding.behavioral.unresolved.c434d2587fe91aa8"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.favorites-saved-events",
-      "id": "wave-family.favorites-saved-events",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 1,
-        "dependency_count": 4,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 6,
-        "hard_gate_reference_count": 3,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 7
-      },
-      "score": 66,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.transport-bus-schedule",
-      "id": "wave-family.transport-bus-schedule",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 2,
-        "contract_count": 1,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 9
-      },
-      "score": 66,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.7789a7bbf444ce44",
-          "finding.behavioral.unresolved.9e5c2b0b939ba1d3",
-          "finding.behavioral.unresolved.b2305c4b25a99927",
-          "finding.behavioral.unresolved.fc683e13af9d05a1"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 0,
-        "consumer_reach": 5,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.personalization-and-feed",
-      "id": "wave-family.personalization-and-feed",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 3,
-        "component_count": 3,
-        "consumer_count": 16,
-        "contract_count": 0,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 14,
-        "hard_gate_reference_count": 4,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 14,
-        "terminal_probe_count": 12
-      },
-      "score": 66,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.editorial-collections",
-      "id": "wave-family.editorial-collections",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 2,
-        "consumer_count": 2,
-        "contract_count": 0,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 4
-      },
-      "score": 65,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.interest-club-catalog",
-      "id": "wave-family.interest-club-catalog",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 3,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 13,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 10
-      },
-      "score": 65,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.141e6eb836c39a04"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 1,
-        "consumer_reach": 4,
-        "dependency_leverage": 4,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.focus-group-workflows",
-      "id": "wave-family.focus-group-workflows",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 5,
-        "component_count": 6,
-        "consumer_count": 9,
-        "contract_count": 0,
-        "dependency_count": 10,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 6,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 16
-      },
-      "score": 65,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.b431cedc95a4f5ad",
-          "finding.behavioral.unresolved.bed6af1e8d986732"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.listing-rails",
-      "id": "wave-family.listing-rails",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 2,
-        "consumer_count": 4,
-        "contract_count": 0,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 8,
-        "hard_gate_reference_count": 2,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 7,
-        "terminal_probe_count": 7
-      },
-      "score": 64,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "behavior.transport-rail"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 5,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.transport-rail-schedule",
-      "id": "wave-family.transport-rail-schedule",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 2,
-        "contract_count": 1,
-        "dependency_count": 4,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 6
-      },
-      "score": 63,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.4ded4f210c76bdbd"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.mobile-menu",
-      "id": "wave-family.mobile-menu",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 13
-      },
-      "score": 63,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.fc683e13af9d05a1"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.exhibitions-personal",
-      "id": "wave-family.exhibitions-personal",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 2,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 15,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 14
-      },
-      "score": 63,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.390d21fb616032ca",
-          "finding.behavioral.probe.af2ae65ff20e0497",
-          "finding.behavioral.probe.f39f8024e9466a19"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 2,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 4,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.event-grid",
-      "id": "wave-family.event-grid",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 4,
-        "hard_gate_reference_count": 3,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 3
-      },
-      "score": 62,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "implementation_gap_blocked",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [
-          "finding.behavioral.unresolved.ac0fc0317afc87fb",
-          "finding.behavioral.unresolved.b2305c4b25a99927"
-        ],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 3
-      },
-      "family_id": "family.search-results",
-      "id": "wave-family.search-results",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 2,
-        "consumer_count": 1,
-        "contract_count": 1,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 7,
-        "hard_gate_reference_count": 2,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 62,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.59de3e4fb92b6f11",
-          "finding.behavioral.probe.8458b250b193ccdc",
-          "finding.behavioral.probe.ba9dd7536bc768b9"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 2,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.event-facts-and-participants",
-      "id": "wave-family.event-facts-and-participants",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 2,
-        "consumer_count": 5,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 5,
-        "hard_gate_reference_count": 3,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 5,
-        "terminal_probe_count": 6
-      },
-      "score": 62,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 5,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 4,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.listing-surfaces",
-      "id": "wave-family.listing-surfaces",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 3,
-        "consumer_count": 6,
-        "contract_count": 0,
-        "dependency_count": 21,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 4,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 62,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "experiment_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [
-          "finding.behavioral.unresolved.29eeec6cc5a8ed66",
-          "finding.behavioral.unresolved.345c02a3f03a37b9",
-          "finding.behavioral.unresolved.6c1f94e4752e08bb",
-          "finding.behavioral.unresolved.86760fce58ab85e2",
-          "finding.behavioral.unresolved.9c581b08d4a133d2",
-          "finding.behavioral.unresolved.c4ec954503c60852",
-          "finding.decoder.component.4ce7179f75f7492e",
-          "finding.decoder.component.4ff9fbbe31c735d6",
-          "finding.decoder.component.be14d827746e93df",
-          "finding.decoder.component.c5338c3238373fa5",
-          "finding.decoder.contract.transport-kaup"
-        ],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 1,
-        "consumer_reach": 4,
-        "dependency_leverage": 4,
-        "evidence_completeness": 5,
-        "experiment_readiness": 0,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 1
-      },
-      "family_id": "family.transport-kaup-schedule",
-      "id": "wave-family.transport-kaup-schedule",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 7,
-        "consumer_count": 8,
-        "contract_count": 1,
-        "dependency_count": 11,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 17,
-        "hard_gate_reference_count": 11,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 6
-      },
-      "score": 61,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.29e9aebbf63be827"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.bottom-navigation",
-      "id": "wave-family.bottom-navigation",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 2,
-        "consumer_count": 2,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 3
-      },
-      "score": 61,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.8547d686f3a940bb"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.design-system-primitives",
-      "id": "wave-family.design-system-primitives",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 5,
-        "consumer_count": 2,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 6,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 61,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.probe.4bf84601f6f0d7c0",
-          "finding.behavioral.probe.8c8b85a41b9dabf5",
-          "finding.behavioral.probe.a006f62d5ad7e0d7"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 3,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.listing-controls-and-navigation",
-      "id": "wave-family.listing-controls-and-navigation",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 2,
-        "component_count": 8,
-        "consumer_count": 7,
-        "contract_count": 0,
-        "dependency_count": 4,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 15,
-        "hard_gate_reference_count": 3,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 7,
-        "terminal_probe_count": 0
-      },
-      "score": 61,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "composition"
-      },
-      "category": "ready_for_contract_decision",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 1,
-        "consumer_reach": 4,
-        "dependency_leverage": 2,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 5
-      },
-      "family_id": "family.brand-identity",
-      "id": "wave-family.brand-identity",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 2,
-        "consumer_count": 8,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 0,
-        "migration_risk": "high",
-        "production_observed_count": 2,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 60,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.popular-listing-layouts",
-      "id": "wave-family.popular-listing-layouts",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 5,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 5,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 60,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "experiment_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [
-          "finding.behavioral.unresolved.e8d3931fb77e6007",
-          "finding.decoder.contract.button-cta-fragmented"
-        ],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 3,
-        "evidence_completeness": 5,
-        "experiment_readiness": 0,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 1
-      },
-      "family_id": "family.event-actions",
-      "id": "wave-family.event-actions",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 3,
-        "component_count": 3,
-        "consumer_count": 4,
-        "contract_count": 1,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": true,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 7,
-        "hard_gate_reference_count": 2,
-        "migration_risk": "high",
-        "production_observed_count": 0,
-        "route_count": 4,
-        "terminal_probe_count": 7
-      },
-      "score": 57,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 2,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.home-hero",
-      "id": "wave-family.home-hero",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 1,
-        "terminal_probe_count": 3
-      },
-      "score": 57,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.home-feed",
-      "id": "wave-family.home-feed",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 4,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 56,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.12f4c5eb705d47d6"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 3,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 3,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.pwa-lifecycle",
-      "id": "wave-family.pwa-lifecycle",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 3,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 5,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 3,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 1,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 56,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.unresolved.b2305c4b25a99927"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.weather-date-context",
-      "id": "wave-family.weather-date-context",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 4
-      },
-      "score": 55,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.39dab28d05f4b3d4"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.prelaunch-surface",
-      "id": "wave-family.prelaunch-surface",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 55,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.970ac7b79d2afbf4"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 3,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.site-footer",
-      "id": "wave-family.site-footer",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 6,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 0
-      },
-      "score": 55,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.3d74f9fa9f1002f0"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 5,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.listing-chronology",
-      "id": "wave-family.listing-chronology",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 4,
-        "consumer_count": 5,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 5,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 54,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.2f3937b9b2f98ec0"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 2,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.social-share",
-      "id": "wave-family.social-share",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 0
-      },
-      "score": 52,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.7f7a35c911518098"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 2,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.event-occurrence",
-      "id": "wave-family.event-occurrence",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 2,
-        "consumer_count": 6,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 1,
-        "route_count": 13,
-        "terminal_probe_count": 0
-      },
-      "score": 52,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.b9c030cab91c3850"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 0,
-        "consumer_reach": 5,
-        "dependency_leverage": 1,
-        "evidence_completeness": 4,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 1,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.iconography",
-      "id": "wave-family.iconography",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 2,
-        "consumer_count": 24,
-        "contract_count": 0,
-        "dependency_count": 1,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "high",
-        "production_observed_count": 2,
-        "route_count": 21,
-        "terminal_probe_count": 0
-      },
-      "score": 51,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.66d36590b3158749"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 1,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.onboarding-placement",
-      "id": "wave-family.onboarding-placement",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 1,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 0
-      },
-      "score": 51,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.5ff8cbd29f602ce3"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.event-keyboard-navigation",
-      "id": "wave-family.event-keyboard-navigation",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 2,
-        "consumer_count": 2,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 51,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.79fa8695c4b33bde"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 2,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.calendar-action",
-      "id": "wave-family.calendar-action",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 1,
-        "component_count": 1,
-        "consumer_count": 4,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": true,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 50,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.688d213eb5ee6ddb"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 1,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.home-quick-navigation",
-      "id": "wave-family.home-quick-navigation",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 1,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 49,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.interest-profile",
-      "id": "wave-family.interest-profile",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 1,
-        "terminal_probe_count": 0
-      },
-      "score": 49,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.00b3e31a661a4b02"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.focus-diagnostics",
-      "id": "wave-family.focus-diagnostics",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 2,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 0
-      },
-      "score": 49,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "product_model_dependent",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [],
-        "product_model_dependency_refs": [
-          "events@66bc0d43e36299417626f992021cfb7299ddf704:docs/product-model/README.md"
-        ]
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 0,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 4
-      },
-      "family_id": "family.unusual-listing",
-      "id": "wave-family.unusual-listing",
-      "product_value_status": "pending_product_model",
-      "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 2,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 2,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 0
-      },
-      "score": 48,
-      "selected_first_wave": false
-    },
-    {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.behavioral.unresolved.2d93538316f07bc8"
-        ],
-        "product_model_dependency_refs": []
-      },
-      "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 3,
-        "consumer_reach": 2,
-        "dependency_leverage": 2,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
+      "eligible_for_scoring": false,
+      "entity_kind": "runtime_enabler",
       "family_id": "family.auth-runtime",
-      "id": "wave-family.auth-runtime",
-      "product_value_status": "pending_product_model",
+      "id": "wave.family.auth-runtime",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.2d93538316f07bc8"
+      ],
       "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 3,
-        "contract_count": 0,
-        "dependency_count": 3,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 2,
-        "terminal_probe_count": 0
-      },
-      "score": 47,
-      "selected_first_wave": false
+      "readiness_id": "readiness.family.auth-runtime",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
     },
     {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.229b2e210f21ce24"
-        ],
-        "product_model_dependency_refs": []
-      },
       "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 4,
-        "consumer_reach": 1,
-        "dependency_leverage": 0,
-        "evidence_completeness": 3,
-        "experiment_readiness": 5,
-        "finding_urgency": 1,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 5,
-        "semantic_clarity": 2
-      },
-      "family_id": "family.toast-region",
-      "id": "wave-family.toast-region",
-      "product_value_status": "pending_product_model",
+      "eligible_for_scoring": false,
+      "entity_kind": "unresolved_boundary",
+      "family_id": "family.bottom-navigation",
+      "id": "wave.family.bottom-navigation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.29e9aebbf63be827",
+        "finding.decoder.component.47d563556bdf3f18",
+        "finding.decoder.fragmentation.navigation"
+      ],
       "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 1,
-        "contract_count": 0,
-        "dependency_count": 0,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": true
-        },
-        "finding_count": 1,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "low",
-        "production_observed_count": 1,
-        "route_count": 0,
-        "terminal_probe_count": 0
-      },
-      "score": 46,
-      "selected_first_wave": false
+      "readiness_id": "readiness.family.bottom-navigation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
     },
     {
-      "candidate_decision": {
-        "accepted": false,
-        "value": "preserve"
-      },
-      "category": "insufficient_evidence",
-      "category_gate_inputs": {
-        "experiment_decision_refs": [],
-        "implementation_gap_refs": [],
-        "insufficient_evidence_refs": [
-          "finding.decoder.component.095e2bcadb1e56fe"
-        ],
-        "product_model_dependency_refs": []
-      },
       "decision": "NOT_MERGED",
-      "factors": {
-        "blast_radius_safety": 2,
-        "consumer_reach": 3,
-        "dependency_leverage": 1,
-        "evidence_completeness": 2,
-        "experiment_readiness": 5,
-        "finding_urgency": 2,
-        "product_model_independence": 5,
-        "product_value_readiness": 0,
-        "reversibility": 3,
-        "semantic_clarity": 2
-      },
+      "eligible_for_scoring": false,
+      "entity_kind": "foundation",
+      "family_id": "family.brand-identity",
+      "id": "wave.family.brand-identity",
+      "not_ready_reason_codes": [
+        "behavior-contract-missing",
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent",
+        "foundation-not-component-identity",
+        "terminal-probe-coverage-missing"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.538f6bafce9c10bf",
+        "finding.decoder.component.92a918c8ed4982b1",
+        "finding.decoder.fragmentation.brand"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.brand-identity",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
       "family_id": "family.breadcrumb-navigation",
-      "id": "wave-family.breadcrumb-navigation",
-      "product_value_status": "pending_product_model",
+      "id": "wave.family.breadcrumb-navigation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.095e2bcadb1e56fe",
+        "finding.decoder.fragmentation.breadcrumbs"
+      ],
       "promotion_ready": false,
-      "raw_inputs": {
-        "behavior_contract_count": 0,
-        "component_count": 1,
-        "consumer_count": 6,
-        "contract_count": 0,
-        "dependency_count": 1,
-        "evidence_dimensions": {
-          "behavior_contract": false,
-          "candidate_as_is_contract": false,
-          "component_census": true,
-          "consumer_or_route_census": true,
-          "runtime_or_terminal_probe": false
-        },
-        "finding_count": 2,
-        "hard_gate_reference_count": 1,
-        "migration_risk": "medium",
-        "production_observed_count": 0,
-        "route_count": 6,
-        "terminal_probe_count": 0
-      },
-      "score": 45,
-      "selected_first_wave": false
+      "readiness_id": "readiness.family.breadcrumb-navigation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.calendar-action",
+      "id": "wave.family.calendar-action",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.79fa8695c4b33bde"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.calendar-action",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.design-system-primitives",
+      "id": "wave.family.design-system-primitives",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.fragmentation.labels-badges"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.design-system-primitives",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.editorial-collections",
+      "id": "wave.family.editorial-collections",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.5a03f19467c1af8d",
+        "finding.decoder.component.82738e7e64b874b6",
+        "finding.decoder.fragmentation.collections"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.editorial-collections",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.event-actions",
+      "id": "wave.family.event-actions",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:experiment_decision",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.e8d3931fb77e6007",
+        "finding.decoder.component.19eaf781ccba58cb",
+        "finding.decoder.component.9f85115a56e7309f",
+        "finding.decoder.contract.button-cta-fragmented",
+        "finding.decoder.fragmentation.button-like-actions",
+        "finding.decoder.fragmentation.event-actions"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-actions",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.event-detail-presentation",
+      "id": "wave.family.event-detail-presentation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.017c006b1fb4a73e",
+        "finding.behavioral.probe.18e09a553f004c97",
+        "finding.behavioral.probe.2b71e3365f6f4029",
+        "finding.behavioral.probe.657255de26bb8525",
+        "finding.behavioral.probe.6580ba5f67bfdc8f",
+        "finding.behavioral.probe.831ca48b02b21f6a",
+        "finding.behavioral.probe.9007467d208ac7bd",
+        "finding.behavioral.probe.9274460842120519",
+        "finding.behavioral.probe.a2ab8c7ff2962a9a",
+        "finding.behavioral.probe.c86f2675dac5c0dc",
+        "finding.behavioral.probe.e4bb42b01042b720",
+        "finding.behavioral.probe.f573562b45bea1dd",
+        "finding.decoder.component.081bcc0bd9959252",
+        "finding.decoder.component.ed75207086fc907e",
+        "finding.decoder.contract.event-detail-presentation",
+        "finding.decoder.fragmentation.event-representations"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-detail-presentation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.event-facts-and-participants",
+      "id": "wave.family.event-facts-and-participants",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.59de3e4fb92b6f11",
+        "finding.behavioral.probe.8458b250b193ccdc",
+        "finding.behavioral.probe.ba9dd7536bc768b9",
+        "finding.decoder.component.1ad195c960112f78",
+        "finding.decoder.component.e7b27dfa6b8b1b69"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-facts-and-participants",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.event-grid",
+      "id": "wave.family.event-grid",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.390d21fb616032ca",
+        "finding.behavioral.probe.af2ae65ff20e0497",
+        "finding.behavioral.probe.f39f8024e9466a19",
+        "finding.decoder.component.6cedba5d99fd318b"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-grid",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "runtime_enabler",
+      "family_id": "family.event-keyboard-navigation",
+      "id": "wave.family.event-keyboard-navigation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract"
+      ],
+      "operational_blocker_refs": [],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-keyboard-navigation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.event-media",
+      "id": "wave.family.event-media",
+      "not_ready_reason_codes": [
+        "candidate-human-review-pending",
+        "candidate-recommendation-unresolved",
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent",
+        "composition-not-component-identity",
+        "consumer-policy-incomplete",
+        "media-vocabulary-incomplete",
+        "normalization-disallowed"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.167491084198e7f5",
+        "finding.behavioral.unresolved.2db15769126cd403",
+        "finding.decoder.component.aca01b9f7c58d696",
+        "finding.decoder.contract.event-media",
+        "finding.decoder.fragmentation.media-treatments"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-media",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.event-occurrence",
+      "id": "wave.family.event-occurrence",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.7f7a35c911518098",
+        "finding.decoder.component.d3bc1d9393c2c47c"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-occurrence",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.event-preview-representations",
+      "id": "wave.family.event-preview-representations",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.86b17f9933d03d77",
+        "finding.behavioral.unresolved.b2305c4b25a99927",
+        "finding.behavioral.unresolved.c434d2587fe91aa8",
+        "finding.decoder.component.5c07f96d6ebeaa2a",
+        "finding.decoder.component.7db9bc6bb7628a8a",
+        "finding.decoder.component.ad9c19c00be8830c",
+        "finding.decoder.contract.event-card-listing-representations",
+        "finding.decoder.fragmentation.event-representations",
+        "finding.decoder.fragmentation.media-treatments"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-preview-representations",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.event-token-medallions",
+      "id": "wave.family.event-token-medallions",
+      "not_ready_reason_codes": [
+        "accessibility-closure-incomplete",
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent",
+        "composition-not-component-identity",
+        "consumer-geometry-decision-pending",
+        "domain-taxonomy-incomplete",
+        "semantic-boundary-incomplete"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.5734f2285cf06960",
+        "finding.decoder.contract.event-token-medallions",
+        "finding.decoder.fragmentation.labels-badges",
+        "finding.decoder.fragmentation.medallions"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.event-token-medallions",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.exhibitions-personal",
+      "id": "wave.family.exhibitions-personal",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.092a8f35e91d132c",
+        "finding.behavioral.probe.29a74ab638026ed1",
+        "finding.behavioral.probe.359fd148385ad550",
+        "finding.behavioral.probe.4b5dc39a58ce631b",
+        "finding.behavioral.probe.515771e03e13bf5c",
+        "finding.behavioral.probe.597bbd767e070254",
+        "finding.behavioral.probe.65dd0dcae8b9f64a",
+        "finding.behavioral.probe.6a5d9fbf3efee844",
+        "finding.behavioral.probe.80f9181463e915ec",
+        "finding.behavioral.probe.b0155ba76d541b3c",
+        "finding.behavioral.probe.e79ef306b37db35f",
+        "finding.behavioral.probe.fc253136d71a8401",
+        "finding.behavioral.unresolved.fc683e13af9d05a1",
+        "finding.decoder.component.a11d23d0f9069ef2",
+        "finding.decoder.component.dfede4df2ad5cc28"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.exhibitions-personal",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.favorites-saved-events",
+      "id": "wave.family.favorites-saved-events",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.1aac6f9b95922eeb",
+        "finding.behavioral.unresolved.920545d6cffb19ff",
+        "finding.behavioral.unresolved.b2305c4b25a99927",
+        "finding.behavioral.unresolved.c434d2587fe91aa8",
+        "finding.decoder.component.2d06f8af23960f9e",
+        "finding.decoder.contract.favorites-saved-events"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.favorites-saved-events",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "evidence_or_lab_group",
+      "family_id": "family.focus-diagnostics",
+      "id": "wave.family.focus-diagnostics",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract"
+      ],
+      "operational_blocker_refs": [],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.focus-diagnostics",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.focus-egg-artifacts",
+      "id": "wave.family.focus-egg-artifacts",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.contract.artifacts-focus-egg",
+        "finding.decoder.fragmentation.collections"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.focus-egg-artifacts",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "workflow",
+      "family_id": "family.focus-group-workflows",
+      "id": "wave.family.focus-group-workflows",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract"
+      ],
+      "operational_blocker_refs": [],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.focus-group-workflows",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.home-feed",
+      "id": "wave.family.home-feed",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.14c00e991484d4e8"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.home-feed",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.home-hero",
+      "id": "wave.family.home-hero",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.9243b68fdc55fd18"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.home-hero",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.home-quick-navigation",
+      "id": "wave.family.home-quick-navigation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.688d213eb5ee6ddb"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.home-quick-navigation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "foundation",
+      "family_id": "family.iconography",
+      "id": "wave.family.iconography",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.b9c030cab91c3850",
+        "finding.decoder.component.e5ab60aa64a7e158"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.iconography",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.interest-club-catalog",
+      "id": "wave.family.interest-club-catalog",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.2b7483cd8a412386",
+        "finding.behavioral.probe.31c174d21ed6d7e8",
+        "finding.behavioral.probe.455146057ac1a100",
+        "finding.behavioral.probe.5cbd9c5f4576418e",
+        "finding.behavioral.probe.77e39183089e1d36",
+        "finding.behavioral.probe.886ee5866a9599a4",
+        "finding.behavioral.probe.9a400b28fde1483e",
+        "finding.behavioral.probe.9b30ded5288a7a33",
+        "finding.behavioral.probe.a6dd838bf45b5e86",
+        "finding.behavioral.probe.be4aaad19119d6e0",
+        "finding.decoder.component.0e1d43b18259eeed"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.interest-club-catalog",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.interest-profile",
+      "id": "wave.family.interest-profile",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.0250df3e8e700ffe"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.interest-profile",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.listing-chronology",
+      "id": "wave.family.listing-chronology",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.3d74f9fa9f1002f0",
+        "finding.decoder.component.9c231e0ace9c0cc3",
+        "finding.decoder.component.d65fb5ef1db02f46",
+        "finding.decoder.component.e6d2362f72209bbb",
+        "finding.decoder.fragmentation.dates"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.listing-chronology",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_catalog",
+      "family_id": "family.listing-controls-and-navigation",
+      "id": "wave.family.listing-controls-and-navigation",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.4bf84601f6f0d7c0",
+        "finding.behavioral.probe.8c8b85a41b9dabf5",
+        "finding.behavioral.probe.a006f62d5ad7e0d7",
+        "finding.behavioral.unresolved.1406b7528ca2aa9f",
+        "finding.behavioral.unresolved.bd74d329dbb96046",
+        "finding.behavioral.unresolved.f2820519e063e690",
+        "finding.decoder.component.02effc1d8ab8434b",
+        "finding.decoder.component.250b7bc70eb7bcdd",
+        "finding.decoder.component.2f193db38dece100",
+        "finding.decoder.component.452dedc25c2c5f78",
+        "finding.decoder.component.9ea7e3700af6ceb5",
+        "finding.decoder.component.ae57237694337183",
+        "finding.decoder.component.d3651b1fae97a18c",
+        "finding.decoder.component.ee07df600f8fc5e5",
+        "finding.decoder.fragmentation.navigation"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.listing-controls-and-navigation",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.listing-rails",
+      "id": "wave.family.listing-rails",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.165cd062466700f4",
+        "finding.behavioral.unresolved.a5af9fee26953fae",
+        "finding.behavioral.unresolved.b431cedc95a4f5ad",
+        "finding.behavioral.unresolved.bed6af1e8d986732",
+        "finding.decoder.component.8b1fcf1a67c4e2f1",
+        "finding.decoder.component.f7b2d488a9d9a09f",
+        "finding.decoder.fragmentation.listing-surfaces"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.listing-rails",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.listing-surfaces",
+      "id": "wave.family.listing-surfaces",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.05b95b7d51f5bde1",
+        "finding.decoder.component.79d531506150e348",
+        "finding.decoder.component.a355ce7cec1a3c1b",
+        "finding.decoder.fragmentation.listing-surfaces"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.listing-surfaces",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.mobile-menu",
+      "id": "wave.family.mobile-menu",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.4ded4f210c76bdbd",
+        "finding.decoder.component.58a8c44530b19bf0",
+        "finding.decoder.fragmentation.navigation"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.mobile-menu",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "runtime_enabler",
+      "family_id": "family.onboarding-placement",
+      "id": "wave.family.onboarding-placement",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.66d36590b3158749",
+        "finding.decoder.fragmentation.onboarding"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.onboarding-placement",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "workflow",
+      "family_id": "family.personalization-and-feed",
+      "id": "wave.family.personalization-and-feed",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.15a96375b0393749",
+        "finding.behavioral.probe.86c385009693df9f",
+        "finding.behavioral.probe.eef20b08966739d3",
+        "finding.behavioral.unresolved.312e9a68b9ffa32e",
+        "finding.behavioral.unresolved.3622062e06b4eeef",
+        "finding.behavioral.unresolved.5e47c7c5b85fa8f2",
+        "finding.behavioral.unresolved.7789a7bbf444ce44",
+        "finding.behavioral.unresolved.9e5c2b0b939ba1d3",
+        "finding.behavioral.unresolved.b2305c4b25a99927",
+        "finding.behavioral.unresolved.fc683e13af9d05a1",
+        "finding.decoder.component.4925588ff4543da8",
+        "finding.decoder.component.dd213fc29413bd43",
+        "finding.decoder.fragmentation.personal-feed"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.personalization-and-feed",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "composition_pattern",
+      "family_id": "family.popular-listing-layouts",
+      "id": "wave.family.popular-listing-layouts",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.0f96d99b3a491691",
+        "finding.decoder.component.2e9e5bd20dfe8938",
+        "finding.decoder.component.9277ce4313d3e64b",
+        "finding.decoder.component.9c9739ae614df948",
+        "finding.decoder.component.dce501ceb2183cbd"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.popular-listing-layouts",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.prelaunch-surface",
+      "id": "wave.family.prelaunch-surface",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.39dab28d05f4b3d4"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.prelaunch-surface",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "runtime_enabler",
+      "family_id": "family.pwa-lifecycle",
+      "id": "wave.family.pwa-lifecycle",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.73545b1a06273ace"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.pwa-lifecycle",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.search-results",
+      "id": "wave.family.search-results",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.920545d6cffb19ff",
+        "finding.behavioral.unresolved.ac0fc0317afc87fb",
+        "finding.behavioral.unresolved.b2305c4b25a99927",
+        "finding.decoder.component.36d6511937397e57",
+        "finding.decoder.component.50489ce162094543",
+        "finding.decoder.contract.search-results",
+        "finding.decoder.fragmentation.search-results"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.search-results",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.site-footer",
+      "id": "wave.family.site-footer",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.970ac7b79d2afbf4"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.site-footer",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.social-share",
+      "id": "wave.family.social-share",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.2f3937b9b2f98ec0"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.social-share",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.toast-region",
+      "id": "wave.family.toast-region",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.229b2e210f21ce24"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.toast-region",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.transport-bus-schedule",
+      "id": "wave.family.transport-bus-schedule",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:experiment_decision",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.b594a3dc63b94d98",
+        "finding.decoder.contract.transport-bus",
+        "finding.decoder.fragmentation.transport"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.transport-bus-schedule",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "unresolved_boundary",
+      "family_id": "family.transport-kaup-schedule",
+      "id": "wave.family.transport-kaup-schedule",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:experiment_decision",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.probe.b0a571dd96ff9b7a",
+        "finding.behavioral.probe.fbdc87732a6e041d",
+        "finding.behavioral.unresolved.29eeec6cc5a8ed66",
+        "finding.behavioral.unresolved.345c02a3f03a37b9",
+        "finding.behavioral.unresolved.6c1f94e4752e08bb",
+        "finding.behavioral.unresolved.86760fce58ab85e2",
+        "finding.behavioral.unresolved.9c581b08d4a133d2",
+        "finding.behavioral.unresolved.c4ec954503c60852",
+        "finding.decoder.component.4ce7179f75f7492e",
+        "finding.decoder.component.4ff9fbbe31c735d6",
+        "finding.decoder.component.9e44e81fa496a4f9",
+        "finding.decoder.component.be14d827746e93df",
+        "finding.decoder.component.c5338c3238373fa5",
+        "finding.decoder.component.cadac143d8102aea",
+        "finding.decoder.component.e7adaece90fc305d",
+        "finding.decoder.contract.transport-kaup",
+        "finding.decoder.fragmentation.transport"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.transport-kaup-schedule",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.transport-rail-schedule",
+      "id": "wave.family.transport-rail-schedule",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:experiment_decision",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:media_consumer_policy",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.0626ba2a00be15e7",
+        "finding.decoder.contract.transport-rail",
+        "finding.decoder.fragmentation.transport"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.transport-rail-schedule",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "page_surface",
+      "family_id": "family.unusual-listing",
+      "id": "wave.family.unusual-listing",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:entity_kind_component_identity",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:product_model_dependency",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:responsive_container_contract",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:state_event_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.decoder.component.ce0e5905bd8d4e80"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.unusual-listing",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
+    },
+    {
+      "decision": "NOT_MERGED",
+      "eligible_for_scoring": false,
+      "entity_kind": "component_identity_family",
+      "family_id": "family.weather-date-context",
+      "id": "wave.family.weather-date-context",
+      "not_ready_reason_codes": [
+        "check-blocked:accessibility_contract",
+        "check-blocked:anatomy_contract",
+        "check-blocked:candidate_contract_review",
+        "check-blocked:content_model_contract",
+        "check-blocked:explicit_non_goals",
+        "check-blocked:identity_boundary",
+        "check-blocked:loading_recovery",
+        "check-blocked:migration_and_rollback",
+        "check-blocked:operational_finding_closure",
+        "check-blocked:requirement_provenance_reconciled",
+        "check-blocked:runtime_visual_reconciliation",
+        "check-blocked:semantic_role_contract",
+        "check-blocked:unresolved_decision_blockers_absent"
+      ],
+      "operational_blocker_refs": [
+        "finding.behavioral.unresolved.b2305c4b25a99927",
+        "finding.decoder.component.e16e92176acdcbe4"
+      ],
+      "promotion_ready": false,
+      "readiness_id": "readiness.family.weather-date-context",
+      "readiness_status": "NOT_READY",
+      "score": null,
+      "selected_first_wave": false,
+      "strict_ready": false
     }
   ],
-  "first_wave_family_ids": [
-    "family.event-media",
-    "family.event-token-medallions"
-  ],
+  "first_wave_family_ids": [],
   "product_value_gate_mode": "observe",
   "promotion_ready_family_ids": [],
-  "schema_version": "project_normalization_family_wave_plan_v1"
+  "schema_version": "project_normalization_family_wave_plan_v1_1"
 }

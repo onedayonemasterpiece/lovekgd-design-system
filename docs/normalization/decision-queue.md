@@ -1,8 +1,11 @@
-# Normalization decision queue
+# Normalization decision queue v1 — historical/superseded
 
 `PROJECT_NORMALIZATION_SYNTHESIS_COMPLETE`
-`READY_FOR_FAMILY_DECISION_REVIEW`
 `PRODUCT_VALUE_GATE_SCAFFOLDED_PENDING_PRODUCT_MODEL`
+
+This v1 queue is retained as historical evidence. It grants no current
+readiness, decision or implementation authorization after the independent
+audit and v1.1 remediation.
 
 Only evidence-underdetermined decisions are queued. All recommendations preserve current behavior until a receipt exists.
 

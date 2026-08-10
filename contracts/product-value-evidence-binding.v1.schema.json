@@ -36,7 +36,17 @@
     "product_authority",
     "product_value_gate_mode",
     "promotion_ready",
-    "as_is_preservation_allowed"
+    "as_is_preservation_allowed",
+    "parent_application_id",
+    "enabler_kind",
+    "effective_value_application_id",
+    "census_edge_id",
+    "identity_key_sha256",
+    "lifecycle_status",
+    "deletion_receipt",
+    "successor_application_id",
+    "record_preserved",
+    "adoption_evidence"
   ],
   "properties": {
     "id": {
@@ -110,25 +120,25 @@
       ]
     },
     "need_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/needIdArray"
     },
     "job_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/jobIdArray"
     },
     "journey_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/journeyIdArray"
     },
     "capability_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/capabilityIdArray"
     },
     "outcome_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/outcomeIdArray"
     },
     "metric_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/metricIdArray"
     },
     "guardrail_ids": {
-      "$ref": "#/$defs/idArray"
+      "$ref": "#/$defs/guardrailIdArray"
     },
     "value_claim": {
       "type": [
@@ -195,7 +205,11 @@
       "required": [
         "repository",
         "commit",
-        "registry_status"
+        "registry_status",
+        "registry_path",
+        "registry_sha256",
+        "registry_digest_algorithm",
+        "resolver_status"
       ],
       "properties": {
         "repository": {
@@ -205,7 +219,33 @@
           "const": "66bc0d43e36299417626f992021cfb7299ddf704"
         },
         "registry_status": {
-          "const": "absent-at-pinned-commit"
+          "enum": [
+            "absent-at-pinned-commit",
+            "present-at-pinned-commit"
+          ]
+        },
+        "registry_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "registry_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "resolver_status": {
+          "enum": [
+            "registry_absent",
+            "resolved"
+          ]
+        },
+        "registry_digest_algorithm": {
+          "const": "sha256-canonical-jsonl-kind-id-order-v1"
         }
       }
     },
@@ -220,6 +260,45 @@
     },
     "adoption_evidence": {
       "$ref": "#/$defs/idArray"
+    },
+    "effective_value_application_id": {
+      "type": "string",
+      "pattern": "^application\\.[a-f0-9]{16}$"
+    },
+    "census_edge_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^census-edge\\.[a-f0-9]{16}$"
+    },
+    "identity_key_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "lifecycle_status": {
+      "enum": [
+        "active",
+        "pending_reconciliation",
+        "tombstoned"
+      ]
+    },
+    "deletion_receipt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "successor_application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^application\\.[a-f0-9]{16}$"
+    },
+    "record_preserved": {
+      "const": true
     }
   },
   "$defs": {
@@ -230,19 +309,92 @@
         "type": "string",
         "minLength": 1
       }
+    },
+    "needIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind need; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "jobIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind job; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "journeyIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind journey; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "capabilityIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind capability; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "outcomeIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind outcome; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "metricIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind metric; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
+    },
+    "guardrailIdArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "IDs resolved as authoritative registry kind guardrail; syntax alone never establishes authority.",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+      }
     }
   },
   "allOf": [
     {
       "if": {
         "properties": {
-          "value_evidence_status": {
-            "const": "pending_product_model"
+          "value_evidence_mode": {
+            "const": "inherited"
           }
-        }
+        },
+        "required": [
+          "value_evidence_mode"
+        ]
       },
       "then": {
         "properties": {
+          "parent_application_id": {
+            "type": "string",
+            "pattern": "^application\\.[a-f0-9]{16}$"
+          },
+          "enabler_kind": {
+            "const": null
+          },
           "need_ids": {
             "maxItems": 0
           },
@@ -272,12 +424,6 @@
           },
           "decision_receipt": {
             "const": null
-          },
-          "promotion_ready": {
-            "const": false
-          },
-          "as_is_preservation_allowed": {
-            "const": true
           }
         }
       }
@@ -286,18 +432,21 @@
       "if": {
         "properties": {
           "value_evidence_mode": {
-            "const": "inherited"
+            "enum": [
+              "direct",
+              "enabler",
+              "experimental"
+            ]
           }
-        }
+        },
+        "required": [
+          "value_evidence_mode"
+        ]
       },
       "then": {
-        "required": [
-          "parent_application_id"
-        ],
         "properties": {
           "parent_application_id": {
-            "type": "string",
-            "pattern": "^application\\.[a-f0-9]{16}$"
+            "const": null
           }
         }
       }
@@ -308,12 +457,12 @@
           "value_evidence_mode": {
             "const": "enabler"
           }
-        }
+        },
+        "required": [
+          "value_evidence_mode"
+        ]
       },
       "then": {
-        "required": [
-          "enabler_kind"
-        ],
         "properties": {
           "enabler_kind": {
             "enum": [
@@ -323,6 +472,29 @@
               "defect_reduction",
               "delivery_efficiency"
             ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_mode": {
+            "enum": [
+              "direct",
+              "inherited",
+              "experimental"
+            ]
+          }
+        },
+        "required": [
+          "value_evidence_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "enabler_kind": {
+            "const": null
           }
         }
       }
@@ -372,7 +544,10 @@
             "value_evidence_status": {
               "const": "pending_product_model"
             }
-          }
+          },
+          "required": [
+            "value_evidence_status"
+          ]
         }
       },
       "then": {
@@ -423,6 +598,279 @@
           },
           "experimental_evidence_gaps": {
             "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_value_gate_mode": {
+            "const": "observe"
+          }
+        },
+        "required": [
+          "product_value_gate_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "promotion_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_authority": {
+            "properties": {
+              "registry_status": {
+                "const": "absent-at-pinned-commit"
+              }
+            },
+            "required": [
+              "registry_status"
+            ]
+          }
+        },
+        "required": [
+          "product_authority"
+        ]
+      },
+      "then": {
+        "properties": {
+          "product_authority": {
+            "properties": {
+              "registry_path": {
+                "const": null
+              },
+              "registry_sha256": {
+                "const": null
+              },
+              "resolver_status": {
+                "const": "registry_absent"
+              }
+            }
+          },
+          "need_ids": {
+            "maxItems": 0
+          },
+          "job_ids": {
+            "maxItems": 0
+          },
+          "journey_ids": {
+            "maxItems": 0
+          },
+          "capability_ids": {
+            "maxItems": 0
+          },
+          "outcome_ids": {
+            "maxItems": 0
+          },
+          "metric_ids": {
+            "maxItems": 0
+          },
+          "guardrail_ids": {
+            "maxItems": 0
+          },
+          "value_evidence_status": {
+            "const": "pending_product_model"
+          },
+          "value_claim": {
+            "const": null
+          },
+          "expected_mechanism": {
+            "const": null
+          },
+          "decision_receipt": {
+            "const": null
+          },
+          "promotion_ready": {
+            "const": false
+          },
+          "as_is_preservation_allowed": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_authority": {
+            "properties": {
+              "registry_status": {
+                "const": "present-at-pinned-commit"
+              }
+            },
+            "required": [
+              "registry_status"
+            ]
+          }
+        },
+        "required": [
+          "product_authority"
+        ]
+      },
+      "then": {
+        "properties": {
+          "product_authority": {
+            "properties": {
+              "registry_path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "registry_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "resolver_status": {
+                "const": "resolved"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "census_edge_id": {
+            "type": "string",
+            "pattern": "^census-edge\\.[a-f0-9]{16}$"
+          },
+          "deletion_receipt": {
+            "const": null
+          },
+          "successor_application_id": {
+            "const": null
+          },
+          "record_preserved": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "pending_reconciliation"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "census_edge_id": {
+            "const": null
+          },
+          "deletion_receipt": {
+            "const": null
+          },
+          "record_preserved": {
+            "const": true
+          },
+          "promotion_ready": {
+            "const": false
+          },
+          "as_is_preservation_allowed": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "tombstoned"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "census_edge_id": {
+            "const": null
+          },
+          "deletion_receipt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "record_preserved": {
+            "const": true
+          },
+          "promotion_ready": {
+            "const": false
+          },
+          "as_is_preservation_allowed": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_evidence_status": {
+            "const": "pending_product_model"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "need_ids": {
+            "maxItems": 0
+          },
+          "job_ids": {
+            "maxItems": 0
+          },
+          "journey_ids": {
+            "maxItems": 0
+          },
+          "capability_ids": {
+            "maxItems": 0
+          },
+          "outcome_ids": {
+            "maxItems": 0
+          },
+          "metric_ids": {
+            "maxItems": 0
+          },
+          "guardrail_ids": {
+            "maxItems": 0
+          },
+          "value_claim": {
+            "const": null
+          },
+          "expected_mechanism": {
+            "const": null
+          },
+          "decision_receipt": {
+            "const": null
+          },
+          "promotion_ready": {
+            "const": false
+          },
+          "as_is_preservation_allowed": {
+            "const": true
           }
         }
       }

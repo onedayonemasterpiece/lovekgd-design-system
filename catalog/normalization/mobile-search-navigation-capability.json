@@ -1,0 +1,150 @@
+{
+  "schema_version": "mobile_navigation_capability_v1_1",
+  "id": "capability.mobile-search-bottom-navigation",
+  "family_id": "family.bottom-navigation",
+  "capability": "select_search_as_the_current_section_in_the_shared_mobile_bottom_navigation",
+  "capability_status": "preserved_live_capability",
+  "product_value_status": "pending_product_model",
+  "decision": "NOT_MERGED",
+  "decision_accepted": false,
+  "normalization_allowed": false,
+  "promotion_ready": false,
+  "source_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "behavioral_source_commit": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+    "closure_source_commit": "66bc0d43e36299417626f992021cfb7299ddf704"
+  },
+  "capability_contract": {
+    "section_key": "search",
+    "shared_shell_owner": "src/layouts/EventLayout.astro",
+    "route_bindings": [
+      {
+        "route": "/poisk/",
+        "binding": "EventLayout mobileSection=search"
+      },
+      {
+        "route": "/podborki/:slug/",
+        "binding": "EventLayout mobileSection resolves to search except the free-events collection, which resolves to home"
+      }
+    ],
+    "required_surface_refs": [
+      "events-bot-new@ef7aa62e45c60f7a12da6160f490719c0721ec03:site/src/data/design-system-production-surface-contract.v1.json:114-127",
+      "events-bot-new@ef7aa62e45c60f7a12da6160f490719c0721ec03:site/src/data/design-system-production-surface-contract.v1.json:231-240",
+      "events-bot-new@ef7aa62e45c60f7a12da6160f490719c0721ec03:site/tests/mobile-shell-toast.test.mjs:7-58",
+      "requirement.d9bace884b5d303f14"
+    ]
+  },
+  "implementations": [
+    {
+      "component_id": "component.47d563556bdf3f18",
+      "logical_path": "src/components/MobileBottomNav.astro",
+      "implementation_role": "shared_current_implementation",
+      "reachability_status": "production_observed",
+      "lifecycle_status": "current_as_is",
+      "binding": "current=search"
+    },
+    {
+      "component_id": "component.29e9aebbf63be827",
+      "logical_path": "src/components/MobileSearchBottomNav.astro",
+      "implementation_role": "compatibility_wrapper",
+      "reachability_status": "not_observed_under_pinned_evidence",
+      "lifecycle_status": "preserve_pending_reconciliation",
+      "binding": "renders MobileBottomNav current=search",
+      "external_consumer_scope": "open_by_compatibility_contract",
+      "deprecation_allowed": false,
+      "deletion_allowed": false,
+      "deletion_eligible": false,
+      "deprecation_eligible": false,
+      "eligibility_scope": "compatibility_wrapper_future_lifecycle_action",
+      "deletion_gates": [
+        {
+          "gate_id": "full_census",
+          "status": "open",
+          "requirement": "A current-tree all-class census covers production static imports, dynamic/generated routes, public exports, tests, tooling, documentation, contracts and the declared external consumer universe.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "requirement_reconciliation",
+          "status": "open",
+          "requirement": "Every pinned requirement, required surface contract, test and documentation authority is reconciled by an accepted disposition.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "replacement_coverage",
+          "status": "open",
+          "requirement": "An accepted terminal replacement covers every preserved capability, or an accepted no-replacement rationale exists.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "migration_closure",
+          "status": "open",
+          "requirement": "Every consumer class is migrated and a no-new-usage gate prevents legacy reintroduction.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "owner_receipt",
+          "status": "open",
+          "requirement": "The accountable product and component owner has issued an accepted lifecycle decision receipt.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "rollback_evidence",
+          "status": "open",
+          "requirement": "A reproducible rollback path and verified rollback evidence are attached before lifecycle mutation.",
+          "evidence_refs": []
+        }
+      ],
+      "deprecation_gates": [
+        {
+          "gate_id": "full_census",
+          "status": "open",
+          "requirement": "A current-tree all-class census covers production static imports, dynamic/generated routes, public exports, tests, tooling, documentation, contracts and the declared external consumer universe.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "requirement_reconciliation",
+          "status": "open",
+          "requirement": "Every pinned requirement, required surface contract, test and documentation authority is reconciled by an accepted disposition.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "replacement_coverage",
+          "status": "open",
+          "requirement": "An accepted terminal replacement covers every preserved capability, or an accepted no-replacement rationale exists.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "migration_closure",
+          "status": "open",
+          "requirement": "Every consumer class is migrated and a no-new-usage gate prevents legacy reintroduction.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "owner_receipt",
+          "status": "open",
+          "requirement": "The accountable product and component owner has issued an accepted lifecycle decision receipt.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "rollback_evidence",
+          "status": "open",
+          "requirement": "A reproducible rollback path and verified rollback evidence are attached before lifecycle mutation.",
+          "evidence_refs": []
+        }
+      ]
+    }
+  ],
+  "separation_invariants": [
+    "the live search-navigation capability must not inherit a wrapper's zero-import observation",
+    "the compatibility wrapper must not inherit production-observed status from the shared implementation",
+    "zero production AST consumers is an evidence result, not a dead or removal decision",
+    "capability, implementation reachability, lifecycle, deprecation and deletion remain separate axes",
+    "no wrapper removal is allowed while the external consumer scope or product authority is open"
+  ],
+  "reconciliation_required": [
+    "choose the canonical owner of the required search surface contract",
+    "update stale documentation that names the wrapper when it means the capability",
+    "decide whether external compatibility callers exist and close that universe",
+    "retain the wrapper until an accepted decision and all-class consumer migration receipt exist"
+  ]
+}

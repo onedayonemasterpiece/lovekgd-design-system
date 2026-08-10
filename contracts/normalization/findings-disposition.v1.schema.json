@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/findings-disposition.v1.schema.json",
+  "title": "Project normalization canonical finding disposition v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "canonical_issue_key",
+    "source_kind",
+    "source_record_refs",
+    "raw_identity_ids",
+    "raw_categories",
+    "classification",
+    "operational_disposition",
+    "operational_reason",
+    "blocking_scope",
+    "must_resolve_before",
+    "decision",
+    "candidate_decision_accepted",
+    "family_ids",
+    "observed_fact",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "normalization_finding_disposition_v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^finding\\."
+    },
+    "canonical_issue_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_kind": {
+      "enum": [
+        "behavioral_probe",
+        "behavioral_unresolved",
+        "fragmentation_candidate",
+        "candidate_as_is_contract",
+        "logical_component"
+      ]
+    },
+    "source_record_refs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "raw_identity_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^raw\\." }
+    },
+    "raw_categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "MISMATCH",
+          "UNREACHABLE_WITH_REASON",
+          "unresolved",
+          "fragmentation_candidate",
+          "candidate_as_is_contract",
+          "logical_component"
+        ]
+      }
+    },
+    "classification": {
+      "enum": [
+        "accidental_divergence",
+        "intentional_product_difference",
+        "requirement_implementation_gap",
+        "accessibility_gap",
+        "consumer_override",
+        "historical_difference",
+        "unresolved_experiment",
+        "decoder_or_probe_issue",
+        "normalization_candidate",
+        "product_model_dependent"
+      ]
+    },
+    "operational_disposition": {
+      "enum": [
+        "preserve",
+        "investigate",
+        "reconcile_requirement_runtime",
+        "fix_implementation",
+        "split_identity_candidate",
+        "preserve_as_composition",
+        "await_product_model",
+        "await_accessibility_decision",
+        "await_experiment_decision",
+        "deprecate_only_after_proof",
+        "decoder_issue",
+        "accepted_current_difference"
+      ]
+    },
+    "operational_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blocking_scope": {
+      "enum": [
+        "none",
+        "family_decision",
+        "implementation",
+        "migration",
+        "promotion",
+        "release",
+        "experiment_decision"
+      ]
+    },
+    "must_resolve_before": {
+      "enum": [
+        "target_contract",
+        "first_implementation",
+        "consumer_migration",
+        "legacy_removal",
+        "Penpot_materialization",
+        "promotion"
+      ]
+    },
+    "decision": {
+      "description": "Boundary decision only; it never substitutes for operational_disposition.",
+      "const": "NOT_MERGED"
+    },
+    "candidate_decision_accepted": {
+      "const": false
+    },
+    "family_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^family\\." }
+    },
+    "observed_fact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/provenance" }
+    },
+    "terminal_status": {
+      "enum": ["MISMATCH", "UNREACHABLE_WITH_REASON"]
+    },
+    "logical_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "commit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "sha"],
+      "properties": {
+        "role": { "type": "string", "minLength": 1 },
+        "sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "path",
+        "sha256",
+        "source_record_id",
+        "record_sha256"
+      ],
+      "properties": {
+        "repository": { "const": "onedayonemasterpiece/lovekgd-design-system" },
+        "commit": { "const": "317938bc72cf7a47ea798b2614d92d3d285dd97a" },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "source_record_id": { "type": "string", "minLength": 1 },
+        "record_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "runtimeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "refs", "reason"],
+      "properties": {
+        "status": {
+          "enum": [
+            "runtime_observed",
+            "controlled_runtime_observed",
+            "not_observed_under_pinned_evidence",
+            "source_only",
+            "not_applicable"
+          ]
+        },
+        "refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "basis"],
+      "properties": {
+        "level": { "enum": ["high", "medium", "low", "not_assessed"] },
+        "basis": { "type": "string", "minLength": 1 }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_identity_id",
+        "source_repository",
+        "source_commits",
+        "artifact",
+        "source_ids",
+        "runtime_evidence",
+        "confidence"
+      ],
+      "properties": {
+        "raw_identity_id": { "type": "string", "pattern": "^raw\\." },
+        "source_repository": { "const": "onedayonemasterpiece/events-bot-new" },
+        "source_commits": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/commit" }
+        },
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "runtime_evidence": { "$ref": "#/$defs/runtimeEvidence" },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      }
+    }
+  }
+}

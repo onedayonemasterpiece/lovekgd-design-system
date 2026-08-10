@@ -1,12 +1,19 @@
 # Project Normalization Synthesis v1
 
-## Result
+## Historical result — superseded
 
 `PROJECT_NORMALIZATION_SYNTHESIS_COMPLETE`
-`READY_FOR_FAMILY_DECISION_REVIEW`
 `PRODUCT_VALUE_GATE_SCAFFOLDED_PENDING_PRODUCT_MODEL`
 
+The former v1 family-decision-review readiness claim is superseded by the
+byte-preserved independent red-team audit and the v1.1 remediation. It is not a
+current status or authorization. See
+[`project-normalization-synthesis-v1-1.md`](project-normalization-synthesis-v1-1.md).
+
 This is an analytical, candidate-only synthesis. It changes neither production UI nor immutable Decoder v1. Candidate family decisions remain unaccepted and every experiment remains `NOT_MERGED`.
+
+The current lifecycle state remains `AS_IS_RECONSTRUCTED`; v1.1 does not
+authorize the first transition.
 
 ## Pinned authority
 
@@ -48,6 +55,8 @@ None is promotion-ready.
 ## Product-value gate
 
 The pinned product repository has no authoritative machine-readable need, Job, Journey, capability, outcome, metric or guardrail IDs. All 239 concrete consumer applications therefore use empty foreign-key arrays and `pending_product_model`. The gate is `observe`; AS-IS preservation is allowed, while promotion is forbidden. Three source-only/no-consumer component identities (`PopularCategoryFilter`, `MobileSearchBottomNav`, `WeekendTimeMatrix`) remain fully dispositioned but correctly produce no application row. Switching to `enforce` requires a separate future receipt.
+
+Consequently no subject can enter `FAMILY_AND_ARCHETYPE_PROMOTION`; synthesis completion does not advance any of the eleven lifecycle states automatically.
 
 ## Decision boundary
 

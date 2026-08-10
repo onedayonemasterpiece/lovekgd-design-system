@@ -88,9 +88,9 @@ Owns mature, systemically evaluated design resources, compositions, evidence and
 
 The complete cross-plane loop is specified in [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md).
 
-## 4. Two-state authority model
+## 4. Two authority modes and one lifecycle
 
-Every resource family has one of two authority modes.
+Every resource family has one of two authority modes. These modes are orthogonal to the normative [family and archetype lifecycle](normalization/design-system-family-lifecycle.md); they are not a two-state workflow.
 
 ### `reconstructed`
 
@@ -116,6 +116,24 @@ Enabled per bounded resource family after promotion. Rules:
 
 A global one-step switch for the whole system is forbidden.
 
+The exact lifecycle is:
+
+```text
+AS_IS_RECONSTRUCTED
+→ FAMILY_HYPOTHESIS_REVIEWED
+→ CANDIDATE_CONTRACT_ACCEPTED
+→ CANONICAL_CODE_CANDIDATE
+→ PENPOT_COMPONENT_CANDIDATE
+→ COMPONENT_THREE_WAY_CONFORMANCE
+→ PAGE_ARCHETYPE_CANDIDATE
+→ PRODUCT_REPRESENTATIONS
+→ GEMINI_MCP_VISUAL_AUDIT
+→ REVIEWED_CORRECTIONS
+→ FAMILY_AND_ARCHETYPE_PROMOTION
+```
+
+States through `REVIEWED_CORRECTIONS` remain `reconstructed`. `CANDIDATE_CONTRACT_ACCEPTED` authorizes reversible candidate implementation and defines the final gate; it does not transfer production authority. Only `FAMILY_AND_ARCHETYPE_PROMOTION` atomically promotes one bounded family and its affected archetype set.
+
 ## 5. Component authority
 
 The target single center is a versioned component package in Git:
@@ -135,7 +153,7 @@ Detailed rules, state keys and three-way conformance are defined in [`component-
 
 ## 6. Source-first reconstruction
 
-The next stage decodes the current UI in this order:
+The current `AS_IS_RECONSTRUCTED` stage decodes the current UI in this order:
 
 ```text
 source and generators
@@ -147,6 +165,8 @@ source and generators
 
 Existing Penpot test objects are not decoder inputs. The decoder stops before Penpot materialization or production refactoring. See [`source-first-component-decoder.md`](source-first-component-decoder.md).
 
+This decoder STOP does not conflict with future lifecycle state `PENPOT_COMPONENT_CANDIDATE`: that state begins only after a reviewed family hypothesis, accepted candidate contract and hash-bound code candidate have their own receipts.
+
 ## 7. Native resource requirements
 
 When the first resources are later materialized:
@@ -157,6 +177,10 @@ When the first resources are later materialized:
 - archetypes use managed patterns/components rather than detached copies;
 - product representations remain linked to the underlying native graph;
 - screenshots stay on evidence pages and never substitute for component identity.
+
+Before final promotion every materialized object is explicitly a `candidate` with `authority_mode=reconstructed`, `canonical=false`, exact contract/code hashes, materialization and rollback receipts, and no promotion receipt. Native structure and visual plausibility are evidence, not authority.
+
+The plugin candidate-metadata guard aborts before mutation when the current lifecycle state is not authorized or the state receipt is missing, stale, or does not bind the same subject and candidate hashes. A partial write rolls back to the operation checkpoint. Reconciliation of an already promoted family requires a pre-existing promotion receipt and cannot create one.
 
 ## 8. Structural states and fixtures
 
@@ -174,7 +198,7 @@ The system stores supported axes, valid/invalid combinations, curated required s
 
 ## 9. Product graph entities
 
-Canonical design-side records include at least:
+Managed design-side record kinds include at least:
 
 ```text
 DesignResource
@@ -198,7 +222,7 @@ RollbackReceipt
 AcceptedExport
 ```
 
-A ProductScreen is not an independent mockup. It references exact component variants, one archetype, fixture, viewport, flow steps, evidence and authority status.
+A ProductScreen is not an independent mockup. It references exact component variants, one archetype, fixture, viewport, flow steps, evidence, lifecycle state and authority status. A managed record kind can exist as a candidate; the word “managed” does not make its instance canonical.
 
 ## 10. Exact Penpot page model
 
@@ -270,11 +294,11 @@ Site shell, listing/timeline, search/results, event summary/action, registration
 
 ### `60 — Page archetypes`
 
-Reusable contracts for Home, listings, search, event detail, collections/festivals, favorites/personal feed, focus group, partner/registration and unavailable pages.
+Candidate and accepted reusable contracts for Home, listings, search, event detail, collections/festivals, favorites/personal feed, focus group, partner/registration and unavailable pages. `PAGE_ARCHETYPE_CANDIDATE` requires conformant native instances and exact source/route bindings; acceptance occurs only at final promotion.
 
 ### `62 — Product representations`
 
-Real configured mobile/tablet/desktop screens, positive/negative states, authorization states, real fixtures and links to archetypes, instances, flows and evidence.
+At `PRODUCT_REPRESENTATIONS`, real configured mobile/tablet/desktop screens cover positive/negative states, authorization states and real fixtures while retaining exact links to one archetype, native instances, flows and evidence. Detached mockups do not satisfy this state.
 
 ### `64 — Product state matrices`
 
@@ -402,6 +426,8 @@ immutable evidence package
 
 Hotspot не является finding, а finding не является contract revision или promotion receipt. Rejected/insufficient findings остаются evidence history и не материализуются как accepted UI gaps.
 
+This gap lifecycle is orthogonal to the family lifecycle. Closing a gap or accepting one correction does not advance a family state or change authority without the corresponding machine transition receipt.
+
 ## 14. Operation channels
 
 ### GitHub Actions
@@ -425,6 +451,8 @@ Used for reproducible bulk materialization, reconciliation, recovery and stable 
 ### Penpot MCP
 
 Used for scoped inspection, comments, candidate construction, targeted patch, bounded reflow, page rematerialization, diagnostics and focused evidence.
+
+For `GEMINI_MCP_VISUAL_AUDIT`, MCP is read-only inspection/export transport. Gemini is an advisory visual reviewer; neither Gemini nor MCP can prove deterministic conformance, accept a baseline, resolve comments, mutate the authoritative graph or promote a family.
 
 Plugin and MCP must consume one contract/IR and use operation locks. They do not own independent catalogs.
 
@@ -452,7 +480,7 @@ Safe transaction:
 9. validate overlap/off-canvas/clipping/overflow/minimum gap;
 10. export focused before/after evidence;
 11. write changed-resource manifest and rollback ref;
-12. leave candidate until explicit promotion.
+12. preserve lifecycle candidate metadata and leave candidate until `FAMILY_AND_ARCHETYPE_PROMOTION`.
 
 ## 16. Currentness model
 
@@ -470,6 +498,8 @@ UX-flow coverage
 runtime evidence
 review
 promotion/authority mode
+family lifecycle state and last passed gate
+evidence currentness after correction
 ```
 
 ## 17. Baseline and test policy
@@ -486,7 +516,7 @@ Actual does not auto-update baseline. A screenshot proves browser rendering; com
 
 ## 18. Promotion gate
 
-A family is promoted only when:
+The authoritative gate is transition `T10_PROMOTE_FAMILY_AND_ARCHETYPES` in [`family-lifecycle.v1.json`](../contracts/normalization/family-lifecycle.v1.json). A family and its affected archetypes are promoted only when:
 
 1. current source consumers are inventoried at one exact SHA/release;
 2. candidate Component Contract is reviewed and accepted;
@@ -503,11 +533,13 @@ A family is promoted only when:
 13. explicit owner acceptance receipt exists;
 14. no unresolved critical gap contradicts the contract.
 
+In addition, every concrete application must be product-value promotion ready, the accepted release and pinned package consumer must be proven, post-deploy conformance must pass, and all evidence must bind the current candidate hashes. Penpot materialization and the plugin update action cannot execute this authority transition.
+
 A successful extraction or visually plausible Penpot object is never sufficient alone.
 
 ## 19. Current stop boundary
 
-At revision 30 the structure is complete but content is empty. The next approved stage is decoder implementation and evidence generation. Before decoder review, do not:
+At revision 30 the structure is complete but content is empty. The repository truthfully remains `AS_IS_RECONSTRUCTED`; synthesis readiness is not `FAMILY_HYPOTHESIS_REVIEWED`. The next approved work requires separate lifecycle gate receipts. Before those gates, do not:
 
 - materialize components;
 - restore old Penpot resources;

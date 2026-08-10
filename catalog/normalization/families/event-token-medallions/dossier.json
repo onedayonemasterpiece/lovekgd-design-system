@@ -1,0 +1,568 @@
+{
+  "schema_version": "project_normalization_family_dossier_v1_1",
+  "id": "dossier.event-token-medallions.v1.1",
+  "family_id": "family.event-token-medallions",
+  "extends_without_mutation": "catalog/normalization/families/family.event-token-medallions/dossier.json",
+  "verdict": "BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED",
+  "readiness": "NOT_READY",
+  "decision": "NOT_MERGED",
+  "decision_accepted": false,
+  "normalization_allowed": false,
+  "promotion_ready": false,
+  "runtime_mutation": false,
+  "product_value_status": "pending_product_model",
+  "candidate_decision": "composition",
+  "source_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "behavioral_source_commit": "ef7aa62e45c60f7a12da6160f490719c0721ec03",
+    "closure_source_commit": "66bc0d43e36299417626f992021cfb7299ddf704",
+    "component_id": "component.5734f2285cf06960",
+    "logical_path": "src/components/EventTokenMedallions.astro",
+    "content_sha256": "09456fd7356f91bf7c367fd63ce26bda485f8ac534787d542c78d6d117a51cee",
+    "source_ids": [
+      "source.current_root_prelaunch.5734f2285cf06960",
+      "source.latest_checked_kaggle_candidate.5734f2285cf06960"
+    ],
+    "binding_ids": [
+      "binding.49898aa64a18fa0d",
+      "binding.f1a2baa8317653de"
+    ],
+    "consumer_set_ids": [
+      "consumer-set.8cf5e3e02cc168af",
+      "consumer-set.6c65b01e3a406440"
+    ],
+    "candidate_contract_ref": "candidate.event-token-medallions",
+    "candidate_contract_path": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/candidate-contracts/candidate.event-token-medallions.contract.json",
+    "candidate_contract_sha256": "5fade9fe7d641c8f9ab155b06fcede30db43a7ac03c01f521727960086bc59b7",
+    "capsule_ref": "capsule.05-medallions",
+    "capsule_path": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/conformance-capsules/05-medallions",
+    "proof_label": "source-or-candidate-reachable-not-production-observed"
+  },
+  "consumers": [
+    "src/components/DesktopEventPage.astro",
+    "src/components/lab/MobileEventReviewPage.astro",
+    "src/pages/lab/design-system/index.astro",
+    "src/pages/sobytiya/[slug].astro"
+  ],
+  "related_resources": {
+    "equivalence_status": "NOT_MERGED",
+    "policy": "preserve_separately_until_equivalence_is_proven_and_accepted",
+    "paths": [
+      "src/components/listings/ListingEventCard.astro",
+      "src/components/listings/MobileListingRailRow.astro",
+      "src/components/ExhibitionPrototypeRow.astro",
+      "src/pages/lab/medallions/index.astro",
+      "src/pages/lab/design-system/index.astro"
+    ]
+  },
+  "domain_taxonomy": {
+    "axis_separation_invariant": "identity_category, token_kind, semantic_facet, visual_form, admission_state, ticket_status, identity_role, layout, slot, resolution_state and media_fallback_state are independent axes and MUST NOT be collapsed",
+    "identity_category": [
+      "organizer",
+      "venue_brand",
+      "festival_brand",
+      "festival"
+    ],
+    "token_kind": [
+      "organizer",
+      "source",
+      "program",
+      "pushkin",
+      "badge",
+      "pill"
+    ],
+    "semantic_facet": [
+      "identity",
+      "source_provenance",
+      "transport_program",
+      "pushkin_payment_eligibility",
+      "admission",
+      "ticket_status",
+      "audience",
+      "charity",
+      "festival_text_fallback"
+    ],
+    "visual_form": [
+      "circle",
+      "pushkin_composite_frame",
+      "text_pill"
+    ],
+    "admission_state": [
+      "free",
+      "priced",
+      "unknown"
+    ],
+    "ticket_status": [
+      "sold_out",
+      "not_represented"
+    ],
+    "identity_role": [
+      "main",
+      "secondary",
+      "not_identity"
+    ],
+    "layout": [
+      "inline",
+      "desktop-slots"
+    ],
+    "slot": [
+      "top",
+      "inline"
+    ],
+    "resolution_state": [
+      "resolved",
+      "conflicting_source_identity",
+      "ambiguous_venue_identity"
+    ],
+    "media_fallback_state": [
+      "vector_primary",
+      "raster_primary",
+      "webp_with_png_fallback",
+      "webp_without_png_fallback",
+      "broken_asset_unresolved"
+    ]
+  },
+  "mapping_rules": [
+    {
+      "id": "mapping.identity",
+      "predicate": "resolveEventMedallions returns an identity from organizerMedallions or the filtered event-page festival manifest",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:49-92",
+        "src/lib/eventMedallions.ts:201-258"
+      ],
+      "identity_categories": [
+        "organizer",
+        "venue_brand",
+        "festival_brand",
+        "festival"
+      ],
+      "token_kind": "organizer",
+      "semantic_facet": "identity",
+      "visual_form": "circle",
+      "identity_role": "resolver_selected_main_or_secondary",
+      "top_slot_eligible": "main_only"
+    },
+    {
+      "id": "mapping.transport-program",
+      "predicate": "resolveRailTransportMedallion receives the grounded EventTransportSchedule suggestion",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:63-65",
+        "src/components/EventTokenMedallions.astro:93-105",
+        "src/lib/eventMedallions.ts:60-68"
+      ],
+      "token_kind": "program",
+      "semantic_facet": "transport_program",
+      "visual_form": "circle",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.source-meow",
+      "predicate": "a MEOW t.me source is present and source_count is between 1 and 2 inclusive",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:58-66",
+        "src/components/EventTokenMedallions.astro:106-120"
+      ],
+      "token_kind": "source",
+      "semantic_facet": "source_provenance",
+      "visual_form": "circle",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.pushkin",
+      "predicate": "event.pushkin_card is true",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:121-134"
+      ],
+      "token_kind": "pushkin",
+      "semantic_facet": "pushkin_payment_eligibility",
+      "visual_form": "pushkin_composite_frame",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.admission-free",
+      "predicate": "ticket.is_free is true",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:135-145"
+      ],
+      "token_kind": "badge",
+      "semantic_facet": "admission",
+      "admission_state": "free",
+      "visual_form": "circle",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.admission-price",
+      "predicate": "ticket.is_free is false and ticket.price_label is present",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:146-155"
+      ],
+      "token_kind": "pill",
+      "semantic_facet": "admission",
+      "admission_state": "priced",
+      "visual_form": "text_pill",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.ticket-sold-out",
+      "predicate": "ticket.is_free is false, ticket.price_label is absent and isTicketSoldOut(event) is true",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:156-166"
+      ],
+      "token_kind": "pill",
+      "semantic_facet": "ticket_status",
+      "ticket_status": "sold_out",
+      "visual_form": "text_pill",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    },
+    {
+      "id": "mapping.audience-kids-family",
+      "predicate": "the component-local normalized text matcher identifies kids or family language",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:69-70",
+        "src/components/EventTokenMedallions.astro:167-177"
+      ],
+      "token_kind": "pill",
+      "semantic_facet": "audience",
+      "visual_form": "text_pill",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false,
+      "semantic_authority": "unresolved_component_local_inference"
+    },
+    {
+      "id": "mapping.charity",
+      "predicate": "the component-local normalized text matcher identifies charity language",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:71",
+        "src/components/EventTokenMedallions.astro:178-188"
+      ],
+      "token_kind": "pill",
+      "semantic_facet": "charity",
+      "visual_form": "text_pill",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false,
+      "semantic_authority": "unresolved_component_local_inference"
+    },
+    {
+      "id": "mapping.festival-text-fallback",
+      "predicate": "event.festival is present, no festival or festival_brand identity token exists and the pre-fallback token count is below 6",
+      "source_lines": [
+        "src/components/EventTokenMedallions.astro:189-200"
+      ],
+      "token_kind": "pill",
+      "semantic_facet": "festival_text_fallback",
+      "visual_form": "text_pill",
+      "identity_role": "not_identity",
+      "layout_role": "secondary",
+      "top_slot_eligible": false
+    }
+  ],
+  "semantic_boundaries": [
+    {
+      "id": "boundary.identity-category-vs-token-kind",
+      "status": "observed_as_is_requires_name_review",
+      "rule": "venue_brand, festival_brand, festival and organizer are identity categories; all currently render with token_kind organizer"
+    },
+    {
+      "id": "boundary.program-vs-pushkin",
+      "status": "review_required",
+      "rule": "program currently means grounded rail transport while Pushkin is a separate payment-eligibility semantic and visual form"
+    },
+    {
+      "id": "boundary.source-vs-identity",
+      "status": "review_required",
+      "rule": "the MEOW source token is a bounded provenance mark, not a resolved identity category"
+    },
+    {
+      "id": "boundary.admission-vs-ticket-status",
+      "status": "review_required",
+      "rule": "free and price are admission facts; sold_out is ticket status even though both price and sold_out render as pills"
+    },
+    {
+      "id": "boundary.semantic-vs-visual-form",
+      "status": "required_invariant",
+      "rule": "badge, pill, circle and Pushkin frame describe representation and must not replace semantic taxonomy"
+    },
+    {
+      "id": "boundary.festival-identity-vs-text-fallback",
+      "status": "review_required",
+      "rule": "festival identity and festival text fallback are different records with different evidence and overflow behavior"
+    },
+    {
+      "id": "boundary.event-detail-vs-related-resources",
+      "status": "NOT_MERGED",
+      "rule": "listing, mobile rail, exhibition and lab resources remain separate candidates"
+    },
+    {
+      "id": "boundary.informational-vs-interactive",
+      "status": "review_required",
+      "rule": "current tokens are non-focusable informational spans; no link or action contract is accepted"
+    }
+  ],
+  "identity_resolution_contract": {
+    "identity_cap": 3,
+    "categories": [
+      "venue_brand",
+      "festival_brand",
+      "festival",
+      "organizer"
+    ],
+    "evidence_fields": [
+      "venue_name",
+      "venue_address",
+      "festival",
+      "organizer_name",
+      "source_url",
+      "festival_policy"
+    ],
+    "match_types": [
+      "exact",
+      "bounded",
+      "source_identity",
+      "curated_relation"
+    ],
+    "main_category_priority": [
+      "festival_brand",
+      "festival",
+      "organizer",
+      "venue_brand"
+    ],
+    "conflicting_source_identity": "suppress_all_resolved_identity_tokens_but_do_not_suppress_non_identity_tokens",
+    "ambiguous_venue_identity": "suppress_equally_strong_venue_identities_but_preserve_other_resolved_identities",
+    "fail_closed_scope": "identity_only",
+    "source_lines": [
+      "src/lib/eventMedallions.ts:4-36",
+      "src/lib/eventMedallions.ts:124-137",
+      "src/lib/eventMedallions.ts:174-199",
+      "src/lib/eventMedallions.ts:201-258"
+    ]
+  },
+  "admission_and_status_contract": {
+    "exclusive_precedence": [
+      "free_badge",
+      "price_pill",
+      "sold_out_pill"
+    ],
+    "standalone_status_kind_exists": false,
+    "unmodeled_statuses": [
+      "registration_state",
+      "ticket_availability_beyond_sold_out",
+      "event_lifecycle_status"
+    ]
+  },
+  "slot_contract": {
+    "inline": {
+      "available_in_layouts": [
+        "inline",
+        "desktop-slots"
+      ],
+      "maximum_after_visible_cap": 6,
+      "inline_layout_allowed_kinds": [
+        "organizer",
+        "source",
+        "program",
+        "pushkin",
+        "badge",
+        "pill"
+      ],
+      "desktop_slots_allowed_kinds": [
+        "organizer",
+        "source",
+        "program",
+        "pushkin",
+        "badge"
+      ]
+    },
+    "top": {
+      "available_in_layouts": [
+        "desktop-slots"
+      ],
+      "maximum": 1,
+      "eligible_semantic_facet": "identity",
+      "eligible_role": "main",
+      "requires_allowTopSlot": true,
+      "consumer_policy_owner": "src/components/DesktopEventPage.astro:531",
+      "consumer_condition": "candidate is editorial and mediaPolicy is non-ocr"
+    },
+    "main_without_top": "when allowTopSlot is false, Main remains in the desktop inline group",
+    "secondary_only": "no top group is emitted"
+  },
+  "ordering_and_overflow_contract": {
+    "generation_order": [
+      "resolved_identities",
+      "transport_program",
+      "source",
+      "pushkin",
+      "exclusive_admission_or_sold_out",
+      "kids_family",
+      "charity",
+      "festival_text_fallback"
+    ],
+    "identity_cap": 3,
+    "visible_token_cap": 6,
+    "free_admission_retention": "when free-admission falls after the first six tokens, retain the first five plus free-admission",
+    "desktop_phase_order": [
+      "apply_visible_token_cap",
+      "filter_out_pill_kind",
+      "select_main_top_token",
+      "emit_inline_remainder"
+    ],
+    "known_boundary": {
+      "id": "boundary.desktop-cap-before-filter-starvation",
+      "status": "open_requires_acceptance_test",
+      "risk": "a pill can occupy the six-token pre-filter window and exclude a later desktop-eligible token"
+    },
+    "documentation_priority_status": "runtime_order_must_prevail_until_documentation_is_reconciled"
+  },
+  "consumer_geometry_contract": [
+    {
+      "id": "geometry.mobile-event-detail-inline",
+      "owner": "src/components/MobileEventProductionStyles.astro:119-144",
+      "consumer": "src/pages/sobytiya/[slug].astro:157",
+      "layout": "inline",
+      "slot": "inline",
+      "non_pill_size": "clamp(84px,23vw,92px)",
+      "row_gap": "clamp(0.55rem,2.4vw,0.7rem)",
+      "width_policy": "container,row,tokens,and-media_max_width_100_percent",
+      "computed_geometry_observed": false
+    },
+    {
+      "id": "geometry.desktop-event-detail-inline",
+      "owner": "src/components/DesktopEventPage.astro:1752-1788",
+      "consumer": "src/components/DesktopEventPage.astro:531",
+      "layout": "desktop-slots",
+      "slot": "inline",
+      "non_pill_size": "clamp(72px,7vw,94px)",
+      "row_gap": ".55rem",
+      "computed_geometry_observed": false
+    },
+    {
+      "id": "geometry.desktop-event-detail-top",
+      "owner": "src/components/DesktopEventPage.astro:1756-1778",
+      "consumer": "src/components/DesktopEventPage.astro:531",
+      "layout": "desktop-slots",
+      "slot": "top",
+      "non_pill_size": "clamp(88px,7.4vw,108px)",
+      "placement": "absolute centered at top and translated -50% on both axes",
+      "pointer_events": "none",
+      "consumer_padding_dependency": "src/components/DesktopEventPage.astro:2133-2135",
+      "computed_geometry_observed": false
+    },
+    {
+      "id": "geometry.desktop-compact-height",
+      "owner": "src/components/DesktopEventPage.astro:1910-1920",
+      "query": "(min-width:1024px) and (max-height:720px)",
+      "non_pill_size": "72px",
+      "pill_visibility": "hidden_by_consumer_css",
+      "computed_geometry_observed": false
+    }
+  ],
+  "geometry_conflict": {
+    "id": "mismatch.medallions-detail-geometry-doc-vs-consumer-css",
+    "status": "open",
+    "documentation_value": "clamp(88px,23vw,112px)",
+    "runtime_source_values": [
+      "mobile inline clamp(84px,23vw,92px)",
+      "desktop inline clamp(72px,7vw,94px)",
+      "desktop top clamp(88px,7.4vw,108px)",
+      "desktop compact 72px"
+    ],
+    "decision_ref": "decision.event-token-medallions.consumer-geometry",
+    "decision_receipt": null,
+    "normalization_rule": "no_global_geometry_value_may_be_selected_without_owner_receipt_and_computed_observations"
+  },
+  "accessibility_contract": {
+    "current_observed": {
+      "group_element": "section",
+      "top_group_label": "Главный организатор или фестиваль",
+      "inline_group_label": "Быстрые признаки события",
+      "list_semantics": "ul role=list with li tokens",
+      "token_name_owner": "non_focusable_span_aria_label",
+      "image_alt": "empty_because_wrapper_owns_accessible_name",
+      "loading": "lazy",
+      "decoding": "async",
+      "interactive_elements": 0
+    },
+    "unresolved": [
+      "whether any identity or source token should become a link",
+      "focus and target semantics if interactivity is introduced",
+      "broken asset announcement or concealment behavior",
+      "accessible review across all taxonomy and overflow specimens"
+    ],
+    "promotion_rule": "no accessibility field may remain pending or unresolved"
+  },
+  "media_fallback_contract": {
+    "vector_or_non_webp_primary": "render primary asset in img",
+    "webp_with_png_fallback": "render WebP source and fallback image as img src",
+    "webp_without_png_fallback": "render WebP directly as img src",
+    "synthetic_initial_fallback": false,
+    "broken_asset_behavior": "unresolved",
+    "source_lines": [
+      "src/components/EventTokenMedallions.astro:238-240",
+      "src/components/EventTokenMedallions.astro:268-280"
+    ]
+  },
+  "evidence_contract": {
+    "capsule_id": "capsule.05-medallions",
+    "capsule_review_label_scope": "reviewed_subset_only_not_family_closure",
+    "planned_fixture_classes": 25,
+    "planned_route_fixture_classes": 11,
+    "planned_controlled_fixture_classes": 14,
+    "controlled_observations": 4,
+    "controlled_production_state_claims": 0,
+    "page_verification_refs": 21,
+    "page_refs_reviewed": 17,
+    "page_refs_pending_human_visual_review": 4,
+    "page_refs_production_observed": 0,
+    "evidence_status": "incomplete_for_normalization",
+    "open_refs": [
+      "capsule.05-medallions.unresolved.1",
+      "capsule.05-medallions.unresolved.2",
+      "unresolved.medallions-computed-geometry",
+      "unresolved.medallions-controlled-specimens",
+      "unresolved.medallions-production-route-binding",
+      "unresolved.medallions-resource-equivalence",
+      "mismatch.medallions-detail-geometry-doc-vs-consumer-css",
+      "mismatch.medallions-lab-catalog-not-component-equivalent",
+      "mismatch.medallions-organizer-count-28-vs-stale-27"
+    ]
+  },
+  "promotion_blockers": [
+    "accepted domain taxonomy and semantic-boundary receipt",
+    "accepted immutable component contract",
+    "product-value binding no longer pending",
+    "decision.event-token-medallions.consumer-geometry resolved by an owner receipt",
+    "all 25 fixture classes have terminal evidence or an explicit blocking disposition",
+    "production route bindings are observed rather than inferred",
+    "identity, admission, slot and overflow mutation matrix passes",
+    "320px and 390px mobile overflow plus desktop edge, shadow and clipping review passes",
+    "accessibility contract has no pending or unresolved entries",
+    "related resource equivalence decisions are explicit"
+  ],
+  "test_matrix": [
+    "zero, one, many and overflow",
+    "every identity category without collapsing it into token kind",
+    "every token kind and visual form",
+    "free greater than position six retention",
+    "desktop pill before later desktop-eligible token",
+    "top enabled, top disabled and secondary-only",
+    "conflicting source and ambiguous venue fail-closed scope",
+    "vector, raster, WebP fallback, WebP no-fallback and broken asset",
+    "mobile 320 and 390 widths",
+    "desktop 1023/1024 widths, 720/721 heights, 1279/1280 and 1439/1440 bands",
+    "group labels, accessible names, empty decorative image alt and non-interactive behavior"
+  ]
+}

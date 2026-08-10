@@ -1,0 +1,697 @@
+{
+  "$schema": "../../contracts/normalization/project-normalization-mutation-catalog.v1.schema.json",
+  "schema_version": "project_normalization_mutation_catalog_v1",
+  "status": "PASS",
+  "receipt_validation_enabled": false,
+  "aggregate_validator": {
+    "path": "scripts/validate-project-normalization-synthesis-v1-1.mjs",
+    "arguments": [
+      "<fixture-root>",
+      "--fixture-mode",
+      "--skip-receipt",
+      "--semantic-only"
+    ],
+    "receipt_disable_flag": "--skip-receipt"
+  },
+  "counts": {
+    "mandatory_mutation_cases": 14,
+    "mandatory_cases_passed": 14,
+    "mandatory_cases_failed": 0,
+    "lane_negative_mutation_count": 90,
+    "positive_baseline_count": 1,
+    "total_negative_mutation_count": 104,
+    "baseline_rechecks": 15
+  },
+  "lane_suites": [
+    {
+      "id": "raw-partition",
+      "definition_paths": [
+        "scripts/normalization-v1-1/build-raw-partition.mjs"
+      ],
+      "classification_method": "literal expectReject calls are negative mutations",
+      "negative_cases": [
+        "missing one raw identity and duplicate another while preserving total",
+        "generic two-member canonicalization without typed alias",
+        "swap an unresolved alias projection",
+        "substitute a PASS probe for a terminal alias member",
+        "finding without operational disposition",
+        "source-only or not-observed provenance relabeled runtime-observed",
+        "artifact record hash substituted"
+      ],
+      "positive_baseline_cases": [],
+      "positive_preservation_cases": [],
+      "negative_count": 7,
+      "positive_baseline_count": 0,
+      "positive_preservation_count": 0
+    },
+    {
+      "id": "registry-readiness",
+      "definition_paths": [
+        "scripts/normalization-v1-1/build-registry-readiness.mjs"
+      ],
+      "classification_method": "literal expectRejected calls are negative mutations",
+      "negative_cases": [
+        "missing component membership",
+        "duplicate component membership",
+        "catalog promoted to identity",
+        "legacy entity-kind alias",
+        "typed operational disposition drift",
+        "empty positive evidence",
+        "unresolvable positive evidence",
+        "not-applicable without reason status",
+        "blocker absence implies ready",
+        "non-ready score",
+        "forced minimum wave",
+        "event media selected",
+        "physical operation authorized"
+      ],
+      "positive_baseline_cases": [],
+      "positive_preservation_cases": [],
+      "negative_count": 13,
+      "positive_baseline_count": 0,
+      "positive_preservation_count": 0
+    },
+    {
+      "id": "event-media",
+      "definition_paths": [
+        "scripts/normalization-v1-1/test-event-media-dossier-validator.mjs"
+      ],
+      "classification_method": "entries in the mutations definition array are negative mutations",
+      "negative_cases": [
+        "missing-required-ratio",
+        "selected-target-ratio",
+        "false-ready-verdict",
+        "lost-original-blocker",
+        "invented-production-observation",
+        "lost-exact-blocker",
+        "normalization-enabled",
+        "evidence-free-cell"
+      ],
+      "positive_baseline_cases": [],
+      "positive_preservation_cases": [],
+      "negative_count": 8,
+      "positive_baseline_count": 0,
+      "positive_preservation_count": 0
+    },
+    {
+      "id": "medallions-navigation",
+      "definition_paths": [
+        "scripts/validate-project-normalization-v1-1-medallions-navigation.test.mjs"
+      ],
+      "classification_method": "node:test cases calling rejects are negative; the remaining validation test is a positive baseline",
+      "negative_cases": [
+        "readiness cannot become ready while evidence and decisions are open",
+        "identity categories cannot collapse into token kinds",
+        "top slot cardinality remains one Main identity",
+        "desktop cap-before-filter ordering cannot silently change",
+        "pending page evidence cannot be declared reviewed",
+        "MobileSearchBottomNav cannot be labeled dead",
+        "MobileSearchBottomNav deletion and deprecation remain unauthorized",
+        "eligibility fields are mandatory on every lifecycle row",
+        "a deprecated historical fact does not make future deprecation eligible",
+        "allowed aliases cannot diverge from exact eligibility fields",
+        "all lifecycle deletion gates are mandatory",
+        "all capability-wrapper deprecation gates are mandatory",
+        "capability-wrapper eligibility fields are mandatory",
+        "capability-wrapper exact eligibility cannot flip true",
+        "capability-wrapper allowed aliases cannot diverge",
+        "all three zero-consumer implementations require lifecycle records",
+        "capability and compatibility-wrapper reachability remain separate",
+        "deprecated source records remain preserved until deletion gates close",
+        "medallion source binding drift fails closed"
+      ],
+      "positive_baseline_cases": [
+        "complete pinned v1.1 medallion/navigation package validates"
+      ],
+      "positive_preservation_cases": [],
+      "negative_count": 19,
+      "positive_baseline_count": 1,
+      "positive_preservation_count": 0
+    },
+    {
+      "id": "lifecycle",
+      "definition_paths": [
+        "tests/family-lifecycle-v1-negative.mjs"
+      ],
+      "classification_method": "entries in mutations and schemaMutations definition arrays are negative mutations",
+      "negative_cases": [
+        "reordered-state",
+        "duplicated-state",
+        "missing-transition",
+        "skipped-transition",
+        "early-authority-flip",
+        "prepromotion-penpot-canonical",
+        "missing-three-way-surface",
+        "mismatched-three-way-tuple",
+        "non-pro-gemini",
+        "writable-gemini-mcp",
+        "missing-gemini-limitation",
+        "false-current-promotion",
+        "pending-product-promotion-allowed",
+        "missing-rollback-gate",
+        "open-nested-schema",
+        "loose-gemini-allowlist-schema"
+      ],
+      "positive_baseline_cases": [],
+      "positive_preservation_cases": [],
+      "negative_count": 16,
+      "positive_baseline_count": 0,
+      "positive_preservation_count": 0
+    },
+    {
+      "id": "evidence-product-value",
+      "definition_paths": [
+        "scripts/test-evidence-value-gates-v1-1-negative.mjs"
+      ],
+      "classification_method": "literal reject calls are negative; literal accept calls are positive preservation cases and excluded",
+      "negative_cases": [
+        "visual-row-deletion",
+        "visual-full-resolution-false",
+        "visual-reviewer-blank",
+        "visual-review-status-missing",
+        "visual-review-status-pending",
+        "visual-archive-lineage-swap",
+        "visual-component-state-phase-drift",
+        "manifest-current-conflict-injected",
+        "manifest-active-legacy-alias-retained",
+        "manifest-unequal-alias-in-canonical-namespace",
+        "manifest-stale-key-promoted",
+        "census-edge-deletion",
+        "census-edge-consumer-swap",
+        "readiness-row-deletion",
+        "unknown-parent",
+        "non-inherited-parent",
+        "self-parent",
+        "two-node-inheritance-cycle",
+        "invented-id-with-absent-registry",
+        "wrong-kind-authoritative-id",
+        "unknown-authoritative-id",
+        "duplicate-authoritative-registry-id",
+        "pending-reconciliation-promotion-flip",
+        "tombstone-without-deletion-receipt",
+        "silent-application-deletion",
+        "stable-identity-key-drift",
+        "readiness-census-binding-drift"
+      ],
+      "positive_baseline_cases": [],
+      "positive_preservation_cases": [
+        "missing-census-edge-preserved-pending-reconciliation"
+      ],
+      "negative_count": 27,
+      "positive_baseline_count": 0,
+      "positive_preservation_count": 1
+    }
+  ],
+  "mandatory_cases": [
+    {
+      "case_id": "missing-component-path",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Replace one exact component membership with an unresolved component path identity.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/analysis-group-registry.jsonl"
+      ],
+      "expected_error_code": "PNV_COMPONENT_PATH_UNRESOLVED",
+      "actual_error_code": "PNV_COMPONENT_PATH_UNRESOLVED",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_COMPONENT_PATH_UNRESOLVED",
+        "stage": "analysis-registry",
+        "record": "family.amber-artifacts",
+        "path": "catalog/normalization/analysis-group-registry.jsonl#/0/member_component_ids/0",
+        "diagnostic": "family.amber-artifacts: component component.missing-path has no pinned logical path"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "missing-component-path",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "duplicate-stable-id",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Duplicate an analytical group row without changing its stable ID.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/analysis-group-registry.jsonl"
+      ],
+      "expected_error_code": "PNV_STABLE_ID_DUPLICATE",
+      "actual_error_code": "PNV_STABLE_ID_DUPLICATE",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_STABLE_ID_DUPLICATE",
+        "stage": "analysis-registry",
+        "record": "family.amber-artifacts",
+        "path": "catalog/normalization/analysis-group-registry.jsonl#/47/id",
+        "diagnostic": "family.amber-artifacts: stable id duplicates row 0"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "duplicate-stable-id",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "broken-foreign-key",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Point one application at a family foreign key absent from the exact registry.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/component-applications.jsonl"
+      ],
+      "expected_error_code": "PNV_FOREIGN_KEY_UNRESOLVED",
+      "actual_error_code": "PNV_FOREIGN_KEY_UNRESOLVED",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_FOREIGN_KEY_UNRESOLVED",
+        "stage": "application-registry",
+        "record": "application.008609f0d8967797",
+        "path": "catalog/normalization/component-applications.jsonl#/0/family_id",
+        "diagnostic": "application.008609f0d8967797: family_id family.missing does not resolve"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "broken-foreign-key",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "missing-raw-identity",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove one authoritative raw identity while retaining its partition reference.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/authoritative-raw-universe.jsonl"
+      ],
+      "expected_error_code": "PNV_RAW_IDENTITY_MISSING",
+      "actual_error_code": "PNV_RAW_IDENTITY_MISSING",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_RAW_IDENTITY_MISSING",
+        "stage": "raw-universe",
+        "record": "raw.logical_component.component.fd924ec24d43ae27",
+        "path": "catalog/normalization/raw-to-canonical-partition.jsonl#/278/raw_identity_id",
+        "diagnostic": "raw.logical_component.component.fd924ec24d43ae27: partition identity is absent from the authoritative raw universe"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "missing-raw-identity",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "duplicate-raw-identity",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Append a second row with an already used authoritative raw identity.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/authoritative-raw-universe.jsonl"
+      ],
+      "expected_error_code": "PNV_RAW_IDENTITY_DUPLICATE",
+      "actual_error_code": "PNV_RAW_IDENTITY_DUPLICATE",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_RAW_IDENTITY_DUPLICATE",
+        "stage": "raw-universe",
+        "record": "raw.behavioral_terminal_probe.breakpoint.017c006b1fb4a73e",
+        "path": "catalog/normalization/authoritative-raw-universe.jsonl#/279/raw_identity_id",
+        "diagnostic": "raw.behavioral_terminal_probe.breakpoint.017c006b1fb4a73e: raw identity duplicates row 0"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "duplicate-raw-identity",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "invalid-typed-alias",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Swap two typed-alias projections so their probe/unresolved identities no longer correspond.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/raw-alias-registry.jsonl"
+      ],
+      "expected_error_code": "PNV_TYPED_ALIAS_INVALID",
+      "actual_error_code": "PNV_TYPED_ALIAS_INVALID",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_TYPED_ALIAS_INVALID",
+        "stage": "alias-registry",
+        "record": "alias.behavioral_probe_unresolved.017c006b1fb4a73e",
+        "path": "catalog/normalization/raw-alias-registry.jsonl#/0",
+        "diagnostic": "alias.behavioral_probe_unresolved.017c006b1fb4a73e: typed alias primary, projection, and canonical suffixes do not bind the same observation"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "invalid-typed-alias",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "finding-without-operational-disposition",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove the operational disposition from one canonical finding.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/findings-disposition.jsonl"
+      ],
+      "expected_error_code": "PNV_OPERATIONAL_DISPOSITION_MISSING",
+      "actual_error_code": "PNV_OPERATIONAL_DISPOSITION_MISSING",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_OPERATIONAL_DISPOSITION_MISSING",
+        "stage": "findings-disposition",
+        "record": "finding.behavioral.probe.017c006b1fb4a73e",
+        "path": "catalog/normalization/findings-disposition.jsonl#/0/operational_disposition",
+        "diagnostic": "finding.behavioral.probe.017c006b1fb4a73e: operational_disposition is required"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "finding-without-operational-disposition",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "invented-product-id",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Add a product need ID that is absent from the pinned authoritative product registry.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/component-applications.jsonl"
+      ],
+      "expected_error_code": "PNV_PRODUCT_ID_UNAUTHORIZED",
+      "actual_error_code": "PNV_PRODUCT_ID_UNAUTHORIZED",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_PRODUCT_ID_UNAUTHORIZED",
+        "stage": "product-value",
+        "record": "application.008609f0d8967797",
+        "path": "catalog/normalization/component-applications.jsonl#/0/need_ids/0",
+        "diagnostic": "application.008609f0d8967797: need_ids cannot assert need.invented while the product registry is absent"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "invented-product-id",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "promotion-ready-while-product-model-pending",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Set promotion_ready on an application whose product-model evidence is still pending.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/component-applications.jsonl"
+      ],
+      "expected_error_code": "PNV_PROMOTION_PENDING_PRODUCT_MODEL",
+      "actual_error_code": "PNV_PROMOTION_PENDING_PRODUCT_MODEL",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_PROMOTION_PENDING_PRODUCT_MODEL",
+        "stage": "product-value",
+        "record": "application.008609f0d8967797",
+        "path": "catalog/normalization/component-applications.jsonl#/0/promotion_ready",
+        "diagnostic": "application.008609f0d8967797: pending_product_model cannot be promotion_ready"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "promotion-ready-while-product-model-pending",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "accepted-experiment-without-decision-receipt",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Relabel experimental evidence as accepted without an authoritative decision receipt.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/component-applications.jsonl"
+      ],
+      "expected_error_code": "PNV_EXPERIMENT_DECISION_RECEIPT_MISSING",
+      "actual_error_code": "PNV_EXPERIMENT_DECISION_RECEIPT_MISSING",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_EXPERIMENT_DECISION_RECEIPT_MISSING",
+        "stage": "product-value",
+        "record": "application.044e0a8665d616d5",
+        "path": "catalog/normalization/component-applications.jsonl#/10/decision_receipt",
+        "diagnostic": "application.044e0a8665d616d5: accepted experimental evidence requires a decision receipt"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "accepted-experiment-without-decision-receipt",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "source-only-relabeled-runtime-observed",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Escalate a source-only evidence record to runtime-observed without runtime provenance.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/authoritative-raw-universe.jsonl"
+      ],
+      "expected_error_code": "PNV_RUNTIME_EVIDENCE_PROVENANCE_MISMATCH",
+      "actual_error_code": "PNV_RUNTIME_EVIDENCE_PROVENANCE_MISMATCH",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_RUNTIME_EVIDENCE_PROVENANCE_MISMATCH",
+        "stage": "evidence-lineage",
+        "record": "raw.candidate_as_is_contract.candidate.artifacts-amber",
+        "path": "catalog/normalization/authoritative-raw-universe.jsonl#/144/runtime_evidence",
+        "diagnostic": "raw.candidate_as_is_contract.candidate.artifacts-amber: runtime evidence differs from its canonical provenance join"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "source-only-relabeled-runtime-observed",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "immutable-decoder-v1-mutation",
+      "lane": "immutable-evidence",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Change one byte in the immutable decoder v1 manifest.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json"
+      ],
+      "expected_error_code": "PNV_IMMUTABLE_DECODER_MANIFEST_DRIFT",
+      "actual_error_code": "PNV_IMMUTABLE_DECODER_MANIFEST_DRIFT",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_IMMUTABLE_DECODER_MANIFEST_DRIFT",
+        "stage": "immutable-evidence",
+        "record": "immutable-decoder-v1",
+        "path": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json",
+        "diagnostic": "immutable decoder manifest sha256 2fef53144db5efe1830bc26f5c822f1589f8b703c203e46f29d67183f0accaaa differs from f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "immutable-decoder-v1-mutation",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "incomplete-family-dossier-dimensions",
+      "lane": "event-media",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove one mandatory Event Media consumer contract dimension.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/families/event-media/dossier.json"
+      ],
+      "expected_error_code": "PNV_EVENT_MEDIA_DIMENSION_MISSING",
+      "actual_error_code": "PNV_EVENT_MEDIA_DIMENSION_MISSING",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_EVENT_MEDIA_DIMENSION_MISSING",
+        "stage": "event-media-dossier",
+        "record": "event-detail.desktop.primary-stage",
+        "path": "catalog/normalization/families/event-media/dossier.json#/consumer_policy_matrix/0/loading_and_layout",
+        "diagnostic": "event-detail.desktop.primary-stage: required dossier dimension loading_and_layout is missing"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "incomplete-family-dossier-dimensions",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    },
+    {
+      "case_id": "first-wave-without-positive-readiness",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Select a NOT_READY family into the first wave without positive readiness evidence.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+      "mutation_files": [
+        "catalog/normalization/family-wave-plan.json"
+      ],
+      "expected_error_code": "PNV_FIRST_WAVE_READINESS_VIOLATION",
+      "actual_error_code": "PNV_FIRST_WAVE_READINESS_VIOLATION",
+      "error": {
+        "name": "NormalizationValidationError",
+        "code": "PNV_FIRST_WAVE_READINESS_VIOLATION",
+        "stage": "wave-readiness",
+        "record": "family.event-media",
+        "path": "catalog/normalization/family-wave-plan.json#/first_wave_family_ids/0",
+        "diagnostic": "family.event-media: first-wave selection lacks positive strict readiness"
+      },
+      "named_proof_source": "targeted_candidate_validator",
+      "aggregate_diagnostic_counted_as_named_proof": false,
+      "targeted_rejected": true,
+      "aggregate_rejected": true,
+      "receipt_validation_enabled": false,
+      "bytes_restored": true,
+      "baseline_passed": true,
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "first-wave-without-positive-readiness",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
+    }
+  ]
+}

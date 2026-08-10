@@ -1,0 +1,270 @@
+name: Validate Project Normalization Synthesis v1.1
+
+on:
+  push:
+    paths:
+      - '.codex/integration/project-normalization-synthesis-v1-1/**'
+      - '.codex/integration/project-normalization-synthesis-v1-1-1/**'
+      - '.codex/lanes/project-normalization-v1-1-*/**'
+      - 'README.md'
+      - 'RESULTS.md'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/**'
+      - 'contracts/**'
+      - 'docs/audits/**'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/component-contract-authority.md'
+      - 'docs/page-archetype-requirements.md'
+      - 'docs/penpot-product-design-operating-model.md'
+      - 'docs/product-atlas-penpot-extension.md'
+      - 'docs/resource-graph-004.md'
+      - 'receipts/normalization/**'
+      - 'scripts/normalization-v1-1/**'
+      - 'scripts/build-evidence-value-gates-v1-1.mjs'
+      - 'scripts/build-project-normalization-synthesis-v1-1-receipt.mjs'
+      - 'scripts/evidence-value-gates-v1-1-lib.mjs'
+      - 'scripts/scan-normalization-v1-1-secrets.py'
+      - 'scripts/test-evidence-value-gates-v1-1-negative.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'scripts/validate-evidence-value-gates-v1-1.mjs'
+      - 'scripts/validate-family-lifecycle-v1.mjs'
+      - 'scripts/validate-normalization-schemas-v1-1.py'
+      - 'scripts/validate-project-normalization-synthesis-v1-1.mjs'
+      - 'scripts/validate-project-normalization-synthesis-v1.mjs'
+      - 'scripts/validate-project-normalization-v1-1-medallions-navigation.mjs'
+      - 'scripts/validate-project-normalization-v1-1-medallions-navigation.test.mjs'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - 'tests/**'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+  pull_request:
+    paths:
+      - '.codex/integration/project-normalization-synthesis-v1-1/**'
+      - '.codex/integration/project-normalization-synthesis-v1-1-1/**'
+      - '.codex/lanes/project-normalization-v1-1-*/**'
+      - 'README.md'
+      - 'RESULTS.md'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/**'
+      - 'contracts/**'
+      - 'docs/audits/**'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/component-contract-authority.md'
+      - 'docs/page-archetype-requirements.md'
+      - 'docs/penpot-product-design-operating-model.md'
+      - 'docs/product-atlas-penpot-extension.md'
+      - 'docs/resource-graph-004.md'
+      - 'receipts/normalization/**'
+      - 'scripts/normalization-v1-1/**'
+      - 'scripts/build-evidence-value-gates-v1-1.mjs'
+      - 'scripts/build-project-normalization-synthesis-v1-1-receipt.mjs'
+      - 'scripts/evidence-value-gates-v1-1-lib.mjs'
+      - 'scripts/scan-normalization-v1-1-secrets.py'
+      - 'scripts/test-evidence-value-gates-v1-1-negative.mjs'
+      - 'scripts/validate-behavioral-decoder-supplement-v1-1.mjs'
+      - 'scripts/validate-component-decoder-snapshot.mjs'
+      - 'scripts/validate-evidence-value-gates-v1-1.mjs'
+      - 'scripts/validate-family-lifecycle-v1.mjs'
+      - 'scripts/validate-normalization-schemas-v1-1.py'
+      - 'scripts/validate-project-normalization-synthesis-v1-1.mjs'
+      - 'scripts/validate-project-normalization-synthesis-v1.mjs'
+      - 'scripts/validate-project-normalization-v1-1-medallions-navigation.mjs'
+      - 'scripts/validate-project-normalization-v1-1-medallions-navigation.test.mjs'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - 'tests/**'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-normalization-synthesis-v1-1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  NORMALIZATION_NODE_VERSION: '22.18.0'
+  NORMALIZATION_PYTHON_VERSION: '3.13.7'
+  NORMALIZATION_JSONSCHEMA_VERSION: '4.25.1'
+  NORMALIZATION_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  NORMALIZATION_EVENTS_SHA: '66bc0d43e36299417626f992021cfb7299ddf704'
+  NORMALIZATION_CURRENT_ROOT_SHA: '5a9d804438377f65fe4b26bd7019e73626529864'
+  NORMALIZATION_BEHAVIORAL_SOURCE_SHA: 'ef7aa62e45c60f7a12da6160f490719c0721ec03'
+  NORMALIZATION_RUN_ID: ${{ github.run_id }}
+  NORMALIZATION_RUN_ATTEMPT: ${{ github.run_attempt }}
+  NORMALIZATION_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  NORMALIZATION_RUN_EVENT: ${{ github.event_name }}
+  NORMALIZATION_RUNS_ON: 'ubuntu-24.04'
+  NORMALIZATION_PRIOR_SHA256: 'c677f69572ccdbf5b7f1402037a3cb8c164bd2f503fae35eae9168c46eb8d909'
+  NORMALIZATION_CLOSURE_SHA256: '8bb8712effaa0ba3b08a672a784d9e1b90d876c6ca6d039a417bfc0617723523'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact design-system SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ env.NORMALIZATION_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up exact Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.18.0'
+          check-latest: false
+
+      - name: Set up exact Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: '3.13.7'
+          check-latest: false
+
+      - name: Install exact JSON Schema runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check \
+            'attrs==25.3.0' \
+            'jsonschema-specifications==2025.4.1' \
+            'referencing==0.36.2' \
+            'rpds-py==0.27.1' \
+            'jsonschema==4.25.1'
+
+      - name: Materialize exact replay inputs
+        id: inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$NORMALIZATION_SOURCE_SHA"
+          test -z "$(git status --porcelain)"
+
+          artifact="$RUNNER_TEMP/project-normalization-v1-1-reproducibility"
+          events_source="$RUNNER_TEMP/project-normalization-events-source"
+          mkdir -p "$artifact/inputs" "$artifact/tools" "$events_source"
+
+          git -C "$events_source" init
+          git -C "$events_source" remote add origin 'https://github.com/onedayonemasterpiece/events-bot-new.git'
+          # The independent consumer census reads two historical source commits.
+          # A depth-1 bundle contains the closure tree but silently drops those
+          # authoritative Git objects, so fetch the complete ancestry of the
+          # pinned closure commit and prove both evidence commits are present.
+          git -C "$events_source" fetch --no-tags origin "$NORMALIZATION_EVENTS_SHA"
+          git -C "$events_source" checkout --detach FETCH_HEAD
+          test "$(git -C "$events_source" rev-parse HEAD)" = "$NORMALIZATION_EVENTS_SHA"
+          git -C "$events_source" cat-file -e "$NORMALIZATION_CURRENT_ROOT_SHA^{commit}"
+          git -C "$events_source" cat-file -e "$NORMALIZATION_BEHAVIORAL_SOURCE_SHA^{commit}"
+          test -z "$(git -C "$events_source" status --porcelain)"
+
+          curl --fail --location --retry 3 \
+            'https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-run-31318132051/current-ui-behavioral-decoder-v1-1-capture-31318132051.zip' \
+            --output "$artifact/inputs/prior-124.zip"
+          curl --fail --location --retry 3 \
+            'https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-closure-run-31327863197/current-ui-behavioral-decoder-v1-1-closure-31327863197.zip' \
+            --output "$artifact/inputs/closure-10.zip"
+          test "$(stat -c '%s' "$artifact/inputs/prior-124.zip")" = '44805665'
+          test "$(stat -c '%s' "$artifact/inputs/closure-10.zip")" = '3015654'
+          printf '%s  %s\n' "$NORMALIZATION_PRIOR_SHA256" "$artifact/inputs/prior-124.zip" | sha256sum --check --strict
+          printf '%s  %s\n' "$NORMALIZATION_CLOSURE_SHA256" "$artifact/inputs/closure-10.zip" | sha256sum --check --strict
+
+          git bundle create "$artifact/lovekgd-design-system.git.bundle" HEAD
+          git -C "$events_source" bundle create "$artifact/events-bot-new.git.bundle" HEAD
+          git bundle verify "$artifact/lovekgd-design-system.git.bundle"
+          git bundle verify "$artifact/events-bot-new.git.bundle"
+          git archive --format=tar --prefix=lovekgd-design-system/ "$NORMALIZATION_SOURCE_SHA" | gzip -n > "$artifact/lovekgd-design-system.tar.gz"
+          git -C "$events_source" archive --format=tar --prefix=events-bot-new/ "$NORMALIZATION_EVENTS_SHA" | gzip -n > "$artifact/events-bot-new.tar.gz"
+
+          cp scripts/normalization-v1-1/replay-normalization-workflow.sh "$artifact/replay.sh"
+          cp scripts/normalization-v1-1/workflow-command-ledger.mjs "$artifact/tools/workflow-command-ledger.mjs"
+          chmod 0755 "$artifact/replay.sh"
+          cat > "$artifact/input-sources.json" <<EOF
+          {
+            "schema_version": "project_normalization_replay_inputs_v1",
+            "source_sha": "$NORMALIZATION_SOURCE_SHA",
+            "events_sha": "$NORMALIZATION_EVENTS_SHA",
+            "events_supporting_source_shas": [
+              "$NORMALIZATION_CURRENT_ROOT_SHA",
+              "$NORMALIZATION_BEHAVIORAL_SOURCE_SHA"
+            ],
+            "prior_visual_archive": {
+              "bytes": 44805665,
+              "sha256": "$NORMALIZATION_PRIOR_SHA256",
+              "release_tag": "current-ui-behavioral-decoder-v1-1-run-31318132051"
+            },
+            "closure_visual_archive": {
+              "bytes": 3015654,
+              "sha256": "$NORMALIZATION_CLOSURE_SHA256",
+              "release_tag": "current-ui-behavioral-decoder-v1-1-closure-run-31327863197"
+            },
+            "mutable_transport_claimed": false
+          }
+          EOF
+          python3 -m json.tool "$artifact/input-sources.json" >/dev/null
+          echo "artifact_dir=$artifact" >> "$GITHUB_OUTPUT"
+
+      - name: Replay full corpus in clean secondary checkouts
+        id: replay
+        continue-on-error: true
+        env:
+          NORMALIZATION_RUNNER_NAME: ${{ runner.name }}
+          NORMALIZATION_RUNNER_OS: ${{ runner.os }}
+          NORMALIZATION_RUNNER_ARCH: ${{ runner.arch }}
+          NORMALIZATION_RUNNER_ENVIRONMENT: ${{ runner.environment }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifact='${{ steps.inputs.outputs.artifact_dir }}'
+          bash "$artifact/replay.sh" \
+            --source-bundle "$artifact/lovekgd-design-system.git.bundle" \
+            --source-sha "$NORMALIZATION_SOURCE_SHA" \
+            --events-bundle "$artifact/events-bot-new.git.bundle" \
+            --events-sha "$NORMALIZATION_EVENTS_SHA" \
+            --prior-archive "$artifact/inputs/prior-124.zip" \
+            --closure-archive "$artifact/inputs/closure-10.zip" \
+            --output-dir "$artifact" \
+            --checkout-dir "$RUNNER_TEMP/project-normalization-secondary-checkouts"
+
+      - name: Verify reproducibility artifact contents
+        if: always() && steps.replay.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifact='${{ steps.inputs.outputs.artifact_dir }}'
+          for required in \
+            replay.sh \
+            command-ledger.jsonl \
+            versions.json \
+            project-normalization-v1-1-mutation-results.json \
+            project-normalization-v1-1-execution-attestation.json \
+            lovekgd-design-system.git.bundle \
+            lovekgd-design-system.tar.gz \
+            events-bot-new.git.bundle \
+            events-bot-new.tar.gz \
+            SHA256SUMS; do
+            test -s "$artifact/$required"
+          done
+          (cd "$artifact" && sha256sum --check --strict SHA256SUMS)
+          python3 scripts/validate-normalization-schemas-v1-1.py . \
+            --mutation-result "$artifact/project-normalization-v1-1-mutation-results.json" \
+            --execution-attestation "$artifact/project-normalization-v1-1-execution-attestation.json" \
+            --runtime-versions "$artifact/versions.json"
+
+      - name: Upload reproducibility evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: project-normalization-v1-1-reproducibility-${{ github.run_id }}
+          path: ${{ steps.inputs.outputs.artifact_dir }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce replay outcome after evidence upload
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test '${{ steps.replay.outcome }}' = 'success'

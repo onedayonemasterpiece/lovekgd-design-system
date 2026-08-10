@@ -100,12 +100,21 @@ validator проходит на 293 terminal probes (236 PASS, 39 MISMATCH,
 `c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1` разрешает только
 аналитический project normalization synthesis.
 
-Project Normalization Synthesis v1 опубликован в
-[`docs/normalization/project-normalization-synthesis-v1.md`](docs/normalization/project-normalization-synthesis-v1.md).
-Он классифицирует evidence и формирует candidate family decisions, но не разрешает
-физические изменения, promotion, токены или Penpot materialization.
+Исторический Project Normalization Synthesis v1 опубликован в
+[`docs/normalization/project-normalization-synthesis-v1.md`](docs/normalization/project-normalization-synthesis-v1.md),
+но его readiness-доказательство отклонено независимым red-team-аудитом. Текущая
+audit-remediation v1.1 и его v1.1.1 proof-closure contract находятся в
+[`docs/normalization/project-normalization-synthesis-v1-1.md`](docs/normalization/project-normalization-synthesis-v1-1.md) и
+[`docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md):
+47 аналитических групп, 0 strict-ready identities и пустая first wave.
 
-Его verdict `GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION` означает только готовность evidence к следующему аналитическому этапу по отдельным семействам. Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
+Это только исправление доказательной модели: exact-head Actions attestation и отдельный independent delta re-audit остаются обязательными; merge не разрешён.
+Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как
+дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и
+не мутирует Penpot. Подробности:
+[`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
+
+The normative [family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md) has eleven ordered states. Current truth is `AS_IS_RECONSTRUCTED`; synthesis readiness is not `FAMILY_HYPOTHESIS_REVIEWED`, and authority changes only at `FAMILY_AND_ARCHETYPE_PROMOTION`.
 
 ## Канонические документы
 
@@ -114,6 +123,9 @@ Project Normalization Synthesis v1 опубликован в
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
+- [Family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
+- [Project Normalization Synthesis v1.1 audit remediation](docs/normalization/project-normalization-synthesis-v1-1.md)
+- [Project Normalization Synthesis v1.1.1 proof-closure ledger](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
 - [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
 - [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)

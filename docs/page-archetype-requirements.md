@@ -25,6 +25,8 @@ visual_archetype_status: not accepted by this record
 
 Product meaning remains in `events-bot-new` and Product Atlas. A future visual archetype must still pass candidate review, implementation and runtime conformance.
 
+In the normative [family lifecycle](normalization/design-system-family-lifecycle.md), this overlay is evidence for `AS_IS_RECONSTRUCTED` only. It does not satisfy `PAGE_ARCHETYPE_CANDIDATE`, `PRODUCT_REPRESENTATIONS` or `FAMILY_AND_ARCHETYPE_PROMOTION`. Those states require a native instance graph, real configured screens and their own receipts.
+
 ## Why this belongs beside the archetype
 
 A page composition without its original purpose is easy to copy but hard to evaluate. The source overlay prevents three common errors:
@@ -99,6 +101,8 @@ contract_schema_id = lovekgd.page-archetype-requirements.v1
 ```
 
 The overlay is appended inside the existing managed zone. It may not replace the zone wrapper, move navigation, create a Penpot component, import a screenshot or mark the archetype accepted.
+
+Publishing or refreshing an overlay never advances the family lifecycle or changes authority.
 
 ## Update rule
 
