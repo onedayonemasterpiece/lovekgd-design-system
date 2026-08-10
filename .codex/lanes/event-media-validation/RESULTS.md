@@ -42,7 +42,7 @@ All commands used the clean exact events checkout at `/home/dev/.codex/worktrees
 - `bash -n scripts/normalization-v1-1/replay-normalization-workflow.sh` — PASS.
 - current-head legacy aggregate with `--skip-receipt` and exact prior/closure archives — PASS; final `independent_delta_reaudit` field reports `receipt-skipped`.
 - detached exact `45288b001d724e0d3603d0c44d392ff370407bd0` legacy aggregate with receipt validation enabled and exact archives — PASS; final `independent_delta_reaudit` field remains `pending`.
-- clean temporary clone receipt smoke with synthetic Draft PR `#999`: deliberate `--write`, receipt schema, full semantic validator and default check-only rebuild all PASS; 35 self-excluding outputs / 1,470,461 bytes. The temporary receipt was not copied into this branch.
+- clean temporary clone receipt smoke with synthetic Draft PR `#999`: deliberate `--write`, receipt schema, full semantic validator and default check-only rebuild all PASS with 35 self-excluding outputs. A committed synthetic receipt also passed both checks from detached HEAD, preserving materialization branch metadata rather than deriving an empty CI branch. The temporary receipt was not copied into this branch; L0 will recompute the final byte total.
 - `git diff --check` — PASS.
 
 Expected pre-receipt negative delivery checks:
