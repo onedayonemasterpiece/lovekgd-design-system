@@ -19,7 +19,7 @@ Read-only evidence: `onedayonemasterpiece/events-bot-new@66bc0d43e36299417626f99
 
 ## Dependency graph
 
-`baseline → {L1 census, L2 blocker archaeology, L3 boundary mapping, L4 governance mapping} → L3 contracts → L4 readiness → L5 validators/receipt/docs → L6 independent closure audit → Draft PR`
+`baseline → {L1 census, L2 blocker archaeology, L3 boundary mapping, L4 governance mapping} → L3 contracts → L4 readiness → L5 validators/docs → Draft PR metadata → deterministic receipt → exact-head push/PR CI → L6 external independent closure audit`
 
 ## Stop conditions
 
