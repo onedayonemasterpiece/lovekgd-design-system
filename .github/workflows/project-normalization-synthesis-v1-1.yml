@@ -206,7 +206,7 @@ jobs:
           python3 -m json.tool "$artifact/input-sources.json" >/dev/null
           echo "artifact_dir=$artifact" >> "$GITHUB_OUTPUT"
 
-      - name: Replay full corpus in clean secondary checkouts
+      - name: Replay frozen receipt proof and current semantic corpus in clean secondary checkouts
         id: replay
         continue-on-error: true
         env:

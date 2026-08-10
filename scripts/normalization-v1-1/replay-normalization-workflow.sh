@@ -2,6 +2,7 @@
 set -euo pipefail
 
 BASE_SHA='317938bc72cf7a47ea798b2614d92d3d285dd97a'
+EVENT_MEDIA_RECEIPT_FROZEN_SHA='45288b001d724e0d3603d0c44d392ff370407bd0'
 EVENTS_SHA_EXPECTED='66bc0d43e36299417626f992021cfb7299ddf704'
 
 usage() {
@@ -73,6 +74,7 @@ mutation_result="$output_dir/project-normalization-v1-1-mutation-results.json"
 design="$checkout_dir/design"
 events="$checkout_dir/events"
 historical="$checkout_dir/historical-v1"
+receipt_frozen="$checkout_dir/event-media-receipt-frozen"
 mkdir -p "$checkout_dir" "$logs"
 : > "$ledger"
 
@@ -129,6 +131,18 @@ run checkout-historical "$historical" historical git checkout --detach "$BASE_SH
 run validate-historical-v1 "$historical" historical node scripts/validate-project-normalization-synthesis-v1.mjs "$historical" \
   --events-repo "$events"
 
+# The committed v1.1 receipt is a frozen proof over its original 45288 output
+# inventory. Re-run that exact proof with receipt validation enabled, then run
+# the current head semantically without asking the historical receipt to attest
+# files that did not exist when it was materialized.
+run clone-event-media-receipt-frozen "$checkout_dir" replay git clone --no-checkout "$source_bundle" "$receipt_frozen"
+run checkout-event-media-receipt-frozen "$receipt_frozen" receipt-frozen git checkout --detach "$EVENT_MEDIA_RECEIPT_FROZEN_SHA"
+run validate-event-media-receipt-frozen "$receipt_frozen" receipt-frozen \
+  node scripts/validate-project-normalization-synthesis-v1-1.mjs "$receipt_frozen" \
+  --events-repo "$events" \
+  --prior-archive "$prior_archive" \
+  --closure-archive "$closure_archive"
+
 run validate-workflow-path-filters "$design" design node scripts/normalization-v1-1/validate-workflow-path-filters.mjs --root "$design"
 run test-workflow-path-filters "$design" design node --test tests/project-normalization-v1-1-workflow-path-filters.mjs
 run build-raw-partition "$design" design node scripts/normalization-v1-1/build-raw-partition.mjs --check --self-test
@@ -141,7 +155,8 @@ run validate-normalization-schemas "$design" design python3 scripts/validate-nor
 run validate-current-synthesis "$design" design node scripts/validate-project-normalization-synthesis-v1-1.mjs "$design" \
   --events-repo "$events" \
   --prior-archive "$prior_archive" \
-  --closure-archive "$closure_archive"
+  --closure-archive "$closure_archive" \
+  --skip-receipt
 
 run test-registry-readiness "$design" design node tests/normalization-v1-1-registry-readiness.mjs
 run test-event-media-dossier "$design" design node scripts/normalization-v1-1/test-event-media-dossier-validator.mjs "$design"
@@ -155,6 +170,7 @@ run validate-mutation-run-schema "$design" design python3 scripts/validate-norma
 run scan-secrets "$design" design python3 scripts/scan-normalization-v1-1-secrets.py "$design" "$BASE_SHA"
 
 run design-clean-after "$design" design git status --porcelain
+run event-media-receipt-frozen-clean-after "$receipt_frozen" receipt-frozen git status --porcelain
 run events-clean-after "$events" events git status --porcelain
 
 node "$design/scripts/normalization-v1-1/build-workflow-attestation.mjs" \

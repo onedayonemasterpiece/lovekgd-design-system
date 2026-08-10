@@ -159,6 +159,7 @@ const exactFalseBoundary = (row, record) => {
   })) requireValue(row[field] === expected, 'EMV_STOP_FLAG_ESCAPED', 'stop', record, `/${field}`, `${field} must remain false`);
   requireValue(row.decision === 'NOT_MERGED', 'EMV_DECISION_MERGED', 'stop', record, '/decision', 'decision must remain NOT_MERGED');
   requireValue(row.product_value_gate_mode === 'observe' && row.value_evidence_status === 'pending_product_model', 'EMV_PRODUCT_GATE_ESCAPED', 'product-value', record, '/', 'Product Value must remain observe/pending');
+  requireValue(row.experiments?.decision === 'NOT_MERGED' && row.experiments?.winner_receipt === null, 'EMV_EXPERIMENT_WINNER_SELECTED', 'experiments', record, '/experiments', 'experiment decision must remain NOT_MERGED without a winner receipt');
 };
 
 const validateEvidenceRef = (root, eventsRoot, ref, record, pointer, fixtureMode) => {
@@ -167,8 +168,15 @@ const validateEvidenceRef = (root, eventsRoot, ref, record, pointer, fixtureMode
   if (eventMatch) {
     requireValue(eventMatch[1] === EVENTS_SHA, 'EMV_EVENTS_EVIDENCE_SHA', 'provenance', record, pointer, 'events evidence is not pinned to the closure commit');
     if (!fixtureMode && eventsRoot) {
-      try { git(eventsRoot, ['cat-file', '-e', `${EVENTS_SHA}:${eventMatch[2]}`]); }
-      catch { fail('EMV_EVENTS_EVIDENCE_PATH', 'provenance', record, pointer, `events evidence path does not exist: ${eventMatch[2]}`); }
+      const target = eventMatch[2];
+      if (target.startsWith('commit/')) {
+        const commits = target.split(',').map((item) => item.replace(/^commit\//u, ''));
+        try { commits.forEach((commit) => git(eventsRoot, ['cat-file', '-e', `${commit}^{commit}`])); }
+        catch { fail('EMV_EVENTS_EVIDENCE_COMMIT', 'provenance', record, pointer, `events evidence commit does not exist: ${target}`); }
+      } else {
+        try { git(eventsRoot, ['cat-file', '-e', `${EVENTS_SHA}:${target}`]); }
+        catch { fail('EMV_EVENTS_EVIDENCE_PATH', 'provenance', record, pointer, `events evidence path does not exist: ${target}`); }
+      }
     }
     return;
   }
@@ -182,15 +190,14 @@ const validateEvidenceRef = (root, eventsRoot, ref, record, pointer, fixtureMode
     return;
   }
   if (/^(catalog|contracts|docs)\//u.test(ref)) {
-    const local = ref.split('#')[0];
+    const local = ref.split('#')[0].replace(/:\d+(?:-\d+)?$/u, '');
     requireValue(fs.existsSync(absolute(root, local)), 'EMV_LOCAL_EVIDENCE_PATH', 'provenance', record, pointer, `local evidence path does not exist: ${local}`);
   }
 };
 
 const verifyRefs = (root, eventsRoot, refs, record, pointer, fixtureMode, allowEmpty = false) => {
   requireValue(Array.isArray(refs) && (allowEmpty || refs.length > 0), 'EMV_EVIDENCE_REFS_REQUIRED', 'provenance', record, pointer, 'evidence references are required');
-  // Exact duplicate rejection is applied after cross-lane evidence cleanup.
-  // Keep this resolver focused on authority and path validation.
+  unique(refs, 'EMV_EVIDENCE_REF_DUPLICATE', 'provenance', record, pointer);
   refs.forEach((ref, index) => validateEvidenceRef(root, eventsRoot, ref, record, `${pointer}/${index}`, fixtureMode));
 };
 
@@ -233,14 +240,18 @@ const allowedChangedPath = (relative) => [
   /^tests\/[^/]*event-media-contract-decision-v1[^/]*\.mjs$/u,
 ].some((pattern) => pattern.test(relative));
 
+export const validateOutputPaths = (paths) => {
+  for (const relative of paths) {
+    requireValue(allowedChangedPath(relative), 'EMV_FORBIDDEN_PATH_CHANGED', 'stop', relative, '/', 'path is outside the Event Media decision allowlist');
+    requireValue(!/\.(png|jpe?g|webp|gif|avif)$/iu.test(relative), 'EMV_RASTER_ADDED', 'stop', relative, '/', 'new raster evidence is forbidden');
+  }
+};
+
 const stopPathChecks = (root, fixtureMode) => {
   if (fixtureMode) return;
   const changed = git(root, ['diff', '--name-only', `${BASE_SHA}...HEAD`, '--']).split('\n').filter(Boolean);
   const untracked = git(root, ['ls-files', '--others', '--exclude-standard']).split('\n').filter(Boolean);
-  for (const relative of [...changed, ...untracked]) {
-    requireValue(allowedChangedPath(relative), 'EMV_FORBIDDEN_PATH_CHANGED', 'stop', relative, '/', 'path is outside the Event Media decision allowlist');
-    requireValue(!/\.(png|jpe?g|webp|gif|avif)$/iu.test(relative), 'EMV_RASTER_ADDED', 'stop', relative, '/', 'new raster evidence is forbidden');
-  }
+  validateOutputPaths([...changed, ...untracked]);
 };
 
 const assertProductBoundary = (row, record) => {
@@ -333,6 +344,7 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     assertProductBoundary(semantic, semantic.id);
     requireValue(semantic.decision === 'NOT_MERGED' && semantic.candidate_contract_accepted === false && semantic.normalization_allowed !== true, 'EMV_SEMANTIC_ACCEPTED', 'semantics', semantic.id, '/', 'semantic record was accepted or normalized');
     requireValue(ENTITY_KINDS.includes(semantic.entity_kind), 'EMV_ENTITY_KIND_INVALID', 'semantics', semantic.id, '/entity_kind', 'semantic entity kind is invalid');
+    requireValue(semantic.experiments?.decision === 'NOT_MERGED' && semantic.experiments?.winner_receipt === null, 'EMV_EXPERIMENT_WINNER_SELECTED', 'experiments', semantic.id, '/experiments', 'semantic record selected an experiment winner');
     requireValue(boundaryById.has(semantic.boundary_model_ref), 'EMV_SEMANTIC_BOUNDARY_REF', 'boundary', semantic.id, '/boundary_model_ref', 'semantic forward reference is unresolved');
     verifyRefs(absoluteRoot, absoluteEvents, semantic.authority?.refs, semantic.id, '/authority/refs', fixtureMode);
   }
@@ -365,6 +377,8 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(['resolved_by_existing_evidence', 'resolved_by_requirement', 'invalidated', 'owner_decision_required', 'still_open'].includes(blocker.status), 'EMV_BLOCKER_STATUS_INVALID', 'blockers', record, '/status', 'blocker status is invalid');
     requireValue(blocker.field_presence_closes_blocker === false && blocker.owner_decision_accepted === false && blocker.closure_receipt === null && blocker.production_state_claimed === false && blocker.promotion_ready === false, 'EMV_BLOCKER_FAIL_OPEN', 'blockers', record, '/', 'blocker was closed or promoted without evidence');
     requireValue(Array.isArray(blocker.actual_evidence) && blocker.actual_evidence.length > 0 && blocker.actual_evidence.every((item) => item.ref && item.finding && item.limitation), 'EMV_BLOCKER_EVIDENCE_MISSING', 'blockers', record, '/actual_evidence', 'blocker evidence must include finding and limitation');
+    unique(blocker.actual_evidence.map((item) => item.ref), 'EMV_EVIDENCE_REF_DUPLICATE', 'provenance', record, '/actual_evidence');
+    unique(blocker.source_evidence_ref_ids, 'EMV_EVIDENCE_REF_DUPLICATE', 'provenance', record, '/source_evidence_ref_ids');
     blocker.actual_evidence.forEach((item, index) => validateEvidenceRef(absoluteRoot, absoluteEvents, item.ref, record, `/actual_evidence/${index}/ref`, fixtureMode));
     if (['resolved_by_existing_evidence', 'resolved_by_requirement', 'invalidated'].includes(blocker.status)) requireValue(blocker.closure_receipt !== null, 'EMV_BLOCKER_RESOLVED_WITHOUT_RECEIPT', 'blockers', record, '/closure_receipt', 'resolved blocker requires evidence receipt');
     if (blocker.status === 'owner_decision_required') requireValue(typeof blocker.owner_question_id === 'string', 'EMV_BLOCKER_OWNER_QUEUE_MISSING', 'blockers', record, '/owner_question_id', 'owner-required blocker lacks queue reference');
@@ -379,6 +393,8 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(ALTERNATIVES.includes(row.recommendation), 'EMV_RECOMMENDATION_INVALID', 'alternatives', row.id, '/recommendation', 'recommendation is invalid');
     requireValue(sameSet(row.rejected_alternatives, ALTERNATIVES.filter((item) => item !== row.recommendation)), 'EMV_REJECTED_ALTERNATIVES_MISMATCH', 'alternatives', row.id, '/rejected_alternatives', 'rejected alternatives are not the exact complement');
     requireValue(row.option_assessments.length === 6 && row.option_assessments.filter((item) => item.status === 'recommended').length === 1, 'EMV_OPTION_ASSESSMENTS_INVALID', 'alternatives', row.id, '/option_assessments', 'six assessments and one recommendation are required');
+    requireValue(sameSet(row.option_assessments.map((item) => item.option), ALTERNATIVES)
+      && row.option_assessments.find((item) => item.status === 'recommended')?.option === row.recommendation, 'EMV_OPTION_ASSESSMENT_SET', 'alternatives', row.id, '/option_assessments', 'assessment options or recommended assessment differ');
     requireValue(typeof row.recommendation_support === 'string' && row.recommendation_support.length > 0 && nonEmptyStrings(row.intentional_differences), 'EMV_RECOMMENDATION_EVIDENCE_MISSING', 'alternatives', row.id, '/', 'recommendation evidence/differences are missing');
     verifyRefs(absoluteRoot, absoluteEvents, row.supporting_evidence_refs, row.id, '/supporting_evidence_refs', fixtureMode);
     alternativeByBoundary.set(row.boundary_ref, row);
@@ -393,12 +409,18 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
     requireValue(candidate.decision === 'NOT_MERGED' && candidate.normalization_allowed === false && candidate.physical_operation_authorized === false && candidate.migration_started === false, 'EMV_CANDIDATE_OPERATION_AUTHORIZED', 'candidate', record, '/', 'candidate authorized a physical operation');
     requireValue(candidate.product_value?.gate_mode === 'observe' && candidate.product_value?.value_evidence_status === 'pending_product_model' && candidate.product_value?.promotion_ready === false && candidate.product_value?.product_ids_created === false && candidate.product_value?.metrics_created === false, 'EMV_CANDIDATE_PRODUCT_GATE', 'product-value', record, '/product_value', 'candidate invented product evidence or promotion');
     requireValue(candidate.experiments?.decision === 'NOT_MERGED' && candidate.experiments?.winner_receipt === null, 'EMV_EXPERIMENT_WINNER_SELECTED', 'experiments', record, '/experiments', 'candidate selected an experiment winner');
+    requireValue(candidate.current_readiness?.status === 'BLOCKED' && candidate.current_readiness?.strict_ready === false
+      && candidate.current_readiness?.eligible_for_scoring === false && candidate.current_readiness?.score === null
+      && sameSet(candidate.current_readiness?.blocking_refs ?? [], candidate.open_blocker_refs), 'EMV_CANDIDATE_READINESS_DRIFT', 'readiness', record, '/current_readiness', 'candidate readiness is not the exact fail-closed blocker set');
     requireValue(candidate.penpot_future?.status === 'unmaterialized' && candidate.penpot_future?.binding === null && candidate.penpot_future?.materialization_authorized === false && candidate.penpot_future?.screenshots_role === 'evidence_only' && nonEmptyStrings(candidate.penpot_future?.allowed_instance_overrides) && nonEmptyStrings(candidate.penpot_future?.forbidden_instance_overrides), 'EMV_PENPOT_FUTURE_INVALID', 'penpot', record, '/penpot_future', 'future Penpot contract escaped bounded, unmaterialized state');
     unique([...(candidate.penpot_future.variant_axes ?? []), ...(candidate.penpot_future.state_axes ?? [])], 'EMV_PENPOT_STABLE_ID_DUPLICATE', 'penpot', record, '/penpot_future', 'variant/state axis ID is duplicated');
     for (const policy of candidate.crop_contain_policy ?? []) {
       if (['ocr_document', 'unknown_text_protected'].includes(policy.semantic_mode)) requireValue(policy.fit === 'contain' && /forbidden/iu.test(policy.crop_permission), 'EMV_OCR_DEFAULT_CROP', 'media-policy', record, '/crop_contain_policy', 'OCR/document or unknown-text mode must default to contain/no-crop');
     }
     requireValue(nonEmptyStrings(candidate.consumer_application_refs) && candidate.consumer_application_refs.every((id) => consumers.some((row) => row.id === id)), 'EMV_CANDIDATE_CONSUMER_REF', 'candidate', record, '/consumer_application_refs', 'candidate consumer reference is unresolved');
+    const expectedCandidateOwners = [...new Set(candidate.open_blocker_refs.map((id) => blockerById.get(id)?.owner_question_id).filter(Boolean))];
+    requireValue(sameSet(candidate.owner_question_refs, expectedCandidateOwners)
+      && expectedCandidateOwners.every((id) => ownerQueue.some((row) => row.id === id)), 'EMV_CANDIDATE_OWNER_JOIN', 'owner-queue', record, '/owner_question_refs', 'candidate owner question set does not recompute from its exact blockers');
     verifyRefs(absoluteRoot, absoluteEvents, candidate.evidence_refs, record, '/evidence_refs', fixtureMode);
     candidateById.set(record, candidate);
   }
@@ -426,14 +448,21 @@ export const collectAndValidate = ({ root, eventsRoot = null, fixtureMode = fals
       if (check.applicability === 'NOT_APPLICABLE') requireValue(check.status === 'NOT_APPLICABLE_WITH_REASON', 'EMV_READINESS_NA_WITHOUT_REASON', 'readiness', row.id, `/checklist/${check.check_id}`, 'not-applicable check lacks reasoned status');
     }
     const blocked = row.checklist.filter((item) => item.status === 'BLOCKED');
+    const expectedReasons = blocked.map((item) => `check-blocked:${item.check_id}`);
+    requireValue(sameSet(row.not_ready_reason_codes, expectedReasons), 'EMV_READINESS_RECOMPUTATION', 'readiness', row.id, '/not_ready_reason_codes', 'not-ready reasons do not recompute from blocked checklist dimensions');
     requireValue(blocked.length > 0 && row.status === 'NOT_READY_WITH_EXACT_BLOCKERS' && row.strict_ready === false && row.eligible_for_scoring === false && row.score === null && row.selected_first_wave === false, 'EMV_FALSE_POSITIVE_READINESS', 'readiness', row.id, '/', 'blocked candidate escaped fail-closed readiness');
     requireValue(row.candidate_contract_accepted === false && row.canonical === false && row.promotion_ready === false && row.normalization_allowed === false && row.physical_operation_authorized === false, 'EMV_READINESS_PROMOTED', 'readiness', row.id, '/', 'readiness accepted/promoted a candidate');
     requireValue(row.product_value_gate_mode === 'observe' && row.value_evidence_status === 'pending_product_model' && ['need_ids', 'job_ids', 'journey_ids', 'capability_ids', 'outcome_ids', 'metric_ids', 'guardrail_ids'].every((field) => row[field].length === 0), 'EMV_PRODUCT_ID_CREATED', 'product-value', row.id, '/', 'readiness invented product IDs');
     requireValue(row.experiment_decision === 'NOT_MERGED', 'EMV_EXPERIMENT_WINNER_SELECTED', 'experiments', row.id, '/experiment_decision', 'readiness selected an experiment');
     requireValue(sha(absoluteRoot, row.candidate_contract_ref) === row.candidate_contract_sha256, 'EMV_CANDIDATE_HASH_MISMATCH', 'readiness', row.id, '/candidate_contract_sha256', 'readiness candidate hash differs');
     requireValue(sameSet(row.blocker_closure_refs, candidate.open_blocker_refs), 'EMV_READINESS_BLOCKER_JOIN', 'readiness', row.id, '/blocker_closure_refs', 'candidate/readiness blocker set differs');
-    const expectedOwner = row.owner_decision_blocker_refs.map((id) => blockerById.get(id)?.owner_question_id).filter(Boolean);
-    requireValue(expectedOwner.every((id) => row.owner_question_refs.includes(id) && ownerById.has(id)), 'EMV_READINESS_OWNER_JOIN', 'readiness', row.id, '/owner_question_refs', 'readiness owner queue join differs');
+    requireValue(sameSet(row.open_blocker_refs, row.blocker_closure_refs.filter((id) => blockerById.get(id)?.status === 'still_open')),
+      'EMV_READINESS_OPEN_BLOCKER_JOIN', 'readiness', row.id, '/open_blocker_refs', 'open blocker set does not recompute from the closure ledger');
+    requireValue(row.blocker_closure_refs.every((id) => blockerById.has(id)), 'EMV_READINESS_BLOCKER_JOIN', 'readiness', row.id, '/blocker_closure_refs', 'readiness blocker reference is unresolved');
+    const expectedOwner = [...new Set(row.owner_decision_blocker_refs.map((id) => blockerById.get(id)?.owner_question_id).filter(Boolean))];
+    requireValue(sameSet(row.owner_question_refs, expectedOwner) && expectedOwner.every((id) => ownerById.has(id)), 'EMV_READINESS_OWNER_JOIN', 'readiness', row.id, '/owner_question_refs', 'readiness owner queue join differs');
+    verifyRefs(absoluteRoot, absoluteEvents, row.evidence_refs, row.id, '/evidence_refs', fixtureMode);
+    verifyRefs(absoluteRoot, absoluteEvents, [...row.product_value_application_refs, ...row.product_value_readiness_refs], row.id, '/product_value_refs', fixtureMode);
   }
 
   const experimentRows = jsonl(absoluteRoot, `${BEHAVIOR}/experiment-registry.jsonl`);
