@@ -1,0 +1,716 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.listing.unusual",
+  "display_name": "Unusual listing",
+  "fixture_refs": [
+    "fixture.listing.unusual.unread",
+    "fixture.listing.unusual.read",
+    "fixture.listing.unusual.empty",
+    "fixture.listing.unusual.fallback"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "unread"
+      },
+      "fixture_id": "fixture.listing.unusual.unread",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.c73512eaf92d4700"
+      ],
+      "state": "unread"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "read"
+      },
+      "fixture_id": "fixture.listing.unusual.read",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.c73512eaf92d4700"
+      ],
+      "state": "read"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.listing.unusual.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.c73512eaf92d4700"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "fallback"
+      },
+      "fixture_id": "fixture.listing.unusual.fallback",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.c73512eaf92d4700"
+      ],
+      "state": "fallback"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.listing.unusual.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.002"
+      },
+      {
+        "from_node_id": "node.listing.unusual.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.003"
+      },
+      {
+        "from_node_id": "node.listing.unusual.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.004"
+      },
+      {
+        "from_node_id": "node.listing.unusual.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.005"
+      },
+      {
+        "from_node_id": "node.listing.unusual.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.006"
+      },
+      {
+        "from_node_id": "node.listing.unusual.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.007"
+      },
+      {
+        "from_node_id": "node.listing.unusual.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.008"
+      },
+      {
+        "from_node_id": "node.listing.unusual.010",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.011"
+      },
+      {
+        "from_node_id": "node.listing.unusual.011",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.012"
+      },
+      {
+        "from_node_id": "node.listing.unusual.011",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.013"
+      },
+      {
+        "from_node_id": "node.listing.unusual.011",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.014"
+      },
+      {
+        "from_node_id": "node.listing.unusual.011",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.015"
+      },
+      {
+        "from_node_id": "node.listing.unusual.015",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.016"
+      },
+      {
+        "from_node_id": "node.listing.unusual.011",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.unusual.017"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.page-header",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.behavior-row",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.010",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.011",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.012",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.013",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.014",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.015",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.016",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.unusual.unread",
+          "fixture.listing.unusual.read",
+          "fixture.listing.unusual.empty",
+          "fixture.listing.unusual.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.unusual.017",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.listing.unusual.001",
+      "node.listing.unusual.009",
+      "node.listing.unusual.010"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/neobychnoe/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.listing-unusual"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.c73512eaf92d4700",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.unusual",
+      "route_family_id": "page-family.unusual",
+      "route_template": "/neobychnoe/",
+      "source_id": "source.current_root_prelaunch.c73512eaf92d4700",
+      "source_path": "site/src/pages/neobychnoe/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.unread",
+      "matrix_id": "matrix.listing.unusual.mobile.unread",
+      "state": "unread",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.read",
+      "matrix_id": "matrix.listing.unusual.mobile.read",
+      "state": "read",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.empty",
+      "matrix_id": "matrix.listing.unusual.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.fallback",
+      "matrix_id": "matrix.listing.unusual.mobile.fallback",
+      "state": "fallback",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.unread",
+      "matrix_id": "matrix.listing.unusual.desktop.unread",
+      "state": "unread",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.read",
+      "matrix_id": "matrix.listing.unusual.desktop.read",
+      "state": "read",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.empty",
+      "matrix_id": "matrix.listing.unusual.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.unusual.001",
+        "node.listing.unusual.002",
+        "node.listing.unusual.003",
+        "node.listing.unusual.004",
+        "node.listing.unusual.005",
+        "node.listing.unusual.006",
+        "node.listing.unusual.007",
+        "node.listing.unusual.008",
+        "node.listing.unusual.009",
+        "node.listing.unusual.010",
+        "node.listing.unusual.011",
+        "node.listing.unusual.012",
+        "node.listing.unusual.013",
+        "node.listing.unusual.014",
+        "node.listing.unusual.015",
+        "node.listing.unusual.016",
+        "node.listing.unusual.017"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.unusual.fallback",
+      "matrix_id": "matrix.listing.unusual.desktop.fallback",
+      "state": "fallback",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

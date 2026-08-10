@@ -1,0 +1,1550 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.event-detail.desktop-editorial",
+  "display_name": "Event detail — desktop editorial",
+  "fixture_refs": [
+    "fixture.event-detail.desktop-editorial.landscape",
+    "fixture.event-detail.desktop-editorial.gallery",
+    "fixture.event-detail.desktop-editorial.poster-companion",
+    "fixture.event-detail.desktop-editorial.transport",
+    "fixture.event-detail.desktop-editorial.continuation"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "landscape-photo",
+        "runtime_condition": "landscape"
+      },
+      "fixture_id": "fixture.event-detail.desktop-editorial.landscape",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "landscape"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "gallery",
+        "runtime_condition": "gallery"
+      },
+      "fixture_id": "fixture.event-detail.desktop-editorial.gallery",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "gallery"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "portrait-poster",
+        "runtime_condition": "poster-companion"
+      },
+      "fixture_id": "fixture.event-detail.desktop-editorial.poster-companion",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "poster-companion"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "transport"
+      },
+      "fixture_id": "fixture.event-detail.desktop-editorial.transport",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "transport"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "continuation"
+      },
+      "fixture_id": "fixture.event-detail.desktop-editorial.continuation",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "continuation"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.002"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.003"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.004"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.005"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.006"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.007"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.008"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.009",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.010"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.010",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.011"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.012",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.013"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.013",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.014"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.013",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.015"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.013",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.016"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.013",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.017"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.013",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.018"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.018",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.019"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.018",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.020"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.012",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.021"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.021",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.022"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.021",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.023"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.012",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.024"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.024",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.025"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.012",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.026"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.026",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.027"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.026",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.028"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.028",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.029"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.012",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.030"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.030",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.031"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.030",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.032"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.032",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.033"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.035",
+        "order": 0,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.036"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.036",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.037"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.036",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.038"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.038",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.039"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.036",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.040"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.035",
+        "order": 1,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.041"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.041",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.042"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.041",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.043"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.043",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.044"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.041",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.045"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.035",
+        "order": 2,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.046"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.046",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.047"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.046",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.048"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.048",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.049"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-editorial.046",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-editorial.050"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-list",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-row",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.010",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.011",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-composition",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.012",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.action-group",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.013",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.014",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.015",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.016",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.017",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.primary-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.018",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.019",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.copy-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.020",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.021",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.022",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.023",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.024",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.025",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-rail",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.026",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.rail",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.027",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.028",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.029",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-viewer",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.030",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.dialog",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.031",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.032",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.033",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.participants",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.034",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.schedule-region",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.035",
+        "node_kind": "pattern_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.bus-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.036",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.037",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.038",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.039",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.040",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.kaup-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.041",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.042",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.043",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.044",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.045",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.rail-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.046",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.047",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.048",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.049",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-editorial.landscape",
+          "fixture.event-detail.desktop-editorial.gallery",
+          "fixture.event-detail.desktop-editorial.poster-companion",
+          "fixture.event-detail.desktop-editorial.transport",
+          "fixture.event-detail.desktop-editorial.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-editorial.050",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.event-detail.desktop-editorial.001",
+      "node.event-detail.desktop-editorial.009",
+      "node.event-detail.desktop-editorial.012",
+      "node.event-detail.desktop-editorial.034",
+      "node.event-detail.desktop-editorial.035"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/sobytiya/[slug]/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.event-detail.editorial",
+    "transport.schedule-region"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.event-detail",
+      "route_family_id": "page-family.event-detail",
+      "route_template": "/sobytiya/:slug/",
+      "source_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "source_path": "site/src/pages/sobytiya/[slug].astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-editorial.001",
+        "node.event-detail.desktop-editorial.002",
+        "node.event-detail.desktop-editorial.003",
+        "node.event-detail.desktop-editorial.004",
+        "node.event-detail.desktop-editorial.005",
+        "node.event-detail.desktop-editorial.006",
+        "node.event-detail.desktop-editorial.007",
+        "node.event-detail.desktop-editorial.008",
+        "node.event-detail.desktop-editorial.009",
+        "node.event-detail.desktop-editorial.010",
+        "node.event-detail.desktop-editorial.011",
+        "node.event-detail.desktop-editorial.012",
+        "node.event-detail.desktop-editorial.013",
+        "node.event-detail.desktop-editorial.014",
+        "node.event-detail.desktop-editorial.015",
+        "node.event-detail.desktop-editorial.016",
+        "node.event-detail.desktop-editorial.017",
+        "node.event-detail.desktop-editorial.018",
+        "node.event-detail.desktop-editorial.019",
+        "node.event-detail.desktop-editorial.020",
+        "node.event-detail.desktop-editorial.021",
+        "node.event-detail.desktop-editorial.022",
+        "node.event-detail.desktop-editorial.023",
+        "node.event-detail.desktop-editorial.024",
+        "node.event-detail.desktop-editorial.025",
+        "node.event-detail.desktop-editorial.026",
+        "node.event-detail.desktop-editorial.027",
+        "node.event-detail.desktop-editorial.028",
+        "node.event-detail.desktop-editorial.029",
+        "node.event-detail.desktop-editorial.030",
+        "node.event-detail.desktop-editorial.031",
+        "node.event-detail.desktop-editorial.032",
+        "node.event-detail.desktop-editorial.033",
+        "node.event-detail.desktop-editorial.034",
+        "node.event-detail.desktop-editorial.035",
+        "node.event-detail.desktop-editorial.046",
+        "node.event-detail.desktop-editorial.047",
+        "node.event-detail.desktop-editorial.048",
+        "node.event-detail.desktop-editorial.049",
+        "node.event-detail.desktop-editorial.050"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-editorial.landscape",
+      "matrix_id": "matrix.event-detail.desktop-editorial.desktop.landscape",
+      "state": "landscape",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-editorial.001",
+        "node.event-detail.desktop-editorial.002",
+        "node.event-detail.desktop-editorial.003",
+        "node.event-detail.desktop-editorial.004",
+        "node.event-detail.desktop-editorial.005",
+        "node.event-detail.desktop-editorial.006",
+        "node.event-detail.desktop-editorial.007",
+        "node.event-detail.desktop-editorial.008",
+        "node.event-detail.desktop-editorial.009",
+        "node.event-detail.desktop-editorial.010",
+        "node.event-detail.desktop-editorial.011",
+        "node.event-detail.desktop-editorial.012",
+        "node.event-detail.desktop-editorial.013",
+        "node.event-detail.desktop-editorial.014",
+        "node.event-detail.desktop-editorial.015",
+        "node.event-detail.desktop-editorial.016",
+        "node.event-detail.desktop-editorial.017",
+        "node.event-detail.desktop-editorial.018",
+        "node.event-detail.desktop-editorial.019",
+        "node.event-detail.desktop-editorial.020",
+        "node.event-detail.desktop-editorial.021",
+        "node.event-detail.desktop-editorial.022",
+        "node.event-detail.desktop-editorial.023",
+        "node.event-detail.desktop-editorial.024",
+        "node.event-detail.desktop-editorial.025",
+        "node.event-detail.desktop-editorial.026",
+        "node.event-detail.desktop-editorial.027",
+        "node.event-detail.desktop-editorial.028",
+        "node.event-detail.desktop-editorial.029",
+        "node.event-detail.desktop-editorial.030",
+        "node.event-detail.desktop-editorial.031",
+        "node.event-detail.desktop-editorial.032",
+        "node.event-detail.desktop-editorial.033",
+        "node.event-detail.desktop-editorial.034",
+        "node.event-detail.desktop-editorial.035",
+        "node.event-detail.desktop-editorial.046",
+        "node.event-detail.desktop-editorial.047",
+        "node.event-detail.desktop-editorial.048",
+        "node.event-detail.desktop-editorial.049",
+        "node.event-detail.desktop-editorial.050"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-editorial.gallery",
+      "matrix_id": "matrix.event-detail.desktop-editorial.desktop.gallery",
+      "state": "gallery",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-editorial.001",
+        "node.event-detail.desktop-editorial.002",
+        "node.event-detail.desktop-editorial.003",
+        "node.event-detail.desktop-editorial.004",
+        "node.event-detail.desktop-editorial.005",
+        "node.event-detail.desktop-editorial.006",
+        "node.event-detail.desktop-editorial.007",
+        "node.event-detail.desktop-editorial.008",
+        "node.event-detail.desktop-editorial.009",
+        "node.event-detail.desktop-editorial.010",
+        "node.event-detail.desktop-editorial.011",
+        "node.event-detail.desktop-editorial.012",
+        "node.event-detail.desktop-editorial.013",
+        "node.event-detail.desktop-editorial.014",
+        "node.event-detail.desktop-editorial.015",
+        "node.event-detail.desktop-editorial.016",
+        "node.event-detail.desktop-editorial.017",
+        "node.event-detail.desktop-editorial.018",
+        "node.event-detail.desktop-editorial.019",
+        "node.event-detail.desktop-editorial.020",
+        "node.event-detail.desktop-editorial.021",
+        "node.event-detail.desktop-editorial.022",
+        "node.event-detail.desktop-editorial.023",
+        "node.event-detail.desktop-editorial.024",
+        "node.event-detail.desktop-editorial.025",
+        "node.event-detail.desktop-editorial.026",
+        "node.event-detail.desktop-editorial.027",
+        "node.event-detail.desktop-editorial.028",
+        "node.event-detail.desktop-editorial.029",
+        "node.event-detail.desktop-editorial.030",
+        "node.event-detail.desktop-editorial.031",
+        "node.event-detail.desktop-editorial.032",
+        "node.event-detail.desktop-editorial.033",
+        "node.event-detail.desktop-editorial.034",
+        "node.event-detail.desktop-editorial.035",
+        "node.event-detail.desktop-editorial.046",
+        "node.event-detail.desktop-editorial.047",
+        "node.event-detail.desktop-editorial.048",
+        "node.event-detail.desktop-editorial.049",
+        "node.event-detail.desktop-editorial.050"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-editorial.poster-companion",
+      "matrix_id": "matrix.event-detail.desktop-editorial.desktop.poster-companion",
+      "state": "poster-companion",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-editorial.001",
+        "node.event-detail.desktop-editorial.002",
+        "node.event-detail.desktop-editorial.003",
+        "node.event-detail.desktop-editorial.004",
+        "node.event-detail.desktop-editorial.005",
+        "node.event-detail.desktop-editorial.006",
+        "node.event-detail.desktop-editorial.007",
+        "node.event-detail.desktop-editorial.008",
+        "node.event-detail.desktop-editorial.009",
+        "node.event-detail.desktop-editorial.010",
+        "node.event-detail.desktop-editorial.011",
+        "node.event-detail.desktop-editorial.012",
+        "node.event-detail.desktop-editorial.013",
+        "node.event-detail.desktop-editorial.014",
+        "node.event-detail.desktop-editorial.015",
+        "node.event-detail.desktop-editorial.016",
+        "node.event-detail.desktop-editorial.017",
+        "node.event-detail.desktop-editorial.018",
+        "node.event-detail.desktop-editorial.019",
+        "node.event-detail.desktop-editorial.020",
+        "node.event-detail.desktop-editorial.021",
+        "node.event-detail.desktop-editorial.022",
+        "node.event-detail.desktop-editorial.023",
+        "node.event-detail.desktop-editorial.024",
+        "node.event-detail.desktop-editorial.025",
+        "node.event-detail.desktop-editorial.026",
+        "node.event-detail.desktop-editorial.027",
+        "node.event-detail.desktop-editorial.028",
+        "node.event-detail.desktop-editorial.029",
+        "node.event-detail.desktop-editorial.030",
+        "node.event-detail.desktop-editorial.031",
+        "node.event-detail.desktop-editorial.032",
+        "node.event-detail.desktop-editorial.033",
+        "node.event-detail.desktop-editorial.034",
+        "node.event-detail.desktop-editorial.035",
+        "node.event-detail.desktop-editorial.046",
+        "node.event-detail.desktop-editorial.047",
+        "node.event-detail.desktop-editorial.048",
+        "node.event-detail.desktop-editorial.049",
+        "node.event-detail.desktop-editorial.050"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-editorial.transport",
+      "matrix_id": "matrix.event-detail.desktop-editorial.desktop.transport",
+      "state": "transport",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-editorial.001",
+        "node.event-detail.desktop-editorial.002",
+        "node.event-detail.desktop-editorial.003",
+        "node.event-detail.desktop-editorial.004",
+        "node.event-detail.desktop-editorial.005",
+        "node.event-detail.desktop-editorial.006",
+        "node.event-detail.desktop-editorial.007",
+        "node.event-detail.desktop-editorial.008",
+        "node.event-detail.desktop-editorial.009",
+        "node.event-detail.desktop-editorial.010",
+        "node.event-detail.desktop-editorial.011",
+        "node.event-detail.desktop-editorial.012",
+        "node.event-detail.desktop-editorial.013",
+        "node.event-detail.desktop-editorial.014",
+        "node.event-detail.desktop-editorial.015",
+        "node.event-detail.desktop-editorial.016",
+        "node.event-detail.desktop-editorial.017",
+        "node.event-detail.desktop-editorial.018",
+        "node.event-detail.desktop-editorial.019",
+        "node.event-detail.desktop-editorial.020",
+        "node.event-detail.desktop-editorial.021",
+        "node.event-detail.desktop-editorial.022",
+        "node.event-detail.desktop-editorial.023",
+        "node.event-detail.desktop-editorial.024",
+        "node.event-detail.desktop-editorial.025",
+        "node.event-detail.desktop-editorial.026",
+        "node.event-detail.desktop-editorial.027",
+        "node.event-detail.desktop-editorial.028",
+        "node.event-detail.desktop-editorial.029",
+        "node.event-detail.desktop-editorial.030",
+        "node.event-detail.desktop-editorial.031",
+        "node.event-detail.desktop-editorial.032",
+        "node.event-detail.desktop-editorial.033",
+        "node.event-detail.desktop-editorial.034",
+        "node.event-detail.desktop-editorial.035",
+        "node.event-detail.desktop-editorial.046",
+        "node.event-detail.desktop-editorial.047",
+        "node.event-detail.desktop-editorial.048",
+        "node.event-detail.desktop-editorial.049",
+        "node.event-detail.desktop-editorial.050"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-editorial.continuation",
+      "matrix_id": "matrix.event-detail.desktop-editorial.desktop.continuation",
+      "state": "continuation",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

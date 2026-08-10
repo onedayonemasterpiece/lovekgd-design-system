@@ -1,0 +1,221 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.documents-legal",
+  "display_name": "Documents and legal",
+  "fixture_refs": [
+    "fixture.documents-legal.short",
+    "fixture.documents-legal.long-document"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "short",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "short"
+      },
+      "fixture_id": "fixture.documents-legal.short",
+      "source_consumer_ref_ids": [
+        "consumer.unresolved.documents-legal"
+      ],
+      "state": "short"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "long-document"
+      },
+      "fixture_id": "fixture.documents-legal.long-document",
+      "source_consumer_ref_ids": [
+        "consumer.unresolved.documents-legal"
+      ],
+      "state": "long-document"
+    }
+  ],
+  "gap_refs": [
+    "gap.documents-legal.01"
+  ],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.documents-legal.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.documents-legal.003"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "core.breadcrumbs",
+        "fixture_refs": [
+          "fixture.documents-legal.short",
+          "fixture.documents-legal.long-document"
+        ],
+        "local_overrides": [],
+        "node_id": "node.documents-legal.001",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "site.footer",
+        "fixture_refs": [
+          "fixture.documents-legal.short",
+          "fixture.documents-legal.long-document"
+        ],
+        "local_overrides": [],
+        "node_id": "node.documents-legal.002",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.documents-legal.short",
+          "fixture.documents-legal.long-document"
+        ],
+        "local_overrides": [],
+        "node_id": "node.documents-legal.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.documents-legal.short",
+          "fixture.documents-legal.long-document"
+        ],
+        "gap": {
+          "gap_id": "gap.documents-legal.01",
+          "reason": "Exact current route/template binding and document typography composition.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.documents-legal"
+          ],
+          "uncovered_region": "Exact current route/template binding and document typography composition."
+        },
+        "local_overrides": [],
+        "node_id": "node.documents-legal.004",
+        "node_kind": "gap_placeholder",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.documents-legal.001",
+      "node.documents-legal.002",
+      "node.documents-legal.004"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "unresolved_source_binding",
+  "route_family": "/documents-or-legal/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "consumer.unresolved.documents-legal",
+      "evidence_ref": "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.documents-legal",
+      "route_family_id": null,
+      "route_template": "/documents-or-legal/",
+      "source_id": null,
+      "source_path": null
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.documents-legal.001",
+        "node.documents-legal.002",
+        "node.documents-legal.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.documents-legal.004"
+      ],
+      "fixture_ref": "fixture.documents-legal.short",
+      "matrix_id": "matrix.documents-legal.mobile.short",
+      "state": "short",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.documents-legal.001",
+        "node.documents-legal.002",
+        "node.documents-legal.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.documents-legal.004"
+      ],
+      "fixture_ref": "fixture.documents-legal.long-document",
+      "matrix_id": "matrix.documents-legal.mobile.long-document",
+      "state": "long-document",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.documents-legal.001",
+        "node.documents-legal.002",
+        "node.documents-legal.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.documents-legal.004"
+      ],
+      "fixture_ref": "fixture.documents-legal.short",
+      "matrix_id": "matrix.documents-legal.desktop.short",
+      "state": "short",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.documents-legal.001",
+        "node.documents-legal.002",
+        "node.documents-legal.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.documents-legal.004"
+      ],
+      "fixture_ref": "fixture.documents-legal.long-document",
+      "matrix_id": "matrix.documents-legal.desktop.long-document",
+      "state": "long-document",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

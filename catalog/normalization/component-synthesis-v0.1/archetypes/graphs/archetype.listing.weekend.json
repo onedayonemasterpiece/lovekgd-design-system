@@ -1,0 +1,814 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.listing.weekend",
+  "display_name": "Weekend listing",
+  "fixture_refs": [
+    "fixture.listing.weekend.0",
+    "fixture.listing.weekend.1",
+    "fixture.listing.weekend.many",
+    "fixture.listing.weekend.overflow"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "0"
+      },
+      "fixture_id": "fixture.listing.weekend.0",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.804202f8c42cf895",
+        "source.current_root_prelaunch.99fbeb69140dbe08"
+      ],
+      "state": "0"
+    },
+    {
+      "content_profile": {
+        "cardinality": "one",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "1"
+      },
+      "fixture_id": "fixture.listing.weekend.1",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.804202f8c42cf895",
+        "source.current_root_prelaunch.99fbeb69140dbe08"
+      ],
+      "state": "1"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "many"
+      },
+      "fixture_id": "fixture.listing.weekend.many",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.804202f8c42cf895",
+        "source.current_root_prelaunch.99fbeb69140dbe08"
+      ],
+      "state": "many"
+    },
+    {
+      "content_profile": {
+        "cardinality": "overflow",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "overflow"
+      },
+      "fixture_id": "fixture.listing.weekend.overflow",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.804202f8c42cf895",
+        "source.current_root_prelaunch.99fbeb69140dbe08"
+      ],
+      "state": "overflow"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.listing.weekend.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.002"
+      },
+      {
+        "from_node_id": "node.listing.weekend.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.003"
+      },
+      {
+        "from_node_id": "node.listing.weekend.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.004"
+      },
+      {
+        "from_node_id": "node.listing.weekend.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.005"
+      },
+      {
+        "from_node_id": "node.listing.weekend.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.006"
+      },
+      {
+        "from_node_id": "node.listing.weekend.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.007"
+      },
+      {
+        "from_node_id": "node.listing.weekend.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.008"
+      },
+      {
+        "from_node_id": "node.listing.weekend.012",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.013"
+      },
+      {
+        "from_node_id": "node.listing.weekend.013",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.014"
+      },
+      {
+        "from_node_id": "node.listing.weekend.013",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.015"
+      },
+      {
+        "from_node_id": "node.listing.weekend.013",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.016"
+      },
+      {
+        "from_node_id": "node.listing.weekend.013",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.017"
+      },
+      {
+        "from_node_id": "node.listing.weekend.017",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.018"
+      },
+      {
+        "from_node_id": "node.listing.weekend.013",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.019"
+      },
+      {
+        "from_node_id": "node.listing.weekend.012",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.weekend.020"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.page-header",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.range-navigation",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.010",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.time-navigation",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.011",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.timeline",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.012",
+        "node_kind": "pattern_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.013",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.014",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.015",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.016",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.017",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.018",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.019",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.time-marker",
+        "fixture_refs": [
+          "fixture.listing.weekend.0",
+          "fixture.listing.weekend.1",
+          "fixture.listing.weekend.many",
+          "fixture.listing.weekend.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.weekend.020",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.listing.weekend.001",
+      "node.listing.weekend.009",
+      "node.listing.weekend.010",
+      "node.listing.weekend.011",
+      "node.listing.weekend.012"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/vyhodnye/[start]/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.listing-weekend"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.804202f8c42cf895",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.weekend-listing",
+      "route_family_id": "page-family.weekend-listing",
+      "route_template": "/vyhodnye/:start/",
+      "source_id": "source.current_root_prelaunch.804202f8c42cf895",
+      "source_path": "site/src/pages/vyhodnye/[start].astro"
+    },
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.99fbeb69140dbe08",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.weekend-listing",
+      "route_family_id": "page-family.weekend-listing",
+      "route_template": "/vyhodnye/",
+      "source_id": "source.current_root_prelaunch.99fbeb69140dbe08",
+      "source_path": "site/src/pages/vyhodnye/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.0",
+      "matrix_id": "matrix.listing.weekend.mobile.0",
+      "state": "0",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.1",
+      "matrix_id": "matrix.listing.weekend.mobile.1",
+      "state": "1",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.many",
+      "matrix_id": "matrix.listing.weekend.mobile.many",
+      "state": "many",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.overflow",
+      "matrix_id": "matrix.listing.weekend.mobile.overflow",
+      "state": "overflow",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.0",
+      "matrix_id": "matrix.listing.weekend.desktop.0",
+      "state": "0",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.1",
+      "matrix_id": "matrix.listing.weekend.desktop.1",
+      "state": "1",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.many",
+      "matrix_id": "matrix.listing.weekend.desktop.many",
+      "state": "many",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.weekend.001",
+        "node.listing.weekend.002",
+        "node.listing.weekend.003",
+        "node.listing.weekend.004",
+        "node.listing.weekend.005",
+        "node.listing.weekend.006",
+        "node.listing.weekend.007",
+        "node.listing.weekend.008",
+        "node.listing.weekend.009",
+        "node.listing.weekend.010",
+        "node.listing.weekend.011",
+        "node.listing.weekend.012",
+        "node.listing.weekend.013",
+        "node.listing.weekend.014",
+        "node.listing.weekend.015",
+        "node.listing.weekend.016",
+        "node.listing.weekend.017",
+        "node.listing.weekend.018",
+        "node.listing.weekend.019",
+        "node.listing.weekend.020"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.weekend.overflow",
+      "matrix_id": "matrix.listing.weekend.desktop.overflow",
+      "state": "overflow",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.favorites",
+  "display_name": "Favorites",
+  "fixture_refs": [
+    "fixture.favorites.loading",
+    "fixture.favorites.saved",
+    "fixture.favorites.empty",
+    "fixture.favorites.error",
+    "fixture.favorites.offline"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "loading"
+      },
+      "fixture_id": "fixture.favorites.loading",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.b639f0deb6a67063"
+      ],
+      "state": "loading"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "saved"
+      },
+      "fixture_id": "fixture.favorites.saved",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.b639f0deb6a67063"
+      ],
+      "state": "saved"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.favorites.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.b639f0deb6a67063"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "error"
+      },
+      "fixture_id": "fixture.favorites.error",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.b639f0deb6a67063"
+      ],
+      "state": "error"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "offline"
+      },
+      "fixture_id": "fixture.favorites.offline",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.b639f0deb6a67063"
+      ],
+      "state": "offline"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.favorites.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.002"
+      },
+      {
+        "from_node_id": "node.favorites.001",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.003"
+      },
+      {
+        "from_node_id": "node.favorites.003",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.004"
+      },
+      {
+        "from_node_id": "node.favorites.003",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.005"
+      },
+      {
+        "from_node_id": "node.favorites.003",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.006"
+      },
+      {
+        "from_node_id": "node.favorites.003",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.007"
+      },
+      {
+        "from_node_id": "node.favorites.007",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.008"
+      },
+      {
+        "from_node_id": "node.favorites.003",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.favorites.009"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "favorites.surface",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.003",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.004",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.005",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.006",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.007",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.008",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.favorites.loading",
+          "fixture.favorites.saved",
+          "fixture.favorites.empty",
+          "fixture.favorites.error",
+          "fixture.favorites.offline"
+        ],
+        "local_overrides": [],
+        "node_id": "node.favorites.009",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.favorites.001"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/izbrannoe/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "favorites.surface"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.b639f0deb6a67063",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.favorites",
+      "route_family_id": "page-family.favorites",
+      "route_template": "/izbrannoe/",
+      "source_id": "source.current_root_prelaunch.b639f0deb6a67063",
+      "source_path": "site/src/pages/izbrannoe/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.loading",
+      "matrix_id": "matrix.favorites.mobile.loading",
+      "state": "loading",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.saved",
+      "matrix_id": "matrix.favorites.mobile.saved",
+      "state": "saved",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.empty",
+      "matrix_id": "matrix.favorites.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.error",
+      "matrix_id": "matrix.favorites.mobile.error",
+      "state": "error",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.offline",
+      "matrix_id": "matrix.favorites.mobile.offline",
+      "state": "offline",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.loading",
+      "matrix_id": "matrix.favorites.desktop.loading",
+      "state": "loading",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.saved",
+      "matrix_id": "matrix.favorites.desktop.saved",
+      "state": "saved",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.empty",
+      "matrix_id": "matrix.favorites.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.error",
+      "matrix_id": "matrix.favorites.desktop.error",
+      "state": "error",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.favorites.001",
+        "node.favorites.002",
+        "node.favorites.003",
+        "node.favorites.004",
+        "node.favorites.005",
+        "node.favorites.006",
+        "node.favorites.007",
+        "node.favorites.008",
+        "node.favorites.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.favorites.offline",
+      "matrix_id": "matrix.favorites.desktop.offline",
+      "state": "offline",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

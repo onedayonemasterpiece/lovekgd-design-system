@@ -1,0 +1,1927 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile"
+    ]
+  },
+  "archetype_id": "archetype.event-detail.mobile",
+  "display_name": "Event detail — mobile",
+  "fixture_refs": [
+    "fixture.event-detail.mobile.photo",
+    "fixture.event-detail.mobile.poster",
+    "fixture.event-detail.mobile.no-image",
+    "fixture.event-detail.mobile.transport",
+    "fixture.event-detail.mobile.continuation"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "landscape-photo",
+        "runtime_condition": "photo"
+      },
+      "fixture_id": "fixture.event-detail.mobile.photo",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "photo"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "portrait-poster",
+        "runtime_condition": "poster"
+      },
+      "fixture_id": "fixture.event-detail.mobile.poster",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "poster"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "missing",
+        "runtime_condition": "no-image"
+      },
+      "fixture_id": "fixture.event-detail.mobile.no-image",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "no-image"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "transport"
+      },
+      "fixture_id": "fixture.event-detail.mobile.transport",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "transport"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "continuation"
+      },
+      "fixture_id": "fixture.event-detail.mobile.continuation",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "continuation"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.event-detail.mobile.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.002"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.003"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.004"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.005"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.006"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.007"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.008"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.009",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.010"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.010",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.011"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.010",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.012"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.010",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.013"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.010",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.014"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.010",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.015"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.015",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.016"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.015",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.017"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.009",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.018"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.018",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.019"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.019",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.020"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.009",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.021"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.022",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.023"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.022",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.024"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.024",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.025"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.026",
+        "order": 0,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.mobile.027"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.027",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.028"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.027",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.029"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.029",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.030"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.027",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.031"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.026",
+        "order": 1,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.mobile.032"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.032",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.033"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.032",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.034"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.034",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.035"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.032",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.036"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.026",
+        "order": 2,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.mobile.037"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.037",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.038"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.037",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.039"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.039",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.040"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.037",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.041"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.042",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.043"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.043",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.044"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.043",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.045"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.043",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.046"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.043",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.047"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.043",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.048"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.048",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.049"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.048",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.050"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.042",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.051"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.051",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.052"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.051",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.053"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.042",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.054"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.054",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.055"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.042",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.056"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.056",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.057"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.056",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.058"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.058",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.059"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.042",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.060"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.060",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.061"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.060",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.062"
+      },
+      {
+        "from_node_id": "node.event-detail.mobile.062",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.mobile.063"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.summary-action-panel",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.action-group",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.010",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.011",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.012",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.013",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.014",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.primary-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.015",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.016",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.copy-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.017",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-list",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.018",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-row",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.019",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.020",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.021",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "navigation.mobile-tab-bar",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.022",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.023",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "navigation.mobile-tab-item",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.024",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.025",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.schedule-region",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.026",
+        "node_kind": "pattern_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.bus-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.027",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.028",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.029",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.030",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.031",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.kaup-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.032",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.033",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.034",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.035",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.036",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.rail-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.037",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.038",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.039",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.040",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.041",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-composition",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.042",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.action-group",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.043",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.044",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.045",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.046",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.047",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.primary-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.048",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.049",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.copy-action",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.050",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-summary",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.051",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.052",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.053",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.054",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.055",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-rail",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.056",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.rail",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.057",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.058",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.059",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-viewer",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.060",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.dialog",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.061",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.062",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.mobile.photo",
+          "fixture.event-detail.mobile.poster",
+          "fixture.event-detail.mobile.no-image",
+          "fixture.event-detail.mobile.transport",
+          "fixture.event-detail.mobile.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.mobile.063",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.event-detail.mobile.001",
+      "node.event-detail.mobile.009",
+      "node.event-detail.mobile.022",
+      "node.event-detail.mobile.026",
+      "node.event-detail.mobile.042"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/sobytiya/[slug]/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.event-detail.mobile",
+    "transport.schedule-region"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.event-detail",
+      "route_family_id": "page-family.event-detail",
+      "route_template": "/sobytiya/:slug/",
+      "source_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "source_path": "site/src/pages/sobytiya/[slug].astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.event-detail.mobile.001",
+        "node.event-detail.mobile.002",
+        "node.event-detail.mobile.003",
+        "node.event-detail.mobile.004",
+        "node.event-detail.mobile.005",
+        "node.event-detail.mobile.006",
+        "node.event-detail.mobile.007",
+        "node.event-detail.mobile.008",
+        "node.event-detail.mobile.009",
+        "node.event-detail.mobile.010",
+        "node.event-detail.mobile.011",
+        "node.event-detail.mobile.012",
+        "node.event-detail.mobile.013",
+        "node.event-detail.mobile.014",
+        "node.event-detail.mobile.015",
+        "node.event-detail.mobile.016",
+        "node.event-detail.mobile.017",
+        "node.event-detail.mobile.018",
+        "node.event-detail.mobile.019",
+        "node.event-detail.mobile.020",
+        "node.event-detail.mobile.021",
+        "node.event-detail.mobile.022",
+        "node.event-detail.mobile.023",
+        "node.event-detail.mobile.024",
+        "node.event-detail.mobile.025",
+        "node.event-detail.mobile.026",
+        "node.event-detail.mobile.037",
+        "node.event-detail.mobile.038",
+        "node.event-detail.mobile.039",
+        "node.event-detail.mobile.040",
+        "node.event-detail.mobile.041",
+        "node.event-detail.mobile.042",
+        "node.event-detail.mobile.043",
+        "node.event-detail.mobile.044",
+        "node.event-detail.mobile.045",
+        "node.event-detail.mobile.046",
+        "node.event-detail.mobile.047",
+        "node.event-detail.mobile.048",
+        "node.event-detail.mobile.049",
+        "node.event-detail.mobile.050",
+        "node.event-detail.mobile.051",
+        "node.event-detail.mobile.052",
+        "node.event-detail.mobile.053",
+        "node.event-detail.mobile.054",
+        "node.event-detail.mobile.055",
+        "node.event-detail.mobile.056",
+        "node.event-detail.mobile.057",
+        "node.event-detail.mobile.058",
+        "node.event-detail.mobile.059",
+        "node.event-detail.mobile.060",
+        "node.event-detail.mobile.061",
+        "node.event-detail.mobile.062",
+        "node.event-detail.mobile.063"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.mobile.photo",
+      "matrix_id": "matrix.event-detail.mobile.mobile.photo",
+      "state": "photo",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.mobile.001",
+        "node.event-detail.mobile.002",
+        "node.event-detail.mobile.003",
+        "node.event-detail.mobile.004",
+        "node.event-detail.mobile.005",
+        "node.event-detail.mobile.006",
+        "node.event-detail.mobile.007",
+        "node.event-detail.mobile.008",
+        "node.event-detail.mobile.009",
+        "node.event-detail.mobile.010",
+        "node.event-detail.mobile.011",
+        "node.event-detail.mobile.012",
+        "node.event-detail.mobile.013",
+        "node.event-detail.mobile.014",
+        "node.event-detail.mobile.015",
+        "node.event-detail.mobile.016",
+        "node.event-detail.mobile.017",
+        "node.event-detail.mobile.018",
+        "node.event-detail.mobile.019",
+        "node.event-detail.mobile.020",
+        "node.event-detail.mobile.021",
+        "node.event-detail.mobile.022",
+        "node.event-detail.mobile.023",
+        "node.event-detail.mobile.024",
+        "node.event-detail.mobile.025",
+        "node.event-detail.mobile.026",
+        "node.event-detail.mobile.037",
+        "node.event-detail.mobile.038",
+        "node.event-detail.mobile.039",
+        "node.event-detail.mobile.040",
+        "node.event-detail.mobile.041",
+        "node.event-detail.mobile.042",
+        "node.event-detail.mobile.043",
+        "node.event-detail.mobile.044",
+        "node.event-detail.mobile.045",
+        "node.event-detail.mobile.046",
+        "node.event-detail.mobile.047",
+        "node.event-detail.mobile.048",
+        "node.event-detail.mobile.049",
+        "node.event-detail.mobile.050",
+        "node.event-detail.mobile.051",
+        "node.event-detail.mobile.052",
+        "node.event-detail.mobile.053",
+        "node.event-detail.mobile.054",
+        "node.event-detail.mobile.055",
+        "node.event-detail.mobile.056",
+        "node.event-detail.mobile.057",
+        "node.event-detail.mobile.058",
+        "node.event-detail.mobile.059",
+        "node.event-detail.mobile.060",
+        "node.event-detail.mobile.061",
+        "node.event-detail.mobile.062",
+        "node.event-detail.mobile.063"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.mobile.poster",
+      "matrix_id": "matrix.event-detail.mobile.mobile.poster",
+      "state": "poster",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.mobile.001",
+        "node.event-detail.mobile.002",
+        "node.event-detail.mobile.003",
+        "node.event-detail.mobile.004",
+        "node.event-detail.mobile.005",
+        "node.event-detail.mobile.006",
+        "node.event-detail.mobile.007",
+        "node.event-detail.mobile.008",
+        "node.event-detail.mobile.009",
+        "node.event-detail.mobile.010",
+        "node.event-detail.mobile.011",
+        "node.event-detail.mobile.012",
+        "node.event-detail.mobile.013",
+        "node.event-detail.mobile.014",
+        "node.event-detail.mobile.015",
+        "node.event-detail.mobile.016",
+        "node.event-detail.mobile.017",
+        "node.event-detail.mobile.018",
+        "node.event-detail.mobile.019",
+        "node.event-detail.mobile.020",
+        "node.event-detail.mobile.021",
+        "node.event-detail.mobile.022",
+        "node.event-detail.mobile.023",
+        "node.event-detail.mobile.024",
+        "node.event-detail.mobile.025",
+        "node.event-detail.mobile.026",
+        "node.event-detail.mobile.037",
+        "node.event-detail.mobile.038",
+        "node.event-detail.mobile.039",
+        "node.event-detail.mobile.040",
+        "node.event-detail.mobile.041",
+        "node.event-detail.mobile.042",
+        "node.event-detail.mobile.043",
+        "node.event-detail.mobile.044",
+        "node.event-detail.mobile.045",
+        "node.event-detail.mobile.046",
+        "node.event-detail.mobile.047",
+        "node.event-detail.mobile.048",
+        "node.event-detail.mobile.049",
+        "node.event-detail.mobile.050",
+        "node.event-detail.mobile.051",
+        "node.event-detail.mobile.052",
+        "node.event-detail.mobile.053",
+        "node.event-detail.mobile.054",
+        "node.event-detail.mobile.055",
+        "node.event-detail.mobile.056",
+        "node.event-detail.mobile.057",
+        "node.event-detail.mobile.058",
+        "node.event-detail.mobile.059",
+        "node.event-detail.mobile.060",
+        "node.event-detail.mobile.061",
+        "node.event-detail.mobile.062",
+        "node.event-detail.mobile.063"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.mobile.no-image",
+      "matrix_id": "matrix.event-detail.mobile.mobile.no-image",
+      "state": "no-image",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.mobile.001",
+        "node.event-detail.mobile.002",
+        "node.event-detail.mobile.003",
+        "node.event-detail.mobile.004",
+        "node.event-detail.mobile.005",
+        "node.event-detail.mobile.006",
+        "node.event-detail.mobile.007",
+        "node.event-detail.mobile.008",
+        "node.event-detail.mobile.009",
+        "node.event-detail.mobile.010",
+        "node.event-detail.mobile.011",
+        "node.event-detail.mobile.012",
+        "node.event-detail.mobile.013",
+        "node.event-detail.mobile.014",
+        "node.event-detail.mobile.015",
+        "node.event-detail.mobile.016",
+        "node.event-detail.mobile.017",
+        "node.event-detail.mobile.018",
+        "node.event-detail.mobile.019",
+        "node.event-detail.mobile.020",
+        "node.event-detail.mobile.021",
+        "node.event-detail.mobile.022",
+        "node.event-detail.mobile.023",
+        "node.event-detail.mobile.024",
+        "node.event-detail.mobile.025",
+        "node.event-detail.mobile.026",
+        "node.event-detail.mobile.037",
+        "node.event-detail.mobile.038",
+        "node.event-detail.mobile.039",
+        "node.event-detail.mobile.040",
+        "node.event-detail.mobile.041",
+        "node.event-detail.mobile.042",
+        "node.event-detail.mobile.043",
+        "node.event-detail.mobile.044",
+        "node.event-detail.mobile.045",
+        "node.event-detail.mobile.046",
+        "node.event-detail.mobile.047",
+        "node.event-detail.mobile.048",
+        "node.event-detail.mobile.049",
+        "node.event-detail.mobile.050",
+        "node.event-detail.mobile.051",
+        "node.event-detail.mobile.052",
+        "node.event-detail.mobile.053",
+        "node.event-detail.mobile.054",
+        "node.event-detail.mobile.055",
+        "node.event-detail.mobile.056",
+        "node.event-detail.mobile.057",
+        "node.event-detail.mobile.058",
+        "node.event-detail.mobile.059",
+        "node.event-detail.mobile.060",
+        "node.event-detail.mobile.061",
+        "node.event-detail.mobile.062",
+        "node.event-detail.mobile.063"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.mobile.transport",
+      "matrix_id": "matrix.event-detail.mobile.mobile.transport",
+      "state": "transport",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.mobile.001",
+        "node.event-detail.mobile.002",
+        "node.event-detail.mobile.003",
+        "node.event-detail.mobile.004",
+        "node.event-detail.mobile.005",
+        "node.event-detail.mobile.006",
+        "node.event-detail.mobile.007",
+        "node.event-detail.mobile.008",
+        "node.event-detail.mobile.009",
+        "node.event-detail.mobile.010",
+        "node.event-detail.mobile.011",
+        "node.event-detail.mobile.012",
+        "node.event-detail.mobile.013",
+        "node.event-detail.mobile.014",
+        "node.event-detail.mobile.015",
+        "node.event-detail.mobile.016",
+        "node.event-detail.mobile.017",
+        "node.event-detail.mobile.018",
+        "node.event-detail.mobile.019",
+        "node.event-detail.mobile.020",
+        "node.event-detail.mobile.021",
+        "node.event-detail.mobile.022",
+        "node.event-detail.mobile.023",
+        "node.event-detail.mobile.024",
+        "node.event-detail.mobile.025",
+        "node.event-detail.mobile.026",
+        "node.event-detail.mobile.037",
+        "node.event-detail.mobile.038",
+        "node.event-detail.mobile.039",
+        "node.event-detail.mobile.040",
+        "node.event-detail.mobile.041",
+        "node.event-detail.mobile.042",
+        "node.event-detail.mobile.043",
+        "node.event-detail.mobile.044",
+        "node.event-detail.mobile.045",
+        "node.event-detail.mobile.046",
+        "node.event-detail.mobile.047",
+        "node.event-detail.mobile.048",
+        "node.event-detail.mobile.049",
+        "node.event-detail.mobile.050",
+        "node.event-detail.mobile.051",
+        "node.event-detail.mobile.052",
+        "node.event-detail.mobile.053",
+        "node.event-detail.mobile.054",
+        "node.event-detail.mobile.055",
+        "node.event-detail.mobile.056",
+        "node.event-detail.mobile.057",
+        "node.event-detail.mobile.058",
+        "node.event-detail.mobile.059",
+        "node.event-detail.mobile.060",
+        "node.event-detail.mobile.061",
+        "node.event-detail.mobile.062",
+        "node.event-detail.mobile.063"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.mobile.continuation",
+      "matrix_id": "matrix.event-detail.mobile.mobile.continuation",
+      "state": "continuation",
+      "viewport_mode": "mobile"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

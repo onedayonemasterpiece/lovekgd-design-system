@@ -1,0 +1,912 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.listing.popular",
+  "display_name": "Popular listing",
+  "fixture_refs": [
+    "fixture.listing.popular.ranked",
+    "fixture.listing.popular.empty",
+    "fixture.listing.popular.fallback"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "ranked"
+      },
+      "fixture_id": "fixture.listing.popular.ranked",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dc15aa64361d70f7"
+      ],
+      "state": "ranked"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.listing.popular.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dc15aa64361d70f7"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "fallback"
+      },
+      "fixture_id": "fixture.listing.popular.fallback",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dc15aa64361d70f7"
+      ],
+      "state": "fallback"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.listing.popular.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.002"
+      },
+      {
+        "from_node_id": "node.listing.popular.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.003"
+      },
+      {
+        "from_node_id": "node.listing.popular.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.004"
+      },
+      {
+        "from_node_id": "node.listing.popular.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.005"
+      },
+      {
+        "from_node_id": "node.listing.popular.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.006"
+      },
+      {
+        "from_node_id": "node.listing.popular.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.007"
+      },
+      {
+        "from_node_id": "node.listing.popular.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.008"
+      },
+      {
+        "from_node_id": "node.listing.popular.011",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.012"
+      },
+      {
+        "from_node_id": "node.listing.popular.012",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.013"
+      },
+      {
+        "from_node_id": "node.listing.popular.012",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.014"
+      },
+      {
+        "from_node_id": "node.listing.popular.012",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.015"
+      },
+      {
+        "from_node_id": "node.listing.popular.012",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.016"
+      },
+      {
+        "from_node_id": "node.listing.popular.016",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.017"
+      },
+      {
+        "from_node_id": "node.listing.popular.012",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.018"
+      },
+      {
+        "from_node_id": "node.listing.popular.019",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.020"
+      },
+      {
+        "from_node_id": "node.listing.popular.019",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.021"
+      },
+      {
+        "from_node_id": "node.listing.popular.021",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.022"
+      },
+      {
+        "from_node_id": "node.listing.popular.021",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.023"
+      },
+      {
+        "from_node_id": "node.listing.popular.021",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.024"
+      },
+      {
+        "from_node_id": "node.listing.popular.021",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.025"
+      },
+      {
+        "from_node_id": "node.listing.popular.025",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.026"
+      },
+      {
+        "from_node_id": "node.listing.popular.021",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.027"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "listing.behavior-row",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.001",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.category-filter",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.page-header",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.010",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.personalized-row",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.011",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.012",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.013",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.014",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.015",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.016",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.017",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.018",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.discovery-rail",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.019",
+        "node_kind": "pattern_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.rail",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.020",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.021",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.022",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.023",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.024",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.025",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.026",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.027",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.listing.popular.001",
+      "node.listing.popular.009",
+      "node.listing.popular.010",
+      "node.listing.popular.011",
+      "node.listing.popular.019"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/populyarnoe/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.listing-popular"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.dc15aa64361d70f7",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.popular",
+      "route_family_id": "page-family.popular",
+      "route_template": "/populyarnoe/",
+      "source_id": "source.current_root_prelaunch.dc15aa64361d70f7",
+      "source_path": "site/src/pages/populyarnoe/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.ranked",
+      "matrix_id": "matrix.listing.popular.mobile.ranked",
+      "state": "ranked",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.empty",
+      "matrix_id": "matrix.listing.popular.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.fallback",
+      "matrix_id": "matrix.listing.popular.mobile.fallback",
+      "state": "fallback",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.ranked",
+      "matrix_id": "matrix.listing.popular.desktop.ranked",
+      "state": "ranked",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.empty",
+      "matrix_id": "matrix.listing.popular.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.listing.popular.001",
+        "node.listing.popular.002",
+        "node.listing.popular.003",
+        "node.listing.popular.004",
+        "node.listing.popular.005",
+        "node.listing.popular.006",
+        "node.listing.popular.007",
+        "node.listing.popular.008",
+        "node.listing.popular.009",
+        "node.listing.popular.010",
+        "node.listing.popular.011",
+        "node.listing.popular.012",
+        "node.listing.popular.013",
+        "node.listing.popular.014",
+        "node.listing.popular.015",
+        "node.listing.popular.016",
+        "node.listing.popular.017",
+        "node.listing.popular.018",
+        "node.listing.popular.019",
+        "node.listing.popular.020",
+        "node.listing.popular.021",
+        "node.listing.popular.022",
+        "node.listing.popular.023",
+        "node.listing.popular.024",
+        "node.listing.popular.025",
+        "node.listing.popular.026",
+        "node.listing.popular.027"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.listing.popular.fallback",
+      "matrix_id": "matrix.listing.popular.desktop.fallback",
+      "state": "fallback",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

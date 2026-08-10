@@ -1,0 +1,556 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.home",
+  "display_name": "Home",
+  "fixture_refs": [
+    "fixture.home.cold-start",
+    "fixture.home.reranked",
+    "fixture.home.static-fallback",
+    "fixture.home.empty-error-safe"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "cold-start"
+      },
+      "fixture_id": "fixture.home.cold-start",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "cold-start"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "reranked"
+      },
+      "fixture_id": "fixture.home.reranked",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "reranked"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "static-fallback"
+      },
+      "fixture_id": "fixture.home.static-fallback",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "static-fallback"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty/error-safe"
+      },
+      "fixture_id": "fixture.home.empty-error-safe",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "empty/error-safe"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.home.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.002"
+      },
+      {
+        "from_node_id": "node.home.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.003"
+      },
+      {
+        "from_node_id": "node.home.003",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.004"
+      },
+      {
+        "from_node_id": "node.home.003",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.005"
+      },
+      {
+        "from_node_id": "node.home.003",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.006"
+      },
+      {
+        "from_node_id": "node.home.003",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.007"
+      },
+      {
+        "from_node_id": "node.home.007",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.008"
+      },
+      {
+        "from_node_id": "node.home.003",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.009"
+      },
+      {
+        "from_node_id": "node.home.011",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.012"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "home.cold-start-feed",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.002",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.004",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.005",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.006",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.007",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.008",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.009",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "talk.message",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.010",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "home.quick-navigation",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.011",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.012",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.home.001",
+      "node.home.010",
+      "node.home.011"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "home.cold-start-feed"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.home",
+      "route_family_id": "page-family.home",
+      "route_template": "/",
+      "source_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "source_path": "site/src/pages/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.cold-start",
+      "matrix_id": "matrix.home.mobile.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.reranked",
+      "matrix_id": "matrix.home.mobile.reranked",
+      "state": "reranked",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.static-fallback",
+      "matrix_id": "matrix.home.mobile.static-fallback",
+      "state": "static-fallback",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.empty-error-safe",
+      "matrix_id": "matrix.home.mobile.empty-error-safe",
+      "state": "empty/error-safe",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.cold-start",
+      "matrix_id": "matrix.home.desktop.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.reranked",
+      "matrix_id": "matrix.home.desktop.reranked",
+      "state": "reranked",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.static-fallback",
+      "matrix_id": "matrix.home.desktop.static-fallback",
+      "state": "static-fallback",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.001",
+        "node.home.002",
+        "node.home.003",
+        "node.home.004",
+        "node.home.005",
+        "node.home.006",
+        "node.home.007",
+        "node.home.008",
+        "node.home.009",
+        "node.home.010",
+        "node.home.011",
+        "node.home.012"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.home.empty-error-safe",
+      "matrix_id": "matrix.home.desktop.empty-error-safe",
+      "state": "empty/error-safe",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

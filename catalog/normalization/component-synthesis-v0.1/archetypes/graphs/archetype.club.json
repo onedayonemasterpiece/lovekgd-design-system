@@ -1,0 +1,470 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.club",
+  "display_name": "Interest club",
+  "fixture_refs": [
+    "fixture.club.catalog",
+    "fixture.club.detail",
+    "fixture.club.empty",
+    "fixture.club.many"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "catalog"
+      },
+      "fixture_id": "fixture.club.catalog",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dd71b586e454204e",
+        "source.current_root_prelaunch.e8d82c99ee730cd9"
+      ],
+      "state": "catalog"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "detail"
+      },
+      "fixture_id": "fixture.club.detail",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dd71b586e454204e",
+        "source.current_root_prelaunch.e8d82c99ee730cd9"
+      ],
+      "state": "detail"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.club.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dd71b586e454204e",
+        "source.current_root_prelaunch.e8d82c99ee730cd9"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "many"
+      },
+      "fixture_id": "fixture.club.many",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.dd71b586e454204e",
+        "source.current_root_prelaunch.e8d82c99ee730cd9"
+      ],
+      "state": "many"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.club.003",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.004"
+      },
+      {
+        "from_node_id": "node.club.003",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.005"
+      },
+      {
+        "from_node_id": "node.club.003",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.006"
+      },
+      {
+        "from_node_id": "node.club.003",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.007"
+      },
+      {
+        "from_node_id": "node.club.007",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.008"
+      },
+      {
+        "from_node_id": "node.club.003",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.club.009"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "club.card",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.001",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.page-header",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.002",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.003",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.004",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.005",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.006",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.007",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.008",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.club.catalog",
+          "fixture.club.detail",
+          "fixture.club.empty",
+          "fixture.club.many"
+        ],
+        "local_overrides": [],
+        "node_id": "node.club.009",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.club.001",
+      "node.club.002",
+      "node.club.003"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/kluby-po-interesam/[slug]/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.dd71b586e454204e",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.interest-clubs",
+      "route_family_id": "page-family.interest-clubs",
+      "route_template": "/kluby-po-interesam/:slug/",
+      "source_id": "source.current_root_prelaunch.dd71b586e454204e",
+      "source_path": "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+    },
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.e8d82c99ee730cd9",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.interest-clubs",
+      "route_family_id": "page-family.interest-clubs",
+      "route_template": "/kluby-po-interesam/",
+      "source_id": "source.current_root_prelaunch.e8d82c99ee730cd9",
+      "source_path": "site/src/pages/kluby-po-interesam/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.catalog",
+      "matrix_id": "matrix.club.mobile.catalog",
+      "state": "catalog",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.detail",
+      "matrix_id": "matrix.club.mobile.detail",
+      "state": "detail",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.empty",
+      "matrix_id": "matrix.club.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.many",
+      "matrix_id": "matrix.club.mobile.many",
+      "state": "many",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.catalog",
+      "matrix_id": "matrix.club.desktop.catalog",
+      "state": "catalog",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.detail",
+      "matrix_id": "matrix.club.desktop.detail",
+      "state": "detail",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.empty",
+      "matrix_id": "matrix.club.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.club.001",
+        "node.club.002",
+        "node.club.003",
+        "node.club.004",
+        "node.club.005",
+        "node.club.006",
+        "node.club.007",
+        "node.club.008",
+        "node.club.009"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.club.many",
+      "matrix_id": "matrix.club.desktop.many",
+      "state": "many",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}
