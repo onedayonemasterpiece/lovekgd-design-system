@@ -29,7 +29,7 @@ High. This lane owns a strict schema and cross-record foreign keys, so it would 
 
 ## Head SHA
 
-Implementation checkpoint: `c4d576bf204e7fd332f6d2719587708d64911f31`.
+Final implementation checkpoint: `5b8623c64cce0cdbd97f08a6e662aa58b8efd42c` (initial bulk checkpoint `c4d576bf204e7fd332f6d2719587708d64911f31`).
 
 The branch-tip commit after this evidence file is added is reported in the lane handoff; a commit cannot embed its own SHA without changing that SHA.
 
@@ -133,6 +133,8 @@ Verified:
 - Penpot component UUID fields intentionally remain `null` placeholders in this lane. Live mutation/read-back and the binding receipt belong to the Penpot materialization lane.
 - Existing Event Media consumer requirements are preserved by reference rather than normalized into a global media rule.
 - Viewport dimensions are fixture evidence copied from the supplied plan; they are not promoted as numeric design tokens.
+
+After the first checkpoint, regeneration against L1's latest stable files removed the obsolete `event.card[layout=listing]` value. That final split-identity alignment is commit `5b8623c64cce0cdbd97f08a6e662aa58b8efd42c`; `listing.event-card` is the only listing-card identity contract.
 
 ## Merge notes
 
