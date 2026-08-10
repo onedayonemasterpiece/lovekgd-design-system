@@ -1,16 +1,21 @@
-# LoveKGD Component Synthesis v0.1 package
+# LoveKGD Component Synthesis v0.1
 
-Полный read-only candidate synthesis для статического Astro-сайта.
+Распакованный и evidence-reconciled candidate synthesis для статического
+Astro-сайта. Immutable исходный ZIP остаётся provenance-входом; текущим
+машиночитаемым source of truth являются diffable records, contracts, fixtures,
+archetype graphs и materialization package в репозитории.
 
 ## Ключевые количества
 
 - 107 exact current source mappings;
 - 111 entities;
-- 61 Penpot-eligible component identities;
-- 14 product patterns;
+- 61 W1–W4 identities в исходном package;
+- 65 W1–W4 identities после exact-source reconciliation;
+- 15 product patterns;
 - 11 current page compositions;
 - 18 page-archetype candidates;
 - 9 runtime enablers;
+- 35 consumer-scoped media-policy cells;
 - owner ambiguities: 0;
 - technical reconciliation items: 6.
 
@@ -29,10 +34,27 @@
 - `catalog/normalization/component-synthesis-v0.1/owner-ambiguities.json`.
 - `catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json`.
 - `catalog/normalization/component-synthesis-v0.1/validation-report.json`.
+- `catalog/normalization/component-synthesis-v0.1/source-drift-ledger.jsonl`.
+- `catalog/normalization/component-synthesis-v0.1/technical-reconciliation-results.jsonl`.
+- `catalog/normalization/component-synthesis-v0.1/media-policy-matrix.jsonl`.
+- `catalog/normalization/component-synthesis-v0.1/contracts/index.json`.
+- `catalog/normalization/component-synthesis-v0.1/fixtures/`.
+- `catalog/normalization/component-synthesis-v0.1/archetypes/index.json`.
+- `catalog/normalization/component-synthesis-v0.1/penpot-materialization-ir.json`.
+- `catalog/normalization/component-synthesis-v0.1/penpot-readback.json`.
+- `catalog/normalization/component-synthesis-v0.1/rollback-package.json`.
+- `receipts/normalization/apply-component-synthesis-v0.1.json`.
 - `manifest.json`.
 
 ## Status
 
 `reconstructed`, `candidate`, `canonical=false`, `accepted=false`, `promotion_ready=false`.
 
-Exact 107 path closure is not semantic acceptance. GitHub, Penpot and production code were not modified by this package generation.
+Exact 107 path closure and 6/6 technical reconciliation do not imply semantic
+acceptance or promotion. GitHub carries the implementation in Draft PR
+[#35](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/35);
+production `events-bot-new` was read-only. Live Resource Graph materialization
+and UI Exploration historical marking remain `BLOCKED_EXTERNAL_EVIDENCE`
+because both current Penpot MCP reads returned HTTP 504. The deterministic IR,
+materializer input, tests and rollback package remain the deliverable for that
+single external blocker.

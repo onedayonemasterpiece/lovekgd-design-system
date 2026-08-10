@@ -11,6 +11,8 @@
 | [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | historical v1 synthesis and candidate registry | superseded by red-team remediation; not current readiness authority |
 | [`normalization/project-normalization-synthesis-v1-1.md`](normalization/project-normalization-synthesis-v1-1.md) | exact-once evidence, typed analytical groups, positive readiness, dossiers and observe-mode value gate | v1.1.1 proof definitions materialized; 0 strict-ready; exact-head attestation and independent delta re-audit pending |
 | [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md) | normative 11-state code → Penpot → archetype → visual audit → promotion lifecycle | accepted contract; current state AS_IS_RECONSTRUCTED |
+| [`normalization/apply-component-synthesis-v0.1.md`](normalization/apply-component-synthesis-v0.1.md) | bounded application of the 107-path synthesis, exact current-source reconciliation and deterministic candidate-library materialization | Draft PR #35; 107/107 mappings, 6/6 technical results, live Penpot blocked only |
+| [`normalization/full-component-synthesis-v0.1.md`](normalization/full-component-synthesis-v0.1.md) | evidence-backed component boundaries, deltas, waves and non-promotion guards | reconstructed candidate model; 65 W1–W4 entities after reconciliation |
 | [`normalization/event-media-boundary-and-contract-decision-v1.md`](normalization/event-media-boundary-and-contract-decision-v1.md) | exact Event Media census, semantic/boundary model, candidate contracts, blockers and delivery gate | boundary complete; not ready with exact blockers; Draft PR only |
 | [`audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md) | byte-preserved independent v1.1 re-audit (61,775 bytes; SHA-bound) | controlling verdict for audited head; delta re-audit required for reconciled head |
 | [`audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md) | six-finding v1.1.1 correction/evidence ledger | implementation evidence only; no merge authorization |
@@ -38,6 +40,11 @@
 | [`../contracts/normalization/semantic-readiness.v1.schema.json`](../contracts/normalization/semantic-readiness.v1.schema.json) | positive 23-dimension readiness evidence for every analytical group | 47 assessed; 0 ready |
 | [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
 | [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
+| [`../catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl`](../catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl) | integrated 111-entity synthesis registry after current-source technical reconciliation | candidate-only; canonical/accepted/promotion false |
+| [`../catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl`](../catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl) | exact terminal mapping for 107 current implementations | 107/107; exact current source verified |
+| [`../catalog/normalization/component-synthesis-v0.1/contracts/index.json`](../catalog/normalization/component-synthesis-v0.1/contracts/index.json) | 65 W1–W4 candidate contracts and deterministic dependency order | reconstructed; not accepted |
+| [`../catalog/normalization/component-synthesis-v0.1/archetypes/index.json`](../catalog/normalization/component-synthesis-v0.1/archetypes/index.json) | 18 page archetype graphs built only from instance nodes or explicit gaps | 18 validated; 12 explicit gaps; no detached copies |
+| [`../receipts/normalization/apply-component-synthesis-v0.1.json`](../receipts/normalization/apply-component-synthesis-v0.1.json) | package/source/contracts/archetypes/materialization/rollback/Draft-PR binding | live Penpot execution may remain the sole exact external blocker |
 | [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | historical v1 receipt | retained; readiness proof superseded |
 | [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | v1.1.1 content/definition manifest, reconciliation lineage, STOP constraints and external attestation contract | execution attestation and independent delta re-audit required; merge forbidden |
 
@@ -78,10 +85,12 @@ Production conformance
 5. Behavioral decoder supplement                    PASS · TERMINAL EVIDENCE COMPLETE
 6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
 7. Project normalization synthesis v1.1.1 proof definitions materialized · exact-head attestation and independent delta re-audit pending
-8. First exploration-only native Penpot candidates EVENT MEDIA READY · AWAITING OWNER COMMENTS
-   Lifecycle PENPOT_COMPONENT_CANDIDATE             NOT STARTED
-9. Three-way conformance pilot                      NOT STARTED
-10. Per-family promotion to design-system-led       0 families
+8. Event Media exploration pack historical withdrawal queued · selected/accepted 0 · live write blocked by Penpot MCP 504
+9. Component Synthesis v0.1 integrated              107 mappings · 65 W1–W4 contracts · 18 archetype IR graphs
+   Resource Graph native materialization            BLOCKED_EXTERNAL_EVIDENCE · deterministic IR/rollback ready
+   Lifecycle PENPOT_COMPONENT_CANDIDATE              NOT CLAIMED
+10. Three-way conformance pilot                     NOT STARTED
+11. Per-family promotion to design-system-led       0 families
 ```
 
 The detailed sequence above is now governed by the machine contract and cannot be shortened:
