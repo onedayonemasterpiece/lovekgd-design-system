@@ -45,8 +45,6 @@ Resource Graph
 
 Resource Graph не является свободным brainstorm-canvas. Product Atlas и UI Exploration находятся в отдельных Penpot-файлах и связываются stable IDs и deep links.
 
-Каноническая граница Product Atlas plugin, включая reviewed action-map evidence только на существующих страницах `40`/`50`, immutable package ingest и явное on-demand обновление: [`docs/product-atlas-penpot-extension.md`](docs/product-atlas-penpot-extension.md).
-
 ## Два режима авторитетности
 
 ### `reconstructed`
@@ -116,7 +114,6 @@ Project Normalization Synthesis v1 опубликован в
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
-- [Product Atlas Penpot extension and evidence sync contract](docs/product-atlas-penpot-extension.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
 - [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
 - [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)
