@@ -49,7 +49,63 @@ test('MobileSearchBottomNav deletion and deprecation remain unauthorized', () =>
     const mobile = model.lifecycles.find((record) => record.component_id === 'component.29e9aebbf63be827');
     mobile.deletion_allowed = true;
     mobile.deprecation_allowed = true;
-  }, /deletion authorization|mobile deprecation/u);
+  }, /deletion allowed\/eligible alias divergence|deletion_allowed must be false|deletion authorization|mobile deprecation/u);
+});
+
+test('eligibility fields are mandatory on every lifecycle row', () => {
+  rejects((model) => {
+    delete model.lifecycles.find((record) => record.component_id === 'component.02effc1d8ab8434b').deletion_eligible;
+  }, /missing deletion_eligible/u);
+});
+
+test('a deprecated historical fact does not make future deprecation eligible', () => {
+  rejects((model) => {
+    const row = model.lifecycles.find((record) => record.component_id === 'component.d65fb5ef1db02f46');
+    row.deprecation_eligible = true;
+    row.deprecation_allowed = true;
+  }, /deprecation_eligible must be false/u);
+});
+
+test('allowed aliases cannot diverge from exact eligibility fields', () => {
+  rejects((model) => {
+    model.lifecycles.find((record) => record.component_id === 'component.02effc1d8ab8434b').deprecation_allowed = true;
+  }, /deprecation_allowed must be false|deprecation allowed\/eligible alias divergence/u);
+});
+
+test('all lifecycle deletion gates are mandatory', () => {
+  rejects((model) => {
+    const row = model.lifecycles.find((record) => record.component_id === 'component.29e9aebbf63be827');
+    row.deletion_gates = row.deletion_gates.filter((gate) => gate.gate_id !== 'rollback_evidence');
+  }, /incomplete deletion gates/u);
+});
+
+test('all capability-wrapper deprecation gates are mandatory', () => {
+  rejects((model) => {
+    const wrapper = model.capability.implementations.find((item) => item.component_id === 'component.29e9aebbf63be827');
+    wrapper.deprecation_gates = wrapper.deprecation_gates.filter((gate) => gate.gate_id !== 'owner_receipt');
+  }, /incomplete deprecation gates/u);
+});
+
+test('capability-wrapper eligibility fields are mandatory', () => {
+  rejects((model) => {
+    const wrapper = model.capability.implementations.find((item) => item.component_id === 'component.29e9aebbf63be827');
+    delete wrapper.deprecation_eligible;
+  }, /mobile capability wrapper: missing deprecation_eligible/u);
+});
+
+test('capability-wrapper exact eligibility cannot flip true', () => {
+  rejects((model) => {
+    const wrapper = model.capability.implementations.find((item) => item.component_id === 'component.29e9aebbf63be827');
+    wrapper.deletion_eligible = true;
+    wrapper.deletion_allowed = true;
+  }, /mobile capability wrapper: deletion_eligible must be false/u);
+});
+
+test('capability-wrapper allowed aliases cannot diverge', () => {
+  rejects((model) => {
+    const wrapper = model.capability.implementations.find((item) => item.component_id === 'component.29e9aebbf63be827');
+    wrapper.deprecation_allowed = true;
+  }, /mobile capability wrapper: deprecation allowed\/eligible alias divergence/u);
 });
 
 test('all three zero-consumer implementations require lifecycle records', () => {

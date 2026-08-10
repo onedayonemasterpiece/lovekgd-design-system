@@ -51,7 +51,11 @@ cannot contain its own final hash.
 ## Tests / verification
 
 - New v1.1 validator: PASS.
-- Fail-closed mutation tests: 12/12 PASS.
+- Fail-closed mutation tests: 20/20 PASS, including omission, true-flip, alias-divergence
+  and incomplete-gate mutations for lifecycle and capability records.
+- All three lifecycle rows and the compatibility-wrapper capability projection expose
+  exact `deletion_eligible:false` / `deprecation_eligible:false`; allowed aliases are
+  exact-equal and all six required deletion/deprecation gates remain open.
 - Existing synthesis, immutable decoder and behavioral supplement validators: PASS.
 - Existing v1 medallion dossier hashes unchanged.
 

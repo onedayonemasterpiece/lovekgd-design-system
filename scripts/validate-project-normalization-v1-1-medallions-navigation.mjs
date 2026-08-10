@@ -40,6 +40,14 @@ const EXPECTED_OPEN_REFS = [
   'unresolved.medallions-production-route-binding',
   'unresolved.medallions-resource-equivalence',
 ];
+const EXPECTED_ELIGIBILITY_GATE_IDS = [
+  'full_census',
+  'requirement_reconciliation',
+  'replacement_coverage',
+  'migration_closure',
+  'owner_receipt',
+  'rollback_evidence',
+];
 
 const fail = (message) => { throw new Error(message); };
 const assert = (condition, message) => { if (!condition) fail(message); };
@@ -197,6 +205,28 @@ function validateDossier(dossier) {
   assert(dossier.related_resources.equivalence_status === 'NOT_MERGED', 'related resources equivalence');
 }
 
+function validateLifecycleEligibility(record, label) {
+  for (const field of ['deletion_eligible', 'deprecation_eligible', 'deletion_allowed', 'deprecation_allowed']) {
+    assert(Object.hasOwn(record, field), `${label}: missing ${field}`);
+  }
+  assert(record.deletion_allowed === record.deletion_eligible, `${label}: deletion allowed/eligible alias divergence`);
+  assert(record.deprecation_allowed === record.deprecation_eligible, `${label}: deprecation allowed/eligible alias divergence`);
+  for (const field of ['deletion_eligible', 'deprecation_eligible', 'deletion_allowed', 'deprecation_allowed']) {
+    assert(record[field] === false, `${label}: ${field} must be false`);
+  }
+  for (const kind of ['deletion', 'deprecation']) {
+    const gates = record[`${kind}_gates`];
+    assert(Array.isArray(gates), `${label}: missing ${kind} gates`);
+    unique(gates.map((gate) => gate.gate_id), `${label}: ${kind} gate ids`);
+    assert(sameSet(gates.map((gate) => gate.gate_id), EXPECTED_ELIGIBILITY_GATE_IDS), `${label}: incomplete ${kind} gates`);
+    for (const gate of gates) {
+      assert(gate.status === 'open', `${label}: ${kind}.${gate.gate_id} must remain open`);
+      assert(typeof gate.requirement === 'string' && gate.requirement.length > 0, `${label}: ${kind}.${gate.gate_id} requirement`);
+      assert(Array.isArray(gate.evidence_refs) && gate.evidence_refs.length === 0, `${label}: ${kind}.${gate.gate_id} evidence must remain empty`);
+    }
+  }
+}
+
 function validateLifecycles(lifecycles) {
   assert(lifecycles.length === 3, 'lifecycle ledger must contain exactly three records');
   unique(lifecycles.map((record) => record.id), 'lifecycle ids');
@@ -213,10 +243,10 @@ function validateLifecycles(lifecycles) {
     assert(record.pinned_evidence.production_ast_consumer_count_by_plane.latest_checked_kaggle_candidate === 0, `${record.id}: candidate plane count`);
     assert(record.consumer_universe_status !== 'closed', `${record.id}: consumer universe falsely closed`);
     assert(record.preservation_required === true, `${record.id}: preservation`);
-    assert(record.deletion_allowed === false && record.deletion_status === 'not_authorized' && record.deletion_receipt === null, `${record.id}: deletion authorization`);
+    validateLifecycleEligibility(record, record.id);
+    assert(record.deletion_status === 'not_authorized' && record.deletion_receipt === null, `${record.id}: deletion authorization`);
     assert(record.product_value_status === 'pending_product_model', `${record.id}: product value`);
     assert(record.promotion_ready === false && record.decision === 'NOT_MERGED', `${record.id}: decision`);
-    assert(record.deletion_gates.length >= 5, `${record.id}: deletion gates`);
   }
 
   const mobile = lifecycles.find((record) => record.component_id === 'component.29e9aebbf63be827');
@@ -224,7 +254,7 @@ function validateLifecycles(lifecycles) {
   assert(mobile.lifecycle_status === 'preserve_pending_reconciliation', 'mobile lifecycle');
   assert(mobile.lifecycle_label === 'preserve-pending-reconciliation', 'mobile lifecycle label');
   assert(mobile.deprecated === false && mobile.deprecation_allowed === false && mobile.deprecation_authority === null, 'mobile deprecation must be false');
-  assert(mobile.deprecation_status === 'not_authorized' && mobile.deprecation_gates.length >= 5, 'mobile deprecation gates');
+  assert(mobile.deprecation_status === 'not_authorized', 'mobile deprecation gates');
   assert(mobile.consumer_universe_status === 'open_by_compatibility_contract', 'mobile external scope');
   assert(mobile.nonproduction_reachability.some((ref) => ref.kind === 'required_surface_contract'), 'mobile surface authority');
   assert(mobile.nonproduction_reachability.some((ref) => ref.kind === 'source_contract_test'), 'mobile test authority');
@@ -262,7 +292,7 @@ function validateCapability(capability) {
   assert(wrapper?.implementation_role === 'compatibility_wrapper', 'wrapper role');
   assert(wrapper?.reachability_status === 'not_observed_under_pinned_evidence', 'wrapper reachability');
   assert(wrapper?.lifecycle_status === 'preserve_pending_reconciliation', 'wrapper lifecycle');
-  assert(wrapper?.deprecation_allowed === false && wrapper?.deletion_allowed === false, 'wrapper disposition');
+  validateLifecycleEligibility(wrapper, 'mobile capability wrapper');
   assert(capability.separation_invariants.length >= 5, 'capability separation invariants');
 }
 

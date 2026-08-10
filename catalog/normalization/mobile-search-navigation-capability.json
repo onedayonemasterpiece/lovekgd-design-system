@@ -52,7 +52,86 @@
       "binding": "renders MobileBottomNav current=search",
       "external_consumer_scope": "open_by_compatibility_contract",
       "deprecation_allowed": false,
-      "deletion_allowed": false
+      "deletion_allowed": false,
+      "deletion_eligible": false,
+      "deprecation_eligible": false,
+      "eligibility_scope": "compatibility_wrapper_future_lifecycle_action",
+      "deletion_gates": [
+        {
+          "gate_id": "full_census",
+          "status": "open",
+          "requirement": "A current-tree all-class census covers production static imports, dynamic/generated routes, public exports, tests, tooling, documentation, contracts and the declared external consumer universe.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "requirement_reconciliation",
+          "status": "open",
+          "requirement": "Every pinned requirement, required surface contract, test and documentation authority is reconciled by an accepted disposition.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "replacement_coverage",
+          "status": "open",
+          "requirement": "An accepted terminal replacement covers every preserved capability, or an accepted no-replacement rationale exists.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "migration_closure",
+          "status": "open",
+          "requirement": "Every consumer class is migrated and a no-new-usage gate prevents legacy reintroduction.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "owner_receipt",
+          "status": "open",
+          "requirement": "The accountable product and component owner has issued an accepted lifecycle decision receipt.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "rollback_evidence",
+          "status": "open",
+          "requirement": "A reproducible rollback path and verified rollback evidence are attached before lifecycle mutation.",
+          "evidence_refs": []
+        }
+      ],
+      "deprecation_gates": [
+        {
+          "gate_id": "full_census",
+          "status": "open",
+          "requirement": "A current-tree all-class census covers production static imports, dynamic/generated routes, public exports, tests, tooling, documentation, contracts and the declared external consumer universe.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "requirement_reconciliation",
+          "status": "open",
+          "requirement": "Every pinned requirement, required surface contract, test and documentation authority is reconciled by an accepted disposition.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "replacement_coverage",
+          "status": "open",
+          "requirement": "An accepted terminal replacement covers every preserved capability, or an accepted no-replacement rationale exists.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "migration_closure",
+          "status": "open",
+          "requirement": "Every consumer class is migrated and a no-new-usage gate prevents legacy reintroduction.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "owner_receipt",
+          "status": "open",
+          "requirement": "The accountable product and component owner has issued an accepted lifecycle decision receipt.",
+          "evidence_refs": []
+        },
+        {
+          "gate_id": "rollback_evidence",
+          "status": "open",
+          "requirement": "A reproducible rollback path and verified rollback evidence are attached before lifecycle mutation.",
+          "evidence_refs": []
+        }
+      ]
     }
   ],
   "separation_invariants": [
