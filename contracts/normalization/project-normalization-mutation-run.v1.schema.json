@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/project-normalization-mutation-run.v1.schema.json",
+  "title": "Project Normalization Mutation Run v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "receipt_validation_enabled",
+    "exact_head_sha",
+    "duration_ms",
+    "catalog_path",
+    "catalog_sha256",
+    "total_cases",
+    "passed_cases",
+    "failed_cases",
+    "lane_negative_mutation_count",
+    "positive_baseline_count",
+    "total_negative_mutation_count",
+    "baseline_rechecks",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": { "const": "project_normalization_mutation_run_v1" },
+    "status": { "const": "PASS" },
+    "receipt_validation_enabled": { "const": false },
+    "exact_head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "duration_ms": { "type": "integer", "minimum": 0 },
+    "catalog_path": { "const": "receipts/normalization/project-normalization-v1-1-mutation-catalog.json" },
+    "catalog_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "total_cases": { "type": "integer", "const": 14 },
+    "passed_cases": { "type": "integer", "const": 14 },
+    "failed_cases": { "type": "integer", "const": 0 },
+    "lane_negative_mutation_count": { "type": "integer", "minimum": 0 },
+    "positive_baseline_count": { "type": "integer", "minimum": 0 },
+    "total_negative_mutation_count": { "type": "integer", "minimum": 14 },
+    "baseline_rechecks": { "type": "integer", "const": 15 },
+    "cases": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "exact_head_sha",
+          "duration_ms",
+          "expected_error_code",
+          "actual_error_code",
+          "targeted_rejected",
+          "aggregate_rejected",
+          "receipt_validation_enabled",
+          "bytes_restored",
+          "baseline_passed",
+          "pass"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "exact_head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+          "duration_ms": { "type": "integer", "minimum": 0 },
+          "expected_error_code": { "type": "string", "pattern": "^PNV_[A-Z0-9_]+$" },
+          "actual_error_code": { "type": "string", "pattern": "^PNV_[A-Z0-9_]+$" },
+          "targeted_rejected": { "const": true },
+          "aggregate_rejected": { "const": true },
+          "receipt_validation_enabled": { "const": false },
+          "bytes_restored": { "const": true },
+          "baseline_passed": { "const": true },
+          "pass": { "const": true }
+        }
+      }
+    }
+  }
+}
