@@ -17,6 +17,12 @@ Integration branch: `normalization/event-media-blocker-closure-v1`
 
 Dependency graph: `R01 → R02 → {R03/R04 || R05} → R06 → R07 → R08 → Draft PR CI → L6 review`.
 
+Compatibility bridge: the PR #32 Event Media workflow is historicalized at the
+audited head, while the Project Normalization changed-path guard gains one exact
+exception for `prototypes/event-media-decision-pack/**`. Every other prototype
+and all Penpot paths remain forbidden. The new closure workflow is the sole
+current-head authority for the new artifacts.
+
 Stop conditions:
 
 - any PR #32 head/base/parent mismatch;
