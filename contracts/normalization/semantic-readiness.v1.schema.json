@@ -1,0 +1,218 @@
+{
+  "$id": "https://lovekgd.example/contracts/normalization/semantic-readiness.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "strict_ready": {
+            "const": false
+          }
+        },
+        "required": [
+          "strict_ready"
+        ]
+      },
+      "then": {
+        "properties": {
+          "eligible_for_scoring": {
+            "const": false
+          },
+          "score": {
+            "type": "null"
+          },
+          "selected_first_wave": {
+            "const": false
+          },
+          "status": {
+            "const": "NOT_READY"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "strict_ready": {
+            "const": true
+          }
+        },
+        "required": [
+          "strict_ready"
+        ]
+      },
+      "then": {
+        "properties": {
+          "eligible_for_scoring": {
+            "const": true
+          },
+          "entity_kind": {
+            "const": "component_identity_family"
+          },
+          "score": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "status": {
+            "const": "READY_FOR_CONTRACT_DECISION"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "analysis_group_id": {
+      "pattern": "^family\\.",
+      "type": "string"
+    },
+    "checklist": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "applicability": {
+            "enum": [
+              "required",
+              "conditional",
+              "not_applicable"
+            ]
+          },
+          "assertion": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "check_id": {
+            "enum": [
+              "entity_kind_component_identity",
+              "semantic_role_contract",
+              "identity_boundary",
+              "implementation_membership",
+              "consumer_application_census",
+              "route_surface_context",
+              "state_event_contract",
+              "responsive_container_contract",
+              "accessibility_contract",
+              "runtime_visual_reconciliation",
+              "operational_finding_closure",
+              "candidate_contract_review",
+              "media_consumer_policy",
+              "loading_recovery",
+              "experiment_decision",
+              "product_model_dependency"
+            ]
+          },
+          "evidence_refs": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "not_applicable"
+            ]
+          }
+        },
+        "required": [
+          "check_id",
+          "applicability",
+          "status",
+          "assertion",
+          "evidence_refs"
+        ],
+        "type": "object"
+      },
+      "maxItems": 16,
+      "minItems": 16,
+      "type": "array"
+    },
+    "decision": {
+      "const": "NOT_MERGED"
+    },
+    "eligible_for_scoring": {
+      "type": "boolean"
+    },
+    "entity_kind": {
+      "enum": [
+        "catalog_family",
+        "component_identity_family",
+        "composition_family",
+        "evidence_family",
+        "foundation_family",
+        "page_family",
+        "runtime_family",
+        "unresolved_family",
+        "workflow_family"
+      ]
+    },
+    "id": {
+      "pattern": "^readiness\\.family\\.",
+      "type": "string"
+    },
+    "not_ready_reason_codes": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "operational_blocker_refs": {
+      "items": {
+        "pattern": "^finding\\.",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "promotion_ready": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "normalization_semantic_readiness_v1_1"
+    },
+    "score": {
+      "minimum": 0,
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "selected_first_wave": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "NOT_READY",
+        "READY_FOR_CONTRACT_DECISION"
+      ]
+    },
+    "strict_ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "analysis_group_id",
+    "entity_kind",
+    "checklist",
+    "operational_blocker_refs",
+    "not_ready_reason_codes",
+    "status",
+    "strict_ready",
+    "eligible_for_scoring",
+    "score",
+    "selected_first_wave",
+    "decision",
+    "promotion_ready"
+  ],
+  "title": "Positive semantic readiness record v1.1",
+  "type": "object"
+}

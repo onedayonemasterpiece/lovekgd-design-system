@@ -1,0 +1,208 @@
+{
+  "$defs": {
+    "findingCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "by_blocking_scope": {
+          "$ref": "#/$defs/stringCounts"
+        },
+        "by_classification": {
+          "$ref": "#/$defs/stringCounts"
+        },
+        "by_operational_disposition": {
+          "$ref": "#/$defs/stringCounts"
+        },
+        "total": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total",
+        "by_classification",
+        "by_operational_disposition",
+        "by_blocking_scope"
+      ],
+      "type": "object"
+    },
+    "stringCounts": {
+      "additionalProperties": {
+        "minimum": 1,
+        "type": "integer"
+      },
+      "type": "object"
+    }
+  },
+  "$id": "https://lovekgd.example/contracts/normalization/analytical-entity-kinds.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidate_decision_accepted": {
+      "const": false
+    },
+    "canonical_component_identity_accepted": {
+      "const": false
+    },
+    "classification_evidence_refs": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "decision": {
+      "const": "NOT_MERGED"
+    },
+    "entity_kind": {
+      "enum": [
+        "catalog_family",
+        "component_identity_family",
+        "composition_family",
+        "evidence_family",
+        "foundation_family",
+        "page_family",
+        "runtime_family",
+        "unresolved_family",
+        "workflow_family"
+      ]
+    },
+    "id": {
+      "pattern": "^family\\.",
+      "type": "string"
+    },
+    "label": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "member_component_ids": {
+      "items": {
+        "pattern": "^component\\.",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "member_relations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "component_id": {
+            "pattern": "^component\\.",
+            "type": "string"
+          },
+          "evidence_refs": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "relation_kind": {
+            "enum": [
+              "candidate_implementation_of_identity",
+              "catalog_member",
+              "composition_member",
+              "evidence_instrument",
+              "foundation_resource",
+              "runtime_enabler",
+              "surface_member",
+              "unresolved_relation",
+              "workflow_stage"
+            ]
+          },
+          "status": {
+            "const": "analytical_candidate_not_accepted"
+          }
+        },
+        "required": [
+          "component_id",
+          "relation_kind",
+          "status",
+          "evidence_refs"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "operational_finding_counts": {
+      "$ref": "#/$defs/findingCounts"
+    },
+    "operational_findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "blocking_scope": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "classification": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "finding_id": {
+            "pattern": "^finding\\.",
+            "type": "string"
+          },
+          "must_resolve_before": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "operational_disposition": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id",
+          "classification",
+          "operational_disposition",
+          "blocking_scope",
+          "must_resolve_before"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "physical_operation_authorized": {
+      "const": false
+    },
+    "record_kind": {
+      "const": "analytical_group"
+    },
+    "schema_version": {
+      "const": "normalization_analysis_group_v1_1"
+    },
+    "semantic_identity_claim": {
+      "enum": [
+        "candidate_identity_not_accepted",
+        "not_a_component_identity",
+        "unresolved"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "record_kind",
+    "entity_kind",
+    "label",
+    "member_component_ids",
+    "member_relations",
+    "semantic_identity_claim",
+    "canonical_component_identity_accepted",
+    "classification_evidence_refs",
+    "operational_findings",
+    "operational_finding_counts",
+    "decision",
+    "candidate_decision_accepted",
+    "physical_operation_authorized"
+  ],
+  "title": "Normalization analytical group and candidate entity-kind record v1.1",
+  "type": "object"
+}
