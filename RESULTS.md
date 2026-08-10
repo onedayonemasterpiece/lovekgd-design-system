@@ -90,3 +90,22 @@ inheritance cycles, promotion flips, missing deletion receipts, silent deletion,
 It also proves the allowed preservation path for a missing edge: the stable application survives as
 `pending_reconciliation` with promotion disabled until explicit reconciliation evidence exists.
 Supplying both archive paths to the validator additionally replays all 134 ZIP entry SHA-256 checks.
+
+## Project Normalization Synthesis v1.1 — integrated remediation
+
+- The byte-preserved red-team audit is dispositioned without rewriting its
+  `FAIL — RESULT_NOT_PROVEN` verdict.
+- 279 raw identities map exact-once to 222 canonical findings through 57 typed
+  aliases.
+- 47 stable analytical groups are typed with the required nine entity kinds;
+  the positive gate yields 47 `NOT_READY`, zero scores and an empty first wave.
+- Event Media remains `NOT_READY_WITH_EXACT_BLOCKERS`; Event Token Medallions
+  remains `BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED`.
+- 134 visual records and both durable Release archives were replayed; 239
+  application/readiness bindings reconcile with an independent raw-Git census.
+- The Product Value gate remains observe/pending and the lifecycle remains
+  `AS_IS_RECONSTRUCTED`.
+- All domain validators and 14 required aggregate semantic mutations pass.
+
+No production UI, runtime source, Penpot, token, experiment winner, product
+model, component merge/split/delete or next-phase implementation is included.

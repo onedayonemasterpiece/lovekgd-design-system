@@ -27,7 +27,7 @@ lanes:
     forbidden_files: [catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc, penpot, prototypes]
     expected_output: committed raw/audit lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L2-registry-readiness
     role: worker
     effort: xhigh
@@ -41,7 +41,7 @@ lanes:
     forbidden_files: [penpot, prototypes]
     expected_output: committed registry/readiness lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L3-event-media
     role: worker
     effort: xhigh
@@ -55,7 +55,7 @@ lanes:
     forbidden_files: [site/src, site/public, penpot, prototypes]
     expected_output: committed dossier lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L4-medallions-navigation
     role: worker
     effort: xhigh
@@ -65,11 +65,11 @@ lanes:
     execution_mode: parallel
     branch: agent/project-normalization-v1-1/medallions-navigation
     worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-medallions-navigation
-    writable_files: [catalog/normalization/families/event-token-medallions/dossier.json, catalog/normalization/families/event-token-medallions/dossier.md, catalog/normalization/unreachable-implementation-lifecycle.jsonl, .codex/lanes/project-normalization-v1-1-medallions-navigation/RESULTS.md]
+    writable_files: [catalog/normalization/families/event-token-medallions/dossier.json, catalog/normalization/families/event-token-medallions/dossier.md, catalog/normalization/unreachable-implementation-lifecycle.jsonl, catalog/normalization/mobile-search-navigation-capability.json, .codex/lanes/project-normalization-v1-1-medallions-navigation/RESULTS.md]
     forbidden_files: [site/src, site/public, penpot, prototypes]
     expected_output: committed taxonomy/lifecycle lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L5-evidence-value
     role: worker
     effort: xhigh
@@ -79,11 +79,11 @@ lanes:
     execution_mode: parallel
     branch: agent/project-normalization-v1-1/evidence-value
     worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-evidence-value
-    writable_files: [contracts/product-value-evidence-binding.v1.schema.json, catalog/normalization/component-applications.jsonl, catalog/normalization/product-value-readiness.jsonl, catalog/normalization/visual-review-evidence.jsonl, catalog/normalization/behavioral-manifest-counts.json, .codex/lanes/project-normalization-v1-1-evidence-value/RESULTS.md]
+    writable_files: [contracts/product-value-evidence-binding.v1.schema.json, catalog/normalization/component-applications.jsonl, catalog/normalization/product-value-readiness.jsonl, catalog/normalization/visual-review-evidence.jsonl, catalog/normalization/behavioral-manifest-counts.json, catalog/normalization/independent-consumer-census.jsonl, .codex/lanes/project-normalization-v1-1-evidence-value/RESULTS.md]
     forbidden_files: [site/src, site/public, penpot, prototypes]
     expected_output: committed evidence/value lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L6-lifecycle
     role: worker
     effort: xhigh
@@ -97,7 +97,7 @@ lanes:
     forbidden_files: [penpot, prototypes, site/src, site/public]
     expected_output: committed lifecycle lane
     verification_scope: targeted
-    status: planned
+    status: completed
   - id: L7-integrator
     role: merge_reviewer
     effort: xhigh
@@ -107,8 +107,8 @@ lanes:
     execution_mode: serial_after_dependency
     branch: remediation/project-normalization-synthesis-v1-1
     worktree: /home/dev/.codex/worktrees/lovekgd-design-system/project-normalization-synthesis-v1-1
-    writable_files: [scripts/validate-project-normalization-synthesis-v1.mjs, scripts/validate-project-normalization-synthesis-v1-1.mjs, tests/project-normalization-synthesis-v1-1-negative.mjs, docs/normalization/project-normalization-synthesis-v1-1.md, docs/audits/project-normalization-synthesis-v1-1-remediation-report.md, receipts/normalization/project-normalization-synthesis-v1-1.json, .github/workflows/project-normalization-synthesis-v1-1.yml, .codex/integration/project-normalization-synthesis-v1-1/INTEGRATION_REPORT.md]
+    writable_files: [scripts/validate-project-normalization-synthesis-v1-1.mjs, scripts/build-project-normalization-synthesis-v1-1-receipt.mjs, scripts/validate-normalization-schemas-v1-1.py, tests/project-normalization-synthesis-v1-1-negative.mjs, docs/normalization/project-normalization-synthesis-v1-1.md, docs/audits/project-normalization-synthesis-v1-1-remediation-report.md, receipts/normalization/project-normalization-synthesis-v1-1.json, .github/workflows/project-normalization-synthesis-v1.yml, .github/workflows/project-normalization-synthesis-v1-1.yml, .codex/integration/project-normalization-synthesis-v1-1/INTEGRATION_REPORT.md]
     forbidden_files: [penpot, prototypes, site/src, site/public]
     expected_output: open unmerged PR ready for independent re-audit
     verification_scope: full_local
-    status: planned
+    status: in_progress

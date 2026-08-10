@@ -8,7 +8,8 @@
 | [`page-archetype-requirements.md`](page-archetype-requirements.md) | исходные требования, verified routes и Penpot overlays страницы 60 | accepted source-mapping contract |
 | [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |
 | [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 closure complete; candidates not accepted |
-| [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | charter candidate, 47-family registry, evidence dispositions, first-wave dossiers и product-value observe gate | synthesis complete; ready for family decision review; no physical work authorized |
+| [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | historical v1 synthesis and candidate registry | superseded by red-team remediation; not current readiness authority |
+| [`normalization/project-normalization-synthesis-v1-1.md`](normalization/project-normalization-synthesis-v1-1.md) | exact-once evidence, typed analytical groups, positive readiness, dossiers and observe-mode value gate | remediation complete; 0 strict-ready; pending independent re-audit |
 | [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md) | normative 11-state code → Penpot → archetype → visual audit → promotion lifecycle | accepted contract; current state AS_IS_RECONSTRUCTED |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
@@ -28,9 +29,12 @@
 | [`../contracts/project-normalization-charter.v1.json`](../contracts/project-normalization-charter.v1.json) | project-specific candidate charter and R-01…R-07 disposition ledger | candidate; not accepted implementation authority |
 | [`../contracts/normalization/family-lifecycle.v1.json`](../contracts/normalization/family-lifecycle.v1.json) | exact 11 ordered states, 10 adjacent gates, authority and evidence rules | normative lifecycle; current state AS_IS_RECONSTRUCTED |
 | [`../contracts/normalization/family-lifecycle.v1.schema.json`](../contracts/normalization/family-lifecycle.v1.schema.json) | fail-closed machine schema for the lifecycle contract | accepted schema |
+| [`../contracts/normalization/analytical-entity-kinds.v1.schema.json`](../contracts/normalization/analytical-entity-kinds.v1.schema.json) | distinguishes component identities from catalogs, compositions, surfaces, workflows, runtime and evidence groups | audit-remediated candidate schema |
+| [`../contracts/normalization/semantic-readiness.v1.schema.json`](../contracts/normalization/semantic-readiness.v1.schema.json) | positive 16-check readiness evidence for every analytical group | 47 assessed; 0 ready |
 | [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
 | [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
-| [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | hash-bound synthesis counts, inputs, outputs, constraints and audit | completion receipt |
+| [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | historical v1 receipt | retained; readiness proof superseded |
+| [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | hash-bound remediation outputs, counts, STOP constraints and re-audit boundary | complete remediation; merge forbidden until independent re-audit |
 
 ## Authority routing
 
@@ -67,7 +71,7 @@ Production conformance
 4. Source-first decoder                             PASS · IMMUTABLE REVIEWED V1
 5. Behavioral decoder supplement                    PASS · TERMINAL EVIDENCE COMPLETE
 6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
-7. Project normalization synthesis                  COMPLETE · FAMILY DECISION REVIEW READY
+7. Project normalization synthesis v1.1 remediation COMPLETE · INDEPENDENT RE-AUDIT PENDING
 8. First bounded native Penpot materialization      NOT STARTED
 9. Three-way conformance pilot                      NOT STARTED
 10. Per-family promotion to design-system-led       0 families
@@ -89,7 +93,8 @@ AS_IS_RECONSTRUCTED
 → FAMILY_AND_ARCHETYPE_PROMOTION
 ```
 
-The existing synthesis status is only readiness to attempt the first transition; it does not prove `FAMILY_HYPOTHESIS_REVIEWED`.
+The v1.1 remediation does not authorize the first transition and does not prove
+`FAMILY_HYPOTHESIS_REVIEWED`; its positive gate currently selects zero groups.
 
 ## Запреты текущей фазы
 

@@ -1,0 +1,135 @@
+name: Validate Project Normalization Synthesis v1.1
+
+on:
+  push:
+    paths:
+      - '.codex/integration/project-normalization-synthesis-v1-1/**'
+      - '.codex/lanes/project-normalization-v1-1-*/**'
+      - 'catalog/normalization/**'
+      - 'contracts/normalization/**'
+      - 'contracts/product-value-evidence-binding.v1.schema.json'
+      - 'docs/audits/project-normalization-synthesis-v1*.md'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/component-contract-authority.md'
+      - 'docs/page-archetype-requirements.md'
+      - 'docs/penpot-product-design-operating-model.md'
+      - 'docs/resource-graph-004.md'
+      - 'receipts/normalization/project-normalization-synthesis-v1-1.json'
+      - 'scripts/**/*v1-1*'
+      - 'scripts/validate-family-lifecycle-v1.mjs'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - 'tests/**/*normalization*v1-1*'
+      - 'tests/family-lifecycle-v1-negative.mjs'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+  pull_request:
+    paths:
+      - '.codex/integration/project-normalization-synthesis-v1-1/**'
+      - '.codex/lanes/project-normalization-v1-1-*/**'
+      - 'catalog/normalization/**'
+      - 'contracts/normalization/**'
+      - 'contracts/product-value-evidence-binding.v1.schema.json'
+      - 'docs/audits/project-normalization-synthesis-v1*.md'
+      - 'docs/normalization/**'
+      - 'docs/index.md'
+      - 'docs/component-contract-authority.md'
+      - 'docs/page-archetype-requirements.md'
+      - 'docs/penpot-product-design-operating-model.md'
+      - 'docs/resource-graph-004.md'
+      - 'receipts/normalization/project-normalization-synthesis-v1-1.json'
+      - 'scripts/**/*v1-1*'
+      - 'scripts/validate-family-lifecycle-v1.mjs'
+      - 'scripts/validate-resource-graph-004-contracts.mjs'
+      - 'tests/**/*normalization*v1-1*'
+      - 'tests/family-lifecycle-v1-negative.mjs'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-normalization-synthesis-v1-1-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout design-system remediation
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout exact read-only product evidence
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 66bc0d43e36299417626f992021cfb7299ddf704
+          path: _pinned-events-readonly
+          fetch-depth: 0
+
+      - name: Install pinned JSON Schema validator
+        run: python3 -m pip install --disable-pip-version-check 'jsonschema==4.25.1'
+
+      - name: Download immutable visual evidence archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            'https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-run-31318132051/current-ui-behavioral-decoder-v1-1-capture-31318132051.zip' \
+            --output "$RUNNER_TEMP/prior-124.zip"
+          curl --fail --location --retry 3 \
+            'https://github.com/onedayonemasterpiece/events-bot-new/releases/download/current-ui-behavioral-decoder-v1-1-closure-run-31327863197/current-ui-behavioral-decoder-v1-1-closure-31327863197.zip' \
+            --output "$RUNNER_TEMP/closure-10.zip"
+
+      - name: Validate immutable and historical v1
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc)" = 'e77fc2457fadfdffb46ed2d90304ebb91e89a715'
+          historical="$RUNNER_TEMP/project-normalization-v1"
+          git worktree add --detach "$historical" 317938bc72cf7a47ea798b2614d92d3d285dd97a
+          node "$historical/scripts/validate-project-normalization-synthesis-v1.mjs" "$historical" \
+            --events-repo "$GITHUB_WORKSPACE/_pinned-events-readonly"
+
+      - name: Validate v1.1 positive gates and schemas
+        run: |
+          node scripts/normalization-v1-1/build-raw-partition.mjs --check --self-test
+          node scripts/normalization-v1-1/build-registry-readiness.mjs --check --self-test
+          node scripts/normalization-v1-1/validate-event-media-dossier.mjs --root .
+          node scripts/validate-project-normalization-v1-1-medallions-navigation.mjs .
+          node scripts/validate-family-lifecycle-v1.mjs --root .
+          node scripts/validate-resource-graph-004-contracts.mjs
+          python3 scripts/validate-normalization-schemas-v1-1.py .
+          node scripts/validate-project-normalization-synthesis-v1-1.mjs . \
+            --events-repo _pinned-events-readonly \
+            --prior-archive "$RUNNER_TEMP/prior-124.zip" \
+            --closure-archive "$RUNNER_TEMP/closure-10.zip"
+
+      - name: Validate semantic negative mutations
+        run: |
+          node tests/normalization-v1-1-registry-readiness.mjs
+          node scripts/normalization-v1-1/test-event-media-dossier-validator.mjs .
+          node --test scripts/validate-project-normalization-v1-1-medallions-navigation.test.mjs
+          node tests/family-lifecycle-v1-negative.mjs .
+          node scripts/test-evidence-value-gates-v1-1-negative.mjs .
+          node tests/project-normalization-synthesis-v1-1-negative.mjs .
+
+      - name: Enforce read-only product source and strict STOP paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C _pinned-events-readonly rev-parse HEAD)" = '66bc0d43e36299417626f992021cfb7299ddf704'
+          test "$(git -C _pinned-events-readonly rev-parse HEAD:site/src)" = 'd737458f8a87a9b7dad4f4badffd1b3f4ce544dd'
+          test "$(git -C _pinned-events-readonly rev-parse HEAD:site/public)" = 'f42a045ec9ff3b1b2f3396a4df9f54cc6a767934'
+          test -z "$(git -C _pinned-events-readonly status --porcelain)"
+          if git diff --name-only 317938bc72cf7a47ea798b2614d92d3d285dd97a...HEAD | grep -Eq '^(penpot|prototypes)/|(^|/)site/(src|public)(/|$)'; then
+            echo 'forbidden runtime/Penpot path changed' >&2
+            exit 1
+          fi
+          git diff --check
+
+      - name: Strict secret scan
+        run: python3 scripts/scan-normalization-v1-1-secrets.py .

@@ -1,8 +1,12 @@
-# Family wave plan
+# Family wave plan v1 — historical/superseded
 
 `PROJECT_NORMALIZATION_SYNTHESIS_COMPLETE`
-`READY_FOR_FAMILY_DECISION_REVIEW`
 `PRODUCT_VALUE_GATE_SCAFFOLDED_PENDING_PRODUCT_MODEL`
+
+The former v1 wave/readiness claim is not current authority. The independent
+audit rejected its fail-open gate. The replacement
+[`family-wave-plan-v1-1.md`](family-wave-plan-v1-1.md) yields zero eligible and
+zero selected groups.
 
 ## Reproducible model
 

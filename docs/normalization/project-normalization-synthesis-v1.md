@@ -1,14 +1,19 @@
 # Project Normalization Synthesis v1
 
-## Result
+## Historical result — superseded
 
 `PROJECT_NORMALIZATION_SYNTHESIS_COMPLETE`
-`READY_FOR_FAMILY_DECISION_REVIEW`
 `PRODUCT_VALUE_GATE_SCAFFOLDED_PENDING_PRODUCT_MODEL`
+
+The former v1 family-decision-review readiness claim is superseded by the
+byte-preserved independent red-team audit and the v1.1 remediation. It is not a
+current status or authorization. See
+[`project-normalization-synthesis-v1-1.md`](project-normalization-synthesis-v1-1.md).
 
 This is an analytical, candidate-only synthesis. It changes neither production UI nor immutable Decoder v1. Candidate family decisions remain unaccepted and every experiment remains `NOT_MERGED`.
 
-`READY_FOR_FAMILY_DECISION_REVIEW` is readiness to attempt the first transition in the [normative family lifecycle](design-system-family-lifecycle.md); it is not `FAMILY_HYPOTHESIS_REVIEWED`. The current lifecycle state remains `AS_IS_RECONSTRUCTED`.
+The current lifecycle state remains `AS_IS_RECONSTRUCTED`; v1.1 does not
+authorize the first transition.
 
 ## Pinned authority
 
