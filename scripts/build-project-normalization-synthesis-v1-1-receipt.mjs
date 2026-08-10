@@ -113,15 +113,19 @@ const mutationCatalog = json(mutationCatalogPath);
 const mutationCases = mutationCatalog.cases ?? mutationCatalog.mandatory_cases ?? [];
 assert(Array.isArray(mutationCases) && mutationCases.length === 14, 'mandatory mutation definition catalog must contain exactly 14 cases');
 const mutationDefinitions = mutationCases.map((row) => ({
-  case_id: row.case_id,
-  expected_error_code: row.expected_error_code ?? row.expected?.code ?? row.error?.code,
-  target_validator: row.target_validator,
-  source_test_file: row.source_test_file,
+  case_id: row.id,
+  expected_error_code: row.expected_error_code,
+  validation_stage: row.error?.stage,
+  affected_record: row.error?.record,
+  affected_path: row.error?.path,
+  mutation_files: row.mutation_files,
 }));
 assert(mutationDefinitions.every((row) => typeof row.case_id === 'string'
   && typeof row.expected_error_code === 'string'
-  && typeof row.target_validator === 'string'
-  && typeof row.source_test_file === 'string'), 'mandatory mutation definition is incomplete');
+  && typeof row.validation_stage === 'string'
+  && typeof row.affected_record === 'string'
+  && typeof row.affected_path === 'string'
+  && Array.isArray(row.mutation_files) && row.mutation_files.length > 0), 'mandatory mutation definition is incomplete');
 assert(new Set(mutationDefinitions.map((row) => row.case_id)).size === 14, 'mandatory mutation case ID is duplicated');
 assert(new Set(mutationDefinitions.map((row) => row.expected_error_code)).size === 14, 'mandatory mutation error code is duplicated');
 const binding = (relative) => ({ path: relative, bytes: read(relative).byteLength, sha256: sha(relative) });

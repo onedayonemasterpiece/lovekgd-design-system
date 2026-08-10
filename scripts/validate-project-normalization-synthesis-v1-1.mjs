@@ -112,6 +112,7 @@ if (!skipReceipt) required.push('receipts/normalization/project-normalization-sy
 for (const relative of required) assert(fs.existsSync(absolute(relative)), `missing v1.1 artifact: ${relative}`);
 
 // Immutable and read-only inputs.
+assert(read('docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md').byteLength === 8046, 'byte-preserved independent audit size changed');
 assert(sha('docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md') === AUDIT_SHA, 'byte-preserved independent audit changed');
 assert(read('docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md').byteLength === 61775, 'byte-preserved independent re-audit size changed');
 assert(sha('docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md') === REAUDIT_SHA, 'byte-preserved independent re-audit changed');
