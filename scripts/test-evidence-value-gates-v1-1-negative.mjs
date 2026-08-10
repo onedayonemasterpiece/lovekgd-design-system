@@ -37,10 +37,13 @@ const accept=(name,mutate)=>{
 reject('visual-row-deletion','visual',(x)=>x.visual.pop());
 reject('visual-full-resolution-false','visual',(x)=>{x.visual[0].full_resolution_opened=false});
 reject('visual-reviewer-blank','visual',(x)=>{x.visual[0].reviewer=''});
+reject('visual-review-status-missing','visual',(x)=>{delete x.visual[0].review_status});
 reject('visual-review-status-pending','visual',(x)=>{x.visual[0].review_status='pending'});
 reject('visual-archive-lineage-swap','visual',(x)=>{const a=x.visual.find((row)=>row.storage.lineage==='prior-reviewed-124');const b=x.visual.find((row)=>row.storage.lineage==='closure-new-10');[a.storage,b.storage]=[b.storage,a.storage]});
 reject('visual-component-state-phase-drift','visual',(x)=>{x.visual[0].component_state.phase='invented'});
-reject('manifest-conflict-count-drift','visual',(x)=>{x.counts.conflict_count=4});
+reject('manifest-current-conflict-injected','visual',(x)=>{x.counts.conflict_count=1;x.counts.current_conflicts.push({canonical_key:'outputs.action_packet_index',reason:'injected'})});
+reject('manifest-active-legacy-alias-retained','visual',(x)=>{x.counts.active_legacy_aliases.push({source_pointer:'counts.actionPacketIndex',canonical_pointer:'outputs.action-packet-index.jsonl.records'})});
+reject('manifest-unequal-alias-in-canonical-namespace','visual',(x)=>{x.counts.canonical_counts.actionPacketIndex=0});
 reject('manifest-stale-key-promoted','visual',(x)=>{x.counts.canonical_counts.outputs['action-packet-index.jsonl']=0});
 reject('census-edge-deletion','product',(x)=>{x.census=x.census.filter((row)=>row.id!==x.applications[0].census_edge_id)});
 reject('census-edge-consumer-swap','product',(x)=>{const edge=x.census.find((row)=>row.id===x.applications[0].census_edge_id);edge.consumer='src/pages/invented.astro'});

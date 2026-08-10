@@ -4,7 +4,7 @@
     "path": "catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/manifest.json",
     "sha256": "c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1"
   },
-  "namespace_policy": "canonical values derive from manifest.outputs records or explicit terminal/visual projections; deprecated legacy keys are never read as authority",
+  "namespace_policy": "canonical_counts is the sole active snake_case count namespace; source audit observations are non-authoritative pointers and never aliases",
   "canonical_counts": {
     "outputs": {
       "action-packet-index.jsonl": 67,
@@ -59,48 +59,73 @@
     },
     "automation_evidence": 294
   },
-  "deprecated_legacy_conflicts": [
-    {
-      "legacy_pointer": "counts.actionPacketIndex",
-      "legacy_key": "actionPacketIndex",
-      "legacy_value": 0,
-      "canonical_pointer": "outputs.action-packet-index.jsonl.records",
-      "canonical_value": 67,
-      "disposition": "deprecated-stale-conflict"
-    },
-    {
-      "legacy_pointer": "counts.pageVerification",
-      "legacy_key": "pageVerification",
-      "legacy_value": 0,
-      "canonical_pointer": "outputs.behavior-page-verification.jsonl.records",
-      "canonical_value": 134,
-      "disposition": "deprecated-stale-conflict"
-    },
-    {
-      "legacy_pointer": "counts.plans",
-      "legacy_key": "plans",
-      "legacy_value": 35,
-      "canonical_pointer": "outputs.behavior-specimen-plan.jsonl.records",
-      "canonical_value": 67,
-      "disposition": "deprecated-stale-conflict"
-    },
-    {
-      "legacy_pointer": "counts.unresolved",
-      "legacy_key": "unresolved",
-      "legacy_value": 19,
-      "canonical_pointer": "outputs.unresolved.jsonl.records",
-      "canonical_value": 87,
-      "disposition": "deprecated-stale-conflict"
-    },
-    {
-      "legacy_pointer": "counts.visualReviewLedger",
-      "legacy_key": "visualReviewLedger",
-      "legacy_value": 0,
-      "canonical_pointer": "outputs.visual-review-ledger.jsonl.records",
-      "canonical_value": 134,
-      "disposition": "deprecated-stale-conflict"
-    }
-  ],
-  "conflict_count": 5,
+  "source_audit": {
+    "observed_excluded_conflict_count": 5,
+    "observations": [
+      {
+        "observation_kind": "stale_source_count_conflict",
+        "source_pointer": "counts.actionPacketIndex",
+        "source_key": "actionPacketIndex",
+        "source_value": 0,
+        "canonical_pointer": "outputs.action-packet-index.jsonl.records",
+        "canonical_value": 67,
+        "authoritative": false,
+        "active_alias_retained": false,
+        "disposition": "observed-in-immutable-source-excluded-from-canonical-namespace",
+        "remediation": "canonical-output-record-count-only"
+      },
+      {
+        "observation_kind": "stale_source_count_conflict",
+        "source_pointer": "counts.pageVerification",
+        "source_key": "pageVerification",
+        "source_value": 0,
+        "canonical_pointer": "outputs.behavior-page-verification.jsonl.records",
+        "canonical_value": 134,
+        "authoritative": false,
+        "active_alias_retained": false,
+        "disposition": "observed-in-immutable-source-excluded-from-canonical-namespace",
+        "remediation": "canonical-output-record-count-only"
+      },
+      {
+        "observation_kind": "stale_source_count_conflict",
+        "source_pointer": "counts.plans",
+        "source_key": "plans",
+        "source_value": 35,
+        "canonical_pointer": "outputs.behavior-specimen-plan.jsonl.records",
+        "canonical_value": 67,
+        "authoritative": false,
+        "active_alias_retained": false,
+        "disposition": "observed-in-immutable-source-excluded-from-canonical-namespace",
+        "remediation": "canonical-output-record-count-only"
+      },
+      {
+        "observation_kind": "stale_source_count_conflict",
+        "source_pointer": "counts.unresolved",
+        "source_key": "unresolved",
+        "source_value": 19,
+        "canonical_pointer": "outputs.unresolved.jsonl.records",
+        "canonical_value": 87,
+        "authoritative": false,
+        "active_alias_retained": false,
+        "disposition": "observed-in-immutable-source-excluded-from-canonical-namespace",
+        "remediation": "canonical-output-record-count-only"
+      },
+      {
+        "observation_kind": "stale_source_count_conflict",
+        "source_pointer": "counts.visualReviewLedger",
+        "source_key": "visualReviewLedger",
+        "source_value": 0,
+        "canonical_pointer": "outputs.visual-review-ledger.jsonl.records",
+        "canonical_value": 134,
+        "authoritative": false,
+        "active_alias_retained": false,
+        "disposition": "observed-in-immutable-source-excluded-from-canonical-namespace",
+        "remediation": "canonical-output-record-count-only"
+      }
+    ]
+  },
+  "active_legacy_aliases": [],
+  "current_conflicts": [],
+  "conflict_count": 0,
   "source_manifest_mutated": false
 }

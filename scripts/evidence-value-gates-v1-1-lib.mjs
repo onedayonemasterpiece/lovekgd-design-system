@@ -176,29 +176,33 @@ export function buildBehaviorCounts(root,visualRows){
   const manifestBytes=fs.readFileSync(path.join(root,manifestPath));
   const manifest=JSON.parse(manifestBytes);
   const outputRecords=Object.fromEntries(Object.entries(manifest.outputs).filter(([,meta])=>Number.isInteger(meta.records)).sort(([a],[b])=>a.localeCompare(b)).map(([name,meta])=>[name,meta.records]));
-  const conflicts=[
+  const sourceAuditObservations=[
     ['actionPacketIndex',0,'outputs.action-packet-index.jsonl.records',67],
     ['pageVerification',0,'outputs.behavior-page-verification.jsonl.records',134],
     ['plans',35,'outputs.behavior-specimen-plan.jsonl.records',67],
     ['unresolved',19,'outputs.unresolved.jsonl.records',87],
     ['visualReviewLedger',0,'outputs.visual-review-ledger.jsonl.records',134]
-  ].map(([legacy_key,legacy_value,canonical_pointer,canonical_value])=>({
-    legacy_pointer:`counts.${legacy_key}`,
-    legacy_key,
-    legacy_value,
+  ].map(([source_key,source_value,canonical_pointer,canonical_value])=>({
+    observation_kind:'stale_source_count_conflict',
+    source_pointer:`counts.${source_key}`,
+    source_key,
+    source_value,
     canonical_pointer,
     canonical_value,
-    disposition:'deprecated-stale-conflict'
+    authoritative:false,
+    active_alias_retained:false,
+    disposition:'observed-in-immutable-source-excluded-from-canonical-namespace',
+    remediation:'canonical-output-record-count-only'
   }));
-  for(const row of conflicts){
-    assert(manifest.counts[row.legacy_key]===row.legacy_value,`${row.legacy_key}: legacy value drift`);
+  for(const row of sourceAuditObservations){
+    assert(manifest.counts[row.source_key]===row.source_value,`${row.source_key}: source audit value drift`);
     const [file]=row.canonical_pointer.replace('outputs.','').split('.records');
-    assert(manifest.outputs[file].records===row.canonical_value,`${row.legacy_key}: canonical value drift`);
+    assert(manifest.outputs[file].records===row.canonical_value,`${row.source_key}: canonical value drift`);
   }
   return {
     schema_version:'behavioral_manifest_counts_v1_1',
     source_manifest:{path:manifestPath,sha256:shaBuffer(manifestBytes)},
-    namespace_policy:'canonical values derive from manifest.outputs records or explicit terminal/visual projections; deprecated legacy keys are never read as authority',
+    namespace_policy:'canonical_counts is the sole active snake_case count namespace; source audit observations are non-authoritative pointers and never aliases',
     canonical_counts:{
       outputs:outputRecords,
       packets:{
@@ -224,8 +228,13 @@ export function buildBehaviorCounts(root,visualRows){
       findings:{unresolved_records:outputRecords['unresolved.jsonl'],blocking_unresolved_records:manifest.counts.blocking_unresolved_records},
       automation_evidence:outputRecords['automation-evidence-ledger.jsonl']
     },
-    deprecated_legacy_conflicts:conflicts,
-    conflict_count:conflicts.length,
+    source_audit:{
+      observed_excluded_conflict_count:sourceAuditObservations.length,
+      observations:sourceAuditObservations
+    },
+    active_legacy_aliases:[],
+    current_conflicts:[],
+    conflict_count:0,
     source_manifest_mutated:false
   };
 }
@@ -446,7 +455,12 @@ export function validateVisualEvidence(root,rows,counts){
   assert(rows.every((row)=>row.storage.permanence_status==='durable'&&row.retrieval_validation.status==='verified'),'visual permanence/retrieval status incomplete');
   const expectedCounts=buildBehaviorCounts(root,rows);
   assert(canonical(counts)===canonical(expectedCounts),'behavioral-manifest-counts.json is not deterministic');
-  assert(counts.conflict_count===5&&counts.deprecated_legacy_conflicts.length===5,'count projection must expose exactly five stale conflicts');
+  const activeLegacyKeys=['actionPacketIndex','pageVerification','plans','unresolved','visualReviewLedger'];
+  assert(counts.conflict_count===0&&Array.isArray(counts.current_conflicts)&&counts.current_conflicts.length===0,'canonical count namespace has a current conflict');
+  assert(Array.isArray(counts.active_legacy_aliases)&&counts.active_legacy_aliases.length===0,'active legacy count alias retained');
+  assert(counts.source_audit?.observed_excluded_conflict_count===5&&counts.source_audit.observations.length===5,'source audit must record exactly five excluded conflicts');
+  assert(counts.source_audit.observations.every((row)=>row.authoritative===false&&row.active_alias_retained===false&&row.disposition==='observed-in-immutable-source-excluded-from-canonical-namespace'&&row.remediation==='canonical-output-record-count-only'),'source count conflict was not excluded from authority');
+  assert(activeLegacyKeys.every((key)=>!Object.hasOwn(counts.canonical_counts,key)),'legacy count key leaked into canonical namespace');
 }
 
 export function validateProductRecords(applications,readiness,censusRows,{registry=null}={}){
