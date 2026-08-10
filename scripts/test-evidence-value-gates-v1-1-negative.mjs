@@ -37,6 +37,7 @@ const accept=(name,mutate)=>{
 reject('visual-row-deletion','visual',(x)=>x.visual.pop());
 reject('visual-full-resolution-false','visual',(x)=>{x.visual[0].full_resolution_opened=false});
 reject('visual-reviewer-blank','visual',(x)=>{x.visual[0].reviewer=''});
+reject('visual-review-status-pending','visual',(x)=>{x.visual[0].review_status='pending'});
 reject('visual-archive-lineage-swap','visual',(x)=>{const a=x.visual.find((row)=>row.storage.lineage==='prior-reviewed-124');const b=x.visual.find((row)=>row.storage.lineage==='closure-new-10');[a.storage,b.storage]=[b.storage,a.storage]});
 reject('visual-component-state-phase-drift','visual',(x)=>{x.visual[0].component_state.phase='invented'});
 reject('manifest-conflict-count-drift','visual',(x)=>{x.counts.conflict_count=4});

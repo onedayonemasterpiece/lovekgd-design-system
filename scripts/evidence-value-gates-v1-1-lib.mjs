@@ -101,6 +101,7 @@ export function buildVisualEvidence(root){
     const observation=observationById.get(review.observation_id);
     const page=pageByObservation.get(review.observation_id);
     assert(observation&&page,`${review.id}: missing observation/page join`);
+    assert(review.review_status==='reviewed-full-resolution',`${review.id}: source review is not closed at full resolution`);
     const pair=`${review.path}\0${review.sha256}`;
     const entry=artifactByPair.get(pair);
     assert(entry,`${review.id}: missing artifact-index image`);
@@ -141,6 +142,7 @@ export function buildVisualEvidence(root){
       reviewer:review.reviewer,
       reviewed_at:review.reviewed_at,
       review_method:'manual-full-resolution-open',
+      review_status:'reviewed',
       full_resolution_opened:review.full_resolution_opened,
       conclusion:review.visual_result,
       review_note:review.review_note,
@@ -438,8 +440,9 @@ export function augmentReadiness(readiness,applications){
 export function validateVisualEvidence(root,rows,counts){
   const expected=buildVisualEvidence(root);
   assert(canonical(rows)===canonical(expected),'visual-review-evidence.jsonl is not deterministic');
-  assert(rows.every((row)=>row.reviewer&&row.reviewed_at&&row.review_method==='manual-full-resolution-open'&&row.full_resolution_opened===true&&row.conclusion&&row.decision==='NOT_MERGED'),'visual review method/conclusion invariant failed');
+  assert(rows.every((row)=>row.reviewer&&row.reviewed_at&&row.review_method==='manual-full-resolution-open'&&row.review_status==='reviewed'&&row.full_resolution_opened===true&&row.conclusion&&row.decision==='NOT_MERGED'),'visual review status/method/conclusion invariant failed');
   assert(rows.every((row)=>row.component_state.packet_id&&row.component_state.phase&&row.component_state.page_verification_id&&row.component_state.state_sha256),'visual component-state binding incomplete');
+  assert(rows.every((row)=>row.component_state.component_id===null&&row.component_state.binding_status==='packet-phase-state-only-no-deterministic-component-binding'),'visual component-state binding invents an unsupported component ID');
   assert(rows.every((row)=>row.storage.permanence_status==='durable'&&row.retrieval_validation.status==='verified'),'visual permanence/retrieval status incomplete');
   const expectedCounts=buildBehaviorCounts(root,rows);
   assert(canonical(counts)===canonical(expectedCounts),'behavioral-manifest-counts.json is not deterministic');
