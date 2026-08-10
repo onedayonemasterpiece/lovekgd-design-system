@@ -117,16 +117,12 @@ run checkout-events "$events" events git checkout --detach "$events_sha"
 run design-clean-before "$design" design git status --porcelain
 run events-clean-before "$events" events git status --porcelain
 
-# This gate covers the committed remediation range. The two audit records and
-# two immutable Component Synthesis package inputs below intentionally preserve
-# source bytes that contain Markdown hard breaks or CRLF padding. Their exact
-# byte lengths and SHA-256 values are checked by their owning fail-closed
-# validators rather than normalized in-place.
+# This gate covers the committed remediation range. Exactly two byte-preserved
+# audit inputs are excluded here; build-workflow-attestation.mjs independently
+# verifies the expected byte length and SHA-256 of each one.
 run committed-range-diff-check "$design" design git diff --check "$BASE_SHA..$source_sha" -- . \
   ':(exclude)docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md' \
-  ':(exclude)docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md' \
-  ':(exclude)catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.csv' \
-  ':(exclude)docs/normalization/full-component-synthesis-v0.1.md'
+  ':(exclude)docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md'
 run verify-inputs-before "$design" design node scripts/normalization-v1-1/build-workflow-attestation.mjs \
   --verify-inputs-only --root "$design" --events-repo "$events" --source-sha "$source_sha"
 

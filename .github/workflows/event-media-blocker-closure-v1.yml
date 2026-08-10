@@ -162,9 +162,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/scan-normalization-v1-1-secrets.py . "$EMC_MERGED_MAIN" | tee "$RUNNER_TEMP/emc-results/secrets.txt"
-          git diff --check "$EMC_MERGED_MAIN...HEAD" -- . \
-            ':(exclude)catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.csv' \
-            ':(exclude)docs/normalization/full-component-synthesis-v0.1.md'
+          git diff --check "$EMC_MERGED_MAIN...HEAD" --
           test -z "$(git status --porcelain)"
           test -z "$(git -C "$EMC_FROZEN_CLOSURE_ROOT" status --porcelain)"
           test -z "$(git -C "$EMC_EVENTS_ROOT" status --porcelain)"
