@@ -1,0 +1,742 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-media-candidate-contract.v1.schema.json",
+  "schema_version": "event_media_candidate_contract_v1",
+  "candidate_component_id": "candidate.event-primary-media",
+  "contract_version": "0.1.0-candidate",
+  "family_id": "family.event-media",
+  "identity": {
+    "stable_id": "event-media.primary",
+    "name": "Event Primary Media",
+    "definition": "Exactly one selected event-detail primary asset or presentation fallback in a prominent frame, optionally acting as the opener for a separately owned viewer.",
+    "identity_evidence": [
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:50-79,109-245",
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:128-168,194-289,304-411"
+    ],
+    "identity_limit": "The identity ends at the image-or-fallback frame and viewer opener; EventHero decisions/actions and Desktop page composition remain outside."
+  },
+  "entity_kind": "component_identity_candidate",
+  "semantic_role": "Primary event-detail image-or-fallback frame with semantic fit and optional viewer-open behavior.",
+  "explicit_non_goals": [
+    "Media ingestion, semantic classification or primary-asset selection.",
+    "Event title, metadata, ticket, calendar, share, like or page-family routing.",
+    "Poster companion, preview rail, viewer dialog, EventCard, listing media or social asset generation.",
+    "A global aspect-ratio, crop, spacing or typography token.",
+    "An arbitrary consumer fit, object-position or overlay escape hatch."
+  ],
+  "anatomy": [
+    {
+      "id": "root_frame",
+      "role": "Container-sized primary visual boundary",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "activation_boundary",
+      "role": "Native viewer opener when a valid viewer binding exists",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "image_viewport",
+      "role": "Clipped or contained visual viewport",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "primary_image",
+      "role": "Meaningful selected event image",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "fallback_content",
+      "role": "Presentation fallback mutually exclusive with primary image",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "viewer_affordance",
+      "role": "Decorative open/count affordance",
+      "required": false,
+      "cardinality": "zero_or_one"
+    }
+  ],
+  "slots": [
+    {
+      "id": "fallback",
+      "required": false,
+      "cardinality": "zero_or_one",
+      "content_contract": "Presentation-only typed or consumer generic fallback; no event-media mutation."
+    },
+    {
+      "id": "viewer_affordance",
+      "required": false,
+      "cardinality": "zero_or_one",
+      "content_contract": "Decorative only, aria-hidden, with no interactive descendants."
+    }
+  ],
+  "semantic_media_modes": [
+    {
+      "id": "visual_only_photography",
+      "definition": "Positively identified or reviewed no-text event visual.",
+      "fit_contract": "Event-detail product exception uses cover."
+    },
+    {
+      "id": "portrait_text_artwork",
+      "definition": "Portrait source carrying meaningful authored text or poster identity.",
+      "fit_contract": "Contain and preserve source geometry."
+    },
+    {
+      "id": "ocr_document",
+      "definition": "Text-bearing or document-role image.",
+      "fit_contract": "Contain and preserve all meaningful content."
+    },
+    {
+      "id": "unknown_text_protected",
+      "definition": "Missing, stale, pending or errored semantic certainty.",
+      "fit_contract": "Fail closed to contain."
+    },
+    {
+      "id": "no_image",
+      "definition": "No usable selected source.",
+      "fit_contract": "Render typed or generic presentation fallback; no crop."
+    }
+  ],
+  "props": [
+    {
+      "name": "asset",
+      "type": "NormalizedEventMediaAsset|null",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Exactly one normalized selected asset or null.",
+        "Asset selection remains caller-owned."
+      ]
+    },
+    {
+      "name": "event_title",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Non-empty; supplies accessible fallback context."
+      ]
+    },
+    {
+      "name": "alt",
+      "type": "string|null",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Non-empty when asset is meaningful; null only with no asset."
+      ]
+    },
+    {
+      "name": "consumer_frame_policy",
+      "type": "mobile_event_hero|desktop_event_editorial|desktop_event_split",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Registered contexts only; no raw ratio override."
+      ]
+    },
+    {
+      "name": "viewer_binding",
+      "type": "{dialog_id,index,accessible_name}|null",
+      "required": false,
+      "default": null,
+      "constraints": [
+        "Fields are atomic and resolve to a separate EventMediaViewer."
+      ]
+    },
+    {
+      "name": "media_decision",
+      "type": "{fit,object_position,reason,provenance}",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Resolver-produced; must not contradict semantic mode."
+      ]
+    },
+    {
+      "name": "intrinsic_width",
+      "type": "positive number|null",
+      "required": false,
+      "default": null,
+      "constraints": [
+        "Forward exact source dimension when known."
+      ]
+    },
+    {
+      "name": "intrinsic_height",
+      "type": "positive number|null",
+      "required": false,
+      "default": null,
+      "constraints": [
+        "Forward exact source dimension when known."
+      ]
+    },
+    {
+      "name": "load_priority",
+      "type": "primary",
+      "required": false,
+      "default": "primary",
+      "constraints": [
+        "Primary is eager/high in current event-detail consumers."
+      ]
+    }
+  ],
+  "defaults": [
+    {
+      "field": "object_position",
+      "value": "50% 50%",
+      "reason": "Fallback when no sanitized recommended position exists."
+    },
+    {
+      "field": "load_priority",
+      "value": "primary",
+      "reason": "Primary media is the page LCP candidate."
+    },
+    {
+      "field": "viewer_binding",
+      "value": null,
+      "reason": "A static frame is valid when no viewer exists."
+    },
+    {
+      "field": "default_ratio",
+      "value": null,
+      "reason": "No family-wide ratio is selected."
+    }
+  ],
+  "state_axes": [
+    {
+      "axis": "availability",
+      "values": [
+        "available",
+        "no_image",
+        "broken"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "semantic_mode",
+      "values": [
+        "visual_only",
+        "text_protected",
+        "unknown_protected"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "orientation",
+      "values": [
+        "portrait",
+        "square",
+        "landscape",
+        "unknown"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "render_fit",
+      "values": [
+        "cover",
+        "contain"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "interaction",
+      "values": [
+        "static",
+        "viewer_opener"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "load_state",
+      "values": [
+        "idle",
+        "loading",
+        "loaded",
+        "error"
+      ],
+      "penpot_variant_axis": false
+    },
+    {
+      "axis": "source_quality",
+      "values": [
+        "strong",
+        "sole_weak_low_resolution",
+        "unknown"
+      ],
+      "penpot_variant_axis": false
+    }
+  ],
+  "valid_combinations": [
+    "Available visual-only + cover + sanitized object position or center.",
+    "Available OCR/text/unknown + contain + centered object position.",
+    "No image + exactly one typed or generic presentation fallback.",
+    "Viewer opener + complete dialog id/index/accessible name binding.",
+    "Sole low-resolution portrait + intrinsic-bounded contain."
+  ],
+  "invalid_combinations": [
+    "Asset present together with no-image state.",
+    "Missing asset with cover or crop decision.",
+    "OCR/document, textual artwork, portrait poster or unknown mode with cover.",
+    "Semantic error reinterpreted as visual-only cover.",
+    "Partial viewer binding or opener without resolvable dialog.",
+    "Consumer CSS overriding internal fit/object-position.",
+    "Fallback inserted into image_assets, gallery order, metadata or share payload.",
+    "2:3 source geometry promoted to a universal frame token.",
+    "Empty alt for a meaningful primary image."
+  ],
+  "responsive_container_behavior": [
+    {
+      "consumer_context": "mobile_event_hero",
+      "container_contract": "Visual photo frame is 16:10 and height-bounded; poster is intrinsic/height-bounded contain; fallback is height-bounded.",
+      "source_art_direction": "No alternate source is selected by the component.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:702-730",
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:207-245"
+      ]
+    },
+    {
+      "consumer_context": "desktop_event_editorial",
+      "container_contract": "Viewport/stage and source-ratio driven; visual may cover and protected media contains.",
+      "source_art_direction": "Current route switches DOM at 1024px but does not prove alternate-source art direction.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:304-411,1730-2253"
+      ]
+    },
+    {
+      "consumer_context": "desktop_event_split",
+      "container_contract": "Viewport cover for visual and viewport/natural contain for protected media; preview rail is outside.",
+      "source_art_direction": "No alternate source is selected by the component.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:166-168,339-394,2208-2231"
+      ]
+    }
+  ],
+  "ratio_policy": {
+    "global_ratio_token_selected": false,
+    "default_ratio": null,
+    "policy": "Source geometry and registered consumer frame policy coexist; repetition never creates a global token.",
+    "consumer_policies": [
+      {
+        "consumer_context": "mobile_event_hero",
+        "ratios": [
+          "16:10 photo frame",
+          "intrinsic/source poster",
+          "consumer height bounds"
+        ],
+        "selection": "Select by semantic mode, not orientation alone.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:726-730"
+        ]
+      },
+      {
+        "consumer_context": "desktop_event_editorial",
+        "ratios": [
+          "viewport/stage",
+          "intrinsic/source"
+        ],
+        "selection": "Container and page composition own dimensions.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:1730-2253"
+        ]
+      },
+      {
+        "consumer_context": "desktop_event_split",
+        "ratios": [
+          "viewport cover",
+          "viewport contain",
+          "intrinsic/source"
+        ],
+        "selection": "Semantic mode chooses cover versus contain; no fixed family ratio.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:2208-2231"
+        ]
+      }
+    ]
+  },
+  "crop_contain_policy": [
+    {
+      "semantic_mode": "visual_only_photography",
+      "fit": "cover",
+      "crop_permission": "event-detail product exception; semantic boxes may refine position but are not required to remove bands",
+      "reason": "Current hero/gallery requirement explicitly fills visual-only media.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/image-framing.md:1-14,69-92",
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:124-131"
+      ]
+    },
+    {
+      "semantic_mode": "portrait_text_artwork",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "Poster text/identity remains whole.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:153-168"
+      ]
+    },
+    {
+      "semantic_mode": "ocr_document",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "OCR/document remains whole.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/image-framing.md:1-14"
+      ]
+    },
+    {
+      "semantic_mode": "unknown_text_protected",
+      "fit": "contain",
+      "crop_permission": "crop forbidden until positive semantics exist",
+      "reason": "Unknown and semantic error fail closed.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:55-65"
+      ]
+    }
+  ],
+  "focal_safe_area_behavior": [
+    "Accept only sanitized recommended_object_position; otherwise center.",
+    "Pixel-current face/value geometry may refine a resolver result; stale geometry_pixel_sha256 cannot authorize crop.",
+    "Protected contain ignores focal positioning and centers the complete image.",
+    "The explicit visual-only event-detail cover policy is not silently replaced by the stricter compact-card crop solver."
+  ],
+  "upscaling_policy": [
+    "Hide a weak photo only when the same event has a technically strong photo alternative.",
+    "Preserve all weak sources when no stronger alternative exists; never drop positively classified posters/documents through photo quality filtering.",
+    "A sole low-resolution portrait uses intrinsic-bounded contain.",
+    "No universal no-upscale policy is proven for other current primary visuals; preserve current container-fill behavior and keep EM-TINY-005 open."
+  ],
+  "loading_skeleton_policy": {
+    "loading": "Primary uses eager loading, high fetch priority and async decode.",
+    "skeleton": "No standalone or animated primary skeleton is required by current SSG evidence.",
+    "layout_reservation": "Forward intrinsic dimensions and preserve registered container geometry; applicability remains unproven for every slot.",
+    "current_gap_refs": [
+      "EM-LAYOUT-007",
+      "EM-RESP-008"
+    ]
+  },
+  "missing_broken_policy": {
+    "missing": "Resolve typed EventFallbackArt when eligible, otherwise consumer generic fallback.",
+    "broken": "Candidate requirement: transition to the generic fallback without navigation failure and disable viewer opening for the failed source.",
+    "convergence_status": "candidate_requirement_unproven",
+    "current_gap_refs": [
+      "EM-FALLBACK-006",
+      "EM-RUNTIME-009"
+    ]
+  },
+  "accessibility_requirements": [
+    "Meaningful image alt uses authored event image alt or an event-title fallback.",
+    "A viewer opener is a native button with a specific accessible name and optional live closed-hero status description.",
+    "Static no-image frame exposes concise context while decorative fallback content remains aria-hidden.",
+    "No nested interactive control; keyboard activation remains native.",
+    "Any busy state must clear on both load and error."
+  ],
+  "supported_extension_points": [
+    {
+      "id": "registered_consumer_frame_policy",
+      "allowed": true,
+      "constraints": [
+        "Only versioned enum values.",
+        "May size container but cannot bypass semantic fit."
+      ]
+    },
+    {
+      "id": "fallback_renderer",
+      "allowed": true,
+      "constraints": [
+        "Presentation-only typed or generic fallback.",
+        "Must not enter event media metadata."
+      ]
+    },
+    {
+      "id": "viewer_affordance",
+      "allowed": true,
+      "constraints": [
+        "Decorative and aria-hidden only."
+      ]
+    },
+    {
+      "id": "raw_fit_or_ratio_override",
+      "allowed": false,
+      "constraints": [
+        "Forbidden because it bypasses semantic provenance."
+      ]
+    },
+    {
+      "id": "arbitrary_overlay_slot",
+      "allowed": false,
+      "constraints": [
+        "Would absorb EventHero/page composition."
+      ]
+    }
+  ],
+  "composition_boundary": {
+    "owns": [
+      "one primary image-or-fallback frame",
+      "semantic fit/object-position rendering",
+      "optional viewer opener semantics"
+    ],
+    "composes": [
+      "candidate.event-fallback-art when typed missing fallback resolves"
+    ],
+    "excludes": [
+      "EventHero decision/actions/meta",
+      "poster companion and preview rail",
+      "viewer dialog",
+      "EventCard/listing media",
+      "share/social output"
+    ],
+    "consumer_owned": [
+      "primary asset selection",
+      "container dimensions and registered frame policy",
+      "viewer instance and gallery ordering"
+    ]
+  },
+  "consumer_application_refs": [
+    "event-media.application.event-detail-desktop-primary-large-frame",
+    "event-media.application.event-detail-mobile-primary",
+    "event-media.application.lab-design-system-event-hero",
+    "event-media.application.lab-desktop-event-page-media",
+    "event-media.application.lab-hero-composition-review",
+    "event-media.application.lab-mobile-event-primary-and-gallery"
+  ],
+  "representative_fixtures": [
+    {
+      "id": "event-primary.visual-landscape",
+      "fixture_class": "visual landscape primary",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-media-quality.test.mjs:60-104"
+      ]
+    },
+    {
+      "id": "event-primary.poster-ocr",
+      "fixture_class": "portrait/text protected poster",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/event-desktop-media-families-2026-07-12.md"
+      ]
+    },
+    {
+      "id": "event-primary.semantic-error-6686",
+      "fixture_class": "semantic error fail-closed",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/image-framing.md:104-127"
+      ]
+    },
+    {
+      "id": "event-primary.sole-low-resolution",
+      "fixture_class": "sole weak low-resolution portrait",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-media-quality.test.mjs:49-112"
+      ]
+    },
+    {
+      "id": "event-primary.no-image-6996",
+      "fixture_class": "typed or generic no-image",
+      "evidence_refs": [
+        "lovekgd-design-system@b1c923cfbc7e46f7d86727fe37158bce73078cfc:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/conformance-capsules/03-media-heavy/real-page-verification-refs.jsonl"
+      ]
+    },
+    {
+      "id": "event-primary.stale-geometry",
+      "fixture_class": "pixel fingerprint invalidates geometry",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:tests/test_event_media_semantics_and_derivatives.py:423"
+      ]
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "primary.semantic-matrix",
+      "level": "unit",
+      "assertion": "Visual-only covers; OCR/text/unknown and semantic error contain.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.geometry-provenance",
+      "level": "unit",
+      "assertion": "Stale pixel geometry cannot authorize a crop.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.consumer-geometry",
+      "level": "browser",
+      "assertion": "Computed fit and dimensions match each registered consumer at 320, 390, 721, 1024, 1366, 1536 and 1920.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.fallback-exclusivity",
+      "level": "schema",
+      "assertion": "Exactly one image or fallback renders.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.broken-recovery",
+      "level": "browser",
+      "assertion": "Broken primary converges to generic fallback and viewer is disabled.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.accessibility",
+      "level": "accessibility",
+      "assertion": "Alt, opener name, keyboard activation and busy terminal state are correct.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.visual-regression",
+      "level": "visual",
+      "assertion": "Photo, poster, low-resolution and no-image specimens preserve geometry.",
+      "status": "required_future"
+    },
+    {
+      "id": "primary.negative-mutations",
+      "level": "mutation",
+      "assertion": "Protected cover, global ratio and consumer internal override mutations fail.",
+      "status": "required_future"
+    }
+  ],
+  "migration": {
+    "status": "not_started",
+    "authorization": false,
+    "steps": [
+      "Add a normalized adapter over existing EventHero and DesktopEventPage inputs without changing output.",
+      "Build isolated candidate specimens and shadow-compare DOM, computed fit, geometry and accessibility.",
+      "Opt in one consumer at a time only after owner acceptance and candidate-code gates.",
+      "Retain current implementations until candidate conformance and promotion gates pass."
+    ],
+    "compatibility": [
+      "Preserve the exact events-bot-new data shape and source semantics at the pinned evidence commit.",
+      "Use per-consumer adapters and opt-in only after a separately accepted contract; do not start migration from this artifact."
+    ],
+    "risk": "high"
+  },
+  "rollback": {
+    "status": "planned_only",
+    "strategy": [
+      "Switch each consumer back to its existing internal primary renderer.",
+      "Keep old markup and controller paths until migrated consumer count is proven zero.",
+      "Remove the candidate package without altering exported event/media data."
+    ],
+    "trigger_conditions": [
+      "Candidate DOM, accessibility, media-fit, loading or fallback conformance regresses.",
+      "A changed contract hash invalidates earlier candidate evidence."
+    ],
+    "data_migration_required": false
+  },
+  "penpot_future": {
+    "status": "unmaterialized",
+    "binding": null,
+    "native_component_candidate": true,
+    "stable_id": "event-media.primary",
+    "variant_axes": [
+      "availability",
+      "semantic_mode",
+      "orientation",
+      "render_fit",
+      "interaction",
+      "consumer_frame_policy"
+    ],
+    "state_axes": [
+      "load_state",
+      "source_quality"
+    ],
+    "allowed_instance_overrides": [
+      "registered consumer frame policy",
+      "container inline/block size",
+      "exact content fixture"
+    ],
+    "forbidden_instance_overrides": [
+      "fit",
+      "object position",
+      "ratio",
+      "internal padding",
+      "region order",
+      "arbitrary overlay"
+    ],
+    "page_archetype_composition": "eligible_only_after_candidate_acceptance_code_candidate_and_three_way_gates",
+    "screenshots_role": "evidence_only",
+    "exact_three_way_tuple": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "three_way_surfaces": [
+      "penpot",
+      "astro_specimen",
+      "generated_page"
+    ],
+    "materialization_authorized": false
+  },
+  "evidence_refs": [
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:50-79,109-245",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:128-168,194-289,304-411",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventMediaQuality.ts:1-58",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/imageCrop.mjs:16-101",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/image-framing.md:1-162",
+    "lovekgd-design-system@b1c923cfbc7e46f7d86727fe37158bce73078cfc:catalog/normalization/event-media/semantic-media-types.jsonl"
+  ],
+  "open_blocker_refs": [
+    "EM-CENSUS-001",
+    "EM-RATIO-002",
+    "EM-SEMANTIC-003",
+    "EM-CROP-004",
+    "EM-TINY-005",
+    "EM-FALLBACK-006",
+    "EM-LAYOUT-007",
+    "EM-RESP-008",
+    "EM-RUNTIME-009",
+    "EM-GOV-010",
+    "EM-PROVENANCE-012"
+  ],
+  "owner_question_refs": [
+    "identity-set-v1"
+  ],
+  "current_readiness": {
+    "status": "BLOCKED",
+    "strict_ready": false,
+    "eligible_for_scoring": false,
+    "score": null,
+    "blocking_refs": [
+      "EM-CENSUS-001",
+      "EM-RATIO-002",
+      "EM-SEMANTIC-003",
+      "EM-CROP-004",
+      "EM-TINY-005",
+      "EM-FALLBACK-006",
+      "EM-LAYOUT-007",
+      "EM-RESP-008",
+      "EM-RUNTIME-009",
+      "EM-GOV-010",
+      "EM-PROVENANCE-012"
+    ]
+  },
+  "normative_status": "candidate-not-accepted",
+  "contract_decision_status": "draft",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "candidate_contract_accepted": false,
+  "decision": "NOT_MERGED",
+  "recommendation": "split",
+  "normalization_allowed": false,
+  "physical_operation_authorized": false,
+  "migration_started": false,
+  "product_value": {
+    "gate_mode": "observe",
+    "value_evidence_status": "pending_product_model",
+    "promotion_ready": false,
+    "product_ids_created": false,
+    "metrics_created": false
+  },
+  "experiments": {
+    "decision": "NOT_MERGED",
+    "winner_receipt": null
+  }
+}

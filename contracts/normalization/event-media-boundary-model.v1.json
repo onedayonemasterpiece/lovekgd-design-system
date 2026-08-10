@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "authority_mode": "reconstructed",
+  "boundary_record_requirements": [
+    "Every semantic-media-types.jsonl boundary_model_ref resolves to exactly one row whose id is the exact forward reference.",
+    "Every source semantic entity kind is retained and explicitly reconciled; provisional classifications are never silently accepted.",
+    "Only component_identity_candidate may own a non-null candidate_contract_ref.",
+    "family.event-media is composition_pattern and cannot own a candidate contract.",
+    "Composition, placement, mode, foundation, detail and unresolved records cannot own a candidate contract.",
+    "Every boundary compares exactly merge, preserve_as_variant, preserve_as_composition, split, preserve_product_pattern and preserve_unresolved.",
+    "Rejected alternatives are the exact complement of the recommendation.",
+    "Owner question references are limited to identity-set-v1 and viewer-rail-boundary-v1, and only genuine owner decisions may reference them."
+  ],
+  "candidate_component_ids": [
+    "candidate.event-primary-media",
+    "candidate.event-media-viewer",
+    "candidate.event-fallback-art"
+  ],
+  "candidate_decision_accepted": false,
+  "candidate_identity_boundary_refs": [
+    "event-media.boundary.candidate.event-primary-media",
+    "event-media.boundary.candidate.event-media-viewer",
+    "event-media.boundary.candidate.event-fallback-art"
+  ],
+  "cardinality": {
+    "blockers": 12,
+    "boundary_records": 31,
+    "candidate_component_identities": 3,
+    "candidate_contract_files": 3,
+    "consumer_applications": 52,
+    "provisional_entity_kind_reconciliations": 13,
+    "recommendations_per_boundary": 6,
+    "semantic_forward_refs": 23,
+    "semantic_forward_refs_resolved_exactly_once": 23
+  },
+  "decision": "NOT_MERGED",
+  "entity_kind_enum": [
+    "component_identity_candidate",
+    "subcomponent_candidate",
+    "composition_pattern",
+    "consumer_placement",
+    "semantic_media_mode",
+    "foundation_candidate",
+    "implementation_detail",
+    "unresolved_boundary"
+  ],
+  "experiments": {
+    "decision": "NOT_MERGED",
+    "winner_receipt": null
+  },
+  "family_id": "family.event-media",
+  "forward_reference_contract": {
+    "duplicate_targets": 0,
+    "exact_match_required": true,
+    "id_field": "boundary_model_ref",
+    "minimum_and_actual_refs": 23,
+    "missing_refs": 0,
+    "resolution_target": "boundary-model.jsonl.id"
+  },
+  "id": "contract.event-media-boundary-model.v1",
+  "identity_contract_policy": {
+    "eligible_entity_kind": "component_identity_candidate",
+    "exact_candidate_set": [
+      "candidate.event-primary-media",
+      "candidate.event-media-viewer",
+      "candidate.event-fallback-art"
+    ],
+    "excluded_candidates": [
+      "share/social composition",
+      "generic no-image fallback",
+      "EventCard preview subpart",
+      "portrait poster mode",
+      "poster companion composition",
+      "preview rail placement",
+      "efficient portrait viewer"
+    ],
+    "ineligible_kinds": [
+      "subcomponent_candidate",
+      "composition_pattern",
+      "consumer_placement",
+      "semantic_media_mode",
+      "foundation_candidate",
+      "implementation_detail",
+      "unresolved_boundary"
+    ]
+  },
+  "migration_started": false,
+  "normalization_allowed": false,
+  "normative_status": "candidate_not_accepted",
+  "owner_question_id_enum": [
+    "identity-set-v1",
+    "viewer-rail-boundary-v1"
+  ],
+  "penpot_policy": {
+    "binding": null,
+    "future_compatible": true,
+    "materialized": false,
+    "screenshots_are_evidence_only": true
+  },
+  "physical_operation_authorized": false,
+  "product_value": {
+    "gate_mode": "observe",
+    "promotion_ready": false,
+    "value_evidence_status": "pending_product_model"
+  },
+  "ratio_crop_policy": {
+    "consumer_specific_values_preserved": true,
+    "framing_foundation_status": "candidate_not_accepted",
+    "global_ratio_selected": false,
+    "global_token_selected": false
+  },
+  "recommendation_enum": [
+    "merge",
+    "preserve_as_variant",
+    "preserve_as_composition",
+    "split",
+    "preserve_product_pattern",
+    "preserve_unresolved"
+  ],
+  "schema_version": "event_media_boundary_model_manifest_v1",
+  "source_of_truth": {
+    "alternatives": "catalog/normalization/event-media/alternatives-and-recommendations.jsonl",
+    "blocker_ledger": "catalog/normalization/event-media/blocker-closure.jsonl",
+    "boundary_records": "catalog/normalization/event-media/boundary-model.jsonl",
+    "candidate_contract_schema": "contracts/normalization/event-media-candidate-contract.v1.schema.json",
+    "consumer_matrix": "catalog/normalization/event-media/consumer-requirement-matrix.jsonl",
+    "design_base_commit": "45288b001d724e0d3603d0c44d392ff370407bd0",
+    "events_commit": "66bc0d43e36299417626f992021cfb7299ddf704",
+    "semantic_ledger": "catalog/normalization/event-media/semantic-media-types.jsonl"
+  }
+}

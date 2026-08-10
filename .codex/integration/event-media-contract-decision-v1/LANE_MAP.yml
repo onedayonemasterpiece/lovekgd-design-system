@@ -1,0 +1,114 @@
+mode: full_fanout_then_serial_integration
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: 45288b001d724e0d3603d0c44d392ff370407bd0
+base_branch: main
+integration_branch: normalization/event-media-contract-decision-v1
+global_constraints:
+  - events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704 is read-only
+  - no production UI or runtime component mutation
+  - no Penpot, tokens, archetypes, product IDs, experiment winners, or migration
+  - candidate contracts remain non-accepted and promotion_ready=false
+verification_owner: L0 integrator plus L6 independent reviewer
+stop_conditions:
+  - baseline reproduction failure
+  - immutable evidence drift
+  - forbidden-path mutation
+lanes:
+  - id: L0
+    role: integrator
+    requirement_ids: []
+    target: baseline, integration, delivery, Draft PR
+    depends_on: []
+    execution_mode: serial
+    branch: normalization/event-media-contract-decision-v1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-contract-decision-v1
+    writable_files: [.codex/integration/event-media-contract-decision-v1/**, receipts/normalization/event-media-contract-decision-v1.json]
+    forbidden_files: [penpot/**, prototypes/**]
+    expected_output: integrated evidence package and delivery receipt
+    verification_scope: full_local_and_ci
+    effort: xhigh
+    status: delivery_complete_pending_external_reaudit
+  - id: L1
+    role: worker
+    requirement_ids: [R01, R02]
+    target: consumer census and semantic media types
+    depends_on: [L0-baseline]
+    execution_mode: parallel_after_mapping
+    branch: agent/event-media-contract-decision-v1/consumer-census
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-consumer-census
+    writable_files: [catalog/normalization/event-media/consumer-requirement-matrix.jsonl, catalog/normalization/event-media/semantic-media-types.jsonl, .codex/lanes/event-media-consumer-census/RESULTS.md]
+    forbidden_files: [contracts/**, scripts/**, tests/**, receipts/**, penpot/**, prototypes/**]
+    expected_output: exact census and semantic type ledgers
+    verification_scope: targeted
+    effort: xhigh
+    status: patch_integrated
+  - id: L2
+    role: worker
+    requirement_ids: [R04]
+    target: exact 12-blocker closure matrix
+    depends_on: [L0-baseline]
+    execution_mode: parallel_after_mapping
+    branch: agent/event-media-contract-decision-v1/blockers
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-blockers
+    writable_files: [catalog/normalization/event-media/blocker-closure.jsonl, .codex/lanes/event-media-blockers/RESULTS.md]
+    forbidden_files: [contracts/**, scripts/**, tests/**, receipts/**, penpot/**, prototypes/**]
+    expected_output: evidence-grounded blocker closure ledger
+    verification_scope: targeted
+    effort: xhigh
+    status: patch_integrated
+  - id: L3
+    role: worker
+    requirement_ids: [R03, R05, R06]
+    target: boundary model, candidate contracts, alternatives
+    depends_on: [L1, L2]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-contract-decision-v1/contracts
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-contracts
+    writable_files: [contracts/normalization/event-media-boundary-model.v1.json, contracts/normalization/event-media-candidate-contract.v1.schema.json, catalog/normalization/event-media/boundary-model.jsonl, catalog/normalization/event-media/candidate-contracts/**, catalog/normalization/event-media/alternatives-and-recommendations.jsonl, .codex/lanes/event-media-contracts/RESULTS.md]
+    forbidden_files: [scripts/**, tests/**, receipts/**, penpot/**, prototypes/**]
+    expected_output: non-accepted contract decision package
+    verification_scope: targeted
+    effort: xhigh
+    status: patch_integrated
+  - id: L4
+    role: worker
+    requirement_ids: [R07, R08, R09]
+    target: readiness, Product Value and future Penpot compatibility
+    depends_on: [L1, L2, L3]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-contract-decision-v1/readiness
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-readiness
+    writable_files: [catalog/normalization/event-media/readiness.jsonl, catalog/normalization/event-media/owner-decision-queue.jsonl, docs/normalization/event-media-owner-decision-queue.md, .codex/lanes/event-media-readiness/RESULTS.md]
+    forbidden_files: [penpot/**, prototypes/**, scripts/**, tests/**, receipts/**]
+    expected_output: fail-closed candidate readiness and owner queue
+    verification_scope: targeted
+    effort: xhigh
+    status: patch_integrated
+  - id: L5
+    role: worker
+    requirement_ids: [R10]
+    target: schemas, validators, negative tests, primary documentation
+    depends_on: [L1, L2, L3, L4]
+    execution_mode: serial_after_dependency
+    branch: agent/event-media-contract-decision-v1/validation
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/event-media-validation
+    writable_files: [docs/normalization/event-media-boundary-and-contract-decision-v1.md, docs/index.md, scripts/**event-media**, scripts/normalization-v1-1/replay-normalization-workflow.sh, tests/**event-media**, contracts/normalization/**event-media*.schema.json, .github/workflows/**event-media**, .github/workflows/project-normalization-synthesis-v1-1.yml, .codex/lanes/event-media-validation/RESULTS.md]
+    forbidden_files: [penpot/**, prototypes/**, catalog/component-decoder/**]
+    expected_output: deterministic full-package gate
+    verification_scope: full_local
+    effort: xhigh
+    status: patch_integrated
+  - id: L6
+    role: reviewer
+    requirement_ids: []
+    target: exact requirement and STOP audit
+    depends_on: [L0, L1, L2, L3, L4, L5]
+    execution_mode: read_only_after_integration
+    branch: null
+    worktree: null
+    writable_files: []
+    forbidden_files: ['**']
+    expected_output: requirement-by-requirement closure verdict
+    verification_scope: inspection_only
+    effort: xhigh
+    status: external_post_head_audit

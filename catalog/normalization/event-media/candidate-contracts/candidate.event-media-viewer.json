@@ -1,0 +1,816 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-media-candidate-contract.v1.schema.json",
+  "schema_version": "event_media_candidate_contract_v1",
+  "candidate_component_id": "candidate.event-media-viewer",
+  "contract_version": "0.1.0-candidate",
+  "family_id": "family.event-media",
+  "identity": {
+    "stable_id": "event-media.viewer",
+    "name": "Event Media Viewer",
+    "definition": "A standard modal full-viewport viewer for an ordered event-media list, opened at an item and owning navigation, lazy activation, focus, dismissal and live index state.",
+    "identity_evidence": [
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:283-349",
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:664-694",
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:5479-5887"
+    ],
+    "identity_limit": "Version 0.1 includes only the shared standard .hero-gallery contract; efficient portrait strip/group viewers and preview rails are excluded and unresolved."
+  },
+  "entity_kind": "component_identity_candidate",
+  "semantic_role": "Modal event-media viewing with source-order navigation and accessible interaction.",
+  "explicit_non_goals": [
+    "Primary media frame and its selection policy.",
+    "Thumbnail/preview rails and poster companion.",
+    "Efficient multi-portrait strip or Desktop .desktop-portrait-viewer.",
+    "Share/social generation and page chrome outside the modal.",
+    "Choosing, ordering, deduplicating or semantically classifying source media.",
+    "Generating recommendation CTA content."
+  ],
+  "anatomy": [
+    {
+      "id": "dialog_root",
+      "role": "Modal focus and visibility owner",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "decorative_chrome",
+      "role": "Non-semantic background layer",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "topbar",
+      "role": "Brand, labelled title and close control",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "viewport",
+      "role": "Swipe and clipping boundary",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "track",
+      "role": "Ordered standard single-slide track",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "slide",
+      "role": "One or more media or terminal tail slides",
+      "required": true,
+      "cardinality": "one_or_more"
+    },
+    {
+      "id": "caption",
+      "role": "Optional decorative event caption",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "previous_control",
+      "role": "Previous item control when multiple",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "next_control",
+      "role": "Next item control when multiple",
+      "required": false,
+      "cardinality": "zero_or_one"
+    },
+    {
+      "id": "counter_status",
+      "role": "Live active index announcement",
+      "required": true,
+      "cardinality": "exactly_one"
+    }
+  ],
+  "slots": [
+    {
+      "id": "tail_slide",
+      "required": false,
+      "cardinality": "zero_or_one",
+      "content_contract": "Always last; recommendation CTA kind only; declares accessible label and interactive descendants; never counted as a photo."
+    },
+    {
+      "id": "brand",
+      "required": true,
+      "cardinality": "exactly_one",
+      "content_contract": "Registered AnnouncementsLockup variant; not arbitrary content."
+    }
+  ],
+  "semantic_media_modes": [
+    {
+      "id": "visual_only_photography",
+      "definition": "Visual-only event photo slide.",
+      "fit_contract": "Cover the standard viewport with sanitized position."
+    },
+    {
+      "id": "portrait_text_artwork",
+      "definition": "Portrait or authored text-artwork slide.",
+      "fit_contract": "Contain whole source."
+    },
+    {
+      "id": "ocr_document",
+      "definition": "OCR/document media slide.",
+      "fit_contract": "Contain whole source."
+    },
+    {
+      "id": "unknown_text_protected",
+      "definition": "Uncertain/stale/error semantics.",
+      "fit_contract": "Contain until positive classification."
+    },
+    {
+      "id": "recommendation_tail",
+      "definition": "Non-media terminal product CTA.",
+      "fit_contract": "Not applicable; supplied through constrained tail slot."
+    }
+  ],
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Unique document id and opener target."
+      ]
+    },
+    {
+      "name": "event_title",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Non-empty dialog label context."
+      ]
+    },
+    {
+      "name": "images",
+      "type": "EventMediaViewerImage[1..12]",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Ordered, deduplicated by source identity.",
+        "Each item has src, alt, semantics, dimensions when known and decision provenance."
+      ]
+    },
+    {
+      "name": "initial_index",
+      "type": "non-negative integer",
+      "required": false,
+      "default": 0,
+      "constraints": [
+        "Normalized to the available item range."
+      ]
+    },
+    {
+      "name": "opener_return_ref",
+      "type": "focusable element reference",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Must remain in document or provide safe fallback."
+      ]
+    },
+    {
+      "name": "chrome_context",
+      "type": "mobile|desktop",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Registered chrome only."
+      ]
+    },
+    {
+      "name": "desktop_image_activation",
+      "type": "stay_open|dismiss",
+      "required": false,
+      "default": "stay_open",
+      "constraints": [
+        "Desktop Event Detail may explicitly select dismiss; interactive targets never dismiss."
+      ]
+    },
+    {
+      "name": "tail_slide",
+      "type": "recommendation_cta|null",
+      "required": false,
+      "default": null,
+      "constraints": [
+        "Zero or one and always last."
+      ]
+    },
+    {
+      "name": "motion_policy",
+      "type": "respect_user",
+      "required": false,
+      "default": "respect_user",
+      "constraints": [
+        "Reduced-motion is authoritative."
+      ]
+    }
+  ],
+  "defaults": [
+    {
+      "field": "initial_index",
+      "value": 0,
+      "reason": "Open at first image when opener does not specify an item."
+    },
+    {
+      "field": "desktop_image_activation",
+      "value": "stay_open",
+      "reason": "Explicit-only dismissal is safest unless the consumer contract selects desktop image dismiss."
+    },
+    {
+      "field": "motion_policy",
+      "value": "respect_user",
+      "reason": "Auto pan/advance must stop for reduced motion."
+    },
+    {
+      "field": "default_ratio",
+      "value": null,
+      "reason": "Viewport and source geometry remain runtime values."
+    }
+  ],
+  "state_axes": [
+    {
+      "axis": "visibility",
+      "values": [
+        "closed",
+        "opening",
+        "open",
+        "closing"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "active_kind",
+      "values": [
+        "image",
+        "recommendation_tail"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "navigation",
+      "values": [
+        "single",
+        "multiple"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "input",
+      "values": [
+        "button",
+        "keyboard",
+        "pointer_swipe",
+        "touch_swipe"
+      ],
+      "penpot_variant_axis": false
+    },
+    {
+      "axis": "motion",
+      "values": [
+        "full",
+        "reduced"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "load",
+      "values": [
+        "unrequested",
+        "requested",
+        "decoded",
+        "error"
+      ],
+      "penpot_variant_axis": false
+    },
+    {
+      "axis": "auto_advance",
+      "values": [
+        "enabled",
+        "disabled"
+      ],
+      "penpot_variant_axis": false
+    },
+    {
+      "axis": "dismiss_policy",
+      "values": [
+        "explicit_only",
+        "desktop_image"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "focus",
+      "values": [
+        "dialog",
+        "control",
+        "tail_interactive"
+      ],
+      "penpot_variant_axis": false
+    }
+  ],
+  "valid_combinations": [
+    "Open standard viewer with exactly one active aria-visible slide.",
+    "Multiple slides with named previous/next controls and a live counter.",
+    "Recommendation tail only as the final slide; active tail descendants regain tabbability.",
+    "Reduced motion with auto pan/advance disabled.",
+    "Desktop image dismiss only for noninteractive, non-swiped image activation."
+  ],
+  "invalid_combinations": [
+    "Empty image list.",
+    "Duplicate dialog id or duplicate source identity.",
+    "Protected media rendered cover.",
+    "Inactive slide with tabbable descendant.",
+    "Recommendation tail inserted between image slides or counted as a photo.",
+    "Close without focus return.",
+    "Auto pan/advance while reduced motion is active.",
+    "Swipe capture initiated from link, button, input or tail CTA.",
+    "Desktop click-dismiss on mobile, interactive target or completed swipe.",
+    "All images eager at document load.",
+    "Nested modal dialog."
+  ],
+  "responsive_container_behavior": [
+    {
+      "consumer_context": "standard_mobile",
+      "container_contract": "One 100% viewport slide; touch/pointer swipe plus named controls.",
+      "source_art_direction": "No alternate source; active and adjacent source activation is runtime loading, not art direction.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:283-349",
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:915-985,5479-5887"
+      ]
+    },
+    {
+      "consumer_context": "standard_desktop",
+      "container_contract": "One 100% viewport slide; registered desktop chrome and optional noninteractive image-dismiss.",
+      "source_art_direction": "No alternate source.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:664-694",
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:915-985,5479-5887"
+      ]
+    },
+    {
+      "consumer_context": "efficient_portrait_excluded",
+      "container_contract": "No v0.1 behavior; separate unresolved boundary.",
+      "source_art_direction": "Not applicable in this contract.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:1102-1143",
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:622-660"
+      ]
+    }
+  ],
+  "ratio_policy": {
+    "global_ratio_token_selected": false,
+    "default_ratio": null,
+    "policy": "Standard viewer fills the runtime viewport; contained media preserves intrinsic ratio and covered visual media uses the viewport ratio without creating a token.",
+    "consumer_policies": [
+      {
+        "consumer_context": "standard_mobile",
+        "ratios": [
+          "runtime viewport",
+          "intrinsic/source"
+        ],
+        "selection": "Visual-only covers; protected contains.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:915-985"
+        ]
+      },
+      {
+        "consumer_context": "standard_desktop",
+        "ratios": [
+          "runtime viewport",
+          "intrinsic/source"
+        ],
+        "selection": "Visual-only covers; protected contains.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:664-694"
+        ]
+      },
+      {
+        "consumer_context": "recommendation_tail",
+        "ratios": [
+          "product composition"
+        ],
+        "selection": "Tail layout is not media ratio authority.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:329-337"
+        ]
+      }
+    ]
+  },
+  "crop_contain_policy": [
+    {
+      "semantic_mode": "visual_only_photography",
+      "fit": "cover",
+      "crop_permission": "event-detail gallery product exception",
+      "reason": "Fill visible standard viewer frame; semantic metadata refines position.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:docs/features/static-site-pages/image-framing.md:1-14,69-92"
+      ]
+    },
+    {
+      "semantic_mode": "portrait_text_artwork",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "Preserve complete authored text and poster.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:673-675"
+      ]
+    },
+    {
+      "semantic_mode": "ocr_document",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "Preserve complete document.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:174-191"
+      ]
+    },
+    {
+      "semantic_mode": "unknown_text_protected",
+      "fit": "contain",
+      "crop_permission": "crop forbidden until positive evidence",
+      "reason": "Fail closed on uncertainty/error.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:55-65,174-191"
+      ]
+    },
+    {
+      "semantic_mode": "recommendation_tail",
+      "fit": "not_applicable",
+      "crop_permission": "not media",
+      "reason": "Product CTA composition does not establish image policy.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:329-337"
+      ]
+    }
+  ],
+  "focal_safe_area_behavior": [
+    "Use sanitized recommended object position for visual-only slides; otherwise center.",
+    "Low-resolution portrait marker remains intrinsic-bounded contain.",
+    "Pixel-stale geometry cannot authorize a solver crop.",
+    "Interactive tail content is exempt from swipe/dismiss capture and remains readable."
+  ],
+  "upscaling_policy": [
+    "Current standard full-viewport visuals may scale to fill after caller quality selection.",
+    "Low-resolution portrait marker caps width/height at source dimensions.",
+    "Caller preserves a sole weak source when no strong alternative exists.",
+    "No universal viewer upscale limit is accepted; EM-TINY-005 remains open."
+  ],
+  "loading_skeleton_policy": {
+    "loading": "Images are lazy/async; opening requests the active slide, best-effort decodes it and preloads the next two image slides.",
+    "skeleton": "No independent viewer skeleton identity is created.",
+    "layout_reservation": "Dialog/viewport geometry is fixed; intrinsic dimensions reserve contained media where known.",
+    "current_gap_refs": [
+      "EM-LAYOUT-007"
+    ]
+  },
+  "missing_broken_policy": {
+    "missing": "Exclude missing/empty sources before viewer construction.",
+    "broken": "Candidate requirement: mark failed slide unavailable, keep close operable, update counter/live status, advance or disable navigation; all-failed renders a labelled unavailable state.",
+    "convergence_status": "candidate_requirement_unproven",
+    "current_gap_refs": [
+      "EM-FALLBACK-006",
+      "EM-RUNTIME-009"
+    ]
+  },
+  "accessibility_requirements": [
+    "role=dialog, aria-modal=true, labelled title and programmatic focus.",
+    "Trap Tab within active dialog and return focus to the opener on close.",
+    "Escape closes; ArrowLeft/ArrowRight and named previous/next controls provide keyboard alternatives to swipe.",
+    "Counter uses role=status, aria-live=polite and aria-atomic=true.",
+    "Only the active slide and its interactive descendants are exposed/tabbable.",
+    "Meaningful image alt is preserved; decorative CTA backdrop uses empty alt.",
+    "Reduced motion disables automatic movement.",
+    "Interactive targets are excluded from swipe and click-dismiss handling."
+  ],
+  "supported_extension_points": [
+    {
+      "id": "tail_slide",
+      "allowed": true,
+      "constraints": [
+        "Zero or one.",
+        "Recommendation CTA only, always last, declared focus contract."
+      ]
+    },
+    {
+      "id": "registered_chrome_context",
+      "allowed": true,
+      "constraints": [
+        "mobile or desktop only."
+      ]
+    },
+    {
+      "id": "semantic_slide_renderer",
+      "allowed": true,
+      "constraints": [
+        "Must preserve mode fit and accessibility."
+      ]
+    },
+    {
+      "id": "telemetry_hooks",
+      "allowed": true,
+      "constraints": [
+        "Must not alter navigation or authority."
+      ]
+    },
+    {
+      "id": "efficient_portrait_layout",
+      "allowed": false,
+      "constraints": [
+        "Excluded pending viewer-rail-boundary-v1."
+      ]
+    },
+    {
+      "id": "arbitrary_middle_slide",
+      "allowed": false,
+      "constraints": [
+        "Would break source order and count semantics."
+      ]
+    }
+  ],
+  "composition_boundary": {
+    "owns": [
+      "modal visibility and body-scroll lock",
+      "standard track/active state",
+      "navigation/swipe/focus/dismissal",
+      "active and adjacent media activation",
+      "live index semantics"
+    ],
+    "composes": [
+      "registered brand lockup",
+      "optional constrained recommendation tail"
+    ],
+    "excludes": [
+      "primary frame and opener placement",
+      "preview/media rail",
+      "poster companion",
+      "efficient portrait strip/group viewers",
+      "share/social output"
+    ],
+    "consumer_owned": [
+      "ordered normalized image list",
+      "initial opener index",
+      "registered chrome and dismiss context",
+      "optional recommendation content"
+    ]
+  },
+  "consumer_application_refs": [
+    "event-media.application.event-detail-desktop-fullscreen-gallery",
+    "event-media.application.event-detail-mobile-fullscreen-gallery",
+    "event-media.application.lab-design-system-event-hero",
+    "event-media.application.lab-desktop-event-page-media",
+    "event-media.application.lab-hero-composition-review",
+    "event-media.application.lab-mobile-event-primary-and-gallery"
+  ],
+  "representative_fixtures": [
+    {
+      "id": "viewer.gallery-5755",
+      "fixture_class": "ten-image standard interaction canary",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/fixtures/event-gallery-interaction-canaries.json"
+      ]
+    },
+    {
+      "id": "viewer.gallery-6408",
+      "fixture_class": "nine-image mobile CTA interaction canary",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/fixtures/event-gallery-interaction-canaries.json"
+      ]
+    },
+    {
+      "id": "viewer.gallery-4783",
+      "fixture_class": "twelve-image source-order canary",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/fixtures/event-gallery-interaction-canaries.json"
+      ]
+    },
+    {
+      "id": "viewer.mixed-semantics",
+      "fixture_class": "photo plus protected poster/document",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-gallery-interactions.test.mjs"
+      ]
+    },
+    {
+      "id": "viewer.reduced-motion",
+      "fixture_class": "auto movement disabled",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-gallery-interactions.test.mjs:25-42"
+      ]
+    },
+    {
+      "id": "viewer.broken-slides",
+      "fixture_class": "first, middle and all slides fail",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:5499-5506"
+      ]
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "viewer.shared-controller",
+      "level": "integration",
+      "assertion": "Both standard EventHero and Desktop galleries implement one candidate state contract.",
+      "status": "existing_partial"
+    },
+    {
+      "id": "viewer.pointer-swipe",
+      "level": "browser",
+      "assertion": "Interactive pointer activation remains separate from swipe capture.",
+      "status": "existing_proven"
+    },
+    {
+      "id": "viewer.focus-reduced-motion",
+      "level": "accessibility",
+      "assertion": "Focus trap, return, active-only tabbability, live counter and reduced motion pass.",
+      "status": "existing_partial"
+    },
+    {
+      "id": "viewer.desktop-dismiss-mobile-cta",
+      "level": "browser",
+      "assertion": "Desktop noninteractive image dismiss and mobile CTA navigation do not conflict.",
+      "status": "existing_proven"
+    },
+    {
+      "id": "viewer.semantic-fit",
+      "level": "browser",
+      "assertion": "Visual-only cover and protected contain compute per slide.",
+      "status": "required_future"
+    },
+    {
+      "id": "viewer.lazy-adjacency",
+      "level": "browser",
+      "assertion": "Active and next two images activate; the rest stay lazy.",
+      "status": "required_future"
+    },
+    {
+      "id": "viewer.broken-recovery",
+      "level": "browser",
+      "assertion": "Partial/all failure preserves labelled closeable viewer.",
+      "status": "required_future"
+    },
+    {
+      "id": "viewer.visual-matrix",
+      "level": "visual",
+      "assertion": "320, 390, 1024 and 1440 standard gallery specimens match accepted candidate references.",
+      "status": "required_future"
+    },
+    {
+      "id": "viewer.negative-mutations",
+      "level": "mutation",
+      "assertion": "Inactive tabbability, CTA middle insertion, protected cover and reduced-motion auto-pan mutations fail.",
+      "status": "required_future"
+    }
+  ],
+  "migration": {
+    "status": "not_started",
+    "authorization": false,
+    "steps": [
+      "Extract or adapt the shared standard gallery controller/state reducer without changing current selectors.",
+      "Render one current standard gallery through the candidate behind a per-consumer flag and replay frozen canaries.",
+      "Migrate the second standard consumer only after candidate conformance.",
+      "Leave efficient portrait viewers and all preview rails untouched."
+    ],
+    "compatibility": [
+      "Preserve the exact events-bot-new data shape and source semantics at the pinned evidence commit.",
+      "Use per-consumer adapters and opt-in only after a separately accepted contract; do not start migration from this artifact."
+    ],
+    "risk": "high"
+  },
+  "rollback": {
+    "status": "planned_only",
+    "strategy": [
+      "Restore each consumer inline .hero-gallery markup and the existing global controller.",
+      "Retain old data-hero-gallery selectors until standard migrated consumer count is zero.",
+      "Do not change primary opener navigation or source media order during rollback."
+    ],
+    "trigger_conditions": [
+      "Candidate DOM, accessibility, media-fit, loading or fallback conformance regresses.",
+      "A changed contract hash invalidates earlier candidate evidence."
+    ],
+    "data_migration_required": false
+  },
+  "penpot_future": {
+    "status": "unmaterialized",
+    "binding": null,
+    "native_component_candidate": true,
+    "stable_id": "event-media.viewer",
+    "variant_axes": [
+      "visibility",
+      "active_kind",
+      "navigation",
+      "motion",
+      "dismiss_policy",
+      "chrome_context",
+      "semantic_mode"
+    ],
+    "state_axes": [
+      "load",
+      "focus",
+      "input",
+      "auto_advance"
+    ],
+    "allowed_instance_overrides": [
+      "exact fixture",
+      "viewport",
+      "registered chrome context",
+      "initial active specimen",
+      "constrained tail slide"
+    ],
+    "forbidden_instance_overrides": [
+      "source URL override",
+      "fit override",
+      "internal geometry",
+      "arbitrary slide insertion",
+      "focus behavior override"
+    ],
+    "page_archetype_composition": "eligible_only_after_candidate_acceptance_code_candidate_and_three_way_gates",
+    "screenshots_role": "evidence_only",
+    "exact_three_way_tuple": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "three_way_surfaces": [
+      "penpot",
+      "astro_specimen",
+      "generated_page"
+    ],
+    "materialization_authorized": false
+  },
+  "evidence_refs": [
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:283-349",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:664-694",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/layouts/EventLayout.astro:5479-5887",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-gallery-interactions.test.mjs",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/event-gallery-interactions.playwright.js",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/tests/fixtures/event-gallery-interaction-canaries.json"
+  ],
+  "open_blocker_refs": [
+    "EM-CENSUS-001",
+    "EM-SEMANTIC-003",
+    "EM-CROP-004",
+    "EM-TINY-005",
+    "EM-FALLBACK-006",
+    "EM-LAYOUT-007",
+    "EM-RESP-008",
+    "EM-RUNTIME-009",
+    "EM-GOV-010",
+    "EM-LABRAIL-011",
+    "EM-PROVENANCE-012"
+  ],
+  "owner_question_refs": [
+    "identity-set-v1",
+    "viewer-rail-boundary-v1"
+  ],
+  "current_readiness": {
+    "status": "BLOCKED",
+    "strict_ready": false,
+    "eligible_for_scoring": false,
+    "score": null,
+    "blocking_refs": [
+      "EM-CENSUS-001",
+      "EM-SEMANTIC-003",
+      "EM-CROP-004",
+      "EM-TINY-005",
+      "EM-FALLBACK-006",
+      "EM-LAYOUT-007",
+      "EM-RESP-008",
+      "EM-RUNTIME-009",
+      "EM-GOV-010",
+      "EM-LABRAIL-011",
+      "EM-PROVENANCE-012"
+    ]
+  },
+  "normative_status": "candidate-not-accepted",
+  "contract_decision_status": "draft",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "candidate_contract_accepted": false,
+  "decision": "NOT_MERGED",
+  "recommendation": "split",
+  "normalization_allowed": false,
+  "physical_operation_authorized": false,
+  "migration_started": false,
+  "product_value": {
+    "gate_mode": "observe",
+    "value_evidence_status": "pending_product_model",
+    "promotion_ready": false,
+    "product_ids_created": false,
+    "metrics_created": false
+  },
+  "experiments": {
+    "decision": "NOT_MERGED",
+    "winner_receipt": null
+  }
+}

@@ -1,0 +1,541 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-media-candidate-contract.v1.schema.json",
+  "schema_version": "event_media_candidate_contract_v1",
+  "candidate_component_id": "candidate.event-fallback-art",
+  "contract_version": "0.1.0-candidate",
+  "family_id": "family.event-media",
+  "identity": {
+    "stable_id": "event-media.fallback-art",
+    "name": "Event Fallback Art",
+    "definition": "Presentation-only typed decorative art selected deterministically from event type/topics when no primary event image exists.",
+    "identity_evidence": [
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:6-30",
+      "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventFallbackArt.ts:3-45",
+      "lovekgd-design-system@b1c923cfbc7e46f7d86727fe37158bce73078cfc:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/components/component.aca01b9f7c58d696.json"
+    ],
+    "identity_limit": "Only typed concert and lecture art is owned; generic missing/broken fallback remains an owning-consumer state and is not a component candidate."
+  },
+  "entity_kind": "component_identity_candidate",
+  "semantic_role": "Deterministic decorative no-image art for selected event categories.",
+  "explicit_non_goals": [
+    "Generic no-image or broken-media fallback.",
+    "Ordinary event-image recovery, ingestion or metadata.",
+    "Primary frame, event title, CTA, viewer or share/social output.",
+    "Arbitrary uploaded or consumer-selected fallback imagery.",
+    "A 1:1 global fallback-frame token."
+  ],
+  "anatomy": [
+    {
+      "id": "decorative_root",
+      "role": "Presentation-only frame-filling wrapper",
+      "required": true,
+      "cardinality": "exactly_one"
+    },
+    {
+      "id": "decorative_image",
+      "role": "Resolved fixed-provenance raster",
+      "required": true,
+      "cardinality": "exactly_one"
+    }
+  ],
+  "slots": [],
+  "semantic_media_modes": [
+    {
+      "id": "concert",
+      "definition": "Concert/symphonic type or CONCERTS topic resolves concert art.",
+      "fit_contract": "Contain center."
+    },
+    {
+      "id": "lecture",
+      "definition": "Lecture/meeting type or LECTURES/MEETUPS topic resolves lecture art.",
+      "fit_contract": "Contain center."
+    },
+    {
+      "id": "unmatched",
+      "definition": "No typed mapping.",
+      "fit_contract": "Render nothing and return control to generic fallback composition."
+    }
+  ],
+  "props": [
+    {
+      "name": "event",
+      "type": "{event_type,topics}",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Only normalized event type and topics participate."
+      ]
+    },
+    {
+      "name": "surface",
+      "type": "mobile|desktop",
+      "required": true,
+      "default": null,
+      "constraints": [
+        "Required registered surface."
+      ]
+    },
+    {
+      "name": "resolved_art",
+      "type": "resolver-owned",
+      "required": false,
+      "default": null,
+      "constraints": [
+        "Consumer cannot provide src, fit, dimensions or alt."
+      ]
+    }
+  ],
+  "defaults": [
+    {
+      "field": "fit",
+      "value": "contain",
+      "reason": "Decorative art remains whole."
+    },
+    {
+      "field": "object_position",
+      "value": "center",
+      "reason": "No focal crop."
+    },
+    {
+      "field": "loading",
+      "value": "eager",
+      "reason": "Current missing fallback is primary-frame content."
+    },
+    {
+      "field": "alt",
+      "value": "",
+      "reason": "Entire identity is decorative and parent supplies accessible context."
+    }
+  ],
+  "state_axes": [
+    {
+      "axis": "resolution",
+      "values": [
+        "matched",
+        "unmatched"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "kind",
+      "values": [
+        "concert",
+        "lecture",
+        "none"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "surface",
+      "values": [
+        "mobile",
+        "desktop"
+      ],
+      "penpot_variant_axis": true
+    },
+    {
+      "axis": "asset_state",
+      "values": [
+        "loading",
+        "loaded",
+        "error"
+      ],
+      "penpot_variant_axis": false
+    }
+  ],
+  "valid_combinations": [
+    "Matched concert + concert art + mobile or desktop surface.",
+    "Matched lecture + lecture art + mobile or desktop surface.",
+    "Unmatched + no root emitted.",
+    "Decorative root and empty-alt image inside an independently labelled primary frame."
+  ],
+  "invalid_combinations": [
+    "Matched state without exactly one kind.",
+    "Unmatched state emitting a root.",
+    "Custom source, crop, focal or nonempty alt override.",
+    "Interactive descendant.",
+    "Use when a real selected primary image exists.",
+    "Insert result into event image_assets, metadata, viewer order or share payload.",
+    "Treat intrinsic 1280x1280 source as a global frame ratio."
+  ],
+  "responsive_container_behavior": [
+    {
+      "consumer_context": "mobile",
+      "container_contract": "Fill owning frame; minimum height clamp(300px,92vw,560px); contain center.",
+      "source_art_direction": "No alternate source.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:27-30"
+      ]
+    },
+    {
+      "consumer_context": "desktop",
+      "container_contract": "Absolute inset fill of owning frame; contain center.",
+      "source_art_direction": "No alternate source.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:27-30"
+      ]
+    }
+  ],
+  "ratio_policy": {
+    "global_ratio_token_selected": false,
+    "default_ratio": null,
+    "policy": "The raster is intrinsically 1280x1280, while the owning primary frame retains consumer-specific geometry.",
+    "consumer_policies": [
+      {
+        "consumer_context": "mobile",
+        "ratios": [
+          "intrinsic art 1:1",
+          "consumer frame unconstrained"
+        ],
+        "selection": "Contain inside mobile owning frame.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:22-30"
+        ]
+      },
+      {
+        "consumer_context": "desktop",
+        "ratios": [
+          "intrinsic art 1:1",
+          "consumer frame unconstrained"
+        ],
+        "selection": "Contain inside desktop owning frame.",
+        "provenance_refs": [
+          "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:22-30"
+        ]
+      }
+    ]
+  },
+  "crop_contain_policy": [
+    {
+      "semantic_mode": "concert",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "Fixed decorative artwork remains complete.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventFallbackArt.ts:14-24"
+      ]
+    },
+    {
+      "semantic_mode": "lecture",
+      "fit": "contain",
+      "crop_permission": "crop forbidden",
+      "reason": "Fixed decorative artwork remains complete.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventFallbackArt.ts:25-34"
+      ]
+    },
+    {
+      "semantic_mode": "unmatched",
+      "fit": "not_applicable",
+      "crop_permission": "no image emitted",
+      "reason": "Generic fallback belongs to owning composition.",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventFallbackArt.ts:38-45"
+      ]
+    }
+  ],
+  "focal_safe_area_behavior": [
+    "Always contain and center.",
+    "No focal point, face boxes, valuable region or geometry solver input is accepted.",
+    "Resolver provenance remains bound to the fixed asset registry."
+  ],
+  "upscaling_policy": [
+    "Preserve current browser scale-to-container behavior for the decorative 1280x1280 art.",
+    "This decorative exception does not authorize event-source upscaling.",
+    "Any new registry asset must document dimensions, provenance and redistribution rights."
+  ],
+  "loading_skeleton_policy": {
+    "loading": "Image is eager/high with async decode and declared 1280x1280 dimensions.",
+    "skeleton": "No skeleton; owning primary frame supplies stable background/geometry.",
+    "layout_reservation": "The owning frame reserves geometry; image dimensions remain declared.",
+    "current_gap_refs": [
+      "EM-LAYOUT-007"
+    ]
+  },
+  "missing_broken_policy": {
+    "missing": "Unmatched resolver returns null; parent generic fallback owns the no-image presentation.",
+    "broken": "Candidate requirement: hide failed decorative image and leave the owning primary frame neutral generic fallback/background accessible.",
+    "convergence_status": "candidate_requirement_unproven",
+    "current_gap_refs": [
+      "EM-FALLBACK-006",
+      "EM-RUNTIME-009"
+    ]
+  },
+  "accessibility_requirements": [
+    "Root remains aria-hidden=true and image alt is empty.",
+    "Parent primary frame supplies accessible event/no-image context.",
+    "No focusable or interactive descendants.",
+    "Decorative loading/error does not announce a busy state."
+  ],
+  "supported_extension_points": [
+    {
+      "id": "registry_entry",
+      "allowed": true,
+      "constraints": [
+        "Requires documented license/provenance, fixed dimensions, deterministic normalized rule and fixtures."
+      ]
+    },
+    {
+      "id": "surface_variant",
+      "allowed": true,
+      "constraints": [
+        "Only versioned mobile or desktop surface values."
+      ]
+    },
+    {
+      "id": "custom_instance_source",
+      "allowed": false,
+      "constraints": [
+        "Consumers cannot replace registered art."
+      ]
+    },
+    {
+      "id": "fit_or_crop_override",
+      "allowed": false,
+      "constraints": [
+        "Typed art is always contain center."
+      ]
+    },
+    {
+      "id": "content_slot",
+      "allowed": false,
+      "constraints": [
+        "Identity is decorative only."
+      ]
+    }
+  ],
+  "composition_boundary": {
+    "owns": [
+      "deterministic typed art resolution",
+      "decorative contain rendering",
+      "mobile/desktop surface variant"
+    ],
+    "composes": [],
+    "excludes": [
+      "generic fallback",
+      "primary frame accessibility",
+      "ordinary event media",
+      "viewer/gallery",
+      "share/social output"
+    ],
+    "consumer_owned": [
+      "whether no primary media exists",
+      "owning frame geometry",
+      "generic fallback when resolver is unmatched or art fails"
+    ]
+  },
+  "consumer_application_refs": [
+    "event-media.application.event-detail-desktop-primary-large-frame",
+    "event-media.application.event-detail-mobile-primary",
+    "event-media.application.lab-design-system-event-hero",
+    "event-media.application.lab-desktop-event-page-media",
+    "event-media.application.lab-hero-composition-review",
+    "event-media.application.lab-mobile-event-primary-and-gallery"
+  ],
+  "representative_fixtures": [
+    {
+      "id": "fallback.concert-normalized",
+      "fixture_class": "uppercase concert/symphonic/type/topic mapping",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/scripts/content-media.behavior.test.mjs:60-65"
+      ]
+    },
+    {
+      "id": "fallback.lecture-normalized",
+      "fixture_class": "lecture/meeting/type/topic mapping",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/scripts/content-media.behavior.test.mjs:60-65"
+      ]
+    },
+    {
+      "id": "fallback.unmatched",
+      "fixture_class": "excursion renders no typed art",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/scripts/content-media.behavior.test.mjs:60-65"
+      ]
+    },
+    {
+      "id": "fallback.no-image-6996",
+      "fixture_class": "reviewed no-image visual specimen",
+      "evidence_refs": [
+        "lovekgd-design-system@b1c923cfbc7e46f7d86727fe37158bce73078cfc:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/conformance-capsules/03-media-heavy/real-page-verification-refs.jsonl"
+      ]
+    },
+    {
+      "id": "fallback.asset-error",
+      "fixture_class": "fixed asset fails to load",
+      "evidence_refs": [
+        "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:14-30"
+      ]
+    }
+  ],
+  "required_tests": [
+    {
+      "id": "fallback.mapping",
+      "level": "unit",
+      "assertion": "Normalized type/topic mapping is deterministic; concert precedence is explicit.",
+      "status": "existing_partial"
+    },
+    {
+      "id": "fallback.presentation-only",
+      "level": "schema",
+      "assertion": "Resolved art never serializes into event media, metadata, viewer or share outputs.",
+      "status": "required_future"
+    },
+    {
+      "id": "fallback.geometry",
+      "level": "browser",
+      "assertion": "Mobile and desktop variants compute contain center with declared dimensions.",
+      "status": "required_future"
+    },
+    {
+      "id": "fallback.null-render",
+      "level": "unit",
+      "assertion": "Unmatched event emits no component root.",
+      "status": "existing_proven"
+    },
+    {
+      "id": "fallback.broken-recovery",
+      "level": "browser",
+      "assertion": "Fixed asset failure leaves accessible generic owning fallback.",
+      "status": "required_future"
+    },
+    {
+      "id": "fallback.accessibility",
+      "level": "accessibility",
+      "assertion": "Root is decorative, empty-alt and unfocusable.",
+      "status": "required_future"
+    },
+    {
+      "id": "fallback.negative-mutations",
+      "level": "mutation",
+      "assertion": "Custom source, cover, nonempty alt and metadata insertion mutations fail.",
+      "status": "required_future"
+    }
+  ],
+  "migration": {
+    "status": "not_started",
+    "authorization": false,
+    "steps": [
+      "Wrap the exact current resolver/component through a candidate adapter without changing output.",
+      "Build isolated concert, lecture, unmatched and asset-error specimens.",
+      "Opt in EventHero and DesktopEventPage separately only after owner acceptance and code-candidate gates."
+    ],
+    "compatibility": [
+      "Preserve the exact events-bot-new data shape and source semantics at the pinned evidence commit.",
+      "Use per-consumer adapters and opt-in only after a separately accepted contract; do not start migration from this artifact."
+    ],
+    "risk": "medium"
+  },
+  "rollback": {
+    "status": "planned_only",
+    "strategy": [
+      "Restore direct imports of the existing EventFallbackArt component and resolver.",
+      "Keep current registry/source mappings unchanged.",
+      "Remove candidate adapter with no event-data migration."
+    ],
+    "trigger_conditions": [
+      "Candidate DOM, accessibility, media-fit, loading or fallback conformance regresses.",
+      "A changed contract hash invalidates earlier candidate evidence."
+    ],
+    "data_migration_required": false
+  },
+  "penpot_future": {
+    "status": "unmaterialized",
+    "binding": null,
+    "native_component_candidate": true,
+    "stable_id": "event-media.fallback-art",
+    "variant_axes": [
+      "resolution",
+      "kind",
+      "surface"
+    ],
+    "state_axes": [
+      "asset_state"
+    ],
+    "allowed_instance_overrides": [
+      "registered kind",
+      "registered surface",
+      "container size",
+      "exact fixture"
+    ],
+    "forbidden_instance_overrides": [
+      "art source",
+      "fit",
+      "crop",
+      "alt",
+      "interactive content"
+    ],
+    "page_archetype_composition": "eligible_only_after_candidate_acceptance_code_candidate_and_three_way_gates",
+    "screenshots_role": "evidence_only",
+    "exact_three_way_tuple": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "three_way_surfaces": [
+      "penpot",
+      "astro_specimen",
+      "generated_page"
+    ],
+    "materialization_authorized": false
+  },
+  "evidence_refs": [
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventFallbackArt.astro:6-30",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/lib/eventFallbackArt.ts:3-45",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/scripts/content-media.behavior.test.mjs:60-65",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/EventHero.astro:70,237-245",
+    "events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704:site/src/components/DesktopEventPage.astro:136,356-359,404-406",
+    "lovekgd-design-system@b1c923cfbc7e46f7d86727fe37158bce73078cfc:catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/components/component.aca01b9f7c58d696.json"
+  ],
+  "open_blocker_refs": [
+    "EM-CENSUS-001",
+    "EM-FALLBACK-006",
+    "EM-LAYOUT-007",
+    "EM-RUNTIME-009",
+    "EM-GOV-010",
+    "EM-PROVENANCE-012"
+  ],
+  "owner_question_refs": [
+    "identity-set-v1"
+  ],
+  "current_readiness": {
+    "status": "BLOCKED",
+    "strict_ready": false,
+    "eligible_for_scoring": false,
+    "score": null,
+    "blocking_refs": [
+      "EM-CENSUS-001",
+      "EM-FALLBACK-006",
+      "EM-LAYOUT-007",
+      "EM-RUNTIME-009",
+      "EM-GOV-010",
+      "EM-PROVENANCE-012"
+    ]
+  },
+  "normative_status": "candidate-not-accepted",
+  "contract_decision_status": "draft",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "candidate_contract_accepted": false,
+  "decision": "NOT_MERGED",
+  "recommendation": "split",
+  "normalization_allowed": false,
+  "physical_operation_authorized": false,
+  "migration_started": false,
+  "product_value": {
+    "gate_mode": "observe",
+    "value_evidence_status": "pending_product_model",
+    "promotion_ready": false,
+    "product_ids_created": false,
+    "metrics_created": false
+  },
+  "experiments": {
+    "decision": "NOT_MERGED",
+    "winner_receipt": null
+  }
+}

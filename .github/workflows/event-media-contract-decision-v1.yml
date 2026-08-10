@@ -1,0 +1,128 @@
+name: Validate Event Media Contract Decision v1
+
+on:
+  push:
+    paths:
+      - '.codex/integration/event-media-contract-decision-v1/**'
+      - '.codex/lanes/event-media-*/**'
+      - '.github/workflows/event-media-contract-decision-v1.yml'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/**'
+      - 'contracts/normalization/event-media-**'
+      - 'docs/index.md'
+      - 'docs/normalization/event-media-**'
+      - 'penpot/**'
+      - 'prototypes/**'
+      - 'receipts/normalization/event-media-contract-decision-v1.json'
+      - 'scripts/event-media-contract-decision-v1/**'
+      - 'scripts/*event-media-contract-decision*.mjs'
+      - 'scripts/*event-media-contract-decision*.py'
+      - 'scripts/normalization-v1-1/replay-normalization-workflow.sh'
+      - 'tests/*event-media-contract-decision-v1*.mjs'
+  pull_request:
+    paths:
+      - '.codex/integration/event-media-contract-decision-v1/**'
+      - '.codex/lanes/event-media-*/**'
+      - '.github/workflows/event-media-contract-decision-v1.yml'
+      - '.github/workflows/project-normalization-synthesis-v1-1.yml'
+      - 'catalog/component-decoder/**'
+      - 'catalog/normalization/**'
+      - 'contracts/normalization/event-media-**'
+      - 'docs/index.md'
+      - 'docs/normalization/event-media-**'
+      - 'penpot/**'
+      - 'prototypes/**'
+      - 'receipts/normalization/event-media-contract-decision-v1.json'
+      - 'scripts/event-media-contract-decision-v1/**'
+      - 'scripts/*event-media-contract-decision*.mjs'
+      - 'scripts/*event-media-contract-decision*.py'
+      - 'scripts/normalization-v1-1/replay-normalization-workflow.sh'
+      - 'tests/*event-media-contract-decision-v1*.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: event-media-contract-decision-v1-${{ github.event_name }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  EVENT_MEDIA_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  EVENT_MEDIA_DESIGN_BASE_SHA: '45288b001d724e0d3603d0c44d392ff370407bd0'
+  EVENT_MEDIA_EVENTS_SHA: '66bc0d43e36299417626f992021cfb7299ddf704'
+  EVENT_MEDIA_NODE_VERSION: '22.18.0'
+  EVENT_MEDIA_PYTHON_VERSION: '3.13.7'
+  EVENT_MEDIA_JSONSCHEMA_VERSION: '4.25.1'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact design decision SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ env.EVENT_MEDIA_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up exact Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.18.0'
+          check-latest: false
+
+      - name: Set up exact Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: '3.13.7'
+          check-latest: false
+
+      - name: Install exact Draft 2020-12 validator runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check \
+            'attrs==25.3.0' \
+            'jsonschema-specifications==2025.4.1' \
+            'referencing==0.36.2' \
+            'rpds-py==0.27.1' \
+            'jsonschema==4.25.1'
+
+      - name: Materialize exact immutable events evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EVENT_MEDIA_SOURCE_SHA"
+          git merge-base --is-ancestor "$EVENT_MEDIA_DESIGN_BASE_SHA" HEAD
+          test -z "$(git status --porcelain)"
+          events="$RUNNER_TEMP/events-bot-new-event-media-evidence"
+          git init "$events"
+          git -C "$events" remote add origin 'https://github.com/onedayonemasterpiece/events-bot-new.git'
+          git -C "$events" fetch --no-tags origin "$EVENT_MEDIA_EVENTS_SHA"
+          git -C "$events" checkout --detach FETCH_HEAD
+          test "$(git -C "$events" rev-parse HEAD)" = "$EVENT_MEDIA_EVENTS_SHA"
+          test "$(git -C "$events" rev-parse HEAD^{tree})" = '72e24f49ad6642915131438de8c56b804c4826b0'
+          test "$(git -C "$events" rev-parse HEAD:site/src)" = 'd737458f8a87a9b7dad4f4badffd1b3f4ce544dd'
+          test "$(git -C "$events" rev-parse HEAD:site/public)" = 'f42a045ec9ff3b1b2f3396a4df9f54cc6a767934'
+          test -z "$(git -C "$events" status --porcelain)"
+          echo "EVENT_MEDIA_EVENTS_ROOT=$events" >> "$GITHUB_ENV"
+
+      - name: Validate schemas, semantic joins, receipt, mutations, and delivery guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate-event-media-contract-decision-schemas-v1.py --root .
+          node scripts/validate-event-media-contract-decision-v1.mjs \
+            --root . \
+            --events-repo "$EVENT_MEDIA_EVENTS_ROOT"
+          node scripts/build-event-media-contract-decision-v1-receipt.mjs \
+            --root . \
+            --events-repo "$EVENT_MEDIA_EVENTS_ROOT"
+          node tests/event-media-contract-decision-v1-negative.mjs
+          node tests/event-media-contract-decision-v1-workflow-path-filters.mjs
+          bash -n scripts/normalization-v1-1/replay-normalization-workflow.sh
+          git diff --check "$EVENT_MEDIA_DESIGN_BASE_SHA...HEAD" --
+          test -z "$(git status --porcelain)"
