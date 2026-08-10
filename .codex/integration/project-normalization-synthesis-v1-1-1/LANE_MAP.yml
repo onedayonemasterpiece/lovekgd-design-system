@@ -1,0 +1,86 @@
+mode:
+  strategy: worktree_worker_then_serial_integrator
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: bcdff9de56663bb77f15f32660ab0156c937e77b
+base_branch: remediation/project-normalization-synthesis-v1-1
+integration_branch: remediation/project-normalization-synthesis-v1-1
+global_constraints:
+  - preserve audited head ancestry; no rebase or force-push
+  - events-bot-new@66bc0d43 is read-only evidence
+  - no production UI, Penpot, prototypes, tokens, component operations, product model, or experiment decision
+verification_owner: /root
+stop_conditions:
+  - re-audit bytes or SHA differ from 61775 / 7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41
+  - audited head would leave ancestry
+  - a mandatory mutation cannot reach its named error code
+lanes:
+  - id: L0
+    role: merge_reviewer
+    requirement_ids: [R02, R05, R10, R12, STOP]
+    target: reconciliation, integration, receipt, PR
+    depends_on: [L1, L2, L3]
+    execution_mode: serial_after_dependency
+    branch: remediation/project-normalization-synthesis-v1-1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/project-normalization-synthesis-v1-1
+    writable_files: [integration-owned reconciliation and receipt files]
+    forbidden_files: [penpot/**, prototypes/**, events-bot-new/**]
+    expected_output: reconciled exact head and open draft PR
+    verification_scope: full_local_and_ci
+    effort: xhigh
+    status: in_progress
+  - id: L1
+    role: worker
+    requirement_ids: [R01, R06, R11]
+    target: audit preservation and disposition/report docs
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1-1/audit-docs
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-1-audit-docs
+    writable_files: [docs/audits/project-normalization-synthesis-v1-1-*.md, .codex/lanes/project-normalization-v1-1-1-audit-docs/RESULTS.md]
+    forbidden_files: [scripts/**, contracts/**, catalog/**, penpot/**, prototypes/**]
+    expected_output: byte-exact re-audit, disposition, proof-closure report draft
+    verification_scope: targeted
+    effort: high
+    status: planned
+  - id: L2
+    role: worker
+    requirement_ids: [R03, R04]
+    target: structured errors and mutation evidence
+    depends_on: []
+    execution_mode: parallel
+    branch: agent/project-normalization-v1-1-1/mutation-proof
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-1-mutation-proof
+    writable_files: [scripts/normalization-v1-1/**, tests/project-normalization-synthesis-v1-1-negative.mjs, contracts/normalization/*mutation*, receipts/normalization/*mutation*, .codex/lanes/project-normalization-v1-1-1-mutation-proof/RESULTS.md]
+    forbidden_files: [.github/workflows/**, receipts/normalization/project-normalization-synthesis-v1-1.json, penpot/**, prototypes/**]
+    expected_output: 14 named error-code proofs and generated catalogs
+    verification_scope: full_local
+    effort: xhigh
+    status: planned
+  - id: L3
+    role: worker
+    requirement_ids: [R07, R08, R09]
+    target: workflow, reproducibility and path coverage
+    depends_on: [L2 contract shape]
+    execution_mode: read_only_until_dependency
+    branch: agent/project-normalization-v1-1-1/reproducibility
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pn-v1-1-1-reproducibility
+    writable_files: [.github/workflows/project-normalization-synthesis-v1-1.yml, scripts/normalization-v1-1/*replay*, scripts/normalization-v1-1/*workflow*, contracts/normalization/*input-path*, tests/*workflow*, .codex/lanes/project-normalization-v1-1-1-reproducibility/RESULTS.md]
+    forbidden_files: [catalog/normalization/**, docs/audits/**, penpot/**, prototypes/**]
+    expected_output: exact-head clean replay and reproducibility artifact workflow
+    verification_scope: full_local_and_ci
+    effort: xhigh
+    status: planned
+  - id: L4
+    role: reviewer
+    requirement_ids: [R12]
+    target: final requirement-by-requirement checklist
+    depends_on: [L0]
+    execution_mode: serial_after_dependency
+    branch: read-only
+    worktree: read-only integration head
+    writable_files: []
+    forbidden_files: ['**']
+    expected_output: PASS or exact blocker list; not a delta re-audit
+    verification_scope: full_local_and_ci
+    effort: xhigh
+    status: planned
