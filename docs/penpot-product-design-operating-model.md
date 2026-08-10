@@ -56,6 +56,29 @@ Product Atlas хранит link на visual exploration и Resource Graph eviden
 
 Одна активная содержательная UI-gap задача по умолчанию занимает одну Penpot page. Whole iterations оформляются крупными coherent packages, а не серией микроправок.
 
+### Canonical UI Exploration target
+
+Канонический контур незавершённого визуального исследования находится в
+отдельном Penpot file **LoveKGD — UI Exploration**:
+
+- team ID: `81f57451-85cc-819d-8008-70ebaeab3fd6`;
+- file ID: `81f57451-85cc-819d-8008-76829a28696b`;
+- entry page: `00 — Exploration map`, page ID
+  `81f57451-85cc-819d-8008-76829a28696c`;
+- [прямая ссылка на UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c).
+
+Machine authority: [`../contracts/ui-exploration-target.v1.json`](../contracts/ui-exploration-target.v1.json).
+Фактический Event Media read-back: [`../receipts/penpot/event-media-visual-exploration-v1.json`](../receipts/penpot/event-media-visual-exploration-v1.json).
+
+Penpot Plugin API и современный workspace URL не раскрывают `project_id`.
+Поэтому contract сохраняет `project_id: null` с точным статусом ограничения,
+вместо выдуманного UUID. Team, file, page и revision проверены read-back.
+
+Этот file не является Resource Graph authority. Нативные ресурсы с
+`status: EXPLORATION_ONLY` остаются визуальными кандидатами до отдельного
+owner receipt; их наличие не переводит family lifecycle в
+`PENPOT_COMPONENT_CANDIDATE`.
+
 ## Resource Graph
 
 Владеет созревшим системным представлением:
