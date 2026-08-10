@@ -44,7 +44,12 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "id",
+          "case_id",
+          "lane",
+          "kind",
+          "target_validator",
+          "mutation_description",
+          "source_test_file",
           "exact_head_sha",
           "duration_ms",
           "expected_error_code",
@@ -57,7 +62,12 @@
           "pass"
         ],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
+          "case_id": { "type": "string", "minLength": 1 },
+          "lane": { "type": "string", "minLength": 1 },
+          "kind": { "const": "negative" },
+          "target_validator": { "const": "scripts/normalization-v1-1/validate-mutation-candidate.mjs" },
+          "mutation_description": { "type": "string", "minLength": 1 },
+          "source_test_file": { "const": "tests/project-normalization-synthesis-v1-1-negative.mjs" },
           "exact_head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
           "duration_ms": { "type": "integer", "minimum": 0 },
           "expected_error_code": { "type": "string", "pattern": "^PNV_[A-Z0-9_]+$" },

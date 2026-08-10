@@ -17,6 +17,8 @@ export const MUTATION_CATALOG_SCHEMA_PATH = 'contracts/normalization/project-nor
 export const MUTATION_RUN_SCHEMA_PATH = 'contracts/normalization/project-normalization-mutation-run.v1.schema.json';
 const AGGREGATE_VALIDATOR = 'scripts/validate-project-normalization-synthesis-v1-1.mjs';
 const AGGREGATE_ARGS = ['--fixture-mode', '--skip-receipt', '--semantic-only'];
+const TARGET_VALIDATOR = 'scripts/normalization-v1-1/validate-mutation-candidate.mjs';
+const SOURCE_TEST_FILE = 'tests/project-normalization-synthesis-v1-1-negative.mjs';
 
 const readRows = (root, relative) => fs.readFileSync(path.join(root, relative), 'utf8').split('\n').filter(Boolean).map(JSON.parse);
 const writeRows = (root, relative, rows) => fs.writeFileSync(path.join(root, relative), `${rows.map((row) => JSON.stringify(row)).join('\n')}\n`);
@@ -161,14 +163,78 @@ const definitions = [
   },
 ];
 
+const CASE_METADATA = new Map(Object.entries({
+  'missing-component-path': {
+    lane: 'registry-readiness',
+    mutation_description: 'Replace one exact component membership with an unresolved component path identity.',
+  },
+  'duplicate-stable-id': {
+    lane: 'registry-readiness',
+    mutation_description: 'Duplicate an analytical group row without changing its stable ID.',
+  },
+  'broken-foreign-key': {
+    lane: 'evidence-product-value',
+    mutation_description: 'Point one application at a family foreign key absent from the exact registry.',
+  },
+  'missing-raw-identity': {
+    lane: 'raw-partition',
+    mutation_description: 'Remove one authoritative raw identity while retaining its partition reference.',
+  },
+  'duplicate-raw-identity': {
+    lane: 'raw-partition',
+    mutation_description: 'Append a second row with an already used authoritative raw identity.',
+  },
+  'invalid-typed-alias': {
+    lane: 'raw-partition',
+    mutation_description: 'Swap two typed-alias projections so their probe/unresolved identities no longer correspond.',
+  },
+  'finding-without-operational-disposition': {
+    lane: 'raw-partition',
+    mutation_description: 'Remove the operational disposition from one canonical finding.',
+  },
+  'invented-product-id': {
+    lane: 'evidence-product-value',
+    mutation_description: 'Add a product need ID that is absent from the pinned authoritative product registry.',
+  },
+  'promotion-ready-while-product-model-pending': {
+    lane: 'evidence-product-value',
+    mutation_description: 'Set promotion_ready on an application whose product-model evidence is still pending.',
+  },
+  'accepted-experiment-without-decision-receipt': {
+    lane: 'evidence-product-value',
+    mutation_description: 'Relabel experimental evidence as accepted without an authoritative decision receipt.',
+  },
+  'source-only-relabeled-runtime-observed': {
+    lane: 'raw-partition',
+    mutation_description: 'Escalate a source-only evidence record to runtime-observed without runtime provenance.',
+  },
+  'immutable-decoder-v1-mutation': {
+    lane: 'immutable-evidence',
+    mutation_description: 'Change one byte in the immutable decoder v1 manifest.',
+  },
+  'incomplete-family-dossier-dimensions': {
+    lane: 'event-media',
+    mutation_description: 'Remove one mandatory Event Media consumer contract dimension.',
+  },
+  'first-wave-without-positive-readiness': {
+    lane: 'registry-readiness',
+    mutation_description: 'Select a NOT_READY family into the first wave without positive readiness evidence.',
+  },
+}));
+
 const contracts = new Map(MANDATORY_VALIDATION_CONTRACTS.map((contract) => [contract.id, contract]));
 export const MANDATORY_MUTATIONS = Object.freeze(definitions.map((definition) => Object.freeze({
   ...definition,
+  ...CASE_METADATA.get(definition.id),
+  kind: 'negative',
+  target_validator: TARGET_VALIDATOR,
+  source_test_file: SOURCE_TEST_FILE,
   expected_error_code: contracts.get(definition.id)?.code,
   stage: contracts.get(definition.id)?.stage,
 })));
 
 if (MANDATORY_MUTATIONS.some((definition) => !definition.expected_error_code)
+  || MANDATORY_MUTATIONS.some((definition) => !definition.lane || !definition.mutation_description)
   || MANDATORY_MUTATIONS.length !== MANDATORY_VALIDATION_CONTRACTS.length
   || new Set(MANDATORY_MUTATIONS.map((definition) => definition.id)).size !== MANDATORY_MUTATIONS.length) {
   throw new Error('mandatory mutation definitions and validation contracts differ');
@@ -333,7 +399,15 @@ const buildCatalog = (laneSuites, caseResults, baselineRechecks) => {
       baseline_rechecks: baselineRechecks,
     },
     lane_suites: laneSuites,
-    mandatory_cases: caseResults.map(({ exact_head_sha: _exactHead, duration_ms: _duration, ...item }) => item),
+    mandatory_cases: caseResults.map(({ exact_head_sha: _exactHead, duration_ms: _duration, ...item }) => ({
+      ...item,
+      actions_result_binding: {
+        result_path: 'project-normalization-v1-1-mutation-results.json',
+        case_id: item.case_id,
+        exact_head_sha_field: 'exact_head_sha',
+        duration_ms_field: 'duration_ms',
+      },
+    })),
   };
 };
 
@@ -385,7 +459,12 @@ export const runMutationProof = (sourceRoot) => {
         throw new Error(`${definition.id}: expected ${definition.expected_error_code}, actual ${actualError.code}`);
       }
       caseResults.push({
-        id: definition.id,
+        case_id: definition.id,
+        lane: definition.lane,
+        kind: definition.kind,
+        target_validator: definition.target_validator,
+        mutation_description: definition.mutation_description,
+        source_test_file: definition.source_test_file,
         exact_head_sha: exactHeadSha,
         duration_ms: elapsedMilliseconds(caseStartedAt),
         mutation_files: definition.files,
@@ -425,7 +504,12 @@ export const runMutationProof = (sourceRoot) => {
     total_negative_mutation_count: catalog.counts.total_negative_mutation_count,
     baseline_rechecks: baselineRechecks,
     cases: caseResults.map((item) => ({
-      id: item.id,
+      case_id: item.case_id,
+      lane: item.lane,
+      kind: item.kind,
+      target_validator: item.target_validator,
+      mutation_description: item.mutation_description,
+      source_test_file: item.source_test_file,
       exact_head_sha: item.exact_head_sha,
       duration_ms: item.duration_ms,
       expected_error_code: item.expected_error_code,

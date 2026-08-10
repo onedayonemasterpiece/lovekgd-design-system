@@ -8,12 +8,14 @@
     "schema_version",
     "status",
     "generated_at",
+    "execution",
     "source",
     "product_evidence",
     "audit_inputs",
     "runtime_versions_path",
     "command_ledger",
     "mutation_run",
+    "mutation_result_artifact",
     "replay",
     "artifact_integrity"
   ],
@@ -31,6 +33,43 @@
       "type": "string",
       "format": "date-time"
     },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "run_id", "run_attempt", "run_url", "event_name", "metadata_head_sha", "exact_head_sha"],
+      "properties": {
+        "provider": { "enum": ["github_actions", "local_replay"] },
+        "run_id": { "type": ["string", "null"] },
+        "run_attempt": { "type": ["integer", "null"] },
+        "run_url": { "type": ["string", "null"] },
+        "event_name": { "type": ["string", "null"] },
+        "metadata_head_sha": { "type": ["string", "null"] },
+        "exact_head_sha": { "pattern": "^[a-f0-9]{40}$", "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "provider": { "const": "github_actions" } } },
+          "then": {
+            "properties": {
+              "run_id": { "pattern": "^[0-9]+$", "type": "string" },
+              "run_attempt": { "minimum": 1, "type": "integer" },
+              "run_url": { "pattern": "^https://github.com/onedayonemasterpiece/lovekgd-design-system/actions/runs/[0-9]+$", "type": "string" },
+              "event_name": { "enum": ["push", "pull_request", "workflow_dispatch"] },
+              "metadata_head_sha": { "pattern": "^[a-f0-9]{40}$", "type": "string" }
+            }
+          },
+          "else": {
+            "properties": {
+              "run_id": { "const": null },
+              "run_attempt": { "const": null },
+              "run_url": { "const": null },
+              "event_name": { "const": null },
+              "metadata_head_sha": { "const": null }
+            }
+          }
+        }
+      ]
+    },
     "source": {
       "type": "object",
       "additionalProperties": false,
@@ -38,6 +77,7 @@
         "repository",
         "requested_sha",
         "checked_out_sha",
+        "supporting_sources",
         "clean_before",
         "clean_after"
       ],
@@ -63,6 +103,34 @@
         "repository": { "const": "onedayonemasterpiece/events-bot-new" },
         "requested_sha": { "const": "66bc0d43e36299417626f992021cfb7299ddf704" },
         "checked_out_sha": { "const": "66bc0d43e36299417626f992021cfb7299ddf704" },
+        "supporting_sources": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["role", "commit", "site_src_tree", "object_present"],
+              "properties": {
+                "role": { "const": "current_root_prelaunch" },
+                "commit": { "const": "5a9d804438377f65fe4b26bd7019e73626529864" },
+                "site_src_tree": { "const": "2b48fb6f528edceab69ceab2473bd93cb90fceb6" },
+                "object_present": { "const": true }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["role", "commit", "site_src_tree", "object_present"],
+              "properties": {
+                "role": { "const": "latest_checked_kaggle_candidate" },
+                "commit": { "const": "ef7aa62e45c60f7a12da6160f490719c0721ec03" },
+                "site_src_tree": { "const": "d46996c4444171d7e10ff648aefd35c5620e17bc" },
+                "object_present": { "const": true }
+              }
+            }
+          ],
+          "items": false
+        },
         "clean_before": { "type": "boolean" },
         "clean_after": { "type": "boolean" }
       }
@@ -96,6 +164,16 @@
       }
     },
     "mutation_run": { "type": "object" },
+    "mutation_result_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": { "const": "project-normalization-v1-1-mutation-results.json" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "pattern": "^[a-f0-9]{64}$", "type": "string" }
+      }
+    },
     "replay": {
       "type": "object",
       "additionalProperties": false,

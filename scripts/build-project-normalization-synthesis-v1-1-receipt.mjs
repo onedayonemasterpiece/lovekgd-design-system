@@ -114,7 +114,12 @@ const mutationCatalog = json(mutationCatalogPath);
 const mutationCases = mutationCatalog.cases ?? mutationCatalog.mandatory_cases ?? [];
 assert(Array.isArray(mutationCases) && mutationCases.length === 14, 'mandatory mutation definition catalog must contain exactly 14 cases');
 const mutationDefinitions = mutationCases.map((row) => ({
-  case_id: row.id,
+  case_id: row.case_id,
+  lane: row.lane,
+  kind: row.kind,
+  target_validator: row.target_validator,
+  mutation_description: row.mutation_description,
+  source_test_file: row.source_test_file,
   expected_error_code: row.expected_error_code,
   validation_stage: row.error?.stage,
   affected_record: row.error?.record,
@@ -122,6 +127,11 @@ const mutationDefinitions = mutationCases.map((row) => ({
   mutation_files: row.mutation_files,
 }));
 assert(mutationDefinitions.every((row) => typeof row.case_id === 'string'
+  && typeof row.lane === 'string'
+  && row.kind === 'negative'
+  && row.target_validator === 'scripts/normalization-v1-1/validate-mutation-candidate.mjs'
+  && typeof row.mutation_description === 'string'
+  && row.source_test_file === 'tests/project-normalization-synthesis-v1-1-negative.mjs'
   && typeof row.expected_error_code === 'string'
   && typeof row.validation_stage === 'string'
   && typeof row.affected_record === 'string'
@@ -210,7 +220,7 @@ const receipt = {
   execution_attestation_contract: {
     status: 'required_external',
     committed_receipt_asserts_execution_pass: false,
-    exact_head_source: 'GITHUB_SHA',
+    exact_head_source: 'NORMALIZATION_SOURCE_SHA (pull_request head SHA, otherwise github.sha)',
     workflow_path: '.github/workflows/project-normalization-synthesis-v1-1.yml',
     artifact_name_template: 'project-normalization-v1-1-reproducibility-${GITHUB_RUN_ID}',
     mutation_result_path: 'project-normalization-v1-1-mutation-results.json',
@@ -235,6 +245,8 @@ const receipt = {
     closure_site_public_tree: 'f42a045ec9ff3b1b2f3396a4df9f54cc6a767934',
     behavioral_source_commit: 'ef7aa62e45c60f7a12da6160f490719c0721ec03',
     behavioral_source_site_src_tree: 'd46996c4444171d7e10ff648aefd35c5620e17bc',
+    current_root_prelaunch_commit: '5a9d804438377f65fe4b26bd7019e73626529864',
+    current_root_prelaunch_site_src_tree: '2b48fb6f528edceab69ceab2473bd93cb90fceb6',
     production_source_mutated: false,
   },
   durable_visual_evidence: {

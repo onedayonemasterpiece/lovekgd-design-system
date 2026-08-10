@@ -204,7 +204,12 @@
   ],
   "mandatory_cases": [
     {
-      "id": "missing-component-path",
+      "case_id": "missing-component-path",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Replace one exact component membership with an unresolved component path identity.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/analysis-group-registry.jsonl"
       ],
@@ -225,10 +230,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "missing-component-path",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "duplicate-stable-id",
+      "case_id": "duplicate-stable-id",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Duplicate an analytical group row without changing its stable ID.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/analysis-group-registry.jsonl"
       ],
@@ -249,10 +265,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "duplicate-stable-id",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "broken-foreign-key",
+      "case_id": "broken-foreign-key",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Point one application at a family foreign key absent from the exact registry.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/component-applications.jsonl"
       ],
@@ -273,10 +300,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "broken-foreign-key",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "missing-raw-identity",
+      "case_id": "missing-raw-identity",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove one authoritative raw identity while retaining its partition reference.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/authoritative-raw-universe.jsonl"
       ],
@@ -297,10 +335,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "missing-raw-identity",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "duplicate-raw-identity",
+      "case_id": "duplicate-raw-identity",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Append a second row with an already used authoritative raw identity.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/authoritative-raw-universe.jsonl"
       ],
@@ -321,10 +370,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "duplicate-raw-identity",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "invalid-typed-alias",
+      "case_id": "invalid-typed-alias",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Swap two typed-alias projections so their probe/unresolved identities no longer correspond.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/raw-alias-registry.jsonl"
       ],
@@ -345,10 +405,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "invalid-typed-alias",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "finding-without-operational-disposition",
+      "case_id": "finding-without-operational-disposition",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove the operational disposition from one canonical finding.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/findings-disposition.jsonl"
       ],
@@ -369,10 +440,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "finding-without-operational-disposition",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "invented-product-id",
+      "case_id": "invented-product-id",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Add a product need ID that is absent from the pinned authoritative product registry.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/component-applications.jsonl"
       ],
@@ -393,10 +475,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "invented-product-id",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "promotion-ready-while-product-model-pending",
+      "case_id": "promotion-ready-while-product-model-pending",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Set promotion_ready on an application whose product-model evidence is still pending.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/component-applications.jsonl"
       ],
@@ -417,10 +510,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "promotion-ready-while-product-model-pending",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "accepted-experiment-without-decision-receipt",
+      "case_id": "accepted-experiment-without-decision-receipt",
+      "lane": "evidence-product-value",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Relabel experimental evidence as accepted without an authoritative decision receipt.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/component-applications.jsonl"
       ],
@@ -441,10 +545,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "accepted-experiment-without-decision-receipt",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "source-only-relabeled-runtime-observed",
+      "case_id": "source-only-relabeled-runtime-observed",
+      "lane": "raw-partition",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Escalate a source-only evidence record to runtime-observed without runtime provenance.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/authoritative-raw-universe.jsonl"
       ],
@@ -465,10 +580,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "source-only-relabeled-runtime-observed",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "immutable-decoder-v1-mutation",
+      "case_id": "immutable-decoder-v1-mutation",
+      "lane": "immutable-evidence",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Change one byte in the immutable decoder v1 manifest.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json"
       ],
@@ -489,10 +615,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "immutable-decoder-v1-mutation",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "incomplete-family-dossier-dimensions",
+      "case_id": "incomplete-family-dossier-dimensions",
+      "lane": "event-media",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Remove one mandatory Event Media consumer contract dimension.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/families/event-media/dossier.json"
       ],
@@ -513,10 +650,21 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "incomplete-family-dossier-dimensions",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     },
     {
-      "id": "first-wave-without-positive-readiness",
+      "case_id": "first-wave-without-positive-readiness",
+      "lane": "registry-readiness",
+      "kind": "negative",
+      "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
+      "mutation_description": "Select a NOT_READY family into the first wave without positive readiness evidence.",
+      "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
       "mutation_files": [
         "catalog/normalization/family-wave-plan.json"
       ],
@@ -537,7 +685,13 @@
       "receipt_validation_enabled": false,
       "bytes_restored": true,
       "baseline_passed": true,
-      "pass": true
+      "pass": true,
+      "actions_result_binding": {
+        "result_path": "project-normalization-v1-1-mutation-results.json",
+        "case_id": "first-wave-without-positive-readiness",
+        "exact_head_sha_field": "exact_head_sha",
+        "duration_ms_field": "duration_ms"
+      }
     }
   ]
 }

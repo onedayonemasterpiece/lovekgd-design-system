@@ -150,6 +150,8 @@ run test-family-lifecycle "$design" design node tests/family-lifecycle-v1-negati
 run test-evidence-value-gates "$design" design node scripts/test-evidence-value-gates-v1-1-negative.mjs "$design"
 run_capture_stdout test-project-mutations "$design" design "$mutation_result" \
   node tests/project-normalization-synthesis-v1-1-negative.mjs "$design"
+run validate-mutation-run-schema "$design" design python3 scripts/validate-normalization-schemas-v1-1.py "$design" \
+  --mutation-result "$mutation_result"
 run scan-secrets "$design" design python3 scripts/scan-normalization-v1-1-secrets.py "$design" "$BASE_SHA"
 
 run design-clean-after "$design" design git status --porcelain

@@ -128,7 +128,12 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "id",
+        "case_id",
+        "lane",
+        "kind",
+        "target_validator",
+        "mutation_description",
+        "source_test_file",
         "mutation_files",
         "expected_error_code",
         "actual_error_code",
@@ -140,10 +145,16 @@
         "receipt_validation_enabled",
         "bytes_restored",
         "baseline_passed",
-        "pass"
+        "pass",
+        "actions_result_binding"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "case_id": { "type": "string", "minLength": 1 },
+        "lane": { "type": "string", "minLength": 1 },
+        "kind": { "const": "negative" },
+        "target_validator": { "const": "scripts/normalization-v1-1/validate-mutation-candidate.mjs" },
+        "mutation_description": { "type": "string", "minLength": 1 },
+        "source_test_file": { "const": "tests/project-normalization-synthesis-v1-1-negative.mjs" },
         "mutation_files": { "$ref": "#/$defs/stringArray" },
         "expected_error_code": { "type": "string", "pattern": "^PNV_[A-Z0-9_]+$" },
         "actual_error_code": { "type": "string", "pattern": "^PNV_[A-Z0-9_]+$" },
@@ -155,7 +166,18 @@
         "receipt_validation_enabled": { "const": false },
         "bytes_restored": { "const": true },
         "baseline_passed": { "const": true },
-        "pass": { "const": true }
+        "pass": { "const": true },
+        "actions_result_binding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["result_path", "case_id", "exact_head_sha_field", "duration_ms_field"],
+          "properties": {
+            "result_path": { "const": "project-normalization-v1-1-mutation-results.json" },
+            "case_id": { "type": "string", "minLength": 1 },
+            "exact_head_sha_field": { "const": "exact_head_sha" },
+            "duration_ms_field": { "const": "duration_ms" }
+          }
+        }
       }
     }
   }

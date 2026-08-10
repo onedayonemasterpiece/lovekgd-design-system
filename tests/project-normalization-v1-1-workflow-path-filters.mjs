@@ -35,6 +35,21 @@ test('committed push and pull_request filters equal the machine registry', () =>
   assert.equal(result.trigger_events.length, 2);
 });
 
+test('replay workflow binds the branch head and every events census source object', () => {
+  const workflow = fs.readFileSync(path.join(root, workflowRelative), 'utf8');
+  assert.match(workflow, /NORMALIZATION_SOURCE_SHA:\s*\$\{\{ github\.event\.pull_request\.head\.sha \|\| github\.sha \}\}/u);
+  assert.doesNotMatch(workflow, /git -C "\$events_source" fetch[^\n]*--depth(?:=|\s)/u);
+  for (const sha of [
+    '66bc0d43e36299417626f992021cfb7299ddf704',
+    '5a9d804438377f65fe4b26bd7019e73626529864',
+    'ef7aa62e45c60f7a12da6160f490719c0721ec03',
+  ]) {
+    assert.match(workflow, new RegExp(sha, 'u'));
+  }
+  assert.match(workflow, /git -C "\$events_source" cat-file -e "\$NORMALIZATION_CURRENT_ROOT_SHA\^\{commit\}"/u);
+  assert.match(workflow, /git -C "\$events_source" cat-file -e "\$NORMALIZATION_BEHAVIORAL_SOURCE_SHA\^\{commit\}"/u);
+});
+
 test('a required contracts authority omission is rejected in one event', () => {
   const temporary = fixture();
   try {

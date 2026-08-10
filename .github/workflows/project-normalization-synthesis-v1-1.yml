@@ -88,7 +88,14 @@ env:
   NORMALIZATION_NODE_VERSION: '22.18.0'
   NORMALIZATION_PYTHON_VERSION: '3.13.7'
   NORMALIZATION_JSONSCHEMA_VERSION: '4.25.1'
+  NORMALIZATION_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   NORMALIZATION_EVENTS_SHA: '66bc0d43e36299417626f992021cfb7299ddf704'
+  NORMALIZATION_CURRENT_ROOT_SHA: '5a9d804438377f65fe4b26bd7019e73626529864'
+  NORMALIZATION_BEHAVIORAL_SOURCE_SHA: 'ef7aa62e45c60f7a12da6160f490719c0721ec03'
+  NORMALIZATION_RUN_ID: ${{ github.run_id }}
+  NORMALIZATION_RUN_ATTEMPT: ${{ github.run_attempt }}
+  NORMALIZATION_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  NORMALIZATION_RUN_EVENT: ${{ github.event_name }}
   NORMALIZATION_PRIOR_SHA256: 'c677f69572ccdbf5b7f1402037a3cb8c164bd2f503fae35eae9168c46eb8d909'
   NORMALIZATION_CLOSURE_SHA256: '8bb8712effaa0ba3b08a672a784d9e1b90d876c6ca6d039a417bfc0617723523'
 
@@ -100,6 +107,7 @@ jobs:
       - name: Checkout exact design-system SHA
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
+          ref: ${{ env.NORMALIZATION_SOURCE_SHA }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -131,7 +139,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$NORMALIZATION_SOURCE_SHA"
           test -z "$(git status --porcelain)"
 
           artifact="$RUNNER_TEMP/project-normalization-v1-1-reproducibility"
@@ -140,9 +148,15 @@ jobs:
 
           git -C "$events_source" init
           git -C "$events_source" remote add origin 'https://github.com/onedayonemasterpiece/events-bot-new.git'
-          git -C "$events_source" fetch --no-tags --depth=1 origin "$NORMALIZATION_EVENTS_SHA"
+          # The independent consumer census reads two historical source commits.
+          # A depth-1 bundle contains the closure tree but silently drops those
+          # authoritative Git objects, so fetch the complete ancestry of the
+          # pinned closure commit and prove both evidence commits are present.
+          git -C "$events_source" fetch --no-tags origin "$NORMALIZATION_EVENTS_SHA"
           git -C "$events_source" checkout --detach FETCH_HEAD
           test "$(git -C "$events_source" rev-parse HEAD)" = "$NORMALIZATION_EVENTS_SHA"
+          git -C "$events_source" cat-file -e "$NORMALIZATION_CURRENT_ROOT_SHA^{commit}"
+          git -C "$events_source" cat-file -e "$NORMALIZATION_BEHAVIORAL_SOURCE_SHA^{commit}"
           test -z "$(git -C "$events_source" status --porcelain)"
 
           curl --fail --location --retry 3 \
@@ -160,7 +174,7 @@ jobs:
           git -C "$events_source" bundle create "$artifact/events-bot-new.git.bundle" HEAD
           git bundle verify "$artifact/lovekgd-design-system.git.bundle"
           git bundle verify "$artifact/events-bot-new.git.bundle"
-          git archive --format=tar --prefix=lovekgd-design-system/ "$GITHUB_SHA" | gzip -n > "$artifact/lovekgd-design-system.tar.gz"
+          git archive --format=tar --prefix=lovekgd-design-system/ "$NORMALIZATION_SOURCE_SHA" | gzip -n > "$artifact/lovekgd-design-system.tar.gz"
           git -C "$events_source" archive --format=tar --prefix=events-bot-new/ "$NORMALIZATION_EVENTS_SHA" | gzip -n > "$artifact/events-bot-new.tar.gz"
 
           cp scripts/normalization-v1-1/replay-normalization-workflow.sh "$artifact/replay.sh"
@@ -169,8 +183,12 @@ jobs:
           cat > "$artifact/input-sources.json" <<EOF
           {
             "schema_version": "project_normalization_replay_inputs_v1",
-            "source_sha": "$GITHUB_SHA",
+            "source_sha": "$NORMALIZATION_SOURCE_SHA",
             "events_sha": "$NORMALIZATION_EVENTS_SHA",
+            "events_supporting_source_shas": [
+              "$NORMALIZATION_CURRENT_ROOT_SHA",
+              "$NORMALIZATION_BEHAVIORAL_SOURCE_SHA"
+            ],
             "prior_visual_archive": {
               "bytes": 44805665,
               "sha256": "$NORMALIZATION_PRIOR_SHA256",
@@ -196,7 +214,7 @@ jobs:
           artifact='${{ steps.inputs.outputs.artifact_dir }}'
           bash "$artifact/replay.sh" \
             --source-bundle "$artifact/lovekgd-design-system.git.bundle" \
-            --source-sha "$GITHUB_SHA" \
+            --source-sha "$NORMALIZATION_SOURCE_SHA" \
             --events-bundle "$artifact/events-bot-new.git.bundle" \
             --events-sha "$NORMALIZATION_EVENTS_SHA" \
             --prior-archive "$artifact/inputs/prior-124.zip" \
@@ -224,6 +242,9 @@ jobs:
             test -s "$artifact/$required"
           done
           (cd "$artifact" && sha256sum --check --strict SHA256SUMS)
+          python3 scripts/validate-normalization-schemas-v1-1.py . \
+            --mutation-result "$artifact/project-normalization-v1-1-mutation-results.json" \
+            --execution-attestation "$artifact/project-normalization-v1-1-execution-attestation.json"
 
       - name: Upload reproducibility evidence
         if: always()

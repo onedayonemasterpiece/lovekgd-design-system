@@ -32,6 +32,12 @@ requireProof(runResult.baseline_rechecks === runResult.total_cases + 1, 'baselin
 requireProof(runResult.cases.every((item) => item.expected_error_code === item.actual_error_code), 'expected and actual error codes differ');
 requireProof(runResult.cases.every((item) => item.exact_head_sha === runResult.exact_head_sha
   && Number.isInteger(item.duration_ms) && item.duration_ms >= 0), 'a case lacks exact-head or duration provenance');
+requireProof(runResult.cases.every((item) => typeof item.case_id === 'string' && item.case_id.length > 0
+  && typeof item.lane === 'string' && item.lane.length > 0
+  && item.kind === 'negative'
+  && item.target_validator === 'scripts/normalization-v1-1/validate-mutation-candidate.mjs'
+  && typeof item.mutation_description === 'string' && item.mutation_description.length > 0
+  && item.source_test_file === 'tests/project-normalization-synthesis-v1-1-negative.mjs'), 'a case lacks required machine-readable mutation metadata');
 requireProof(runResult.cases.every((item) => item.targeted_rejected && item.aggregate_rejected), 'targeted or aggregate rejection is missing');
 requireProof(runResult.cases.every((item) => item.receipt_validation_enabled === false), 'a case enabled receipt validation');
 requireProof(runResult.cases.every((item) => item.bytes_restored && item.baseline_passed && item.pass), 'restoration or post-case baseline failed');
