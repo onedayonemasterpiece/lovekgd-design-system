@@ -54,6 +54,7 @@ const allowed = (relative) => [
   /^docs\/audits\/project-normalization-synthesis-v1/,
   /^docs\/normalization\//,
   /^docs\/(index\.md|component-contract-authority\.md|page-archetype-requirements\.md|penpot-product-design-operating-model\.md|product-atlas-penpot-extension\.md|resource-graph-004\.md)$/,
+  /^receipts\/normalization\//,
   /^scripts\/normalization-v1-1\//,
   /^scripts\/(build|validate|test|scan)-(project-normalization|evidence-value|family-lifecycle|resource-graph-004|normalization-v1-1-secrets|normalization-schemas)/,
   /^scripts\/evidence-value-gates-v1-1-lib\.mjs$/,
