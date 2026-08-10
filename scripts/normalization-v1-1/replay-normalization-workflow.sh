@@ -106,11 +106,11 @@ run_capture_stdout() {
     -- "$@"
 }
 
-run verify-design-bundle "$checkout_dir" replay git bundle verify "$source_bundle"
 run clone-design "$checkout_dir" replay git clone --no-checkout "$source_bundle" "$design"
+run verify-design-bundle "$design" design git bundle verify "$source_bundle"
 run checkout-design "$design" design git checkout --detach "$source_sha"
-run verify-events-bundle "$checkout_dir" replay git bundle verify "$events_bundle"
 run clone-events "$checkout_dir" replay git clone --no-checkout "$events_bundle" "$events"
+run verify-events-bundle "$events" events git bundle verify "$events_bundle"
 run checkout-events "$events" events git checkout --detach "$events_sha"
 run design-clean-before "$design" design git status --porcelain
 run events-clean-before "$events" events git status --porcelain
