@@ -1,7 +1,7 @@
 # Event Media Blocker Closure v1 — Execution Matrix
 
-Base main: `3cbe35326ead04ac67070e5b400d30d9edc6eb01`  
-Audited source head: `20eab45534e2c64497e4db661e6a5ca8582229ea`  
+Base main: `3cbe35326ead04ac67070e5b400d30d9edc6eb01`
+Audited source head: `20eab45534e2c64497e4db661e6a5ca8582229ea`
 Integration branch: `normalization/event-media-blocker-closure-v1`
 
 | ID | Requirement | Area | Likely files | Dependencies | Conflict risk | Primary lane | Parallelizable? | Done when |
