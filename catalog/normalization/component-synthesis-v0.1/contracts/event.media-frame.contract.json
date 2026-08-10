@@ -1,0 +1,571 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "Preserve native semantics; verify focus, name, state and target size."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "declared-axis-values",
+      "rule": "Only registry-declared axis values may be combined; each rendered specimen binds an explicit fixture."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "native-nesting",
+      "rule": "Every declared nested component is represented by a native instance when present."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-content-preserved",
+      "rule": "Static resolved HTML remains useful and is never replaced by an initial skeleton."
+    },
+    {
+      "axis_selections": {
+        "crop": "focal-aware",
+        "fit": "cover",
+        "semantic_type": "photography",
+        "source": "ready"
+      },
+      "combination_id": "visual-cover",
+      "rule": "Visual-only photography may cover within a consumer-owned frame with reviewed focal/safe-area evidence."
+    },
+    {
+      "axis_selections": {
+        "crop": "none",
+        "fit": "contain",
+        "semantic_type": "ocr-document",
+        "source": "ready"
+      },
+      "combination_id": "protected-contain",
+      "rule": "Artwork with text, OCR documents and unknown-text media remain whole with contain/source-preserving treatment."
+    },
+    {
+      "axis_selections": {
+        "semantic_type": "fallback",
+        "source": "missing"
+      },
+      "combination_id": "missing-fallback",
+      "rule": "A missing source renders the consumer-scoped fallback while preserving final layout geometry."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "reserved frame",
+      "part_id": "reserved-frame",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "image/artwork",
+      "part_id": "image-artwork",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "optional loading/fallback layer",
+      "part_id": "optional-loading-fallback-layer",
+      "required": false
+    }
+  ],
+  "candidate_disposition": "candidate_component",
+  "consumers": {
+    "archetype_refs": [],
+    "entity_refs": [
+      "event.card",
+      "event.hero-composition",
+      "event.list-item",
+      "event.media-rail",
+      "event.media-viewer",
+      "listing.event-card",
+      "page.event-detail.mobile"
+    ]
+  },
+  "content_constraints": {
+    "count_fixture_ids": [],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Event media frame",
+  "entity_kind": "content_component",
+  "evidence": {
+    "confidence": "high",
+    "hierarchy_refs": [
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.media-frame;child=event.fallback-art"
+    ],
+    "level": "direct_event_hero_review_plus_decoder",
+    "notes": [],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#event.media-frame"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.event.media-frame",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [],
+    "media_fixture_ids": [
+      "fixture.photo-landscape-3x2-focal-safe-cover",
+      "fixture.photo-portrait-4x5-derived-cover",
+      "fixture.photo-reviewed-5x4-cover",
+      "fixture.photo-2x3-container-contain",
+      "fixture.poster-ocr-square-1x1-contain",
+      "fixture.poster-ocr-intrinsic-contain",
+      "fixture.unknown-text-contain",
+      "fixture.mixed-primary-previews",
+      "fixture.poster-companion",
+      "fixture.state-missing",
+      "fixture.state-broken",
+      "fixture.state-tiny"
+    ],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.empty",
+      "fixture.runtime.error",
+      "fixture.runtime.success"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "undeclared-axis-value",
+      "rule": "Any value outside the registry-declared variant or state axes is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-nested-copy",
+      "rule": "A detached copy cannot satisfy a nested component reference."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-html-skeleton",
+      "rule": "Artificial skeleton replacement of useful static Astro HTML is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "canonical=true, accepted=true or promotion_ready=true is invalid for synthesis v0.1."
+    },
+    {
+      "axis_selections": {
+        "fit": "cover",
+        "semantic_type": "ocr-document"
+      },
+      "combination_id": "protected-cover",
+      "rule": "Cover is invalid for OCR/document or unknown-text media without positive visual-only evidence."
+    },
+    {
+      "axis_selections": {
+        "crop": "focal-aware",
+        "source": "missing"
+      },
+      "combination_id": "missing-crop",
+      "rule": "Crop and focal decisions are invalid when the media source is missing."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "static_resolved",
+      "partial",
+      "empty",
+      "error",
+      "success"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.empty",
+      "fixture.runtime.error",
+      "fixture.runtime.success"
+    ],
+    "source_policy": "Always reserve final geometry; loading/decode and missing/broken/tiny are distinct causes with a shared semantic fallback family when product meaning permits.",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_requirement_refs": [
+      "event-media.application.collection-free-exhibition-event-cards",
+      "event-media.application.collection-free-regular-event-cards",
+      "event-media.application.collection-gastronomy-event-cards",
+      "event-media.application.collection-materialized-event-cards",
+      "event-media.application.collection-unusual-event-cards",
+      "event-media.application.deprecated-weekend-time-matrix-listing-cards",
+      "event-media.application.dormant-popular-mobile-adaptive-listing-cards",
+      "event-media.application.dormant-popular-mobile-event-card-rows",
+      "event-media.application.event-detail-desktop-companion-remaining-previews",
+      "event-media.application.event-detail-desktop-editorial-preview-rail",
+      "event-media.application.event-detail-desktop-efficient-portrait-viewer",
+      "event-media.application.event-detail-desktop-fullscreen-gallery",
+      "event-media.application.event-detail-desktop-personal-feed-cards",
+      "event-media.application.event-detail-desktop-poster-companion",
+      "event-media.application.event-detail-desktop-primary-large-frame",
+      "event-media.application.event-detail-desktop-related-event-cards",
+      "event-media.application.event-detail-desktop-related-recommendation-images",
+      "event-media.application.event-detail-desktop-split-preview-rail",
+      "event-media.application.event-detail-mobile-discovery-event-cards",
+      "event-media.application.event-detail-mobile-fullscreen-gallery",
+      "event-media.application.event-detail-mobile-gallery-recommendation-image",
+      "event-media.application.event-detail-mobile-primary",
+      "event-media.application.event-detail-open-graph-source-media",
+      "event-media.application.exhibitions-fullscreen-gallery",
+      "event-media.application.exhibitions-media-deck",
+      "event-media.application.favorites-runtime-event-cards",
+      "event-media.application.favorites-skeleton-media",
+      "event-media.application.generated-event-share-social-image",
+      "event-media.application.home-cold-start-event-card-feed",
+      "event-media.application.home-featured-event-media",
+      "event-media.application.lab-design-system-event-card",
+      "event-media.application.lab-design-system-event-cta-share-trigger",
+      "event-media.application.lab-design-system-event-hero",
+      "event-media.application.lab-design-system-event-list-item",
+      "event-media.application.lab-design-system-event-media-rail",
+      "event-media.application.lab-design-system-listing-event-card",
+      "event-media.application.lab-desktop-event-page-media",
+      "event-media.application.lab-exhibitions-personal-media",
+      "event-media.application.lab-hero-composition-review",
+      "event-media.application.lab-mobile-event-primary-and-gallery",
+      "event-media.application.lab-mobile-event-related-cards",
+      "event-media.application.listing-date-desktop-cards",
+      "event-media.application.listing-date-mobile-gallery-rail",
+      "event-media.application.listing-personal-feed-event-cards",
+      "event-media.application.listing-popular-desktop-cards",
+      "event-media.application.listing-popular-desktop-personalized-cards",
+      "event-media.application.listing-popular-mobile-gallery-rail",
+      "event-media.application.listing-weekend-desktop-cards",
+      "event-media.application.listing-weekend-mobile-gallery-rail",
+      "event-media.application.preview-index-event-card-specimens",
+      "event-media.application.search-result-event-cards",
+      "event-media.application.search-result-skeleton-media"
+    ],
+    "consumer_scoped": true,
+    "fit_candidates": [
+      "cover",
+      "contain",
+      "source-preserving"
+    ],
+    "focal_point": "Resolve from the bound consumer requirement; do not promote a global focal rule.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "Preserve the consumer-owned final geometry for loading, missing, broken and tiny-source states.",
+    "loading_applicability": "Image decode/loading is distinct from a client-data skeleton; skeleton applies only in an explicitly bound waiting region.",
+    "mode": "direct",
+    "ratio_candidates": [
+      "4:5",
+      "5:4",
+      "3:2",
+      "2:3",
+      "1:1",
+      "intrinsic/source",
+      "consumer-defined"
+    ],
+    "safe_area": "Resolve from the bound consumer requirement and current source provenance; fail closed for protected text.",
+    "semantic_modes": [
+      "photography",
+      "portrait-poster",
+      "artwork-with-text",
+      "ocr-document",
+      "unknown-text",
+      "fallback"
+    ],
+    "source_behavior": "Canonical media rendering boundary.",
+    "upscale": "Resolve per consumer and source quality; no universal upscale policy is selected."
+  },
+  "nested_components": [
+    {
+      "entity_ref": "event.fallback-art",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_event-fallback-art"
+    }
+  ],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.event.media-frame"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.event.media-frame",
+    "target_page": "40 — Announcements components",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "cover",
+        "contain",
+        "source-preserving"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "fit",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "hero",
+        "card",
+        "preview",
+        "poster-companion"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "placement",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "4:5",
+        "5:4",
+        "3:2",
+        "2:3",
+        "1:1",
+        "intrinsic/source",
+        "consumer-defined"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "ratio",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "photography",
+        "portrait-poster",
+        "artwork-with-text",
+        "ocr-document",
+        "unknown-text",
+        "fallback"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "semantic_type",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "none",
+        "focal-aware",
+        "safe-area-guarded"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "crop",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "loading",
+        "ready",
+        "missing",
+        "broken",
+        "tiny"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "source",
+      "required": false,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "The same semantic item may use art direction per placement; ratios are not globally interchangeable.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "Render one event media item under a consumer-specific semantic media contract.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "reserved frame",
+      "slot_id": "content_reserved-frame"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "image/artwork",
+      "slot_id": "content_image-artwork"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "optional loading/fallback layer",
+      "slot_id": "content_optional-loading-fallback-layer"
+    },
+    {
+      "accepts_entity_refs": [
+        "event.fallback-art"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of event.fallback-art",
+      "slot_id": "component_event-fallback-art"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/EventHero.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/EventHero.astro"
+    ]
+  },
+  "stable_component_id": "event.media-frame",
+  "state_axes": [
+    {
+      "axis_id": "crop",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "none",
+        "focal-aware",
+        "safe-area-guarded"
+      ]
+    },
+    {
+      "axis_id": "source",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "loading",
+        "ready",
+        "missing",
+        "broken",
+        "tiny"
+      ]
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [
+    {
+      "axis_id": "fit",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "cover",
+        "contain",
+        "source-preserving"
+      ]
+    },
+    {
+      "axis_id": "placement",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "hero",
+        "card",
+        "preview",
+        "poster-companion"
+      ]
+    },
+    {
+      "axis_id": "ratio",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "4:5",
+        "5:4",
+        "3:2",
+        "2:3",
+        "1:1",
+        "intrinsic/source",
+        "consumer-defined"
+      ]
+    },
+    {
+      "axis_id": "semantic_type",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "photography",
+        "portrait-poster",
+        "artwork-with-text",
+        "ocr-document",
+        "unknown-text",
+        "fallback"
+      ]
+    }
+  ],
+  "wave_id": "W2-event-media-and-actions"
+}

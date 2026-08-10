@@ -1,0 +1,471 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "Name outbound and return sections; announce warnings and next-day rollover; preserve chronological reading order."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "declared-axis-values",
+      "rule": "Only registry-declared axis values may be combined; each rendered specimen binds an explicit fixture."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "native-nesting",
+      "rule": "Every declared nested component is represented by a native instance when present."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-content-preserved",
+      "rule": "Static resolved HTML remains useful and is never replaced by an initial skeleton."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "route heading",
+      "part_id": "route-heading",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "outbound group",
+      "part_id": "outbound-group",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "return group",
+      "part_id": "return-group",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "cutoff or warning region",
+      "part_id": "cutoff-or-warning-region",
+      "required": true
+    }
+  ],
+  "candidate_disposition": "candidate_component",
+  "consumers": {
+    "archetype_refs": [],
+    "entity_refs": [
+      "transport.schedule-region"
+    ]
+  },
+  "content_constraints": {
+    "count_fixture_ids": [],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Rail event schedule",
+  "entity_kind": "composite_component",
+  "evidence": {
+    "confidence": "high",
+    "hierarchy_refs": [
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=transport.rail-schedule;child=transport.route-heading",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=transport.rail-schedule;child=transport.journey-alerts",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=transport.rail-schedule;child=core.state-panel"
+    ],
+    "level": "candidate_as_is_contract_and_current_source",
+    "notes": [
+      "Not a variant of bus or KAUP: domain data, anatomy and state vocabulary differ."
+    ],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#transport.rail-schedule"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.transport.rail-schedule",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [],
+    "media_fixture_ids": [],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "undeclared-axis-value",
+      "rule": "Any value outside the registry-declared variant or state axes is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-nested-copy",
+      "rule": "A detached copy cannot satisfy a nested component reference."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-html-skeleton",
+      "rule": "Artificial skeleton replacement of useful static Astro HTML is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "canonical=true, accepted=true or promotion_ready=true is invalid for synthesis v0.1."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "static_resolved"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.static-resolved"
+    ],
+    "source_policy": "Static generated schedule remains visible; missing/partial legs use bounded state panels without replacing available data.",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_requirement_refs": [],
+    "consumer_scoped": true,
+    "fit_candidates": [],
+    "focal_point": "Not applicable to this component boundary.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "No event-media layout reservation is owned by this component boundary.",
+    "loading_applicability": "No event-media loading treatment is owned by this component boundary.",
+    "mode": "not_applicable",
+    "ratio_candidates": [],
+    "safe_area": "Not applicable to this component boundary.",
+    "semantic_modes": [],
+    "source_behavior": "not_applicable",
+    "upscale": "Not applicable to this component boundary."
+  },
+  "nested_components": [
+    {
+      "entity_ref": "transport.route-heading",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_transport-route-heading"
+    },
+    {
+      "entity_ref": "transport.journey-alerts",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_transport-journey-alerts"
+    },
+    {
+      "entity_ref": "core.state-panel",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_core-state-panel"
+    }
+  ],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.transport.rail-schedule"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.transport.rail-schedule",
+    "target_page": "40 — Announcements components",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "estimated_end",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "explicit",
+        "forecast",
+        "schedule_cutoff"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "event_end_basis",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "event_end_present",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "next_day_return",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "outbound_present",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "return_present",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "false",
+        "true"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "warning_present",
+      "required": false,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "Source contract records a 540 px behavior boundary; exact layout changes must be read back and specimen-tested.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "Event-linked outbound and return rail schedule with explicit cutoff, warning and overnight-return states.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "route heading",
+      "slot_id": "content_route-heading"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "outbound group",
+      "slot_id": "content_outbound-group"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "return group",
+      "slot_id": "content_return-group"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "cutoff or warning region",
+      "slot_id": "content_cutoff-or-warning-region"
+    },
+    {
+      "accepts_entity_refs": [
+        "transport.route-heading"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of transport.route-heading",
+      "slot_id": "component_transport-route-heading"
+    },
+    {
+      "accepts_entity_refs": [
+        "transport.journey-alerts"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of transport.journey-alerts",
+      "slot_id": "component_transport-journey-alerts"
+    },
+    {
+      "accepts_entity_refs": [
+        "core.state-panel"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of core.state-panel",
+      "slot_id": "component_core-state-panel"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/EventTransportSchedule.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/EventTransportSchedule.astro"
+    ]
+  },
+  "stable_component_id": "transport.rail-schedule",
+  "state_axes": [
+    {
+      "axis_id": "estimated_end",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "axis_id": "event_end_basis",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "explicit",
+        "forecast",
+        "schedule_cutoff"
+      ]
+    },
+    {
+      "axis_id": "event_end_present",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "axis_id": "next_day_return",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "axis_id": "outbound_present",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "axis_id": "return_present",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "axis_id": "warning_present",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "false",
+        "true"
+      ]
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [],
+  "wave_id": "W4-domain-product-specific"
+}

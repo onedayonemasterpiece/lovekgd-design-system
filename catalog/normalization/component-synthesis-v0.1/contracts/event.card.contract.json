@@ -1,0 +1,649 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "One clear primary navigation target.",
+    "Card container itself is not an extra tab stop.",
+    "Avoid duplicate equivalent media/title links in the accessibility tree.",
+    "Target <= 3 meaningful tab stops for the ordinary card."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "declared-axis-values",
+      "rule": "Only registry-declared axis values may be combined; each rendered specimen binds an explicit fixture."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "native-nesting",
+      "rule": "Every declared nested component is represented by a native instance when present."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-content-preserved",
+      "rule": "Static resolved HTML remains useful and is never replaced by an initial skeleton."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "media frame",
+      "part_id": "media-frame",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "body",
+      "part_id": "body",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "title",
+      "part_id": "title",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "occurrence/meta",
+      "part_id": "occurrence-meta",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "optional badges",
+      "part_id": "optional-badges",
+      "required": false
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "optional action row",
+      "part_id": "optional-action-row",
+      "required": false
+    }
+  ],
+  "candidate_disposition": "candidate_component",
+  "consumers": {
+    "archetype_refs": [
+      "archetype.club",
+      "archetype.collection",
+      "archetype.exhibitions",
+      "archetype.favorites",
+      "archetype.festival",
+      "archetype.listing.popular",
+      "archetype.listing.unusual",
+      "archetype.personal-feed",
+      "archetype.search"
+    ],
+    "entity_refs": [
+      "event.card-grid",
+      "favorites.surface",
+      "listing.behavior-row",
+      "listing.discovery-rail",
+      "listing.rail-row",
+      "personal-feed.slot",
+      "search.event-search"
+    ]
+  },
+  "content_constraints": {
+    "count_fixture_ids": [],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Event card",
+  "entity_kind": "composite_component",
+  "evidence": {
+    "confidence": "high",
+    "hierarchy_refs": [
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.card;child=event.media-frame",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.card;child=event.occurrence-label",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.card;child=core.badge",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.card;child=core.favorite-action",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=event.card;child=core.share-action"
+    ],
+    "level": "exact_current_source_reconciliation",
+    "notes": [
+      "ListingEventCard.astro is separately classified as listing.event-card because its action, focus and content anatomy are not layout-only differences."
+    ],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#event.card"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.event.card",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [],
+    "media_fixture_ids": [
+      "fixture.photo-landscape-3x2-focal-safe-cover",
+      "fixture.photo-portrait-4x5-derived-cover",
+      "fixture.photo-reviewed-5x4-cover",
+      "fixture.photo-2x3-container-contain",
+      "fixture.poster-ocr-square-1x1-contain",
+      "fixture.poster-ocr-intrinsic-contain",
+      "fixture.unknown-text-contain",
+      "fixture.mixed-primary-previews",
+      "fixture.poster-companion",
+      "fixture.state-missing",
+      "fixture.state-broken",
+      "fixture.state-tiny"
+    ],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.unavailable",
+      "fixture.runtime.success"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "undeclared-axis-value",
+      "rule": "Any value outside the registry-declared variant or state axes is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-nested-copy",
+      "rule": "A detached copy cannot satisfy a nested component reference."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-html-skeleton",
+      "rule": "Artificial skeleton replacement of useful static Astro HTML is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "canonical=true, accepted=true or promotion_ready=true is invalid for synthesis v0.1."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "static_resolved",
+      "partial",
+      "unavailable",
+      "success"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.unavailable",
+      "fixture.runtime.success"
+    ],
+    "source_policy": "Static HTML remains useful. Skeleton applies only where a card is genuinely client-loaded with known geometry.",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_requirement_refs": [
+      "event-media.application.event-detail-mobile-discovery-event-cards"
+    ],
+    "consumer_scoped": true,
+    "fit_candidates": [
+      "cover",
+      "contain",
+      "source-preserving"
+    ],
+    "focal_point": "Resolve from the bound consumer requirement; do not promote a global focal rule.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "Preserve the consumer-owned final geometry for loading, missing, broken and tiny-source states.",
+    "loading_applicability": "Image decode/loading is distinct from a client-data skeleton; skeleton applies only in an explicitly bound waiting region.",
+    "mode": "delegated",
+    "ratio_candidates": [
+      "4:5",
+      "5:4",
+      "3:2",
+      "2:3",
+      "1:1",
+      "intrinsic/source",
+      "consumer-defined"
+    ],
+    "safe_area": "Resolve from the bound consumer requirement and current source provenance; fail closed for protected text.",
+    "semantic_modes": [
+      "photography",
+      "portrait-poster",
+      "artwork-with-text",
+      "ocr-document",
+      "unknown-text",
+      "fallback"
+    ],
+    "source_behavior": "not_applicable",
+    "upscale": "Resolve per consumer and source quality; no universal upscale policy is selected."
+  },
+  "nested_components": [
+    {
+      "entity_ref": "event.media-frame",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_event-media-frame"
+    },
+    {
+      "entity_ref": "event.occurrence-label",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_event-occurrence-label"
+    },
+    {
+      "entity_ref": "core.badge",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_core-badge"
+    },
+    {
+      "entity_ref": "core.favorite-action",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_core-favorite-action"
+    },
+    {
+      "entity_ref": "core.share-action",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_core-share-action"
+    }
+  ],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.event.card"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.event.card",
+    "target_page": "40 — Announcements components",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "navigation-only",
+        "favorite-share",
+        "extended"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "actions",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "regular",
+        "compact"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "density",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "grid",
+        "listing",
+        "rail",
+        "compact"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "layout",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "landscape",
+        "portrait",
+        "square",
+        "intrinsic-document",
+        "no-image"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "media",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "short",
+        "long-ru",
+        "meta-partial"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "content",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "off",
+        "on",
+        "unavailable"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "favorite",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "default",
+        "hover",
+        "focus-visible"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "interaction",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "loading",
+        "ready",
+        "fallback"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "media",
+      "required": false,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "Card layout variants are explicit; consumer CSS may size the outer container but may not restyle internals after promotion.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "Reusable event preview with one clear primary navigation and bounded optional actions.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "media frame",
+      "slot_id": "content_media-frame"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "body",
+      "slot_id": "content_body"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "title",
+      "slot_id": "content_title"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "occurrence/meta",
+      "slot_id": "content_occurrence-meta"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "optional badges",
+      "slot_id": "content_optional-badges"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "optional action row",
+      "slot_id": "content_optional-action-row"
+    },
+    {
+      "accepts_entity_refs": [
+        "event.media-frame"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of event.media-frame",
+      "slot_id": "component_event-media-frame"
+    },
+    {
+      "accepts_entity_refs": [
+        "event.occurrence-label"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of event.occurrence-label",
+      "slot_id": "component_event-occurrence-label"
+    },
+    {
+      "accepts_entity_refs": [
+        "core.badge"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of core.badge",
+      "slot_id": "component_core-badge"
+    },
+    {
+      "accepts_entity_refs": [
+        "core.favorite-action"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of core.favorite-action",
+      "slot_id": "component_core-favorite-action"
+    },
+    {
+      "accepts_entity_refs": [
+        "core.share-action"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of core.share-action",
+      "slot_id": "component_core-share-action"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/EventCard.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/EventCard.astro"
+    ]
+  },
+  "stable_component_id": "event.card",
+  "state_axes": [
+    {
+      "axis_id": "content",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "short",
+        "long-ru",
+        "meta-partial"
+      ]
+    },
+    {
+      "axis_id": "favorite",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "off",
+        "on",
+        "unavailable"
+      ]
+    },
+    {
+      "axis_id": "interaction",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "default",
+        "hover",
+        "focus-visible"
+      ]
+    },
+    {
+      "axis_id": "media",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "loading",
+        "ready",
+        "fallback"
+      ]
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [
+    {
+      "axis_id": "actions",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "navigation-only",
+        "favorite-share",
+        "extended"
+      ]
+    },
+    {
+      "axis_id": "density",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "regular",
+        "compact"
+      ]
+    },
+    {
+      "axis_id": "layout",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "grid",
+        "listing",
+        "rail",
+        "compact"
+      ]
+    },
+    {
+      "axis_id": "media",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "landscape",
+        "portrait",
+        "square",
+        "intrinsic-document",
+        "no-image"
+      ]
+    }
+  ],
+  "wave_id": "W3-card-listing-navigation"
+}

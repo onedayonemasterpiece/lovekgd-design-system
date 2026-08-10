@@ -1,0 +1,282 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "Preserve native semantics; verify focus, name, state and target size."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "declared-axis-values",
+      "rule": "Only registry-declared axis values may be combined; each rendered specimen binds an explicit fixture."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "native-nesting",
+      "rule": "Every declared nested component is represented by a native instance when present."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-content-preserved",
+      "rule": "Static resolved HTML remains useful and is never replaced by an initial skeleton."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "collection context",
+      "part_id": "collection-context",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "artifact items",
+      "part_id": "artifact-items",
+      "required": true
+    }
+  ],
+  "candidate_disposition": "preserve_product_specific",
+  "consumers": {
+    "archetype_refs": [],
+    "entity_refs": []
+  },
+  "content_constraints": {
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Artifact collection",
+  "entity_kind": "product_pattern",
+  "evidence": {
+    "confidence": "medium",
+    "hierarchy_refs": [],
+    "level": "live_tree_and_decoder",
+    "notes": [],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#artifact.collection"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.artifact.collection",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "media_fixture_ids": [],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.empty"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "undeclared-axis-value",
+      "rule": "Any value outside the registry-declared variant or state axes is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-nested-copy",
+      "rule": "A detached copy cannot satisfy a nested component reference."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-html-skeleton",
+      "rule": "Artificial skeleton replacement of useful static Astro HTML is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "canonical=true, accepted=true or promotion_ready=true is invalid for synthesis v0.1."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "static_resolved",
+      "empty"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.empty"
+    ],
+    "source_policy": "static_resolved unless a consumer proves a runtime wait",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_requirement_refs": [],
+    "consumer_scoped": true,
+    "fit_candidates": [],
+    "focal_point": "Not applicable to this component boundary.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "No event-media layout reservation is owned by this component boundary.",
+    "loading_applicability": "No event-media loading treatment is owned by this component boundary.",
+    "mode": "not_applicable",
+    "ratio_candidates": [],
+    "safe_area": "Not applicable to this component boundary.",
+    "semantic_modes": [],
+    "source_behavior": "not_applicable",
+    "upscale": "Not applicable to this component boundary."
+  },
+  "nested_components": [],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.artifact.collection"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.artifact.collection",
+    "target_page": "50 — Product patterns",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "amber",
+        "focus",
+        "other"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "artifact_type",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "empty",
+        "one",
+        "many"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "content",
+      "required": false,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "Требует проверки на фактических mobile/desktop consumers.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "Domain-specific collection of editorial/product artifacts.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "collection context",
+      "slot_id": "content_collection-context"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "artifact items",
+      "slot_id": "content_artifact-items"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/artifacts/ArtifactCollection.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/artifacts/ArtifactCollection.astro"
+    ]
+  },
+  "stable_component_id": "artifact.collection",
+  "state_axes": [
+    {
+      "axis_id": "content",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "empty",
+        "one",
+        "many"
+      ]
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [
+    {
+      "axis_id": "artifact_type",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "amber",
+        "focus",
+        "other"
+      ]
+    }
+  ],
+  "wave_id": "W4-domain-product-specific"
+}
