@@ -23,14 +23,14 @@
 - Exactly 18 graph files under `catalog/normalization/component-synthesis-v0.1/archetypes/graphs/`.
 - `catalog/normalization/component-synthesis-v0.1/archetypes/index.json` records canonical paths, SHA-256 per graph, exact registry SHA-256 and aggregate counts.
 - `contracts/normalization/component-synthesis-archetype.v0.1.schema.json` is a strict JSON Schema Draft 2020-12 contract with `additionalProperties: false` object boundaries.
-- Index SHA-256: `1fd1ac0b20bda012b6ab2f9349456ff7ab86f29759ac5442453a45ff91f27dd2`.
+- Index SHA-256 after L1 reconciliation: `ebbdbb242097aaa0b1db32debe2a14d03d34b55b3a030e5306a88f1cb4899423`.
 - Schema SHA-256: `a0ab24bf9e7f6274f5ac9c86bda025681fad321110237ce8806424fa6271aeed`.
 
 ### Counts
 
 - Archetypes: `18`
 - Fixtures: `75`
-- Native component/pattern instance nodes: `383`
+- Native component/pattern instance nodes: `392`
 - Explicit gap placeholders: `3`
 - State-matrix rows (viewport × state): `132`
 - Detached copies: `0`
@@ -57,6 +57,9 @@ find catalog/normalization/component-synthesis-v0.1/archetypes \
   contracts/normalization/component-synthesis-archetype.v0.1.schema.json \
   -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/archetypes-after.sha256
 diff -u /tmp/archetypes-before.sha256 /tmp/archetypes-after.sha256
+# Repeated after cherry-picking L1, using post-L1 before/after hash ledgers:
+diff -u /tmp/archetypes-post-l1-first.sha256 /tmp/archetypes-post-l1-second.sha256
+python3 /tmp/validate_archetypes.py
 ```
 
 Result: `PASS`.
@@ -76,9 +79,33 @@ The semantic validation asserted:
 - all gaps are explicit, all `detached=false`, and every `local_overrides=[]`;
 - a second deterministic generation produced byte-identical hashes.
 
-## Integration risk / declared follow-up
+## L1 reconciliation follow-up
 
-The lane intentionally follows the exact input `page-archetype-registry.jsonl` and never silently retargets entity identities. That registry currently names `event.card` in 16 of 18 archetypes; hierarchy expansion produces 22 `event.card` instance occurrences. The separate L1 reconciliation reports that EventListItem remains separate and EventCard versus ListingEventCard remains consumer-specific. After integrating L1 registry/hierarchy deltas, the integrator/L4 validator must preserve exact source-registry references or apply an explicit consumer-specific delta; an implicit global rewrite of these 22 references is not safe.
+- Imported L1 implementation: `3773f55412a894cf2b22c068698e92c90cf73eec` (local cherry-pick `3043847efe98d60f57b68584825918d433fafb3d`).
+- Regenerated only graphs whose registry/hierarchy closure changed plus `archetypes/index.json`:
+  - `archetype.festival`
+  - `archetype.listing.date`
+  - `archetype.listing.popular`
+  - `archetype.listing.unusual`
+  - `archetype.listing.weekend`
+- Direct registry retargets are exact: Date and Weekend use `listing.event-card`; Popular preserves both `event.card` and `listing.event-card`.
+- Hierarchy-backed propagation is explicit: `listing.timeline`, `listing.personalized-row` and `listing.behavior-row` now instantiate `listing.event-card`, which also changes Festival and Unusual without globally rewriting their separately declared `event.card` refs.
+
+### Before / after
+
+| Measure | Before L1 | After L1 |
+|---|---:|---:|
+| Archetypes | 18 | 18 |
+| Fixtures | 75 | 75 |
+| Instance nodes | 383 | 392 |
+| Explicit gaps | 3 | 3 |
+| State-matrix rows | 132 | 132 |
+| `event.card` instance refs | 21 | 18 |
+| `listing.event-card` instance refs | 0 | 6 |
+| Detached copies | 0 | 0 |
+| Local overrides | 0 | 0 |
+
+The previous integration risk is closed: graphs now follow finalized L1 consumer-specific identities, preserve remaining generic `event.card` instances, and introduce no silent global retarget.
 
 No blocker exists within this lane.
 

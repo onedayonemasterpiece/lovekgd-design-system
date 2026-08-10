@@ -102,34 +102,58 @@
         "to_node_id": "node.festival.005"
       },
       {
-        "from_node_id": "node.festival.002",
-        "order": 3,
-        "relation": "contains_instance",
-        "to_node_id": "node.festival.006"
-      },
-      {
-        "from_node_id": "node.festival.006",
+        "from_node_id": "node.festival.005",
         "order": 0,
         "relation": "contains_instance",
-        "to_node_id": "node.festival.007"
-      },
-      {
-        "from_node_id": "node.festival.002",
-        "order": 4,
-        "relation": "contains_instance",
-        "to_node_id": "node.festival.008"
+        "to_node_id": "node.festival.006"
       },
       {
         "from_node_id": "node.festival.001",
         "order": 1,
         "relation": "contains_instance",
+        "to_node_id": "node.festival.007"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 0,
+        "relation": "contains_instance",
         "to_node_id": "node.festival.009"
       },
       {
-        "from_node_id": "node.festival.010",
-        "order": 0,
+        "from_node_id": "node.festival.008",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.010"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 2,
         "relation": "contains_instance",
         "to_node_id": "node.festival.011"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.012"
+      },
+      {
+        "from_node_id": "node.festival.012",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.013"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.014"
+      },
+      {
+        "from_node_id": "node.festival.015",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.016"
       }
     ],
     "nodes": [
@@ -153,7 +177,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.card",
+        "entity_ref": "listing.event-card",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -189,7 +213,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.favorite-action",
+        "entity_ref": "core.icon",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -207,7 +231,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.share-action",
+        "entity_ref": "event.media-frame",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -225,7 +249,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.media-frame",
+        "entity_ref": "event.fallback-art",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -235,43 +259,7 @@
         "local_overrides": [],
         "node_id": "node.festival.006",
         "node_kind": "component_instance",
-        "order": 3,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.fallback-art",
-        "fixture_refs": [
-          "fixture.festival.timeline",
-          "fixture.festival.0",
-          "fixture.festival.many",
-          "fixture.festival.overflow"
-        ],
-        "local_overrides": [],
-        "node_id": "node.festival.007",
-        "node_kind": "component_instance",
         "order": 0,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.occurrence-label",
-        "fixture_refs": [
-          "fixture.festival.timeline",
-          "fixture.festival.0",
-          "fixture.festival.many",
-          "fixture.festival.overflow"
-        ],
-        "local_overrides": [],
-        "node_id": "node.festival.008",
-        "node_kind": "component_instance",
-        "order": 4,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -287,7 +275,7 @@
           "fixture.festival.overflow"
         ],
         "local_overrides": [],
-        "node_id": "node.festival.009",
+        "node_id": "node.festival.007",
         "node_kind": "component_instance",
         "order": 1,
         "viewport_modes": [
@@ -297,7 +285,43 @@
       },
       {
         "detached": false,
-        "entity_ref": "site.footer",
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.008",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.009",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -315,7 +339,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.icon",
+        "entity_ref": "core.share-action",
         "fixture_refs": [
           "fixture.festival.timeline",
           "fixture.festival.0",
@@ -324,6 +348,96 @@
         ],
         "local_overrides": [],
         "node_id": "node.festival.011",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.012",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.013",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.014",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "site.footer",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.015",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.016",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -348,9 +462,9 @@
           "uncovered_region": "Exact current festival route/template binding and festival-specific header/content regions."
         },
         "local_overrides": [],
-        "node_id": "node.festival.012",
+        "node_id": "node.festival.017",
         "node_kind": "gap_placeholder",
-        "order": 2,
+        "order": 3,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -359,8 +473,9 @@
     ],
     "root_node_ids": [
       "node.festival.001",
-      "node.festival.010",
-      "node.festival.012"
+      "node.festival.008",
+      "node.festival.015",
+      "node.festival.017"
     ]
   },
   "materialization_policy": {
@@ -396,10 +511,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.timeline",
       "matrix_id": "matrix.festival.mobile.timeline",
@@ -418,10 +538,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.0",
       "matrix_id": "matrix.festival.mobile.0",
@@ -440,10 +565,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.many",
       "matrix_id": "matrix.festival.mobile.many",
@@ -462,10 +592,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.overflow",
       "matrix_id": "matrix.festival.mobile.overflow",
@@ -484,10 +619,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.timeline",
       "matrix_id": "matrix.festival.desktop.timeline",
@@ -506,10 +646,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.0",
       "matrix_id": "matrix.festival.desktop.0",
@@ -528,10 +673,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.many",
       "matrix_id": "matrix.festival.desktop.many",
@@ -550,10 +700,15 @@
         "node.festival.008",
         "node.festival.009",
         "node.festival.010",
-        "node.festival.011"
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014",
+        "node.festival.015",
+        "node.festival.016"
       ],
       "expected_gap_node_ids": [
-        "node.festival.012"
+        "node.festival.017"
       ],
       "fixture_ref": "fixture.festival.overflow",
       "matrix_id": "matrix.festival.desktop.overflow",

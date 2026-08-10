@@ -103,8 +103,26 @@
         "to_node_id": "node.listing.popular.008"
       },
       {
-        "from_node_id": "node.listing.popular.011",
+        "from_node_id": "node.listing.popular.001",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.009"
+      },
+      {
+        "from_node_id": "node.listing.popular.009",
         "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.010"
+      },
+      {
+        "from_node_id": "node.listing.popular.009",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.011"
+      },
+      {
+        "from_node_id": "node.listing.popular.009",
+        "order": 2,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.012"
       },
@@ -115,82 +133,82 @@
         "to_node_id": "node.listing.popular.013"
       },
       {
-        "from_node_id": "node.listing.popular.012",
-        "order": 1,
-        "relation": "contains_instance",
-        "to_node_id": "node.listing.popular.014"
-      },
-      {
-        "from_node_id": "node.listing.popular.012",
-        "order": 2,
-        "relation": "contains_instance",
-        "to_node_id": "node.listing.popular.015"
-      },
-      {
-        "from_node_id": "node.listing.popular.012",
-        "order": 3,
-        "relation": "contains_instance",
-        "to_node_id": "node.listing.popular.016"
-      },
-      {
         "from_node_id": "node.listing.popular.016",
         "order": 0,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.017"
       },
       {
-        "from_node_id": "node.listing.popular.012",
-        "order": 4,
+        "from_node_id": "node.listing.popular.017",
+        "order": 0,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.018"
       },
       {
-        "from_node_id": "node.listing.popular.019",
-        "order": 0,
+        "from_node_id": "node.listing.popular.017",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.019"
+      },
+      {
+        "from_node_id": "node.listing.popular.017",
+        "order": 2,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.020"
       },
       {
-        "from_node_id": "node.listing.popular.019",
-        "order": 1,
+        "from_node_id": "node.listing.popular.020",
+        "order": 0,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.021"
       },
       {
-        "from_node_id": "node.listing.popular.021",
+        "from_node_id": "node.listing.popular.022",
         "order": 0,
-        "relation": "contains_instance",
-        "to_node_id": "node.listing.popular.022"
-      },
-      {
-        "from_node_id": "node.listing.popular.021",
-        "order": 1,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.023"
       },
       {
-        "from_node_id": "node.listing.popular.021",
-        "order": 2,
+        "from_node_id": "node.listing.popular.022",
+        "order": 1,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.024"
       },
       {
-        "from_node_id": "node.listing.popular.021",
-        "order": 3,
+        "from_node_id": "node.listing.popular.024",
+        "order": 0,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.025"
       },
       {
-        "from_node_id": "node.listing.popular.025",
-        "order": 0,
+        "from_node_id": "node.listing.popular.024",
+        "order": 1,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.026"
       },
       {
-        "from_node_id": "node.listing.popular.021",
-        "order": 4,
+        "from_node_id": "node.listing.popular.024",
+        "order": 2,
         "relation": "contains_instance",
         "to_node_id": "node.listing.popular.027"
+      },
+      {
+        "from_node_id": "node.listing.popular.024",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.028"
+      },
+      {
+        "from_node_id": "node.listing.popular.028",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.029"
+      },
+      {
+        "from_node_id": "node.listing.popular.024",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.listing.popular.030"
       }
     ],
     "nodes": [
@@ -332,7 +350,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "listing.category-filter",
+        "entity_ref": "listing.event-card",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -349,7 +367,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "listing.page-header",
+        "entity_ref": "core.badge",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -357,40 +375,6 @@
         ],
         "local_overrides": [],
         "node_id": "node.listing.popular.010",
-        "node_kind": "component_instance",
-        "order": 2,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "listing.personalized-row",
-        "fixture_refs": [
-          "fixture.listing.popular.ranked",
-          "fixture.listing.popular.empty",
-          "fixture.listing.popular.fallback"
-        ],
-        "local_overrides": [],
-        "node_id": "node.listing.popular.011",
-        "node_kind": "component_instance",
-        "order": 3,
-        "viewport_modes": [
-          "mobile",
-          "desktop"
-        ]
-      },
-      {
-        "detached": false,
-        "entity_ref": "event.card",
-        "fixture_refs": [
-          "fixture.listing.popular.ranked",
-          "fixture.listing.popular.empty",
-          "fixture.listing.popular.fallback"
-        ],
-        "local_overrides": [],
-        "node_id": "node.listing.popular.012",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -400,7 +384,41 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.badge",
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.011",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.012",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -417,7 +435,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.favorite-action",
+        "entity_ref": "listing.category-filter",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -434,7 +452,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "core.share-action",
+        "entity_ref": "listing.page-header",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -451,7 +469,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.media-frame",
+        "entity_ref": "listing.personalized-row",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -468,7 +486,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.fallback-art",
+        "entity_ref": "listing.event-card",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -485,7 +503,7 @@
       },
       {
         "detached": false,
-        "entity_ref": "event.occurrence-label",
+        "entity_ref": "core.badge",
         "fixture_refs": [
           "fixture.listing.popular.ranked",
           "fixture.listing.popular.empty",
@@ -494,7 +512,58 @@
         "local_overrides": [],
         "node_id": "node.listing.popular.018",
         "node_kind": "component_instance",
-        "order": 4,
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.019",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.020",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.listing.popular.ranked",
+          "fixture.listing.popular.empty",
+          "fixture.listing.popular.fallback"
+        ],
+        "local_overrides": [],
+        "node_id": "node.listing.popular.021",
+        "node_kind": "component_instance",
+        "order": 0,
         "viewport_modes": [
           "mobile",
           "desktop"
@@ -509,7 +578,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.019",
+        "node_id": "node.listing.popular.022",
         "node_kind": "pattern_instance",
         "order": 4,
         "viewport_modes": [
@@ -526,7 +595,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.020",
+        "node_id": "node.listing.popular.023",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -543,7 +612,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.021",
+        "node_id": "node.listing.popular.024",
         "node_kind": "component_instance",
         "order": 1,
         "viewport_modes": [
@@ -560,7 +629,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.022",
+        "node_id": "node.listing.popular.025",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -577,7 +646,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.023",
+        "node_id": "node.listing.popular.026",
         "node_kind": "component_instance",
         "order": 1,
         "viewport_modes": [
@@ -594,7 +663,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.024",
+        "node_id": "node.listing.popular.027",
         "node_kind": "component_instance",
         "order": 2,
         "viewport_modes": [
@@ -611,7 +680,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.025",
+        "node_id": "node.listing.popular.028",
         "node_kind": "component_instance",
         "order": 3,
         "viewport_modes": [
@@ -628,7 +697,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.026",
+        "node_id": "node.listing.popular.029",
         "node_kind": "component_instance",
         "order": 0,
         "viewport_modes": [
@@ -645,7 +714,7 @@
           "fixture.listing.popular.fallback"
         ],
         "local_overrides": [],
-        "node_id": "node.listing.popular.027",
+        "node_id": "node.listing.popular.030",
         "node_kind": "component_instance",
         "order": 4,
         "viewport_modes": [
@@ -656,10 +725,10 @@
     ],
     "root_node_ids": [
       "node.listing.popular.001",
-      "node.listing.popular.009",
-      "node.listing.popular.010",
-      "node.listing.popular.011",
-      "node.listing.popular.019"
+      "node.listing.popular.014",
+      "node.listing.popular.015",
+      "node.listing.popular.016",
+      "node.listing.popular.022"
     ]
   },
   "materialization_policy": {
@@ -713,7 +782,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.ranked",
@@ -749,7 +821,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.empty",
@@ -785,7 +860,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.fallback",
@@ -821,7 +899,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.ranked",
@@ -857,7 +938,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.empty",
@@ -893,7 +977,10 @@
         "node.listing.popular.024",
         "node.listing.popular.025",
         "node.listing.popular.026",
-        "node.listing.popular.027"
+        "node.listing.popular.027",
+        "node.listing.popular.028",
+        "node.listing.popular.029",
+        "node.listing.popular.030"
       ],
       "expected_gap_node_ids": [],
       "fixture_ref": "fixture.listing.popular.fallback",
