@@ -108,6 +108,21 @@
       "relation": "contains_instance"
     },
     {
+      "child": "core.calendar-action",
+      "parent": "event.list-item",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "event.media-frame",
+      "parent": "event.list-item",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "event.occurrence-label",
+      "parent": "event.list-item",
+      "relation": "contains_instance"
+    },
+    {
       "child": "event.fallback-art",
       "parent": "event.media-frame",
       "relation": "contains_instance"
@@ -165,6 +180,16 @@
     {
       "child": "event.occurrence-label",
       "parent": "event.summary-action-panel",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "core.badge",
+      "parent": "event.token-medallions",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "core.icon",
+      "parent": "event.token-medallions",
       "relation": "contains_instance"
     },
     {
@@ -238,6 +263,11 @@
       "relation": "contains_instance"
     },
     {
+      "child": "listing.event-card",
+      "parent": "listing.behavior-row",
+      "relation": "contains_instance"
+    },
+    {
       "child": "core.rail",
       "parent": "listing.discovery-rail",
       "relation": "contains_instance"
@@ -248,7 +278,22 @@
       "relation": "contains_instance"
     },
     {
-      "child": "event.card",
+      "child": "core.badge",
+      "parent": "listing.event-card",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "core.icon",
+      "parent": "listing.event-card",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "event.media-frame",
+      "parent": "listing.event-card",
+      "relation": "contains_instance"
+    },
+    {
+      "child": "listing.event-card",
       "parent": "listing.personalized-row",
       "relation": "contains_instance"
     },
@@ -258,7 +303,7 @@
       "relation": "contains_instance"
     },
     {
-      "child": "event.card",
+      "child": "listing.event-card",
       "parent": "listing.timeline",
       "relation": "contains_instance"
     },
@@ -593,11 +638,13 @@
       "event.card",
       "event.fact-list",
       "event.hero-composition",
+      "event.list-item",
       "event.media-rail",
       "event.media-viewer",
       "event.summary-action-panel",
       "listing.behavior-row",
       "listing.controls",
+      "listing.event-card",
       "listing.page-header",
       "listing.personalized-row",
       "listing.rail-row",
@@ -632,15 +679,12 @@
     ],
     "experiments_evidence_unresolved": [
       "artifact.rail-insert",
-      "event.list-item",
-      "event.token-medallions",
       "exhibition.row",
       "experiment.keyboard-navigation",
       "experiment.transport-timetable",
       "focus.easter-egg",
       "focus.lab-panel",
-      "page.mobile-event-review",
-      "unresolved.mobile-search-bottom-nav"
+      "page.mobile-event-review"
     ],
     "foundations": [
       "foundation.iconography",
@@ -683,6 +727,7 @@
     "product_patterns": [
       "artifact.collection",
       "event.card-grid",
+      "event.token-medallions",
       "exhibitions.personal-surface",
       "favorites.surface",
       "focus.diagnostic",

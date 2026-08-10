@@ -1,9 +1,11 @@
 # LoveKGD Component Synthesis v0.1 — exact source-path cut
 
-**Status:** bounded candidate synthesis; `authority_mode=reconstructed`; `canonical=false`; `accepted=false`; `promotion_ready=false`  
-**Generated:** 2026-08-10T22:16:08.146068+00:00  
-**Observed product main in this conversation:** `a161061d8161409566412db2b1909031949dc104`  
-**Observed design-system main in this conversation:** `509fa1a70dcd6f28f507c85e926252752ac545ee`  
+**Status:** bounded candidate synthesis; `authority_mode=reconstructed`; `canonical=false`; `accepted=false`; `promotion_ready=false`
+**Generated:** 2026-08-10T22:16:08.146068+00:00
+**Initial observed product main:** `a161061d8161409566412db2b1909031949dc104`
+**Reconciled product main:** `96784bd572c03b965f303366c4ff0bb85d1b9a3f`
+**Initial observed design-system main:** `509fa1a70dcd6f28f507c85e926252752ac545ee`
+**Reconciled design-system main:** `c59a3576c7361c1953b31ad9b98ed096640e92c7`
 **Pinned decoder evidence:** `events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704`
 
 ## 1. Результат
@@ -14,12 +16,13 @@
 
 - **107/107 exact current source paths** с одной terminal disposition; directory placeholders — **0**;
 - **111** candidate/analytical entities;
-- **61** Penpot-eligible primitives, controls, navigation, content и composite components;
-- **14** product patterns;
+- **63** Penpot-eligible primitives, controls, navigation, content и composite components;
+- **65** W1–W4 materialization entities after dependency/plan reconciliation;
+- **15** product patterns;
 - **11** current page compositions;
 - **18** page-archetype candidates;
 - **9** nonvisual runtime enablers;
-- **10** experiments/evidence/unresolved entities;
+- **7** experiments/evidence/unresolved entities;
 - **0 owner ambiguities**;
 - **6 technical reconciliation items**.
 
@@ -29,7 +32,7 @@
 
 ### Карточки события
 
-`EventCard.astro` и `listings/ListingEventCard.astro` сведены к одному candidate `event.card` с axes layout/media/density/action. Финальный merge implementation блокирует только точная DOM/a11y/consumer-override сверка, а не вопрос владельцу.
+`EventCard.astro` остаётся candidate `event.card`. Exact DOM/a11y/consumer reconciliation показал, что `listings/ListingEventCard.astro` имеет иной action/focus/content contract, поэтому он выделен в `listing.event-card`, а stale axis `event.card[layout=listing]` удалён. `EventListItem.astro` также остаётся отдельным `event.list-item`; это evidence-backed technical delta, не owner question.
 
 ### Event Detail
 
@@ -78,7 +81,7 @@ personalization/PersonalizationRuntime.astro
 
 ### Event Token Medallions
 
-`EventTokenMedallions.astro` не сохранён как «универсальный medallion component» и не разрезан на выдуманные identities. Он остаётся technical unresolved boundary до source/domain taxonomy: medallion, badge/pill/status и identity-image должны быть доказаны отдельно.
+Exact source taxonomy закрыла technical boundary: `EventTokenMedallions.astro` зарегистрирован как `event.token-medallions` product pattern/composition, а не универсальный medallion component. Его typed items `organizer|source|program|pushkin|badge|pill` сохраняют разные identity-image, badge и status semantics; pattern остаётся reconstructed, `canonical=false`, `accepted=false`, `promotion_ready=false`.
 
 ## 3. Media и loading
 
@@ -100,18 +103,20 @@ OWNER_AMBIGUITY_COUNT: 0
 
 Текущие gaps не являются выбором между двумя равно допустимыми продуктовым моделями. Это работа агента: source reconciliation, domain taxonomy, reachability и accessibility evidence.
 
-## 5. Technical reconciliation queue
+## 5. Technical reconciliation results
 
-1. `EventListItem` против `event.card[layout=listing]`.
-2. Reachability/ownership `MobileSearchBottomNav`.
-3. Domain split `EventTokenMedallions`.
-4. Exact implementation convergence `EventCard` / `ListingEventCard`.
-5. Consumer-scoped media matrix.
-6. Transport experiment treatments без winner.
+1. `TECH-EVENT-LIST-001` — `RECLASSIFIED_WITH_EVIDENCE`: отдельный `event.list-item`.
+2. `TECH-MOBILE-SEARCH-NAV-001` — `RECLASSIFIED_WITH_EVIDENCE`: compatibility wrapper → `navigation.mobile-tab-bar[current=search]`, без отдельного master.
+3. `TECH-MEDALLION-001` — `RECLASSIFIED_WITH_EVIDENCE`: typed `event.token-medallions` product pattern.
+4. `TECH-EVENT-CARD-001` — `RECLASSIFIED_WITH_EVIDENCE`: `event.card` и `listing.event-card` остаются разными identities.
+5. `TECH-EVENT-MEDIA-001` — `PASS_WITH_DECLARED_VARIANT`: 35 consumer/slot-specific media cells, без глобального ratio/fit/upscale token.
+6. `TECH-TRANSPORT-EXPERIMENT-001` — `PASS`: baseline остаётся в `transport.kaup-schedule`; host и три treatments сохраняют `NOT_MERGED`, winner не выбран.
+
+`OWNER_AMBIGUITY_COUNT: 0`. Machine evidence: `technical-reconciliation-results.jsonl`, `source-drift-ledger.jsonl`, `media-policy-matrix.jsonl`.
 
 ## 6. Penpot materialization
 
-W1–W4 создают native candidate masters/variants/states. W5 собирает archetypes только из instances. Screenshots остаются evidence. Все resources сохраняют:
+W1–W4 планируют 65 native candidate masters/variants/states после reconciliation (W1=16, W2=14, W3=17, W4=18). W5 собирает archetypes только из instances. Screenshots остаются evidence. Все resources сохраняют:
 
 ```text
 CANDIDATE

@@ -36,3 +36,16 @@
 - owner ambiguity queue содержит 0 governance/technical questions;
 - production source и public runtime не изменены;
 - candidate materialization не означает acceptance/promotion.
+
+## Source reconciliation checkpoint
+
+- design-system origin/main: `c59a3576c7361c1953b31ad9b98ed096640e92c7`; extraction/lane base: `8bf4ad465cbd9d943935c201378b867a5d539456`;
+- events origin/main: `96784bd572c03b965f303366c4ff0bb85d1b9a3f`; synthesis-observed: `a161061d8161409566412db2b1909031949dc104`; decoder-pinned: `66bc0d43e36299417626f992021cfb7299ddf704`;
+- exact source paths: `107/107`; post-synthesis source/blob drift: `0`; decoder→current bounded nonmaterial instrumentation delta: `1`; import/consumer edge drift: `0`;
+- entity count remains `111`: the obsolete unresolved mobile-search wrapper entity was removed while `listing.event-card` was added;
+- current candidate components/controls: `63`; product patterns: `15`; evidence/experiment/unresolved: `7`; Penpot-eligible entities: `94`;
+- W1–W4 plan: original package `61`, reconciled `65` (`16/14/17/18`); `core.dialog` is in W1, and `core.rail` has an explicit pre-W2 topological subpass before `event.media-rail`;
+- mapping remains exact `107/107`; all six technical queue items have terminal results; owner ambiguity remains `0`;
+- all records remain `canonical=false`, `accepted=false`, `promotion_ready=false`.
+
+The immutable ZIP/manifest continue to bind the original package. The extracted JSONL/JSON/CSV records and reconciliation ledgers are the integrated, diffable source of truth.

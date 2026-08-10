@@ -7,10 +7,24 @@
     "mapping_rows": 107,
     "semantic_acceptance_implied": false
   },
+  "dependency_execution": {
+    "mode": "deterministic_topological_subpasses_over_wave_labels",
+    "subpasses": [
+      {
+        "before_entity_ids": [
+          "event.media-rail"
+        ],
+        "declared_wave_membership_preserved": "W3-card-listing-navigation",
+        "materialize_entity_ids": [
+          "core.rail"
+        ],
+        "reason": "event.media-rail requires a native core.rail master before nested instance creation; no detached or temporary rail is permitted.",
+        "subpass_id": "pre-W2-core-rail-prerequisite"
+      }
+    ]
+  },
   "excluded_entity_ids": [
     "artifact.rail-insert",
-    "event.list-item",
-    "event.token-medallions",
     "exhibition.row",
     "experiment.keyboard-navigation",
     "experiment.transport-timetable",
@@ -26,8 +40,7 @@
     "runtime.pwa-telemetry",
     "runtime.static-auth",
     "runtime.unusual-unread",
-    "runtime.weather-date-context",
-    "unresolved.mobile-search-bottom-nav"
+    "runtime.weather-date-context"
   ],
   "fixture_requirements": {
     "counts": [
@@ -78,6 +91,15 @@
   },
   "owner_ambiguity_count": 0,
   "promotion_ready": false,
+  "reconciliation_delta_refs": [
+    "TECH-EVENT-LIST-001",
+    "TECH-MOBILE-SEARCH-NAV-001",
+    "TECH-MEDALLION-001",
+    "TECH-EVENT-CARD-001",
+    "PLAN-W1-BRAND-PAGE-001",
+    "PLAN-CORE-DIALOG-001",
+    "PLAN-CORE-RAIL-TOPOLOGY-001"
+  ],
   "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
   "schema_version": "lovekgd_penpot_materialization_plan_v0_1_exact_107",
   "technical_reconciliation_count": 6,
@@ -91,6 +113,7 @@
         "core.button",
         "core.calendar-action",
         "core.copy-action",
+        "core.dialog",
         "core.favorite-action",
         "core.field",
         "core.icon",
@@ -102,6 +125,7 @@
       ],
       "reason": "Highest-confidence bounded identities and direct duplicate/drift closure.",
       "target_pages": [
+        "10 — Brand assets",
         "25 — Iconography",
         "30 — Core UI resources"
       ],
@@ -136,11 +160,13 @@
         "core.rail",
         "event.card",
         "event.card-grid",
+        "event.list-item",
         "home.quick-navigation",
         "listing.category-filter",
         "listing.controls",
         "listing.density-switch",
         "listing.discovery-rail",
+        "listing.event-card",
         "listing.page-header",
         "listing.range-navigation",
         "listing.time-marker",
@@ -161,6 +187,7 @@
       "entity_ids": [
         "artifact.collection",
         "club.card",
+        "event.token-medallions",
         "favorites.surface",
         "focus.diagnostic",
         "focus.feedback-form",
