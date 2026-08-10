@@ -1,9 +1,12 @@
 {
   "schema_version": "lovekgd-penpot-resource-graph-plugin-contract-v1",
   "delivery_id": "resource-graph-004",
+  "status": "candidate-transport-contract",
   "source": {
     "catalog_count_per_update": 1,
-    "authority": "accepted-production-release-inventory",
+    "authority": "lifecycle-scoped",
+    "reconstruction_authority": "pinned-exact-source-and-evidence",
+    "promotion_authority": "accepted-production-release-inventory",
     "required_identity": [
       "repo_sha",
       "build_id",
@@ -14,6 +17,46 @@
     ],
     "forbid_arbitrary_main": true,
     "forbid_lab_as_inventory_authority": true
+  },
+  "lifecycle": {
+    "contract_ref": "contracts/normalization/family-lifecycle.v1.json",
+    "candidate_materialization_state": "PENPOT_COMPONENT_CANDIDATE",
+    "candidate_mutation_states": [
+      "PENPOT_COMPONENT_CANDIDATE",
+      "PAGE_ARCHETYPE_CANDIDATE",
+      "PRODUCT_REPRESENTATIONS",
+      "REVIEWED_CORRECTIONS"
+    ],
+    "required_completed_states_before_materialization": [
+      "CANDIDATE_CONTRACT_ACCEPTED",
+      "CANONICAL_CODE_CANDIDATE"
+    ],
+    "candidate_authority_mode": "reconstructed",
+    "candidate_status": "candidate",
+    "candidate_canonical": false,
+    "candidate_metadata_guard": {
+      "current_state_must_be_allowed": true,
+      "state_receipt_must_match_subject_and_candidate_hashes": true,
+      "missing_stale_or_mismatched_evidence_effect": "abort-before-mutation",
+      "partial_write_effect": "rollback-to-operation-checkpoint"
+    },
+    "promotion_side_effect_forbidden": true,
+    "design_system_led_reconciliation_requires_existing_promotion_receipt": true,
+    "required_candidate_metadata": [
+      "lifecycle_contract_ref",
+      "lifecycle_state",
+      "subject_id",
+      "candidate_contract_id",
+      "candidate_contract_version",
+      "candidate_contract_sha256",
+      "code_candidate_repo_sha",
+      "authority_mode",
+      "status",
+      "canonical",
+      "promotion_receipt_ref",
+      "materialization_receipt_ref",
+      "rollback_ref"
+    ]
   },
   "interaction": {
     "plugin_open_per_update": 1,
@@ -49,6 +92,7 @@
   "update_everything_phases": [
     "load-and-verify-single-catalog",
     "recover-interrupted-operation",
+    "validate-lifecycle-authorization",
     "reconcile-library-colors",
     "reconcile-library-typographies",
     "reconcile-iconography-inventory",
@@ -58,33 +102,44 @@
     "reconcile-variant-sets",
     "reconcile-product-patterns",
     "reconcile-archetype-instances",
+    "reconcile-product-representations",
+    "reconcile-product-state-matrices",
+    "reconcile-ux-flow-links",
     "reconcile-icon-consumer-links",
     "reconcile-desktop-evidence",
     "reconcile-tablet-evidence",
     "reconcile-mobile-evidence",
     "reconcile-interaction-and-accessibility-evidence",
     "write-resource-consumer-evidence-links",
+    "write-lifecycle-candidate-metadata",
     "preserve-native-comments-and-review-snapshots",
     "verify-hashes-counts-links-and-coverage",
     "publish-one-final-report"
   ],
   "penpot_pages": [
     { "id": "00-system-map", "name": "00 — System map", "kind": "documentation" },
+    { "id": "05-recent-changes", "name": "05 — Recent changes", "kind": "documentation" },
     { "id": "10-brand-assets", "name": "10 — Brand assets", "kind": "resources" },
+    { "id": "15-methodology-contracts", "name": "15 — Methodology and contracts", "kind": "documentation" },
     { "id": "20-foundations", "name": "20 — Foundations", "kind": "resources" },
     { "id": "25-iconography", "name": "25 — Iconography", "kind": "resources" },
     { "id": "30-core-ui", "name": "30 — Core UI resources", "kind": "resources" },
     { "id": "40-announcements-components", "name": "40 — Announcements components", "kind": "resources" },
     { "id": "50-product-patterns", "name": "50 — Product patterns", "kind": "patterns" },
     { "id": "60-page-archetypes", "name": "60 — Page archetypes", "kind": "archetypes" },
+    { "id": "62-product-representations", "name": "62 — Product representations", "kind": "representations" },
+    { "id": "64-product-state-matrices", "name": "64 — Product state matrices", "kind": "representations" },
+    { "id": "66-ux-flows-transitions", "name": "66 — UX flows and transitions", "kind": "flows" },
+    { "id": "68-ui-gaps-comments-decisions", "name": "68 — UI gaps, comments and decisions", "kind": "governance" },
     { "id": "70-coverage-fragmentation", "name": "70 — Coverage and fragmentation", "kind": "governance" },
-    { "id": "80-candidate-review", "name": "80 — Candidate review", "kind": "review" },
+    { "id": "80-candidate-review", "name": "80 — Candidate review and promotion", "kind": "review" },
     { "id": "89-review-archive", "name": "89 — Review archive", "kind": "archive" },
     { "id": "90-evidence-desktop", "name": "90 — Evidence / desktop", "kind": "evidence" },
     { "id": "91-evidence-tablet", "name": "91 — Evidence / tablet", "kind": "evidence" },
     { "id": "92-evidence-mobile", "name": "92 — Evidence / mobile", "kind": "evidence" },
     { "id": "93-evidence-interaction-a11y", "name": "93 — Evidence / interaction and accessibility", "kind": "evidence" },
-    { "id": "99-technical-tests", "name": "99 — Technical tests", "kind": "technical" }
+    { "id": "94-accepted-exports-tests", "name": "94 — Accepted exports and test references", "kind": "evidence" },
+    { "id": "99-technical-tests", "name": "99 — MCP diagnostics and sandbox", "kind": "technical" }
   ],
   "managed_object_types": [
     "library-color",
@@ -98,6 +153,11 @@
     "component-instance",
     "product-pattern",
     "page-archetype",
+    "product-screen",
+    "product-screen-state",
+    "screen-component-instance",
+    "screen-transition",
+    "ux-flow",
     "evidence-actual",
     "evidence-approved-baseline",
     "evidence-diff",
@@ -173,7 +233,10 @@
     "archetype-composition",
     "evidence",
     "coverage",
-    "review"
+    "review",
+    "family-lifecycle-state",
+    "last-passed-lifecycle-gate",
+    "post-correction-evidence-currentness"
   ],
   "recovery": {
     "checkpoint_before_each_internal_batch": true,

@@ -60,6 +60,24 @@ runtime
 
 Promotion происходит по resource family. Допустимо, что Button уже `design-system-led`, а EventCard ещё `reconstructed`.
 
+Authority mode is orthogonal to the normative [family and archetype lifecycle](normalization/design-system-family-lifecycle.md). The exact sequence is:
+
+```text
+AS_IS_RECONSTRUCTED
+→ FAMILY_HYPOTHESIS_REVIEWED
+→ CANDIDATE_CONTRACT_ACCEPTED
+→ CANONICAL_CODE_CANDIDATE
+→ PENPOT_COMPONENT_CANDIDATE
+→ COMPONENT_THREE_WAY_CONFORMANCE
+→ PAGE_ARCHETYPE_CANDIDATE
+→ PRODUCT_REPRESENTATIONS
+→ GEMINI_MCP_VISUAL_AUDIT
+→ REVIEWED_CORRECTIONS
+→ FAMILY_AND_ARCHETYPE_PROMOTION
+```
+
+States through `REVIEWED_CORRECTIONS` remain `reconstructed`. `CANDIDATE_CONTRACT_ACCEPTED` accepts a target for reversible candidate implementation; it is not production acceptance. Only `FAMILY_AND_ARCHETYPE_PROMOTION` transfers authority for the bounded family and affected archetypes.
+
 ## Минимальный Component Contract
 
 ```yaml
@@ -67,7 +85,9 @@ component_id: core.button
 contract_version: 2.0.0
 contract_sha256: ...
 authority_mode: reconstructed | design-system-led
-status: candidate | accepted | deprecated
+lifecycle_state: AS_IS_RECONSTRUCTED | ... | FAMILY_AND_ARCHETYPE_PROMOTION
+contract_decision_status: draft | candidate-accepted | promoted | deprecated
+canonical: false | true
 
 anatomy: []
 variant_axes: {}
@@ -88,6 +108,8 @@ promotion_receipt_ref: ...
 rollback_ref: ...
 ```
 
+`candidate-accepted` means the owner accepted a target contract, migration and rollback plan. Before final promotion it still has `authority_mode: reconstructed`, `canonical: false` and no promotion receipt. `promoted` requires the lifecycle terminal state and is the only status for which `canonical: true` is permitted.
+
 Contract не дублирует HTML/CSS. Он определяет identity, API, семантические axes и инварианты, из которых генерируются типы, valid state keys, specimen plan и Penpot materialization manifest.
 
 ## Structural states и fixtures
@@ -106,7 +128,7 @@ content fixture
 
 ## Canonical `state_key`
 
-Каждый runtime instance promoted family обязан объявлять:
+Каждый isolated/generated-page conformance instance candidate family и каждый runtime instance promoted family обязан объявлять:
 
 ```text
 component_id
@@ -127,7 +149,19 @@ appearance=primary;size=medium;state=disabled;width=fill;icon=none
 
 ## Three-way Component Conformance Capsule
 
-Для каждой новой/изменённой contract version проверяются три поверхности.
+Для каждой новой/изменённой contract version `COMPONENT_THREE_WAY_CONFORMANCE` проверяет три candidate surfaces после `CANONICAL_CODE_CANDIDATE` и `PENPOT_COMPONENT_CANDIDATE`.
+
+Every surface binds exactly the same tuple:
+
+```text
+component_id
+contract_version
+contract_sha256
+state_key
+fixture_id
+viewport_id
+candidate_package_sha
+```
 
 ### A. Native Penpot component
 
@@ -152,13 +186,15 @@ appearance=primary;size=medium;state=disabled;width=fill;icon=none
 
 ### C. Real generated-page instance
 
-- exact package version;
+- exact candidate package version and SHA;
 - emitted component/version/state markers;
 - route and consumer context;
 - absence of unknown state;
 - absence of forbidden local override;
 - responsive behavior;
 - parity with isolated specimen and accepted reference.
+
+Before promotion this is a real generated preview page using the candidate package, not evidence that production authority has already changed. The final promotion gate requires accepted-release/post-deploy conformance again. A screenshot without identity, DOM, interaction and accessibility evidence cannot satisfy the capsule.
 
 Пример результата:
 
@@ -186,9 +222,9 @@ checks:
 conclusion: conformant
 ```
 
-## CI gates после promotion
+## CI gates before and after promotion
 
-Для всех promoted families CI должен проверять:
+At `COMPONENT_THREE_WAY_CONFORMANCE`, CI validates candidate bindings, generated state coverage and the three surfaces without allowing a production import. После promotion те же проверки становятся обязательными для production consumers:
 
 1. `component_id` существует в contract registry.
 2. Penpot и Astro bindings используют тот же ID.
@@ -196,7 +232,7 @@ conclusion: conformant
 4. Astro props/state types генерируются или валидируются contract schema.
 5. Runtime не эмитит unknown states.
 6. Каждый required state имеет isolated specimen.
-7. Каждый production-observed state покрыт accepted/candidate Penpot specimen согласно authority mode.
+7. Каждый observed state покрыт candidate Penpot specimen before promotion and accepted specimen after promotion.
 8. Composite dependency graph совпадает.
 9. Consumer CSS не проникает в запрещённые internals.
 10. Accepted visual reference не обновляется browser actual автоматически.
@@ -228,11 +264,11 @@ MAJOR
   breaking anatomy/API/required-slot/state removal
 ```
 
-Candidate version может существовать в UI Exploration, Penpot sandbox и preview specimen routes. Production import разрешён только после acceptance/promotion receipt.
+Candidate version может существовать в UI Exploration, canonical package preview, Penpot candidate zones и preview specimen routes. Production import разрешён только при `FAMILY_AND_ARCHETYPE_PROMOTION` и наличии promotion receipt; `CANDIDATE_CONTRACT_ACCEPTED` недостаточно.
 
 ## Promotion gate
 
-Resource family становится `design-system-led`, когда одновременно доказаны:
+Authoritative gate details live in the machine-readable [family lifecycle](../contracts/normalization/family-lifecycle.v1.json), transition `T10_PROMOTE_FAMILY_AND_ARCHETYPES`. Resource family and affected archetypes become `design-system-led` only when simultaneously proven:
 
 - stable contract identity and version;
 - native Penpot masters/variants;
@@ -247,3 +283,5 @@ Resource family становится `design-system-led`, когда однов�
 - accepted exports and test references;
 - rollback receipt;
 - explicit owner acceptance.
+
+Native Penpot masters, candidate representations and three-way conformance therefore exist before promotion, but remain noncanonical evidence. Penpot materialization never performs the authority transition itself.

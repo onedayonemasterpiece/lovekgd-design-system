@@ -82,13 +82,15 @@ page composition
 = конкретная исследуемая сборка
 
 page archetype
-= принятый reusable contract route/page family
+= reusable route/page-family contract; candidate until final family/archetype promotion
 
 product representation
-= реальный configured screen/state из archetype и native instances
+= реальный configured candidate/accepted screen state из одного archetype и native instances
 ```
 
 Один archetype может иметь mobile/desktop, authorized/anonymous, open/sold-out/ended, wide-photo/portrait-poster/no-image representations.
+
+The exact authority boundary is defined by the [normative family lifecycle](normalization/design-system-family-lifecycle.md): `PAGE_ARCHETYPE_CANDIDATE` and `PRODUCT_REPRESENTATIONS` remain reconstructed candidates; archetype acceptance occurs only at `FAMILY_AND_ARCHETYPE_PROMOTION`. A source-requirements overlay or detached screen mockup is not an archetype.
 
 ## Product linkage
 
@@ -125,6 +127,8 @@ comment or runtime evidence
 ```
 
 Комментарий не закрывается автоматически после mutation. Изменение не равно acceptance.
+
+This UI-improvement lifecycle is orthogonal to the family lifecycle. A resolved comment, owner-approved correction or completed handoff does not by itself advance a family state or change authority.
 
 ## Verified comment behavior
 
@@ -167,6 +171,8 @@ rebuild-file
 9. формирует changed-resource receipt;
 10. оставляет результат candidate до explicit acceptance.
 
+For family work, “explicit acceptance” here means the machine lifecycle transition. Candidate writes remain `authority_mode=reconstructed`, `canonical=false` until `FAMILY_AND_ARCHETYPE_PROMOTION`.
+
 ## Managed spatial layout
 
 ```text
@@ -192,6 +198,10 @@ MCP
 ```
 
 Оба mutation channels используют один IR/Component Contract, stable IDs, hashes and operation locks.
+
+### Gemini MCP visual audit
+
+The `GEMINI_MCP_VISUAL_AUDIT` lifecycle state uses Penpot MCP only for read-only inspection/export of a hash-bound full-resolution bundle. Only `gemini-3-pro-preview` or `gemini-3.1-pro-preview` satisfies the advisory review gate. Gemini may report visible hierarchy, composition, reuse, responsive and state-coverage risks, but cannot prove DOM/accessibility semantics, interaction behavior, contract hashes, three-way conformance, production release, owner acceptance or promotion. It may not mutate Penpot or resolve comments. Lower-class probes and provider failures do not satisfy the gate.
 
 ## Baseline policy
 

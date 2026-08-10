@@ -9,6 +9,7 @@
 | [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |
 | [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 closure complete; candidates not accepted |
 | [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | charter candidate, 47-family registry, evidence dispositions, first-wave dossiers и product-value observe gate | synthesis complete; ready for family decision review; no physical work authorized |
+| [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md) | normative 11-state code → Penpot → archetype → visual audit → promotion lifecycle | accepted contract; current state AS_IS_RECONSTRUCTED |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
@@ -25,6 +26,8 @@
 | [`../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/) | reviewed compact AS-IS decoder snapshot; 107 components, 12 candidate contracts, 6 capsules, 157/157 rasters inspected |
 | [`../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/) | final reviewed sibling behavioral/action/media evidence; 293 terminal probes, zero readiness blockers, 134/134 raster reviews |
 | [`../contracts/project-normalization-charter.v1.json`](../contracts/project-normalization-charter.v1.json) | project-specific candidate charter and R-01…R-07 disposition ledger | candidate; not accepted implementation authority |
+| [`../contracts/normalization/family-lifecycle.v1.json`](../contracts/normalization/family-lifecycle.v1.json) | exact 11 ordered states, 10 adjacent gates, authority and evidence rules | normative lifecycle; current state AS_IS_RECONSTRUCTED |
+| [`../contracts/normalization/family-lifecycle.v1.schema.json`](../contracts/normalization/family-lifecycle.v1.schema.json) | fail-closed machine schema for the lifecycle contract | accepted schema |
 | [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
 | [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
 | [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | hash-bound synthesis counts, inputs, outputs, constraints and audit | completion receipt |
@@ -69,6 +72,24 @@ Production conformance
 9. Three-way conformance pilot                      NOT STARTED
 10. Per-family promotion to design-system-led       0 families
 ```
+
+The detailed sequence above is now governed by the machine contract and cannot be shortened:
+
+```text
+AS_IS_RECONSTRUCTED
+→ FAMILY_HYPOTHESIS_REVIEWED
+→ CANDIDATE_CONTRACT_ACCEPTED
+→ CANONICAL_CODE_CANDIDATE
+→ PENPOT_COMPONENT_CANDIDATE
+→ COMPONENT_THREE_WAY_CONFORMANCE
+→ PAGE_ARCHETYPE_CANDIDATE
+→ PRODUCT_REPRESENTATIONS
+→ GEMINI_MCP_VISUAL_AUDIT
+→ REVIEWED_CORRECTIONS
+→ FAMILY_AND_ARCHETYPE_PROMOTION
+```
+
+The existing synthesis status is only readiness to attempt the first transition; it does not prove `FAMILY_HYPOTHESIS_REVIEWED`.
 
 ## Запреты текущей фазы
 

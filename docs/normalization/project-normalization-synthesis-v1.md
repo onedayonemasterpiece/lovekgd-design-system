@@ -8,6 +8,8 @@
 
 This is an analytical, candidate-only synthesis. It changes neither production UI nor immutable Decoder v1. Candidate family decisions remain unaccepted and every experiment remains `NOT_MERGED`.
 
+`READY_FOR_FAMILY_DECISION_REVIEW` is readiness to attempt the first transition in the [normative family lifecycle](design-system-family-lifecycle.md); it is not `FAMILY_HYPOTHESIS_REVIEWED`. The current lifecycle state remains `AS_IS_RECONSTRUCTED`.
+
 ## Pinned authority
 
 - Design base: `228126dd78a67a6f335272324dc90c1e680cd8c4`.
@@ -48,6 +50,8 @@ None is promotion-ready.
 ## Product-value gate
 
 The pinned product repository has no authoritative machine-readable need, Job, Journey, capability, outcome, metric or guardrail IDs. All 239 concrete consumer applications therefore use empty foreign-key arrays and `pending_product_model`. The gate is `observe`; AS-IS preservation is allowed, while promotion is forbidden. Three source-only/no-consumer component identities (`PopularCategoryFilter`, `MobileSearchBottomNav`, `WeekendTimeMatrix`) remain fully dispositioned but correctly produce no application row. Switching to `enforce` requires a separate future receipt.
+
+Consequently no subject can enter `FAMILY_AND_ARCHETYPE_PROMOTION`; synthesis completion does not advance any of the eleven lifecycle states automatically.
 
 ## Decision boundary
 

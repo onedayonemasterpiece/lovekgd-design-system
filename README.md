@@ -107,6 +107,8 @@ Project Normalization Synthesis v1 опубликован в
 
 Его verdict `GO_FOR_FAMILY_SCOPED_DEFRAGMENTATION` означает только готовность evidence к следующему аналитическому этапу по отдельным семействам. Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и не мутирует Penpot. Подробности: [`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
 
+The normative [family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md) has eleven ordered states. Current truth is `AS_IS_RECONSTRUCTED`; synthesis readiness is not `FAMILY_HYPOTHESIS_REVIEWED`, and authority changes only at `FAMILY_AND_ARCHETYPE_PROMOTION`.
+
 ## Канонические документы
 
 - [Карта документации](docs/index.md)
@@ -114,6 +116,7 @@ Project Normalization Synthesis v1 опубликован в
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
+- [Family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
 - [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
 - [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)

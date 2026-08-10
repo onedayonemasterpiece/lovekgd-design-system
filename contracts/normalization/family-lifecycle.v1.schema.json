@@ -1,0 +1,1503 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.design/contracts/normalization/family-lifecycle.v1.schema.json",
+  "title": "LoveKGD bounded family and affected-archetype lifecycle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_id",
+    "schema_version",
+    "normative_status",
+    "lifecycle_id",
+    "scope",
+    "current_repository_state",
+    "initial_state",
+    "terminal_state",
+    "state_order",
+    "states",
+    "transitions",
+    "penpot_pre_promotion_semantics",
+    "three_way_conformance",
+    "archetype_and_representation_semantics",
+    "gemini_mcp_visual_audit",
+    "invalidation_rules",
+    "promotion_invariants"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "schema_id": {
+      "const": "lovekgd.family-lifecycle.v1"
+    },
+    "schema_version": {
+      "const": "family_lifecycle_v1"
+    },
+    "normative_status": {
+      "const": "accepted"
+    },
+    "lifecycle_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "initial_subject_may_be_analysis_group",
+        "semantic_family_identity_begins_at",
+        "global_promotion_forbidden"
+      ],
+      "properties": {
+        "unit": {
+          "const": "bounded-candidate-family-subject-and-affected-archetype-set"
+        },
+        "initial_subject_may_be_analysis_group": {
+          "const": true
+        },
+        "semantic_family_identity_begins_at": {
+          "const": "FAMILY_HYPOTHESIS_REVIEWED"
+        },
+        "global_promotion_forbidden": {
+          "const": true
+        }
+      }
+    },
+    "current_repository_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "reason",
+        "promotion_claim_allowed"
+      ],
+      "properties": {
+        "state": {
+          "const": "AS_IS_RECONSTRUCTED"
+        },
+        "reason": {
+          "const": "No native Penpot components or accepted visual archetypes exist; all current family/application promotion flags are false and the Product Value Gate is observe/pending."
+        },
+        "promotion_claim_allowed": {
+          "const": false
+        }
+      }
+    },
+    "initial_state": {
+      "const": "AS_IS_RECONSTRUCTED"
+    },
+    "terminal_state": {
+      "const": "FAMILY_AND_ARCHETYPE_PROMOTION"
+    },
+    "state_order": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "AS_IS_RECONSTRUCTED"
+        },
+        {
+          "const": "FAMILY_HYPOTHESIS_REVIEWED"
+        },
+        {
+          "const": "CANDIDATE_CONTRACT_ACCEPTED"
+        },
+        {
+          "const": "CANONICAL_CODE_CANDIDATE"
+        },
+        {
+          "const": "PENPOT_COMPONENT_CANDIDATE"
+        },
+        {
+          "const": "COMPONENT_THREE_WAY_CONFORMANCE"
+        },
+        {
+          "const": "PAGE_ARCHETYPE_CANDIDATE"
+        },
+        {
+          "const": "PRODUCT_REPRESENTATIONS"
+        },
+        {
+          "const": "GEMINI_MCP_VISUAL_AUDIT"
+        },
+        {
+          "const": "REVIEWED_CORRECTIONS"
+        },
+        {
+          "const": "FAMILY_AND_ARCHETYPE_PROMOTION"
+        }
+      ],
+      "items": false,
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "states": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "AS_IS_RECONSTRUCTED"
+                },
+                "ordinal": {
+                  "const": 1
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "FAMILY_HYPOTHESIS_REVIEWED"
+                },
+                "ordinal": {
+                  "const": 2
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "CANDIDATE_CONTRACT_ACCEPTED"
+                },
+                "ordinal": {
+                  "const": 3
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "CANONICAL_CODE_CANDIDATE"
+                },
+                "ordinal": {
+                  "const": 4
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "PENPOT_COMPONENT_CANDIDATE"
+                },
+                "ordinal": {
+                  "const": 5
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "COMPONENT_THREE_WAY_CONFORMANCE"
+                },
+                "ordinal": {
+                  "const": 6
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "PAGE_ARCHETYPE_CANDIDATE"
+                },
+                "ordinal": {
+                  "const": 7
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "PRODUCT_REPRESENTATIONS"
+                },
+                "ordinal": {
+                  "const": 8
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "GEMINI_MCP_VISUAL_AUDIT"
+                },
+                "ordinal": {
+                  "const": 9
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "REVIEWED_CORRECTIONS"
+                },
+                "ordinal": {
+                  "const": 10
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stateDefinition"
+            },
+            {
+              "properties": {
+                "state": {
+                  "const": "FAMILY_AND_ARCHETYPE_PROMOTION"
+                },
+                "ordinal": {
+                  "const": 11
+                }
+              },
+              "required": [
+                "state",
+                "ordinal"
+              ]
+            }
+          ]
+        }
+      ],
+      "items": false,
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "transitions": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T01_REVIEW_FAMILY_HYPOTHESIS"
+                },
+                "from": {
+                  "const": "AS_IS_RECONSTRUCTED"
+                },
+                "to": {
+                  "const": "FAMILY_HYPOTHESIS_REVIEWED"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G01_POSITIVE_SEMANTIC_FAMILY_EVIDENCE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T02_ACCEPT_CANDIDATE_CONTRACT"
+                },
+                "from": {
+                  "const": "FAMILY_HYPOTHESIS_REVIEWED"
+                },
+                "to": {
+                  "const": "CANDIDATE_CONTRACT_ACCEPTED"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G02_OWNER_ACCEPTED_TARGET_AND_REVERSIBILITY"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T03_BUILD_CANONICAL_CODE_CANDIDATE"
+                },
+                "from": {
+                  "const": "CANDIDATE_CONTRACT_ACCEPTED"
+                },
+                "to": {
+                  "const": "CANONICAL_CODE_CANDIDATE"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G03_HASH_BOUND_CODE_CANDIDATE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T04_MATERIALIZE_PENPOT_COMPONENT_CANDIDATE"
+                },
+                "from": {
+                  "const": "CANONICAL_CODE_CANDIDATE"
+                },
+                "to": {
+                  "const": "PENPOT_COMPONENT_CANDIDATE"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G04_NONCANONICAL_NATIVE_PENPOT_CANDIDATE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T05_PASS_COMPONENT_THREE_WAY_CONFORMANCE"
+                },
+                "from": {
+                  "const": "PENPOT_COMPONENT_CANDIDATE"
+                },
+                "to": {
+                  "const": "COMPONENT_THREE_WAY_CONFORMANCE"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G05_EXACT_THREE_WAY_COMPONENT_CAPSULE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T06_BUILD_PAGE_ARCHETYPE_CANDIDATE"
+                },
+                "from": {
+                  "const": "COMPONENT_THREE_WAY_CONFORMANCE"
+                },
+                "to": {
+                  "const": "PAGE_ARCHETYPE_CANDIDATE"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G06_INSTANCE_BOUND_ARCHETYPE_CANDIDATE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T07_COMPLETE_PRODUCT_REPRESENTATIONS"
+                },
+                "from": {
+                  "const": "PAGE_ARCHETYPE_CANDIDATE"
+                },
+                "to": {
+                  "const": "PRODUCT_REPRESENTATIONS"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G07_REAL_CONFIGURED_SCREEN_COVERAGE"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T08_COMPLETE_GEMINI_MCP_VISUAL_AUDIT"
+                },
+                "from": {
+                  "const": "PRODUCT_REPRESENTATIONS"
+                },
+                "to": {
+                  "const": "GEMINI_MCP_VISUAL_AUDIT"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G08_ALLOWED_PRO_READ_ONLY_VISUAL_AUDIT"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T09_REVIEW_AND_REPLAY_CORRECTIONS"
+                },
+                "from": {
+                  "const": "GEMINI_MCP_VISUAL_AUDIT"
+                },
+                "to": {
+                  "const": "REVIEWED_CORRECTIONS"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G09_OWNER_DISPOSITION_AND_CURRENT_REPLAY"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "reconstructed",
+                    "authority_change": false
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/transitionDefinition"
+            },
+            {
+              "properties": {
+                "transition_id": {
+                  "const": "T10_PROMOTE_FAMILY_AND_ARCHETYPES"
+                },
+                "from": {
+                  "const": "REVIEWED_CORRECTIONS"
+                },
+                "to": {
+                  "const": "FAMILY_AND_ARCHETYPE_PROMOTION"
+                },
+                "gate": {
+                  "properties": {
+                    "gate_id": {
+                      "const": "G10_ATOMIC_FAMILY_AND_ARCHETYPE_PROMOTION"
+                    }
+                  },
+                  "required": [
+                    "gate_id"
+                  ]
+                },
+                "authority": {
+                  "const": {
+                    "before": "reconstructed",
+                    "after": "design-system-led",
+                    "authority_change": true
+                  }
+                }
+              },
+              "required": [
+                "transition_id",
+                "from",
+                "to",
+                "gate",
+                "authority"
+              ]
+            }
+          ]
+        }
+      ],
+      "items": false,
+      "minItems": 10,
+      "maxItems": 10
+    },
+    "penpot_pre_promotion_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "materialization_state",
+        "requires_states_completed",
+        "authority_mode",
+        "status",
+        "canonical",
+        "promotion_receipt_ref",
+        "required_metadata",
+        "promotion_side_effect_forbidden"
+      ],
+      "properties": {
+        "materialization_state": {
+          "const": "PENPOT_COMPONENT_CANDIDATE"
+        },
+        "requires_states_completed": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "CANDIDATE_CONTRACT_ACCEPTED"
+            },
+            {
+              "const": "CANONICAL_CODE_CANDIDATE"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "authority_mode": {
+          "const": "reconstructed"
+        },
+        "status": {
+          "const": "candidate"
+        },
+        "canonical": {
+          "const": false
+        },
+        "promotion_receipt_ref": {
+          "const": null
+        },
+        "required_metadata": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "lifecycle_contract_ref"
+            },
+            {
+              "const": "lifecycle_state"
+            },
+            {
+              "const": "subject_id"
+            },
+            {
+              "const": "candidate_contract_id"
+            },
+            {
+              "const": "candidate_contract_version"
+            },
+            {
+              "const": "candidate_contract_sha256"
+            },
+            {
+              "const": "code_candidate_repo_sha"
+            },
+            {
+              "const": "authority_mode"
+            },
+            {
+              "const": "status"
+            },
+            {
+              "const": "canonical"
+            },
+            {
+              "const": "promotion_receipt_ref"
+            },
+            {
+              "const": "materialization_receipt_ref"
+            },
+            {
+              "const": "rollback_ref"
+            }
+          ],
+          "items": false,
+          "minItems": 13,
+          "maxItems": 13
+        },
+        "promotion_side_effect_forbidden": {
+          "const": true
+        }
+      }
+    },
+    "three_way_conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surfaces",
+        "equality_tuple",
+        "required_checks",
+        "all_required_surfaces_must_pass",
+        "screenshot_alone_sufficient"
+      ],
+      "properties": {
+        "surfaces": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "penpot"
+            },
+            {
+              "const": "astro_specimen"
+            },
+            {
+              "const": "generated_page"
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "equality_tuple": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "component_id"
+            },
+            {
+              "const": "contract_version"
+            },
+            {
+              "const": "contract_sha256"
+            },
+            {
+              "const": "state_key"
+            },
+            {
+              "const": "fixture_id"
+            },
+            {
+              "const": "viewport_id"
+            },
+            {
+              "const": "candidate_package_sha"
+            }
+          ],
+          "items": false,
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "required_checks": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "anatomy"
+            },
+            {
+              "const": "variant_mapping"
+            },
+            {
+              "const": "nested_components"
+            },
+            {
+              "const": "token_mapping"
+            },
+            {
+              "const": "geometry"
+            },
+            {
+              "const": "media_behavior"
+            },
+            {
+              "const": "text_behavior"
+            },
+            {
+              "const": "interaction"
+            },
+            {
+              "const": "accessibility"
+            },
+            {
+              "const": "local_overrides"
+            }
+          ],
+          "items": false,
+          "minItems": 10,
+          "maxItems": 10
+        },
+        "all_required_surfaces_must_pass": {
+          "const": true
+        },
+        "screenshot_alone_sufficient": {
+          "const": false
+        }
+      }
+    },
+    "archetype_and_representation_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_requirements_overlay_is_archetype",
+        "page_archetype_candidate_requires",
+        "product_representation_requires",
+        "minimum_viewport_classes",
+        "tablet_required_when_responsive_boundary",
+        "detached_mockup_forbidden"
+      ],
+      "properties": {
+        "source_requirements_overlay_is_archetype": {
+          "const": false
+        },
+        "page_archetype_candidate_requires": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "source-requirements-binding"
+            },
+            {
+              "const": "verified-route-family"
+            },
+            {
+              "const": "native-component-instance-graph"
+            },
+            {
+              "const": "state-axes"
+            },
+            {
+              "const": "gap-and-decision-refs"
+            }
+          ],
+          "items": false,
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "product_representation_requires": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "one-archetype-ref"
+            },
+            {
+              "const": "exact-instance-graph"
+            },
+            {
+              "const": "fixture-id"
+            },
+            {
+              "const": "viewport-id"
+            },
+            {
+              "const": "screen-state-id"
+            },
+            {
+              "const": "ux-flow-ref"
+            },
+            {
+              "const": "runtime-evidence-ref"
+            }
+          ],
+          "items": false,
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "minimum_viewport_classes": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "mobile"
+            },
+            {
+              "const": "desktop"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "tablet_required_when_responsive_boundary": {
+          "const": true
+        },
+        "detached_mockup_forbidden": {
+          "const": true
+        }
+      }
+    },
+    "gemini_mcp_visual_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "allowed_model_ids",
+        "mcp_mode",
+        "mutation_allowed",
+        "comment_resolution_allowed",
+        "authority_change_allowed",
+        "may_review",
+        "cannot_prove",
+        "supplementary_models_do_not_satisfy_gate",
+        "provider_failure_status",
+        "required_receipt_fields"
+      ],
+      "properties": {
+        "role": {
+          "const": "advisory-visual-and-semantic-review"
+        },
+        "allowed_model_ids": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "gemini-3-pro-preview"
+            },
+            {
+              "const": "gemini-3.1-pro-preview"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "mcp_mode": {
+          "const": "read-only"
+        },
+        "mutation_allowed": {
+          "const": false
+        },
+        "comment_resolution_allowed": {
+          "const": false
+        },
+        "authority_change_allowed": {
+          "const": false
+        },
+        "may_review": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "visual hierarchy"
+            },
+            {
+              "const": "composition"
+            },
+            {
+              "const": "native component reuse"
+            },
+            {
+              "const": "visible state coverage"
+            },
+            {
+              "const": "responsive consistency"
+            },
+            {
+              "const": "visible accessibility risks"
+            }
+          ],
+          "items": false,
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "cannot_prove": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "DOM semantics"
+            },
+            {
+              "const": "accessibility tree"
+            },
+            {
+              "const": "keyboard behavior"
+            },
+            {
+              "const": "runtime reachability"
+            },
+            {
+              "const": "contract or hash equality"
+            },
+            {
+              "const": "state completeness"
+            },
+            {
+              "const": "three-way conformance"
+            },
+            {
+              "const": "owner acceptance"
+            },
+            {
+              "const": "production release"
+            },
+            {
+              "const": "promotion"
+            }
+          ],
+          "items": false,
+          "minItems": 10,
+          "maxItems": 10
+        },
+        "supplementary_models_do_not_satisfy_gate": {
+          "const": true
+        },
+        "provider_failure_status": {
+          "const": "blocked"
+        },
+        "required_receipt_fields": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "model_id"
+            },
+            {
+              "const": "provider"
+            },
+            {
+              "const": "prompt_sha256"
+            },
+            {
+              "const": "input_manifest_sha256"
+            },
+            {
+              "const": "tool_log_sha256"
+            },
+            {
+              "const": "response_sha256"
+            },
+            {
+              "const": "started_at"
+            },
+            {
+              "const": "completed_at"
+            },
+            {
+              "const": "full_resolution_inputs_reviewed"
+            },
+            {
+              "const": "limitations"
+            }
+          ],
+          "items": false,
+          "minItems": 10,
+          "maxItems": 10
+        }
+      }
+    },
+    "invalidation_rules": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": {
+            "change": "contract identity, public API, anatomy or state vocabulary",
+            "restart_at": "CANDIDATE_CONTRACT_ACCEPTED"
+          }
+        },
+        {
+          "const": {
+            "change": "candidate code only",
+            "replay_from": "CANONICAL_CODE_CANDIDATE"
+          }
+        },
+        {
+          "const": {
+            "change": "Penpot implementation only",
+            "replay_from": "PENPOT_COMPONENT_CANDIDATE"
+          }
+        },
+        {
+          "const": {
+            "change": "archetype composition only",
+            "replay_from": "PAGE_ARCHETYPE_CANDIDATE"
+          }
+        },
+        {
+          "const": {
+            "change": "representation or fixture only",
+            "replay_from": "PRODUCT_REPRESENTATIONS"
+          }
+        },
+        {
+          "const": {
+            "change": "any visual output after Gemini audit",
+            "requires": "focused Pro-class visual re-audit before promotion"
+          }
+        }
+      ],
+      "items": false,
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "promotion_invariants": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "authority_mode remains reconstructed through REVIEWED_CORRECTIONS"
+        },
+        {
+          "const": "only T10_PROMOTE_FAMILY_AND_ARCHETYPES changes authority"
+        },
+        {
+          "const": "promotion is atomic for one bounded family and its affected archetype set"
+        },
+        {
+          "const": "no application with pending_product_model or promotion_ready=false may be promoted"
+        },
+        {
+          "const": "Penpot is a visual implementation of the promoted contract, not the sole executable authority"
+        },
+        {
+          "const": "actual runtime evidence never updates an accepted baseline automatically"
+        }
+      ],
+      "items": false,
+      "minItems": 6,
+      "maxItems": 6
+    }
+  },
+  "$defs": {
+    "stateName": {
+      "type": "string",
+      "enum": [
+        "AS_IS_RECONSTRUCTED",
+        "FAMILY_HYPOTHESIS_REVIEWED",
+        "CANDIDATE_CONTRACT_ACCEPTED",
+        "CANONICAL_CODE_CANDIDATE",
+        "PENPOT_COMPONENT_CANDIDATE",
+        "COMPONENT_THREE_WAY_CONFORMANCE",
+        "PAGE_ARCHETYPE_CANDIDATE",
+        "PRODUCT_REPRESENTATIONS",
+        "GEMINI_MCP_VISUAL_AUDIT",
+        "REVIEWED_CORRECTIONS",
+        "FAMILY_AND_ARCHETYPE_PROMOTION"
+      ]
+    },
+    "nonEmptyUniqueStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "stateDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "ordinal",
+        "meaning",
+        "entry_transition_id",
+        "authority_mode",
+        "allowed_claims",
+        "forbidden_claims"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/stateName"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 11
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entry_transition_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority_mode": {
+          "enum": [
+            "reconstructed",
+            "design-system-led"
+          ]
+        },
+        "allowed_claims": {
+          "$ref": "#/$defs/nonEmptyUniqueStrings"
+        },
+        "forbidden_claims": {
+          "$ref": "#/$defs/nonEmptyUniqueStrings"
+        }
+      }
+    },
+    "transitionDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "from",
+        "to",
+        "gate",
+        "authority",
+        "evidence"
+      ],
+      "properties": {
+        "transition_id": {
+          "type": "string",
+          "pattern": "^T(0[1-9]|10)_[A-Z0-9_]+$"
+        },
+        "from": {
+          "$ref": "#/$defs/stateName"
+        },
+        "to": {
+          "$ref": "#/$defs/stateName"
+        },
+        "gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gate_id",
+            "mode",
+            "requirements",
+            "blocking_conditions"
+          ],
+          "properties": {
+            "gate_id": {
+              "type": "string",
+              "pattern": "^G(0[1-9]|10)_[A-Z0-9_]+$"
+            },
+            "mode": {
+              "const": "all_of"
+            },
+            "requirements": {
+              "$ref": "#/$defs/nonEmptyUniqueStrings"
+            },
+            "blocking_conditions": {
+              "$ref": "#/$defs/nonEmptyUniqueStrings"
+            }
+          }
+        },
+        "authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "before",
+            "after",
+            "authority_change"
+          ],
+          "properties": {
+            "before": {
+              "enum": [
+                "reconstructed",
+                "design-system-led"
+              ]
+            },
+            "after": {
+              "enum": [
+                "reconstructed",
+                "design-system-led"
+              ]
+            },
+            "authority_change": {
+              "type": "boolean"
+            }
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required_kinds",
+            "identity_fields",
+            "all_refs_sha256_bound"
+          ],
+          "properties": {
+            "required_kinds": {
+              "$ref": "#/$defs/nonEmptyUniqueStrings"
+            },
+            "identity_fields": {
+              "$ref": "#/$defs/nonEmptyUniqueStrings"
+            },
+            "all_refs_sha256_bound": {
+              "const": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
