@@ -2,110 +2,125 @@
 
 ## Report state
 
-**State:** `DRAFT — PROOF CLOSURE NOT YET ESTABLISHED`
+**State:** `PROOF DEFINITIONS MATERIALIZED — EXACT-HEAD ACTIONS ATTESTATION REQUIRED`
 
-This is the evidence ledger to be completed against the final reconciled commit.
-It is not an independent re-audit, not a self-issued closure verdict, and not
-merge authorization. Planned paths and pending runs are named so that later
-integration cannot replace primary evidence with a summary.
+This report describes the implementation evidence prepared for the reconciled
+candidate. It is not an independent delta re-audit, does not authorize merge,
+and does not turn a local run or a committed receipt literal into exact-head CI
+evidence. The exact Git head, commands, exit codes, runtime versions, mutation
+results and final clean statuses are intentionally delegated to the Actions
+execution attestation produced after this report and the receipt are committed.
 
-Authoritative inputs:
+The controlling independent verdict for audited head
+`bcdff9de56663bb77f15f32660ab0156c937e77b` remains:
 
-- audited v1.1 head:
+- **`FAIL — SEMANTIC_REMEDIATION_PARTIALLY_PROVEN`**;
+- **`BLOCKED — MERGE_NOT_AUTHORIZED`**.
+
+Only an independent delta re-audit of the new frozen head may replace that
+verdict.
+
+## Immutable inputs and reconciliation lineage
+
+- original synthesis base and merge base:
+  `317938bc72cf7a47ea798b2614d92d3d285dd97a`;
+- audited v1.1 head preserved in ancestry:
   `bcdff9de56663bb77f15f32660ab0156c937e77b`;
-- byte-preserved independent report:
-  [`project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](project-normalization-synthesis-v1-1-independent-red-team-reaudit.md),
-  61,775 bytes, SHA-256
-  `7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41`;
-- accepted six-finding ledger:
-  [`project-normalization-synthesis-v1-1-reaudit-disposition.md`](project-normalization-synthesis-v1-1-reaudit-disposition.md);
-- future reconciled candidate SHA, incorporated `main` SHA, final receipt SHA and
-  CI run IDs: **pending integration**.
+- main incorporated at reconciliation:
+  `1daeb4f3ed2b86319b91e4e5b9d97a8691a72705`;
+- non-rewriting reconciliation commit:
+  `28a8449396cdfe4531302534d8e82fb9111378cd`;
+- read-only product evidence:
+  `onedayonemasterpiece/events-bot-new@66bc0d43e36299417626f992021cfb7299ddf704`;
+- Behavioral manifest SHA-256:
+  `c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1`.
 
-The retained independent verdict is:
+The byte-preserved re-audit is
+[`project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](project-normalization-synthesis-v1-1-independent-red-team-reaudit.md):
+61,775 bytes, SHA-256
+`7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41`.
+All six findings are accepted in
+[`project-normalization-synthesis-v1-1-reaudit-disposition.md`](project-normalization-synthesis-v1-1-reaudit-disposition.md).
 
-- **`FAIL — SEMANTIC_REMEDIATION_PARTIALLY_PROVEN`** for exact-head semantics;
-- **`BLOCKED — MERGE_NOT_AUTHORIZED`** for merge readiness.
+## Six-finding implementation ledger
 
-Nothing in this draft changes those verdicts. Only a later independent delta
-re-audit over the frozen reconciled candidate may issue a replacement verdict.
-
-## Evidence acceptance rules
-
-A finding can move from `PENDING` only when the report identifies primary,
-SHA-bound evidence that can be replayed. A prose integration summary, committed
-receipt literal, green badge without its run artifact, or checklist written
-before the final exact head is frozen is insufficient. Every execution claim
-must be derived from results and must identify command, runtime, exit code,
-source SHA and artifact hash.
-
-The historical implementation checklist at
-`.codex/integration/project-normalization-synthesis-v1-1/CHECKLIST_REVIEW.md`
-reviewed `e005a1c3fa5ffda07a8e76d994aa1d96b53ec45b` and recorded 72 receipt
-outputs. It is explicitly historical for v1.1.1: it is not evidence for audited
-head `bcdff9de…`, for the future reconciled candidate, or for delta re-audit.
-A new read-only checklist is pending after the integration head and CI artifacts
-are final, and that checklist will still not be the independent delta re-audit.
-
-## Six-finding proof ledger
-
-| Finding | Current state | Correction evidence required | Validation evidence required | Residual limitation / next gate |
+| Finding | Implementation state | Primary correction evidence | Exact-head evidence required from Actions | Residual limitation / next gate |
 |---|---|---|---|---|
-| REAUDIT-PN-001 | `PENDING` | Stable structured error codes in the validator plus a generated 14-case catalog binding each mutation to its expected code. **Evidence refs:** L2 mutation-proof commit and exact artifact paths pending. | Exact-SHA results must show 14/14 aggregate rejection and 14/14 `expected_error_code == actual_error_code`; local and CI commands/exits/artifact hashes pending. | Named branch proof does not establish component readiness. Independent delta re-audit remains pending. |
-| REAUDIT-PN-002 | `PENDING` | Generated mutation definitions/results with positive baselines typed separately; receipt builder/receipt no longer self-assert execution PASS or literal negative counts. **Evidence refs:** L2 artifacts and L0 final receipt/attestation pending. | Results must derive 90 lane negatives and 104 total negatives for the audited corpus, exclude the positive baseline and fail on any catalog/result/count mismatch. Final candidate counts must be derived again rather than copied from this paragraph. | Counts bind only the recorded candidate/run. Independent delta re-audit remains pending. |
-| REAUDIT-PN-003 | `PENDING` | Exact-SHA clean replay workflow/helpers, machine-readable provenance, and separate committed-range/audit-byte gates. **Evidence refs:** L3 commit, workflow run and replay artifact pending. | Record Node/Python versions, commands/exits, immutable replay, census, archive 134/134, schemas, secret scan, diff result, artifact hashes and empty final status for both checkouts. | A CI replay is first-party execution evidence, not independent review. Independent delta re-audit remains pending. |
-| REAUDIT-PN-004 | `PENDING` | Historical-checklist notice plus new exact-head proof ledger, integration report and post-freeze read-only checklist derived from the final receipt inventory. **Evidence refs:** this draft provides the notice; final L0/L4 reports and output count are pending. | New checklist must name the reconciled SHA and completed run artifacts, and its output inventory must equal the final receipt rather than a literal carried from v1.1. | Implementation checklist review cannot self-close the audit. Independent delta re-audit remains pending. |
-| MERGE-PN-001 | `PENDING — BLOCKER` | Non-rewriting merge of current `main`, semantic conflict disposition, regenerated corpus/receipt, and proof that `bcdff9de…` remains an ancestor. **Evidence refs:** L0 merge commit, ancestry transcript and conflict record pending. | Full local and CI replay on the new candidate, clean status, frozen SHAs and independent delta comparison of audited head, incorporated `main` and reconciled head. | Any reconciliation creates a new audit target. Merge remains unauthorized until the independent delta verdict. |
-| MERGE-PN-002 | `PENDING` | Workflow filters covering both named omitted contracts plus an authoritative validated input-path registry. **Evidence refs:** L3 workflow/registry/tests pending. | Filter-consistency negatives must reject each omission; CI trigger evidence for contract-only deltas and the final exact-SHA workflow run are pending. | Scheduling coverage is not a successful validation result or an independent verdict. |
+| REAUDIT-PN-001 | `IMPLEMENTED; EXECUTION ATTESTATION REQUIRED` | `structured-validation-error.mjs`, `validate-mutation-candidate.mjs`, `project-normalization-mutation-proof.mjs`, the 14-case catalog and its Draft 2020-12 schemas. Catalog SHA-256: `fe239c2f4549e8759c13d6a1823aabe775492d51251fb70bdaf98f2196fe1892`. Every case names stable code, stage, record, path and diagnostic; aggregate rejection is separately required and cannot substitute for the targeted code. | Live mutation result must bind the final `GITHUB_SHA`, durations, 14/14 targeted rejections, 14/14 aggregate rejections, 14/14 expected=actual codes, 14 byte restorations and 15 baseline checks. | Named branch proof is not family readiness or merge authorization. |
+| REAUDIT-PN-002 | `IMPLEMENTED; EXECUTION ATTESTATION REQUIRED` | The executable lane definitions are parsed into 7 raw + 13 readiness + 8 Event Media + 19 Medallions + 16 lifecycle + 27 evidence/value negatives; the Medallions positive baseline is classified separately. The committed synthesis receipt binds definitions and schemas but contains no literal lane/total result or execution-PASS object. | The live result must derive 90 lane negatives, one excluded positive baseline and 104 total negatives from the definitions/results; the attestation embeds that result verbatim and binds its hash. | Counts apply only to the exact recorded head/run. |
+| REAUDIT-PN-003 | `IMPLEMENTED; EXECUTION ATTESTATION REQUIRED` | Workflow uses pinned action commits, exact requested Node/Python/jsonschema versions, a command ledger, clean secondary design/events checkouts, deterministic Git archives/bundles, replay script and checksummed artifact. `build-workflow-attestation.mjs` validates both audit inputs, source identities, mutation result and final checkout cleanliness. | The exact-head job must publish `project-normalization-v1-1-execution-attestation.json`, `project-normalization-v1-1-mutation-results.json`, `command-ledger.jsonl`, `versions.json`, `replay.sh`, both bundles/archives and `SHA256SUMS`; both final Git statuses must be empty. | Actions evidence is first-party reproducibility evidence, not independent review. |
+| REAUDIT-PN-004 | `IMPLEMENTED; EXACT-HEAD CHECKLIST EXTERNAL` | `.codex/integration/project-normalization-synthesis-v1-1/CHECKLIST_REVIEW.md` is explicitly `historical_non_authoritative`, binds reviewed head `e005a1c3fa5ffda07a8e76d994aa1d96b53ec45b`, and is superseded by the exact-head Actions attestation. | A later read-only reviewer must derive the current output count and hashes from the v1.1.1 receipt/attestation rather than copying the historical 72-output count. | A checklist cannot approve itself or replace the independent delta re-audit. |
+| MERGE-PN-001 | `RECONCILED; DELTA RE-AUDIT REQUIRED` | The normal merge retains both parents and audited ancestry. The sole conflict in `docs/resource-graph-004.md` preserves main’s action-map evidence lifecycle and v1.1’s orthogonal 11-state family lifecycle. `docs/component-contract-authority.md` retains main observability while clarifying candidate acceptance cannot set canonical authority or bypass `T10_PROMOTE_FAMILY_AND_ARCHETYPES`. | The exact-head replay must regenerate/check every catalog, dossier, census, archive, schema, lifecycle and receipt and record the final clean state. | Reconciliation creates a new audit target; PR merge remains unauthorized pending independent delta verdict. |
+| MERGE-PN-002 | `IMPLEMENTED; TRIGGER/CI EVIDENCE REQUIRED` | Machine registry `project-normalization-v1-1-input-paths.json` is schema-bound. Push and pull-request filters must equal its 35 patterns and retain eight mandatory broad authority roots, including `contracts/**`; omission/duplication/drift negatives are executable. | Final CI must run from a change set containing both formerly missed contract inputs and publish the filter-validator command/exit in the ledger. | Trigger coverage proves scheduling, not validation correctness. |
 
-No row is marked closed in this draft.
+No row is declared independently closed by this report.
 
-## Reconciled-head minimum evidence matrix
+## Local pre-freeze replay
 
-The independent report requires every item below before a new merge verdict. The
-status is intentionally conservative until a primary artifact is attached.
+Before receipt materialization, the reconciled working tree was replayed locally
+against the exact read-only product commit and both immutable visual archives.
+The following evidence was observed and must be reproduced by Actions on the
+final head:
 
-| # | Required evidence | Status | Primary reference to attach |
-|---:|---|---|---|
-| 1 | Exact reconciled commit SHA, incorporated `main` SHA, merge base and proof that `bcdff9de…` is an ancestor | `PENDING` | merge/ancestry transcript |
-| 2 | Full positive-validator replay | `PENDING` | exact-SHA local results and CI job artifact |
-| 3 | Full Draft 2020-12 schema validation | `PENDING` | command/exit/result artifact |
-| 4 | Release archive replay, 134/134 entry hashes and bytes | `PENDING` | archive replay result artifact |
-| 5 | Immutable Decoder and Behavioral verification | `PENDING` | pinned-tree/manifest replay result |
-| 6 | External Git census replay | `PENDING` | pinned product SHA and census result |
-| 7 | Secret scan | `PENDING` | command/exit/log artifact |
-| 8 | Full committed-range diff check with exactly named, size/hash-verified audit-byte exceptions | `PENDING` | diff-gate result plus both file hashes/sizes |
-| 9 | Empty final status for design-system and pinned product checkout | `PENDING` | final `git status --porcelain` outputs |
-| 10 | Fourteen mandatory mutations rejected by their named diagnostics | `PENDING` | generated catalog/results and attestation |
-| 11 | Factual lane and aggregate negative counts derived from executable results | `PENDING` | generated results and final receipt/attestation binding |
-| 12 | Independent delta re-audit of `bcdff9de…`, incorporated `main` and reconciled head | `PENDING — EXTERNAL GATE` | independent report with verdict |
+- 279 raw identities, 222 canonical findings, 57 typed aliases;
+- 47 analytical groups, 107 component memberships;
+- 47 `NOT_READY`, zero scored, empty first wave;
+- Event Media `NOT_READY_WITH_EXACT_BLOCKERS` with 12 exact blockers;
+- Medallions `BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED`;
+- Product Value gate `observe`, 239 pending applications, zero promotion-ready;
+- 134 visual-review/archive entries verified across the 124/10 release lineage;
+- 11 lifecycle states, 10 transitions, current `AS_IS_RECONSTRUCTED`;
+- 14 mandatory targeted and aggregate mutations with exact named codes;
+- 90 prior-lane negatives, one excluded positive baseline, 104 total negatives;
+- workflow filter registry 35 patterns / eight mandatory authorities;
+- Draft 2020-12 schemas and strict secret scan;
+- no forbidden production UI, Penpot, prototype, token, component-operation,
+  product-model, experiment-winner or promotion change.
 
-In addition, workflow input coverage, runtime versions, commands, exit codes,
-artifact hashes, final receipt inventory and a post-freeze read-only checklist
-must be attached before handoff. They do not replace any of the twelve rows.
+This local replay is compatibility evidence, not the exact-head Actions result.
+The committed receipt therefore records these corpus facts and definition
+hashes, but deliberately says the execution attestation is externally required.
 
-## Preserved semantic boundary to revalidate
+## Reproducibility and diff contract
 
-The source report found no corrupted core partition/readiness state or fail-open
-normalization at `bcdff9de…`; that statement is not automatically inherited by a
-new commit. The reconciled replay and delta re-audit must re-establish the
-279-identity exact-once partition into 222 findings, 57 typed aliases, 47
-`NOT_READY` groups, zero scored/selected groups, blocked Event Media and
-medallions, observe-mode Product Value, preserved unreachable implementations,
-immutable evidence and archive lineage.
+The exact-head workflow separates two gates:
 
-This v1.1.1 work is proof remediation only. Production UI, Penpot, prototypes,
-tokens, component semantics, product entities, experiments, migration,
-decommissioning, promotion and physical normalization remain outside scope.
+1. `git diff --check` for the full committed range from
+   `317938bc72cf7a47ea798b2614d92d3d285dd97a`, excluding only the two exact
+   byte-preserved audit inputs;
+2. independent byte/size checks for:
+   - original audit: 8,046 bytes / SHA-256
+     `a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76`;
+   - v1.1 re-audit: 61,775 bytes / SHA-256
+     `7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41`.
 
-## Merge and closure decision
+The second exception is necessary because the user-supplied re-audit is also a
+mandatory byte-for-byte input and contains preserved whitespace. No directory
+or third-file exception is permitted.
 
-Until all primary evidence is attached and the independent delta re-audit issues
-its own verdict:
+## Receipt and external attestation boundary
 
-- draft PR #31 must remain open and unmerged;
-- the future reconciled commit remains an unaudited candidate;
-- a green local or CI summary must not be rewritten as audit closure;
-- this report must remain `DRAFT — PROOF CLOSURE NOT YET ESTABLISHED`;
-- the controlling verdict remains **`FAIL — SEMANTIC_REMEDIATION_PARTIALLY_PROVEN`**
-  and **`BLOCKED — MERGE_NOT_AUTHORIZED`**.
+`receipts/normalization/project-normalization-synthesis-v1-1.json` is a
+content/definition manifest. It binds reconciliation lineage, both audits,
+mutation definitions and schemas, workflow input registry, replay/attestation
+contracts, corpus facts, strict STOP constraints and every remediation output.
+It does **not** assert exact-head command success, CI run identity, derived live
+mutation totals, clean checkout outcome or independent review.
+
+The authoritative execution outcome belongs only to the Actions artifact named
+`project-normalization-v1-1-reproducibility-${GITHUB_RUN_ID}`. The artifact is
+transport evidence with finite retention, not a replacement for Git history or
+an independent verdict.
+
+## Handoff boundary
+
+After an exact-head Actions attestation satisfies the contract, the only allowed
+implementation/handoff statements are:
+
+- `PROJECT_NORMALIZATION_SYNTHESIS_V1_1_1_PROOF_CLOSURE_COMPLETE`;
+- `READY_FOR_INDEPENDENT_DELTA_REAUDIT`.
+
+They do not mean independently approved, merge-ready, normalization-authorized,
+product-value-validated, Penpot-authorized or design-system-complete. Draft PR
+#31 must remain open, draft and unmerged until a separate independent delta
+re-audit issues its own verdict.

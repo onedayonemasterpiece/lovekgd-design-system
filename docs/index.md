@@ -9,8 +9,10 @@
 | [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |
 | [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 closure complete; candidates not accepted |
 | [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | historical v1 synthesis and candidate registry | superseded by red-team remediation; not current readiness authority |
-| [`normalization/project-normalization-synthesis-v1-1.md`](normalization/project-normalization-synthesis-v1-1.md) | exact-once evidence, typed analytical groups, positive readiness, dossiers and observe-mode value gate | remediation complete; 0 strict-ready; pending independent re-audit |
+| [`normalization/project-normalization-synthesis-v1-1.md`](normalization/project-normalization-synthesis-v1-1.md) | exact-once evidence, typed analytical groups, positive readiness, dossiers and observe-mode value gate | v1.1.1 proof definitions materialized; 0 strict-ready; exact-head attestation and independent delta re-audit pending |
 | [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md) | normative 11-state code → Penpot → archetype → visual audit → promotion lifecycle | accepted contract; current state AS_IS_RECONSTRUCTED |
+| [`audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md) | byte-preserved independent v1.1 re-audit (61,775 bytes; SHA-bound) | controlling verdict for audited head; delta re-audit required for reconciled head |
+| [`audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md) | six-finding v1.1.1 correction/evidence ledger | implementation evidence only; no merge authorization |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
@@ -34,7 +36,7 @@
 | [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
 | [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
 | [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | historical v1 receipt | retained; readiness proof superseded |
-| [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | hash-bound remediation outputs, counts, STOP constraints and re-audit boundary | complete remediation; merge forbidden until independent re-audit |
+| [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | v1.1.1 content/definition manifest, reconciliation lineage, STOP constraints and external attestation contract | execution attestation and independent delta re-audit required; merge forbidden |
 
 ## Authority routing
 
@@ -71,7 +73,7 @@ Production conformance
 4. Source-first decoder                             PASS · IMMUTABLE REVIEWED V1
 5. Behavioral decoder supplement                    PASS · TERMINAL EVIDENCE COMPLETE
 6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
-7. Project normalization synthesis v1.1 remediation COMPLETE · INDEPENDENT RE-AUDIT PENDING
+7. Project normalization synthesis v1.1.1 proof definitions materialized · exact-head attestation and independent delta re-audit pending
 8. First bounded native Penpot materialization      NOT STARTED
 9. Three-way conformance pilot                      NOT STARTED
 10. Per-family promotion to design-system-led       0 families

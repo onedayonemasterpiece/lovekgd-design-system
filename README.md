@@ -103,11 +103,12 @@ validator проходит на 293 terminal probes (236 PASS, 39 MISMATCH,
 Исторический Project Normalization Synthesis v1 опубликован в
 [`docs/normalization/project-normalization-synthesis-v1.md`](docs/normalization/project-normalization-synthesis-v1.md),
 но его readiness-доказательство отклонено независимым red-team-аудитом. Текущая
-audit-remediation v1.1 находится в
-[`docs/normalization/project-normalization-synthesis-v1-1.md`](docs/normalization/project-normalization-synthesis-v1-1.md):
+audit-remediation v1.1 и его v1.1.1 proof-closure contract находятся в
+[`docs/normalization/project-normalization-synthesis-v1-1.md`](docs/normalization/project-normalization-synthesis-v1-1.md) и
+[`docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md):
 47 аналитических групп, 0 strict-ready identities и пустая first wave.
 
-Это только исправление доказательной модели и подготовка к отдельному re-audit.
+Это только исправление доказательной модели: exact-head Actions attestation и отдельный independent delta re-audit остаются обязательными; merge не разрешён.
 Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как
 дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и
 не мутирует Penpot. Подробности:
@@ -124,6 +125,7 @@ The normative [family and archetype lifecycle](docs/normalization/design-system-
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
 - [Family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
 - [Project Normalization Synthesis v1.1 audit remediation](docs/normalization/project-normalization-synthesis-v1-1.md)
+- [Project Normalization Synthesis v1.1.1 proof-closure ledger](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
 - [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
 - [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)
