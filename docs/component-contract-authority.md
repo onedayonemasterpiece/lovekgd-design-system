@@ -190,7 +190,7 @@ source_snapshot_sha: ...
 observed_state_key: ...
 ```
 
-Переход к accepted Component Contract выполняется отдельным reviewed mapping receipt, который фиксирует исходные `as_is_contract_id`/`source_snapshot_sha`, целевые `component_id`/`contract_version`/`state_key`, disposition, reviewer/owner acceptance и evidence refs. Визуальное сходство и action-map data не разрешают автоматически объединять AS-IS IDs, принимать contract или продвигать family. Исторические evidence packages навсегда сохраняют исходную identity/version; mapping добавляет трассировку к accepted contract, но не переписывает прошлое и не заменяет обычный promotion gate.
+Переход от reconstructed AS-IS identity к `candidate-accepted` target Component Contract выполняется отдельным reviewed mapping receipt, который фиксирует исходные `as_is_contract_id`/`source_snapshot_sha`, целевые `component_id`/`contract_version`/`state_key`, disposition, reviewer/owner acceptance и evidence refs. Это mapping evidence не устанавливает `canonical: true`, не меняет authority mode и не заменяет `T10_PROMOTE_FAMILY_AND_ARCHETYPES`. Визуальное сходство и action-map data не разрешают автоматически объединять AS-IS IDs, принимать contract или продвигать family. Исторические evidence packages навсегда сохраняют исходную identity/version; mapping добавляет трассировку к candidate contract, но не переписывает прошлое и не заменяет обычный promotion gate.
 
 ## Structural states и fixtures
 
