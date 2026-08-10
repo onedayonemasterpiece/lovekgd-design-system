@@ -18,11 +18,11 @@ independent re-audit.
 | AUD-PN-005 | Medallion taxonomy dossier | 10 mappings and explicit boundary/geometry/a11y gaps; `BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED` |
 | AUD-PN-006 | Nine exact analytical entity kinds | 47 stable analytical IDs and 107 exact-once component memberships; no accepted identity |
 | AUD-PN-007 | Visual evidence projection | 134 rows individually bind raster SHA/bytes, durable Release entry, review and component state |
-| AUD-PN-008 | Canonical count projection | Exactly five stale legacy conflicts deprecated; canonical values recomputed from outputs |
+| AUD-PN-008 | Canonical count projection | Five conflicts in the immutable source manifest are recorded as excluded audit observations; the current canonical snake_case namespace has zero conflicts and zero active legacy aliases |
 | AUD-PN-009 | Family lifecycle | Exact 11 states/10 transitions; Penpot candidate is pre-promotion; authority changes only at state 11 |
 | AUD-PN-010 | Operational findings | 222/222 carry typed action, provenance, blocking scope and resolution stage |
 | AUD-PN-011 | Product Value Gate | Observe mode, zero IDs, independent 239-edge census, parent/DAG/FK/deletion rules |
-| AUD-PN-012 | Namespaced reporting | 87 raw unresolved, 222 canonical findings, 0 semantic-ready and 0 first-wave rows remain distinct |
+| AUD-PN-012 | Namespaced reporting | 87 raw unresolved records, 87 canonical unresolved identities (57 paired plus 30 standalone), 192 unique readiness operational blockers, 5 migration blockers and 17 promotion blockers are reported separately |
 | AUD-PN-013 | Reachability/lifecycle separation | Mobile capability separated from wrapper; all three zero-consumer records preserved and non-removable |
 
 ## Current analytical outcome
@@ -35,6 +35,9 @@ independent re-audit.
 - Event Token Medallions is
   `BOUNDARY_AND_TAXONOMY_REVIEW_REQUIRED` and not ready.
 - First wave is empty; no synthetic minimum is applied.
+- Reporting keeps non-disjoint namespaces explicit: 87 raw unresolved records,
+  87 canonical unresolved identities, 192 unique readiness operational blocker
+  references, 5 migration blockers, and 17 promotion blockers.
 - Product Value remains fail-closed observe/pending.
 - The family lifecycle remains at `AS_IS_RECONSTRUCTED`.
 

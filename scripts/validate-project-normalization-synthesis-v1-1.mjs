@@ -155,6 +155,11 @@ const navigation = json('catalog/normalization/mobile-search-navigation-capabili
 const eventMedia = json('catalog/normalization/families/event-media/dossier.json');
 const medallions = json('catalog/normalization/families/event-token-medallions/dossier.json');
 const experiments = jsonl(`${BEHAVIOR}/experiment-registry.jsonl`);
+const rawUnresolvedIds = new Set(universe
+  .filter((row) => row.raw_kind === 'behavioral_unresolved')
+  .map((row) => row.raw_identity_id));
+const canonicalUnresolved = findings.filter((row) => row.raw_identity_ids.some((id) => rawUnresolvedIds.has(id)));
+const readinessOperationalBlockers = new Set(readiness.flatMap((row) => row.operational_blocker_refs));
 
 for (const [rows, key, label, count] of [
   [universe, 'raw_identity_id', 'raw universe', 279],
@@ -171,6 +176,11 @@ for (const [rows, key, label, count] of [
 assert(stable(universe.map((row) => row.raw_identity_id).sort()) === stable(partition.map((row) => row.raw_identity_id).sort()), 'raw partition is not exact set equality');
 assert(new Set(partition.map((row) => row.raw_identity_id)).size === 279, 'raw partition multiplicity is not one');
 assert(aliases.every((row) => partition.filter((item) => item.alias_id === row.alias_id).length === 2), 'typed alias does not own exactly two partition members');
+assert(rawUnresolvedIds.size === 87 && canonicalUnresolved.length === 87, 'raw/canonical unresolved namespaces are not distinguished exactly');
+assert(findings.filter((row) => row.source_kind === 'behavioral_unresolved').length === 30, 'standalone canonical unresolved identity count mismatch');
+assert(readinessOperationalBlockers.size === 192, 'readiness operational blocker union mismatch');
+assert(findings.filter((row) => row.blocking_scope === 'migration').length === 5, 'migration blocker count mismatch');
+assert(findings.filter((row) => row.blocking_scope === 'promotion').length === 17, 'promotion blocker count mismatch');
 
 const expectedKinds = new Set(['component_identity_family', 'component_catalog', 'composition_pattern', 'page_surface', 'workflow', 'runtime_enabler', 'foundation', 'evidence_or_lab_group', 'unresolved_boundary']);
 assert(groups.every((row) => expectedKinds.has(row.entity_kind)), 'analytical group uses a non-authorized entity kind');
@@ -204,6 +214,7 @@ if (!skipReceipt) {
   assert(stable(receipt.final_statuses) === stable(FINAL_STATUSES), 'v1.1 final statuses differ from the only allowed pair');
   assert(receipt.independent_reaudit?.status === 'pending' && receipt.independent_reaudit?.required_before_merge === true && receipt.independent_reaudit?.merge_authorized === false, 'independent re-audit boundary is not pending/fail-closed');
   assert(receipt.counts.raw_identities === 279 && receipt.counts.canonical_findings === 222 && receipt.counts.typed_aliases === 57 && receipt.counts.analytical_groups === 47 && receipt.counts.logical_components === 107 && receipt.counts.applications === 239 && receipt.counts.visual_reviews === 134 && receipt.counts.first_wave === 0, 'v1.1 receipt counts mismatch');
+  assert(receipt.counts.raw_unresolved_records === 87 && receipt.counts.canonical_unresolved_identities === 87 && receipt.counts.standalone_canonical_unresolved_identities === 30 && receipt.counts.readiness_operational_blockers === 192 && receipt.counts.migration_blockers === 5 && receipt.counts.promotion_blockers === 17, 'v1.1 receipt blocker namespace counts mismatch');
   assert(receipt.product_value_gate.mode === 'observe' && receipt.product_value_gate.authoritative_product_ids === 0 && receipt.product_value_gate.promotion_ready_applications === 0, 'receipt product gate mismatch');
   assert(Object.values(receipt.constraints).every((value) => value === false), 'receipt escaped strict STOP boundary');
   for (const [relative, metadata] of Object.entries(receipt.outputs)) {
@@ -230,6 +241,11 @@ process.stdout.write(`${JSON.stringify({
   raw: 279,
   canonical: 222,
   aliases: 57,
+  raw_unresolved: 87,
+  canonical_unresolved: 87,
+  readiness_operational_blockers: 192,
+  migration_blockers: 5,
+  promotion_blockers: 17,
   groups: 47,
   strict_ready: 0,
   first_wave: 0,

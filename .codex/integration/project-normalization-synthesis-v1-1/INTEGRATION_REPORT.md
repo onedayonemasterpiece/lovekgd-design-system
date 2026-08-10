@@ -20,7 +20,7 @@ entity was changed or selected.
 | L2 registry/readiness | R04, R05, R10 | `2cf6d10`, enum correction `6b194170f68debff75d3f4678c5049a96e78b756` | `1ac913c`, `907a1a6` | exact nine entity kinds; 47 `NOT_READY`; first wave empty |
 | L3 Event Media | R08 | `6b1940da8edf6587dc72f98c64ef4aeb1e5c5b52` | `a421055` | full consumer matrix; 12 exact blockers; not ready |
 | L4 Medallions/navigation | R07, R09 | `0d41f64ce0927ac6f78250c3dd8c917aeb368a75` | `a759b14` | taxonomy/boundary review required; unreachable implementations preserved |
-| L5 evidence/value | R11, R12 | `b8cde833fdb3defceb28e0bdb59a392e217019e8` | `bc4d01e` | 134 visual rows, canonical counts, independent census, fail-closed observe gate |
+| L5 evidence/value | R11, R12 | `b8cde833fdb3defceb28e0bdb59a392e217019e8`; follow-ups `703176e`, `3904006` | `bc4d01e`, `7c39c4a`, `b90deed` | 134 reviewed visual rows, sole canonical count namespace, independent census, fail-closed observe gate |
 | L6 lifecycle | R13 | `9a55efba51db11443e8edf2195b692af9258fb6d` | `56eb425` | exact 11-state/10-transition lifecycle; authority changes only at promotion |
 | L7 integration | R03, R14, R15 | integrator-owned | current branch | aggregate validator, 14 mutations, schemas, workflows, receipt and PR delivery |
 
@@ -54,6 +54,9 @@ dropped or silently superseded.
 raw identities / partition rows     279 / 279
 typed paired aliases                 57
 canonical findings                  222
+raw / canonical unresolved        87 / 87 (30 standalone)
+readiness operational blockers      192 unique refs
+migration / promotion blockers       5 / 17
 analytical groups / components       47 / 107
 strict-ready / scored / first wave    0 / 0 / 0
 applications / readiness            239 / 239

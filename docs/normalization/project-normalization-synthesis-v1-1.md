@@ -89,8 +89,9 @@ Authority changes only at `FAMILY_AND_ARCHETYPE_PROMOTION`.
   `66bc0d43e36299417626f992021cfb7299ddf704`.
 
 The behavioral manifest is preserved byte-for-byte. A canonical count projection
-marks its five conflicting legacy counters as deprecated and derives all current
-counts from the actual output rows.
+records its five conflicting legacy counters only as excluded source-audit
+observations, exposes no active legacy aliases, and derives the sole current
+snake_case count namespace from the actual output rows.
 
 ## Strict stop
 

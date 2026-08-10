@@ -43,10 +43,11 @@ or product authority.
   `8bb8712effaa0ba3b08a672a784d9e1b90d876c6ca6d039a417bfc0617723523`, entry prefix
   `probe-runtime/`. HTTP 200/content length, complete ZIP integrity, and all 134 entry bytes/SHA-256
   were verified at `2026-08-10T07:22:28Z`.
-- `catalog/normalization/behavioral-manifest-counts.json` projects canonical counts from
-  `manifest.outputs[*].records` without rewriting the source manifest. It exposes exactly five
-  deprecated stale conflicts: `actionPacketIndex` 0→67, `pageVerification` 0→134, `plans` 35→67,
-  `unresolved` 19→87, and `visualReviewLedger` 0→134.
+- `catalog/normalization/behavioral-manifest-counts.json` projects the sole active canonical
+  snake_case count namespace from `manifest.outputs[*].records` without rewriting the source
+  manifest. Five stale source-manifest conflicts (`actionPacketIndex`, `pageVerification`, `plans`,
+  `unresolved`, and `visualReviewLedger`) are retained only as excluded, non-authoritative audit
+  observations; the current namespace has zero conflicts and zero active legacy aliases.
 - The behavioral source manifest remains SHA-256
   `c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1`.
 - Decoder v1 does not provide a deterministic raster-to-component binding for all 134 states.
