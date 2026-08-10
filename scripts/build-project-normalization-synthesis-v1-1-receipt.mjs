@@ -49,10 +49,12 @@ const allowed = (relative) => [
 
 const tracked = git(['diff', '--name-only', base, '--']).split('\n').filter(Boolean);
 const untracked = git(['ls-files', '--others', '--exclude-standard']).split('\n').filter(Boolean);
-const outputPaths = sortedUnique([...tracked, ...untracked]).filter((relative) => relative !== receiptPath);
+for (const relative of tracked) assert(allowed(relative) || relative === receiptPath, `receipt encountered out-of-scope changed path: ${relative}`);
+const scopedUntracked = untracked.filter((relative) => !relative.startsWith('_pinned-events-readonly/'));
+for (const relative of scopedUntracked) assert(allowed(relative) || relative === receiptPath, `receipt encountered out-of-scope untracked path: ${relative}`);
+const outputPaths = sortedUnique([...tracked, ...scopedUntracked]).filter((relative) => relative !== receiptPath);
 assert(outputPaths.length > 0, 'receipt output inventory is empty');
 for (const relative of outputPaths) {
-  assert(allowed(relative), `receipt encountered out-of-scope changed path: ${relative}`);
   assert(fs.existsSync(absolute(relative)) && fs.statSync(absolute(relative)).isFile(), `receipt output missing: ${relative}`);
   assert(!/^(penpot|prototypes)\//.test(relative) && !/(^|\/)site\/(src|public)(\/|$)/.test(relative), `receipt includes forbidden path: ${relative}`);
 }
@@ -81,6 +83,11 @@ const behaviorCounts = json('catalog/normalization/behavioral-manifest-counts.js
 const eventMedia = json('catalog/normalization/families/event-media/dossier.json');
 const medallions = json('catalog/normalization/families/event-token-medallions/dossier.json');
 const lifecycle = json('contracts/normalization/family-lifecycle.v1.json');
+const rawUnresolvedIds = new Set(universe
+  .filter((row) => row.raw_kind === 'behavioral_unresolved')
+  .map((row) => row.raw_identity_id));
+const canonicalUnresolved = findings.filter((row) => row.raw_identity_ids.some((id) => rawUnresolvedIds.has(id)));
+const readinessOperationalBlockers = new Set(readiness.flatMap((row) => row.operational_blocker_refs));
 
 let materializationParent = git(['rev-parse', 'HEAD']);
 let prNumber = valueAfter('--pr-number') ? Number(valueAfter('--pr-number')) : null;
@@ -146,7 +153,12 @@ const receipt = {
     raw_partition_rows: partition.length,
     typed_aliases: aliases.length,
     canonical_findings: findings.length,
-    raw_unresolved_records: behaviorCounts.canonical_counts.findings.unresolved_records,
+    raw_unresolved_records: rawUnresolvedIds.size,
+    canonical_unresolved_identities: canonicalUnresolved.length,
+    standalone_canonical_unresolved_identities: findings.filter((row) => row.source_kind === 'behavioral_unresolved').length,
+    readiness_operational_blockers: readinessOperationalBlockers.size,
+    migration_blockers: findings.filter((row) => row.blocking_scope === 'migration').length,
+    promotion_blockers: findings.filter((row) => row.blocking_scope === 'promotion').length,
     analytical_groups: groups.length,
     logical_components: groups.flatMap((row) => row.member_component_ids).length,
     semantic_readiness_rows: readiness.length,
@@ -230,6 +242,8 @@ const receipt = {
 };
 
 assert(universe.length === 279 && partition.length === 279 && aliases.length === 57 && findings.length === 222, 'raw/canonical receipt counts differ');
+assert(rawUnresolvedIds.size === 87 && canonicalUnresolved.length === 87 && receipt.counts.standalone_canonical_unresolved_identities === 30, 'unresolved namespace receipt counts differ');
+assert(readinessOperationalBlockers.size === 192 && receipt.counts.migration_blockers === 5 && receipt.counts.promotion_blockers === 17, 'blocker namespace receipt counts differ');
 assert(groups.length === 47 && receipt.counts.logical_components === 107 && readiness.length === 47 && wave.first_wave_family_ids.length === 0, 'registry/readiness receipt counts differ');
 assert(apps.length === 239 && valueReadiness.length === 239 && visual.length === 134, 'application/visual receipt counts differ');
 assert(stable(receipt.final_statuses) === stable(finalStatuses), 'final status pair differs');

@@ -103,4 +103,3 @@ The only completion claims allowed before an independent re-audit are:
 
 - `PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED`
 - `READY_FOR_INDEPENDENT_REAUDIT`
-

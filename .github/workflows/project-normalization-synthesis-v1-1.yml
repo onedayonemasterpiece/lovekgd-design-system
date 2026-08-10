@@ -129,7 +129,12 @@ jobs:
             echo 'forbidden runtime/Penpot path changed' >&2
             exit 1
           fi
-          git diff --check
+          # The imported red-team report is required to remain byte-exact and
+          # intentionally contains upstream Markdown hard-break whitespace.
+          # Check every other committed remediation byte against the pinned
+          # base; a plain `git diff --check` on a clean checkout proves nothing.
+          git diff --check 317938bc72cf7a47ea798b2614d92d3d285dd97a..HEAD -- . \
+            ':(exclude)docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md'
 
       - name: Strict secret scan
         run: python3 scripts/scan-normalization-v1-1-secrets.py .
