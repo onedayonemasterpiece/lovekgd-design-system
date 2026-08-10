@@ -98,24 +98,24 @@
       "sha256": "61c55ad73f50d983dcea9d6b4b58bd506bacd13c06295f0ff5436f6d775c8758"
     },
     "execution_attestation_schema": {
-      "bytes": 3911,
+      "bytes": 7174,
       "path": "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json",
-      "sha256": "3fd63b9cf4f52f9b25e6352eac4dc8fd7f16d02b83527fc63381f033966623f8"
+      "sha256": "8d895e2382b44f3495bf3e898b7153337eb438cd51b2ed1ea46b3ddeb219e181"
     },
     "mutation_catalog_schema": {
-      "bytes": 5605,
+      "bytes": 6666,
       "path": "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json",
-      "sha256": "3cd6e9b11481dffb33518cfdad87adf6233bdd6e25c3e723ff6e4602652db705"
+      "sha256": "5af5a7b658fb7ead481bdddf5a4b6d9443aabdde35c09302af4b47cca046eece"
     },
     "mutation_result_schema": {
-      "bytes": 2806,
+      "bytes": 3324,
       "path": "contracts/normalization/project-normalization-mutation-run.v1.schema.json",
-      "sha256": "ba7f5ee6df7d1746a55a76eec1d79230968c1fef5e19a6d765a4234c9de61e35"
+      "sha256": "475711b08cf08e45a1dd6b1953c179e4d02928ee5933312c216a00a50c67f158"
     },
     "receipt_builder": {
-      "bytes": 20303,
+      "bytes": 20995,
       "path": "scripts/build-project-normalization-synthesis-v1-1-receipt.mjs",
-      "sha256": "37b5b2b4288acc1ee961fd398896f0173405d386296099cc13013d53f18f6a5c"
+      "sha256": "e68224a60727f01d017e2142f1eea2e5197b0422506f935eb41fec794ca517c7"
     },
     "structured_error_api": {
       "bytes": 887,
@@ -166,7 +166,7 @@
   "execution_attestation_contract": {
     "artifact_name_template": "project-normalization-v1-1-reproducibility-${GITHUB_RUN_ID}",
     "committed_receipt_asserts_execution_pass": false,
-    "exact_head_source": "GITHUB_SHA",
+    "exact_head_source": "NORMALIZATION_SOURCE_SHA (pull_request head SHA, otherwise github.sha)",
     "execution_attestation_path": "project-normalization-v1-1-execution-attestation.json",
     "mutation_result_path": "project-normalization-v1-1-mutation-results.json",
     "required_evidence": [
@@ -198,7 +198,7 @@
   "lineage": {
     "audited_head": "bcdff9de56663bb77f15f32660ab0156c937e77b",
     "main_at_reconciliation": "1daeb4f3ed2b86319b91e4e5b9d97a8691a72705",
-    "materialization_parent_commit": "8d38f2b2ad9c557ff4ed918addad99ac75334fd4",
+    "materialization_parent_commit": "ec19ebabc49d772c31bc847bb345ddcdf59e0484",
     "merge_base": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
     "original_synthesis_base": "317938bc72cf7a47ea798b2614d92d3d285dd97a",
     "reconciliation_commit": "28a8449396cdfe4531302534d8e82fb9111378cd",
@@ -211,16 +211,21 @@
     "actual_results_location": "actions-attestation-only",
     "catalog_path": "receipts/normalization/project-normalization-v1-1-mutation-catalog.json",
     "catalog_schema_path": "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json",
-    "catalog_sha256": "fe239c2f4549e8759c13d6a1823aabe775492d51251fb70bdaf98f2196fe1892",
+    "catalog_sha256": "9426f8bd06f5637b0dd680c33b6f1613e4d1802a60f064c0167e587e7ada8cc4",
     "mandatory_cases": [
       {
         "affected_path": "catalog/normalization/analysis-group-registry.jsonl#/0/member_component_ids/0",
         "affected_record": "family.amber-artifacts",
         "case_id": "missing-component-path",
         "expected_error_code": "PNV_COMPONENT_PATH_UNRESOLVED",
+        "kind": "negative",
+        "lane": "registry-readiness",
+        "mutation_description": "Replace one exact component membership with an unresolved component path identity.",
         "mutation_files": [
           "catalog/normalization/analysis-group-registry.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "analysis-registry"
       },
       {
@@ -228,9 +233,14 @@
         "affected_record": "family.amber-artifacts",
         "case_id": "duplicate-stable-id",
         "expected_error_code": "PNV_STABLE_ID_DUPLICATE",
+        "kind": "negative",
+        "lane": "registry-readiness",
+        "mutation_description": "Duplicate an analytical group row without changing its stable ID.",
         "mutation_files": [
           "catalog/normalization/analysis-group-registry.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "analysis-registry"
       },
       {
@@ -238,9 +248,14 @@
         "affected_record": "application.008609f0d8967797",
         "case_id": "broken-foreign-key",
         "expected_error_code": "PNV_FOREIGN_KEY_UNRESOLVED",
+        "kind": "negative",
+        "lane": "evidence-product-value",
+        "mutation_description": "Point one application at a family foreign key absent from the exact registry.",
         "mutation_files": [
           "catalog/normalization/component-applications.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "application-registry"
       },
       {
@@ -248,9 +263,14 @@
         "affected_record": "raw.logical_component.component.fd924ec24d43ae27",
         "case_id": "missing-raw-identity",
         "expected_error_code": "PNV_RAW_IDENTITY_MISSING",
+        "kind": "negative",
+        "lane": "raw-partition",
+        "mutation_description": "Remove one authoritative raw identity while retaining its partition reference.",
         "mutation_files": [
           "catalog/normalization/authoritative-raw-universe.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "raw-universe"
       },
       {
@@ -258,9 +278,14 @@
         "affected_record": "raw.behavioral_terminal_probe.breakpoint.017c006b1fb4a73e",
         "case_id": "duplicate-raw-identity",
         "expected_error_code": "PNV_RAW_IDENTITY_DUPLICATE",
+        "kind": "negative",
+        "lane": "raw-partition",
+        "mutation_description": "Append a second row with an already used authoritative raw identity.",
         "mutation_files": [
           "catalog/normalization/authoritative-raw-universe.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "raw-universe"
       },
       {
@@ -268,9 +293,14 @@
         "affected_record": "alias.behavioral_probe_unresolved.017c006b1fb4a73e",
         "case_id": "invalid-typed-alias",
         "expected_error_code": "PNV_TYPED_ALIAS_INVALID",
+        "kind": "negative",
+        "lane": "raw-partition",
+        "mutation_description": "Swap two typed-alias projections so their probe/unresolved identities no longer correspond.",
         "mutation_files": [
           "catalog/normalization/raw-alias-registry.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "alias-registry"
       },
       {
@@ -278,9 +308,14 @@
         "affected_record": "finding.behavioral.probe.017c006b1fb4a73e",
         "case_id": "finding-without-operational-disposition",
         "expected_error_code": "PNV_OPERATIONAL_DISPOSITION_MISSING",
+        "kind": "negative",
+        "lane": "raw-partition",
+        "mutation_description": "Remove the operational disposition from one canonical finding.",
         "mutation_files": [
           "catalog/normalization/findings-disposition.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "findings-disposition"
       },
       {
@@ -288,9 +323,14 @@
         "affected_record": "application.008609f0d8967797",
         "case_id": "invented-product-id",
         "expected_error_code": "PNV_PRODUCT_ID_UNAUTHORIZED",
+        "kind": "negative",
+        "lane": "evidence-product-value",
+        "mutation_description": "Add a product need ID that is absent from the pinned authoritative product registry.",
         "mutation_files": [
           "catalog/normalization/component-applications.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "product-value"
       },
       {
@@ -298,9 +338,14 @@
         "affected_record": "application.008609f0d8967797",
         "case_id": "promotion-ready-while-product-model-pending",
         "expected_error_code": "PNV_PROMOTION_PENDING_PRODUCT_MODEL",
+        "kind": "negative",
+        "lane": "evidence-product-value",
+        "mutation_description": "Set promotion_ready on an application whose product-model evidence is still pending.",
         "mutation_files": [
           "catalog/normalization/component-applications.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "product-value"
       },
       {
@@ -308,9 +353,14 @@
         "affected_record": "application.044e0a8665d616d5",
         "case_id": "accepted-experiment-without-decision-receipt",
         "expected_error_code": "PNV_EXPERIMENT_DECISION_RECEIPT_MISSING",
+        "kind": "negative",
+        "lane": "evidence-product-value",
+        "mutation_description": "Relabel experimental evidence as accepted without an authoritative decision receipt.",
         "mutation_files": [
           "catalog/normalization/component-applications.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "product-value"
       },
       {
@@ -318,9 +368,14 @@
         "affected_record": "raw.candidate_as_is_contract.candidate.artifacts-amber",
         "case_id": "source-only-relabeled-runtime-observed",
         "expected_error_code": "PNV_RUNTIME_EVIDENCE_PROVENANCE_MISMATCH",
+        "kind": "negative",
+        "lane": "raw-partition",
+        "mutation_description": "Escalate a source-only evidence record to runtime-observed without runtime provenance.",
         "mutation_files": [
           "catalog/normalization/authoritative-raw-universe.jsonl"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "evidence-lineage"
       },
       {
@@ -328,9 +383,14 @@
         "affected_record": "immutable-decoder-v1",
         "case_id": "immutable-decoder-v1-mutation",
         "expected_error_code": "PNV_IMMUTABLE_DECODER_MANIFEST_DRIFT",
+        "kind": "negative",
+        "lane": "immutable-evidence",
+        "mutation_description": "Change one byte in the immutable decoder v1 manifest.",
         "mutation_files": [
           "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/manifest.json"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "immutable-evidence"
       },
       {
@@ -338,9 +398,14 @@
         "affected_record": "event-detail.desktop.primary-stage",
         "case_id": "incomplete-family-dossier-dimensions",
         "expected_error_code": "PNV_EVENT_MEDIA_DIMENSION_MISSING",
+        "kind": "negative",
+        "lane": "event-media",
+        "mutation_description": "Remove one mandatory Event Media consumer contract dimension.",
         "mutation_files": [
           "catalog/normalization/families/event-media/dossier.json"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "event-media-dossier"
       },
       {
@@ -348,9 +413,14 @@
         "affected_record": "family.event-media",
         "case_id": "first-wave-without-positive-readiness",
         "expected_error_code": "PNV_FIRST_WAVE_READINESS_VIOLATION",
+        "kind": "negative",
+        "lane": "registry-readiness",
+        "mutation_description": "Select a NOT_READY family into the first wave without positive readiness evidence.",
         "mutation_files": [
           "catalog/normalization/family-wave-plan.json"
         ],
+        "source_test_file": "tests/project-normalization-synthesis-v1-1-negative.mjs",
+        "target_validator": "scripts/normalization-v1-1/validate-mutation-candidate.mjs",
         "validation_stage": "wave-readiness"
       }
     ],
@@ -439,9 +509,9 @@
       "sha256": "f301fc023216929ee721402cc3f9a91f218c17f71ceb00646a318551e4968879"
     },
     ".github/workflows/project-normalization-synthesis-v1-1.yml": {
-      "bytes": 11066,
+      "bytes": 12589,
       "records": null,
-      "sha256": "66ccdd7d6c5ff1bea10f55fee405b017ea6c43bac47a5b03c9d7bea12394f690"
+      "sha256": "3eb7088ce8ae8521208cdda71baf392b0276a06376cfe466236026e688cdafde"
     },
     ".github/workflows/project-normalization-synthesis-v1.yml": {
       "bytes": 2642,
@@ -559,19 +629,19 @@
       "sha256": "b3a73e3c1879e43f9c1d617fe738b50d4344687d2dba0be00849f7f873144a0f"
     },
     "contracts/normalization/project-normalization-mutation-catalog.v1.schema.json": {
-      "bytes": 5605,
+      "bytes": 6666,
       "records": null,
-      "sha256": "3cd6e9b11481dffb33518cfdad87adf6233bdd6e25c3e723ff6e4602652db705"
+      "sha256": "5af5a7b658fb7ead481bdddf5a4b6d9443aabdde35c09302af4b47cca046eece"
     },
     "contracts/normalization/project-normalization-mutation-run.v1.schema.json": {
-      "bytes": 2806,
+      "bytes": 3324,
       "records": null,
-      "sha256": "ba7f5ee6df7d1746a55a76eec1d79230968c1fef5e19a6d765a4234c9de61e35"
+      "sha256": "475711b08cf08e45a1dd6b1953c179e4d02928ee5933312c216a00a50c67f158"
     },
     "contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json": {
-      "bytes": 3911,
+      "bytes": 7174,
       "records": null,
-      "sha256": "3fd63b9cf4f52f9b25e6352eac4dc8fd7f16d02b83527fc63381f033966623f8"
+      "sha256": "8d895e2382b44f3495bf3e898b7153337eb438cd51b2ed1ea46b3ddeb219e181"
     },
     "contracts/normalization/project-normalization-v1-1-input-paths.json": {
       "bytes": 2181,
@@ -694,9 +764,9 @@
       "sha256": "8a450b4f00dfbe8d6c0568b2fe0554c0b0b16997fa04ca93c2529dbba661426c"
     },
     "receipts/normalization/project-normalization-v1-1-mutation-catalog.json": {
-      "bytes": 22198,
+      "bytes": 30756,
       "records": null,
-      "sha256": "fe239c2f4549e8759c13d6a1823aabe775492d51251fb70bdaf98f2196fe1892"
+      "sha256": "9426f8bd06f5637b0dd680c33b6f1613e4d1802a60f064c0167e587e7ada8cc4"
     },
     "RESULTS.md": {
       "bytes": 7655,
@@ -709,9 +779,9 @@
       "sha256": "b313a803bcfd3714f8d8ef98bb4b40252fa6439fdc07731d03787ee7e9d997f0"
     },
     "scripts/build-project-normalization-synthesis-v1-1-receipt.mjs": {
-      "bytes": 20303,
+      "bytes": 20995,
       "records": null,
-      "sha256": "37b5b2b4288acc1ee961fd398896f0173405d386296099cc13013d53f18f6a5c"
+      "sha256": "e68224a60727f01d017e2142f1eea2e5197b0422506f935eb41fec794ca517c7"
     },
     "scripts/evidence-value-gates-v1-1-lib.mjs": {
       "bytes": 34440,
@@ -729,19 +799,19 @@
       "sha256": "9688ec38fe1129cbf2725ce50f008701a14e47dd35e0db20c841e17b4ccc6e6b"
     },
     "scripts/normalization-v1-1/build-workflow-attestation.mjs": {
-      "bytes": 16539,
+      "bytes": 19578,
       "records": null,
-      "sha256": "41b5d5cc1d8270d86f576a0e7d621baffd672edac6c8e9f4cee30e0bad8c50de"
+      "sha256": "4f8ad20efc734465e68d8039dd11b965101c767613942f89639008c259279994"
     },
     "scripts/normalization-v1-1/project-normalization-mutation-proof.mjs": {
-      "bytes": 20756,
+      "bytes": 24411,
       "records": null,
-      "sha256": "81f3fa2702551a9e6586a22ab21762922e916ed435ae0657c81ae755083a84a8"
+      "sha256": "e60797c90af5d2394508f681a2e29bee838ef90e852dec0dd20bcc001fc5d78e"
     },
     "scripts/normalization-v1-1/replay-normalization-workflow.sh": {
-      "bytes": 7583,
+      "bytes": 7739,
       "records": null,
-      "sha256": "10d9cfd39c015e9b9ef159d3ea4e2b54febfd22bc6ec3581f5318b7eb39604e8"
+      "sha256": "d6e79aa5faeb29fbe3cd2c421726290c1275402af4efb5820ae855cb9526265d"
     },
     "scripts/normalization-v1-1/structured-validation-error.mjs": {
       "bytes": 887,
@@ -794,9 +864,9 @@
       "sha256": "4d02d14c300babe29403ef6df3051700d59ee0d66b03ea0655763a586ddc0e2d"
     },
     "scripts/validate-normalization-schemas-v1-1.py": {
-      "bytes": 2199,
+      "bytes": 4305,
       "records": null,
-      "sha256": "4e2f59221b61e4b1089e07dfc46f6a2e2078d9704672978ced3449c8a10c5afe"
+      "sha256": "558f615b8998cd6772dc163601c047ff3c9e67a90c7e4fa85005e12782c93f59"
     },
     "scripts/validate-project-normalization-synthesis-v1-1.mjs": {
       "bytes": 26411,
@@ -829,14 +899,14 @@
       "sha256": "b5321911b0cbbd766afd5ff3f457dfc6ec5826722644bd34312afd1eb89d77c1"
     },
     "tests/project-normalization-synthesis-v1-1-negative.mjs": {
-      "bytes": 2946,
+      "bytes": 3475,
       "records": null,
-      "sha256": "d46ddcbe94567729983f88d18fb75c7d78fa9d2ea9c8db5abd6227f58e7acf17"
+      "sha256": "1e6351f6b84cf333b43caa584ce2e700cd60b734eed784914667335c2e1f64e8"
     },
     "tests/project-normalization-v1-1-workflow-path-filters.mjs": {
-      "bytes": 5986,
+      "bytes": 6837,
       "records": null,
-      "sha256": "4c2eeca62af60089c5ea782ea17948e34623427924b5d35432b1206cb10ed016"
+      "sha256": "35df96146c268097a6c73142818065fd1db42fe1f9f0687efa7f1c0c08c4a5b2"
     }
   },
   "product_evidence": {
@@ -846,6 +916,8 @@
     "closure_site_public_tree": "f42a045ec9ff3b1b2f3396a4df9f54cc6a767934",
     "closure_site_src_tree": "d737458f8a87a9b7dad4f4badffd1b3f4ce544dd",
     "closure_tree": "72e24f49ad6642915131438de8c56b804c4826b0",
+    "current_root_prelaunch_commit": "5a9d804438377f65fe4b26bd7019e73626529864",
+    "current_root_prelaunch_site_src_tree": "2b48fb6f528edceab69ceab2473bd93cb90fceb6",
     "production_source_mutated": false,
     "repository": "onedayonemasterpiece/events-bot-new"
   },
