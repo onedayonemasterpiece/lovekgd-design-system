@@ -23,4 +23,6 @@
 - Immutable Decoder v1 and Behavioral Closure hashes remain exact.
 - events-bot-new and production site/src/site/public remain read-only.
 - No runtime component merge/split/delete, tokens, typography choice, experiment winner, Penpot mutation, product-model invention, or automatic next phase.
-- Final allowed statuses only: PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED and READY_FOR_INDEPENDENT_REAUDIT.
+- This matrix is historical for v1.1. Its former handoff labels are superseded
+  by the v1.1.1 exact-head attestation contract; it is not current readiness or
+  merge evidence.

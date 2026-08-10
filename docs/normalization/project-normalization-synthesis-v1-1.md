@@ -100,7 +100,12 @@ split, deletion, target ratio selection, final token or typography decision,
 experiment winner selection, product-model invention, Penpot mutation, Penpot
 component materialization, promotion, or automatic next phase.
 
-The only completion claims allowed before an independent re-audit are:
+The v1.1 handoff wording is superseded by the non-self-asserting v1.1.1 proof
+contract. Once exact-head Actions evidence exists, the only completion/handoff
+claims allowed are:
 
-- `PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED`
-- `READY_FOR_INDEPENDENT_REAUDIT`
+- `PROJECT_NORMALIZATION_SYNTHESIS_V1_1_1_PROOF_CLOSURE_COMPLETE`
+- `READY_FOR_INDEPENDENT_DELTA_REAUDIT`
+
+The independent delta re-audit and merge authorization remain separate pending
+gates.

@@ -21,12 +21,16 @@ const fixtureMode = args.includes('--fixture-mode');
 const semanticOnly = args.includes('--semantic-only');
 
 const BASE = '317938bc72cf7a47ea798b2614d92d3d285dd97a';
+const AUDITED_HEAD = 'bcdff9de56663bb77f15f32660ab0156c937e77b';
+const MAIN_AT_RECONCILIATION = '1daeb4f3ed2b86319b91e4e5b9d97a8691a72705';
+const RECONCILIATION_COMMIT = '28a8449396cdfe4531302534d8e82fb9111378cd';
 const AUDIT_SHA = 'a466ae5ff4846a1895eb11429c2fe4f175115a119dc9904d5a4a4e50a9507f76';
+const REAUDIT_SHA = '7dfdb90abc7798a0c3c69db8d818f16ef803571bcac4ac32b921fd1514db3b41';
 const DECODER_TREE = 'e77fc2457fadfdffb46ed2d90304ebb91e89a715';
 const DECODER_MANIFEST_SHA = 'f7740f7f533c3f0cda5d4d0b8ebe98b565d7f521368b96462daecbd26522d5cc';
 const BEHAVIOR_MANIFEST_SHA = 'c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1';
 const EVENTS_COMMIT = '66bc0d43e36299417626f992021cfb7299ddf704';
-const FINAL_STATUSES = ['PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED', 'READY_FOR_INDEPENDENT_REAUDIT'];
+const FINAL_STATUSES = ['PROJECT_NORMALIZATION_SYNTHESIS_V1_1_1_PROOF_CLOSURE_COMPLETE', 'READY_FOR_INDEPENDENT_DELTA_REAUDIT'];
 const DECODER = 'catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc';
 const BEHAVIOR = 'catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc';
 
@@ -55,6 +59,9 @@ const runNode = (relative, scriptArgs = []) => exec(process.execPath, [absolute(
 
 const required = [
   'docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md',
+  'docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md',
+  'docs/audits/project-normalization-synthesis-v1-1-reaudit-disposition.md',
+  'docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md',
   'docs/audits/project-normalization-synthesis-v1-audit-disposition.md',
   'docs/audits/project-normalization-synthesis-v1-1-remediation-report.md',
   'docs/normalization/project-normalization-synthesis-v1-1.md',
@@ -65,6 +72,11 @@ const required = [
   'contracts/normalization/findings-disposition.v1.schema.json',
   'contracts/normalization/family-lifecycle.v1.schema.json',
   'contracts/normalization/family-lifecycle.v1.json',
+  'contracts/normalization/project-normalization-mutation-catalog.v1.schema.json',
+  'contracts/normalization/project-normalization-mutation-run.v1.schema.json',
+  'contracts/normalization/project-normalization-v1-1-input-paths.json',
+  'contracts/normalization/project-normalization-v1-1-input-paths.schema.json',
+  'contracts/normalization/project-normalization-v1-1-execution-attestation.v1.schema.json',
   'contracts/product-value-evidence-binding.v1.schema.json',
   'catalog/normalization/authoritative-raw-universe.jsonl',
   'catalog/normalization/raw-alias-registry.jsonl',
@@ -87,7 +99,13 @@ const required = [
   'scripts/validate-normalization-schemas-v1-1.py',
   'scripts/build-project-normalization-synthesis-v1-1-receipt.mjs',
   'scripts/scan-normalization-v1-1-secrets.py',
+  'scripts/normalization-v1-1/validate-workflow-path-filters.mjs',
+  'scripts/normalization-v1-1/workflow-command-ledger.mjs',
+  'scripts/normalization-v1-1/build-workflow-attestation.mjs',
+  'scripts/normalization-v1-1/replay-normalization-workflow.sh',
   'tests/project-normalization-synthesis-v1-1-negative.mjs',
+  'tests/project-normalization-v1-1-workflow-path-filters.mjs',
+  'receipts/normalization/project-normalization-v1-1-mutation-catalog.json',
   '.github/workflows/project-normalization-synthesis-v1-1.yml',
 ];
 if (!skipReceipt) required.push('receipts/normalization/project-normalization-synthesis-v1-1.json');
@@ -95,12 +113,18 @@ for (const relative of required) assert(fs.existsSync(absolute(relative)), `miss
 
 // Immutable and read-only inputs.
 assert(sha('docs/audits/project-normalization-synthesis-v1-independent-red-team-audit.md') === AUDIT_SHA, 'byte-preserved independent audit changed');
+assert(read('docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md').byteLength === 61775, 'byte-preserved independent re-audit size changed');
+assert(sha('docs/audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md') === REAUDIT_SHA, 'byte-preserved independent re-audit changed');
 assert(sha(`${DECODER}/manifest.json`) === DECODER_MANIFEST_SHA, 'immutable Decoder v1 manifest changed');
 assert(sha(`${BEHAVIOR}/manifest.json`) === BEHAVIOR_MANIFEST_SHA, 'Behavioral v1.1 manifest changed');
 if (!fixtureMode) {
   const tree = exec('git', ['rev-parse', `HEAD:${DECODER}`], { capture: true }).trim();
   assert(tree === DECODER_TREE, 'immutable Decoder v1 tree changed');
   exec('git', ['cat-file', '-e', `${BASE}^{commit}`], { capture: true });
+  assert(exec('git', ['merge-base', AUDITED_HEAD, MAIN_AT_RECONCILIATION], { capture: true }).trim() === BASE, 'recorded reconciliation merge base changed');
+  exec('git', ['merge-base', '--is-ancestor', AUDITED_HEAD, 'HEAD'], { capture: true });
+  exec('git', ['merge-base', '--is-ancestor', MAIN_AT_RECONCILIATION, 'HEAD'], { capture: true });
+  exec('git', ['cat-file', '-e', `${RECONCILIATION_COMMIT}^{commit}`], { capture: true });
   const changed = exec('git', ['diff', '--name-only', `${BASE}...HEAD`], { capture: true }).split('\n').filter(Boolean);
   for (const relative of changed) {
     assert(!/^(penpot|prototypes)\//.test(relative), `forbidden design path changed: ${relative}`);
@@ -122,6 +146,7 @@ runNode('scripts/normalization-v1-1/build-raw-partition.mjs', ['--check']);
 runNode('scripts/normalization-v1-1/build-registry-readiness.mjs', ['--check']);
 runNode('scripts/normalization-v1-1/validate-event-media-dossier.mjs', ['--root', root]);
 if (!semanticOnly) {
+  runNode('scripts/normalization-v1-1/validate-workflow-path-filters.mjs', ['--root', root]);
   runNode('scripts/validate-component-decoder-snapshot.mjs', [absolute(DECODER)]);
   runNode('scripts/validate-behavioral-decoder-supplement-v1-1.mjs', [absolute(BEHAVIOR)]);
   runNode('scripts/validate-project-normalization-v1-1-medallions-navigation.mjs', [root]);
@@ -215,12 +240,37 @@ assert(experiments.every((row) => row.decision === 'NOT_MERGED' && row.winner_de
 if (!skipReceipt) {
   runNode('scripts/build-project-normalization-synthesis-v1-1-receipt.mjs', ['--root', root]);
   const receipt = json('receipts/normalization/project-normalization-synthesis-v1-1.json');
-  assert(receipt.schema_version === 'project_normalization_synthesis_receipt_v1_1' && receipt.status === 'complete', 'v1.1 receipt status/schema mismatch');
-  assert(stable(receipt.final_statuses) === stable(FINAL_STATUSES), 'v1.1 final statuses differ from the only allowed pair');
-  assert(receipt.independent_reaudit?.status === 'pending' && receipt.independent_reaudit?.required_before_merge === true && receipt.independent_reaudit?.merge_authorized === false, 'independent re-audit boundary is not pending/fail-closed');
-  assert(receipt.counts.raw_identities === 279 && receipt.counts.canonical_findings === 222 && receipt.counts.typed_aliases === 57 && receipt.counts.analytical_groups === 47 && receipt.counts.logical_components === 107 && receipt.counts.applications === 239 && receipt.counts.visual_reviews === 134 && receipt.counts.first_wave === 0, 'v1.1 receipt counts mismatch');
-  assert(receipt.counts.raw_unresolved_records === 87 && receipt.counts.canonical_unresolved_identities === 87 && receipt.counts.standalone_canonical_unresolved_identities === 30 && receipt.counts.readiness_operational_blockers === 192 && receipt.counts.migration_blockers === 5 && receipt.counts.promotion_blockers === 17, 'v1.1 receipt blocker namespace counts mismatch');
+  assert(receipt.schema_version === 'project_normalization_synthesis_receipt_v1_1_1'
+    && receipt.status === 'definitions_materialized_execution_attestation_required', 'v1.1.1 receipt status/schema mismatch');
+  assert(stable(receipt.allowed_completion_statuses) === stable(FINAL_STATUSES), 'v1.1.1 allowed completion statuses differ from the only allowed pair');
+  assert(receipt.audits?.independent_delta_reaudit?.status === 'pending'
+    && receipt.audits?.independent_delta_reaudit?.required_before_merge === true
+    && receipt.audits?.independent_delta_reaudit?.merge_authorized === false, 'independent delta re-audit boundary is not pending/fail-closed');
+  assert(receipt.lineage.original_synthesis_base === BASE
+    && receipt.lineage.audited_head === AUDITED_HEAD
+    && receipt.lineage.main_at_reconciliation === MAIN_AT_RECONCILIATION
+    && receipt.lineage.merge_base === BASE
+    && receipt.lineage.reconciliation_commit === RECONCILIATION_COMMIT, 'receipt reconciliation lineage differs');
+  assert(receipt.audits.original.bytes === 8046 && receipt.audits.original.sha256 === AUDIT_SHA
+    && receipt.audits.independent_reaudit.bytes === 61775 && receipt.audits.independent_reaudit.sha256 === REAUDIT_SHA, 'receipt audit byte contract differs');
+  assert(receipt.corpus_facts.raw_identities === 279 && receipt.corpus_facts.canonical_findings === 222 && receipt.corpus_facts.typed_aliases === 57 && receipt.corpus_facts.analytical_groups === 47 && receipt.corpus_facts.logical_components === 107 && receipt.corpus_facts.applications === 239 && receipt.corpus_facts.visual_reviews === 134 && receipt.corpus_facts.first_wave === 0, 'v1.1.1 receipt corpus facts mismatch');
+  assert(receipt.corpus_facts.raw_unresolved_records === 87 && receipt.corpus_facts.canonical_unresolved_identities === 87 && receipt.corpus_facts.standalone_canonical_unresolved_identities === 30 && receipt.corpus_facts.readiness_operational_blockers === 192 && receipt.corpus_facts.migration_blockers === 5 && receipt.corpus_facts.promotion_blockers === 17, 'v1.1.1 receipt blocker namespace facts mismatch');
   assert(receipt.product_value_gate.mode === 'observe' && receipt.product_value_gate.authoritative_product_ids === 0 && receipt.product_value_gate.promotion_ready_applications === 0, 'receipt product gate mismatch');
+  assert(receipt.execution_attestation_contract.status === 'required_external'
+    && receipt.execution_attestation_contract.committed_receipt_asserts_execution_pass === false, 'committed receipt self-asserts exact-head execution');
+  assert(receipt.mutation_proof_definitions.receipt_validation_enabled_during_mutation === false
+    && receipt.mutation_proof_definitions.mandatory_cases.length === 14
+    && receipt.mutation_proof_definitions.actual_results_location === 'actions-attestation-only', 'mutation definition/result boundary differs');
+  assert(receipt.structured_diff_contract.scope === 'full_committed_range_except_byte_preserved_audits'
+    && receipt.structured_diff_contract.exact_byte_exceptions.length === 2
+    && receipt.structured_diff_contract.other_exceptions_allowed === false, 'structured diff/audit exception contract differs');
+  assert(receipt.checklist_provenance.status === 'historical_non_authoritative'
+    && receipt.checklist_provenance.reviewed_head === 'e005a1c3fa5ffda07a8e76d994aa1d96b53ec45b', 'historical checklist provenance differs');
+  assert(receipt.delivery.pull_request.draft === true && receipt.delivery.pull_request.merge_requested === false && receipt.delivery.pull_request.merge_authorized === false, 'receipt escaped draft/unmerged delivery boundary');
+  const receiptText = read('receipts/normalization/project-normalization-synthesis-v1-1.json').toString('utf8');
+  for (const prohibited of ['lane_semantic_mutations', 'validation_status', '"validations"', '"git_diff_check"']) {
+    assert(!receiptText.includes(prohibited), `committed receipt contains prohibited self-asserted execution field: ${prohibited}`);
+  }
   assert(Object.values(receipt.constraints).every((value) => value === false), 'receipt escaped strict STOP boundary');
   for (const [relative, metadata] of Object.entries(receipt.outputs)) {
     assert(fs.existsSync(absolute(relative)), `receipt output missing: ${relative}`);
@@ -230,12 +280,13 @@ if (!skipReceipt) {
   }
 }
 
-const forbiddenStatuses = ['READY_FOR_FAMILY_DECISION_REVIEW', 'READY_FOR_PHYSICAL_DEFRAGMENTATION', 'NORMALIZATION_APPROVED', 'PRODUCT_VALUE_VALIDATED', 'PENPOT_READY', 'DESIGN_SYSTEM_COMPLETE'];
+const forbiddenStatuses = ['PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED', 'READY_FOR_INDEPENDENT_REAUDIT', 'INDEPENDENT_REAUDIT_PASS', 'READY_TO_MERGE', 'READY_FOR_FAMILY_DECISION_REVIEW', 'READY_FOR_PHYSICAL_DEFRAGMENTATION', 'NORMALIZATION_APPROVED', 'PRODUCT_VALUE_VALIDATED', 'PENPOT_READY', 'DESIGN_SYSTEM_COMPLETE'];
 const claimPaths = [
   'docs/normalization/project-normalization-synthesis-v1-1.md',
   'docs/audits/project-normalization-synthesis-v1-1-remediation-report.md',
   'docs/normalization/family-wave-plan-v1-1.md',
   'catalog/normalization/family-wave-plan.json',
+  'docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md',
   ...(skipReceipt ? [] : ['receipts/normalization/project-normalization-synthesis-v1-1.json']),
 ];
 for (const relative of claimPaths) for (const status of forbiddenStatuses) assert(!read(relative).toString('utf8').includes(status), `forbidden completion status in ${relative}: ${status}`);
@@ -256,5 +307,5 @@ process.stdout.write(`${JSON.stringify({
   first_wave: 0,
   applications: 239,
   visual_reviews: 134,
-  independent_reaudit: skipReceipt ? 'receipt-skipped' : 'pending',
+  independent_delta_reaudit: skipReceipt ? 'receipt-skipped' : 'pending',
 })}\n`);

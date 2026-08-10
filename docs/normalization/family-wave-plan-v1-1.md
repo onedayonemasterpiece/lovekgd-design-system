@@ -1,6 +1,8 @@
 # Family wave plan v1.1 — positive semantic readiness
 
-`PROJECT_NORMALIZATION_SYNTHESIS_V1_1_REMEDIATED`
+The former v1.1 completion label is historical and superseded by the v1.1.1
+proof-closure contract. This document still records the unchanged fail-closed
+analytical result: 47 `NOT_READY`, zero scored, and an empty first wave.
 
 This plan corrects the v1 fail-open readiness calculation. It is analytical
 only and authorizes no component merge, split, deletion, implementation,
