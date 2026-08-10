@@ -1,15 +1,23 @@
-# Final Implementation Checklist Review
+# Historical Implementation Checklist Review
 
-**Verdict:** `PASS`
+**Provenance status:** `historical_non_authoritative`
+
+**Historical verdict:** `PASS` for its reviewed content manifest only
 
 **Reviewer:** `/root/normalization_v11_checklist` (read-only checklist reviewer)
 
 **Reviewed pushed head:** `e005a1c3fa5ffda07a8e76d994aa1d96b53ec45b`
 
+**Superseded by:** the exact-head v1.1.1 execution attestation
+`project-normalization-v1-1-execution-attestation.json` and a later independent
+delta re-audit. Neither artifact existed when this checklist was written.
+
 **Pinned base:** `317938bc72cf7a47ea798b2614d92d3d285dd97a`
 
-This is an implementation checklist review, not the required future independent
-red-team re-audit.
+This is historical implementation evidence, not proof for audited head
+`bcdff9de56663bb77f15f32660ab0156c937e77b`, the reconciled v1.1.1 candidate,
+or the required future independent delta re-audit. Output counts below describe
+only the old receipt and must never be consumed as the current inventory.
 
 ## Findings
 
