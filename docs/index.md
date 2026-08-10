@@ -24,8 +24,10 @@
 | Файл | Назначение |
 |---|---|
 | [`../contracts/resource-graph-scaffold.v1.json`](../contracts/resource-graph-scaffold.v1.json) | точные 23 страницы, порядок, stable IDs, зоны и layout rules |
+| [`../contracts/ui-exploration-target.v1.json`](../contracts/ui-exploration-target.v1.json) | canonical team/file/page identity и authority boundary отдельного UI Exploration file | canonical target; project UUID не раскрыт Plugin API |
 | [`../contracts/page-archetype-requirements.v1.json`](../contracts/page-archetype-requirements.v1.json) | source requirements, verified current routes, historical paths и gaps для зон страницы 60 |
 | [`../receipts/penpot/resource-graph-to-be-structure-v1.json`](../receipts/penpot/resource-graph-to-be-structure-v1.json) | фактический PASS read-back Resource Graph revision 30 |
+| [`../receipts/penpot/event-media-visual-exploration-v1.json`](../receipts/penpot/event-media-visual-exploration-v1.json) | 7 pages, 3 native candidate groups, 9 options, 13 fixtures и 3 open owner comment threads | exploration ready; no option accepted |
 | `../receipts/penpot/page-archetype-requirements-v1.json` | read-back публикации requirements overlays; создаётся только после Penpot validation |
 | [`../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/) | reviewed compact AS-IS decoder snapshot; 107 components, 12 candidate contracts, 6 capsules, 157/157 rasters inspected |
 | [`../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/) | final reviewed sibling behavioral/action/media evidence; 293 terminal probes, zero readiness blockers, 134/134 raster reviews |
@@ -50,7 +52,8 @@ Original page requirements and current route evidence
 → page-archetype-requirements contract in this repository
 
 Visual exploration
-→ separate UI Exploration Penpot file
+→ canonical [LoveKGD — UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c)
+→ exploration-only native candidates; owner comments; no promotion authority
 
 Mature design-system graph and evidence
 → Resource Graph Penpot file + this repository
@@ -75,7 +78,8 @@ Production conformance
 5. Behavioral decoder supplement                    PASS · TERMINAL EVIDENCE COMPLETE
 6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
 7. Project normalization synthesis v1.1.1 proof definitions materialized · exact-head attestation and independent delta re-audit pending
-8. First bounded native Penpot materialization      NOT STARTED
+8. First exploration-only native Penpot candidates EVENT MEDIA READY · AWAITING OWNER COMMENTS
+   Lifecycle PENPOT_COMPONENT_CANDIDATE             NOT STARTED
 9. Three-way conformance pilot                      NOT STARTED
 10. Per-family promotion to design-system-led       0 families
 ```
