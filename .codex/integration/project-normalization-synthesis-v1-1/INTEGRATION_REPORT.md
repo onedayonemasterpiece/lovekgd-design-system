@@ -46,7 +46,7 @@ dropped or silently superseded.
 | R12 | Done | 239 application/readiness rows bound to an independent 239-edge raw-Git census; observe mode preserved |
 | R13 | Done | normative lifecycle reconciled across contract and authority docs |
 | R14 | Done | required docs, schemas, catalogs, dossiers, validators and manifest receipt are enumerated |
-| R15 | Partial until delivery | local positive/negative/immutable/archive/secret/diff gates pass; open PR and CI are recorded after push |
+| R15 | Partial until CI | local positive/negative/immutable/archive/secret/diff gates pass; draft PR [#31](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31) is open and intentionally unmerged for independent re-audit |
 
 ## Verified counts
 
@@ -87,6 +87,8 @@ lifecycle states / transitions        11 / 10
 
 ## Delivery boundary
 
-The PR must remain open and unmerged for a separate independent re-audit. This
+Branch `remediation/project-normalization-synthesis-v1-1` is published and draft
+PR [#31](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/31)
+must remain open and unmerged for a separate independent re-audit. This
 integration report is an implementation checklist, not that re-audit and not a
 promotion, target-contract or physical-defragmentation decision.
