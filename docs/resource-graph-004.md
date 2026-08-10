@@ -310,7 +310,7 @@ Entry points, happy paths, auth branches, unavailable branches, external handoff
 
 ### `68 — UI gaps, comments and decisions`
 
-Deduplicated comment intake, association, reproduced gaps, current/desired state, product/flow context, candidate links, impact reports, decisions, handoff and verification. This is explicitly **not a second backlog**.
+Deduplicated comment intake, association, reproduced gaps, current/desired state, product/flow context, candidate links, impact reports, decisions, handoff and verification. Action-map hotspot, raw summary или generated overlay сами по себе сюда не попадают: accepted UI gap может быть создан только из reviewed finding со статусом `accepted`. This is explicitly **not a second backlog**.
 
 ### `70 — Coverage and fragmentation`
 
@@ -324,9 +324,15 @@ Bounded packages from UI Exploration, candidate resource/archetype revisions, im
 
 Resolved comments, closed gaps, historical revisions, rejected/parked candidates, deprecated resources, superseded archetypes, historical evidence and rollback history.
 
-### `90–93 — Evidence`
+### `90–92 — Evidence / desktop, tablet, mobile`
 
-Browser actual, owner-approved baseline, generated diff, component specimens, representations, archetypes, release/test identity, interaction/accessibility traces and known noise.
+Browser actual, owner-approved baseline, generated diff, component specimens, representations, archetypes, release/test identity and known noise. Для reviewed action-map evidence эти страницы содержат representative replay/render и page-level overlay соответствующего viewport; overlay всегда связан с immutable evidence package, scope, denominator и release/model/layout/component identities.
+
+### `93 — Evidence / interaction and accessibility`
+
+Interaction/accessibility traces, component-local action maps, semantic-zone summaries и activation/effect evidence. Component map сохраняет ссылку на точный Component Contract или reconstructed AS-IS identity, но не становится visual baseline.
+
+Action-map evidence является runtime evidence. Ни page-level hotspot, ни component-local map, ни отсутствие ожидаемого эффекта автоматически не меняют Component Contract, не объединяют reconstructed families и не запускают promotion. Они могут стать входом reviewed finding; только явно принятый finding может создать accepted UI gap на странице `68`, после чего обычные review, decision и promotion gates продолжают действовать.
 
 Canonical viewport IDs:
 
@@ -407,6 +413,18 @@ observed
 ```
 
 Gap records retain product, resource, archetype, representation, flow, evidence, review, severity, acceptance, implementation and verification references. Candidate decisions do not overwrite reconstructed or accepted resources.
+
+Для action-map evidence lifecycle начинается вне gap registry:
+
+```text
+immutable evidence package
+→ reviewed finding: accepted | rejected | insufficient-data
+→ accepted finding
+→ optional accepted UI gap on page 68
+→ normal proposal / design / acceptance / implementation lifecycle
+```
+
+Hotspot не является finding, а finding не является contract revision или promotion receipt. Rejected/insufficient findings остаются evidence history и не материализуются как accepted UI gaps.
 
 This gap lifecycle is orthogonal to the family lifecycle. Closing a gap or accepting one correction does not advance a family state or change authority without the corresponding machine transition receipt.
 
