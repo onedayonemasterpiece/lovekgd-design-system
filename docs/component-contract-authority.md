@@ -99,8 +99,9 @@ Contract не дублирует HTML/CSS. Он определяет identity, A
 component_id: announcements.event-card
 contract_version: 5.0.0
 state_key: portrait.compact.default
-runtime_binding:
-  astro: EventCard.astro
+astro_binding:
+  source: EventCard.astro
+runtime_binding: {}
 
 observability:
   action_map_eligible: true
@@ -128,6 +129,8 @@ observability:
 ```
 
 `zones` задаёт component-local semantic boundaries, их роль, eligibility и allowlist действий. `actions` связывает semantic action с `interaction_mode` и конкретным `expected_effect`; generic DOM-change heuristic не заменяет этот контракт. Повторы интерпретируются с учётом режима (`single_shot`, `toggle`, `repeatable`, `carousel/stepper`, `drag/hold`), поэтому «dead click» или «rage click» могут быть только reviewed finding, но не первичным runtime-фактом.
+
+`astro_binding` хранит identity исходной Astro implementation. Отдельный `runtime_binding` зарезервирован для schema-defined compiled/runtime identity fields и не содержит Astro source path. Эти bindings проходят независимую проверку и не сворачиваются в одно поле.
 
 Identity hierarchy для evidence:
 
