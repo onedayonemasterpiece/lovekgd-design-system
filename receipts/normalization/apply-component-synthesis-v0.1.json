@@ -1,0 +1,595 @@
+{
+  "conclusion": "PASS_WITH_EXTERNAL_PENPOT_BLOCKER",
+  "counts": {
+    "archetypes": 18,
+    "candidate_contracts": 65,
+    "explicit_gaps": 12,
+    "fixtures": 39,
+    "mapping_rows": 107,
+    "owner_ambiguities": 0,
+    "package_baseline_materializable": 61,
+    "technical_reconciliations": 6,
+    "unique_terminal_mappings": 107
+  },
+  "delivery": {
+    "materialization_parent_sha": "4caae2f006ff7dc3011607e2bfc33983832fcf30",
+    "pull_request": {
+      "draft": true,
+      "merge_requested": false,
+      "merged": false,
+      "number": 35,
+      "url": "https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/35"
+    }
+  },
+  "gates": {
+    "archetype_graphs_18": "PASS",
+    "dependency_integrity": "PASS",
+    "exact_107_closure": "PASS",
+    "fixture_coverage": "PASS",
+    "idempotent_second_run": "BLOCKED_EXTERNAL_EVIDENCE",
+    "materialization_manifest_stability": "PASS",
+    "media_matrix": "PASS",
+    "native_readback": "BLOCKED_EXTERNAL_EVIDENCE",
+    "owner_ambiguity_zero": "PASS",
+    "registry_and_mapping_schemas": "PASS",
+    "source_drift": "PASS",
+    "technical_reconciliation_6_of_6": "PASS"
+  },
+  "materialization": {
+    "component_count": null,
+    "execution_status": "BLOCKED_EXTERNAL_EVIDENCE",
+    "instance_count": null,
+    "ir_ref": "catalog/normalization/component-synthesis-v0.1/penpot-materialization-ir.json",
+    "planned_counts": {
+      "archetype_instances": 349,
+      "archetypes": 18,
+      "concrete_component_variants": 471,
+      "explicit_gaps": 12,
+      "final_materializable_entities": 65,
+      "fixture_specimen_instances": 1138,
+      "native_component_masters": 65,
+      "nested_component_instances": 695,
+      "package_baseline_materializable_entities": 61
+    },
+    "readback_ref": "catalog/normalization/component-synthesis-v0.1/penpot-readback.json",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision_after": null,
+    "revision_before": 33,
+    "rollback_ref": "catalog/normalization/component-synthesis-v0.1/rollback-package.json",
+    "variant_count": null
+  },
+  "operation_id": "apply-component-synthesis-v0.1",
+  "outputs": {
+    ".github/workflows/apply-component-synthesis-v0-1.yml": {
+      "bytes": 6155,
+      "sha256": "2d0fe41c48746d280fcd976ceee6251947f0af5c7d7286dc22c787d929283895"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.club.json": {
+      "bytes": 12716,
+      "sha256": "2a4091c1f66dc2d9e7be2440db9f87b445c81eaac6bb31eb1f9aa9c68408161e"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.collection.json": {
+      "bytes": 15258,
+      "sha256": "89989c42ee7b253082013aa356250ede8c44d5c4a2a4357b0edf60a61b147027"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.documents-legal.json": {
+      "bytes": 6152,
+      "sha256": "8c2ee3c1eae5e948cd30c0aabb01dd2f04b65e28206f4155c5da2eb8a863f340"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.event-detail.desktop-editorial.json": {
+      "bytes": 58836,
+      "sha256": "9c9277d3d0051122308833a0524dbbcebc503e149a0b3ec8474785d45ed07a63"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.event-detail.desktop-no-image.json": {
+      "bytes": 32741,
+      "sha256": "9f60b2c11e688e902f975d9696474c93e8bafb9dcc7809e22478d07dd79ec477"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.event-detail.desktop-split.json": {
+      "bytes": 65229,
+      "sha256": "bbb4293db1588860072d4e2927eb19a37c47efdc807bd6960a6ef282c9671e2f"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.event-detail.mobile.json": {
+      "bytes": 63194,
+      "sha256": "9bfd8d7b20a53dd388f022e32852f0dc62d1e997ee9bb6aa4d82cbf5409a0854"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.exhibitions.json": {
+      "bytes": 13875,
+      "sha256": "41d0d491d3a31276072df6f7e55b0d7f95d8073dc8b51b244b2b72168fb477fe"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.favorites.json": {
+      "bytes": 14897,
+      "sha256": "69095d694375590e81b4266578c81b0df8c8036265dfd392330e87fbabc94478"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.festival.json": {
+      "bytes": 19541,
+      "sha256": "dd987de4408bfaee744981e88d7e0025d5bba6772690cc4f4bb5172734be83d2"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.home.json": {
+      "bytes": 8846,
+      "sha256": "c3ba892235e5cc719ef5579ed9246c40961fc46c64deb88b1daca6637f21cc21"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.listing.date.json": {
+      "bytes": 27037,
+      "sha256": "d844c6c7b2edc3ab5661d83959bba025d06757f0f77f6af7a22afa5bcb8df174"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.listing.popular.json": {
+      "bytes": 20333,
+      "sha256": "303a587b08e913cdc6bf489d6927d7c750301af674983c3293c2ba47d1316a4d"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.listing.unusual.json": {
+      "bytes": 15352,
+      "sha256": "6a2c56defc72151053235d7508e5796c88ecd742a5ca46c37b5c794b6a2b2353"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.listing.weekend.json": {
+      "bytes": 22767,
+      "sha256": "a29394da3eb8d8c07f470746554487b87ce6c0ee096303e5ae66b59f8a67f2b9"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.personal-feed.json": {
+      "bytes": 17532,
+      "sha256": "6b3c5d1cbdf83f91595ea34f4d8e9f9f75868aefb91a88f87f821bc5753648b1"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.prelaunch.json": {
+      "bytes": 8888,
+      "sha256": "399065328f8f82fe629b710c5710707cf3028250ef0de9f5aaf084dfddd8fcd2"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/graphs/archetype.search.json": {
+      "bytes": 18276,
+      "sha256": "ccc18aeaf6018e287e5c63f1d11cae2c8d487328b2d122408d0518f340737543"
+    },
+    "catalog/normalization/component-synthesis-v0.1/archetypes/index.json": {
+      "bytes": 6192,
+      "sha256": "f69121637968fd7b3d759fbd786a090369ce03d9744667dffd12acb53391cd07"
+    },
+    "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json": {
+      "bytes": 19561,
+      "sha256": "5e1cfca20694176d07e6ca2f7d516de4e370838acf6b3c4022cf56c624555846"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/artifact.collection.contract.json": {
+      "bytes": 8997,
+      "sha256": "c3582815ebeffdf5982519e9ea559462a252641f19a8331b8ebbae8885c97a69"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/brand.lockup.contract.json": {
+      "bytes": 8621,
+      "sha256": "e507c3422e04b599792d4ff63f52119c2d46f38c64ebd2a626bfdb954677a0a1"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/brand.wordmark.contract.json": {
+      "bytes": 7471,
+      "sha256": "4bec5571a37514fc8b3101a7658a6905437dc09f9dd915b3b18767e53c53ae55"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/club.card.contract.json": {
+      "bytes": 10134,
+      "sha256": "1f4865d5c1050c5c914c6853fc4caf351effeab02641f8651817f03fbc782303"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.badge.contract.json": {
+      "bytes": 9428,
+      "sha256": "5d708fbb34d1ebe88fe831c220926f7fa81758151be2ce3f54a4d15c3e874f5c"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.breadcrumbs.contract.json": {
+      "bytes": 9311,
+      "sha256": "87c3e802f36fe913fd47882f273d676b606f6fd824d40a568da3681b00a9ed46"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.button.contract.json": {
+      "bytes": 12263,
+      "sha256": "b2e98c8dc00396be72a145e94e0f5d682392207622cfcf72d03446907372903f"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.calendar-action.contract.json": {
+      "bytes": 10386,
+      "sha256": "e68e93210af5dc875cba047f3001d8d8d7bd27f6e6675b53c26ce034c89ac8ff"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.copy-action.contract.json": {
+      "bytes": 9236,
+      "sha256": "0cf41051c21262563c121b21560ac4ab599ff70c2de31a969390bce9d7333c1a"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.dialog.contract.json": {
+      "bytes": 9951,
+      "sha256": "25f0c9ae060d113bb19fa3d748205ec233c2d210526b72db73deeefe30794ee4"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.favorite-action.contract.json": {
+      "bytes": 10108,
+      "sha256": "c39f6f1046a40057bb43e1217d7506dd8610e4e9eec9d13fb1cbda47d4c986be"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.field.contract.json": {
+      "bytes": 9628,
+      "sha256": "da6f33d3c441232611a50b7c1a48b4290b8b4a64065282018cdc83cc5920149a"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.icon.contract.json": {
+      "bytes": 9661,
+      "sha256": "6cefdb72af0c166495fb5151f1b93182c62796a0080c7bb482bd02af1c778673"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.rail.contract.json": {
+      "bytes": 10906,
+      "sha256": "796fb443728d546a0fadf94038da695da3c5cddb9a5f5e6474e9672a3be6e29c"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.share-action.contract.json": {
+      "bytes": 9870,
+      "sha256": "ca9f71674b57d9cc28ce97ab860926758b3dacf0648ab319a20b9efe29e2e6e8"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.state-panel.contract.json": {
+      "bytes": 10840,
+      "sha256": "390263528a312c20b5179846d1ff8c60ecb8f740d2f22e826741463eabfa1253"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/core.toast-region.contract.json": {
+      "bytes": 9401,
+      "sha256": "89db11da606739c034cacef7666f2e2622af9f708fd303e7a7a5b20ca384c4c5"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.action-group.contract.json": {
+      "bytes": 14954,
+      "sha256": "8113a2d5317eba56dae2d35e079097996e51798ee8040e782d95f816574ef26d"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.admission-summary.contract.json": {
+      "bytes": 9067,
+      "sha256": "6b7a390f229423938cf14000650a32cec48e8274175accdb4109a32382cc3b10"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.card-grid.contract.json": {
+      "bytes": 11744,
+      "sha256": "8a8964b80b12990b38b0fee5c274f64af417bf2ffc097112cd716750f3de713b"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.card.contract.json": {
+      "bytes": 19609,
+      "sha256": "b9dffd692c3a7e3c67fe84dfe3d33650e1d871b5776f96fe590896b4625ccb24"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.fact-list.contract.json": {
+      "bytes": 9417,
+      "sha256": "99413e4443e6dd52fda7dd2920a01ff2e286b2854920de014dd0f4e57ff73f36"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.fact-row.contract.json": {
+      "bytes": 10188,
+      "sha256": "a9dce508fe6b97b508cc93d4a4c858227d020de220aae485e9c3d08db757f394"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.fallback-art.contract.json": {
+      "bytes": 11082,
+      "sha256": "cfa2b4519cb140730ecd2c32d757e7bb6a35a60e963e2c3834b1c22153f3c070"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.hero-composition.contract.json": {
+      "bytes": 17066,
+      "sha256": "b5fa1a3d1974a8bf3a1bb5287c9e6dd656739bfd6c0152e39acec888b8a40cbc"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.hero-summary.contract.json": {
+      "bytes": 12464,
+      "sha256": "34b9d7f1e25e1b12c9b007c705644c2529603dd66bdeff9d861ae784bec16ebe"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.list-item.contract.json": {
+      "bytes": 16406,
+      "sha256": "a700e2e62bf4aae3f43777daac7cdd83f0ee8e2833aca99f64145eed2d84d470"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.media-frame.contract.json": {
+      "bytes": 19275,
+      "sha256": "a70445604ca547a5f78200d0ed406c08c22fcca17d4e2787b2c39fab4b37820a"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.media-rail.contract.json": {
+      "bytes": 12518,
+      "sha256": "d04ede59bb0d157afbca0c4936d55c600828477703c17c6c126a655aadf3c7a8"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.media-viewer.contract.json": {
+      "bytes": 14515,
+      "sha256": "49fe097948568824e2ea717a22a8cbd7844e1c823481af6795432be76c371a0e"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.occurrence-label.contract.json": {
+      "bytes": 9545,
+      "sha256": "7bb71cfa83d84c244f2e682b35896bacc51ef3e7b6e51c6ca2295cffcf946406"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.occurrence-selector.contract.json": {
+      "bytes": 10095,
+      "sha256": "2a11cc07a49ac28415bc58cd0c5cf31f38cd03cbcdbf302424a967025750a7f0"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.primary-action.contract.json": {
+      "bytes": 13406,
+      "sha256": "fffb566074451c2e3b52c6ed54835f66227795700fd27b9220d1f502f097f987"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.summary-action-panel.contract.json": {
+      "bytes": 12956,
+      "sha256": "035661bc3eba5cc0e688635a6ac45ed84a6415f958dd65da9ba8b22df091d3d8"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/event.token-medallions.contract.json": {
+      "bytes": 13664,
+      "sha256": "957cabec3ab65d08bffe54741a2b42517702874bdbc867f1b4f4a69955773cf8"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/favorites.surface.contract.json": {
+      "bytes": 12599,
+      "sha256": "60b738f80175d15117641f190d7322ccc2dada62cb8d9b9c37658cf9e5d919df"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/focus.diagnostic.contract.json": {
+      "bytes": 11280,
+      "sha256": "490e5b000f7786d6eacc8d0877a5ee1f07225d1197a3531091e66d7e1eb2100b"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/focus.feedback-form.contract.json": {
+      "bytes": 12362,
+      "sha256": "4e980e92052b6ffad75212dfd418fe9e6ad2b18f86a36e4954757b54b6b93398"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/focus.invite-intake.contract.json": {
+      "bytes": 11847,
+      "sha256": "3d0f330c037df80c0a2cffbfbb76c6c520ad6dad07408b0416e2b26e59c3e55b"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/focus.invite-share.contract.json": {
+      "bytes": 9537,
+      "sha256": "0ace2a3a8cf269b5e8ac1052821ac4f52b349dbb8cf62ede5928cdac894275ec"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/focus.thank-you.contract.json": {
+      "bytes": 9142,
+      "sha256": "dcf51bb814092afe08ffde471486db0bd6b894193def0c0a545871900e2c3f32"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/home.quick-navigation.contract.json": {
+      "bytes": 9494,
+      "sha256": "992aa18ace6c8147b36a71770be39c8991c81979d5793a9f1ac00dfd39c589a6"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/index.json": {
+      "bytes": 21790,
+      "sha256": "388acec23b9e45c4f0ee3270574b005068a76557c662c24633452ddb1e52004d"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/interest.profile.contract.json": {
+      "bytes": 9909,
+      "sha256": "b6abbeb4d69967a1276999a864528276ddd2e6c02bcf8a84de9b47edf276d016"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.category-filter.contract.json": {
+      "bytes": 9547,
+      "sha256": "cc83feb4933eefbec93e6edb957fbe8f2d702767bcee5cd2d5126f56e37f9717"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.controls.contract.json": {
+      "bytes": 9018,
+      "sha256": "7a312ed554de912d542c982f7d40876188f01a74552e7023985e85eeec4504b5"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.density-switch.contract.json": {
+      "bytes": 8101,
+      "sha256": "6205d0f4f8f3db31c50811264cace8a7acb89eda8ddf01b85383b8a129da00d5"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.discovery-rail.contract.json": {
+      "bytes": 15449,
+      "sha256": "bdd0a816237d316c94104f0d88406f2f3fea2bcb324014c0ebb9e3c88c5de2ab"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.event-card.contract.json": {
+      "bytes": 19016,
+      "sha256": "95974da04b754bd10552a89ac7fe1a31429a7740974ecdfa4fb00e77238cdd0c"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.page-header.contract.json": {
+      "bytes": 9542,
+      "sha256": "882da772b6bd604dce7c0e1a9565cc0a82755ee02a1e1ae586e517d717e57b23"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.range-navigation.contract.json": {
+      "bytes": 9159,
+      "sha256": "668d41d99066dfba07a5b3972e984a3241c7b3aa381149945f9b2ef9aea528df"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.time-marker.contract.json": {
+      "bytes": 8655,
+      "sha256": "5648dcbc8b46786d09ffd500567670ce5d78c00626653226d0fc0fdd134877b7"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.time-navigation.contract.json": {
+      "bytes": 9339,
+      "sha256": "0836d76646aa79683da35f2855076eef7a8d7c66ea1f3c974e2fd471d0d5d1cf"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/listing.timeline.contract.json": {
+      "bytes": 12513,
+      "sha256": "6cc3fce853b5cde1d66d11386c22bff8140f6c13a54357774c6e9390de539759"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/navigation.mobile-menu.contract.json": {
+      "bytes": 10042,
+      "sha256": "68e0bdce45ba712bc6c0fc904bcd36bb2edbe6e28dec6bcabd9c980914ce12e6"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/navigation.mobile-tab-bar.contract.json": {
+      "bytes": 10552,
+      "sha256": "c778963bbb8bf7a5121c128240e5acbff3bfacd89cab195652a276c77a028277"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/navigation.mobile-tab-item.contract.json": {
+      "bytes": 9614,
+      "sha256": "4001647b8bb886c8be4d5103fa2f00731635a61c00375483f7454b46b6b6a613"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/personal-feed.slot.contract.json": {
+      "bytes": 13655,
+      "sha256": "e70f5d1f7ad306a0b75706ce737837e8c976790e17acb47ae29e155c65093eb2"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/search.event-search.contract.json": {
+      "bytes": 15824,
+      "sha256": "674079dea402dc9f4fbd55f3ea48be16cc1f762bfd4ee97a3fa75dddd6d59e0a"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/talk.message.contract.json": {
+      "bytes": 10405,
+      "sha256": "2f6ad3d16e2d89d526dfadc1c3db592341a76636d061f7714acc1756224f5696"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.bus-schedule.contract.json": {
+      "bytes": 12662,
+      "sha256": "38dad280c6766daec7558fc94aa6287e25d58e1d34ba278152170a64d9c2c937"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.journey-alerts.contract.json": {
+      "bytes": 10170,
+      "sha256": "45f1947a351047157524f9480e54d6fdc2a7585d2cfb2cf0c2f658cd37a2dd8e"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.kaup-schedule.contract.json": {
+      "bytes": 14255,
+      "sha256": "a829168355854e29db96596cf70d8c26465efa68956439e33c2ad84896fa76ca"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.rail-schedule.contract.json": {
+      "bytes": 14663,
+      "sha256": "847531e0a8bba2d7468b0439f6a1cd741c70f8a89556b150f5fadc0af9540562"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.route-heading.contract.json": {
+      "bytes": 9452,
+      "sha256": "afbfe12ee90af41c95f6b2dd101848baf886b66db68b08bf727378f487c494a7"
+    },
+    "catalog/normalization/component-synthesis-v0.1/contracts/transport.schedule-region.contract.json": {
+      "bytes": 12688,
+      "sha256": "4fb388b1c26d210dd2f880857d34b1999e2a4623f5717cebbfe0f156875d7ee1"
+    },
+    "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.csv": {
+      "bytes": 15596,
+      "sha256": "1c0d2f48d40386228f982d8ff0ac4117d36346d63514ae07bf34ff8e8ac86839"
+    },
+    "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl": {
+      "bytes": 37196,
+      "records": 107,
+      "sha256": "c45b4b91cd45913d0872909e769c0a60fc938b14966472a9098c651a523b2931"
+    },
+    "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl": {
+      "bytes": 167766,
+      "records": 111,
+      "sha256": "83ad74c7a8bf4ca109da57af29cb4a1c7585f7c90b40edacee1e72c15bd1f738"
+    },
+    "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json": {
+      "bytes": 102293,
+      "sha256": "abd59277c9f020a353deb62d59539e1c385814e9289561e62ba6bb74f6e81f74"
+    },
+    "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json": {
+      "bytes": 35137,
+      "sha256": "7c4b891f51a0b3517fa0ae56966874d02bb61444e52784e14ec68290b74ac91b"
+    },
+    "catalog/normalization/component-synthesis-v0.1/media-policy-matrix.jsonl": {
+      "bytes": 42763,
+      "records": 35,
+      "sha256": "b77db3cb03b67b02f085c07ceac6d5a7d12e4b239a43cd77da4a75ba26c9ed63"
+    },
+    "catalog/normalization/component-synthesis-v0.1/metrics.json": {
+      "bytes": 1400,
+      "sha256": "35c1723132fe2dd1d8e25c65143d19b00c0b95cac5ebf93d9dbefe3a07add5c4"
+    },
+    "catalog/normalization/component-synthesis-v0.1/owner-ambiguities.json": {
+      "bytes": 5210,
+      "sha256": "8eb78142d347698925adad37148a05e485459901ee3914b3e203bc9b22f0a369"
+    },
+    "catalog/normalization/component-synthesis-v0.1/package-verification.json": {
+      "bytes": 10834,
+      "sha256": "1188b4676e239909ec5002449b65c7c40708bd91909a63f45391f50519d49136"
+    },
+    "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl": {
+      "bytes": 11442,
+      "records": 18,
+      "sha256": "f2478d493551ed86fc51ace074f56592861a8457cdc42fac4a074237c9e394e2"
+    },
+    "catalog/normalization/component-synthesis-v0.1/penpot-materialization-ir.json": {
+      "bytes": 2028983,
+      "sha256": "da43b7198e2f7b46c94db1b22d462aae974c1f165a8f7e4655309cf88b32cbc5"
+    },
+    "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json": {
+      "bytes": 6665,
+      "sha256": "4418bfc77ae826b73a440c68b4b6b61104e44ff958e0a0ba1c4edeecb7b937ed"
+    },
+    "catalog/normalization/component-synthesis-v0.1/penpot-readback.json": {
+      "bytes": 2466,
+      "sha256": "6060df6bec46a56bfa6cde527ba58673b38feeb447429b15d5b1b8ba36005ff6"
+    },
+    "catalog/normalization/component-synthesis-v0.1/rollback-package.json": {
+      "bytes": 346448,
+      "sha256": "10f7f954760cd0b75574a2c58da0df6b917e30fe4838e7f640e7ce68951fe461"
+    },
+    "catalog/normalization/component-synthesis-v0.1/source-drift-ledger.jsonl": {
+      "bytes": 227257,
+      "records": 107,
+      "sha256": "52e9a1ff7dc2bf3f6115c23b41e30b58181eef0c6978938365b3f97abd56cb48"
+    },
+    "catalog/normalization/component-synthesis-v0.1/technical-reconciliation-queue.jsonl": {
+      "bytes": 3954,
+      "records": 6,
+      "sha256": "68829f264f3f1c3d363f97979a5eca1af88d3a89c654525245d06022cbdfa76e"
+    },
+    "catalog/normalization/component-synthesis-v0.1/technical-reconciliation-results.jsonl": {
+      "bytes": 20535,
+      "records": 6,
+      "sha256": "258122c4ad50d0a69d977a4a20a2f1b1d27a325a1bfe5fbcb8f9c3fd19abb6ef"
+    },
+    "catalog/normalization/component-synthesis-v0.1/ui-exploration-history-plan.json": {
+      "bytes": 7855,
+      "sha256": "c9d221df552ddaab62325d88d8dd956a66fbf7976f5738b02e990d3f0e6cbb2d"
+    },
+    "catalog/normalization/component-synthesis-v0.1/validation-report.json": {
+      "bytes": 2931,
+      "sha256": "7d3ead0c138a61ab71d9757e7a2781dee4f8d166e4fc120048f371071ac6f567"
+    },
+    "contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json": {
+      "bytes": 13025,
+      "sha256": "b7cd7ba60ce33829972ec181deedf42ca8a9a23b523ed926dc28e6cf481a2961"
+    },
+    "contracts/normalization/component-synthesis-archetype.v0.1.schema.json": {
+      "bytes": 12613,
+      "sha256": "a0ab24bf9e7f6274f5ac9c86bda025681fad321110237ce8806424fa6271aeed"
+    },
+    "contracts/normalization/component-synthesis-contract.v0.1.schema.json": {
+      "bytes": 18270,
+      "sha256": "b637877dce37023a590f4fb5562860cb42631effbd638b86d4074b61cf8640cc"
+    },
+    "contracts/normalization/component-synthesis-registry.v0.1.schema.json": {
+      "bytes": 13073,
+      "sha256": "3a2b7604fa6ea9d9f210cca3330ee992dfc954228757e49a8c34e09165266aef"
+    },
+    "scripts/component-synthesis-v0.1/build-materialization-ir.mjs": {
+      "bytes": 1298,
+      "sha256": "c258346e0f25e3d274633702fe48fb3f74d0f731d330112191a0bf7dc7a62830"
+    },
+    "scripts/component-synthesis-v0.1/build-receipt.mjs": {
+      "bytes": 1833,
+      "sha256": "3e7964e81e93e00f7ed7328ab4b6ce539e2963bb7cc27e1b801b986b99cabf7a"
+    },
+    "scripts/component-synthesis-v0.1/lib.mjs": {
+      "bytes": 97021,
+      "sha256": "eaf0824266e8c7909cc6389a26115aab465f4febb76e2389c7addd0f891e6478"
+    },
+    "scripts/component-synthesis-v0.1/materialize-penpot.js": {
+      "bytes": 22589,
+      "sha256": "dc4d4c4c3b0aeee1dac5dfbf352d8ea97d1255b70f3c4794fb6fd7e37fd40ffd"
+    },
+    "scripts/component-synthesis-v0.1/materialize-ui-exploration-history.js": {
+      "bytes": 5786,
+      "sha256": "603231e20fa307679a2d4235ae509d06d1f4c47926901c1a1e6c00593aa7144d"
+    },
+    "scripts/component-synthesis-v0.1/paths.mjs": {
+      "bytes": 2794,
+      "sha256": "fbf2f5e630b7106ad9ba6d72f2b788af11d26dd2adb38212a564fafea376a5b4"
+    },
+    "scripts/component-synthesis-v0.1/structured-error.mjs": {
+      "bytes": 850,
+      "sha256": "1fb43f1c7febaa80eff99966cd83ddc0fb1f3a955e6f34b6af0217d0fc7705ff"
+    },
+    "scripts/component-synthesis-v0.1/validate-schemas.py": {
+      "bytes": 3555,
+      "sha256": "d734c7b52fc3fc926f1bc40b98d7fc51431ea0ae116b08bd26aa55f201340755"
+    },
+    "scripts/validate-apply-component-synthesis-v0.1.mjs": {
+      "bytes": 1122,
+      "sha256": "b7214c701567823dba11076c094104b3bc1843a9c416d2f6bfea45f9175d5b44"
+    },
+    "tests/apply-component-synthesis-v0.1-negative.mjs": {
+      "bytes": 10718,
+      "sha256": "b9875dbec6992694b461f2af106bbcc0a27369f0ee11febe3fbd5a768199f849"
+    }
+  },
+  "package": {
+    "archive_sha256": "cb13d1bb7368eefa7b98763c1b065b27406e6a20b3c9b393935c2dc830aed446",
+    "extraction_commit": "8bf4ad465cbd9d943935c201378b867a5d539456",
+    "manifest_entries": 16,
+    "manifest_sha256": "8f74201b4528fec1723c6464d82533ee896999dc77182fadf1f7977ea2abdb7d",
+    "verification_ref": "catalog/normalization/component-synthesis-v0.1/package-verification.json",
+    "verification_result": "PASS"
+  },
+  "repository": {
+    "base_sha": "c59a3576c7361c1953b31ad9b98ed096640e92c7",
+    "branch": "normalization/apply-component-synthesis-v0-1",
+    "head_sha": "4caae2f006ff7dc3011607e2bfc33983832fcf30",
+    "name": "onedayonemasterpiece/lovekgd-design-system"
+  },
+  "schema_version": "lovekgd_apply_component_synthesis_receipt_v0_1",
+  "scope_guards": {
+    "candidate_accepted": false,
+    "canonical_promoted": false,
+    "events_bot_modified": false,
+    "experiment_winner_selected": false,
+    "pr_merged": false,
+    "production_astro_modified": false,
+    "promotion_ready_set": false
+  },
+  "source": {
+    "affected_astro_implementations": 106,
+    "design_system_base_sha": "c59a3576c7361c1953b31ad9b98ed096640e92c7",
+    "drift_ledger_ref": "catalog/normalization/component-synthesis-v0.1/source-drift-ledger.jsonl",
+    "events_current_main_sha": "96784bd572c03b965f303366c4ff0bb85d1b9a3f",
+    "events_synthesis_observed_sha": "a161061d8161409566412db2b1909031949dc104",
+    "events_tree_sha": "211a34bf1165c7e9a1a2f65e78ee431150592cba",
+    "exact_paths": 107,
+    "material_deltas": 0,
+    "validation": "PASS"
+  },
+  "ui_exploration_history": {
+    "accepted_count": 0,
+    "execution_status": "BLOCKED_EXTERNAL_EVIDENCE",
+    "owner_consent": "absent",
+    "owner_review_status": "WITHDRAWN_FROM_OWNER_REVIEW",
+    "plan_ref": "catalog/normalization/component-synthesis-v0.1/ui-exploration-history-plan.json",
+    "revision_disposition": "NEEDS_REVISION",
+    "selected_count": 0
+  }
+}
