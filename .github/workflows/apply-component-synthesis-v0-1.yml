@@ -1,0 +1,125 @@
+name: Apply Component Synthesis v0.1
+
+on:
+  push:
+    paths:
+      - '.codex/integration/apply-component-synthesis-v0-1/**'
+      - '.codex/lanes/apply-synthesis-*/**'
+      - '.github/workflows/apply-component-synthesis-v0-1.yml'
+      - 'catalog/lovekgd-component-synthesis-v0.1(1).zip'
+      - 'catalog/normalization/component-synthesis-v0.1/**'
+      - 'contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json'
+      - 'contracts/normalization/component-synthesis-*.v0.1.schema.json'
+      - 'docs/normalization/apply-component-synthesis-v0.1.md'
+      - 'docs/normalization/full-component-synthesis-v0.1.md'
+      - 'receipts/normalization/apply-component-synthesis-v0.1.json'
+      - 'scripts/component-synthesis-v0.1/**'
+      - 'scripts/validate-apply-component-synthesis-v0.1.mjs'
+      - 'tests/apply-component-synthesis-v0.1-negative.mjs'
+  pull_request:
+    paths:
+      - '.codex/integration/apply-component-synthesis-v0-1/**'
+      - '.codex/lanes/apply-synthesis-*/**'
+      - '.github/workflows/apply-component-synthesis-v0-1.yml'
+      - 'catalog/lovekgd-component-synthesis-v0.1(1).zip'
+      - 'catalog/normalization/component-synthesis-v0.1/**'
+      - 'contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json'
+      - 'contracts/normalization/component-synthesis-*.v0.1.schema.json'
+      - 'docs/normalization/apply-component-synthesis-v0.1.md'
+      - 'docs/normalization/full-component-synthesis-v0.1.md'
+      - 'receipts/normalization/apply-component-synthesis-v0.1.json'
+      - 'scripts/component-synthesis-v0.1/**'
+      - 'scripts/validate-apply-component-synthesis-v0.1.mjs'
+      - 'tests/apply-component-synthesis-v0.1-negative.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apply-component-synthesis-v0-1-${{ github.event_name }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  ACS_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  ACS_DESIGN_BASE_SHA: 'c59a3576c7361c1953b31ad9b98ed096640e92c7'
+  ACS_EVENTS_SHA: '96784bd572c03b965f303366c4ff0bb85d1b9a3f'
+  ACS_SYNTHESIS_OBSERVED_SHA: 'a161061d8161409566412db2b1909031949dc104'
+  ACS_NODE_VERSION: '22.18.0'
+  ACS_PYTHON_VERSION: '3.13.7'
+  ACS_JSONSCHEMA_VERSION: '4.25.1'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact candidate head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ env.ACS_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up exact Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.18.0'
+          check-latest: false
+      - name: Set up exact Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: '3.13.7'
+          check-latest: false
+      - name: Install exact schema validator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check 'jsonschema==4.25.1'
+          test "$(node --version)" = 'v22.18.0'
+          test "$(python3 --version)" = 'Python 3.13.7'
+          test "$(python3 -c 'import importlib.metadata; print(importlib.metadata.version("jsonschema"))')" = '4.25.1'
+      - name: Verify exact design and current events sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$ACS_SOURCE_SHA"
+          git merge-base --is-ancestor "$ACS_DESIGN_BASE_SHA" HEAD
+          events="$RUNNER_TEMP/events-bot-new"
+          git init "$events"
+          git -C "$events" remote add origin https://github.com/onedayonemasterpiece/events-bot-new.git
+          git -C "$events" fetch --no-tags origin "$ACS_EVENTS_SHA"
+          git -C "$events" checkout --detach FETCH_HEAD
+          test ! -f "$events/.git/shallow"
+          test "$(git -C "$events" rev-parse HEAD)" = "$ACS_EVENTS_SHA"
+          git -C "$events" cat-file -e "$ACS_SYNTHESIS_OBSERVED_SHA^{commit}"
+          test -z "$(git -C "$events" status --porcelain)"
+          echo "ACS_EVENTS_ROOT=$events" >> "$GITHUB_ENV"
+      - name: Validate schemas, source closure, IR, and semantic mutations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/component-synthesis-v0.1/validate-schemas.py --root . --require-receipt
+          node scripts/component-synthesis-v0.1/build-materialization-ir.mjs --root . --check
+          node scripts/validate-apply-component-synthesis-v0.1.mjs --root . --events-repo "$ACS_EVENTS_ROOT"
+          node tests/apply-component-synthesis-v0.1-negative.mjs .
+          node --check scripts/component-synthesis-v0.1/materialize-penpot.js
+          node --check scripts/component-synthesis-v0.1/materialize-ui-exploration-history.js
+      - name: Verify deterministic receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          parent="$(python3 -c 'import json; print(json.load(open("receipts/normalization/apply-component-synthesis-v0.1.json"))["delivery"]["materialization_parent_sha"])')"
+          node scripts/component-synthesis-v0.1/build-receipt.mjs --root . --events-repo "$ACS_EVENTS_ROOT" --materialization-parent "$parent" --pr-number 35 --pr-url 'https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/35'
+      - name: Scope, secret, diff, and clean-tree gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-resource-graph-004-contracts.mjs
+          python3 scripts/scan-normalization-v1-1-secrets.py . "$ACS_DESIGN_BASE_SHA"
+          git diff --check "$ACS_DESIGN_BASE_SHA...HEAD" --
+          if git diff --name-only "$ACS_DESIGN_BASE_SHA...HEAD" -- | grep -Eq '^(site/(src|public)/|penpot/)'; then
+            echo 'forbidden production or existing Penpot path changed' >&2
+            exit 1
+          fi
+          test -z "$(git status --porcelain)"
+          test -z "$(git -C "$ACS_EVENTS_ROOT" status --porcelain)"

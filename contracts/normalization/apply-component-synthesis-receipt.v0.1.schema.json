@@ -1,0 +1,531 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/onedayonemasterpiece/lovekgd-design-system/contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json",
+  "title": "Apply LoveKGD Component Synthesis v0.1 receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "operation_id",
+    "repository",
+    "package",
+    "source",
+    "counts",
+    "gates",
+    "materialization",
+    "ui_exploration_history",
+    "outputs",
+    "scope_guards",
+    "delivery",
+    "conclusion"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lovekgd_apply_component_synthesis_receipt_v0_1"
+    },
+    "operation_id": {
+      "const": "apply-component-synthesis-v0.1"
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "base_sha",
+        "head_sha",
+        "branch"
+      ],
+      "properties": {
+        "name": {
+          "const": "onedayonemasterpiece/lovekgd-design-system"
+        },
+        "base_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "head_sha": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/git_sha"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "branch": {
+          "const": "normalization/apply-component-synthesis-v0-1"
+        }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verification_ref",
+        "archive_sha256",
+        "manifest_sha256",
+        "manifest_entries",
+        "extraction_commit",
+        "verification_result"
+      ],
+      "properties": {
+        "verification_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/package-verification.json"
+        },
+        "archive_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "manifest_entries": {
+          "const": 16
+        },
+        "extraction_commit": {
+          "const": "8bf4ad465cbd9d943935c201378b867a5d539456"
+        },
+        "verification_result": {
+          "const": "PASS"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "design_system_base_sha",
+        "events_current_main_sha",
+        "events_tree_sha",
+        "events_synthesis_observed_sha",
+        "affected_astro_implementations",
+        "validation",
+        "drift_ledger_ref",
+        "exact_paths",
+        "material_deltas"
+      ],
+      "properties": {
+        "design_system_base_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "events_current_main_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "events_tree_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "events_synthesis_observed_sha": {
+          "const": "a161061d8161409566412db2b1909031949dc104"
+        },
+        "affected_astro_implementations": {
+          "const": 106
+        },
+        "validation": {
+          "const": "PASS"
+        },
+        "drift_ledger_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/source-drift-ledger.jsonl"
+        },
+        "exact_paths": {
+          "const": 107
+        },
+        "material_deltas": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_rows",
+        "unique_terminal_mappings",
+        "technical_reconciliations",
+        "package_baseline_materializable",
+        "candidate_contracts",
+        "fixtures",
+        "archetypes",
+        "explicit_gaps",
+        "owner_ambiguities"
+      ],
+      "properties": {
+        "mapping_rows": {
+          "const": 107
+        },
+        "unique_terminal_mappings": {
+          "const": 107
+        },
+        "technical_reconciliations": {
+          "const": 6
+        },
+        "package_baseline_materializable": {
+          "const": 61
+        },
+        "candidate_contracts": {
+          "type": "integer",
+          "minimum": 61
+        },
+        "fixtures": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "archetypes": {
+          "const": 18
+        },
+        "explicit_gaps": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "owner_ambiguities": {
+          "const": 0
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry_and_mapping_schemas",
+        "exact_107_closure",
+        "dependency_integrity",
+        "source_drift",
+        "technical_reconciliation_6_of_6",
+        "fixture_coverage",
+        "materialization_manifest_stability",
+        "idempotent_second_run",
+        "native_readback",
+        "archetype_graphs_18",
+        "media_matrix",
+        "owner_ambiguity_zero"
+      ],
+      "properties": {
+        "registry_and_mapping_schemas": {
+          "$ref": "#/$defs/gate"
+        },
+        "exact_107_closure": {
+          "$ref": "#/$defs/gate"
+        },
+        "dependency_integrity": {
+          "$ref": "#/$defs/gate"
+        },
+        "source_drift": {
+          "$ref": "#/$defs/gate"
+        },
+        "technical_reconciliation_6_of_6": {
+          "$ref": "#/$defs/gate"
+        },
+        "fixture_coverage": {
+          "$ref": "#/$defs/gate"
+        },
+        "materialization_manifest_stability": {
+          "$ref": "#/$defs/gate"
+        },
+        "idempotent_second_run": {
+          "$ref": "#/$defs/gate"
+        },
+        "native_readback": {
+          "$ref": "#/$defs/gate"
+        },
+        "archetype_graphs_18": {
+          "$ref": "#/$defs/gate"
+        },
+        "media_matrix": {
+          "$ref": "#/$defs/gate"
+        },
+        "owner_ambiguity_zero": {
+          "$ref": "#/$defs/gate"
+        }
+      }
+    },
+    "materialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_graph_file_id",
+        "ir_ref",
+        "readback_ref",
+        "rollback_ref",
+        "execution_status",
+        "planned_counts",
+        "revision_before",
+        "revision_after",
+        "component_count",
+        "variant_count",
+        "instance_count"
+      ],
+      "properties": {
+        "resource_graph_file_id": {
+          "const": "3be9e5e1-190f-8090-8008-713c0fbe6260"
+        },
+        "ir_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/penpot-materialization-ir.json"
+        },
+        "readback_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/penpot-readback.json"
+        },
+        "rollback_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/rollback-package.json"
+        },
+        "execution_status": {
+          "enum": [
+            "PASS",
+            "BLOCKED_EXTERNAL_EVIDENCE"
+          ]
+        },
+        "revision_before": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "revision_after": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "component_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "variant_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "instance_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "planned_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "package_baseline_materializable_entities",
+            "final_materializable_entities",
+            "native_component_masters",
+            "concrete_component_variants",
+            "nested_component_instances",
+            "fixture_specimen_instances",
+            "archetypes",
+            "archetype_instances",
+            "explicit_gaps"
+          ],
+          "properties": {
+            "package_baseline_materializable_entities": {
+              "const": 61
+            },
+            "final_materializable_entities": {
+              "type": "integer",
+              "minimum": 61
+            },
+            "native_component_masters": {
+              "type": "integer",
+              "minimum": 61
+            },
+            "concrete_component_variants": {
+              "type": "integer",
+              "minimum": 61
+            },
+            "nested_component_instances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fixture_specimen_instances": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "archetypes": {
+              "const": 18
+            },
+            "archetype_instances": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "explicit_gaps": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "ui_exploration_history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_ref",
+        "execution_status",
+        "owner_review_status",
+        "revision_disposition",
+        "selected_count",
+        "accepted_count",
+        "owner_consent"
+      ],
+      "properties": {
+        "plan_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/ui-exploration-history-plan.json"
+        },
+        "execution_status": {
+          "const": "BLOCKED_EXTERNAL_EVIDENCE"
+        },
+        "owner_review_status": {
+          "const": "WITHDRAWN_FROM_OWNER_REVIEW"
+        },
+        "revision_disposition": {
+          "const": "NEEDS_REVISION"
+        },
+        "selected_count": {
+          "const": 0
+        },
+        "accepted_count": {
+          "const": 0
+        },
+        "owner_consent": {
+          "const": "absent"
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/output"
+      }
+    },
+    "scope_guards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events_bot_modified",
+        "production_astro_modified",
+        "canonical_promoted",
+        "candidate_accepted",
+        "promotion_ready_set",
+        "experiment_winner_selected",
+        "pr_merged"
+      ],
+      "properties": {
+        "events_bot_modified": {
+          "const": false
+        },
+        "production_astro_modified": {
+          "const": false
+        },
+        "canonical_promoted": {
+          "const": false
+        },
+        "candidate_accepted": {
+          "const": false
+        },
+        "promotion_ready_set": {
+          "const": false
+        },
+        "experiment_winner_selected": {
+          "const": false
+        },
+        "pr_merged": {
+          "const": false
+        }
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "materialization_parent_sha",
+        "pull_request"
+      ],
+      "properties": {
+        "materialization_parent_sha": {
+          "$ref": "#/$defs/git_sha"
+        },
+        "pull_request": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "number",
+            "url",
+            "draft",
+            "merged",
+            "merge_requested"
+          ],
+          "properties": {
+            "number": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "draft": {
+              "const": true
+            },
+            "merged": {
+              "const": false
+            },
+            "merge_requested": {
+              "const": false
+            }
+          }
+        }
+      },
+      "conclusion": {
+        "enum": [
+          "PASS",
+          "PASS_WITH_EXTERNAL_PENPOT_BLOCKER"
+        ]
+      }
+    },
+    "$defs": {
+      "sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "git_sha": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{40}$"
+      },
+      "gate": {
+        "enum": [
+          "PASS",
+          "BLOCKED_EXTERNAL_EVIDENCE"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bytes",
+          "sha256"
+        ],
+        "properties": {
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          },
+          "records": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  }
+}

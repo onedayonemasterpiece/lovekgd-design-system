@@ -125,17 +125,19 @@ promotion_ready: false
 authority_mode: reconstructed
 ```
 
-## 7. Что остаётся кодовому агенту
+## 7. Application state
 
-Кодовому агенту не требуется заново решать, что является компонентом. Его bounded задача:
+Bounded implementation completed the repository-side work:
 
-1. проверить exact path set и импорт/consumer edges на актуальном SHA;
-2. положить records в существующую normalization architecture и добавить schemas/validators;
-3. создать native Penpot candidates по materialization plan;
-4. собрать 18 archetype candidates из instances;
-5. сохранить technical queue и `OWNER_AMBIGUITY_COUNT: 0`;
-6. не менять production Astro/CSS, не выбирать experiment winner и не выполнять promotion.
+1. exact 107-path/current-edge replay is bound to events `96784bd572c03b965f303366c4ff0bb85d1b9a3f`;
+2. records are integrated into the existing normalization architecture with strict schemas and validators;
+3. all 65 W1–W4 candidates have contracts, fixtures and deterministic native Penpot IR;
+4. all 18 archetype candidates are represented by native-instance plans or 12 explicit gaps;
+5. technical reconciliation is terminal 6/6 and `OWNER_AMBIGUITY_COUNT` remains 0;
+6. rollback/read-back/history plans and a real second-run idempotency gate are committed.
+
+Live Penpot execution alone is `BLOCKED_EXTERNAL_EVIDENCE`: two current MCP reads returned exact HTTP 504, so no component creation, revision-after, live native count or historical UI mutation is claimed. The latest prior successful read (revision 33, 23 pages, zero native components then) is context only, not a current-state assertion.
 
 ## 8. Ограничение
 
-Пакет создан read-only: GitHub, Penpot и production source не изменялись. Числовые design tokens и финальная geometry не выдумывались; где source/computed evidence ещё не извлечено, это отмечено как reconciliation/materialization requirement.
+Repository artifacts, validators and the Draft PR are implemented; production source and live Penpot remain unmodified. Numeric design tokens and final geometry were not invented. The materialization package uses source-evidenced candidate contracts and existing scaffold zones, while unresolved live execution is reported only as the exact external blocker.

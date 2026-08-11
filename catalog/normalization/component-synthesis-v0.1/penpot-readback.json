@@ -1,0 +1,73 @@
+{
+  "schema_version": "lovekgd_component_synthesis_penpot_readback_v0_1",
+  "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "execution_status": "BLOCKED_EXTERNAL_EVIDENCE",
+  "components_created": false,
+  "latest_confirmed_live_read": {
+    "revision": 33,
+    "file_name": "Новый файл 1",
+    "pages": 23,
+    "native_component_count": 0,
+    "native_variant_count": 0,
+    "linked_or_detached_component_instance_count": 0,
+    "source": "successful read-only Penpot MCP inspection earlier in the same task thread",
+    "current_state_claimed": false
+  },
+  "current_revalidation": {
+    "observed_at": "2026-08-10T23:17:46Z",
+    "status": "MCP_504_UNAVAILABLE",
+    "tool": "mcp__penpot__execute_code",
+    "attempts": 2,
+    "error": "HTTP 504: error code: 504",
+    "official_troubleshooting": "https://help.penpot.app/mcp/"
+  },
+  "revision_before": 33,
+  "revision_after": null,
+  "planned_counts": {
+    "archetype_instances": 349,
+    "archetypes": 18,
+    "concrete_component_variants": 471,
+    "explicit_gaps": 12,
+    "final_materializable_entities": 65,
+    "fixture_specimen_instances": 1138,
+    "native_component_masters": 65,
+    "nested_component_instances": 695,
+    "package_baseline_materializable_entities": 61
+  },
+  "counts": {
+    "native_component_masters": null,
+    "concrete_component_variants": null,
+    "nested_component_instances": null,
+    "fixture_specimen_instances": null,
+    "archetype_instances": null,
+    "explicit_gaps": null
+  },
+  "stable_component_ids": null,
+  "duplicate_stable_ids": null,
+  "detached_copies": null,
+  "missing_bindings": null,
+  "validation_errors": null,
+  "idempotency": {
+    "second_run_executed": false,
+    "second_run_created": null,
+    "second_run_updated": null,
+    "stable_ids_unchanged": null,
+    "result": "BLOCKED_EXTERNAL_EVIDENCE"
+  },
+  "blockers": [
+    {
+      "blocker_id": "PENPOT-MCP-HTTP-504",
+      "scope": [
+        "live_resource_graph_mutation",
+        "live_resource_graph_readback",
+        "ui_exploration_history_mutation"
+      ],
+      "observed_at": "2026-08-10T23:17:46Z",
+      "tool": "mcp__penpot__execute_code",
+      "attempts": 2,
+      "error": "HTTP 504: error code: 504",
+      "external_action_required": "Restart or reconnect the Penpot MCP plugin/server and keep the plugin UI open, then execute the committed materializer and read-back.",
+      "official_troubleshooting": "https://help.penpot.app/mcp/"
+    }
+  ]
+}

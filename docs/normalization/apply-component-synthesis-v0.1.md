@@ -49,3 +49,41 @@
 - all records remain `canonical=false`, `accepted=false`, `promotion_ready=false`.
 
 The immutable ZIP/manifest continue to bind the original package. The extracted JSONL/JSON/CSV records and reconciliation ledgers are the integrated, diffable source of truth.
+
+## Implementation result
+
+The candidate package is now executable rather than archive-only:
+
+- immutable input: 51,301 bytes, SHA-256 `cb13d1bb7368eefa7b98763c1b065b27406e6a20b3c9b393935c2dc830aed446`; all 16 manifest entries matched;
+- current source replay: 107/107 files and recorded import/consumer fingerprints at events commit `96784bd572c03b965f303366c4ff0bb85d1b9a3f`; 106 bounded Astro implementations, zero post-synthesis blob drift and one declared decoder-to-current non-material instrumentation delta;
+- terminal technical reconciliation: 6/6, with `OWNER_AMBIGUITY_COUNT=0`;
+- candidate contracts: 65 W1–W4 records and 65 exact fixture bindings over 39 shared fixtures;
+- archetypes: 18/18 deterministic instance graphs, 349 materializable component/pattern instance nodes and 12 explicit gaps; detached copies and local overrides remain zero;
+- deterministic Resource Graph IR: 65 native masters, 471 axiswise variants, 695 nested instances, 1,138 linked native fixture specimens and 349 archetype instances;
+- rollback: exact synthesis-namespace stable-ID inventory, pre-W1 named-version requirement, scaffold preservation and explicit destructive authorization gate;
+- validation: Draft 2020-12 registry/contract/archetype/receipt schemas, exact source replay, deterministic IR check and semantic negative mutations.
+
+The IR uses the existing 23-page / 257-zone Resource Graph scaffold. Component masters resolve to canonical stable zones on pages 10/30/40/50; fixture projections use pages 62/64; archetype boards use page 60; no new page, screenshot master or detached copy is permitted.
+
+## Live Penpot boundary
+
+Only live mutation and live read-back are blocked. Two consecutive reads through `mcp__penpot__execute_code` returned `HTTP 504: error code: 504` at `2026-08-10T23:17:46Z`. Official troubleshooting: <https://help.penpot.app/mcp/>. No live write was attempted after the repeated external failure.
+
+The latest successful read earlier in the same task thread confirmed Resource Graph revision 33, 23 scaffold pages and zero native components at that time. It is retained only as `latest_confirmed_live_read`; it is **not** represented as current state. The current read-back count and revision-after remain null. The committed materializers are ready for a resumed exact-file run and perform a real second pass that must create zero objects.
+
+The historical Event Media UI Exploration plan likewise preserves all existing object/thread IDs while targeting `WITHDRAWN_FROM_OWNER_REVIEW`, `NEEDS_REVISION`, selected=0, accepted=0 and owner consent absent. Its live mutation is covered by the same external blocker and is not falsely claimed complete.
+
+## Reproducible commands
+
+```bash
+python3 scripts/component-synthesis-v0.1/validate-schemas.py --root . --require-receipt
+node scripts/component-synthesis-v0.1/build-materialization-ir.mjs --root . --check
+node scripts/validate-apply-component-synthesis-v0.1.mjs \
+  --root . --events-repo /path/to/events-bot-new-at-96784bd
+node tests/apply-component-synthesis-v0.1-negative.mjs .
+node scripts/component-synthesis-v0.1/build-receipt.mjs \
+  --root . --events-repo /path/to/events-bot-new-at-96784bd \
+  --materialization-parent <pre-receipt-commit>
+```
+
+This application does not set `canonical`, `accepted` or `promotion_ready`, does not select an experiment winner, does not modify production Astro or the events repository, and does not merge the Draft PR.

@@ -42,7 +42,7 @@ lanes:
     forbidden_files: [contracts/**, scripts/**, tests/**, receipts/**]
     expected_output: exact SHA/path/edge evidence and 6/6 terminal results
     verification_scope: targeted
-    status: planned
+    status: committed
   - id: L2-contracts-fixtures
     role: worker
     effort: high
@@ -56,7 +56,7 @@ lanes:
     forbidden_files: [scripts/**, tests/**, receipts/**]
     expected_output: complete materializable entity contract/fixture corpus
     verification_scope: targeted
-    status: planned
+    status: committed
   - id: L3-archetype-ir
     role: worker
     effort: high
@@ -70,7 +70,7 @@ lanes:
     forbidden_files: [scripts/**, tests/**, receipts/**]
     expected_output: 18 deterministic archetype graphs with gap placeholders
     verification_scope: targeted
-    status: planned
+    status: committed
   - id: L4-validation-delivery
     role: worker
     effort: high
@@ -84,7 +84,7 @@ lanes:
     forbidden_files: [catalog/normalization/component-synthesis-v0.1/**, receipts/**]
     expected_output: deterministic positive validator and semantic mutation suite
     verification_scope: full_local
-    status: planned
+    status: integrated_pending_receipt
   - id: L5-final-audit
     role: reviewer
     effort: high
@@ -98,4 +98,4 @@ lanes:
     forbidden_files: ['**']
     expected_output: requirement closure table and exact blockers
     verification_scope: inspection_only
-    status: planned
+    status: pending_final_head
