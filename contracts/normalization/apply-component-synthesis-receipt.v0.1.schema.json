@@ -489,41 +489,41 @@
           "PASS_WITH_EXTERNAL_PENPOT_BLOCKER"
         ]
       }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     },
-    "$defs": {
-      "sha256": {
-        "type": "string",
-        "pattern": "^[0-9a-f]{64}$"
-      },
-      "git_sha": {
-        "type": "string",
-        "pattern": "^[0-9a-f]{40}$"
-      },
-      "gate": {
-        "enum": [
-          "PASS",
-          "BLOCKED_EXTERNAL_EVIDENCE"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "bytes",
-          "sha256"
-        ],
-        "properties": {
-          "bytes": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "sha256": {
-            "$ref": "#/$defs/sha256"
-          },
-          "records": {
-            "type": "integer",
-            "minimum": 0
-          }
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "gate": {
+      "enum": [
+        "PASS",
+        "BLOCKED_EXTERNAL_EVIDENCE"
+      ]
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "sha256"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "records": {
+          "type": "integer",
+          "minimum": 0
         }
       }
     }
