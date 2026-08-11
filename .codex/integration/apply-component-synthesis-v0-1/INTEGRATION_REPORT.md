@@ -33,7 +33,7 @@ No worker change is left unclassified. Earlier lane commits are integrated; fina
 
 ## External blocker
 
-At `2026-08-10T23:17:46Z`, two consecutive `mcp__penpot__execute_code` reads returned `HTTP 504: error code: 504`. Per official Penpot MCP troubleshooting, the plugin/server must be reconnected or restarted and kept open. No write was attempted after the repeated failure. Therefore:
+After the owner reloaded Penpot, a current exact-file probe succeeded at revision 33 with 23 pages and zero local components. The original full-plan read-only dry-run then exceeded the MCP request window and returned HTTP 504; a subsequent minimal probe returned 504 and the alternate connector returned an internal error. No write occurred. The materializer is now shape-indexed and supports bounded component/archetype batches; the exact page must be reloaded once more before those corrected batches run. Therefore:
 
 - actual current Resource Graph component/variant/instance counts: unknown/null;
 - revision after: null;

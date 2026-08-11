@@ -136,6 +136,9 @@ assert.match(materializer, /await materialize\(\{ \.\.\.options, penpot, ir, mod
 assert.match(materializer, /second_run_created/u, 'materializer must report second-run creations');
 assert.match(materializer, /authorizeDestructiveRollback === true/u, 'rollback must require explicit authorization');
 assert.match(materializer, /screenshot_master/u, 'materializer must preserve the no-screenshot master guard');
+assert.match(materializer, /buildShapeIndex/u, 'materializer must index the file once instead of rescanning it per object');
+assert.match(materializer, /componentEntityIds/u, 'materializer must support bounded component batches');
+assert.match(materializer, /PASS_PARTIAL/u, 'bounded batches must report a non-final partial status');
 const historyMaterializer = fs.readFileSync(path.join(root, 'scripts/component-synthesis-v0.1/materialize-ui-exploration-history.js'), 'utf8');
 assert.match(historyMaterializer, /WITHDRAWN_FROM_OWNER_REVIEW/u);
 assert.match(historyMaterializer, /NEEDS_REVISION/u);
@@ -157,4 +160,4 @@ assert.match(workflow, /persist-credentials: false/u);
 assert.doesNotMatch(workflow, /pull_request_target/u);
 assert.match(workflow, /permissions:\n  contents: read/u);
 
-process.stdout.write(`${JSON.stringify({ status: 'PASS', positive_baselines: 1, semantic_mutations: cases.length, targeted_rejections: rejected, materializer_contract_checks: 6, workflow_contract_checks: 9 })}\n`);
+process.stdout.write(`${JSON.stringify({ status: 'PASS', positive_baselines: 1, semantic_mutations: cases.length, targeted_rejections: rejected, materializer_contract_checks: 9, workflow_contract_checks: 9 })}\n`);

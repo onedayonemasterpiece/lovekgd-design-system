@@ -67,7 +67,7 @@ The IR uses the existing 23-page / 257-zone Resource Graph scaffold. Component m
 
 ## Live Penpot boundary
 
-Only live mutation and live read-back are blocked. Two consecutive reads through `mcp__penpot__execute_code` returned `HTTP 504: error code: 504` at `2026-08-10T23:17:46Z`. Official troubleshooting: <https://help.penpot.app/mcp/>. No live write was attempted after the repeated external failure.
+Only live mutation and live read-back are blocked. After the owner reloaded Penpot, a current probe succeeded against the exact Resource Graph at revision 33 with 23 pages and zero local native components. The original full-plan dry-run then exceeded the MCP request window and returned `HTTP 504`; a subsequent minimal probe also returned 504 and the alternate connector returned an internal error. The materializer was corrected to index shapes once and to support bounded component/archetype batches. Official troubleshooting: <https://help.penpot.app/mcp/>. No live write was performed: the failure occurred during read-only dry-run planning. A fresh page reload is required before the corrected bounded batches can execute.
 
 The latest successful read earlier in the same task thread confirmed Resource Graph revision 33, 23 scaffold pages and zero native components at that time. It is retained only as `latest_confirmed_live_read`; it is **not** represented as current state. The current read-back count and revision-after remain null. The committed materializers are ready for a resumed exact-file run and perform a real second pass that must create zero objects.
 

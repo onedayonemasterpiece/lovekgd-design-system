@@ -10,15 +10,23 @@
     "native_component_count": 0,
     "native_variant_count": 0,
     "linked_or_detached_component_instance_count": 0,
-    "source": "successful read-only Penpot MCP inspection earlier in the same task thread",
-    "current_state_claimed": false
+    "source": "successful current-turn Penpot MCP read after owner reloaded the exact Resource Graph page",
+    "current_state_claimed": false,
+    "observed_at": "2026-08-11T14:13:00Z"
   },
   "current_revalidation": {
-    "observed_at": "2026-08-10T23:17:46Z",
-    "status": "MCP_504_UNAVAILABLE",
-    "tool": "mcp__penpot__execute_code",
-    "attempts": 2,
-    "error": "HTTP 504: error code: 504",
+    "observed_at": "2026-08-11T14:23:16Z",
+    "status": "MCP_RECONNECTED_THEN_TIMED_OUT_DURING_DRY_RUN",
+    "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code",
+    "successful_probe": {
+      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+      "revision": 33,
+      "pages": 23,
+      "local_component_count": 0
+    },
+    "failed_attempts": 3,
+    "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
+    "root_cause_correction": "The committed materializer now indexes shapes once and supports explicit bounded component/archetype batches; the timed-out O(n*full-file-scan) dry-run is not retried.",
     "official_troubleshooting": "https://help.penpot.app/mcp/"
   },
   "revision_before": 33,
@@ -62,11 +70,12 @@
         "live_resource_graph_readback",
         "ui_exploration_history_mutation"
       ],
-      "observed_at": "2026-08-10T23:17:46Z",
-      "tool": "mcp__penpot__execute_code",
-      "attempts": 2,
-      "error": "HTTP 504: error code: 504",
-      "external_action_required": "Restart or reconnect the Penpot MCP plugin/server and keep the plugin UI open, then execute the committed materializer and read-back.",
+      "observed_at": "2026-08-11T14:23:16Z",
+      "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code",
+      "attempts": 3,
+      "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
+      "external_action_required": "Reload the exact Resource Graph Penpot page once more after the timed-out worker clears; keep the MCP plugin open, then run the corrected bounded materializer batches and exact read-back.",
+      "corrective_code_status": "shape-indexed and bounded-batch materializer implemented locally; no live write occurred",
       "official_troubleshooting": "https://help.penpot.app/mcp/"
     }
   ]

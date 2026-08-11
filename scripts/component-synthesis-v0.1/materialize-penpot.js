@@ -7,6 +7,7 @@
   const FILE_ID = '3be9e5e1-190f-8090-8008-713c0fbe6260';
   const NS = 'lovekgd.component-synthesis.v0.1';
   const SCAFFOLD_NS = 'lovekgd.resourcegraph.scaffold.v1';
+  let activeShapeIndex = null;
 
   const fail = (code, message, detail) => {
     const error = new Error(message); error.code = code; error.detail = detail; throw error;
@@ -18,13 +19,22 @@
   const setData = (shape, key, value) => shape.setSharedPluginData(NS, key, String(value));
   const allPages = (penpot) => Array.from(penpot.currentFile.pages ?? []);
   const allShapes = (penpot) => allPages(penpot).flatMap((page) => Array.from(page.findShapes?.({}) ?? []).map((shape) => ({ page, shape })));
-  const findByData = (penpot, namespace, key, value) => allShapes(penpot).filter(({ shape }) => getData(shape, namespace, key) === value);
+  const buildShapeIndex = (penpot) => {
+    const scaffold = new Map(); const managed = new Map();
+    for (const item of allShapes(penpot)) {
+      const scaffoldId = getData(item.shape, SCAFFOLD_NS, 'stable_id');
+      const managedId = getData(item.shape, NS, 'stable_id');
+      if (scaffoldId) scaffold.set(scaffoldId, [...(scaffold.get(scaffoldId) ?? []), item]);
+      if (managedId) managed.set(managedId, [...(managed.get(managedId) ?? []), item]);
+    }
+    return { scaffold, managed };
+  };
   const scaffoldShape = (penpot, stableId) => {
-    const matches = findByData(penpot, SCAFFOLD_NS, 'stable_id', stableId);
+    const matches = activeShapeIndex?.scaffold.get(stableId) ?? [];
     requireValue(matches.length === 1, 'ACS_PENPOT_SCAFFOLD_LOOKUP', `expected one scaffold object ${stableId}`, { matches: matches.length });
     return matches[0];
   };
-  const managed = (penpot, stableId) => findByData(penpot, NS, 'stable_id', stableId);
+  const managed = (penpot, stableId) => activeShapeIndex?.managed.get(stableId) ?? [];
   const selectPage = (penpot, page) => { if (penpot.currentPage?.id !== page.id) penpot.currentPage = page; };
   const createText = (penpot, content, name, x = 16, y = 16) => {
     const text = penpot.createText(content); requireValue(text, 'ACS_PENPOT_CREATE_TEXT', 'Penpot could not create text');
@@ -172,10 +182,17 @@
     const ir = options?.ir ?? storage.componentSynthesisV01IR;
     const mode = options?.mode ?? 'dry-run';
     const idempotencyPass = options?._idempotencyPass === true;
+    const partial = options?.partial === true;
+    const selectedComponentIds = options?.componentEntityIds ? new Set(options.componentEntityIds) : null;
+    const selectedArchetypeIds = options?.archetypeIds ? new Set(options.archetypeIds) : null;
     requireValue(penpot?.currentFile, 'ACS_PENPOT_CONTEXT', 'Penpot plugin context is required');
     requireValue(penpot.currentFile.id === FILE_ID, 'ACS_WRONG_PENPOT_FILE', `expected Resource Graph ${FILE_ID}, got ${penpot.currentFile.id}`);
     requireValue(ir?.resource_graph_file_id === FILE_ID && ir.namespace === NS, 'ACS_PENPOT_IR', 'missing or wrong Component Synthesis v0.1 IR');
     requireValue(ir.status?.canonical === false && ir.status?.accepted === false && ir.status?.promotion_ready === false, 'ACS_PENPOT_STATUS_ESCAPE', 'IR escaped candidate status');
+    if (partial) requireValue(selectedComponentIds || selectedArchetypeIds, 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization requires an explicit component or archetype ID set');
+    if (selectedComponentIds) requireValue([...selectedComponentIds].every((id) => ir.components.some((component) => component.entity_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown component ID');
+    if (selectedArchetypeIds) requireValue([...selectedArchetypeIds].every((id) => ir.archetypes.some((archetype) => archetype.archetype_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown archetype ID');
+    activeShapeIndex = buildShapeIndex(penpot);
     const revisionBefore = penpot.currentFile.revn ?? penpot.currentFile.revision ?? null;
     const operations = planOperations(ir, penpot);
     if (mode === 'dry-run') return { status: 'DRY_RUN_ONLY_NOT_READBACK_EVIDENCE', operations, readback: null };
@@ -196,11 +213,15 @@
     const dependencyComponents = new Map();
     let created = 0;
     for (const componentPlan of ir.components) {
+      const selected = !partial || selectedComponentIds?.has(componentPlan.entity_id) === true;
+      const matchRows = componentPlan.variants.map((variant) => ({ variant, matches: managed(penpot, variant.stable_plugin_data_id) }));
+      requireValue(matchRows.every((row) => row.matches.length <= 1), 'ACS_PENPOT_DUPLICATE_STABLE_ID', `duplicate native variant in ${componentPlan.entity_id}`);
+      const existingVariants = matchRows.filter((row) => row.matches.length === 1).length;
+      requireValue(existingVariants === 0 || existingVariants === componentPlan.variants.length, 'ACS_PENPOT_PARTIAL_VARIANT_SET', `partial native variant set for ${componentPlan.entity_id} requires declared migration`);
+      if (!selected && existingVariants === 0) continue;
       const variantComponents = [];
-      let existingVariants = 0;
       let createdVariants = 0;
-      for (const variant of componentPlan.variants) {
-        const matches = managed(penpot, variant.stable_plugin_data_id);
+      for (const { variant, matches } of matchRows) {
         if (matches.length === 1) {
           const existing = penpot.library.local.components.find((component) => {
             const main = typeof component.mainInstance === 'function' ? component.mainInstance() : component.mainInstance;
@@ -211,7 +232,6 @@
         }
         const built = createNativeMaster(penpot, componentPlan, variant, dependencyComponents); variantComponents.push(built.component); created += 1; createdVariants += 1;
       }
-      requireValue(existingVariants === 0 || createdVariants === 0, 'ACS_PENPOT_PARTIAL_VARIANT_SET', `partial native variant set for ${componentPlan.entity_id} requires declared migration`);
       if (variantComponents.length > 1 && createdVariants > 0) {
         let container;
         if (global.penpotUtils?.createVariantContainer) container = global.penpotUtils.createVariantContainer(variantComponents);
@@ -227,6 +247,7 @@
       dependencyComponents.set(componentPlan.entity_id, variantComponents[0]);
     }
     for (const componentPlan of ir.components) {
+      if (partial && selectedComponentIds?.has(componentPlan.entity_id) !== true) continue;
       const component = dependencyComponents.get(componentPlan.entity_id);
       requireValue(component, 'ACS_PENPOT_DEPENDENCY_ORDER', `fixture specimens require component ${componentPlan.entity_id}`);
       for (const specimen of componentPlan.specimens) {
@@ -253,6 +274,8 @@
       }
     }
     for (const archetype of ir.archetypes) {
+      if (selectedArchetypeIds && !selectedArchetypeIds.has(archetype.archetype_id)) continue;
+      if (selectedArchetypeIds === null && partial) continue;
       const zone = scaffoldShape(penpot, archetype.target_zone_stable_id); selectPage(penpot, zone.page);
       const boardMatches = managed(penpot, archetype.board_stable_plugin_data_id);
       requireValue(boardMatches.length <= 1, 'ACS_PENPOT_DUPLICATE_STABLE_ID', `duplicate archetype board ${archetype.board_stable_plugin_data_id}`);
@@ -277,7 +300,8 @@
       }
     }
     const first = readback(ir, penpot, 'PASS', [], revisionBefore);
-    requireValue(first.duplicate_stable_ids.length === 0 && first.detached_copies.length === 0 && first.missing_bindings.length === 0, 'ACS_PENPOT_READBACK', 'materialization read-back contains duplicates, detached copies or missing stable bindings', first);
+    requireValue(first.duplicate_stable_ids.length === 0 && first.detached_copies.length === 0 && (partial || first.missing_bindings.length === 0), 'ACS_PENPOT_READBACK', 'materialization read-back contains duplicates, detached copies or missing stable bindings', first);
+    if (partial) return { status: 'PASS_PARTIAL', created, operations, readback: first };
     if (idempotencyPass) return { status: 'PASS_SECOND_RUN', created, operations, readback: first };
     const second = await materialize({ ...options, penpot, ir, mode: 'materialize', _idempotencyPass: true });
     first.idempotency = { second_run_executed: true, second_run_created: second.created, second_run_updated: 0, stable_ids_unchanged: second.created === 0, result: second.created === 0 ? 'PASS' : 'FAIL' };
