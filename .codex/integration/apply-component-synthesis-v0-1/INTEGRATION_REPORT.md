@@ -17,7 +17,7 @@
 | L2 contracts/fixtures | R04 | `64fdac765ab1ef03b418c3cc96a21eb49d374cb9` | 65 contracts/bindings, 39 fixtures | Done |
 | L3 archetypes | R06 | final correction `bd7efa0e5bbe69d423fabad2a9193bfc68f6db27` | 18 graphs, 349 instances, 12 gaps | Done |
 | L4 validation/delivery | R02, R08 gates | serial integration head | schemas, semantic validator, materializers, 21 mutations, workflow | Done |
-| L5 closure audit | R08 | final receipt head | requirement/diff/CI audit | Pending final receipt head |
+| L5 closure audit | R08 | final branch head | schemas, source replay, receipt replay, negative/diff/scope/secret audit | Done locally; exact-head CI pending push |
 
 No worker change is left unclassified. Earlier lane commits are integrated; final validation was completed serially because shared schemas, generated IR, receipt inventory and workflow are coupled.
 
@@ -42,6 +42,10 @@ At `2026-08-10T23:17:46Z`, two consecutive `mcp__penpot__execute_code` reads ret
 - no component creation is claimed.
 
 Latest previously confirmed live context is revision 33, 23 pages and zero native components at that read. It is not a claim about current state.
+
+## Final local acceptance
+
+The receipt binds clean materialization parent `4caae2f006ff7dc3011607e2bfc33983832fcf30` and 120 output artifacts. Default validation with the exact current events checkout, receipt regeneration check, all schemas, deterministic IR, 21 semantic mutations, Resource Graph scaffold validation, current Project Normalization semantic bridge, secret scan and full base-to-head diff check all pass. The final exact-head GitHub Actions result is intentionally external delivery evidence and is checked after push without rewriting this receipt.
 
 ## Scope audit
 

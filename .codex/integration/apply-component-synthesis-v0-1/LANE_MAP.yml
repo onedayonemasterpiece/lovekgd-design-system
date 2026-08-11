@@ -28,7 +28,7 @@ lanes:
     forbidden_files: [events-bot-new/**]
     expected_output: integrated branch, Penpot read-back, Draft PR
     verification_scope: full_local_and_ci
-    status: in_progress
+    status: committed_with_external_penpot_blocker
   - id: L1-source-reconciliation
     role: worker
     effort: high
@@ -84,7 +84,7 @@ lanes:
     forbidden_files: [catalog/normalization/component-synthesis-v0.1/**, receipts/**]
     expected_output: deterministic positive validator and semantic mutation suite
     verification_scope: full_local
-    status: integrated_pending_receipt
+    status: committed
   - id: L5-final-audit
     role: reviewer
     effort: high
@@ -98,4 +98,4 @@ lanes:
     forbidden_files: ['**']
     expected_output: requirement closure table and exact blockers
     verification_scope: inspection_only
-    status: pending_final_head
+    status: completed_local_pending_ci

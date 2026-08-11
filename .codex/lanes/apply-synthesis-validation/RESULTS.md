@@ -2,7 +2,7 @@
 
 ## Status
 
-committed-ready-for-receipt
+committed
 
 ## Requirement IDs
 
@@ -58,4 +58,4 @@ node --check scripts/component-synthesis-v0.1/*.js
 
 ## Merge notes
 
-Materialize the deterministic receipt from the clean implementation parent, commit the receipt alone, rerun all default gates, push, and keep PR #35 Draft/unmerged.
+The deterministic receipt was materialized from clean parent `4caae2f006ff7dc3011607e2bfc33983832fcf30`, committed separately and validated byte-for-byte. Keep PR #35 Draft/unmerged.
