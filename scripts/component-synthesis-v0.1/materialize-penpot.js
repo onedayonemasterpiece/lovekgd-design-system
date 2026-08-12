@@ -56,6 +56,38 @@
     for (const { shape } of items) if (shape.isVariantContainer?.() === true && shape.variants) for (const component of shape.variants.variantComponents()) registerComponent(component);
     return { scaffold, names, managed, componentBindings, nativeComponentsByMainId };
   };
+  // Fixture and archetype pages can contain hundreds of linked instances. A
+  // whole-file scan before every resumable batch makes the browser do work
+  // proportional to the entire Resource Graph and can exceed the MCP gateway
+  // timeout. Index only the active page and use the native library as the
+  // dependency source for these projection-only phases.
+  const buildActivePageShapeIndex = (penpot) => {
+    const scaffold = new Map(); const names = new Map(); const managed = new Map(); const componentBindings = new Map();
+    const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map();
+    const add = (map, key, value) => {
+      if (!key) return;
+      const values = map.get(key) ?? [];
+      if (!values.some((row) => row.shape?.id === value.shape?.id)) map.set(key, [...values, value]);
+    };
+    const page = penpot.currentPage;
+    requireValue(page, 'ACS_PENPOT_CONTEXT', 'an active Penpot page is required');
+    const items = Array.from(page.findShapes?.({}) ?? []).map((shape) => ({ page, shape }));
+    for (const item of items) {
+      add(scaffold, getData(item.shape, SCAFFOLD_NS, 'stable_id'), item);
+      add(names, item.shape.name, item);
+      if (!isInsideComponentCopy(item.shape)) add(managed, getData(item.shape, NS, 'stable_id'), item);
+      if (item.shape.isComponentCopyInstance?.() !== true) add(componentBindings, getData(item.shape, NS, 'component_stable_id'), item);
+    }
+    const register = (component) => {
+      const main = typeof component?.mainInstance === 'function' ? component.mainInstance() : component?.mainInstance;
+      if (!main?.id || nativeComponentsByMainId.has(main.id)) return;
+      nativeComponentsByMainId.set(main.id, component);
+      const entityId = getData(main, NS, 'entity_id');
+      if (entityId && !representativeComponentsByEntityId.has(entityId)) representativeComponentsByEntityId.set(entityId, component);
+    };
+    for (const component of Array.from(penpot.library.local.components ?? [])) register(component);
+    return { scaffold, names, managed, componentBindings, nativeComponentsByMainId, representativeComponentsByEntityId, activePageFast: true };
+  };
   const buildComponentShapeIndex = (penpot, ir, selectedComponentIds) => {
     const scaffold = new Map(); const names = new Map(); const managed = new Map(); const componentBindings = new Map();
     const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map();
@@ -325,7 +357,9 @@
     const onProgress = typeof options?.onProgress === 'function' ? options.onProgress : null;
     const selectedComponentIds = options?.componentEntityIds ? new Set(options.componentEntityIds) : null;
     const selectedVariantStableIds = options?.variantStableIds ? new Set(options.variantStableIds) : null;
+    const selectedSpecimenStableIds = options?.specimenStableIds ? new Set(options.specimenStableIds) : null;
     const selectedArchetypeIds = options?.archetypeIds ? new Set(options.archetypeIds) : null;
+    const selectedArchetypeNodeStableIds = options?.archetypeNodeStableIds ? new Set(options.archetypeNodeStableIds) : null;
     requireValue(penpot?.currentFile, 'ACS_PENPOT_CONTEXT', 'Penpot plugin context is required');
     requireValue(penpot.currentFile.id === FILE_ID, 'ACS_WRONG_PENPOT_FILE', `expected Resource Graph ${FILE_ID}, got ${penpot.currentFile.id}`);
     requireValue(ir?.resource_graph_file_id === FILE_ID && ir.namespace === NS, 'ACS_PENPOT_IR', 'missing or wrong Component Synthesis v0.1 IR');
@@ -338,9 +372,12 @@
     if (selectedComponentIds) requireValue([...selectedComponentIds].every((id) => ir.components.some((component) => component.entity_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown component ID');
     if (selectedVariantStableIds) requireValue([...selectedVariantStableIds].every((id) => ir.components.some((component) => component.variants.some((variant) => variant.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown variant stable ID');
     if (selectedVariantStableIds) requireValue([...selectedVariantStableIds].every((id) => ir.components.some((component) => selectedComponentIds?.has(component.entity_id) && component.variants.some((variant) => variant.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'variantStableIds must belong to the selected componentEntityIds');
+    if (selectedSpecimenStableIds) requireValue(operationPhase === 'fixture-specimens' && [...selectedSpecimenStableIds].every((id) => ir.components.some((component) => selectedComponentIds?.has(component.entity_id) && component.specimens.some((specimen) => specimen.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'specimenStableIds must belong to the selected componentEntityIds and fixture-specimens phase');
     if (selectedArchetypeIds) requireValue([...selectedArchetypeIds].every((id) => ir.archetypes.some((archetype) => archetype.archetype_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown archetype ID');
+    if (selectedArchetypeNodeStableIds) requireValue(operationPhase === 'archetypes' && [...selectedArchetypeNodeStableIds].every((id) => ir.archetypes.some((archetype) => selectedArchetypeIds?.has(archetype.archetype_id) && archetype.nodes.some((node) => node.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'archetypeNodeStableIds must belong to the selected archetypeIds and archetypes phase');
     const componentPhase = ['component-masters', 'component-variants', 'variant-containers'].includes(operationPhase);
-    activeShapeIndex = componentPhase ? buildComponentShapeIndex(penpot, ir, selectedComponentIds) : buildShapeIndex(penpot);
+    const projectionPhase = ['fixture-specimens', 'archetypes'].includes(operationPhase);
+    activeShapeIndex = componentPhase ? buildComponentShapeIndex(penpot, ir, selectedComponentIds) : projectionPhase ? buildActivePageShapeIndex(penpot) : buildShapeIndex(penpot);
     const revisionBefore = penpot.currentFile.revn ?? penpot.currentFile.revision ?? null;
     const planIr = partial ? {
       ...ir,
@@ -374,6 +411,11 @@
     };
     for (const componentPlan of ir.components) {
       const componentSelected = !partial || selectedComponentIds?.has(componentPlan.entity_id) === true;
+      if (activeShapeIndex.activePageFast) {
+        const representative = activeShapeIndex.representativeComponentsByEntityId.get(componentPlan.entity_id);
+        if (representative) dependencyComponents.set(componentPlan.entity_id, representative);
+        continue;
+      }
       if (activeShapeIndex.componentFast && !componentSelected) {
         const representative = activeShapeIndex.representativeComponentsByEntityId.get(componentPlan.entity_id);
         if (representative) dependencyComponents.set(componentPlan.entity_id, representative);
@@ -436,6 +478,7 @@
       requireValue(component, 'ACS_PENPOT_DEPENDENCY_ORDER', `fixture specimens require component ${componentPlan.entity_id}`);
       for (const specimen of componentPlan.specimens) {
         if (operationPhase === 'fixture-specimens' && specimen.target_page !== penpot.currentPage?.name) continue;
+        if (selectedSpecimenStableIds && !selectedSpecimenStableIds.has(specimen.stable_plugin_data_id)) continue;
         const matches = managed(penpot, specimen.stable_plugin_data_id);
         requireValue(matches.length <= 1, 'ACS_PENPOT_DUPLICATE_STABLE_ID', `duplicate fixture specimen ${specimen.stable_plugin_data_id}`);
         if (matches.length === 1) {
@@ -477,6 +520,7 @@
         await checkpoint({ phase: 'archetype-board', archetype_id: archetype.archetype_id, stable_id: archetype.board_stable_plugin_data_id });
       }
       for (const [nodeIndex, node] of archetype.nodes.entries()) {
+        if (selectedArchetypeNodeStableIds && !selectedArchetypeNodeStableIds.has(node.stable_plugin_data_id)) continue;
         if (managed(penpot, node.stable_plugin_data_id).length) continue;
         requireActivePage(penpot, archetype.target_page, node.stable_plugin_data_id);
         if (node.node_kind === 'gap_placeholder') {
