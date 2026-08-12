@@ -63,7 +63,7 @@
   // dependency source for these projection-only phases.
   const buildActivePageShapeIndex = (penpot) => {
     const scaffold = new Map(); const names = new Map(); const managed = new Map(); const componentBindings = new Map();
-    const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map();
+    const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map(); const variantComponentsByEntityCase = new Map();
     const add = (map, key, value) => {
       if (!key) return;
       const values = map.get(key) ?? [];
@@ -84,13 +84,17 @@
       nativeComponentsByMainId.set(main.id, component);
       const entityId = getData(main, NS, 'entity_id');
       if (entityId && !representativeComponentsByEntityId.has(entityId)) representativeComponentsByEntityId.set(entityId, component);
+      try {
+        const selectedCase = JSON.parse(getData(main, NS, 'component_state') ?? '{}')?.variant_selections?.case;
+        if (entityId && selectedCase) variantComponentsByEntityCase.set(`${entityId}\u0000${selectedCase}`, component);
+      } catch (_) { /* malformed historical metadata is not a valid exact-case binding */ }
     };
     for (const component of Array.from(penpot.library.local.components ?? [])) register(component);
-    return { scaffold, names, managed, componentBindings, nativeComponentsByMainId, representativeComponentsByEntityId, activePageFast: true };
+    return { scaffold, names, managed, componentBindings, nativeComponentsByMainId, representativeComponentsByEntityId, variantComponentsByEntityCase, activePageFast: true };
   };
   const buildComponentShapeIndex = (penpot, ir, selectedComponentIds) => {
     const scaffold = new Map(); const names = new Map(); const managed = new Map(); const componentBindings = new Map();
-    const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map();
+    const nativeComponentsByMainId = new Map(); const representativeComponentsByEntityId = new Map(); const variantComponentsByEntityCase = new Map();
     const requiredEntityIds = new Set(selectedComponentIds ?? []);
     for (let changed = true; changed;) {
       changed = false;
@@ -110,6 +114,10 @@
       if (!requiredEntityIds.has(entityId)) return;
       nativeComponentsByMainId.set(main.id, component);
       if (!representativeComponentsByEntityId.has(entityId)) representativeComponentsByEntityId.set(entityId, component);
+      try {
+        const selectedCase = JSON.parse(getData(main, NS, 'component_state') ?? '{}')?.variant_selections?.case;
+        if (selectedCase) variantComponentsByEntityCase.set(`${entityId}\u0000${selectedCase}`, component);
+      } catch (_) { /* fail closed later when an exact nested case is requested */ }
       add(managed, getData(main, NS, 'stable_id'), { page: null, shape: main });
       const directBinding = getData(main, NS, 'component_stable_id');
       if (directBinding) add(componentBindings, directBinding, { page: null, shape: main });
@@ -143,7 +151,7 @@
       const matches = Array.from(page.findShapes({ name: exactName }) ?? []).filter((shape) => shape.type === 'board').map((shape) => ({ page, shape }));
       names.set(exactName, matches);
     }
-    return { scaffold, names, managed, componentBindings, nativeComponentsByMainId, representativeComponentsByEntityId, componentFast: true };
+    return { scaffold, names, managed, componentBindings, nativeComponentsByMainId, representativeComponentsByEntityId, variantComponentsByEntityCase, componentFast: true };
   };
   const scaffoldShape = (penpot, stableId) => {
     const metadataMatches = activeShapeIndex?.scaffold.get(stableId) ?? [];
@@ -190,7 +198,9 @@
     const summary = createText(penpot, `${componentPlan.display_name}\n${variant.variant_key}\nAnatomy: ${componentPlan.anatomy.map((part) => part.part_id).join(', ') || 'none'}`, 'System / Candidate summary', board.x + 16, board.y + 14);
     summary.fontSize = '12'; summary.growType = 'auto-height'; summary.resize?.(328, 68); board.appendChild(summary);
     variant.nested_instances.forEach((nested, nestedIndex) => {
-      const dependency = dependencyComponents.get(nested.entity_ref);
+      const dependency = nested.component_variant_case
+        ? activeShapeIndex?.variantComponentsByEntityCase?.get(`${nested.entity_ref}\u0000${nested.component_variant_case}`)
+        : dependencyComponents.get(nested.entity_ref);
       requireValue(dependency, 'ACS_PENPOT_DEPENDENCY_ORDER', `nested dependency ${nested.entity_ref} is not materialized`, nested);
       const instance = dependency.instance();
       requireValue(instance, 'ACS_PENPOT_CREATE_INSTANCE', `could not instantiate ${nested.entity_ref}`);
@@ -200,6 +210,8 @@
       setData(instance, 'detached', false);
       instance.resize?.(328, 40);
       instance.x = board.x + 16; instance.y = board.y + 88 + nestedIndex * 48;
+      if (nested.consumer_profile_ref) setData(instance, 'consumer_profile_ref', nested.consumer_profile_ref);
+      if (nested.component_variant_case) setData(instance, 'component_variant_case', nested.component_variant_case);
       board.appendChild(instance);
     });
     setData(board, 'stable_id', variant.stable_plugin_data_id);
@@ -473,6 +485,8 @@
         if (!createVariants || !selectedVariant) continue;
         const built = createNativeMaster(penpot, componentPlan, variant, dependencyComponents); variantComponents.push(built.component); created += 1;
         activeShapeIndex.nativeComponentsByMainId.set(built.board.id, built.component);
+        const selectedCase = variant.selections.case;
+        if (selectedCase) activeShapeIndex.variantComponentsByEntityCase.set(`${componentPlan.entity_id}\u0000${selectedCase}`, built.component);
         activeShapeIndex.managed.set(variant.stable_plugin_data_id, [{ page: penpot.currentPage, shape: built.board }]);
         for (const descendant of Array.from(built.board.findShapes?.({}) ?? [])) {
           const descendantStableId = !isInsideComponentCopy(descendant) ? getData(descendant, NS, 'stable_id') : null;

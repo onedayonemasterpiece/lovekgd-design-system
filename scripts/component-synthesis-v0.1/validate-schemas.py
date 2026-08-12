@@ -69,6 +69,25 @@ def main() -> None:
         archetype_documents,
     )
 
+    media_schema = load_json(root / "contracts/normalization/component-synthesis-event-media-policy.v0.1.schema.json")
+    Draft202012Validator.check_schema(media_schema)
+    media_count = 0
+    for definition, relative, jsonl in (
+        ("resolver", "event-media-resolver-contract.json", False),
+        ("rule_disposition", "event-media-rule-dispositions.jsonl", True),
+        ("consumer_profile", "event-media-consumer-profiles.jsonl", True),
+        ("fixture_case", "event-media-state-fixture-matrix.jsonl", True),
+        ("penpot_proof", "event-media-penpot-proof-readback.json", False),
+    ):
+        documents = load_jsonl(corpus / relative) if jsonl else [load_json(corpus / relative)]
+        schema = {"$schema": media_schema["$schema"], "$defs": media_schema["$defs"], "$ref": f"#/$defs/{definition}"}
+        validator = Draft202012Validator(schema)
+        for index, document in enumerate(documents, 1):
+            errors = sorted(validator.iter_errors(document), key=lambda error: list(error.absolute_path))
+            if errors:
+                raise AssertionError(f"{relative}:{index}: {errors[0].json_path}: {errors[0].message}")
+            media_count += 1
+
     receipt_path = root / "receipts/normalization/apply-component-synthesis-v0.1.json"
     receipt_schema = root / "contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json"
     Draft202012Validator.check_schema(load_json(receipt_schema))
@@ -83,6 +102,7 @@ def main() -> None:
         "registry_documents": registry_count,
         "candidate_contracts": contract_count,
         "archetype_graphs": archetype_count,
+        "event_media_policy_documents": media_count,
         "receipts": receipt_count,
     }, separators=(",", ":")))
 

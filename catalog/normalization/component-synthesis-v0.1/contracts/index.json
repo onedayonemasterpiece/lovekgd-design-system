@@ -129,7 +129,7 @@
     },
     {
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.hero-composition.contract.json",
-      "sha256": "b5fa1a3d1974a8bf3a1bb5287c9e6dd656739bfd6c0152e39acec888b8a40cbc",
+      "sha256": "53016fcdcf4cecd0f827403407e18f99e8cc52d8dc00561a32d519e29dc45772",
       "stable_component_id": "event.hero-composition",
       "wave_id": "W2-event-media-and-actions"
     },
@@ -141,19 +141,13 @@
     },
     {
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.media-frame.contract.json",
-      "sha256": "a70445604ca547a5f78200d0ed406c08c22fcca17d4e2787b2c39fab4b37820a",
+      "sha256": "6eadaffd0d46670932b9749e5a38934d0578ddf42015031243efb57dea39a312",
       "stable_component_id": "event.media-frame",
       "wave_id": "W2-event-media-and-actions"
     },
     {
-      "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.media-rail.contract.json",
-      "sha256": "d04ede59bb0d157afbca0c4936d55c600828477703c17c6c126a655aadf3c7a8",
-      "stable_component_id": "event.media-rail",
-      "wave_id": "W2-event-media-and-actions"
-    },
-    {
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.media-viewer.contract.json",
-      "sha256": "49fe097948568824e2ea717a22a8cbd7844e1c823481af6795432be76c371a0e",
+      "sha256": "5eeb5697eac44d7cf4a71265d279781367405449221c70f33673f179ef28b553",
       "stable_component_id": "event.media-viewer",
       "wave_id": "W2-event-media-and-actions"
     },
@@ -189,7 +183,7 @@
     },
     {
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.card.contract.json",
-      "sha256": "b9dffd692c3a7e3c67fe84dfe3d33650e1d871b5776f96fe590896b4625ccb24",
+      "sha256": "daa6849ddbf91c61ce418d18f7715b665648615465695ae7957daca9244ab542",
       "stable_component_id": "event.card",
       "wave_id": "W3-card-listing-navigation"
     },
@@ -197,12 +191,6 @@
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.card-grid.contract.json",
       "sha256": "8a8964b80b12990b38b0fee5c274f64af417bf2ffc097112cd716750f3de713b",
       "stable_component_id": "event.card-grid",
-      "wave_id": "W3-card-listing-navigation"
-    },
-    {
-      "path": "catalog/normalization/component-synthesis-v0.1/contracts/event.list-item.contract.json",
-      "sha256": "a700e2e62bf4aae3f43777daac7cdd83f0ee8e2833aca99f64145eed2d84d470",
-      "stable_component_id": "event.list-item",
       "wave_id": "W3-card-listing-navigation"
     },
     {
@@ -237,7 +225,7 @@
     },
     {
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/listing.event-card.contract.json",
-      "sha256": "95974da04b754bd10552a89ac7fe1a31429a7740974ecdfa4fb00e77238cdd0c",
+      "sha256": "620b0dfd82b6f4ce76b5e92d3a9f5bb17426a635d64d6b9253ada2cbed9ddb2a",
       "stable_component_id": "listing.event-card",
       "wave_id": "W3-card-listing-navigation"
     },
@@ -245,6 +233,12 @@
       "path": "catalog/normalization/component-synthesis-v0.1/contracts/listing.page-header.contract.json",
       "sha256": "882da772b6bd604dce7c0e1a9565cc0a82755ee02a1e1ae586e517d717e57b23",
       "stable_component_id": "listing.page-header",
+      "wave_id": "W3-card-listing-navigation"
+    },
+    {
+      "path": "catalog/normalization/component-synthesis-v0.1/contracts/listing.rail-row.contract.json",
+      "sha256": "fcec5d0895b8a5d482db6f4c9ded293ff7a58f3afac274604a12016df28c3fbe",
+      "stable_component_id": "listing.rail-row",
       "wave_id": "W3-card-listing-navigation"
     },
     {
@@ -392,11 +386,7 @@
       "wave_id": "W4-domain-product-specific"
     }
   ],
-  "expected_entity_count": 65,
-  "generated_from": {
-    "entity_registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl",
-    "materialization_plan_ref": "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#waves=W1-W4"
-  },
+  "expected_entity_count": 64,
   "materialization_order": [
     "brand.wordmark",
     "brand.lockup",
@@ -420,18 +410,16 @@
     "event.fact-row",
     "event.fact-list",
     "event.fallback-art",
-    "event.media-frame",
-    "event.media-viewer",
-    "core.rail",
-    "event.media-rail",
     "event.occurrence-label",
     "event.hero-summary",
+    "event.media-frame",
+    "event.media-viewer",
     "event.hero-composition",
     "event.occurrence-selector",
     "event.summary-action-panel",
+    "core.rail",
     "event.card",
     "event.card-grid",
-    "event.list-item",
     "home.quick-navigation",
     "listing.category-filter",
     "listing.controls",
@@ -439,6 +427,7 @@
     "listing.discovery-rail",
     "listing.event-card",
     "listing.page-header",
+    "listing.rail-row",
     "listing.range-navigation",
     "listing.time-marker",
     "listing.time-navigation",
@@ -457,8 +446,8 @@
     "interest.profile",
     "personal-feed.slot",
     "search.event-search",
-    "transport.route-heading",
     "transport.journey-alerts",
+    "transport.route-heading",
     "transport.bus-schedule",
     "transport.kaup-schedule",
     "transport.rail-schedule",
@@ -467,7 +456,7 @@
   "schema_version": "lovekgd_component_synthesis_contract_index_v0_1",
   "status": {
     "accepted": false,
-    "candidate_only": true,
+    "authority_mode": "reconstructed",
     "canonical": false,
     "promotion_ready": false
   }

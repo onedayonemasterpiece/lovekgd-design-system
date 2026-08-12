@@ -173,6 +173,12 @@
     "static_html_skeleton": "forbidden"
   },
   "media": {
+    "consumer_profile_refs": [
+      "profile.desktop-event-previews",
+      "profile.desktop-event-primary",
+      "profile.home-hero",
+      "profile.mobile-event-hero"
+    ],
     "consumer_requirement_refs": [
       "event-media.application.event-detail-mobile-fullscreen-gallery",
       "event-media.application.event-detail-mobile-gallery-recommendation-image",
@@ -200,6 +206,7 @@
       "intrinsic/source",
       "consumer-defined"
     ],
+    "resolver_contract_ref": "catalog/normalization/component-synthesis-v0.1/event-media-resolver-contract.json",
     "safe_area": "Resolve from the bound consumer requirement and current source provenance; fail closed for protected text.",
     "semantic_modes": [
       "photography",
@@ -226,13 +233,6 @@
       "relation": "contains_instance",
       "required": false,
       "slot_id": "component_event-media-viewer"
-    },
-    {
-      "entity_ref": "event.media-rail",
-      "instance_required": true,
-      "relation": "contains_instance",
-      "required": false,
-      "slot_id": "component_event-media-rail"
     },
     {
       "entity_ref": "event.hero-summary",
@@ -423,18 +423,6 @@
       "required": false,
       "role": "Native instance of event.media-viewer",
       "slot_id": "component_event-media-viewer"
-    },
-    {
-      "accepts_entity_refs": [
-        "event.media-rail"
-      ],
-      "content_constraints": [
-        "Use a native component instance; detached copies are forbidden."
-      ],
-      "detached_copy_allowed": false,
-      "required": false,
-      "role": "Native instance of event.media-rail",
-      "slot_id": "component_event-media-rail"
     },
     {
       "accepts_entity_refs": [

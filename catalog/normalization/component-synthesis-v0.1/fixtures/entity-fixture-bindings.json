@@ -1112,65 +1112,6 @@
       }
     },
     {
-      "binding_id": "fixture-binding.event.media-rail",
-      "entity_ref": "event.media-rail",
-      "fixture_refs": {
-        "counts": [
-          "fixture.count.0",
-          "fixture.count.1",
-          "fixture.count.many",
-          "fixture.count.overflow"
-        ],
-        "media": [
-          "fixture.photo-landscape-3x2-focal-safe-cover",
-          "fixture.photo-portrait-4x5-derived-cover",
-          "fixture.photo-reviewed-5x4-cover",
-          "fixture.photo-2x3-container-contain",
-          "fixture.poster-ocr-square-1x1-contain",
-          "fixture.poster-ocr-intrinsic-contain",
-          "fixture.unknown-text-contain",
-          "fixture.mixed-primary-previews",
-          "fixture.poster-companion",
-          "fixture.state-missing",
-          "fixture.state-broken",
-          "fixture.state-tiny"
-        ],
-        "runtime_states": [
-          "fixture.runtime.static-resolved"
-        ],
-        "text": [
-          "fixture.text.short-ru",
-          "fixture.text.long-ru",
-          "fixture.text.multiline",
-          "fixture.text.numeric-heavy",
-          "fixture.text.missing-optional"
-        ],
-        "viewports": [
-          "fixture.viewport.mobile-390x844",
-          "fixture.viewport.mobile-430x932",
-          "fixture.viewport.tablet-768x1024",
-          "fixture.viewport.desktop-1280x800",
-          "fixture.viewport.desktop-1728x900"
-        ]
-      },
-      "loading_policy": {
-        "client_wait_skeleton_applicable": false,
-        "evidence": "static_resolved unless a consumer proves a runtime wait",
-        "static_html_skeleton": false
-      },
-      "media_scope": {
-        "consumer_requirement_refs": [
-          "event-media.application.lab-design-system-event-media-rail"
-        ],
-        "mode": "delegated"
-      },
-      "status": {
-        "accepted": false,
-        "canonical": false,
-        "promotion_ready": false
-      }
-    },
-    {
       "binding_id": "fixture-binding.event.media-viewer",
       "entity_ref": "event.media-viewer",
       "fixture_refs": {
@@ -1574,64 +1515,6 @@
       }
     },
     {
-      "binding_id": "fixture-binding.event.list-item",
-      "entity_ref": "event.list-item",
-      "fixture_refs": {
-        "counts": [],
-        "media": [
-          "fixture.photo-landscape-3x2-focal-safe-cover",
-          "fixture.photo-portrait-4x5-derived-cover",
-          "fixture.photo-reviewed-5x4-cover",
-          "fixture.photo-2x3-container-contain",
-          "fixture.poster-ocr-square-1x1-contain",
-          "fixture.poster-ocr-intrinsic-contain",
-          "fixture.unknown-text-contain",
-          "fixture.mixed-primary-previews",
-          "fixture.poster-companion",
-          "fixture.state-missing",
-          "fixture.state-broken",
-          "fixture.state-tiny"
-        ],
-        "runtime_states": [
-          "fixture.runtime.static-resolved",
-          "fixture.runtime.partial",
-          "fixture.runtime.empty",
-          "fixture.runtime.error",
-          "fixture.runtime.success"
-        ],
-        "text": [
-          "fixture.text.short-ru",
-          "fixture.text.long-ru",
-          "fixture.text.multiline",
-          "fixture.text.numeric-heavy",
-          "fixture.text.missing-optional"
-        ],
-        "viewports": [
-          "fixture.viewport.mobile-390x844",
-          "fixture.viewport.mobile-430x932",
-          "fixture.viewport.tablet-768x1024",
-          "fixture.viewport.desktop-1280x800",
-          "fixture.viewport.desktop-1728x900"
-        ]
-      },
-      "loading_policy": {
-        "client_wait_skeleton_applicable": false,
-        "evidence": "Static HTML remains useful; native lazy image loading only, with reserved/fallback behavior required by the candidate contract.",
-        "static_html_skeleton": false
-      },
-      "media_scope": {
-        "consumer_requirement_refs": [
-          "event-media.application.lab-design-system-event-list-item"
-        ],
-        "mode": "delegated"
-      },
-      "status": {
-        "accepted": false,
-        "canonical": false,
-        "promotion_ready": false
-      }
-    },
-    {
       "binding_id": "fixture-binding.home.quick-navigation",
       "entity_ref": "home.quick-navigation",
       "fixture_refs": {
@@ -1991,6 +1874,69 @@
       "media_scope": {
         "consumer_requirement_refs": [],
         "mode": "not_applicable"
+      },
+      "status": {
+        "accepted": false,
+        "canonical": false,
+        "promotion_ready": false
+      }
+    },
+    {
+      "binding_id": "fixture-binding.listing.rail-row",
+      "entity_ref": "listing.rail-row",
+      "fixture_refs": {
+        "counts": [
+          "fixture.count.0",
+          "fixture.count.1",
+          "fixture.count.many",
+          "fixture.count.overflow"
+        ],
+        "media": [
+          "fixture.photo-landscape-3x2-focal-safe-cover",
+          "fixture.photo-portrait-4x5-derived-cover",
+          "fixture.photo-reviewed-5x4-cover",
+          "fixture.photo-2x3-container-contain",
+          "fixture.poster-ocr-square-1x1-contain",
+          "fixture.poster-ocr-intrinsic-contain",
+          "fixture.unknown-text-contain",
+          "fixture.mixed-primary-previews",
+          "fixture.poster-companion",
+          "fixture.state-missing",
+          "fixture.state-broken",
+          "fixture.state-tiny"
+        ],
+        "runtime_states": [
+          "fixture.runtime.initial-loading",
+          "fixture.runtime.error",
+          "fixture.runtime.success"
+        ],
+        "text": [
+          "fixture.text.short-ru",
+          "fixture.text.long-ru",
+          "fixture.text.multiline",
+          "fixture.text.numeric-heavy",
+          "fixture.text.missing-optional"
+        ],
+        "viewports": [
+          "fixture.viewport.mobile-390x844",
+          "fixture.viewport.mobile-430x932",
+          "fixture.viewport.tablet-768x1024",
+          "fixture.viewport.desktop-1280x800",
+          "fixture.viewport.desktop-1728x900"
+        ]
+      },
+      "loading_policy": {
+        "client_wait_skeleton_applicable": false,
+        "evidence": "Native image decode states preserve the exact 112px row geometry; no static HTML skeleton.",
+        "static_html_skeleton": false
+      },
+      "media_scope": {
+        "consumer_requirement_refs": [
+          "event-media.application.listing-date-mobile-gallery-rail",
+          "event-media.application.listing-popular-mobile-gallery-rail",
+          "event-media.application.listing-weekend-mobile-gallery-rail"
+        ],
+        "mode": "delegated"
       },
       "status": {
         "accepted": false,

@@ -1,82 +1,82 @@
 {
-  "schema_version": "lovekgd_component_synthesis_penpot_readback_v0_1",
-  "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-  "execution_status": "BLOCKED_EXTERNAL_EVIDENCE",
-  "components_created": false,
-  "latest_confirmed_live_read": {
-    "revision": 33,
-    "file_name": "Новый файл 1",
-    "pages": 23,
-    "native_component_count": 0,
-    "native_variant_count": 0,
-    "linked_or_detached_component_instance_count": 0,
-    "source": "successful current-turn Penpot MCP read after owner reloaded the exact Resource Graph page",
-    "current_state_claimed": false,
-    "observed_at": "2026-08-11T14:13:00Z"
-  },
-  "current_revalidation": {
-    "observed_at": "2026-08-11T14:23:16Z",
-    "status": "MCP_RECONNECTED_THEN_TIMED_OUT_DURING_DRY_RUN",
-    "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code",
-    "successful_probe": {
-      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-      "revision": 33,
-      "pages": 23,
-      "local_component_count": 0
-    },
-    "failed_attempts": 3,
-    "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
-    "root_cause_correction": "The committed materializer now indexes shapes once and supports explicit bounded component/archetype batches; the timed-out O(n*full-file-scan) dry-run is not retried.",
-    "official_troubleshooting": "https://help.penpot.app/mcp/"
-  },
-  "revision_before": 33,
-  "revision_after": null,
-  "planned_counts": {
-    "archetype_instances": 349,
-    "archetypes": 18,
-    "concrete_component_variants": 471,
-    "explicit_gaps": 12,
-    "final_materializable_entities": 65,
-    "fixture_specimen_instances": 1138,
-    "native_component_masters": 65,
-    "nested_component_instances": 695,
-    "package_baseline_materializable_entities": 61
-  },
-  "counts": {
-    "native_component_masters": null,
-    "concrete_component_variants": null,
-    "nested_component_instances": null,
-    "fixture_specimen_instances": null,
-    "archetype_instances": null,
-    "explicit_gaps": null
-  },
-  "stable_component_ids": null,
-  "duplicate_stable_ids": null,
-  "detached_copies": null,
-  "missing_bindings": null,
-  "validation_errors": null,
-  "idempotency": {
-    "second_run_executed": false,
-    "second_run_created": null,
-    "second_run_updated": null,
-    "stable_ids_unchanged": null,
-    "result": "BLOCKED_EXTERNAL_EVIDENCE"
-  },
   "blockers": [
     {
+      "attempts": 3,
       "blocker_id": "PENPOT-MCP-HTTP-504",
+      "corrective_code_status": "shape-indexed and bounded-batch materializer implemented locally; no live write occurred",
+      "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
+      "external_action_required": "Reload the exact Resource Graph Penpot page once more after the timed-out worker clears; keep the MCP plugin open, then run the corrected bounded materializer batches and exact read-back.",
+      "observed_at": "2026-08-11T14:23:16Z",
+      "official_troubleshooting": "https://help.penpot.app/mcp/",
       "scope": [
         "live_resource_graph_mutation",
         "live_resource_graph_readback",
         "ui_exploration_history_mutation"
       ],
-      "observed_at": "2026-08-11T14:23:16Z",
-      "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code",
-      "attempts": 3,
-      "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
-      "external_action_required": "Reload the exact Resource Graph Penpot page once more after the timed-out worker clears; keep the MCP plugin open, then run the corrected bounded materializer batches and exact read-back.",
-      "corrective_code_status": "shape-indexed and bounded-batch materializer implemented locally; no live write occurred",
-      "official_troubleshooting": "https://help.penpot.app/mcp/"
+      "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code"
     }
-  ]
+  ],
+  "components_created": false,
+  "counts": {
+    "archetype_instances": null,
+    "concrete_component_variants": null,
+    "explicit_gaps": null,
+    "fixture_specimen_instances": null,
+    "native_component_masters": null,
+    "nested_component_instances": null
+  },
+  "current_revalidation": {
+    "error": "HTTP 504: error code: 504 after the original full-plan dry-run; subsequent minimal probe returned HTTP 504; alternate connector returned MCP internal error",
+    "failed_attempts": 3,
+    "observed_at": "2026-08-11T14:23:16Z",
+    "official_troubleshooting": "https://help.penpot.app/mcp/",
+    "root_cause_correction": "The committed materializer now indexes shapes once and supports explicit bounded component/archetype batches; the timed-out O(n*full-file-scan) dry-run is not retried.",
+    "status": "MCP_RECONNECTED_THEN_TIMED_OUT_DURING_DRY_RUN",
+    "successful_probe": {
+      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+      "local_component_count": 0,
+      "pages": 23,
+      "revision": 33
+    },
+    "tool": "mcp__penpot__execute_code and mcp__codex_apps__penpot_execute_code"
+  },
+  "detached_copies": null,
+  "duplicate_stable_ids": null,
+  "execution_status": "BLOCKED_EXTERNAL_EVIDENCE",
+  "idempotency": {
+    "result": "BLOCKED_EXTERNAL_EVIDENCE",
+    "second_run_created": null,
+    "second_run_executed": false,
+    "second_run_updated": null,
+    "stable_ids_unchanged": null
+  },
+  "latest_confirmed_live_read": {
+    "current_state_claimed": false,
+    "file_name": "Новый файл 1",
+    "linked_or_detached_component_instance_count": 0,
+    "native_component_count": 0,
+    "native_variant_count": 0,
+    "observed_at": "2026-08-11T14:13:00Z",
+    "pages": 23,
+    "revision": 33,
+    "source": "successful current-turn Penpot MCP read after owner reloaded the exact Resource Graph page"
+  },
+  "missing_bindings": null,
+  "planned_counts": {
+    "archetype_instances": 349,
+    "archetypes": 18,
+    "concrete_component_variants": 442,
+    "explicit_gaps": 12,
+    "final_materializable_entities": 64,
+    "fixture_specimen_instances": 1113,
+    "native_component_masters": 64,
+    "nested_component_instances": 637,
+    "package_baseline_materializable_entities": 61
+  },
+  "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "revision_after": null,
+  "revision_before": 33,
+  "schema_version": "lovekgd_component_synthesis_penpot_readback_v0_1",
+  "stable_component_ids": null,
+  "validation_errors": null
 }

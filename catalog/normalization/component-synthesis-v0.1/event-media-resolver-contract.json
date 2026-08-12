@@ -1,0 +1,129 @@
+{
+  "authority_order": [
+    "approved EventPoster inventory and exact pixel identity",
+    "current semantic and geometry evidence",
+    "consumer profile and accepted requirement",
+    "runtime renderer and regression tests"
+  ],
+  "conflicts": [
+    "hero/gallery fill-first exception versus open exact-geometry incident contract",
+    "mutable listing manual overrides versus immutable pixel identity",
+    "exhibitions protected-natural metadata versus unconditional CSS cover"
+  ],
+  "contract_version": "0.1.0-candidate",
+  "core_invariants": [
+    "No global ratio, fit, crop, object-position or upscale default exists.",
+    "A crop window never changes media identity and is computed per asset plus consumer target.",
+    "Protected or unknown semantics cannot be upgraded to cover by orientation or OCR absence.",
+    "Stale or missing geometry cannot authorize protected-region crop.",
+    "A solver contain result cannot be silently rewritten to cover.",
+    "Missing media cannot carry crop or focal decisions.",
+    "Static resolved Astro HTML cannot be replaced by an artificial skeleton.",
+    "Broken and missing are distinct causes even when a profile selects one fallback family.",
+    "Consumer exceptions remain explicit profile rules and never become core defaults.",
+    "Every decision exposes a stable reason code and pinned provenance."
+  ],
+  "events_source_sha": "f66330f8af81d4b898d137d83356e77914dce90a",
+  "global_defaults": {
+    "crop": null,
+    "fit": null,
+    "object_position": null,
+    "ratio": null,
+    "upscale": null
+  },
+  "inputs": {
+    "asset_semantics": [
+      "image_text_mode",
+      "media_semantic_status",
+      "media_role",
+      "image_kind",
+      "safe_crop"
+    ],
+    "consumer_target": [
+      "profile_ref",
+      "slot",
+      "viewport",
+      "target_geometry"
+    ],
+    "geometry_evidence": [
+      "width",
+      "height",
+      "current_pixel_sha256",
+      "geometry_pixel_sha256",
+      "coordinate_space",
+      "face_boxes",
+      "valuable_region",
+      "focal_point"
+    ],
+    "runtime_state": [
+      "source_state",
+      "decode_state",
+      "client_wait_state"
+    ],
+    "source_quality": [
+      "long_edge",
+      "pixel_area",
+      "quality_score",
+      "quality_class"
+    ]
+  },
+  "outputs": [
+    "presence",
+    "fit",
+    "crop_permission",
+    "crop_window",
+    "object_position",
+    "render_width",
+    "render_height",
+    "upscale_action",
+    "fallback_action",
+    "reason_code",
+    "rule_status",
+    "provenance_refs"
+  ],
+  "pipeline": [
+    {
+      "decision": "Use only approved canonical EventPoster media and immutable pixel identity.",
+      "fail_closed_result": "source unavailable",
+      "stage": "inventory"
+    },
+    {
+      "decision": "Classified event_photo may be crop-eligible; OCR, document, poster and unknown remain protected.",
+      "fail_closed_result": "protected contain/source-preserving",
+      "stage": "semantic"
+    },
+    {
+      "decision": "Geometry may authorize crop only when its pixel SHA equals the current pixel SHA.",
+      "fail_closed_result": "crop forbidden",
+      "stage": "geometry freshness"
+    },
+    {
+      "decision": "Resolve geometry, fit exception and ratio only from one explicit consumer profile.",
+      "fail_closed_result": "no global ratio or fit",
+      "stage": "consumer target"
+    },
+    {
+      "decision": "Union face and valuable regions with margin and solve an exact target-aspect window.",
+      "fail_closed_result": "contain when the protected union cannot fit",
+      "stage": "protected window"
+    },
+    {
+      "decision": "Apply profile-specific selection and explicit upscale action.",
+      "fail_closed_result": "bounded or preserved source",
+      "stage": "source quality"
+    },
+    {
+      "decision": "Keep loading, loaded, missing, broken and tiny distinct and preserve profile geometry.",
+      "fail_closed_result": "profile-defined absence or accessible fallback",
+      "stage": "runtime state"
+    }
+  ],
+  "resolver_id": "foundation.event-media-decision",
+  "schema_version": "event_media_policy_resolver_v0_1",
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "promotion_ready": false
+  }
+}

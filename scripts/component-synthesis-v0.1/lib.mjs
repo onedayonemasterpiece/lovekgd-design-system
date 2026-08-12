@@ -3,6 +3,7 @@ import childProcess from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ComponentSynthesisValidationError, demand, reject } from './structured-error.mjs';
+import { validateEventMediaPolicy } from './media-policy.mjs';
 import {
   EXCLUDED_ENTITY_KINDS,
   MATERIALIZABLE_WAVES,
@@ -310,7 +311,7 @@ function importSpecifiers(text) {
 function replayEventsEvidence(eventsRepo, driftRows) {
   const eventsRoot = path.resolve(eventsRepo);
   demand(fs.existsSync(eventsRoot), 'ACS_EVENTS_REPO_REQUIRED', 'events-replay', eventsRoot, '$', 'events repository does not exist');
-  const expectedHead = '96784bd572c03b965f303366c4ff0bb85d1b9a3f';
+  const expectedHead = 'f66330f8af81d4b898d137d83356e77914dce90a';
   const synthesisObserved = 'a161061d8161409566412db2b1909031949dc104';
   demand(git(eventsRoot, ['rev-parse', 'HEAD']) === expectedHead, 'ACS_EVENTS_HEAD_MISMATCH', 'events-replay', eventsRoot, '$', `events HEAD must be ${expectedHead}`);
   demand(git(eventsRoot, ['status', '--porcelain']) === '', 'ACS_EVENTS_REPO_DIRTY', 'events-replay', eventsRoot, '$', 'events evidence checkout must remain clean');
@@ -527,6 +528,29 @@ function axiswiseTuples(contract) {
   return tuples;
 }
 
+function nestedInstancesForTuple(namespace, id, tuple, nestedComponents) {
+  const caseValue = tuple.selections.case ?? tuple.selections.cardinality_case ?? null;
+  const frameCases = ['loaded-safe-cover', 'loaded-protected-contain', 'loading-reserved', 'broken-fallback', 'tiny-bounded'];
+  return nestedComponents.flatMap((nested) => {
+    if (nested.when_case_values && !nested.when_case_values.includes(caseValue)) return [];
+    const count = nested.multiplicity_by_case?.[caseValue] ?? 1;
+    return Array.from({ length: count }, (_, ordinal) => {
+      const componentVariantCase = nested.entity_ref === 'event.media-frame' ? frameCases[ordinal % frameCases.length] : null;
+      return {
+        entity_ref: nested.entity_ref,
+        relation: nested.relation,
+        slot_id: nested.slot_id,
+        ordinal,
+        consumer_profile_ref: id === 'listing.rail-row' ? 'profile.mobile-listing-rail-row' : null,
+        component_variant_case: componentVariantCase,
+        stable_plugin_data_id: `${namespace}.nested.${id}.${sha256(`${tuple.variant_key}:${nested.slot_id}:${nested.entity_ref}:${ordinal}`).slice(0, 16)}`,
+        instance_required: true,
+        detached: false,
+      };
+    });
+  });
+}
+
 function scaffoldLookup(root) {
   const relative = 'contracts/resource-graph-scaffold.v1.json';
   const scaffold = readJson(root, relative);
@@ -547,6 +571,7 @@ const COMPONENT_ZONE_RULES = Object.freeze([
   [/^core\.dialog$/u, 'rg.zone.30.core-ui.overlays-and-disclosure'],
   [/^core\.(?:badge|icon|rail)$/u, 'rg.zone.30.core-ui.data-display'],
   [/^(?:event\.(?:card|list-item)|listing\.event-card|club\.card)$/u, 'rg.zone.40.announcements-components.event-cards-and-list-items'],
+  [/^listing\.rail-row$/u, 'rg.zone.40.announcements-components.event-cards-and-list-items'],
   [/^event\.(?:fallback-art|hero-summary|media-frame|media-rail|media-viewer)$/u, 'rg.zone.40.announcements-components.event-hero-and-media'],
   [/^(?:event\.(?:fact-list|fact-row|occurrence-label|occurrence-selector)|listing\.time-marker)$/u, 'rg.zone.40.announcements-components.event-facts-dates-and-schedules'],
   [/^event\.(?:action-group|admission-summary|primary-action)$/u, 'rg.zone.40.announcements-components.event-actions-registration-and-tickets'],
@@ -620,14 +645,7 @@ export function buildMaterializationDocuments({ root = process.cwd() } = {}) {
         stable_lookup_key: `${id}+${contractSha}+${tuple.variant_key}`,
         stable_plugin_data_id: `${namespace}.variant.${id}.${sha256(tuple.variant_key).slice(0, 16)}`,
         position: { x: 32 + (ordinal % 2) * 400, y: 72 + Math.floor(ordinal / 2) * 360 },
-        nested_instances: (contract.nested_components ?? []).map((nested) => ({
-        entity_ref: nested.entity_ref,
-        relation: nested.relation,
-        slot_id: nested.slot_id,
-        stable_plugin_data_id: `${namespace}.nested.${id}.${sha256(`${tuple.variant_key}:${nested.slot_id}:${nested.entity_ref}`).slice(0, 16)}`,
-        instance_required: true,
-        detached: false,
-        })),
+        nested_instances: nestedInstancesForTuple(namespace, id, tuple, contract.nested_components ?? []),
       };
     });
     const binding = contracts.bindingByEntity.get(id);
@@ -898,6 +916,12 @@ function expectedReceiptOutputs(summary) {
     PATHS.sourceDrift,
     PATHS.reconciliationResults,
     PATHS.mediaMatrix,
+    PATHS.mediaPolicySchema,
+    PATHS.mediaResolver,
+    PATHS.mediaRuleDispositions,
+    PATHS.mediaConsumerProfiles,
+    PATHS.mediaStateFixtures,
+    PATHS.mediaPenpotProof,
     PATHS.contractIndex,
     ...summary.contracts.index.contracts.map((row) => row.path),
     PATHS.fixtureCatalog,
@@ -915,12 +939,14 @@ function expectedReceiptOutputs(summary) {
     'scripts/component-synthesis-v0.1/build-materialization-ir.mjs',
     'scripts/component-synthesis-v0.1/build-receipt.mjs',
     'scripts/component-synthesis-v0.1/lib.mjs',
+    'scripts/component-synthesis-v0.1/media-policy.mjs',
     'scripts/component-synthesis-v0.1/materialize-penpot.js',
     PATHS.uiExplorationHistoryMaterializer,
     'scripts/component-synthesis-v0.1/paths.mjs',
     'scripts/component-synthesis-v0.1/structured-error.mjs',
     'scripts/component-synthesis-v0.1/validate-schemas.py',
     'scripts/validate-apply-component-synthesis-v0.1.mjs',
+    'scripts/validate-event-media-policy-defrag-v0.1.mjs',
     'tests/apply-component-synthesis-v0.1-negative.mjs',
     '.github/workflows/apply-component-synthesis-v0-1.yml',
   ]);
@@ -935,6 +961,27 @@ function outputManifest(root, paths) {
   }));
 }
 
+function validateIntegratedMediaPolicy(root, core, contracts) {
+  const applications = readJsonl(root, 'catalog/normalization/event-media/consumer-requirement-matrix.jsonl').map((row) => row.application_id ?? row.id);
+  const result = validateEventMediaPolicy({
+    root,
+    applicationRefs: applications,
+    fixtureIds: new Set(contracts.fixtureCatalog.fixtures.map((row) => row.fixture_id)),
+    entityIds: new Set(core.entities.map((row) => row.entity_id)),
+    hierarchyEdges: core.hierarchy.edges,
+    materializableIds: core.materializableIds,
+  });
+  const frame = contracts.contractById.get('event.media-frame')?.contract;
+  demand(frame?.variant_axes?.length === 1 && frame.variant_axes[0].axis_id === 'case' && frame.state_axes.length === 0, 'ACS_MEDIA_FRAME_AXIS_MODEL', 'media-policy', 'event.media-frame', '$.variant_axes', 'EventMediaFrame must use explicit valid cases, not independent fit/ratio/crop axes');
+  demand(!/\b(?:fit|ratio|placement|crop)\b/u.test(frame.variant_axes[0].values.join(' ')), 'ACS_MEDIA_FRAME_AXIS_MODEL', 'media-policy', 'event.media-frame', '$.variant_axes', 'fit/ratio/placement/crop cannot be selectable frame axes');
+  demand(frame.media?.resolver_contract_ref === PATHS.mediaResolver && frame.media.consumer_profile_refs.length > 0, 'ACS_MEDIA_CONTRACT_DELEGATION', 'media-policy', 'event.media-frame', '$.media', 'frame contract must delegate to the resolver and explicit profiles');
+  const listingRail = contracts.contractById.get('listing.rail-row')?.contract;
+  const nested = listingRail?.nested_components?.find((row) => row.entity_ref === 'event.media-frame');
+  demand(nested && nested.multiplicity_by_case?.absent === 0 && nested.multiplicity_by_case?.single === 1 && nested.multiplicity_by_case?.['default-four'] === 4 && nested.multiplicity_by_case?.['hard-six'] === 6 && nested.multiplicity_by_case?.['overflow-six'] === 6, 'ACS_MEDIA_RAIL_MULTIPLICITY', 'media-policy', 'listing.rail-row', '$.nested_components', 'rail contract must encode exact 0/1/4/6/>6→6 linked frame multiplicity');
+  demand(listingRail.media?.consumer_profile_refs?.includes('profile.mobile-listing-rail-row'), 'ACS_MEDIA_CONTRACT_DELEGATION', 'media-policy', 'listing.rail-row', '$.media.consumer_profile_refs', 'rail contract must bind exact mobile rail profile');
+  return result;
+}
+
 export function buildApplyComponentSynthesisReceipt({ root = process.cwd(), eventsRepo, materializationParentSha, prNumber = 35, prUrl = 'https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/35' } = {}) {
   root = path.resolve(root);
   demand(/^[0-9a-f]{40}$/u.test(materializationParentSha ?? ''), 'ACS_RECEIPT_PARENT', 'receipt-build', PATHS.receipt, '$.repository.head_sha', 'exact 40-hex materialization parent SHA is required');
@@ -944,11 +991,12 @@ export function buildApplyComponentSynthesisReceipt({ root = process.cwd(), even
   demand(nonEmpty(eventsRepo), 'ACS_EVENTS_REPO_REQUIRED', 'receipt-build', '--events-repo', '$', 'receipt build requires exact events checkout');
   const events = replayEventsEvidence(eventsRepo, reconciliation.drift);
   const contracts = validateContractsAndFixtures(root, core);
+  const mediaPolicy = validateIntegratedMediaPolicy(root, core, contracts);
   const archetypes = validateArchetypes(root, core, contracts);
   const built = buildMaterializationDocuments({ root });
   const readback = validateMaterialization(root, built, core);
   const history = validateUiExplorationHistory(root);
-  const summary = { core, package: packageVerification, reconciliation, contracts, archetypes, readback, history, events };
+  const summary = { core, package: packageVerification, reconciliation, contracts, mediaPolicy, archetypes, readback, history, events };
   const blocked = readback.execution_status === 'BLOCKED_EXTERNAL_EVIDENCE';
   const gate = (isBlocked = false) => isBlocked ? 'BLOCKED_EXTERNAL_EVIDENCE' : 'PASS';
   const receipt = {
@@ -1068,11 +1116,12 @@ export function validateApplyComponentSynthesis({ root = process.cwd(), fixtureM
   demand(fixtureMode || nonEmpty(eventsRepo), 'ACS_EVENTS_REPO_REQUIRED', 'events-replay', '--events-repo', '$', 'default validation requires --events-repo exact checkout');
   const events = eventsRepo ? replayEventsEvidence(eventsRepo, reconciliation.drift) : { head_sha: null, tree_sha: null, synthesis_observed_sha: null, exact_paths: 0, affected_astro_implementations: 0, result: 'SKIPPED_EXPLICIT_FIXTURE_MODE' };
   const contracts = validateContractsAndFixtures(root, core);
+  const mediaPolicy = validateIntegratedMediaPolicy(root, core, contracts);
   const archetypes = validateArchetypes(root, core, contracts);
   const built = buildMaterializationDocuments({ root });
   const readback = validateMaterialization(root, built, core);
   const history = validateUiExplorationHistory(root);
-  const summary = { core, package: packageVerification, reconciliation, contracts, archetypes, readback, history, events };
+  const summary = { core, package: packageVerification, reconciliation, contracts, mediaPolicy, archetypes, readback, history, events };
   const receipt = fixtureMode ? null : validateReceipt(root, summary);
   return {
     status: 'PASS',
@@ -1083,6 +1132,9 @@ export function validateApplyComponentSynthesis({ root = process.cwd(), fixtureM
     package_baseline_materializable: 61,
     final_materializable: core.materializableIds.length,
     technical_reconciliations: reconciliation.results.length,
+    event_media_rules: mediaPolicy.rules.length,
+    event_media_profiles: mediaPolicy.profiles.length,
+    event_media_state_cases: mediaPolicy.cases.length,
     archetypes: archetypes.graphs.length,
     explicit_gaps: built.ir.counts.explicit_gaps,
     native_component_masters_planned: built.ir.counts.native_component_masters,

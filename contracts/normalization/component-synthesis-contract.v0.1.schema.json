@@ -272,6 +272,22 @@
           },
           "instance_required": {
             "const": true
+          },
+          "when_case_values": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          },
+          "multiplicity_by_case": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 6
+            }
           }
         }
       }
@@ -522,6 +538,17 @@
         },
         "loading_applicability": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "resolver_contract_ref": {
+          "const": "catalog/normalization/component-synthesis-v0.1/event-media-resolver-contract.json"
+        },
+        "consumer_profile_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^profile\\.[a-z0-9.-]+$"
+          }
         }
       }
     },

@@ -12,10 +12,12 @@ const required = [
   'manifest.json',
   'catalog/lovekgd-component-synthesis-v0.1(1).zip',
   corpus,
+  'catalog/normalization/event-media/consumer-requirement-matrix.jsonl',
   'contracts/resource-graph-scaffold.v1.json',
   'contracts/normalization/component-synthesis-registry.v0.1.schema.json',
   'contracts/normalization/component-synthesis-contract.v0.1.schema.json',
   'contracts/normalization/component-synthesis-archetype.v0.1.schema.json',
+  'contracts/normalization/component-synthesis-event-media-policy.v0.1.schema.json',
   'contracts/normalization/apply-component-synthesis-receipt.v0.1.schema.json',
 ];
 const json = (base, relative) => JSON.parse(fs.readFileSync(path.join(base, relative), 'utf8'));
@@ -40,6 +42,14 @@ function updateArchetypeIndexHash(base, archetypeId) {
   const indexPath = `${corpus}/archetypes/index.json`;
   const index = json(base, indexPath);
   index.graph_files.find((row) => row.archetype_id === archetypeId).sha256 = sha256(fs.readFileSync(path.join(base, relative)));
+  writeJson(base, indexPath, index);
+}
+
+function updateContractIndexHash(base, entityId) {
+  const indexPath = `${corpus}/contracts/index.json`;
+  const index = json(base, indexPath);
+  const entry = index.contracts.find((row) => row.stable_component_id === entityId);
+  entry.sha256 = sha256(fs.readFileSync(path.join(base, entry.path)));
   writeJson(base, indexPath, index);
 }
 
@@ -79,6 +89,36 @@ const cases = [
   }],
   ['media semantic coverage lost', 'ACS_MEDIA_COVERAGE', (base) => {
     const p = `${corpus}/media-policy-matrix.jsonl`; let rows = jsonl(base, p); rows = rows.filter((row) => row.semantic_mode !== 'unknown_text'); writeJsonl(base, p, rows);
+  }],
+  ['global media fit invented', 'ACS_MEDIA_POLICY_SCHEMA', (base) => {
+    const p = `${corpus}/event-media-resolver-contract.json`; const value = json(base, p); value.global_defaults.fit = 'cover'; writeJson(base, p, value);
+  }],
+  ['solver veto reclassified as safe', 'ACS_MEDIA_RULE_TRUTH_ESCAPE', (base) => {
+    const p = `${corpus}/event-media-rule-dispositions.jsonl`; const rows = jsonl(base, p); rows.find((row) => row.rule_id === 'EMR-RELATED-SOLVER-VETO').disposition = 'KEEP_CORE'; writeJsonl(base, p, rows);
+  }],
+  ['hero evidence conflict forced resolved', 'ACS_MEDIA_RULE_TRUTH_ESCAPE', (base) => {
+    const p = `${corpus}/event-media-rule-dispositions.jsonl`; const rows = jsonl(base, p); rows.find((row) => row.rule_id === 'EMR-HERO-FILL-EXCEPTION').disposition = 'KEEP_CORE'; writeJsonl(base, p, rows);
+  }],
+  ['application partition lost', 'ACS_MEDIA_APPLICATION_PARTITION', (base) => {
+    const p = `${corpus}/event-media-consumer-profiles.jsonl`; const rows = jsonl(base, p); rows.find((row) => row.application_refs.length > 0).application_refs.pop(); writeJsonl(base, p, rows);
+  }],
+  ['lab media rail promoted', 'ACS_MEDIA_LAB_PROMOTION', (base) => {
+    const p = `${corpus}/event-media-consumer-profiles.jsonl`; const rows = jsonl(base, p); const row = rows.find((item) => item.profile_id === 'profile.lab-event-media-rail'); row.lifecycle = 'ACTIVE_PRODUCTION'; writeJsonl(base, p, rows);
+  }],
+  ['protected fixture changed to cover', 'ACS_MEDIA_PROTECTED_CROP', (base) => {
+    const p = `${corpus}/event-media-state-fixture-matrix.jsonl`; const rows = jsonl(base, p); const row = rows.find((item) => item.case_id === 'case.core.protected-union-contain'); row.expected_fit = 'cover'; writeJsonl(base, p, rows);
+  }],
+  ['frame fit restored as native axis', 'ACS_MEDIA_FRAME_AXIS_MODEL', (base) => {
+    const p = `${corpus}/contracts/event.media-frame.contract.json`; const value = json(base, p); value.variant_axes.push({ axis_id: 'fit', values: ['cover', 'contain'], materialization_mode: 'native_variant', evidence_source: 'entity_registry.variant_axes' }); writeJson(base, p, value); updateContractIndexHash(base, 'event.media-frame');
+  }],
+  ['rail multiplicity collapsed to one', 'ACS_MEDIA_RAIL_MULTIPLICITY', (base) => {
+    const p = `${corpus}/contracts/listing.rail-row.contract.json`; const value = json(base, p); value.nested_components[0].multiplicity_by_case['default-four'] = 1; writeJson(base, p, value); updateContractIndexHash(base, 'listing.rail-row');
+  }],
+  ['Penpot proof detached nested frame', 'ACS_MEDIA_PENPOT_PROOF_SCHEMA', (base) => {
+    const p = `${corpus}/event-media-penpot-proof-readback.json`; const value = json(base, p); value.rail_proof.nested_instances[0].detached = true; writeJson(base, p, value);
+  }],
+  ['Penpot proof variant case lost', 'ACS_MEDIA_PENPOT_PROOF_SCHEMA', (base) => {
+    const p = `${corpus}/event-media-penpot-proof-readback.json`; const value = json(base, p); value.variant_cases.pop(); writeJson(base, p, value);
   }],
   ['contract index coverage lost', 'ACS_CONTRACT_COVERAGE', (base) => {
     const p = `${corpus}/contracts/index.json`; const value = json(base, p); value.contracts.pop(); value.expected_entity_count -= 1; value.materialization_order.pop(); writeJson(base, p, value);
@@ -168,6 +208,9 @@ assert.match(materializer, /System \/ Candidate summary/u, 'each native master m
 assert.match(materializer, /component_state/u, 'candidate governance flags must be stored as one bounded native payload');
 assert.match(materializer, /componentEntityIds/u, 'materializer must support bounded component batches');
 assert.match(materializer, /PASS_PARTIAL/u, 'bounded batches must report a non-final partial status');
+assert.match(materializer, /variantComponentsByEntityCase/u, 'nested instances must resolve exact native case variants');
+assert.match(materializer, /component_variant_case/u, 'nested instance contract must carry the exact native case');
+assert.match(materializer, /consumer_profile_ref/u, 'nested instance contract must preserve the consumer profile');
 const historyMaterializer = fs.readFileSync(path.join(root, 'scripts/component-synthesis-v0.1/materialize-ui-exploration-history.js'), 'utf8');
 assert.match(historyMaterializer, /WITHDRAWN_FROM_OWNER_REVIEW/u);
 assert.match(historyMaterializer, /NEEDS_REVISION/u);
