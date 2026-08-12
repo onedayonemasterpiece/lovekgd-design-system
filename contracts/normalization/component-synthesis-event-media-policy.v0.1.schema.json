@@ -281,6 +281,132 @@
     "penpot_proof": {
       "additionalProperties": false,
       "properties": {
+        "crop_atlas": {
+          "additionalProperties": false,
+          "properties": {
+            "direct_url": {
+              "pattern": "page-id=a21f0524-f565-8038-8008-7895787cbfc5",
+              "type": "string"
+            },
+            "duplicate_profile_refs": {
+              "const": []
+            },
+            "logical_non_lab_profile_count": {
+              "const": 15
+            },
+            "page_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "page_name": {
+              "const": "44 — Crop profiles · Visual atlas"
+            },
+            "same_source_across_variants": {
+              "const": true
+            },
+            "source_asset_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "validation_errors": {
+              "const": []
+            },
+            "variant_axis": {
+              "const": [
+                "profile"
+              ]
+            },
+            "variant_container_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "variant_count": {
+              "const": 19
+            },
+            "variants": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "accepted": {
+                    "const": false
+                  },
+                  "canonical": {
+                    "const": false
+                  },
+                  "component_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "crop_window_or_no_crop_overlay": {
+                    "const": true
+                  },
+                  "fit_projection": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "main_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "profile_ref": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "promotion_ready": {
+                    "const": false
+                  },
+                  "result_preview": {
+                    "const": true
+                  },
+                  "source_preview": {
+                    "const": true
+                  },
+                  "stable_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "target_geometry_projection": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "profile_ref",
+                  "stable_id",
+                  "main_id",
+                  "component_id",
+                  "fit_projection",
+                  "target_geometry_projection",
+                  "source_preview",
+                  "crop_window_or_no_crop_overlay",
+                  "result_preview",
+                  "canonical",
+                  "accepted",
+                  "promotion_ready"
+                ],
+                "type": "object"
+              },
+              "maxItems": 19,
+              "minItems": 19,
+              "type": "array"
+            }
+          },
+          "required": [
+            "page_id",
+            "page_name",
+            "direct_url",
+            "variant_container_id",
+            "variant_axis",
+            "variant_count",
+            "logical_non_lab_profile_count",
+            "source_asset_id",
+            "same_source_across_variants",
+            "variants",
+            "duplicate_profile_refs",
+            "validation_errors"
+          ],
+          "type": "object"
+        },
         "detached_copies": {
           "const": []
         },
@@ -522,7 +648,8 @@
         "validation_errors",
         "idempotency",
         "export_evidence",
-        "status"
+        "status",
+        "crop_atlas"
       ],
       "type": "object"
     },

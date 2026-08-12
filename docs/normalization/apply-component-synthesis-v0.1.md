@@ -99,6 +99,12 @@ A separate small proof page was used instead of another tall whole-system canvas
 
 Direct page: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-7885ffaaaf38>.
 
+Page 43 is a structural state/nesting proof, not a visual crop catalogue. The owner-facing comparison is the separate compact page **44 — Crop profiles · Visual atlas**:
+
+<https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-7895787cbfc5>
+
+It uses one identical source image for every comparison and shows source, safe/focal evidence, crop-window or explicit no-crop overlay, and the rendered result. One native `profile` variant set contains `19` visual projections over all `15` non-lab logical profiles: EventCard 4:5/5:4, listing 1.35/1.20/1.25, mobile rail 5:4, related 5:4, mobile hero 16:10, desktop viewport examples, protected contain examples, flexible Home hero, share 4:5, no-site-crop Open Graph, and exhibition P/S/W/L ratios. Red variants remain evidence conflicts; amber variants are replacement targets; green variants are consumer-local/no-crop rules. None is accepted or canonical.
+
 Penpot's separate export backend returned exact HTTP `504` twice (container and small rail), while MCP semantic read-back remained healthy. The machine receipt therefore records `BLOCKED_EXPORTER_HTTP_504` and does not claim raster export evidence. The native objects and exact nesting were verified through semantic read-back.
 
 ## Reproducible commands

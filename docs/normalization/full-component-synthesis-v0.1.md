@@ -138,7 +138,7 @@ Bounded implementation completed the repository-side work:
 5. technical reconciliation is terminal 6/6 and `OWNER_AMBIGUITY_COUNT` remains 0;
 6. rollback/read-back/history plans and a real second-run idempotency gate are committed.
 
-The full 64-entity materialization remains separately bounded, but the Event Media model now has a successful lightweight native proof on page `43 — Media policy · EventMediaFrame`: five native frame cases plus a `listing.rail-row` with four linked non-detached frame instances. Semantic read-back at revision `108` found zero duplicate stable IDs and zero validation errors; the second reconcile created zero objects. Raster export alone is blocked by two exact Penpot exporter HTTP 504 responses and is not claimed complete.
+The full 64-entity materialization remains separately bounded. Page `43 — Media policy · EventMediaFrame` is only the structural state/nesting proof. The owner-facing page `44 — Crop profiles · Visual atlas` contains one native `profile` variant set with 19 comparable source→crop-window/no-crop→result projections over all 15 non-lab logical profiles. Read-back at revision `114` confirms the 19 unique variants and zero Penpot validation errors. Raster export alone is blocked by two exact Penpot exporter HTTP 504 responses and is not claimed complete.
 
 ## 8. Ограничение
 

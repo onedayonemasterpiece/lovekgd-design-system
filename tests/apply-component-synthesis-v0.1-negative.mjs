@@ -120,6 +120,9 @@ const cases = [
   ['Penpot proof variant case lost', 'ACS_MEDIA_PENPOT_PROOF_SCHEMA', (base) => {
     const p = `${corpus}/event-media-penpot-proof-readback.json`; const value = json(base, p); value.variant_cases.pop(); writeJson(base, p, value);
   }],
+  ['Penpot crop atlas profile duplicated', 'ACS_MEDIA_PENPOT_ATLAS', (base) => {
+    const p = `${corpus}/event-media-penpot-proof-readback.json`; const value = json(base, p); value.crop_atlas.variants[1].profile_ref = value.crop_atlas.variants[0].profile_ref; writeJson(base, p, value);
+  }],
   ['contract index coverage lost', 'ACS_CONTRACT_COVERAGE', (base) => {
     const p = `${corpus}/contracts/index.json`; const value = json(base, p); value.contracts.pop(); value.expected_entity_count -= 1; value.materialization_order.pop(); writeJson(base, p, value);
   }],
