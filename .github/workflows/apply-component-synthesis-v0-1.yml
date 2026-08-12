@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.codex/integration/apply-component-synthesis-v0-1/**'
+      - '.codex/integration/media-policy-defrag-v0-1/**'
       - '.codex/lanes/apply-synthesis-*/**'
       - '.github/workflows/apply-component-synthesis-v0-1.yml'
       - 'catalog/lovekgd-component-synthesis-v0.1(1).zip'
@@ -15,10 +16,12 @@ on:
       - 'receipts/normalization/apply-component-synthesis-v0.1.json'
       - 'scripts/component-synthesis-v0.1/**'
       - 'scripts/validate-apply-component-synthesis-v0.1.mjs'
+      - 'scripts/validate-event-media-policy-defrag-v0.1.mjs'
       - 'tests/apply-component-synthesis-v0.1-negative.mjs'
   pull_request:
     paths:
       - '.codex/integration/apply-component-synthesis-v0-1/**'
+      - '.codex/integration/media-policy-defrag-v0-1/**'
       - '.codex/lanes/apply-synthesis-*/**'
       - '.github/workflows/apply-component-synthesis-v0-1.yml'
       - 'catalog/lovekgd-component-synthesis-v0.1(1).zip'
@@ -30,6 +33,7 @@ on:
       - 'receipts/normalization/apply-component-synthesis-v0.1.json'
       - 'scripts/component-synthesis-v0.1/**'
       - 'scripts/validate-apply-component-synthesis-v0.1.mjs'
+      - 'scripts/validate-event-media-policy-defrag-v0.1.mjs'
       - 'tests/apply-component-synthesis-v0.1-negative.mjs'
   workflow_dispatch:
 
@@ -100,6 +104,7 @@ jobs:
           set -euo pipefail
           python3 scripts/component-synthesis-v0.1/validate-schemas.py --root . --require-receipt
           node scripts/component-synthesis-v0.1/build-materialization-ir.mjs --root . --check
+          node scripts/validate-event-media-policy-defrag-v0.1.mjs --root .
           node scripts/validate-apply-component-synthesis-v0.1.mjs --root . --events-repo "$ACS_EVENTS_ROOT"
           node tests/apply-component-synthesis-v0.1-negative.mjs .
           node --check scripts/component-synthesis-v0.1/materialize-penpot.js
