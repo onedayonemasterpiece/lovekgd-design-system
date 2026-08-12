@@ -181,12 +181,14 @@
     requireActivePage(penpot, componentPlan.target_page, variant.stable_plugin_data_id);
     const board = penpot.createBoard(); requireValue(board, 'ACS_PENPOT_CREATE_BOARD', 'Penpot could not create native master board');
     board.name = `${componentPlan.entity_id} / ${variant.variant_key}`;
-    board.resize?.(360, 112 + variant.nested_instances.length * 52);
+    board.resize?.(360, 120 + variant.nested_instances.length * 48);
     board.x = Number(zone.shape.x ?? 0) + variant.position.x;
     board.y = Number(zone.shape.y ?? 0) + variant.position.y;
     board.fills = [{ fillColor: '#ffffff', fillOpacity: 1 }];
     board.strokes = [{ strokeColor: '#b8c2cc', strokeOpacity: 1, strokeWidth: 1 }];
-    board.appendChild(createText(penpot, `${componentPlan.display_name}\n${variant.variant_key}\nAnatomy: ${componentPlan.anatomy.map((part) => part.part_id).join(', ') || 'none'}`, 'System / Candidate summary', 16, 14));
+    zone.shape.appendChild(board);
+    const summary = createText(penpot, `${componentPlan.display_name}\n${variant.variant_key}\nAnatomy: ${componentPlan.anatomy.map((part) => part.part_id).join(', ') || 'none'}`, 'System / Candidate summary', board.x + 16, board.y + 14);
+    summary.fontSize = '12'; summary.growType = 'auto-height'; summary.resize?.(328, 68); board.appendChild(summary);
     variant.nested_instances.forEach((nested, nestedIndex) => {
       const dependency = dependencyComponents.get(nested.entity_ref);
       requireValue(dependency, 'ACS_PENPOT_DEPENDENCY_ORDER', `nested dependency ${nested.entity_ref} is not materialized`, nested);
@@ -196,7 +198,8 @@
       setData(instance, 'stable_id', nested.stable_plugin_data_id);
       setData(instance, 'object_kind', 'nested_component_instance');
       setData(instance, 'detached', false);
-      instance.x = 16; instance.y = 64 + nestedIndex * 52;
+      instance.resize?.(328, 40);
+      instance.x = board.x + 16; instance.y = board.y + 88 + nestedIndex * 48;
       board.appendChild(instance);
     });
     setData(board, 'stable_id', variant.stable_plugin_data_id);
@@ -209,11 +212,42 @@
       authority_mode: 'reconstructed', canonical: false, accepted: false, promotion_ready: false,
       detached: false, screenshot_master: false, variant_selections: variant.selections,
     }));
-    zone.shape.appendChild(board);
     const component = penpot.library.local.createComponent([board]);
     requireValue(component, 'ACS_PENPOT_CREATE_COMPONENT', `could not create native component ${componentPlan.entity_id}`);
     component.name = `${componentPlan.entity_id} / ${variant.variant_key}`;
     return { component, board };
+  };
+  const layoutNativeMasterContents = (board) => {
+    const children = Array.from(board.children ?? []);
+    const summary = children.find((shape) => shape.name === 'System / Candidate summary');
+    const nested = children.filter((shape) => shape.isComponentCopyInstance?.() === true);
+    board.resize?.(360, 120 + nested.length * 48);
+    if (summary) { summary.fontSize = '12'; summary.growType = 'auto-height'; summary.resize?.(328, 68); summary.x = board.x + 16; summary.y = board.y + 14; }
+    nested.forEach((instance, index) => {
+      instance.resize?.(328, 40);
+      instance.x = board.x + 16;
+      instance.y = board.y + 88 + index * 48;
+    });
+  };
+  const compactVariantContainer = async (containerShape, componentPlan) => {
+    if (componentPlan.variants.length <= 1) {
+      layoutNativeMasterContents(containerShape);
+      return;
+    }
+    requireValue(containerShape?.isVariantContainer?.() === true && containerShape.variants, 'ACS_PENPOT_VARIANT_API', `native variant container is unavailable for ${componentPlan.entity_id}`);
+    const flex = containerShape.flex ?? containerShape.addFlexLayout();
+    flex.dir = 'row'; flex.wrap = 'wrap'; flex.rowGap = 24; flex.columnGap = 24;
+    flex.topPadding = 16; flex.rightPadding = 16; flex.bottomPadding = 16; flex.leftPadding = 16;
+    flex.alignItems = 'start'; flex.justifyContent = 'start';
+    containerShape.resize?.(808, Math.max(160, containerShape.height));
+    containerShape.horizontalSizing = 'fix'; containerShape.verticalSizing = 'auto';
+    flex.horizontalSizing = 'fix'; flex.verticalSizing = 'auto';
+    const members = containerShape.variants.variantComponents().map((component) => typeof component.mainInstance === 'function' ? component.mainInstance() : component.mainInstance);
+    members.forEach(layoutNativeMasterContents);
+    // Penpot may reflow the members only after all sizes are known. A second
+    // geometry pass keeps every child inside its newly compacted native board.
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    members.forEach(layoutNativeMasterContents);
   };
   const reconcileVariantContract = (containerShape, componentPlan) => {
     if (componentPlan.variants.length <= 1) return;
@@ -364,9 +398,9 @@
     requireValue(penpot.currentFile.id === FILE_ID, 'ACS_WRONG_PENPOT_FILE', `expected Resource Graph ${FILE_ID}, got ${penpot.currentFile.id}`);
     requireValue(ir?.resource_graph_file_id === FILE_ID && ir.namespace === NS, 'ACS_PENPOT_IR', 'missing or wrong Component Synthesis v0.1 IR');
     requireValue(ir.status?.canonical === false && ir.status?.accepted === false && ir.status?.promotion_ready === false, 'ACS_PENPOT_STATUS_ESCAPE', 'IR escaped candidate status');
-    requireValue(['all', 'component-masters', 'component-variants', 'variant-containers', 'fixture-specimens', 'archetypes'].includes(operationPhase), 'ACS_PENPOT_PHASE', `unsupported materialization phase ${operationPhase}`);
+    requireValue(['all', 'component-masters', 'component-variants', 'variant-containers', 'layout-repair', 'fixture-specimens', 'archetypes'].includes(operationPhase), 'ACS_PENPOT_PHASE', `unsupported materialization phase ${operationPhase}`);
     if (partial) requireValue(selectedComponentIds || selectedArchetypeIds, 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization requires an explicit component or archetype ID set');
-    if (['component-masters', 'component-variants', 'variant-containers', 'fixture-specimens'].includes(operationPhase)) requireValue(partial && selectedComponentIds, 'ACS_PENPOT_PARTIAL_SCOPE', `${operationPhase} requires explicit componentEntityIds`);
+    if (['component-masters', 'component-variants', 'variant-containers', 'layout-repair', 'fixture-specimens'].includes(operationPhase)) requireValue(partial && selectedComponentIds, 'ACS_PENPOT_PARTIAL_SCOPE', `${operationPhase} requires explicit componentEntityIds`);
     if (operationPhase === 'component-variants') requireValue(selectedVariantStableIds?.size > 0, 'ACS_PENPOT_PARTIAL_SCOPE', 'component-variants requires explicit variantStableIds');
     if (operationPhase === 'archetypes') requireValue(partial && selectedArchetypeIds, 'ACS_PENPOT_PARTIAL_SCOPE', 'archetypes phase requires explicit archetypeIds');
     if (selectedComponentIds) requireValue([...selectedComponentIds].every((id) => ir.components.some((component) => component.entity_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown component ID');
@@ -375,7 +409,7 @@
     if (selectedSpecimenStableIds) requireValue(operationPhase === 'fixture-specimens' && [...selectedSpecimenStableIds].every((id) => ir.components.some((component) => selectedComponentIds?.has(component.entity_id) && component.specimens.some((specimen) => specimen.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'specimenStableIds must belong to the selected componentEntityIds and fixture-specimens phase');
     if (selectedArchetypeIds) requireValue([...selectedArchetypeIds].every((id) => ir.archetypes.some((archetype) => archetype.archetype_id === id)), 'ACS_PENPOT_PARTIAL_SCOPE', 'partial materialization contains an unknown archetype ID');
     if (selectedArchetypeNodeStableIds) requireValue(operationPhase === 'archetypes' && [...selectedArchetypeNodeStableIds].every((id) => ir.archetypes.some((archetype) => selectedArchetypeIds?.has(archetype.archetype_id) && archetype.nodes.some((node) => node.stable_plugin_data_id === id))), 'ACS_PENPOT_PARTIAL_SCOPE', 'archetypeNodeStableIds must belong to the selected archetypeIds and archetypes phase');
-    const componentPhase = ['component-masters', 'component-variants', 'variant-containers'].includes(operationPhase);
+    const componentPhase = ['component-masters', 'component-variants', 'variant-containers', 'layout-repair'].includes(operationPhase);
     const projectionPhase = ['fixture-specimens', 'archetypes'].includes(operationPhase);
     activeShapeIndex = componentPhase ? buildComponentShapeIndex(penpot, ir, selectedComponentIds) : projectionPhase ? buildActivePageShapeIndex(penpot) : buildShapeIndex(penpot);
     const revisionBefore = penpot.currentFile.revn ?? penpot.currentFile.revision ?? null;
@@ -422,7 +456,7 @@
         continue;
       }
       const createVariants = componentSelected && (operationPhase === 'component-masters' || operationPhase === 'component-variants');
-      const finalizeContainer = componentSelected && (operationPhase === 'all' || operationPhase === 'component-masters' || operationPhase === 'variant-containers');
+      const finalizeContainer = componentSelected && (operationPhase === 'all' || operationPhase === 'component-masters' || operationPhase === 'variant-containers' || operationPhase === 'layout-repair');
       const matchRows = componentPlan.variants.map((variant) => ({ variant, matches: managed(penpot, variant.stable_plugin_data_id) }));
       requireValue(matchRows.every((row) => row.matches.length <= 1), 'ACS_PENPOT_DUPLICATE_STABLE_ID', `duplicate native variant in ${componentPlan.entity_id}`);
       const existingVariants = matchRows.filter((row) => row.matches.length === 1).length;
@@ -465,10 +499,14 @@
         setData(containerShape, 'entity_id', componentPlan.entity_id);
         setData(containerShape, 'contract_sha256', componentPlan.contract_sha256);
         reconcileVariantContract(containerShape, componentPlan);
+        await compactVariantContainer(containerShape, componentPlan);
         created += 1;
         await checkpoint({ phase: 'variant-containers', entity_id: componentPlan.entity_id, stable_id: componentPlan.stable_plugin_data_id });
       }
-      else if (finalizeContainer) reconcileVariantContract(bindingMatches[0].shape, componentPlan);
+      else if (finalizeContainer) {
+        reconcileVariantContract(bindingMatches[0].shape, componentPlan);
+        await compactVariantContainer(bindingMatches[0].shape, componentPlan);
+      }
       if (operationPhase === 'fixture-specimens' && componentSelected) requireValue(bindingMatches.length === 1, 'ACS_PENPOT_VARIANT_BINDING', `fixture phase requires finalized component binding ${componentPlan.entity_id}`);
       if (variantComponents.length) dependencyComponents.set(componentPlan.entity_id, variantComponents[0]);
     }

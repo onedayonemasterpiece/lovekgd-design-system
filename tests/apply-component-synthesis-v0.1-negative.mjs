@@ -154,6 +154,9 @@ assert.match(materializer, /variantStableIds/u, 'variant creation must support g
 assert.match(materializer, /specimenStableIds/u, 'fixture projection must support gateway-safe resumable subsets');
 assert.match(materializer, /archetypeNodeStableIds/u, 'archetype projection must support gateway-safe resumable subsets');
 assert.match(materializer, /buildActivePageShapeIndex/u, 'projection phases must index only the active page instead of the whole Resource Graph');
+assert.match(materializer, /layout-repair/u, 'native component geometry must be repairable without recreating stable IDs');
+assert.match(materializer, /compactVariantContainer/u, 'variant members must be compacted instead of preserving unbounded source coordinates');
+assert.match(materializer, /layoutNativeMasterContents/u, 'native master children must be moved with their post-grouping board geometry');
 assert.match(materializer, /variant-containers/u, 'variant-container finalization must be a separately resumable phase');
 assert.match(materializer, /componentBindings/u, 'variant-container bindings must be indexed and deduplicated');
 assert.match(materializer, /createVariantFromComponents\(variantBoards\)/u, 'Penpot native variant API must receive main-instance boards, not library proxies');
@@ -186,4 +189,4 @@ assert.match(workflow, /persist-credentials: false/u);
 assert.doesNotMatch(workflow, /pull_request_target/u);
 assert.match(workflow, /permissions:\n  contents: read/u);
 
-process.stdout.write(`${JSON.stringify({ status: 'PASS', positive_baselines: 1, semantic_mutations: cases.length, targeted_rejections: rejected, materializer_contract_checks: 35, workflow_contract_checks: 9 })}\n`);
+process.stdout.write(`${JSON.stringify({ status: 'PASS', positive_baselines: 1, semantic_mutations: cases.length, targeted_rejections: rejected, materializer_contract_checks: 38, workflow_contract_checks: 9 })}\n`);
