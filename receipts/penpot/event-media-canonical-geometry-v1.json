@@ -1,0 +1,129 @@
+{
+  "schema_version": "event_media_canonical_geometry_penpot_receipt_v1",
+  "operation": "materialize-canonical-event-media-geometry-and-crop-policy-v1",
+  "created_on": "2026-08-12",
+  "repository": "onedayonemasterpiece/lovekgd-design-system",
+  "source_main_sha": "c59a3576c7361c1953b31ad9b98ed096640e92c7",
+  "decision_status": "OWNER_DIRECTED_TARGET_DECISION",
+  "implementation_status": "NOT_IMPLEMENTED_OR_PROVEN",
+  "penpot": {
+    "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "a21f0524-f565-8038-8008-789db00ee3ef",
+    "page_name": "45 — Media geometry · Canonical policy v1",
+    "root_board_id": "a21f0524-f565-8038-8008-789db035ea4a",
+    "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-789db00ee3ef&board-id=a21f0524-f565-8038-8008-789db035ea4a",
+    "root_size": {"width": 1480, "height": 7920},
+    "top_level_sections": [
+      "00 / Decision header",
+      "01 / Geometry resolver",
+      "02 / Canonical geometry profiles",
+      "03 / Computed geometry modes",
+      "04 / Adaptive large-card matrix",
+      "05 / OCR crop policy",
+      "06 / Smart crop and protected regions",
+      "07 / Paired composite solver",
+      "08 / AS-IS to canonical mapping",
+      "09 / Implementation and acceptance"
+    ],
+    "readback": {
+      "descendant_board_count": 40,
+      "text_node_count": 250,
+      "image_shape_count": 30,
+      "text_overflow_count": 0,
+      "child_outside_parent_count": 0
+    },
+    "plugin_data": {
+      "policy-version": "event-media-geometry-v1",
+      "decision-model": "semantic-mode × consumer-slot × source-geometry"
+    }
+  },
+  "fixture_assets": [
+    {
+      "key": "landscape3x2",
+      "penpot_media_id": "3be9e5e1-190f-8090-8008-789cce38e852",
+      "width": 1280,
+      "height": 853,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/photo-landscape-3x2-focal-safe-cover.webp"
+    },
+    {
+      "key": "portrait4x5",
+      "penpot_media_id": "81f57451-85cc-819d-8008-789c5412dccd",
+      "width": 800,
+      "height": 1000,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/photo-portrait-derived-4x5.webp"
+    },
+    {
+      "key": "reviewed5x4",
+      "penpot_media_id": "81f57451-85cc-819d-8008-789cceaae65d",
+      "width": 1000,
+      "height": 800,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/photo-reviewed-5x4-cover.webp"
+    },
+    {
+      "key": "landscapeForContain",
+      "penpot_media_id": "81f57451-85cc-819d-8008-789ccf20e5f6",
+      "width": 1080,
+      "height": 720,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/photo-source-3x2-for-2x3-contain.webp"
+    },
+    {
+      "key": "ocrTall",
+      "penpot_media_id": "81f57451-85cc-819d-8008-789ccf9d4a58",
+      "width": 906,
+      "height": 1280,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/poster-ocr-intrinsic-contain.webp"
+    },
+    {
+      "key": "ocrSquare",
+      "penpot_media_id": "3be9e5e1-190f-8090-8008-789cd0169314",
+      "width": 512,
+      "height": 512,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/poster-ocr-square-1x1-contain.png"
+    },
+    {
+      "key": "unknown43",
+      "penpot_media_id": "81f57451-85cc-819d-8008-789cd083665c",
+      "width": 1920,
+      "height": 1440,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/unknown-text-contain.webp"
+    },
+    {
+      "key": "missingFallback",
+      "penpot_media_id": "3be9e5e1-190f-8090-8008-789cd11acc74",
+      "width": 1280,
+      "height": 1280,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/state-missing-fallback.webp"
+    },
+    {
+      "key": "tiny",
+      "penpot_media_id": "3be9e5e1-190f-8090-8008-789cd1a2adfd",
+      "width": 320,
+      "height": 320,
+      "source_path": "prototypes/event-media-decision-pack/fixtures/state-tiny.jpg"
+    }
+  ],
+  "materialized_decision": {
+    "canonical_profile_count": 4,
+    "computed_mode_count": 3,
+    "canonical_profiles": ["compact_landscape", "portrait", "wide_stage", "square_exception"],
+    "computed_modes": ["protected_intrinsic", "flexible_stage", "paired_composite"],
+    "output_contracts": ["share_4x5", "open_graph_source"],
+    "ocr_default": "NO_CROP",
+    "ocr_conditional_crop_maximum": 0.2,
+    "paired_divider_range": [0.35, 0.65]
+  },
+  "relationship_to_page_44": {
+    "page_44_status": "AS_IS_EVIDENCE_RETAINED",
+    "page_45_status": "NORMALIZED_TARGET_DECISION",
+    "page_44_deleted_or_rewritten": false
+  },
+  "non_claims": [
+    "events-bot-new source mutation",
+    "production runtime proof",
+    "component promotion",
+    "identity-set owner decision",
+    "viewer-rail owner decision",
+    "exact upscale ceiling"
+  ]
+}
