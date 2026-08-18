@@ -93,3 +93,24 @@ families. No artifact is claimed for those calls. Therefore the replacement
 page stays explicitly `NOT READY`, even though file validation and stable-ID
 idempotency pass. This preserves the gate above instead of reintroducing the
 former count-only false positive.
+
+## Final remediation at revision 234
+
+The blocker was fully removed rather than hidden: the 44,290 px legacy Page40
+was dependency-audited across 31 other pages and deleted. After deletion,
+bounded exporter calls became reliable. Zero-bounds Penpot Text in
+`event.card` and `exhibition.row` was replaced with native SVG text carrying
+the exact Inter typography and copy; the exhibition gallery order was corrected
+to identity → `95` → `a1` → stacked `7c`.
+
+Page46 was rebuilt as five separate vertically stacked family sections. Each
+section compares the same source-bound fixture in AS-IS and normalized columns,
+with responsive, interaction, media, content, and framing evidence recorded in
+that family. No different family is presented as a variant and no unproven
+state is fabricated.
+
+All five bounded family exports and the complete `1280×2680` Page46 export were
+visually inspected and passed. Final readback: ten linked family instances,
+fourteen nested linked media instances, zero detached instances, zero validation
+errors, and an actual idempotency rerun with created count zero. Page46 is named
+`46 — Event cards · Candidate fidelity v3 · REVIEW READY`.
