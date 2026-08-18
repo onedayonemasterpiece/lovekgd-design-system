@@ -1,13 +1,16 @@
 # Event-card taxonomy candidate v1 — execution matrix
 
-| Requirement | Dependency | Owner | Status | Integration gate |
-|---|---|---|---|---|
-| R1 screenshot census and disposition | supplied screenshots + review routes | screenshot-census explorer (read-only) | done | every `Sxx/Ixx` appears exactly once in binding manifest |
-| R2 runtime/DOM/CSS/Astro owner mapping | exact review build + `events-bot-new@d2b7993b…` read-only | runtime-mapping explorer (read-only) | done | bidirectional route/DOM/source bindings recorded |
-| R3 Git candidate taxonomy + binding manifest + visual spec + validator | R1, R2, framing v2 | integrator | done | positive + negative validation; exact current fixture/media bindings |
-| R4 Git commit/push + linked Draft PR | R3 | integrator | done | branch pushed; PR #37 stacked on #36 |
-| R5 Penpot Page40 replacement and new Page46 | Git candidate commit | integrator | done | old heavy Page40 deleted after dependency audit; five native source-bound masters; family-by-family all-proven-state linked-instance matrix |
-| R6 exports, visual QA, idempotency, receipt | R5 | integrator | done | five bounded family-section exports + full-page export pass; 29 linked family state instances / 39 nested media; validation 0, detached 0, idempotent create 0 |
-| R7 Actions | R4, R6 | integrator | checked | candidate workflow green; pre-existing synthesis replay-outcome check remains red |
+| Requirement | Status | Gate |
+|---|---|---|
+| Screenshot census S01–S08 | Done | 23 items bound exactly once |
+| Exact runtime/Astro mapping | Done | source SHA `d2b7993b…`; events repo read-only |
+| Framing v2 correction | Done | consumer-specific radii; no global radius fiction; no internal-field request |
+| Current Git↔Penpot bindings | Done | deleted Page40/rejected Page46 UUIDs forbidden by validator |
+| Native family variants | Done | 5 VariantContainers / 44 exact composite state keys |
+| Page46 family matrices | Done | 5 AS-IS + 44 normalized linked instances; families stacked vertically |
+| Amber tail | Done | true nested component in one source-proven tail variant; zero non-tail copies |
+| Family exports | Done | 5 bounded PNG exports inspected |
+| Validation/idempotency | Partial | Penpot validation `[]`, detached `0`; final independent rerun/audit still required |
+| Independent closure re-audit | Pending | Page46 remains visibly NOT READY |
 
-Write ownership was serial: explorers remained read-only; the integrator alone mutated Git and Penpot. `events-bot-new` remained read-only.
+Write ownership remained serial. `events-bot-new` was never mutated.

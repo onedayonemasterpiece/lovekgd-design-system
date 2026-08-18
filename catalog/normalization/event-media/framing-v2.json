@@ -3,7 +3,7 @@
   "schema_version": "event_media_framing_v2",
   "policy_version": "2.0.0-candidate",
   "contract_version": "2.0.0-candidate",
-  "contract_payload_sha256": "78f7df99b1028b545217c5d60efe1356cf9bb51b2ba085d9ad4cfc65dfec28d3",
+  "contract_payload_sha256": "3d3a79d3ca678daefb1754daeda42237261b883051355cb09f217521808747a9",
   "status": "CANDIDATE",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -41,20 +41,52 @@
     "blind_center_crop_forbidden": true
   },
   "radii_px": {
-    "media": 16,
-    "card": 24,
-    "enclosing_container": 28,
-    "small_preview_when_required": 12
+    "scope": "consumer-specific-source-derived",
+    "festival_card": {
+      "shell": 10,
+      "media": 10
+    },
+    "listing_event_card": {
+      "media": 14
+    },
+    "listing_rail_row": {
+      "summary": 14,
+      "action": 12
+    },
+    "event_card": {
+      "shell": 24,
+      "media_top": 24
+    },
+    "exhibition_row": {
+      "mobile_shell": 8,
+      "desktop_shell": 0,
+      "undo_control": 4
+    }
   },
   "media_owners": [
     {
       "owner": "event.card",
-      "owns": "single resolved event media slot and its visible frame geometry",
+      "owns": "single resolved event media slot and visible source-derived frame geometry",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "listing.event-card",
+      "owns": "desktop listing media, proof rail and density-specific source geometry",
       "nested_component": "event.media-frame"
     },
     {
       "owner": "listing.rail-row",
-      "owns": "summary/media/digest/identity track composition; each media panel is an independent event.media-frame",
+      "owns": "summary/media/digest/identity track; each media panel is an independent event.media-frame",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "festival.card",
+      "owns": "festival overlay shell, status, favorite and media framing",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "exhibition.row",
+      "owns": "deck stack and independent loaded/loading/error media frames",
       "nested_component": "event.media-frame"
     },
     {
@@ -228,9 +260,21 @@
       "binding_role": "framing_policy_visual_projection"
     },
     {
-      "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
-      "local_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f",
-      "binding_role": "candidate_event_media_frame_master_pending_metadata_reconciliation"
+      "page_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
+      "local_component_ids": [
+        "45de0a42-f540-80b3-8008-80aa20bf45c8",
+        "45de0a42-f540-80b3-8008-80adcd671e44",
+        "b3236582-9a6d-80d2-8008-80b29be51e05",
+        "b3236582-9a6d-80d2-8008-80b376c0f929",
+        "b3236582-9a6d-80d2-8008-80b38ef25fcb",
+        "b3236582-9a6d-80d2-8008-80b3ac674870"
+      ],
+      "binding_role": "current_candidate_event_media_frame_masters"
+    },
+    {
+      "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
+      "root_board_id": "45de0a42-f540-80b3-8008-80ad15597720",
+      "binding_role": "current_family_state_visual_review_projection"
     }
   ],
   "evidence_requirements": {

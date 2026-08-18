@@ -11,10 +11,10 @@ This document replaces the v1 framing text in PR #36. The old text described an
 earlier Penpot page and pulled the current system into a generic four-profile
 geometry model. The actual review surface is now:
 
-- file `3be9e5e1-190f-8090-8008-713c0fbe6260`, observed at revision `153`;
+- file `3be9e5e1-190f-8090-8008-713c0fbe6260`, current cross-page readback at revision `318`;
 - page `a21f0524-f565-8038-8008-789db00ee3ef`;
-- page name **45 — Media framing · Canonical policy v2**;
-- root board `a21f0524-f565-8038-8008-789db035ea4a`, **Media framing / canonical policy v2**;
+- page name **45 — Media framing · Candidate policy v2**;
+- root board `a21f0524-f565-8038-8008-789db035ea4a`, candidate/noncanonical visual projection;
 - root geometry `1480×9300`;
 - direct URL: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-789db00ee3ef&board-id=a21f0524-f565-8038-8008-789db035ea4a>.
 
@@ -65,12 +65,16 @@ to be bound to the generated review DOM and the current Kaggle build.
 5. Loading, missing and broken states reserve the same resolved media geometry
    as the corresponding ready state.
 
-Normalized radii on the v2 surface are:
+Radii are consumer-owned source values, not global framing tokens:
 
-- media: `16px`;
-- card: `24px`;
-- enclosing container: `28px`;
-- small preview, when a separate preview role exists: `12px`.
+- festival card shell/media: `10px`;
+- listing event-card media: `14px`;
+- mobile rail summary/action: `14px` / `12px`;
+- large EventCard shell/top media corners: `24px`;
+- exhibition row: desktop `0px`, mobile shell `8px`, undo control `4px`.
+
+Applying the earlier `16/24/28/12` tuple globally is explicitly invalid because
+it changes the proven Astro consumer shells.
 
 ## Adaptive large-card framing
 

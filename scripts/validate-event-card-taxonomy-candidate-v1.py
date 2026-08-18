@@ -9,6 +9,7 @@ TS='contracts/normalization/event-card-taxonomy-candidate.v1.schema.json'
 MS='contracts/normalization/event-card-binding-manifest.v1.schema.json'
 VS='catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json'
 VSS='contracts/normalization/event-card-visual-spec-candidate.v1.schema.json'
+PR='receipts/penpot/event-card-taxonomy-candidate-v1.json'
 ALLOWED_DISP={'mapped-to-current-runtime','current-runtime-variant','current-runtime-state','duplicate-drift','legacy-but-still-supported','obsolete','unmapped-with-explicit-reason'}
 def fail(code,path,msg):
  print(json.dumps({'status':'rejected','error':{'code':code,'path':path,'diagnostic':msg}},sort_keys=True),file=sys.stderr); raise SystemExit(1)
@@ -37,9 +38,25 @@ def main():
  fbytes=(root/FR).read_bytes(); fsha=hashlib.sha256(fbytes).hexdigest()
  if tax['framing_binding']['file_sha256']!=fsha or tax['framing_binding']['contract_payload_sha256']!=fr['contract_payload_sha256']: fail('ECT_FRAMING_JOIN_MISMATCH','/framing_binding','framing file/hash join failed')
  if man['contract_payload_sha256']!=expected or man['contract_version']!=tax['contract_version']: fail('ECT_MANIFEST_JOIN_MISMATCH','/contract_payload_sha256','manifest contract join failed')
+ receipt=load(root/PR)
  components={x['component_id']:x for x in tax['components']}
  required={'event.card','listing.event-card','listing.rail-row','festival.card','exhibition.row'}
  if set(components)!=required: fail('ECT_COMPONENT_SET_INVALID','/components',f'expected {sorted(required)}')
+ if fr['radii_px'].get('scope')!='consumer-specific-source-derived': fail('ECT_FRAMING_RADIUS_SCOPE_INVALID','/radii_px/scope','global radii are forbidden; source-derived consumer radii required')
+ current_page40='45de0a42-f540-80b3-8008-80aa7bc00fa0'; current_page46='45de0a42-f540-80b3-8008-80ad04ad1a0e'
+ if not any(x.get('page_id')==current_page40 for x in fr['penpot_bindings']): fail('ECT_FRAMING_PENPOT_BINDING_STALE','/penpot_bindings','current lightweight Page40 binding required')
+ if receipt.get('contract_payload_sha256')!=expected: fail('ECT_RECEIPT_CONTRACT_JOIN_MISMATCH','/contract_payload_sha256','Penpot receipt must join current taxonomy hash')
+ if receipt.get('penpot',{}).get('page40_id')!=current_page40 or receipt.get('penpot',{}).get('page46_id')!=current_page46: fail('ECT_RECEIPT_PAGE_BINDING_STALE','/penpot','current Page40/Page46 IDs required')
+ if set(receipt.get('native_families',{}))!=required: fail('ECT_RECEIPT_FAMILY_SET_INVALID','/native_families','all five native families required')
+ total_states=0
+ for cid,c in components.items():
+  rb=receipt['native_families'][cid]; keys=[x['state_key'] for x in c['valid_combinations']]; total_states+=len(keys)
+  if rb.get('variant_container_id')!=c['penpot_binding'].get('variant_container_id'): fail('ECT_VARIANT_CONTAINER_JOIN_MISMATCH',f'/native_families/{cid}/variant_container_id','receipt and taxonomy differ')
+  if rb.get('variant_count')!=len(keys) or rb.get('page46_state_instance_count')!=len(keys): fail('ECT_STATE_INSTANCE_COUNT_MISMATCH',f'/native_families/{cid}','variant and Page46 state counts must equal contract states')
+  if rb.get('exact_state_keys')!=keys: fail('ECT_STATE_KEY_READBACK_MISMATCH',f'/native_families/{cid}/exact_state_keys','exact composite state keys/order must equal taxonomy')
+ readback=receipt.get('readback',{})
+ if total_states!=44 or readback.get('native_variant_container_count')!=5 or readback.get('native_variant_count')!=44 or readback.get('normalized_state_instance_count')!=44: fail('ECT_NATIVE_READBACK_COUNT_MISMATCH','/readback','expected 5 native containers and 44 exact state variants/instances')
+ if readback.get('detached_instance_count')!=0 or readback.get('file_validation_error_count')!=0: fail('ECT_NATIVE_READBACK_INVALID','/readback','detached instances and Penpot validation errors must both be zero')
  if visual['source']['commit']!=tax['source_baseline']['exact_commit']: fail('ECT_VISUAL_SOURCE_MISMATCH','/source/commit','visual spec must bind taxonomy source baseline')
  visual_families=[x['family'] for x in visual['specimens']]
  if set(visual_families)!=required or len(visual_families)!=len(set(visual_families)): fail('ECT_VISUAL_FAMILY_SET_INVALID','/specimens','exactly one source-derived visual specimen per family required')
@@ -74,5 +91,7 @@ def main():
    if pb.get('status')!='materialized-readback' or not all(isinstance(x,str) and re.fullmatch(r'[0-9a-f-]{36}',x) for x in vals) or not pb.get('instance_ids'): fail('ECT_PENPOT_BINDING_INCOMPLETE',path+'/penpot_binding','materialized UUIDs and instance readback required')
  raw=(root/TAX).read_text()+(root/MAN).read_text(); forbidden=['production-v1','PROMOTED','SOURCE OF TRUTH','verified implementation']
  if any(x in raw for x in forbidden): fail('ECT_FORBIDDEN_CLAIM','/','forbidden promotion/implementation label')
+ stale_ids=['10a29786-8dcf-802c-8008-739d91a640ed','66419e3c-4a3e-80f8-8008-80991f88c656']
+ if any(x in raw for x in stale_ids): fail('ECT_STALE_PENPOT_BINDING','/','deleted Page40 or rejected Page46 UUID remains in a current contract binding')
  print(json.dumps({'status':'valid','contract_payload_sha256':expected,'components':len(components),'visual_specimens':len(visual['specimens']),'visual_acceptance':visual['visual_acceptance']['status'],'screenshots':8,'screenshot_items':23,'penpot_required':a.require_penpot},indent=2))
 if __name__=='__main__': main()
