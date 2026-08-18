@@ -1,25 +1,175 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "$id":"https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json",
-  "type":"object",
-  "required":["$schema","schema_version","package_id","family_id","contract_version","contract_payload_sha256","hash_scope","lifecycle","authority_mode","canonical","promotion_status","acceptance_status","implementation_status","source_baseline","framing_binding","identity_decisions","components","consumer_inventory","penpot_review_binding","non_claims","rollback"],
-  "properties":{
-    "$schema":{"const":"https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json"},
-    "schema_version":{"const":"event_card_taxonomy_candidate_v1"},
-    "package_id":{"const":"candidate.event-card-taxonomy"},
-    "family_id":{"const":"family.event-preview-representations"},
-    "contract_version":{"const":"0.1.0-candidate"},
-    "contract_payload_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
-    "hash_scope":{"const":"stable-json-with-/contract_payload_sha256-omitted"},
-    "lifecycle":{"const":"candidate"},"authority_mode":{"const":"reconstructed"},"canonical":{"const":false},"promotion_status":{"const":"not_promoted"},
-    "acceptance_status":{"const":"awaiting_owner_visual_review"},"implementation_status":{"const":"not_implemented_or_runtime_conformance_proven"},
-    "source_baseline":{"type":"object","required":["repository","exact_commit","review_build_id","review_run_id","snapshot_id","generated_at"]},
-    "framing_binding":{"type":"object","required":["contract_ref","schema_version","policy_version","contract_payload_sha256","file_sha256"]},
-    "identity_decisions":{"type":"array","minItems":7},
-    "components":{"type":"array","minItems":5,"items":{"type":"object","required":["component_id","family_id","semantic_role","anatomy","slots","nested_component_refs","variant_axes","state_key_order","valid_combinations","invalid_combinations","responsive_contract","framing_profiles","source_bindings","consumer_bindings","runtime_state_keys","fixtures","accessibility_expectations","loading_broken_fallback","penpot_binding","evidence_refs","rollback_ref"]}},
-    "consumer_inventory":{"type":"array","minItems":14},
-    "penpot_review_binding":{"type":"object","required":["page_id","root_board_id","status","linked_instance_count","detached_instance_count","file_revn_readback"]},
-    "non_claims":{"type":"array","minItems":5},"rollback":{"type":"object","required":["git","penpot"]}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "package_id",
+    "family_id",
+    "contract_version",
+    "contract_payload_sha256",
+    "hash_scope",
+    "lifecycle",
+    "authority_mode",
+    "canonical",
+    "promotion_status",
+    "acceptance_status",
+    "implementation_status",
+    "source_baseline",
+    "framing_binding",
+    "identity_decisions",
+    "components",
+    "consumer_inventory",
+    "penpot_review_binding",
+    "non_claims",
+    "rollback",
+    "package_bindings",
+    "surface_state_contracts"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json"
+    },
+    "schema_version": {
+      "const": "event_card_taxonomy_candidate_v1"
+    },
+    "package_id": {
+      "const": "candidate.event-card-taxonomy"
+    },
+    "family_id": {
+      "const": "family.event-preview-representations"
+    },
+    "contract_version": {
+      "const": "1.1.0-candidate.2"
+    },
+    "contract_payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "hash_scope": {
+      "const": "stable-json-with-/contract_payload_sha256-omitted"
+    },
+    "lifecycle": {
+      "const": "candidate"
+    },
+    "authority_mode": {
+      "const": "reconstructed"
+    },
+    "canonical": {
+      "const": false
+    },
+    "promotion_status": {
+      "const": "not_promoted"
+    },
+    "acceptance_status": {
+      "const": "not_ready_independent_audit_remediation"
+    },
+    "implementation_status": {
+      "const": "git-sot-corrected-penpot-rematerialization-required"
+    },
+    "source_baseline": {
+      "type": "object",
+      "required": [
+        "repository",
+        "exact_commit",
+        "review_build_id",
+        "review_run_id",
+        "snapshot_id",
+        "generated_at"
+      ]
+    },
+    "framing_binding": {
+      "type": "object",
+      "required": [
+        "contract_ref",
+        "schema_version",
+        "policy_version",
+        "contract_payload_sha256",
+        "file_sha256"
+      ]
+    },
+    "identity_decisions": {
+      "type": "array",
+      "minItems": 7
+    },
+    "components": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "component_id",
+          "family_id",
+          "semantic_role",
+          "anatomy",
+          "slots",
+          "nested_component_refs",
+          "variant_axes",
+          "state_key_order",
+          "valid_combinations",
+          "invalid_combinations",
+          "responsive_contract",
+          "framing_profiles",
+          "source_bindings",
+          "consumer_bindings",
+          "runtime_state_keys",
+          "fixtures",
+          "accessibility_expectations",
+          "loading_broken_fallback",
+          "penpot_binding",
+          "evidence_refs",
+          "rollback_ref"
+        ]
+      }
+    },
+    "consumer_inventory": {
+      "type": "array",
+      "minItems": 14
+    },
+    "penpot_review_binding": {
+      "type": "object",
+      "required": [
+        "page_id",
+        "root_board_id",
+        "status",
+        "linked_instance_count",
+        "detached_instance_count",
+        "file_revn_readback"
+      ]
+    },
+    "non_claims": {
+      "type": "array",
+      "minItems": 5
+    },
+    "rollback": {
+      "type": "object",
+      "required": [
+        "git",
+        "penpot"
+      ]
+    },
+    "package_bindings": {
+      "type": "object",
+      "required": [
+        "medallions",
+        "artifacts"
+      ]
+    },
+    "surface_state_contracts": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "surface_id",
+          "source_paths",
+          "states",
+          "card_relationship",
+          "runtime_attributes"
+        ]
+      }
+    }
   },
-  "additionalProperties":false
+  "additionalProperties": false
 }

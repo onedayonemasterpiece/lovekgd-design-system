@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/event-artifact-candidate.v1.schema.json",
+  "title": "Candidate artifact and easter-egg collection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "package_id", "contract_version",
+    "contract_payload_sha256", "hash_scope", "lifecycle", "authority_mode",
+    "canonical", "promotion_status", "source_baseline", "runtime_product",
+    "collection_surface", "focus_lab_prototype", "analytical_bindings",
+    "reference_inventory", "separation_invariants", "penpot_collection"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "event-artifact-candidate.v1"},
+    "package_id": {"const": "candidate.event-artifact-collection-v1"},
+    "contract_version": {"type": "string"},
+    "contract_payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "hash_scope": {"const": "whole-document-except-contract_payload_sha256"},
+    "lifecycle": {"const": "candidate"},
+    "authority_mode": {"const": "reconstructed"},
+    "canonical": {"const": false},
+    "promotion_status": {"const": "not_promoted"},
+    "source_baseline": {"type": "object", "required": ["repository", "exact_commit", "source_evidence"]},
+    "runtime_product": {
+      "type": "object",
+      "required": [
+        "artifact_id", "collection_id", "collection_storage_key", "placement_id",
+        "production_status", "research_gate", "assets", "rail_geometry_px",
+        "rail_order", "variant_axes", "valid_state_keys", "runtime_contract", "penpot_binding"
+      ]
+    },
+    "collection_surface": {"type": "object"},
+    "focus_lab_prototype": {
+      "type": "object",
+      "required": ["status", "program_id", "states", "densities", "definitions", "binding_ids", "penpot_binding"],
+      "properties": {
+        "definitions": {"type": "array", "minItems": 12, "maxItems": 12}
+      }
+    },
+    "analytical_bindings": {"type": "object"},
+    "reference_inventory": {
+      "type": "object",
+      "required": ["status", "concept_count", "source_image_count", "items"],
+      "properties": {
+        "concept_count": {"const": 6},
+        "source_image_count": {"const": 7},
+        "items": {"type": "array", "minItems": 7, "maxItems": 7}
+      }
+    },
+    "separation_invariants": {"type": "array", "minItems": 4},
+    "penpot_collection": {"type": "object"}
+  }
+}

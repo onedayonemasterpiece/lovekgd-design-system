@@ -1,17 +1,131 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "$id":"https://lovekgd.example/contracts/normalization/event-card-binding-manifest.v1.schema.json",
-  "type":"object",
-  "required":["$schema","schema_version","manifest_version","family_scope","contract_ref","contract_version","contract_payload_sha256","lifecycle","authority_mode","canonical","promotion_status","screenshot_count","screenshot_item_count","screenshots","specimens","coverage","limitations"],
-  "properties":{
-    "$schema":{"const":"https://lovekgd.example/contracts/normalization/event-card-binding-manifest.v1.schema.json"},
-    "schema_version":{"const":"event_card_binding_manifest_v1"},"manifest_version":{"const":"0.1.0-candidate"},
-    "family_scope":{"type":"array","minItems":3},"contract_ref":{"type":"string"},"contract_version":{"const":"0.1.0-candidate"},"contract_payload_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
-    "lifecycle":{"const":"candidate"},"authority_mode":{"const":"reconstructed"},"canonical":{"const":false},"promotion_status":{"const":"not_promoted"},
-    "screenshot_count":{"const":8},"screenshot_item_count":{"const":23},
-    "screenshots":{"type":"array","minItems":8,"maxItems":8,"items":{"type":"object","required":["screenshot_ref","source_kind","item_refs","embedded_exact_build_metadata"]}},
-    "specimens":{"type":"array","minItems":23,"maxItems":23,"items":{"type":"object","required":["specimen_id","screenshot_ref","screenshot_item_ref","disposition","route","viewport","runtime_build_evidence","source_binding","contract_binding","framing_binding","penpot_binding","defects","evidence_refs"],"properties":{"disposition":{"enum":["mapped-to-current-runtime","current-runtime-variant","current-runtime-state","duplicate-drift","legacy-but-still-supported","obsolete","unmapped-with-explicit-reason"]}}}},
-    "coverage":{"type":"object","required":["required_item_count","bound_exactly_once","omitted","duplicate_bindings"]},"limitations":{"type":"array","minItems":1}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/event-card-binding-manifest.v1.schema.json",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "manifest_version",
+    "family_scope",
+    "contract_ref",
+    "contract_version",
+    "contract_payload_sha256",
+    "lifecycle",
+    "authority_mode",
+    "canonical",
+    "promotion_status",
+    "screenshot_count",
+    "screenshot_item_count",
+    "screenshots",
+    "specimens",
+    "coverage",
+    "limitations"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://lovekgd.example/contracts/normalization/event-card-binding-manifest.v1.schema.json"
+    },
+    "schema_version": {
+      "const": "event_card_binding_manifest_v1"
+    },
+    "manifest_version": {
+      "const": "0.1.0-candidate"
+    },
+    "family_scope": {
+      "type": "array",
+      "minItems": 3
+    },
+    "contract_ref": {
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "1.1.0-candidate.2"
+    },
+    "contract_payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "lifecycle": {
+      "const": "candidate"
+    },
+    "authority_mode": {
+      "const": "reconstructed"
+    },
+    "canonical": {
+      "const": false
+    },
+    "promotion_status": {
+      "const": "not_promoted"
+    },
+    "screenshot_count": {
+      "const": 8
+    },
+    "screenshot_item_count": {
+      "const": 23
+    },
+    "screenshots": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "screenshot_ref",
+          "source_kind",
+          "item_refs",
+          "embedded_exact_build_metadata"
+        ]
+      }
+    },
+    "specimens": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "items": {
+        "type": "object",
+        "required": [
+          "specimen_id",
+          "screenshot_ref",
+          "screenshot_item_ref",
+          "disposition",
+          "route",
+          "viewport",
+          "runtime_build_evidence",
+          "source_binding",
+          "contract_binding",
+          "framing_binding",
+          "penpot_binding",
+          "defects",
+          "evidence_refs"
+        ],
+        "properties": {
+          "disposition": {
+            "enum": [
+              "mapped-to-current-runtime",
+              "current-runtime-variant",
+              "current-runtime-state",
+              "duplicate-drift",
+              "legacy-but-still-supported",
+              "obsolete",
+              "unmapped-with-explicit-reason"
+            ]
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "required_item_count",
+        "bound_exactly_once",
+        "omitted",
+        "duplicate_bindings"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1
+    }
   },
-  "additionalProperties":false
+  "additionalProperties": false
 }

@@ -45,19 +45,21 @@ def main():
  if fr['radii_px'].get('scope')!='consumer-specific-source-derived': fail('ECT_FRAMING_RADIUS_SCOPE_INVALID','/radii_px/scope','global radii are forbidden; source-derived consumer radii required')
  current_page40='45de0a42-f540-80b3-8008-80aa7bc00fa0'; current_page46='45de0a42-f540-80b3-8008-80ad04ad1a0e'
  if not any(x.get('page_id')==current_page40 for x in fr['penpot_bindings']): fail('ECT_FRAMING_PENPOT_BINDING_STALE','/penpot_bindings','current lightweight Page40 binding required')
- if receipt.get('contract_payload_sha256')!=expected: fail('ECT_RECEIPT_CONTRACT_JOIN_MISMATCH','/contract_payload_sha256','Penpot receipt must join current taxonomy hash')
- if receipt.get('penpot',{}).get('page40_id')!=current_page40 or receipt.get('penpot',{}).get('page46_id')!=current_page46: fail('ECT_RECEIPT_PAGE_BINDING_STALE','/penpot','current Page40/Page46 IDs required')
- if set(receipt.get('native_families',{}))!=required: fail('ECT_RECEIPT_FAMILY_SET_INVALID','/native_families','all five native families required')
- total_states=0
- for cid,c in components.items():
-  rb=receipt['native_families'][cid]; keys=[x['state_key'] for x in c['valid_combinations']]; total_states+=len(keys)
-  if rb.get('variant_container_id')!=c['penpot_binding'].get('variant_container_id'): fail('ECT_VARIANT_CONTAINER_JOIN_MISMATCH',f'/native_families/{cid}/variant_container_id','receipt and taxonomy differ')
-  if rb.get('variant_count')!=len(keys) or rb.get('page46_state_instance_count')!=len(keys): fail('ECT_STATE_INSTANCE_COUNT_MISMATCH',f'/native_families/{cid}','variant and Page46 state counts must equal contract states')
-  if rb.get('exact_state_keys')!=keys: fail('ECT_STATE_KEY_READBACK_MISMATCH',f'/native_families/{cid}/exact_state_keys','exact composite state keys/order must equal taxonomy')
- readback=receipt.get('readback',{})
- if total_states!=44 or readback.get('native_variant_container_count')!=5 or readback.get('native_variant_count')!=44 or readback.get('normalized_state_instance_count')!=44: fail('ECT_NATIVE_READBACK_COUNT_MISMATCH','/readback','expected 5 native containers and 44 exact state variants/instances')
- if readback.get('detached_instance_count')!=0 or readback.get('file_validation_error_count')!=0: fail('ECT_NATIVE_READBACK_INVALID','/readback','detached instances and Penpot validation errors must both be zero')
+ total_states=sum(len(c['valid_combinations']) for c in components.values())
+ if a.require_penpot:
+  if receipt.get('contract_payload_sha256')!=expected: fail('ECT_RECEIPT_CONTRACT_JOIN_MISMATCH','/contract_payload_sha256','Penpot receipt must join current taxonomy hash')
+  if receipt.get('penpot',{}).get('page40_id')!=current_page40 or receipt.get('penpot',{}).get('page46_id')!=current_page46: fail('ECT_RECEIPT_PAGE_BINDING_STALE','/penpot','current Page40/Page46 IDs required')
+  if set(receipt.get('native_families',{}))!=required: fail('ECT_RECEIPT_FAMILY_SET_INVALID','/native_families','all five native families required')
+  for cid,c in components.items():
+   rb=receipt['native_families'][cid]; keys=[x['state_key'] for x in c['valid_combinations']]
+   if rb.get('variant_container_id')!=c['penpot_binding'].get('variant_container_id'): fail('ECT_VARIANT_CONTAINER_JOIN_MISMATCH',f'/native_families/{cid}/variant_container_id','receipt and taxonomy differ')
+   if rb.get('variant_count')!=len(keys) or rb.get('page46_state_instance_count')!=len(keys): fail('ECT_STATE_INSTANCE_COUNT_MISMATCH',f'/native_families/{cid}','variant and Page46 state counts must equal contract states')
+   if rb.get('exact_state_keys')!=keys: fail('ECT_STATE_KEY_READBACK_MISMATCH',f'/native_families/{cid}/exact_state_keys','exact composite state keys/order must equal taxonomy')
+  readback=receipt.get('readback',{})
+  if readback.get('native_variant_container_count')!=5 or readback.get('native_variant_count')!=total_states or readback.get('normalized_state_instance_count')!=total_states: fail('ECT_NATIVE_READBACK_COUNT_MISMATCH','/readback',f'expected 5 native containers and {total_states} exact state variants/instances')
+  if readback.get('detached_instance_count')!=0 or readback.get('file_validation_error_count')!=0 or readback.get('variant_error_count')!=0: fail('ECT_NATIVE_READBACK_INVALID','/readback','detached instances, Penpot validation errors and variant errors must all be zero')
  if visual['source']['commit']!=tax['source_baseline']['exact_commit']: fail('ECT_VISUAL_SOURCE_MISMATCH','/source/commit','visual spec must bind taxonomy source baseline')
+ if visual.get('contract_binding',{}).get('contract_payload_sha256')!=expected or visual.get('contract_binding',{}).get('expected_native_state_count')!=total_states: fail('ECT_VISUAL_CONTRACT_JOIN_MISMATCH','/contract_binding','visual spec must hash-bind the current taxonomy and exact state count')
  visual_families=[x['family'] for x in visual['specimens']]
  if set(visual_families)!=required or len(visual_families)!=len(set(visual_families)): fail('ECT_VISUAL_FAMILY_SET_INVALID','/specimens','exactly one source-derived visual specimen per family required')
  if set(visual['visual_acceptance']['required_families'])!=required: fail('ECT_VISUAL_GATE_SCOPE_INVALID','/visual_acceptance/required_families','all five families required')
@@ -69,9 +71,23 @@ def main():
   if any(m.get('src','').startswith('data:') for m in spec['media']): fail('ECT_VISUAL_MEDIA_UNGROUNDED',f'/specimens/{i}/media','embedded/screenshot media forbidden')
  for cid,c in components.items():
   if 'event.media-frame' not in c['nested_component_refs']: fail('ECT_MEDIA_NOT_NESTED',f'/components/{cid}/nested_component_refs','event.media-frame required')
+  if len(c.get('source_element_bindings',[]))!=len(c['anatomy']) or {x.get('element') for x in c.get('source_element_bindings',[])}!=set(c['anatomy']): fail('ECT_ELEMENT_SOURCE_BINDING_INCOMPLETE',f'/components/{cid}/source_element_bindings','every anatomy element must join to exact Astro/source ownership')
   seen=set()
   for i,v in enumerate(c['valid_combinations']): parse_state(c,v['state_key'],f'/components/{cid}/valid_combinations/{i}/state_key'); seen.add(v['state_key'])
   if len(seen)!=len(c['valid_combinations']): fail('ECT_DUPLICATE_STATE',f'/components/{cid}/valid_combinations','duplicate state key')
+ surfaces={x['surface_id']:x for x in tax.get('surface_state_contracts',[])}
+ if set(surfaces)!={'authorized-event-search','favorites','personal-feed','mobile-listing-rail','artifact-collection'}: fail('ECT_SURFACE_STATE_SET_INVALID','/surface_state_contracts','exact five parent surface contracts required')
+ listing_keys=set(components['listing.event-card']['runtime_state_keys'])
+ exact_listing={'data-listing-image-mode','data-listing-crop-adaptive','data-listing-crop-evidence','data-listing-source-width','data-listing-source-height','data-listing-media-role','data-listing-vertical-retention','data-listing-low-resolution','data-listing-density','data-image-text-mode','data-listing-proof-placement','data-listing-overlay-kind'}
+ if listing_keys!=exact_listing: fail('ECT_LISTING_RUNTIME_ATTRIBUTE_DRIFT','/components/listing.event-card/runtime_state_keys',f'expected exact ListingEventCard attributes {sorted(exact_listing)}')
+ event=components['event.card']
+ if event['variant_axes'].get('layout')!=['split-actions','overlay-controls'] or any(x in event['nested_component_refs'] for x in ['core.favorite-action','core.share-action','core.calendar-action']): fail('ECT_EVENT_CARD_ACTION_OWNERSHIP','/components/event.card','both source layouts required and false nested action components forbidden')
+ rail=components['listing.rail-row']
+ rail_states='\n'.join(x['state_key'] for x in rail['valid_combinations'])
+ if 'hidden-undo' in rail_states or 'hide-committed' in rail_states or 'artifact=tail-opportunity' in rail_states or 'artifact=amber-tail' not in rail_states: fail('ECT_RAIL_STATE_OWNERSHIP','/components/listing.rail-row','hidden/toast is surface-owned and exact amber-tail row placement is required')
+ exhibition=components['exhibition.row']
+ exhibition_states='\n'.join(x['state_key'] for x in exhibition['valid_combinations'])
+ if 'rejected-hidden-with-undo' not in exhibition_states or 'feedback=hidden-undo' in exhibition_states or 'presentation=mobile-gallery' not in exhibition_states: fail('ECT_EXHIBITION_STATE_DRIFT','/components/exhibition.row','combined rejected/undo and mobile presentation required')
  inventory=[]
  for s in man['screenshots']: inventory.extend(s['item_refs'])
  bound=[s['screenshot_item_ref'] for s in man['specimens']]

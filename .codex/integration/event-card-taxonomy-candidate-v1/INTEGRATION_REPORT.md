@@ -1,24 +1,32 @@
-# Event-card taxonomy candidate v1 — remediation integration report
+# Event-card candidate integration report — Git-first remediation
 
-| Requirement | Result | Evidence |
-|---|---|---|
-| R1 screenshot census | Done | 8 screenshots / 23 distinct items; exact-once manifest coverage |
-| R2 runtime mapping | Done | exact source `events-bot-new@d2b7993b41187660efa13d6d9070fda0c0d5a6cd` remains read-only |
-| R3 Git candidate | Done | five candidate/noncanonical family contracts; exact composite keys; current Page40/Page46 UUIDs |
-| R4 native Penpot variants | Done | five real VariantContainers / 44 source-proven variants on lightweight Page40 `45de0a42-f540-80b3-8008-80aa7bc00fa0` |
-| R5 Page46 state matrices | Done | five vertically separated family sections; 5 AS-IS references + 44 linked state instances; no prose substitutes |
-| R6 framing/nesting | Done | consumer-specific source radii; true nested `AmberRailArtifact` only in the weekend tail variant; detached `0`; validation errors `0` |
-| R7 bounded visual exports | Done | all five family-section PNG exports visually inspected; Page46 stays NOT READY until independent re-audit |
-| R8 independent closure audit | Pending | no review-ready or completion claim before the independent re-audit passes |
+## Current material result
 
-Current review surface (candidate/reconstructed/noncanonical):
+- Taxonomy contract: 5 families / **56** exact source-proven state keys.
+- Parent surfaces: Search, Favorites, Personal Feed, Mobile Listing Rail and
+  Artifact Collection are modeled independently from card variants.
+- Medallions: **42 unique visuals / 43 bindings** from 28 organizer + 11
+  festival registry records and four exact specials; Kaup is one visual with
+  two registry bindings.
+- Artifacts: one runtime-active Amber collectible, eight exact lifecycle/motion
+  states, one exact mobile weekend tail placement; 12-ID Focus prototype stays
+  lab-only and separate; 7 local source-reference images represent 6 concepts.
+- Every event-card anatomy element is bound to its exact owning Astro selector
+  or structural contract.
+- False nested `core.favorite/share/calendar-action` claims were removed: those
+  controls are native children of their source card components.
 
-- URL: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45de0a42-f540-80b3-8008-80ad15597720>
-- Page: `46 — Event cards · Candidate fidelity v3 · NOT READY — independent audit remediation`
-- Root: `45de0a42-f540-80b3-8008-80ad15597720`, `1280×9200`
-- Penpot revision readback: `325`
-- State counts: festival `6`, listing `5`, rail `12`, event `14`, exhibition `7`
+## Not yet accepted
 
-The supplied screenshots are visual oracles only. Astro/CSS/assets at the exact
-source SHA are authoritative. The Git contract is normalized first, then Penpot
-is materialized from those bindings and exported for comparison.
+The previous Penpot projection at rev325–335 remains superseded and NOT READY:
+its 44 states, invalid Festival/Listing variants and stale Page46/receipt counts
+cannot satisfy the new Git contract. Page40, Page46, Page48 and Page49 require a
+bounded rematerialization after MCP reconnection. Page45 and Page15 also require
+synchronized evidence cleanup. No review-ready claim is made.
+
+## External blocker
+
+Two consecutive read-only Penpot calls returned `No Penpot instance connected
+for user token`. Per the native materialization recovery contract, no more
+Penpot calls are allowed until the owner opens lightweight Page15, reloads the
+file and waits for the green MCP indicator.
