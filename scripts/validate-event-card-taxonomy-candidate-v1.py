@@ -7,6 +7,8 @@ MAN='catalog/normalization/families/event-preview-representations/screenshot-con
 FR='catalog/normalization/event-media/framing-v2.json'
 TS='contracts/normalization/event-card-taxonomy-candidate.v1.schema.json'
 MS='contracts/normalization/event-card-binding-manifest.v1.schema.json'
+VS='catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json'
+VSS='contracts/normalization/event-card-visual-spec-candidate.v1.schema.json'
 ALLOWED_DISP={'mapped-to-current-runtime','current-runtime-variant','current-runtime-state','duplicate-drift','legacy-but-still-supported','obsolete','unmapped-with-explicit-reason'}
 def fail(code,path,msg):
  print(json.dumps({'status':'rejected','error':{'code':code,'path':path,'diagnostic':msg}},sort_keys=True),file=sys.stderr); raise SystemExit(1)
@@ -28,8 +30,8 @@ def parse_state(component,key,path):
   if value not in component['variant_axes'][axis]: fail('ECT_STATE_VALUE_UNKNOWN',path,f'{axis}={value}')
 def main():
  ap=argparse.ArgumentParser(); ap.add_argument('--root',default='.'); ap.add_argument('--require-penpot',action='store_true'); a=ap.parse_args(); root=pathlib.Path(a.root).resolve()
- tax,man,fr=load(root/TAX),load(root/MAN),load(root/FR)
- ts,ms=load(root/TS),load(root/MS); Draft202012Validator.check_schema(ts); Draft202012Validator.check_schema(ms); schema_check(tax,ts,TAX); schema_check(man,ms,MAN)
+ tax,man,fr,visual=load(root/TAX),load(root/MAN),load(root/FR),load(root/VS)
+ ts,ms,vss=load(root/TS),load(root/MS),load(root/VSS); Draft202012Validator.check_schema(ts); Draft202012Validator.check_schema(ms); Draft202012Validator.check_schema(vss); schema_check(tax,ts,TAX); schema_check(man,ms,MAN); schema_check(visual,vss,VS)
  expected=stable_hash(tax,'contract_payload_sha256')
  if tax['contract_payload_sha256']!=expected: fail('ECT_CONTRACT_HASH_MISMATCH','/contract_payload_sha256',f'expected {expected}')
  fbytes=(root/FR).read_bytes(); fsha=hashlib.sha256(fbytes).hexdigest()
@@ -38,6 +40,16 @@ def main():
  components={x['component_id']:x for x in tax['components']}
  required={'event.card','listing.event-card','listing.rail-row','festival.card','exhibition.row'}
  if set(components)!=required: fail('ECT_COMPONENT_SET_INVALID','/components',f'expected {sorted(required)}')
+ if visual['source']['commit']!=tax['source_baseline']['exact_commit']: fail('ECT_VISUAL_SOURCE_MISMATCH','/source/commit','visual spec must bind taxonomy source baseline')
+ visual_families=[x['family'] for x in visual['specimens']]
+ if set(visual_families)!=required or len(visual_families)!=len(set(visual_families)): fail('ECT_VISUAL_FAMILY_SET_INVALID','/specimens','exactly one source-derived visual specimen per family required')
+ if set(visual['visual_acceptance']['required_families'])!=required: fail('ECT_VISUAL_GATE_SCOPE_INVALID','/visual_acceptance/required_families','all five families required')
+ if visual['visual_acceptance']['status']=='passed' and set(visual['visual_acceptance']['passed_families'])!=required: fail('ECT_VISUAL_GATE_FALSE_PASS','/visual_acceptance','passed requires all families')
+ for i,spec in enumerate(visual['specimens']):
+  for p in spec['source_paths']:
+   if not p.startswith('site/src/'): fail('ECT_VISUAL_SOURCE_PATH_INVALID',f'/specimens/{i}/source_paths',p)
+  if not spec['typography'].get('font_stack','').startswith('Inter'): fail('ECT_VISUAL_FONT_DRIFT',f'/specimens/{i}/typography/font_stack','exact source stack must start with Inter')
+  if any(m.get('src','').startswith('data:') for m in spec['media']): fail('ECT_VISUAL_MEDIA_UNGROUNDED',f'/specimens/{i}/media','embedded/screenshot media forbidden')
  for cid,c in components.items():
   if 'event.media-frame' not in c['nested_component_refs']: fail('ECT_MEDIA_NOT_NESTED',f'/components/{cid}/nested_component_refs','event.media-frame required')
   seen=set()
@@ -62,5 +74,5 @@ def main():
    if pb.get('status')!='materialized-readback' or not all(isinstance(x,str) and re.fullmatch(r'[0-9a-f-]{36}',x) for x in vals) or not pb.get('instance_ids'): fail('ECT_PENPOT_BINDING_INCOMPLETE',path+'/penpot_binding','materialized UUIDs and instance readback required')
  raw=(root/TAX).read_text()+(root/MAN).read_text(); forbidden=['production-v1','PROMOTED','SOURCE OF TRUTH','verified implementation']
  if any(x in raw for x in forbidden): fail('ECT_FORBIDDEN_CLAIM','/','forbidden promotion/implementation label')
- print(json.dumps({'status':'valid','contract_payload_sha256':expected,'components':len(components),'screenshots':8,'screenshot_items':23,'penpot_required':a.require_penpot},indent=2))
+ print(json.dumps({'status':'valid','contract_payload_sha256':expected,'components':len(components),'visual_specimens':len(visual['specimens']),'visual_acceptance':visual['visual_acceptance']['status'],'screenshots':8,'screenshot_items':23,'penpot_required':a.require_penpot},indent=2))
 if __name__=='__main__': main()
