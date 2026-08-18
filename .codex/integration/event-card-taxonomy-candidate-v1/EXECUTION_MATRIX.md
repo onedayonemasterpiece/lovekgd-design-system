@@ -6,8 +6,8 @@
 | R2 runtime/DOM/CSS/Astro owner mapping | exact review build + `events-bot-new@d2b7993b…` read-only | runtime-mapping explorer (read-only) | done | bidirectional route/DOM/source bindings recorded |
 | R3 Git candidate taxonomy + binding manifest + visual spec + validator | R1, R2, framing v2 | integrator | done | positive + negative validation; exact current fixture/media bindings |
 | R4 Git commit/push + linked Draft PR | R3 | integrator | done | branch pushed; PR #37 stacked on #36 |
-| R5 Penpot Page40 replacement and new Page46 | Git candidate commit | integrator | done | old heavy Page40 deleted after dependency audit; five native source-bound masters; family-by-family review matrix |
-| R6 exports, visual QA, idempotency, receipt | R5 | integrator | done | five bounded family exports + full-page export pass; validation 0, detached 0, idempotent create 0 |
+| R5 Penpot Page40 replacement and new Page46 | Git candidate commit | integrator | done | old heavy Page40 deleted after dependency audit; five native source-bound masters; family-by-family all-proven-state linked-instance matrix |
+| R6 exports, visual QA, idempotency, receipt | R5 | integrator | done | five bounded family-section exports + full-page export pass; 29 linked family state instances / 39 nested media; validation 0, detached 0, idempotent create 0 |
 | R7 Actions | R4, R6 | integrator | checked | candidate workflow green; pre-existing synthesis replay-outcome check remains red |
 
 Write ownership was serial: explorers remained read-only; the integrator alone mutated Git and Penpot. `events-bot-new` remained read-only.

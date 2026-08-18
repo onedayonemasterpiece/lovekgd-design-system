@@ -17,79 +17,533 @@
   "framing_ref": "catalog/normalization/event-media/framing-v2.json",
   "visual_acceptance": {
     "status": "passed",
-    "required_families": ["listing.event-card", "listing.rail-row", "festival.card", "exhibition.row", "event.card"],
-    "passed_families": ["listing.event-card", "listing.rail-row", "festival.card", "exhibition.row", "event.card"],
+    "required_families": [
+      "listing.event-card",
+      "listing.rail-row",
+      "festival.card",
+      "exhibition.row",
+      "event.card"
+    ],
+    "passed_families": [
+      "listing.event-card",
+      "listing.rail-row",
+      "festival.card",
+      "exhibition.row",
+      "event.card"
+    ],
     "screenshots_are_oracle_only": true
   },
   "specimens": [
     {
       "family": "listing.event-card",
-      "fixture": {"event_id": 5376, "title": "Акция «Регион, возрождённый всей страной»", "route": "/date-2026-08-18/", "density": "regular", "image_text_mode": "ocr_text", "media_role": "sponsor_or_brand", "likes": 4, "free": true},
-      "source_paths": ["site/src/components/listings/ListingEventCard.astro", "site/src/styles/design-system.css", "site/src/data/preview-events.json"],
-      "selectors": ["article.ke-listing-card[data-ds-version=\"9\"]", ".ke-listing-card__visual", ".ke-listing-card__side-rail", ".ke-listing-card__copy"],
-      "geometry": {"card_width_px": 420, "card_height_px": 303.390625, "visual_width_px": 396.65625, "media_height_px": 221, "natural_ratio": 1.505263, "media_width_px": 328.65625, "visual_gap_px": 4, "tail_width_px": 64, "media_radius_px": 14, "identity_medallion_px": 51, "social_proof_px": 36, "copy_padding_top_px": 10, "reference_viewport_px": {"width": 1280, "height": 720, "dpr": 1}},
-      "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "900 20px/1.18", "place": "400 16.32px/1.3"},
-      "colors": {"ink": "#221a14", "muted": "#6d6259", "canvas": "#fbf7ef"},
-      "anatomy": ["visual", "event.media-frame", "identity-rail", "free-medallion", "social-proof", "copy", "title", "place"],
-      "media": [{"src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp", "width": 715, "height": 475, "fit": "contain", "framing_reason": "ocr sponsor/brand natural ratio"}],
+      "fixture": {
+        "event_id": 5376,
+        "title": "Акция «Регион, возрождённый всей страной»",
+        "route": "/date-2026-08-18/",
+        "density": "regular",
+        "image_text_mode": "ocr_text",
+        "media_role": "sponsor_or_brand",
+        "likes": 4,
+        "free": true
+      },
+      "source_paths": [
+        "site/src/components/listings/ListingEventCard.astro",
+        "site/src/styles/design-system.css",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.ke-listing-card[data-ds-version=\"9\"]",
+        ".ke-listing-card__visual",
+        ".ke-listing-card__side-rail",
+        ".ke-listing-card__copy"
+      ],
+      "geometry": {
+        "card_width_px": 420,
+        "card_height_px": 303.390625,
+        "visual_width_px": 396.65625,
+        "media_height_px": 221,
+        "natural_ratio": 1.505263,
+        "media_width_px": 328.65625,
+        "visual_gap_px": 4,
+        "tail_width_px": 64,
+        "media_radius_px": 14,
+        "identity_medallion_px": 51,
+        "social_proof_px": 36,
+        "copy_padding_top_px": 10,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        }
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "900 20px/1.18",
+        "place": "400 16.32px/1.3"
+      },
+      "colors": {
+        "ink": "#221a14",
+        "muted": "#6d6259",
+        "canvas": "#fbf7ef"
+      },
+      "anatomy": [
+        "visual",
+        "event.media-frame",
+        "identity-rail",
+        "free-medallion",
+        "social-proof",
+        "copy",
+        "title",
+        "place"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp",
+          "width": 715,
+          "height": 475,
+          "fit": "contain",
+          "framing_reason": "ocr sponsor/brand natural ratio"
+        }
+      ],
       "framing_profile": "ocr_bounded",
-      "penpot": {"status": "bounded-export-pass", "component_id": "45de0a42-f540-80b3-8008-80ae0e048c8e", "instance_ids": ["b3236582-9a6d-80d2-8008-80b4dd3fc897", "2170e798-7497-805d-8008-80c2a991e16a"]}
+      "penpot": {
+        "status": "all-proven-state-matrix-export-pass",
+        "component_id": "45de0a42-f540-80b3-8008-80ae0e048c8e",
+        "instance_ids": [
+          "b3236582-9a6d-80d2-8008-80b4dd3fc897",
+          "2170e798-7497-805d-8008-80c2a991e16a",
+          "2170e798-7497-805d-8008-80c6a9974f36",
+          "2170e798-7497-805d-8008-80c6aa69f72e",
+          "2170e798-7497-805d-8008-80c6ab67d92e"
+        ],
+        "state_keys": [
+          "regular-protected-natural-long",
+          "regular-normalized",
+          "regular-square-natural-short",
+          "weekend-low-resolution-inside-short",
+          "popular-visual-crop-inside-long"
+        ],
+        "state_instance_count": 5,
+        "export_section_id": "2170e798-7497-805d-8008-80c7e9d8dedb",
+        "file_revision": 247
+      }
     },
     {
       "family": "listing.rail-row",
-      "fixture": {"event_id": 5376, "title": "Акция «Регион, возрождённый всей страной»", "route": "/date-2026-08-18/", "time": "14:00", "date": "18 августа", "place": "Калининград · Музей Мирового океана", "likes": 4},
-      "source_paths": ["site/src/components/listings/MobileListingRailRow.astro", "site/src/components/listings/MobileListingRailSurface.astro", "site/src/data/preview-events.json"],
-      "selectors": ["article.event-row", ".rail-window", ".event-track", ".event-summary", ".event-media", ".event-digest", ".event-like-cta"],
-      "geometry": {"viewport_width_px": 390, "row_height_px": 112, "track_width_px": 939.4375, "track_gap_px": 7, "summary_offset_px": 12, "summary_width_px": 296, "summary_radius_px": 14, "time_width_px": 96, "time_height_px": 82, "info_width_px": 162, "media_width_px": 169, "digest_width_px": 168, "reference_viewport_px": {"width": 390, "height": 844, "dpr": 1}},
-      "typography": {"font_stack": "Inter, system-ui", "time": "860 28px/1", "title": "850 15px/17px", "place": "680 10.5px/12px"},
-      "colors": {"surface": "#fffdf8", "time_surface": "#f2e7d7", "time_ink": "#793014", "ink": "#221a14", "muted": "#6d6259"},
-      "anatomy": ["summary", "time-date", "title-place-like", "direction-cue", "event.media-frame panels", "digest", "medallions", "like-cta", "negative-control"],
-      "media": [{"src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp", "width": 715, "height": 475, "fit": "contain", "object_position": "50% 50%", "framing_reason": "current mobile rail sponsor/brand frame"}],
+      "fixture": {
+        "event_id": 5376,
+        "title": "Акция «Регион, возрождённый всей страной»",
+        "route": "/date-2026-08-18/",
+        "time": "14:00",
+        "date": "18 августа",
+        "place": "Калининград · Музей Мирового океана",
+        "likes": 4
+      },
+      "source_paths": [
+        "site/src/components/listings/MobileListingRailRow.astro",
+        "site/src/components/listings/MobileListingRailSurface.astro",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.event-row",
+        ".rail-window",
+        ".event-track",
+        ".event-summary",
+        ".event-media",
+        ".event-digest",
+        ".event-like-cta"
+      ],
+      "geometry": {
+        "viewport_width_px": 390,
+        "row_height_px": 112,
+        "track_width_px": 939.4375,
+        "track_gap_px": 7,
+        "summary_offset_px": 12,
+        "summary_width_px": 296,
+        "summary_radius_px": 14,
+        "time_width_px": 96,
+        "time_height_px": 82,
+        "info_width_px": 162,
+        "media_width_px": 169,
+        "digest_width_px": 168,
+        "reference_viewport_px": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        }
+      },
+      "typography": {
+        "font_stack": "Inter, system-ui",
+        "time": "860 28px/1",
+        "title": "850 15px/17px",
+        "place": "680 10.5px/12px"
+      },
+      "colors": {
+        "surface": "#fffdf8",
+        "time_surface": "#f2e7d7",
+        "time_ink": "#793014",
+        "ink": "#221a14",
+        "muted": "#6d6259"
+      },
+      "anatomy": [
+        "summary",
+        "time-date",
+        "title-place-like",
+        "direction-cue",
+        "event.media-frame panels",
+        "digest",
+        "medallions",
+        "like-cta",
+        "negative-control"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp",
+          "width": 715,
+          "height": 475,
+          "fit": "contain",
+          "object_position": "50% 50%",
+          "framing_reason": "current mobile rail sponsor/brand frame"
+        }
+      ],
       "framing_profile": "mobile_rail",
-      "penpot": {"status": "bounded-export-pass", "component_id": "b3236582-9a6d-80d2-8008-80b2273e5410", "instance_ids": ["b3236582-9a6d-80d2-8008-80b4ddc5c9ba", "2170e798-7497-805d-8008-80c2aa2e5865"]}
+      "penpot": {
+        "status": "all-proven-state-matrix-export-pass",
+        "component_id": "b3236582-9a6d-80d2-8008-80b2273e5410",
+        "instance_ids": [
+          "b3236582-9a6d-80d2-8008-80b4ddc5c9ba",
+          "2170e798-7497-805d-8008-80c2aa2e5865",
+          "2170e798-7497-805d-8008-80c6ac84db31",
+          "2170e798-7497-805d-8008-80c6c5ab0f9e",
+          "2170e798-7497-805d-8008-80c6c6896cd6",
+          "2170e798-7497-805d-8008-80c6c7230f42",
+          "2170e798-7497-805d-8008-80c6c8225f03"
+        ],
+        "state_keys": [
+          "summary-restored-ready",
+          "first-media-multi-image-restored",
+          "digest-missing-restored",
+          "boundary-like-reveal",
+          "summary-dislike-reveal",
+          "summary-hidden-undo",
+          "boundary-restored-amber-tail"
+        ],
+        "state_instance_count": 7,
+        "export_section_id": "2170e798-7497-805d-8008-80c7eca14730",
+        "file_revision": 247
+      }
     },
     {
       "family": "festival.card",
-      "fixture": {"slug": "more-vnutri", "title": "Море внутри", "route": "/festivali/", "date": "8–9 авг", "status": "официально", "place": "Светлогорск", "category": "Современное искусство"},
-      "source_paths": ["site/src/pages/festivali/index.astro", "site/src/data/festival-timeline.json", "site/src/data/festivalTimelineMedia.ts"],
-      "selectors": ["article.festival-card[data-festival-card=\"more-vnutri\"]", ".festival-card__topline", ".festival-card__caption", ".festival-card__theme", ".festival-card__like"],
-      "geometry": {"source_width_px": 1600, "source_height_px": 1233, "target_width_px": 267.15625, "target_height_px": 278.765625, "radius_px": 9.984, "top_inset_px": 10.75, "caption_inset_px": 9.71875, "favorite_size_px": 32, "reference_viewport_px": {"width": 1280, "height": 720, "dpr": 1}},
-      "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "760 19.8px/20.988px", "place": "510 12.8px/16px", "chips": "740 11.4px/12.768px", "theme": "580 11.392px/11.392px"},
-      "colors": {"shell": "#31261f", "date": "#a54821", "status_bg": "#e8f5e9", "status_text": "#24743b", "theme_bg": "rgba(15,15,15,.66)", "text": "#ffffff"},
-      "anatomy": ["event.media-frame", "dual gradient veil", "date chip", "status chip", "title", "place", "category icon chip", "favorite circle"],
-      "media": [{"src": "https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/d2b7993b41187660efa13d6d9070fda0c0d5a6cd/site/public/assets/festivals/timeline/more-vnutri.webp", "width": 1600, "height": 1233, "fit": "cover", "object_position": "52% 46%"}],
+      "fixture": {
+        "slug": "more-vnutri",
+        "title": "Море внутри",
+        "route": "/festivali/",
+        "date": "8–9 авг",
+        "status": "официально",
+        "place": "Светлогорск",
+        "category": "Современное искусство"
+      },
+      "source_paths": [
+        "site/src/pages/festivali/index.astro",
+        "site/src/data/festival-timeline.json",
+        "site/src/data/festivalTimelineMedia.ts"
+      ],
+      "selectors": [
+        "article.festival-card[data-festival-card=\"more-vnutri\"]",
+        ".festival-card__topline",
+        ".festival-card__caption",
+        ".festival-card__theme",
+        ".festival-card__like"
+      ],
+      "geometry": {
+        "source_width_px": 1600,
+        "source_height_px": 1233,
+        "target_width_px": 267.15625,
+        "target_height_px": 278.765625,
+        "radius_px": 9.984,
+        "top_inset_px": 10.75,
+        "caption_inset_px": 9.71875,
+        "favorite_size_px": 32,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        }
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "760 19.8px/20.988px",
+        "place": "510 12.8px/16px",
+        "chips": "740 11.4px/12.768px",
+        "theme": "580 11.392px/11.392px"
+      },
+      "colors": {
+        "shell": "#31261f",
+        "date": "#a54821",
+        "status_bg": "#e8f5e9",
+        "status_text": "#24743b",
+        "theme_bg": "rgba(15,15,15,.66)",
+        "text": "#ffffff"
+      },
+      "anatomy": [
+        "event.media-frame",
+        "dual gradient veil",
+        "date chip",
+        "status chip",
+        "title",
+        "place",
+        "category icon chip",
+        "favorite circle"
+      ],
+      "media": [
+        {
+          "src": "https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/d2b7993b41187660efa13d6d9070fda0c0d5a6cd/site/public/assets/festivals/timeline/more-vnutri.webp",
+          "width": 1600,
+          "height": 1233,
+          "fit": "cover",
+          "object_position": "52% 46%"
+        }
+      ],
       "framing_profile": "related_rail",
-      "penpot": {"status": "bounded-export-pass", "component_id": "45de0a42-f540-80b3-8008-80aad8e28385", "instance_ids": ["45de0a42-f540-80b3-8008-80ad156e0a63", "2170e798-7497-805d-8008-80c2a9344192"]}
+      "penpot": {
+        "status": "all-proven-state-matrix-export-pass",
+        "component_id": "45de0a42-f540-80b3-8008-80aad8e28385",
+        "instance_ids": [
+          "45de0a42-f540-80b3-8008-80ad156e0a63",
+          "2170e798-7497-805d-8008-80c2a9344192",
+          "2170e798-7497-805d-8008-80c61bdf2dce",
+          "2170e798-7497-805d-8008-80c61cf1f543",
+          "2170e798-7497-805d-8008-80c61e56d435",
+          "2170e798-7497-805d-8008-80c61f556cda"
+        ],
+        "state_keys": [
+          "as-is-announced-compact",
+          "normalized-announced-compact",
+          "program-pending-short",
+          "program-pending-long",
+          "date-pending-short",
+          "wide-announced-short"
+        ],
+        "state_instance_count": 6,
+        "export_section_id": "2170e798-7497-805d-8008-80c7e720106e",
+        "file_revision": 247
+      }
     },
     {
       "family": "exhibition.row",
-      "fixture": {"event_id": 5370, "route": "/vystavki/", "lifecycle": "active", "state": "keyboard-inactive", "title": "Точка и линия", "venue": "Филиал Третьяковской галереи", "likes": 374, "shares": 27},
-      "source_paths": ["site/src/components/ExhibitionsPersonalSurface.astro", "site/src/components/ExhibitionPrototypeRow.astro"],
-      "selectors": ["article.ex-row", ".ex-row__rail", ".ex-row__media", ".ex-deck", ".ex-row__body", ".ex-row__aside"],
-      "geometry": {"row_width_px": 1194, "row_height_px": 140.390625, "rail_width_px": 112, "media_width_px": 537.59375, "media_height_px": 121.859375, "body_width_px": 377.96875, "aside_width_px": 98, "row_radius_px": 8, "list_gap_px": 7, "reference_viewport_px": {"width": 1280, "height": 720, "dpr": 1}},
-      "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "820 clamp(16px,1.35vw,18.88px)/1.15", "venue": "400 12.48px", "rail": "820 12.8px/1.1"},
-      "colors": {"background": "#0d0f10", "surface": "#101214", "text": "#f4f4f2", "muted": "#a8adb2", "ending": "#ef4b58", "blue": "#54acf7"},
-      "anatomy": ["timeline rail and dot", "event.media-frame deck", "stacked gallery frames", "title and venue", "reason and tag chips", "social proof", "actions", "hidden/undo state"],
+      "fixture": {
+        "event_id": 5370,
+        "route": "/vystavki/",
+        "lifecycle": "active",
+        "state": "keyboard-inactive",
+        "title": "Точка и линия",
+        "venue": "Филиал Третьяковской галереи",
+        "likes": 374,
+        "shares": 27
+      },
+      "source_paths": [
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/components/ExhibitionPrototypeRow.astro"
+      ],
+      "selectors": [
+        "article.ex-row",
+        ".ex-row__rail",
+        ".ex-row__media",
+        ".ex-deck",
+        ".ex-row__body",
+        ".ex-row__aside"
+      ],
+      "geometry": {
+        "row_width_px": 1194,
+        "row_height_px": 140.390625,
+        "rail_width_px": 112,
+        "media_width_px": 537.59375,
+        "media_height_px": 121.859375,
+        "body_width_px": 377.96875,
+        "aside_width_px": 98,
+        "row_radius_px": 8,
+        "list_gap_px": 7,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        }
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "820 clamp(16px,1.35vw,18.88px)/1.15",
+        "venue": "400 12.48px",
+        "rail": "820 12.8px/1.1"
+      },
+      "colors": {
+        "background": "#0d0f10",
+        "surface": "#101214",
+        "text": "#f4f4f2",
+        "muted": "#a8adb2",
+        "ending": "#ef4b58",
+        "blue": "#54acf7"
+      },
+      "anatomy": [
+        "timeline rail and dot",
+        "event.media-frame deck",
+        "stacked gallery frames",
+        "title and venue",
+        "reason and tag chips",
+        "social proof",
+        "actions",
+        "hidden/undo state"
+      ],
       "media": [
-        {"src": "https://static.kenigevents.ru/p/image/v2/7c/7c252477ceeb615cc03183234b1a21e13a409e5fea3b83ba71708421f8c2c0cb.webp", "width": 2560, "height": 1707, "fit": "cover", "object_position": "54% 55%", "usage": "runtime deck slot 0"},
-        {"src": "https://static.kenigevents.ru/p/image/v2/95/950882b59bfd368dd78f78c4c04e8d71def52a0ed50be88705314d8d80542027.webp", "width": 1280, "height": 853, "fit": "cover", "object_position": "55% 50%", "usage": "runtime deck slot 1"},
-        {"src": "https://static.kenigevents.ru/p/image/v2/a1/a16bd515994370e398e2046b8516efbad237fe51291d75c35b671f1f82223ee9.webp", "width": 2560, "height": 1707, "fit": "cover", "object_position": "45% 50%", "usage": "runtime stacked deck slot 2"}
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/7c/7c252477ceeb615cc03183234b1a21e13a409e5fea3b83ba71708421f8c2c0cb.webp",
+          "width": 2560,
+          "height": 1707,
+          "fit": "cover",
+          "object_position": "54% 55%",
+          "usage": "runtime deck slot 0"
+        },
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/95/950882b59bfd368dd78f78c4c04e8d71def52a0ed50be88705314d8d80542027.webp",
+          "width": 1280,
+          "height": 853,
+          "fit": "cover",
+          "object_position": "55% 50%",
+          "usage": "runtime deck slot 1"
+        },
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/a1/a16bd515994370e398e2046b8516efbad237fe51291d75c35b671f1f82223ee9.webp",
+          "width": 2560,
+          "height": 1707,
+          "fit": "cover",
+          "object_position": "45% 50%",
+          "usage": "runtime stacked deck slot 2"
+        }
       ],
       "framing_profile": "related_rail",
-      "penpot": {"status": "bounded-export-pass", "component_id": "b3236582-9a6d-80d2-8008-80b475073128", "instance_ids": ["b3236582-9a6d-80d2-8008-80b4deca66a2", "2170e798-7497-805d-8008-80c2b7f7f7a9"]}
+      "penpot": {
+        "status": "all-proven-state-matrix-export-pass",
+        "component_id": "b3236582-9a6d-80d2-8008-80b475073128",
+        "instance_ids": [
+          "b3236582-9a6d-80d2-8008-80b4deca66a2",
+          "2170e798-7497-805d-8008-80c2b7f7f7a9",
+          "2170e798-7497-805d-8008-80c6f192f646",
+          "2170e798-7497-805d-8008-80c6f337af7b",
+          "2170e798-7497-805d-8008-80c6f4a66e0e"
+        ],
+        "state_keys": [
+          "upcoming-idle-loaded-default",
+          "recent-forward-loading-default",
+          "ending-idle-error-default",
+          "popular-idle-loaded-liked",
+          "long-idle-loaded-hidden-undo"
+        ],
+        "state_instance_count": 5,
+        "export_section_id": "2170e798-7497-805d-8008-80c7f1e18abd",
+        "file_revision": 247
+      }
     },
     {
       "family": "event.card",
-      "fixture": {"event_id": 7244, "title": "Право женщин на море", "route": "/sobytiya/kinopokaz-reki-kaliningrad-7050/", "variant": "split-actions", "likes": 43, "shares": 12, "date_time": "9 августа 14:00", "place": "Калининград · Филиал Третьяковской галереи", "ticket_label": "Бесплатно · вход свободный", "event_type": "кинопоказ"},
-      "source_paths": ["site/src/components/EventCard.astro", "site/src/layouts/EventLayout.astro", "site/src/data/preview-events.json"],
-      "selectors": ["article.event-card.event-card--split-actions", ".event-card__media-shell", ".event-card__body", ".event-card__utility-row", ".event-card__feedback"],
-      "geometry": {"card_width_px": 380, "card_height_px": 579.140625, "media_width_px": 378, "media_height_px": 302.390625, "radius_px": 24, "body_height_px": 156, "body_padding_px": 13.6, "utility_height_px": 58, "feedback_height_px": 56, "control_min_px": 44, "reference_viewport_px": {"width": 1280, "height": 720, "dpr": 1}},
-      "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "900 21.6px/1.08", "meta": "750 13.12px/1.25", "footer": "760 13.76px/1.25"},
-      "colors": {"dark_surface": "#15110f", "light_surface": "#fffaf2", "ink": "#241c17", "muted": "#75685f", "like": "#c93434"},
-      "anatomy": ["event.media-frame", "body", "title", "type/date/admission chips", "place", "not-interested", "calendar", "share", "like"],
-      "media": [{"src": "https://static.kenigevents.ru/p/image/v2/58/58cedbea33fc943fe29dbd50c51c51ec3f2761a20f65d6d97ceafd2cc3e2cb61.webp", "width": 1920, "height": 1080, "fit": "cover", "object_position": "98.6737% 50%", "framing_reason": "runtime split-actions photo crop"}],
+      "fixture": {
+        "event_id": 7244,
+        "title": "Право женщин на море",
+        "route": "/sobytiya/kinopokaz-reki-kaliningrad-7050/",
+        "variant": "split-actions",
+        "likes": 43,
+        "shares": 12,
+        "date_time": "9 августа 14:00",
+        "place": "Калининград · Филиал Третьяковской галереи",
+        "ticket_label": "Бесплатно · вход свободный",
+        "event_type": "кинопоказ"
+      },
+      "source_paths": [
+        "site/src/components/EventCard.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.event-card.event-card--split-actions",
+        ".event-card__media-shell",
+        ".event-card__body",
+        ".event-card__utility-row",
+        ".event-card__feedback"
+      ],
+      "geometry": {
+        "card_width_px": 380,
+        "card_height_px": 579.140625,
+        "media_width_px": 378,
+        "media_height_px": 302.390625,
+        "radius_px": 24,
+        "body_height_px": 156,
+        "body_padding_px": 13.6,
+        "utility_height_px": 58,
+        "feedback_height_px": 56,
+        "control_min_px": 44,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        }
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "900 21.6px/1.08",
+        "meta": "750 13.12px/1.25",
+        "footer": "760 13.76px/1.25"
+      },
+      "colors": {
+        "dark_surface": "#15110f",
+        "light_surface": "#fffaf2",
+        "ink": "#241c17",
+        "muted": "#75685f",
+        "like": "#c93434"
+      },
+      "anatomy": [
+        "event.media-frame",
+        "body",
+        "title",
+        "type/date/admission chips",
+        "place",
+        "not-interested",
+        "calendar",
+        "share",
+        "like"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/58/58cedbea33fc943fe29dbd50c51c51ec3f2761a20f65d6d97ceafd2cc3e2cb61.webp",
+          "width": 1920,
+          "height": 1080,
+          "fit": "cover",
+          "object_position": "98.6737% 50%",
+          "framing_reason": "runtime split-actions photo crop"
+        }
+      ],
       "framing_profile": "large_portrait",
-      "penpot": {"status": "bounded-export-pass", "component_id": "b3236582-9a6d-80d2-8008-80b2d99f1cb4", "instance_ids": ["b3236582-9a6d-80d2-8008-80b4de370458", "2170e798-7497-805d-8008-80c2aa864e7f"]}
+      "penpot": {
+        "status": "all-proven-state-matrix-export-pass",
+        "component_id": "b3236582-9a6d-80d2-8008-80b2d99f1cb4",
+        "instance_ids": [
+          "b3236582-9a6d-80d2-8008-80b4de370458",
+          "2170e798-7497-805d-8008-80c2aa864e7f",
+          "2170e798-7497-805d-8008-80c6d9c12564",
+          "2170e798-7497-805d-8008-80c6db6d3957",
+          "2170e798-7497-805d-8008-80c6dc2ff4b2",
+          "2170e798-7497-805d-8008-80c6dd1dc7f0"
+        ],
+        "state_keys": [
+          "related-ready-visual-long-free",
+          "related-ready-visual-short-free",
+          "related-ready-protected-long-price-range",
+          "home-ready-visual-short-unspecified",
+          "favorites-loading-short-favorite-on",
+          "related-hidden-undo"
+        ],
+        "state_instance_count": 6,
+        "export_section_id": "2170e798-7497-805d-8008-80c7ef9a4945",
+        "file_revision": 247
+      }
     }
   ]
 }

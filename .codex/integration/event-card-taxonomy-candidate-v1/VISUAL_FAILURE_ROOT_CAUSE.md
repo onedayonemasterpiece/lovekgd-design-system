@@ -114,3 +114,23 @@ visually inspected and passed. Final readback: ten linked family instances,
 fourteen nested linked media instances, zero detached instances, zero validation
 errors, and an actual idempotency rerun with created count zero. Page46 is named
 `46 — Event cards · Candidate fidelity v3 · REVIEW READY`.
+
+
+## Owner-correction closure at revision 247
+
+The revision-234 page was structurally grouped by family but still showed only
+AS-IS and normalized linked instances; prose labels were incorrectly standing
+in for the remaining proven states. That is now corrected literally: each
+family section places every proven state beside the same source-bound fixture
+as an actual linked family instance. The final counts are `festival.card` 6,
+`listing.event-card` 5, `listing.rail-row` 7, `event.card` 6, and
+`exhibition.row` 5 (29 linked family instances total; 39 nested linked
+`event.media-frame` instances).
+
+Five bounded family-section PNG exports and the full `1280×6400` page export
+were visually inspected. The source-bound media, Inter hierarchy, chips,
+actions, responsive relation, loading/error/hidden states, and rail reveal
+states remain native Penpot shapes or linked component instances; no full-card
+screenshot/raster is used. File validation returned `[]`; detached count,
+stable-ID missing/duplicates, and idempotency-created count are all zero.
+Page46 is `REVIEW READY · all proven states` at file revision 247.
