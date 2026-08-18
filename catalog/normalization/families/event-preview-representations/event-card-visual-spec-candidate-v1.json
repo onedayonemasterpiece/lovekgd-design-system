@@ -63,27 +63,31 @@
     },
     {
       "family": "exhibition.row",
-      "fixture": {"route": "/vystavki/", "lifecycle": "ending", "state": "keyboard-inactive", "title": "Выставка «Город и море»"},
+      "fixture": {"event_id": 5370, "route": "/vystavki/", "lifecycle": "active", "state": "keyboard-inactive", "title": "Точка и линия", "venue": "Филиал Третьяковской галереи", "likes": 374, "shares": 27},
       "source_paths": ["site/src/components/ExhibitionsPersonalSurface.astro", "site/src/components/ExhibitionPrototypeRow.astro"],
       "selectors": ["article.ex-row", ".ex-row__rail", ".ex-row__media", ".ex-deck", ".ex-row__body", ".ex-row__aside"],
       "geometry": {"min_height_px": 132, "rail_width_px": 112, "media_column": "clamp(420px,42vw,680px)", "body_min_px": 250, "row_radius_px": 8, "list_gap_px": 7},
       "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "820 clamp(16px,1.35vw,18.88px)/1.15", "venue": "400 12.48px", "rail": "820 12.8px/1.1"},
       "colors": {"background": "#0d0f10", "surface": "#101214", "text": "#f4f4f2", "muted": "#a8adb2", "ending": "#ef4b58", "blue": "#54acf7"},
       "anatomy": ["timeline rail and dot", "event.media-frame deck", "stacked gallery frames", "title and venue", "reason and tag chips", "social proof", "actions", "hidden/undo state"],
-      "media": [{"src": "https://static.kenigevents.ru/p/image/v2/5e/5ec97286aa3c3191290b1f296b9036956ef21dc861a35c89aa952e47438aa0af.webp", "width": 960, "height": 1280, "fit": "cover", "usage": "source-backed fixture pending route projection binding"}],
+      "media": [
+        {"src": "https://static.kenigevents.ru/p/image/v2/49/494a9307fe7c64230c3a1cdd580b87f7923becbf1a41c7feb1392e032214777e.webp", "width": 2560, "height": 1707, "fit": "cover", "object_position": "25% 35%", "usage": "primary deck frame"},
+        {"src": "https://static.kenigevents.ru/p/image/v2/95/950882b59bfd368dd78f78c4c04e8d71def52a0ed50be88705314d8d80542027.webp", "width": 1280, "height": 853, "fit": "cover", "object_position": "55% 50%", "usage": "second stacked gallery frame"},
+        {"src": "https://static.kenigevents.ru/p/image/v2/7c/7c252477ceeb615cc03183234b1a21e13a409e5fea3b83ba71708421f8c2c0cb.webp", "width": 2560, "height": 1707, "fit": "cover", "object_position": "54% 55%", "usage": "third stacked gallery frame"}
+      ],
       "framing_profile": "related_rail",
       "penpot": {"status": "pending-rematerialization", "component_id": null, "instance_ids": []}
     },
     {
       "family": "event.card",
-      "fixture": {"event_id": 7018, "title": "Воскресник в Озёрске", "route": "/sobytiya/voskresnik-v-ozerske-ozersk-7018/", "variant": "split-actions", "likes": 50, "shares": 6, "free": true},
+      "fixture": {"event_id": 7005, "title": "Турбулентность", "route": "/sobytiya/turbulentnost-svetlogorsk-7005/", "variant": "split-actions", "likes": 10, "shares": 0, "date_time": "19 августа 19:30", "place": "Светлогорск · Янтарь холл", "ticket_label": "Регистрация", "age_restriction": "16+"},
       "source_paths": ["site/src/components/EventCard.astro", "site/src/layouts/EventLayout.astro", "site/src/data/preview-events.json"],
       "selectors": ["article.event-card.event-card--split-actions", ".event-card__media-shell", ".event-card__body", ".event-card__utility-row", ".event-card__feedback"],
       "geometry": {"card_width_px": 380, "media_aspect": "1/1.04", "radius_px": 24, "body_padding_px": 13.6, "control_min_px": 44},
       "typography": {"font_stack": "Inter, ui-sans-serif, system-ui", "title": "900 21.6px/1.08", "meta": "750 13.12px/1.25", "footer": "760 13.76px/1.25"},
       "colors": {"dark_surface": "#15110f", "light_surface": "#fffaf2", "ink": "#241c17", "muted": "#75685f", "like": "#c93434"},
       "anatomy": ["event.media-frame", "body", "title", "type/date/admission chips", "place", "not-interested", "calendar", "share", "like"],
-      "media": [{"src": "https://static.kenigevents.ru/p/image/v2/0b/0ba08605644a9fd72b7a155e29401e4d068536cb64f3e02e1816f6b6a2e5a070.webp", "width": 1206, "height": 1608, "fit": "contain", "framing_reason": "ocr event poster"}],
+      "media": [{"src": "https://static.kenigevents.ru/p/image/v2/77/7796fc203b943d1803dba7af2bd16c6affad3ee961e2db94ff15595d3e6e8aec.webp", "width": 1080, "height": 1080, "fit": "contain", "object_position": "50% 50%", "framing_reason": "ocr event-identity poster; safe_crop=false"}],
       "framing_profile": "large_portrait",
       "penpot": {"status": "pending-rematerialization", "component_id": null, "instance_ids": []}
     }
