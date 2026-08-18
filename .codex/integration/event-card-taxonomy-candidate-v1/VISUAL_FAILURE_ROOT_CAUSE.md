@@ -77,3 +77,19 @@ allowed to pass until each proven family has:
   media, hierarchy, controls, and state;
 - no unexplained mismatch.
 
+
+## Rematerialization outcome at revision 221
+
+The rejected schematic page was not reused. A new lightweight candidate master
+page (`45de0a42-f540-80b3-8008-80aa7bc00fa0`) and new review page
+(`45de0a42-f540-80b3-8008-80ad04ad1a0e`) now contain exact-source-bound
+masters for the five proven families. The readback found five linked family
+instances, seven nested linked `event.media-frame` instances, exact original
+media dimensions, and no detached instances or full-card screenshot fills.
+
+`festival.card` passed a bounded reference/export comparison. The Penpot
+exporter returned HTTP 504 for bounded PNG and SVG calls on the remaining
+families. No artifact is claimed for those calls. Therefore the replacement
+page stays explicitly `NOT READY`, even though file validation and stable-ID
+idempotency pass. This preserves the gate above instead of reintroducing the
+former count-only false positive.

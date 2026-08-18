@@ -3,16 +3,24 @@
 | Requirement | Result | Evidence |
 |---|---|---|
 | R1 screenshot census | Done | 8 screenshots, 23 items, exact-once manifest coverage |
-| R2 runtime mapping | Done | exact review build `production-secret-20260809T192529-2f0fa64e`, source `d2b7993b...` |
-| R3 Git candidate | Done | five evidenced component boundaries, schemas and validator |
+| R2 runtime mapping | Done | exact review build `production-secret-20260809T192529-2f0fa64e`, source `d2b7993b…` |
+| R3 Git candidate | Done | five evidenced component boundaries, schemas, validator, and exact source-derived visual spec |
 | R4 Git/PR | Done | stacked Draft PR #37 linked from #36 |
-| R5 Penpot | Rejected; remediation in progress | Page46 `66419e3c-4a3e-80f8-8008-80991f88c656` is explicitly `REJECTED · NOT REVIEWABLE` at containment revision 169. The earlier schematic masters are not implementation evidence. One source-bound `event.media-frame` main now exists for `festival.card`; the card master and review page are not yet accepted. |
-| R6 QA/receipt | Failed | The earlier count-only gate produced a false positive. Every former `visually-inspected-pass` is withdrawn. The replacement gate requires source-bound family exports and an explicit mismatch-free comparison; no family has passed it yet. |
-| R7 Actions | Pending post-remediation push | Candidate workflow exists; final status must be recorded only after the Penpot receipt reflects the rematerialized review page. |
+| R5 Penpot | Done structurally; visual gate still open | Lightweight replacement Page40 `45de0a42-f540-80b3-8008-80aa7bc00fa0`; review Page46 `45de0a42-f540-80b3-8008-80ad04ad1a0e`; five native candidate masters and five linked review instances; seven nested linked `event.media-frame` instances. Old unusable Page40 and rejected Page46 remain archived. |
+| R6 QA/receipt | Partial / exporter blocked | File revision 221 validates with zero errors; actual idempotency rerun created 0, with zero missing/duplicate stable IDs and zero detached instances. `festival.card` has bounded export comparison pass. Repeated bounded PNG/SVG export attempts for the remaining families returned HTTP 504, so no artifact or visual pass is claimed for them and Page46 remains visibly `NOT READY`. |
+| R7 Actions | Checked | Event-card taxonomy workflow succeeds. Pre-existing Project Normalization Synthesis workflow remains red and is not represented as fixed by this lane. |
 
 `events-bot-new` remained read-only. All new material remains candidate / reconstructed / noncanonical / not promoted.
 
+## Current review surface
+
+- URL: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45de0a42-f540-80b3-8008-80ad15597720>
+- Page: `46 — Event cards · Candidate fidelity v3 · NOT READY`
+- Root: `45de0a42-f540-80b3-8008-80ad15597720`, `1280×1480`
+- Exact source SHA: `d2b7993b41187660efa13d6d9070fda0c0d5a6cd`
+- Readback: five family instances, seven nested media instances, exact original media dimensions, Inter text in every master, no full-card screenshots.
+
 The authoritative failure analysis and replacement visual gate are recorded in
 `VISUAL_FAILURE_ROOT_CAUSE.md` and
-`receipts/penpot/event-card-visual-acceptance-v1.json`. Historical Page46
-counts must not be interpreted as visual acceptance.
+`receipts/penpot/event-card-visual-acceptance-v1.json`. Structural readback is
+not substituted for the four missing bounded visual comparisons.
