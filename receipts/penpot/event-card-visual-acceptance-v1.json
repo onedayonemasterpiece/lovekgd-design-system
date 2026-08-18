@@ -16,7 +16,7 @@
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
     "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "page_root_id": "45de0a42-f540-80b3-8008-80ad15597720",
-    "file_revision_readback": 221,
+    "file_revision_readback": 222,
     "visible_status": "NOT READY · 5 of 5 source-faithful families staged · automated exporter blocked",
     "review_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45de0a42-f540-80b3-8008-80ad15597720"
   },
@@ -32,9 +32,10 @@
     "required_family_count": 5,
     "source_bound_family_count": 5,
     "structural_readback_passed_family_count": 5,
-    "passed_family_count": 1,
-    "exporter_blocked_family_count": 4,
-    "review_ready": false
+    "passed_family_count": 3,
+    "exporter_blocked_family_count": 1,
+    "review_ready": false,
+    "visual_mismatch_family_count": 1
   },
   "current_components": {
     "festival.card": [
@@ -75,14 +76,16 @@
   },
   "readback": {
     "page40_replacement_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
-    "archived_unloadable_page40_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+    "archived_unloadable_page40_id": null,
     "page46_linked_family_instance_count": 5,
     "nested_linked_media_instance_count": 7,
     "detached_instance_count": 0,
     "file_validation_error_count": 0,
     "idempotency_created_on_second_run": 0,
     "stable_id_missing_count": 0,
-    "stable_id_duplicate_count": 0
+    "stable_id_duplicate_count": 0,
+    "deleted_unloadable_page40_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+    "file_revision_after_page40_deletion": 222
   },
   "exports": [
     {
@@ -96,31 +99,37 @@
       "status": "linked-instance-bounded-export-visually-compared-pass"
     },
     {
+      "family": "listing.event-card",
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
+      "format": "png",
+      "status": "bounded-export-visually-compared-pass",
+      "after_page40_deletion": true
+    },
+    {
       "family": "listing.rail-row",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b0fd429167",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4ddc5c9ba",
+      "format": "png",
+      "status": "bounded-export-visually-compared-pass",
+      "after_page40_deletion": true
     },
     {
       "family": "event.card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b2d2536ef6",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4de370458",
+      "format": "png",
+      "status": "bounded-export-failed-text-not-rendered",
+      "observed_root_cause": "native textBounds were 0x0",
+      "repair_write_outcome": "unknown-after-http-504-and-disconnect"
     },
     {
-      "family": "listing.event-card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
-      "status": "exporter-http-504-no-artifact-claimed"
-    },
-    {
-      "family": "listing.event-card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
-      "format": "svg",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "family": "exhibition.row",
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4deca66a2",
+      "status": "pending-bounded-export-after-reconnect"
     }
   ],
   "limitations": [
-    "Page46 remains explicitly NOT READY because four required families lack successful bounded exporter artifacts.",
-    "Penpot exporter returned HTTP 504 for bounded PNG/SVG calls; no export artifact is claimed for those calls.",
-    "All five families passed source binding and native linked-instance readback; this is not substituted for visual acceptance.",
-    "The old rejected Page46 remains preserved and explicitly rejected."
+    "Page46 remains explicitly NOT READY: event.card failed visual export because native text did not render, and exhibition.row is not yet exported.",
+    "A bounded event.card text repair write returned HTTP 504; two subsequent read-only probes found no connected Penpot instance, so its outcome is unknown and no retry was attempted.",
+    "The unusable 44,290 px legacy Page40 was deleted at revision 222 after a 31-page dependency audit proved no current candidate dependency; post-removal file validation returned zero errors.",
+    "festival.card, listing.event-card, and listing.rail-row have bounded reference/export comparison passes; this is not extrapolated to the remaining families."
   ]
 }

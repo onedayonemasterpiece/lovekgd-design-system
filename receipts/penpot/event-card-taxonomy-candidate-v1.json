@@ -8,18 +8,18 @@
   "penpot": {
     "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "file_revn_readback": 221,
-    "saved_version_label": "Candidate fidelity v3 · Page40 and Page46 structural QA",
+    "file_revn_readback": 222,
+    "saved_version_label": "Delete unusable legacy Page40 after dependency audit",
     "page40_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
     "page45_id": "a21f0524-f565-8038-8008-789db00ee3ef",
     "page46_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "page46_root_id": "45de0a42-f540-80b3-8008-80ad15597720",
     "archived_page46_id": "da8eeaba-63a1-80ca-8008-7f91b6b0c8ef",
     "review_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45de0a42-f540-80b3-8008-80ad15597720",
-    "file_revn_final": 221,
-    "final_saved_version_label": "Candidate fidelity v3 · Page40 and Page46 structural QA",
+    "file_revn_final": 222,
+    "final_saved_version_label": "Delete unusable legacy Page40 after dependency audit",
     "page15_id": "10a29786-8dcf-802c-8008-739d9192b674",
-    "archived_page40_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+    "archived_page40_id": null,
     "rejected_page46_id": "66419e3c-4a3e-80f8-8008-80991f88c656"
   },
   "native_families": {
@@ -74,7 +74,7 @@
     "idempotency_created_on_second_run": 0,
     "stable_id_missing_count": 0,
     "stable_id_duplicate_count": 0,
-    "visual_acceptance_status": "not_ready_exporter_blocked"
+    "visual_acceptance_status": "not_ready_event_text_repair_unknown_disconnect"
   },
   "exports": [
     {
@@ -88,35 +88,41 @@
       "status": "linked-instance-bounded-export-visually-compared-pass"
     },
     {
+      "family": "listing.event-card",
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
+      "format": "png",
+      "status": "bounded-export-visually-compared-pass",
+      "after_page40_deletion": true
+    },
+    {
       "family": "listing.rail-row",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b0fd429167",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4ddc5c9ba",
+      "format": "png",
+      "status": "bounded-export-visually-compared-pass",
+      "after_page40_deletion": true
     },
     {
       "family": "event.card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b2d2536ef6",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4de370458",
+      "format": "png",
+      "status": "bounded-export-failed-text-not-rendered",
+      "observed_root_cause": "native textBounds were 0x0",
+      "repair_write_outcome": "unknown-after-http-504-and-disconnect"
     },
     {
-      "family": "listing.event-card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
-      "status": "exporter-http-504-no-artifact-claimed"
-    },
-    {
-      "family": "listing.event-card",
-      "shape_id": "b3236582-9a6d-80d2-8008-80b4dd3fc897",
-      "format": "svg",
-      "status": "exporter-http-504-no-artifact-claimed"
+      "family": "exhibition.row",
+      "shape_id": "b3236582-9a6d-80d2-8008-80b4deca66a2",
+      "status": "pending-bounded-export-after-reconnect"
     }
   ],
   "limitations": [
-    "Page46 remains explicitly NOT READY because four required families lack successful bounded exporter artifacts.",
-    "Penpot exporter returned HTTP 504 for bounded PNG/SVG calls; no export artifact is claimed for those calls.",
-    "All five families passed source binding and native linked-instance readback; this is not substituted for visual acceptance.",
-    "The old rejected Page46 remains preserved and explicitly rejected."
+    "Page46 remains explicitly NOT READY: event.card failed visual export because native text did not render, and exhibition.row is not yet exported.",
+    "A bounded event.card text repair write returned HTTP 504; two subsequent read-only probes found no connected Penpot instance, so its outcome is unknown and no retry was attempted.",
+    "The unusable 44,290 px legacy Page40 was deleted at revision 222 after a 31-page dependency audit proved no current candidate dependency; post-removal file validation returned zero errors.",
+    "festival.card, listing.event-card, and listing.rail-row have bounded reference/export comparison passes; this is not extrapolated to the remaining families."
   ],
   "page40_retirement": {
-    "status": "authorized_pending_deletion",
+    "status": "removed",
     "old_page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
     "old_page_name": "ARCHIVE · UNLOADABLE · former 40 announcements projection · preserved",
     "old_page_top_level_shape_ids": [
@@ -181,6 +187,11 @@
       ]
     },
     "replacement_page_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
-    "audit_file_revision": 221
+    "audit_file_revision": 221,
+    "removal_file_revision": 222,
+    "removal_saved_version_label": "Delete unusable legacy Page40 after dependency audit",
+    "post_removal_file_validation_error_count": 0,
+    "post_removal_component_count": 125,
+    "post_removal_page_count": 31
   }
 }

@@ -6,8 +6,8 @@
 | R2 runtime mapping | Done | exact review build `production-secret-20260809T192529-2f0fa64e`, source `d2b7993b…` |
 | R3 Git candidate | Done | five evidenced component boundaries, schemas, validator, and exact source-derived visual spec |
 | R4 Git/PR | Done | stacked Draft PR #37 linked from #36 |
-| R5 Penpot | Done structurally; visual gate still open | Lightweight replacement Page40 `45de0a42-f540-80b3-8008-80aa7bc00fa0`; review Page46 `45de0a42-f540-80b3-8008-80ad04ad1a0e`; five native candidate masters and five linked review instances; seven nested linked `event.media-frame` instances. Old unusable Page40 and rejected Page46 remain archived. |
-| R6 QA/receipt | Partial / exporter blocked | File revision 221 validates with zero errors; actual idempotency rerun created 0, with zero missing/duplicate stable IDs and zero detached instances. `festival.card` has bounded export comparison pass. Repeated bounded PNG/SVG export attempts for the remaining families returned HTTP 504, so no artifact or visual pass is claimed for them and Page46 remains visibly `NOT READY`. |
+| R5 Penpot | Done structurally; visual gate still open | Lightweight replacement Page40 `45de0a42-f540-80b3-8008-80aa7bc00fa0`; review Page46 `45de0a42-f540-80b3-8008-80ad04ad1a0e`; five native candidate masters and five linked review instances; seven nested linked `event.media-frame` instances. The unusable 44,290 px legacy Page40 was dependency-audited and deleted at revision 222; the rejected Page46 remains archived. |
+| R6 QA/receipt | Partial / exporter blocked | File revision 221 validates with zero errors; actual idempotency rerun created 0, with zero missing/duplicate stable IDs and zero detached instances. `festival.card`, `listing.event-card`, and `listing.rail-row` have bounded export comparison passes. The `event.card` export exposed zero-bounds text; its bounded repair returned HTTP 504 with unknown outcome, followed by MCP disconnection. `exhibition.row` is pending export. Page46 remains visibly `NOT READY`. |
 | R7 Actions | Checked | Event-card taxonomy workflow succeeds. Pre-existing Project Normalization Synthesis workflow remains red and is not represented as fixed by this lane. |
 
 `events-bot-new` remained read-only. All new material remains candidate / reconstructed / noncanonical / not promoted.
@@ -22,5 +22,4 @@
 
 The authoritative failure analysis and replacement visual gate are recorded in
 `VISUAL_FAILURE_ROOT_CAUSE.md` and
-`receipts/penpot/event-card-visual-acceptance-v1.json`. Structural readback is
-not substituted for the four missing bounded visual comparisons.
+`receipts/penpot/event-card-visual-acceptance-v1.json`. Structural readback is not substituted for the remaining event-card and exhibition visual comparisons.
