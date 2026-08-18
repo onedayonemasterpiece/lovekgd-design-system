@@ -1,8 +1,8 @@
 # Event-card taxonomy candidate v1
 
-**Authority:** reconstructed candidate (`canonical=false`, `promotion_status=not_promoted`)  
-**Contract:** `catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json`  
-**Bindings:** `catalog/normalization/families/event-preview-representations/screenshot-consumer-bindings-v1.json`  
+**Authority:** reconstructed candidate (`canonical=false`, `promotion_status=not_promoted`)
+**Contract:** `catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json`
+**Bindings:** `catalog/normalization/families/event-preview-representations/screenshot-consumer-bindings-v1.json`
 **Framing:** `catalog/normalization/event-media/framing-v2.json`
 
 This package translates the exact review build
