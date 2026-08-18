@@ -1,0 +1,1181 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json",
+  "schema_version": "event_card_taxonomy_candidate_v1",
+  "package_id": "candidate.event-card-taxonomy",
+  "family_id": "family.event-preview-representations",
+  "contract_version": "0.1.0-candidate",
+  "contract_payload_sha256": "1265a16c9d470d47570b15e574bc5898e648e7eaf8a4dc06c64f079077d356d9",
+  "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
+  "lifecycle": "candidate",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "acceptance_status": "awaiting_owner_visual_review",
+  "implementation_status": "not_implemented_or_runtime_conformance_proven",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd",
+    "review_build_id": "production-secret-20260809T192529-2f0fa64e",
+    "review_run_id": "static-site:production-secret-20260809T192529-2f0fa64e:4ed0c3660b5c",
+    "snapshot_id": "snapshot-20260809T172529-ec59c2ec34",
+    "generated_at": "2026-08-09T18:09:48.736Z"
+  },
+  "framing_binding": {
+    "contract_ref": "catalog/normalization/event-media/framing-v2.json",
+    "schema_version": "event_media_framing_v2",
+    "policy_version": "2.0.0-candidate",
+    "contract_payload_sha256": "78f7df99b1028b545217c5d60efe1356cf9bb51b2ba085d9ad4cfc65dfec28d3",
+    "file_sha256": "1405799af6630fc919086774f56a76cdd7d8827eb7c91a31020cfde7188e283b"
+  },
+  "identity_decisions": [
+    {
+      "identity": "event.card",
+      "decision": "candidate_normalized_general_large_card",
+      "acceptance": "not_accepted",
+      "reason": "EventCard action/anatomy boundary"
+    },
+    {
+      "identity": "listing.event-card",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "compact proof-oriented desktop anatomy, no action controls"
+    },
+    {
+      "identity": "listing.rail-row",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "track/swipe/commit interaction boundary"
+    },
+    {
+      "identity": "festival.card",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "route-local overlay hierarchy and festival timeline status model"
+    },
+    {
+      "identity": "exhibition.row",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "deck/gallery/keyboard/hide model"
+    },
+    {
+      "identity": "event.list-item",
+      "decision": "not_materialized",
+      "acceptance": "not_accepted",
+      "reason": "lab-only unresolved boundary, penpot_eligible=false"
+    },
+    {
+      "identity": "artifact.rail-insert",
+      "decision": "nested_extension_only",
+      "acceptance": "not_accepted",
+      "reason": "weekend root runtime proves optional AmberRailArtifact; no expired/unavailable state"
+    }
+  ],
+  "components": [
+    {
+      "component_id": "event.card",
+      "family_id": "family.event-preview-representations",
+      "semantic_role": "general large event preview with media, content hierarchy and split action model",
+      "anatomy": [
+        "article",
+        "media_link",
+        "event.media-frame",
+        "title",
+        "schedule",
+        "place",
+        "utility_metadata",
+        "feedback_actions",
+        "optional_hidden_undo_plate"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "core.favorite-action",
+        "core.share-action",
+        "core.calendar-action"
+      ],
+      "variant_axes": {
+        "consumer": [
+          "home",
+          "related",
+          "search",
+          "favorites",
+          "personal-feed"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible",
+          "pressed",
+          "ended"
+        ],
+        "media": [
+          "ready-visual",
+          "ready-protected",
+          "loading",
+          "missing",
+          "broken",
+          "fallback"
+        ],
+        "content": [
+          "short",
+          "long",
+          "very-long"
+        ],
+        "commercial": [
+          "unspecified",
+          "free",
+          "paid",
+          "price-range",
+          "registration"
+        ],
+        "favorite": [
+          "off",
+          "on"
+        ],
+        "calendar": [
+          "default",
+          "added"
+        ],
+        "visibility": [
+          "shown",
+          "hidden-undo"
+        ]
+      },
+      "state_key_order": [
+        "consumer",
+        "interaction",
+        "media",
+        "content",
+        "commercial",
+        "favorite",
+        "calendar",
+        "visibility"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "consumer=related;interaction=default;media=ready-visual;content=long;commercial=free;favorite=off;calendar=default;visibility=shown",
+          "evidence": [
+            "S07-I01"
+          ]
+        },
+        {
+          "state_key": "consumer=related;interaction=default;media=ready-visual;content=short;commercial=free;favorite=off;calendar=default;visibility=shown",
+          "evidence": [
+            "S07-I02"
+          ]
+        },
+        {
+          "state_key": "consumer=related;interaction=default;media=ready-protected;content=long;commercial=price-range;favorite=off;calendar=default;visibility=shown",
+          "evidence": [
+            "S07-I03"
+          ]
+        },
+        {
+          "state_key": "consumer=home;interaction=default;media=ready-visual;content=short;commercial=unspecified;favorite=off;calendar=default;visibility=shown",
+          "evidence": [
+            "live:/"
+          ]
+        },
+        {
+          "state_key": "consumer=favorites;interaction=default;media=loading;content=short;commercial=unspecified;favorite=on;calendar=default;visibility=shown",
+          "evidence": [
+            "FavoritesSurface skeleton source"
+          ]
+        },
+        {
+          "state_key": "consumer=related;interaction=default;media=ready-visual;content=short;commercial=unspecified;favorite=off;calendar=default;visibility=hidden-undo",
+          "evidence": [
+            "EventCard .is-not-interested and undo plate"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "consumer=home AND media=loading",
+          "reason": "home cold-start cards are static Astro output, not initial skeletons"
+        },
+        {
+          "rule": "media=ready-protected AND fit=contain-with-fields",
+          "reason": "framing v2 forbids internal fields; existing runtime is an AS-IS defect, not candidate behavior"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop related grid",
+          "to": "mobile vertical related cards",
+          "relation": "same component and actions; consumer-owned media geometry changes"
+        }
+      ],
+      "framing_profiles": [
+        "related_rail",
+        "large_portrait",
+        "site_wide",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/EventCard.astro",
+          "decoder_component_id": "component.7db9bc6bb7628a8a",
+          "runtime_markers": [
+            "data-event-card",
+            "event-card--split-actions",
+            "data-card-authoritative-fit"
+          ]
+        },
+        {
+          "source": "site/src/components/AuthorizedEventSearch.astro",
+          "runtime_markers": [
+            "data-search-state",
+            "data-search-skeletons"
+          ]
+        },
+        {
+          "source": "site/src/components/FavoritesSurface.astro",
+          "runtime_markers": [
+            "data-favorites-state",
+            "data-favorites-skeleton"
+          ]
+        },
+        {
+          "source": "site/src/components/PersonalFeedSlot.astro",
+          "runtime_markers": [
+            "data-personal-feed-mode"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "home",
+        "event detail related",
+        "search",
+        "favorites",
+        "personal feed",
+        "collections"
+      ],
+      "runtime_state_keys": [
+        "is-image-loading",
+        "is-image-loaded",
+        "is-image-missing",
+        "aria-pressed",
+        "is-calendar-added",
+        "is-not-interested",
+        "data-protected-crop-reason"
+      ],
+      "fixtures": [
+        "short-title",
+        "very-long-title",
+        "long-venue",
+        "free",
+        "paid",
+        "price-range",
+        "registration",
+        "missing metadata"
+      ],
+      "accessibility_expectations": [
+        "visible focus indicator",
+        "toggle states expose aria-pressed",
+        "hide includes live undo",
+        "loading uses aria-busy",
+        "controls meet accessible names"
+      ],
+      "loading_broken_fallback": {
+        "dynamic_consumers": [
+          "search",
+          "favorites"
+        ],
+        "states": [
+          "initial-skeleton",
+          "populated",
+          "empty",
+          "append-loading",
+          "failure",
+          "retry-recovery"
+        ],
+        "personal_feed": "status-only pending; no invented skeleton",
+        "static_home": "no skeleton"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+        "component_id": "da8eeaba-63a1-80ca-8008-7f8ce3d52c9d",
+        "status": "pending_candidate_metadata_reconciliation",
+        "nested_media_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46"
+    },
+    {
+      "component_id": "listing.event-card",
+      "family_id": "family.event-preview-representations",
+      "semantic_role": "compact desktop listing preview without action controls; proof counts are links/evidence, not actions",
+      "anatomy": [
+        "root_link",
+        "event.media-frame",
+        "optional_identity_rail",
+        "optional_inside_medallion",
+        "proof_rail_or_overlay",
+        "title",
+        "venue"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "event.occurrence-label"
+      ],
+      "variant_axes": {
+        "density": [
+          "regular",
+          "weekend",
+          "popular"
+        ],
+        "media": [
+          "visual-crop",
+          "visual-natural",
+          "protected-natural",
+          "square-natural",
+          "portrait-natural",
+          "low-resolution"
+        ],
+        "proof": [
+          "side-rail",
+          "inside",
+          "none"
+        ],
+        "content": [
+          "short",
+          "long",
+          "very-long"
+        ]
+      },
+      "state_key_order": [
+        "density",
+        "media",
+        "proof",
+        "content"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long",
+          "evidence": [
+            "S01-I01"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=square-natural;proof=side-rail;content=short",
+          "evidence": [
+            "S02-I01"
+          ]
+        },
+        {
+          "state_key": "density=weekend;media=low-resolution;proof=inside;content=short",
+          "evidence": [
+            "S03-I01"
+          ]
+        },
+        {
+          "state_key": "density=popular;media=protected-natural;proof=side-rail;content=long",
+          "evidence": [
+            "S06-I01",
+            "S06-I02"
+          ]
+        },
+        {
+          "state_key": "density=popular;media=visual-crop;proof=inside;content=long",
+          "evidence": [
+            "S06-I03"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "action=like|share|calendar",
+          "reason": "desktop compact listing proof numbers are not card action controls"
+        },
+        {
+          "rule": "media=protected-natural AND crop-adaptive=true without safe crop",
+          "reason": "framing v2 fail closed"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop listing.event-card",
+          "to": "listing.rail-row",
+          "relation": "same event data but distinct mobile gesture/anatomy component"
+        }
+      ],
+      "framing_profiles": [
+        "desktop_base",
+        "related_rail",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/listings/ListingEventCard.astro",
+          "decoder_component_id": "component.ad9c19c00be8830c",
+          "runtime_markers": [
+            "data-ds-component=ListingEventCard",
+            "data-ds-version=9",
+            "data-listing-image-mode",
+            "data-listing-image-crop-adaptive"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "date",
+        "today redirect output",
+        "tomorrow",
+        "weekend",
+        "popular"
+      ],
+      "runtime_state_keys": [
+        "data-listing-image-mode",
+        "data-listing-image-crop-adaptive",
+        "data-listing-image-source-width",
+        "data-listing-image-source-height",
+        "data-listing-image-low-resolution",
+        "data-media-role"
+      ],
+      "fixtures": [
+        "short-title",
+        "long-title",
+        "long-venue",
+        "square-source",
+        "low-resolution",
+        "OCR/protected"
+      ],
+      "accessibility_expectations": [
+        "whole card is a deterministic link",
+        "visible focus indicator",
+        "truncation retains accessible full venue",
+        "proof links have accessible labels"
+      ],
+      "loading_broken_fallback": {
+        "states": [
+          "ready"
+        ],
+        "skeleton": "forbidden on static listing"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+        "component_id": null,
+        "status": "pending_native_candidate_materialization",
+        "nested_media_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46"
+    },
+    {
+      "component_id": "listing.rail-row",
+      "semantic_role": "mobile horizontal event track with summary, independent media, digest, identity continuation and feedback commit/recovery",
+      "anatomy": [
+        "feedback_underlays",
+        "track",
+        "summary_panel",
+        "zero_or_more_event.media-frame_panels",
+        "digest_panel",
+        "identity_panels",
+        "like_cta",
+        "negative_control",
+        "optional_artifact_tail"
+      ],
+      "slots": [
+        {
+          "id": "media_panels",
+          "required": false,
+          "content": "zero or more independent event.media-frame instances"
+        },
+        {
+          "id": "artifact_tail",
+          "required": false,
+          "content": "AmberRailArtifact extension only when runtime flag supplies it"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "core.favorite-action",
+        "artifact.rail-insert"
+      ],
+      "variant_axes": {
+        "position": [
+          "summary",
+          "first-media",
+          "next-media",
+          "digest",
+          "identity-continuation",
+          "boundary"
+        ],
+        "feedback": [
+          "restored",
+          "like-reveal",
+          "like-committed",
+          "dislike-reveal",
+          "hide-committed",
+          "hidden-undo"
+        ],
+        "media": [
+          "ready",
+          "multi-image",
+          "missing",
+          "loading",
+          "broken",
+          "fallback"
+        ],
+        "availability": [
+          "active",
+          "ended"
+        ],
+        "artifact": [
+          "absent",
+          "tail-opportunity"
+        ]
+      },
+      "state_key_order": [
+        "position",
+        "feedback",
+        "media",
+        "availability",
+        "artifact"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "position=summary;feedback=restored;media=ready;availability=active;artifact=absent",
+          "evidence": [
+            "S08-I03",
+            "S08-I04",
+            "S08-I06",
+            "current review DOM"
+          ]
+        },
+        {
+          "state_key": "position=digest;feedback=restored;media=missing;availability=active;artifact=absent",
+          "evidence": [
+            "S08-I05",
+            "source track anatomy"
+          ]
+        },
+        {
+          "state_key": "position=first-media;feedback=restored;media=multi-image;availability=active;artifact=absent",
+          "evidence": [
+            "data-rail-gallery-index",
+            "data-rail-gallery-count"
+          ]
+        },
+        {
+          "state_key": "position=boundary;feedback=like-reveal;media=ready;availability=active;artifact=absent",
+          "evidence": [
+            ".like-underlay",
+            "--like-progress"
+          ]
+        },
+        {
+          "state_key": "position=summary;feedback=dislike-reveal;media=ready;availability=active;artifact=absent",
+          "evidence": [
+            ".dislike-underlay",
+            "is-armed"
+          ]
+        },
+        {
+          "state_key": "position=summary;feedback=hidden-undo;media=ready;availability=active;artifact=absent",
+          "evidence": [
+            "runtime confirm/toast undo recovery"
+          ]
+        },
+        {
+          "state_key": "position=boundary;feedback=restored;media=ready;availability=active;artifact=tail-opportunity",
+          "evidence": [
+            "source:AmberRailArtifact.astro optional tail"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "artifact=tail-opportunity without amberArtifactTail runtime input",
+          "reason": "artifact is not decorative or universally present"
+        },
+        {
+          "rule": "one composite image for multiple media panels",
+          "reason": "each panel owns an independent event.media-frame"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop ListingEventCard",
+          "to": "listing.rail-row",
+          "relation": "shared event entity and media evidence; separate mobile interaction component"
+        }
+      ],
+      "framing_profiles": [
+        "mobile_default",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/listings/MobileListingRailRow.astro",
+          "decoder_component_id": "component.5c07f96d6ebeaa2a",
+          "runtime_markers": [
+            "data-mobile-listing-row",
+            "data-mobile-rail-gallery-count",
+            "data-media-state",
+            "data-feedback-action"
+          ]
+        },
+        {
+          "source": "site/src/components/listings/MobileListingRailSurface.astro",
+          "runtime_markers": [
+            ".rail-window.is-armed",
+            ".like-underlay",
+            ".dislike-underlay"
+          ]
+        },
+        {
+          "source": "site/src/components/listings/AmberRailArtifact.astro",
+          "runtime_markers": [
+            "amberArtifactTail"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "date/today/tomorrow mobile",
+        "weekend mobile",
+        "popular mobile"
+      ],
+      "runtime_state_keys": [
+        "data-rail-gallery-index",
+        "data-rail-gallery-count",
+        "data-media-state",
+        "data-feedback-action",
+        "data-rail-negative-control",
+        "data-mobile-rail-media-reason"
+      ],
+      "fixtures": [
+        "no-media",
+        "one-media",
+        "multiple-media",
+        "long-title",
+        "ended",
+        "free-with-medallion"
+      ],
+      "accessibility_expectations": [
+        "track remains keyboard-operable",
+        "feedback controls have accessible names",
+        "commit and undo changes announced",
+        "hidden state is recoverable",
+        "media panels preserve alt semantics"
+      ],
+      "loading_broken_fallback": {
+        "media_panel_states": [
+          "loading",
+          "ready",
+          "broken",
+          "fallback"
+        ],
+        "row_skeleton": "not added to static Astro listing row"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+        "component_id": null,
+        "status": "pending_native_candidate_materialization",
+        "nested_media_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f"
+      },
+      "evidence_refs": [
+        "screenshots:S08-I03..S08-I06",
+        "exact-source:MobileListingRailRow.astro",
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "family_id": "family.event-preview-representations"
+    },
+    {
+      "component_id": "festival.card",
+      "family_id": "family.festival-timeline",
+      "semantic_role": "festival timeline preview with overlay hierarchy, status, category and favorite",
+      "anatomy": [
+        "root_link",
+        "event.media-frame",
+        "veil",
+        "date",
+        "status",
+        "title",
+        "location",
+        "theme",
+        "favorite"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "core.favorite-action"
+      ],
+      "variant_axes": {
+        "layout": [
+          "compact",
+          "wide"
+        ],
+        "status": [
+          "announced",
+          "program-pending",
+          "date-pending"
+        ],
+        "media": [
+          "visual"
+        ],
+        "favorite": [
+          "off",
+          "on"
+        ],
+        "content": [
+          "short",
+          "long"
+        ]
+      },
+      "state_key_order": [
+        "layout",
+        "status",
+        "media",
+        "favorite",
+        "content"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "layout=compact;status=announced;media=visual;favorite=off;content=short",
+          "evidence": [
+            "S04-I01",
+            "S05-I01"
+          ]
+        },
+        {
+          "state_key": "layout=compact;status=program-pending;media=visual;favorite=off;content=short",
+          "evidence": [
+            "S05-I02"
+          ]
+        },
+        {
+          "state_key": "layout=compact;status=program-pending;media=visual;favorite=off;content=long",
+          "evidence": [
+            "S05-I03",
+            "S05-I04"
+          ]
+        },
+        {
+          "state_key": "layout=wide;status=announced;media=visual;favorite=off;content=short",
+          "evidence": [
+            "S05-I05"
+          ]
+        },
+        {
+          "state_key": "layout=compact;status=date-pending;media=visual;favorite=off;content=short",
+          "evidence": [
+            "live:/festivali/"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "status carries any promoted or implementation-verified label",
+          "reason": "forbidden candidate promotion claim"
+        },
+        {
+          "rule": "protected fit accepted solely from numeric crop fraction",
+          "reason": "exact protected-region safety is required"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop packed grid",
+          "to": "mobile two-column plus wide remainder",
+          "relation": "same family; layout/density variant"
+        }
+      ],
+      "framing_profiles": [
+        "site_wide",
+        "related_rail"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/pages/festivali/index.astro",
+          "decoder_component_id": "source.current_root_prelaunch.4a87f69daff5ab1e",
+          "runtime_markers": [
+            "data-festival-card",
+            "data-media-mode",
+            "data-protected-fit",
+            "data-crop-fraction",
+            "aria-pressed"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "/festivali/"
+      ],
+      "runtime_state_keys": [
+        "data-festival-card",
+        "data-media-mode",
+        "data-protected-fit",
+        "data-crop-fraction",
+        "aria-pressed"
+      ],
+      "fixtures": [
+        "official",
+        "program-pending",
+        "date-pending",
+        "long-title",
+        "wide-span"
+      ],
+      "accessibility_expectations": [
+        "favorite exposes aria-pressed",
+        "title remains legible over gradient",
+        "focus remains visible",
+        "crop preserves protected regions"
+      ],
+      "loading_broken_fallback": {
+        "states": [
+          "ready"
+        ],
+        "skeleton": "not source-proven; do not invent"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+        "component_id": null,
+        "status": "pending_native_candidate_materialization",
+        "nested_media_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46"
+    },
+    {
+      "component_id": "exhibition.row",
+      "family_id": "family.exhibitions-personal",
+      "semantic_role": "cinematic exhibition row/deck with lifecycle rail, independent media frames, gallery, keyboard model and hide/undo",
+      "anatomy": [
+        "root",
+        "lifecycle_rail",
+        "media_deck",
+        "independent_event.media-frame_children",
+        "body",
+        "aside",
+        "like_and_reject",
+        "hidden_stub_undo"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame"
+      ],
+      "variant_axes": {
+        "lifecycle": [
+          "upcoming",
+          "recent",
+          "ending",
+          "popular",
+          "long"
+        ],
+        "deck": [
+          "idle",
+          "forward",
+          "backward"
+        ],
+        "media": [
+          "idle",
+          "loading",
+          "loaded",
+          "error",
+          "depth"
+        ],
+        "feedback": [
+          "default",
+          "liked",
+          "rejected",
+          "hidden-undo"
+        ]
+      },
+      "state_key_order": [
+        "lifecycle",
+        "deck",
+        "media",
+        "feedback"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "lifecycle=upcoming;deck=idle;media=loaded;feedback=default",
+          "evidence": [
+            "live:/vystavki/"
+          ]
+        },
+        {
+          "state_key": "lifecycle=recent;deck=forward;media=loading;feedback=default",
+          "evidence": [
+            "data-deck-phase/data-image-state source"
+          ]
+        },
+        {
+          "state_key": "lifecycle=ending;deck=idle;media=error;feedback=default",
+          "evidence": [
+            "data-image-state=error source"
+          ]
+        },
+        {
+          "state_key": "lifecycle=popular;deck=idle;media=loaded;feedback=liked",
+          "evidence": [
+            "aria-pressed source"
+          ]
+        },
+        {
+          "state_key": "lifecycle=long;deck=idle;media=loaded;feedback=hidden-undo",
+          "evidence": [
+            ".is-rejected + data-hidden-stub + data-undo"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "multiple images flattened into one media frame",
+          "reason": "deck children are independent frames"
+        },
+        {
+          "rule": "document-natural placed in fixed cover frame without safe_crop",
+          "reason": "framing fail closed"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop cinematic row",
+          "to": "mobile deck-like card",
+          "relation": "same exhibition interaction family, responsive composition"
+        }
+      ],
+      "framing_profiles": [
+        "mobile_default",
+        "large_portrait",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/ExhibitionPrototypeRow.astro",
+          "decoder_component_id": "component.dfede4df2ad5cc28",
+          "runtime_markers": [
+            "data-exhibition-row",
+            "data-deck-phase",
+            "data-image-state",
+            "data-hidden-stub",
+            "data-undo"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "/vystavki/"
+      ],
+      "runtime_state_keys": [
+        "data-deck-phase",
+        "data-image-state",
+        "data-deck-state",
+        "aria-pressed",
+        "is-rejected"
+      ],
+      "fixtures": [
+        "single-image",
+        "multi-image",
+        "document-natural",
+        "loading",
+        "broken",
+        "popular",
+        "long-tail"
+      ],
+      "accessibility_expectations": [
+        "keyboard row navigation is visible",
+        "gallery traps and returns focus",
+        "like/reject expose pressed state",
+        "hide has live undo",
+        "reduced motion honored"
+      ],
+      "loading_broken_fallback": {
+        "media_states": [
+          "idle",
+          "loading",
+          "loaded",
+          "error",
+          "depth"
+        ],
+        "row_skeleton": "only media child loading, not a fabricated full static row skeleton"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
+        "component_id": null,
+        "status": "pending_native_candidate_materialization",
+        "nested_media_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46"
+    }
+  ],
+  "non_claims": [
+    "production implementation",
+    "runtime conformance to candidate state_key",
+    "owner acceptance",
+    "promotion",
+    "event.list-item normalization",
+    "global typography normalization"
+  ],
+  "rollback": {
+    "git": "revert candidate taxonomy commits",
+    "penpot": "archive new candidate Page 46 and restore candidate metadata snapshot; do not delete historical decoded resources"
+  },
+  "consumer_inventory": [
+    {
+      "surface": "home",
+      "route": "/",
+      "component_id": "event.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "today",
+      "route": "/segodnya/ -> /date-2026-08-18/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "redirect-output-proven"
+    },
+    {
+      "surface": "date",
+      "route": "/date-2026-08-18/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "tomorrow",
+      "route": "/zavtra/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "weekend",
+      "route": "/vyhodnye/2026-08-22/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "popular",
+      "route": "/populyarnoe/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "festivals",
+      "route": "/festivali/",
+      "component_id": "festival.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "exhibitions",
+      "route": "/vystavki/",
+      "component_id": "exhibition.row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "search",
+      "route": "/poisk/",
+      "component_id": "event.card",
+      "status": "signed-out-empty-browser; populated source-proven"
+    },
+    {
+      "surface": "favorites",
+      "route": "/izbrannoe/",
+      "component_id": "event.card",
+      "status": "empty-browser; populated source-proven"
+    },
+    {
+      "surface": "personal feed",
+      "route": "dynamic listing/detail slots",
+      "component_id": "event.card",
+      "status": "pending-empty-browser; populated source-proven"
+    },
+    {
+      "surface": "related",
+      "route": "event-detail",
+      "component_id": "event.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "rails/shelves",
+      "route": "listing mobile",
+      "component_id": "listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "artifact",
+      "route": "/vyhodnye/ current root only",
+      "component_id": "listing.rail-row",
+      "status": "browser-and-source-proven nested tail extension"
+    }
+  ]
+}
