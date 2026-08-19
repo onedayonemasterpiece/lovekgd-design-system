@@ -232,3 +232,41 @@ artifacts), followed by Penpot rebinding. All eight taxonomy roots and both
 collection root/container pairs now read back without stale aliases, and file
 validation is empty. Page 46 remains `NOT READY` while the independent re-audit
 and current visual export gate are outstanding.
+
+### Exact follow-up after the rev777 provenance audit
+
+The independent bounded audit found four final contract mismatches rather than a
+new family gap. The Page 48 mobile-rail frame master was transposed: it and all
+four Rail consumers now read `94×112`, with the linked 86 px medallion centered
+at offset `4×13`. All four Rail consumer frame heads also carry the current
+medallion contract hash. All 51 Page 48 `registry-hash` metadata bindings now match the
+current `9a06383c…` medallion contract. Page 49's mobile collection member now
+uses the exact `state=dialog-open-mobile` key and the root points to the current
+linked Amber Rail instance. Exhibition mobile keeps 48 px interactive wrappers
+while the linked Page 25 source-vector boxes are the Astro-exact 14 px comment
+and 18 px dislike glyphs.
+
+The bounded remediation rerun at Penpot rev784 created zero objects and updated
+zero objects; `currentFile.validate()` returned an empty diagnostic list. Page 46
+remains explicitly `NOT READY` because the current exporter still returns HTTP
+504, 36 owner threads remain open, and Event B/Festival have no owner screenshot
+oracles. An independent structural re-audit is running before any review-ready
+claim.
+
+### Independent structural pass and current visual gate
+
+The final independent O(1) audit passed at Penpot rev784: all 65 native state
+roots, component provenance, interaction variants, hash aliases, frame geometry
+and Page 49 state keys are exact, and validation is empty. Page 46 was saved at
+rev786 with an explicit structural-PASS/visual-NOT-READY gate. Threads 31, 37
+and 44 were replied to and resolved because their mobile artifact, shared action
+and source-size icon requirements have exact readback proof. The other 33
+threads remain open; screenshot, framing and product-candidate comments were not
+closed from structural evidence alone.
+
+The exporter recovered long enough to export the current Page 46 index and full
+Event A family successfully. It then failed on both the Event B family root and
+a bounded Event B card with consecutive MCP `-32603 Internal error` results. Per
+the timeout/reconciliation policy no further export retry was made. Current
+visual acceptance therefore remains blocked and this is not an owner-review-ready
+claim.

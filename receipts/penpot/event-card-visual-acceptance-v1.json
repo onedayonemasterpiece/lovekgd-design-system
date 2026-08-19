@@ -1,7 +1,7 @@
 {
   "schema_version": "event_card_visual_acceptance_v3",
   "observed_on": "2026-08-19",
-  "status": "native_structure_complete_visual_export_blocked_not_review_ready",
+  "status": "independent_structural_pass_visual_acceptance_blocked_not_review_ready",
   "authority_chain": [
     "events-bot-new exact Astro/CSS/assets/fixtures",
     "lovekgd-design-system candidate SoT contracts",
@@ -18,8 +18,8 @@
   "penpot": {
     "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "file_revn_readback": null,
-    "saved_version_label": "event cards v3 native structure complete; visual export blocked; validate clean",
+    "file_revn_readback": 786,
+    "saved_version_label": "Event cards · independent structural PASS · visual NOT READY",
     "page40_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
     "page40_root_id": "45777396-2f2a-80c0-8008-81905f779757",
     "page45_id": "a21f0524-f565-8038-8008-789db00ee3ef",
@@ -27,7 +27,7 @@
     "page46_root_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
     "page_name": "46 — Event cards · Candidate fidelity v3 · NOT READY · OWNER COMMENTS IN PROGRESS",
     "review_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45777396-2f2a-80c0-8008-8190b3d8abca",
-    "revision_note": "Plugin API did not expose a reliable numeric revision in this cycle; saved named versions were read back per page."
+    "revision_note": "Independent bounded structural PASS and validate=[] at Penpot rev784; Page46 status saved/read back at rev786. Visual exporter is intermittent and owner visual comments remain open."
   },
   "replacement_gate": {
     "required_family_count": 5,
@@ -847,8 +847,8 @@
   },
   "owner_comment_cycle_24_59_20260819": {
     "cycle_id": "owner-comments-24-59-20260819",
-    "status": "native-structure-complete-visual-export-blocked-independent-review-pending",
-    "unresolved_thread_count": 36,
+    "status": "independent-structural-pass-visual-review-open",
+    "unresolved_thread_count": 33,
     "unresolved_thread_ids": [
       24,
       25,
@@ -857,20 +857,17 @@
       28,
       29,
       30,
-      31,
       32,
       33,
       34,
       35,
       36,
-      37,
       38,
       39,
       40,
       41,
       42,
       43,
-      44,
       45,
       46,
       47,
@@ -893,10 +890,15 @@
       "festival.card"
     ],
     "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md",
-    "penpot_review_status": "NOT_READY"
+    "penpot_review_status": "NOT_READY_VISUAL",
+    "resolved_thread_ids": [
+      31,
+      37,
+      44
+    ]
   },
   "owner_comment_cycle_20260819": {
-    "unresolved_thread_count_observed": 36,
+    "unresolved_thread_count_observed": 33,
     "thread_numbers": "24-59",
     "page_assignment": {
       "exhibition.row": [
@@ -952,8 +954,12 @@
         44
       ]
     },
-    "resolved_by_agent": [],
-    "resolution_note": "Threads intentionally remain unresolved until visual export/readback and independent review close the cycle."
+    "resolved_by_agent": [
+      31,
+      37,
+      44
+    ],
+    "resolution_note": "Only exact structural comments 31, 37 and 44 were replied to and resolved after independent provenance PASS. Screenshot/framing/fidelity comments remain open pending current visual proof and owner review."
   },
   "screenshot_oracles_20260819": {
     "count": 14,
@@ -1030,8 +1036,12 @@
     }
   },
   "independent_review": {
-    "status": "pending-recheck-after-remediation",
-    "reason": "Previous audit findings were remediated and an independent bounded re-audit is running; visual exporter remains HTTP 504."
+    "status": "structural-pass-visual-acceptance-blocked",
+    "audited_penpot_revision": 784,
+    "validation_errors": [],
+    "structural_result": "PASS: 65 exact roots; linked Page25/Page30.1/Page48/Page49 provenance; exact action variants; no legacy duplicates; current hashes; exact geometry/state blockers closed",
+    "visual_result": "BLOCKED: current Page46 and Event A PNG exports passed, then Event B root and one bounded card failed twice with MCP -32603; Event B and Festival also lack owner screenshot oracles",
+    "review_ready": false
   },
   "validation_20260819": {
     "current_file_validate_errors": [],
@@ -1040,31 +1050,32 @@
   },
   "current_export_attempts_20260819": [
     {
-      "family": "listing.event-card",
-      "formats": [
-        "png",
-        "svg"
-      ],
-      "status": "blocked-http-504"
+      "scope": "Page46 review index",
+      "shape_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
+      "format": "png",
+      "status": "current-export-pass",
+      "penpot_revision": 786
     },
     {
-      "family": "event.card",
-      "formats": [
-        "png"
-      ],
-      "status": "blocked-http-504"
+      "family": "event.card Part A",
+      "shape_id": "45777396-2f2a-80c0-8008-818b87df1e84",
+      "format": "png",
+      "status": "current-export-pass",
+      "penpot_revision": 786
     },
     {
-      "family": "listing.rail-row",
-      "status": "prior-bounded-variants-pass-before-final-artifact;current-service-not-retried"
+      "family": "event.card Part B",
+      "shape_id": "45777396-2f2a-80c0-8008-818d29afe090",
+      "format": "png",
+      "status": "blocked-mcp--32603-internal-error",
+      "penpot_revision": 786
     },
     {
-      "family": "festival.card",
-      "status": "bounded-export-pass-before-current-cycle"
-    },
-    {
-      "family": "exhibition.row",
-      "status": "bounded-export-pass-before-keyboard-candidate"
+      "family": "event.card Part B",
+      "shape_id": "45777396-2f2a-80c0-8008-818ecf031de2",
+      "format": "png",
+      "status": "blocked-mcp--32603-internal-error-second-consecutive",
+      "penpot_revision": 786
     }
   ],
   "independent_provenance_audit_20260819": {
@@ -1112,7 +1123,7 @@
     "artifact_contract_payload_sha256": "0d22de698bf2e1bf70f957fab176ba71666170ee697ffcefa00bf2e569e7d6a2"
   },
   "post_independent_audit_remediation_20260819": {
-    "status": "materialized-readback-independent-reaudit-pending",
+    "status": "independent-structural-pass-visual-acceptance-blocked",
     "event_card_a": {
       "legacy_removed": 73,
       "interaction_action_heads_switched": 12,
@@ -1132,7 +1143,24 @@
       "consumer_frame_variant_count": 6,
       "linked_candidate_tier_count": 3,
       "contract_payload_sha256": "9a06383c9d33799bad8676c59bd86e59cf974993fbfbdd950a47028cdef306e0",
-      "root_and_container_hash_match": true
+      "root_and_container_hash_match": true,
+      "mobile_rail_frame_px": [
+        94,
+        112
+      ],
+      "mobile_rail_art_px": [
+        86,
+        86
+      ],
+      "mobile_rail_art_offset_px": [
+        4,
+        13
+      ],
+      "rail_linked_consumer_instance_count": 4,
+      "registry_hash_keyed_shape_count": 51,
+      "registry_hash_stale_count": 0,
+      "rail_linked_consumer_registry_hash_current_count": 4,
+      "rail_linked_consumer_registry_hash_stale_count": 0
     },
     "page49": {
       "collection_surface_variant_count": 5,
@@ -1141,7 +1169,10 @@
         640
       ],
       "contract_payload_sha256": "0d22de698bf2e1bf70f957fab176ba71666170ee697ffcefa00bf2e569e7d6a2",
-      "root_and_container_hash_match": true
+      "root_and_container_hash_match": true,
+      "mobile_state_key": "state=dialog-open-mobile",
+      "mobile_variant_property": "dialog-open-mobile",
+      "actual_rail_instance_id": "eca15719-f452-809c-8008-8215b023f8f6"
     },
     "taxonomy": {
       "contract_payload_sha256": "acea17e929460e3b791160902773368b4e335680a2382bb5da42e73a5546c1de",
@@ -1149,7 +1180,68 @@
       "stale_alias_count": 0
     },
     "penpot_validation_errors": [],
-    "visual_export_gate": "blocked-http-504",
-    "review_ready": false
+    "visual_export_gate": "intermittent-current: Page46 and Event A passed; Event B root and bounded card returned two consecutive MCP -32603 errors",
+    "review_ready": false,
+    "penpot_revision": 786,
+    "exhibition_mobile_icons": {
+      "linked_component_wrappers_px": [
+        48,
+        48
+      ],
+      "comment_source_vector_px": [
+        14,
+        14
+      ],
+      "dislike_source_vector_px": [
+        18,
+        18
+      ],
+      "page25_linkage_preserved": true
+    },
+    "idempotency": {
+      "created": 0,
+      "updated": 0,
+      "penpot_revision": 784
+    },
+    "resolved_structural_comment_threads": [
+      31,
+      37,
+      44
+    ],
+    "remaining_visual_or_product_comment_threads": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      32,
+      33,
+      34,
+      35,
+      36,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ]
   }
 }
