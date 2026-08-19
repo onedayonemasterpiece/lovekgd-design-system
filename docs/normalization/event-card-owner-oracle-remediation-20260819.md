@@ -95,6 +95,23 @@ underlays behind a translated track. Never paint the card red/green or render
 debug strings such as `digest`, `boundary`, `загрузка` or `не загрузилось`.
 The Amber tail is a linked Page 49 component.
 
+#### Source-bound multi-image rail fixture
+
+The runtime screenshot is an oracle only. Native multi-image rail specimens are
+bound to the Astro-rendered `data-mobile-listing-row` for event `7433`
+(Розыгрыш «Царь зверей») on `/zavtra/`. `MobileListingRailRow.astro` emits the
+following source assets; they are not pixels cropped from an owner screenshot:
+
+| index | intrinsic size | sha256 | Astro-rendered asset |
+| --- | --- | --- | --- |
+| 0 | 1920×1920 | `d5eb17823cbd5a70155c6049903b6ff70af77d5f878e2b32ca22458b8ea6ae42` | `https://static.kenigevents.ru/p/image/v2/d5/d5eb17823cbd5a70155c6049903b6ff70af77d5f878e2b32ca22458b8ea6ae42.webp` |
+| 1 | 1920×1920 | `183781e0f35099d4e9f1ef618b5e32c52135d11784948dbf8b1e659a5e54df29` | `https://static.kenigevents.ru/p/image/v2/18/183781e0f35099d4e9f1ef618b5e32c52135d11784948dbf8b1e659a5e54df29.webp` |
+| 2 | 1920×1920 | `7c74bfdf02f740cf4d923528b66c9e4e0fa44f6a45baad27b69a3a2137921c09` | `https://static.kenigevents.ru/p/image/v2/7c/7c74bfdf02f740cf4d923528b66c9e4e0fa44f6a45baad27b69a3a2137921c09.webp` |
+
+Penpot media components use these exact Astro asset URLs as native media fills.
+The adjacent owner PNGs stay outside the managed root and are never reused as
+component fills.
+
 ### `festival.card`
 
 Source: `pages/festivali/index.astro`. Geometry comes from packed-row aspect,
