@@ -1,9 +1,9 @@
 # Page 46 visual-fidelity failure — root-cause record
 
-Status: **REJECTED / NOT REVIEWABLE**  
-Observed: 2026-08-18  
-Penpot file: `3be9e5e1-190f-8090-8008-713c0fbe6260`  
-Rejected page: `66419e3c-4a3e-80f8-8008-80991f88c656`  
+Status: **REJECTED / NOT REVIEWABLE**
+Observed: 2026-08-18
+Penpot file: `3be9e5e1-190f-8090-8008-713c0fbe6260`
+Rejected page: `66419e3c-4a3e-80f8-8008-80991f88c656`
 Containment revision: `169`
 
 ## Reproduction
