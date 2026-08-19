@@ -7,12 +7,16 @@ on:
     paths:
       - '.github/workflows/figma-community-inspection.yml'
       - 'scripts/research/capture_grida_community_viewer.py'
+      - 'scripts/research/decode_fig_kiwi.cjs'
+      - 'scripts/research/summarize_decoded_fig.py'
   pull_request:
     branches:
       - main
     paths:
       - '.github/workflows/figma-community-inspection.yml'
       - 'scripts/research/capture_grida_community_viewer.py'
+      - 'scripts/research/decode_fig_kiwi.cjs'
+      - 'scripts/research/summarize_decoded_fig.py'
 
 permissions:
   contents: read
@@ -20,7 +24,7 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 65
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,6 +50,27 @@ jobs:
             --output .tmp/figma-canvas-capture \
             --url https://www.figma.com/community/file/1144567424019815189/canvas \
             --url https://www.figma.com/community/file/1509554620086084342/canvas
+
+      - name: Decode T2D2 checkpoint and generate structural inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          checkpoint=$(find .tmp/figma-canvas-capture/1509554620086084342/responses -type f -name '*.fig' -size +100k | head -n 1)
+          test -n "$checkpoint"
+          echo "checkpoint=$checkpoint"
+          mkdir -p .tmp/fig-kiwi-node
+          npm install --prefix .tmp/fig-kiwi-node --no-save kiwi-schema pako fzstd
+          NODE_PATH="$PWD/.tmp/fig-kiwi-node/node_modules" \
+            node scripts/research/decode_fig_kiwi.cjs \
+              "$checkpoint" \
+              .tmp/t2d2-decoded.json
+          python scripts/research/summarize_decoded_fig.py \
+            .tmp/t2d2-decoded.json \
+            .tmp/t2d2-checkpoint-inventory
+          gzip -9 .tmp/t2d2-decoded.json
+          sha256sum "$checkpoint" .tmp/t2d2-decoded.json.gz \
+            .tmp/t2d2-checkpoint-inventory/summary.json \
+            > .tmp/t2d2-checkpoint-inventory/SHA256SUMS
 
       - name: Summarize direct page and canvas evidence
         shell: bash
@@ -95,6 +120,8 @@ jobs:
             .tmp/figma-resource-capture
             .tmp/figma-canvas-capture
             .tmp/figma-live-capture-summary.json
+            .tmp/t2d2-decoded.json.gz
+            .tmp/t2d2-checkpoint-inventory
           if-no-files-found: error
           retention-days: 14
 
@@ -103,5 +130,7 @@ jobs:
         run: |
           set -euo pipefail
           test -s .tmp/figma-live-capture-summary.json
+          test -s .tmp/t2d2-decoded.json.gz
+          test -s .tmp/t2d2-checkpoint-inventory/summary.json
           test "$(find .tmp/figma-resource-capture -name viewport.png -size +0c | wc -l)" -ge 2
           test "$(find .tmp/figma-canvas-capture -name viewport.png -size +0c | wc -l)" -ge 2
