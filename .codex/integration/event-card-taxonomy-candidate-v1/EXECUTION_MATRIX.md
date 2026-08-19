@@ -1,23 +1,17 @@
 # Event-card / medallion / artifact candidate — R01–R07 execution matrix
 
 All packages remain `candidate` / `reconstructed` / `canonical=false` /
-`not_promoted`. The supplied screenshots remain visual oracles only. Exact
-Astro/CSS/assets at
-`events-bot-new@a68c7f23c4e014c6e9f66e95f394656e9cb0f411` own current runtime truth.
+`not_promoted`. Screenshots are visual oracles only. Exact Astro/CSS/assets at
+`events-bot-new@a68c7f23c4e014c6e9f66e95f394656e9cb0f411` own runtime truth.
 
 | ID | Requirement | Status | Current gate/evidence |
 |---|---|---|---|
-| R01 | Every event-card family/presentation/state is placed | **Partial** | Git SoT now enumerates 5 families / 65 exact card states plus 5 parent surface contracts. Page40/Page46 still contain the superseded 44-state projection and must be rematerialized. |
-| R02 | All source-proven states are true native variants | **Blocked — Penpot disconnected** | Corrected axes eliminate surface skeleton/toast fiction, add both EventCard layouts, exact rail temporal/identity/Amber placement, festival interaction and exhibition mobile/rejected semantics. Penpot repair is pending reconnection. |
-| R03 | Astro → Git hash/bindings → Penpot metadata/instances | **Partial** | Every anatomy element now has exact source ownership; listing runtime attributes corrected; taxonomy hash joins medallion/artifact packages. Penpot IDs/receipt/export joins remain pending. |
-| R04 | Complete medallion collection on lightweight Page48 | **Git Done / Penpot blocked** | Versioned manifest contains 39 registry records, 43 bindings, 42 unique visuals, exact Kaup dedupe, asset hashes/formats/geometries/resolver states and frame contract. Page48/components pending reconnection. |
-| R05 | Complete current artifact/easter-egg collection on Page49 | **Git Done / Penpot blocked** | Amber runtime/collection contract, 12-ID separate Focus lab prototype and 7-image/6-concept reference-only inventory are versioned. Untracked reference authority is labelled explicitly. Page49 pending reconnection. |
-| R06 | Nested Amber lifecycle and real rail placement | **Git Done / Penpot blocked** | Exact 8 Amber states; tail is `94×112`, after like, `weekend.rail.tail.v1`; no unavailable/expired fiction. Existing single Penpot tail must be replaced by the full source-proven native lifecycle. |
-| R07 | Keep NOT READY until independent closure audit | **Enforced** | Page46 and visual acceptance remain NOT READY. Workflow is configured to require Penpot-bound receipts once rematerialization is complete. |
+| R01 | Every event-card family/presentation/state is placed | **Done** | Five source families expose 65/65 exact state keys on bounded native family pages: 23 event, 10 listing, 16 rail, 9 festival and 7 exhibition. Exact set readback has no missing, extra or duplicate key. |
+| R02 | All source-proven states are true native variants | **Done** | Five logical variant families are materialized in six physical containers because `event.card` is deliberately split 12/11 for memory safety. Surface-owned skeleton/toast states are not fabricated as cards. |
+| R03 | Astro → Git SoT → Penpot metadata/instances | **Done** | Taxonomy `d7c60c9b…` joins exact source commit, 65 native Penpot component IDs/main shapes, Page25 semantic icons and bounded page receipts. Page40/Page46 are lightweight indices only. |
+| R04 | Complete medallion collection on lightweight Page48 | **Done** | 42 unique source visuals / 43 bindings are represented as 42 native linked components on a bounded 1440×1120 collection page; six source-geometry consumer-frame variants are native and error-free. Kaup remains one visual with two registry bindings. |
+| R05 | Complete current artifact/easter-egg collection on Page49 | **Done** | Page49 separates eight Amber runtime states, four native ArtifactCollection surface states, 12 Focus lab-only definitions and seven reference-only thumbnails. No reference thumbnail is claimed as production. |
+| R06 | Nested Amber lifecycle and real rail placement | **Done** | The `artifact=amber-tail` rail variant contains linked Amber component instance `579a886e-56e8-80a3-8008-818916f13259`; the artifact is not a screenshot or detached drawing. |
+| R07 | Keep NOT READY until independent closure audit | **Pending independent review** | File validation is zero; exports/readback/idempotency evidence is recorded. Page46 remains visibly NOT READY and `review_ready=false` until an independent reviewer passes. |
 
-Current exact external blocker: two consecutive read-only MCP probes returned
-`No Penpot instance connected for user token`. Owner must reopen the file on
-lightweight Page15 and wait for a green MCP indicator before any further Penpot
-call.
-
-Write ownership remains serial. `events-bot-new` has not been mutated.
+Write ownership remained serial. `events-bot-new` was read-only.

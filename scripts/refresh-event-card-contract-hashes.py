@@ -27,6 +27,11 @@ def main():
   c['icon_registry_binding']['contract_payload_sha256']=i['contract_payload_sha256']
  h=stable(t);t['contract_payload_sha256']=h
  m['contract_payload_sha256']=h;m['contract_version']=t['contract_version']
+ for specimen in m.get('specimens',[]):
+  binding=specimen.get('contract_binding')
+  if isinstance(binding,dict) and 'contract_payload_sha256' in binding:
+   binding['contract_payload_sha256']=h
+   binding['contract_version']=t['contract_version']
  v['source']['commit']=t['source_baseline']['exact_commit'];v['contract_binding']['contract_payload_sha256']=h;v['contract_binding']['expected_native_state_count']=sum(len(c['valid_combinations']) for c in t['components'])
  dump(T,t);dump(M,m);dump(V,v)
  print(h)

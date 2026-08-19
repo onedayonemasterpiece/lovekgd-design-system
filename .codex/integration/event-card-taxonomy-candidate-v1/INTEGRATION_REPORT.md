@@ -1,32 +1,38 @@
-# Event-card candidate integration report — Git-first remediation
+# Event-card candidate integration report — bounded native materialization
 
-## Current material result
+## Material result
 
-- Taxonomy contract: 5 families / **65** exact source-proven representative state keys.
-- Parent surfaces: Search, Favorites, Personal Feed, Mobile Listing Rail and
-  Artifact Collection are modeled independently from card variants.
-- Medallions: **42 unique visuals / 43 bindings** from 28 organizer + 11
-  festival registry records and four exact specials; Kaup is one visual with
-  two registry bindings.
-- Artifacts: one runtime-active Amber collectible, eight exact lifecycle/motion
-  states, one exact mobile weekend tail placement; 12-ID Focus prototype stays
-  lab-only and separate; 7 local source-reference images represent 6 concepts.
-- Every event-card anatomy element is bound to its exact owning Astro selector
-  or structural contract.
-- False nested `core.favorite/share/calendar-action` claims were removed: those
-  controls are native children of their source card components.
+- Exact source baseline: `events-bot-new@a68c7f23c4e014c6e9f66e95f394656e9cb0f411`.
+- Git SoT taxonomy: five families / **65** exact representative state keys.
+- Penpot: **65/65** source-native variants; exact set equality, no extra or
+  duplicate state keys. `event.card` is split 12/11 across two lightweight
+  pages to avoid the earlier memory failure.
+- Parent surfaces own removal/undo and loading skeletons; those states are not
+  misrepresented as visible card variants.
+- Page25: **24** semantic source-bound icon components. Final family scans find
+  zero visible named card-icon paths outside linked icon instances.
+- Page48: **42 unique medallion visuals / 43 registry bindings**, plus six native source-geometry medallion-frame variants.
+- Page49: eight Amber runtime states, four native collection-surface states, 12 separate Focus lab definitions and
+  seven reference-only thumbnails. The rail Amber-tail variant contains the
+  real linked Amber component.
+- Screenshot census remains **S01–S08 / 23 of 23 items**, as visual-oracle
+  bindings rather than raster card content.
+- Page15 and Page45 were replaced by compact functional boards; Page45 owner
+  threads 11–13 are resolved. Page40 and Page46 are lightweight indices.
 
-## Not yet accepted
+## Readback and validation
 
-The previous Penpot projection at rev325–335 remains superseded and NOT READY:
-its 44 states, invalid Festival/Listing variants and stale Page46/receipt counts
-cannot satisfy the new Git contract. Page40, Page46, Page48 and Page49 require a
-bounded rematerialization after MCP reconnection. Page45 and Page15 also require
-synchronized evidence cleanup. No review-ready claim is made.
+- Penpot file validation: zero errors.
+- Stable state readback: 65 expected / 65 actual; zero missing, extra or
+  duplicates; zero variant errors.
+- Per-family page budgets remain below 900 shapes. Index pages are 142 and 35
+  shapes respectively.
+- Second-run reconciliation is read-only and creates zero objects.
+- Taxonomy, asset, iconography and negative validators pass with Penpot-bound
+  receipts at file revision 455.
 
-## External blocker
+## Acceptance status
 
-Two consecutive read-only Penpot calls returned `No Penpot instance connected
-for user token`. Per the native materialization recovery contract, no more
-Penpot calls are allowed until the owner opens lightweight Page15, reloads the
-file and waits for the green MCP indicator.
+The implementation is materially complete but deliberately remains
+**NOT READY** in Page46 and Git visual acceptance. Independent visual closure
+has not yet passed, so no canonical promotion or review-ready claim is made.
