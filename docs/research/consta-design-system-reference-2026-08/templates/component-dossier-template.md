@@ -38,6 +38,12 @@ runtime_binding_ref: <repo path or null with blocker>
 package_ref: <package/version/SHA or null>
 source_snapshot_sha: <exact source SHA>
 fixture_registry_ref: <repo path>
+foundation_compatibility_ref: <repo path or null with blocker>
+content_standard_ref: <repo path or null with reason>
+terminology_registry_ref: <repo path or null with reason>
+brand_asset_policy_ref: <repo path or null with reason>
+media_policy_ref: <repo path or null with reason>
+responsive_foundation_ref: <repo path or null with reason>
 evidence_receipts: []
 promotion_receipt_ref: null
 rollback_ref: <repo path or null with reason>
@@ -59,6 +65,7 @@ Write one explicit paragraph that explains what is authoritative **now**, what r
 | Isolated specimen |  |  |  |
 | Product consumers |  |  |  |
 | Test/evidence package |  |  |  |
+| Foundation/content/brand/media compatibility |  |  |  |
 | Migration/rollback |  |  |  |
 | Support/review |  |  |  |
 
@@ -139,6 +146,8 @@ Add the visual specimen/reference and explain why this state is the contract def
 |---|---|---|---|---|---|---|
 |  |  |  |  |  |  |  |
 
+`contract_version`, package version, resource kind, tool name and viewport label are forbidden as public variant/state axes.
+
 ### Valid combinations
 
 | Combination/state key | Reason/product use | Required specimen | Required test |
@@ -169,11 +178,24 @@ Add the visual specimen/reference and explain why this state is the contract def
 |---|---|---|---|---|---|
 |  |  |  |  |  |  |
 
-## 6. Themes, modes and tokens
+## 6. Themes, modes and foundations
 
 | Mode/context | Supported | Token set/ref | Contrast status | Exceptions | Exact comparison specimen |
 |---|---:|---|---|---|---|
 |  |  |  |  |  |  |
+
+### Foundation compatibility
+
+| Domain | Exact foundation ID/version/hash | Consumed roles | Exceptions | Evidence |
+|---|---|---|---|---|
+| content/terminology |  |  |  |  |
+| brand/assets |  |  |  |  |
+| color/modes |  |  |  |  |
+| typography |  |  |  |  |
+| iconography |  |  |  |  |
+| media |  |  |  |  |
+| responsive/grid/spacing |  |  |  |  |
+| motion/accessibility |  |  |  |  |
 
 ### Component token mapping
 
@@ -181,7 +203,7 @@ Add the visual specimen/reference and explain why this state is the contract def
 |---|---|---|---|
 |  |  |  |  |
 
-State explicitly that comparative theme frames are generated from one component structure, or document the blocker.
+State explicitly that comparative theme frames are generated from one component structure, or document the blocker. Opaque historical mnemonics may remain search/display aliases, but cannot replace semantic canonical IDs.
 
 ## 7. Responsive and container behavior
 
@@ -199,6 +221,8 @@ content-driven dimensions:
 overflow behavior:
 prohibited squeeze state:
 ```
+
+Bind exact responsive foundation, grid/container and media-policy versions. Do not copy external breakpoint or aspect-ratio values without current product evidence.
 
 ## 8. Interaction, motion and accessibility
 
@@ -246,6 +270,8 @@ RTL/localization impact:
 |  |  |  |  |  |  |  |
 
 ### Writing rules
+
+Bind exact `content_standard_ref` and `terminology_registry_ref`. Specify punctuation, numbers/dates/time/places/prices, action vocabulary, tone, truncation, localization and exception ownership where applicable.
 
 - ...
 
@@ -303,6 +329,9 @@ List allowed CSS variables/context hooks and forbidden internal selectors/overri
 | variant mapping |  |  |  |  |
 | state coverage |  |  |  |  |
 | token mapping |  |  |  |  |
+| foundation compatibility |  |  |  |  |
+| content/terminology |  |  |  |  |
+| brand/media provenance |  |  |  |  |
 | interaction |  |  |  |  |
 | accessibility |  |  |  |  |
 | responsive |  |  |  |  |
