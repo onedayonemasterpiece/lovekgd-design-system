@@ -156,21 +156,8 @@ jobs:
           print(json.dumps(report, ensure_ascii=False, indent=2))
           PY
 
-      - name: Validate generated evidence envelope
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -s .tmp/figma-community-inspection/index.md
-          test -s .tmp/figma-community-inspection/download-status.json
-          test -s .tmp/community-capture-summary.json
-          test -s .tmp/grida-viewer-capture/1144567424019815189/viewport.png
-          test -s .tmp/grida-viewer-capture/1509554620086084342/viewport.png
-          test -s .tmp/figma-direct-capture/1144567424019815189/viewport.png
-          test -s .tmp/figma-direct-capture/1509554620086084342/viewport.png
-          test -s .tmp/figma-embed-capture/1144567424019815189/viewport.png
-          test -s .tmp/figma-embed-capture/1509554620086084342/viewport.png
-
       - name: Upload inspection evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: figma-community-direct-inspection
@@ -182,3 +169,14 @@ jobs:
             .tmp/community-capture-summary.json
           if-no-files-found: error
           retention-days: 14
+
+      - name: Validate generated evidence envelope
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .tmp/figma-community-inspection/index.md
+          test -s .tmp/figma-community-inspection/download-status.json
+          test -s .tmp/community-capture-summary.json
+          test "$(find .tmp/grida-viewer-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test "$(find .tmp/figma-direct-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test "$(find .tmp/figma-embed-capture -name viewport.png -size +0c | wc -l)" -ge 2
