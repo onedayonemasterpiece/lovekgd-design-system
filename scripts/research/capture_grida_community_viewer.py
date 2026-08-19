@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Capture a public Grida Figma Community viewer with Chromium/Selenium.
+"""Capture a public Figma Community or compatible viewer with Chromium/Selenium.
 
 This is a read-only research probe. It records:
-- rendered DOM;
+- rendered DOM and visible text;
 - viewport screenshot;
 - browser console;
 - performance resource URLs;
 - selected JSON/text response bodies exposed to the browser.
 
-No authenticated cookies or credentials are used.
+No authenticated cookies or credentials are used. Captured metadata and previews do
+not establish component identity, code binding, acceptance or lifecycle status.
 """
 
 from __future__ import annotations
@@ -22,6 +23,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
 
 
@@ -32,6 +34,10 @@ KEYWORDS = (
     "supabase",
     "graphql",
     "api/",
+    "multiplayer",
+    "thumbnail",
+    "cover",
+    "hub/file",
     ".json",
     ".fig",
     "grida",
@@ -43,6 +49,14 @@ def safe_file(value: str) -> str:
     return re.sub(r"[^0-9A-Za-z_.-]+", "-", value).strip("-")[:180] or "response"
 
 
+def target_id(url: str) -> str:
+    match = re.search(r"/community/file/(\d+)", url)
+    if match:
+        return match.group(1)
+    parsed = urlparse(url)
+    return safe_file(parsed.netloc + parsed.path)
+
+
 def capture(url: str, output: Path, seconds: int) -> None:
     output.mkdir(parents=True, exist_ok=True)
     options = Options()
@@ -52,35 +66,73 @@ def capture(url: str, output: Path, seconds: int) -> None:
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1200")
     options.add_argument("--hide-scrollbars")
+    options.add_argument("--lang=en-US")
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument(
+        "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+    )
     options.set_capability("goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"})
 
     driver = webdriver.Chrome(options=options)
-    driver.execute_cdp_cmd("Network.enable", {"maxTotalBufferSize": 100_000_000, "maxResourceBufferSize": 50_000_000})
+    driver.execute_cdp_cmd(
+        "Network.enable",
+        {"maxTotalBufferSize": 150_000_000, "maxResourceBufferSize": 60_000_000},
+    )
+    navigation_error = None
     try:
-        driver.get(url)
+        try:
+            driver.get(url)
+        except WebDriverException as exc:
+            navigation_error = str(exc)
+
         deadline = time.time() + seconds
         previous = ""
         stable_rounds = 0
         while time.time() < deadline:
             time.sleep(2)
-            current = driver.find_element("tag name", "body").text[:20000]
+            try:
+                current = driver.find_element("tag name", "body").text[:40000]
+            except Exception:
+                current = ""
             if current == previous and len(current) > 20:
                 stable_rounds += 1
             else:
                 stable_rounds = 0
             previous = current
-            if stable_rounds >= 5:
+            if stable_rounds >= 7:
                 break
 
-        (output / "page-source.html").write_text(driver.page_source, encoding="utf-8")
-        (output / "body-text.txt").write_text(
-            driver.find_element("tag name", "body").text, encoding="utf-8"
+        (output / "capture-status.json").write_text(
+            json.dumps(
+                {
+                    "requested_url": url,
+                    "final_url": driver.current_url,
+                    "title": driver.title,
+                    "navigation_error": navigation_error,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
         )
+        (output / "page-source.html").write_text(driver.page_source, encoding="utf-8")
+        try:
+            body_text = driver.find_element("tag name", "body").text
+        except Exception:
+            body_text = ""
+        (output / "body-text.txt").write_text(body_text, encoding="utf-8")
         driver.save_screenshot(str(output / "viewport.png"))
 
-        resources = driver.execute_script(
-            "return performance.getEntriesByType('resource').map(x => ({name:x.name, initiatorType:x.initiatorType, duration:x.duration, transferSize:x.transferSize, decodedBodySize:x.decodedBodySize}));"
-        )
+        try:
+            resources = driver.execute_script(
+                "return performance.getEntriesByType('resource').map(x => "
+                "({name:x.name, initiatorType:x.initiatorType, duration:x.duration, "
+                "transferSize:x.transferSize, decodedBodySize:x.decodedBodySize}));"
+            )
+        except Exception:
+            resources = []
         (output / "performance-resources.json").write_text(
             json.dumps(resources, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
@@ -101,7 +153,11 @@ def capture(url: str, output: Path, seconds: int) -> None:
                 continue
             method = message.get("method")
             params = message.get("params") or {}
-            if method not in {"Network.requestWillBeSent", "Network.responseReceived", "Network.loadingFailed"}:
+            if method not in {
+                "Network.requestWillBeSent",
+                "Network.responseReceived",
+                "Network.loadingFailed",
+            }:
                 continue
             events.append(message)
             if method != "Network.responseReceived":
@@ -158,7 +214,9 @@ def capture(url: str, output: Path, seconds: int) -> None:
             for r in responses
             if r.get("interesting")
         ]
-        (output / "endpoint-candidates.tsv").write_text("\n".join(candidates) + "\n", encoding="utf-8")
+        (output / "endpoint-candidates.tsv").write_text(
+            "\n".join(candidates) + "\n", encoding="utf-8"
+        )
     finally:
         driver.quit()
 
@@ -170,8 +228,7 @@ def main() -> None:
     parser.add_argument("--seconds", type=int, default=45)
     args = parser.parse_args()
     for url in args.url:
-        file_id = url.rstrip("/").split("/")[-1]
-        capture(url, args.output / file_id, args.seconds)
+        capture(url, args.output / target_id(url), args.seconds)
 
 
 if __name__ == "__main__":
