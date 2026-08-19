@@ -1,0 +1,79 @@
+name: Figma Community embed inspection
+
+on:
+  push:
+    branches:
+      - research/consta-documentation-patterns-20260819-review
+    paths:
+      - '.github/workflows/figma-embed-inspection.yml'
+      - 'scripts/research/capture_grida_community_viewer.py'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-embeds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install read-only browser probe
+        run: |
+          python -m pip install --disable-pip-version-check selenium
+          google-chrome --version || chromium --version
+          chromedriver --version || true
+
+      - name: Capture embedded canvases
+        run: |
+          python scripts/research/capture_grida_community_viewer.py \
+            --seconds 90 \
+            --output .tmp/figma-embed-capture \
+            --url 'https://embed.figma.com/file/1509554620086084342/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1' \
+            --url 'https://embed.figma.com/file/1144567424019815189/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1'
+
+      - name: Summarize embed evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('.tmp/figma-embed-capture')
+          report = {'captures': {}}
+          for directory in sorted(p for p in root.iterdir() if p.is_dir()):
+              body = (directory / 'body-text.txt').read_text(encoding='utf-8', errors='replace')
+              responses = json.loads((directory / 'network-responses.json').read_text(encoding='utf-8'))
+              status = json.loads((directory / 'capture-status.json').read_text(encoding='utf-8'))
+              candidates = [r for r in responses if r.get('interesting')]
+              saved = [r for r in candidates if r.get('saved_body')]
+              report['captures'][directory.name] = {
+                  'capture_status': status,
+                  'body_preview': body[:5000],
+                  'response_count': len(responses),
+                  'interesting_response_count': len(candidates),
+                  'saved_response_bodies': len(saved),
+                  'candidate_urls': [r.get('url') for r in candidates[:400]],
+              }
+          (root / 'capture-summary.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Validate evidence envelope
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .tmp/figma-embed-capture/capture-summary.json
+          test -s .tmp/figma-embed-capture/1144567424019815189/viewport.png
+          test -s .tmp/figma-embed-capture/1509554620086084342/viewport.png
+
+      - name: Upload embed inspection evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-community-embed-inspection
+          path: .tmp/figma-embed-capture
+          if-no-files-found: error
+          retention-days: 14
