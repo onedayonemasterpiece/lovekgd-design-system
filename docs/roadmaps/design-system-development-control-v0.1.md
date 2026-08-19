@@ -16,7 +16,10 @@ observed_at: 2026-08-19
 
 Этот документ превращает сравнительный benchmark в управляемую программу доработки LoveKGD Design System. Он определяет порядок решений, workstreams, evidence и review gates. Он **не** принимает target architecture автоматически, не меняет действующий 11-state lifecycle и не разрешает массовую materialization.
 
-Research basis: [Comparative design-system benchmark](../research/design-system-benchmark-2026-08/README.md).
+Research basis:
+
+- [Comparative design-system benchmark](../research/design-system-benchmark-2026-08/README.md);
+- [Direct Figma read-back: T2D2 Web and Rosatom](../research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md).
 
 ## 1. Objective
 
@@ -28,7 +31,10 @@ Research basis: [Comparative design-system benchmark](../research/design-system-
 4. между компонентами и страницами существует управляемый pattern/block layer;
 5. page archetypes являются versioned composition contracts;
 6. owner review предшествует corrections и implementation decisions;
-7. promotion выполняется bounded per family and affected archetypes.
+7. promotion выполняется bounded per family and affected archetypes;
+8. external references имеют видимый availability/evidence state и не подменяют current truth историческими covers;
+9. component/package version не кодируется как variant axis;
+10. imported token dependencies, canonical axis names и display aliases управляются машинно.
 
 ## 2. Non-negotiable invariants
 
@@ -76,6 +82,34 @@ Every mutation/implementation has scope, source SHA, manifest, read-back and rol
 
 First wave is one evidence-ready family, one pattern and one archetype candidate.
 
+### I-11. External reference availability is explicit
+
+Each external design-system source declares one of:
+
+```text
+LIVE_CHECKPOINT_READBACK
+LIVE_NODE_API_READBACK
+LIVE_METADATA_ONLY
+HISTORICAL_INDEX_ONLY
+UNPUBLISHED_OR_INACCESSIBLE
+```
+
+The record also includes observed date, source version where known, current URL status, response/checkpoint hash where available and exact limitations.
+
+A historical screenshot, cover or index cannot establish current component API, token model, code binding or lifecycle.
+
+### I-12. Contract version is not a component variant
+
+`contract_version`, package version and migration status belong to immutable identity/release metadata. They cannot be a public Penpot component property or runtime state axis.
+
+### I-13. Canonical names and display labels are separate
+
+Designer-facing labels may contain localized text or visual markers. Canonical IDs, axes and values must pass spelling, casing, uniqueness and compatibility validation and generate the same state identity in design, code, docs and tests.
+
+### I-14. Token dependencies are a versioned graph
+
+Every local or imported token collection records stable ID, owner, source library/package version, source revision/hash, modes, consumers, compatibility, replacement/supersession and drift status.
+
 ## 3. Target operating model
 
 ```text
@@ -95,6 +129,17 @@ Product Atlas / exact source evidence
 
 This sequence is embedded into, not substituted for, the existing normative family lifecycle.
 
+External references feed research/evidence only:
+
+```text
+external source
+→ availability/read-back record
+→ labelled observation or inference
+→ bounded candidate decision input
+```
+
+They do not enter the authority path directly.
+
 ## 4. Workstreams
 
 ## W0 — Governance and evidence
@@ -106,12 +151,14 @@ Create a reliable decision layer before visual population.
 ### Deliverables
 
 - source/evidence register;
+- external-reference availability ledger;
 - resource-kind definitions;
 - decision record template;
 - owner/reviewer roles;
 - review severity and closure protocol;
 - compatibility and supersession policy;
-- research/reference classification.
+- research/reference classification;
+- last-successful-read-back and historical-source policy.
 
 ### Gate W0
 
@@ -119,7 +166,7 @@ Create a reliable decision layer before visual population.
 W0-GATE: GOVERNANCE_REVIEWED
 ```
 
-Pass only if owner explicitly decides Git/Penpot/code/runtime roles, allowed resource kinds, owner/reviewer model, evidence classes and no-authority boundary of research. No component lifecycle transition is included.
+Pass only if owner explicitly decides Git/Penpot/code/runtime roles, allowed resource kinds, owner/reviewer model, evidence classes, external-reference states and no-authority boundary of research. No component lifecycle transition is included.
 
 ---
 
@@ -133,10 +180,14 @@ Define stable identities and outputs shared by design/code/docs/tests.
 
 - component/pattern/archetype metadata schemas;
 - stable identity tuples;
-- token registry schema;
+- external-reference evidence schema;
+- token registry and dependency schema;
 - fixture and viewport registries;
 - binding registry for Penpot/code/runtime;
-- naming and valid-combination validation;
+- canonical naming/display-alias schema;
+- spelling/case/uniqueness validation;
+- variant-version prohibition validation;
+- valid/invalid-combination validation;
 - compatibility and migration fields;
 - catalog rendering contract.
 
@@ -152,7 +203,11 @@ Pass criteria:
 - exact lifecycle fields are required;
 - `canonical:true` is rejected outside terminal state;
 - Penpot IDs cannot replace stable resource IDs;
-- all references are version/hash bound.
+- all references are version/hash bound;
+- version-like fields are rejected from variant/state axes;
+- historical/unavailable external sources cannot be marked current;
+- canonical axis aliases cannot collide;
+- imported token dependencies without owner/version are rejected.
 
 ---
 
@@ -181,7 +236,9 @@ primitive
 - responsive token policy;
 - hard-value exception policy;
 - token Penpot binding manifest;
-- code exports and drift checks.
+- code exports and drift checks;
+- imported/local collection dependency graph;
+- duplicate/superseded collection disposition.
 
 ### Gate W2
 
@@ -189,7 +246,7 @@ primitive
 W2-GATE: PILOT_FOUNDATIONS_READY
 ```
 
-Only bounded tokens needed by the pilot. No whole-system tokenization.
+Only bounded tokens needed by the pilot. No whole-system tokenization. Every consumed collection has exact owner/version/source and no unresolved parallel semantic source.
 
 ---
 
@@ -214,7 +271,9 @@ Choose the family with strongest exact source/evidence/readiness, not the visual
 - isolated specimens;
 - a11y/interaction/visual tests;
 - source-proven product representations;
-- review packet and rollback.
+- review packet and rollback;
+- normalized canonical axes and display labels;
+- explicit version/migration metadata outside variant properties.
 
 ### Gate W3
 
@@ -296,13 +355,16 @@ Make review deterministic and safe.
 
 - dossier/root board template;
 - visible authority strip;
+- explicit resource-kind badge;
 - review display states;
 - comment protocol;
 - review packet renderer;
 - change batch page;
 - read-only-first MCP procedure;
 - mutation/read-back/rollback receipts;
-- before/after correction lane.
+- before/after correction lane;
+- public review board generated from the same contract/IR as internal materialization;
+- historical/external references isolated from candidate resources.
 
 ### Gate W6
 
@@ -310,7 +372,7 @@ Make review deterministic and safe.
 W6-GATE: REVIEW_WORKFLOW_VALIDATED
 ```
 
-Pilot owner can identify reviewed tuple, find default/states/responsive/product contexts, distinguish illustrative/evidence/canonical, leave actionable comment and see correction/closure evidence.
+Pilot owner can identify reviewed tuple, find default/states/responsive/product contexts, distinguish illustrative/evidence/canonical/historical, leave actionable comment and see correction/closure evidence.
 
 ---
 
@@ -344,7 +406,7 @@ This document does not redefine the gate. It invokes existing terminal `FAMILY_A
 
 ### Phase 0 — Owner decision on operating model
 
-Review this document and benchmark. Required decisions: SoT roles, resource hierarchy, token layers, Penpot review protocol, archetype definition and pilot selection method.
+Review this document and benchmark. Required decisions: SoT roles, resource hierarchy, token layers, Penpot review protocol, archetype definition, pilot selection method, external-reference policy and variant-version prohibition.
 
 **Exit:** signed decision record. **Implementation:** forbidden.
 
@@ -358,7 +420,7 @@ Implement W1 schemas and validators.
 
 Inventory and propose only pilot-consumed foundations/tokens.
 
-**Exit:** owner-reviewed candidate mappings and generated exports. **Global token normalization:** forbidden.
+**Exit:** owner-reviewed candidate mappings, dependency graph and generated exports. **Global token normalization:** forbidden.
 
 ### Phase 3 — One component dossier
 
@@ -392,7 +454,7 @@ Only after pilot retrospective: improve schemas/templates, define next bounded f
 |---|---|---|---|---|
 | `P0-01` | resource-kind schema | W1 | W0 decision | invalid kind/transition rejected |
 | `P0-02` | stable binding tuple schema | W1 | P0-01 | Penpot/code/runtime refs exact |
-| `P0-03` | token-layer/consumer schema | W1/W2 | W0 | raw/semantic/component boundary validated |
+| `P0-03` | token-layer/consumer/dependency schema | W1/W2 | W0 | raw/semantic/component boundary and imported ownership validated |
 | `P0-04` | fixture and viewport registries | W1 | P0-02 | reused by design/code/tests |
 | `P0-05` | Penpot managed metadata schema | W1/W6 | P0-02 | root and dossier read-back |
 | `P0-06` | review packet/comment schema | W6 | W0 | exact tuple and decision status |
@@ -402,6 +464,10 @@ Only after pilot retrospective: improve schemas/templates, define next bounded f
 | `P0-10` | archetype contract schema | W5 | P0-01/04 | regions/states/responsive validated |
 | `P0-11` | one Penpot read-only review rehearsal | W6 | P0-05..07 | owner can complete review |
 | `P0-12` | drift/compatibility dashboard skeleton | W1/W7 | registries | exact missing/mismatch classes |
+| `P0-13` | external-reference availability schema | W0/W1 | evidence classes | current/historical/inaccessible states validated |
+| `P0-14` | canonical axis and display-alias registry | W1 | P0-01 | spelling/case/alias collisions rejected |
+| `P0-15` | contract-version-as-variant negative gate | W1/W3 | P0-02/14 | design/code state models reject version axes |
+| `P0-16` | imported token dependency ledger | W1/W2 | P0-03 | owner/version/hash/consumer/supersession complete |
 
 ## 7. Pilot selection score
 
@@ -430,6 +496,7 @@ Penpot = native visual candidate/review
 code package = executable implementation
 runtime = conformance evidence
 docs = rendered graph
+external references = labelled research evidence only
 ```
 
 ### D-02 — Resource hierarchy
@@ -449,6 +516,18 @@ Proposed versioned composition contract, not screenshot/template.
 ### D-05 — Pilot
 
 Select after scoring current exact evidence.
+
+### D-06 — External references and version axes
+
+Decide whether to accept the following control rules:
+
+```text
+external reference availability is explicit and timestamped;
+historical/unavailable files cannot represent current truth;
+contract/package version is forbidden as component variant;
+canonical axis names are separate from display labels;
+imported token collections require exact owner/version/consumer graph.
+```
 
 Decision record:
 
@@ -470,6 +549,11 @@ Stop and do not infer a decision when:
 - source/contract identity is ambiguous;
 - resource kind is disputed;
 - code and design versions cannot be bound;
+- external-reference availability is unknown;
+- historical/inaccessible source is being used as current design truth;
+- contract/package version is encoded as a variant/state axis;
+- canonical axis names are not normalized or collide;
+- imported token dependency has no exact owner/version/source/consumer mapping;
 - fixture provenance is missing;
 - valid combinations are unknown;
 - Penpot materialization cannot be read back;
@@ -487,7 +571,10 @@ The program is not complete when “all pages look documented.” It is complete
 ```text
 identity is stable
 contract is versioned
+version is not hidden in a variant axis
+canonical names and display aliases are controlled
 Penpot/code/runtime bindings are exact
+token dependencies are owned and versioned
 required states and fixtures are covered
 patterns and archetypes have explicit ownership
 owner review and corrections are receipted
@@ -500,12 +587,13 @@ consumers use pinned accepted release
 ## 11. Immediate next action after owner review
 
 ```text
-1. materialize machine schemas and negative fixtures;
-2. select one pilot family by evidence score;
-3. create one component dossier candidate;
-4. derive one recurring pattern candidate;
-5. compose one page archetype candidate;
-6. run Penpot owner review;
-7. implement reviewed corrections;
-8. run conformance and only then evaluate promotion.
+1. materialize resource-kind, external-reference, naming and binding schemas;
+2. materialize token dependency ledger and negative fixtures;
+3. select one pilot family by evidence score;
+4. create one component dossier candidate without version axes;
+5. derive one recurring pattern candidate;
+6. compose one page archetype candidate;
+7. run Penpot owner review;
+8. implement reviewed corrections;
+9. run conformance and only then evaluate promotion.
 ```
