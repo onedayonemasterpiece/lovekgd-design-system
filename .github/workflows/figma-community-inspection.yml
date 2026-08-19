@@ -6,14 +6,12 @@ on:
       - research/consta-documentation-patterns-20260819-review
     paths:
       - '.github/workflows/figma-community-inspection.yml'
-      - 'scripts/research/inspect_figma_community_archive.py'
       - 'scripts/research/capture_grida_community_viewer.py'
   pull_request:
     branches:
       - main
     paths:
       - '.github/workflows/figma-community-inspection.yml'
-      - 'scripts/research/inspect_figma_community_archive.py'
       - 'scripts/research/capture_grida_community_viewer.py'
 
 permissions:
@@ -22,75 +20,10 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 55
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Probe legacy public Community archives
-        shell: bash
-        run: |
-          set -uo pipefail
-          mkdir -p .tmp/figma-community
-          : > .tmp/figma-community/available-ids.txt
-          : > .tmp/figma-community/status.tsv
-          for id in 1144567424019815189 1509554620086084342; do
-            dir=".tmp/figma-community/${id}"
-            mkdir -p "$dir"
-            meta_url="https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/meta.json"
-            file_url="https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/file.json.gz"
-            export_url="https://figma-community-images.s3.us-west-1.amazonaws.com/${id}/exports/meta.json"
-            meta_status=$(curl --location --silent --show-error --output "$dir/meta.json" --write-out '%{http_code}' "$meta_url" || true)
-            file_status=$(curl --location --silent --show-error --output "$dir/file.json.gz" --write-out '%{http_code}' "$file_url" || true)
-            export_status=$(curl --location --silent --show-error --output "$dir/exports-meta.json" --write-out '%{http_code}' "$export_url" || true)
-            available=false
-            if [ "$file_status" = "200" ] && [ -s "$dir/file.json.gz" ]; then
-              available=true
-              echo "$id" >> .tmp/figma-community/available-ids.txt
-            fi
-            if [ "$export_status" != "200" ]; then
-              printf '{"map":{}}\n' > "$dir/exports-meta.json"
-            fi
-            printf '%s\t%s\t%s\t%s\t%s\n' "$id" "$meta_status" "$file_status" "$export_status" "$available" \
-              >> .tmp/figma-community/status.tsv
-          done
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          files = {}
-          for line in Path('.tmp/figma-community/status.tsv').read_text().splitlines():
-              file_id, meta_http, file_http, exports_http, available = line.split('\t')
-              files[file_id] = {
-                  'meta_http': meta_http,
-                  'file_http': file_http,
-                  'exports_http': exports_http,
-                  'available': available == 'true',
-              }
-          Path('.tmp/figma-community/download-status.json').write_text(
-              json.dumps({'files': files}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
-          )
-          print(json.dumps({'files': files}, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Inspect archive nodes when available
-        shell: bash
-        run: |
-          set -euo pipefail
-          args=()
-          while IFS= read -r id; do
-            [ -n "$id" ] && args+=(--file-id "$id")
-          done < .tmp/figma-community/available-ids.txt
-          mkdir -p .tmp/figma-community-inspection
-          cp .tmp/figma-community/download-status.json .tmp/figma-community-inspection/download-status.json
-          if [ ${#args[@]} -gt 0 ]; then
-            python scripts/research/inspect_figma_community_archive.py \
-              --input .tmp/figma-community \
-              --output .tmp/figma-community-inspection \
-              "${args[@]}"
-          else
-            printf '# Figma Community archive probe\n\nBoth legacy public archive objects are unavailable. See `download-status.json`.\n' \
-              > .tmp/figma-community-inspection/index.md
-          fi
 
       - name: Install read-only browser probe
         run: |
@@ -98,85 +31,77 @@ jobs:
           google-chrome --version || chromium --version
           chromedriver --version || true
 
-      - name: Capture Grida mirrors
-        run: |
-          python scripts/research/capture_grida_community_viewer.py \
-            --seconds 55 \
-            --output .tmp/grida-viewer-capture \
-            --url https://code.grida.co/community/file/1144567424019815189 \
-            --url https://code.grida.co/community/file/1509554620086084342
-
-      - name: Capture direct Figma Community pages
+      - name: Capture public Community resource pages
         run: |
           python scripts/research/capture_grida_community_viewer.py \
             --seconds 75 \
-            --output .tmp/figma-direct-capture \
+            --output .tmp/figma-resource-capture \
             --url https://www.figma.com/community/file/1144567424019815189 \
             --url https://www.figma.com/community/file/1509554620086084342/t2d2-public-web
 
-      - name: Capture embedded Figma canvases
+      - name: Capture live Community canvas routes
         run: |
           python scripts/research/capture_grida_community_viewer.py \
-            --seconds 90 \
-            --output .tmp/figma-embed-capture \
-            --url 'https://embed.figma.com/file/1509554620086084342/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1' \
-            --url 'https://embed.figma.com/file/1144567424019815189/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1'
+            --seconds 120 \
+            --output .tmp/figma-canvas-capture \
+            --url https://www.figma.com/community/file/1144567424019815189/canvas \
+            --url https://www.figma.com/community/file/1509554620086084342/canvas
 
-      - name: Summarize browser evidence
+      - name: Summarize direct page and canvas evidence
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
           from pathlib import Path
+
           roots = {
-              'grida': Path('.tmp/grida-viewer-capture'),
-              'figma': Path('.tmp/figma-direct-capture'),
-              'figma_embed': Path('.tmp/figma-embed-capture'),
+              'resource_page': Path('.tmp/figma-resource-capture'),
+              'canvas_route': Path('.tmp/figma-canvas-capture'),
           }
-          report = {'captures': {}}
+          report = {
+              'observation_kind': 'direct-public-figma-browser-capture',
+              'authority_effect': 'none',
+              'canonical': False,
+              'captures': {},
+          }
           for source, root in roots.items():
               report['captures'][source] = {}
               for directory in sorted(p for p in root.iterdir() if p.is_dir()):
                   body = (directory / 'body-text.txt').read_text(encoding='utf-8', errors='replace')
                   responses = json.loads((directory / 'network-responses.json').read_text(encoding='utf-8'))
                   status = json.loads((directory / 'capture-status.json').read_text(encoding='utf-8'))
-                  candidates = [r for r in responses if r.get('interesting')]
-                  saved = [r for r in candidates if r.get('saved_body')]
+                  interesting = [r for r in responses if r.get('interesting')]
+                  saved = [r for r in interesting if r.get('saved_body')]
                   report['captures'][source][directory.name] = {
                       'capture_status': status,
-                      'body_preview': body[:5000],
+                      'body_preview': body[:10000],
                       'response_count': len(responses),
-                      'interesting_response_count': len(candidates),
+                      'interesting_response_count': len(interesting),
                       'saved_response_bodies': len(saved),
-                      'candidate_urls': [r.get('url') for r in candidates[:400]],
+                      'candidate_urls': [r.get('url') for r in interesting[:600]],
                   }
-          out = Path('.tmp/community-capture-summary.json')
-          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          output = Path('.tmp/figma-live-capture-summary.json')
+          output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           print(json.dumps(report, ensure_ascii=False, indent=2))
           PY
 
-      - name: Upload inspection evidence
+      - name: Upload direct inspection evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: figma-community-direct-inspection
+          name: figma-community-live-inspection
           path: |
-            .tmp/figma-community-inspection
-            .tmp/grida-viewer-capture
-            .tmp/figma-direct-capture
-            .tmp/figma-embed-capture
-            .tmp/community-capture-summary.json
+            .tmp/figma-resource-capture
+            .tmp/figma-canvas-capture
+            .tmp/figma-live-capture-summary.json
           if-no-files-found: error
           retention-days: 14
 
-      - name: Validate generated evidence envelope
+      - name: Validate evidence envelope
         shell: bash
         run: |
           set -euo pipefail
-          test -s .tmp/figma-community-inspection/index.md
-          test -s .tmp/figma-community-inspection/download-status.json
-          test -s .tmp/community-capture-summary.json
-          test "$(find .tmp/grida-viewer-capture -name viewport.png -size +0c | wc -l)" -ge 2
-          test "$(find .tmp/figma-direct-capture -name viewport.png -size +0c | wc -l)" -ge 2
-          test "$(find .tmp/figma-embed-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test -s .tmp/figma-live-capture-summary.json
+          test "$(find .tmp/figma-resource-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test "$(find .tmp/figma-canvas-capture -name viewport.png -size +0c | wc -l)" -ge 2
