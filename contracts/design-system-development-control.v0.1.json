@@ -11,6 +11,8 @@
   "observed_at": "2026-08-19",
   "research_ref": "docs/research/design-system-benchmark-2026-08/README.md",
   "direct_figma_research_ref": "docs/research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md",
+  "historical_rosatom_research_ref": "docs/research/design-system-benchmark-2026-08/08-rosatom-style-guide-2022.md",
+  "task_operating_prompt_ref": "docs/design-system-task-operating-prompt.md",
   "governing_doc_ref": "docs/roadmaps/design-system-development-control-v0.1.md",
   "preserves": [
     "docs/component-contract-authority.md",
@@ -28,19 +30,40 @@
     "runtime_route"
   ],
   "source_of_truth_roles": {
-    "product_meaning": ["Product Atlas", "accepted product contracts"],
-    "current_as_is_behavior_before_promotion": ["exact product source", "runtime evidence"],
-    "identity_version_lifecycle": ["Git contract registry", "versioned package metadata"],
-    "native_visual_candidate_and_review": ["Penpot Resource Graph at exact revision"],
-    "executable_candidate": ["versioned package implementation at exact SHA"],
-    "production_conformance": ["runtime release", "CI evidence"],
-    "documentation": ["rendered/validated views of contract and evidence graph"],
-    "external_references": ["research evidence only with explicit availability state and observed timestamp"]
+    "product_meaning": [
+      "Product Atlas",
+      "accepted product contracts"
+    ],
+    "current_as_is_behavior_before_promotion": [
+      "exact product source",
+      "runtime evidence"
+    ],
+    "identity_version_lifecycle": [
+      "Git contract registry",
+      "versioned package metadata"
+    ],
+    "native_visual_candidate_and_review": [
+      "Penpot Resource Graph at exact revision"
+    ],
+    "executable_candidate": [
+      "versioned package implementation at exact SHA"
+    ],
+    "production_conformance": [
+      "runtime release",
+      "CI evidence"
+    ],
+    "documentation": [
+      "rendered/validated views of contract and evidence graph"
+    ],
+    "external_references": [
+      "research evidence only with explicit availability state and observed timestamp"
+    ]
   },
   "external_reference_states": [
     "LIVE_CHECKPOINT_READBACK",
     "LIVE_NODE_API_READBACK",
     "LIVE_METADATA_ONLY",
+    "HISTORICAL_DOCUMENT_READBACK",
     "HISTORICAL_INDEX_ONLY",
     "UNPUBLISHED_OR_INACCESSIBLE"
   ],
@@ -53,6 +76,51 @@
     "response_or_checkpoint_sha256_if_available",
     "limitations"
   ],
+  "foundation_domains": [
+    "communication_and_content",
+    "editorial_and_terminology",
+    "brand_assets",
+    "color_and_modes",
+    "typography",
+    "iconography",
+    "media",
+    "responsive_breakpoints",
+    "container_and_grid",
+    "spacing",
+    "radius",
+    "opacity",
+    "elevation_and_shadow",
+    "motion",
+    "accessibility"
+  ],
+  "foundation_required_fields": [
+    "foundation_id",
+    "foundation_domain",
+    "version",
+    "content_hash",
+    "owner",
+    "status",
+    "source_refs",
+    "semantic_roles",
+    "primitive_values_or_rules",
+    "modes",
+    "consumer_refs",
+    "compatibility",
+    "validation_rules",
+    "evidence_refs",
+    "migration_or_replacement_ref"
+  ],
+  "external_foundation_value_policy": {
+    "reference_values_are_hypotheses": true,
+    "wholesale_copying_allowed": false,
+    "required_before_adoption": [
+      "current_lovekgd_consumer_census",
+      "product_owner_decision",
+      "accessibility_or_content_validation_as_applicable",
+      "responsive_and_fixture_evidence_as_applicable",
+      "migration_and_rollback"
+    ]
+  },
   "identity_tuples": {
     "component": [
       "component_id",
@@ -93,11 +161,26 @@
     "case_and_spelling_normalization_required": true
   },
   "token_layers": [
-    {"id": "primitive", "public_component_api_allowed": false},
-    {"id": "semantic_foundation", "required_for_component_refs": true},
-    {"id": "component", "owner": "component_contract"},
-    {"id": "pattern_or_archetype", "creation_rule": "only_for_proven_repeated_composition_invariant"},
-    {"id": "theme_or_product_alias", "may_change_semantics": false}
+    {
+      "id": "primitive",
+      "public_component_api_allowed": false
+    },
+    {
+      "id": "semantic_foundation",
+      "required_for_component_refs": true
+    },
+    {
+      "id": "component",
+      "owner": "component_contract"
+    },
+    {
+      "id": "pattern_or_archetype",
+      "creation_rule": "only_for_proven_repeated_composition_invariant"
+    },
+    {
+      "id": "theme_or_product_alias",
+      "may_change_semantics": false
+    }
   ],
   "token_dependency_requirements": [
     "stable_collection_id",
@@ -109,6 +192,23 @@
     "compatibility_status",
     "replacement_or_supersession_ref",
     "drift_status"
+  ],
+  "task_output_contract": [
+    "task_classification_and_authority_boundary",
+    "exact_sources_and_evidence_states",
+    "current_truth_and_as_is_census",
+    "gaps_contradictions_unknowns",
+    "resource_kind_and_boundary_decision",
+    "proposed_contract_delta",
+    "foundation_content_token_responsive_dependencies",
+    "files_and_surfaces_to_update",
+    "penpot_plan_or_not_authorized",
+    "code_docs_tests_fixtures_plan",
+    "validation_results_and_evidence_refs",
+    "migration_compatibility_rollback",
+    "owner_decisions",
+    "current_and_next_adjacent_lifecycle_gate",
+    "receipts_and_manifests"
   ],
   "workstreams": [
     {
@@ -135,7 +235,10 @@
         "component/pattern/archetype metadata schemas",
         "stable binding tuples",
         "external-reference evidence schema",
+        "foundation-domain contract schema",
         "token registry and dependency schema",
+        "content and terminology registry schema",
+        "brand/media/responsive registries",
         "fixture and viewport registries",
         "binding registry",
         "canonical naming and display-alias schema",
@@ -149,7 +252,20 @@
       "name": "Foundations and tokens",
       "gate": "PILOT_FOUNDATIONS_READY",
       "authority_change": false,
-      "scope_rule": "pilot-consumed foundations only"
+      "scope_rule": "pilot-consumed foundations only",
+      "deliverables": [
+        "pilot-consumed foundation-domain inventory",
+        "content and terminology registry",
+        "brand-asset registry",
+        "semantic color and mode model",
+        "typography and iconography contracts",
+        "media policy registry",
+        "responsive breakpoint/container/grid registry",
+        "spacing/radius/opacity/elevation/motion foundations",
+        "accessibility foundation requirements",
+        "consumer mappings and exact foundation-version bindings",
+        "Penpot/code exports and drift validation"
+      ]
     },
     {
       "id": "W3",
@@ -184,14 +300,41 @@
     }
   ],
   "phases": [
-    {"order": 0, "id": "owner_operating_model_decision", "implementation_allowed": false},
-    {"order": 1, "id": "machine_contracts", "implementation_scope": "schemas_and_validators_only"},
-    {"order": 2, "id": "bounded_pilot_foundations", "global_tokenization_allowed": false},
-    {"order": 3, "id": "one_component_dossier"},
-    {"order": 4, "id": "one_pattern"},
-    {"order": 5, "id": "one_page_archetype"},
-    {"order": 6, "id": "pilot_release_and_conformance"},
-    {"order": 7, "id": "scale_wave_after_retrospective"}
+    {
+      "order": 0,
+      "id": "owner_operating_model_decision",
+      "implementation_allowed": false
+    },
+    {
+      "order": 1,
+      "id": "machine_contracts",
+      "implementation_scope": "schemas_and_validators_only"
+    },
+    {
+      "order": 2,
+      "id": "bounded_pilot_foundations",
+      "global_tokenization_allowed": false
+    },
+    {
+      "order": 3,
+      "id": "one_component_dossier"
+    },
+    {
+      "order": 4,
+      "id": "one_pattern"
+    },
+    {
+      "order": 5,
+      "id": "one_page_archetype"
+    },
+    {
+      "order": 6,
+      "id": "pilot_release_and_conformance"
+    },
+    {
+      "order": 7,
+      "id": "scale_wave_after_retrospective"
+    }
   ],
   "owner_decisions": [
     "D-01_sot_roles",
@@ -199,7 +342,8 @@
     "D-03_penpot_review_protocol",
     "D-04_page_archetype_definition",
     "D-05_pilot_selection",
-    "D-06_external_reference_and_version_axis_policy"
+    "D-06_external_reference_and_version_axis_policy",
+    "D-07_foundation_domains_and_task_prompt"
   ],
   "review_display_states": [
     "DRAFT_MATERIALIZATION",
@@ -221,6 +365,10 @@
     "contract_or_package_version_encoded_as_variant_axis",
     "canonical_axis_names_not_normalized",
     "imported_token_dependency_owner_or_version_unknown",
+    "foundation_version_or_consumer_binding_unresolved",
+    "content_or_terminology_policy_missing_for_content_bearing_ui",
+    "brand_or_media_provenance_unknown",
+    "external_foundation_values_copied_without_product_validation",
     "missing_fixture_provenance",
     "unknown_valid_combinations",
     "penpot_readback_unavailable",
@@ -244,6 +392,10 @@
     "display_label_as_canonical_axis_identity",
     "historical_cover_as_current_design_source",
     "silent_imported_token_dependency",
+    "static_style_guide_as_executable_authority",
+    "opaque_mnemonic_as_canonical_id",
+    "external_breakpoints_or_tokens_copied_without_product_evidence",
+    "component_showroom_as_dossier_readiness",
     "silent_deprecation"
   ]
 }
