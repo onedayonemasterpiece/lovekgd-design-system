@@ -12,5 +12,5 @@ Fanout decision: read-only audits ran in parallel; all Git/Penpot writes remain 
 | R06 | Complete Amber/Focus/reference artifact collection and nested Amber rail | R01 | integrator / serial Penpot | Page49 has 8 Amber, 4 collection-surface, 12 Focus and 7 reference states; rail uses linked Amber | Done |
 | R07 | Exact card icon registry and shared Page25 components | R01 | integrator / serial Git+Penpot | 24 source-bound icons; every visible card glyph linked; zero visible loose card glyphs | Done |
 | R08 | Clean Page15/Page45 and all touched page layouts | R01 | integrator / serial Penpot | only compact process/source tables and review-functional objects remain | Done |
-| R09 | Receipts, export, validation, idempotency, CI | R02–R08 | integrator / serial | exports/readback pass; validate=0; second run created=0; local workflow green | Done locally / remote CI pending |
-| R10 | Independent closure audit before REVIEW READY | R09 | read-only reviewer | every requirement passes; NOT READY removed only after evidence | Pending |
+| R09 | Receipts, export, validation, idempotency, CI | R02–R08 | integrator / serial | exports/readback pass; validate=0; second run created=0; candidate workflows green | Done; frozen legacy allowlist check remains intentionally unchanged |
+| R10 | Independent closure audit before REVIEW READY | R09 | read-only reviewer | every requirement passes; NOT READY removed only after evidence | Done — PASS at c950319/rev549; owner review now open |

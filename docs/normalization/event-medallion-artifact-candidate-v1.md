@@ -49,7 +49,4 @@ the four other slots are reserved hints, not fake rewards.
 
 ## Promotion gate
 
-The packages remain NOT READY until Penpot Page48/Page49 materialization,
-full readback, exports, idempotency, required validators and an independent
-closure audit pass. A component count or a saved receipt alone is not visual or
-semantic acceptance.
+The packages are READY FOR OWNER REVIEW: Page48/Page49 materialization, full readback, exports, idempotency, validators and the independent closure audit all passed. They remain candidate/noncanonical/not-promoted until explicit owner approval; a component count or saved receipt alone is still not visual or semantic promotion.

@@ -25,14 +25,12 @@
 - Penpot file validation: zero errors.
 - Stable state readback: 65 expected / 65 actual; zero missing, extra or
   duplicates; zero variant errors.
-- Per-family page budgets remain below 900 shapes. Index pages are 142 and 35
+- Per-family page budgets remain below 900 shapes. Index pages are 122 and 36
   shapes respectively.
 - Second-run reconciliation is read-only and creates zero objects.
 - Taxonomy, asset, iconography and negative validators pass with Penpot-bound
-  receipts at file revision 455.
+  receipts at file revision 562.
 
 ## Acceptance status
 
-The implementation is materially complete but deliberately remains
-**NOT READY** in Page46 and Git visual acceptance. Independent visual closure
-has not yet passed, so no canonical promotion or review-ready claim is made.
+Independent closure passed at Git `c950319` / Penpot rev549. Page46, Page48 and Page49 are now **READY FOR OWNER REVIEW** at final readback rev562. The system remains candidate/noncanonical/not-promoted; owner approval and promotion are still explicitly pending.
