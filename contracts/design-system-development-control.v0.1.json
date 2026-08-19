@@ -10,6 +10,7 @@
   "implementation_authorized": false,
   "observed_at": "2026-08-19",
   "research_ref": "docs/research/design-system-benchmark-2026-08/README.md",
+  "direct_figma_research_ref": "docs/research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md",
   "governing_doc_ref": "docs/roadmaps/design-system-development-control-v0.1.md",
   "preserves": [
     "docs/component-contract-authority.md",
@@ -33,8 +34,25 @@
     "native_visual_candidate_and_review": ["Penpot Resource Graph at exact revision"],
     "executable_candidate": ["versioned package implementation at exact SHA"],
     "production_conformance": ["runtime release", "CI evidence"],
-    "documentation": ["rendered/validated views of contract and evidence graph"]
+    "documentation": ["rendered/validated views of contract and evidence graph"],
+    "external_references": ["research evidence only with explicit availability state and observed timestamp"]
   },
+  "external_reference_states": [
+    "LIVE_CHECKPOINT_READBACK",
+    "LIVE_NODE_API_READBACK",
+    "LIVE_METADATA_ONLY",
+    "HISTORICAL_INDEX_ONLY",
+    "UNPUBLISHED_OR_INACCESSIBLE"
+  ],
+  "external_reference_required_fields": [
+    "reference_state",
+    "source_url_or_id",
+    "observed_at",
+    "source_version_if_known",
+    "current_url_status",
+    "response_or_checkpoint_sha256_if_available",
+    "limitations"
+  ],
   "identity_tuples": {
     "component": [
       "component_id",
@@ -66,12 +84,31 @@
       "candidate_package_sha"
     ]
   },
+  "variant_rules": {
+    "contract_or_package_version_as_variant_axis": "forbidden",
+    "resource_kind_as_variant_axis": "forbidden",
+    "canonical_axis_identity_source": "Component Contract",
+    "display_labels_may_differ_from_canonical_names": true,
+    "valid_and_invalid_combinations_required": true,
+    "case_and_spelling_normalization_required": true
+  },
   "token_layers": [
     {"id": "primitive", "public_component_api_allowed": false},
     {"id": "semantic_foundation", "required_for_component_refs": true},
     {"id": "component", "owner": "component_contract"},
     {"id": "pattern_or_archetype", "creation_rule": "only_for_proven_repeated_composition_invariant"},
     {"id": "theme_or_product_alias", "may_change_semantics": false}
+  ],
+  "token_dependency_requirements": [
+    "stable_collection_id",
+    "owner",
+    "source_library_or_package_version",
+    "source_hash_or_revision",
+    "modes",
+    "consumer_refs",
+    "compatibility_status",
+    "replacement_or_supersession_ref",
+    "drift_status"
   ],
   "workstreams": [
     {
@@ -81,6 +118,7 @@
       "authority_change": false,
       "deliverables": [
         "source/evidence register",
+        "external-reference availability ledger",
         "resource-kind definitions",
         "decision record template",
         "owner/reviewer roles",
@@ -96,10 +134,13 @@
       "deliverables": [
         "component/pattern/archetype metadata schemas",
         "stable binding tuples",
-        "token registry schema",
+        "external-reference evidence schema",
+        "token registry and dependency schema",
         "fixture and viewport registries",
         "binding registry",
-        "naming and valid-combination validation",
+        "canonical naming and display-alias schema",
+        "variant-version prohibition validation",
+        "valid-combination validation",
         "catalog rendering contract"
       ]
     },
@@ -157,7 +198,8 @@
     "D-02_resource_hierarchy",
     "D-03_penpot_review_protocol",
     "D-04_page_archetype_definition",
-    "D-05_pilot_selection"
+    "D-05_pilot_selection",
+    "D-06_external_reference_and_version_axis_policy"
   ],
   "review_display_states": [
     "DRAFT_MATERIALIZATION",
@@ -174,6 +216,11 @@
     "ambiguous_source_or_contract_identity",
     "disputed_resource_kind",
     "unbound_design_and_code_versions",
+    "external_reference_availability_unknown",
+    "historical_reference_used_as_current_truth",
+    "contract_or_package_version_encoded_as_variant_axis",
+    "canonical_axis_names_not_normalized",
+    "imported_token_dependency_owner_or_version_unknown",
     "missing_fixture_provenance",
     "unknown_valid_combinations",
     "penpot_readback_unavailable",
@@ -193,6 +240,10 @@
     "global_normalization_before_bounded_pilot",
     "visual_similarity_as_identity_evidence",
     "free_block_constructor_as_page_archetype",
+    "contract_version_as_component_variant",
+    "display_label_as_canonical_axis_identity",
+    "historical_cover_as_current_design_source",
+    "silent_imported_token_dependency",
     "silent_deprecation"
   ]
 }
