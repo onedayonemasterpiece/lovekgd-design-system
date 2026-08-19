@@ -82,6 +82,20 @@ mobile; proof rail is 36 px desktop, 28 px mobile. Medallion sizes remain exact
 AS-IS until approval: overlay 64, weekend 60, popular 56, popular mobile 46;
 single side 60, multiple 51, split 48–52, popular-mobile side 40.
 
+#### Source-bound listing fixtures for crop and density review
+
+The owner PNGs remain adjacent oracles only. Native listing specimens use
+Astro-rendered event assets from the supplied review routes:
+
+| use | event / route | intrinsic size | sha256 | Astro-rendered asset |
+| --- | --- | --- | --- | --- |
+| weekend portrait | `7483` · `/vyhodnye/2026-08-22/` | 750×1000 | `509fc6ae16f2dbdad2aa8bc613da51e18563fbc18088257a4c9f17922aee4a9d` | `https://static.kenigevents.ru/p/image/v2/50/509fc6ae16f2dbdad2aa8bc613da51e18563fbc18088257a4c9f17922aee4a9d.webp` |
+| vertical crop | `7491` · `/zavtra/` | 906×1280 | `f42be320b9fbe56e68d064b0ec33936e40619365b30ea48f981f161d4b2f2263` | `https://static.kenigevents.ru/p/image/v2/f4/f42be320b9fbe56e68d064b0ec33936e40619365b30ea48f981f161d4b2f2263.webp` |
+| popular portrait | `5459` · `/populyarnoe/` | 1280×1810 | `e5491488a57785a4808b7a8c06fe8c4e1c6f9bd7a3d8a777f5b9355835f6d1ec` | `https://static.kenigevents.ru/p/image/v2/e5/e5491488a57785a4808b7a8c06fe8c4e1c6f9bd7a3d8a777f5b9355835f6d1ec.webp` |
+
+Penpot uses those URLs as native source-bound media fills. No oracle image ID
+may appear inside the listing family root.
+
 ### `listing.rail-row`
 
 Sources: `MobileListingRailRow.astro`, `MobileListingRailSurface.astro`.
