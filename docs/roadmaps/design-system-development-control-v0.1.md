@@ -19,7 +19,9 @@ observed_at: 2026-08-19
 Research basis:
 
 - [Comparative design-system benchmark](../research/design-system-benchmark-2026-08/README.md);
-- [Direct Figma read-back: T2D2 Web and Rosatom](../research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md).
+- [Direct Figma read-back: T2D2 Web and Rosatom](../research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md);
+- [Rosatom style-guide 2022 exact analysis](../research/design-system-benchmark-2026-08/08-rosatom-style-guide-2022.md);
+- [Design-system task operating prompt v0.1](../design-system-task-operating-prompt.md).
 
 ## 1. Objective
 
@@ -34,7 +36,9 @@ Research basis:
 7. promotion выполняется bounded per family and affected archetypes;
 8. external references имеют видимый availability/evidence state и не подменяют current truth историческими covers;
 9. component/package version не кодируется как variant axis;
-10. imported token dependencies, canonical axis names и display aliases управляются машинно.
+10. imported token dependencies, canonical axis names и display aliases управляются машинно;
+11. content/editorial, brand, media, responsive/grid, motion and accessibility knowledge are versioned foundation domains;
+12. catalogue/showroom discoverability is separated from dossier/contract readiness.
 
 ## 2. Non-negotiable invariants
 
@@ -90,13 +94,14 @@ Each external design-system source declares one of:
 LIVE_CHECKPOINT_READBACK
 LIVE_NODE_API_READBACK
 LIVE_METADATA_ONLY
+HISTORICAL_DOCUMENT_READBACK
 HISTORICAL_INDEX_ONLY
 UNPUBLISHED_OR_INACCESSIBLE
 ```
 
-The record also includes observed date, source version where known, current URL status, response/checkpoint hash where available and exact limitations.
+The record also includes observed date, source version where known, current URL status, response/checkpoint/document hash where available and exact limitations.
 
-A historical screenshot, cover or index cannot establish current component API, token model, code binding or lifecycle.
+A historical screenshot, cover, index or style guide cannot establish current component API, token model, code binding or lifecycle.
 
 ### I-12. Contract version is not a component variant
 
@@ -109,6 +114,18 @@ Designer-facing labels may contain localized text or visual markers. Canonical I
 ### I-14. Token dependencies are a versioned graph
 
 Every local or imported token collection records stable ID, owner, source library/package version, source revision/hash, modes, consumers, compatibility, replacement/supersession and drift status.
+
+### I-15. Foundation knowledge is versioned
+
+Content/terminology, brand assets, color/modes, typography, iconography, media, layout/grid, spacing/radius/opacity/elevation, motion and accessibility are explicit foundation resources with owners, consumers, compatibility and evidence. Static style-guide pages are supporting documentation, not authority.
+
+### I-16. Canonical names are semantic
+
+Opaque mnemonic names may be retained as display/search aliases only. Canonical IDs describe role, pass lint/collision checks and bind code, Penpot manifests, docs and tests.
+
+### I-17. External foundation values require product validation
+
+Colors, type ramps, breakpoints, grids, media ratios and brand rules from external/historical systems are hypotheses. Adoption requires current LoveKGD consumer census, accessibility/responsive evidence and owner decision.
 
 ## 3. Target operating model
 
@@ -181,7 +198,11 @@ Define stable identities and outputs shared by design/code/docs/tests.
 - component/pattern/archetype metadata schemas;
 - stable identity tuples;
 - external-reference evidence schema;
+- foundation-domain contract schema;
 - token registry and dependency schema;
+- content and terminology registry schema;
+- brand-asset and media-policy registries;
+- breakpoint/container/grid registry;
 - fixture and viewport registries;
 - binding registry for Penpot/code/runtime;
 - canonical naming/display-alias schema;
@@ -207,7 +228,9 @@ Pass criteria:
 - version-like fields are rejected from variant/state axes;
 - historical/unavailable external sources cannot be marked current;
 - canonical axis aliases cannot collide;
-- imported token dependencies without owner/version are rejected.
+- imported token dependencies without owner/version are rejected;
+- content-bearing UI cannot omit an owned content/terminology policy;
+- brand/media usage without provenance/rights state is rejected where required.
 
 ---
 
@@ -227,16 +250,42 @@ primitive
 → theme/product aliases
 ```
 
+### Required foundation domains
+
+```text
+communication and content
+editorial and terminology
+brand assets
+color and modes
+typography
+iconography
+media
+responsive breakpoints
+containers and grid
+spacing
+radius
+opacity
+elevation and shadow
+motion
+accessibility
+```
+
 ### Deliverables
 
-- current-value inventory;
-- semantic role proposal;
-- consumer mapping;
-- mode/theme model;
-- responsive token policy;
-- hard-value exception policy;
-- token Penpot binding manifest;
-- code exports and drift checks;
+- pilot-consumed foundation-domain inventory;
+- communication/content and terminology contract;
+- brand-asset identity/provenance/usage registry;
+- color/mode semantic role proposal;
+- typography semantic styles and font compatibility;
+- iconography semantic/optical/accessibility registry;
+- media ratio/crop/fallback/provenance policy;
+- breakpoint/container/grid/responsive registry;
+- spacing/radius/opacity/elevation/motion primitives and semantic consumers;
+- accessibility foundation requirements;
+- consumer mapping and exact foundation-version bindings;
+- hard-value and external-reference exception policy;
+- token/content/layout Penpot binding manifests;
+- code exports, lint and drift checks;
 - imported/local collection dependency graph;
 - duplicate/superseded collection disposition.
 
@@ -246,7 +295,7 @@ primitive
 W2-GATE: PILOT_FOUNDATIONS_READY
 ```
 
-Only bounded tokens needed by the pilot. No whole-system tokenization. Every consumed collection has exact owner/version/source and no unresolved parallel semantic source.
+Only bounded foundations needed by the pilot. No whole-system tokenization or wholesale copying from references. Every consumed foundation has exact owner/version/source/consumer mapping, required content/brand/media/responsive/a11y evidence and no unresolved parallel semantic source.
 
 ---
 
@@ -268,8 +317,9 @@ Choose the family with strongest exact source/evidence/readiness, not the visual
 - canonical code candidate;
 - native Penpot component candidate;
 - dossier board;
+- exact foundation compatibility record;
 - isolated specimens;
-- a11y/interaction/visual tests;
+- a11y/interaction/visual/content tests;
 - source-proven product representations;
 - review packet and rollback;
 - normalized canonical axes and display labels;
@@ -296,7 +346,7 @@ Prevent domain compositions from being hidden in components or duplicated per pa
 - recurring composition census;
 - pattern vs component decision;
 - pattern contract/schema;
-- component dependency graph;
+- component and foundation dependency graph;
 - slots and allowed contexts;
 - responsive and state behavior;
 - content/a11y rules;
@@ -328,6 +378,7 @@ Form a versioned page class from accepted candidate resources.
 - required/optional/conditional slots;
 - page state registry;
 - responsive branches;
+- exact container/grid/media/content foundation bindings;
 - navigation/accessibility contract;
 - content fixture set;
 - Penpot candidate;
@@ -386,6 +437,7 @@ Connect reviewed design candidate to package and production consumers.
 
 - three-way component capsule;
 - pattern/archetype conformance capsule;
+- foundation compatibility and content lint evidence;
 - visual/a11y/interaction/reference checks;
 - package version and changelog;
 - consumer compatibility matrix;
@@ -406,7 +458,7 @@ This document does not redefine the gate. It invokes existing terminal `FAMILY_A
 
 ### Phase 0 — Owner decision on operating model
 
-Review this document and benchmark. Required decisions: SoT roles, resource hierarchy, token layers, Penpot review protocol, archetype definition, pilot selection method, external-reference policy and variant-version prohibition.
+Review this document, benchmark and task prompt. Required decisions: SoT roles, resource hierarchy, foundation domains/token layers, content/brand/media/responsive governance, Penpot review protocol, archetype definition, pilot selection method, external-reference policy and variant-version prohibition.
 
 **Exit:** signed decision record. **Implementation:** forbidden.
 
@@ -418,9 +470,9 @@ Implement W1 schemas and validators.
 
 ### Phase 2 — Bounded foundations
 
-Inventory and propose only pilot-consumed foundations/tokens.
+Inventory and propose only pilot-consumed foundations/tokens/content/layout/assets.
 
-**Exit:** owner-reviewed candidate mappings, dependency graph and generated exports. **Global token normalization:** forbidden.
+**Exit:** owner-reviewed candidate mappings, dependency graph and generated exports. **Global normalization/copying:** forbidden.
 
 ### Phase 3 — One component dossier
 
@@ -468,6 +520,10 @@ Only after pilot retrospective: improve schemas/templates, define next bounded f
 | `P0-14` | canonical axis and display-alias registry | W1 | P0-01 | spelling/case/alias collisions rejected |
 | `P0-15` | contract-version-as-variant negative gate | W1/W3 | P0-02/14 | design/code state models reject version axes |
 | `P0-16` | imported token dependency ledger | W1/W2 | P0-03 | owner/version/hash/consumer/supersession complete |
+| `P0-17` | reusable task operating prompt | W0/W6 | benchmark synthesis | every task emits intake, boundary, evidence, deliverables, gates and receipts |
+| `P0-18` | foundation-domain contract schema | W1/W2 | P0-01/03 | all pilot foundation refs are typed/versioned/consumer-bound |
+| `P0-19` | content and terminology registry | W2/W3/W5 | P0-18 | UI copy/format/localization rules reusable by fixtures/docs/tests |
+| `P0-20` | responsive/grid/media/brand registries | W2/W4/W5 | P0-18 | breakpoints, composition, assets and media behavior validated |
 
 ## 7. Pilot selection score
 
@@ -529,6 +585,17 @@ canonical axis names are separate from display labels;
 imported token collections require exact owner/version/consumer graph.
 ```
 
+### D-07 — Foundation domains and task operating prompt
+
+Decide whether to accept:
+
+```text
+content/editorial, brand, media, responsive/grid and accessibility as versioned foundations;
+semantic canonical IDs with optional mnemonic/display aliases;
+external foundation values only as hypotheses until product validation;
+the reusable task prompt as the required intake/output/STOP structure for bounded work.
+```
+
 Decision record:
 
 ```yaml
@@ -554,6 +621,10 @@ Stop and do not infer a decision when:
 - contract/package version is encoded as a variant/state axis;
 - canonical axis names are not normalized or collide;
 - imported token dependency has no exact owner/version/source/consumer mapping;
+- foundation domain/version/consumer binding is unresolved;
+- content/terminology policy is absent for content-bearing UI;
+- brand/media provenance or rights are unknown;
+- external breakpoint/grid/token values are being copied without product evidence;
 - fixture provenance is missing;
 - valid combinations are unknown;
 - Penpot materialization cannot be read back;
@@ -574,6 +645,8 @@ contract is versioned
 version is not hidden in a variant axis
 canonical names and display aliases are controlled
 Penpot/code/runtime bindings are exact
+foundation dependencies are owned, versioned and consumer-bound
+content/terminology, brand/media and responsive contracts are explicit
 token dependencies are owned and versioned
 required states and fixtures are covered
 patterns and archetypes have explicit ownership
@@ -587,10 +660,10 @@ consumers use pinned accepted release
 ## 11. Immediate next action after owner review
 
 ```text
-1. materialize resource-kind, external-reference, naming and binding schemas;
-2. materialize token dependency ledger and negative fixtures;
+1. materialize resource-kind, external-reference, foundation, naming and binding schemas;
+2. materialize token dependency, content/terminology, brand/media and responsive registries with negative fixtures;
 3. select one pilot family by evidence score;
-4. create one component dossier candidate without version axes;
+4. create one component dossier candidate without version axes and with exact foundation compatibility;
 5. derive one recurring pattern candidate;
 6. compose one page archetype candidate;
 7. run Penpot owner review;
