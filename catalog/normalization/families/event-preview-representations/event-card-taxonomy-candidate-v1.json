@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "194994fd42c0791da3712f41bdb2143ab79048e9482c5a59f93dceb736c03243",
+  "contract_payload_sha256": "f4173aaadc6e2f60f6ab6da16d48bd4004c1e4b859a240de685ddb0deb4235f0",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -547,8 +547,8 @@
         "runtime_as_is": "Exact Astro renders favorite, not-interested, share and calendar controls as EventCard children.",
         "penpot_linked_component_contract": {
           "status": "candidate-design-library-components-required-before-comment-37-resolution",
-          "target_page_id": "10a29786-8dcf-802c-8008-739d91a0e653",
-          "target_page_name": "30 — Core UI resources",
+          "target_page_id": "c0d4e5a2-7db6-80c7-8008-81f0f25e13ca",
+          "target_page_name": "30.1 — Event card actions · Candidate components",
           "components": {
             "action.event-card.favorite": {
               "states": [
@@ -597,7 +597,27 @@
               "icon_ref": "Icon/UI/calendar"
             }
           },
-          "astro_promotion": "pending owner approval; do not claim runtime componentization until source is changed"
+          "astro_promotion": "pending owner approval; do not claim runtime componentization until source is changed",
+          "root_board_id": "c0d4e5a2-7db6-80c7-8008-81f11962a9d6",
+          "materialization_status": "materialized-readback-pending-visual-export",
+          "variant_containers": {
+            "action.event-card.favorite": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f13a88619b",
+              "state_count": 7
+            },
+            "action.event-card.not-interested": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f182ac1f8a",
+              "state_count": 5
+            },
+            "action.event-card.share": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f18e326b7e",
+              "state_count": 8
+            },
+            "action.event-card.calendar": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f1974f23c1",
+              "state_count": 6
+            }
+          }
         },
         "layout_correction": "split-actions feedback row is outside the dark card shell on a transparent extension; overlay-controls remains inside media overlay"
       },
@@ -2353,17 +2373,38 @@
             "show a complete variable-width track per state; no false fixed 390px card matrix"
           ]
         }
+      },
+      "partial_materialization": {
+        "penpot_revision_before_cycle": 595,
+        "status": "in_progress-connection-reload-required-on-event-card-part-a",
+        "completed_readbacks": [
+          "Page48 candidate tiers",
+          "Page49 mobile dialog",
+          "listing.event-card desktop/proof heart",
+          "festival.card proportional crop",
+          "Page30.1 action components"
+        ],
+        "unknown_outcome": [
+          "event.card Part A final batch; verify after owner reload"
+        ],
+        "not_started": [
+          "event.card Part B",
+          "listing.rail-row",
+          "exhibition.row",
+          "Page46 index update",
+          "comment resolution"
+        ]
       }
     }
   },
   "package_bindings": {
     "medallions": {
       "path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
-      "contract_payload_sha256": "e0c6dc082fe880fff06977be144c6cae8550a5f5c8b4dfc5f9cc01c7a34052c4"
+      "contract_payload_sha256": "df0689d95813fb9a44fb5371b9990c8b87cf2e5f3ce2825663dadadd90fdc859"
     },
     "artifacts": {
       "path": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json",
-      "contract_payload_sha256": "8ffefeb6fbcf281a199c31756f05ecb48924e0dffee3c9f38567bec5a41261a0"
+      "contract_payload_sha256": "d2473280c33e149400a07e265037b0a732617822fa2e4b46129f163b95fece14"
     },
     "iconography": {
       "contract_ref": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",
