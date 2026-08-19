@@ -22,7 +22,7 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 65
+    timeout-minutes: 75
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -114,6 +114,14 @@ jobs:
             --url https://www.figma.com/community/file/1144567424019815189 \
             --url https://www.figma.com/community/file/1509554620086084342/t2d2-public-web
 
+      - name: Capture embedded Figma canvases
+        run: |
+          python scripts/research/capture_grida_community_viewer.py \
+            --seconds 90 \
+            --output .tmp/figma-embed-capture \
+            --url 'https://embed.figma.com/file/1509554620086084342/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1' \
+            --url 'https://embed.figma.com/file/1144567424019815189/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1'
+
       - name: Summarize browser evidence
         shell: bash
         run: |
@@ -124,6 +132,7 @@ jobs:
           roots = {
               'grida': Path('.tmp/grida-viewer-capture'),
               'figma': Path('.tmp/figma-direct-capture'),
+              'figma_embed': Path('.tmp/figma-embed-capture'),
           }
           report = {'captures': {}}
           for source, root in roots.items():
@@ -136,11 +145,11 @@ jobs:
                   saved = [r for r in candidates if r.get('saved_body')]
                   report['captures'][source][directory.name] = {
                       'capture_status': status,
-                      'body_preview': body[:2000],
+                      'body_preview': body[:5000],
                       'response_count': len(responses),
                       'interesting_response_count': len(candidates),
                       'saved_response_bodies': len(saved),
-                      'candidate_urls': [r.get('url') for r in candidates[:200]],
+                      'candidate_urls': [r.get('url') for r in candidates[:400]],
                   }
           out = Path('.tmp/community-capture-summary.json')
           out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -158,6 +167,8 @@ jobs:
           test -s .tmp/grida-viewer-capture/1509554620086084342/viewport.png
           test -s .tmp/figma-direct-capture/1144567424019815189/viewport.png
           test -s .tmp/figma-direct-capture/1509554620086084342/viewport.png
+          test -s .tmp/figma-embed-capture/1144567424019815189/viewport.png
+          test -s .tmp/figma-embed-capture/1509554620086084342/viewport.png
 
       - name: Upload inspection evidence
         uses: actions/upload-artifact@v4
@@ -167,6 +178,7 @@ jobs:
             .tmp/figma-community-inspection
             .tmp/grida-viewer-capture
             .tmp/figma-direct-capture
+            .tmp/figma-embed-capture
             .tmp/community-capture-summary.json
           if-no-files-found: error
           retention-days: 14
