@@ -62,13 +62,23 @@
         "tail_width_px": 64,
         "media_radius_px": 14,
         "identity_medallion_px": 51,
-        "social_proof_px": 36,
+        "social_proof_px": {
+          "desktop": 17,
+          "mobile": 14
+        },
         "copy_padding_top_px": 10,
         "reference_viewport_px": {
           "width": 1280,
           "height": 720,
           "dpr": 1
-        }
+        },
+        "card_width_formula": "mediaHeight * imageRatio + tailWidth",
+        "tail_width_options_px": [
+          0,
+          40,
+          64,
+          96
+        ]
       },
       "typography": {
         "font_stack": "Inter, ui-sans-serif, system-ui",
@@ -101,7 +111,7 @@
       ],
       "framing_profile": "ocr_bounded",
       "penpot": {
-        "status": "passed-independent-closure-audit-rev549",
+        "status": "rebuild-required-owner-comments-24-59",
         "component_id": "579a886e-56e8-80a3-8008-818874efe150",
         "instance_ids": [
           "579a886e-56e8-80a3-8008-818873518988",
@@ -116,20 +126,20 @@
           "579a886e-56e8-80a3-8008-81887dd0ab8a"
         ],
         "state_keys": [
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
-          "density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
         ],
         "state_instance_count": 10,
         "export_section_id": "579a886e-56e8-80a3-8008-818872c05a92",
-        "file_revision": 549,
+        "file_revision": 653,
         "export_section_ids": [
           "579a886e-56e8-80a3-8008-818872c05a92"
         ]
@@ -177,7 +187,26 @@
           "width": 390,
           "height": 844,
           "dpr": 1
-        }
+        },
+        "rail_window_width": "100vw",
+        "track_width": "max-content",
+        "track_padding_right_px": 12,
+        "summary_height_px": 112,
+        "info_height_px": 78,
+        "digest_height_px": 112,
+        "medallion_slot_px": [
+          94,
+          112
+        ],
+        "medallion_art_px": 86,
+        "like_tail_min_px": [
+          58,
+          56
+        ],
+        "cue_px": [
+          48,
+          23
+        ]
       },
       "typography": {
         "font_stack": "Inter, system-ui",
@@ -215,7 +244,7 @@
       ],
       "framing_profile": "mobile_rail",
       "penpot": {
-        "status": "passed-independent-closure-audit-rev549",
+        "status": "rebuild-required-owner-comments-24-59",
         "component_id": "579a886e-56e8-80a3-8008-8189016141ca",
         "instance_ids": [
           "579a886e-56e8-80a3-8008-818900ac5045",
@@ -236,26 +265,26 @@
           "579a886e-56e8-80a3-8008-81891de2d2df"
         ],
         "state_keys": [
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=digest;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
-          "position=first-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
-          "position=next-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
-          "position=identity-continuation;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=dislike-reveal;media=loaded;temporal=current;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-reveal;media=loaded;temporal=current;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-committed;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loading;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=error;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=started-earlier;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=past;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=amber-tail",
-          "position=summary;occurrence=per-date;schedule=program-day;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=program-day-range;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-family;schedule=date-primary;feedback=restored;media=loaded;temporal=current;artifact=absent"
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent"
         ],
         "state_instance_count": 16,
         "export_section_id": "579a886e-56e8-80a3-8008-8189000fe2e6",
-        "file_revision": 549,
+        "file_revision": 653,
         "export_section_ids": [
           "579a886e-56e8-80a3-8008-8189000fe2e6"
         ]
@@ -287,8 +316,8 @@
       "geometry": {
         "source_width_px": 1600,
         "source_height_px": 1233,
-        "target_width_px": 267.15625,
-        "target_height_px": 278.765625,
+        "target_width_px": "packed-row-derived",
+        "target_height_px": "width / packed aspect",
         "radius_px": 9.984,
         "top_inset_px": 10.75,
         "caption_inset_px": 9.71875,
@@ -297,7 +326,13 @@
           "width": 1280,
           "height": 720,
           "dpr": 1
-        }
+        },
+        "mobile_aspects": [
+          0.95,
+          1.86,
+          1.6
+        ],
+        "heart_px": 17.92
       },
       "typography": {
         "font_stack": "Inter, ui-sans-serif, system-ui",
@@ -335,7 +370,7 @@
       ],
       "framing_profile": "related_rail",
       "penpot": {
-        "status": "passed-independent-closure-audit-rev549",
+        "status": "rebuild-required-owner-comments-24-59",
         "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
         "instance_ids": [
           "579a886e-56e8-80a3-8008-818783ed949f",
@@ -349,19 +384,19 @@
           "579a886e-56e8-80a3-8008-81878c73a720"
         ],
         "state_keys": [
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
-          "layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
-          "layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
         ],
         "state_instance_count": 9,
         "export_section_id": "579a886e-56e8-80a3-8008-818783743e6f",
-        "file_revision": 549,
+        "file_revision": 653,
         "export_section_ids": [
           "579a886e-56e8-80a3-8008-818783743e6f"
         ]
@@ -405,7 +440,11 @@
           "width": 1280,
           "height": 720,
           "dpr": 1
-        }
+        },
+        "desktop_grid": "112px clamp(420px,42vw,680px) minmax(250px,1fr) auto",
+        "row_min_height_px": 132,
+        "deck_frame_min_px": 114,
+        "medallion_px": 44
       },
       "typography": {
         "font_stack": "Inter, ui-sans-serif, system-ui",
@@ -459,7 +498,7 @@
       ],
       "framing_profile": "related_rail",
       "penpot": {
-        "status": "passed-independent-closure-audit-rev549",
+        "status": "rebuild-required-owner-comments-24-59",
         "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
         "instance_ids": [
           "45777396-2f2a-80c0-8008-818f98a70101",
@@ -471,17 +510,17 @@
           "45777396-2f2a-80c0-8008-818fafadc4f3"
         ],
         "state_keys": [
-          "presentation=desktop-row;lifecycle=upcoming;deck=idle;media=loaded;feedback=default",
-          "presentation=desktop-row;lifecycle=recent;deck=forward;media=loading;feedback=default",
-          "presentation=desktop-row;lifecycle=recent;deck=backward;media=loaded;feedback=default",
-          "presentation=desktop-row;lifecycle=ending;deck=idle;media=error;feedback=default",
-          "presentation=desktop-row;lifecycle=popular;deck=idle;media=loaded;feedback=liked",
-          "presentation=desktop-row;lifecycle=long;deck=idle;media=loaded;feedback=rejected-hidden-with-undo",
-          "presentation=mobile-gallery;lifecycle=recent;deck=idle;media=loaded;feedback=default"
+          "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+          "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+          "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
         ],
         "state_instance_count": 7,
         "export_section_id": "45777396-2f2a-80c0-8008-818f96d40fc5",
-        "file_revision": 549,
+        "file_revision": 653,
         "export_section_ids": [
           "45777396-2f2a-80c0-8008-818f96d40fc5"
         ]
@@ -528,7 +567,10 @@
           "width": 1280,
           "height": 720,
           "dpr": 1
-        }
+        },
+        "media_geometry": "dynamic ratio or 4/5",
+        "split_feedback_placement": "below shell on transparent extension",
+        "overlay_calendar": "absent"
       },
       "typography": {
         "font_stack": "Inter, ui-sans-serif, system-ui",
@@ -566,7 +608,7 @@
       ],
       "framing_profile": "large_portrait",
       "penpot": {
-        "status": "passed-independent-closure-audit-rev549",
+        "status": "rebuild-required-owner-comments-24-59",
         "component_id": "45777396-2f2a-80c0-8008-818bbc3164a3",
         "instance_ids": [
           "45777396-2f2a-80c0-8008-818bb959a34a",
@@ -594,33 +636,33 @@
           "45777396-2f2a-80c0-8008-818ecf031de2"
         ],
         "state_keys": [
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=home;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=search;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=favorites;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=personal-feed;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=collections;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=unusual;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=home;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=search;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=favorites;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=personal-feed;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=collections;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=unusual;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
         ],
         "state_instance_count": 23,
         "export_section_id": "45777396-2f2a-80c0-8008-818b87df1e84",
-        "file_revision": 549,
+        "file_revision": 653,
         "export_section_ids": [
           "45777396-2f2a-80c0-8008-818b87df1e84",
           "45777396-2f2a-80c0-8008-818d29afe090"
@@ -630,7 +672,7 @@
   ],
   "contract_binding": {
     "path": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
-    "contract_payload_sha256": "ab72756e70c2e319dbcd2cb68e921a17bbd47d8d61b0cd68080387602b4b061d",
+    "contract_payload_sha256": "d70ac750d35e4e05c5048c2e697f9397bd76a52c80441e4e70546cffb0359bf4",
     "expected_native_state_count": 65,
     "parent_surface_state_count": 28
   },

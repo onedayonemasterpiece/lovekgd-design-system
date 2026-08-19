@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "ab72756e70c2e319dbcd2cb68e921a17bbd47d8d61b0cd68080387602b4b061d",
+  "contract_payload_sha256": "d70ac750d35e4e05c5048c2e697f9397bd76a52c80441e4e70546cffb0359bf4",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -121,6 +121,14 @@
           "collections",
           "unusual"
         ],
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "presentation": [
+          "dark-shell",
+          "light-body-on-dark-section"
+        ],
         "layout": [
           "split-actions",
           "overlay-controls"
@@ -171,6 +179,8 @@
       },
       "state_key_order": [
         "consumer",
+        "viewport",
+        "presentation",
         "layout",
         "interaction",
         "media",
@@ -183,139 +193,139 @@
       ],
       "valid_combinations": [
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard.astro default split-actions + S07"
           ]
         },
         {
-          "state_key": "consumer=related;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventLayout runtime overlay template"
           ]
         },
         {
-          "state_key": "consumer=home;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=home;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "HomeColdStartFeed.astro"
           ]
         },
         {
-          "state_key": "consumer=search;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=search;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "AuthorizedEventSearch.astro success cards"
           ]
         },
         {
-          "state_key": "consumer=favorites;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=favorites;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "FavoritesSurface.astro populated grid"
           ]
         },
         {
-          "state_key": "consumer=personal-feed;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=personal-feed;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "PersonalFeedSlot.astro populated feed"
           ]
         },
         {
-          "state_key": "consumer=collections;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=collections;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "FreeCollectionSurface.astro"
           ]
         },
         {
-          "state_key": "consumer=unusual;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=unusual;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "UnusualListingSurface.astro"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard CSS/action hover"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard CSS/action focus-visible"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard CSS/action pressed"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard.astro initial is-image-loading"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard.astro image error -> fallback"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventLayout aria-pressed=true"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
           "evidence": [
             "EventLayout is-calendar-added"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
           "evidence": [
             "EventLayout setNativeShareStatus Готовим картинку"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
           "evidence": [
             "EventLayout setNativeShareStatus Поделились"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
           "evidence": [
             "EventLayout setNativeShareStatus Ссылка скопирована"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
           "evidence": [
             "EventLayout setNativeShareStatus Не удалось"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
           "evidence": [
             "EventLayout syncNotInterestedPlate"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "EventCard content stress"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "S07 exact screenshot + EventCard source layout"
           ]
         },
         {
-          "state_key": "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
             "S07 exact screenshot + EventCard source layout"
           ]
@@ -341,6 +351,23 @@
           "from": "desktop related grid",
           "to": "mobile vertical related cards",
           "relation": "same component and actions; consumer-owned media geometry changes"
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "desktop": "light #fffaf2 body/utility on dark discovery or related section",
+            "mobile": "dark #15110f shell",
+            "radius_px": 24,
+            "media": "dynamic ratio or 4/5",
+            "split_actions": "utility inside shell; feedback below shell on transparent extension",
+            "overlay_controls": "feedback inside shell; calendar absent",
+            "forbidden": [
+              "visible taxonomy consumer chips",
+              "Действия поверх медиа helper",
+              "loose or detached action glyphs",
+              "parasitic translucent band"
+            ],
+            "action_components": "linked Page30.1 instances only"
+          }
         }
       ],
       "framing_profiles": [
@@ -357,6 +384,13 @@
             "data-event-card",
             "event-card--split-actions",
             "data-card-authoritative-fit"
+          ],
+          "css_contract": [
+            ".event-card",
+            ".event-card--split-actions",
+            ".event-card__utility-row",
+            ".event-card__feedback",
+            ".event-card--overlay-controls"
           ]
         },
         {
@@ -505,31 +539,31 @@
           "45777396-2f2a-80c0-8008-818ecf031de2"
         ],
         "exact_state_keys": [
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=home;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=search;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=favorites;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=personal-feed;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=collections;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=unusual;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=home;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=search;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=favorites;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=personal-feed;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=collections;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=unusual;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
         ],
-        "status": "rematerialization-required-owner-comments-24-43",
+        "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -688,7 +722,7 @@
         }
       ],
       "icon_registry_binding": {
-        "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
         "icon_refs": [
           "icon.ui.dislike",
           "icon.ui.share",
@@ -734,6 +768,10 @@
         "icon.ui.heart"
       ],
       "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
         "density": [
           "regular",
           "weekend",
@@ -785,6 +823,7 @@
         ]
       },
       "state_key_order": [
+        "viewport",
         "density",
         "media",
         "proof",
@@ -798,61 +837,61 @@
       ],
       "valid_combinations": [
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "ListingEventCard.astro regular protected source card"
           ]
         },
         {
-          "state_key": "density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "state_key": "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "evidence": [
             "ListingEventCard.astro two-identity split tail + free medallion"
           ]
         },
         {
-          "state_key": "density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "weekend low-resolution inside-proof specimen"
           ]
         },
         {
-          "state_key": "density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "popular three-identity split tail CSS"
           ]
         },
         {
-          "state_key": "density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "state_key": "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
           "evidence": [
             "popular visual-crop overlay medallion source gate"
           ]
         },
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "design-system.css [data-listing-started-earlier=true]"
           ]
         },
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "design-system.css [data-listing-past=true]"
           ]
         },
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "design-system.css card/identity/proof hover"
           ]
         },
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "design-system.css card/identity/proof focus-visible"
           ]
         },
         {
-          "state_key": "density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "ListingEventCard.astro zero proof/identity DOM omission"
           ]
@@ -879,6 +918,42 @@
           "viewport": "desktop",
           "paired_mobile_component": "listing.rail-row",
           "owner_thread": 33
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "width_formula": "mediaHeight * imageRatio + tailWidth",
+            "fixed_420px_skeleton_forbidden": true,
+            "tail_width_px": [
+              0,
+              40,
+              64,
+              96
+            ],
+            "social_proof_px": {
+              "desktop": 17,
+              "mobile": 14
+            },
+            "proof_rail_px": {
+              "desktop": 36,
+              "mobile": 28
+            },
+            "medallion_as_is_px": {
+              "overlay": 64,
+              "weekend": 60,
+              "popular": 56,
+              "popular_mobile": 46,
+              "side_single": 60,
+              "side_multiple": 51,
+              "split": "48..52",
+              "popular_mobile_side": 40
+            },
+            "screenshot_threads": [
+              46,
+              48,
+              49,
+              54
+            ]
+          }
         }
       ],
       "framing_profiles": [
@@ -895,6 +970,13 @@
             "data-ds-version=9",
             "data-listing-image-mode",
             "data-listing-image-crop-adaptive"
+          ],
+          "css_contract": [
+            ".ke-listing-card",
+            ".ke-listing-card__visual",
+            ".ke-listing-card__side-rail",
+            ".ke-listing-card__social-proof .icon",
+            ".ke-listing-card__copy"
           ]
         }
       ],
@@ -976,18 +1058,18 @@
           "579a886e-56e8-80a3-8008-81887dd0ab8a"
         ],
         "exact_state_keys": [
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
-          "density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
-          "density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
         ],
-        "status": "rematerialization-required-owner-comments-24-43",
+        "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1046,7 +1128,7 @@
         }
       ],
       "icon_registry_binding": {
-        "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
         "icon_refs": [
           "icon.ui.share",
           "icon.ui.heart"
@@ -1087,13 +1169,16 @@
         "artifact.amber-rail"
       ],
       "variant_axes": {
-        "position": [
-          "summary",
+        "viewport": [
+          "mobile-390"
+        ],
+        "scroll-position": [
+          "start",
           "digest",
           "first-media",
           "next-media",
-          "identity-continuation",
-          "boundary"
+          "identity",
+          "end"
         ],
         "occurrence": [
           "per-date",
@@ -1105,13 +1190,19 @@
           "program-day-range",
           "date-primary"
         ],
-        "feedback": [
-          "restored",
+        "media-count-sequence": [
+          "0",
+          "1",
+          "2",
+          "3-plus"
+        ],
+        "gesture": [
+          "rest",
           "dislike-reveal",
           "like-reveal",
           "like-committed"
         ],
-        "media": [
+        "media-state": [
           "none",
           "loading",
           "loaded",
@@ -1129,107 +1220,109 @@
         ]
       },
       "state_key_order": [
-        "position",
+        "viewport",
+        "scroll-position",
         "occurrence",
         "schedule",
-        "feedback",
-        "media",
+        "media-count-sequence",
+        "gesture",
+        "media-state",
         "temporal",
         "artifact"
       ],
       "valid_combinations": [
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "MobileListingRailRow summary"
           ]
         },
         {
-          "state_key": "position=digest;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
           "evidence": [
             "digest panel"
           ]
         },
         {
-          "state_key": "position=first-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
           "evidence": [
             "first media panel"
           ]
         },
         {
-          "state_key": "position=next-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
           "evidence": [
             "next media panel"
           ]
         },
         {
-          "state_key": "position=identity-continuation;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
           "evidence": [
             "identity continuation slot"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=dislike-reveal;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "left pull"
           ]
         },
         {
-          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-reveal;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "right pull"
           ]
         },
         {
-          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-committed;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "aria-pressed true after like"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loading;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
           "evidence": [
             "initial data-media-state=loading"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=error;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
           "evidence": [
             "decode error"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=started-earlier;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
           "evidence": [
             "data-mobile-rail-temporal-state=started-earlier"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=past;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
           "evidence": [
             "data-mobile-rail-temporal-state=past"
           ]
         },
         {
-          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=amber-tail",
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
           "evidence": [
             "AmberRailArtifact exact tail sibling"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=program-day;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "MobileListingRailRow.astro noExactTime Program day"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-date;schedule=program-day-range;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "MobileListingRailRow.astro compact date range"
           ]
         },
         {
-          "state_key": "position=summary;occurrence=per-family;schedule=date-primary;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
           "evidence": [
             "MobileListingRailRow.astro occurrenceMode per-family"
           ]
@@ -1261,6 +1354,63 @@
             "fixed_390px_card_forbidden": true,
             "owner_thread": 43
           }
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "rail_window": "100vw × 112; overflow-x auto",
+            "event_track": "width:max-content; height:112; gap:7; padding-right:12",
+            "summary_px": [
+              296,
+              112
+            ],
+            "time_px": [
+              96,
+              82
+            ],
+            "info_px": [
+              162,
+              78
+            ],
+            "digest_px": [
+              168,
+              112
+            ],
+            "medallion_slot_px": [
+              94,
+              112
+            ],
+            "medallion_art_px": 86,
+            "like_tail_min_px": [
+              58,
+              56
+            ],
+            "underlay_heart_px": 32,
+            "signal_heart_px": 12,
+            "cue_px": [
+              48,
+              23
+            ],
+            "media": "height 112; width from source ratio",
+            "loading": "skeleton geometry; no text",
+            "gesture": "underlay behind translated track; never repaint whole card",
+            "forbidden_debug_copy": [
+              "digest",
+              "first media",
+              "next media",
+              "identity continuation",
+              "boundary",
+              "нравится",
+              "загрузка",
+              "не загрузилось"
+            ],
+            "screenshot_threads": [
+              55,
+              56,
+              57,
+              58,
+              59
+            ]
+          }
         }
       ],
       "framing_profiles": [
@@ -1276,6 +1426,17 @@
             "data-mobile-rail-gallery-count",
             "data-media-state",
             "data-feedback-action"
+          ],
+          "css_contract": [
+            ".rail-window",
+            ".event-track",
+            ".event-summary",
+            ".event-time",
+            ".event-info",
+            ".event-cue",
+            ".event-media",
+            ".event-digest",
+            ".event-like-cta"
           ]
         },
         {
@@ -1389,24 +1550,24 @@
           "579a886e-56e8-80a3-8008-81891de2d2df"
         ],
         "exact_state_keys": [
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=digest;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
-          "position=first-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
-          "position=next-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
-          "position=identity-continuation;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=dislike-reveal;media=loaded;temporal=current;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-reveal;media=loaded;temporal=current;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-committed;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loading;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=error;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=started-earlier;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=past;artifact=absent",
-          "position=boundary;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=amber-tail",
-          "position=summary;occurrence=per-date;schedule=program-day;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-date;schedule=program-day-range;feedback=restored;media=loaded;temporal=current;artifact=absent",
-          "position=summary;occurrence=per-family;schedule=date-primary;feedback=restored;media=loaded;temporal=current;artifact=absent"
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent"
         ],
-        "status": "rematerialization-required-owner-comments-24-43",
+        "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1482,7 +1643,7 @@
         }
       ],
       "icon_registry_binding": {
-        "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
         "icon_refs": [
           "icon.ui.heart",
           "icon.product.rail-arrow-right"
@@ -1527,6 +1688,16 @@
         "icon.editorial.festival.*"
       ],
       "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "packed-aspect": [
+          "row-derived",
+          "mobile-0.95",
+          "mobile-full-1.86",
+          "very-small-1.6"
+        ],
         "layout": [
           "compact",
           "wide"
@@ -1555,6 +1726,8 @@
         ]
       },
       "state_key_order": [
+        "viewport",
+        "packed-aspect",
         "layout",
         "status",
         "media",
@@ -1564,55 +1737,55 @@
       ],
       "valid_combinations": [
         {
-          "state_key": "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
           "evidence": [
             "S04/S05 exact festival card"
           ]
         },
         {
-          "state_key": "layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
           "evidence": [
             "status chip source"
           ]
         },
         {
-          "state_key": "layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
           "evidence": [
             "long program-pending"
           ]
         },
         {
-          "state_key": "layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
           "evidence": [
             "wide row"
           ]
         },
         {
-          "state_key": "layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
           "evidence": [
             "date pending"
           ]
         },
         {
-          "state_key": "layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
           "evidence": [
             "aria-pressed=true"
           ]
         },
         {
-          "state_key": "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
           "evidence": [
             ".festival-card:hover"
           ]
         },
         {
-          "state_key": "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "state_key": "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
           "evidence": [
             ".festival-card__link:focus-visible"
           ]
         },
         {
-          "state_key": "layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default",
+          "state_key": "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default",
           "evidence": [
             "festivali/index.astro .festival-card--document exact mediaMode branch"
           ]
@@ -1637,6 +1810,22 @@
         {
           "media_fit": "object-fit:cover; preserve intrinsic aspect and crop inside the frame; stretching forbidden",
           "owner_thread": 39
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "radius_px": "clamp(8px, …, 11px)",
+            "date_status_min_height_px": 27,
+            "chip_font_px": "12..13.2",
+            "title_px": "21..25.2; row4 19.8..22.8",
+            "heart_px": 17.92,
+            "media": "one proportional cover layer plus exactly two source gradients",
+            "forbidden": [
+              "duplicate base/custom fields",
+              "duplicate media",
+              "ПРОГРАММА · PDF"
+            ],
+            "screenshot_oracle": "missing; source-only validation"
+          }
         }
       ],
       "framing_profiles": [
@@ -1653,6 +1842,13 @@
             "data-protected-fit",
             "data-crop-fraction",
             "aria-pressed"
+          ],
+          "css_contract": [
+            ".festival-card",
+            ".festival-card__topline",
+            ".festival-card__caption",
+            ".festival-card__theme-icons i",
+            "[data-festival-like] svg"
           ]
         }
       ],
@@ -1726,17 +1922,17 @@
           "579a886e-56e8-80a3-8008-81878c73a720"
         ],
         "exact_state_keys": [
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
-          "layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
-          "layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
-          "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
-          "layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
         ],
-        "status": "rematerialization-required-owner-comments-24-43",
+        "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1812,7 +2008,7 @@
         }
       ],
       "icon_registry_binding": {
-        "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
         "icon_refs": [
           "icon.ui.heart",
           "icon.editorial.festival.*"
@@ -1859,6 +2055,10 @@
         "icon.ui.dislike"
       ],
       "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
         "presentation": [
           "desktop-row",
           "mobile-gallery"
@@ -1870,69 +2070,82 @@
           "popular",
           "long"
         ],
-        "deck": [
+        "media-count": [
+          "0",
+          "1",
+          "3",
+          "9"
+        ],
+        "deck-binding": [
+          "natural-width"
+        ],
+        "deck-phase": [
           "idle",
           "forward",
           "backward"
         ],
-        "media": [
+        "media-state": [
           "idle",
           "loading",
           "loaded",
           "error"
         ],
-        "feedback": [
+        "feedback-selection": [
           "default",
           "liked",
-          "rejected-hidden-with-undo"
+          "rejected-hidden-with-undo",
+          "keyboard-selected"
         ]
       },
       "state_key_order": [
+        "viewport",
         "presentation",
         "lifecycle",
-        "deck",
-        "media",
-        "feedback"
+        "media-count",
+        "deck-binding",
+        "deck-phase",
+        "media-state",
+        "feedback-selection"
       ],
       "valid_combinations": [
         {
-          "state_key": "presentation=desktop-row;lifecycle=upcoming;deck=idle;media=loaded;feedback=default",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
           "evidence": [
             "ExhibitionPrototypeRow default"
           ]
         },
         {
-          "state_key": "presentation=desktop-row;lifecycle=recent;deck=forward;media=loading;feedback=default",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
           "evidence": [
             "deck forward"
           ]
         },
         {
-          "state_key": "presentation=desktop-row;lifecycle=recent;deck=backward;media=loaded;feedback=default",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
           "evidence": [
             "deck backward"
           ]
         },
         {
-          "state_key": "presentation=desktop-row;lifecycle=ending;deck=idle;media=error;feedback=default",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
           "evidence": [
             "image error"
           ]
         },
         {
-          "state_key": "presentation=desktop-row;lifecycle=popular;deck=idle;media=loaded;feedback=liked",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
           "evidence": [
             "liked aria pressed"
           ]
         },
         {
-          "state_key": "presentation=desktop-row;lifecycle=long;deck=idle;media=loaded;feedback=rejected-hidden-with-undo",
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
           "evidence": [
             "rejectRow hides row and shows undo stub"
           ]
         },
         {
-          "state_key": "presentation=mobile-gallery;lifecycle=recent;deck=idle;media=loaded;feedback=default",
+          "state_key": "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
           "evidence": [
             "ExhibitionsPersonalSurface mobile gallery"
           ]
@@ -1968,6 +2181,45 @@
             28,
             29
           ]
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "desktop_grid": "112px clamp(420px,42vw,680px) minmax(250px,1fr) auto",
+            "min_height_px": 132,
+            "lte_1020": {
+              "rail_px": 95,
+              "media_px": "320..410"
+            },
+            "lte_820": {
+              "areas": [
+                "rail",
+                "deck",
+                "body",
+                "aside"
+              ],
+              "deck_height": "clamp(160px,48vw,228px)"
+            },
+            "deck_frame": "min 114px; width = 114 * source ratio",
+            "medallion_px": 44,
+            "icon_px": {
+              "share": 14,
+              "comment": 14,
+              "like": 19,
+              "reject": 18
+            },
+            "loading_error": "no loaded image retention; no literal labels",
+            "hidden_copy": [
+              "Скрыто из «Для меня»",
+              "Отменить"
+            ],
+            "keyboard_candidate": "L/X only hover or keyboard-selected; AS-IS separately; later Astro backport requires approval",
+            "screenshot_threads": [
+              50,
+              51,
+              52,
+              53
+            ]
+          }
         }
       ],
       "framing_profiles": [
@@ -1985,13 +2237,35 @@
             "data-image-state",
             "data-hidden-stub",
             "data-undo"
+          ],
+          "css_contract": [
+            ".ex-row",
+            ".ex-row__rail",
+            ".ex-deck",
+            ".ex-frame",
+            ".ex-row__body",
+            ".ex-row__aside",
+            ".ex-signal svg",
+            ".ex-action--like svg",
+            ".ex-action--reject svg"
           ]
         },
         {
           "repository": "onedayonemasterpiece/events-bot-new",
           "commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd",
           "path": "site/src/components/ExhibitionsPersonalSurface.astro",
-          "ownership": "mobile exhibition gallery presentation"
+          "ownership": "mobile exhibition gallery presentation",
+          "css_contract": [
+            ".ex-row",
+            ".ex-row__rail",
+            ".ex-deck",
+            ".ex-frame",
+            ".ex-row__body",
+            ".ex-row__aside",
+            ".ex-signal svg",
+            ".ex-action--like svg",
+            ".ex-action--reject svg"
+          ]
         }
       ],
       "consumer_bindings": [
@@ -2066,15 +2340,15 @@
           "45777396-2f2a-80c0-8008-818fafadc4f3"
         ],
         "exact_state_keys": [
-          "presentation=desktop-row;lifecycle=upcoming;deck=idle;media=loaded;feedback=default",
-          "presentation=desktop-row;lifecycle=recent;deck=forward;media=loading;feedback=default",
-          "presentation=desktop-row;lifecycle=recent;deck=backward;media=loaded;feedback=default",
-          "presentation=desktop-row;lifecycle=ending;deck=idle;media=error;feedback=default",
-          "presentation=desktop-row;lifecycle=popular;deck=idle;media=loaded;feedback=liked",
-          "presentation=desktop-row;lifecycle=long;deck=idle;media=loaded;feedback=rejected-hidden-with-undo",
-          "presentation=mobile-gallery;lifecycle=recent;deck=idle;media=loaded;feedback=default"
+          "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+          "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+          "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
         ],
-        "status": "rematerialization-required-owner-comments-24-43",
+        "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -2140,7 +2414,7 @@
         }
       ],
       "icon_registry_binding": {
-        "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
         "icon_refs": [
           "icon.ui.share",
           "icon.ui.comment",
@@ -2251,19 +2525,19 @@
   "penpot_review_binding": {
     "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "root_board_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
-    "status": "ready-for-owner-review-independent-pass",
+    "status": "not-ready-owner-comments-24-59",
     "linked_instance_count": 65,
     "page46_index_instance_count": 0,
     "as_is_reference_count": 0,
     "normalized_state_instance_count": 65,
     "detached_instance_count": 0,
-    "file_revn_readback": 551,
+    "file_revn_readback": 653,
     "expected_native_state_count": 65,
     "review_structure": "lightweight-index-plus-bounded-family-native-matrices",
-    "exact_state_set_equal": true,
+    "exact_state_set_equal": false,
     "owner_comment_cycle_20260819": {
-      "cycle_id": "owner-comments-24-43-20260819",
-      "status": "git-sot-recorded-penpot-rematerialization-required",
+      "cycle_id": "owner-comments-24-59-20260819",
+      "status": "git-sot-reconciled-native-rebuild-required",
       "unresolved_thread_ids": [
         24,
         25,
@@ -2284,119 +2558,129 @@
         40,
         41,
         42,
-        43
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
       ],
       "source_baseline": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
       "source_first_required": true,
-      "comment_resolution_gate": "resolve only after Git contract, bounded Penpot readback and visual export all agree",
-      "requirements": {
-        "exhibition.row": {
-          "threads": [
-            24,
-            25,
-            26,
-            27,
-            28,
-            29
-          ],
-          "requirements": [
-            "source-proven variable media count and deck count",
-            "separate AS-IS radii from candidate normalization",
-            "restore linked icons to exact positions",
-            "show L/X keyboard hints only on selected keyboard-active specimen",
-            "source-faithful +N deck count",
-            "loading skeleton; no loading text"
-          ]
-        },
-        "event.medallion-frame": {
-          "threads": [
-            30
-          ],
-          "requirements": [
-            "retain exact AS-IS size census",
-            "reduce candidate review to three explicit tiers 44/60/88",
-            "no Astro promotion before owner approval"
-          ]
-        },
-        "artifact.collection": {
-          "threads": [
-            31
-          ],
-          "requirements": [
-            "desktop and mobile dialog-open review specimens from exact responsive CSS"
-          ]
-        },
-        "listing.event-card": {
-          "threads": [
-            32,
-            33
-          ],
-          "requirements": [
-            "linked heart placed in proof rail",
-            "explicit desktop label and relation to distinct mobile rail"
-          ]
-        },
-        "event.card": {
-          "threads": [
-            34,
-            35,
-            36,
-            37,
-            38
-          ],
-          "requirements": [
-            "rebuild from exact Astro composition",
-            "remove unproven translucent strip",
-            "split-actions feedback controls below card on transparent extension",
-            "linked reusable action-control components with states and shared icons",
-            "retain Astro-to-SoT-to-Penpot evidence per element",
-            "overlay-controls feedback stays inside the card shell at article bottom; no detached media-overlay placeholder"
-          ]
-        },
-        "festival.card": {
-          "threads": [
-            39
-          ],
-          "requirements": [
-            "object-fit cover with proportional crop; never horizontal stretch"
-          ]
-        },
-        "listing.rail-row": {
-          "threads": [
-            40,
-            41,
-            42,
-            43
-          ],
-          "requirements": [
-            "exact source typography scale",
-            "per-media natural widths and framing",
-            "linked heart and 48x23 cue in source positions",
-            "show a complete variable-width track per state; no false fixed 390px card matrix"
-          ]
-        }
-      },
-      "partial_materialization": {
-        "penpot_revision_before_cycle": 595,
-        "status": "in_progress-connection-reload-required-on-event-card-part-a",
-        "completed_readbacks": [
-          "Page48 candidate tiers",
-          "Page49 mobile dialog",
-          "listing.event-card desktop/proof heart",
-          "festival.card proportional crop",
-          "Page30.1 action components"
+      "screenshot_oracle_count": 14,
+      "missing_screenshot_oracle": [
+        "event.card Part B",
+        "festival.card"
+      ],
+      "screenshot_oracles": {
+        "event.card": [
+          {
+            "threads": [
+              45
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81faf89cd37d"
+          },
+          {
+            "threads": [
+              47
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fbb04bf82b"
+          }
         ],
-        "unknown_outcome": [
-          "event.card Part A final batch; verify after owner reload"
+        "listing.event-card": [
+          {
+            "threads": [
+              46
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fb7afe329a"
+          },
+          {
+            "threads": [
+              48
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fc31ae9a8d"
+          },
+          {
+            "threads": [
+              49
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fe571c3a34"
+          },
+          {
+            "threads": [
+              54
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81ff8d68b975"
+          }
         ],
-        "not_started": [
-          "event.card Part B",
-          "listing.rail-row",
-          "exhibition.row",
-          "Page46 index update",
-          "comment resolution"
+        "exhibition.row": [
+          {
+            "threads": [
+              50
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fea6fb1bd5"
+          },
+          {
+            "threads": [
+              51
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fec97c5f9c"
+          },
+          {
+            "threads": [
+              52,
+              53
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fee6d7da83"
+          }
+        ],
+        "listing.rail-row": [
+          {
+            "threads": [
+              55
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820171eb437f"
+          },
+          {
+            "threads": [
+              56
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820164ad24a8"
+          },
+          {
+            "threads": [
+              57
+            ],
+            "shape_id": "eca15719-f452-809c-8008-82017c40c2eb"
+          },
+          {
+            "threads": [
+              58
+            ],
+            "shape_id": "eca15719-f452-809c-8008-82018843a60f"
+          },
+          {
+            "threads": [
+              59
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820193593f7e"
+          }
         ]
-      }
+      },
+      "raster_safety": "all oracle image IDs are outside managed roots and not reused inside them",
+      "comment_resolution_gate": "resolve only after clean native rebuild, export, readback, idempotency and independent review",
+      "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md"
     }
   },
   "package_bindings": {
@@ -2411,7 +2695,7 @@
     "iconography": {
       "contract_ref": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",
       "schema_version": "event-card-icon-registry-candidate.v1",
-      "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+      "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
       "required_icon_count": 24,
       "penpot_page_id": "10a29786-8dcf-802c-8008-739d919b8bb2"
     }

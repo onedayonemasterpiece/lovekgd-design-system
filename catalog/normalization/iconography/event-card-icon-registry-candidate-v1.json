@@ -3,7 +3,7 @@
   "schema_version": "event-card-icon-registry-candidate.v1",
   "package_id": "candidate.event-card-iconography-v1",
   "contract_version": "1.0.0-candidate.2",
-  "contract_payload_sha256": "19aec28ae81f096ffd46f70641fe95329f95873b9a21e1049a41de2b219b2ece",
+  "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
   "hash_scope": "whole-document-except-contract_payload_sha256",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -64,6 +64,25 @@
         ],
         "component_id": "fd45a474-7b74-809d-8008-8184518604e9",
         "main_shape_id": "fd45a474-7b74-809d-8008-8184514bded6"
+      },
+      "consumer_size_contract": {
+        "as_is_px": {
+          "event_generic": 20,
+          "listing_desktop": 17,
+          "listing_mobile": 14,
+          "rail_signal": 12,
+          "rail_tail": 28,
+          "rail_underlay": 32,
+          "festival": 17.92,
+          "exhibition_like": 19
+        },
+        "candidate_tiers_px": [
+          12,
+          16,
+          20,
+          28,
+          32
+        ]
       }
     },
     {
@@ -137,6 +156,16 @@
         "component_id": "fd45a474-7b74-809d-8008-8184a7cf65d0",
         "main_shape_id": "fd45a474-7b74-809d-8008-8184a78448a2",
         "component_name": "Icon/UI/dislike"
+      },
+      "consumer_size_contract": {
+        "as_is_px": {
+          "event_negative": 16,
+          "exhibition_reject": 18
+        },
+        "candidate_tiers_px": [
+          16,
+          20
+        ]
       }
     },
     {
@@ -163,6 +192,22 @@
         "component_id": "fd45a474-7b74-809d-8008-8184a83b037f",
         "main_shape_id": "fd45a474-7b74-809d-8008-8184a80d2450",
         "component_name": "Icon/UI/share"
+      },
+      "consumer_size_contract": {
+        "as_is_px": {
+          "event_desktop": 20.48,
+          "event_mobile": 18.88,
+          "listing_desktop": 17,
+          "listing_mobile": 14,
+          "exhibition": 14
+        },
+        "candidate_tiers_px": [
+          12,
+          16,
+          20,
+          28,
+          32
+        ]
       }
     },
     {
@@ -264,7 +309,14 @@
         48,
         23
       ],
-      "aspect_ratio_policy": "preserve-source-view-box; never fit into a square glyph box"
+      "aspect_ratio_policy": "preserve-source-view-box; never fit into a square glyph box",
+      "consumer_size_contract": {
+        "as_is_px": [
+          48,
+          23
+        ],
+        "candidate_policy": "special source aspect; never square"
+      }
     },
     {
       "icon_id": "icon.status.amber-found-check",
@@ -635,5 +687,5 @@
     "semantic_icon_count": 24,
     "validation_error_count": 0
   },
-  "consumer_invariant": "Every icon visible in a Penpot event-card/artifact master is a linked instance of exactly one registry-bound icon component."
+  "consumer_invariant": "Glyphs and exact AS-IS consumer sizes are source evidence. Consumers use linked Page25 components; 12/16/20/28/32 plus special 48×23 are candidate normalization only until owner approval."
 }

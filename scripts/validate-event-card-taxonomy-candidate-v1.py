@@ -95,17 +95,17 @@ def main():
  event=components['event.card']
  if event['variant_axes'].get('layout')!=['split-actions','overlay-controls'] or any(x in event['nested_component_refs'] for x in ['core.favorite-action','core.share-action','core.calendar-action']): fail('ECT_EVENT_CARD_ACTION_OWNERSHIP','/components/event.card','both source layouts required and false nested action components forbidden')
  listing=components['listing.event-card']
- listing_expected_axes=['density','media','proof','content','temporal','identity-count','tail-layout','interaction','overlay-medallion','free-medallion']
+ listing_expected_axes=['viewport','density','media','proof','content','temporal','identity-count','tail-layout','interaction','overlay-medallion','free-medallion']
  if listing['state_key_order']!=listing_expected_axes or listing['variant_axes'].get('temporal')!=['current','started-earlier','past'] or set(listing['variant_axes'].get('identity-count',[]))!={'0','1','2','3'} or set(listing['variant_axes'].get('interaction',[]))!={'default','hover','focus-visible'}: fail('ECT_LISTING_VISUAL_PLANE','/components/listing.event-card','temporal, identity, tail and interaction source axes required')
  rail=components['listing.rail-row']
  rail_states='\n'.join(x['state_key'] for x in rail['valid_combinations'])
  if 'hidden-undo' in rail_states or 'hide-committed' in rail_states or 'artifact=tail-opportunity' in rail_states or 'artifact=amber-tail' not in rail_states: fail('ECT_RAIL_STATE_OWNERSHIP','/components/listing.rail-row','hidden/toast is surface-owned and exact amber-tail row placement is required')
- if rail['state_key_order']!=['position','occurrence','schedule','feedback','media','temporal','artifact'] or set(rail['variant_axes']['schedule'])!={'exact-time','program-day','program-day-range','date-primary'}: fail('ECT_RAIL_SCHEDULE_PLANE','/components/listing.rail-row','source occurrence and schedule states required')
+ if rail['state_key_order']!=['viewport','scroll-position','occurrence','schedule','media-count-sequence','gesture','media-state','temporal','artifact'] or set(rail['variant_axes']['schedule'])!={'exact-time','program-day','program-day-range','date-primary'}: fail('ECT_RAIL_SCHEDULE_PLANE','/components/listing.rail-row','source viewport, scroll, occurrence and schedule states required')
  festival=components['festival.card']
  if 'document' not in festival['variant_axes'].get('media',[]) or set(festival['variant_axes'].get('interaction',[]))!={'default','hover','focus-visible'}: fail('ECT_FESTIVAL_MEDIA_INTERACTION','/components/festival.card','document media plus hover/focus source states required')
  exhibition=components['exhibition.row']
  exhibition_states='\n'.join(x['state_key'] for x in exhibition['valid_combinations'])
- if 'rejected-hidden-with-undo' not in exhibition_states or 'feedback=hidden-undo' in exhibition_states or 'presentation=mobile-gallery' not in exhibition_states: fail('ECT_EXHIBITION_STATE_DRIFT','/components/exhibition.row','combined rejected/undo and mobile presentation required')
+ if 'feedback-selection=rejected-hidden-with-undo' not in exhibition_states or 'feedback-selection=hidden-undo' in exhibition_states or 'presentation=mobile-gallery' not in exhibition_states or 'viewport=mobile' not in exhibition_states: fail('ECT_EXHIBITION_STATE_DRIFT','/components/exhibition.row','combined rejected/undo and mobile presentation required')
  expected_counts={'event.card':23,'listing.event-card':10,'listing.rail-row':16,'festival.card':9,'exhibition.row':7}
  if {cid:len(c['valid_combinations']) for cid,c in components.items()}!=expected_counts: fail('ECT_SOURCE_STATE_COUNT_DRIFT','/components',f'exact source-proven representative plane required: {expected_counts}')
  inventory=[]
