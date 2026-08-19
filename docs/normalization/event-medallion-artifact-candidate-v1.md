@@ -27,6 +27,11 @@ the artwork remains one linked native asset component while the frame owns
 consumer geometry, resolution and interaction. Text pills and ordinary icons
 are explicitly not medallions.
 
+The visual contract is circular, not a square asset tile. Artwork components
+and consumer slots have transparent outer surfaces; only the source-proven
+circular artwork/ring is visible. Rectangular values such as the mobile rail
+`94×112` slot describe transparent placement geometry, not a rounded card.
+
 ## Artifacts and easter eggs
 
 `event-artifact-candidate-v1.json` keeps three domains separate:
@@ -46,6 +51,13 @@ The rail tail is a `94×112` sibling after the existing like control. It is not
 an event medallion, sponsor badge, overlay, unavailable state or expired state.
 The collection surface has five finite slots but only Amber is implemented;
 the four other slots are reserved hints, not fake rewards.
+
+Page 49 must show the real `dialog-open` information surface from
+`ArtifactCollection.astro`, including the artifact artwork, Russian title,
+story copy, local-storage note and disabled share action. A tiny summary tile
+is not sufficient review evidence. Reference-only images are rendered with
+their exact derived thumbnail aspect ratios using `contain`; stretching and
+square coercion are forbidden.
 
 ## Promotion gate
 

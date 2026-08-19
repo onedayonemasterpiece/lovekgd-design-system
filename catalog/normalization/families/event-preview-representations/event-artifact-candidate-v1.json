@@ -2,8 +2,8 @@
   "$schema": "../../../../contracts/normalization/event-artifact-candidate.v1.schema.json",
   "schema_version": "event-artifact-candidate.v1",
   "package_id": "candidate.event-artifact-collection-v1",
-  "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "55fdc909792d385d436035dbf812507cf2fd590692a70930ba426a7ca2aeca8e",
+  "contract_version": "1.0.0-candidate.2",
+  "contract_payload_sha256": "4893ad1c6472d19b627e537de1b7ab1a5b2744d55773549231aae40e9c4de5b9",
   "hash_scope": "whole-document-except-contract_payload_sha256",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -207,6 +207,18 @@
       "variant_container_id": "45777396-2f2a-80c0-8008-819f1ae11b6c",
       "state_count": 4,
       "validation_error_count": 0
+    },
+    "review_presentation": {
+      "dialog_open_required": true,
+      "dialog_source_max_width_px": 760,
+      "dialog_panel_layout": "180px artwork + flexible story column; mobile collapses to one column",
+      "required_copy": [
+        "Артефакт 01 · найдено",
+        "Янтарный космонавт",
+        "Янтарный космонавт напоминает о калининградской связи моря и космоса",
+        "История открыта только по локальной отметке этого браузера."
+      ],
+      "forbidden_abbreviation": "dialog-open must not be represented only by a compact summary tile"
     }
   },
   "focus_lab_prototype": {
@@ -543,7 +555,13 @@
           "production_asset": false
         }
       }
-    ]
+    ],
+    "review_presentation": {
+      "fit": "contain",
+      "aspect_ratio": "preserve-derived-thumbnail-dimensions",
+      "cropping": "none",
+      "stretching": "forbidden"
+    }
   },
   "separation_invariants": [
     "Amber is the only runtime-active collectible",

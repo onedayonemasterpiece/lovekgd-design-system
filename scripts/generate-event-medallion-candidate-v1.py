@@ -237,7 +237,7 @@ def main() -> None:
         "$schema": "../../../../contracts/normalization/event-medallion-candidate.v1.schema.json",
         "schema_version": "event-medallion-candidate.v1",
         "package_id": "candidate.event-medallion-collection-v1",
-        "contract_version": "1.0.0-candidate.1",
+        "contract_version": "1.0.0-candidate.2",
         "contract_payload_sha256": "",
         "hash_scope": "whole-document-except-contract_payload_sha256",
         "lifecycle": "candidate",
@@ -276,6 +276,12 @@ def main() -> None:
                 "mobile_rail_art": 86,
                 "exhibition": 44,
             },
+            "presentation_invariants": [
+                "medallion artwork is circular and never receives a square white backing",
+                "consumer slot/frame surfaces are transparent; only source-proven circular ring and artwork are visible",
+                "rectangular dimensions describe a transparent placement slot, not a rounded-card background",
+                "catalog empty is an explicitly labelled resolver state, never presented as a real medallion",
+            ],
             "penpot_binding": {"status": "not-materialized", "page_id": None, "variant_container_id": None},
         },
         "resolver_contract": {

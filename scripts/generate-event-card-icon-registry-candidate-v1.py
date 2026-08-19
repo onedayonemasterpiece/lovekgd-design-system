@@ -120,6 +120,8 @@ def main() -> None:
         "source_view_box": "0 0 48 23",
         "svg_markup": rail_markup,
         "optical_size_px": 48,
+        "rendered_box_px": [48, 23],
+        "aspect_ratio_policy": "preserve-source-view-box; never fit into a square glyph box",
         "decorative_or_informative": "decorative-inside-event-link",
         "license_or_provenance": "repository-owned",
         "status": "current",

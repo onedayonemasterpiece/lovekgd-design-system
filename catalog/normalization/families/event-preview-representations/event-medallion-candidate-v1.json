@@ -2,8 +2,8 @@
   "$schema": "../../../../contracts/normalization/event-medallion-candidate.v1.schema.json",
   "schema_version": "event-medallion-candidate.v1",
   "package_id": "candidate.event-medallion-collection-v1",
-  "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "34af165e578b6762d3ca6975e2bd2f08bc7c0d9abaf9a2842602b84733d3d50c",
+  "contract_version": "1.0.0-candidate.2",
+  "contract_payload_sha256": "d86b0e7f2ab8228c1b45850843769a8e5867ea93dd1e1a58585bd6e166344df0",
   "hash_scope": "whole-document-except-contract_payload_sha256",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -102,7 +102,13 @@
       "variant_container_id": "45777396-2f2a-80c0-8008-819e0f36c65c",
       "variant_count": 6,
       "validation_error_count": 0
-    }
+    },
+    "presentation_invariants": [
+      "medallion artwork is circular and never receives a square white backing",
+      "consumer slot/frame surfaces are transparent; only source-proven circular ring and artwork are visible",
+      "rectangular dimensions describe a transparent placement slot, not a rounded-card background",
+      "catalog empty is an explicitly labelled resolver state, never presented as a real medallion"
+    ]
   },
   "resolver_contract": {
     "states": [

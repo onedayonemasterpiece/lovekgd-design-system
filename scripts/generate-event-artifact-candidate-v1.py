@@ -130,7 +130,7 @@ def main() -> None:
         "$schema": "../../../../contracts/normalization/event-artifact-candidate.v1.schema.json",
         "schema_version": "event-artifact-candidate.v1",
         "package_id": "candidate.event-artifact-collection-v1",
-        "contract_version": "1.0.0-candidate.1",
+        "contract_version": "1.0.0-candidate.2",
         "contract_payload_sha256": "",
         "hash_scope": "whole-document-except-contract_payload_sha256",
         "lifecycle": "candidate",
@@ -188,6 +188,18 @@ def main() -> None:
             "reserved_future_slots": 4,
             "states": ["production-unavailable", "nonprod-empty-0-of-5", "found-1-of-5", "dialog-open"],
             "responsive_layouts": ["desktop-five-column", "tablet-two-column", "mobile-one-column"],
+            "review_presentation": {
+                "dialog_open_required": True,
+                "dialog_source_max_width_px": 760,
+                "dialog_panel_layout": "180px artwork + flexible story column; mobile collapses to one column",
+                "required_copy": [
+                    "Артефакт 01 · найдено",
+                    "Янтарный космонавт",
+                    "Янтарный космонавт напоминает о калининградской связи моря и космоса",
+                    "История открыта только по локальной отметке этого браузера.",
+                ],
+                "forbidden_abbreviation": "dialog-open must not be represented only by a compact summary tile",
+            },
             "forbidden_claim": "unimplemented reserved slots are not collectible artifacts",
             "penpot_binding": {"status": "not-materialized", "page_id": None, "variant_container_id": None},
         },
@@ -217,6 +229,12 @@ def main() -> None:
             "status": "source-reference-not-implemented",
             "concept_count": 6,
             "source_image_count": 7,
+            "review_presentation": {
+                "fit": "contain",
+                "aspect_ratio": "preserve-derived-thumbnail-dimensions",
+                "cropping": "none",
+                "stretching": "forbidden",
+            },
             "items": references
         },
         "separation_invariants": [
