@@ -10,6 +10,7 @@ V=ROOT/'catalog/normalization/families/event-preview-representations/event-card-
 I=ROOT/'catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json'
 MED=ROOT/'catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json'
 ART=ROOT/'catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json'
+FR=ROOT/'catalog/normalization/event-media/framing-v2.json'
 
 def load(p): return json.loads(p.read_text())
 def dump(p,d): p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
@@ -18,7 +19,9 @@ def stable(d):
  return hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
 
 def main():
- t,m,v,i,med,art=map(load,(T,M,V,I,MED,ART))
+ t,m,v,i,med,art,fr=map(load,(T,M,V,I,MED,ART,FR))
+ t['framing_binding']['contract_payload_sha256']=fr['contract_payload_sha256']
+ t['framing_binding']['file_sha256']=hashlib.sha256(FR.read_bytes()).hexdigest()
  t['package_bindings']['iconography']['contract_payload_sha256']=i['contract_payload_sha256']
  t['package_bindings']['iconography']['required_icon_count']=len(i['icons'])
  t['package_bindings']['medallions']['contract_payload_sha256']=med['contract_payload_sha256']

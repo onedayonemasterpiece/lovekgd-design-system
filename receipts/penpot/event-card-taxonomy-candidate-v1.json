@@ -4,12 +4,12 @@
   "repository": "onedayonemasterpiece/lovekgd-design-system",
   "git_candidate_commit_before_receipt": "beea28f",
   "contract_ref": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
-  "contract_payload_sha256": "d7c60c9b23002a90f089cae5ee8fd5fae1e7709253911506c1baea99fb3cb619",
+  "contract_payload_sha256": "f41baad12aecf70343a2afc5e93963e3a491dbf4ccda61244209b435e7d2e3ae",
   "penpot": {
     "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "file_revn_readback": 455,
-    "saved_version_label": "65 exact card states plus medallion/artifact collection variants materialized; independent review pending",
+    "file_revn_readback": 505,
+    "saved_version_label": "Page45 framing evidence and Page40 legacy-source retirement complete; taxonomy f41baad1 bound; independent re-audit pending",
     "page40_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
     "page40_root_id": "45777396-2f2a-80c0-8008-81905f779757",
     "page45_id": "a21f0524-f565-8038-8008-789db00ee3ef",
@@ -180,13 +180,13 @@
         "579a886e-56e8-80a3-8008-818872c05a92"
       ],
       "shape_budget_readback": {
-        "shape_count": 212,
+        "shape_count": 176,
         "root_size_px": [
           1440,
           1580
         ]
       },
-      "export_status": "bounded-family-export-visually-inspected-pass"
+      "export_status": "bounded-family-export-visually-inspected-pass-rev488-no-overlap-or-placeholder"
     },
     "listing.rail-row": {
       "component_id": "579a886e-56e8-80a3-8008-8189016141ca",
@@ -401,17 +401,20 @@
     "artifact_reference_count": 7,
     "screenshot_oracle_item_count": 23,
     "idempotency_created_on_second_run": 0,
-    "final_file_revision": 455,
+    "final_file_revision": 505,
     "visual_acceptance_status": "not_ready_pending_independent_review",
     "listing_identity_placeholder_count": 0,
-    "listing_linked_extra_medallion_instance_ids": [
-      "45777396-2f2a-80c0-8008-81995ffb5717",
-      "45777396-2f2a-80c0-8008-8199605bf63d"
-    ],
     "medallion_frame_variant_count": 6,
     "medallion_frame_variant_container_id": "45777396-2f2a-80c0-8008-819e0f36c65c",
     "artifact_collection_surface_state_count": 4,
-    "artifact_collection_surface_variant_container_id": "45777396-2f2a-80c0-8008-819f1ae11b6c"
+    "artifact_collection_surface_variant_container_id": "45777396-2f2a-80c0-8008-819f1ae11b6c",
+    "page40_legacy_variant_container_count": 0,
+    "page40_legacy_component_count": 0,
+    "listing_linked_medallion_instance_count": 12,
+    "page45_root_id": "579a886e-56e8-80a3-8008-8186c5f68d1f",
+    "page45_shape_count": 48,
+    "page45_resolved_owner_comment_count": 3,
+    "page45_candidate_radii": "16/24/28"
   },
   "exports": [
     {
@@ -430,7 +433,7 @@
         "579a886e-56e8-80a3-8008-818872c05a92"
       ],
       "format": "png",
-      "status": "bounded-family-export-visually-inspected-pass-after-final-typography",
+      "status": "bounded-family-export-visually-inspected-pass-rev488-no-overlap-or-placeholder",
       "method": "Penpot MCP export_shape",
       "observed_on": "2026-08-19"
     },
@@ -470,5 +473,32 @@
     "Candidate/reconstructed/noncanonical materialization; no canonical promotion is claimed.",
     "Page46 remains visibly NOT READY until independent reviewer passes.",
     "Screenshots are visual oracles only; exact Astro/CSS/assets at a68c7f23c4e014c6e9f66e95f394656e9cb0f411 are the source authority."
+  ],
+  "source_skeleton_components": {
+    "festival.card": {
+      "component_id": "45777396-2f2a-80c0-8008-81a584fc630e",
+      "main_shape_id": "45777396-2f2a-80c0-8008-81a584943f73"
+    },
+    "listing.event-card": {
+      "component_id": "45777396-2f2a-80c0-8008-81a594615af3",
+      "main_shape_id": "45777396-2f2a-80c0-8008-81a593ea76bf"
+    },
+    "listing.rail-row": {
+      "component_id": "45777396-2f2a-80c0-8008-81a5a29ee3e2",
+      "main_shape_id": "45777396-2f2a-80c0-8008-81a5a2511c19"
+    },
+    "exhibition.row": {
+      "component_id": "45777396-2f2a-80c0-8008-81a5b066a96a",
+      "main_shape_id": "45777396-2f2a-80c0-8008-81a5afb44606"
+    },
+    "legacy_variant_container_count": 0,
+    "legacy_component_count": 0,
+    "glyph_policy": "card-local glyph paths removed from source skeletons; family masters own linked Page25 icon instances"
+  },
+  "remediation_since_independent_rev455": [
+    "Framing Git SoT and Page45 now agree at compact native OCR/radii evidence with threads 11–13 resolved.",
+    "Four legacy Page40 VariantContainers and components were retired after all family references were swapped to normal source skeleton components.",
+    "listing.event-card rails/placeholders were removed; 12 medallion slots now use linked Page48 components; fresh root export has no overlap/clipping.",
+    "Taxonomy f41baad1 is bound to Page40/Page45/Page46 and every bounded family root; file validate returned zero diagnostics at rev505."
   ]
 }

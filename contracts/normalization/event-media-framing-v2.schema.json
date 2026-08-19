@@ -17,6 +17,7 @@
     "authority",
     "rendering_invariants",
     "radii_px",
+    "candidate_normalized_radii_px",
     "media_owners",
     "consumer_owned_slots",
     "large_card_resolution",
@@ -223,12 +224,17 @@
         "type": "object",
         "required": [
           "id",
-          "penpot_board_id",
-          "penpot_media_id",
+          "penpot_binding_shape_id",
           "sample_geometry",
           "ratio",
           "ownership"
-        ]
+        ],
+        "properties": {
+          "penpot_binding_shape_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f-]{36}$"
+          }
+        }
       }
     },
     "large_card_resolution": {
@@ -333,6 +339,35 @@
       "contains": {
         "const": "production_implementation"
       }
+    },
+    "candidate_normalized_radii_px": {
+      "type": "object",
+      "required": [
+        "status",
+        "media",
+        "card",
+        "enclosing_container",
+        "relationship_to_as_is"
+      ],
+      "properties": {
+        "status": {
+          "const": "candidate-not-implemented-or-runtime-proven"
+        },
+        "media": {
+          "const": 16
+        },
+        "card": {
+          "const": 24
+        },
+        "enclosing_container": {
+          "const": 28
+        },
+        "relationship_to_as_is": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
