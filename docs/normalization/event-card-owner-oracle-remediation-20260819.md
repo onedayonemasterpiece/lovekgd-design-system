@@ -214,3 +214,21 @@ all derived hashes remain unchanged, and Page 46 stays `NOT READY`. The required
 next action is restoration of bounded Penpot page reads followed by an exact
 status/hash/linked-instance audit; only then may the Git contracts and Penpot
 hash aliases advance.
+
+### Post-audit native cleanup
+
+The bounded follow-up removed 73 obsolete top-level Event A controls and 70
+Event B controls/state overlays rather than hiding them. Event A hover,
+focus-visible and pressed specimens now switch all four linked Page 30.1 action
+heads to the matching variant. Event B reads back four visible linked actions in
+all 11 states, including selected, added, busy/shared/copied/error and committed.
+The retired Listing 14 px heart duplicate was physically removed.
+
+Exact bounded Page 48 and Page 49 reads then proved six AS-IS consumer-frame
+variants plus three linked 44/60/88 candidate specimens, and five artifact
+collection states including the 390×640 mobile dialog. This allowed a Git-first
+status/hash advance (`acea17e9` taxonomy, `9a06383c` medallions, `0d22de69`
+artifacts), followed by Penpot rebinding. All eight taxonomy roots and both
+collection root/container pairs now read back without stale aliases, and file
+validation is empty. Page 46 remains `NOT READY` while the independent re-audit
+and current visual export gate are outstanding.
