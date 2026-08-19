@@ -270,3 +270,20 @@ a bounded Event B card with consecutive MCP `-32603 Internal error` results. Per
 the timeout/reconciliation policy no further export retry was made. Current
 visual acceptance therefore remains blocked and this is not an owner-review-ready
 claim.
+
+### Bounded current export matrix after service recovery
+
+After page-scoped handoffs, current full-family PNG exports succeeded for Event A,
+Festival and Exhibition; the Page 46 index also exported. Festival's nine states
+show source-derived cover framing without the former horizontal stretch. The
+Exhibition matrix shows variable media counts, skeleton/error geometry and the
+separate idle/keyboard-selected product candidate. Event B, Listing and Rail
+continued to return MCP `-32603 Internal error` even for bounded single-card
+exports, so their current visual proof remains blocked. Penpot documents export
+as a separate Puppeteer/headless-browser service, and upstream reports show both
+resource and shape-locator timeout forms of this failure.
+
+Only comments with exact structural or current PNG proof were closed: 24, 27,
+28, 29, 31, 35, 36, 37, 39, 44 and 53. Twenty-five framing, screenshot, visual
+comparison or pending product-normalization threads remain open. Page 46 now
+shows this exact matrix and stays `NOT READY`.
