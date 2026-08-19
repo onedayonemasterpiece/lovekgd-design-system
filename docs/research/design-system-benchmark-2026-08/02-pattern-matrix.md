@@ -21,7 +21,7 @@ Legend: `●` — сильный подтверждённый pattern; `◐` —
 | Yandex UI | ◐ | ◐ | ◐ | ◐ | ◐ | ○ | ◐ | explicit modifier axes require central combination model |
 | Elephas | ◐ | ◐ | ● | ● | ◐ | ○ | ◐ | one framework-neutral core with tested adapters |
 | Ростелеком | ● | ● | ● | ● | ● | ◐ | ● | engine/themes, generation migration and rich usage rules |
-| Росатом | ◐ | ◐ | ◐ | ◐ | ◐ | ◐ | ◐ | multi-surface portal; deeper audit required |
+| Росатом | ◐ | ◐ | ◐ | ◐ | ◐ | ◐ | ◐ | content/brand/layout foundations precede components; static guide needs machine contracts |
 | Penpot platform | ● | — | ◐ | — | — | — | ● | native review surface must remain contract-bound |
 
 ## 2. Повторяющиеся сильные patterns
@@ -93,6 +93,30 @@ Gravity/Kontur/Paradigm and Госдизайн.
 
 **LoveKGD rule:** a11y checks exist at foundation, component, pattern, archetype, flow and content levels.
 
+### P-11. Content and editorial rules are foundations
+
+Rosatom places communication style and editorial standards before visual constants; Paradigm and Kontur also treat content guidance as system knowledge.
+
+**LoveKGD rule:** terminology, formatting, truncation, localization and recovery language are versioned registries reused by components, fixtures, docs and tests.
+
+### P-12. Responsive, grid and media rules are contract data
+
+Rosatom documents breakpoint ranges, columns, gutters, outer margins and media aspect classes; other systems confirm responsive/component and page layers.
+
+**LoveKGD rule:** layout branches, container/grid identities and media behavior are machine-readable and source-proven. External values are not copied without product validation.
+
+### P-13. Brand and icon assets have governance
+
+Rosatom exposes logo protection/prohibited use and icon geometry/delivery.
+
+**LoveKGD rule:** assets have stable IDs/hashes, provenance/rights, geometry, modes, consumers, accessibility and replacement history.
+
+### P-14. Canonical semantic names and display aliases are separate
+
+T2D2 exposes axis spelling/casing drift; Rosatom exposes opaque mnemonic scales.
+
+**LoveKGD rule:** semantic canonical IDs are machine API; localized labels, emoji and mnemonic names are optional display/search aliases with migration.
+
 ## 3. Повторяющиеся failure modes
 
 ### F-01. Platform kits diverge
@@ -141,12 +165,28 @@ Schema-valid JSON does not ensure product intent.
 
 **Countermeasure:** visible banner, replacement, migration fixtures, release runway and consumer census.
 
+### F-11. Static style guide becomes a frozen parallel SoT
+
+**Countermeasure:** generate or validate docs against contract/package/Penpot/test registries; show observed version and compatibility.
+
+### F-12. Opaque mnemonics and spelling drift become public API
+
+**Countermeasure:** semantic canonical IDs, display aliases, lint, collision checks and explicit rename migration.
+
+### F-13. External breakpoints/tokens are copied without product evidence
+
+**Countermeasure:** treat reference values as hypotheses; require current consumer census, accessibility and responsive fixtures before adoption.
+
+### F-14. Component showroom is mistaken for component readiness
+
+**Countermeasure:** catalogue and dossier are separate surfaces; lifecycle and conformance derive from exact evidence.
+
 ## 4. Target pattern stack for LoveKGD
 
 ```text
 L0  Evidence and product meaning
 L1  Raw assets and primitive values
-L2  Semantic foundations and tokens
+L2  Semantic foundations: content, brand, tokens, typography, iconography, media, layout, motion, accessibility
 L3  Primitives and component contracts
 L4  Native component implementations
 L5  Patterns / blocks / compositions
@@ -167,6 +207,7 @@ Penpot = native design implementation + review
 code package = executable implementation
 runtime = product evidence
 docs = rendered explanation of the graph
+external references = labelled research evidence only
 ```
 
 ### Publication rule
