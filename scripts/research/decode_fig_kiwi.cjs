@@ -11,9 +11,10 @@
  *   4 bytes  version, uint32 LE
  *   repeated: 4-byte chunk size + compressed chunk bytes
  *
- * Chunk 0 embeds a deflate-raw Kiwi schema. Chunk 1 contains the document
- * message, normally zstd-compressed in current files. The format is
- * self-describing; no project-specific schema is hard-coded here.
+ * The first two chunks contain the embedded Kiwi schema and document message.
+ * Current checkpoints may use Zstandard for either chunk; older snapshots can
+ * use raw DEFLATE or a zlib-wrapped stream. Compression is therefore detected
+ * independently for every chunk. No project-specific schema is hard-coded.
  *
  * Runtime dependencies:
  *   npm install --no-save kiwi-schema pako fzstd
@@ -31,6 +32,44 @@ const outputPath = process.argv[3];
 if (!inputPath || !outputPath) {
     console.error('Usage: node decode_fig_kiwi.cjs <checkpoint.fig> <decoded.json>');
     process.exit(2);
+}
+
+function isZstd(chunk) {
+    return (
+        chunk.length >= 4 &&
+        chunk[0] === 0x28 &&
+        chunk[1] === 0xb5 &&
+        chunk[2] === 0x2f &&
+        chunk[3] === 0xfd
+    );
+}
+
+function decompressChunk(chunk, label) {
+    if (isZstd(chunk)) {
+        return {
+            bytes: fzstd.decompress(chunk),
+            compression: 'zstd',
+        };
+    }
+
+    try {
+        return {
+            bytes: pako.inflateRaw(chunk),
+            compression: 'deflate-raw',
+        };
+    } catch (rawError) {
+        try {
+            return {
+                bytes: pako.inflate(chunk),
+                compression: 'zlib-or-gzip',
+            };
+        } catch (wrappedError) {
+            throw new Error(
+                `${label} chunk is not supported zstd, raw-DEFLATE, zlib or gzip: ` +
+                    `raw=${rawError.message}; wrapped=${wrappedError.message}`,
+            );
+        }
+    }
 }
 
 const data = fs.readFileSync(inputPath);
@@ -60,18 +99,12 @@ if (chunks.length < 2) {
     throw new Error(`Expected schema and message chunks, received ${chunks.length}`);
 }
 
-const schemaBytes = pako.inflateRaw(chunks[0]);
-const schema = decodeBinarySchema(schemaBytes);
+const schemaChunk = decompressChunk(chunks[0], 'schema');
+const schema = decodeBinarySchema(schemaChunk.bytes);
 const decoder = compileSchema(schema);
 
-const zstdMagic =
-    chunks[1].length >= 4 &&
-    chunks[1][0] === 0x28 &&
-    chunks[1][1] === 0xb5 &&
-    chunks[1][2] === 0x2f &&
-    chunks[1][3] === 0xfd;
-const messageBytes = zstdMagic ? fzstd.decompress(chunks[1]) : pako.inflateRaw(chunks[1]);
-const message = decoder.decodeMessage(messageBytes);
+const messageChunk = decompressChunk(chunks[1], 'message');
+const message = decoder.decodeMessage(messageChunk.bytes);
 
 const envelope = {
     _decoder: {
@@ -80,9 +113,10 @@ const envelope = {
         chunkCount: chunks.length,
         chunkSizes: chunks.map((chunk) => chunk.length),
         schemaDefinitionCount: Array.isArray(schema.definitions) ? schema.definitions.length : null,
-        schemaBytes: schemaBytes.length,
-        messageCompression: zstdMagic ? 'zstd' : 'deflate-raw',
-        messageBytes: messageBytes.length,
+        schemaCompression: schemaChunk.compression,
+        schemaBytes: schemaChunk.bytes.length,
+        messageCompression: messageChunk.compression,
+        messageBytes: messageChunk.bytes.length,
     },
     ...message,
 };
@@ -96,6 +130,8 @@ console.log(
             version,
             chunkSizes: envelope._decoder.chunkSizes,
             schemaDefinitionCount: envelope._decoder.schemaDefinitionCount,
+            schemaCompression: envelope._decoder.schemaCompression,
+            schemaBytes: envelope._decoder.schemaBytes,
             messageCompression: envelope._decoder.messageCompression,
             messageBytes: envelope._decoder.messageBytes,
             topLevelKeys: Object.keys(message),
