@@ -15,9 +15,13 @@
 | [`audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md) | byte-preserved independent v1.1 re-audit (61,775 bytes; SHA-bound) | controlling verdict for audited head; delta re-audit required for reconciled head |
 | [`audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md) | six-finding v1.1.1 correction/evidence ledger | implementation evidence only; no merge authorization |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
+| [`design-system-task-operating-prompt.md`](design-system-task-operating-prompt.md) | reusable evidence-first intake, decomposition, output and STOP protocol for current design-system tasks | candidate for owner review; no authority effect |
+| [`roadmaps/design-system-development-control-v0.1.md`](roadmaps/design-system-development-control-v0.1.md) | W0–W7 programme derived from comparative research | candidate for owner review; implementation not authorized |
+| [`research/design-system-benchmark-2026-08/README.md`](research/design-system-benchmark-2026-08/README.md) | multi-system benchmark including exact T2D2 and Rosatom historical read-backs | reviewed research; no acceptance effect |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
 | [`research/first-party-action-map-2026-08/README.md`](research/first-party-action-map-2026-08/README.md) | semantic signals for component-level action observability | research input; not an acceptance decision |
+| [`research/consta-design-system-reference-2026-08/README.md`](research/consta-design-system-reference-2026-08/README.md) | Consta Figma/stand/source presentation patterns и candidate Component Dossier Standard для LoveKGD | reviewed external reference; documentation-only candidate; no acceptance effect |
 
 ## Машиночитаемые контракты и receipts
 
@@ -37,6 +41,7 @@
 | [`../contracts/normalization/analytical-entity-kinds.v1.schema.json`](../contracts/normalization/analytical-entity-kinds.v1.schema.json) | distinguishes component identities from catalogs, compositions, surfaces, workflows, runtime and evidence groups | audit-remediated candidate schema |
 | [`../contracts/normalization/semantic-readiness.v1.schema.json`](../contracts/normalization/semantic-readiness.v1.schema.json) | positive 23-dimension readiness evidence for every analytical group | 47 assessed; 0 ready |
 | [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
+| [`../contracts/design-system-development-control.v0.1.json`](../contracts/design-system-development-control.v0.1.json) | machine-readable candidate programme, foundation domains, task-output contract and STOP controls | candidate; no lifecycle/implementation authority |
 | [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
 | [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | historical v1 receipt | retained; readiness proof superseded |
 | [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | v1.1.1 content/definition manifest, reconciliation lineage, STOP constraints and external attestation contract | execution attestation and independent delta re-audit required; merge forbidden |

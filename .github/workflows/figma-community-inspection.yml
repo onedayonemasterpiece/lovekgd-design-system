@@ -1,0 +1,121 @@
+name: Figma Community direct inspection
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install read-only browser probe
+        run: |
+          python -m pip install --disable-pip-version-check selenium
+          google-chrome --version || chromium --version
+          chromedriver --version || true
+
+      - name: Capture public Community resource pages
+        run: |
+          python scripts/research/capture_grida_community_viewer.py \
+            --seconds 75 \
+            --output .tmp/figma-resource-capture \
+            --url https://www.figma.com/community/file/1144567424019815189 \
+            --url https://www.figma.com/community/file/1509554620086084342/t2d2-public-web
+
+      - name: Capture working embedded Community viewers
+        run: |
+          python scripts/research/capture_grida_community_viewer.py \
+            --seconds 100 \
+            --output .tmp/figma-embed-capture \
+            --url 'https://embed.figma.com/file/1509554620086084342/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1' \
+            --url 'https://embed.figma.com/file/1144567424019815189/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1'
+
+      - name: Decode T2D2 checkpoint and generate structural inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          checkpoint=$(find .tmp/figma-embed-capture -type f -name '*.fig' -size +100k | head -n 1)
+          test -n "$checkpoint"
+          echo "checkpoint=$checkpoint"
+          mkdir -p .tmp/fig-kiwi-node
+          npm install --prefix .tmp/fig-kiwi-node --no-save kiwi-schema pako fzstd
+          NODE_PATH="$PWD/.tmp/fig-kiwi-node/node_modules" \
+            node scripts/research/decode_fig_kiwi.cjs \
+              "$checkpoint" \
+              .tmp/t2d2-decoded.json
+          python scripts/research/summarize_decoded_fig.py \
+            .tmp/t2d2-decoded.json \
+            .tmp/t2d2-checkpoint-inventory
+          gzip -9 .tmp/t2d2-decoded.json
+          sha256sum "$checkpoint" .tmp/t2d2-decoded.json.gz \
+            .tmp/t2d2-checkpoint-inventory/summary.json \
+            > .tmp/t2d2-checkpoint-inventory/SHA256SUMS
+
+      - name: Summarize direct page and embed evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          roots = {
+              'resource_page': Path('.tmp/figma-resource-capture'),
+              'embed_viewer': Path('.tmp/figma-embed-capture'),
+          }
+          report = {
+              'observation_kind': 'direct-public-figma-browser-and-checkpoint-capture',
+              'authority_effect': 'none',
+              'canonical': False,
+              'captures': {},
+          }
+          for source, root in roots.items():
+              report['captures'][source] = {}
+              for directory in sorted(p for p in root.iterdir() if p.is_dir()):
+                  body = (directory / 'body-text.txt').read_text(encoding='utf-8', errors='replace')
+                  responses = json.loads((directory / 'network-responses.json').read_text(encoding='utf-8'))
+                  status = json.loads((directory / 'capture-status.json').read_text(encoding='utf-8'))
+                  interesting = [r for r in responses if r.get('interesting')]
+                  saved = [r for r in interesting if r.get('saved_body')]
+                  report['captures'][source][directory.name] = {
+                      'capture_status': status,
+                      'body_preview': body[:10000],
+                      'response_count': len(responses),
+                      'interesting_response_count': len(interesting),
+                      'saved_response_bodies': len(saved),
+                      'candidate_urls': [r.get('url') for r in interesting[:600]],
+                  }
+          output = Path('.tmp/figma-live-capture-summary.json')
+          output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Upload direct inspection evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-community-live-inspection
+          path: |
+            .tmp/figma-resource-capture
+            .tmp/figma-embed-capture
+            .tmp/figma-live-capture-summary.json
+            .tmp/t2d2-decoded.json.gz
+            .tmp/t2d2-checkpoint-inventory
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Validate evidence envelope
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .tmp/figma-live-capture-summary.json
+          test -s .tmp/t2d2-decoded.json.gz
+          test -s .tmp/t2d2-checkpoint-inventory/summary.json
+          test "$(find .tmp/figma-resource-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test "$(find .tmp/figma-embed-capture -name viewport.png -size +0c | wc -l)" -ge 2
