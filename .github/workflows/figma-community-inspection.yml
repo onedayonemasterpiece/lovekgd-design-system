@@ -43,19 +43,19 @@ jobs:
             --url https://www.figma.com/community/file/1144567424019815189 \
             --url https://www.figma.com/community/file/1509554620086084342/t2d2-public-web
 
-      - name: Capture live Community canvas routes
+      - name: Capture working embedded Community viewers
         run: |
           python scripts/research/capture_grida_community_viewer.py \
-            --seconds 120 \
-            --output .tmp/figma-canvas-capture \
-            --url https://www.figma.com/community/file/1144567424019815189/canvas \
-            --url https://www.figma.com/community/file/1509554620086084342/canvas
+            --seconds 100 \
+            --output .tmp/figma-embed-capture \
+            --url 'https://embed.figma.com/file/1509554620086084342/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1' \
+            --url 'https://embed.figma.com/file/1144567424019815189/hf_embed?community_viewer=true&embed_host=fastma&kind=file&page-selector=0&viewer=1'
 
       - name: Decode T2D2 checkpoint and generate structural inventory
         shell: bash
         run: |
           set -euo pipefail
-          checkpoint=$(find .tmp/figma-canvas-capture/1509554620086084342/responses -type f -name '*.fig' -size +100k | head -n 1)
+          checkpoint=$(find .tmp/figma-embed-capture -type f -name '*.fig' -size +100k | head -n 1)
           test -n "$checkpoint"
           echo "checkpoint=$checkpoint"
           mkdir -p .tmp/fig-kiwi-node
@@ -72,7 +72,7 @@ jobs:
             .tmp/t2d2-checkpoint-inventory/summary.json \
             > .tmp/t2d2-checkpoint-inventory/SHA256SUMS
 
-      - name: Summarize direct page and canvas evidence
+      - name: Summarize direct page and embed evidence
         shell: bash
         run: |
           set -euo pipefail
@@ -82,10 +82,10 @@ jobs:
 
           roots = {
               'resource_page': Path('.tmp/figma-resource-capture'),
-              'canvas_route': Path('.tmp/figma-canvas-capture'),
+              'embed_viewer': Path('.tmp/figma-embed-capture'),
           }
           report = {
-              'observation_kind': 'direct-public-figma-browser-capture',
+              'observation_kind': 'direct-public-figma-browser-and-checkpoint-capture',
               'authority_effect': 'none',
               'canonical': False,
               'captures': {},
@@ -118,7 +118,7 @@ jobs:
           name: figma-community-live-inspection
           path: |
             .tmp/figma-resource-capture
-            .tmp/figma-canvas-capture
+            .tmp/figma-embed-capture
             .tmp/figma-live-capture-summary.json
             .tmp/t2d2-decoded.json.gz
             .tmp/t2d2-checkpoint-inventory
@@ -133,4 +133,4 @@ jobs:
           test -s .tmp/t2d2-decoded.json.gz
           test -s .tmp/t2d2-checkpoint-inventory/summary.json
           test "$(find .tmp/figma-resource-capture -name viewport.png -size +0c | wc -l)" -ge 2
-          test "$(find .tmp/figma-canvas-capture -name viewport.png -size +0c | wc -l)" -ge 2
+          test "$(find .tmp/figma-embed-capture -name viewport.png -size +0c | wc -l)" -ge 2
