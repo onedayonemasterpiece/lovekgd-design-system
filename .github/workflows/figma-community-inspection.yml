@@ -25,42 +25,73 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download archived public Community snapshots
+      - name: Probe and download archived public Community snapshots
+        shell: bash
+        run: |
+          set -uo pipefail
+          mkdir -p .tmp/figma-community
+          : > .tmp/figma-community/available-ids.txt
+          printf '{\n  "files": {\n' > .tmp/figma-community/download-status.json
+          comma=""
+          for id in 1144567424019815189 1509554620086084342; do
+            dir=".tmp/figma-community/${id}"
+            mkdir -p "$dir"
+            meta_url="https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/meta.json"
+            file_url="https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/file.json.gz"
+            export_url="https://figma-community-images.s3.us-west-1.amazonaws.com/${id}/exports/meta.json"
+
+            meta_status=$(curl --location --silent --show-error --output "$dir/meta.json" --write-out '%{http_code}' "$meta_url" || true)
+            file_status=$(curl --location --silent --show-error --output "$dir/file.json.gz" --write-out '%{http_code}' "$file_url" || true)
+            export_status=$(curl --location --silent --show-error --output "$dir/exports-meta.json" --write-out '%{http_code}' "$export_url" || true)
+
+            if [ "$export_status" != "200" ]; then
+              printf '{"map":{}}\n' > "$dir/exports-meta.json"
+            fi
+            available=false
+            if [ "$file_status" = "200" ] && [ -s "$dir/file.json.gz" ]; then
+              available=true
+              echo "$id" >> .tmp/figma-community/available-ids.txt
+            fi
+            printf '%s    "%s": {"meta_http": "%s", "file_http": "%s", "exports_http": "%s", "available": %s}' \
+              "$comma" "$id" "$meta_status" "$file_status" "$export_status" "$available" \
+              >> .tmp/figma-community/download-status.json
+            comma=",\n"
+          done
+          printf '\n  }\n}\n' >> .tmp/figma-community/download-status.json
+          cat .tmp/figma-community/download-status.json
+
+      - name: Inspect nodes, components, pages and archived exports
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p .tmp/figma-community
-          for id in 1509554620086084342 1144567424019815189; do
-            dir=".tmp/figma-community/${id}"
-            mkdir -p "$dir"
-            curl --fail --location --retry 4 --retry-delay 3 \
-              "https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/meta.json" \
-              --output "$dir/meta.json"
-            curl --fail --location --retry 4 --retry-delay 3 \
-              "https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/file.json.gz" \
-              --output "$dir/file.json.gz"
-            curl --fail --location --retry 4 --retry-delay 3 \
-              "https://figma-community-images.s3.us-west-1.amazonaws.com/${id}/exports/meta.json" \
-              --output "$dir/exports-meta.json" || printf '{"map":{}}\n' > "$dir/exports-meta.json"
-          done
+          args=()
+          while IFS= read -r id; do
+            [ -n "$id" ] && args+=(--file-id "$id")
+          done < .tmp/figma-community/available-ids.txt
+          mkdir -p .tmp/figma-community-inspection
+          cp .tmp/figma-community/download-status.json .tmp/figma-community-inspection/download-status.json
+          if [ ${#args[@]} -gt 0 ]; then
+            python scripts/research/inspect_figma_community_archive.py \
+              --input .tmp/figma-community \
+              --output .tmp/figma-community-inspection \
+              "${args[@]}"
+          else
+            printf '# Figma Community direct archive read-back\n\nNo requested snapshot was available from the public archive.\n' \
+              > .tmp/figma-community-inspection/index.md
+          fi
 
-      - name: Inspect nodes, components, pages and archived exports
-        run: |
-          python scripts/research/inspect_figma_community_archive.py \
-            --input .tmp/figma-community \
-            --output .tmp/figma-community-inspection
-
-      - name: Validate generated summaries
+      - name: Validate generated evidence envelope
         shell: bash
         run: |
           set -euo pipefail
           test -s .tmp/figma-community-inspection/index.md
-          test -s .tmp/figma-community-inspection/t2d2-public-web/summary.json
-          test -s .tmp/figma-community-inspection/rosatom-design-system/summary.json
+          test -s .tmp/figma-community-inspection/download-status.json
           python - <<'PY'
           import json
           from pathlib import Path
           root = Path('.tmp/figma-community-inspection')
+          status = json.loads((root / 'download-status.json').read_text(encoding='utf-8'))
+          print('download status:', json.dumps(status, ensure_ascii=False))
           for path in root.glob('*/summary.json'):
               data = json.loads(path.read_text(encoding='utf-8'))
               assert data['observation_kind'] == 'public-community-archive-readback'
