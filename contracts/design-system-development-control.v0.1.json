@@ -1,0 +1,198 @@
+{
+  "document_kind": "design-system-development-control",
+  "schema_id": "lovekgd.design-system-development-control.v0.1",
+  "version": "0.1.0",
+  "status": "candidate-for-owner-review",
+  "canonical": false,
+  "authority_effect": "none",
+  "lifecycle_effect": "none",
+  "penpot_mutation_authorized": false,
+  "implementation_authorized": false,
+  "observed_at": "2026-08-19",
+  "research_ref": "docs/research/design-system-benchmark-2026-08/README.md",
+  "governing_doc_ref": "docs/roadmaps/design-system-development-control-v0.1.md",
+  "preserves": [
+    "docs/component-contract-authority.md",
+    "docs/resource-graph-004.md",
+    "docs/normalization/design-system-family-lifecycle.md",
+    "docs/page-archetype-requirements.md"
+  ],
+  "target_resource_hierarchy": [
+    "foundation",
+    "primitive",
+    "component",
+    "pattern",
+    "page_archetype",
+    "product_representation",
+    "runtime_route"
+  ],
+  "source_of_truth_roles": {
+    "product_meaning": ["Product Atlas", "accepted product contracts"],
+    "current_as_is_behavior_before_promotion": ["exact product source", "runtime evidence"],
+    "identity_version_lifecycle": ["Git contract registry", "versioned package metadata"],
+    "native_visual_candidate_and_review": ["Penpot Resource Graph at exact revision"],
+    "executable_candidate": ["versioned package implementation at exact SHA"],
+    "production_conformance": ["runtime release", "CI evidence"],
+    "documentation": ["rendered/validated views of contract and evidence graph"]
+  },
+  "identity_tuples": {
+    "component": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "pattern": [
+      "pattern_id",
+      "pattern_version",
+      "pattern_sha256",
+      "composition_key",
+      "fixture_id",
+      "viewport_id",
+      "dependency_graph_sha256",
+      "candidate_package_sha"
+    ],
+    "page_archetype": [
+      "archetype_id",
+      "archetype_version",
+      "archetype_sha256",
+      "composition_key",
+      "page_state_key",
+      "fixture_set_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ]
+  },
+  "token_layers": [
+    {"id": "primitive", "public_component_api_allowed": false},
+    {"id": "semantic_foundation", "required_for_component_refs": true},
+    {"id": "component", "owner": "component_contract"},
+    {"id": "pattern_or_archetype", "creation_rule": "only_for_proven_repeated_composition_invariant"},
+    {"id": "theme_or_product_alias", "may_change_semantics": false}
+  ],
+  "workstreams": [
+    {
+      "id": "W0",
+      "name": "Governance and evidence",
+      "gate": "GOVERNANCE_REVIEWED",
+      "authority_change": false,
+      "deliverables": [
+        "source/evidence register",
+        "resource-kind definitions",
+        "decision record template",
+        "owner/reviewer roles",
+        "review severity and closure protocol",
+        "compatibility and supersession policy"
+      ]
+    },
+    {
+      "id": "W1",
+      "name": "SoT registry and machine schemas",
+      "gate": "REGISTRY_SCHEMA_ACCEPTED",
+      "authority_change": false,
+      "deliverables": [
+        "component/pattern/archetype metadata schemas",
+        "stable binding tuples",
+        "token registry schema",
+        "fixture and viewport registries",
+        "binding registry",
+        "naming and valid-combination validation",
+        "catalog rendering contract"
+      ]
+    },
+    {
+      "id": "W2",
+      "name": "Foundations and tokens",
+      "gate": "PILOT_FOUNDATIONS_READY",
+      "authority_change": false,
+      "scope_rule": "pilot-consumed foundations only"
+    },
+    {
+      "id": "W3",
+      "name": "Component dossier pilot",
+      "gate": "COMPONENT_OWNER_REVIEW_COMPLETE",
+      "authority_change": false,
+      "pilot_selection_rule": "highest exact evidence/readiness score, not visual simplicity"
+    },
+    {
+      "id": "W4",
+      "name": "Pattern/block layer",
+      "gate": "PATTERN_BOUNDARY_REVIEWED",
+      "authority_change": false
+    },
+    {
+      "id": "W5",
+      "name": "Page archetype candidate",
+      "gate": "ARCHETYPE_OWNER_REVIEW_COMPLETE",
+      "authority_change": false
+    },
+    {
+      "id": "W6",
+      "name": "Penpot owner-review operations",
+      "gate": "REVIEW_WORKFLOW_VALIDATED",
+      "authority_change": false
+    },
+    {
+      "id": "W7",
+      "name": "Conformance, release and migration",
+      "gate": "NORMATIVE_PROMOTION_GATE",
+      "authority_change": "only_through_existing_FAMILY_AND_ARCHETYPE_PROMOTION"
+    }
+  ],
+  "phases": [
+    {"order": 0, "id": "owner_operating_model_decision", "implementation_allowed": false},
+    {"order": 1, "id": "machine_contracts", "implementation_scope": "schemas_and_validators_only"},
+    {"order": 2, "id": "bounded_pilot_foundations", "global_tokenization_allowed": false},
+    {"order": 3, "id": "one_component_dossier"},
+    {"order": 4, "id": "one_pattern"},
+    {"order": 5, "id": "one_page_archetype"},
+    {"order": 6, "id": "pilot_release_and_conformance"},
+    {"order": 7, "id": "scale_wave_after_retrospective"}
+  ],
+  "owner_decisions": [
+    "D-01_sot_roles",
+    "D-02_resource_hierarchy",
+    "D-03_penpot_review_protocol",
+    "D-04_page_archetype_definition",
+    "D-05_pilot_selection"
+  ],
+  "review_display_states": [
+    "DRAFT_MATERIALIZATION",
+    "READY_FOR_OWNER_REVIEW",
+    "OWNER_REVIEW_IN_PROGRESS",
+    "CHANGES_REQUESTED",
+    "OWNER_REVIEWED_CANDIDATE",
+    "CONFORMANCE_PENDING",
+    "PROMOTION_REVIEW",
+    "PROMOTED_REFERENCE",
+    "SUPERSEDED_REFERENCE"
+  ],
+  "stop_conditions": [
+    "ambiguous_source_or_contract_identity",
+    "disputed_resource_kind",
+    "unbound_design_and_code_versions",
+    "missing_fixture_provenance",
+    "unknown_valid_combinations",
+    "penpot_readback_unavailable",
+    "unresolved_blocker_comments",
+    "incomplete_owner_review_packet",
+    "uncontrolled_product_overrides_required",
+    "archetype_has_only_one_ideal_representation",
+    "rollback_missing",
+    "normative_lifecycle_preconditions_not_met"
+  ],
+  "forbidden_shortcuts": [
+    "penpot_as_sole_source_of_truth",
+    "detached_accepted_instances",
+    "screenshot_as_contract",
+    "documentation_completeness_as_promotion",
+    "automatic_lifecycle_transition_after_materialization",
+    "global_normalization_before_bounded_pilot",
+    "visual_similarity_as_identity_evidence",
+    "free_block_constructor_as_page_archetype",
+    "silent_deprecation"
+  ]
+}
