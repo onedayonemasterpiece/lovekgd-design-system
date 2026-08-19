@@ -28,6 +28,7 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] source snapshot/package SHA указан.
 - [ ] Penpot, Astro и runtime bindings указаны либо отсутствуют с blocker reason.
 - [ ] fixture registry и evidence receipts связаны.
+- [ ] exact foundation/content/terminology/brand/media/responsive refs указаны либо отсутствуют с blocker/NA reason.
 - [ ] promotion/rollback/replacement refs заполнены по текущему status.
 - [ ] authority statement явно объясняет, что является source of truth сейчас.
 
@@ -37,7 +38,8 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] aliases включают продуктовую терминологию и previous names.
 - [ ] dossier доступен из catalog/documentation map.
 - [ ] design, code, specimen, product consumer, evidence и support entry points собраны в одном месте.
-- [ ] external links имеют понятный source boundary.
+- [ ] external links имеют понятный source boundary и availability state.
+- [ ] historical/external reference не выдан за current component truth.
 - [ ] deprecated resource ведёт к replacement/migration.
 - [ ] related resources различаются как alternative, nested, parent, pattern или replacement.
 
@@ -68,6 +70,7 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 
 - [ ] все public variant axes перечислены.
 - [ ] canonical axis/value names совпадают с contract.
+- [ ] contract/package version, resource kind and tool/view labels отсутствуют в public variant/state axes.
 - [ ] semantic intent каждой оси объяснён.
 - [ ] default value каждой оси указан.
 - [ ] owner каждой оси указан.
@@ -82,10 +85,11 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] state transition entry/exit rules описаны.
 - [ ] deprecated/legacy state mappings не переписывают historical identity.
 
-## F. Themes, tokens and naming — required when applicable
+## F. Themes, foundations, tokens and naming — required when applicable
 
 - [ ] supported modes/themes перечислены.
 - [ ] unsupported modes указаны явно.
+- [ ] exact foundation IDs/versions/hashes и consumers перечислены.
 - [ ] semantic token refs показаны.
 - [ ] component-specific token exceptions обоснованы.
 - [ ] same state/fixture tuple используется для mode comparison.
@@ -94,16 +98,21 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] Figma/Penpot properties, code props, state keys и test registry используют согласованный naming.
 - [ ] spelling/terminology lint проходит.
 - [ ] rename имеет alias/migration mapping.
+- [ ] imported/local token collections имеют exact owner/version/hash/consumer/supersession records.
+- [ ] opaque mnemonic names используются только как display/search aliases, не canonical IDs.
+- [ ] external reference values не скопированы без current LoveKGD consumer/accessibility evidence.
 
 ## G. Responsive and media behavior — required when applicable
 
 - [ ] viewport/container model указан.
+- [ ] responsive foundation ID/version and grid/container/media policy refs exact.
 - [ ] min/max/intrinsic sizing описан.
 - [ ] wrap/truncate/expand behavior описан.
 - [ ] layout/region reordering описан.
 - [ ] visibility changes описаны.
 - [ ] prohibited squeeze state указан.
 - [ ] media ratio/crop/focal/contain behavior описан.
+- [ ] poster/fallback/missing/error/provenance behavior описан по применимости.
 - [ ] touch adaptation описана.
 - [ ] required responsive classes имеют specimens.
 - [ ] stress fixtures покрывают реальные content/media extremes.
@@ -135,7 +144,8 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] typical and stress fixtures существуют.
 - [ ] max lines/overflow/wrapping указан.
 - [ ] case, punctuation and terminology rules указаны.
-- [ ] date/time/number/place formatting указано по применимости.
+- [ ] content-standard and terminology-registry versions/owners linked.
+- [ ] date/time/number/place/price formatting указано по применимости.
 - [ ] localization expansion учтён.
 - [ ] accessible alternative/label указан.
 - [ ] prohibited or misleading content examples приведены.
@@ -179,6 +189,8 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] accessibility evidence присутствует.
 - [ ] responsive/container evidence присутствует.
 - [ ] text/media stress evidence присутствует.
+- [ ] foundation compatibility and content/terminology lint evidence присутствует.
+- [ ] brand/media provenance and rights checks присутствуют по применимости.
 - [ ] local override checks присутствуют.
 - [ ] Penpot binding/read-back evidence соответствует current lifecycle.
 - [ ] isolated Astro specimen evidence соответствует current lifecycle.
@@ -233,7 +245,7 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - [ ] support route видима.
 - [ ] unresolved questions видимы.
 - [ ] generated and human-authored sections различимы.
-- [ ] external-source limitations/provenance указаны.
+- [ ] external-source limitations/provenance/availability указаны.
 
 ## Fail-closed blockers
 
@@ -244,8 +256,13 @@ NOT_REQUIRED_AT_CURRENT_LIFECYCLE — с exact state/gate
 - design/code binding отсутствует без объяснения;
 - default или axes/states не определены;
 - required product fixtures не имеют provenance;
+- required foundation versions/consumers unresolved;
+- content/terminology policy missing for content-bearing UI;
+- brand/media provenance missing where assets are used;
 - behavior/accessibility для interactive component не описаны;
 - component page содержит независимые theme/component copies без binding;
+- contract/package version encoded as public variant/state;
+- historical/external reference used as current truth;
 - accepted/deprecated badge не имеет authoritative decision/migration evidence;
 - dossier выдаёт screenshot/documentation completeness за promotion/conformance.
 
