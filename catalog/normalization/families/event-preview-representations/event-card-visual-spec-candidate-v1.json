@@ -24,7 +24,13 @@
       "exhibition.row",
       "event.card"
     ],
-    "passed_families": [],
+    "passed_families": [
+      "listing.event-card",
+      "listing.rail-row",
+      "festival.card",
+      "exhibition.row",
+      "event.card"
+    ],
     "screenshots_are_oracle_only": true
   },
   "specimens": [
@@ -127,7 +133,7 @@
         ],
         "state_keys": [
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
@@ -135,7 +141,7 @@
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
-          "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+          "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
         ],
         "state_instance_count": 10,
         "export_section_id": "579a886e-56e8-80a3-8008-818872c05a92",
@@ -218,6 +224,41 @@
               7
             ],
             "status": "git-sot-before-penpot-rematerialization"
+          },
+          "S02": {
+            "owner_thread": 48,
+            "route": "/vyhodnye/2026-08-22/",
+            "density": "weekend",
+            "anatomy": "split tail: 2 linked identity medallions + linked free medallion",
+            "source_media_size_px": [
+              1920,
+              1920
+            ],
+            "media_size_px": [
+              221,
+              221
+            ],
+            "tail_width_px": 96,
+            "status": "git-sot-before-penpot-state-rebind"
+          },
+          "S10": {
+            "owner_thread": 54,
+            "event_id": 6407,
+            "title": "Старший сын",
+            "route": "/populyarnoe/",
+            "asset_url": "https://static.kenigevents.ru/p/image/v2/76/76b6dcd7a39897bf396ddcffe82fb95ab929433ccadd6e7cf5ed0023eeea6388.webp",
+            "source_size_px": [
+              800,
+              534
+            ],
+            "media_height_px": 216,
+            "media_width_formula": "216 * 800 / 534",
+            "media_width_px": 323.59550561797755,
+            "fit": "cover/visual-crop",
+            "proof": "inside",
+            "share_count": 23,
+            "like_count": 90,
+            "status": "git-sot-before-penpot-rematerialization"
           }
         }
       }
@@ -283,7 +324,14 @@
         "cue_px": [
           48,
           23
-        ]
+        ],
+        "media_width_rule": "source-ratio * 112px",
+        "multi_media_sequence": "linked source frames + 7px gaps + native 168x112 digest",
+        "medallion_art_offset_px": [
+          4,
+          13
+        ],
+        "gesture_translation_max_px": 96
       },
       "typography": {
         "font_stack": "Inter, system-ui",
@@ -296,7 +344,14 @@
         "time_surface": "#f2e7d7",
         "time_ink": "#793014",
         "ink": "#221a14",
-        "muted": "#6d6259"
+        "muted": "#6d6259",
+        "dislike_underlay": "linear-gradient(90deg, rgba(177,38,38,.94), rgba(177,38,38,.34) 55%, rgba(177,38,38,0))",
+        "like_underlay": "linear-gradient(270deg, rgba(47,122,86,.96), rgba(47,122,86,.42) 58%, rgba(47,122,86,0))",
+        "dislike_summary_tint": "rgba(177,38,38,calc(progress * .13))",
+        "like_pull_cta_background": "rgba(47,122,86,.12)",
+        "like_pull_cta_color": "#2f7a56",
+        "like_committed_cta_background": "rgba(201,52,52,.10)",
+        "like_committed_cta_color": "#c93434"
       },
       "anatomy": [
         "summary",
@@ -307,7 +362,11 @@
         "digest",
         "medallions",
         "like-cta",
-        "negative-control"
+        "negative-control",
+        "dislike-underlay full viewport; track translated; summary tint; copy hidden until armed",
+        "like-underlay full viewport behind end-position track; linked heart32",
+        "like-cta linked heart28 plus native count; min58x56 expands with content",
+        "screenshots adjacent reference only; never component fills"
       ],
       "media": [
         {
@@ -321,7 +380,7 @@
       ],
       "framing_profile": "mobile_rail",
       "penpot": {
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-current-pending-independent-readback-and-comment-resolution",
         "component_id": "579a886e-56e8-80a3-8008-8189016141ca",
         "instance_ids": [
           "579a886e-56e8-80a3-8008-818900ac5045",
@@ -364,6 +423,19 @@
         "file_revision": 653,
         "export_section_ids": [
           "579a886e-56e8-80a3-8008-8189000fe2e6"
+        ],
+        "current_export_pass_states": [
+          "R01",
+          "R03",
+          "R04",
+          "R06",
+          "R07",
+          "R08",
+          "R13"
+        ],
+        "managed_digest_ids": [
+          "f2f31786-484f-80ce-8008-824cca7ad3d5",
+          "f2f31786-484f-80ce-8008-824ce6114059"
         ]
       }
     },
@@ -779,7 +851,7 @@
   ],
   "contract_binding": {
     "path": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
-    "contract_payload_sha256": "b7061ea37c3ae11bd34843d337cd8a3754ca8d22f2388c6454c564257d94fd63",
+    "contract_payload_sha256": "35155621543db8a00c3b02e58089e819b1a95b9efe10e171199c8762d58a7638",
     "expected_native_state_count": 65,
     "parent_surface_state_count": 28
   },

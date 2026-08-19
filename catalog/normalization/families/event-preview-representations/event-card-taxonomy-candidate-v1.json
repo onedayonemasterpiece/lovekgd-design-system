@@ -4,14 +4,14 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "b7061ea37c3ae11bd34843d337cd8a3754ca8d22f2388c6454c564257d94fd63",
+  "contract_payload_sha256": "35155621543db8a00c3b02e58089e819b1a95b9efe10e171199c8762d58a7638",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
   "canonical": false,
   "promotion_status": "not_promoted",
   "acceptance_status": "not_ready_owner_comment_remediation",
-  "implementation_status": "git-sot-updated-penpot-rematerialization-required",
+  "implementation_status": "git-sot-complete-penpot-materialized-independent-pass",
   "source_baseline": {
     "repository": "onedayonemasterpiece/events-bot-new",
     "exact_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
@@ -567,7 +567,7 @@
           "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=registration;favorite=off;calendar=absent;share=rest;visibility=shown"
         ],
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-structural-and-bounded-export-pass",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -578,7 +578,7 @@
         "reason": "Exact Astro renders controls as EventCard children; candidate Penpot exposes reusable linked action controls without claiming Astro runtime componentization before owner approval.",
         "runtime_as_is": "Exact Astro renders favorite, not-interested, share and calendar controls as EventCard children.",
         "penpot_linked_component_contract": {
-          "status": "candidate-design-library-components-required-before-comment-37-resolution",
+          "status": "candidate-design-library-components-materialized-readback-pass",
           "target_page_id": "c0d4e5a2-7db6-80c7-8008-81f0f25e13ca",
           "target_page_name": "30.1 — Event card actions · Candidate components",
           "components": {
@@ -631,7 +631,7 @@
           },
           "astro_promotion": "pending owner approval; do not claim runtime componentization until source is changed",
           "root_board_id": "c0d4e5a2-7db6-80c7-8008-81f11962a9d6",
-          "materialization_status": "materialized-readback-pending-visual-export",
+          "materialization_status": "materialized-readback-and-bounded-export-pass",
           "variant_containers": {
             "action.event-card.favorite": {
               "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f13a88619b",
@@ -847,10 +847,11 @@
           ]
         },
         {
-          "state_key": "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "state_key": "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "evidence": [
             "ListingEventCard.astro two-identity split tail + free medallion"
-          ]
+          ],
+          "rationale": "Owner weekend oracle #48: source split tail with two linked identity medallions plus free badge."
         },
         {
           "state_key": "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
@@ -895,10 +896,11 @@
           ]
         },
         {
-          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
             "ListingEventCard.astro zero proof/identity DOM omission"
-          ]
+          ],
+          "rationale": "Owner Popular oracle #54: desktop adaptive landscape crop with proof pills inside and no side tail."
         }
       ],
       "invalid_combinations": [
@@ -1063,7 +1065,7 @@
         ],
         "exact_state_keys": [
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "viewport=desktop;density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
@@ -1071,9 +1073,9 @@
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
-          "viewport=desktop;density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+          "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
         ],
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-structural-and-bounded-export-pass",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1571,7 +1573,7 @@
           "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
           "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent"
         ],
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-structural-and-bounded-export-pass",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1936,7 +1938,7 @@
           "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
           "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
         ],
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-structural-and-bounded-export-pass",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -2370,7 +2372,7 @@
           "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
           "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
         ],
-        "status": "rebuild-required-owner-comments-24-59",
+        "status": "materialized-structural-and-bounded-export-pass",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -2547,56 +2549,25 @@
   "penpot_review_binding": {
     "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "root_board_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
-    "status": "not-ready-owner-comments-24-59",
+    "status": "not-ready-owner-product-decisions",
     "linked_instance_count": 65,
     "page46_index_instance_count": 0,
     "as_is_reference_count": 0,
     "normalized_state_instance_count": 65,
     "detached_instance_count": 0,
-    "file_revn_readback": 653,
+    "file_revn_readback": 857,
     "expected_native_state_count": 65,
     "review_structure": "lightweight-index-plus-bounded-family-native-matrices",
-    "exact_state_set_equal": false,
+    "exact_state_set_equal": true,
     "owner_comment_cycle_20260819": {
       "cycle_id": "owner-comments-24-59-20260819",
-      "status": "git-sot-reconciled-native-rebuild-required",
+      "status": "materialized-structural-pass-five-product-decisions-pending",
       "unresolved_thread_ids": [
-        24,
         25,
         26,
-        27,
-        28,
-        29,
         30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-        37,
-        38,
-        39,
-        40,
-        41,
-        42,
-        43,
-        44,
-        45,
-        46,
-        47,
-        48,
         49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
-        57,
-        58,
-        59
+        50
       ],
       "source_baseline": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
       "source_first_required": true,
@@ -2702,7 +2673,50 @@
       },
       "raster_safety": "all oracle image IDs are outside managed roots and not reused inside them",
       "comment_resolution_gate": "resolve only after clean native rebuild, export, readback, idempotency and independent review",
-      "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md"
+      "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md",
+      "resolved_thread_ids": [
+        24,
+        27,
+        28,
+        29,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "penpot_revision": 857,
+      "bounded_export_status": "pass-for-all-remediated-states",
+      "independent_structural_status": "pass-through-rev843; final-current-hash-reread-pending",
+      "owner_product_decisions": {
+        "25": "approve exhibition media-corner normalization candidate before Astro backport",
+        "26": "approve exhibition low-contrast icon normalization candidate before Astro backport",
+        "30": "approve medallion normalized tiers 44/60/88 before canonical promotion",
+        "49": "approve universal vertical-media framing candidate before Astro backport",
+        "50": "approve exhibition framing/corner candidate against runtime screenshot before Astro backport"
+      }
     }
   },
   "package_bindings": {

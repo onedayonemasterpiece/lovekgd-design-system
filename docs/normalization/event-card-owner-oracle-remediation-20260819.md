@@ -343,3 +343,72 @@ share-only, like-only and combined proof rows. S01 now contains a linked Page 25
 share glyph at the exact desktop 17 px size with native count text, above the
 existing linked 17 px heart row. The post-write export is currently blocked, so
 thread 46 remains open rather than being closed from structure alone.
+
+### Listing vertical/Popular and Rail runtime-oracle reconciliation
+
+The current Listing pass replaced the remaining generic S04 media with the linked
+`listing.media.7491.vertical` source fixture (`906×1280`) at the intrinsic
+`152.8875×216` source-bound width plus the 96 px side tail. S05 keeps the linked
+`5459` portrait source at `300×216`; its Popular mobile medallion is the source
+46 px overlay at a 7 px right/bottom inset, and its 14 px proof heart remains a
+linked Page 25 icon. Current bounded PNG exports pass for S01, S02, S04 and S05.
+Thread 46 was replied to and resolved after the S01 linked 17 px share proof
+became visible in the export. Thread 49 remains open because the requested
+universal vertical-framing change is an explicit future SoT→Astro backport and
+Astro is not changed without owner approval.
+
+The Rail pass now binds all 16 roots to the canonical nine-axis state key in
+native variant properties and plugin metadata: `viewport`, `scroll-position`,
+`occurrence`, `schedule`, `media-count-sequence`, `gesture`, `media-state`,
+`temporal`, `artifact`. The three-image scroll fixtures R03/R04 use linked source
+media in their variable-width max-content sequence and now continue into the
+native 168×112 digest at the source 7 px gap instead of ending in an empty
+viewport fragment. R07/R08/R13 use linked Page 48 frames at 94×112 with 86 px
+art at offset 4×13; digest→frame→CTA/artifact gaps are exactly 7 px. R13 embeds
+the linked Page 49 Amber artifact at 94×112.
+
+Gesture specimens are source composition states rather than green/red card
+repaints. R06 uses a full-viewport red dislike underlay, a +48 px translated
+track, the source summary tint and no visible unarmed helper label. R07 uses a
+full-viewport green like underlay behind the end-position track, linked Page 25
+solid heart 32 in the underlay, and a content-width CTA with linked 28 px heart
+plus native count; R08 shows the committed linked 28 px solid heart and updated
+count. Current bounded PNG exports pass for R01, R03, R04, R06, R07, R08 and
+R13 and were compared with owner oracles 55–59. The screenshots remain adjacent
+reference/oracle shapes and are not used as component fills.
+
+### Final weekend/Popular reconciliation and owner decision gate
+
+The final Listing pass binds S02 to the owner weekend oracle rather than a generic
+regular-density label. Its native state is `density=weekend`; the square source
+media and 96 px tail contain two linked Page 48 identity medallions at 51 px plus
+a distinct linked 51 px free medallion. The current bounded PNG export passes and
+thread 48 is resolved.
+
+S10 now represents the actual desktop Popular landscape case from thread 54. It
+uses the exact event 6407 source fixture («Старший сын»), the 800×534 source asset
+at the intrinsic `323.5955×216` width/height, and inside proof pills containing
+linked Page 25 share/heart glyphs at 17 px with native counts 23/90. The card title
+and place are native text; the screenshot remains an adjacent oracle and is never
+used as a fill. The current PNG export passes and thread 54 is resolved.
+
+The exporter also recovered for B23. Its current PNG confirms the dark-shell
+«Точка и линия» state, exact linked source media, registration meta, no calendar,
+and linked Page 30.1 not-interest/share/favorite actions. Thread 47 is resolved.
+Independent bounded Rail readback at rev843 confirms 16/16 state keys, linked
+Page 25/Page 48/Page 49 provenance, exact max-content gaps and no screenshot fills.
+Rail threads 40–43 and 55–59 are resolved.
+
+The final Git candidate hash is `35155621…`; all eight family/index roots carry
+all six current hash aliases. There are 65 native states and all remediated states
+have bounded current PNG proof. Page 46 remains deliberately `NOT READY` because
+five comments are product decisions rather than implementation defects:
+25/26/50 (Exhibition corner/icon candidate), 30 (medallion tiers 44/60/88), and
+49 (universal vertical-media framing backport). No Astro change or canonical
+promotion is claimed before explicit owner approval.
+
+Final independent O(1) readback at rev866 is PASS: `validate=[]`; all eight
+contract roots expose the current `35155621…` aliases; S02/S10 state aliases and
+native variant properties agree; linked media/icons/medallions are current; and
+Page 46 reports the exact five product-decision threads. This is an implementation
+and provenance PASS, not owner approval of the five candidate decisions.
