@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "f4173aaadc6e2f60f6ab6da16d48bd4004c1e4b859a240de685ddb0deb4235f0",
+  "contract_payload_sha256": "ab72756e70c2e319dbcd2cb68e921a17bbd47d8d61b0cd68080387602b4b061d",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -537,13 +537,7 @@
       ],
       "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
       "action_ownership": {
-        "native_children_not_separate_components": [
-          "favorite",
-          "not_interested",
-          "share",
-          "calendar"
-        ],
-        "reason": "exact Astro renders these controls inside EventCard; current Penpot must not claim false core.* nested instances",
+        "reason": "Exact Astro renders controls as EventCard children; candidate Penpot exposes reusable linked action controls without claiming Astro runtime componentization before owner approval.",
         "runtime_as_is": "Exact Astro renders favorite, not-interested, share and calendar controls as EventCard children.",
         "penpot_linked_component_contract": {
           "status": "candidate-design-library-components-required-before-comment-37-resolution",
@@ -617,9 +611,16 @@
               "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f1974f23c1",
               "state_count": 6
             }
-          }
+          },
+          "layout_correction": "split-actions utility row stays inside the dark shell while share/favorite feedback is below the shell on a transparent extension; overlay-controls feedback stays inside the card shell at the article bottom and is not a media-overlay placeholder"
         },
-        "layout_correction": "split-actions feedback row is outside the dark card shell on a transparent extension; overlay-controls remains inside media overlay"
+        "layout_correction": "split-actions feedback row is outside the dark card shell on a transparent extension; overlay-controls remains inside media overlay",
+        "runtime_native_children": [
+          "favorite",
+          "not_interested",
+          "share",
+          "calendar"
+        ]
       },
       "source_element_bindings": [
         {
@@ -680,10 +681,10 @@
         },
         {
           "element": "optional_hidden_undo_plate",
-          "source_path": "site/src/components/EventCard.astro",
-          "selector_or_contract": "EventLayout.astro [data-not-interested-plate]",
+          "source_path": "site/src/layouts/EventLayout.astro",
+          "selector_or_contract": "[data-not-interested-plate] / syncNotInterestedPlate",
           "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
-          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+          "source_sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"
         }
       ],
       "icon_registry_binding": {
@@ -2348,7 +2349,8 @@
             "remove unproven translucent strip",
             "split-actions feedback controls below card on transparent extension",
             "linked reusable action-control components with states and shared icons",
-            "retain Astro-to-SoT-to-Penpot evidence per element"
+            "retain Astro-to-SoT-to-Penpot evidence per element",
+            "overlay-controls feedback stays inside the card shell at article bottom; no detached media-overlay placeholder"
           ]
         },
         "festival.card": {
