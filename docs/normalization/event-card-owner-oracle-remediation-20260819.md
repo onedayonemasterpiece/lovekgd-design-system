@@ -172,3 +172,32 @@ reuse, zero detached copies, zero duplicate semantic layers and zero debug
 labels; run the materializer again with zero creations; validate the file; then
 resolve only the threads that the evidence closes. Page 46 remains lightweight
 and `NOT READY` until an independent reviewer passes the complete cycle.
+
+## Native Penpot materialization read-back (2026-08-19)
+
+The comment-remediation pass remains **NOT READY** for owner review until visual
+export and independent review are available. Native structure now contains:
+
+- `event.card`: 23 exact Git state keys across Parts A/B, including explicit
+  `viewport` and `presentation` axes. Split and overlay composition uses linked
+  Page 30.1 action variants, including every selected/added/share/committed state.
+- `listing.event-card`: 10 exact keys with variable Astro-derived widths rather
+  than a fixed 420 px skeleton. Square, weekend portrait and popular crop media
+  are linked source-bound components; the mobile proof heart is the Page 25
+  14 px variant.
+- `listing.rail-row`: 16 exact 390×112 viewport/track compositions with the
+  source multi-image sequence, linked Page 48 medallions and linked Page 49
+  artifact.
+- `festival.card`: 9 source states with one semantic field/media layer each.
+- `exhibition.row`: 7 source states plus two linked candidate specimens. Source
+  states preserve AS-IS keyboard hints. Candidate idle masks L/K/X; candidate
+  keyboard-selected exposes them. This does not change Astro.
+
+The 14 owner screenshots remain adjacent oracle shapes and their raster fills
+are not reused inside managed component roots. Event B and Festival have no
+fresh screenshot oracle, so they remain source-only in this cycle.
+
+New bounded PNG and SVG exports currently return HTTP 504 while plugin reads
+and `saveVersion` remain responsive. Penpot documents export as a separate
+headless-browser service. The receipt records that blocker instead of turning
+structural read-back into a false review-ready claim.
