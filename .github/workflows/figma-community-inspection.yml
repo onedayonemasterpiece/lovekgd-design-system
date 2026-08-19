@@ -22,12 +22,12 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 65
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Probe archived public Community snapshots
+      - name: Probe legacy public Community archives
         shell: bash
         run: |
           set -uo pipefail
@@ -88,7 +88,7 @@ jobs:
               --output .tmp/figma-community-inspection \
               "${args[@]}"
           else
-            printf '# Figma Community archive probe\n\nBoth legacy public archive objects are currently unavailable. See `download-status.json`.\n' \
+            printf '# Figma Community archive probe\n\nBoth legacy public archive objects are unavailable. See `download-status.json`.\n' \
               > .tmp/figma-community-inspection/index.md
           fi
 
@@ -98,13 +98,21 @@ jobs:
           google-chrome --version || chromium --version
           chromedriver --version || true
 
-      - name: Capture rendered public viewers and network responses
+      - name: Capture Grida mirrors
         run: |
           python scripts/research/capture_grida_community_viewer.py \
             --seconds 55 \
             --output .tmp/grida-viewer-capture \
             --url https://code.grida.co/community/file/1144567424019815189 \
             --url https://code.grida.co/community/file/1509554620086084342
+
+      - name: Capture direct Figma Community pages
+        run: |
+          python scripts/research/capture_grida_community_viewer.py \
+            --seconds 75 \
+            --output .tmp/figma-direct-capture \
+            --url https://www.figma.com/community/file/1144567424019815189 \
+            --url https://www.figma.com/community/file/1509554620086084342/t2d2-public-web
 
       - name: Summarize browser evidence
         shell: bash
@@ -113,33 +121,29 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          root = Path('.tmp/grida-viewer-capture')
-          report = {'files': {}}
-          for directory in sorted(p for p in root.iterdir() if p.is_dir()):
-              body = (directory / 'body-text.txt').read_text(encoding='utf-8', errors='replace')
-              responses = json.loads((directory / 'network-responses.json').read_text(encoding='utf-8'))
-              candidates = [r for r in responses if r.get('interesting')]
-              saved = [r for r in candidates if r.get('saved_body')]
-              report['files'][directory.name] = {
-                  'body_preview': body[:1000],
-                  'response_count': len(responses),
-                  'interesting_response_count': len(candidates),
-                  'saved_response_bodies': len(saved),
-                  'candidate_urls': [r.get('url') for r in candidates[:100]],
-              }
-          (root / 'capture-summary.json').write_text(
-              json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
-          )
-          lines = ['# Grida Community viewer capture', '']
-          for file_id, data in report['files'].items():
-              lines += [
-                  f'## {file_id}', '',
-                  f"- network responses: {data['response_count']}",
-                  f"- interesting responses: {data['interesting_response_count']}",
-                  f"- saved response bodies: {data['saved_response_bodies']}",
-                  '', '```text', data['body_preview'], '```', '',
-              ]
-          (root / 'README.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          roots = {
+              'grida': Path('.tmp/grida-viewer-capture'),
+              'figma': Path('.tmp/figma-direct-capture'),
+          }
+          report = {'captures': {}}
+          for source, root in roots.items():
+              report['captures'][source] = {}
+              for directory in sorted(p for p in root.iterdir() if p.is_dir()):
+                  body = (directory / 'body-text.txt').read_text(encoding='utf-8', errors='replace')
+                  responses = json.loads((directory / 'network-responses.json').read_text(encoding='utf-8'))
+                  status = json.loads((directory / 'capture-status.json').read_text(encoding='utf-8'))
+                  candidates = [r for r in responses if r.get('interesting')]
+                  saved = [r for r in candidates if r.get('saved_body')]
+                  report['captures'][source][directory.name] = {
+                      'capture_status': status,
+                      'body_preview': body[:2000],
+                      'response_count': len(responses),
+                      'interesting_response_count': len(candidates),
+                      'saved_response_bodies': len(saved),
+                      'candidate_urls': [r.get('url') for r in candidates[:200]],
+                  }
+          out = Path('.tmp/community-capture-summary.json')
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           print(json.dumps(report, ensure_ascii=False, indent=2))
           PY
 
@@ -149,9 +153,11 @@ jobs:
           set -euo pipefail
           test -s .tmp/figma-community-inspection/index.md
           test -s .tmp/figma-community-inspection/download-status.json
-          test -s .tmp/grida-viewer-capture/capture-summary.json
+          test -s .tmp/community-capture-summary.json
           test -s .tmp/grida-viewer-capture/1144567424019815189/viewport.png
           test -s .tmp/grida-viewer-capture/1509554620086084342/viewport.png
+          test -s .tmp/figma-direct-capture/1144567424019815189/viewport.png
+          test -s .tmp/figma-direct-capture/1509554620086084342/viewport.png
 
       - name: Upload inspection evidence
         uses: actions/upload-artifact@v4
@@ -160,5 +166,7 @@ jobs:
           path: |
             .tmp/figma-community-inspection
             .tmp/grida-viewer-capture
+            .tmp/figma-direct-capture
+            .tmp/community-capture-summary.json
           if-no-files-found: error
           retention-days: 14
