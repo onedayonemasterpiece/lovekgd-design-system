@@ -287,3 +287,12 @@ Only comments with exact structural or current PNG proof were closed: 24, 27,
 28, 29, 31, 35, 36, 37, 39, 44 and 53. Twenty-five framing, screenshot, visual
 comparison or pending product-normalization threads remain open. Page 46 now
 shows this exact matrix and stays `NOT READY`.
+
+### Exhibition corner and action-contrast candidate (Git first)
+
+Owner threads 25/50 now have an explicit noncanonical candidate: deck media
+frames use an 8 px radius with child clipping so no square image corner leaks
+outside the framing. Thread 26 now has a linked-icon contrast candidate: the
+46 px action wrapper is preserved, Page 25 glyphs remain linked at exact 14/19/18
+source sizes, and the muted/focus colors are `#a8adb2`/`#f4f4f2`. These are
+review candidates only; Astro remains unchanged until owner approval.
