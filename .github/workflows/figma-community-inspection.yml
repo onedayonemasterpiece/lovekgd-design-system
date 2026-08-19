@@ -1,22 +1,7 @@
 name: Figma Community direct inspection
 
 on:
-  push:
-    branches:
-      - research/consta-documentation-patterns-20260819-review
-    paths:
-      - '.github/workflows/figma-community-inspection.yml'
-      - 'scripts/research/capture_grida_community_viewer.py'
-      - 'scripts/research/decode_fig_kiwi.cjs'
-      - 'scripts/research/summarize_decoded_fig.py'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/figma-community-inspection.yml'
-      - 'scripts/research/capture_grida_community_viewer.py'
-      - 'scripts/research/decode_fig_kiwi.cjs'
-      - 'scripts/research/summarize_decoded_fig.py'
+  workflow_dispatch:
 
 permissions:
   contents: read
