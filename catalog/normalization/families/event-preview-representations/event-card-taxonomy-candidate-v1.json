@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "35155621543db8a00c3b02e58089e819b1a95b9efe10e171199c8762d58a7638",
+  "contract_payload_sha256": "fe67831a1dd3de187229f7eab9de6cd889c709176899deababa6d83c5d47b8c8",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -785,7 +785,8 @@
           "protected-natural",
           "square-natural",
           "low-resolution",
-          "visual-crop"
+          "visual-crop",
+          "document-bounded-cover"
         ],
         "proof": [
           "none",
@@ -860,10 +861,13 @@
           ]
         },
         {
-          "state_key": "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "state_key": "viewport=desktop;density=regular;media=document-bounded-cover;proof=side-rail;content=long;temporal=current;identity-count=0;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
-            "popular three-identity split tail CSS"
-          ]
+            "ListingEventCard.astro [data-listing-media-treatment=document-safe-cover]",
+            "listingPresentation.ts universal 20%-bounded OCR/document frame",
+            "owner thread 49 exact event 7491 runtime oracle"
+          ],
+          "rationale": "Owner-approved universal framing for exact 906×1280 OCR poster: width/height 0.884765625, 20% bounded crop, 80% vertical retention, 40px proof-only tail."
         },
         {
           "state_key": "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
@@ -958,7 +962,32 @@
               48,
               49,
               54
-            ]
+            ],
+            "vertical_document_framing": {
+              "status": "owner-approved-astro-backport-authorized",
+              "owner_thread": 49,
+              "applies_when": "explicit ocr_text + known intrinsic dimensions + width/height < 0.8",
+              "source_ratio_floor": 0.8,
+              "max_crop_fraction": 0.2,
+              "target_ratio_formula": "sourceRatio / (1 - 0.2)",
+              "fit": "cover",
+              "media_treatment": "document-safe-cover",
+              "unknown_or_error_policy": "natural contain; no inferred crop permission",
+              "event_7491_oracle": {
+                "source_size_px": [
+                  906,
+                  1280
+                ],
+                "source_ratio": 0.7078125,
+                "target_ratio": 0.884765625,
+                "media_height_px": 216,
+                "media_width_px": 191.109375,
+                "tail_width_px": 40,
+                "card_width_px": 231.109375,
+                "vertical_retention": 0.8,
+                "cover_crop": 0.2
+              }
+            }
           }
         }
       ],
@@ -975,7 +1004,11 @@
             "data-ds-component=ListingEventCard",
             "data-ds-version=9",
             "data-listing-image-mode",
-            "data-listing-image-crop-adaptive"
+            "data-listing-image-crop-adaptive",
+            "data-listing-media-treatment",
+            "data-listing-fit",
+            "data-listing-cover-crop",
+            "data-listing-crop-reason"
           ],
           "css_contract": [
             ".ke-listing-card",
@@ -1003,7 +1036,11 @@
         "data-listing-density",
         "data-image-text-mode",
         "data-listing-proof-placement",
-        "data-listing-overlay-kind"
+        "data-listing-overlay-kind",
+        "data-listing-media-treatment",
+        "data-listing-fit",
+        "data-listing-cover-crop",
+        "data-listing-crop-reason"
       ],
       "fixtures": [
         "short-title",
@@ -1067,7 +1104,7 @@
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
-          "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=document-bounded-cover;proof=side-rail;content=long;temporal=current;identity-count=0;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
@@ -2226,22 +2263,24 @@
               53
             ],
             "media_corner_candidate": {
-              "status": "candidate-pending-owner-approval-before-astro-backport",
+              "status": "owner-approved-astro-backport-authorized",
               "frame_radius_px": 8,
               "clip_children": true,
               "outer_edge_policy": "no square/unrounded image leak outside the row/deck framing",
               "owner_threads": [
                 25,
                 50
-              ]
+              ],
+              "owner_decision": "Threads 25 and 50 explicitly require normalized corners and Astro backport."
             },
             "action_contrast_candidate": {
-              "status": "candidate-pending-owner-approval-before-astro-backport",
+              "status": "source-parity-verified-no-astro-change",
               "wrapper_min_px": 46,
               "icon_color": "#a8adb2",
               "focus_icon_color": "#f4f4f2",
               "linked_page25_only": true,
-              "owner_thread": 26
+              "owner_thread": 26,
+              "owner_decision": "Thread 26 requires restored icon parity; Astro already uses canonical Icon with exact 14/14/19/18px glyphs, 46px wrappers and #a8adb2/#f4f4f2 colors. No new color normalization inferred."
             }
           }
         }
@@ -2561,7 +2600,7 @@
     "exact_state_set_equal": true,
     "owner_comment_cycle_20260819": {
       "cycle_id": "owner-comments-24-59-20260819",
-      "status": "materialized-structural-pass-five-product-decisions-pending",
+      "status": "owner-decisions-readback-backport-in-progress",
       "unresolved_thread_ids": [
         25,
         26,
@@ -2711,12 +2750,14 @@
       "bounded_export_status": "pass-for-all-remediated-states",
       "independent_structural_status": "pass-through-rev843; final-current-hash-reread-pending",
       "owner_product_decisions": {
-        "25": "approve exhibition media-corner normalization candidate before Astro backport",
-        "26": "approve exhibition low-contrast icon normalization candidate before Astro backport",
-        "30": "approve medallion normalized tiers 44/60/88 before canonical promotion",
-        "49": "approve universal vertical-media framing candidate before Astro backport",
-        "50": "approve exhibition framing/corner candidate against runtime screenshot before Astro backport"
-      }
+        "25": "approved: exhibition media frames normalize to 8px with explicit clipping; Astro backport authorized",
+        "26": "closed as source-parity defect: canonical shared icons already exact in Astro; no color-candidate backport",
+        "30": "pending exact owner approval: candidate medallion tiers 44/60/88 remain noncanonical",
+        "49": "approved: universal 20%-bounded vertical OCR framing; Astro backport authorized; exact event7491 tail is 40px",
+        "50": "approved: eliminate parasitic square exhibition media corners via the thread25 8px framing contract"
+      },
+      "decision_readback_date": "2026-08-19",
+      "decision_authority": "exact live Penpot owner thread wording; owner comments outrank stale pending metadata"
     }
   },
   "package_bindings": {

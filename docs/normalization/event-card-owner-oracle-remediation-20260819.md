@@ -412,3 +412,34 @@ contract roots expose the current `35155621…` aliases; S02/S10 state aliases a
 native variant properties agree; linked media/icons/medallions are current; and
 Page 46 reports the exact five product-decision threads. This is an implementation
 and provenance PASS, not owner approval of the five candidate decisions.
+
+## Owner decision readback and reverse-cycle authorization (2026-08-19)
+
+The live unresolved-thread readback preserves the owner's exact intent rather
+than treating the previous `PENDING_OWNER_DECISION` labels as authority:
+
+- **#25 / #50 — approved for Astro backport.** Exhibition media frames use an
+  8 px radius and clip their children. This removes the visible square corner
+  leak while keeping the outer row/deck framing intact.
+- **#49 — approved for Astro backport.** Very tall, explicitly classified OCR
+  media with known intrinsic dimensions uses the shared bounded-document rule:
+  the target width/height ratio is `sourceRatio / (1 - 0.2)`, `cover` may remove
+  no more than 20% of the source area, and unknown/error media still fails
+  closed to natural `contain`. The exact `7491` oracle therefore changes from
+  `906/1280 = 0.7078125` to `0.884765625`; at 216 px height its media width is
+  `191.109375` px, vertical retention is `0.8`, and its real proof-only tail is
+  40 px (total `231.109375` px). The earlier 96 px rail was a synthetic
+  three-identity state and must not be described as exact event `7491` runtime.
+- **#26 — source-parity closure, not a new Astro candidate.** Astro already uses
+  the shared `Icon` component, 46 px action wrappers, glyph sizes
+  14/14/19/18 px, and the source colors `#a8adb2` / `#f4f4f2`. The required work
+  is exact Penpot linkage/alignment and verification; no unapproved color change
+  is inferred.
+- **#30 — remains candidate-only.** The proposed 44/60/88 medallion tiers stay
+  noncanonical until the owner explicitly accepts those exact tiers. Existing
+  consumer sizes remain source truth.
+
+Authority order for this reverse cycle is therefore: exact owner thread wording
+→ this Git SoT decision record → bounded Penpot candidate update → isolated
+Astro implementation and browser proof. No change is applied to the dirty
+runtime checkout and no production deployment is implied.

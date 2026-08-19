@@ -197,13 +197,20 @@
               1280
             ],
             "media_height_px": 216,
-            "media_width_formula": "216 * 906 / 1280",
-            "media_width_px": 152.8875,
-            "tail_width_px": 96,
-            "card_width_px": 248.8875,
-            "fit": "contain/protected-natural",
+            "media_width_formula": "216 * (906 / 1280) / (1 - 0.2)",
+            "media_width_px": 191.109375,
+            "tail_width_px": 40,
+            "card_width_px": 231.109375,
+            "fit": "cover/document-safe-cover",
             "linked_component_name": "listing.media.7491.vertical",
-            "status": "git-sot-before-penpot-rematerialization"
+            "status": "owner-approved-git-sot-before-astro-backport",
+            "source_ratio": 0.7078125,
+            "target_ratio": 0.884765625,
+            "media_treatment": "document-safe-cover",
+            "crop_reason": "document_bounded_cover",
+            "cover_crop": 0.2,
+            "vertical_retention": 0.8,
+            "framing_policy": "universal-very-tall-ocr-max-20-percent-crop"
           },
           "S05": {
             "owner_thread": 54,
@@ -851,7 +858,7 @@
   ],
   "contract_binding": {
     "path": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
-    "contract_payload_sha256": "35155621543db8a00c3b02e58089e819b1a95b9efe10e171199c8762d58a7638",
+    "contract_payload_sha256": "fe67831a1dd3de187229f7eab9de6cd889c709176899deababa6d83c5d47b8c8",
     "expected_native_state_count": 65,
     "parent_surface_state_count": 28
   },
