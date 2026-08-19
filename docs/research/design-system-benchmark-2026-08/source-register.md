@@ -20,6 +20,7 @@ Evidence grades: `A` exact inspected source; `B` official repository/site or fir
 | `S-GRAVITY-FIGMA` | Gravity UI | https://www.figma.com/community/file/1271150067798118027/gravity-ui-design-system | `C/A` | official repository binding confirmed; internals not inspected in this pass |
 | `S-HSE-FIGMA` | HSE General Library | https://www.figma.com/file/cBHD57QcCt9WDT4e7e2B3w/hse_general_library | `C` | internals not inspected |
 | `S-ROSATOM-FIGMA` | Rosatom | https://www.figma.com/community/file/1144567424019815189 | `A/D` | current first-party page and embed return 404; historical index/cover only, no live node or checkpoint read-back |
+| `S-ROSATOM-STYLE-GUIDE-2022` | Rosatom digital-product style guide | `attachment:rosatom-style-guide.pdf` | `A` | exact 18-page September 2022 historical guide; SHA-256 `c045730142865fa4425bd4642d4f8e87ab9f50baf0722cd5ffaba14a18e00e7c`; current design/code parity not established |
 
 ### Direct Figma read-back evidence
 
@@ -45,6 +46,18 @@ community_file_id: 1144567424019815189
 first_party_community_page: 404
 first_party_embed: 404
 historical_index_only: true
+```
+
+Rosatom historical document evidence:
+
+```yaml
+reference_state: HISTORICAL_DOCUMENT_READBACK
+source_id: S-ROSATOM-STYLE-GUIDE-2022
+stated_edition: 09.2022
+pages: 18
+sha256: c045730142865fa4425bd4642d4f8e87ab9f50baf0722cd5ffaba14a18e00e7c
+current_parity: unverified
+analysis_ref: 08-rosatom-style-guide-2022.md
 ```
 
 ### Figma access note
@@ -108,3 +121,4 @@ Direct Figma MCP quota was exhausted during this benchmark. This still applies t
 6. Direct Figma follow-up must record file/community ID, page/node evidence where available, source/checkpoint hash, observed date, screenshots and exact limitations.
 7. A `404`, unpublished or inaccessible source is a first-class evidence state and cannot be silently represented by an old cover.
 8. Reverse-engineered checkpoint structure can support research inventory, but does not become an official Figma API contract or LoveKGD authority.
+9. An exact historical document may establish historical structure and terminology, but cannot establish current values, bindings, compatibility or lifecycle.
