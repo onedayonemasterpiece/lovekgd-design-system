@@ -1,0 +1,703 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.festival",
+  "display_name": "Festival",
+  "fixture_refs": [
+    "fixture.festival.timeline",
+    "fixture.festival.0",
+    "fixture.festival.many",
+    "fixture.festival.overflow"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "timeline"
+      },
+      "fixture_id": "fixture.festival.timeline",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.4a87f69daff5ab1e"
+      ],
+      "state": "timeline"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "0"
+      },
+      "fixture_id": "fixture.festival.0",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.4a87f69daff5ab1e"
+      ],
+      "state": "0"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "many"
+      },
+      "fixture_id": "fixture.festival.many",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.4a87f69daff5ab1e"
+      ],
+      "state": "many"
+    },
+    {
+      "content_profile": {
+        "cardinality": "overflow",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "overflow"
+      },
+      "fixture_id": "fixture.festival.overflow",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.4a87f69daff5ab1e"
+      ],
+      "state": "overflow"
+    }
+  ],
+  "gap_refs": [
+    "gap.festival.01",
+    "gap.festival.02"
+  ],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.festival.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.002"
+      },
+      {
+        "from_node_id": "node.festival.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.003"
+      },
+      {
+        "from_node_id": "node.festival.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.004"
+      },
+      {
+        "from_node_id": "node.festival.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.005"
+      },
+      {
+        "from_node_id": "node.festival.005",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.006"
+      },
+      {
+        "from_node_id": "node.festival.001",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.007"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.009"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.010"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.011"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.012"
+      },
+      {
+        "from_node_id": "node.festival.012",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.013"
+      },
+      {
+        "from_node_id": "node.festival.008",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.festival.014"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "listing.timeline",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.event-card",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.006",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "listing.time-marker",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.007",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.008",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.009",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.010",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.011",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.012",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.013",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "local_overrides": [],
+        "node_id": "node.festival.014",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "gap": {
+          "gap_id": "gap.festival.01",
+          "reason": "site.footer is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#site.footer",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: site.footer"
+        },
+        "local_overrides": [],
+        "node_id": "node.festival.015",
+        "node_kind": "gap_placeholder",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.festival.timeline",
+          "fixture.festival.0",
+          "fixture.festival.many",
+          "fixture.festival.overflow"
+        ],
+        "gap": {
+          "gap_id": "gap.festival.02",
+          "reason": "Exact current festival route/template binding and festival-specific header/content regions.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.festival"
+          ],
+          "uncovered_region": "Exact current festival route/template binding and festival-specific header/content regions."
+        },
+        "local_overrides": [],
+        "node_id": "node.festival.016",
+        "node_kind": "gap_placeholder",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.festival.001",
+      "node.festival.008",
+      "node.festival.015",
+      "node.festival.016"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "unresolved_source_binding",
+  "route_family": "/festivali/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.4a87f69daff5ab1e",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.festivals",
+      "route_family_id": "page-family.festivals",
+      "route_template": "/festivali/",
+      "source_id": "source.current_root_prelaunch.4a87f69daff5ab1e",
+      "source_path": "site/src/pages/festivali/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.timeline",
+      "matrix_id": "matrix.festival.mobile.timeline",
+      "state": "timeline",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.0",
+      "matrix_id": "matrix.festival.mobile.0",
+      "state": "0",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.many",
+      "matrix_id": "matrix.festival.mobile.many",
+      "state": "many",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.overflow",
+      "matrix_id": "matrix.festival.mobile.overflow",
+      "state": "overflow",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.timeline",
+      "matrix_id": "matrix.festival.desktop.timeline",
+      "state": "timeline",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.0",
+      "matrix_id": "matrix.festival.desktop.0",
+      "state": "0",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.many",
+      "matrix_id": "matrix.festival.desktop.many",
+      "state": "many",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.festival.001",
+        "node.festival.002",
+        "node.festival.003",
+        "node.festival.004",
+        "node.festival.005",
+        "node.festival.006",
+        "node.festival.007",
+        "node.festival.008",
+        "node.festival.009",
+        "node.festival.010",
+        "node.festival.011",
+        "node.festival.012",
+        "node.festival.013",
+        "node.festival.014"
+      ],
+      "expected_gap_node_ids": [
+        "node.festival.015",
+        "node.festival.016"
+      ],
+      "fixture_ref": "fixture.festival.overflow",
+      "matrix_id": "matrix.festival.desktop.overflow",
+      "state": "overflow",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

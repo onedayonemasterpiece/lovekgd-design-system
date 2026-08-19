@@ -1,0 +1,553 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "title": "LoveKGD component synthesis page archetype candidate v0.1",
+  "description": "Strict reconstructed candidate graph. Every visual node is a native component/pattern instance or an explicit uncovered-gap placeholder; validation does not accept, canonize or promote an archetype.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "archetype_id",
+    "display_name",
+    "route_family",
+    "registry_source_status",
+    "source_composition_refs",
+    "source_consumer_refs",
+    "status",
+    "materialization_policy",
+    "applicability",
+    "fixture_refs",
+    "fixtures",
+    "instance_graph",
+    "state_matrix",
+    "gap_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json"
+    },
+    "schema_version": {
+      "const": "lovekgd_component_synthesis_archetype_v0_1"
+    },
+    "archetype_id": {
+      "type": "string",
+      "pattern": "^archetype\\.[a-z0-9][a-z0-9.-]*$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "route_family": {
+      "type": "string",
+      "pattern": "^/"
+    },
+    "registry_source_status": {
+      "enum": [
+        "candidate_from_current_components",
+        "unresolved_source_binding",
+        "current_page_composition_not_penpot_ready"
+      ]
+    },
+    "source_composition_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z0-9-]+)+$"
+      }
+    },
+    "source_consumer_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sourceConsumerRef"
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_mode",
+        "canonical",
+        "accepted",
+        "promotion_ready",
+        "contract_decision_status"
+      ],
+      "properties": {
+        "authority_mode": {
+          "const": "reconstructed"
+        },
+        "canonical": {
+          "const": false
+        },
+        "accepted": {
+          "const": false
+        },
+        "promotion_ready": {
+          "const": false
+        },
+        "contract_decision_status": {
+          "const": "draft"
+        }
+      }
+    },
+    "materialization_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instances_only",
+        "detached_copies_allowed",
+        "local_overrides_allowed",
+        "promotion_claimed"
+      ],
+      "properties": {
+        "instances_only": {
+          "const": true
+        },
+        "detached_copies_allowed": {
+          "const": false
+        },
+        "local_overrides_allowed": {
+          "const": false
+        },
+        "promotion_claimed": {
+          "const": false
+        }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "viewport_modes"
+      ],
+      "properties": {
+        "viewport_modes": {
+          "$ref": "#/$defs/viewportModes"
+        }
+      }
+    },
+    "fixture_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/fixtureId"
+      }
+    },
+    "fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/fixture"
+      }
+    },
+    "instance_graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "root_node_ids",
+        "nodes",
+        "edges"
+      ],
+      "properties": {
+        "root_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nodeId"
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/instanceNode"
+              },
+              {
+                "$ref": "#/$defs/gapNode"
+              }
+            ]
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edge"
+          }
+        }
+      }
+    },
+    "state_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/stateMatrixEntry"
+      }
+    },
+    "gap_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/gapId"
+      }
+    }
+  },
+  "$defs": {
+    "viewportModes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    },
+    "nodeId": {
+      "type": "string",
+      "pattern": "^node\\.[a-z0-9][a-z0-9.-]*\\.[0-9]{3}$"
+    },
+    "gapId": {
+      "type": "string",
+      "pattern": "^gap\\.[a-z0-9][a-z0-9.-]*\\.[0-9]{2}$"
+    },
+    "fixtureId": {
+      "type": "string",
+      "pattern": "^fixture\\.[a-z0-9][a-z0-9.-]*$"
+    },
+    "sourceConsumerRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_ref_id",
+        "route_family_id",
+        "source_id",
+        "source_path",
+        "route_template",
+        "evidence_ref"
+      ],
+      "properties": {
+        "consumer_ref_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route_family_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^page-family\\."
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^source\\.current_root_prelaunch\\."
+        },
+        "source_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^site/src/pages/.*\\.astro$"
+        },
+        "route_template": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "contentProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cardinality",
+        "content_length",
+        "locale",
+        "media_condition",
+        "runtime_condition"
+      ],
+      "properties": {
+        "cardinality": {
+          "enum": [
+            "zero",
+            "one",
+            "many",
+            "overflow",
+            "not_applicable"
+          ]
+        },
+        "content_length": {
+          "enum": [
+            "short",
+            "standard",
+            "long",
+            "mixed"
+          ]
+        },
+        "locale": {
+          "const": "ru-RU"
+        },
+        "media_condition": {
+          "enum": [
+            "representative",
+            "missing",
+            "broken",
+            "portrait-poster",
+            "landscape-photo",
+            "gallery"
+          ]
+        },
+        "runtime_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_id",
+        "state",
+        "content_profile",
+        "source_consumer_ref_ids"
+      ],
+      "properties": {
+        "fixture_id": {
+          "$ref": "#/$defs/fixtureId"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_profile": {
+          "$ref": "#/$defs/contentProfile"
+        },
+        "source_consumer_ref_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "instanceNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_id",
+        "node_kind",
+        "entity_ref",
+        "order",
+        "viewport_modes",
+        "fixture_refs",
+        "detached",
+        "local_overrides"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "node_kind": {
+          "enum": [
+            "component_instance",
+            "pattern_instance"
+          ]
+        },
+        "entity_ref": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z0-9-]+)+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "viewport_modes": {
+          "$ref": "#/$defs/viewportModes"
+        },
+        "fixture_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/fixtureId"
+          }
+        },
+        "detached": {
+          "const": false
+        },
+        "local_overrides": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "gapNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_id",
+        "node_kind",
+        "order",
+        "viewport_modes",
+        "fixture_refs",
+        "detached",
+        "local_overrides",
+        "gap"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "node_kind": {
+          "const": "gap_placeholder"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "viewport_modes": {
+          "$ref": "#/$defs/viewportModes"
+        },
+        "fixture_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/fixtureId"
+          }
+        },
+        "detached": {
+          "const": false
+        },
+        "local_overrides": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "gap": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gap_id",
+            "uncovered_region",
+            "reason",
+            "source_evidence_refs"
+          ],
+          "properties": {
+            "gap_id": {
+              "$ref": "#/$defs/gapId"
+            },
+            "uncovered_region": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_evidence_refs": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_node_id",
+        "to_node_id",
+        "relation",
+        "order"
+      ],
+      "properties": {
+        "from_node_id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "to_node_id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "relation": {
+          "enum": [
+            "contains_instance",
+            "selects_one_instance",
+            "contains_gap"
+          ]
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "stateMatrixEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "matrix_id",
+        "state",
+        "viewport_mode",
+        "fixture_ref",
+        "active_node_ids",
+        "expected_gap_node_ids"
+      ],
+      "properties": {
+        "matrix_id": {
+          "type": "string",
+          "pattern": "^matrix\\.[a-z0-9][a-z0-9.-]*$"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "viewport_mode": {
+          "enum": [
+            "mobile",
+            "desktop"
+          ]
+        },
+        "fixture_ref": {
+          "$ref": "#/$defs/fixtureId"
+        },
+        "active_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nodeId"
+          }
+        },
+        "expected_gap_node_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nodeId"
+          }
+        }
+      }
+    }
+  }
+}

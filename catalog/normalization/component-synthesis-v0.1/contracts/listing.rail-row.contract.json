@@ -1,0 +1,370 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "Preserve native semantics; verify focus, name, state and target size."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {
+        "cardinality_case": "absent"
+      },
+      "combination_id": "absent",
+      "rule": "Zero selected media means no media cell and no clipped placeholder."
+    },
+    {
+      "axis_selections": {
+        "cardinality_case": "single"
+      },
+      "combination_id": "single",
+      "rule": "One selected asset creates one linked EventMediaFrame."
+    },
+    {
+      "axis_selections": {
+        "cardinality_case": "default-four"
+      },
+      "combination_id": "default-four",
+      "rule": "Default selection creates up to four ordered linked frames."
+    },
+    {
+      "axis_selections": {
+        "cardinality_case": "hard-six"
+      },
+      "combination_id": "hard-six",
+      "rule": "Explicit hard cap creates six ordered linked frames."
+    },
+    {
+      "axis_selections": {
+        "cardinality_case": "overflow-six"
+      },
+      "combination_id": "overflow-six",
+      "rule": "More than six inputs render six linked frames and report truncation; browser viewport owns overflow."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "row context and occurrence summary",
+      "part_id": "row-summary",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "zero to six source-ordered event.media-frame instances",
+      "part_id": "media-frames",
+      "required": false
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "digest and navigation actions",
+      "part_id": "actions",
+      "required": true
+    }
+  ],
+  "candidate_disposition": "candidate_component",
+  "consumers": {
+    "archetype_refs": [
+      "archetype.listing.date",
+      "archetype.listing.popular",
+      "archetype.listing.weekend"
+    ],
+    "entity_refs": [
+      "listing.discovery-rail",
+      "listing.timeline"
+    ]
+  },
+  "content_constraints": {
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Mobile listing rail row",
+  "entity_kind": "composite_component",
+  "evidence": {
+    "confidence": "high",
+    "hierarchy_refs": [
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=listing.rail-row;child=event.media-frame"
+    ],
+    "level": "exact_current_source_runtime_reconciliation",
+    "notes": [
+      "This is the current production rail row and is not an EventCard variant."
+    ],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#listing.rail-row"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.listing.rail-row",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "media_fixture_ids": [
+      "fixture.photo-landscape-3x2-focal-safe-cover",
+      "fixture.photo-portrait-4x5-derived-cover",
+      "fixture.photo-reviewed-5x4-cover",
+      "fixture.photo-2x3-container-contain",
+      "fixture.poster-ocr-square-1x1-contain",
+      "fixture.poster-ocr-intrinsic-contain",
+      "fixture.unknown-text-contain",
+      "fixture.mixed-primary-previews",
+      "fixture.poster-companion",
+      "fixture.state-missing",
+      "fixture.state-broken",
+      "fixture.state-tiny"
+    ],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "event-card-child",
+      "rule": "Rail row cannot contain EventCard."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-media-cell",
+      "rule": "Every media cell is a linked EventMediaFrame instance."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "component-clipping",
+      "rule": "The component does not simulate browser viewport clipping."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "Candidate governance flags remain false."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "error",
+      "success"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.error",
+      "fixture.runtime.success"
+    ],
+    "source_policy": "Each native linked frame owns loaded/loading/error; row remains absent for zero media and preserves 112px geometry when present.",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_profile_refs": [
+      "profile.mobile-listing-rail-row"
+    ],
+    "consumer_requirement_refs": [
+      "event-media.application.lab-design-system-event-media-rail"
+    ],
+    "consumer_scoped": true,
+    "fit_candidates": [
+      "cover",
+      "contain",
+      "source-preserving"
+    ],
+    "focal_point": "Per selected asset decision.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "112px band when present.",
+    "loading_applicability": "Real image decode/loading state only.",
+    "mode": "delegated",
+    "ratio_candidates": [
+      "4:5",
+      "5:4",
+      "3:2",
+      "2:3",
+      "1:1",
+      "intrinsic/source",
+      "consumer-defined"
+    ],
+    "resolver_contract_ref": "catalog/normalization/component-synthesis-v0.1/event-media-resolver-contract.json",
+    "safe_area": "Per selected asset decision.",
+    "semantic_modes": [
+      "photography",
+      "portrait-poster",
+      "artwork-with-text",
+      "ocr-document",
+      "unknown-text",
+      "fallback"
+    ],
+    "source_behavior": "Delegates each selected asset independently to profile.mobile-listing-rail-row; 0..N, default cap 4, hard cap 6.",
+    "upscale": "Profile output; no universal ceiling claimed."
+  },
+  "nested_components": [
+    {
+      "entity_ref": "event.media-frame",
+      "instance_required": true,
+      "multiplicity_by_case": {
+        "absent": 0,
+        "default-four": 4,
+        "hard-six": 6,
+        "overflow-six": 6,
+        "single": 1
+      },
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_event-media-frame",
+      "when_case_values": [
+        "single",
+        "default-four",
+        "hard-six",
+        "overflow-six"
+      ]
+    }
+  ],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.listing.rail-row"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.listing.rail-row",
+    "target_page": "40 — Announcements components",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "absent",
+        "single",
+        "default-four",
+        "hard-six",
+        "overflow-six"
+      ],
+      "default": "absent",
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "cardinality_case",
+      "required": true,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "Current production mobile rail row; horizontal overflow belongs to the browser/rail viewport, not to a clipped component master.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "One row/item grouping inside a mobile listing rail.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use current source-derived event summary."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "row summary",
+      "slot_id": "content_row-summary"
+    },
+    {
+      "accepts_entity_refs": [
+        "event.media-frame"
+      ],
+      "content_constraints": [
+        "Source ordered.",
+        "Default maximum four and hard maximum six.",
+        "Each cell receives its own resolved media decision."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "0..N native EventMediaFrame instances",
+      "slot_id": "component_event-media-frame"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Preserve current action semantics."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "digest and navigation actions",
+      "slot_id": "content_actions"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/listings/MobileListingRailRow.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/listings/MobileListingRailRow.astro"
+    ]
+  },
+  "stable_component_id": "listing.rail-row",
+  "state_axes": [],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [
+    {
+      "axis_id": "cardinality_case",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "absent",
+        "single",
+        "default-four",
+        "hard-six",
+        "overflow-six"
+      ]
+    }
+  ],
+  "wave_id": "W3-card-listing-navigation"
+}

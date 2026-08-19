@@ -1,0 +1,312 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.prelaunch",
+  "display_name": "Prelaunch",
+  "fixture_refs": [
+    "fixture.prelaunch.default",
+    "fixture.prelaunch.submitting",
+    "fixture.prelaunch.success",
+    "fixture.prelaunch.error"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "default"
+      },
+      "fixture_id": "fixture.prelaunch.default",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "default"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "submitting"
+      },
+      "fixture_id": "fixture.prelaunch.submitting",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "submitting"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "success"
+      },
+      "fixture_id": "fixture.prelaunch.success",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "success"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "error"
+      },
+      "fixture_id": "fixture.prelaunch.error",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "error"
+    }
+  ],
+  "gap_refs": [
+    "gap.prelaunch.01"
+  ],
+  "instance_graph": {
+    "edges": [],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "core.field",
+        "fixture_refs": [
+          "fixture.prelaunch.default",
+          "fixture.prelaunch.submitting",
+          "fixture.prelaunch.success",
+          "fixture.prelaunch.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.prelaunch.001",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.button",
+        "fixture_refs": [
+          "fixture.prelaunch.default",
+          "fixture.prelaunch.submitting",
+          "fixture.prelaunch.success",
+          "fixture.prelaunch.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.prelaunch.002",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.prelaunch.default",
+          "fixture.prelaunch.submitting",
+          "fixture.prelaunch.success",
+          "fixture.prelaunch.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.prelaunch.003",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.prelaunch.default",
+          "fixture.prelaunch.submitting",
+          "fixture.prelaunch.success",
+          "fixture.prelaunch.error"
+        ],
+        "gap": {
+          "gap_id": "gap.prelaunch.01",
+          "reason": "page.prelaunch is explicitly not Penpot-ready in the source registry; only its resolved component instances are represented.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl#archetype.prelaunch",
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#page.prelaunch"
+          ],
+          "uncovered_region": "Current page composition shell and placement are not covered by native instances."
+        },
+        "local_overrides": [],
+        "node_id": "node.prelaunch.004",
+        "node_kind": "gap_placeholder",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.prelaunch.001",
+      "node.prelaunch.002",
+      "node.prelaunch.003",
+      "node.prelaunch.004"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "current_page_composition_not_penpot_ready",
+  "route_family": "/prelaunch/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.prelaunch"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.home",
+      "route_family_id": "page-family.home",
+      "route_template": "/",
+      "source_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "source_path": "site/src/pages/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.default",
+      "matrix_id": "matrix.prelaunch.mobile.default",
+      "state": "default",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.submitting",
+      "matrix_id": "matrix.prelaunch.mobile.submitting",
+      "state": "submitting",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.success",
+      "matrix_id": "matrix.prelaunch.mobile.success",
+      "state": "success",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.error",
+      "matrix_id": "matrix.prelaunch.mobile.error",
+      "state": "error",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.default",
+      "matrix_id": "matrix.prelaunch.desktop.default",
+      "state": "default",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.submitting",
+      "matrix_id": "matrix.prelaunch.desktop.submitting",
+      "state": "submitting",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.success",
+      "matrix_id": "matrix.prelaunch.desktop.success",
+      "state": "success",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.prelaunch.001",
+        "node.prelaunch.002",
+        "node.prelaunch.003"
+      ],
+      "expected_gap_node_ids": [
+        "node.prelaunch.004"
+      ],
+      "fixture_ref": "fixture.prelaunch.error",
+      "matrix_id": "matrix.prelaunch.desktop.error",
+      "state": "error",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

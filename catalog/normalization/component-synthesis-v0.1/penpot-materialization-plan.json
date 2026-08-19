@@ -1,0 +1,238 @@
+{
+  "accepted": false,
+  "authority_mode": "reconstructed",
+  "current_path_closure": {
+    "directory_placeholders": 0,
+    "exact_file_rows": 107,
+    "mapping_rows": 107,
+    "semantic_acceptance_implied": false
+  },
+  "dependency_execution": {
+    "mode": "deterministic_topological_subpasses_over_wave_labels",
+    "subpasses": [
+      {
+        "before_entity_ids": [
+          "event.media-rail"
+        ],
+        "declared_wave_membership_preserved": "W3-card-listing-navigation",
+        "materialize_entity_ids": [
+          "core.rail"
+        ],
+        "reason": "event.media-rail requires a native core.rail master before nested instance creation; no detached or temporary rail is permitted.",
+        "subpass_id": "pre-W2-core-rail-prerequisite"
+      }
+    ]
+  },
+  "excluded_entity_ids": [
+    "artifact.rail-insert",
+    "event.list-item",
+    "event.media-rail",
+    "exhibition.row",
+    "experiment.keyboard-navigation",
+    "experiment.transport-timetable",
+    "focus.easter-egg",
+    "focus.lab-panel",
+    "navigation.keyboard-enhancement",
+    "page.mobile-event-review",
+    "page.prelaunch",
+    "runtime.club-catalog-navigation",
+    "runtime.mobile-event-styles",
+    "runtime.onboarding-placement-context",
+    "runtime.personalization",
+    "runtime.pwa-telemetry",
+    "runtime.static-auth",
+    "runtime.unusual-unread",
+    "runtime.weather-date-context"
+  ],
+  "fixture_requirements": {
+    "counts": [
+      "0",
+      "1",
+      "many",
+      "overflow"
+    ],
+    "media": [
+      "landscape-photo",
+      "portrait-poster",
+      "square",
+      "artwork-with-text",
+      "ocr-document",
+      "unknown-text",
+      "missing",
+      "broken",
+      "tiny-source"
+    ],
+    "runtime_states": [
+      "static_resolved",
+      "initial_loading",
+      "skeleton",
+      "inline_refresh",
+      "stale_refresh",
+      "partial",
+      "empty",
+      "error",
+      "retrying",
+      "offline",
+      "unavailable",
+      "success"
+    ],
+    "text": [
+      "short-ru",
+      "long-ru",
+      "multiline",
+      "numeric-heavy",
+      "missing-optional"
+    ],
+    "viewports": [
+      "mobile-390x844",
+      "mobile-430x932",
+      "tablet-768x1024",
+      "desktop-1280x800",
+      "desktop-1728x900"
+    ]
+  },
+  "owner_ambiguity_count": 0,
+  "promotion_ready": false,
+  "reconciliation_delta_refs": [
+    "TECH-EVENT-LIST-001",
+    "TECH-MOBILE-SEARCH-NAV-001",
+    "TECH-MEDALLION-001",
+    "TECH-EVENT-CARD-001",
+    "PLAN-W1-BRAND-PAGE-001",
+    "PLAN-CORE-DIALOG-001",
+    "PLAN-CORE-RAIL-TOPOLOGY-001"
+  ],
+  "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "schema_version": "lovekgd_penpot_materialization_plan_v0_1_exact_107",
+  "technical_reconciliation_count": 6,
+  "waves": [
+    {
+      "entity_ids": [
+        "brand.lockup",
+        "brand.wordmark",
+        "core.badge",
+        "core.breadcrumbs",
+        "core.button",
+        "core.calendar-action",
+        "core.copy-action",
+        "core.dialog",
+        "core.favorite-action",
+        "core.field",
+        "core.icon",
+        "core.share-action",
+        "core.state-panel",
+        "core.toast-region",
+        "navigation.mobile-tab-bar",
+        "navigation.mobile-tab-item"
+      ],
+      "reason": "Highest-confidence bounded identities and direct duplicate/drift closure.",
+      "target_pages": [
+        "10 — Brand assets",
+        "25 — Iconography",
+        "30 — Core UI resources"
+      ],
+      "wave_id": "W1-core-and-actions"
+    },
+    {
+      "entity_ids": [
+        "event.action-group",
+        "event.admission-summary",
+        "event.fact-list",
+        "event.fact-row",
+        "event.fallback-art",
+        "event.hero-composition",
+        "event.hero-summary",
+        "event.media-frame",
+        "event.media-viewer",
+        "event.occurrence-label",
+        "event.occurrence-selector",
+        "event.primary-action",
+        "event.summary-action-panel"
+      ],
+      "reason": "Directly reviewed monolith decomposition and consumer-specific media contracts.",
+      "target_pages": [
+        "40 — Announcements components",
+        "50 — Product patterns"
+      ],
+      "wave_id": "W2-event-media-and-actions"
+    },
+    {
+      "entity_ids": [
+        "core.rail",
+        "event.card",
+        "event.card-grid",
+        "home.quick-navigation",
+        "listing.category-filter",
+        "listing.controls",
+        "listing.density-switch",
+        "listing.discovery-rail",
+        "listing.event-card",
+        "listing.page-header",
+        "listing.rail-row",
+        "listing.range-navigation",
+        "listing.time-marker",
+        "listing.time-navigation",
+        "listing.timeline",
+        "navigation.mobile-menu",
+        "talk.message"
+      ],
+      "reason": "Reusable structures after W1/W2 dependencies exist.",
+      "target_pages": [
+        "30 — Core UI resources",
+        "40 — Announcements components",
+        "50 — Product patterns"
+      ],
+      "wave_id": "W3-card-listing-navigation"
+    },
+    {
+      "entity_ids": [
+        "artifact.collection",
+        "club.card",
+        "event.token-medallions",
+        "favorites.surface",
+        "focus.diagnostic",
+        "focus.feedback-form",
+        "focus.invite-intake",
+        "focus.invite-share",
+        "focus.thank-you",
+        "interest.profile",
+        "personal-feed.slot",
+        "search.event-search",
+        "transport.bus-schedule",
+        "transport.journey-alerts",
+        "transport.kaup-schedule",
+        "transport.rail-schedule",
+        "transport.route-heading",
+        "transport.schedule-region"
+      ],
+      "reason": "Product/domain candidates remain reconstructed and are not promoted by materialization.",
+      "target_pages": [
+        "40 — Announcements components",
+        "50 — Product patterns"
+      ],
+      "wave_id": "W4-domain-product-specific"
+    },
+    {
+      "archetype_registry_ref": "catalog/normalization/component-synthesis-v0.1/page-archetype-registry.jsonl",
+      "entity_ids": [
+        "page.collection.free",
+        "page.collection.gastronomy",
+        "page.event-detail.editorial",
+        "page.event-detail.mobile",
+        "page.event-detail.no-image",
+        "page.event-detail.split",
+        "page.listing-date",
+        "page.listing-popular",
+        "page.listing-unusual",
+        "page.listing-weekend"
+      ],
+      "reason": "Build only from instances of W1–W4; uncovered regions remain explicit UI gaps.",
+      "target_pages": [
+        "60 — Page archetypes",
+        "62 — Product representations",
+        "64 — Product state matrices"
+      ],
+      "wave_id": "W5-page-compositions"
+    }
+  ]
+}

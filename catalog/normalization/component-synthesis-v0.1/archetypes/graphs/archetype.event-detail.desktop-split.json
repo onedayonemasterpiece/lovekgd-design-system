@@ -1,0 +1,1816 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.event-detail.desktop-split",
+  "display_name": "Event detail — desktop split/poster",
+  "fixture_refs": [
+    "fixture.event-detail.desktop-split.portrait-poster",
+    "fixture.event-detail.desktop-split.split",
+    "fixture.event-detail.desktop-split.gallery",
+    "fixture.event-detail.desktop-split.transport",
+    "fixture.event-detail.desktop-split.continuation"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "portrait-poster",
+        "runtime_condition": "portrait-poster"
+      },
+      "fixture_id": "fixture.event-detail.desktop-split.portrait-poster",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "portrait-poster"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "split"
+      },
+      "fixture_id": "fixture.event-detail.desktop-split.split",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "split"
+    },
+    {
+      "content_profile": {
+        "cardinality": "many",
+        "content_length": "mixed",
+        "locale": "ru-RU",
+        "media_condition": "gallery",
+        "runtime_condition": "gallery"
+      },
+      "fixture_id": "fixture.event-detail.desktop-split.gallery",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "gallery"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "transport"
+      },
+      "fixture_id": "fixture.event-detail.desktop-split.transport",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "transport"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "long",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "continuation"
+      },
+      "fixture_id": "fixture.event-detail.desktop-split.continuation",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.7e8d05ce7735edff"
+      ],
+      "state": "continuation"
+    }
+  ],
+  "gap_refs": [],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.event-detail.desktop-split.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.002"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.003"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.004"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.005"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.006"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.007"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.008"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.009",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.010"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.010",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.011"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.010",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.012"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.010",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.013"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.010",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.014"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.010",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.015"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.015",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.016"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.015",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.017"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.009",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.018"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.018",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.019"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.018",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.020"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.009",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.021"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.021",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.022"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.009",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.023"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.023",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.024"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.023",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.025"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.025",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.026"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.009",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.027"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.027",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.028"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.027",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.029"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.029",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.030"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.031",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.032"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.032",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.033"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.032",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.034"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.032",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.035"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.032",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.036"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.032",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.037"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.037",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.038"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.037",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.039"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.031",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.040"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.040",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.041"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.041",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.042"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.031",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.043"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.044",
+        "order": 0,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-split.045"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.045",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.046"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.045",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.047"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.047",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.048"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.045",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.049"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.044",
+        "order": 1,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-split.050"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.050",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.051"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.050",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.052"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.052",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.053"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.050",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.054"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.044",
+        "order": 2,
+        "relation": "selects_one_instance",
+        "to_node_id": "node.event-detail.desktop-split.055"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.055",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.056"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.055",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.057"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.057",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.058"
+      },
+      {
+        "from_node_id": "node.event-detail.desktop-split.055",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.event-detail.desktop-split.059"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "event.card-grid",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-composition",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.009",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.action-group",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.010",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.011",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.012",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.013",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.014",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.primary-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.015",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.016",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.copy-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.017",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.hero-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.018",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.019",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.020",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.021",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.022",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.023",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.rail",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.024",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.025",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.026",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-viewer",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.027",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.dialog",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.028",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.029",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.030",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.summary-action-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.031",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.action-group",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.032",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.033",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.034",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.035",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.admission-summary",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.036",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.primary-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.037",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.calendar-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.038",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.copy-action",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.039",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-list",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.040",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fact-row",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.041",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.042",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.043",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.schedule-region",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.044",
+        "node_kind": "pattern_instance",
+        "order": 3,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.bus-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.045",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.046",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.047",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.048",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.049",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.kaup-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.050",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.051",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.052",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.053",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.054",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.rail-schedule",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.055",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.056",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.journey-alerts",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.057",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.058",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "transport.route-heading",
+        "fixture_refs": [
+          "fixture.event-detail.desktop-split.portrait-poster",
+          "fixture.event-detail.desktop-split.split",
+          "fixture.event-detail.desktop-split.gallery",
+          "fixture.event-detail.desktop-split.transport",
+          "fixture.event-detail.desktop-split.continuation"
+        ],
+        "local_overrides": [],
+        "node_id": "node.event-detail.desktop-split.059",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.event-detail.desktop-split.001",
+      "node.event-detail.desktop-split.009",
+      "node.event-detail.desktop-split.031",
+      "node.event-detail.desktop-split.044"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/sobytiya/[slug]/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "page.event-detail.split",
+    "transport.schedule-region"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.event-detail",
+      "route_family_id": "page-family.event-detail",
+      "route_template": "/sobytiya/:slug/",
+      "source_id": "source.current_root_prelaunch.7e8d05ce7735edff",
+      "source_path": "site/src/pages/sobytiya/[slug].astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-split.001",
+        "node.event-detail.desktop-split.002",
+        "node.event-detail.desktop-split.003",
+        "node.event-detail.desktop-split.004",
+        "node.event-detail.desktop-split.005",
+        "node.event-detail.desktop-split.006",
+        "node.event-detail.desktop-split.007",
+        "node.event-detail.desktop-split.008",
+        "node.event-detail.desktop-split.009",
+        "node.event-detail.desktop-split.010",
+        "node.event-detail.desktop-split.011",
+        "node.event-detail.desktop-split.012",
+        "node.event-detail.desktop-split.013",
+        "node.event-detail.desktop-split.014",
+        "node.event-detail.desktop-split.015",
+        "node.event-detail.desktop-split.016",
+        "node.event-detail.desktop-split.017",
+        "node.event-detail.desktop-split.018",
+        "node.event-detail.desktop-split.019",
+        "node.event-detail.desktop-split.020",
+        "node.event-detail.desktop-split.021",
+        "node.event-detail.desktop-split.022",
+        "node.event-detail.desktop-split.023",
+        "node.event-detail.desktop-split.024",
+        "node.event-detail.desktop-split.025",
+        "node.event-detail.desktop-split.026",
+        "node.event-detail.desktop-split.027",
+        "node.event-detail.desktop-split.028",
+        "node.event-detail.desktop-split.029",
+        "node.event-detail.desktop-split.030",
+        "node.event-detail.desktop-split.031",
+        "node.event-detail.desktop-split.032",
+        "node.event-detail.desktop-split.033",
+        "node.event-detail.desktop-split.034",
+        "node.event-detail.desktop-split.035",
+        "node.event-detail.desktop-split.036",
+        "node.event-detail.desktop-split.037",
+        "node.event-detail.desktop-split.038",
+        "node.event-detail.desktop-split.039",
+        "node.event-detail.desktop-split.040",
+        "node.event-detail.desktop-split.041",
+        "node.event-detail.desktop-split.042",
+        "node.event-detail.desktop-split.043",
+        "node.event-detail.desktop-split.044",
+        "node.event-detail.desktop-split.055",
+        "node.event-detail.desktop-split.056",
+        "node.event-detail.desktop-split.057",
+        "node.event-detail.desktop-split.058",
+        "node.event-detail.desktop-split.059"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-split.portrait-poster",
+      "matrix_id": "matrix.event-detail.desktop-split.desktop.portrait-poster",
+      "state": "portrait-poster",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-split.001",
+        "node.event-detail.desktop-split.002",
+        "node.event-detail.desktop-split.003",
+        "node.event-detail.desktop-split.004",
+        "node.event-detail.desktop-split.005",
+        "node.event-detail.desktop-split.006",
+        "node.event-detail.desktop-split.007",
+        "node.event-detail.desktop-split.008",
+        "node.event-detail.desktop-split.009",
+        "node.event-detail.desktop-split.010",
+        "node.event-detail.desktop-split.011",
+        "node.event-detail.desktop-split.012",
+        "node.event-detail.desktop-split.013",
+        "node.event-detail.desktop-split.014",
+        "node.event-detail.desktop-split.015",
+        "node.event-detail.desktop-split.016",
+        "node.event-detail.desktop-split.017",
+        "node.event-detail.desktop-split.018",
+        "node.event-detail.desktop-split.019",
+        "node.event-detail.desktop-split.020",
+        "node.event-detail.desktop-split.021",
+        "node.event-detail.desktop-split.022",
+        "node.event-detail.desktop-split.023",
+        "node.event-detail.desktop-split.024",
+        "node.event-detail.desktop-split.025",
+        "node.event-detail.desktop-split.026",
+        "node.event-detail.desktop-split.027",
+        "node.event-detail.desktop-split.028",
+        "node.event-detail.desktop-split.029",
+        "node.event-detail.desktop-split.030",
+        "node.event-detail.desktop-split.031",
+        "node.event-detail.desktop-split.032",
+        "node.event-detail.desktop-split.033",
+        "node.event-detail.desktop-split.034",
+        "node.event-detail.desktop-split.035",
+        "node.event-detail.desktop-split.036",
+        "node.event-detail.desktop-split.037",
+        "node.event-detail.desktop-split.038",
+        "node.event-detail.desktop-split.039",
+        "node.event-detail.desktop-split.040",
+        "node.event-detail.desktop-split.041",
+        "node.event-detail.desktop-split.042",
+        "node.event-detail.desktop-split.043",
+        "node.event-detail.desktop-split.044",
+        "node.event-detail.desktop-split.055",
+        "node.event-detail.desktop-split.056",
+        "node.event-detail.desktop-split.057",
+        "node.event-detail.desktop-split.058",
+        "node.event-detail.desktop-split.059"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-split.split",
+      "matrix_id": "matrix.event-detail.desktop-split.desktop.split",
+      "state": "split",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-split.001",
+        "node.event-detail.desktop-split.002",
+        "node.event-detail.desktop-split.003",
+        "node.event-detail.desktop-split.004",
+        "node.event-detail.desktop-split.005",
+        "node.event-detail.desktop-split.006",
+        "node.event-detail.desktop-split.007",
+        "node.event-detail.desktop-split.008",
+        "node.event-detail.desktop-split.009",
+        "node.event-detail.desktop-split.010",
+        "node.event-detail.desktop-split.011",
+        "node.event-detail.desktop-split.012",
+        "node.event-detail.desktop-split.013",
+        "node.event-detail.desktop-split.014",
+        "node.event-detail.desktop-split.015",
+        "node.event-detail.desktop-split.016",
+        "node.event-detail.desktop-split.017",
+        "node.event-detail.desktop-split.018",
+        "node.event-detail.desktop-split.019",
+        "node.event-detail.desktop-split.020",
+        "node.event-detail.desktop-split.021",
+        "node.event-detail.desktop-split.022",
+        "node.event-detail.desktop-split.023",
+        "node.event-detail.desktop-split.024",
+        "node.event-detail.desktop-split.025",
+        "node.event-detail.desktop-split.026",
+        "node.event-detail.desktop-split.027",
+        "node.event-detail.desktop-split.028",
+        "node.event-detail.desktop-split.029",
+        "node.event-detail.desktop-split.030",
+        "node.event-detail.desktop-split.031",
+        "node.event-detail.desktop-split.032",
+        "node.event-detail.desktop-split.033",
+        "node.event-detail.desktop-split.034",
+        "node.event-detail.desktop-split.035",
+        "node.event-detail.desktop-split.036",
+        "node.event-detail.desktop-split.037",
+        "node.event-detail.desktop-split.038",
+        "node.event-detail.desktop-split.039",
+        "node.event-detail.desktop-split.040",
+        "node.event-detail.desktop-split.041",
+        "node.event-detail.desktop-split.042",
+        "node.event-detail.desktop-split.043",
+        "node.event-detail.desktop-split.044",
+        "node.event-detail.desktop-split.055",
+        "node.event-detail.desktop-split.056",
+        "node.event-detail.desktop-split.057",
+        "node.event-detail.desktop-split.058",
+        "node.event-detail.desktop-split.059"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-split.gallery",
+      "matrix_id": "matrix.event-detail.desktop-split.desktop.gallery",
+      "state": "gallery",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-split.001",
+        "node.event-detail.desktop-split.002",
+        "node.event-detail.desktop-split.003",
+        "node.event-detail.desktop-split.004",
+        "node.event-detail.desktop-split.005",
+        "node.event-detail.desktop-split.006",
+        "node.event-detail.desktop-split.007",
+        "node.event-detail.desktop-split.008",
+        "node.event-detail.desktop-split.009",
+        "node.event-detail.desktop-split.010",
+        "node.event-detail.desktop-split.011",
+        "node.event-detail.desktop-split.012",
+        "node.event-detail.desktop-split.013",
+        "node.event-detail.desktop-split.014",
+        "node.event-detail.desktop-split.015",
+        "node.event-detail.desktop-split.016",
+        "node.event-detail.desktop-split.017",
+        "node.event-detail.desktop-split.018",
+        "node.event-detail.desktop-split.019",
+        "node.event-detail.desktop-split.020",
+        "node.event-detail.desktop-split.021",
+        "node.event-detail.desktop-split.022",
+        "node.event-detail.desktop-split.023",
+        "node.event-detail.desktop-split.024",
+        "node.event-detail.desktop-split.025",
+        "node.event-detail.desktop-split.026",
+        "node.event-detail.desktop-split.027",
+        "node.event-detail.desktop-split.028",
+        "node.event-detail.desktop-split.029",
+        "node.event-detail.desktop-split.030",
+        "node.event-detail.desktop-split.031",
+        "node.event-detail.desktop-split.032",
+        "node.event-detail.desktop-split.033",
+        "node.event-detail.desktop-split.034",
+        "node.event-detail.desktop-split.035",
+        "node.event-detail.desktop-split.036",
+        "node.event-detail.desktop-split.037",
+        "node.event-detail.desktop-split.038",
+        "node.event-detail.desktop-split.039",
+        "node.event-detail.desktop-split.040",
+        "node.event-detail.desktop-split.041",
+        "node.event-detail.desktop-split.042",
+        "node.event-detail.desktop-split.043",
+        "node.event-detail.desktop-split.044",
+        "node.event-detail.desktop-split.055",
+        "node.event-detail.desktop-split.056",
+        "node.event-detail.desktop-split.057",
+        "node.event-detail.desktop-split.058",
+        "node.event-detail.desktop-split.059"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-split.transport",
+      "matrix_id": "matrix.event-detail.desktop-split.desktop.transport",
+      "state": "transport",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.event-detail.desktop-split.001",
+        "node.event-detail.desktop-split.002",
+        "node.event-detail.desktop-split.003",
+        "node.event-detail.desktop-split.004",
+        "node.event-detail.desktop-split.005",
+        "node.event-detail.desktop-split.006",
+        "node.event-detail.desktop-split.007",
+        "node.event-detail.desktop-split.008",
+        "node.event-detail.desktop-split.009",
+        "node.event-detail.desktop-split.010",
+        "node.event-detail.desktop-split.011",
+        "node.event-detail.desktop-split.012",
+        "node.event-detail.desktop-split.013",
+        "node.event-detail.desktop-split.014",
+        "node.event-detail.desktop-split.015",
+        "node.event-detail.desktop-split.016",
+        "node.event-detail.desktop-split.017",
+        "node.event-detail.desktop-split.018",
+        "node.event-detail.desktop-split.019",
+        "node.event-detail.desktop-split.020",
+        "node.event-detail.desktop-split.021",
+        "node.event-detail.desktop-split.022",
+        "node.event-detail.desktop-split.023",
+        "node.event-detail.desktop-split.024",
+        "node.event-detail.desktop-split.025",
+        "node.event-detail.desktop-split.026",
+        "node.event-detail.desktop-split.027",
+        "node.event-detail.desktop-split.028",
+        "node.event-detail.desktop-split.029",
+        "node.event-detail.desktop-split.030",
+        "node.event-detail.desktop-split.031",
+        "node.event-detail.desktop-split.032",
+        "node.event-detail.desktop-split.033",
+        "node.event-detail.desktop-split.034",
+        "node.event-detail.desktop-split.035",
+        "node.event-detail.desktop-split.036",
+        "node.event-detail.desktop-split.037",
+        "node.event-detail.desktop-split.038",
+        "node.event-detail.desktop-split.039",
+        "node.event-detail.desktop-split.040",
+        "node.event-detail.desktop-split.041",
+        "node.event-detail.desktop-split.042",
+        "node.event-detail.desktop-split.043",
+        "node.event-detail.desktop-split.044",
+        "node.event-detail.desktop-split.055",
+        "node.event-detail.desktop-split.056",
+        "node.event-detail.desktop-split.057",
+        "node.event-detail.desktop-split.058",
+        "node.event-detail.desktop-split.059"
+      ],
+      "expected_gap_node_ids": [],
+      "fixture_ref": "fixture.event-detail.desktop-split.continuation",
+      "matrix_id": "matrix.event-detail.desktop-split.desktop.continuation",
+      "state": "continuation",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}
