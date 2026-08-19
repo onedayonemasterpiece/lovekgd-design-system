@@ -13,10 +13,14 @@ from typing import Any
 
 SOURCE_COMMIT = "a68c7f23c4e014c6e9f66e95f394656e9cb0f411"
 OUTPUT = pathlib.Path("catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json")
+THUMBNAIL_ROOT = pathlib.Path("catalog/normalization/families/event-preview-representations/assets/artifact-reference-thumbnails")
 
 
 def git_bytes(repo: pathlib.Path, commit: str, path: str) -> bytes:
-    return subprocess.check_output(["git", "-C", str(repo), "show", f"{commit}:{path}"])
+    return subprocess.check_output(
+        ["git", "-C", str(repo), "show", f"{commit}:{path}"],
+        stderr=subprocess.DEVNULL,
+    )
 
 
 def sha_record(repo: pathlib.Path, commit: str, path: str, *, allow_untracked_reference: bool = False) -> dict[str, Any]:
@@ -47,6 +51,29 @@ def stable_hash(document: dict[str, Any]) -> str:
     clone.pop("contract_payload_sha256", None)
     payload = json.dumps(clone, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
     return hashlib.sha256(payload).hexdigest()
+
+
+def derived_thumbnail(repo: pathlib.Path, source_path: str, root: pathlib.Path) -> dict[str, Any]:
+    from PIL import Image
+    source = repo / source_path
+    stem = pathlib.Path(source_path).stem.replace(" ", "-").replace("(", "").replace(")", "")
+    relative = THUMBNAIL_ROOT / f"{stem}.webp"
+    output = root / relative
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(source) as image:
+        image = image.convert("RGB")
+        image.thumbnail((320, 240), Image.Resampling.LANCZOS)
+        image.save(output, "WEBP", quality=78, method=6)
+        dimensions = [image.width, image.height]
+    data = output.read_bytes()
+    return {
+        "repo_path": str(relative),
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "byte_length": len(data),
+        "dimensions": dimensions,
+        "derivation": "PIL LANCZOS max-320x240 RGB WebP quality-78 method-6",
+        "use": "Penpot review thumbnail only; not a production asset",
+    }
 
 
 def main() -> None:
@@ -82,14 +109,15 @@ def main() -> None:
         ("Amber Cosmonaut", "cosmonavt.png", "distinct-visual-reference-not-separate-runtime-artifact"),
         ("Old Brick", "old-brick.png", "source-reference-not-implemented"),
     ]
-    references = [
-        {
+    references = []
+    for concept, filename, status in reference_specs:
+        source_path = f"{reference_root}/{filename}"
+        references.append({
             "concept": concept,
             "status": status,
-            **sha_record(repo, args.commit, f"{reference_root}/{filename}", allow_untracked_reference=True),
-        }
-        for concept, filename, status in reference_specs
-    ]
+            **sha_record(repo, args.commit, source_path, allow_untracked_reference=True),
+            "derived_review_thumbnail": derived_thumbnail(repo, source_path, root),
+        })
     focus_source = git_bytes(repo, args.commit, "site/src/lib/focus-easter-eggs.ts").decode()
     focus_defs = [
         {"id": egg_id, "title": title, "hint": hint, "family": family}

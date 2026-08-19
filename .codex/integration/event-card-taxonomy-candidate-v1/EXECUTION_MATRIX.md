@@ -7,7 +7,7 @@ Astro/CSS/assets at
 
 | ID | Requirement | Status | Current gate/evidence |
 |---|---|---|---|
-| R01 | Every event-card family/presentation/state is placed | **Partial** | Git SoT now enumerates 5 families / 56 exact card states plus 5 parent surface contracts. Page40/Page46 still contain the superseded 44-state projection and must be rematerialized. |
+| R01 | Every event-card family/presentation/state is placed | **Partial** | Git SoT now enumerates 5 families / 65 exact card states plus 5 parent surface contracts. Page40/Page46 still contain the superseded 44-state projection and must be rematerialized. |
 | R02 | All source-proven states are true native variants | **Blocked — Penpot disconnected** | Corrected axes eliminate surface skeleton/toast fiction, add both EventCard layouts, exact rail temporal/identity/Amber placement, festival interaction and exhibition mobile/rejected semantics. Penpot repair is pending reconnection. |
 | R03 | Astro → Git hash/bindings → Penpot metadata/instances | **Partial** | Every anatomy element now has exact source ownership; listing runtime attributes corrected; taxonomy hash joins medallion/artifact packages. Penpot IDs/receipt/export joins remain pending. |
 | R04 | Complete medallion collection on lightweight Page48 | **Git Done / Penpot blocked** | Versioned manifest contains 39 registry records, 43 bindings, 42 unique visuals, exact Kaup dedupe, asset hashes/formats/geometries/resolver states and frame contract. Page48/components pending reconnection. |

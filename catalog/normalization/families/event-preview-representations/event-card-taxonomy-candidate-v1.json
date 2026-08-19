@@ -3,18 +3,18 @@
   "schema_version": "event_card_taxonomy_candidate_v1",
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
-  "contract_version": "1.1.0-candidate.2",
-  "contract_payload_sha256": "cf589242671b97470feb2ae47950679b4aa60be96663127140daf94b38d44dbf",
+  "contract_version": "1.1.0-candidate.3",
+  "contract_payload_sha256": "5f4328f2533d1e80a6e169657c5f6c80607fe0683d23b8e58a731bef1fa5bd8a",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
   "canonical": false,
   "promotion_status": "not_promoted",
   "acceptance_status": "not_ready_independent_audit_remediation",
-  "implementation_status": "git-sot-corrected-penpot-rematerialization-required",
+  "implementation_status": "git-sot-complete-penpot-rematerialization-in-progress",
   "source_baseline": {
     "repository": "onedayonemasterpiece/events-bot-new",
-    "exact_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd",
+    "exact_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
     "review_build_id": "production-secret-20260809T192529-2f0fa64e",
     "review_run_id": "static-site:production-secret-20260809T192529-2f0fa64e:4ed0c3660b5c",
     "snapshot_id": "snapshot-20260809T172529-ec59c2ec34",
@@ -105,7 +105,11 @@
         }
       ],
       "nested_component_refs": [
-        "event.media-frame"
+        "event.media-frame",
+        "icon.ui.dislike",
+        "icon.ui.share",
+        "icon.ui.heart",
+        "icon.ui.calendar"
       ],
       "variant_axes": {
         "consumer": [
@@ -544,7 +548,16 @@
           "selector_or_contract": "EventLayout.astro [data-not-interested-plate]",
           "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
         }
-      ]
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+        "icon_refs": [
+          "icon.ui.dislike",
+          "icon.ui.share",
+          "icon.ui.heart",
+          "icon.ui.calendar"
+        ]
+      }
     },
     {
       "component_id": "listing.event-card",
@@ -578,7 +591,9 @@
       ],
       "nested_component_refs": [
         "event.media-frame",
-        "event.occurrence-label"
+        "event.medallion-frame",
+        "icon.ui.share",
+        "icon.ui.heart"
       ],
       "variant_axes": {
         "density": [
@@ -587,59 +602,121 @@
           "popular"
         ],
         "media": [
-          "visual-crop",
-          "visual-natural",
           "protected-natural",
           "square-natural",
-          "portrait-natural",
-          "low-resolution"
+          "low-resolution",
+          "visual-crop"
         ],
         "proof": [
+          "none",
           "side-rail",
-          "inside",
-          "none"
+          "inside"
         ],
         "content": [
-          "short",
           "long",
-          "very-long"
+          "short"
+        ],
+        "temporal": [
+          "current",
+          "started-earlier",
+          "past"
+        ],
+        "identity-count": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "tail-layout": [
+          "none",
+          "compact",
+          "split"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible"
+        ],
+        "overlay-medallion": [
+          "absent",
+          "present"
+        ],
+        "free-medallion": [
+          "absent",
+          "present"
         ]
       },
       "state_key_order": [
         "density",
         "media",
         "proof",
-        "content"
+        "content",
+        "temporal",
+        "identity-count",
+        "tail-layout",
+        "interaction",
+        "overlay-medallion",
+        "free-medallion"
       ],
       "valid_combinations": [
         {
-          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long",
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
-            "S01-I01"
+            "ListingEventCard.astro regular protected source card"
           ]
         },
         {
-          "state_key": "density=regular;media=square-natural;proof=side-rail;content=short",
+          "state_key": "density=regular;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
           "evidence": [
-            "S02-I01"
+            "ListingEventCard.astro two-identity split tail + free medallion"
           ]
         },
         {
-          "state_key": "density=weekend;media=low-resolution;proof=inside;content=short",
+          "state_key": "density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
-            "S03-I01"
+            "weekend low-resolution inside-proof specimen"
           ]
         },
         {
-          "state_key": "density=popular;media=protected-natural;proof=side-rail;content=long",
+          "state_key": "density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
           "evidence": [
-            "S06-I01/S06-I02"
+            "popular three-identity split tail CSS"
           ]
         },
         {
-          "state_key": "density=popular;media=visual-crop;proof=inside;content=long",
+          "state_key": "density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
           "evidence": [
-            "S06-I03"
+            "popular visual-crop overlay medallion source gate"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css [data-listing-started-earlier=true]"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css [data-listing-past=true]"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css card/identity/proof hover"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css card/identity/proof focus-visible"
+          ]
+        },
+        {
+          "state_key": "density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "ListingEventCard.astro zero proof/identity DOM omission"
           ]
         }
       ],
@@ -788,7 +865,14 @@
           "selector_or_contract": ".ke-listing-card__place",
           "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
         }
-      ]
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+        "icon_refs": [
+          "icon.ui.share",
+          "icon.ui.heart"
+        ]
+      }
     },
     {
       "component_id": "listing.rail-row",
@@ -818,29 +902,42 @@
       ],
       "nested_component_refs": [
         "event.media-frame",
+        "event.medallion-frame",
+        "icon.ui.heart",
+        "icon.product.rail-arrow-right",
         "artifact.amber-rail"
       ],
       "variant_axes": {
         "position": [
           "summary",
+          "digest",
           "first-media",
           "next-media",
-          "digest",
           "identity-continuation",
           "boundary"
         ],
+        "occurrence": [
+          "per-date",
+          "per-family"
+        ],
+        "schedule": [
+          "exact-time",
+          "program-day",
+          "program-day-range",
+          "date-primary"
+        ],
         "feedback": [
           "restored",
+          "dislike-reveal",
           "like-reveal",
-          "like-committed",
-          "dislike-reveal"
+          "like-committed"
         ],
         "media": [
           "none",
           "loading",
           "loaded",
-          "multi-image",
-          "error"
+          "error",
+          "multi-image"
         ],
         "temporal": [
           "current",
@@ -854,6 +951,8 @@
       },
       "state_key_order": [
         "position",
+        "occurrence",
+        "schedule",
         "feedback",
         "media",
         "temporal",
@@ -861,81 +960,99 @@
       ],
       "valid_combinations": [
         {
-          "state_key": "position=summary;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=current;artifact=absent",
           "evidence": [
             "MobileListingRailRow summary"
           ]
         },
         {
-          "state_key": "position=digest;feedback=restored;media=none;temporal=current;artifact=absent",
+          "state_key": "position=digest;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
           "evidence": [
             "digest panel"
           ]
         },
         {
-          "state_key": "position=first-media;feedback=restored;media=multi-image;temporal=current;artifact=absent",
+          "state_key": "position=first-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
           "evidence": [
             "first media panel"
           ]
         },
         {
-          "state_key": "position=next-media;feedback=restored;media=multi-image;temporal=current;artifact=absent",
+          "state_key": "position=next-media;occurrence=per-date;schedule=exact-time;feedback=restored;media=multi-image;temporal=current;artifact=absent",
           "evidence": [
             "next media panel"
           ]
         },
         {
-          "state_key": "position=identity-continuation;feedback=restored;media=none;temporal=current;artifact=absent",
+          "state_key": "position=identity-continuation;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=absent",
           "evidence": [
             "identity continuation slot"
           ]
         },
         {
-          "state_key": "position=summary;feedback=dislike-reveal;media=loaded;temporal=current;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=dislike-reveal;media=loaded;temporal=current;artifact=absent",
           "evidence": [
             "left pull"
           ]
         },
         {
-          "state_key": "position=boundary;feedback=like-reveal;media=loaded;temporal=current;artifact=absent",
+          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-reveal;media=loaded;temporal=current;artifact=absent",
           "evidence": [
             "right pull"
           ]
         },
         {
-          "state_key": "position=boundary;feedback=like-committed;media=loaded;temporal=current;artifact=absent",
+          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=like-committed;media=loaded;temporal=current;artifact=absent",
           "evidence": [
             "aria-pressed true after like"
           ]
         },
         {
-          "state_key": "position=summary;feedback=restored;media=loading;temporal=current;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loading;temporal=current;artifact=absent",
           "evidence": [
             "initial data-media-state=loading"
           ]
         },
         {
-          "state_key": "position=summary;feedback=restored;media=error;temporal=current;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=error;temporal=current;artifact=absent",
           "evidence": [
             "decode error"
           ]
         },
         {
-          "state_key": "position=summary;feedback=restored;media=loaded;temporal=started-earlier;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=started-earlier;artifact=absent",
           "evidence": [
             "data-mobile-rail-temporal-state=started-earlier"
           ]
         },
         {
-          "state_key": "position=summary;feedback=restored;media=loaded;temporal=past;artifact=absent",
+          "state_key": "position=summary;occurrence=per-date;schedule=exact-time;feedback=restored;media=loaded;temporal=past;artifact=absent",
           "evidence": [
             "data-mobile-rail-temporal-state=past"
           ]
         },
         {
-          "state_key": "position=boundary;feedback=restored;media=none;temporal=current;artifact=amber-tail",
+          "state_key": "position=boundary;occurrence=per-date;schedule=exact-time;feedback=restored;media=none;temporal=current;artifact=amber-tail",
           "evidence": [
             "AmberRailArtifact exact tail sibling"
+          ]
+        },
+        {
+          "state_key": "position=summary;occurrence=per-date;schedule=program-day;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro noExactTime Program day"
+          ]
+        },
+        {
+          "state_key": "position=summary;occurrence=per-date;schedule=program-day-range;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro compact date range"
+          ]
+        },
+        {
+          "state_key": "position=summary;occurrence=per-family;schedule=date-primary;feedback=restored;media=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro occurrenceMode per-family"
           ]
         }
       ],
@@ -1136,7 +1253,14 @@
           "selector_or_contract": "AmberRailArtifact.astro sibling after like",
           "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
         }
-      ]
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+        "icon_refs": [
+          "icon.ui.heart",
+          "icon.product.rail-arrow-right"
+        ]
+      }
     },
     {
       "component_id": "festival.card",
@@ -1171,7 +1295,9 @@
         }
       ],
       "nested_component_refs": [
-        "event.media-frame"
+        "event.media-frame",
+        "icon.ui.heart",
+        "icon.editorial.festival.*"
       ],
       "variant_axes": {
         "layout": [
@@ -1184,7 +1310,8 @@
           "date-pending"
         ],
         "media": [
-          "visual"
+          "visual",
+          "document"
         ],
         "favorite": [
           "off",
@@ -1255,6 +1382,12 @@
           "state_key": "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
           "evidence": [
             ".festival-card__link:focus-visible"
+          ]
+        },
+        {
+          "state_key": "layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "festivali/index.astro .festival-card--document exact mediaMode branch"
           ]
         }
       ],
@@ -1414,7 +1547,14 @@
           "selector_or_contract": "[data-festival-like]",
           "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
         }
-      ]
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+        "icon_refs": [
+          "icon.ui.heart",
+          "icon.editorial.festival.*"
+        ]
+      }
     },
     {
       "component_id": "exhibition.row",
@@ -1448,7 +1588,12 @@
         }
       ],
       "nested_component_refs": [
-        "event.media-frame"
+        "event.media-frame",
+        "event.medallion-frame",
+        "icon.ui.share",
+        "icon.ui.comment",
+        "icon.ui.heart",
+        "icon.ui.dislike"
       ],
       "variant_axes": {
         "presentation": [
@@ -1693,7 +1838,16 @@
           "selector_or_contract": "[data-hidden-stub] [data-undo]",
           "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
         }
-      ]
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+        "icon_refs": [
+          "icon.ui.share",
+          "icon.ui.comment",
+          "icon.ui.heart",
+          "icon.ui.dislike"
+        ]
+      }
     }
   ],
   "non_claims": [
@@ -1803,7 +1957,7 @@
     "normalized_state_instance_count": 44,
     "detached_instance_count": 0,
     "file_revn_readback": 324,
-    "expected_native_state_count": 56
+    "expected_native_state_count": 65
   },
   "package_bindings": {
     "medallions": {
@@ -1812,7 +1966,14 @@
     },
     "artifacts": {
       "path": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json",
-      "contract_payload_sha256": "a97d02b6287e3a468b64e634aa8d4b67938bbf60996efb17dcfc44420d9706cb"
+      "contract_payload_sha256": "22084574b5d569f7fcec54654beac02f6839a1d93651b8cfe3c409c280a5114f"
+    },
+    "iconography": {
+      "contract_ref": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",
+      "schema_version": "event-card-icon-registry-candidate.v1",
+      "contract_payload_sha256": "98f99b6498a40db22dcbe629a76ca5b08d69da139a0e29ef10e147ef41836488",
+      "required_icon_count": 24,
+      "penpot_page_id": "10a29786-8dcf-802c-8008-739d919b8bb2"
     }
   },
   "surface_state_contracts": [

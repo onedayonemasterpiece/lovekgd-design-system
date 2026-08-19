@@ -2,7 +2,7 @@
 
 ## Current material result
 
-- Taxonomy contract: 5 families / **56** exact source-proven state keys.
+- Taxonomy contract: 5 families / **65** exact source-proven representative state keys.
 - Parent surfaces: Search, Favorites, Personal Feed, Mobile Listing Rail and
   Artifact Collection are modeled independently from card variants.
 - Medallions: **42 unique visuals / 43 bindings** from 28 organizer + 11

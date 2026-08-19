@@ -97,6 +97,13 @@ def main() -> None:
         fail("ECA_REFERENCE_AUTHORITY", "/artifact/reference_inventory/items", "untracked reference evidence must remain explicitly labelled")
     if any("not-implemented" not in x["status"] for x in references if x["concept"] != "Amber Cosmonaut"):
         fail("ECA_REFERENCE_PROMOTION", "/artifact/reference_inventory/items", "non-Amber concepts must remain not implemented")
+    for index, item in enumerate(references):
+        thumb = item.get("derived_review_thumbnail", {})
+        thumb_path = root / thumb.get("repo_path", "")
+        if not thumb_path.is_file() or hashlib.sha256(thumb_path.read_bytes()).hexdigest() != thumb.get("sha256"):
+            fail("ECA_REFERENCE_THUMBNAIL", f"/artifact/reference_inventory/items/{index}/derived_review_thumbnail", "hash-bound lightweight review thumbnail required")
+        if max(thumb.get("dimensions", [9999, 9999])) > 320 or thumb.get("use") != "Penpot review thumbnail only; not a production asset":
+            fail("ECA_REFERENCE_THUMBNAIL_SCOPE", f"/artifact/reference_inventory/items/{index}/derived_review_thumbnail", "thumbnail must remain bounded review-only evidence")
 
     if args.require_penpot:
         collection = med["penpot_collection"]

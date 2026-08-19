@@ -1,0 +1,41 @@
+mode: serial_integrator_with_read_only_audits
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: design/event-media-canonical-geometry-v1-20260812
+base_branch: design/event-card-taxonomy-candidate-v1-20260818
+integration_branch: design/event-card-taxonomy-candidate-v1-20260818
+global_constraints:
+  - events-bot-new is read-only
+  - screenshots are visual oracles only
+  - no detached Penpot copies or screenshot masters
+  - all pages lightweight and review-functional
+  - Page46 remains NOT READY until independent audit
+verification_owner: sole integrator, then independent read-only reviewer
+stop_conditions:
+  - repeated Penpot 504 or disconnected MCP requires readback/reconnect, never blind retry
+lanes:
+  - id: sot-and-live-penpot
+    role: merge_reviewer
+    requirement_ids: [R01,R02,R03,R04,R05,R06,R07,R08,R09]
+    target: Git candidate contracts and Penpot file 3be9e5e1-190f-8090-8008-713c0fbe6260
+    depends_on: []
+    execution_mode: serial
+    branch: design/event-card-taxonomy-candidate-v1-20260818
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/pr36-framing-v2
+    writable_files: [catalog,contracts,docs,receipts,scripts,tests,.github,.codex,in-scope Penpot pages]
+    forbidden_files: [/home/dev/projects/events-bot-new]
+    expected_output: exact SoT, native components/variants, compact review matrices, collections, receipts
+    verification_scope: full_local_and_ci
+    status: in_progress
+  - id: independent-closure
+    role: reviewer
+    requirement_ids: [R10]
+    target: final Git diff, Penpot readback and exports
+    depends_on: [sot-and-live-penpot]
+    execution_mode: read_only_until_dependency
+    branch: null
+    worktree: null
+    writable_files: []
+    forbidden_files: [all]
+    expected_output: requirement-by-requirement closure verdict
+    verification_scope: inspection_only
+    status: planned

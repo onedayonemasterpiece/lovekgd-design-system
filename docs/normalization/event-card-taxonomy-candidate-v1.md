@@ -4,12 +4,14 @@
 **Contract:** `catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json`
 **Bindings:** `catalog/normalization/families/event-preview-representations/screenshot-consumer-bindings-v1.json`
 **Framing:** `catalog/normalization/event-media/framing-v2.json`
+**Iconography:** `catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json`
 
 This package translates the exact review build
 `production-secret-20260809T192529-2f0fa64e`
-(`events-bot-new@d2b7993b41187660efa13d6d9070fda0c0d5a6cd`) into a
-reviewable candidate. It does not change Astro and does not claim runtime
-conformance to the new candidate state keys.
+and rechecks its unchanged card sources at the current immutable normalization
+baseline `events-bot-new@a68c7f23c4e014c6e9f66e95f394656e9cb0f411`.
+It does not change Astro and does not claim runtime conformance to the new
+candidate state keys.
 
 ## Proven boundaries
 
@@ -69,11 +71,22 @@ festival cover fractions, venue truncation in `S06-I02`, the related-card crop
 reason conflicts in `S07-I01`/`S07-I03`, and historical rail title wrapping in
 `S08-I04`.
 
+## Iconography join
+
+Controls remain native children of their owning card, exactly as Astro renders
+them. Their glyphs do not: every card glyph must be a linked instance of the
+source-bound Page 25 icon component recorded by the icon registry. The registry
+contains the eight `Icon.astro` glyphs reached by cards/medallion pills, the
+exact rail continuation cue, the distinct Amber-found check, and all fourteen
+festival-category CC0 assets. Same meaning is not permission to merge distinct
+source geometry.
+
 ## Validation
 
 ```bash
 python3 scripts/validate-event-media-framing-v2.py --root .
 python3 scripts/validate-event-card-taxonomy-candidate-v1.py --root .
+python3 scripts/validate-event-card-icon-registry-candidate-v1.py --root .
 node tests/event-card-taxonomy-candidate-v1-negative.mjs
 ```
 

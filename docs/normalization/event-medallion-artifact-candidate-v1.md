@@ -39,6 +39,8 @@ are explicitly not medallions.
 - seven local reference images for six concepts: source-reference material,
   not implemented artifacts. These files are untracked at the exact baseline,
   so the contract says that explicitly instead of inventing Git authority.
+  Deterministic, hash-bound `320×240`-bounded WebP derivatives exist only as
+  lightweight Penpot review thumbnails; they are not runtime assets.
 
 The rail tail is a `94×112` sibling after the existing like control. It is not
 an event medallion, sponsor badge, overlay, unavailable state or expired state.
