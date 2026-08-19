@@ -40,16 +40,19 @@ canonical: false
 
 Подробная фиксация источников и уровня evidence находится в [source-register.md](source-register.md).
 
-## Figma audit status
+## Figma and historical-source audit status
 
 Figma MCP позволил ранее провести прямой структурный аудит Consta `GallerySlider`. Во время расширенного исследования обычный MCP quota был исчерпан. После этого для двух отдельно запрошенных Community references выполнен альтернативный read-only pass:
 
 | Reference | Result |
 |---|---|
 | T2D2 Public — WEB | first-party Community metadata, embed canvas и raw `fig-kiwi` checkpoint прочитаны; structural inventory создан |
-| Rosatom | current Community page и embed возвращают 404; доступна только историческая индексная карточка/cover |
+| Rosatom Community file | current Community page и embed возвращают 404; доступна только историческая индексная карточка/cover |
+| Rosatom style guide, 09.2022 | exact 18-page historical PDF прочитан; content, brand, foundations, responsive rules и component catalogue проанализированы; current parity остаётся unverified |
 
-Полный результат: [07-direct-figma-readback-t2d2-rosatom.md](07-direct-figma-readback-t2d2-rosatom.md).
+Полный direct-Figma результат: [07-direct-figma-readback-t2d2-rosatom.md](07-direct-figma-readback-t2d2-rosatom.md).
+
+Exact historical Rosatom guide: [08-rosatom-style-guide-2022.md](08-rosatom-style-guide-2022.md).
 
 Для остальных непрочитанных Figma sources сохраняются исходные ограничения: pixel-level parity, точные counts и component-property claims не делаются без прямого read-back.
 
@@ -174,6 +177,22 @@ Dossier и archetype page обязаны показывать owner, review chan
 
 Direct T2D2 checkpoint reveals real-world axis and value drift (`State/state`, multiple `Variant` and `Platform` labels, casing and spelling differences). Designer-friendly labels may remain expressive, but canonical IDs, axes and values must pass a fail-closed naming registry.
 
+### 14. Foundations включают content, brand, media и layout rules
+
+Rosatom 2022 directly documents communication style, editorial standards, logo rules, color modes, typography, iconography, media ratios, breakpoints, grid, spacing, radii and opacity before the component catalogue. LoveKGD must model these as versioned foundation domains with owners, consumers and validation—not as decorative introductory pages.
+
+### 15. Static style guide is documentation, not executable authority
+
+A PDF or design board can preserve rationale and examples, but cannot prevent drift. Foundation and component pages must be generated from or validated against contracts, package exports, Penpot bindings, fixture registries and tests.
+
+### 16. Canonical naming must be semantic
+
+Opaque film/food/random mnemonics may be retained as human aliases, but canonical IDs describe role and are shared by code, Penpot manifests, docs and tests. Historical naming/value defects remain evidence and require explicit correction receipts.
+
+### 17. Responsive, media and brand rules require registries
+
+Breakpoints, containers, columns, gutters, media ratios, crop behavior, logo safe areas, icon geometry and asset rights are machine-readable contracts with exact consumers and compatibility. They are not copied wholesale from external systems.
+
 ## Состав результата
 
 - [01-system-profiles.md](01-system-profiles.md) — profiles всех переданных систем и границы evidence;
@@ -183,8 +202,10 @@ Direct T2D2 checkpoint reveals real-world axis and value drift (`State/state`, m
 - [05-page-archetype-model.md](05-page-archetype-model.md) — contract model архетипов страниц;
 - [06-adopt-adapt-avoid.md](06-adopt-adapt-avoid.md) — приоритеты adoption и anti-patterns;
 - [07-direct-figma-readback-t2d2-rosatom.md](07-direct-figma-readback-t2d2-rosatom.md) — direct public Figma metadata/canvas/checkpoint evidence;
+- [08-rosatom-style-guide-2022.md](08-rosatom-style-guide-2022.md) — exact historical Rosatom foundation/content/layout analysis;
 - [source-register.md](source-register.md) — provenance и evidence grade;
 - [Design-system development control v0.1](../../roadmaps/design-system-development-control-v0.1.md) — управляющий документ доработки;
+- [Design-system task operating prompt v0.1](../../design-system-task-operating-prompt.md) — reusable evidence-first prompt for current tasks;
 - [`design-system-development-control.v0.1.json`](../../../contracts/design-system-development-control.v0.1.json) — machine-readable candidate plan.
 
 ## Controlling conclusion
