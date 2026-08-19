@@ -1273,7 +1273,7 @@
         17,
         17
       ],
-      "current_export": "blocked-mcp--32603",
+      "current_export": "blocked-http-504-after-cooldown-rev828",
       "independent_readback": {
         "status": "pass-rev828",
         "linked_share_head_count": 1,
@@ -1285,7 +1285,7 @@
   "independent_review": {
     "status": "structural-pass-rev828-visual-product-approval-pending",
     "review_ready": false,
-    "visual_result": "E01/Listing S09 current PNG PASS; B23 and Listing S01 post-share current exports blocked; Rail current export blocked.",
+    "visual_result": "E01/Listing S09 current PNG PASS; B23 and Listing S01 post-share current exports blocked; Rail current export blocked. Latest single post-cooldown S01 probe returned HTTP 504.",
     "penpot_revision": 828,
     "structural_result": "PASS: validate=[]; all 8 aliases current; Event A/B exact; Listing S01-S10 exact; S01 share proof linked and bounded; shared-component provenance current."
   },
@@ -1363,6 +1363,13 @@
       "shape_id": "579a886e-56e8-80a3-8008-818873518988",
       "format": "png",
       "status": "blocked-mcp--32603-internal-error-after-page-handoff"
+    },
+    {
+      "family": "listing.event-card",
+      "shape_id": "579a886e-56e8-80a3-8008-818873518988",
+      "format": "png",
+      "status": "blocked-http-504-after-cooldown-rev828",
+      "note": "Single bounded post-cooldown probe; no retry loop. execute_code/readback remained responsive, confirming separate exporter-service blocker."
     }
   ],
   "exporter_research_20260819": {
