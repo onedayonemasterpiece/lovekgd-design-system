@@ -2,8 +2,8 @@
   "$schema": "../../../../contracts/normalization/event-artifact-candidate.v1.schema.json",
   "schema_version": "event-artifact-candidate.v1",
   "package_id": "candidate.event-artifact-collection-v1",
-  "contract_version": "1.0.0-candidate.2",
-  "contract_payload_sha256": "4893ad1c6472d19b627e537de1b7ab1a5b2744d55773549231aae40e9c4de5b9",
+  "contract_version": "1.0.0-candidate.3",
+  "contract_payload_sha256": "8ffefeb6fbcf281a199c31756f05ecb48924e0dffee3c9f38567bec5a41261a0",
   "hash_scope": "whole-document-except-contract_payload_sha256",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -193,7 +193,8 @@
       "production-unavailable",
       "nonprod-empty-0-of-5",
       "found-1-of-5",
-      "dialog-open"
+      "dialog-open-desktop",
+      "dialog-open-mobile"
     ],
     "responsive_layouts": [
       "desktop-five-column",
@@ -202,7 +203,7 @@
     ],
     "forbidden_claim": "unimplemented reserved slots are not collectible artifacts",
     "penpot_binding": {
-      "status": "materialized-readback",
+      "status": "rematerialization-required-owner-comment-31",
       "page_id": "579a886e-56e8-80a3-8008-81882de9c074",
       "variant_container_id": "45777396-2f2a-80c0-8008-819f1ae11b6c",
       "state_count": 4,
@@ -218,7 +219,13 @@
         "Янтарный космонавт напоминает о калининградской связи моря и космоса",
         "История открыта только по локальной отметке этого браузера."
       ],
-      "forbidden_abbreviation": "dialog-open must not be represented only by a compact summary tile"
+      "forbidden_abbreviation": "dialog-open must not be represented only by a compact summary tile",
+      "dialog_mobile_source_contract": "@media(max-width:850px) one-column centered panel; @media(max-width:430px) 112x145 artwork, max-height calc(100dvh - 24px), 20px horizontal padding",
+      "required_review_states": [
+        "dialog-open-desktop",
+        "dialog-open-mobile"
+      ],
+      "owner_comment_thread": 31
     }
   },
   "focus_lab_prototype": {

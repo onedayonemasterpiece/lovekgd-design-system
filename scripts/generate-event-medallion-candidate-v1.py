@@ -237,7 +237,7 @@ def main() -> None:
         "$schema": "../../../../contracts/normalization/event-medallion-candidate.v1.schema.json",
         "schema_version": "event-medallion-candidate.v1",
         "package_id": "candidate.event-medallion-collection-v1",
-        "contract_version": "1.0.0-candidate.2",
+        "contract_version": "1.0.0-candidate.3",
         "contract_payload_sha256": "",
         "hash_scope": "whole-document-except-contract_payload_sha256",
         "lifecycle": "candidate",
@@ -275,6 +275,17 @@ def main() -> None:
                 "mobile_rail_slot": [94, 112],
                 "mobile_rail_art": 86,
                 "exhibition": 44,
+            },
+            "normalized_review_tiers_px": {
+                "status": "candidate-target-pending-owner-approval-and-astro-promotion",
+                "tier_count": 3,
+                "tiers": {
+                    "compact": {"diameter": 44, "consumers": ["exhibition", "listing popular mobile"]},
+                    "standard": {"diameter": 60, "consumers": ["listing overlay", "listing side rail"]},
+                    "feature": {"diameter": 88, "consumers": ["event detail", "mobile rail artwork"]},
+                },
+                "source_geometry_policy": "preserve the exact current Astro sizes above as AS-IS evidence; show these three tiers only as the review candidate until owner approval",
+                "owner_comment_thread": 30,
             },
             "presentation_invariants": [
                 "medallion artwork is circular and never receives a square white backing",

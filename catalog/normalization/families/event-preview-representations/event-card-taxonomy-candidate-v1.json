@@ -4,14 +4,14 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "ce0f6ed5add2d0da7f948c76c255188d75e76cb49f1b4d32d6d7692bb5449935",
+  "contract_payload_sha256": "194994fd42c0791da3712f41bdb2143ab79048e9482c5a59f93dceb736c03243",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
   "canonical": false,
   "promotion_status": "not_promoted",
-  "acceptance_status": "ready_for_owner_review_independent_pass",
-  "implementation_status": "git-sot-complete-penpot-materialized-independent-pass",
+  "acceptance_status": "not_ready_owner_comment_remediation",
+  "implementation_status": "git-sot-updated-penpot-rematerialization-required",
   "source_baseline": {
     "repository": "onedayonemasterpiece/events-bot-new",
     "exact_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
@@ -24,8 +24,8 @@
     "contract_ref": "catalog/normalization/event-media/framing-v2.json",
     "schema_version": "event_media_framing_v2",
     "policy_version": "2.0.0-candidate",
-    "contract_payload_sha256": "dbafbc4cf8476f3f188043748b21898cfcf673f8d3264db96a256a4df90ed6dd",
-    "file_sha256": "35ab53b2ed9304fe4cc5ad1724f2165ff771283cedd3a97960c1f87f47f4bcc0"
+    "contract_payload_sha256": "51198b47067197d767e586cfb786064850d39ade32b0e2e54309348f857d3a3a",
+    "file_sha256": "bc059b7448b1a41b6316d3e63c8c2f630aa318682bd289cc1f60f46f7b41036d"
   },
   "identity_decisions": [
     {
@@ -529,7 +529,7 @@
           "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=related;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
         ],
-        "status": "materialized-readback",
+        "status": "rematerialization-required-owner-comments-24-43",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -543,62 +543,127 @@
           "share",
           "calendar"
         ],
-        "reason": "exact Astro renders these controls inside EventCard; current Penpot must not claim false core.* nested instances"
+        "reason": "exact Astro renders these controls inside EventCard; current Penpot must not claim false core.* nested instances",
+        "runtime_as_is": "Exact Astro renders favorite, not-interested, share and calendar controls as EventCard children.",
+        "penpot_linked_component_contract": {
+          "status": "candidate-design-library-components-required-before-comment-37-resolution",
+          "target_page_id": "10a29786-8dcf-802c-8008-739d91a0e653",
+          "target_page_name": "30 — Core UI resources",
+          "components": {
+            "action.event-card.favorite": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "selected",
+                "busy",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/heart"
+            },
+            "action.event-card.not-interested": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "committed"
+              ],
+              "icon_ref": "Icon/UI/dislike"
+            },
+            "action.event-card.share": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "busy",
+                "shared",
+                "copied",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/share"
+            },
+            "action.event-card.calendar": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "added",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/calendar"
+            }
+          },
+          "astro_promotion": "pending owner approval; do not claim runtime componentization until source is changed"
+        },
+        "layout_correction": "split-actions feedback row is outside the dark card shell on a transparent extension; overlay-controls remains inside media overlay"
       },
       "source_element_bindings": [
         {
           "element": "article",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "article[data-event-card]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "media_link",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-media-link]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "event.media-frame",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-media-shell]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "title",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-title]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "schedule",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-meta]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "place",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-place]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "utility_metadata",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-card-type],[data-card-status]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "feedback_actions",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "[data-feedback-action],[data-native-share],[data-calendar-action]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         },
         {
           "element": "optional_hidden_undo_plate",
           "source_path": "site/src/components/EventCard.astro",
           "selector_or_contract": "EventLayout.astro [data-not-interested-plate]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
         }
       ],
       "icon_registry_binding": {
@@ -787,6 +852,12 @@
           "from": "desktop listing.event-card",
           "to": "listing.rail-row",
           "relation": "same event data but distinct mobile gesture/anatomy component"
+        },
+        {
+          "review_label": "DESKTOP",
+          "viewport": "desktop",
+          "paired_mobile_component": "listing.rail-row",
+          "owner_thread": 33
         }
       ],
       "framing_profiles": [
@@ -895,7 +966,7 @@
           "density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
           "density=regular;media=protected-natural;proof=none;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
         ],
-        "status": "materialized-readback",
+        "status": "rematerialization-required-owner-comments-24-43",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -907,43 +978,50 @@
           "element": "root_link",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": "article[data-listing-item]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "event.media-frame",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": "[data-listing-media-loading]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "optional_identity_rail",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": "[data-listing-side-identity-count]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "optional_inside_medallion",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": "[data-listing-medallion-slug]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "proof_rail_or_overlay",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": "[data-listing-proof-placement]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "title",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": ".ke-listing-card__title",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         },
         {
           "element": "venue",
           "source_path": "site/src/components/listings/ListingEventCard.astro",
           "selector_or_contract": ".ke-listing-card__place",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
         }
       ],
       "icon_registry_binding": {
@@ -1155,6 +1233,13 @@
           "from": "desktop ListingEventCard",
           "to": "listing.rail-row",
           "relation": "shared event entity and media evidence; separate mobile interaction component"
+        },
+        {
+          "complete_track_review_contract": {
+            "row_width": "sum(summary + zero-or-more natural-width media + digest + identity slots + free + like + optional Amber tail)",
+            "fixed_390px_card_forbidden": true,
+            "owner_thread": 43
+          }
         }
       ],
       "framing_profiles": [
@@ -1300,7 +1385,7 @@
           "position=summary;occurrence=per-date;schedule=program-day-range;feedback=restored;media=loaded;temporal=current;artifact=absent",
           "position=summary;occurrence=per-family;schedule=date-primary;feedback=restored;media=loaded;temporal=current;artifact=absent"
         ],
-        "status": "materialized-readback",
+        "status": "rematerialization-required-owner-comments-24-43",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1315,55 +1400,64 @@
           "element": "feedback_underlays",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": "MobileListingRailSurface .dislike-underlay/.like-underlay",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "track",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": ".event-track",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "summary_panel",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": ".event-summary",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "zero_or_more_event.media-frame_panels",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": ".event-media[data-media-state]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "digest_panel",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": ".event-digest",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "identity_panels",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": ".event-medallion-slot",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "like_cta",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": "[data-like]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "negative_control",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": "[data-rail-negative-control]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         },
         {
           "element": "optional_artifact_tail",
           "source_path": "site/src/components/listings/MobileListingRailRow.astro",
           "selector_or_contract": "AmberRailArtifact.astro sibling after like",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
         }
       ],
       "icon_registry_binding": {
@@ -1518,6 +1612,10 @@
           "from": "desktop packed grid",
           "to": "mobile two-column plus wide remainder",
           "relation": "same family; layout/density variant"
+        },
+        {
+          "media_fit": "object-fit:cover; preserve intrinsic aspect and crop inside the frame; stretching forbidden",
+          "owner_thread": 39
         }
       ],
       "framing_profiles": [
@@ -1617,7 +1715,7 @@
           "layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
           "layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
         ],
-        "status": "materialized-readback",
+        "status": "rematerialization-required-owner-comments-24-43",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1632,55 +1730,64 @@
           "element": "root_link",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__link",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "event.media-frame",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__media",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "veil",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__veil",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "date",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__date",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "status",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__status",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "title",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__caption h3",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "location",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__place",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "theme",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": ".festival-card__theme",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         },
         {
           "element": "favorite",
           "source_path": "site/src/pages/festivali/index.astro",
           "selector_or_contract": "[data-festival-like]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
         }
       ],
       "icon_registry_binding": {
@@ -1824,6 +1931,22 @@
           "from": "desktop cinematic row",
           "to": "mobile deck-like card",
           "relation": "same exhibition interaction family, responsive composition"
+        },
+        {
+          "review_corrections": {
+            "media_count": "1..9 exact deck slots and +N counter",
+            "keyboard_hints": "L/X only on selected keyboard-active specimen",
+            "loading": "skeleton only; loading text forbidden",
+            "radii": "AS-IS desktop/mobile retained separately from candidate normalization"
+          },
+          "owner_threads": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ]
         }
       ],
       "framing_profiles": [
@@ -1930,7 +2053,7 @@
           "presentation=desktop-row;lifecycle=long;deck=idle;media=loaded;feedback=rejected-hidden-with-undo",
           "presentation=mobile-gallery;lifecycle=recent;deck=idle;media=loaded;feedback=default"
         ],
-        "status": "materialized-readback",
+        "status": "rematerialization-required-owner-comments-24-43",
         "review_surface": "bounded-family-page-matrix"
       },
       "evidence_refs": [
@@ -1942,49 +2065,57 @@
           "element": "root",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": "article.ex-row",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "lifecycle_rail",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": ".ex-row__rail",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "media_deck",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": "[data-deck]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "independent_event.media-frame_children",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": "[data-deck-frame]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "body",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": ".ex-row__body",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "aside",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": ".ex-row__aside",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "like_and_reject",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": "[data-like],[data-reject]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         },
         {
           "element": "hidden_stub_undo",
           "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
           "selector_or_contract": "[data-hidden-stub] [data-undo]",
-          "source_commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd"
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
         }
       ],
       "icon_registry_binding": {
@@ -2108,16 +2239,131 @@
     "file_revn_readback": 551,
     "expected_native_state_count": 65,
     "review_structure": "lightweight-index-plus-bounded-family-native-matrices",
-    "exact_state_set_equal": true
+    "exact_state_set_equal": true,
+    "owner_comment_cycle_20260819": {
+      "cycle_id": "owner-comments-24-43-20260819",
+      "status": "git-sot-recorded-penpot-rematerialization-required",
+      "unresolved_thread_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "source_baseline": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+      "source_first_required": true,
+      "comment_resolution_gate": "resolve only after Git contract, bounded Penpot readback and visual export all agree",
+      "requirements": {
+        "exhibition.row": {
+          "threads": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "requirements": [
+            "source-proven variable media count and deck count",
+            "separate AS-IS radii from candidate normalization",
+            "restore linked icons to exact positions",
+            "show L/X keyboard hints only on selected keyboard-active specimen",
+            "source-faithful +N deck count",
+            "loading skeleton; no loading text"
+          ]
+        },
+        "event.medallion-frame": {
+          "threads": [
+            30
+          ],
+          "requirements": [
+            "retain exact AS-IS size census",
+            "reduce candidate review to three explicit tiers 44/60/88",
+            "no Astro promotion before owner approval"
+          ]
+        },
+        "artifact.collection": {
+          "threads": [
+            31
+          ],
+          "requirements": [
+            "desktop and mobile dialog-open review specimens from exact responsive CSS"
+          ]
+        },
+        "listing.event-card": {
+          "threads": [
+            32,
+            33
+          ],
+          "requirements": [
+            "linked heart placed in proof rail",
+            "explicit desktop label and relation to distinct mobile rail"
+          ]
+        },
+        "event.card": {
+          "threads": [
+            34,
+            35,
+            36,
+            37,
+            38
+          ],
+          "requirements": [
+            "rebuild from exact Astro composition",
+            "remove unproven translucent strip",
+            "split-actions feedback controls below card on transparent extension",
+            "linked reusable action-control components with states and shared icons",
+            "retain Astro-to-SoT-to-Penpot evidence per element"
+          ]
+        },
+        "festival.card": {
+          "threads": [
+            39
+          ],
+          "requirements": [
+            "object-fit cover with proportional crop; never horizontal stretch"
+          ]
+        },
+        "listing.rail-row": {
+          "threads": [
+            40,
+            41,
+            42,
+            43
+          ],
+          "requirements": [
+            "exact source typography scale",
+            "per-media natural widths and framing",
+            "linked heart and 48x23 cue in source positions",
+            "show a complete variable-width track per state; no false fixed 390px card matrix"
+          ]
+        }
+      }
+    }
   },
   "package_bindings": {
     "medallions": {
       "path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
-      "contract_payload_sha256": "d86b0e7f2ab8228c1b45850843769a8e5867ea93dd1e1a58585bd6e166344df0"
+      "contract_payload_sha256": "e0c6dc082fe880fff06977be144c6cae8550a5f5c8b4dfc5f9cc01c7a34052c4"
     },
     "artifacts": {
       "path": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json",
-      "contract_payload_sha256": "4893ad1c6472d19b627e537de1b7ab1a5b2744d55773549231aae40e9c4de5b9"
+      "contract_payload_sha256": "8ffefeb6fbcf281a199c31756f05ecb48924e0dffee3c9f38567bec5a41261a0"
     },
     "iconography": {
       "contract_ref": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",

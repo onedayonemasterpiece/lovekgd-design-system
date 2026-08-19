@@ -63,10 +63,16 @@
       "const": "not_promoted"
     },
     "acceptance_status": {
-      "const": "ready_for_owner_review_independent_pass"
+      "enum": [
+        "not_ready_owner_comment_remediation",
+        "ready_for_owner_review_independent_pass"
+      ]
     },
     "implementation_status": {
-      "const": "git-sot-complete-penpot-materialized-independent-pass"
+      "enum": [
+        "git-sot-updated-penpot-rematerialization-required",
+        "git-sot-complete-penpot-materialized-independent-pass"
+      ]
     },
     "source_baseline": {
       "type": "object",
