@@ -201,3 +201,16 @@ New bounded PNG and SVG exports currently return HTTP 504 while plugin reads
 and `saveVersion` remain responsive. Penpot documents export as a separate
 headless-browser service. The receipt records that blocker instead of turning
 structural read-back into a false review-ready claim.
+
+### Independent provenance gate
+
+A fresh independent read-only probe reached Penpot file revision 767, but two
+bounded page scans then failed with MCP `-32603 Internal error` after about 58
+seconds each. The auditor stopped rather than retrying blindly. It confirmed
+only the presence of the Page 48 medallion-frame and Page 49 artifact collection
+components; presence is not an exact current read-back. Therefore the Page 48
+consumer-frame and Page 49 collection-surface SoT statuses remain unpromoted,
+all derived hashes remain unchanged, and Page 46 stays `NOT READY`. The required
+next action is restoration of bounded Penpot page reads followed by an exact
+status/hash/linked-instance audit; only then may the Git contracts and Penpot
+hash aliases advance.

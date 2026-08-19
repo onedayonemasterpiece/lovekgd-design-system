@@ -974,5 +974,23 @@
         "status": "bounded-export-pass-before-keyboard-candidate"
       }
     ]
+  },
+  "independent_provenance_audit_20260819": {
+    "status": "blocked-external-penpot-read-service",
+    "file_revision_probe": 767,
+    "probe_result": "pass",
+    "page_scan_attempts": 2,
+    "page_scan_result": "MCP -32603 Internal error after approximately 58 seconds per attempt",
+    "writes_performed": 0,
+    "decision": "FAIL to promote Page48 consumer_frame_contract or Page49 collection_surface to exact materialized-readback without successful bounded current readback",
+    "confirmed_presence_only": {
+      "page48_event_medallion_frame_component": "45777396-2f2a-80c0-8008-819e0bfedd7a",
+      "page49_artifact_collection_component": "45777396-2f2a-80c0-8008-819f11af0223",
+      "amber_rail_artifact_components": [
+        "2170e798-7497-805d-8008-80d88d5cce2f",
+        "45777396-2f2a-80c0-8008-81924ec0bd97"
+      ]
+    },
+    "required_next_action": "Restore bounded Penpot execute/page-scan service, then read Page48 consumer-frame and Page49 collection-surface current status/hash/linked instances before any SoT hash promotion or Penpot alias rebind."
   }
 }
