@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "db3df87a0adab98a08994fd36e51fd20dc0bf8dfcb75f5a9a90b6774b3403378",
+  "contract_payload_sha256": "b7061ea37c3ae11bd34843d337cd8a3754ca8d22f2388c6454c564257d94fd63",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -163,7 +163,8 @@
         ],
         "calendar": [
           "default",
-          "added"
+          "added",
+          "absent"
         ],
         "share": [
           "rest",
@@ -193,9 +194,10 @@
       ],
       "valid_combinations": [
         {
-          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "evidence": [
-            "EventCard.astro default split-actions + S07"
+            "EventLayout.astro base split-actions dark shell",
+            "owner runtime screenshot thread 45"
           ]
         },
         {
@@ -325,9 +327,10 @@
           ]
         },
         {
-          "state_key": "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=registration;favorite=off;calendar=absent;share=rest;visibility=shown",
           "evidence": [
-            "S07 exact screenshot + EventCard source layout"
+            "EventCard/EventLayout calendar is conditional",
+            "owner runtime screenshot thread 47"
           ]
         }
       ],
@@ -354,7 +357,7 @@
         },
         {
           "owner_oracle_cycle_20260819": {
-            "desktop": "light #fffaf2 body/utility on dark discovery or related section",
+            "desktop": "base EventLayout/runtime related dark #15110f; DesktopEventPage/discovery opt-in light #fffaf2 body/utility on dark section",
             "mobile": "dark #15110f shell",
             "radius_px": 24,
             "media": "dynamic ratio or 4/5",
@@ -366,7 +369,8 @@
               "loose or detached action glyphs",
               "parasitic translucent band"
             ],
-            "action_components": "linked Page30.1 instances only"
+            "action_components": "linked Page30.1 instances only",
+            "calendar": "calendar action is conditional; thread 47 proves desktop split-actions with calendar absent"
           }
         }
       ],
@@ -539,7 +543,7 @@
           "45777396-2f2a-80c0-8008-818ecf031de2"
         ],
         "exact_state_keys": [
-          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=home;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=search;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
@@ -561,7 +565,7 @@
           "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
           "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
           "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
-          "consumer=related;viewport=desktop;presentation=light-body-on-dark-section;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown"
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=registration;favorite=off;calendar=absent;share=rest;visibility=shown"
         ],
         "status": "rebuild-required-owner-comments-24-59",
         "review_surface": "bounded-family-page-matrix"

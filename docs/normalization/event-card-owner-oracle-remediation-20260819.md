@@ -296,3 +296,50 @@ outside the framing. Thread 26 now has a linked-icon contrast candidate: the
 46 px action wrapper is preserved, Page 25 glyphs remain linked at exact 14/19/18
 source sizes, and the muted/focus colors are `#a8adb2`/`#f4f4f2`. These are
 review candidates only; Astro remains unchanged until owner approval.
+
+### Exhibition candidate materialization and event state-key reconciliation
+
+The Git-first `db3df87a…` contract was rebound to all eight review roots. Both
+Exhibition candidate rows now read back three linked media frames each with
+8 px radius and child clipping, plus linked Page 25 action glyphs at 14/14/19/18
+px with the candidate muted color `#a8adb2`. Their current export remains blocked,
+so threads 25/26/50 are replied to but remain open as product decisions.
+
+All 23 Event A/B component heads already had the correct viewport/presentation
+variant properties, but their plugin `state-key` and external labels omitted those
+axes. The metadata drift is now removed: plugin keys, variant properties and the
+E01–E12/B13–B23 labels agree exactly. Thread 38 is closed on this proof. Threads
+34/45 are also closed after the current E01 PNG comparison; thread 47 remains open
+because the current B23 export is blocked.
+
+### Event runtime dark-shell oracle reconciliation
+
+The current owner screenshots exposed an over-scoped presentation assumption: the
+base `EventLayout.astro` split-actions card is dark `#15110f`; only the
+`DesktopEventPage.astro`/discovery selectors opt into a light body. The SoT now
+keeps both presentations and adds the source-proven `calendar=absent` value.
+
+E01 is the 474 px desktop dark-shell specimen for thread 45. Its native anatomy now
+follows the Astro DOM order (`title → meta row → place → utility`, with feedback
+below the shell), and its current PNG export was checked. B23 is the distinct
+thread-47 specimen: 564×665, the exact event 5370 source media asset
+`7c2524…c2c0cb`, registration status and no calendar action. Its structure and
+source fill read back exactly, but the current B23 PNG remains blocked by the
+Penpot exporter; thread 47 therefore remains open. No screenshot image is used as
+a component fill and Astro has not been changed.
+
+### Listing viewport and proof reconciliation
+
+The owner comment exposed a metadata/readability defect that the earlier structural
+count missed: all ten Listing plugin keys omitted `viewport`, and three member
+components (S02/S03/S05) had empty native variant values. S01–S10 now match the Git
+SoT keys exactly, including the sole mobile Popular specimen, and each compact label
+is aligned directly above its own card. Current PNG exports of S01 and focus-visible
+S09 also verify the linked 17 px Page 25 heart/proof in the side rail without clipping.
+Threads 32 and 33 are closed on that evidence.
+
+Thread 46 also proved that a heart-only specimen was insufficient: Astro supports
+share-only, like-only and combined proof rows. S01 now contains a linked Page 25
+share glyph at the exact desktop 17 px size with native count text, above the
+existing linked 17 px heart row. The post-write export is currently blocked, so
+thread 46 remains open rather than being closed from structure alone.
