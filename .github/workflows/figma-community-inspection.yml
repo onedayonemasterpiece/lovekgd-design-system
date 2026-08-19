@@ -1,0 +1,79 @@
+name: Figma Community direct inspection
+
+on:
+  push:
+    branches:
+      - research/consta-documentation-patterns-20260819-review
+    paths:
+      - '.github/workflows/figma-community-inspection.yml'
+      - 'scripts/research/inspect_figma_community_archive.py'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/figma-community-inspection.yml'
+      - 'scripts/research/inspect_figma_community_archive.py'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download archived public Community snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp/figma-community
+          for id in 1509554620086084342 1144567424019815189; do
+            dir=".tmp/figma-community/${id}"
+            mkdir -p "$dir"
+            curl --fail --location --retry 4 --retry-delay 3 \
+              "https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/meta.json" \
+              --output "$dir/meta.json"
+            curl --fail --location --retry 4 --retry-delay 3 \
+              "https://figma-community-files.s3.us-west-1.amazonaws.com/${id}/file.json.gz" \
+              --output "$dir/file.json.gz"
+            curl --fail --location --retry 4 --retry-delay 3 \
+              "https://figma-community-images.s3.us-west-1.amazonaws.com/${id}/exports/meta.json" \
+              --output "$dir/exports-meta.json" || printf '{"map":{}}\n' > "$dir/exports-meta.json"
+          done
+
+      - name: Inspect nodes, components, pages and archived exports
+        run: |
+          python scripts/research/inspect_figma_community_archive.py \
+            --input .tmp/figma-community \
+            --output .tmp/figma-community-inspection
+
+      - name: Validate generated summaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .tmp/figma-community-inspection/index.md
+          test -s .tmp/figma-community-inspection/t2d2-public-web/summary.json
+          test -s .tmp/figma-community-inspection/rosatom-design-system/summary.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('.tmp/figma-community-inspection')
+          for path in root.glob('*/summary.json'):
+              data = json.loads(path.read_text(encoding='utf-8'))
+              assert data['observation_kind'] == 'public-community-archive-readback'
+              assert data['canonical'] is False
+              assert data['counts']['pages'] > 0
+              assert data['counts']['nodes'] > 0
+              print(path, data['file']['name'], data['counts'])
+          PY
+
+      - name: Upload inspection evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-community-direct-inspection
+          path: .tmp/figma-community-inspection
+          if-no-files-found: error
+          retention-days: 14
