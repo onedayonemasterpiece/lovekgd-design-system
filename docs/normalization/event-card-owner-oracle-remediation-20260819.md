@@ -566,37 +566,45 @@ remaining unresolved comments.
 
 ## Resource-library architecture correction — 2026-08-20
 
-Owner review exposed a second class of defects that the earlier visual repair
-did not cover: unclear insertable-resource boundaries, duplicate-looking
-library namespaces, resized source icons whose internal vectors remained at
-24 px, a 390 px viewport published as the rail itself, and no color or
+Owner review exposed a second class of defects that the earlier visual repair did
+not cover: unclear insertable-resource boundaries, duplicate-looking library
+namespaces, resized source icons whose internal vectors remained out of bounds,
+a fixed 390 px viewport published as the rail itself, and no reusable color or
 typography assets.
 
-The Penpot read-back at file revision **945** now records:
+The completed Penpot read-back at file revision **972** now records:
 
 - the candidate contract ID remains `event.card`, while the human-facing asset
-  is `Event cards / Large / EventCard · Large`;
-- the twelve-card canvas object is explicitly the variant-master set; a
-  Resources insertion is one selected card instance;
-- E13–E23 is no longer a competing `event.card` resource and is labelled
-  `Review archive / EventCard / Legacy states E13–E23 · do not insert` pending
-  consolidation into the canonical set;
-- feedback controls are contained in the card bounds and use linked
-  `Icon / UI / Share` and `Icon / UI / Heart` size variants;
-- `MobileListingRailRow · Track` is an unclipped 707×112 current fixture with a
-  `max-content` contract, while `Rail viewport states · 390` is separately
-  classified as a pattern;
+  is `Event cards / Large / EventCard · Large`; inserting it from Resources
+  creates one selected card variant, not the twelve-state review matrix;
+- the competing E13–E23 library component was physically removed. Page 40.1b is
+  only an archive note and exposes no insertable `event.card` resource;
+- the Page 40.1a matrix container is 1749×2100, unclipped, and shows all twelve
+  states; every split-action state has a 64 px feedback region, 44 px controls,
+  7 px share/favorite gap, 14 px bottom padding, and no action overflow;
+- Page 25 now has native `Icon / UI / Calendar` and `Icon / UI / Dislike` size
+  variants at 16/20/24/32 px. All six calendar and five dislike action states
+  link the exact consumer variant; source-48 geometry overrides are gone;
+- `MobileListingRailRow · Track` is a real intrinsic auto-width, nowrap flex row
+  with 7 px gaps and 12 px inline padding. Linked proof instances grow from
+  707×112 (140 px media) to 847×112 (280 px media), while the separate 390×112
+  object remains the viewport pattern;
 - artwork and consumer frames share one `Medallion` namespace but retain their
-  distinct boundaries (`Artwork` versus `Frame`);
-- 23 pinned-Astro AS-IS color assets and 15 typography assets exist, with the
-  EventCard dark surface and large-card typography linked to the masters.
+  correct distinct boundaries (`Artwork` versus `Frame`);
+- 23 pinned-Astro AS-IS color assets and 15 typography assets exist and have
+  been applied across EventCard, ListingEventCard, mobile rail, FestivalCard,
+  and ExhibitionRow. They remain candidate AS-IS assets, not accepted global
+  semantic tokens.
 
-Current Penpot validation is empty, the idempotent receipt would create zero
-components/colors/typographies, and visual exports of E01 and the inserted long
-rail track pass. Threads 61, 62, 63, and 65 were resolved with read-back
-evidence. Threads 60 (variant-set model) and 64 (final visual acceptance) stay
-open for the owner.
+Current Penpot validation is empty; duplicate resource/color/typography names
+are empty; the removed legacy component is absent; idempotent reconciliation
+would create zero assets. Visual exports pass for the complete twelve-state
+EventCard matrix, E01, Calendar actions, Dislike actions, and both default and
+expanded rail proofs. All six current Page 40.1a threads (60–65) were read and
+answered. Threads 60/61/62/63/65 are resolved; thread 64 remains open solely for
+owner visual acceptance.
 
-The complete object IDs, counts and review state are recorded in
+The exact object IDs and counts are recorded in
 `receipts/penpot/event-card-library-architecture-remediation-v1.json`. No Astro
-change was made by this library-architecture correction.
+change was made by this resource-architecture correction; the pinned Astro
+runtime remains the observed source.
