@@ -74,6 +74,15 @@ rollback_ref
 
 Materialization is permitted only after `CANDIDATE_CONTRACT_ACCEPTED` and `CANONICAL_CODE_CANDIDATE`. Native objects, stable IDs, idempotent reconciliation and a plausible export are evidence; none changes authority. A Resource Graph plugin update is a transport/reconciliation operation and may not promote.
 
+`CANONICAL_CODE_CANDIDATE` here means the versioned design-system package and
+isolated specimen harness required to execute the candidate contract. It does
+not authorize an early mutation of the `events-bot-new` production consumer.
+After native Penpot materialization, owner comments are applied Git-SoT-first and
+reconciled back to Penpot. The actual `events-bot-new` candidate integration and
+browser preview start only after explicit owner acceptance of the bounded Penpot
+candidate, as defined by
+[`ui-source-of-truth-roundtrip.md`](../ui-source-of-truth-roundtrip.md).
+
 ## Component three-way conformance
 
 `COMPONENT_THREE_WAY_CONFORMANCE` compares exactly:
@@ -93,6 +102,10 @@ fixture_id
 viewport_id
 candidate_package_sha
 ```
+
+The isolated Astro and real generated-page surfaces are created in an isolated
+candidate integration after the owner Penpot gate. They are reviewed on an
+immutable noindex desktop/mobile preview before any production permission.
 
 Required checks include anatomy, variants, nested components, token mapping, geometry, media/text behavior, interaction, accessibility and local overrides. A screenshot alone is insufficient. Candidate generated-page evidence is used before promotion; accepted-release/post-deploy evidence is required again by the final gate.
 

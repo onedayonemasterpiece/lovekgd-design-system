@@ -119,6 +119,7 @@ The normative [family and archetype lifecycle](docs/normalization/design-system-
 ## Канонические документы
 
 - [Карта документации](docs/index.md)
+- [UI source-of-truth round trip](docs/ui-source-of-truth-roundtrip.md)
 - [Resource Graph 004 — operating contract](docs/resource-graph-004.md)
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
