@@ -1,7 +1,7 @@
 # EventCard Large primitives — owner comment contract — 2026-08-20
 
-**Status:** `IN PROGRESS`; owner-authorized Penpot candidate correction;
-noncanonical; no Astro backport or production permission.
+**Status:** `READY FOR BOUNDED OWNER RE-REVIEW`; owner-authorized Penpot
+candidate correction; noncanonical; no Astro backport or production permission.
 
 This record is the Git-SoT-first disposition for the owner review concentrated
 on Page `25 — Iconography`, Page `30.1 — EventCard · Large actions · linked
@@ -108,3 +108,33 @@ Before returning the pages to owner review:
    revision, counts, and comment dispositions in a Penpot receipt;
 8. leave owner visual-acceptance threads open until the owner re-reviews.
 
+## Materialization read-back
+
+Observed at Penpot file revision `993`:
+
+- Page 25 has one unclipped EventCard icon review board; Share, Heart,
+  Calendar, and Dislike size boxes were normalized and its PNG export was
+  inspected.
+- Page 30.1 owns the Share, Favorite, Calendar, Not interested, Event type,
+  and Admission native masters. Share and Favorite expose explicit zero and
+  nonzero count variants; Share exposes only `on-dark` and `on-light` tones
+  and every ordinary surface is transparent.
+- Page 40.1a contains 12 EventCard Large masters, 24 linked meta instances,
+  and 47 linked action instances. The primary specimen visibly exercises
+  Share and Favorite `count=nonzero` with value `29`.
+- Every bounded EventCard text read back as `Inter`; the primary title is
+  `800`, place and meta labels are `700`, and actions/counts are `600`.
+- The mobile `overlay-controls` specimen is explicitly labelled as an
+  existing Astro source variant, not a new proposal.
+- Comments `#66–#84` received implementation replies and remain unresolved
+  for owner visual acceptance. Thread `#64` also remains unresolved.
+- `currentFile.validate()` returned `[]`; the final named version is
+  `EventCard owner comments 66–84 · remediation review handoff`.
+
+The Page 30.1 direct exporter returned repeated HTTP 504/internal errors after
+successful structural read-back. Visual QA therefore used the Page 25 review
+export and the Page 40.1a primary consumer export, which exercises the Page
+30.1 linked primitives. This limitation is preserved in the receipt rather
+than represented as a successful page export.
+
+Receipt: `receipts/penpot/event-card-large-primitives-remediation-v1.json`.
