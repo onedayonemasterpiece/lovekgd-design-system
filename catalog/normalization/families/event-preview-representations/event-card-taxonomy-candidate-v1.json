@@ -4,7 +4,7 @@
   "package_id": "candidate.event-card-taxonomy",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.1.0-candidate.3",
-  "contract_payload_sha256": "fe67831a1dd3de187229f7eab9de6cd889c709176899deababa6d83c5d47b8c8",
+  "contract_payload_sha256": "a1a46c5763213708b025bfc00f1c21235dddc78eec38fd61b919f628e4b13177",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -2588,25 +2588,21 @@
   "penpot_review_binding": {
     "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "root_board_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
-    "status": "not-ready-owner-product-decisions",
+    "status": "not-ready-owner-medallion-tier-decision-30",
     "linked_instance_count": 65,
     "page46_index_instance_count": 0,
     "as_is_reference_count": 0,
     "normalized_state_instance_count": 65,
     "detached_instance_count": 0,
-    "file_revn_readback": 857,
+    "file_revn_readback": 890,
     "expected_native_state_count": 65,
     "review_structure": "lightweight-index-plus-bounded-family-native-matrices",
     "exact_state_set_equal": true,
     "owner_comment_cycle_20260819": {
       "cycle_id": "owner-comments-24-59-20260819",
-      "status": "owner-decisions-readback-backport-in-progress",
+      "status": "reverse-cycle-backport-verified-one-owner-decision-pending",
       "unresolved_thread_ids": [
-        25,
-        26,
-        30,
-        49,
-        50
+        30
       ],
       "source_baseline": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
       "source_first_required": true,
@@ -2715,6 +2711,8 @@
       "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md",
       "resolved_thread_ids": [
         24,
+        25,
+        26,
         27,
         28,
         29,
@@ -2736,6 +2734,8 @@
         46,
         47,
         48,
+        49,
+        50,
         51,
         52,
         53,
@@ -2746,9 +2746,9 @@
         58,
         59
       ],
-      "penpot_revision": 857,
-      "bounded_export_status": "pass-for-all-remediated-states",
-      "independent_structural_status": "pass-through-rev843; final-current-hash-reread-pending",
+      "penpot_revision": 890,
+      "bounded_export_status": "pass-for-all-remediated-and-backported-states",
+      "independent_structural_status": "integrator-validate-pass; final-independent-current-hash-reread-pending",
       "owner_product_decisions": {
         "25": "approved: exhibition media frames normalize to 8px with explicit clipping; Astro backport authorized",
         "26": "closed as source-parity defect: canonical shared icons already exact in Astro; no color-candidate backport",
@@ -2757,7 +2757,25 @@
         "50": "approved: eliminate parasitic square exhibition media corners via the thread25 8px framing contract"
       },
       "decision_readback_date": "2026-08-19",
-      "decision_authority": "exact live Penpot owner thread wording; owner comments outrank stale pending metadata"
+      "decision_authority": "exact live Penpot owner thread wording; owner comments outrank stale pending metadata",
+      "astro_backport": {
+        "repository": "onedayonemasterpiece/events-bot-new",
+        "branch": "feature/event-card-penpot-backport-20260819",
+        "commit": "0c2a8bdaded8654344458c77bbf98efa0d539e59",
+        "pull_request": 545,
+        "status": "pushed-tests-build-browser-proof-pass",
+        "implemented_threads": [
+          25,
+          49,
+          50
+        ],
+        "source_parity_verified_threads": [
+          26
+        ],
+        "excluded_pending_threads": [
+          30
+        ]
+      }
     }
   },
   "package_bindings": {

@@ -443,3 +443,33 @@ Authority order for this reverse cycle is therefore: exact owner thread wording
 → this Git SoT decision record → bounded Penpot candidate update → isolated
 Astro implementation and browser proof. No change is applied to the dirty
 runtime checkout and no production deployment is implied.
+
+## Reverse-cycle implementation (2026-08-20)
+
+Exact live owner wording was reread before implementation. Threads **25**, **49**
+and **50** explicitly authorize the exhibition corner and universal bounded-
+document backports; thread **26** requires source parity and therefore produces
+no invented color/icon change. Thread **30** does not explicitly approve the
+proposed 44/60/88 medallion tiers and remains the only open product decision.
+
+The approved changes were implemented in the isolated `events-bot-new`
+worktree on branch `feature/event-card-penpot-backport-20260819`, commit
+`0c2a8bdaded8654344458c77bbf98efa0d539e59`, PR **#545**:
+
+- listing projection reuses one shared bounded-document resolver, emits fit /
+  treatment / crop / reason attributes, and applies source-generic `cover` only
+  to proven `document-safe-cover` media;
+- the exact 906×1280 oracle resolves to ratio `0.884765625`, crop `0.2`,
+  retention `0.8`, media `191.109375×216`, real tail `40`, total width
+  `231.109375`; no event id or asset hash is present in runtime selectors;
+- exhibition public and lab decks/frames use radius `8px` and clipping;
+- shared action icons remain source-exact: share/comment 14, like 19, reject 18
+  in 46px wrappers with `#a8adb2` / `#f4f4f2` source colors.
+
+Validation: focused tests 10/10 PASS; Astro build 469 pages PASS; iconography
+contract PASS; Playwright `/zavtra/` found 22 bounded-document cards and zero
+fit/crop/retention/overflow offenders; `/vystavki/` desktop and 390px geometry
+confirmed radius 8, clipping, and exact glyph sizes. Penpot S04 is now the exact
+7491 fixture with linked source media, linked Page25 share/heart proof, zero
+medallions, native export PASS. Exhibition X01 and X07 exports PASS. Threads
+25/26/49/50 were replied to with evidence and resolved; thread 30 remains open.
