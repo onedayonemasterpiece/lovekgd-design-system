@@ -1,0 +1,2907 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-card-taxonomy-candidate.v1.schema.json",
+  "schema_version": "event_card_taxonomy_candidate_v1",
+  "package_id": "candidate.event-card-taxonomy",
+  "family_id": "family.event-preview-representations",
+  "contract_version": "1.1.0-candidate.3",
+  "contract_payload_sha256": "a7b7c1e4a176fbf131faa08e44990d6aa32d1a751caf767ba4c1bd5b99078cfb",
+  "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
+  "lifecycle": "candidate",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "acceptance_status": "not_ready_owner_comment_remediation",
+  "implementation_status": "git-sot-complete-penpot-materialized-independent-pass",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+    "review_build_id": "production-secret-20260809T192529-2f0fa64e",
+    "review_run_id": "static-site:production-secret-20260809T192529-2f0fa64e:4ed0c3660b5c",
+    "snapshot_id": "snapshot-20260809T172529-ec59c2ec34",
+    "generated_at": "2026-08-09T18:09:48.736Z"
+  },
+  "framing_binding": {
+    "contract_ref": "catalog/normalization/event-media/framing-v2.json",
+    "schema_version": "event_media_framing_v2",
+    "policy_version": "2.0.0-candidate",
+    "contract_payload_sha256": "51198b47067197d767e586cfb786064850d39ade32b0e2e54309348f857d3a3a",
+    "file_sha256": "bc059b7448b1a41b6316d3e63c8c2f630aa318682bd289cc1f60f46f7b41036d"
+  },
+  "identity_decisions": [
+    {
+      "identity": "event.card",
+      "decision": "candidate_normalized_general_large_card",
+      "acceptance": "not_accepted",
+      "reason": "EventCard action/anatomy boundary"
+    },
+    {
+      "identity": "listing.event-card",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "compact proof-oriented desktop anatomy, no action controls"
+    },
+    {
+      "identity": "listing.rail-row",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "track/swipe/commit interaction boundary"
+    },
+    {
+      "identity": "festival.card",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "route-local overlay hierarchy and festival timeline status model"
+    },
+    {
+      "identity": "exhibition.row",
+      "decision": "separate_candidate_component",
+      "acceptance": "not_accepted",
+      "reason": "deck/gallery/keyboard/hide model"
+    },
+    {
+      "identity": "event.list-item",
+      "decision": "not_materialized",
+      "acceptance": "not_accepted",
+      "reason": "lab-only unresolved boundary, penpot_eligible=false"
+    },
+    {
+      "identity": "artifact.rail-insert",
+      "decision": "nested_extension_only",
+      "acceptance": "not_accepted",
+      "reason": "weekend root runtime proves optional AmberRailArtifact; no expired/unavailable state"
+    }
+  ],
+  "components": [
+    {
+      "component_id": "event.card",
+      "family_id": "family.event-preview-representations",
+      "semantic_role": "general large event preview with media, content hierarchy and split action model",
+      "anatomy": [
+        "article",
+        "media_link",
+        "event.media-frame",
+        "title",
+        "schedule",
+        "place",
+        "utility_metadata",
+        "feedback_actions",
+        "optional_hidden_undo_plate"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "icon.ui.dislike",
+        "icon.ui.share",
+        "icon.ui.heart",
+        "icon.ui.calendar"
+      ],
+      "variant_axes": {
+        "consumer": [
+          "home",
+          "related",
+          "search",
+          "favorites",
+          "personal-feed",
+          "collections",
+          "unusual"
+        ],
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "presentation": [
+          "dark-shell",
+          "light-body-on-dark-section"
+        ],
+        "layout": [
+          "split-actions",
+          "overlay-controls"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible",
+          "pressed"
+        ],
+        "media": [
+          "loading",
+          "loaded-visual",
+          "loaded-protected",
+          "missing-fallback"
+        ],
+        "content": [
+          "short",
+          "long",
+          "very-long"
+        ],
+        "commercial": [
+          "unspecified",
+          "free",
+          "paid",
+          "price-range",
+          "registration"
+        ],
+        "favorite": [
+          "off",
+          "on"
+        ],
+        "calendar": [
+          "default",
+          "added",
+          "absent"
+        ],
+        "share": [
+          "rest",
+          "busy",
+          "shared",
+          "copied",
+          "error"
+        ],
+        "visibility": [
+          "shown",
+          "not-interested-plate"
+        ]
+      },
+      "state_key_order": [
+        "consumer",
+        "viewport",
+        "presentation",
+        "layout",
+        "interaction",
+        "media",
+        "content",
+        "commercial",
+        "favorite",
+        "calendar",
+        "share",
+        "visibility"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventLayout.astro base split-actions dark shell",
+            "owner runtime screenshot thread 45"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventLayout runtime overlay template"
+          ]
+        },
+        {
+          "state_key": "consumer=home;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "HomeColdStartFeed.astro"
+          ]
+        },
+        {
+          "state_key": "consumer=search;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "AuthorizedEventSearch.astro success cards"
+          ]
+        },
+        {
+          "state_key": "consumer=favorites;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "FavoritesSurface.astro populated grid"
+          ]
+        },
+        {
+          "state_key": "consumer=personal-feed;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "PersonalFeedSlot.astro populated feed"
+          ]
+        },
+        {
+          "state_key": "consumer=collections;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "FreeCollectionSurface.astro"
+          ]
+        },
+        {
+          "state_key": "consumer=unusual;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "UnusualListingSurface.astro"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard CSS/action hover"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard CSS/action focus-visible"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard CSS/action pressed"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard.astro initial is-image-loading"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard.astro image error -> fallback"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventLayout aria-pressed=true"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
+          "evidence": [
+            "EventLayout is-calendar-added"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
+          "evidence": [
+            "EventLayout setNativeShareStatus Готовим картинку"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
+          "evidence": [
+            "EventLayout setNativeShareStatus Поделились"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
+          "evidence": [
+            "EventLayout setNativeShareStatus Ссылка скопирована"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
+          "evidence": [
+            "EventLayout setNativeShareStatus Не удалось"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
+          "evidence": [
+            "EventLayout syncNotInterestedPlate"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard content stress"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "evidence": [
+            "S07 exact screenshot + EventCard source layout"
+          ]
+        },
+        {
+          "state_key": "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=registration;favorite=off;calendar=absent;share=rest;visibility=shown",
+          "evidence": [
+            "EventCard/EventLayout calendar is conditional",
+            "owner runtime screenshot thread 47"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "surface-state-is-not-card-state",
+          "forbidden_values": [
+            "favorites loading skeleton",
+            "search loading/empty/error",
+            "personal pending/unavailable",
+            "mobile rail toast/confirmation"
+          ]
+        },
+        {
+          "rule": "overlay-controls-is-deprecated-but-source-supported",
+          "note": "do not promote it as default"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop related grid",
+          "to": "mobile vertical related cards",
+          "relation": "same component and actions; consumer-owned media geometry changes"
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "desktop": "owner-reviewed/runtime home cards use dark #15110f; DesktopEventPage/discovery #fffaf2 override remains source-only divergence and is not a reviewed visual variant",
+            "mobile": "dark #15110f shell",
+            "radius_px": 24,
+            "media": "dynamic ratio or 4/5",
+            "split_actions": "utility inside shell; feedback below shell on transparent extension",
+            "overlay_controls": "feedback inside shell; calendar absent",
+            "forbidden": [
+              "visible taxonomy consumer chips",
+              "Действия поверх медиа helper",
+              "loose or detached action glyphs",
+              "parasitic translucent band"
+            ],
+            "action_components": "linked Page30.1 instances only",
+            "calendar": "calendar action is conditional; thread 47 proves desktop split-actions with calendar absent"
+          }
+        }
+      ],
+      "framing_profiles": [
+        "related_rail",
+        "large_portrait",
+        "site_wide",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/EventCard.astro",
+          "decoder_component_id": "component.7db9bc6bb7628a8a",
+          "runtime_markers": [
+            "data-event-card",
+            "event-card--split-actions",
+            "data-card-authoritative-fit"
+          ],
+          "css_contract": [
+            ".event-card",
+            ".event-card--split-actions",
+            ".event-card__utility-row",
+            ".event-card__feedback",
+            ".event-card--overlay-controls"
+          ]
+        },
+        {
+          "source": "site/src/components/AuthorizedEventSearch.astro",
+          "runtime_markers": [
+            "data-search-state",
+            "data-search-skeletons"
+          ]
+        },
+        {
+          "source": "site/src/components/FavoritesSurface.astro",
+          "runtime_markers": [
+            "data-favorites-state",
+            "data-favorites-skeleton"
+          ]
+        },
+        {
+          "source": "site/src/components/PersonalFeedSlot.astro",
+          "runtime_markers": [
+            "data-personal-feed-mode"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "HomeColdStartFeed",
+        "event-detail discovery/related",
+        "AuthorizedEventSearch success results",
+        "FavoritesSurface populated grid",
+        "PersonalFeedSlot populated feed",
+        "FreeCollectionSurface",
+        "GastronomyCollectionSurface",
+        "UnusualListingSurface",
+        "podborki collection pages"
+      ],
+      "runtime_state_keys": [
+        "data-feed-card-variant",
+        "is-image-loading",
+        "is-image-loaded",
+        "is-image-missing",
+        "data-card-image-fallback",
+        "aria-pressed",
+        "is-calendar-added",
+        "data-share-label",
+        "disabled",
+        "is-not-interested",
+        "data-not-interested-plate"
+      ],
+      "fixtures": [
+        "short-title",
+        "very-long-title",
+        "long-venue",
+        "free",
+        "paid",
+        "price-range",
+        "registration",
+        "missing metadata"
+      ],
+      "accessibility_expectations": [
+        "visible focus indicator",
+        "toggle states expose aria-pressed",
+        "hide includes live undo",
+        "loading uses aria-busy",
+        "controls meet accessible names"
+      ],
+      "loading_broken_fallback": {
+        "dynamic_consumers": [
+          "search",
+          "favorites"
+        ],
+        "states": [
+          "initial-skeleton",
+          "populated",
+          "empty",
+          "append-loading",
+          "failure",
+          "retry-recovery"
+        ],
+        "personal_feed": "status-only pending; no invented skeleton",
+        "static_home": "no skeleton"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "master_page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+        "master_page_ids": [
+          "579a886e-56e8-80a3-8008-81882dbcfb6d",
+          "579a886e-56e8-80a3-8008-8189b2c5b244"
+        ],
+        "root_board_ids": [
+          "45777396-2f2a-80c0-8008-818b87df1e84",
+          "45777396-2f2a-80c0-8008-818d29afe090"
+        ],
+        "component_id": "195df023-6fe5-80a0-8008-82c8c01613e9",
+        "variant_container_id": "195df023-6fe5-80a0-8008-82cad7dbc855",
+        "variant_container_ids": [
+          "195df023-6fe5-80a0-8008-82cad7dbc855",
+          "45777396-2f2a-80c0-8008-818f3e8fed97"
+        ],
+        "variant_ids": [
+          "195df023-6fe5-80a0-8008-82c8c01613e9",
+          "195df023-6fe5-80a0-8008-82c8c432feb4",
+          "195df023-6fe5-80a0-8008-82c86bd28d46",
+          "195df023-6fe5-80a0-8008-82c8ec434cf0",
+          "195df023-6fe5-80a0-8008-82c8efe238f1",
+          "195df023-6fe5-80a0-8008-82c9121e5458",
+          "195df023-6fe5-80a0-8008-82c914c1bb8c",
+          "195df023-6fe5-80a0-8008-82c92854103a",
+          "195df023-6fe5-80a0-8008-82c92b356d7d",
+          "195df023-6fe5-80a0-8008-82c93fa3b021",
+          "195df023-6fe5-80a0-8008-82c94272c08f",
+          "195df023-6fe5-80a0-8008-82c9644c1e4e",
+          "45777396-2f2a-80c0-8008-818d40534b53",
+          "45777396-2f2a-80c0-8008-818d4505ab91",
+          "45777396-2f2a-80c0-8008-818d48fccab2",
+          "45777396-2f2a-80c0-8008-818d4e825f81",
+          "45777396-2f2a-80c0-8008-818dfe107463",
+          "45777396-2f2a-80c0-8008-818e02dadeff",
+          "45777396-2f2a-80c0-8008-818e5bbeb8ef",
+          "45777396-2f2a-80c0-8008-818e6727e0c6",
+          "45777396-2f2a-80c0-8008-818ec463964f",
+          "45777396-2f2a-80c0-8008-818ecdb4c503",
+          "45777396-2f2a-80c0-8008-818ed6505a51"
+        ],
+        "main_shape_ids": [
+          "195df023-6fe5-80a0-8008-82c8bcd4c10f",
+          "195df023-6fe5-80a0-8008-82c8c141196f",
+          "195df023-6fe5-80a0-8008-82c868cf6471",
+          "195df023-6fe5-80a0-8008-82c8e91d0ca0",
+          "195df023-6fe5-80a0-8008-82c8ed5ec476",
+          "195df023-6fe5-80a0-8008-82c90fd7d577",
+          "195df023-6fe5-80a0-8008-82c9127cd327",
+          "195df023-6fe5-80a0-8008-82c925633106",
+          "195df023-6fe5-80a0-8008-82c928afee48",
+          "195df023-6fe5-80a0-8008-82c93cf88519",
+          "195df023-6fe5-80a0-8008-82c93fd8c1fe",
+          "195df023-6fe5-80a0-8008-82c95e375095",
+          "45777396-2f2a-80c0-8008-818d3ad18cff",
+          "45777396-2f2a-80c0-8008-818d40ced535",
+          "45777396-2f2a-80c0-8008-818d455c47d6",
+          "45777396-2f2a-80c0-8008-818d495464dd",
+          "45777396-2f2a-80c0-8008-818df94d14d5",
+          "45777396-2f2a-80c0-8008-818dfe7cb878",
+          "45777396-2f2a-80c0-8008-818e533e9015",
+          "45777396-2f2a-80c0-8008-818e5c641bc1",
+          "45777396-2f2a-80c0-8008-818ec0d41c61",
+          "45777396-2f2a-80c0-8008-818ec53899d4",
+          "45777396-2f2a-80c0-8008-818ecf031de2"
+        ],
+        "exact_state_keys": [
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=home;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=search;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=favorites;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=personal-feed;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=collections;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=unusual;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=missing-fallback;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=on;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=added;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=busy;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=shared;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=copied;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=error;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=not-interested-plate",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=very-long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=registration;favorite=off;calendar=absent;share=rest;visibility=shown"
+        ],
+        "status": "materialized-structural-and-bounded-export-pass",
+        "review_surface": "bounded-family-page-matrix"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "action_ownership": {
+        "reason": "Exact Astro renders controls as EventCard children; candidate Penpot exposes reusable linked action controls without claiming Astro runtime componentization before owner approval.",
+        "runtime_as_is": "Exact Astro renders favorite, not-interested, share and calendar controls as EventCard children.",
+        "penpot_linked_component_contract": {
+          "status": "candidate-design-library-components-materialized-readback-pass",
+          "target_page_id": "c0d4e5a2-7db6-80c7-8008-81f0f25e13ca",
+          "target_page_name": "30.1 — Event card actions · Candidate components",
+          "components": {
+            "action.event-card.favorite": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "selected",
+                "busy",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/heart"
+            },
+            "action.event-card.not-interested": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "committed"
+              ],
+              "icon_ref": "Icon/UI/dislike"
+            },
+            "action.event-card.share": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "busy",
+                "shared",
+                "copied",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/share"
+            },
+            "action.event-card.calendar": {
+              "states": [
+                "rest",
+                "hover",
+                "focus-visible",
+                "pressed",
+                "added",
+                "error"
+              ],
+              "icon_ref": "Icon/UI/calendar"
+            }
+          },
+          "astro_promotion": "pending owner approval; do not claim runtime componentization until source is changed",
+          "root_board_id": "c0d4e5a2-7db6-80c7-8008-81f11962a9d6",
+          "materialization_status": "materialized-readback-and-bounded-export-pass",
+          "variant_containers": {
+            "action.event-card.favorite": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f13a88619b",
+              "state_count": 7
+            },
+            "action.event-card.not-interested": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f182ac1f8a",
+              "state_count": 5
+            },
+            "action.event-card.share": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f18e326b7e",
+              "state_count": 8
+            },
+            "action.event-card.calendar": {
+              "variant_container_id": "c0d4e5a2-7db6-80c7-8008-81f1974f23c1",
+              "state_count": 6
+            }
+          },
+          "layout_correction": "split-actions utility row stays inside the dark shell while share/favorite feedback is below the shell on a transparent extension; overlay-controls feedback stays inside the card shell at the article bottom and is not a media-overlay placeholder"
+        },
+        "layout_correction": "split-actions feedback row is outside the dark card shell on a transparent extension; overlay-controls remains inside media overlay",
+        "runtime_native_children": [
+          "favorite",
+          "not_interested",
+          "share",
+          "calendar"
+        ]
+      },
+      "source_element_bindings": [
+        {
+          "element": "article",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "article[data-event-card]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "media_link",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-media-link]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "event.media-frame",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-media-shell]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "title",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-title]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "schedule",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-meta]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "place",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-place]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "utility_metadata",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-card-type],[data-card-status]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "feedback_actions",
+          "source_path": "site/src/components/EventCard.astro",
+          "selector_or_contract": "[data-feedback-action],[data-native-share],[data-calendar-action]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+        },
+        {
+          "element": "optional_hidden_undo_plate",
+          "source_path": "site/src/layouts/EventLayout.astro",
+          "selector_or_contract": "[data-not-interested-plate] / syncNotInterestedPlate",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"
+        }
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+        "icon_refs": [
+          "icon.ui.dislike",
+          "icon.ui.share",
+          "icon.ui.heart",
+          "icon.ui.calendar"
+        ]
+      }
+    },
+    {
+      "component_id": "listing.event-card",
+      "family_id": "family.event-preview-representations",
+      "semantic_role": "compact desktop listing preview without action controls; proof counts are links/evidence, not actions",
+      "anatomy": [
+        "root_link",
+        "event.media-frame",
+        "optional_identity_rail",
+        "optional_inside_medallion",
+        "proof_rail_or_overlay",
+        "title",
+        "venue"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "event.medallion-frame",
+        "icon.ui.share",
+        "icon.ui.heart"
+      ],
+      "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "density": [
+          "regular",
+          "weekend",
+          "popular"
+        ],
+        "media": [
+          "protected-natural",
+          "square-natural",
+          "low-resolution",
+          "visual-crop",
+          "document-bounded-cover"
+        ],
+        "proof": [
+          "none",
+          "side-rail",
+          "inside"
+        ],
+        "content": [
+          "long",
+          "short"
+        ],
+        "temporal": [
+          "current",
+          "started-earlier",
+          "past"
+        ],
+        "identity-count": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "tail-layout": [
+          "none",
+          "compact",
+          "split"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible"
+        ],
+        "overlay-medallion": [
+          "absent",
+          "present"
+        ],
+        "free-medallion": [
+          "absent",
+          "present"
+        ]
+      },
+      "state_key_order": [
+        "viewport",
+        "density",
+        "media",
+        "proof",
+        "content",
+        "temporal",
+        "identity-count",
+        "tail-layout",
+        "interaction",
+        "overlay-medallion",
+        "free-medallion"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "ListingEventCard.astro regular protected source card"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "evidence": [
+            "ListingEventCard.astro two-identity split tail + free medallion"
+          ],
+          "rationale": "Owner weekend oracle #48: source split tail with two linked identity medallions plus free badge."
+        },
+        {
+          "state_key": "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "weekend low-resolution inside-proof specimen"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=regular;media=document-bounded-cover;proof=side-rail;content=long;temporal=current;identity-count=0;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "ListingEventCard.astro [data-listing-media-treatment=document-safe-cover]",
+            "listingPresentation.ts universal 20%-bounded OCR/document frame",
+            "owner thread 49 exact event 7491 runtime oracle"
+          ],
+          "rationale": "Owner-approved universal framing for exact 906×1280 OCR poster: width/height 0.884765625, 20% bounded crop, 80% vertical retention, 40px proof-only tail."
+        },
+        {
+          "state_key": "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "evidence": [
+            "popular visual-crop overlay medallion source gate"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css [data-listing-started-earlier=true]"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css [data-listing-past=true]"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css card/identity/proof hover"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "design-system.css card/identity/proof focus-visible"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "evidence": [
+            "ListingEventCard.astro zero proof/identity DOM omission"
+          ],
+          "rationale": "Owner Popular oracle #54: desktop adaptive landscape crop with proof pills inside and no side tail."
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "action=like|share|calendar",
+          "reason": "desktop compact listing proof numbers are not card action controls"
+        },
+        {
+          "rule": "media=protected-natural AND crop-adaptive=true without safe crop",
+          "reason": "framing v2 fail closed"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop listing.event-card",
+          "to": "listing.rail-row",
+          "relation": "same event data but distinct mobile gesture/anatomy component"
+        },
+        {
+          "review_label": "DESKTOP",
+          "viewport": "desktop",
+          "paired_mobile_component": "listing.rail-row",
+          "owner_thread": 33
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "width_formula": "mediaHeight * imageRatio + tailWidth",
+            "fixed_420px_skeleton_forbidden": true,
+            "tail_width_px": [
+              0,
+              40,
+              64,
+              96
+            ],
+            "social_proof_px": {
+              "desktop": 17,
+              "mobile": 14
+            },
+            "proof_rail_px": {
+              "desktop": 36,
+              "mobile": 28
+            },
+            "medallion_as_is_px": {
+              "overlay": 64,
+              "weekend": 60,
+              "popular": 56,
+              "popular_mobile": 46,
+              "side_single": 60,
+              "side_multiple": 51,
+              "split": "48..52",
+              "popular_mobile_side": 40
+            },
+            "screenshot_threads": [
+              46,
+              48,
+              49,
+              54
+            ],
+            "vertical_document_framing": {
+              "status": "owner-approved-astro-backport-authorized",
+              "owner_thread": 49,
+              "applies_when": "explicit ocr_text + known intrinsic dimensions + width/height < 0.8",
+              "source_ratio_floor": 0.8,
+              "max_crop_fraction": 0.2,
+              "target_ratio_formula": "sourceRatio / (1 - 0.2)",
+              "fit": "cover",
+              "media_treatment": "document-safe-cover",
+              "unknown_or_error_policy": "natural contain; no inferred crop permission",
+              "event_7491_oracle": {
+                "source_size_px": [
+                  906,
+                  1280
+                ],
+                "source_ratio": 0.7078125,
+                "target_ratio": 0.884765625,
+                "media_height_px": 216,
+                "media_width_px": 191.109375,
+                "tail_width_px": 40,
+                "card_width_px": 231.109375,
+                "vertical_retention": 0.8,
+                "cover_crop": 0.2
+              }
+            }
+          }
+        }
+      ],
+      "framing_profiles": [
+        "desktop_base",
+        "related_rail",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/listings/ListingEventCard.astro",
+          "decoder_component_id": "component.ad9c19c00be8830c",
+          "runtime_markers": [
+            "data-ds-component=ListingEventCard",
+            "data-ds-version=9",
+            "data-listing-image-mode",
+            "data-listing-image-crop-adaptive",
+            "data-listing-media-treatment",
+            "data-listing-fit",
+            "data-listing-cover-crop",
+            "data-listing-crop-reason"
+          ],
+          "css_contract": [
+            ".ke-listing-card",
+            ".ke-listing-card__visual",
+            ".ke-listing-card__side-rail",
+            ".ke-listing-card__social-proof .icon",
+            ".ke-listing-card__copy"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "DateListingSurface: date/today/tomorrow desktop",
+        "WeekendListingSurface desktop",
+        "PopularListingSurface desktop"
+      ],
+      "runtime_state_keys": [
+        "data-listing-image-mode",
+        "data-listing-crop-adaptive",
+        "data-listing-crop-evidence",
+        "data-listing-source-width",
+        "data-listing-source-height",
+        "data-listing-media-role",
+        "data-listing-vertical-retention",
+        "data-listing-low-resolution",
+        "data-listing-density",
+        "data-image-text-mode",
+        "data-listing-proof-placement",
+        "data-listing-overlay-kind",
+        "data-listing-media-treatment",
+        "data-listing-fit",
+        "data-listing-cover-crop",
+        "data-listing-crop-reason"
+      ],
+      "fixtures": [
+        "short-title",
+        "long-title",
+        "long-venue",
+        "square-source",
+        "low-resolution",
+        "OCR/protected"
+      ],
+      "accessibility_expectations": [
+        "whole card is a deterministic link",
+        "visible focus indicator",
+        "truncation retains accessible full venue",
+        "proof links have accessible labels"
+      ],
+      "loading_broken_fallback": {
+        "states": [
+          "ready"
+        ],
+        "skeleton": "forbidden on static listing"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "master_page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
+        "master_page_ids": [
+          "579a886e-56e8-80a3-8008-81882dc397aa"
+        ],
+        "root_board_ids": [
+          "579a886e-56e8-80a3-8008-818872c05a92"
+        ],
+        "component_id": "579a886e-56e8-80a3-8008-818874efe150",
+        "variant_container_id": "579a886e-56e8-80a3-8008-81887e3bc0f2",
+        "variant_container_ids": [
+          "579a886e-56e8-80a3-8008-81887e3bc0f2"
+        ],
+        "variant_ids": [
+          "579a886e-56e8-80a3-8008-818874efe150",
+          "579a886e-56e8-80a3-8008-8188764411ac",
+          "579a886e-56e8-80a3-8008-818876d71f38",
+          "579a886e-56e8-80a3-8008-818877e05ac0",
+          "579a886e-56e8-80a3-8008-81887886d10e",
+          "579a886e-56e8-80a3-8008-818879e30782",
+          "579a886e-56e8-80a3-8008-81887b6e28b2",
+          "579a886e-56e8-80a3-8008-81887c651e23",
+          "579a886e-56e8-80a3-8008-81887d7ec788",
+          "579a886e-56e8-80a3-8008-81887e32e141"
+        ],
+        "main_shape_ids": [
+          "579a886e-56e8-80a3-8008-818873518988",
+          "579a886e-56e8-80a3-8008-8188755b408b",
+          "579a886e-56e8-80a3-8008-8188767796ee",
+          "579a886e-56e8-80a3-8008-81887704279d",
+          "579a886e-56e8-80a3-8008-81887814949d",
+          "579a886e-56e8-80a3-8008-818878c65736",
+          "579a886e-56e8-80a3-8008-81887a39aa73",
+          "579a886e-56e8-80a3-8008-81887ba876f1",
+          "579a886e-56e8-80a3-8008-81887ca15d44",
+          "579a886e-56e8-80a3-8008-81887dd0ab8a"
+        ],
+        "exact_state_keys": [
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=document-bounded-cover;proof=side-rail;content=long;temporal=current;identity-count=0;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+        ],
+        "status": "materialized-structural-and-bounded-export-pass",
+        "review_surface": "bounded-family-page-matrix"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "source_element_bindings": [
+        {
+          "element": "root_link",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": "article[data-listing-item]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "event.media-frame",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": "[data-listing-media-loading]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "optional_identity_rail",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": "[data-listing-side-identity-count]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "optional_inside_medallion",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": "[data-listing-medallion-slug]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "proof_rail_or_overlay",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": "[data-listing-proof-placement]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "title",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": ".ke-listing-card__title",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        },
+        {
+          "element": "venue",
+          "source_path": "site/src/components/listings/ListingEventCard.astro",
+          "selector_or_contract": ".ke-listing-card__place",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296"
+        }
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+        "icon_refs": [
+          "icon.ui.share",
+          "icon.ui.heart"
+        ]
+      }
+    },
+    {
+      "component_id": "listing.rail-row",
+      "semantic_role": "mobile horizontal event track with summary, independent media, digest, identity continuation and feedback commit/recovery",
+      "anatomy": [
+        "feedback_underlays",
+        "track",
+        "summary_panel",
+        "zero_or_more_event.media-frame_panels",
+        "digest_panel",
+        "identity_panels",
+        "like_cta",
+        "negative_control",
+        "optional_artifact_tail"
+      ],
+      "slots": [
+        {
+          "id": "media_panels",
+          "required": false,
+          "content": "zero or more independent event.media-frame instances"
+        },
+        {
+          "id": "artifact_tail",
+          "required": false,
+          "content": "AmberRailArtifact extension only when runtime flag supplies it"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "event.medallion-frame",
+        "icon.ui.heart",
+        "icon.product.rail-arrow-right",
+        "artifact.amber-rail"
+      ],
+      "variant_axes": {
+        "viewport": [
+          "mobile-390"
+        ],
+        "scroll-position": [
+          "start",
+          "digest",
+          "first-media",
+          "next-media",
+          "identity",
+          "end"
+        ],
+        "occurrence": [
+          "per-date",
+          "per-family"
+        ],
+        "schedule": [
+          "exact-time",
+          "program-day",
+          "program-day-range",
+          "date-primary"
+        ],
+        "media-count-sequence": [
+          "0",
+          "1",
+          "2",
+          "3-plus"
+        ],
+        "gesture": [
+          "rest",
+          "dislike-reveal",
+          "like-reveal",
+          "like-committed"
+        ],
+        "media-state": [
+          "none",
+          "loading",
+          "loaded",
+          "error",
+          "multi-image"
+        ],
+        "temporal": [
+          "current",
+          "started-earlier",
+          "past"
+        ],
+        "artifact": [
+          "absent",
+          "amber-tail"
+        ]
+      },
+      "state_key_order": [
+        "viewport",
+        "scroll-position",
+        "occurrence",
+        "schedule",
+        "media-count-sequence",
+        "gesture",
+        "media-state",
+        "temporal",
+        "artifact"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow summary"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "evidence": [
+            "digest panel"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "evidence": [
+            "first media panel"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "evidence": [
+            "next media panel"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "evidence": [
+            "identity continuation slot"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "left pull"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "right pull"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "aria-pressed true after like"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
+          "evidence": [
+            "initial data-media-state=loading"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
+          "evidence": [
+            "decode error"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
+          "evidence": [
+            "data-mobile-rail-temporal-state=started-earlier"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
+          "evidence": [
+            "data-mobile-rail-temporal-state=past"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
+          "evidence": [
+            "AmberRailArtifact exact tail sibling"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro noExactTime Program day"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro compact date range"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "evidence": [
+            "MobileListingRailRow.astro occurrenceMode per-family"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "hidden-row-is-not-a-row-variant",
+          "reason": "row.hidden=true and parent surface owns toast+undo"
+        },
+        {
+          "rule": "artifact-tail-only",
+          "when": "artifact=amber-tail",
+          "requires": "position=boundary and source research gate"
+        },
+        {
+          "rule": "no-unavailable-or-expired-amber-state"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop ListingEventCard",
+          "to": "listing.rail-row",
+          "relation": "shared event entity and media evidence; separate mobile interaction component"
+        },
+        {
+          "complete_track_review_contract": {
+            "row_width": "sum(summary + zero-or-more natural-width media + digest + identity slots + free + like + optional Amber tail)",
+            "fixed_390px_card_forbidden": true,
+            "owner_thread": 43
+          }
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "rail_window": "100vw × 112; overflow-x auto",
+            "event_track": "width:max-content; height:112; gap:7; padding-right:12",
+            "summary_px": [
+              296,
+              112
+            ],
+            "time_px": [
+              96,
+              82
+            ],
+            "info_px": [
+              162,
+              78
+            ],
+            "digest_px": [
+              168,
+              112
+            ],
+            "medallion_slot_px": [
+              94,
+              112
+            ],
+            "medallion_art_px": 86,
+            "like_tail_min_px": [
+              58,
+              56
+            ],
+            "underlay_heart_px": 32,
+            "signal_heart_px": 12,
+            "cue_px": [
+              48,
+              23
+            ],
+            "media": "height 112; width from source ratio",
+            "loading": "skeleton geometry; no text",
+            "gesture": "underlay behind translated track; never repaint whole card",
+            "forbidden_debug_copy": [
+              "digest",
+              "first media",
+              "next media",
+              "identity continuation",
+              "boundary",
+              "нравится",
+              "загрузка",
+              "не загрузилось"
+            ],
+            "screenshot_threads": [
+              55,
+              56,
+              57,
+              58,
+              59
+            ]
+          }
+        }
+      ],
+      "framing_profiles": [
+        "mobile_default",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/listings/MobileListingRailRow.astro",
+          "decoder_component_id": "component.5c07f96d6ebeaa2a",
+          "runtime_markers": [
+            "data-mobile-listing-row",
+            "data-mobile-rail-gallery-count",
+            "data-media-state",
+            "data-feedback-action"
+          ],
+          "css_contract": [
+            ".rail-window",
+            ".event-track",
+            ".event-summary",
+            ".event-time",
+            ".event-info",
+            ".event-cue",
+            ".event-media",
+            ".event-digest",
+            ".event-like-cta"
+          ]
+        },
+        {
+          "source": "site/src/components/listings/MobileListingRailSurface.astro",
+          "runtime_markers": [
+            ".rail-window.is-armed",
+            ".like-underlay",
+            ".dislike-underlay"
+          ]
+        },
+        {
+          "source": "site/src/components/listings/AmberRailArtifact.astro",
+          "runtime_markers": [
+            "amberArtifactTail"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "MobileListingRailSurface date/today/tomorrow",
+        "MobileListingRailSurface weekend",
+        "MobileListingRailSurface popular"
+      ],
+      "runtime_state_keys": [
+        "data-mobile-rail-gallery-count",
+        "data-mobile-rail-media-reason",
+        "data-rail-media-reason",
+        "data-rail-media-fit",
+        "data-rail-media-ratio",
+        "data-rail-gallery-index",
+        "data-rail-gallery-count",
+        "data-media-state",
+        "aria-pressed",
+        "is-like-pulling",
+        "is-like-armed",
+        "is-dislike-active",
+        "is-armed",
+        "data-mobile-rail-temporal-state"
+      ],
+      "fixtures": [
+        "no-media",
+        "one-media",
+        "multiple-media",
+        "long-title",
+        "ended",
+        "free-with-medallion"
+      ],
+      "accessibility_expectations": [
+        "track remains keyboard-operable",
+        "feedback controls have accessible names",
+        "commit and undo changes announced",
+        "hidden state is recoverable",
+        "media panels preserve alt semantics"
+      ],
+      "loading_broken_fallback": {
+        "media_panel_states": [
+          "loading",
+          "ready",
+          "broken",
+          "fallback"
+        ],
+        "row_skeleton": "not added to static Astro listing row"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "master_page_id": "579a886e-56e8-80a3-8008-81882dc703ba",
+        "master_page_ids": [
+          "579a886e-56e8-80a3-8008-81882dc703ba"
+        ],
+        "root_board_ids": [
+          "579a886e-56e8-80a3-8008-8189000fe2e6"
+        ],
+        "component_id": "579a886e-56e8-80a3-8008-8189016141ca",
+        "variant_container_id": "579a886e-56e8-80a3-8008-8189203d3b5d",
+        "variant_container_ids": [
+          "579a886e-56e8-80a3-8008-8189203d3b5d"
+        ],
+        "variant_ids": [
+          "579a886e-56e8-80a3-8008-8189016141ca",
+          "579a886e-56e8-80a3-8008-8189034270cb",
+          "579a886e-56e8-80a3-8008-818904d381d7",
+          "579a886e-56e8-80a3-8008-81890649c431",
+          "579a886e-56e8-80a3-8008-818908118e5b",
+          "579a886e-56e8-80a3-8008-818909726903",
+          "579a886e-56e8-80a3-8008-81890b61da5e",
+          "579a886e-56e8-80a3-8008-81890d88a488",
+          "579a886e-56e8-80a3-8008-81890f216aa6",
+          "579a886e-56e8-80a3-8008-818911026ecc",
+          "579a886e-56e8-80a3-8008-818912cd1554",
+          "579a886e-56e8-80a3-8008-818914c9d6c5",
+          "579a886e-56e8-80a3-8008-818917438858",
+          "579a886e-56e8-80a3-8008-81891b16ad1e",
+          "579a886e-56e8-80a3-8008-81891d7af8ef",
+          "579a886e-56e8-80a3-8008-81892022ecd6"
+        ],
+        "main_shape_ids": [
+          "579a886e-56e8-80a3-8008-818900ac5045",
+          "579a886e-56e8-80a3-8008-818901e66003",
+          "579a886e-56e8-80a3-8008-81890385bebc",
+          "579a886e-56e8-80a3-8008-8189051177c7",
+          "579a886e-56e8-80a3-8008-81890680aa36",
+          "579a886e-56e8-80a3-8008-8189086ef4d8",
+          "579a886e-56e8-80a3-8008-818909d37ffe",
+          "579a886e-56e8-80a3-8008-81890bac7834",
+          "579a886e-56e8-80a3-8008-81890dde4dbc",
+          "579a886e-56e8-80a3-8008-81890f8a728a",
+          "579a886e-56e8-80a3-8008-81891169058c",
+          "579a886e-56e8-80a3-8008-81891330447a",
+          "579a886e-56e8-80a3-8008-818915470224",
+          "579a886e-56e8-80a3-8008-818917ee8660",
+          "579a886e-56e8-80a3-8008-81891ba573dc",
+          "579a886e-56e8-80a3-8008-81891de2d2df"
+        ],
+        "exact_state_keys": [
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent"
+        ],
+        "status": "materialized-structural-and-bounded-export-pass",
+        "review_surface": "bounded-family-page-matrix"
+      },
+      "evidence_refs": [
+        "screenshots:S08-I03..S08-I06",
+        "exact-source:MobileListingRailRow.astro",
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "family_id": "family.event-preview-representations",
+      "source_element_bindings": [
+        {
+          "element": "feedback_underlays",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": "MobileListingRailSurface .dislike-underlay/.like-underlay",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "track",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": ".event-track",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "summary_panel",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": ".event-summary",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "zero_or_more_event.media-frame_panels",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": ".event-media[data-media-state]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "digest_panel",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": ".event-digest",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "identity_panels",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": ".event-medallion-slot",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "like_cta",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": "[data-like]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "negative_control",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": "[data-rail-negative-control]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        },
+        {
+          "element": "optional_artifact_tail",
+          "source_path": "site/src/components/listings/MobileListingRailRow.astro",
+          "selector_or_contract": "AmberRailArtifact.astro sibling after like",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "7a9de0d56eab6215075d58fac66810b1068977eb8bf161160aed1d0a8f2514eb"
+        }
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+        "icon_refs": [
+          "icon.ui.heart",
+          "icon.product.rail-arrow-right"
+        ]
+      }
+    },
+    {
+      "component_id": "festival.card",
+      "family_id": "family.festival-timeline",
+      "semantic_role": "festival timeline preview with overlay hierarchy, status, category and favorite",
+      "anatomy": [
+        "root_link",
+        "event.media-frame",
+        "veil",
+        "date",
+        "status",
+        "title",
+        "location",
+        "theme",
+        "favorite"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "icon.ui.heart",
+        "icon.editorial.festival.*"
+      ],
+      "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "packed-aspect": [
+          "row-derived",
+          "mobile-0.95",
+          "mobile-full-1.86",
+          "very-small-1.6"
+        ],
+        "layout": [
+          "compact",
+          "wide"
+        ],
+        "status": [
+          "announced",
+          "program-pending",
+          "date-pending"
+        ],
+        "media": [
+          "visual",
+          "document"
+        ],
+        "favorite": [
+          "off",
+          "on"
+        ],
+        "content": [
+          "short",
+          "long"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible"
+        ]
+      },
+      "state_key_order": [
+        "viewport",
+        "packed-aspect",
+        "layout",
+        "status",
+        "media",
+        "favorite",
+        "content",
+        "interaction"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "S04/S05 exact festival card"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "status chip source"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "evidence": [
+            "long program-pending"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "wide row"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "date pending"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "evidence": [
+            "aria-pressed=true"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "evidence": [
+            ".festival-card:hover"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "evidence": [
+            ".festival-card__link:focus-visible"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default",
+          "evidence": [
+            "festivali/index.astro .festival-card--document exact mediaMode branch"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "status carries any promoted or implementation-verified label",
+          "reason": "forbidden candidate promotion claim"
+        },
+        {
+          "rule": "protected fit accepted solely from numeric crop fraction",
+          "reason": "exact protected-region safety is required"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop packed grid",
+          "to": "mobile two-column plus wide remainder",
+          "relation": "same family; layout/density variant"
+        },
+        {
+          "media_fit": "object-fit:cover; preserve intrinsic aspect and crop inside the frame; stretching forbidden",
+          "owner_thread": 39
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "radius_px": "clamp(8px, …, 11px)",
+            "date_status_min_height_px": 27,
+            "chip_font_px": "12..13.2",
+            "title_px": "21..25.2; row4 19.8..22.8",
+            "heart_px": 17.92,
+            "media": "one proportional cover layer plus exactly two source gradients",
+            "forbidden": [
+              "duplicate base/custom fields",
+              "duplicate media",
+              "ПРОГРАММА · PDF"
+            ],
+            "screenshot_oracle": "missing; source-only validation"
+          }
+        }
+      ],
+      "framing_profiles": [
+        "site_wide",
+        "related_rail"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/pages/festivali/index.astro",
+          "decoder_component_id": "source.current_root_prelaunch.4a87f69daff5ab1e",
+          "runtime_markers": [
+            "data-festival-card",
+            "data-media-mode",
+            "data-protected-fit",
+            "data-crop-fraction",
+            "aria-pressed"
+          ],
+          "css_contract": [
+            ".festival-card",
+            ".festival-card__topline",
+            ".festival-card__caption",
+            ".festival-card__theme-icons i",
+            "[data-festival-like] svg"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "/festivali/"
+      ],
+      "runtime_state_keys": [
+        "data-festival-card",
+        "data-media-mode",
+        "data-crop-fraction",
+        "data-protected-crop-fit",
+        "data-media-source-kind",
+        "data-media-confidence",
+        "aria-pressed",
+        ":hover",
+        ":focus-visible"
+      ],
+      "fixtures": [
+        "official",
+        "program-pending",
+        "date-pending",
+        "long-title",
+        "wide-span"
+      ],
+      "accessibility_expectations": [
+        "favorite exposes aria-pressed",
+        "title remains legible over gradient",
+        "focus remains visible",
+        "crop preserves protected regions"
+      ],
+      "loading_broken_fallback": {
+        "states": [
+          "ready"
+        ],
+        "skeleton": "not source-proven; do not invent"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "master_page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+        "master_page_ids": [
+          "fd45a474-7b74-809d-8008-8185f717df60"
+        ],
+        "root_board_ids": [
+          "579a886e-56e8-80a3-8008-818783743e6f"
+        ],
+        "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+        "variant_container_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+        "variant_container_ids": [
+          "579a886e-56e8-80a3-8008-81878e4eaef3"
+        ],
+        "variant_ids": [
+          "579a886e-56e8-80a3-8008-818784d1ffa9",
+          "579a886e-56e8-80a3-8008-8187861d1a75",
+          "579a886e-56e8-80a3-8008-818787be8fa3",
+          "579a886e-56e8-80a3-8008-8187887e51f2",
+          "579a886e-56e8-80a3-8008-8187897eab50",
+          "579a886e-56e8-80a3-8008-81878a420b27",
+          "579a886e-56e8-80a3-8008-81878b427384",
+          "579a886e-56e8-80a3-8008-81878c2b2dff",
+          "579a886e-56e8-80a3-8008-81878e41a10f"
+        ],
+        "main_shape_ids": [
+          "579a886e-56e8-80a3-8008-818783ed949f",
+          "579a886e-56e8-80a3-8008-818785431b74",
+          "579a886e-56e8-80a3-8008-81878660d651",
+          "579a886e-56e8-80a3-8008-818787f1af03",
+          "579a886e-56e8-80a3-8008-818788bc706b",
+          "579a886e-56e8-80a3-8008-818789ade750",
+          "579a886e-56e8-80a3-8008-81878a7c1919",
+          "579a886e-56e8-80a3-8008-81878b82c621",
+          "579a886e-56e8-80a3-8008-81878c73a720"
+        ],
+        "exact_state_keys": [
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
+        ],
+        "status": "materialized-structural-and-bounded-export-pass",
+        "review_surface": "bounded-family-page-matrix"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "action_ownership": {
+        "favorite": "native child button in festival Astro; not a nested core.favorite-action component"
+      },
+      "source_element_bindings": [
+        {
+          "element": "root_link",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__link",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "event.media-frame",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__media",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "veil",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__veil",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "date",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__date",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "status",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__status",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "title",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__caption h3",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "location",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__place",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "theme",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": ".festival-card__theme",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        },
+        {
+          "element": "favorite",
+          "source_path": "site/src/pages/festivali/index.astro",
+          "selector_or_contract": "[data-festival-like]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        }
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+        "icon_refs": [
+          "icon.ui.heart",
+          "icon.editorial.festival.*"
+        ]
+      }
+    },
+    {
+      "component_id": "exhibition.row",
+      "family_id": "family.exhibitions-personal",
+      "semantic_role": "cinematic exhibition row/deck with lifecycle rail, independent media frames, gallery, keyboard model and hide/undo",
+      "anatomy": [
+        "root",
+        "lifecycle_rail",
+        "media_deck",
+        "independent_event.media-frame_children",
+        "body",
+        "aside",
+        "like_and_reject",
+        "hidden_stub_undo"
+      ],
+      "slots": [
+        {
+          "id": "media",
+          "required": true,
+          "content": "event.media-frame"
+        },
+        {
+          "id": "content",
+          "required": true,
+          "content": "event identity and schedule hierarchy"
+        },
+        {
+          "id": "actions",
+          "required": false,
+          "content": "source-proven actions only"
+        }
+      ],
+      "nested_component_refs": [
+        "event.media-frame",
+        "event.medallion-frame",
+        "icon.ui.share",
+        "icon.ui.comment",
+        "icon.ui.heart",
+        "icon.ui.dislike"
+      ],
+      "variant_axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "presentation": [
+          "desktop-row",
+          "mobile-gallery"
+        ],
+        "lifecycle": [
+          "upcoming",
+          "recent",
+          "ending",
+          "popular",
+          "long"
+        ],
+        "media-count": [
+          "0",
+          "1",
+          "3",
+          "9"
+        ],
+        "deck-binding": [
+          "natural-width"
+        ],
+        "deck-phase": [
+          "idle",
+          "forward",
+          "backward"
+        ],
+        "media-state": [
+          "idle",
+          "loading",
+          "loaded",
+          "error"
+        ],
+        "feedback-selection": [
+          "default",
+          "liked",
+          "rejected-hidden-with-undo",
+          "keyboard-selected"
+        ]
+      },
+      "state_key_order": [
+        "viewport",
+        "presentation",
+        "lifecycle",
+        "media-count",
+        "deck-binding",
+        "deck-phase",
+        "media-state",
+        "feedback-selection"
+      ],
+      "valid_combinations": [
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "evidence": [
+            "ExhibitionPrototypeRow default"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+          "evidence": [
+            "deck forward"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+          "evidence": [
+            "deck backward"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+          "evidence": [
+            "image error"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+          "evidence": [
+            "liked aria pressed"
+          ]
+        },
+        {
+          "state_key": "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+          "evidence": [
+            "rejectRow hides row and shows undo stub"
+          ]
+        },
+        {
+          "state_key": "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "evidence": [
+            "ExhibitionsPersonalSurface mobile gallery"
+          ]
+        }
+      ],
+      "invalid_combinations": [
+        {
+          "rule": "rejected-and-hidden-undo-are-one-source-state",
+          "state": "rejected-hidden-with-undo"
+        },
+        {
+          "rule": "depth-is-visual-layer-not-runtime-media-state"
+        }
+      ],
+      "responsive_contract": [
+        {
+          "from": "desktop cinematic row",
+          "to": "mobile deck-like card",
+          "relation": "same exhibition interaction family, responsive composition"
+        },
+        {
+          "review_corrections": {
+            "media_count": "1..9 exact deck slots and +N counter",
+            "keyboard_hints": "L/X only on selected keyboard-active specimen",
+            "loading": "skeleton only; loading text forbidden",
+            "radii": "AS-IS desktop/mobile retained separately from candidate normalization"
+          },
+          "owner_threads": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "owner_oracle_cycle_20260819": {
+            "desktop_grid": "112px clamp(420px,42vw,680px) minmax(250px,1fr) auto",
+            "min_height_px": 132,
+            "lte_1020": {
+              "rail_px": 95,
+              "media_px": "320..410"
+            },
+            "lte_820": {
+              "areas": [
+                "rail",
+                "deck",
+                "body",
+                "aside"
+              ],
+              "deck_height": "clamp(160px,48vw,228px)"
+            },
+            "deck_frame": "min 114px; width = 114 * source ratio",
+            "medallion_px": 44,
+            "icon_px": {
+              "share": 14,
+              "comment": 14,
+              "like": 19,
+              "reject": 18
+            },
+            "loading_error": "no loaded image retention; no literal labels",
+            "hidden_copy": [
+              "Скрыто из «Для меня»",
+              "Отменить"
+            ],
+            "keyboard_candidate": "L/X only hover or keyboard-selected; AS-IS separately; later Astro backport requires approval",
+            "screenshot_threads": [
+              50,
+              51,
+              52,
+              53
+            ],
+            "media_corner_candidate": {
+              "status": "owner-approved-astro-backport-authorized",
+              "frame_radius_px": 8,
+              "clip_children": true,
+              "outer_edge_policy": "no square/unrounded image leak outside the row/deck framing",
+              "owner_threads": [
+                25,
+                50
+              ],
+              "owner_decision": "Threads 25 and 50 explicitly require normalized corners and Astro backport."
+            },
+            "action_contrast_candidate": {
+              "status": "source-parity-verified-no-astro-change",
+              "wrapper_min_px": 46,
+              "icon_color": "#a8adb2",
+              "focus_icon_color": "#f4f4f2",
+              "linked_page25_only": true,
+              "owner_thread": 26,
+              "owner_decision": "Thread 26 requires restored icon parity; Astro already uses canonical Icon with exact 14/14/19/18px glyphs, 46px wrappers and #a8adb2/#f4f4f2 colors. No new color normalization inferred."
+            }
+          }
+        }
+      ],
+      "framing_profiles": [
+        "mobile_default",
+        "large_portrait",
+        "ocr_bounded"
+      ],
+      "source_bindings": [
+        {
+          "source": "site/src/components/ExhibitionPrototypeRow.astro",
+          "decoder_component_id": "component.dfede4df2ad5cc28",
+          "runtime_markers": [
+            "data-exhibition-row",
+            "data-deck-phase",
+            "data-image-state",
+            "data-hidden-stub",
+            "data-undo"
+          ],
+          "css_contract": [
+            ".ex-row",
+            ".ex-row__rail",
+            ".ex-deck",
+            ".ex-frame",
+            ".ex-row__body",
+            ".ex-row__aside",
+            ".ex-signal svg",
+            ".ex-action--like svg",
+            ".ex-action--reject svg"
+          ]
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "d2b7993b41187660efa13d6d9070fda0c0d5a6cd",
+          "path": "site/src/components/ExhibitionsPersonalSurface.astro",
+          "ownership": "mobile exhibition gallery presentation",
+          "css_contract": [
+            ".ex-row",
+            ".ex-row__rail",
+            ".ex-deck",
+            ".ex-frame",
+            ".ex-row__body",
+            ".ex-row__aside",
+            ".ex-signal svg",
+            ".ex-action--like svg",
+            ".ex-action--reject svg"
+          ]
+        }
+      ],
+      "consumer_bindings": [
+        "/vystavki/"
+      ],
+      "runtime_state_keys": [
+        "data-deck-phase",
+        "data-image-state",
+        "data-deck-cursor",
+        "aria-pressed",
+        "data-reject",
+        "data-hidden-stub",
+        "data-undo",
+        "data-gallery-media"
+      ],
+      "fixtures": [
+        "single-image",
+        "multi-image",
+        "document-natural",
+        "loading",
+        "broken",
+        "popular",
+        "long-tail"
+      ],
+      "accessibility_expectations": [
+        "keyboard row navigation is visible",
+        "gallery traps and returns focus",
+        "like/reject expose pressed state",
+        "hide has live undo",
+        "reduced motion honored"
+      ],
+      "loading_broken_fallback": {
+        "media_states": [
+          "idle",
+          "loading",
+          "loaded",
+          "error",
+          "depth"
+        ],
+        "row_skeleton": "only media child loading, not a fabricated full static row skeleton"
+      },
+      "penpot_binding": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "master_page_id": "579a886e-56e8-80a3-8008-81882dcbdd84",
+        "master_page_ids": [
+          "579a886e-56e8-80a3-8008-81882dcbdd84"
+        ],
+        "root_board_ids": [
+          "45777396-2f2a-80c0-8008-818f96d40fc5"
+        ],
+        "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
+        "variant_container_id": "45777396-2f2a-80c0-8008-818fb13828b8",
+        "variant_container_ids": [
+          "45777396-2f2a-80c0-8008-818fb13828b8"
+        ],
+        "variant_ids": [
+          "45777396-2f2a-80c0-8008-818f9adc878e",
+          "45777396-2f2a-80c0-8008-818f9fa75a72",
+          "45777396-2f2a-80c0-8008-818fa34d26eb",
+          "45777396-2f2a-80c0-8008-818fa654f33a",
+          "45777396-2f2a-80c0-8008-818fa9c41210",
+          "45777396-2f2a-80c0-8008-818faeef2593",
+          "45777396-2f2a-80c0-8008-818fb12fc29f"
+        ],
+        "main_shape_ids": [
+          "45777396-2f2a-80c0-8008-818f98a70101",
+          "45777396-2f2a-80c0-8008-818f9b9f74d2",
+          "45777396-2f2a-80c0-8008-818fa026d03b",
+          "45777396-2f2a-80c0-8008-818fa3b1b6c5",
+          "45777396-2f2a-80c0-8008-818fa6bab389",
+          "45777396-2f2a-80c0-8008-818faa5c31cd",
+          "45777396-2f2a-80c0-8008-818fafadc4f3"
+        ],
+        "exact_state_keys": [
+          "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+          "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+          "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
+        ],
+        "status": "materialized-structural-and-bounded-export-pass",
+        "review_surface": "bounded-family-page-matrix"
+      },
+      "evidence_refs": [
+        "exact-review-build:production-secret-20260809T192529-2f0fa64e"
+      ],
+      "rollback_ref": "git-revert-this-candidate-package-and-archive-new-page-46",
+      "source_element_bindings": [
+        {
+          "element": "root",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": "article.ex-row",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "lifecycle_rail",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": ".ex-row__rail",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "media_deck",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": "[data-deck]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "independent_event.media-frame_children",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": "[data-deck-frame]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "body",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": ".ex-row__body",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "aside",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": ".ex-row__aside",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "like_and_reject",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": "[data-like],[data-reject]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        },
+        {
+          "element": "hidden_stub_undo",
+          "source_path": "site/src/components/ExhibitionPrototypeRow.astro",
+          "selector_or_contract": "[data-hidden-stub] [data-undo]",
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "source_sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+        }
+      ],
+      "icon_registry_binding": {
+        "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+        "icon_refs": [
+          "icon.ui.share",
+          "icon.ui.comment",
+          "icon.ui.heart",
+          "icon.ui.dislike"
+        ]
+      }
+    }
+  ],
+  "non_claims": [
+    "production implementation",
+    "runtime conformance to candidate state_key",
+    "owner acceptance",
+    "promotion",
+    "event.list-item normalization",
+    "global typography normalization"
+  ],
+  "rollback": {
+    "git": "revert candidate taxonomy commits",
+    "penpot": "archive new candidate Page 46 and restore candidate metadata snapshot; do not delete historical decoded resources"
+  },
+  "consumer_inventory": [
+    {
+      "surface": "home",
+      "route": "/",
+      "component_id": "event.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "today",
+      "route": "/segodnya/ -> /date-2026-08-18/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "redirect-output-proven"
+    },
+    {
+      "surface": "date",
+      "route": "/date-2026-08-18/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "tomorrow",
+      "route": "/zavtra/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "weekend",
+      "route": "/vyhodnye/2026-08-22/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "popular",
+      "route": "/populyarnoe/",
+      "component_id": "listing.event-card/listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "festivals",
+      "route": "/festivali/",
+      "component_id": "festival.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "exhibitions",
+      "route": "/vystavki/",
+      "component_id": "exhibition.row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "search",
+      "route": "/poisk/",
+      "component_id": "event.card",
+      "status": "signed-out-empty-browser; populated source-proven"
+    },
+    {
+      "surface": "favorites",
+      "route": "/izbrannoe/",
+      "component_id": "event.card",
+      "status": "empty-browser; populated source-proven"
+    },
+    {
+      "surface": "personal feed",
+      "route": "dynamic listing/detail slots",
+      "component_id": "event.card",
+      "status": "pending-empty-browser; populated source-proven"
+    },
+    {
+      "surface": "related",
+      "route": "event-detail",
+      "component_id": "event.card",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "rails/shelves",
+      "route": "listing mobile",
+      "component_id": "listing.rail-row",
+      "status": "browser-and-source-proven"
+    },
+    {
+      "surface": "artifact",
+      "route": "/vyhodnye/ current root only",
+      "component_id": "listing.rail-row",
+      "status": "browser-and-source-proven nested tail extension"
+    }
+  ],
+  "penpot_review_binding": {
+    "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
+    "root_board_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
+    "status": "not-ready-owner-medallion-tier-decision-30",
+    "linked_instance_count": 65,
+    "page46_index_instance_count": 0,
+    "as_is_reference_count": 0,
+    "normalized_state_instance_count": 65,
+    "detached_instance_count": 0,
+    "file_revn_readback": 890,
+    "expected_native_state_count": 65,
+    "review_structure": "lightweight-index-plus-bounded-family-native-matrices",
+    "exact_state_set_equal": true,
+    "owner_comment_cycle_20260819": {
+      "cycle_id": "owner-comments-24-59-20260819",
+      "status": "reverse-cycle-backport-verified-one-owner-decision-pending",
+      "unresolved_thread_ids": [
+        30
+      ],
+      "source_baseline": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+      "source_first_required": true,
+      "screenshot_oracle_count": 14,
+      "missing_screenshot_oracle": [
+        "event.card Part B",
+        "festival.card"
+      ],
+      "screenshot_oracles": {
+        "event.card": [
+          {
+            "threads": [
+              45
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81faf89cd37d"
+          },
+          {
+            "threads": [
+              47
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fbb04bf82b"
+          }
+        ],
+        "listing.event-card": [
+          {
+            "threads": [
+              46
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fb7afe329a"
+          },
+          {
+            "threads": [
+              48
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fc31ae9a8d"
+          },
+          {
+            "threads": [
+              49
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fe571c3a34"
+          },
+          {
+            "threads": [
+              54
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81ff8d68b975"
+          }
+        ],
+        "exhibition.row": [
+          {
+            "threads": [
+              50
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fea6fb1bd5"
+          },
+          {
+            "threads": [
+              51
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fec97c5f9c"
+          },
+          {
+            "threads": [
+              52,
+              53
+            ],
+            "shape_id": "eca15719-f452-809c-8008-81fee6d7da83"
+          }
+        ],
+        "listing.rail-row": [
+          {
+            "threads": [
+              55
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820171eb437f"
+          },
+          {
+            "threads": [
+              56
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820164ad24a8"
+          },
+          {
+            "threads": [
+              57
+            ],
+            "shape_id": "eca15719-f452-809c-8008-82017c40c2eb"
+          },
+          {
+            "threads": [
+              58
+            ],
+            "shape_id": "eca15719-f452-809c-8008-82018843a60f"
+          },
+          {
+            "threads": [
+              59
+            ],
+            "shape_id": "eca15719-f452-809c-8008-820193593f7e"
+          }
+        ]
+      },
+      "raster_safety": "all oracle image IDs are outside managed roots and not reused inside them",
+      "comment_resolution_gate": "resolve only after clean native rebuild, export, readback, idempotency and independent review",
+      "git_sot_note": "docs/normalization/event-card-owner-oracle-remediation-20260819.md",
+      "resolved_thread_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "penpot_revision": 890,
+      "bounded_export_status": "pass-for-all-remediated-and-backported-states",
+      "independent_structural_status": "integrator-validate-pass; final-independent-current-hash-reread-pending",
+      "owner_product_decisions": {
+        "25": "approved: exhibition media frames normalize to 8px with explicit clipping; Astro backport authorized",
+        "26": "closed as source-parity defect: canonical shared icons already exact in Astro; no color-candidate backport",
+        "30": "pending exact owner approval: candidate medallion tiers 44/60/88 remain noncanonical",
+        "49": "approved: universal 20%-bounded vertical OCR framing; Astro backport authorized; exact event7491 tail is 40px",
+        "50": "approved: eliminate parasitic square exhibition media corners via the thread25 8px framing contract"
+      },
+      "decision_readback_date": "2026-08-19",
+      "decision_authority": "exact live Penpot owner thread wording; owner comments outrank stale pending metadata",
+      "astro_backport": {
+        "repository": "onedayonemasterpiece/events-bot-new",
+        "branch": "feature/event-card-penpot-backport-20260819",
+        "commit": "0c2a8bdaded8654344458c77bbf98efa0d539e59",
+        "pull_request": 545,
+        "status": "pushed-tests-build-browser-proof-pass",
+        "implemented_threads": [
+          25,
+          49,
+          50
+        ],
+        "source_parity_verified_threads": [
+          26
+        ],
+        "excluded_pending_threads": [
+          30
+        ]
+      }
+    }
+  },
+  "package_bindings": {
+    "medallions": {
+      "path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
+      "contract_payload_sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b"
+    },
+    "artifacts": {
+      "path": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json",
+      "contract_payload_sha256": "0d22de698bf2e1bf70f957fab176ba71666170ee697ffcefa00bf2e569e7d6a2"
+    },
+    "iconography": {
+      "contract_ref": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",
+      "schema_version": "event-card-icon-registry-candidate.v1",
+      "contract_payload_sha256": "263b628e7d64df85dca2babcc54692e26bbf985edcca96b12d0e9acdd320cd76",
+      "required_icon_count": 24,
+      "penpot_page_id": "10a29786-8dcf-802c-8008-739d919b8bb2"
+    }
+  },
+  "surface_state_contracts": [
+    {
+      "surface_id": "authorized-event-search",
+      "source_paths": [
+        "site/src/components/AuthorizedEventSearch.astro"
+      ],
+      "states": [
+        "idle",
+        "checking_auth",
+        "loading",
+        "success",
+        "empty",
+        "error",
+        "validation"
+      ],
+      "card_relationship": "surface skeleton/progress/empty/error are not event.card variants; rendered success cards use event.card layout=split-actions",
+      "runtime_attributes": [
+        "data-search-state",
+        "data-search-terminal",
+        "data-search-skeletons",
+        "data-search-results",
+        "data-search-more"
+      ]
+    },
+    {
+      "surface_id": "favorites",
+      "source_paths": [
+        "site/src/components/FavoritesSurface.astro"
+      ],
+      "states": [
+        "loading",
+        "ready-populated",
+        "ready-empty",
+        "error",
+        "cloud-checking",
+        "cloud-loading",
+        "cloud-ready",
+        "cloud-error"
+      ],
+      "card_relationship": "loading skeleton, auth prompt, empty and error belong to the surface; only populated grid children are event.card layout=split-actions",
+      "runtime_attributes": [
+        "data-favorites-state",
+        "data-favorites-cloud-state",
+        "data-favorites-skeleton",
+        "data-favorites-empty",
+        "data-favorites-grid"
+      ]
+    },
+    {
+      "surface_id": "personal-feed",
+      "source_paths": [
+        "site/src/components/PersonalFeedSlot.astro",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "states": [
+        "pending",
+        "personal",
+        "popular_fallback",
+        "unavailable"
+      ],
+      "card_relationship": "mode belongs to the surface; populated feed children are event.card layout=split-actions",
+      "runtime_attributes": [
+        "data-personal-feed-mode",
+        "data-personal-feed-slot",
+        "data-personal-feed-refresh",
+        "data-personal-feed-load-more"
+      ]
+    },
+    {
+      "surface_id": "mobile-listing-rail",
+      "source_paths": [
+        "site/src/components/listings/MobileListingRailSurface.astro"
+      ],
+      "states": [
+        "rest",
+        "negative-confirm-open",
+        "negative-toast-with-undo",
+        "like-toast-with-undo",
+        "empty-after-filter"
+      ],
+      "card_relationship": "confirmation, toast, undo and filtered-empty are parent surface states; the removed row is not rendered as a hidden row variant",
+      "runtime_attributes": [
+        "data-rail-confirm",
+        "data-rail-action-toast",
+        "data-mobile-v23-empty",
+        "data-not-interested",
+        "data-city-filtered"
+      ]
+    },
+    {
+      "surface_id": "artifact-collection",
+      "source_paths": [
+        "site/src/components/artifacts/ArtifactCollection.astro"
+      ],
+      "states": [
+        "production-unavailable",
+        "nonprod-empty-0-of-5",
+        "found-1-of-5",
+        "dialog-open"
+      ],
+      "card_relationship": "separate collection surface; never event.card",
+      "runtime_attributes": [
+        "data-artifact-collection",
+        "data-artifact-slot",
+        "data-artifact-state",
+        "data-artifact-dialog"
+      ]
+    }
+  ]
+}

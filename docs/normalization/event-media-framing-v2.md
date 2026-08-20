@@ -11,12 +11,12 @@ This document replaces the v1 framing text in PR #36. The old text described an
 earlier Penpot page and pulled the current system into a generic four-profile
 geometry model. The actual review surface is now:
 
-- file `3be9e5e1-190f-8090-8008-713c0fbe6260`, observed at revision `153`;
+- file `3be9e5e1-190f-8090-8008-713c0fbe6260`, reconciled cross-page readback at revision `505`;
 - page `a21f0524-f565-8038-8008-789db00ee3ef`;
-- page name **45 — Media framing · Canonical policy v2**;
-- root board `a21f0524-f565-8038-8008-789db035ea4a`, **Media framing / canonical policy v2**;
-- root geometry `1480×9300`;
-- direct URL: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-789db00ee3ef&board-id=a21f0524-f565-8038-8008-789db035ea4a>.
+- page name **45 — Media framing · Candidate policy v2**;
+- root board `579a886e-56e8-80a3-8008-8186c5f68d1f`, candidate/noncanonical visual projection;
+- root geometry `1440×870`, `48` shapes, including compact native OCR and radii evidence;
+- direct URL: <https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f0524-f565-8038-8008-789db00ee3ef&board-id=579a886e-56e8-80a3-8008-8186c5f68d1f>.
 
 `events-bot-new` remains read-only for this work. Neither this Git candidate nor
 Page 45 proves that the runtime already conforms.
@@ -36,18 +36,18 @@ current production consumer
 → visible media-frame geometry + proportional image transform
 ```
 
-The v2 page contains a **Production media slots** section. Its current specimens
-must be represented directly rather than rewritten into the v1 `5:4 compact`
-default:
+The v2 page contains a compact source-slot matrix. The rows bind current
+consumer families to selectors; the exact sample geometries remain recorded in
+Git and must not be rewritten into a universal `5:4 compact` default:
 
 | Slot | Penpot specimen | Visible geometry | Ratio |
 |---|---|---:|---:|
-| `desktop_base` | `7488d568-c486-80e8-8008-7e47e4951252` | `360×270` | `4:3` |
-| `mobile_default` | `7488d568-c486-80e8-8008-7e47e5400231` | `360×300` | `6:5` |
-| `related_rail` | `7488d568-c486-80e8-8008-7e47e5ee66d4` | `360×288` | `5:4` |
-| `large_portrait` | `7488d568-c486-80e8-8008-7e47e678f6e4` | `250×312.5` | `4:5` |
-| `site_wide` | `7488d568-c486-80e8-8008-7e47e71a5255` | `360×225` | `16:10` |
-| `ocr_bounded` | `7488d568-c486-80e8-8008-7e47e79f471c` | `220×315.2` in the current specimen | computed |
+| `desktop_base` | listing row `579a…c8ad1ab9` | `360×270` | `4:3` |
+| `mobile_default` | rail row `579a…c9b00fb0` | `360×300` | `6:5` |
+| `related_rail` | EventCard row `579a…c79260ab` | `360×288` | `5:4` |
+| `large_portrait` | festival row `579a…cb09c147` | `250×312.5` | `4:5` |
+| `site_wide` | exhibition row `579a…cd334bef` | `360×225` | `16:10` |
+| `ocr_bounded` | OCR evidence `4577…81a85754dd2c` | `220×315.2` sample | computed |
 
 These are candidate slot bindings on Page 45, not proof that every visually
 similar card is a current production consumer. Production provenance still has
@@ -65,12 +65,18 @@ to be bound to the generated review DOM and the current Kaggle build.
 5. Loading, missing and broken states reserve the same resolved media geometry
    as the corresponding ready state.
 
-Normalized radii on the v2 surface are:
+Radii are recorded in two distinct layers. The exact Astro **AS-IS** evidence is:
 
-- media: `16px`;
-- card: `24px`;
-- enclosing container: `28px`;
-- small preview, when a separate preview role exists: `12px`.
+- festival card shell/media: `10px`;
+- listing event-card media: `14px`;
+- mobile rail summary/action: `14px` / `12px`;
+- large EventCard shell/top media corners: `24px`;
+- exhibition row: desktop `0px`, mobile shell `8px`, undo control `4px`.
+
+The candidate normalization target, retained separately and not claimed as
+implemented, is `media=16`, `card=24`, `enclosing container=28`. Keeping both
+layers prevents the candidate decision from being misreported as current Astro
+runtime behavior.
 
 ## Adaptive large-card framing
 
@@ -129,20 +135,20 @@ Observed ratios may remain in source vocabulary. They become normative only
 through an evidenced consumer-slot binding; Page 45 does not authorize a global
 ratio normalization by visual similarity.
 
-## Unresolved owner comments are part of the current evidence
+## Owner comment disposition
 
-Page 45 has three unresolved threads, and this Git sync intentionally does not
-mark them resolved:
+Page 45 threads `#11–#13` are resolved only after the Git contract and compact
+native evidence were reconciled:
 
 | Thread | Owner correction | Git effect | Penpot state |
 |---:|---|---|---|
-| `#11` | Very-tall artwork should use an actual top/bottom crop up to `20%` total area loss; `4:5` was never mandatory. | Bound above as the OCR rule. | Visual specimen still requires correction/re-review. |
-| `#12` | The marked image should receive that bounded crop rather than the current treatment. | Recorded as a required visual follow-up, not a completed claim. | Open. |
-| `#13` | Invented or old laboratory mobile cards are not current production evidence; only cards generated by the current Kaggle production path count. | Unproven specimens cannot carry production provenance. | Open. |
+| `#11` | Very-tall artwork should use an actual top/bottom crop up to `20%` total area loss; `4:5` was never mandatory. | Bound above as the OCR rule. | Resolved with native OCR evidence. |
+| `#12` | The marked image should receive that bounded crop rather than the current treatment. | Bounded crop evidence is visible and compact. | Resolved. |
+| `#13` | Invented or old laboratory mobile cards are not current production evidence; only cards generated by the current Kaggle production path count. | Unproven specimens cannot carry production provenance. | Resolved; screenshots remain oracle-only. |
 
-A thread may close only when the Git contract, Penpot visual decision and
-metadata/bindings say the same thing. This change establishes the Git candidate;
-it does not claim the remaining Penpot visual correction is complete.
+A thread closes only when the Git contract, Penpot visual decision and
+metadata/bindings say the same thing. That synchronization is recorded without
+claiming production implementation or candidate promotion.
 
 ## Acceptance and non-claims
 
@@ -157,5 +163,4 @@ The framing candidate is reviewable when:
 - unproven laboratory specimens do not claim production status.
 
 This PR does **not** claim production implementation, runtime conformance,
-component promotion, closure of Penpot comments `#11–#13`, or any mutation of
-`events-bot-new`.
+component promotion, or any mutation of `events-bot-new`.

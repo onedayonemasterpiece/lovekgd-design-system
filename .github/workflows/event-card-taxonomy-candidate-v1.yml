@@ -1,0 +1,50 @@
+name: Validate Event Card Taxonomy Candidate v1
+on:
+  pull_request:
+    paths:
+      - 'catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/screenshot-consumer-bindings-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json'
+      - 'catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json'
+      - 'contracts/normalization/event-card-*.schema.json'
+      - 'scripts/validate-event-card-taxonomy-candidate-v1.*'
+      - 'scripts/validate-event-card-assets-candidate-v1.py'
+      - 'scripts/validate-event-card-icon-registry-candidate-v1.py'
+      - 'scripts/generate-event-*-candidate-v1.py'
+      - 'receipts/penpot/event-card-*.json'
+      - 'tests/event-card-taxonomy-candidate-v1-negative.mjs'
+      - 'tests/event-card-assets-candidate-v1-negative.py'
+      - 'tests/event-card-icon-registry-candidate-v1-negative.py'
+      - '.github/workflows/event-card-taxonomy-candidate-v1.yml'
+  push:
+    paths:
+      - 'catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/screenshot-consumer-bindings-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json'
+      - 'catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json'
+      - 'catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json'
+      - 'contracts/normalization/event-card-*.schema.json'
+      - 'scripts/validate-event-card-taxonomy-candidate-v1.*'
+      - 'scripts/validate-event-card-assets-candidate-v1.py'
+      - 'scripts/validate-event-card-icon-registry-candidate-v1.py'
+      - 'scripts/generate-event-*-candidate-v1.py'
+      - 'receipts/penpot/event-card-*.json'
+      - 'tests/event-card-taxonomy-candidate-v1-negative.mjs'
+      - 'tests/event-card-assets-candidate-v1-negative.py'
+      - 'tests/event-card-icon-registry-candidate-v1-negative.py'
+      - '.github/workflows/event-card-taxonomy-candidate-v1.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install jsonschema
+      - run: python3 scripts/validate-event-card-taxonomy-candidate-v1.py --root . --require-penpot
+      - run: python3 scripts/validate-event-card-assets-candidate-v1.py --root . --require-penpot
+      - run: python3 scripts/validate-event-card-icon-registry-candidate-v1.py --root . --require-penpot
+      - run: node tests/event-card-taxonomy-candidate-v1-negative.mjs
+      - run: python3 tests/event-card-assets-candidate-v1-negative.py
+      - run: python3 tests/event-card-icon-registry-candidate-v1-negative.py

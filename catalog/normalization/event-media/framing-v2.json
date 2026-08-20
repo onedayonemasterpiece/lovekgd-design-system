@@ -3,7 +3,7 @@
   "schema_version": "event_media_framing_v2",
   "policy_version": "2.0.0-candidate",
   "contract_version": "2.0.0-candidate",
-  "contract_payload_sha256": "78f7df99b1028b545217c5d60efe1356cf9bb51b2ba085d9ad4cfc65dfec28d3",
+  "contract_payload_sha256": "51198b47067197d767e586cfb786064850d39ade32b0e2e54309348f857d3a3a",
   "status": "CANDIDATE",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -18,11 +18,11 @@
     "penpot": {
       "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
       "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-      "file_revn_observed": 153,
+      "file_revn_observed": 495,
       "page_id": "a21f0524-f565-8038-8008-789db00ee3ef",
-      "page_name": "45 — Media framing · Canonical policy v2",
-      "root_board_id": "a21f0524-f565-8038-8008-789db035ea4a",
-      "root_board_name": "Media framing / canonical policy v2"
+      "page_name": "45 — Media framing · Candidate policy v2",
+      "root_board_id": "579a886e-56e8-80a3-8008-8186c5f68d1f",
+      "root_board_name": "Media framing · source slot matrix"
     }
   },
   "rendering_invariants": {
@@ -41,20 +41,52 @@
     "blind_center_crop_forbidden": true
   },
   "radii_px": {
-    "media": 16,
-    "card": 24,
-    "enclosing_container": 28,
-    "small_preview_when_required": 12
+    "scope": "consumer-specific-source-derived",
+    "festival_card": {
+      "shell": 10,
+      "media": 10
+    },
+    "listing_event_card": {
+      "media": 14
+    },
+    "listing_rail_row": {
+      "summary": 14,
+      "action": 12
+    },
+    "event_card": {
+      "shell": 24,
+      "media_top": 24
+    },
+    "exhibition_row": {
+      "mobile_shell": 8,
+      "desktop_shell": 0,
+      "undo_control": 4
+    }
   },
   "media_owners": [
     {
       "owner": "event.card",
-      "owns": "single resolved event media slot and its visible frame geometry",
+      "owns": "single resolved event media slot and visible source-derived frame geometry",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "listing.event-card",
+      "owns": "desktop listing media, proof rail and density-specific source geometry",
       "nested_component": "event.media-frame"
     },
     {
       "owner": "listing.rail-row",
-      "owns": "summary/media/digest/identity track composition; each media panel is an independent event.media-frame",
+      "owns": "summary/media/digest/identity track; each media panel is an independent event.media-frame",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "festival.card",
+      "owns": "festival overlay shell, status, favorite and media framing",
+      "nested_component": "event.media-frame"
+    },
+    {
+      "owner": "exhibition.row",
+      "owns": "deck stack and independent loaded/loading/error media frames",
       "nested_component": "event.media-frame"
     },
     {
@@ -66,69 +98,63 @@
   "consumer_owned_slots": [
     {
       "id": "desktop_base",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e42f08bb",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e4951252",
       "sample_geometry": {
         "width": 360,
         "height": 270
       },
       "ratio": "4:3",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "579a886e-56e8-80a3-8008-8186c8ad1ab9"
     },
     {
       "id": "mobile_default",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e4d37d34",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e5400231",
       "sample_geometry": {
         "width": 360,
         "height": 300
       },
       "ratio": "6:5",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "579a886e-56e8-80a3-8008-8186c9b00fb0"
     },
     {
       "id": "related_rail",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e58d341f",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e5ee66d4",
       "sample_geometry": {
         "width": 360,
         "height": 288
       },
       "ratio": "5:4",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "579a886e-56e8-80a3-8008-8186c79260ab"
     },
     {
       "id": "large_portrait",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e62031d6",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e678f6e4",
       "sample_geometry": {
         "width": 250,
         "height": 312.5
       },
       "ratio": "4:5",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "579a886e-56e8-80a3-8008-8186cb09c147"
     },
     {
       "id": "site_wide",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e6baa260",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e71a5255",
       "sample_geometry": {
         "width": 360,
         "height": 225
       },
       "ratio": "16:10",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "579a886e-56e8-80a3-8008-8186cd334bef"
     },
     {
       "id": "ocr_bounded",
-      "penpot_board_id": "7488d568-c486-80e8-8008-7e47e74c31c9",
-      "penpot_media_id": "7488d568-c486-80e8-8008-7e47e79f471c",
       "sample_geometry": {
         "width": 220,
         "height": 315.2
       },
       "ratio": "computed_from_source_and_safe_crop_window",
-      "ownership": "consumer_slot"
+      "ownership": "consumer_slot",
+      "penpot_binding_shape_id": "45777396-2f2a-80c0-8008-81a85754dd2c"
     }
   ],
   "large_card_resolution": [
@@ -224,13 +250,24 @@
   "penpot_bindings": [
     {
       "page_id": "a21f0524-f565-8038-8008-789db00ee3ef",
-      "root_board_id": "a21f0524-f565-8038-8008-789db035ea4a",
+      "root_board_id": "579a886e-56e8-80a3-8008-8186c5f68d1f",
       "binding_role": "framing_policy_visual_projection"
     },
     {
-      "page_id": "10a29786-8dcf-802c-8008-739d91a640ed",
-      "local_component_id": "da8eeaba-63a1-80ca-8008-7f8b7bc8719f",
-      "binding_role": "candidate_event_media_frame_master_pending_metadata_reconciliation"
+      "page_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
+      "root_board_id": "45777396-2f2a-80c0-8008-81905f779757",
+      "local_component_ids": [
+        "45777396-2f2a-80c0-8008-81a584fc630e",
+        "45777396-2f2a-80c0-8008-81a594615af3",
+        "45777396-2f2a-80c0-8008-81a5a29ee3e2",
+        "45777396-2f2a-80c0-8008-81a5b066a96a"
+      ],
+      "binding_role": "current_candidate_source_skeleton_masters"
+    },
+    {
+      "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
+      "root_board_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
+      "binding_role": "lightweight_review_index_to_bounded_family_pages"
     }
   ],
   "evidence_requirements": {
@@ -252,18 +289,27 @@
   "owner_comment_constraints": [
     {
       "penpot_seq_number": 11,
-      "resolved": false,
-      "contract_effect": "very-tall artwork is cropped only through an actual top/bottom crop window with total area loss at most 20 percent; 4:5 is not forced"
+      "resolved": true,
+      "contract_effect": "very-tall artwork is cropped only through an actual top/bottom crop window with total area loss at most 20 percent; 4:5 is not forced",
+      "disposition": "superseded by Astro current slot binding matrix; no speculative frame retained"
     },
     {
       "penpot_seq_number": 12,
-      "resolved": false,
-      "contract_effect": "the marked specimen still needs the bounded top/bottom crop treatment in Penpot"
+      "resolved": true,
+      "contract_effect": "the bounded top/bottom crop treatment is retained as native OCR evidence",
+      "disposition": "accepted: review surface compacted; decorative/prose scaffolding removed"
     },
     {
       "penpot_seq_number": 13,
+      "resolved": true,
+      "contract_effect": "only current source-bound consumers carry runtime provenance; screenshots remain oracle-only",
+      "disposition": "accepted: authority is Astro selector plus EventMediaFrame binding"
+    },
+    {
+      "penpot_seq_number": 25,
       "resolved": false,
-      "contract_effect": "invented or historical laboratory cards are not current mobile-static-site evidence; only current Kaggle-generated production consumers may carry production provenance"
+      "contract_effect": "exhibition row radii must be normalized relative to the shared framing candidate while the exact desktop=0/mobile=8 Astro AS-IS evidence remains explicit",
+      "disposition": "Git SoT candidate recorded; Penpot candidate specimen and owner approval required before any Astro promotion"
     }
   ],
   "acceptance": {
@@ -273,14 +319,21 @@
     "protected_regions_survive_every_crop": true,
     "ocr_crop_budget_is_measured_from_actual_geometry": true,
     "unproven_specimens_do_not_claim_production_status": true,
-    "penpot_owner_comments_must_remain_open_until_visual_and_git_contracts_match": true
+    "penpot_owner_comments_resolved_after_visual_and_git_contracts_match": true,
+    "candidate_normalized_radii_are_visually_recorded": true,
+    "owner_comment_25_pending_visual_review": true
   },
   "non_claims": [
     "production_implementation",
     "runtime_conformance",
     "component_candidate_promotion",
-    "resolution_of_penpot_comments_11_12_13",
-    "penpot_v2_visual_correction_complete",
     "events-bot-new_source_mutation"
-  ]
+  ],
+  "candidate_normalized_radii_px": {
+    "status": "candidate-not-implemented-or-runtime-proven",
+    "media": 16,
+    "card": 24,
+    "enclosing_container": 28,
+    "relationship_to_as_is": "normalization target retained separately from consumer-specific Astro AS-IS evidence"
+  }
 }

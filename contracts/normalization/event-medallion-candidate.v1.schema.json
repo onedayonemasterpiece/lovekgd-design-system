@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/event-medallion-candidate.v1.schema.json",
+  "title": "Candidate event medallion collection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "package_id", "contract_version",
+    "contract_payload_sha256", "hash_scope", "lifecycle", "authority_mode",
+    "canonical", "promotion_status", "source_baseline", "counts",
+    "deduplication", "consumer_frame_contract", "resolver_contract",
+    "bindings", "visuals", "penpot_collection"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "event-medallion-candidate.v1"},
+    "package_id": {"const": "candidate.event-medallion-collection-v1"},
+    "contract_version": {"type": "string"},
+    "contract_payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "hash_scope": {"const": "whole-document-except-contract_payload_sha256"},
+    "lifecycle": {"const": "candidate"},
+    "authority_mode": {"const": "reconstructed"},
+    "canonical": {"const": false},
+    "promotion_status": {"const": "not_promoted"},
+    "source_baseline": {
+      "type": "object",
+      "required": ["repository", "exact_commit", "registries"],
+      "properties": {
+        "repository": {"type": "string"},
+        "exact_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "registries": {"type": "array", "minItems": 2, "maxItems": 2}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["source_registry_records", "bindings", "unique_visuals", "deduplicated_visuals"],
+      "properties": {
+        "source_registry_records": {"const": 39},
+        "bindings": {"const": 43},
+        "unique_visuals": {"const": 42},
+        "deduplicated_visuals": {"const": 1}
+      }
+    },
+    "deduplication": {"type": "object"},
+    "consumer_frame_contract": {"type": "object"},
+    "resolver_contract": {"type": "object"},
+    "bindings": {
+      "type": "array", "minItems": 43, "maxItems": 43,
+      "items": {
+        "type": "object",
+        "required": ["binding_id", "stable_id", "registry_kind", "slug", "listing_status", "listing_binding", "category"]
+      }
+    },
+    "visuals": {
+      "type": "array", "minItems": 42, "maxItems": 42,
+      "items": {
+        "type": "object",
+        "required": [
+          "stable_id", "name", "category", "semantic_facet", "binding_ids",
+          "asset_format_claim", "primary_asset", "effective_listing_status",
+          "effective_listing_binding", "source_records", "penpot_binding"
+        ],
+        "properties": {
+          "stable_id": {"type": "string", "pattern": "^medallion\\."},
+          "primary_asset": {
+            "type": "object",
+            "required": ["url", "repo_path", "sha256", "byte_length", "dimensions", "extension"],
+            "properties": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+          },
+          "fallback_asset": {"type": ["object", "null"]},
+          "penpot_binding": {"type": "object"}
+        }
+      }
+    },
+    "penpot_collection": {"type": "object"}
+  }
+}
