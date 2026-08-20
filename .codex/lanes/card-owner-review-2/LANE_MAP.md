@@ -32,7 +32,7 @@ lanes:
     expected_output: exact 30-thread ledger with target confidence
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L2-large-primitives-audit
     role: planner
     requirement_ids: [R096-R110]
@@ -46,7 +46,7 @@ lanes:
     expected_output: pinned Astro evidence and exact corrective contract
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L3-listing-rail-audit
     role: planner
     requirement_ids: [R111-R123]
@@ -60,7 +60,7 @@ lanes:
     expected_output: source-backed state/composition matrix
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L4-festival-page-architecture-audit
     role: planner
     requirement_ids: [R124-R125]
@@ -74,7 +74,7 @@ lanes:
     expected_output: page disposition and exact component gaps
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L5-sot-integration
     role: worker
     requirement_ids: [R096-R125]
@@ -88,7 +88,7 @@ lanes:
     expected_output: committed Git SoT decision before Penpot mutation
     verification_scope: targeted
     effort: extra-high
-    status: planned
+    status: spawned
   - id: L6-penpot-materialization
     role: worker
     requirement_ids: [R096-R125]
