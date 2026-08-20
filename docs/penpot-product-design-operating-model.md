@@ -115,6 +115,33 @@ product representation
 
 The exact authority boundary is defined by the [normative family lifecycle](normalization/design-system-family-lifecycle.md): `PAGE_ARCHETYPE_CANDIDATE` and `PRODUCT_REPRESENTATIONS` remain reconstructed candidates; archetype acceptance occurs only at `FAMILY_AND_ARCHETYPE_PROMOTION`. A source-requirements overlay or detached screen mockup is not an archetype.
 
+### Обязательная раскладка archetype review
+
+Каждое проверяемое состояние archetype размещается отдельной горизонтальной
+строкой, без перекрытий и скрытого clipping:
+
+```text
+[locked SOURCE EVIDENCE · exact Astro screenshot]
+[COMPONENT RECONSTRUCTION · linked native instances]
+[VISUAL COMPARISON · overlay/blink/diff + findings]
+```
+
+Source evidence и reconstruction стоят рядом и имеют одинаковый viewport и
+пиксельный размер. Screenshot никогда не публикуется в Resources и не маскирует
+недостающие компоненты. Reconstruction собирается только из linked accepted
+components; fixture text/media are overrides, а detached copy, source skeleton
+под компонентом и общая визуальная «нашлёпка» запрещены.
+
+Перед передачей владельцу агент обязан экспортировать reconstruction, заново
+импортировать/отрендерить пару и **посмотреть глазами** в масштабе, достаточном
+для проверки шрифтов, crop, baseline, spacing, opacity, icon alignment,
+clipping и порядка элементов. Обязательны side-by-side и 50% overlay/blink;
+pixel diff добавляется, когда доступен. Все необъяснённые расхождения получают
+component/slot owner и исправляются системно во всех consumers.
+
+Точный capture manifest, критерии остановки и reverse Astro gate заданы в
+[`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md#3a-mandatory-archetype-visual-parity-gate).
+
 ## Product linkage
 
 Generic component master не обязан иметь один Job. Product meaning фиксируется на уровне instance, product pattern, archetype region или ProductScreenState.
@@ -237,3 +264,8 @@ Astro/runtime actual
 ```
 
 Runtime actual никогда не заменяет accepted baseline автоматически. Visual diff дополняет, но не заменяет functional, interaction и accessibility tests.
+
+Во время первичной реконструкции pinned Astro screenshot является AS-IS source
+evidence. После owner acceptance accepted Penpot reconstruction становится
+visual reference того же Git SoT contract. Это разные роли: ни один raster сам
+по себе не является SoT.

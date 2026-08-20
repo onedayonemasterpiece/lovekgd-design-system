@@ -115,6 +115,20 @@ Required checks include anatomy, variants, nested components, token mapping, geo
 
 `PRODUCT_REPRESENTATIONS` are real configured `ProductScreen` states, not independent mockups. Each representation binds exactly one archetype, native instance graph, fixture, viewport, screen state, UX-flow step and runtime evidence. Every affected archetype needs mobile and desktop representations; responsive-boundary archetypes also need tablet evidence. Positive, negative, unavailable, authorization, media and stress coverage is explicit rather than inferred from absence.
 
+Before an archetype or representation can pass its gate, it must satisfy the
+mandatory visual-parity procedure in
+[`ui-source-of-truth-roundtrip.md`](../ui-source-of-truth-roundtrip.md#3a-mandatory-archetype-visual-parity-gate): exact pinned Astro capture, locked
+source-evidence frame, adjacent linked-component reconstruction, equal-size
+Penpot export/import, human side-by-side and overlay/blink inspection, optional
+pixel diff, and a hash-bound discrepancy/acceptance receipt. A screenshot-only
+mockup, detached reconstruction, uninspected export or unexplained visible delta
+blocks the transition.
+
+If a discrepancy belongs to a shared component, the component contract and all
+affected consumers are corrected first and every invalidated conformance gate is
+replayed. Archetype-local patching is valid only for an explicit contextual rule
+already represented in the contract.
+
 ## Gemini MCP visual audit boundary
 
 `GEMINI_MCP_VISUAL_AUDIT` is an advisory visual and semantic review. Only `gemini-3-pro-preview` or `gemini-3.1-pro-preview` satisfies this gate.
