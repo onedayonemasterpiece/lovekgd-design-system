@@ -563,3 +563,40 @@ Penpot file revision **908** is ready for owner review. Start at Page 46, then
 review Page 48 and the consumer matrices on Pages 40.2, 40.3, and 40.5. Owner
 thread 30 contains the implementation receipt and is resolved; Page 46 has no
 remaining unresolved comments.
+
+## Resource-library architecture correction — 2026-08-20
+
+Owner review exposed a second class of defects that the earlier visual repair
+did not cover: unclear insertable-resource boundaries, duplicate-looking
+library namespaces, resized source icons whose internal vectors remained at
+24 px, a 390 px viewport published as the rail itself, and no color or
+typography assets.
+
+The Penpot read-back at file revision **945** now records:
+
+- the candidate contract ID remains `event.card`, while the human-facing asset
+  is `Event cards / Large / EventCard · Large`;
+- the twelve-card canvas object is explicitly the variant-master set; a
+  Resources insertion is one selected card instance;
+- E13–E23 is no longer a competing `event.card` resource and is labelled
+  `Review archive / EventCard / Legacy states E13–E23 · do not insert` pending
+  consolidation into the canonical set;
+- feedback controls are contained in the card bounds and use linked
+  `Icon / UI / Share` and `Icon / UI / Heart` size variants;
+- `MobileListingRailRow · Track` is an unclipped 707×112 current fixture with a
+  `max-content` contract, while `Rail viewport states · 390` is separately
+  classified as a pattern;
+- artwork and consumer frames share one `Medallion` namespace but retain their
+  distinct boundaries (`Artwork` versus `Frame`);
+- 23 pinned-Astro AS-IS color assets and 15 typography assets exist, with the
+  EventCard dark surface and large-card typography linked to the masters.
+
+Current Penpot validation is empty, the idempotent receipt would create zero
+components/colors/typographies, and visual exports of E01 and the inserted long
+rail track pass. Threads 61, 62, 63, and 65 were resolved with read-back
+evidence. Threads 60 (variant-set model) and 64 (final visual acceptance) stay
+open for the owner.
+
+The complete object IDs, counts and review state are recorded in
+`receipts/penpot/event-card-library-architecture-remediation-v1.json`. No Astro
+change was made by this library-architecture correction.
