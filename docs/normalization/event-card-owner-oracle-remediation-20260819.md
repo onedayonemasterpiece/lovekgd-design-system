@@ -498,3 +498,28 @@ The pre-normalization 40/46/48–52/51/56/64/72–108 px source geometries remai
 labelled AS-IS evidence and must not be presented as the normalized runtime.
 Thread 30 may be resolved only after Penpot readback, Astro migration and bounded
 visual checks all pass.
+
+## Decision #30 implementation complete and ready for review (2026-08-20)
+
+The authorized reverse cycle is complete without promoting the reconstructed
+collection to canonical status. Identity medallions now have exactly three
+production sizes: **compact 44 px**, **standard 60 px**, and **feature 88 px**.
+Pre-normalization geometries remain visible as labelled AS-IS evidence.
+
+Astro was migrated in `events-bot-new` commit
+`7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc` on PR **#545**.
+`EventTokenMedallions@2` is the production default; deprecated `@1` exists only
+as the side-by-side design-system catalog comparison. Listing, mobile rail,
+event detail, and exhibition consumers use shared tokens rather than private
+intermediate diameters.
+
+Validation evidence: medallion contract tests 4/4 PASS; the affected static
+suite 10/10 PASS; content-media behavior 6/6 PASS; design-system contract PASS;
+Astro preview build 446 pages PASS; `check:preview` PASS; desktop and 390 px
+Playwright geometry PASS. Penpot Page 48 tier exports show 44/60/88 exactly;
+listing, rail, and exhibition consumer readbacks pass with `validate=[]`.
+
+Penpot file revision **908** is ready for owner review. Start at Page 46, then
+review Page 48 and the consumer matrices on Pages 40.2, 40.3, and 40.5. Owner
+thread 30 contains the implementation receipt and is resolved; Page 46 has no
+remaining unresolved comments.

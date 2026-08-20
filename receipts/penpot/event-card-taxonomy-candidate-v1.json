@@ -1,23 +1,23 @@
 {
   "schema_version": "event_card_taxonomy_penpot_receipt_v3",
-  "observed_on": "2026-08-19",
+  "observed_on": "2026-08-20",
   "repository": "onedayonemasterpiece/lovekgd-design-system",
-  "git_candidate_commit_before_receipt": "fecfe6f",
+  "git_candidate_commit_before_receipt": "e658288",
   "contract_ref": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
-  "contract_payload_sha256": "a1a46c5763213708b025bfc00f1c21235dddc78eec38fd61b919f628e4b13177",
+  "contract_payload_sha256": "64b52a23809408d38c930d0d84f2d701d8a85704acb0a3e46173ff291e3aea2c",
   "penpot": {
     "team_id": "81f57451-85cc-819d-8008-70ebaeab3fd6",
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "file_revn_readback": 866,
-    "saved_version_label": "Event cards · final structural/export PASS · 5 owner decisions open",
+    "file_revn_readback": 908,
+    "saved_version_label": "Event cards ready for review: decision #30 complete",
     "page40_id": "45de0a42-f540-80b3-8008-80aa7bc00fa0",
     "page40_root_id": "45777396-2f2a-80c0-8008-81905f779757",
     "page45_id": "a21f0524-f565-8038-8008-789db00ee3ef",
     "page46_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
     "page46_root_id": "45777396-2f2a-80c0-8008-8190b3d8abca",
-    "page_name": "46 — Event cards · Candidate fidelity v3 · NOT READY · OWNER COMMENTS IN PROGRESS",
+    "page_name": "46 — Event cards · Reverse cycle · READY FOR REVIEW",
     "review_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45777396-2f2a-80c0-8008-8190b3d8abca",
-    "revision_note": "Astro a68c7f23 → Git SoT 35155621 → Penpot current. 65/65 native states; all remediated states have bounded PNG proof; Page46 remains NOT READY because owner product decisions #25/#26/#30/#49/#50 are open."
+    "revision_note": "Owner decision #30 implemented: compact 44 / standard 60 / feature 88; Astro backport 7d4b1d327; no unresolved Page46 comments; validate=[]."
   },
   "native_families": {
     "event.card": {
@@ -1573,7 +1573,7 @@
     "upstream_shape_locator_issue": "https://github.com/penpot/penpot/issues/5499",
     "retry_policy": "Stopped per-family retries after repeated failures; only retried after another family/page handoff succeeded."
   },
-  "status": "reverse-cycle-pass-one-owner-decision-open-not-review-ready",
+  "status": "ready-for-owner-review-decision-30-implemented",
   "final_owner_oracle_reconciliation_20260819": {
     "status": "structural-and-remediated-export-pass-five-owner-product-decisions-open",
     "review_ready": false,
@@ -1787,5 +1787,86 @@
       "keyboard_candidates": "noncanonical-no-approval-inferred"
     },
     "page46": "NOT READY; exactly thread 30 remains open"
+  },
+  "medallion_normalization_20260820": {
+    "status": "ready-for-owner-review-decision-30-implemented",
+    "review_ready": true,
+    "canonical_promotion_claimed": false,
+    "contract_payload_sha256": "64b52a23809408d38c930d0d84f2d701d8a85704acb0a3e46173ff291e3aea2c",
+    "medallion_contract_payload_sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
+    "penpot_revision_readback": 908,
+    "saved_version_label": "Event cards ready for review: decision #30 complete",
+    "resolved_comment_threads": [
+      30
+    ],
+    "unresolved_comment_threads": [],
+    "astro_backport": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "branch": "feature/event-card-penpot-backport-20260819",
+      "commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+      "pull_request": 545,
+      "event_token_version": "2",
+      "legacy_version_policy": "v1 deprecated, catalog-only",
+      "build": "preview-446-pages-pass",
+      "preview_check": "pass",
+      "design_system_check": "pass",
+      "focused_tests": "10-of-10-pass plus content-media 6-of-6",
+      "browser_geometry": "desktop-and-mobile-pass"
+    },
+    "normalized_tiers_px": {
+      "compact": 44,
+      "standard": 60,
+      "feature": 88
+    },
+    "penpot_pages": {
+      "decision_index": {
+        "page_id": "45de0a42-f540-80b3-8008-80ad04ad1a0e",
+        "name": "46 — Event cards · Reverse cycle · READY FOR REVIEW"
+      },
+      "tier_contract": {
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "name": "48 — Event medallions · Normalized tiers v2"
+      },
+      "listing": {
+        "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
+        "name": "40.2 — listing.event-card · Native variants"
+      },
+      "mobile_rail": {
+        "page_id": "579a886e-56e8-80a3-8008-81882dc703ba",
+        "name": "40.3 — listing.rail-row · Native variants"
+      },
+      "exhibition": {
+        "page_id": "579a886e-56e8-80a3-8008-81882dcbdd84",
+        "name": "40.5 — exhibition.row · Native variants"
+      }
+    },
+    "readback": {
+      "page48_tiers": {
+        "compact": [
+          44,
+          44
+        ],
+        "standard": [
+          60,
+          60
+        ],
+        "feature": [
+          88,
+          88
+        ]
+      },
+      "listing_roots": {
+        "desktop": 60,
+        "mobile_popular": 44
+      },
+      "mobile_rail_art": 88,
+      "mobile_rail_slot": [
+        94,
+        112
+      ],
+      "exhibition": 44,
+      "file_validation_errors": 0
+    },
+    "review_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=45de0a42-f540-80b3-8008-80ad04ad1a0e&board-id=45777396-2f2a-80c0-8008-8190b3d8abca"
   }
 }

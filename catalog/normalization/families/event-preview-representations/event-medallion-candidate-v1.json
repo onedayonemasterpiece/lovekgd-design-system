@@ -2,8 +2,8 @@
   "$schema": "../../../../contracts/normalization/event-medallion-candidate.v1.schema.json",
   "schema_version": "event-medallion-candidate.v1",
   "package_id": "candidate.event-medallion-collection-v1",
-  "contract_version": "1.0.0-candidate.4",
-  "contract_payload_sha256": "b321d5109821082029baa17c415e8bff76b08f31194f7499be8e9b2ea69f5be3",
+  "contract_version": "1.0.0-candidate.5",
+  "contract_payload_sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
   "hash_scope": "whole-document-except-contract_payload_sha256",
   "lifecycle": "candidate",
   "authority_mode": "reconstructed",
@@ -111,7 +111,7 @@
       "catalog empty is an explicitly labelled resolver state, never presented as a real medallion"
     ],
     "normalized_review_tiers_px": {
-      "status": "owner-authorized-for-penpot-and-astro-backport",
+      "status": "owner-approved-implemented-v2",
       "tier_count": 3,
       "tiers": {
         "compact": {
@@ -139,13 +139,30 @@
       "source_geometry_policy": "retain exact pre-normalization Astro sizes as AS-IS evidence; production identity medallions now converge to compact=44, standard=60 and feature=88",
       "owner_comment_thread": 30,
       "penpot_readback": {
-        "status": "materialized-candidate-awaiting-authorized-promotion",
+        "status": "owner-approved-v2-materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "page_name": "48 — Event medallions · Normalized tiers v2",
         "specimen_ids": {
           "compact": "c0d4e5a2-7db6-80c7-8008-81ee68875b89",
           "standard": "c0d4e5a2-7db6-80c7-8008-81ee6b7767f5",
           "feature": "c0d4e5a2-7db6-80c7-8008-81ee6dd9eb05"
         },
-        "linked_component_instance_count": 3
+        "linked_component_instance_count": 3,
+        "geometry_readback": {
+          "compact": [
+            44,
+            44
+          ],
+          "standard": [
+            60,
+            60
+          ],
+          "feature": [
+            88,
+            88
+          ]
+        },
+        "validation_error_count": 0
       },
       "owner_authorization": {
         "date": "2026-08-20",
@@ -156,6 +173,28 @@
           "promote the three medallion size tiers in Penpot",
           "backport the same tiers to Astro production consumers",
           "preserve pre-normalization sizes as labelled AS-IS evidence"
+        ]
+      },
+      "implementation_receipt": {
+        "astro_repository": "onedayonemasterpiece/events-bot-new",
+        "astro_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+        "astro_pull_request": 545,
+        "production_component_version": "EventTokenMedallions@2",
+        "consumer_migration": {
+          "event_detail": "feature-88",
+          "mobile_listing_rail": "feature-88-in-slot-94x112",
+          "desktop_listing": "standard-60",
+          "mobile_popular_listing": "compact-44",
+          "exhibition": "compact-44"
+        },
+        "legacy_policy": "EventTokenMedallions@1 is deprecated and catalog-only; pre-normalization Penpot variants remain labelled AS-IS evidence",
+        "validation": [
+          "medallion contract tests 4/4",
+          "content-media tests 6/6",
+          "design-system check PASS",
+          "Astro preview build 446 pages PASS",
+          "preview check PASS",
+          "Playwright L1 desktop/mobile geometry PASS"
         ]
       }
     }
@@ -4513,9 +4552,9 @@
   ],
   "penpot_collection": {
     "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
-    "page_name": "48 — Event medallions · Candidate collection v1",
+    "page_name": "48 — Event medallions · Normalized tiers v2",
     "root_id": "45777396-2f2a-80c0-8008-8191034dba1b",
-    "status": "materialized-readback",
+    "status": "materialized-readback-normalized-size-v2",
     "unique_visual_count": 42
   }
 }
