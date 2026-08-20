@@ -6,7 +6,7 @@
 |---|---|---|
 | [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md) | обязательный Astro → Git SoT → Penpot → owner review → Astro preview → production round trip и межрепозиторные gates | accepted operational contract |
 | [`normalization/event-card-large-primitives-owner-comments-20260820.md`](normalization/event-card-large-primitives-owner-comments-20260820.md) | owner-authorized correction contract for EventCard Large actions, counts, typography, icon geometry, and meta primitives | in-progress candidate contract |
-| [`normalization/event-card-systemic-component-boundaries-20260820.md`](normalization/event-card-systemic-component-boundaries-20260820.md) | systemic icon+count, semantic naming, Medallion consumer and intrinsic mobile-rail correction across all event-card families | Git SoT correction recorded; Penpot reconciliation pending |
+| [`normalization/event-card-systemic-component-boundaries-20260820.md`](normalization/event-card-systemic-component-boundaries-20260820.md) | systemic icon+count, semantic naming, Medallion consumer and intrinsic mobile-rail correction across all event-card families | reconciled to Penpot rev1034; ready for bounded owner re-review; candidate/noncanonical |
 | [`resource-graph-004.md`](resource-graph-004.md) | роль Resource Graph, страницы, lifecycle, MCP/plugin/Actions, promotion | canonical operating contract |
 | [`page-archetype-requirements.md`](page-archetype-requirements.md) | исходные требования, verified routes и Penpot overlays страницы 60 | accepted source-mapping contract |
 | [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |

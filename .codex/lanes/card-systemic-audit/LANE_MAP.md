@@ -30,7 +30,7 @@ lanes:
     expected_output: deduplicated comments plus exact page/board/component IDs and defects
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L2-astro-semantic-contracts
     role: planner
     requirement_ids: [R02, R03, R04, R05, R07, R08]
@@ -44,7 +44,7 @@ lanes:
     expected_output: evidence-backed reusable primitive matrix and runtime axes
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L3-sot-gap-audit
     role: planner
     requirement_ids: [R02, R03, R04, R05, R06, R08, R09]
@@ -58,7 +58,7 @@ lanes:
     expected_output: exact contract gaps and proposed bounded corrective IR
     verification_scope: inspection_only
     effort: high
-    status: planned
+    status: committed
   - id: L4-sot-integration
     role: worker
     requirement_ids: [R01, R02, R03, R04, R05, R06, R07, R08, R09]
@@ -72,7 +72,7 @@ lanes:
     expected_output: committed Git SoT-first correction and receipt
     verification_scope: targeted
     effort: extra-high
-    status: planned
+    status: committed
   - id: L5-penpot-materialization
     role: worker
     requirement_ids: [R01, R02, R03, R04, R05, R06, R07, R08, R09]
@@ -86,7 +86,7 @@ lanes:
     expected_output: saved versions, read-back IDs, exports, comment replies
     verification_scope: full_local
     effort: extra-high
-    status: planned
+    status: committed
   - id: L6-closure-review
     role: merge_reviewer
     requirement_ids: [R01, R02, R03, R04, R05, R06, R07, R08, R09]
@@ -100,5 +100,5 @@ lanes:
     expected_output: requirement-by-requirement closure table
     verification_scope: full_local
     effort: high
-    status: planned
+    status: committed
 ```

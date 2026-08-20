@@ -1,7 +1,7 @@
 # Event-card systemic component boundaries — owner comments 85–95
 
 > Status: Git SoT correction reconciled to native Penpot; ready for bounded owner re-review.
-> Authority: reconstructed candidate, noncanonical, not promoted.  
+> Authority: reconstructed candidate, noncanonical, not promoted.
 > Source fact: `events-bot-new@7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc`.
 > Machine contract:
 > [`event-card-systemic-boundaries-candidate-v1.json`](../../catalog/normalization/families/event-preview-representations/event-card-systemic-boundaries-candidate-v1.json).

@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PATH = ROOT / "catalog/normalization/families/event-preview-representations/event-card-systemic-boundaries-candidate-v1.json"
+RECEIPT_PATH = ROOT / "receipts/penpot/event-card-systemic-component-remediation-v1.json"
 
 
 def stable_hash(data: dict) -> str:
@@ -51,7 +52,44 @@ def main() -> None:
 
     non_claims = set(data["non_claims"])
     assert {"owner visual acceptance", "Astro reverse integration", "production mutation", "family promotion"} <= non_claims
-    print(f"PASS {PATH.relative_to(ROOT)} {data['contract_payload_sha256']}")
+
+    receipt = json.loads(RECEIPT_PATH.read_text())
+    assert receipt["status"] == "ready-for-owner-rereview"
+    assert receipt["source"]["ui_commit"] == data["source_baseline"]["exact_commit"]
+    assert receipt["source"]["materialized_contract_sha256"] == data["contract_payload_sha256"]
+    assert receipt["penpot"]["file_revn_readback"] >= 1034
+    assert receipt["penpot"]["validation_issues"] == []
+    assert receipt["comment_disposition"]["threads"] == list(range(85, 96))
+    assert receipt["comment_disposition"]["all_replied"] is True
+    assert receipt["comment_disposition"]["all_left_open_for_owner_visual_acceptance"] is True
+
+    native = receipt["native_components"]
+    managed_ids = [
+        native["social_proof"]["variant_component_id"],
+        native["like_action"]["variant_component_id"],
+        native["medallion_consumer"]["component_id"],
+        native["reject_action"]["component_id"],
+        native["admission"]["component_id"],
+    ]
+    assert len(managed_ids) == len(set(managed_ids))
+    assert native["social_proof"]["member_count"] == 6
+
+    pages = receipt["pages"]
+    assert pages["event_card_large"]["readback"]["variants"] == 12
+    assert pages["listing_event_card"]["readback"]["loose_social_proof_counts"] == 0
+    rail = pages["mobile_rail"]["readback"]
+    assert rail["full_track_instances"] == rail["linked_full_track_instances"] == rail["unique_vertical_rows"] == 16
+    assert rail["all_tracks_unclipped"] is True and rail["outer_board_clipped"] is False
+    assert rail["viewport_width"] == 390 and rail["viewport_patterns_clipped"] is True
+    assert pages["festival_card"]["readback"]["aggregate_count_text"] == 0
+    assert pages["exhibition_row"]["readback"]["loose_functional_icons"] == 0
+
+    receipt_non_claims = set(receipt["non_claims"])
+    assert {"owner visual acceptance", "Astro reverse integration", "production mutation", "family promotion"} <= receipt_non_claims
+    print(
+        f"PASS {PATH.relative_to(ROOT)} {data['contract_payload_sha256']} "
+        f"+ {RECEIPT_PATH.relative_to(ROOT)} rev{receipt['penpot']['file_revn_readback']}"
+    )
 
 
 if __name__ == "__main__":
