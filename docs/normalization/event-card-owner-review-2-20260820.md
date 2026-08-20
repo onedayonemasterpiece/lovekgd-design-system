@@ -126,10 +126,23 @@ links, excluding it from active bindings and proving zero live component mains,
 the page must be deleted. Historical receipts remain immutable. Page 41 is not
 the target of thread 124 and is excluded from the next owner review sequence.
 
-## Stop line
+## Materialization readback
 
-This is a candidate reconstruction. Materialization must produce a superseding
-receipt with native IDs, per-thread disposition, exports, detached/raw duplicate
-checks, idempotency and `currentFile.validate()` output. Owner review remains
-open. No Astro reverse integration, browser candidate, promotion or production
-mutation is authorized.
+The bounded correction was materialized in Penpot and saved as
+`Owner review 2 · final clean readback rev1083`. The superseding evidence is
+[`receipts/penpot/event-card-owner-review-2-remediation-v1.json`](../../receipts/penpot/event-card-owner-review-2-remediation-v1.json).
+
+Readback at file revision 1083 reports:
+
+- `currentFile.validate() == []`;
+- zero variant naming errors;
+- replies posted to all 30 threads, 96–125, while all threads remain unresolved
+  for owner rereview;
+- Page 40.1b absent after zero-main-instance and active-reference checks;
+- Page 41 retained and omitted from the owner review route;
+- active EventCard parent variants reduced to 12 while the former E13–E23
+  source-valid states remain preserved as composable-state contracts;
+- one active normalized Medallion frame set with tiers 44 / 60 / 88.
+
+Owner review remains open. No Astro reverse integration, browser candidate,
+promotion or production mutation is authorized.

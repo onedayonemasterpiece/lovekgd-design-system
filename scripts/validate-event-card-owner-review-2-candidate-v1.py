@@ -24,6 +24,7 @@ def main() -> None:
     assert data["authority_mode"] == "owner-comment-correction-over-reconstructed-source"
     assert data["canonical"] is False
     assert data["promotion_status"] == "not_promoted"
+    assert data["status"] == "penpot-reconciled-awaiting-owner-rereview"
     assert data["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc"
     assert stable_hash(data) == data["contract_payload_sha256"]
 
@@ -34,6 +35,14 @@ def main() -> None:
     assert [item["seq"] for item in threads] == list(range(96, 126))
     assert len({item["thread_id"] for item in threads}) == 30
     assert binding["duplicate_threads"] == [[105, 106]]
+    assert binding["observed_file_revn"] == 1083
+    assert binding["reply_readback"] == {
+        "agent_reply_count": 30,
+        "resolved_count": 0,
+        "unresolved_count": 30,
+        "owner_rereview_required": True,
+    }
+    assert all(item["agent_reply_posted"] is True for item in threads)
 
     contracts = data["component_contracts"]
     large = contracts["event_card_large"]
@@ -62,6 +71,8 @@ def main() -> None:
 
     lifecycle = data["page_lifecycle"]["page_40_1b"]
     assert lifecycle["decision"] == "delete after reference cleanup"
+    assert lifecycle["status"] == "deleted"
+    assert lifecycle["zero_component_main_instance_readback"] is True
     assert data["page_lifecycle"]["page_41"]["owner_review_link"].startswith("omit")
 
     non_claims = set(data["non_claims"])
