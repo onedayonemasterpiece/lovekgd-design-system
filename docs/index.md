@@ -1,5 +1,9 @@
 # LoveKGD Design System — карта документации
 
+## Оперативное состояние
+
+- [`design-system-progress-checklist.md`](design-system-progress-checklist.md) — GitHub-only чек-лист фактической готовности foundations, компонентов, shell, архетипов и сквозного SoT → Penpot → Astro цикла.
+
 ## Нормативные документы
 
 | Документ | Владеет | Текущий статус |
@@ -52,7 +56,7 @@ Original page requirements and current route evidence
 → page-archetype-requirements contract in this repository
 
 Visual exploration
-→ canonical [LoveKGD — UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c)
+→ canonical [LoveKGD — UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c)
 → exploration-only native candidates; owner comments; no promotion authority
 
 Mature design-system graph and evidence
