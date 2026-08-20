@@ -473,3 +473,28 @@ confirmed radius 8, clipping, and exact glyph sizes. Penpot S04 is now the exact
 7491 fixture with linked source media, linked Page25 share/heart proof, zero
 medallions, native export PASS. Exhibition X01 and X07 exports PASS. Threads
 25/26/49/50 were replied to with evidence and resolved; thread 30 remains open.
+
+
+## Owner authorization to continue decision #30 (2026-08-20)
+
+After the interrupted task context was restored with thread **30** identified as the
+sole remaining product decision, the owner instructed: “Раз контекст восстановлен,
+то продолжи реализацию, по готовности сообщишь, чтобы я мог начать ревью и на
+каких страницах Penpot”. This is recorded as authorization to continue the already
+documented **44 / 60 / 88 px** medallion normalization through the remaining
+Git SoT → Penpot → Astro reverse cycle.
+
+The approved size contract is intentionally limited to identity medallions:
+
+- **compact — 44 px:** exhibition surfaces and mobile Popular listing overlays /
+  side rails;
+- **standard — 60 px:** desktop listing overlays and side rails, including multiple
+  and split-tail arrangements;
+- **feature — 88 px:** event-detail identity medallions and mobile listing-rail art;
+  the transparent rail placement slot remains 94×112 px.
+
+Collection-brand artwork outside `event.medallion-frame` is not in this contract.
+The pre-normalization 40/46/48–52/51/56/64/72–108 px source geometries remain
+labelled AS-IS evidence and must not be presented as the normalized runtime.
+Thread 30 may be resolved only after Penpot readback, Astro migration and bounded
+visual checks all pass.
