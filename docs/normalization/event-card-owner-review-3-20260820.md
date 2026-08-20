@@ -42,3 +42,15 @@ then Page30.1.
 
 The full machine-readable contract and exact thread bindings are in
 `catalog/normalization/families/event-preview-representations/event-card-owner-review-3-candidate-v1.json`.
+
+## Materialization result
+
+Status after read-back: **materialized in Penpot rev1131; awaiting owner
+rereview**. All 23 new threads and 10 reopened threads received implementation
+replies and remain unresolved for the owner. Penpot reports zero
+currentFile.validate() errors and zero LibraryVariantComponent.variantError
+values. The final receipt, exact links and visual-inspection ledger are in
+receipts/penpot/event-card-owner-review-3-remediation-v1.json.
+
+This does not promote the family and does not start the reverse
+Penpot -> SoT UI -> Astro phase.

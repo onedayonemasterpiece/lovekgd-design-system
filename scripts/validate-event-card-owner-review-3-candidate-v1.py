@@ -9,12 +9,13 @@ def stable(d):
  return hashlib.sha256(json.dumps(p,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 d=json.loads(PATH.read_text())
 assert d['canonical'] is False and d['promotion_status']=='not_promoted'
-assert d['status']=='sot-corrected-penpot-remediation-in-progress'
+assert d['status']=='materialized-awaiting-owner-rereview'
 assert d['source_baseline']['exact_commit']=='7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc'
 assert d['contract_payload_sha256']==stable(d)
 b=d['owner_comment_binding']; assert b['thread_range']==[126,148] and b['thread_count']==23
 assert [x['seq'] for x in b['threads']]==list(range(126,149)); assert len({x['thread_id'] for x in b['threads']})==23
-assert b['duplicate_threads']==[[137,138]]
+assert b['duplicate_threads']==[[137,138]]; assert b['materialized_file_revn']==1131
+assert all(x['status']=='materialized-awaiting-owner-rereview' for x in b['threads']+b['reopened_threads'])
 assert [x['seq'] for x in b['reopened_threads']]==[99,100,103,104,107,108,114,117,119,120]
 c=d['component_contracts']; assert c['calendar']['event_card_order']==['icon','label']; assert c['calendar']['event_card_icon_only'] is False
 assert c['like_with_count']['passive_listing_proof_separate'] is True
