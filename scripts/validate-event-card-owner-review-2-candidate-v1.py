@@ -97,6 +97,14 @@ def main() -> None:
     assert receipt["functional_patch_readback"]["visible_named_detached_shape_count_across_seven_review_pages"] == 0
     assert len(receipt["visual_inspection"]) == 10
     assert all(item["status"].startswith("exported-and-inspected") for item in receipt["visual_inspection"])
+    review_keys = {item["page_key"] for item in receipt["review_sequence"]}
+    visual_keys = {item["page_key"] for item in receipt["visual_inspection"]}
+    assert visual_keys == review_keys
+    assert receipt["additional_visual_inspection"] == [{
+        "page_key": "40.5-mobile",
+        "shape_id": "45777396-2f2a-80c0-8008-818fafadc4f3",
+        "status": "exported-and-inspected",
+    }]
     print(f"PASS {PATH.relative_to(ROOT)} {data['contract_payload_sha256']}")
 
 
