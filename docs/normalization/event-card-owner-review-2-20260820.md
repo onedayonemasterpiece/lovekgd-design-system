@@ -1,6 +1,6 @@
 # Event-card owner re-review 2 — comments 96–125
 
-> Status: corrective Git SoT decision recorded; Penpot reconciliation pending.
+> Status: reconciled to Penpot rev1087; awaiting owner rereview.
 > Authority: explicit owner review interpreted against pinned source; candidate,
 > noncanonical and not promoted.
 > Source: `events-bot-new@7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc`.
@@ -129,10 +129,10 @@ the target of thread 124 and is excluded from the next owner review sequence.
 ## Materialization readback
 
 The bounded correction was materialized in Penpot and saved as
-`Owner review 2 · final clean readback rev1083`. The superseding evidence is
+`Owner review 2 · final READY FOR REVIEW rev1087`. The superseding evidence is
 [`receipts/penpot/event-card-owner-review-2-remediation-v1.json`](../../receipts/penpot/event-card-owner-review-2-remediation-v1.json).
 
-Readback at file revision 1083 reports:
+Readback at file revision 1087 reports:
 
 - `currentFile.validate() == []`;
 - zero variant naming errors;

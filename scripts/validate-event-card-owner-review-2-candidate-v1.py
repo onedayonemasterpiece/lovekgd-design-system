@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PATH = ROOT / "catalog/normalization/families/event-preview-representations/event-card-owner-review-2-candidate-v1.json"
+RECEIPT = ROOT / "receipts/penpot/event-card-owner-review-2-remediation-v1.json"
 
 
 def stable_hash(data: dict) -> str:
@@ -35,7 +36,7 @@ def main() -> None:
     assert [item["seq"] for item in threads] == list(range(96, 126))
     assert len({item["thread_id"] for item in threads}) == 30
     assert binding["duplicate_threads"] == [[105, 106]]
-    assert binding["observed_file_revn"] == 1083
+    assert binding["observed_file_revn"] == 1087
     assert binding["reply_readback"] == {
         "agent_reply_count": 30,
         "resolved_count": 0,
@@ -77,6 +78,25 @@ def main() -> None:
 
     non_claims = set(data["non_claims"])
     assert {"owner visual acceptance", "Astro reverse integration", "production mutation", "family promotion"} <= non_claims
+
+    receipt = json.loads(RECEIPT.read_text())
+    assert receipt["contract_payload_sha256"] == data["contract_payload_sha256"]
+    assert receipt["file_revn"] == 1087
+    assert receipt["readback"]["current_file_validate_errors"] == 0
+    assert receipt["readback"]["variant_errors"] == 0
+    assert receipt["readback"]["agent_reply_count"] == 30
+    assert receipt["readback"]["unresolved_for_owner_rereview"] == 30
+    assert receipt["readback"]["page_40_1b_present"] is False
+    assert receipt["readback"]["page_41_retained"] is True
+    assert len(receipt["review_sequence"]) == 10
+    assert any(item["page_key"] == "40.1a-context" for item in receipt["review_sequence"])
+    assert any(item["page_key"] == "40.2-placement" for item in receipt["review_sequence"])
+    assert receipt["idempotency_readback"]["component_create_delta"] == 0
+    assert receipt["idempotency_readback"]["page_create_delta"] == 0
+    assert receipt["functional_patch_readback"]["visible_loose_functional_direct_child_count"] == 0
+    assert receipt["functional_patch_readback"]["visible_named_detached_shape_count_across_seven_review_pages"] == 0
+    assert len(receipt["visual_inspection"]) == 10
+    assert all(item["status"].startswith("exported-and-inspected") for item in receipt["visual_inspection"])
     print(f"PASS {PATH.relative_to(ROOT)} {data['contract_payload_sha256']}")
 
 
