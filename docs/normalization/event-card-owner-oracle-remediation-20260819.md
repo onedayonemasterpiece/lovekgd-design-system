@@ -59,9 +59,11 @@ oracle closure.
 ### `event.card`
 
 Sources: `EventCard.astro`, `EventLayout.astro`, `DesktopEventPage.astro`.
-The base mobile shell is `#15110f`; desktop related/discovery consumers have a
-light `#fffaf2` body/utility treatment on a dark section. Radius is 24 px; media
-is dynamic ratio or 4/5. The review axes include consumer, viewport,
+The visually verified card shell is `#15110f` on both desktop and mobile.
+`DesktopEventPage.astro` still contains a `#fffaf2` selector override, but that
+source-only branch conflicts with the owner screenshot oracles and is therefore
+recorded as an implementation divergence, not materialized as an approved visual
+variant. Radius is 24 px; media is dynamic ratio or 4/5. The review axes include consumer, viewport,
 presentation, layout, interaction, media, content, commercial, favorite,
 calendar, share and visibility.
 
@@ -315,9 +317,11 @@ because the current B23 export is blocked.
 ### Event runtime dark-shell oracle reconciliation
 
 The current owner screenshots exposed an over-scoped presentation assumption: the
-base `EventLayout.astro` split-actions card is dark `#15110f`; only the
-`DesktopEventPage.astro`/discovery selectors opt into a light body. The SoT now
-keeps both presentations and adds the source-proven `calendar=absent` value.
+base `EventLayout.astro` split-actions card is dark `#15110f`, while isolated
+`DesktopEventPage.astro`/discovery selectors opt into a light body. The light
+selector is retained only as a source divergence; all reviewable `event.card`
+states use the screenshot- and runtime-verified dark shell. The SoT also adds the
+source-proven `calendar=absent` value.
 
 E01 is the 474 px desktop dark-shell specimen for thread 45. Its native anatomy now
 follows the Astro DOM order (`title → meta row → place → utility`, with feedback
@@ -327,6 +331,42 @@ thread-47 specimen: 564×665, the exact event 5370 source media asset
 source fill read back exactly, but the current B23 PNG remains blocked by the
 Penpot exporter; thread 47 therefore remains open. No screenshot image is used as
 a component fill and Astro has not been changed.
+
+### Instrumental re-audit after owner threads 60–65 — 2026-08-20
+
+The previous visual sign-off was invalid. It checked a bounded export without
+reconciling the exported geometry against the adjacent owner PNGs. The re-audit
+found three concrete defects in Page 40.1a:
+
+- E03 used a white `#fffaf2` shell although the adjacent oracle and the live
+  `EventLayout.astro` home-grid render use `rgb(21, 17, 15)` (`#15110f`).
+- Every Page 40.1a media rectangle was resized directly to its frame. For E03 a
+  1920×1080 source became 380×302 with `clipContent=false` and zero corner radii,
+  which both distorted the pixels and removed the rounded top corners.
+- Split-action feedback began only 8–9 px below the shell. The corrected review
+  geometry keeps utility controls inside the shell and reserves 20 px before the
+  share/favorite row, with the card bounds expanded so controls cannot collide
+  with the following specimen.
+
+The runtime comparison used the generated Astro preview
+`preview-20260820t061807-0c2a8bda` at a 1536 px viewport. Playwright computed a
+24 px top media-link radius and `rgb(21, 17, 15)` for the first three home-card
+bodies. Penpot must therefore preserve source aspect ratio by cropping inside a
+clipped rounded media board; it must never resize the image rectangle to a
+different aspect ratio.
+
+The on-canvas variant container is not itself an insertable multi-card component:
+its children are the reusable variant masters. To remove the misleading review
+affordance, the container and members are explicitly named as a variant set and
+individual E01–E12 masters rather than presenting the entire matrix as one card.
+
+The corrected native set is
+`195df023-6fe5-80a0-8008-82cad7dbc855` at file revision `919`. Read-back proves
+12 variants × 12 properties with zero variant errors, 47 linked action instances
+with zero detached actions, no duplicated managed state IDs, and an empty Penpot
+validation result. E01 and E03 were exported after the repair and visually checked
+against the adjacent dark-shell oracles. A second stable-ID pass created zero
+objects.
 
 ### Listing viewport and proof reconciliation
 
