@@ -1,6 +1,6 @@
 # Event-card systemic component boundaries — owner comments 85–95
 
-> Status: Git SoT correction recorded before Penpot reconciliation.  
+> Status: Git SoT correction reconciled to native Penpot; ready for bounded owner re-review.
 > Authority: reconstructed candidate, noncanonical, not promoted.  
 > Source fact: `events-bot-new@7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc`.
 > Machine contract:
@@ -119,6 +119,6 @@ candidate scope. Historical receipts remain immutable. Penpot must be reconciled
 from the machine contract and receive a new superseding receipt with revision,
 native IDs, detached-copy count, validation and focused exports.
 
-No reverse change to Astro, browser preview, promotion or production is
-authorized. After reconciliation the state is **ready for owner Penpot
-re-review**, not accepted.
+Native Penpot reconciliation is recorded in
+[`event-card-systemic-component-remediation-v1.json`](../../receipts/penpot/event-card-systemic-component-remediation-v1.json). No reverse change to Astro, browser preview, promotion or production is
+authorized. The state is **ready for owner Penpot re-review**, not accepted.
