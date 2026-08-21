@@ -1,6 +1,6 @@
 # UI source-of-truth round trip
 
-> Status: accepted operational contract.  
+> Status: accepted operational contract.
 > Scope: `lovekgd-design-system` ↔ Resource Graph Penpot ↔
 > `events-bot-new` Astro/runtime.
 

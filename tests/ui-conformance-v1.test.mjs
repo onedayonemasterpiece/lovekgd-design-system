@@ -27,7 +27,8 @@ const sha = (value) => createHash('sha256').update(value).digest('hex');
 const clone = structuredClone;
 const canonicalSha = (value) => sha(`${stableJson(value)}\n`);
 function makePng(path, color = 'red') {
-  const result = spawnSync('magick', ['-size', '2x2', `xc:${color}`, path], { encoding: 'utf8' });
+  const magick7 = spawnSync('magick', ['-version'], { encoding: 'utf8' }).status === 0;
+  const result = spawnSync(magick7 ? 'magick' : 'convert', ['-size', '2x2', `xc:${color}`, path], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr || result.stdout);
 }
 
