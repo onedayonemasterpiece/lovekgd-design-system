@@ -64,6 +64,17 @@ assert contract["followup_decisions"][8]["status"] == "materialized-awaiting-own
 assert contract["page_contracts"]["large"]["review_layout"].endswith("zero top-level geometric overlaps")
 assert contract["page_contracts"]["large"]["like_content_primitive"]["not_an_action_state_machine"] is True
 assert contract["page_contracts"]["large"]["like_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed"]
+assert contract["followup_decisions"][9]["id"] == "OR4-F11"
+assert contract["followup_decisions"][9]["status"] in {
+    "sot-recorded-pending-followup-materialization",
+    "materialized-awaiting-owner-rereview",
+}
+review_handoff = contract["review_handoff"]
+assert review_handoff["full_large_board_export_required"] is False
+assert review_handoff["direct_link_per_small_board"] is True
+assert review_handoff["visible_junk_allowed"] is False
+assert review_handoff["review_ready_only_after_cleanup"] is True
+assert review_handoff["focused_visual_export_required"] is True
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False

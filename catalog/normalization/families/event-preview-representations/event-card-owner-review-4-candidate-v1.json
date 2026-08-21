@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "ce33dba99afbf36f9a80f0e7a7d2f72b057606d42b56f9a4da69653d8abfb0d5",
+  "contract_payload_sha256": "490820d80b1ba794cbd11b97c50d186611c39c4dfd175eb04befab9613ec3517",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -225,6 +225,16 @@
     "detached_archetype_patch_allowed": false,
     "unexplained_delta_blocks_archetype": true
   },
+  "review_handoff": {
+    "review_ready_only_after_cleanup": true,
+    "direct_link_per_small_board": true,
+    "full_large_board_export_required": false,
+    "focused_visual_export_required": true,
+    "visible_junk_allowed": false,
+    "board_policy": "Prefer bounded single-purpose review boards; keep canonical variant containers and source evidence outside the owner review lane when they would make the board oversized.",
+    "cleanup_policy": "Remove obsolete, detached, duplicated, commented-out and superseded visuals from the owner review lane rather than leaving them visible as historical debris.",
+    "handoff_policy": "Do not tell the owner to start review until every affected page has direct links to its small boards, focused visual inspection, clean read-back and validation."
+  },
   "page_contracts": {
     "large": {
       "hidden": "transient controller overlay plus centered undo, not component variant",
@@ -418,6 +428,12 @@
       "page_key": "large",
       "decision": "Reflow Page40.1a review annotations and linked cards into consistent label/purpose/specimen rows, separate the light-context and transient-hidden headings beneath one source-context section, and eliminate all root-level overlaps without changing component IDs or card geometry.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F11",
+      "page_key": "all-review-pages",
+      "decision": "Before owner handoff, split oversized review surfaces into bounded single-purpose boards where practical, remove visible obsolete or duplicated debris, use focused specimen exports instead of whole-board exports, and provide one direct URL per small review board.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }
