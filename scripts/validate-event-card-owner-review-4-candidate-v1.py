@@ -26,7 +26,7 @@ assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd
 assert contract["contract_payload_sha256"] == stable(contract)
 
 binding = contract["owner_comment_binding"]
-assert binding["observed_file_revn"] == 1185
+assert binding["observed_file_revn"] == 1192
 assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
 assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
@@ -50,7 +50,7 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
-assert receipt["file_revn"] == 1185
+assert receipt["file_revn"] == 1192
 if contract["status"] == "materialized-awaiting-owner-rereview":
     assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
