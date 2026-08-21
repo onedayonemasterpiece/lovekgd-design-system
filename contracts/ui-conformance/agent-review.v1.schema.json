@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-conformance-agent-review.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "findings", "reviewed_files", "reviewed_at", "reviewer_kind"],
+  "properties": {
+    "verdict": { "enum": ["pass", "minor", "fail", "exception", "blocked"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["region", "severity", "kind", "description", "evidence_files"],
+        "properties": {
+          "region": { "type": "string", "minLength": 1 },
+          "severity": { "enum": ["info", "minor", "blocking"] },
+          "kind": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "evidence_files": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 }
+        }
+      }
+    },
+    "reviewed_files": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["astro.png", "penpot.png", "overlay-50.png", "diff.png"] }
+    },
+    "reviewed_at": { "type": "string", "format": "date-time" },
+    "reviewer_kind": { "const": "code-agent" }
+  }
+}

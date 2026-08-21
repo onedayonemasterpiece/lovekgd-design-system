@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-conformance-case.v1.schema.json",
+  "title": "UI conformance case v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "case_id", "component_id", "contract_version",
+    "contract_sha256", "state_key", "fixture_id", "fixture_sha256",
+    "fixture_source", "fixture_snapshot_sha256", "fixture_mode", "viewport_id",
+    "viewport_width", "viewport_height", "container_width",
+    "device_scale_factor", "authority_mode", "conformance_profile",
+    "penpot_binding", "astro_binding", "expected_candidate_deltas",
+    "exception_ref"
+  ],
+  "properties": {
+    "schema_version": { "const": "ui_conformance_case_v1" },
+    "case_id": { "$ref": "#/$defs/id" },
+    "component_id": { "$ref": "#/$defs/componentId" },
+    "contract_version": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "contract_sha256": { "$ref": "#/$defs/sha256" },
+    "state_key": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "fixture_id": { "type": ["string", "null"], "maxLength": 160 },
+    "fixture_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "fixture_source": { "type": ["string", "null"], "maxLength": 320 },
+    "fixture_snapshot_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "fixture_mode": { "enum": ["blocking-golden", "fresh-advisory"] },
+    "viewport_id": { "$ref": "#/$defs/id" },
+    "viewport_width": { "type": "integer", "minimum": 1, "maximum": 8192 },
+    "viewport_height": { "type": "integer", "minimum": 1, "maximum": 8192 },
+    "container_width": { "type": "integer", "minimum": 1, "maximum": 8192 },
+    "device_scale_factor": { "type": "number", "exclusiveMinimum": 0, "maximum": 4 },
+    "authority_mode": { "enum": ["astro-reference", "penpot-candidate-reference", "promoted-contract-reference"] },
+    "conformance_profile": { "enum": ["pixel-strict", "state-sampled", "structure-and-behavior", "nonvisual"] },
+    "penpot_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_id", "page_id", "page_label", "board_or_component_id", "board_label", "revision", "export_sha256", "font_manifest_sha256"],
+      "properties": {
+        "file_id": { "$ref": "#/$defs/uuid" },
+        "page_id": { "$ref": "#/$defs/uuid" },
+        "page_label": { "type": "string", "pattern": "^Page [0-9]", "maxLength": 120 },
+        "board_or_component_id": { "$ref": "#/$defs/uuid" },
+        "board_label": { "type": "string", "pattern": "^Board ", "maxLength": 180 },
+        "revision": { "type": ["integer", "string"], "minLength": 1 },
+        "export_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "font_manifest_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+      }
+    },
+    "astro_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_sha", "candidate_package_sha", "specimen_route", "root_selector"],
+      "properties": {
+        "repository_sha": { "$ref": "#/$defs/gitSha" },
+        "candidate_package_sha": { "$ref": "#/$defs/gitSha" },
+        "specimen_route": { "type": "string", "pattern": "^/", "maxLength": 320 },
+        "root_selector": { "type": "string", "minLength": 1, "maxLength": 320 }
+      }
+    },
+    "expected_candidate_deltas": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["region", "property", "expected", "reason"],
+        "properties": {
+          "region": { "type": "string", "minLength": 1 },
+          "property": { "type": "string", "minLength": 1 },
+          "expected": {},
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "exception_ref": { "type": ["string", "null"], "maxLength": 160 }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,159}$" },
+    "componentId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,159}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "gitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "uuid": { "type": "string", "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$" }
+  }
+}

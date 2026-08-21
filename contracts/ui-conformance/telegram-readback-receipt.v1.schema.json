@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-conformance-telegram-readback-receipt.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "chat_id", "topic_root_message_id", "message_id", "message_link", "supersedes_message_id", "case_id", "run_id", "local_image_sha256", "caption_sha256", "content_hash", "telegram_media_metadata", "sent_at", "read_back_at", "read_back_status"],
+  "properties": {
+    "schema_version": { "const": "ui_conformance_telegram_readback_receipt_v1" },
+    "chat_id": { "type": "integer" },
+    "topic_root_message_id": { "const": 1030 },
+    "message_id": { "type": "integer", "minimum": 1 },
+    "message_link": { "type": "string", "pattern": "^https://t\\.me/c/4337049383/[0-9]+$" },
+    "supersedes_message_id": { "type": ["integer", "null"] },
+    "case_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "local_image_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "caption_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "content_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "telegram_media_metadata": { "type": "object" },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "read_back_at": { "type": "string", "format": "date-time" },
+    "read_back_status": { "const": "verified" }
+  }
+}

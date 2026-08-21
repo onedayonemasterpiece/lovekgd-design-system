@@ -1,0 +1,98 @@
+{
+  "schema_version": "ui_conformance_pilot_receipt_v1",
+  "case_id": "pilot.event-card.large-desktop",
+  "case_sha256": "5c25f9d76083fb88a66224c5f5686f0bcb5204b32db95d83ea61e3790aecece0",
+  "resolved_render_case_sha256": "50672ec66909cd94de839c8f952330e37f2e489b9f5038ec3a87f11ec72b040f",
+  "fixture_mode": "blocking-golden",
+  "astro_screenshot_sha256": "2988f239e5f7e69580522d29d1be0ea3ef268f0f9d0f11bc892a97b29edfbc3d",
+  "penpot_export_sha256": "0b455a568aa0f4bfc7e33278957a0a7dacfc1c9606902fae0c46de1984d1c202",
+  "penpot_component_id": "event.card",
+  "penpot_state_key": "consumer=related;viewport=desktop;layout=split-actions;media=loaded-visual;interaction=default",
+  "penpot_renderable_native_surface": true,
+  "penpot_fixture_id": "event.real.7244",
+  "penpot_fixture_sha256": null,
+  "penpot_fixture_snapshot_sha256": null,
+  "penpot_resolved_render_case_sha256": null,
+  "penpot_asset_manifest_sha256": null,
+  "preflight": {
+    "status": "BLOCKED_FIXTURE_MISMATCH",
+    "blockers": [
+      "BLOCKED_FIXTURE_MISMATCH",
+      "BLOCKED_FONT_ENV",
+      "BLOCKED_ASSET_MISMATCH"
+    ],
+    "reasons": [
+      "Penpot fixture_id mismatch",
+      "Penpot fixture_sha256 mismatch",
+      "Penpot fixture_snapshot_sha256 mismatch",
+      "Penpot and Astro resolved-render-case hashes differ",
+      "font load or manifest mismatch",
+      "Penpot asset manifest is missing or mismatched"
+    ]
+  },
+  "comparison_not_run": true,
+  "structural_status": "blocked",
+  "structural_blocker_count": 0,
+  "structural_skipped_reason": "Exact tuple gate failed: BLOCKED_FIXTURE_MISMATCH + BLOCKED_FONT_ENV + BLOCKED_ASSET_MISMATCH",
+  "agent_review": {
+    "verdict": "blocked",
+    "findings": [
+      {
+        "region": "fixture",
+        "severity": "blocking",
+        "kind": "different-event-fixture",
+        "description": "Astro is resolved from event.real.5336, while the Penpot binding visibly contains event.real.7244 and has no matching fixture/snapshot/asset hashes. Different events were not compared.",
+        "evidence_files": [
+          "preflight.json",
+          "penpot-export-receipt.json"
+        ]
+      }
+    ],
+    "reviewed_files": [
+      "astro.png"
+    ],
+    "reviewed_at": "2026-08-21T09:52:09Z",
+    "reviewer_kind": "code-agent"
+  },
+  "comparison_board_sha256": "25ff0c781baf835462163c968d61240b8204480fec9f066caaf925f762eeeefe",
+  "comparison_board_diagnostic_only": true,
+  "telegram_readback": {
+    "schema_version": "ui_conformance_telegram_readback_receipt_v1",
+    "chat_id": -1004337049383,
+    "topic_root_message_id": 1030,
+    "message_id": 1043,
+    "message_link": "https://t.me/c/4337049383/1043",
+    "supersedes_message_id": 1040,
+    "case_id": "pilot.event-card.large-desktop",
+    "run_id": "p-card-desktop-r4-20260821",
+    "local_image_sha256": "25ff0c781baf835462163c968d61240b8204480fec9f066caaf925f762eeeefe",
+    "caption_sha256": "1adfd8d861473ae019094f1375cc6e163015cf546d30a092dcf756ded445c8f2",
+    "content_hash": "b296a2d135eb9fc20c6ee12e1ce8df3ffb013afb8e4e629c616a78ee84f5af24",
+    "telegram_media_metadata": {
+      "type": "MessageMediaPhoto",
+      "caption_exact": true,
+      "media_present": true
+    },
+    "sent_at": "2026-08-21T09:53:53.541535Z",
+    "read_back_at": "2026-08-21T09:53:53.541557Z",
+    "read_back_status": "verified"
+  },
+  "superseded_invalid_message_id": 1040,
+  "ephemeral_manifest": {
+    "schema_version": "ui_conformance_run_manifest_v1",
+    "run_id": "p-card-desktop-r4-20260821",
+    "created_at": "2026-08-21T09:52:09.102Z",
+    "expires_at": "2026-08-22T09:52:09.102Z",
+    "retention_class": "published-24h",
+    "status": "published-read-back",
+    "bytes": 1114091,
+    "published_message_id": 1043,
+    "keep": false,
+    "durable": false
+  },
+  "durable_references": [
+    "0b455a568aa0f4bfc7e33278957a0a7dacfc1c9606902fae0c46de1984d1c202",
+    "72a36d3e2559bf97d0a8326c98200821328dcde26a20142fdc72b9e2467e663d"
+  ],
+  "recorded_at": "2026-08-21T10:15:00Z"
+}

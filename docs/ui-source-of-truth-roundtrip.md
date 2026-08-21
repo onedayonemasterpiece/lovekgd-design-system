@@ -97,6 +97,43 @@ viewport_id
 candidate_package_sha
 ```
 
+The reproducible visual step is mandatory for each affected component and, later,
+each page archetype:
+
+```text
+capture the exact current Astro component/archetype at the pinned SHA
+→ place that source screenshot on a focused Penpot evidence board
+→ compose the same state and the same exact resolved fixture beside it from native linked components
+→ export the bounded Astro-reference and Penpot-composition roots
+→ run no-scale instrumental comparison
+→ open Astro/Penpot/overlay/diff images and review them visually
+→ correct the Git SoT first, then regenerate both implementations
+```
+
+The screenshot is an oracle/evidence item, never a component fill. Boards should
+be small and single-purpose; do not export whole pages or oversized matrices.
+Remove superseded visual debris rather than leaving it beneath linked components.
+For links and receipts, distinguish `Page 25 / Board 25A` (and, for example,
+`Page 30.1 / Board 30.1C`); a board suffix is not a page number.
+
+“The same fixture” means the same event ID, frozen public snapshot, resolved
+text/props, image hashes, component state and viewport—not two visually similar
+events. If any of those values differs, stop before image comparison and record
+the tuple blocker. Never publish two different events side by side as a parity
+result.
+
+Systemic corrections are made in the canonical Penpot master or a semantic
+nested master. Linked instances must inherit the correction. Do not hide stale
+geometry by placing a fixed copy above it, and do not repair every review
+specimen independently. After changing a master, read back representative
+children, verify their component ancestry, and remove obsolete debris before
+exporting a focused review board.
+
+The exact executable procedure, status model, Telegram review/read-back, and
+retention safeguards live once in
+[`ui-three-way-conformance`](../.codex/skills/ui-three-way-conformance/SKILL.md).
+This document owns lifecycle placement and does not duplicate the runner.
+
 ### 4. Promote and release only after browser approval
 
 ```text

@@ -1,0 +1,99 @@
+{
+  "schema_version": "ui_conformance_pilot_receipt_v1",
+  "case_id": "pilot.event-card.large-mobile",
+  "case_sha256": "edd058adb2d379b9e64bb194964b74347043e4db0ac4cdc4fb16aec5ef0ac707",
+  "resolved_render_case_sha256": "3249b4abd07fa1ad7aec085206436497b6ccda4e9d01ed4fd0f51c072d6564b6",
+  "fixture_mode": "blocking-golden",
+  "astro_screenshot_sha256": "10a4a8713ad1ba2fde5809577bacd6a98498dcfad45386ebf7f603a8d2df575c",
+  "penpot_export_sha256": null,
+  "penpot_component_id": null,
+  "penpot_state_key": null,
+  "penpot_renderable_native_surface": false,
+  "penpot_fixture_id": null,
+  "penpot_fixture_sha256": null,
+  "penpot_fixture_snapshot_sha256": null,
+  "penpot_resolved_render_case_sha256": null,
+  "penpot_asset_manifest_sha256": null,
+  "preflight": {
+    "status": "BLOCKED_FIXTURE_MISMATCH",
+    "blockers": [
+      "BLOCKED_FIXTURE_MISMATCH",
+      "BLOCKED_FONT_ENV",
+      "BLOCKED_ASSET_MISMATCH",
+      "BLOCKED_PENPOT_EXPORT"
+    ],
+    "reasons": [
+      "Penpot fixture_id mismatch",
+      "Penpot fixture_sha256 mismatch",
+      "Penpot fixture_snapshot_sha256 mismatch",
+      "Penpot and Astro resolved-render-case hashes differ",
+      "font load or manifest mismatch",
+      "Penpot asset manifest is missing or mismatched",
+      "exact Penpot export is missing or hash-mismatched"
+    ]
+  },
+  "comparison_not_run": true,
+  "structural_status": "blocked",
+  "structural_blocker_count": 0,
+  "structural_skipped_reason": "Exact tuple gate failed: BLOCKED_FIXTURE_MISMATCH + BLOCKED_FONT_ENV + BLOCKED_ASSET_MISMATCH + BLOCKED_PENPOT_EXPORT",
+  "agent_review": {
+    "verdict": "blocked",
+    "findings": [
+      {
+        "region": "penpot-binding",
+        "severity": "blocking",
+        "kind": "missing-native-mobile-root",
+        "description": "Page 40.1a exposes no exact native mobile EventCard Large root for event.real.5336. No Penpot image was substituted and visual comparison was not run.",
+        "evidence_files": [
+          "preflight.json",
+          "event-card-large-mobile.binding-blocker.json"
+        ]
+      }
+    ],
+    "reviewed_files": [
+      "astro.png"
+    ],
+    "reviewed_at": "2026-08-21T09:52:09Z",
+    "reviewer_kind": "code-agent"
+  },
+  "comparison_board_sha256": "351d1585524b4d956fab70e05039feb31bb929ab11d03f28a2ea9133d9201aa2",
+  "comparison_board_diagnostic_only": true,
+  "telegram_readback": {
+    "schema_version": "ui_conformance_telegram_readback_receipt_v1",
+    "chat_id": -1004337049383,
+    "topic_root_message_id": 1030,
+    "message_id": 1044,
+    "message_link": "https://t.me/c/4337049383/1044",
+    "supersedes_message_id": 1041,
+    "case_id": "pilot.event-card.large-mobile",
+    "run_id": "p-card-mobile-r4-20260821",
+    "local_image_sha256": "351d1585524b4d956fab70e05039feb31bb929ab11d03f28a2ea9133d9201aa2",
+    "caption_sha256": "d1264d202496bf9482eed0b92bcdb867472c965c0de2f13e6532fc3b90b255c4",
+    "content_hash": "d27bdce7060f0edf2a99ead1be3b3f6735cac0cda0e99638d153f2fa4964a1a8",
+    "telegram_media_metadata": {
+      "type": "MessageMediaPhoto",
+      "caption_exact": true,
+      "media_present": true
+    },
+    "sent_at": "2026-08-21T09:53:54.900994Z",
+    "read_back_at": "2026-08-21T09:53:54.901069Z",
+    "read_back_status": "verified"
+  },
+  "superseded_invalid_message_id": 1041,
+  "ephemeral_manifest": {
+    "schema_version": "ui_conformance_run_manifest_v1",
+    "run_id": "p-card-mobile-r4-20260821",
+    "created_at": "2026-08-21T09:52:09.492Z",
+    "expires_at": "2026-08-22T09:52:09.492Z",
+    "retention_class": "published-24h",
+    "status": "published-read-back",
+    "bytes": 760055,
+    "published_message_id": 1044,
+    "keep": false,
+    "durable": false
+  },
+  "durable_references": [
+    "72a36d3e2559bf97d0a8326c98200821328dcde26a20142fdc72b9e2467e663d"
+  ],
+  "recorded_at": "2026-08-21T10:15:00Z"
+}
