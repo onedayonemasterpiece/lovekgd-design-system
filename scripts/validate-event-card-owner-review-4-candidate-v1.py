@@ -26,7 +26,7 @@ assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd
 assert contract["contract_payload_sha256"] == stable(contract)
 
 binding = contract["owner_comment_binding"]
-assert binding["observed_file_revn"] == 1211
+assert binding["observed_file_revn"] == 1212
 assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
 assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
@@ -59,6 +59,9 @@ assert contract["followup_decisions"][6]["id"] == "OR4-F08"
 assert contract["followup_decisions"][6]["status"] == "materialized-awaiting-owner-rereview"
 assert contract["followup_decisions"][7]["id"] == "OR4-F09"
 assert contract["followup_decisions"][7]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["followup_decisions"][8]["id"] == "OR4-F10"
+assert contract["followup_decisions"][8]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["page_contracts"]["large"]["review_layout"].endswith("zero top-level geometric overlaps")
 assert contract["page_contracts"]["large"]["like_content_primitive"]["not_an_action_state_machine"] is True
 assert contract["page_contracts"]["large"]["like_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed"]
 
@@ -75,7 +78,7 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["readback"]["rail_review_labels"] == [f"T{i:02d}" for i in range(1, 17)]
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
-assert receipt["file_revn"] == 1211
+assert receipt["file_revn"] == 1212
 if contract["status"] == "materialized-awaiting-owner-rereview":
     assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
@@ -101,6 +104,9 @@ assert receipt["readback"]["like_content_component"]["axis"] == {"content": ["wi
 assert receipt["readback"]["semantic_gallery_top_level_overlap_count"] == 0
 assert receipt["readback"]["page30_review_root_top_level_shape_count"] == 27
 assert receipt["readback"]["page30_review_root_top_level_overlap_count"] == 0
+assert receipt["readback"]["large_review_root_top_level_shape_count"] == 41
+assert receipt["readback"]["large_review_root_top_level_overlap_count"] == 0
+assert receipt["readback"]["large_review_duplicate_primary_annotation_present"] is False
 assert receipt["readback"]["share_action_transient_labels"] == {"busy": "Готовим картинку…", "shared": "Поделились", "copied": "Ссылка скопирована", "error": "Не удалось"}
 assert receipt["persistence"]["named_version_created"] is False
 assert receipt["idempotency_readback"]["unintended_component_create_delta"] == 0
