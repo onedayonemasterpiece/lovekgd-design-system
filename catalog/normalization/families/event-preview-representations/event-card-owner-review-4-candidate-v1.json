@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "595ea1bd3128c48d0ff03c4b2cec9671aa9365f36b168f3552a57f4200f2b227",
+  "contract_payload_sha256": "7daff69fe10199d7c97c4b8a3d68879969208864570221f5f497e91016f9c9c1",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -243,6 +243,15 @@
         "ineligible": "node absent; no disabled/Недоступно visual variant",
         "added_label": "Добавлено",
         "icon_only_event_card": false
+      },
+      "not_interested_action": {
+        "active_states": [
+          "rest",
+          "hover",
+          "focus-visible",
+          "pressed"
+        ],
+        "committed": "controller transitions the whole card to transient hidden overlay plus Undo; action does not become a Скрыто variant"
       }
     },
     "listing": {
@@ -315,6 +324,12 @@
       "page_key": "primitives",
       "decision": "Remove the invented Calendar disabled/Недоступно variant from the active native set; ineligible EventCard omits the Calendar node. Keep rest, hover, focus-visible, pressed and added.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F05",
+      "page_key": "primitives",
+      "decision": "Remove the invented Not interested committed/Скрыто action variant; commitment is represented by the separate transient hidden EventCard controller specimen.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }
