@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "0101f954e483faed2284ba635984037a0ed90ec3f1d28dc576927cfb98467d12",
+  "contract_payload_sha256": "475217fc88d832d936ac930283dbeed79c0177f60c68ab5673179dd329527049",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -295,6 +295,20 @@
         "selected_state_rule": "selected is a boolean axis, not a duplicate state value",
         "busy_error": "absent in pinned Astro; do not publish invented visual variants",
         "background": "transparent in split-actions context"
+      },
+      "like_content_primitive": {
+        "semantic_role": "non-interactive icon-plus-optional-count content primitive nested inside surface-specific actions",
+        "component_path": "Event cards / Shared / Content / Like content",
+        "content": [
+          "with-count",
+          "icon-only"
+        ],
+        "not_an_action_state_machine": true,
+        "consumer_examples": [
+          "Mobile rail Like action uses with-count",
+          "Festival local-save Favorite uses icon-only"
+        ],
+        "review_layout": "separate labelled column; no overlap with SocialProof, Medallion or CTA consumer specimens"
       }
     },
     "listing": {
@@ -385,6 +399,12 @@
       "page_key": "primitives",
       "decision": "Remove invented Like action busy/error variants and collapse redundant state=selected into state=rest + selected=on; retain state rest/hover/focus-visible/pressed, selected off/on and count zero/nonzero.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F08",
+      "page_key": "primitives",
+      "decision": "Rename the ambiguous Like interactive variants resource to a non-interactive Like content primitive, document its nested role, and lay out SocialProof, Medallion, Like content and CTA consumer specimens in separate labelled non-overlapping columns.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }
