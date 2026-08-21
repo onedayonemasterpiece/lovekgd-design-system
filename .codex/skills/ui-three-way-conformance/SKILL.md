@@ -22,6 +22,9 @@ bounded contract; neither may silently become a new baseline.
    materialization lane. It must follow the component contract/IR, use native
    linked resources, record stable IDs and read-back receipts, and never resolve
    owner comments or promote a family. Comparison and CI lanes stay read-only.
+   Every Penpot undo block must retain the `Symbol` returned by
+   `undoBlockBegin()` and pass it to `undoBlockFinish(blockId)` in `finally`;
+   a parameterless finish is invalid and can obscure an already-applied write.
 
 ## Golden Event Corpus gate
 
@@ -79,6 +82,12 @@ rematerialization boundary.
 Keep review boards small: normally one case per board, no unrelated media
 gallery or detached semantic-master pile inside the owner-review board, and no
 full-page/giant-board export when a bounded component root is sufficient.
+If the linked archetype master itself is the exact bounded review root, export
+it directly and crop locally; do not duplicate the whole graph into a second
+Penpot review board merely to obtain the same PNG. At final read-back, inspect
+top-level page children and remove only verified unlinked orphans with no
+component/library/plugin identity. Never treat comments or unfamiliar boards
+as cleanup candidates.
 
 If the exact tuple gate is blocked, do not create/copy `penpot.png`, overlay,
 diff, pixel verdict, or cross-renderer structural findings. Publish only a

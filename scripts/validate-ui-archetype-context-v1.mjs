@@ -61,6 +61,7 @@ export function validateBundle(repo = defaultRepo) {
   const materializationIr = readJson(join(base, 'penpot-materialization-ir.v2.json'));
   const materializationReceipt = readJson(join(base, registry.materialization_receipt_ref));
   const propagationAudit = readJson(join(base, registry.propagation_audit_ref));
+  const comparisonSummary = readJson(join(base, registry.comparison_summary_ref));
   const errors = [];
   const verifySelfHash = (row, key, label) => {
     const copy = structuredClone(row); const expected = copy[key]; delete copy[key];
@@ -71,8 +72,21 @@ export function validateBundle(repo = defaultRepo) {
   if (canonicalSha(resolverEvidence.resolver_output) !== resolverEvidence.resolver_output_sha256) errors.push('resolver evidence hash mismatch');
   if (materializationIr.contract_sha256 !== component.contract_sha256) errors.push('materialization IR/component contract hash mismatch');
   if (materializationReceipt.ir_id !== materializationIr.ir_id || materializationReceipt.contract_sha256 !== component.contract_sha256) errors.push('materialization receipt identity/hash mismatch');
-  if (materializationReceipt.result !== 'blocked' || !materializationReceipt.operation_results.some((row) => row.operation_id === 'align-feedback-baseline-and-partial-row-height' && row.status === 'applied-and-propagated')) errors.push('post-fix materialization must remain blocked pending exact re-export while recording propagated master repair');
+  const feedbackRepair = materializationReceipt.operation_results.find((row) => row.operation_id === 'align-feedback-baseline-and-partial-row-height');
+  const mediaRepair = materializationReceipt.operation_results.find((row) => row.operation_id === 'audit-media-fit-binding');
+  const visualEvidence = materializationReceipt.operation_results.find((row) => row.operation_id === 'instrumental-visual-evidence');
+  if (materializationReceipt.result !== 'pass'
+    || feedbackRepair?.status !== 'applied-master-plus-declared-rematerialization'
+    || mediaRepair?.status !== 'pass-systemic-master-plus-content-binding-rematerialization'
+    || visualEvidence?.status !== 'pass-minor-visual-drift-awaiting-owner-review') errors.push('completed materialization/read-back evidence mismatch');
   if (propagationAudit.result !== 'pass' || propagationAudit.integrity?.detached_instance_count !== 0 || propagationAudit.fixture_instances?.find((row) => row.fixture_id === 'event.real.4327')?.height_px !== 528.640625) errors.push('post-fix propagation audit mismatch');
+  if (comparisonSummary.status !== 'MINOR'
+    || comparisonSummary.owner_status !== 'AWAITING_REVIEW'
+    || comparisonSummary.exact_same_parent_capture !== true
+    || comparisonSummary.actual_scale !== 1
+    || comparisonSummary.stretched !== false
+    || comparisonSummary.cases?.length !== 4
+    || comparisonSummary.cases?.some((row) => ![1053,1054,1055,1056].includes(row.telegram_message_id))) errors.push('current exact comparison/Telegram summary mismatch');
   if (component.penpot.baseline_revision !== 1256 || component.penpot.governed_active_variant_count !== 11 || component.penpot.live_container_member_count !== 13) errors.push('live Penpot revision/member governance evidence drift');
   if (component.penpot.live_member_anomalies.length !== 2) errors.push('two live Penpot anomalies must remain explicit until quarantine reconciliation');
   if (materializationIr.lifecycle !== 'candidate-unexecuted' || materializationIr.execution_gate.exact_live_readback_required !== true) errors.push('materialization IR must remain gated and unexecuted');

@@ -1,10 +1,10 @@
 {
   "schema_version": "event-card-large-archetype-propagation-audit.v1",
-  "audited_at": "2026-08-21T15:49:00Z",
+  "audited_at": "2026-08-21T16:56:01Z",
   "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
   "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
   "page_name": "40.1a — EventCard · Large · Review 01–11",
-  "revision": 1287,
+  "revision": 1289,
   "source_masters": [
     {
       "stable_resource_key": "staging.event-card.large.v2.master",
@@ -21,62 +21,54 @@
       "linked_child_count": 4
     }
   ],
-  "review_instance": {
-    "stable_resource_key": "staging.review.archetype-instance",
-    "shape_id": "b0fe69fd-ccaf-8025-8008-848327289ea3",
-    "component_id": "b0fe69fd-ccaf-8025-8008-847108143471",
-    "width_px": 1180,
-    "height_px": 1232.28125,
-    "linked": true
-  },
   "fixture_instances": [
     {
       "fixture_id": "event.real.7906",
       "stable_resource_key": "staging.fixture.7906",
       "master_instance_id": "b0fe69fd-ccaf-8025-8008-847103865879",
-      "review_copy_id": "b0fe69fd-ccaf-8025-8008-84832740865e",
       "calendar": "present",
       "row": 0,
       "column": 0,
       "width_px": 380,
       "height_px": 683.640625,
-      "linked": true
+      "linked": true,
+      "review_mode": "local-crop-from-direct-parent-export"
     },
     {
       "fixture_id": "event.real.8156",
       "stable_resource_key": "staging.fixture.8156",
       "master_instance_id": "b0fe69fd-ccaf-8025-8008-84710493a8c8",
-      "review_copy_id": "b0fe69fd-ccaf-8025-8008-8483273509ce",
       "calendar": "absent",
       "row": 0,
       "column": 1,
       "width_px": 380,
       "height_px": 683.640625,
-      "linked": true
+      "linked": true,
+      "review_mode": "local-crop-from-direct-parent-export"
     },
     {
       "fixture_id": "event.real.6628",
       "stable_resource_key": "staging.fixture.6628",
       "master_instance_id": "b0fe69fd-ccaf-8025-8008-8471057ed23a",
-      "review_copy_id": "b0fe69fd-ccaf-8025-8008-848327323cf8",
       "calendar": "absent",
       "row": 0,
       "column": 2,
       "width_px": 380,
       "height_px": 683.640625,
-      "linked": true
+      "linked": true,
+      "review_mode": "local-crop-from-direct-parent-export"
     },
     {
       "fixture_id": "event.real.4327",
       "stable_resource_key": "staging.fixture.4327",
       "master_instance_id": "b0fe69fd-ccaf-8025-8008-84710768100c",
-      "review_copy_id": "b0fe69fd-ccaf-8025-8008-848327289ea4",
       "calendar": "absent",
       "row": 1,
       "column": 0,
       "width_px": 380,
       "height_px": 528.640625,
-      "linked": true
+      "linked": true,
+      "review_mode": "local-crop-from-direct-parent-export"
     }
   ],
   "semantic_checks": {
@@ -89,7 +81,17 @@
     "partial_final_row_uses_measured_intrinsic_height": true,
     "fixture_text_overrides_preserved": true,
     "actual_media_binding_mode": "linked-media-frame-variant-with-content-image-fill-substitution",
-    "candidate_ir_delta": "The candidate IR names media-component-swap. The executed Penpot model retains the linked media-frame variant and substitutes only its content image fill; this receipt records the implemented binding without rewriting the historical candidate IR."
+    "candidate_ir_delta": "The candidate IR names media-component-swap. The executed Penpot model retains the linked media-frame variant and substitutes only its content image fill; this receipt records the implemented binding without rewriting the historical candidate IR.",
+    "feedback_slot_height_px": 60,
+    "feedback_top_inset_px": 10,
+    "primary_action_height_px": 44,
+    "media_keep_aspect_ratio_all_bounded_shapes": true,
+    "media_keep_aspect_ratio_shape_count": 9,
+    "residual_visual_status": "MINOR",
+    "residual_visual_drift": [
+      "typography/baseline",
+      "long-place ellipsis representation"
+    ]
   },
   "integrity": {
     "detached_instance_count": 0,
@@ -100,7 +102,31 @@
       "b0fe69fd-ccaf-8025-8008-844af25a752a",
       "b0fe69fd-ccaf-8025-8008-844b61ec1ee8"
     ],
-    "live_container_mutated": false
+    "live_container_mutated": false,
+    "staging_root_child_count": 6,
+    "top_level_orphan_text_count": 0,
+    "removed_verified_orphan_shape_ids": [
+      "b0fe69fd-ccaf-8025-8008-846ecb1331e7"
+    ],
+    "large_review_board_recreated": false
   },
-  "result": "pass"
+  "result": "pass",
+  "review_evidence": {
+    "mode": "direct-bounded-archetype-export-plus-local-crops",
+    "penpot_archetype_shape_id": "b0fe69fd-ccaf-8025-8008-84710216a6e5",
+    "penpot_export_sha256": "6f43a5ecfe18b7f157dac38c932747901659c4f4ca7782e7cea5c703cb63a45e",
+    "astro_export_sha256": "d0b7ea250b8ad5f59e61c48e13488fed2c70864b91dc55dab8fe7dd47203bcd3",
+    "dimensions_px": {
+      "width": 1180,
+      "height": 1233
+    },
+    "actual_scale": 1,
+    "stretched": false,
+    "telegram_message_ids": [
+      1053,
+      1054,
+      1055,
+      1056
+    ]
+  }
 }
