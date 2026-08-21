@@ -16,6 +16,10 @@ const buttonCase = readJson(join(pilot, 'core-button-primary-default.case.json')
 const eventCase = readJson(join(pilot, 'event-card-large-desktop.case.json'));
 const registry = readJson(join(repo, 'catalog/ui-conformance/exception-registry.candidate.v1.json'));
 const clone = (value) => structuredClone(value);
+const imageConvert = (arguments_) => {
+  const magick = spawnSync('magick', arguments_, { encoding: 'utf8' });
+  return magick.error?.code === 'ENOENT' ? spawnSync('convert', arguments_, { encoding: 'utf8' }) : magick;
+};
 const readyTuple = (row) => ({
   component_id: row.component_id, contract_version: row.contract_version, contract_sha256: row.contract_sha256,
   state_key: row.state_key, fixture_id: row.fixture_id, fixture_sha256: row.fixture_sha256,
@@ -79,7 +83,7 @@ matchingRegistry.exceptions[0].contract_version = 'next-version'; assert.equal(a
 // No-scale image comparison and immutable accepted inputs.
 const temp = mkdtempSync(join(tmpdir(), 'ui-conformance-test-')); const imageRun = join(temp, 'images'); mkdirSync(imageRun);
 for (const [name, size, color] of [['astro-source.png', '10x20', 'red'], ['penpot-reference.png', '20x10', 'blue']]) {
-  const result = spawnSync('magick', ['-size', size, `xc:${color}`, join(temp, name)], { encoding: 'utf8' }); assert.equal(result.status, 0, result.stderr);
+  const result = imageConvert(['-size', size, `xc:${color}`, join(temp, name)]); assert.equal(result.status, 0, result.stderr);
 }
 const acceptedBefore = sha256File(join(temp, 'penpot-reference.png'));
 const metrics = createComparisonArtifacts({ astroPath: join(temp, 'astro-source.png'), penpotPath: join(temp, 'penpot-reference.png'), runDir: imageRun });

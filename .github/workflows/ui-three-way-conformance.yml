@@ -61,7 +61,10 @@ jobs:
           ref: ${{ inputs.events_ref }}
           path: events-bot-new
       - name: Install schema validator
-        run: python3 -m pip install jsonschema
+        run: |
+          python3 -m pip install jsonschema
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
       - name: Validate skill and contracts
         working-directory: design-system
         run: |

@@ -209,8 +209,13 @@ function command(name, args, options = {}) {
   return result;
 }
 
+const MAGICK7 = spawnSync('magick', ['-version'], { encoding: 'utf8' }).status === 0;
+function imageConvert(args) { return command(MAGICK7 ? 'magick' : 'convert', args); }
+function imageIdentify(args) { return command(MAGICK7 ? 'magick' : 'identify', MAGICK7 ? ['identify', ...args] : args); }
+function imageCompare(args) { return spawnSync(MAGICK7 ? 'magick' : 'compare', MAGICK7 ? ['compare', ...args] : args, { encoding: 'utf8' }); }
+
 export function imageDimensions(path) {
-  const result = command('magick', ['identify', '-format', '%w %h', resolve(path)]);
+  const result = imageIdentify(['-format', '%w %h', resolve(path)]);
   const [width, height] = result.stdout.trim().split(/\s+/u).map(Number);
   if (!Number.isInteger(width) || !Number.isInteger(height)) throw new Error(`Could not identify PNG: ${path}`);
   return { width, height };
@@ -223,11 +228,11 @@ export function createComparisonArtifacts({ astroPath, penpotPath, runDir }) {
   const ad = imageDimensions(astro); const pd = imageDimensions(penpot);
   const width = Math.max(ad.width, pd.width); const height = Math.max(ad.height, pd.height);
   const ac = join(dir, '.astro-canvas.png'); const pc = join(dir, '.penpot-canvas.png');
-  command('magick', [astro, '-background', 'none', '-gravity', 'northwest', '-extent', `${width}x${height}`, ac]);
-  command('magick', [penpot, '-background', 'none', '-gravity', 'northwest', '-extent', `${width}x${height}`, pc]);
-  command('magick', [ac, pc, '-define', 'compose:args=50', '-compose', 'blend', '-composite', '-strip', join(dir, 'overlay-50.png')]);
-  command('magick', [ac, pc, '-compose', 'difference', '-composite', '-strip', join(dir, 'diff.png')]);
-  const metric = spawnSync('magick', ['compare', '-metric', 'AE', ac, pc, 'null:'], { encoding: 'utf8' });
+  imageConvert([astro, '-background', 'none', '-gravity', 'northwest', '-extent', `${width}x${height}`, ac]);
+  imageConvert([penpot, '-background', 'none', '-gravity', 'northwest', '-extent', `${width}x${height}`, pc]);
+  imageConvert([ac, pc, '-define', 'compose:args=50', '-compose', 'blend', '-composite', '-strip', join(dir, 'overlay-50.png')]);
+  imageConvert([ac, pc, '-compose', 'difference', '-composite', '-strip', join(dir, 'diff.png')]);
+  const metric = imageCompare(['-metric', 'AE', ac, pc, 'null:']);
   if (![0, 1].includes(metric.status)) throw new Error(`Image comparison failed: ${(metric.stderr || metric.stdout).trim()}`);
   const absoluteError = Number.parseFloat((metric.stderr || metric.stdout).trim()) || 0;
   rmSync(ac); rmSync(pc);
@@ -266,7 +271,7 @@ export function createComparisonBoard({ runDir, caseRow, finalStatus, geometryBl
   const foot = `Geometry blockers: ${geometryBlockers} · Pixel diff: ${pixelRatio === null ? 'n/a' : pixelRatio.toFixed(6)} · Fonts: ${fontStatus}`;
   const tupleLine = `Tuple: ${tupleStatus}`; const runLine = `Run ${runId} · ${caseRow.authority_mode} · ${caseRow.contract_sha256.slice(0, 10)}`;
   const output = join(dir, 'comparison-board.png');
-  command('magick', [
+  imageConvert([
     '-size', `${bodyWidth}x${totalHeight}`, `xc:#111418`,
     '-fill', statusColor(finalStatus), '-draw', `rectangle 0,0 ${bodyWidth},${header}`,
     '-font', 'DejaVu-Sans-Bold', '-fill', 'white', '-pointsize', '28', '-annotate', `+${pad}+40`, title,
@@ -309,7 +314,7 @@ export function createBlockedComparisonBoard({ runDir, caseRow, reason, runId })
     '-pointsize', '10', '-annotate', `+${pad}+${header + label + bodyHeight + 60}`, `Run ${runId} · ${caseRow.authority_mode} · ${caseRow.contract_sha256.slice(0, 10)}`,
     '-strip', output,
   );
-  command('magick', commandArgs);
+  imageConvert(commandArgs);
   return { path: output, sha256: sha256File(output), width: bodyWidth, height: totalHeight, actual_scale: 1, stretched: false, diagnostic_only: true };
 }
 
