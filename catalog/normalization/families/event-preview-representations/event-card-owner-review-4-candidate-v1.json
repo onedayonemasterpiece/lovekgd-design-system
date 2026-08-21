@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "46fa59265bffb0cbe0b70ca72b36c53720aa5715fd33359b28988ec3ab7887e4",
+  "contract_payload_sha256": "4a86af00241964ed98d7608b4182da036a6516804e6a5241ca66a31ea8a62fd1",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -252,6 +252,30 @@
           "pressed"
         ],
         "committed": "controller transitions the whole card to transient hidden overlay plus Undo; action does not become a Скрыто variant"
+      },
+      "share_action": {
+        "active_states": [
+          "rest",
+          "hover",
+          "focus-visible",
+          "pressed",
+          "busy",
+          "shared",
+          "copied",
+          "error"
+        ],
+        "status_labels": {
+          "rest": "Поделиться",
+          "busy": "Готовим картинку…",
+          "shared": "Поделились",
+          "copied": "Ссылка скопирована",
+          "error": "Не удалось"
+        },
+        "tone": [
+          "on-dark",
+          "on-light"
+        ],
+        "background": "always transparent"
       }
     },
     "listing": {
@@ -330,6 +354,12 @@
       "page_key": "primitives",
       "decision": "Remove the invented Not interested committed/Скрыто action variant; commitment is represented by the separate transient hidden EventCard controller specimen.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F06",
+      "page_key": "primitives",
+      "decision": "Reconcile Share action transient copy to pinned Astro exactly: Готовим картинку…, Поделились, Ссылка скопирована, Не удалось; keep background transparent and tone contextual.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }

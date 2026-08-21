@@ -49,6 +49,9 @@ assert contract["followup_decisions"][2]["status"] == "materialized-awaiting-own
 assert contract["followup_decisions"][3]["id"] == "OR4-F05"
 assert contract["page_contracts"]["large"]["not_interested_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed"]
 assert contract["followup_decisions"][3]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["followup_decisions"][4]["id"] == "OR4-F06"
+assert contract["page_contracts"]["large"]["share_action"]["status_labels"]["busy"] == "Готовим картинку…"
+assert contract["page_contracts"]["large"]["share_action"]["background"] == "always transparent"
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
