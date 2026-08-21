@@ -9,6 +9,11 @@ For every UI, component, archetype, Penpot, or Astro synchronization task read:
 3. `docs/normalization/design-system-family-lifecycle.md` — ordered lifecycle gates;
 4. the affected family contract, decision ledger, and latest Penpot receipt.
 
+For material UI component, foundation, archetype, or consumer changes, load the
+project skill `.codex/skills/ui-three-way-conformance/SKILL.md`. A change is not
+complete without an affected exact case or a machine-readable `not_applicable`
+reason. Keep the full procedure in that skill; do not duplicate it here.
+
 Exact owner decisions outrank derived documentation. Do not rewrite historical
 source evidence to make a later decision look pre-existing.
 
@@ -48,6 +53,8 @@ source evidence to make a later decision look pre-existing.
   source/contract SHA, rollback data, and materialization receipts.
 - A review handoff must include a complete ordered list of direct Penpot links,
   exact review scope, validation/export results, and any deliberately open gates.
+- Always distinguish Penpot page and board in names and links: `Page 25 / Board
+  25A`, never “page 25A”; persist `page_id` and `board_or_component_id` separately.
 - Screenshots are review evidence/oracles, never component fills or substitutes
   for native reusable resources.
 
@@ -64,6 +71,8 @@ short fail-closed bridge there that points back here.
 
 - Candidate and accepted statuses must be explicit; never use “done” to mean
   owner-accepted, promoted, released, and production-verified at once.
+- An instrumental or code-agent conformance PASS never means owner acceptance
+  and never advances lifecycle automatically.
 - Validate changed contracts/receipts, run `git diff --check`, commit, and push
   durable task changes unless the owner explicitly forbids it.
 - Never fabricate IDs, revisions, hashes, links, validation, review, or release

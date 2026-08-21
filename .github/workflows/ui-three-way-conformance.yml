@@ -1,0 +1,106 @@
+name: UI three-way conformance
+
+on:
+  workflow_call:
+    inputs:
+      design_ref:
+        type: string
+        required: true
+      events_ref:
+        type: string
+        required: true
+      publish_telegram:
+        type: boolean
+        required: false
+        default: false
+      trusted_source:
+        type: boolean
+        required: false
+        default: false
+  workflow_dispatch:
+    inputs:
+      design_ref:
+        description: Exact design-system ref/SHA
+        required: true
+        default: main
+      events_ref:
+        description: Exact events-bot-new ref/SHA
+        required: true
+        default: main
+      publish_telegram:
+        description: Prepare protected Telegram publication
+        required: true
+        type: boolean
+        default: false
+      trusted_source:
+        description: Confirm source refs are trusted, not a fork
+        required: true
+        type: boolean
+        default: false
+
+concurrency:
+  group: ui-three-way-conformance-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out design system exact ref
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/lovekgd-design-system
+          ref: ${{ inputs.design_ref }}
+          path: design-system
+      - name: Check out Astro source exact ref
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: ${{ inputs.events_ref }}
+          path: events-bot-new
+      - name: Install schema validator
+        run: |
+          python3 -m pip install jsonschema
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+      - name: Validate skill and contracts
+        working-directory: design-system
+        run: |
+          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-case --case catalog/ui-conformance/pilot-v1/core-button-primary-default.case.json
+          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-case --case catalog/ui-conformance/pilot-v1/event-card-large-desktop.case.json
+          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-case --case catalog/ui-conformance/pilot-v1/event-card-large-mobile.case.json
+          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-exceptions --registry catalog/ui-conformance/exception-registry.candidate.v1.json
+          node tests/ui-conformance-v1.test.mjs
+      - name: Record changed scope only
+        shell: bash
+        run: |
+          git -C events-bot-new diff --name-only '${{ inputs.events_ref }}^' '${{ inputs.events_ref }}' > changed-files.txt || true
+          node design-system/.codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs changed-scope \
+            --registry design-system/catalog/ui-conformance/pilot-v1/registry.v1.json \
+            --files changed-files.txt > changed-scope.json
+          cat changed-scope.json
+      - name: Upload advisory changed-scope evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-conformance-changed-scope
+          path: changed-scope.json
+          retention-days: 3
+
+  protected-telegram-gate:
+    if: ${{ inputs.publish_telegram }}
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: ui-conformance-review
+    permissions:
+      contents: read
+    steps:
+      - name: Reject untrusted publication source
+        run: test '${{ inputs.trusted_source }}' = 'true'
+      - name: Require existing protected transport
+        env:
+          TRANSPORT: ${{ secrets.UI_CONFORMANCE_TELEGRAM_TRANSPORT }}
+        run: |
+          test -n "$TRANSPORT"
+          echo 'Protected transport is present; publication remains an explicit downstream step with target read-back.'

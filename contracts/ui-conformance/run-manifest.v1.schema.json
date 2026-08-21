@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-conformance-run-manifest.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "created_at", "expires_at", "retention_class", "status", "bytes", "published_message_id", "keep", "durable"],
+  "properties": {
+    "schema_version": { "const": "ui_conformance_run_manifest_v1" },
+    "run_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "retention_class": { "enum": ["local-success-6h", "published-24h", "failed-blocked-72h", "gha-3d", "mass-owner-7d"] },
+    "status": { "enum": ["running", "pass", "minor", "fail", "exception", "blocked", "published-read-back"] },
+    "bytes": { "type": "integer", "minimum": 0 },
+    "published_message_id": { "type": ["integer", "null"] },
+    "keep": { "type": "boolean" },
+    "durable": { "const": false }
+  }
+}
