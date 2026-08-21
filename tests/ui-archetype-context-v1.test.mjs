@@ -15,7 +15,7 @@ const schemaValidate = (instance, schema, shouldPass = true) => {
 };
 
 const result = validateBundle(repo);
-assert.deepEqual(result, {cases:4, status:'blocked-pending-exact-consumer-capture-and-penpot-materialization'});
+assert.deepEqual(result, {cases:4, status:'blocked-pending-media-fit-repair-penpot-reexport-and-telegram-review'});
 schemaValidate(join(base, 'consumer-layout-contract.v1.json'), join(repo, 'contracts/ui-components/consumer-layout-contract.v1.schema.json'));
 schemaValidate(join(repo, 'catalog/ui-components/event-card-large/component-contract.v2.json'), join(repo, 'contracts/ui-components/component-contract.v2.schema.json'));
 schemaValidate(join(base, 'penpot-materialization-ir.v2.json'), join(repo, 'contracts/ui-components/penpot-materialization-ir.v2.schema.json'));

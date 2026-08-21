@@ -59,6 +59,8 @@ export function validateBundle(repo = defaultRepo) {
   const component = readJson(join(repo, 'catalog/ui-components/event-card-large/component-contract.v2.json'));
   const resolverEvidence = readJson(join(base, 'resolver-evidence.v1.json'));
   const materializationIr = readJson(join(base, 'penpot-materialization-ir.v2.json'));
+  const materializationReceipt = readJson(join(base, registry.materialization_receipt_ref));
+  const propagationAudit = readJson(join(base, registry.propagation_audit_ref));
   const errors = [];
   const verifySelfHash = (row, key, label) => {
     const copy = structuredClone(row); const expected = copy[key]; delete copy[key];
@@ -68,6 +70,9 @@ export function validateBundle(repo = defaultRepo) {
   verifySelfHash(component, 'contract_sha256', 'component contract v2');
   if (canonicalSha(resolverEvidence.resolver_output) !== resolverEvidence.resolver_output_sha256) errors.push('resolver evidence hash mismatch');
   if (materializationIr.contract_sha256 !== component.contract_sha256) errors.push('materialization IR/component contract hash mismatch');
+  if (materializationReceipt.ir_id !== materializationIr.ir_id || materializationReceipt.contract_sha256 !== component.contract_sha256) errors.push('materialization receipt identity/hash mismatch');
+  if (materializationReceipt.result !== 'blocked' || !materializationReceipt.operation_results.some((row) => row.operation_id === 'align-feedback-baseline-and-partial-row-height' && row.status === 'applied-and-propagated')) errors.push('post-fix materialization must remain blocked pending exact re-export while recording propagated master repair');
+  if (propagationAudit.result !== 'pass' || propagationAudit.integrity?.detached_instance_count !== 0 || propagationAudit.fixture_instances?.find((row) => row.fixture_id === 'event.real.4327')?.height_px !== 528.640625) errors.push('post-fix propagation audit mismatch');
   if (component.penpot.baseline_revision !== 1256 || component.penpot.governed_active_variant_count !== 11 || component.penpot.live_container_member_count !== 13) errors.push('live Penpot revision/member governance evidence drift');
   if (component.penpot.live_member_anomalies.length !== 2) errors.push('two live Penpot anomalies must remain explicit until quarantine reconciliation');
   if (materializationIr.lifecycle !== 'candidate-unexecuted' || materializationIr.execution_gate.exact_live_readback_required !== true) errors.push('materialization IR must remain gated and unexecuted');

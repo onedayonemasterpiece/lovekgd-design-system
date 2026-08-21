@@ -94,6 +94,19 @@ handoff, remove superseded/debris layers and verify instance provenance. A
 consumer-local override is allowed only when the Git contract explicitly owns
 that override slot.
 
+Treat image identity and media treatment as separate bindings. An event image
+may be an instance content override, but fit, aspect preservation, crop policy,
+focal position and clipping remain owned by `event.media-frame` (or by an
+explicit rematerialization rule derived from that master). Read these values
+back after materialization: `fillImage.keepAspectRatio` being `null` or `false`
+is a blocking distortion unless the contract explicitly declares stretch.
+Never infer CSS `cover` merely because an image fills the Penpot rectangle.
+
+Transparent nested actions must be exported inside their real parent surface.
+Exporting a child by itself against an implicit black/transparent canvas is not
+valid evidence for a light consumer. Any master change invalidates the previous
+Penpot export; do not publish the stale image as a new Telegram revision.
+
 ## Page and board vocabulary
 
 Always distinguish the Penpot page from a board inside it. Say and record, for

@@ -25,6 +25,13 @@ large review matrix. Pin file, Page, Board/component, revision, font declaration
 and SHA. One changed candidate gets one new immutable bounded export; ordinary
 reruns use the cached export.
 
+For every real media region, read back the exact asset identity plus aspect
+preservation, fit/crop policy, focal position and clipping. A Penpot image that
+fills the frame with `keepAspectRatio=null|false` is distorted, not equivalent
+to Astro `object-fit: cover`. If a component has transparent regions, export it
+through the bounded real parent/archetype surface so the background is part of
+the evidence.
+
 For implementation work outside this read-only conformance run, correct the
 canonical master or semantic nested master, then let linked specimens inherit.
 Do not place replacement shapes over stale content. The export receipt must say
