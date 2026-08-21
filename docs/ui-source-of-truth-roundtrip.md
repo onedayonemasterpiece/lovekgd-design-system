@@ -97,6 +97,52 @@ viewport_id
 candidate_package_sha
 ```
 
+### 3a. Mandatory archetype visual-parity gate
+
+Archetype work may start only from component families that passed their bounded
+component review. Each archetype representation then receives an exact,
+repeatable source-versus-reconstruction check; judging that two distant boards
+"look similar" is not evidence.
+
+For every reviewed route/state/viewport:
+
+1. Pin the exact Astro commit, route, fixture/data identity, viewport, DPR,
+   browser, loaded fonts, theme, locale/timezone, authentication,
+   personalization/consent and interaction state.
+2. Capture the current generated Astro result at those exact conditions. Store
+   the image hash and capture manifest. This raster is **source evidence**, not a
+   component, insertable resource or new source of truth.
+3. Put that screenshot on the archetype review page in a locked, clearly named
+   `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
+4. Immediately beside it build `COMPONENT RECONSTRUCTION` from linked accepted
+   design-system instances only. Text and artwork may be fixture overrides;
+   detached component copies and broad visual patch layers are forbidden.
+5. Export the reconstruction from Penpot at the same pixel dimensions and DPR,
+   then import/render both images on the comparison surface.
+6. Inspect the pair visually at useful scale in all three modes: side by side,
+   50% overlay/blink, and a pixel/difference image when available. Check
+   typography/font loading, baselines, spacing, intrinsic/hug sizing, clipping,
+   media crop, radii, colors/opacity, icon optical alignment, order, responsive
+   behavior and visible states.
+7. Record every unexplained delta against its semantic component/slot. Repair
+   the Git SoT/component boundary once and propagate the correction to every
+   consumer; do not patch only this archetype unless the delta is an explicit
+   contextual rule in the contract.
+8. Repeat capture → export/import → visual inspection until the owner accepts
+   the bounded comparison. The receipt binds source and reconstruction hashes,
+   Penpot page/board IDs, export IDs, comment IDs, intentional deltas and owner
+   disposition.
+
+If the component reconstruction cannot reproduce the pinned Astro evidence,
+stop archetype work and return to the earliest invalid component/SoT gate. A
+page archetype is not ready merely because all expected component names are
+present.
+
+After Penpot acceptance, the isolated Astro candidate must be captured again
+with the same fixtures and compared against the accepted Penpot reconstruction
+before phone/desktop review. Only that accepted browser/device result may
+continue toward production.
+
 ### 4. Promote and release only after browser approval
 
 ```text

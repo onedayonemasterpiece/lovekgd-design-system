@@ -106,8 +106,14 @@ def main():
  exhibition=components['exhibition.row']
  exhibition_states='\n'.join(x['state_key'] for x in exhibition['valid_combinations'])
  if 'feedback-selection=rejected-hidden-with-undo' not in exhibition_states or 'feedback-selection=hidden-undo' in exhibition_states or 'presentation=mobile-gallery' not in exhibition_states or 'viewport=mobile' not in exhibition_states: fail('ECT_EXHIBITION_STATE_DRIFT','/components/exhibition.row','combined rejected/undo and mobile presentation required')
- expected_counts={'event.card':23,'listing.event-card':10,'listing.rail-row':16,'festival.card':9,'exhibition.row':7}
+ # EventCard's former E13-E23 Cartesian tail was retired after the owner review:
+ # those controller/action states are now validated as linked primitives and
+ # contextual specimens instead of duplicate parent-card variants.
+ expected_counts={'event.card':12,'listing.event-card':10,'listing.rail-row':16,'festival.card':9,'exhibition.row':7}
  if {cid:len(c['valid_combinations']) for cid,c in components.items()}!=expected_counts: fail('ECT_SOURCE_STATE_COUNT_DRIFT','/components',f'exact source-proven representative plane required: {expected_counts}')
+ composed=components['event.card'].get('composed_state_contracts',{})
+ if composed.get('state_count')!=11 or len(composed.get('states',[]))!=11:
+  fail('ECT_COMPOSED_STATE_COUNT_DRIFT','/components/event.card/composed_state_contracts','the retired E13-E23 source states must remain preserved as 11 composable-state contracts')
  inventory=[]
  for s in man['screenshots']: inventory.extend(s['item_refs'])
  bound=[s['screenshot_item_ref'] for s in man['specimens']]

@@ -1,0 +1,381 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-card-systemic-boundaries-candidate.v1.schema.json",
+  "schema_version": "event_card_systemic_boundaries_candidate_v1",
+  "package_id": "candidate.event-card-systemic-boundaries",
+  "family_id": "family.event-preview-representations",
+  "contract_version": "1.0.0-candidate.2",
+  "contract_payload_sha256": "91a5350b72f3c54cc8a7ecad2a830b876dd9f719c8b029cd1a1fca2a5e8e67d9",
+  "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
+  "status": "penpot-reconciled-ready-for-owner-rereview",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "owner_acceptance": "awaiting-owner-visual-rereview",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+    "previous_stale_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411"
+  },
+  "supersedes_for_bounded_scope": [
+    "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json semantic child boundaries",
+    "catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json loose icon/count composition",
+    "receipts/penpot/event-card-library-architecture-remediation-v1.json rail review-layout conclusion"
+  ],
+  "owner_comment_binding": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "observed_file_revn": 997,
+    "threads": [
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ],
+    "page_40_2_threads": [
+      91,
+      92,
+      93,
+      94,
+      95
+    ],
+    "disposition": "accepted-as-correction-input; materialize from this Git contract; keep visual acceptance open"
+  },
+  "semantic_components": {
+    "event.social-proof.share": {
+      "display_path": "Event cards / Shared / Social proof / Share",
+      "role": "passive aggregate metric",
+      "required_children": [
+        "linked icon.ui.share",
+        "count text inside component"
+      ],
+      "axes": {
+        "presentation": [
+          "compact",
+          "labelled"
+        ],
+        "tone": [
+          "on-light",
+          "on-dark"
+        ],
+        "count_mode": [
+          "zero",
+          "nonzero"
+        ]
+      },
+      "content_overrides": [
+        "count",
+        "optional label"
+      ],
+      "forbidden": [
+        "raw count sibling outside instance",
+        "direct raw icon as functional consumer node"
+      ]
+    },
+    "event.social-proof.like": {
+      "display_path": "Event cards / Shared / Social proof / Like",
+      "role": "passive aggregate metric",
+      "required_children": [
+        "linked icon.ui.heart",
+        "count text inside component"
+      ],
+      "axes": {
+        "presentation": [
+          "compact"
+        ],
+        "tone": [
+          "on-light",
+          "on-dark"
+        ],
+        "count_mode": [
+          "zero",
+          "nonzero"
+        ]
+      },
+      "content_overrides": [
+        "count"
+      ],
+      "forbidden": [
+        "raw count sibling outside instance",
+        "direct raw icon as functional consumer node"
+      ]
+    },
+    "event.action.share": {
+      "display_path": "Event cards / Shared / Action / Share",
+      "role": "interactive share action",
+      "composition": [
+        "linked event.social-proof.share"
+      ],
+      "axes": {
+        "presentation": [
+          "labelled",
+          "compact"
+        ],
+        "tone": [
+          "on-light",
+          "on-dark"
+        ],
+        "state": [
+          "rest",
+          "focus-visible",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "content_overrides": [
+        "count",
+        "label"
+      ],
+      "surface_rule": "transparent except an explicitly source-bound overlay-control state"
+    },
+    "event.action.like": {
+      "display_path": "Event cards / Shared / Action / Like",
+      "role": "interactive like action",
+      "composition": [
+        "linked event.social-proof.like"
+      ],
+      "axes": {
+        "presentation": [
+          "compact",
+          "cta",
+          "local-save"
+        ],
+        "tone": [
+          "on-light",
+          "on-dark"
+        ],
+        "selected": [
+          "off",
+          "on"
+        ],
+        "state": [
+          "rest",
+          "focus-visible",
+          "pressed",
+          "disabled"
+        ],
+        "count_presence": [
+          "present",
+          "absent"
+        ]
+      },
+      "content_overrides": [
+        "count"
+      ],
+      "exceptions": {
+        "festival.card": "count_presence=absent; pinned Astro has no aggregate count"
+      },
+      "compatibility_alias": {
+        "favorite": "deprecated display/source compatibility only; canonical candidate term is like"
+      }
+    },
+    "event.identity.medallion": {
+      "display_path": "Event cards / Shared / Identity / Medallion",
+      "role": "consumer wrapper",
+      "composition": [
+        "linked event.medallion-frame",
+        "linked Medallion / Artwork / {stable_slug}"
+      ],
+      "axes": {
+        "tier": [
+          "compact44",
+          "standard60",
+          "feature88"
+        ],
+        "placement": [
+          "overlay",
+          "rail-slot",
+          "identity-rail"
+        ]
+      },
+      "content_overrides": [
+        "artwork linked instance"
+      ],
+      "instance_name_template": "linked Medallion / {stable_slug} / tier={tier} / placement={placement}"
+    }
+  },
+  "semantic_slots": {
+    "event.content.title": {
+      "kind": "parent-owned semantic content slot; not a standalone library component",
+      "instance_name": "Content / Event title",
+      "override": "text",
+      "owns": [
+        "family typography style binding",
+        "max-lines/overflow",
+        "link semantics when present"
+      ]
+    },
+    "event.content.location": {
+      "kind": "parent-owned semantic content slot; not a standalone library component",
+      "instance_name": "Content / Event place",
+      "override": "resolved display string",
+      "runtime_projection": {
+        "event.card": "city · venue",
+        "listing.event-card": "venue · city",
+        "listing.rail-row": "city · venue; fallback Место уточняется",
+        "festival.card": "authored place/compactPlace",
+        "exhibition.row": "venue OR city",
+        "event.list-item": "venue · city"
+      },
+      "rule": "city and venue values are content, never component variants"
+    }
+  },
+  "family_composition": {
+    "event.card": {
+      "display_path": "Event cards / Large / EventCard · Large",
+      "required_semantic_children": [
+        "Content / Event title",
+        "Content / Event place",
+        "Event type",
+        "Admission",
+        "Action / Share",
+        "Action / Like",
+        "Action / Calendar",
+        "Action / Not interested"
+      ],
+      "social_proof": "share/like counts stay inside their linked action components",
+      "active_variant_count": 12,
+      "archived_page_40_1b_not_current_binding": true
+    },
+    "listing.event-card": {
+      "display_path": "Event cards / Compact / ListingEventCard",
+      "required_semantic_children": [
+        "Content / Event title",
+        "Content / Event place",
+        "Social proof / Share",
+        "Social proof / Like",
+        "Identity / Medallion",
+        "Event media"
+      ],
+      "proof_placement": [
+        "inside",
+        "rail"
+      ],
+      "forbid_loose_icon_count": true
+    },
+    "listing.rail-row": {
+      "display_path": "Event cards / Mobile rail / MobileListingRailRow · Track",
+      "required_semantic_children": [
+        "Summary",
+        "Content / Event title",
+        "Content / Event place",
+        "Social proof / Like compact",
+        "0..N Event media",
+        "Digest",
+        "0..N Identity / Medallion",
+        "Action / Like",
+        "Negative action",
+        "optional Artifact"
+      ],
+      "track": {
+        "stable_role": "listing.rail-track",
+        "layout": "horizontal auto-layout",
+        "width": "intrinsic max-content",
+        "nowrap": true,
+        "clip": false,
+        "height_px": 112
+      },
+      "viewport": {
+        "stable_role": "pattern.listing.rail-viewport",
+        "width": "review viewport, e.g. 390",
+        "clip": true,
+        "owns": [
+          "scroll position",
+          "gesture state"
+        ],
+        "not_the_track_component": true
+      },
+      "review_page": {
+        "full_tracks": "one specimen per vertical row; full intrinsic width visible",
+        "viewport_patterns": "separate section",
+        "outer_board_clip": false
+      }
+    },
+    "festival.card": {
+      "display_path": "Event cards / Festival / FestivalCard",
+      "required_semantic_children": [
+        "Content / Event title",
+        "Content / Event place",
+        "Date badge",
+        "Program status badge",
+        "Category badge",
+        "Action / Like local-save"
+      ],
+      "aggregate_count": "absent by source; do not invent"
+    },
+    "exhibition.row": {
+      "display_path": "Event cards / Exhibition / ExhibitionRow",
+      "required_semantic_children": [
+        "Content / Event title",
+        "Content / Event place",
+        "Event media deck",
+        "Identity / Medallion",
+        "Social proof / Share",
+        "Action / Like",
+        "Action / Reject",
+        "Discussed signal"
+      ],
+      "forbid_loose_icon_count": true
+    },
+    "event.list-item": {
+      "display_path": "Event cards / Row / EventListItem",
+      "required_semantic_children": [
+        "Content / Event title",
+        "Content / Event place",
+        "EventOccurrenceLabel",
+        "Admission",
+        "Action / Calendar",
+        "Action / Details"
+      ],
+      "social_proof": "absent by source; do not invent"
+    }
+  },
+  "penpot_reconciliation": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "pages": {
+      "primitives": "c0d4e5a2-7db6-80c7-8008-81f0f25e13ca",
+      "event_card_large": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+      "listing_event_card": "579a886e-56e8-80a3-8008-81882dc397aa",
+      "mobile_rail": "579a886e-56e8-80a3-8008-81882dc703ba"
+    },
+    "known_track_component_id": "a21f0524-f565-8038-8008-786ff2935002",
+    "known_track_main_id": "a21f0524-f565-8038-8008-786fef5d0e6a",
+    "known_viewport_variant_container_id": "579a886e-56e8-80a3-8008-8189203d3b5d",
+    "retired_current_binding_ids": [
+      "45777396-2f2a-80c0-8008-818bbc0fe1ed",
+      "45777396-2f2a-80c0-8008-818d09eb4b0d"
+    ],
+    "requirements": [
+      "native linked instances only; detached copies=0",
+      "component/layer names expose functional role",
+      "no nested Icon functional node directly under a card master",
+      "one icon+count semantic ancestor for every proof/action count",
+      "full rail tracks arranged vertically and unclipped",
+      "variant labels/properties reconciled against pinned source",
+      "focused exports inspected before owner handoff"
+    ],
+    "boards": {
+      "listing_event_card_review": "579a886e-56e8-80a3-8008-818872c05a92",
+      "event_card_large_review": "45777396-2f2a-80c0-8008-818b87df1e84",
+      "mobile_rail_review": "579a886e-56e8-80a3-8008-8189000fe2e6"
+    },
+    "materialization_receipt": "receipts/penpot/event-card-systemic-component-remediation-v1.json"
+  },
+  "non_claims": [
+    "owner visual acceptance",
+    "Astro reverse integration",
+    "browser candidate",
+    "production mutation",
+    "family promotion",
+    "global token acceptance"
+  ],
+  "rollback": {
+    "git": "revert the bounded systemic-boundary commit",
+    "penpot": "restore saved version immediately preceding systemic reconciliation"
+  }
+}
