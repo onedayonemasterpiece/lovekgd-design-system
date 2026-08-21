@@ -53,12 +53,14 @@ jobs:
         with:
           repository: onedayonemasterpiece/lovekgd-design-system
           ref: ${{ inputs.design_ref }}
+          fetch-depth: 0
           path: design-system
       - name: Check out Astro source exact ref
         uses: actions/checkout@v4
         with:
           repository: onedayonemasterpiece/events-bot-new
           ref: ${{ inputs.events_ref }}
+          fetch-depth: 0
           path: events-bot-new
       - name: Install schema validator
         run: |
