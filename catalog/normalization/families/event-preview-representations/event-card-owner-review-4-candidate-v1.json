@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "25b3c52c3e79400812e3c5cd0ded7ca6138d829e96071ed49589ab7c95bec4a0",
+  "contract_payload_sha256": "bea8e11d9fafd58791f36e1dab2ef6927321ab802f5e23c03573d49f17827a7b",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -276,6 +276,25 @@
           "on-light"
         ],
         "background": "always transparent"
+      },
+      "like_action": {
+        "active_states": [
+          "rest",
+          "hover",
+          "focus-visible",
+          "pressed"
+        ],
+        "selected": [
+          "off",
+          "on"
+        ],
+        "count": [
+          "zero",
+          "nonzero"
+        ],
+        "selected_state_rule": "selected is a boolean axis, not a duplicate state value",
+        "busy_error": "absent in pinned Astro; do not publish invented visual variants",
+        "background": "transparent in split-actions context"
       }
     },
     "listing": {
@@ -360,6 +379,12 @@
       "page_key": "primitives",
       "decision": "Reconcile Share action transient copy to pinned Astro exactly: Готовим картинку…, Поделились, Ссылка скопирована, Не удалось; keep background transparent and tone contextual.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F07",
+      "page_key": "primitives",
+      "decision": "Remove invented Like action busy/error variants and collapse redundant state=selected into state=rest + selected=on; retain state rest/hover/focus-visible/pressed, selected off/on and count zero/nonzero.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }
