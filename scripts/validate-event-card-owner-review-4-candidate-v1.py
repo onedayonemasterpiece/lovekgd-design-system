@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT = ROOT / "catalog/normalization/families/event-preview-representations/event-card-owner-review-4-candidate-v1.json"
+RECEIPT = ROOT / "receipts/penpot/event-card-owner-review-4-remediation-v1.json"
+
+
+def stable(payload: dict) -> str:
+    normalized = dict(payload)
+    normalized.pop("contract_payload_sha256", None)
+    return hashlib.sha256(
+        json.dumps(normalized, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
+contract = json.loads(CONTRACT.read_text())
+assert contract["canonical"] is False
+assert contract["promotion_status"] == "not_promoted"
+assert contract["status"] == "materialized-awaiting-owner-rereview"
+assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc"
+assert contract["contract_payload_sha256"] == stable(contract)
+
+binding = contract["owner_comment_binding"]
+assert binding["observed_file_revn"] == 1185
+assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
+assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
+    27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
+]
+assert all(
+    item["status"] == "materialized-awaiting-owner-rereview"
+    for group in ("new_threads", "previously_unattended_threads")
+    for item in binding[group]
+)
+
+parity = contract["archetype_visual_parity_gate"]
+assert parity["source_screenshot_is_sot"] is False
+assert parity["detached_archetype_patch_allowed"] is False
+assert parity["unexplained_delta_blocks_archetype"] is True
+assert "capture and hash source screenshot" in parity["required_sequence"]
+assert "build adjacent reconstruction from linked components only" in parity["required_sequence"]
+assert "inspect side-by-side and 50-percent overlay/blink; diff when available" in parity["required_sequence"]
+assert contract["page_contracts"]["rail"]["track"].startswith("max-content 112px")
+assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X only on selected row"
+
+receipt = json.loads(RECEIPT.read_text())
+assert receipt["status"] == "materialized-awaiting-owner-rereview"
+assert receipt["file_revn"] == 1185
+assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
+assert receipt["readback"]["current_file_validate_errors"] == 0
+assert receipt["readback"]["variant_errors"] == 0
+assert receipt["readback"]["overlay_controls_references_on_page_40_1a"] == 0
+assert receipt["readback"]["artifact_mobile_board"]["width"] == 390
+assert receipt["persistence"]["named_version_created"] is False
+assert receipt["idempotency_readback"]["unintended_component_create_delta"] == 0
+assert receipt["idempotency_readback"]["unintended_page_create_delta"] == 0
+assert [item["order"] for item in receipt["review_sequence"]] == list(range(1, 8))
+assert all(item["url"].startswith("https://design.penpot.app/#/workspace?") for item in receipt["review_sequence"])
+assert "owner visual acceptance" in receipt["non_claims"]
+assert "Astro reverse integration" in receipt["non_claims"]
+
+print(f"PASS {CONTRACT.relative_to(ROOT)} {contract['contract_payload_sha256']} + {RECEIPT.relative_to(ROOT)} rev{receipt['file_revn']}")
