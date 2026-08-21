@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "f9f2002e7f121ed86ba8dd7830437fb72539e132e2d25210bc8b3cb4941fb9bc",
+  "contract_payload_sha256": "7cd6e4eefca761e234416991bd657f526319b57bc0f9c18ecbf70f433c4e5668",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -265,7 +265,8 @@
       "keyboard": "bordered kbd L/X only on selected row",
       "medallion": "linked Page48 artwork/frame; fixture 5376 = world-ocean-museum",
       "deck": "linked ExhibitionDeck composite",
-      "share": "linked shared proof with transparent background"
+      "share": "linked shared proof with transparent background",
+      "keyboard_keycap": "linked reusable component; 18×18 dark bordered key; label L or X is an instance text override; present only on keyboard-selected row"
     }
   },
   "verification_gates": [
@@ -290,6 +291,12 @@
       "page_key": "rail",
       "decision": "Keep the full-track review sequence visibly consecutive by labelling the research artifact row T10 between T09 and T11.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F03",
+      "page_key": "exhibition",
+      "decision": "Materialize a reusable native Keyboard keycap component and place linked L/X instances only on the keyboard-selected ExhibitionRow candidate; the idle candidate has none.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }

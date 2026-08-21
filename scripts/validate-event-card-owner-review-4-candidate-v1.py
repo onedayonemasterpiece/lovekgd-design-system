@@ -40,6 +40,8 @@ assert contract["page_contracts"]["large"]["active_review_state_count"] == 11
 assert contract["page_contracts"]["rail"]["display_state_labels"].startswith("T01–T16 consecutive")
 assert contract["followup_decisions"][0]["id"] == "OR4-F02"
 assert contract["followup_decisions"][0]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["followup_decisions"][1]["id"] == "OR4-F03"
+assert contract["page_contracts"]["exhibition"]["keyboard_keycap"].startswith("linked reusable component")
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
