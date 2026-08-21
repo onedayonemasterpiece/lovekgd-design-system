@@ -43,6 +43,8 @@ assert contract["followup_decisions"][0]["status"] == "materialized-awaiting-own
 assert contract["followup_decisions"][1]["id"] == "OR4-F03"
 assert contract["page_contracts"]["exhibition"]["keyboard_keycap"].startswith("linked reusable component")
 assert contract["followup_decisions"][1]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["followup_decisions"][2]["id"] == "OR4-F04"
+assert contract["page_contracts"]["large"]["calendar_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed", "added"]
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False

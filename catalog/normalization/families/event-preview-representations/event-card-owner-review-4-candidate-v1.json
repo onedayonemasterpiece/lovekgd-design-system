@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "d59f64a6c1c20b761ad31df0b2befd58c5fc48ade268e3e59a4ecbf641190d91",
+  "contract_payload_sha256": "457ce75b3efe061f77e5babdce94d2f62ffbaf835d583458c307195c98fcb759",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -231,7 +231,19 @@
       "light_context": "on-light action tone",
       "optional_meta": "absent node means no gap",
       "active_review_state_count": 11,
-      "display_state_labels": "E01–E11 consecutive; stable native component IDs remain unchanged"
+      "display_state_labels": "E01–E11 consecutive; stable native component IDs remain unchanged",
+      "calendar_action": {
+        "active_states": [
+          "rest",
+          "hover",
+          "focus-visible",
+          "pressed",
+          "added"
+        ],
+        "ineligible": "node absent; no disabled/Недоступно visual variant",
+        "added_label": "Добавлено",
+        "icon_only_event_card": false
+      }
     },
     "listing": {
       "proof": "passive shared semantic metric with nested count and exact source geometry",
@@ -297,6 +309,12 @@
       "page_key": "exhibition",
       "decision": "Materialize a reusable native Keyboard keycap component and place linked L/X instances only on the keyboard-selected ExhibitionRow candidate; the idle candidate has none.",
       "status": "materialized-awaiting-owner-rereview"
+    },
+    {
+      "id": "OR4-F04",
+      "page_key": "primitives",
+      "decision": "Remove the invented Calendar disabled/Недоступно variant from the active native set; ineligible EventCard omits the Calendar node. Keep rest, hover, focus-visible, pressed and added.",
+      "status": "sot-recorded-pending-followup-materialization"
     }
   ]
 }
