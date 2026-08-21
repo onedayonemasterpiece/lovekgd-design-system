@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -101,7 +101,7 @@ const blockedCompare = spawnSync('node', [join(repo, '.codex/skills/ui-three-way
 assert.equal(blockedCompare.status, 2, blockedCompare.stderr || blockedCompare.stdout);
 assert.equal(readJson(join(blockedRun, 'structural-findings.json')).status, 'blocked');
 assert.equal(readJson(join(blockedRun, 'pixel-metrics.json')).difference_ratio, null);
-for (const forbidden of ['penpot.png', 'overlay-50.png', 'diff.png']) assert.equal(spawnSync('test', ['!', '-e', join(blockedRun, forbidden)]).status, 0, `${forbidden} must not exist for a mismatched fixture`);
+for (const forbidden of ['penpot.png', 'overlay-50.png', 'diff.png']) assert.equal(existsSync(join(blockedRun, forbidden)), false, `${forbidden} must not exist for a mismatched fixture`);
 
 // Cleanup safety, keep/lock/durable, dry-run and disk-cap LRU.
 assert.throws(() => cleanupRuns({ root: '/' }), /Unsafe artifact root/);
