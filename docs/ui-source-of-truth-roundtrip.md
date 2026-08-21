@@ -109,11 +109,20 @@ For every reviewed route/state/viewport:
 1. Pin the exact Astro commit, route, fixture/data identity, viewport, DPR,
    browser, loaded fonts, theme, locale/timezone, authentication,
    personalization/consent and interaction state.
+   For event UI, select that identity from the versioned Golden Event Corpus
+   and bind the full public `PreviewEvent` payload hash, frozen clock,
+   resolved-render-case hash and media-byte hashes. The Astro evidence and
+   Penpot reconstruction must use one and the same real event and resolved
+   content; comparing different events, even with similar geometry, is invalid.
 2. Capture the current generated Astro result at those exact conditions. Store
    the image hash and capture manifest. This raster is **source evidence**, not a
    component, insertable resource or new source of truth.
 3. Put that screenshot on the archetype review page in a locked, clearly named
    `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
+   Keep evidence bounded: use one case per small review board where practical.
+   Do not export a giant page/board or leave detached semantic masters and
+   obsolete debris inside owner-review scope when the exact component root is
+   sufficient.
 4. Immediately beside it build `COMPONENT RECONSTRUCTION` from linked accepted
    design-system instances only. Text and artwork may be fixture overrides;
    detached component copies and broad visual patch layers are forbidden.
