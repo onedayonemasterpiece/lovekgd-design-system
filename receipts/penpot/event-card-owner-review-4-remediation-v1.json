@@ -3,9 +3,9 @@
   "status": "materialized-awaiting-owner-rereview",
   "created_at": "2026-08-21",
   "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-  "file_revn": 1205,
+  "file_revn": 1206,
   "contract_ref": "catalog/normalization/families/event-preview-representations/event-card-owner-review-4-candidate-v1.json",
-  "contract_payload_sha256": "46fa59265bffb0cbe0b70ca72b36c53720aa5715fd33359b28988ec3ab7887e4",
+  "contract_payload_sha256": "25b3c52c3e79400812e3c5cd0ded7ca6138d829e96071ed49589ab7c95bec4a0",
   "source_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
   "readback": {
     "current_file_validate_errors": 0,
@@ -90,7 +90,37 @@
       "focus-visible",
       "pressed"
     ],
-    "not_interested_committed_shape_present": false
+    "not_interested_committed_shape_present": false,
+    "file_revn_after_share_action_followup": 1206,
+    "share_action_variant_axes": {
+      "state": [
+        "rest",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "busy",
+        "shared",
+        "copied",
+        "error"
+      ],
+      "tone": [
+        "on-light",
+        "on-dark"
+      ],
+      "count": [
+        "nonzero",
+        "zero"
+      ]
+    },
+    "share_action_transient_labels": {
+      "busy": "Готовим картинку…",
+      "shared": "Поделились",
+      "copied": "Ссылка скопирована",
+      "error": "Не удалось"
+    },
+    "share_action_variant_count": 11,
+    "share_action_nontransparent_root_count": 0,
+    "share_action_variant_errors": 0
   },
   "persistence": {
     "mode": "automatic persistence after valid bounded mutations",
@@ -109,7 +139,10 @@
       "focused Calendar variant-set export inspected after removal",
       "invented Not interested committed/Скрыто action variant removed",
       "active negative-action set now contains exactly rest, hover, focus-visible and pressed",
-      "whole-card transient hidden plus Undo remains the only committed representation"
+      "whole-card transient hidden plus Undo remains the only committed representation",
+      "Share transient labels reconciled to pinned Astro exactly: Готовим картинку…, Поделились, Ссылка скопирована, Не удалось",
+      "all 11 Share action roots have transparent fill; state/tone/count axes read back with zero variant errors",
+      "focused full Share variant-set export inspected after transient-copy correction"
     ],
     "page_40_1a": [
       "light-context Share and Like use visible on-light tone",
@@ -168,7 +201,7 @@
     {
       "page_key": "30.1",
       "shape_id": "c0d4e5a2-7db6-80c7-8008-81f11962a9d6",
-      "status": "exported-and-inspected; Calendar five-state source set verified"
+      "status": "exported-and-inspected; Calendar five-state source set, negative four-state source set, and Share 11-variant transparent set verified"
     },
     {
       "page_key": "40.1a",
