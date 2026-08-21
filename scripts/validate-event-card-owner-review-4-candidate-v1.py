@@ -21,7 +21,7 @@ def stable(payload: dict) -> str:
 contract = json.loads(CONTRACT.read_text())
 assert contract["canonical"] is False
 assert contract["promotion_status"] == "not_promoted"
-assert contract["status"] == "materialized-awaiting-owner-rereview"
+assert contract["status"] in {"materialized-awaiting-owner-rereview", "followup-recorded-before-penpot-materialization"}
 assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc"
 assert contract["contract_payload_sha256"] == stable(contract)
 
@@ -32,10 +32,11 @@ assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
 ]
 assert all(
-    item["status"] == "materialized-awaiting-owner-rereview"
+    item["status"] in {"materialized-awaiting-owner-rereview", "sot-recorded-pending-followup-materialization"}
     for group in ("new_threads", "previously_unattended_threads")
     for item in binding[group]
 )
+assert contract["page_contracts"]["large"]["active_review_state_count"] == 11
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
@@ -50,7 +51,8 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
 assert receipt["file_revn"] == 1185
-assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
+if contract["status"] == "materialized-awaiting-owner-rereview":
+    assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
 assert receipt["readback"]["variant_errors"] == 0
 assert receipt["readback"]["overlay_controls_references_on_page_40_1a"] == 0

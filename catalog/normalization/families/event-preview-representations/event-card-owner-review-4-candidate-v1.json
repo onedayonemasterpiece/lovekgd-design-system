@@ -4,9 +4,9 @@
   "package_id": "candidate.event-card-owner-review-4",
   "family_id": "family.event-preview-representations",
   "contract_version": "1.0.0-candidate.1",
-  "contract_payload_sha256": "4c26af1171e844b81f51f15a192bd7fc2b00a9aa63ccaf46aeab9c3e6f06f252",
+  "contract_payload_sha256": "a742beef06d9ab00c9d8c30cda7a81af578c1077000b3364a52985e6a955e1ce",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
-  "status": "materialized-awaiting-owner-rereview",
+  "status": "followup-recorded-before-penpot-materialization",
   "authority_mode": "owner-comment-correction-over-pinned-source",
   "canonical": false,
   "promotion_status": "not_promoted",
@@ -131,8 +131,8 @@
       {
         "seq": 70,
         "page_key": "large",
-        "decision": "Remove the deprecated/forbidden extra Large meta element from every active specimen, not only hide its label.",
-        "status": "materialized-awaiting-owner-rereview"
+        "decision": "Remove the deprecated Large overlay-controls specimen, its annotations and empty slot, then renumber the remaining review display labels consecutively without changing stable component IDs.",
+        "status": "sot-recorded-pending-followup-materialization"
       },
       {
         "seq": 74,
@@ -229,7 +229,9 @@
     "large": {
       "hidden": "transient controller overlay plus centered undo, not component variant",
       "light_context": "on-light action tone",
-      "optional_meta": "absent node means no gap"
+      "optional_meta": "absent node means no gap",
+      "active_review_state_count": 11,
+      "display_state_labels": "E01–E11 consecutive; stable native component IDs remain unchanged"
     },
     "listing": {
       "proof": "passive shared semantic metric with nested count and exact source geometry",
