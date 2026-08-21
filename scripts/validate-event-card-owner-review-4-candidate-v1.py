@@ -37,6 +37,8 @@ assert all(
     for item in binding[group]
 )
 assert contract["page_contracts"]["large"]["active_review_state_count"] == 11
+assert contract["page_contracts"]["rail"]["display_state_labels"].startswith("T01–T16 consecutive")
+assert contract["followup_decisions"][0]["id"] == "OR4-F02"
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
