@@ -26,7 +26,7 @@ assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd
 assert contract["contract_payload_sha256"] == stable(contract)
 
 binding = contract["owner_comment_binding"]
-assert binding["observed_file_revn"] == 1212
+assert binding["observed_file_revn"] == 1235
 assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
 assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
@@ -89,7 +89,7 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["readback"]["rail_review_labels"] == [f"T{i:02d}" for i in range(1, 17)]
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
-assert receipt["file_revn"] == 1212
+assert receipt["file_revn"] == 1235
 if contract["status"] == "materialized-awaiting-owner-rereview":
     assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
@@ -122,8 +122,18 @@ assert receipt["readback"]["share_action_transient_labels"] == {"busy": "Гот�
 assert receipt["persistence"]["named_version_created"] is False
 assert receipt["idempotency_readback"]["unintended_component_create_delta"] == 0
 assert receipt["idempotency_readback"]["unintended_page_create_delta"] == 0
-assert [item["order"] for item in receipt["review_sequence"]] == list(range(1, 8))
+assert [item["order"] for item in receipt["review_sequence"]] == list(range(1, 10))
 assert all(item["url"].startswith("https://design.penpot.app/#/workspace?") for item in receipt["review_sequence"])
+assert len(receipt["direct_review_boards"]) == 37
+assert [item["order"] for item in receipt["direct_review_boards"]] == list(range(1, 38))
+assert all(item["url"].startswith("https://design.penpot.app/#/workspace?") for item in receipt["direct_review_boards"])
+assert receipt["review_handoff"]["status"] == "ready-for-owner-rereview"
+assert receipt["review_handoff"]["full_large_board_export_required"] is False
+assert receipt["review_handoff"]["visible_junk_in_owner_review_lane"] is False
+assert receipt["readback"]["owner_review_small_board_count"] == 37
+assert receipt["readback"]["owner_review_board_overflow_count"] == 0
+assert receipt["readback"]["owner_review_board_overlap_count"] == 0
+assert receipt["readback"]["owner_review_child_overlap_count_excluding_intentional_pushkin_overflow"] == 0
 assert "owner visual acceptance" in receipt["non_claims"]
 assert "Astro reverse integration" in receipt["non_claims"]
 
