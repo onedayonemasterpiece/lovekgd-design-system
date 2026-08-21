@@ -3,9 +3,9 @@
   "status": "materialized-awaiting-owner-rereview",
   "created_at": "2026-08-21",
   "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-  "file_revn": 1206,
+  "file_revn": 1207,
   "contract_ref": "catalog/normalization/families/event-preview-representations/event-card-owner-review-4-candidate-v1.json",
-  "contract_payload_sha256": "25b3c52c3e79400812e3c5cd0ded7ca6138d829e96071ed49589ab7c95bec4a0",
+  "contract_payload_sha256": "0101f954e483faed2284ba635984037a0ed90ec3f1d28dc576927cfb98467d12",
   "source_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
   "readback": {
     "current_file_validate_errors": 0,
@@ -120,7 +120,28 @@
     },
     "share_action_variant_count": 11,
     "share_action_nontransparent_root_count": 0,
-    "share_action_variant_errors": 0
+    "share_action_variant_errors": 0,
+    "file_revn_after_like_action_followup": 1207,
+    "like_action_variant_axes": {
+      "state": [
+        "rest",
+        "hover",
+        "focus-visible",
+        "pressed"
+      ],
+      "selected": [
+        "off",
+        "on"
+      ],
+      "count": [
+        "nonzero",
+        "zero"
+      ]
+    },
+    "like_action_variant_count": 6,
+    "like_action_busy_error_present": false,
+    "like_action_redundant_selected_state_present": false,
+    "like_action_variant_errors": 0
   },
   "persistence": {
     "mode": "automatic persistence after valid bounded mutations",
@@ -142,7 +163,10 @@
       "whole-card transient hidden plus Undo remains the only committed representation",
       "Share transient labels reconciled to pinned Astro exactly: Готовим картинку…, Поделились, Ссылка скопирована, Не удалось",
       "all 11 Share action roots have transparent fill; state/tone/count axes read back with zero variant errors",
-      "focused full Share variant-set export inspected after transient-copy correction"
+      "focused full Share variant-set export inspected after transient-copy correction",
+      "invented Like action busy/error variants removed",
+      "redundant state=selected collapsed to state=rest plus selected=on; active state values are rest, hover, focus-visible and pressed",
+      "selected filled-red Like+count focused export inspected; full-set export hit two Penpot exporter 504s and is recorded rather than claimed"
     ],
     "page_40_1a": [
       "light-context Share and Like use visible on-light tone",
@@ -201,7 +225,7 @@
     {
       "page_key": "30.1",
       "shape_id": "c0d4e5a2-7db6-80c7-8008-81f11962a9d6",
-      "status": "exported-and-inspected; Calendar five-state source set, negative four-state source set, and Share 11-variant transparent set verified"
+      "status": "exported-and-inspected; Calendar five-state, negative four-state, Share 11-variant transparent set, and selected filled-red Like+count verified; full Like set exporter returned two 504s"
     },
     {
       "page_key": "40.1a",

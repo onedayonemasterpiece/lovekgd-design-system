@@ -26,7 +26,7 @@ assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd
 assert contract["contract_payload_sha256"] == stable(contract)
 
 binding = contract["owner_comment_binding"]
-assert binding["observed_file_revn"] == 1206
+assert binding["observed_file_revn"] == 1207
 assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
 assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
@@ -53,6 +53,9 @@ assert contract["followup_decisions"][4]["id"] == "OR4-F06"
 assert contract["page_contracts"]["large"]["share_action"]["status_labels"]["busy"] == "Готовим картинку…"
 assert contract["page_contracts"]["large"]["share_action"]["background"] == "always transparent"
 assert contract["followup_decisions"][4]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["followup_decisions"][5]["id"] == "OR4-F07"
+assert contract["followup_decisions"][5]["status"] == "materialized-awaiting-owner-rereview"
+assert contract["page_contracts"]["large"]["like_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed"]
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
@@ -67,7 +70,7 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["readback"]["rail_review_labels"] == [f"T{i:02d}" for i in range(1, 17)]
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
-assert receipt["file_revn"] == 1206
+assert receipt["file_revn"] == 1207
 if contract["status"] == "materialized-awaiting-owner-rereview":
     assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
@@ -84,6 +87,10 @@ assert receipt["readback"]["not_interested_committed_shape_present"] is False
 assert receipt["readback"]["share_action_variant_count"] == 11
 assert receipt["readback"]["share_action_nontransparent_root_count"] == 0
 assert receipt["readback"]["share_action_variant_errors"] == 0
+assert receipt["readback"]["like_action_variant_count"] == 6
+assert receipt["readback"]["like_action_busy_error_present"] is False
+assert receipt["readback"]["like_action_redundant_selected_state_present"] is False
+assert receipt["readback"]["like_action_variant_errors"] == 0
 assert receipt["readback"]["share_action_transient_labels"] == {"busy": "Готовим картинку…", "shared": "Поделились", "copied": "Ссылка скопирована", "error": "Не удалось"}
 assert receipt["persistence"]["named_version_created"] is False
 assert receipt["idempotency_readback"]["unintended_component_create_delta"] == 0
