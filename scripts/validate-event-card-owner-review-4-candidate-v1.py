@@ -26,7 +26,7 @@ assert contract["source_baseline"]["exact_commit"] == "7d4b1d32710f60d65c7eb0dbd
 assert contract["contract_payload_sha256"] == stable(contract)
 
 binding = contract["owner_comment_binding"]
-assert binding["observed_file_revn"] == 1204
+assert binding["observed_file_revn"] == 1205
 assert [item["seq"] for item in binding["new_threads"]] == list(range(149, 163))
 assert [item["seq"] for item in binding["previously_unattended_threads"]] == [
     27, 31, 64, 70, 74, 88, 90, 91, 92, 93, 94, 95, 97, 132, 133, 145
@@ -48,6 +48,7 @@ assert contract["page_contracts"]["large"]["calendar_action"]["active_states"] =
 assert contract["followup_decisions"][2]["status"] == "materialized-awaiting-owner-rereview"
 assert contract["followup_decisions"][3]["id"] == "OR4-F05"
 assert contract["page_contracts"]["large"]["not_interested_action"]["active_states"] == ["rest", "hover", "focus-visible", "pressed"]
+assert contract["followup_decisions"][3]["status"] == "materialized-awaiting-owner-rereview"
 
 parity = contract["archetype_visual_parity_gate"]
 assert parity["source_screenshot_is_sot"] is False
@@ -62,7 +63,7 @@ assert contract["page_contracts"]["exhibition"]["keyboard"] == "bordered kbd L/X
 receipt = json.loads(RECEIPT.read_text())
 assert receipt["readback"]["rail_review_labels"] == [f"T{i:02d}" for i in range(1, 17)]
 assert receipt["status"] == "materialized-awaiting-owner-rereview"
-assert receipt["file_revn"] == 1204
+assert receipt["file_revn"] == 1205
 if contract["status"] == "materialized-awaiting-owner-rereview":
     assert receipt["contract_payload_sha256"] == contract["contract_payload_sha256"]
 assert receipt["readback"]["current_file_validate_errors"] == 0
@@ -74,6 +75,8 @@ assert receipt["readback"]["exhibition_keyboard_keycap"]["idle_instance_count"] 
 assert receipt["readback"]["exhibition_keyboard_keycap"]["selected_labels"] == ["L", "X"]
 assert receipt["readback"]["calendar_active_states"] == ["rest", "hover", "focus-visible", "pressed", "added"]
 assert receipt["readback"]["calendar_disabled_shape_present"] is False
+assert receipt["readback"]["not_interested_active_states"] == ["rest", "hover", "focus-visible", "pressed"]
+assert receipt["readback"]["not_interested_committed_shape_present"] is False
 assert receipt["persistence"]["named_version_created"] is False
 assert receipt["idempotency_readback"]["unintended_component_create_delta"] == 0
 assert receipt["idempotency_readback"]["unintended_page_create_delta"] == 0
