@@ -9,6 +9,8 @@
 
 Этот чек-лист нужен, чтобы закончить сайт на дизайн-системе и убрать визуальный и технический дрейф. Он не является перечнем всех возможных артефактов дизайн-системы.
 
+**Рабочая очерёдность:** [практический план выполнения по волнам](design-system-execution-sequence.md). Чек-лист отвечает на вопрос **что ещё не готово**, а план — **в каком порядке это закрывать, когда стабилизировать foundations, shell, полки, модальные окна и архетипы**.
+
 Целевой контур:
 
 ```text
@@ -157,13 +159,21 @@ Astro AS-IS
 | [ ] | Выполнить production rollout и post-deploy conformance | Accepted Git/Penpot/browser tuple совпадает с generated production pages |
 | [ ] | Поддерживать этот чек-лист после каждого принятого шага | Обновлены дата, evidence link, статус и следующий конкретный blocker |
 
-## Рекомендуемый порядок завершения без «космолёта»
+## Практическая очерёдность
 
-1. Довести карточки: исправить hash join, получить owner acceptance и провести первую реальную миграцию package → Astro.
-2. Закрыть foundations, от которых зависит почти всё: typography, colors, spacing, radii и responsive containers/grid.
-3. Нормализовать shell и базовые состояния: header, mobile navigation/menu, footer, dialogs, loading/empty/error.
-4. Закрыть rails и Event Detail, затем собирать архетипы только из принятых ресурсов.
-5. Мигрировать routes волнами и включить общий drift gate; не ждать «готовности всей дизайн-системы» для первой promotion.
+Полный порядок, критерии волн и точные моменты нормализации foundations описаны в [отдельном рабочем плане](design-system-execution-sequence.md).
+
+Кратко:
+
+1. Закончить card families, эталонные события и Astro ↔ Penpot conformance.
+2. До первого архетипа создать минимальный listing foundation baseline: typography/headings, semantic colors, spacing, radii, containers/grid и accessibility.
+3. Собрать `archetype.listing.date` как первый вертикальный срез, временно используя shell как pinned AS-IS dependency.
+4. На реальном первом архетипе нормализовать header, mobile menu, bottom navigation, shared overlays и footer.
+5. Сделать Weekend reuse-first; только после двух реальных архетипов выделить общий Listing Page Pattern и стабилизировать listing foundations v1.
+6. Проверить pattern на Popular/Unusual, затем перейти к Event Detail.
+7. После основной listing/detail инфраструктуры делать Search, Favorites, Personal Feed, Home и generic shelves.
+8. Collections/Festivals/Exhibitions/Clubs и special pages завершать поверх уже доказанных foundations/patterns.
+9. Мигрировать Astro волнами и включать drift gates на каждом принятом scope, а не ждать завершения всей дизайн-системы.
 
 ## Что не требуется для достижения цели
 
