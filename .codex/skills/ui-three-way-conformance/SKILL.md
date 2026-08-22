@@ -66,9 +66,15 @@ bounded contract; neither may silently become a new baseline.
    write `agent-review.json`. A threshold cannot replace visual review.
 7. Finalize to `PASS`, `MINOR`, `FAIL`, `EXCEPTION`, or `BLOCKED`; keep owner
    status separate and default it to `AWAITING_REVIEW`.
-8. Before owner review, explicitly publish the comparison board to the verified
-   Telegram topic using the existing human-session transport, then read the
-   exact message back and persist a receipt. Default local/CI runs never send.
+8. In an owner-authorized interactive review run, publish **each individual
+   case immediately when it reaches a terminal agent verdict** (`PASS`,
+   `MINOR`, `FAIL`, `EXCEPTION`, or `BLOCKED`). Send one case per transport
+   invocation, read the exact message/media back, and persist its receipt
+   before starting the next case. Telegram is the owner's live progress ledger:
+   never hold ready comparisons for an end-of-run batch. If Penpot export is
+   blocked, publish a truthful diagnostic board immediately and supersede it
+   later with the real comparison; never substitute structural facts for a
+   visual pass. Default local/CI runs never send.
 9. Run cleanup at start/end. Delete only marker-backed eligible ephemeral runs;
    never delete accepted exports, contracts, exceptions, or final receipts.
 
