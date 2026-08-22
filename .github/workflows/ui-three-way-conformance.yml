@@ -1,111 +1,156 @@
-name: UI three-way conformance
+name: EventCard Large current-v2 conformance
 
 on:
   workflow_call:
     inputs:
-      design_ref:
-        type: string
-        required: true
-      events_ref:
-        type: string
-        required: true
-      publish_telegram:
-        type: boolean
-        required: false
-        default: false
-      trusted_source:
-        type: boolean
-        required: false
-        default: false
+      design_sha: { type: string, required: true }
+      events_tooling_sha: { type: string, required: true }
+      astro_sha: { type: string, required: true }
+      batch: { type: string, required: false, default: '' }
+      publish_telegram: { type: boolean, required: false, default: false }
+      trusted_source: { type: boolean, required: false, default: false }
   workflow_dispatch:
     inputs:
-      design_ref:
-        description: Exact design-system ref/SHA
-        required: true
-        default: main
-      events_ref:
-        description: Exact events-bot-new ref/SHA
-        required: true
-        default: main
-      publish_telegram:
-        description: Prepare protected Telegram publication
-        required: true
-        type: boolean
-        default: false
-      trusted_source:
-        description: Confirm source refs are trusted, not a fork
-        required: true
-        type: boolean
-        default: false
+      design_sha: { description: 'Immutable 40-hex design SHA', required: true }
+      events_tooling_sha: { description: 'Immutable 40-hex events tooling SHA', required: true }
+      astro_sha: { description: 'Immutable 40-hex Astro source SHA', required: true }
+      batch: { description: 'event-card-large-current-v2, or empty for changed scope', required: false, default: '' }
+      publish_telegram: { description: 'Protected superseding publication only', required: true, type: boolean, default: false }
+      trusted_source: { description: 'Confirm non-fork trusted source', required: true, type: boolean, default: false }
 
+permissions: { contents: read }
 concurrency:
-  group: ui-three-way-conformance-${{ github.workflow }}-${{ github.ref }}
+  group: event-card-large-current-v2-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  REGISTRY: design-system/catalog/ui-components/event-card-large/current-v2/active-registry.json
+  BATCH_MANIFEST: design-system/catalog/ui-components/event-card-large/current-v2/batch-manifest.json
+
 jobs:
-  validate:
+  select:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    outputs:
+      case_count: ${{ steps.scope.outputs.case_count }}
+      applicability: ${{ steps.scope.outputs.applicability }}
     steps:
-      - name: Check out design system exact ref
-        uses: actions/checkout@v4
-        with:
-          repository: onedayonemasterpiece/lovekgd-design-system
-          ref: ${{ inputs.design_ref }}
-          fetch-depth: 0
-          path: design-system
-      - name: Check out Astro source exact ref
-        uses: actions/checkout@v4
-        with:
-          repository: onedayonemasterpiece/events-bot-new
-          ref: ${{ inputs.events_ref }}
-          fetch-depth: 0
-          path: events-bot-new
-      - name: Install schema validator
-        run: |
-          python3 -m pip install jsonschema
-          sudo apt-get update
-          sudo apt-get install -y imagemagick
-      - name: Validate skill and contracts
-        working-directory: design-system
-        run: |
-          for case in catalog/fixtures/ui-reference-events/v1/cases/*.case.json; do
-            node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-case --case "$case"
-          done
-          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-exceptions \
-            --registry catalog/ui-conformance/exception-registry.v1.json
-          node tests/ui-conformance-v1.test.mjs
-          node ../events-bot-new/tests/ui-conformance-routing.test.mjs
-          node ../events-bot-new/site/tests/exhibitions-deck-astro-authority.test.mjs
-      - name: Record changed scope only
+      - name: Reject mutable refs
         shell: bash
         run: |
-          git -C events-bot-new diff --name-only '${{ inputs.events_ref }}^' '${{ inputs.events_ref }}' > changed-files.txt || true
-          node design-system/.codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs changed-scope \
-            --registry design-system/catalog/fixtures/ui-reference-events/v1/cases/registry.v1.json \
-            --files changed-files.txt > changed-scope.json
-          cat changed-scope.json
-      - name: Upload advisory changed-scope evidence
-        uses: actions/upload-artifact@v4
+          for value in '${{ inputs.design_sha }}' '${{ inputs.events_tooling_sha }}' '${{ inputs.astro_sha }}'; do
+            [[ "$value" =~ ^[0-9a-f]{40}$ ]] || { echo "immutable 40-hex SHA required: $value"; exit 2; }
+          done
+          test -z '${{ inputs.batch }}' || test '${{ inputs.batch }}' = 'event-card-large-current-v2'
+      - uses: actions/checkout@v4
+        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_sha }}', fetch-depth: 2, path: design-system }
+      - uses: actions/checkout@v4
+        with: { repository: onedayonemasterpiece/events-bot-new, ref: '${{ inputs.events_tooling_sha }}', fetch-depth: 2, path: events-bot-new }
+      - name: Verify immutable checkouts
+        shell: bash
+        run: |
+          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_sha }}'
+          test "$(git -C events-bot-new rev-parse HEAD)" = '${{ inputs.events_tooling_sha }}'
+      - id: scope
+        name: Select exact batch or changed scope
+        shell: bash
+        run: |
+          count=0
+          if test '${{ inputs.batch }}' = 'event-card-large-current-v2'; then
+            count=7
+          else
+            git -C events-bot-new diff --name-only '${{ inputs.events_tooling_sha }}^' '${{ inputs.events_tooling_sha }}' > changed-files.txt || true
+            if grep -Eq '^(site/src/components/(EventCard|EventOccurrenceLabel)\.astro|site/src/lib/(events\.ts|eventOccurrences\.ts|relatedCardLayout\.mjs)|scripts/ui_conformance/)' changed-files.txt; then count=7; fi
+          fi
+          if test "$count" = 0; then applicability=NOT_APPLICABLE; else applicability=APPLICABLE; fi
+          echo "case_count=$count" >> "$GITHUB_OUTPUT"
+          echo "applicability=$applicability" >> "$GITHUB_OUTPUT"
+          printf '{"verdict":"%s","case_count":%s,"batch":"%s"}\n' "$applicability" "$count" '${{ inputs.batch }}' > selection.json
+          cat selection.json
+      - uses: actions/upload-artifact@v4
+        with: { name: event-card-large-current-v2-selection, path: selection.json, retention-days: 7 }
+
+  not-applicable:
+    needs: select
+    if: needs.select.outputs.case_count == '0'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'NOT_APPLICABLE — zero EventCard Large current-v2 cases selected; this is not a conformance PASS.'
+
+  conformance:
+    needs: select
+    if: needs.select.outputs.case_count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_sha }}', fetch-depth: 1, path: design-system }
+      - uses: actions/checkout@v4
+        with: { repository: onedayonemasterpiece/events-bot-new, ref: '${{ inputs.events_tooling_sha }}', fetch-depth: 1, path: events-bot-new }
+      - uses: actions/checkout@v4
+        with: { repository: onedayonemasterpiece/events-bot-new, ref: '${{ inputs.astro_sha }}', fetch-depth: 1, path: astro-source }
+      - name: Verify all immutable heads
+        shell: bash
+        run: |
+          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_sha }}'
+          test "$(git -C events-bot-new rev-parse HEAD)" = '${{ inputs.events_tooling_sha }}'
+          test "$(git -C astro-source rev-parse HEAD)" = '${{ inputs.astro_sha }}'
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: astro-source/site/package-lock.json }
+      - name: Install exact Astro runtime
+        run: npm ci --prefix astro-source/site
+      - name: Validate design contracts and schemas
+        env:
+          EVENTS_REPO: ${{ github.workspace }}/astro-source
+          EVENTS_TOOLING_REPO: ${{ github.workspace }}/events-bot-new
+        run: |
+          python3 -m pip install jsonschema
+          node design-system/scripts/current-v2/current-v2.mjs validate --registry "$REGISTRY" --design-repo design-system --events-repo astro-source --tooling-repo events-bot-new
+          node design-system/tests/event-card-large-current-v2.test.mjs
+      - name: Restore hash-bound Penpot export cache
+        uses: actions/cache@v4
         with:
-          name: ui-conformance-changed-scope
-          path: changed-scope.json
-          retention-days: 3
+          path: .cache/penpot-current-v2
+          key: penpot-current-v2-${{ inputs.design_sha }}-${{ hashFiles('design-system/catalog/ui-components/event-card-large/current-v2/component-contract.json', 'design-system/catalog/ui-components/event-card-large/current-v2/resolved/*.json', 'design-system/catalog/ui-components/event-card-large/current-v2/penpot-readback/*.receipt.json') }}
+      - name: Materialize, capture, check identity/structure/raster/review, and finalize
+        shell: bash
+        run: |
+          mkdir -p workspace artifacts/current-v2
+          node events-bot-new/scripts/ui_conformance/run-current-v2.mjs run-batch \
+            --batch-manifest "$BATCH_MANIFEST" \
+            --design-cli design-system/scripts/current-v2/current-v2.mjs \
+            --design-sha '${{ inputs.design_sha }}' \
+            --astro-source-site astro-source/site \
+            --astro-sha '${{ inputs.astro_sha }}' \
+            --tooling-root events-bot-new \
+            --tooling-sha '${{ inputs.events_tooling_sha }}' \
+            --corpus-root design-system/catalog/fixtures/ui-reference-events/v1 \
+            --font-manifest design-system/catalog/fixtures/ui-reference-events/v1/fonts/font-manifest.json \
+            --node-modules astro-source/site/node_modules \
+            --workspace-root workspace \
+            --artifacts-root artifacts/current-v2
+      - name: Require and content-address all seven complete packs
+        shell: bash
+        run: |
+          for case in design-system/catalog/ui-components/event-card-large/current-v2/cases/*.case.json; do
+            id="$(node -e "process.stdout.write(require('./${case}').case_id)")"
+            node design-system/scripts/current-v2/current-v2.mjs finalize-evidence \
+              --case "$case" --source "artifacts/current-v2/$id" \
+              --storage-root artifacts/durable-current-v2
+          done
+      - name: Upload bounded run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: event-card-large-current-v2-run, path: artifacts/current-v2, retention-days: 30, if-no-files-found: error }
 
   protected-telegram-gate:
+    needs: conformance
     if: ${{ inputs.publish_telegram }}
-    needs: validate
     runs-on: ubuntu-latest
     environment: ui-conformance-review
-    permissions:
-      contents: read
     steps:
-      - name: Reject untrusted publication source
-        run: test '${{ inputs.trusted_source }}' = 'true'
-      - name: Require existing protected transport
-        env:
-          TRANSPORT: ${{ secrets.UI_CONFORMANCE_TELEGRAM_TRANSPORT }}
+      - name: Require trusted source and protected transport
+        env: { TRANSPORT: '${{ secrets.UI_CONFORMANCE_TELEGRAM_TRANSPORT }}' }
         run: |
+          test '${{ inputs.trusted_source }}' = 'true'
           test -n "$TRANSPORT"
-          echo 'Protected transport is present; publication remains an explicit downstream step with target read-back.'
+          echo 'Publication is downstream-only, hash-deduplicated, superseding, and must record verified read-back.'

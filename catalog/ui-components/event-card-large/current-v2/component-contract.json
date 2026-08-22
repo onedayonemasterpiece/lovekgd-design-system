@@ -1,0 +1,64 @@
+{
+  "schema_version": "event_card_large_current_v2_contract.v1",
+  "component_id": "event.card",
+  "contract_version": "event-card-large.current-v2.1",
+  "lifecycle": "staging-v2-not-promoted",
+  "authority": "astro-reference-with-owner-approved-penpot-framing-deltas",
+  "design_source_sha": "0882917a1328607c498d82e4c2a652bbd3df946d",
+  "astro_source_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+  "events_tooling_sha": "713a035a8aaa9ecfdcdd5fbd817fe504160df2f5",
+  "corpus_sha256": "9ca2960fb8d723f95b19c012b50f8abb5e4503eedcf673fe178ed0f4afd46320",
+  "asset_manifest_sha256": "3819811e9598a65e03a2a4467672c5e836142c6fd6c3a21178b644fe0dff6953",
+  "semantic_components": {
+    "event_type": {
+      "component_id": "event.meta.event-type",
+      "value_model": "content-override",
+      "arbitrary_nonempty_text": true
+    },
+    "admission": {
+      "component_id": "event.meta.admission",
+      "value_model": "content-override",
+      "arbitrary_nonempty_text": true
+    },
+    "occurrence": {
+      "semantic_target": "event.meta.occurrence",
+      "value_model": "content-override",
+      "arbitrary_nonempty_text": true,
+      "penpot_materialization_status": "missing",
+      "gap_priority": "P1"
+    },
+    "like": {
+      "component_id": "event.social-proof.like",
+      "states": [
+        "count-absent",
+        "count-positive"
+      ]
+    },
+    "share": {
+      "component_id": "event.social-proof.share",
+      "states": [
+        "count-absent",
+        "count-positive"
+      ]
+    },
+    "calendar": {
+      "component_id": "event.action.calendar",
+      "states": [
+        "present",
+        "absent"
+      ]
+    },
+    "not_interested": {
+      "component_id": "event.action.not-interested",
+      "fixed_label": "Не интересно"
+    }
+  },
+  "content_rule": "Text labels are overrides on semantic masters; a label string never creates a component family.",
+  "forbidden": [
+    "fixture-specific-geometry-override",
+    "mutable-git-ref",
+    "nonterminal-current-case",
+    "silent-evidence-substitution"
+  ],
+  "contract_sha256": "dfc49a54ebd9a4d2d9da1f9c24321abf349714c62d3abf1dd00f71c1ce63ae1e"
+}

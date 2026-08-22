@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "contract_sha256",
+    "design_sha",
+    "astro_sha",
+    "events_tooling_sha",
+    "corpus_sha256",
+    "fixture_sha256",
+    "asset_manifest_sha256",
+    "resolved_case_sha256",
+    "penpot_export_sha256",
+    "verdict",
+    "reason_codes",
+    "evidence_manifest_path",
+    "telegram_publication",
+    "owner_status",
+    "history_rewritten"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "event_card_large_current_v2_final_receipt.v1"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "contract_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "design_sha": {
+      "$ref": "#/$defs/git"
+    },
+    "astro_sha": {
+      "$ref": "#/$defs/git"
+    },
+    "corpus_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "fixture_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "asset_manifest_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "resolved_case_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "penpot_export_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "verdict": {
+      "enum": [
+        "PASS",
+        "MINOR",
+        "FAIL",
+        "BLOCKED",
+        "EXCEPTION"
+      ]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_manifest_path": {
+      "type": "string"
+    },
+    "telegram_publication": {
+      "enum": [
+        "NOT_PUBLISHED_HASH_CHANGED",
+        "NOT_PUBLISHED_UNCHANGED",
+        "PUBLISHED_VERIFIED"
+      ]
+    },
+    "owner_status": {
+      "enum": [
+        "AWAITING_REVIEW",
+        "ACCEPTED",
+        "REJECTED"
+      ]
+    },
+    "history_rewritten": {
+      "const": false
+    },
+    "events_tooling_sha": {
+      "$ref": "#/$defs/git"
+    }
+  },
+  "$defs": {
+    "sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "git": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    }
+  }
+}

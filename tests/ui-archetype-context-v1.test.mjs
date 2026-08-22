@@ -53,7 +53,7 @@ writeFileSync(join(temp, 'fake-rect.json'), JSON.stringify(fakeRect));
 schemaValidate(join(temp, 'fake-rect.json'), join(repo, 'contracts/ui-conformance/ui-conformance-case.v2.schema.json'), false);
 
 // Immutable corpus v1 and historical 474px isolated pilot cases remain byte-identical to the lane base.
-const corpusDiff = spawnSync('git', ['diff', '--exit-code', '7f6824e', '--', 'catalog/fixtures/ui-reference-events/v1', 'receipts/ui-conformance/golden-event-corpus-v1-pilot'], {cwd:repo, encoding:'utf8'});
+const corpusDiff = spawnSync('git', ['diff', '--exit-code', '0882917a1328607c498d82e4c2a652bbd3df946d', '--', 'catalog/fixtures/ui-reference-events/v1', 'receipts/ui-conformance/golden-event-corpus-v1-pilot'], {cwd:repo, encoding:'utf8'});
 assert.equal(corpusDiff.status, 0, corpusDiff.stdout + corpusDiff.stderr);
 const historic = read(join(repo, 'catalog/fixtures/ui-reference-events/v1/cases/event-card-large-landscape-crop-safe-7906-desktop.case.json'));
 assert.equal(historic.schema_version, 'ui_conformance_case_v1');

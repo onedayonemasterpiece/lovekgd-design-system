@@ -1,0 +1,4 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","additionalProperties":false,"required":["schema_version","contract_sha256","publication_policy","bindings"],
+  "properties":{"schema_version":{"const":"event_card_large_current_v2_telegram_bindings.v1"},"contract_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"publication_policy":{"type":"string"},"bindings":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["case_id","contract_sha256","binding_status","reason","readback_receipt"],"properties":{"case_id":{"type":"string"},"contract_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"binding_status":{"enum":["blocked_not_published","published_verified"]},"reason":{"type":"string"},"readback_receipt":{"type":["string","null"]}}}}}
+}
