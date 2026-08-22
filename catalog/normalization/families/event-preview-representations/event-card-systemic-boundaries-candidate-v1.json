@@ -3,8 +3,8 @@
   "schema_version": "event_card_systemic_boundaries_candidate_v1",
   "package_id": "candidate.event-card-systemic-boundaries",
   "family_id": "family.event-preview-representations",
-  "contract_version": "1.0.0-candidate.9",
-  "contract_payload_sha256": "b79c9ec290b16088e219bedfc7c6227ba3fd9d8d3da624db5e4d3fa7ce725b8c",
+  "contract_version": "1.0.0-candidate.10",
+  "contract_payload_sha256": "ad569c8f2e49efe735eb93b0f293dd40e3f298982a997b4e662ee5b96221a58e",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "status": "penpot-reconciled-ready-for-owner-rereview",
   "authority_mode": "reconstructed",
@@ -15,7 +15,8 @@
     "repository": "onedayonemasterpiece/events-bot-new",
     "exact_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
     "previous_stale_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
-    "same_data_visual_reference_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977"
+    "same_data_visual_reference_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "latest_same_data_harness_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721"
   },
   "supersedes_for_bounded_scope": [
     "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json semantic child boundaries",
@@ -303,13 +304,78 @@
       "centralization_rule": "geometry is owned by ListingEventCard variant masters; count and artwork are the only nested content selections",
       "penpot_readback": {
         "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
-        "named_version": "ListingEventCard · source geometry + medallion tier + proof placement",
+        "named_version": "ListingEventCard S04 · fixture 3132 · exact same-data Astro comparison",
         "canonical_master_count": 10,
         "linked_review_root_count": 10,
         "detached_review_root_count": 0,
         "semantic_medallion_count": 9,
         "validation_issues": [],
-        "receipt": "receipts/penpot/listing-event-card-source-geometry-remediation-v1.json"
+        "receipt": "receipts/penpot/listing-event-card-source-geometry-remediation-v1.json",
+        "linked_same_data_evidence_root_count": 1,
+        "same_data_evidence_board_id": "d012936b-5394-80cb-8008-85524a579974",
+        "same_data_evidence_linked_instance_id": "d012936b-5394-80cb-8008-85524c6be853",
+        "same_data_conformance": {
+          "status": "instrumental-pass-render-export-gateway-blocked",
+          "fixture_id": "event.real.3132",
+          "event_id": "3132",
+          "preview_event_sha256": "3b722cf9514969274be612bb6341db52d0b83d2d93f322b1c9e992aeb2596818",
+          "surface_scenario": "v1.e3132.date-listing",
+          "astro_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721",
+          "resolved_content_equal": true,
+          "media_bytes_equal": true,
+          "media_sha256": "5cfd08c6f8897f56a0f14b218013696198ebe8a28b77e7f7c97f58e3b874c4bf",
+          "root_geometry_px": {
+            "astro": [
+              420,
+              279.797
+            ],
+            "penpot_master": [
+              420,
+              279.797
+            ],
+            "penpot_linked_review": [
+              420,
+              279.797
+            ]
+          },
+          "media_geometry_px": {
+            "astro": [
+              172.875,
+              221
+            ],
+            "penpot": [
+              172.875,
+              221
+            ]
+          },
+          "like_proof_geometry_px": {
+            "astro": [
+              176.875,
+              185,
+              36,
+              36
+            ],
+            "penpot": [
+              176.875,
+              185,
+              36,
+              36
+            ]
+          },
+          "like_count_inside_component": true,
+          "share_state": "absent-at-master",
+          "title_and_place_separate_parent_owned_slots": true,
+          "terminal_instance_geometry_overrides": 0,
+          "comparison_board_id": "d012936b-5394-80cb-8008-85524a579974",
+          "comparison_board_created_on_rerun": 0,
+          "penpot_export_status": "HTTP 504 for bounded 1000×360 board; no blind retry",
+          "artifacts": [
+            "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop.png",
+            "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop-facts.json",
+            "artifacts/ui-conformance/listing-3132-20260822/astro-surface-placement-receipt.json",
+            "artifacts/ui-conformance/listing-3132-20260822/penpot-facts.json"
+          ]
+        }
       }
     },
     "listing.rail-row": {

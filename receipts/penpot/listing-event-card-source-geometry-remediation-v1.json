@@ -1,12 +1,12 @@
 {
   "schema_version": "listing_event_card_source_geometry_remediation_v1",
-  "status": "readback-pass-visual-export-pending",
+  "status": "readback-pass-same-data-instrumental-pass-visual-export-gateway-blocked",
   "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
   "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
   "page_name": "40.2 — ListingEventCard · Compact · Native variants",
   "source": {
     "repository": "onedayonemasterpiece/events-bot-new",
-    "exact_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "exact_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721",
     "component": "site/src/components/listings/ListingEventCard.astro",
     "styles": "site/src/styles/design-system.css"
   },
@@ -30,6 +30,10 @@
     {
       "owner": "linked review instances",
       "rule": "reset from changed parent masters; no detached copy"
+    },
+    {
+      "owner": "ListingEventCard S04 master",
+      "rule": "exact fixture 3132 owns 420×279.797 geometry, separate title/place semantic slots, honest share=absent state, linked Like proof count=2 and exact immutable poster bytes; review/evidence instances inherit"
     }
   ],
   "tail_contract_px": {
@@ -51,7 +55,12 @@
       "right": 10,
       "bottom": 10
     },
-    "file_validation_issues": []
+    "file_validation_issues": [],
+    "same_data_master_shape_id": "579a886e-56e8-80a3-8008-81887704279d",
+    "same_data_linked_review_shape_id": "880e839b-f453-8082-8008-84151f4c2644",
+    "same_data_evidence_board_id": "d012936b-5394-80cb-8008-85524a579974",
+    "same_data_evidence_linked_instance_id": "d012936b-5394-80cb-8008-85524c6be853",
+    "linked_same_data_evidence_root_count": 1
   },
   "comments": {
     "replied_thread_seq_numbers": [
@@ -63,22 +72,94 @@
     "Before Social proof rail fixed-width source parity",
     "Social proof rail · fixed 36×24 source contract",
     "Before ListingEventCard normalized medallion-frame linkage repair",
-    "ListingEventCard · source geometry + medallion tier + proof placement"
+    "ListingEventCard · source geometry + medallion tier + proof placement",
+    "ListingEventCard S04 · fixture 3132 · exact same-data Astro comparison"
   ],
   "visual_evidence": {
-    "status": "pending",
-    "reason": "Penpot export_shape returned HTTP 504; no stale export is promoted as current evidence"
+    "status": "instrumental-pass-render-export-gateway-blocked",
+    "reason": "exact same-data board and structural readback pass; bounded 1000×360 Penpot PNG export returned HTTP 504 and was not blindly retried",
+    "comparison_board": {
+      "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
+      "board_id": "d012936b-5394-80cb-8008-85524a579974",
+      "board_name": "40.2E · ListingEventCard 3132 · exact same-data comparison",
+      "source_shape_id": "d012936b-5394-80cb-8008-85524bba2dd9",
+      "linked_instance_id": "d012936b-5394-80cb-8008-85524c6be853",
+      "width": 1000,
+      "height": 360,
+      "created_on_rerun": 0
+    }
   },
   "contract": {
     "path": "catalog/normalization/families/event-preview-representations/event-card-systemic-boundaries-candidate-v1.json",
-    "version": "1.0.0-candidate.9",
-    "sha256": "b79c9ec290b16088e219bedfc7c6227ba3fd9d8d3da624db5e4d3fa7ce725b8c",
-    "contract_version": "1.0.0-candidate.9"
+    "version": "1.0.0-candidate.10",
+    "sha256": "ad569c8f2e49efe735eb93b0f293dd40e3f298982a997b4e662ee5b96221a58e",
+    "contract_version": "1.0.0-candidate.10"
   },
   "non_claims": [
+    "exact cross-renderer pixel equality; Penpot export gateway returned HTTP 504",
     "owner visual acceptance",
-    "fresh same-data Astro ↔ Penpot visual pass",
     "production mutation",
     "family promotion"
-  ]
+  ],
+  "same_data_conformance": {
+    "fixture_id": "event.real.3132",
+    "event_id": "3132",
+    "preview_event_sha256": "3b722cf9514969274be612bb6341db52d0b83d2d93f322b1c9e992aeb2596818",
+    "surface_scenario": "v1.e3132.date-listing",
+    "surface_placement_status": "PASS",
+    "resolved_content_equal": true,
+    "media_bytes_equal": true,
+    "media_sha256": "5cfd08c6f8897f56a0f14b218013696198ebe8a28b77e7f7c97f58e3b874c4bf",
+    "root_geometry": {
+      "astro_px": {
+        "width": 420,
+        "height": 279.797
+      },
+      "penpot_master_px": {
+        "width": 420,
+        "height": 279.797
+      },
+      "penpot_linked_review_px": {
+        "width": 420,
+        "height": 279.797
+      }
+    },
+    "media_geometry_px": {
+      "width": 172.875,
+      "height": 221
+    },
+    "like_proof": {
+      "x": 176.875,
+      "y": 185,
+      "width": 36,
+      "height": 36,
+      "count": "2",
+      "count_inside_component": true
+    },
+    "share_state": "absent-at-master",
+    "separate_parent_owned_content_slots": [
+      "Content / Event title",
+      "Content / Event place"
+    ],
+    "terminal_instance_geometry_overrides": 0,
+    "penpot_validation_issues": [],
+    "artifacts": {
+      "astro-listing-event-card-3132-desktop.png": {
+        "path": "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop.png",
+        "sha256": "5706a90503af88506d846ddd4225df89be85031df7d0da284b2abe93a6327519"
+      },
+      "astro-listing-event-card-3132-desktop-facts.json": {
+        "path": "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop-facts.json",
+        "sha256": "0ae723b8ca4bd09f342416584976aced3175991da293c68faa9a303b66cf3ba0"
+      },
+      "astro-surface-placement-receipt.json": {
+        "path": "artifacts/ui-conformance/listing-3132-20260822/astro-surface-placement-receipt.json",
+        "sha256": "65f6afcd091c3b3b90d5061685a324e2598180dc3ba36a9ace0ee9d0e52b80d0"
+      },
+      "penpot-facts.json": {
+        "path": "artifacts/ui-conformance/listing-3132-20260822/penpot-facts.json",
+        "sha256": "7b84a360f47fbe1196c6ee4f0bf6bdb3eb1645e49796144ff7d7e8ca1967622d"
+      }
+    }
+  }
 }

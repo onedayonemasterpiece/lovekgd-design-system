@@ -85,6 +85,23 @@ def main() -> None:
     }
     assert listing["penpot_readback"]["detached_review_root_count"] == 0
     assert listing["penpot_readback"]["validation_issues"] == []
+    listing_same_data = listing["penpot_readback"]["same_data_conformance"]
+    assert listing_same_data["status"] == "instrumental-pass-render-export-gateway-blocked"
+    assert listing_same_data["fixture_id"] == "event.real.3132"
+    assert listing_same_data["preview_event_sha256"] == (
+        "3b722cf9514969274be612bb6341db52d0b83d2d93f322b1c9e992aeb2596818"
+    )
+    assert listing_same_data["resolved_content_equal"] is True
+    assert listing_same_data["media_bytes_equal"] is True
+    assert listing_same_data["root_geometry_px"] == {
+        "astro": [420, 279.797],
+        "penpot_master": [420, 279.797],
+        "penpot_linked_review": [420, 279.797],
+    }
+    assert listing_same_data["like_count_inside_component"] is True
+    assert listing_same_data["share_state"] == "absent-at-master"
+    assert listing_same_data["title_and_place_separate_parent_owned_slots"] is True
+    assert listing_same_data["terminal_instance_geometry_overrides"] == 0
     festival = families["festival.card"]
     assert festival["aggregate_count"].startswith("absent")
     assert festival["source_contract"]["favorite"]["count"] == "absent"
@@ -235,7 +252,9 @@ def main() -> None:
     assert all(region.startswith("media_deck.slider.") for region in exception["region_or_behavior_scope"])
 
     listing_receipt = json.loads(LISTING_RECEIPT_PATH.read_text())
-    assert listing_receipt["status"] == "readback-pass-visual-export-pending"
+    assert listing_receipt["status"] == (
+        "readback-pass-same-data-instrumental-pass-visual-export-gateway-blocked"
+    )
     assert listing_receipt["contract"]["sha256"] == data["contract_payload_sha256"]
     assert listing_receipt["readback"]["canonical_master_count"] == 10
     assert listing_receipt["readback"]["linked_review_root_count"] == 10
@@ -248,6 +267,34 @@ def main() -> None:
         "bottom": 10,
     }
     assert listing_receipt["readback"]["file_validation_issues"] == []
+    assert listing_receipt["readback"]["linked_same_data_evidence_root_count"] == 1
+    receipt_listing_same_data = listing_receipt["same_data_conformance"]
+    assert receipt_listing_same_data["fixture_id"] == "event.real.3132"
+    assert receipt_listing_same_data["surface_placement_status"] == "PASS"
+    assert receipt_listing_same_data["resolved_content_equal"] is True
+    assert receipt_listing_same_data["media_bytes_equal"] is True
+    assert receipt_listing_same_data["root_geometry"] == {
+        "astro_px": {"width": 420, "height": 279.797},
+        "penpot_master_px": {"width": 420, "height": 279.797},
+        "penpot_linked_review_px": {"width": 420, "height": 279.797},
+    }
+    assert receipt_listing_same_data["like_proof"] == {
+        "x": 176.875,
+        "y": 185,
+        "width": 36,
+        "height": 36,
+        "count": "2",
+        "count_inside_component": True,
+    }
+    assert receipt_listing_same_data["share_state"] == "absent-at-master"
+    assert receipt_listing_same_data["terminal_instance_geometry_overrides"] == 0
+    assert receipt_listing_same_data["penpot_validation_issues"] == []
+    assert set(receipt_listing_same_data["artifacts"]) == {
+        "astro-listing-event-card-3132-desktop.png",
+        "astro-listing-event-card-3132-desktop-facts.json",
+        "astro-surface-placement-receipt.json",
+        "penpot-facts.json",
+    }
 
     rail_receipt = json.loads(RAIL_RECEIPT_PATH.read_text())
     assert rail_receipt["status"] == "readback-pass-visual-export-pending"
