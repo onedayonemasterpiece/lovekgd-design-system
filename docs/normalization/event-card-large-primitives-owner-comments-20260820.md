@@ -3,6 +3,12 @@
 **Status:** `READY FOR BOUNDED OWNER RE-REVIEW`; owner-authorized Penpot
 candidate correction; noncanonical; no Astro backport or production permission.
 
+> Later bounded semantic decision: the historical Admission wording
+> `price-range/free/unspecified` below is superseded for the target candidate by
+> [EventCard Large semantic content contract v1](event-card-large-semantic-content-contract-v1.md).
+> The Penpot materialization receipt remains immutable evidence of what was
+> built at that revision.
+
 This record is the Git-SoT-first disposition for the owner review concentrated
 on Page `25 — Iconography`, Page `30.1 — EventCard · Large actions · linked
 icons`, and Page `40.1a — EventCard · Large · Review 01–12`.

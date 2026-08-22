@@ -6,6 +6,11 @@
 **Framing:** `catalog/normalization/event-media/framing-v2.json`
 **Iconography:** `catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json`
 
+> Bounded semantic supersession: `event.card.variant_axes.commercial` remains a
+> historical reconstructed taxonomy axis. It is not the target Admission model.
+> The owner-corrected content/state boundary is defined by
+> [EventCard Large semantic content contract v1](event-card-large-semantic-content-contract-v1.md).
+
 This package translates the exact review build
 `production-secret-20260809T192529-2f0fa64e`
 and rechecks its unchanged card sources at the current immutable normalization

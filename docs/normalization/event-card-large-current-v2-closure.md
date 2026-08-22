@@ -4,6 +4,13 @@ Status: **BLOCKED — evidence packs and current contract metadata read-back are
 This document describes an additive staging contour. It does not promote the family,
 change production UI, resolve Penpot comments, or rewrite historical receipts.
 
+> Semantic supersession (2026-08-22): the chip inventory below is exact Golden
+> Corpus build evidence, not a complete production vocabulary. Admission
+> `Условия уточняются` is retained here only as observed historical fixture
+> output; the owner-corrected candidate resolves unknown admission to honest
+> absence and forbids that display literal. See
+> [EventCard Large semantic content contract v1](event-card-large-semantic-content-contract-v1.md).
+
 ## One active seven-case registry
 
 `catalog/ui-components/event-card-large/current-v2/active-registry.json` is the only
