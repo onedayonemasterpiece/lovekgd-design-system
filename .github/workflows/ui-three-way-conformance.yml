@@ -102,6 +102,8 @@ jobs:
         with: { node-version: 22, cache: npm, cache-dependency-path: astro-source/site/package-lock.json }
       - name: Install exact Astro runtime
         run: npm ci --prefix astro-source/site
+      - name: Install exact Playwright Chromium runtime
+        run: cd astro-source/site && npx playwright install --with-deps chromium
       - name: Validate design contracts and schemas
         env:
           EVENTS_REPO: ${{ github.workspace }}/astro-source
