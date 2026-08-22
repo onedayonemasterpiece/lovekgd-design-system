@@ -138,6 +138,12 @@ For every reviewed route/state/viewport:
    row's width/height rule across every card consumer. Correct both the SoT
    resolver metadata and the component master when the callsite proves this
    kind of systemic drift.
+   Optional state absence must also be represented in the component graph. If
+   the exact callsite has no Calendar or no social-proof count, use a dedicated
+   semantic `absent` variant/master; hiding that node on a final review instance
+   is not an honest reconstruction. For narrow cards publish the comparison
+   side by side; stack wide rows vertically so the evidence canvas stays close
+   to square and remains readable in Telegram.
 3. Put that screenshot on the archetype review page in a locked, clearly named
    `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
    Keep evidence bounded: use one case per small review board where practical.
