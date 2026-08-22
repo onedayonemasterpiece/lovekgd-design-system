@@ -15,6 +15,7 @@
     "penpot",
     "variant_axes",
     "semantic_children",
+    "semantic_layout_contracts",
     "content_slots",
     "forbidden_instance_overrides",
     "known_materialization_gaps",
@@ -152,6 +153,62 @@
           "owner_level",
           "required_linkage"
         ]
+      }
+    },
+    "semantic_layout_contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta_flow",
+        "penpot_geometry_reconciliation"
+      ],
+      "properties": {
+        "meta_flow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner_level",
+            "child_order",
+            "display",
+            "horizontal_gap_px",
+            "vertical_gap_px",
+            "event_type",
+            "admission",
+            "penpot_font_weight_fallbacks"
+          ],
+          "properties": {
+            "owner_level": {"const": "event.card-master"},
+            "child_order": {
+              "const": ["event.meta.event-type", "occurrence", "event.meta.admission"]
+            },
+            "display": {"const": "flex-wrap"},
+            "horizontal_gap_px": {"const": 6.72},
+            "vertical_gap_px": {"const": 5.12},
+            "event_type": {"type": "object"},
+            "admission": {"type": "object"},
+            "penpot_font_weight_fallbacks": {"type": "object"}
+          }
+        },
+        "penpot_geometry_reconciliation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "trigger",
+            "allowed_instance_overrides",
+            "fixture_specific_visual_patches",
+            "detached_instances"
+          ],
+          "properties": {
+            "mode": {"const": "deterministic-rematerialization-after-master-change"},
+            "trigger": {"const": "linked-instance-cache-does-not-recompute-child-auto-width"},
+            "allowed_instance_overrides": {
+              "const": ["content-slot-text", "media-content-image-fill"]
+            },
+            "fixture_specific_visual_patches": {"const": false},
+            "detached_instances": {"const": 0}
+          }
+        }
       }
     },
     "content_slots": {

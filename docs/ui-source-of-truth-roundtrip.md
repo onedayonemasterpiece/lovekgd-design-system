@@ -117,6 +117,16 @@ For every reviewed route/state/viewport:
 2. Capture the current generated Astro result at those exact conditions. Store
    the image hash and capture manifest. This raster is **source evidence**, not a
    component, insertable resource or new source of truth.
+   When a full route is too large or unstable to render instrumentally, derive a
+   bounded single-component harness from the **same built Astro artifact**: keep
+   the exact component markup, emitted stylesheets, fixture identity and
+   viewport width, and record the derivation in the capture manifest. Do not
+   hand-recreate the markup or substitute a visually similar fixture. This
+   harness is capture infrastructure only and never becomes a component master.
+   A contractually protected runtime region may be blocked or masked only when
+   the exception names that exact region; the surrounding layout, content and
+   states must still be measured and compared, while the protected runtime code
+   remains authoritative.
 3. Put that screenshot on the archetype review page in a locked, clearly named
    `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
    Keep evidence bounded: use one case per small review board where practical.

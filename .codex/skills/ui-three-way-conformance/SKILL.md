@@ -55,6 +55,11 @@ bounded contract; neither may silently become a new baseline.
    export locally/CI until the candidate changes.
 4. Render the exact Astro root in a disposable harness using the same resolved
    fixture. Never mutate production source or create a second fixture pipeline.
+   If the complete built route is too large or crashes the capture browser,
+   derive a minimal single-root harness from that same built artifact: extract
+   the exact component markup, emitted stylesheet links, fixture identity and
+   viewport rule. Record this derivation in the manifest; never hand-recreate
+   the markup or swap in a similar event.
 5. Produce geometry, computed-style, structural, and pixel evidence. Never
    autoscale/crop/center images to hide drift.
 6. Open `astro.png`, `penpot.png`, `overlay-50.png`, and `diff.png` yourself and
@@ -88,6 +93,12 @@ Penpot review board merely to obtain the same PNG. At final read-back, inspect
 top-level page children and remove only verified unlinked orphans with no
 component/library/plugin identity. Never treat comments or unfamiliar boards
 as cleanup candidates.
+
+A protected runtime region may be blocked or masked only when a versioned
+exception names that exact region. The comparison still measures the same-data
+outer geometry, content, typography and states around it. Preserve the runtime
+implementation as authority for the protected region; do not infer a replacement
+from the Penpot approximation or count the masked pixels as a visual pass.
 
 If the exact tuple gate is blocked, do not create/copy `penpot.png`, overlay,
 diff, pixel verdict, or cross-renderer structural findings. Publish only a

@@ -1,0 +1,43 @@
+{
+  "schema_version": "ui_conformance_exception_registry_v1",
+  "exceptions": [
+    {
+      "exception_id": "exhibition-row.media-deck-slider.astro-authority.v1",
+      "component_id": "exhibition.row",
+      "contract_version": "1.1.0-candidate.3",
+      "state_scope": [
+        "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+        "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+        "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+        "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+        "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+        "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+        "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
+      ],
+      "region_or_behavior_scope": [
+        "media_deck.slider.framing",
+        "media_deck.slider.sequence",
+        "media_deck.slider.interaction",
+        "media_deck.slider.loading-state"
+      ],
+      "conformance_profile": "structure-and-behavior",
+      "reason": "Owner-approved bounded exception: the in-card exhibition image slider remains Astro-authoritative. Penpot represents a linked static checkpoint and must not drive reverse-generation of slider framing, sequence, measurement, loading, keyboard, focus, paging, or motion behavior.",
+      "penpot_required_checkpoints": [
+        "ExhibitionRow outer geometry and responsive placement",
+        "Event media deck outer shell and slot geometry",
+        "linked event.media-frame semantics for visible static slots",
+        "title, location, medallion, social proof, actions, and non-slider states"
+      ],
+      "browser_test_refs": [
+        "events-bot-new/site/tests/exhibitions-deck-astro-authority.test.mjs",
+        "events-bot-new/site/tests/exhibitions-public-dynamic.test.mjs",
+        "events-bot-new/site/tests/exhibitions-medallion-mobile.test.mjs"
+      ],
+      "owner": "project owner via task thread",
+      "decision_status": "owner_approved",
+      "approved_at": "2026-08-21T18:23:21Z",
+      "review_on_contract_change": true,
+      "expires_at": null
+    }
+  ]
+}

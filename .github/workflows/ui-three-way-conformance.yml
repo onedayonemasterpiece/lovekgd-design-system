@@ -73,8 +73,11 @@ jobs:
           for case in catalog/fixtures/ui-reference-events/v1/cases/*.case.json; do
             node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-case --case "$case"
           done
+          node .codex/skills/ui-three-way-conformance/scripts/ui-conformance.mjs validate-exceptions \
+            --registry catalog/ui-conformance/exception-registry.v1.json
           node tests/ui-conformance-v1.test.mjs
           node ../events-bot-new/tests/ui-conformance-routing.test.mjs
+          node ../events-bot-new/site/tests/exhibitions-deck-astro-authority.test.mjs
       - name: Record changed scope only
         shell: bash
         run: |

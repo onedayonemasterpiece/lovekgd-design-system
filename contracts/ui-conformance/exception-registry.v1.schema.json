@@ -11,13 +11,23 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "allOf": [
+          {
+            "if": { "properties": { "decision_status": { "const": "owner_approved" } }, "required": ["decision_status"] },
+            "then": { "properties": { "approved_at": { "type": "string", "format": "date-time" } } }
+          },
+          {
+            "if": { "properties": { "decision_status": { "const": "candidate_exception" } }, "required": ["decision_status"] },
+            "then": { "properties": { "approved_at": { "type": "null" } } }
+          }
+        ],
         "required": ["exception_id", "component_id", "contract_version", "state_scope", "region_or_behavior_scope", "conformance_profile", "reason", "penpot_required_checkpoints", "browser_test_refs", "owner", "decision_status", "approved_at", "review_on_contract_change", "expires_at"],
         "properties": {
           "exception_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$" },
           "component_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$" },
           "contract_version": { "type": "string", "minLength": 1 },
-          "state_scope": { "type": "array", "minItems": 1, "items": { "type": "string", "not": { "const": "*" } } },
-          "region_or_behavior_scope": { "type": "array", "minItems": 1, "items": { "type": "string", "not": { "const": "*" } } },
+          "state_scope": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "not": { "const": "*" } } },
+          "region_or_behavior_scope": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "not": { "const": "*" } } },
           "conformance_profile": { "enum": ["state-sampled", "structure-and-behavior", "nonvisual"] },
           "reason": { "type": "string", "minLength": 1 },
           "penpot_required_checkpoints": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },

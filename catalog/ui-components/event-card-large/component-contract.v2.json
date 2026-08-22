@@ -12,7 +12,7 @@
     "media-asset",
     "media-focal-point"
   ],
-  "contract_version": "event-card-large.candidate.v2",
+  "contract_version": "event-card-large.candidate.v3",
   "decision_lifecycle": "owner-corrected-candidate",
   "forbidden_instance_overrides": [
     "typography",
@@ -38,7 +38,6 @@
     ],
     "source_supported_not_materialized": [
       "mobile",
-      "calendar=absent",
       "dynamic-intrinsic-media-height"
     ],
     "governed_active_variant_count": 11,
@@ -108,6 +107,7 @@
     "runtime_baseline_sha": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc"
   },
   "supersedes": [
+    "catalog/ui-components/event-card-large/component-contract.v2.json:event-card-large.candidate.v2",
     "event-card-systemic-boundaries-candidate-v1:event.card.active_variant_count=12",
     "event-card-owner-review-4-remediation-v1:active-assertions-only",
     "ui-conformance/pilot-v1/event-card-large-desktop.case.json",
@@ -144,12 +144,6 @@
       "scope": "viewport=mobile",
       "description": "The current Penpot EventCard Large set has no linked mobile master; mobile pilot cases are intentionally not created.",
       "comparison_disposition": "not-materialized"
-    },
-    {
-      "gap_id": "calendar-absent-not-materialized",
-      "scope": "calendar=absent",
-      "description": "Current linked masters keep the Calendar action where the exact Astro case omits the node.",
-      "comparison_disposition": "fail"
     },
     {
       "gap_id": "intrinsic-media-height-not-propagated",
@@ -204,5 +198,61 @@
     }
   },
   "penpot_materialization_ir_ref": "catalog/ui-components/event-card-large/archetype-context-v1/penpot-materialization-ir.v2.json",
-  "contract_sha256": "a7e3f0dd972a242bfc0690850842a021473f32828f58a6c499cd95979760b24d"
+  "contract_sha256": "10b5469869585ba738ce193b3763982bdfeffc0d68e3303ae1172c2e756333ae",
+  "semantic_layout_contracts": {
+    "meta_flow": {
+      "owner_level": "event.card-master",
+      "child_order": [
+        "event.meta.event-type",
+        "occurrence",
+        "event.meta.admission"
+      ],
+      "display": "flex-wrap",
+      "horizontal_gap_px": 6.72,
+      "vertical_gap_px": 5.12,
+      "event_type": {
+        "layout": "auto-width-auto-height",
+        "padding_horizontal_px": 7.04,
+        "padding_vertical_px": 2.24,
+        "radius_px": 999,
+        "fill": "rgba(255,255,255,0.12)",
+        "font_family": "Inter",
+        "font_size_px": 11.52,
+        "font_weight": 900,
+        "line_height_multiplier": 1.2,
+        "color": "rgba(255,255,255,0.88)"
+      },
+      "admission": {
+        "layout": "one-line-hug",
+        "min_height_px": 28,
+        "padding_horizontal_px": 9.8,
+        "padding_vertical_px": 7.1,
+        "radius_px": 999,
+        "fill": "rgba(215,240,236,0.16)",
+        "stroke": "rgba(215,240,236,0.28)",
+        "stroke_width_px": 1,
+        "font_family": "Inter",
+        "font_size_px": 12,
+        "font_weight_astro": 850,
+        "line_height_multiplier": 1.15,
+        "color": "#d7f0ec"
+      },
+      "penpot_font_weight_fallbacks": {
+        "admission": {
+          "astro": 850,
+          "penpot": 800
+        }
+      }
+    },
+    "penpot_geometry_reconciliation": {
+      "mode": "deterministic-rematerialization-after-master-change",
+      "trigger": "linked-instance-cache-does-not-recompute-child-auto-width",
+      "allowed_instance_overrides": [
+        "content-slot-text",
+        "media-content-image-fill"
+      ],
+      "fixture_specific_visual_patches": false,
+      "detached_instances": 0
+    }
+  }
 }

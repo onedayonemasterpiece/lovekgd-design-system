@@ -1,7 +1,7 @@
 {
   "schema_version": "event-card-large-archetype-comparison-summary.v1",
-  "status": "MINOR",
-  "owner_status": "AWAITING_REVIEW",
+  "status": "BLOCKED",
+  "owner_status": "NOT_REVIEWABLE_STALE_EXPORT",
   "exact_same_parent_capture": true,
   "astro_parent_sha256": "d0b7ea250b8ad5f59e61c48e13488fed2c70864b91dc55dab8fe7dd47203bcd3",
   "penpot_parent_sha256": "6f43a5ecfe18b7f157dac38c932747901659c4f4ca7782e7cea5c703cb63a45e",
@@ -17,25 +17,29 @@
       "fixture_id": "event.real.7906",
       "difference_ratio": 0.03293386426592798,
       "telegram_message_id": 1053,
-      "telegram_link": "https://t.me/c/4337049383/1053"
+      "telegram_link": "https://t.me/c/4337049383/1053",
+      "evidence_status": "stale-pre-meta-repair"
     },
     {
       "fixture_id": "event.real.8156",
       "difference_ratio": 0.03949369036626655,
       "telegram_message_id": 1054,
-      "telegram_link": "https://t.me/c/4337049383/1054"
+      "telegram_link": "https://t.me/c/4337049383/1054",
+      "evidence_status": "stale-pre-meta-repair"
     },
     {
       "fixture_id": "event.real.4327",
       "difference_ratio": 0.044695104964680134,
       "telegram_message_id": 1055,
-      "telegram_link": "https://t.me/c/4337049383/1055"
+      "telegram_link": "https://t.me/c/4337049383/1055",
+      "evidence_status": "stale-pre-meta-repair"
     },
     {
       "fixture_id": "event.real.6628",
       "difference_ratio": 0.06279509079716836,
       "telegram_message_id": 1056,
-      "telegram_link": "https://t.me/c/4337049383/1056"
+      "telegram_link": "https://t.me/c/4337049383/1056",
+      "evidence_status": "stale-pre-meta-repair"
     }
   ],
   "passed": [
@@ -44,12 +48,26 @@
     "parent-grid geometry",
     "media identity",
     "media aspect preservation",
-    "primary-action baseline",
-    "feedback-action baseline",
-    "linked instance provenance"
+    "linked instance provenance",
+    "systemic meta-flow structural readback",
+    "linked instance provenance",
+    "zero detached instances"
   ],
   "remaining_minor": [
-    "typography/baseline drift",
-    "semantic ellipsis representation for long place labels"
-  ]
+    "fresh bounded Penpot export required",
+    "fresh same-data Astro ↔ Penpot visual difference required"
+  ],
+  "blocking_reason": "The shared meta-flow and chip masters changed after Telegram messages 1053–1056. Exact Penpot read-back passes, but a fresh bounded PNG export is still pending after repeated Penpot 504 responses.",
+  "superseded_capture": {
+    "status": "MINOR",
+    "astro_parent_sha256": "d0b7ea250b8ad5f59e61c48e13488fed2c70864b91dc55dab8fe7dd47203bcd3",
+    "penpot_parent_sha256": "6f43a5ecfe18b7f157dac38c932747901659c4f4ca7782e7cea5c703cb63a45e",
+    "parent_difference_ratio": 0.03505608478700153,
+    "telegram_message_ids": [
+      1053,
+      1054,
+      1055,
+      1056
+    ]
+  }
 }

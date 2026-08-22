@@ -122,7 +122,10 @@ export function validateExceptionRegistry(registry) {
     expect(['state-sampled', 'structure-and-behavior', 'nonvisual'].includes(row.conformance_profile), `invalid exception profile ${index}`, errors);
     expect(row.review_on_contract_change === true, `exception ${index} must invalidate on contract change`, errors);
     expect(['candidate_exception', 'owner_approved'].includes(row.decision_status), `invalid decision status ${index}`, errors);
-    if (row.decision_status !== 'owner_approved') expect(row.approved_at === null, `candidate exception ${index} cannot have approved_at`, errors);
+    if (row.decision_status === 'owner_approved') {
+      expect(typeof row.approved_at === 'string' && !Number.isNaN(Date.parse(row.approved_at)), `owner-approved exception ${index} requires approved_at`, errors);
+    } else expect(row.approved_at === null, `candidate exception ${index} cannot have approved_at`, errors);
+    if (row.expires_at !== null) expect(typeof row.expires_at === 'string' && !Number.isNaN(Date.parse(row.expires_at)), `invalid expires_at in exception ${index}`, errors);
   }
   return errors;
 }
@@ -331,14 +334,30 @@ export function createBlockedComparisonBoard({ runDir, caseRow, reason, runId })
   return { path: output, sha256: sha256File(output), width: bodyWidth, height: totalHeight, actual_scale: 1, stretched: false, diagnostic_only: true };
 }
 
+export function applyScopedException(structural, exception = null) {
+  if (!structural || !exception || exception.decision_status !== 'owner_approved') return structural;
+  const allowedRegions = new Set(exception.region_or_behavior_scope || []);
+  const findings = (structural.findings || []).map((finding) => (
+    finding.severity === 'blocking' && allowedRegions.has(finding.region)
+      ? { ...finding, severity: 'exception', exception_id: exception.exception_id }
+      : finding
+  ));
+  const hasBlocking = findings.some((finding) => finding.severity === 'blocking');
+  const hasException = findings.some((finding) => finding.severity === 'exception');
+  return { ...structural, status: hasBlocking ? 'fail' : hasException ? 'exception' : findings.length ? 'minor' : 'pass', findings };
+}
+
 export function finalStatus({ preflight, structural, review, exception = null }) {
   if (preflight?.status?.startsWith('BLOCKED_')) return { status: 'blocked', reason: preflight.status };
-  if (structural?.status === 'fail') return { status: 'fail', reason: 'STRUCTURAL_FAILURE' };
+  const scopedStructural = applyScopedException(structural, exception);
+  if (scopedStructural?.status === 'fail') return { status: 'fail', reason: 'STRUCTURAL_FAILURE' };
   if (!review) return { status: 'blocked', reason: 'BLOCKED_AGENT_REVIEW_MISSING' };
   if (review.verdict === 'exception') {
     if (!exception || exception.decision_status !== 'owner_approved') return { status: 'exception', reason: 'CANDIDATE_EXCEPTION' };
+    if (scopedStructural?.status !== 'exception') return { status: 'fail', reason: 'EXCEPTION_SCOPE_NOT_OBSERVED' };
     return { status: 'exception', reason: 'SCOPED_EXCEPTION' };
   }
+  if (scopedStructural?.status === 'exception') return { status: 'exception', reason: 'SCOPED_EXCEPTION' };
   return { status: review.verdict, reason: `AGENT_${review.verdict.toUpperCase()}` };
 }
 
@@ -346,10 +365,14 @@ export function publicationRetentionClass(finalStatusValue) {
   return ['fail', 'blocked'].includes(finalStatusValue) ? 'failed-blocked-72h' : 'published-24h';
 }
 
-export function applicableException(caseRow, registry) {
+export function applicableException(caseRow, registry, now = new Date()) {
   if (!caseRow.exception_ref || !registry?.exceptions) return null;
   const row = registry.exceptions.find((item) => item.exception_id === caseRow.exception_ref);
   if (!row || row.component_id !== caseRow.component_id || row.contract_version !== caseRow.contract_version) return null;
+  if (row.decision_status !== 'owner_approved' || !row.approved_at || Number.isNaN(Date.parse(row.approved_at))) return null;
+  if (row.conformance_profile !== caseRow.conformance_profile) return null;
+  if (!row.state_scope?.includes(caseRow.state_key)) return null;
+  if (row.expires_at !== null && Date.parse(row.expires_at) <= now.getTime()) return null;
   return row;
 }
 

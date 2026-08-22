@@ -15,7 +15,7 @@ const schemaValidate = (instance, schema, shouldPass = true) => {
 };
 
 const result = validateBundle(repo);
-assert.deepEqual(result, {cases:4, status:'minor-awaiting-owner-review'});
+assert.deepEqual(result, {cases:4, status:'blocked-fresh-export-after-systemic-meta-repair'});
 schemaValidate(join(base, 'consumer-layout-contract.v1.json'), join(repo, 'contracts/ui-components/consumer-layout-contract.v1.schema.json'));
 schemaValidate(join(repo, 'catalog/ui-components/event-card-large/component-contract.v2.json'), join(repo, 'contracts/ui-components/component-contract.v2.schema.json'));
 schemaValidate(join(base, 'penpot-materialization-ir.v2.json'), join(repo, 'contracts/ui-components/penpot-materialization-ir.v2.schema.json'));
@@ -69,6 +69,9 @@ assert.equal(component.penpot.baseline_revision, 1256);
 assert.equal(component.penpot.governed_active_variant_count, 11);
 assert.equal(component.penpot.live_container_member_count, 13);
 assert.equal(component.penpot.live_member_anomalies.length, 2);
+assert.equal(component.semantic_layout_contracts.meta_flow.display, 'flex-wrap');
+assert.equal(component.semantic_layout_contracts.meta_flow.admission.layout, 'one-line-hug');
+assert.equal(component.semantic_layout_contracts.penpot_geometry_reconciliation.fixture_specific_visual_patches, false);
 const ir = read(join(base, 'penpot-materialization-ir.v2.json'));
 assert.equal(ir.lifecycle, 'candidate-unexecuted');
 assert(ir.operations.filter((op) => op.operation_type === 'discover-or-create-linked-instance').length >= 4);

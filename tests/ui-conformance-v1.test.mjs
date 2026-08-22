@@ -5,9 +5,9 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import {
-  cleanupRuns, compareStructuralFacts, createComparisonArtifacts, createRunDirectory,
+  applicableException, applyScopedException, cleanupRuns, compareStructuralFacts, createComparisonArtifacts, createRunDirectory,
   finalStatus, makeRunManifest, preflightTuple, prepareTelegramPublication, publicationRetentionClass, readJson,
-  sha256File, stableJson, validateCase, validateTelegramReadback, writeJson,
+  sha256File, stableJson, validateCase, validateExceptionRegistry, validateTelegramReadback, writeJson,
 } from '../.codex/skills/ui-three-way-conformance/scripts/lib.mjs';
 
 const repo = resolve(import.meta.dirname, '..');
@@ -130,6 +130,34 @@ const facts = {root:{width:474,height:500},box_model:{},regions:{},typography:{}
 const drift = clone(facts); drift.root.height = 644;
 const structural = compareStructuralFacts(facts, drift); assert.equal(structural.status, 'fail');
 assert.equal(finalStatus({preflight:{status:'READY_FOR_VISUAL_COMPARE'},structural,review:{verdict:'pass'}}).status, 'fail');
+
+// Owner-approved exceptions are exact component/version/state/profile/region grants, never card-wide waivers.
+const exceptionRegistry = readJson(join(repo, 'catalog/ui-conformance/exception-registry.v1.json'));
+schemaValidate(join(repo, 'catalog/ui-conformance/exception-registry.v1.json'), join(repo, 'contracts/ui-conformance/exception-registry.v1.schema.json'));
+assert.deepEqual(validateExceptionRegistry(exceptionRegistry), []);
+const exhibitionException = exceptionRegistry.exceptions[0];
+const exhibitionCase = {
+  exception_ref: exhibitionException.exception_id,
+  component_id: exhibitionException.component_id,
+  contract_version: exhibitionException.contract_version,
+  state_key: exhibitionException.state_scope[0],
+  conformance_profile: exhibitionException.conformance_profile,
+};
+assert.equal(applicableException(exhibitionCase, exceptionRegistry)?.exception_id, exhibitionException.exception_id);
+assert.equal(applicableException({...exhibitionCase, component_id:'event.card'}, exceptionRegistry), null);
+assert.equal(applicableException({...exhibitionCase, contract_version:'wrong'}, exceptionRegistry), null);
+assert.equal(applicableException({...exhibitionCase, state_key:'viewport=desktop;presentation=wrong'}, exceptionRegistry), null);
+assert.equal(applicableException({...exhibitionCase, conformance_profile:'pixel-strict'}, exceptionRegistry), null);
+const expiredRegistry = clone(exceptionRegistry); expiredRegistry.exceptions[0].expires_at='2026-08-20T00:00:00Z';
+assert.equal(applicableException(exhibitionCase, expiredRegistry, new Date('2026-08-21T00:00:00Z')), null);
+const candidateRegistry = clone(exceptionRegistry); candidateRegistry.exceptions[0].decision_status='candidate_exception'; candidateRegistry.exceptions[0].approved_at=null;
+assert.equal(applicableException(exhibitionCase, candidateRegistry), null);
+const sliderStructural = {status:'fail',findings:[{region:'media_deck.slider.interaction',severity:'blocking',kind:'state_markers',expected:'astro',actual:'static'}]};
+assert.equal(applyScopedException(sliderStructural, exhibitionException).status, 'exception');
+assert.equal(finalStatus({preflight:{status:'READY_FOR_VISUAL_COMPARE'},structural:sliderStructural,review:{verdict:'exception'},exception:exhibitionException}).status, 'exception');
+const outerDeckStructural = {status:'fail',findings:[{region:'media_deck.outer_geometry',severity:'blocking',kind:'width',expected:680,actual:620}]};
+assert.equal(applyScopedException(outerDeckStructural, exhibitionException).status, 'fail');
+assert.equal(finalStatus({preflight:{status:'READY_FOR_VISUAL_COMPARE'},structural:outerDeckStructural,review:{verdict:'exception'},exception:exhibitionException}).status, 'fail');
 
 // Propagation audit permits findings only on fail/blocked, never on pass.
 const passAudit = {schema_version:'propagation-audit.v1',source_resource:'event.card',affected_child_masters:[],affected_parent_masters:['event.card'],affected_instances:['instance'],detached_instances:[],forbidden_overrides:[],broken_variant_connections:[],stale_values:[],representative_exports:[{shape_id:'id',sha256:'a'.repeat(64)}],result:'pass'};

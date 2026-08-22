@@ -3,7 +3,7 @@
   "ir_id": "event-card-large.archetype-context.staging.v2",
   "lifecycle": "candidate-unexecuted",
   "component_id": "event.card",
-  "contract_sha256": "a7e3f0dd972a242bfc0690850842a021473f32828f58a6c499cd95979760b24d",
+  "contract_sha256": "10b5469869585ba738ce193b3763982bdfeffc0d68e3303ae1172c2e756333ae",
   "baseline": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
     "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
@@ -81,7 +81,19 @@
         "width_policy": "fill-parent",
         "height_policy": "intrinsic-row-equalized",
         "attach_to_live_variant_container": false,
-        "consumer_contract_ref": "consumer-layout-contract.v1.json"
+        "consumer_contract_ref": "consumer-layout-contract.v1.json",
+        "meta_flow_contract": {
+          "display": "flex-wrap",
+          "child_order": [
+            "event.meta.event-type",
+            "occurrence",
+            "event.meta.admission"
+          ],
+          "horizontal_gap_px": 6.72,
+          "vertical_gap_px": 5.12,
+          "admission_layout": "one-line-hug-min-height-28"
+        },
+        "penpot_cached_geometry_policy": "deterministic-linked-instance-rematerialization-without-detach"
       },
       "allowed_content_fields": [],
       "expected_linkage": [
