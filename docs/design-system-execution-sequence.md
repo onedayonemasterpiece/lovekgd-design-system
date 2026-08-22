@@ -140,6 +140,24 @@ coverage как небольшой долговременный корпус, а
 
 Это обязательная зависимость следующих волн. Не требуется одновременно продвигать все пять card families в production, но exact versions, states и remaining candidate deltas должны быть известны.
 
+### Текущий bounded handoff по `EventCard · Large`
+
+Semantic overlay `849c3c9035f1…` материализован в native Penpot и проверен на
+семи одинаковых real-event fixtures. Durable evidence и verified Telegram
+read-back перечислены в
+`receipts/penpot/event-card-large-semantic-closure-v1.json`.
+
+Для owner review используются только две компактные страницы: `40.1f`
+(desktop, 4 корня) и `40.1g` (mobile 390, 3 корня). Процесс запрещает экспорт
+всей страницы: один terminal comparison получает один bounded root export и
+сразу публикуется в review-thread. Широкие сравнения размещаются вертикально,
+узкие карточки — рядом, чтобы итоговый лист стремился к квадрату.
+
+Это закрывает bounded semantic/materialization gate только для `EventCard ·
+Large`. Wave 0 целиком нельзя объявлять завершённой до такой же явной фиксации
+оставшихся card families из scope (`listing.event-card`, `listing.rail-row` и
+остальные согласованные representations).
+
 ---
 
 ## Волна 1 — минимальный foundation baseline для листингов

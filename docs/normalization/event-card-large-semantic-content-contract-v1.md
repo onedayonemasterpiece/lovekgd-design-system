@@ -1,6 +1,7 @@
 # EventCard Large semantic content contract v1
 
-Status: **owner-corrected candidate; Penpot reconciliation required; not promoted**.
+Status: **owner-corrected candidate; Penpot reconciliation materialized;
+awaiting owner review; not promoted**.
 
 Machine contract:
 [`semantic-content-contract.v1.json`](../../catalog/ui-components/event-card-large/semantic-content-contract.v1.json).
@@ -8,7 +9,32 @@ Machine contract:
 This additive overlay corrects only EventCard semantic content, action identity,
 and count ownership. It does not rewrite the seven current-v2 conformance cases,
 historical Golden Corpus evidence, or Penpot receipts. It performs no Penpot
-write and authorizes no Astro production change.
+write and authorizes no Astro production change. A later bounded reconciliation
+receipt is recorded below without changing the hash-scoped decision input.
+
+## Penpot reconciliation receipt (2026-08-22)
+
+The required bounded native Penpot reconciliation is materialized and read
+back in
+[`receipts/penpot/event-card-large-semantic-closure-v1.json`](../../receipts/penpot/event-card-large-semantic-closure-v1.json).
+The receipt preserves
+`849c3c9035f15bd7e22815e99d8187063ae086692d7c51f8bc021134d95d8484`
+as the exact contract hash.
+
+Seven exact same-fixture comparisons are stored under
+`evidence/ui-conformance/event-card-large/semantic-closure/v1/`: four desktop
+cases and three mobile-390 cases. Every export is a single bounded native root;
+no full-page export was used. All seven roots are linked component instances or
+masters, have zero detached component roots, and retain Like and Share count
+ownership inside their semantic Social Proof components.
+
+The owner-review targets are deliberately compact:
+
+- `40.1f — EventCard · Semantic conformance · Compact` — four desktop roots;
+- `40.1g — EventCard · Mobile 390 conformance · Compact` — three mobile roots.
+
+The result is `READY_FOR_OWNER_REVIEW`, not promoted. Reverse Astro integration
+and production mutation remain outside this receipt.
 
 ## Production evidence and authority
 
