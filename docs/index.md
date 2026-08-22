@@ -1,5 +1,9 @@
 # LoveKGD Design System — карта документации
 
+## Оперативное состояние
+
+- [`design-system-progress-checklist.md`](design-system-progress-checklist.md) — GitHub-only чек-лист фактической готовности foundations, компонентов, shell, архетипов и сквозного SoT → Penpot → Astro цикла.
+
 ## Нормативные документы
 
 | Документ | Владеет | Текущий статус |
