@@ -14,9 +14,15 @@ and persist the receipt **before beginning the next case**. Never accumulate
 ready cases for a later batch or replace their individual posts with a summary.
 Summaries are optional and never satisfy this per-case gate.
 
-The main PNG is Astro left, Penpot right, same scale, no stretch, with a Russian
-status strip, component/state/fixture, geometry/pixel summary, run ID, authority
-mode, and short contract hash. If the exact Penpot export is unavailable, post
+The main PNG keeps Astro and Penpot at the same scale with no stretch. Choose
+the comparison direction from the source aspect ratio instead of always placing
+the images side by side: build the side-by-side and stacked bounding boxes and
+use the one whose final width/height ratio is closer to `1`. Narrow/tall
+specimens are normally Astro left, Penpot right; wide horizontal rows/rails are
+normally Astro above, Penpot below. Preserve those reading orders and label both
+panels. The result also carries a Russian status strip,
+component/state/fixture, geometry/pixel summary, run ID, authority mode, and
+short contract hash. If the exact Penpot export is unavailable, post
 a clearly labeled diagnostic board immediately: it must say the visual
 comparison was not run, name the blocker, and link the bounded Penpot board.
 It must not show a fabricated Penpot rendering or claim `PASS`. When export is

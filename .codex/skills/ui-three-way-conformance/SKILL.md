@@ -75,6 +75,11 @@ bounded contract; neither may silently become a new baseline.
    blocked, publish a truthful diagnostic board immediately and supersede it
    later with the real comparison; never substitute structural facts for a
    visual pass. Default local/CI runs never send.
+   Compose each comparison toward a square final image: use Astro-left /
+   Penpot-right for narrow specimens and Astro-top / Penpot-bottom for wide
+   horizontal rows or rails, selecting the orientation whose resulting canvas
+   aspect ratio is closest to `1`. Never shrink a wide rail into an unreadable
+   side-by-side strip.
 9. Run cleanup at start/end. Delete only marker-backed eligible ephemeral runs;
    never delete accepted exports, contracts, exceptions, or final receipts.
 
