@@ -158,6 +158,26 @@ Large`. Wave 0 целиком нельзя объявлять завершённ
 оставшихся card families из scope (`listing.event-card`, `listing.rail-row` и
 остальные согласованные representations).
 
+### Текущий честный ledger Wave 0 (2026-08-22)
+
+| Scope | Статус | Что доказано | Что ещё не закрыто |
+|---|---|---|---|
+| `event.card` / EventCard Large | `AWAITING_OWNER_REVIEW` | semantic graph и семь exact same-fixture cases | owner acceptance и reverse integration |
+| `listing.event-card` | `PARTIAL` | один exact case и структурный family audit | полный state/visual closure |
+| `listing.rail-row` | `PARTIAL` | exact T04 native full track без viewport clipping | оставшиеся состояния и family closure |
+| `festival.card` | `AWAITING_OWNER_REVIEW` | 21-row Astro census, 16 фактических theme values, один linked Theme master, private Favorite удалён из всех 9 masters, shared Like+proof count | owner acceptance и reverse integration |
+| `exhibition.row` | `PARTIAL` | bounded E01/medallion correction; slider остаётся зарегистрированным Astro-authoritative exception | остальная family/state closure |
+| **Wave 0 целиком** | **`IN_PROGRESS`** | bounded результаты выше | нельзя объявлять завершённой до явного remaining-delta ledger по каждому scope |
+
+Повторная упаковка уже существующего comparison на более компактную Penpot
+страницу является `cleanup/revalidation`, а не новым прогрессом component
+family. Новый прогресс фиксируется только когда изменился contract, master,
+state coverage, exact evidence или terminal status. Последняя системная
+коррекция `festival.card` записана в
+`receipts/penpot/festival-card-semantic-correction-v1.json`; verified live
+comparison — Telegram message `1085`. До обновления этой таблицы фраза
+«карточки событий завершены в целом» запрещена.
+
 ---
 
 ## Волна 1 — минимальный foundation baseline для листингов
