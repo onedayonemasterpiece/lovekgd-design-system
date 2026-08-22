@@ -39,6 +39,9 @@ function validateRegistry(registryPath,{designRepo=null,eventsRepo=null,toolingR
   if(c.penpot_binding.contract_sha256!==registry.contract_sha256)errors.push(`Penpot contract mismatch ${entry.case_id}`);
   const expectedCache=digest(c.penpot_binding.cache_tuple);if(expectedCache!==c.penpot_binding.cache_key_sha256)errors.push(`Penpot cache key mismatch ${entry.case_id}`);
   const t=c.penpot_binding.cache_tuple;if(t.file_id!==c.penpot_binding.file_id||t.page_id!==c.penpot_binding.page_id||t.shape_id!==c.penpot_binding.shape_id||String(t.revision)!==String(c.penpot_binding.revision)||t.contract_sha256!==c.contract_sha256||t.resolved_case_sha256!==c.resolved_case_sha256)errors.push(`Penpot cache tuple mismatch ${entry.case_id}`);
+  if(c.penpot_binding.export_revision_status==='verified_exact'&&!Number.isInteger(c.penpot_binding.revision))errors.push(`verified Penpot export lacks integer revision ${entry.case_id}`);
+  if(c.penpot_binding.export_revision_status==='unknown_historical_verified_hash'&&(c.penpot_binding.revision!==null||c.lifecycle_status!=='active_blocked'||receipt.verdict!=='BLOCKED'))errors.push(`unbound Penpot export revision must stay blocked ${entry.case_id}`);
+  if(!Number.isInteger(c.penpot_binding.metadata_readback_revision))errors.push(`Penpot metadata read-back revision missing ${entry.case_id}`);
   const facts=read(join(base,c.current_penpot_structural_readback.facts_path));const fi=structuredClone(facts);delete fi.facts_sha256;
   if(digest(fi)!==facts.facts_sha256||facts.facts_sha256!==c.current_penpot_structural_readback.facts_sha256||facts.case_id!==entry.case_id||facts.shape_id!==c.current_penpot_structural_readback.shape_id||facts.file_revision!==c.current_penpot_structural_readback.file_revision)errors.push(`Penpot structural read-back mismatch ${entry.case_id}`);
   if(requireReady&&(c.evidence_status!=='durable_pack_verified'||receipt.verdict==='BLOCKED'))errors.push(`current case not ready: ${entry.case_id}`);

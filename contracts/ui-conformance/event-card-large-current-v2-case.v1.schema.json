@@ -163,7 +163,10 @@
         "contract_sha256",
         "metadata_readback_status",
         "cache_key_sha256",
-        "cache_tuple"
+        "cache_tuple",
+        "export_revision_status",
+        "metadata_readback_revision",
+        "historical_materialization_label"
       ],
       "properties": {
         "binding_status": {
@@ -179,15 +182,11 @@
           "$ref": "#/$defs/uuid"
         },
         "revision": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "string",
-              "minLength": 1
-            }
-          ]
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
         },
         "export_sha256": {
           "$ref": "#/$defs/sha256"
@@ -206,6 +205,22 @@
         },
         "cache_tuple": {
           "type": "object"
+        },
+        "export_revision_status": {
+          "enum": [
+            "verified_exact",
+            "unknown_historical_verified_hash"
+          ]
+        },
+        "metadata_readback_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "historical_materialization_label": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "additionalProperties": false

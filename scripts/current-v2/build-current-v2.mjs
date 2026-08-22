@@ -79,7 +79,9 @@ for (const sourceName of sourceNames) {
   if (!fixture) throw new Error(`fixture absent: ${source.fixture_id}`);
   const isDesktop = source.viewport_id === 'desktop-1280';
   const contextCase = isDesktop ? desktopContextCases[source.fixture_id] : null;
-  const exportBinding = isDesktop ? { ...source.penpot_binding, ...desktopBindings[source.fixture_id], revision:1316, page_id:penpotReadback.file_id ? source.penpot_binding.page_id : source.penpot_binding.page_id } : { ...source.penpot_binding };
+  const exportBinding = isDesktop ? { ...source.penpot_binding, ...desktopBindings[source.fixture_id], revision:1316 } : { ...source.penpot_binding, revision:null };
+  const exportRevisionStatus = isDesktop ? 'verified_exact' : 'unknown_historical_verified_hash';
+  const historicalMaterializationLabel = isDesktop ? null : source.penpot_binding.revision;
   const id = source.case_id;
   const penpotFacts = penpotReadback.cases.find((row) => normalizeReadbackCaseId(row.case_id) === id);
   if (!penpotFacts || penpotFacts.status !== 'found') throw new Error(`current Penpot read-back absent: ${id}`);
@@ -112,6 +114,7 @@ for (const sourceName of sourceNames) {
     page_id: penpotFacts.page_id,
     shape_id: isDesktop ? desktopBindings[source.fixture_id].shape_id : penpotFacts.shape_id,
     revision: exportBinding.revision,
+    export_revision_status: exportRevisionStatus,
     contract_sha256: contract.contract_sha256,
     resolved_case_sha256: resolved.resolved_case_sha256,
   };
@@ -137,6 +140,7 @@ for (const sourceName of sourceNames) {
     penpot_binding: {
       binding_status: 'bound', file_id: source.penpot_binding.file_id, page_id: penpotFacts.page_id,
       shape_id: isDesktop ? desktopBindings[source.fixture_id].shape_id : penpotFacts.shape_id, revision: exportBinding.revision,
+      export_revision_status: exportRevisionStatus, metadata_readback_revision: penpotReadback.file_revision, historical_materialization_label: historicalMaterializationLabel,
       export_sha256: exportBinding.export_sha256, contract_sha256: contract.contract_sha256,
       metadata_readback_status: 'blocked_requires_current_v2_verified_readback', cache_key_sha256: digest(cacheTuple), cache_tuple: cacheTuple,
     },
@@ -150,7 +154,7 @@ for (const sourceName of sourceNames) {
     design_sha: DESIGN_SHA, astro_sha: ASTRO_SHA, events_tooling_sha: EVENTS_TOOLING_SHA, corpus_sha256: corpus.corpus_sha256,
     fixture_sha256: source.fixture_sha256, asset_manifest_sha256: source.asset_manifest_sha256,
     resolved_case_sha256: resolved.resolved_case_sha256, penpot_export_sha256: exportBinding.export_sha256,
-    verdict: 'BLOCKED', reason_codes: ['DURABLE_EVIDENCE_PACK_MISSING','PENPOT_METADATA_READBACK_UNVERIFIED'],
+    verdict: 'BLOCKED', reason_codes: ['DURABLE_EVIDENCE_PACK_MISSING','PENPOT_METADATA_READBACK_UNVERIFIED',...(!isDesktop?['PENPOT_EXPORT_REVISION_UNBOUND']:[])],
     evidence_manifest_path: caseRow.evidence_manifest_path, telegram_publication: 'NOT_PUBLISHED_HASH_CHANGED',
     owner_status: 'AWAITING_REVIEW', history_rewritten: false,
   };

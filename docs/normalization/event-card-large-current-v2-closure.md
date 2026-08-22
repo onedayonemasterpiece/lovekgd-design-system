@@ -66,3 +66,9 @@ review fails closed. No workflow performs a blind live Penpot export.
 
 Telegram is not republished by this additive layer. A future message must be a
 superseding message with changed image/verdict content hash and verified read-back.
+
+Mobile historical PNG hashes remain preserved, but their exact numeric export revision
+is unavailable. Mobile `revision` is therefore `null`,
+`export_revision_status=unknown_historical_verified_hash`, and the cases remain
+BLOCKED. The independent structural/metadata read-back revision 1408 is stored
+separately and is never misrepresented as the export revision.
