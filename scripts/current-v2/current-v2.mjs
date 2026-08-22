@@ -11,7 +11,7 @@ const stableValue=(v)=>Array.isArray(v)?v.map(stableValue):v&&typeof v==='object
 const digest=(v)=>createHash('sha256').update(typeof v==='string'||Buffer.isBuffer(v)?v:`${JSON.stringify(stableValue(v))}\n`).digest('hex');
 const fileDigest=(p)=>digest(readFileSync(p)); const read=(p)=>JSON.parse(readFileSync(resolve(p),'utf8'));
 const write=(p,v)=>{mkdirSync(dirname(resolve(p)),{recursive:true});writeFileSync(resolve(p),`${JSON.stringify(v,null,2)}\n`);};
-function pixelDigest(path){const r=spawnSync('magick',[resolve(path),'-depth','8','rgba:-'],{encoding:null,maxBuffer:64*1024*1024});if(r.status!==0)throw new Error(`pixel digest failed for ${path}`);return digest(r.stdout);}
+function pixelDigest(path){const hasMagick=spawnSync('magick',['-version'],{encoding:'utf8'}).status===0;const command=hasMagick?'magick':'convert';const r=spawnSync(command,[resolve(path),'-depth','8','rgba:-'],{encoding:null,maxBuffer:64*1024*1024});if(r.status!==0)throw new Error(`pixel digest failed for ${path}`);return digest(r.stdout);}
 function parse(argv){const [command='help',...rest]=argv;const a={};for(let i=0;i<rest.length;i++){const k=rest[i];if(!k.startsWith('--'))throw new Error(`unexpected ${k}`);const n=rest[i+1];if(!n||n.startsWith('--'))a[k.slice(2)]=true;else{a[k.slice(2)]=n;i++;}}return{command,a};}
 const need=(a,k)=>{if(!a[k])throw new Error(`--${k} is required`);return a[k];};
 function noPending(value,path='$',errors=[]){if(typeof value==='string'&&/pending-/iu.test(value))errors.push(`${path}: pending state forbidden in current-v2`);else if(Array.isArray(value))value.forEach((v,i)=>noPending(v,`${path}[${i}]`,errors));else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>noPending(v,`${path}.${k}`,errors));return errors;}

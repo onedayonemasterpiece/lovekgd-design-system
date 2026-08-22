@@ -104,6 +104,8 @@ jobs:
         run: npm ci --prefix astro-source/site
       - name: Install exact Playwright Chromium runtime
         run: cd astro-source/site && npx playwright install --with-deps chromium
+      - name: Install raster comparison runtime
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends imagemagick
       - name: Validate design contracts and schemas
         env:
           EVENTS_REPO: ${{ github.workspace }}/astro-source
