@@ -1,0 +1,217 @@
+{
+  "schema_version": "penpot-materialization-receipt.v1",
+  "ir_id": "event-card-large.archetype-context.staging.v2",
+  "contract_sha256": "10b5469869585ba738ce193b3763982bdfeffc0d68e3303ae1172c2e756333ae",
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+  "revision_before": 1256,
+  "revision_after": 1316,
+  "named_version_created": true,
+  "operation_results": [
+    {
+      "operation_id": "execution-provenance",
+      "phase": 0,
+      "status": "recorded",
+      "astro_candidate_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+      "events_conformance_adapter_sha": "871b9cd97ae7d7c5673932847e17f20c78e4887a",
+      "design_execution_base_sha": "a1952e258e056f79bfca7bc55fcab7929b9e7134",
+      "detail": "Astro screenshots come from the exact candidate worktree; the consumer adapter SHA includes the partial-final-row fix discovered during this execution."
+    },
+    {
+      "operation_id": "readback-live-container",
+      "phase": 0,
+      "status": "pass",
+      "detail": "The live EventCard Large variant container still has 13 members. Both recorded anomaly shape IDs remain present and were not moved, detached or deleted."
+    },
+    {
+      "operation_id": "create-isolated-event-card-v2-master",
+      "phase": 1,
+      "status": "applied",
+      "shape_id": "b0fe69fd-ccaf-8025-8008-84706e92f715",
+      "component_variant_count": 3,
+      "detail": "Created an isolated linked EventCard v2 candidate with row-ratio and calendar axes. calendar=absent contains no Calendar node."
+    },
+    {
+      "operation_id": "create-linked-media-frame-variants",
+      "phase": 1,
+      "status": "applied",
+      "shape_id": "b0fe69fd-ccaf-8025-8008-846d2424ff76",
+      "component_variant_count": 2,
+      "actual_media_binding_mode": "linked-media-frame-variant-with-content-image-fill-substitution",
+      "detail": "The candidate IR wording media-component-swap was refined during execution: the component link and ratio variant remain master-owned; only the content image fill is substituted per fixture."
+    },
+    {
+      "operation_id": "create-optimized-grid-archetype-master",
+      "phase": 2,
+      "status": "applied",
+      "shape_id": "b0fe69fd-ccaf-8025-8008-84710216a6e5",
+      "component_id": "b0fe69fd-ccaf-8025-8008-847108143471",
+      "geometry": {
+        "width_px": 1180,
+        "columns": 3,
+        "column_width_px": 380,
+        "gap_px": 20,
+        "first_row_equalized_height_px": 683.640625,
+        "second_row_height_px": 528.640625,
+        "archetype_height_px": 1232.28125
+      }
+    },
+    {
+      "operation_id": "create-review-wrapper",
+      "phase": 3,
+      "status": "superseded-after-reload-not-rematerialized",
+      "shape_id": null,
+      "comparison_status": "external-bounded-comparison-published",
+      "astro_parent_screenshot_sha256": "d0b7ea250b8ad5f59e61c48e13488fed2c70864b91dc55dab8fe7dd47203bcd3",
+      "detail": "The earlier unsaved review wrapper was absent after the owner reload. It was deliberately not recreated: the exact 1180px archetype root was exported once and four bounded local crops were published to the authorized Telegram topic, avoiding another large Penpot board."
+    },
+    {
+      "operation_id": "create-linked-exact-fixtures",
+      "phase": 4,
+      "status": "applied",
+      "ordered_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "detail": "All four cards use the same long-lived Golden Event Corpus records as the real Astro capture. Titles, occurrence, place, admission, counters, calendar state and media content were read back from linked component instances."
+    },
+    {
+      "operation_id": "create-linked-archetype-review-instance",
+      "phase": 5,
+      "status": "superseded-by-direct-bounded-archetype-export",
+      "shape_id": null,
+      "component_id": "b0fe69fd-ccaf-8025-8008-847108143471",
+      "detail": "No duplicate review instance is retained on the page. Current evidence exports the linked archetype master directly; this keeps the page bounded and prevents duplicate graph growth."
+    },
+    {
+      "operation_id": "quarantine-live-anomalies",
+      "phase": 6,
+      "status": "blocked-by-owner-approval-gate",
+      "detail": "No quarantine mutation was attempted. The IR requires explicit owner approval; both existing anomaly IDs remain in the 13-member live container."
+    },
+    {
+      "operation_id": "audit-staging-propagation",
+      "phase": 7,
+      "status": "pass",
+      "detail": "Final bounded read-back found 0 detached instances, 0 Penpot validation errors, exact fixture overrides in the linked archetype master, 9/9 aspect-preserving media fills, and unchanged live membership. No duplicate review copy is retained."
+    },
+    {
+      "operation_id": "align-feedback-baseline-and-partial-row-height",
+      "phase": 7,
+      "status": "applied-master-plus-declared-rematerialization",
+      "detail": "All three EventCard v2 masters use a 60px transparent feedback slot: linked Share/Like actions start at +10px and end with the exact 6px outer inset. Primary actions use the shared 44px control height and exact Astro baselines. Four Golden instances were deterministically rematerialized from these master-owned rules because Penpot did not recompute cached linked-instance child dimensions; no instance was detached."
+    },
+    {
+      "operation_id": "audit-media-fit-binding",
+      "phase": 7,
+      "status": "pass-systemic-master-plus-content-binding-rematerialization",
+      "affected_fixtures": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "detail": "Both event.media-frame masters and all nine bounded media artwork shapes now read back fillImage.keepAspectRatio=true. Fixture image identity remains an override; aspect preservation stays master/rematerialization-owned. File validation is empty and the exact exported crops show no aspect distortion."
+    },
+    {
+      "operation_id": "align-meta-flex-wrap-and-chip-tokens",
+      "phase": 7,
+      "status": "readback-and-current-export-pass",
+      "affected_fixtures": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "master_shape_id": "b0fe69fd-ccaf-8025-8008-846efdb4166b",
+      "semantic_child_component_ids": {
+        "event.meta.event-type": "a6e7f5b4-ff51-80c0-8008-82f5623ab7b3",
+        "event.meta.admission": "a6e7f5b4-ff51-80c0-8008-82f5669ddc4d"
+      },
+      "detached_instances": 0,
+      "instance_reconciliation": "event-card-meta-flex-wrap-v1",
+      "readback": {
+        "fixture_4327": {
+          "meta_relative_y_px": 321.4594,
+          "meta_height_px": 51.3984,
+          "event_type_width_px": 81.984375,
+          "occurrence_width_px": 74,
+          "admission_relative_x_px": 13.6,
+          "admission_relative_y_px": 344.8834,
+          "admission_width_px": 221.59375,
+          "admission_height_px": 28
+        },
+        "other_admission_widths_px": {
+          "event.real.7906": 65.59375,
+          "event.real.8156": 159.59375,
+          "event.real.6628": 72.59375
+        }
+      },
+      "detail": "Shared Event type and Admission masters were corrected once; EventCard v2 owns wrapping/order/gaps. Four linked Golden instances were deterministically rematerialized only because Penpot retained cached child geometry. Content remained fixture-owned, no card was detached, file validation returned no diagnostics.",
+      "current_penpot_export_sha256": "35036f8236aa7ca4c08f790d6504b975c2291358ae2313a05812b79634ae8361",
+      "current_telegram_message_ids": [
+        1066,
+        1067,
+        1068,
+        1069
+      ]
+    },
+    {
+      "operation_id": "instrumental-visual-evidence",
+      "phase": 7,
+      "status": "current-after-systemic-meta-repair",
+      "astro_parent_screenshot_sha256": "d0b7ea250b8ad5f59e61c48e13488fed2c70864b91dc55dab8fe7dd47203bcd3",
+      "astro_selected_specimen_sha256": "db2343f77897780cebfe513a8459d84ae6eed83e3a1c5b40ee13c00558faeb8c",
+      "penpot_archetype_export_sha256": "35036f8236aa7ca4c08f790d6504b975c2291358ae2313a05812b79634ae8361",
+      "penpot_archetype_export_bytes": 1262197,
+      "detail": "Fresh bounded Shape.export() after the systemic meta repair; four exact same-fixture comparisons were visually inspected, published immediately one case at a time, and read back.",
+      "parent_difference_ratio": 0.03505608478700153,
+      "telegram_message_ids": [
+        1066,
+        1067,
+        1068,
+        1069
+      ]
+    },
+    {
+      "operation_id": "named-versions",
+      "phase": 7,
+      "status": "applied",
+      "labels": [
+        "Before EventCard v2 archetype staging · rev1256",
+        "EventCard v2 archetype staging · exact Golden parent",
+        "Shared Share/Like action colors · Astro split-actions parity",
+        "Share zero count · nested component absence contract",
+        "EventCard v2 · Golden parent · readback PASS",
+        "EventCard v2 · Golden archetype · review staging PASS",
+        "Before event.media-frame aspect preservation repair",
+        "EventCard v2 · media aspect + feedback inset checkpoint",
+        "EventCard v2 · exact Golden parent · media + action geometry readback PASS",
+        "Before systemic event meta chips and wrap repair",
+        "EventCard v2 · systemic meta chips + flex-wrap checkpoint"
+      ]
+    },
+    {
+      "operation_id": "cleanup-known-orphan",
+      "phase": 7,
+      "status": "applied",
+      "removed_shape_id": "b0fe69fd-ccaf-8025-8008-846ecb1331e7",
+      "detail": "Removed one verified root-level orphan text shape with no component link or plugin data. No board, component, comment, live variant member, or foreign artifact was deleted."
+    }
+  ],
+  "propagation_audit_path": "receipts/ui-conformance/golden-event-corpus-v1-archetype-v2/propagation-audit.json",
+  "validation_errors": [],
+  "idempotency": {
+    "mode": "stable-key-reconciliation-second-pass",
+    "scope": "isolated staging root only; no duplicate review wrapper",
+    "primary_keys_exact": true,
+    "unknown_key_prefixes": [],
+    "second_pass_identical": true,
+    "second_run_created": 0,
+    "second_run_unexpected_updates": 0,
+    "limitation": "Final bounded read-back verified 6 staging children, 9 aspect-preserving media fills, 0 detached instances, the unchanged 13-member live container, both preserved anomaly IDs, and no root-level orphan text. No destructive second materializer run was performed."
+  },
+  "result": "pass"
+}

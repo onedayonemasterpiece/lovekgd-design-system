@@ -1,0 +1,243 @@
+{
+  "$schema": "../../contracts/receipts/penpot-materialization-receipt.v1.schema.json",
+  "schema_version": "penpot_festival_card_architecture_audit_v1",
+  "receipt_id": "penpot.festival-card.architecture-audit.20260821.v1",
+  "status": "readback-pass-same-data-visual-conformance-pass-with-engine-limits",
+  "contract": {
+    "path": "catalog/normalization/families/event-preview-representations/event-card-systemic-boundaries-candidate-v1.json",
+    "version": "1.0.0-candidate.11",
+    "sha256": "637e18cc57d5954c3f404fce8cd09f72434eb2629b705b45ac1c048caf5fb00e"
+  },
+  "source": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "path": "site/src/pages/festivali/index.astro"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+    "page_name": "40.4 — FestivalCard · Native variants",
+    "variant_set_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+    "variant_count": 9,
+    "linked_review_instance_count": 9,
+    "variant_errors": 0,
+    "file_revn_readback": 1356,
+    "detached_review_root_count": 0,
+    "file_validation_issues": []
+  },
+  "systemic_findings": [
+    {
+      "finding": "evidence source skeleton was nested inside reusable master",
+      "affected_masters_before": 8,
+      "affected_masters_after": 0,
+      "resolution": "replaced by direct linked event.media-frame plus native veil/title/place slots"
+    },
+    {
+      "finding": "standalone category icon duplicated Theme chip icon",
+      "affected_masters_before": 9,
+      "affected_masters_after": 0,
+      "resolution": "removed duplicate; linked Theme chip owns icon"
+    },
+    {
+      "finding": "wide master had raw date/status/theme layers behind linked semantic components",
+      "affected_masters_before": 1,
+      "affected_masters_after": 0,
+      "resolution": "removed raw duplicates; linked semantic components preserved"
+    },
+    {
+      "finding": "meta components were fixed-width rather than content-hug",
+      "affected_components": [
+        "Date badge",
+        "Status badge",
+        "Theme chip"
+      ],
+      "resolution": "central masters use source-driven auto layout/content hug; readback passed"
+    }
+  ],
+  "preserved_correct_structure": {
+    "festival_variant_set_is_native": true,
+    "review_roots_linked": true,
+    "favorite_action_linked_and_count_absent": true,
+    "aggregate_count_absent": true,
+    "titles_and_places_parent_owned_slots": true,
+    "review_roots_detached": false,
+    "source_skeleton_descendant_count": 0,
+    "duplicate_category_icon_count": 0,
+    "duplicate_raw_meta_layer_count": 0
+  },
+  "non_claims": [
+    "exact cross-renderer pixel equality; Penpot variable-font weights and CSS ellipsis are documented engine limits",
+    "owner visual acceptance",
+    "Astro reverse integration",
+    "production mutation",
+    "family promotion"
+  ],
+  "semantic_component_readback": {
+    "direct_children_per_master": 8,
+    "linked_meta_components": [
+      "Event cards / Festival / Meta / Date badge",
+      "Event cards / Festival / Meta / Status badge",
+      "Event cards / Festival / Meta / Theme chip"
+    ],
+    "favorite_variant_set": {
+      "container_id": "d2dce362-5739-80f9-8008-84c04ce7c277",
+      "path": "Event cards / Festival / Action / Favorite",
+      "variant_count": 5,
+      "axes": {
+        "viewport": [
+          "desktop",
+          "mobile"
+        ],
+        "favorite": [
+          "off",
+          "on"
+        ],
+        "interaction": [
+          "default",
+          "hover",
+          "focus-visible"
+        ]
+      },
+      "component_ids": [
+        "d2dce362-5739-80f9-8008-84c00ba4e19f",
+        "d2dce362-5739-80f9-8008-84c00da46765",
+        "d2dce362-5739-80f9-8008-84c02911f50a",
+        "d2dce362-5739-80f9-8008-84c02a6673a0",
+        "d2dce362-5739-80f9-8008-84c04cd532c1"
+      ],
+      "variant_errors": 0,
+      "linked_icon_primitive": "Icon / UI / Heart",
+      "aggregate_count": "absent"
+    },
+    "meta_hug": {
+      "status": "pass-exact-source-fixture-geometry",
+      "date_badge_px": {
+        "width": 57.375,
+        "height": 25
+      },
+      "status_badge_px": {
+        "announced": {
+          "width": 96.594,
+          "height": 25
+        },
+        "program-pending": {
+          "width": 120,
+          "height": 25
+        },
+        "date-pending": {
+          "width": 110,
+          "height": 25
+        }
+      },
+      "theme_chip_px": {
+        "width": 193.313,
+        "height": 24.266
+      },
+      "theme_icon_before_label": true
+    }
+  },
+  "idempotency": {
+    "rerun_master_count": 9,
+    "favorite_instances_created_on_rerun": 0,
+    "result": "pass"
+  },
+  "visual_sanity": {
+    "scope": "bounded Penpot exports only; not same-data Astro pixel comparison",
+    "exports": [
+      {
+        "case": "F01",
+        "shape_id": "880e839b-f453-8082-8008-8419161d517f",
+        "result": "sanity-pass"
+      },
+      {
+        "case": "F03",
+        "shape_id": "880e839b-f453-8082-8008-84191bd2c470",
+        "result": "sanity-pass"
+      },
+      {
+        "case": "F04",
+        "shape_id": "880e839b-f453-8082-8008-84191fe91123",
+        "result": "sanity-pass"
+      },
+      {
+        "case": "F06",
+        "shape_id": "880e839b-f453-8082-8008-841923724457",
+        "result": "sanity-pass"
+      },
+      {
+        "case": "F08",
+        "shape_id": "880e839b-f453-8082-8008-84192874d71d",
+        "result": "sanity-pass"
+      }
+    ]
+  },
+  "named_versions": [
+    "FestivalCard meta · hug sizing finalized",
+    "FestivalCard v2 · native layers + semantic favorite action",
+    "FestivalCard v2 · idempotency verified",
+    "FestivalCard F01 · exact same-data Astro geometry"
+  ],
+  "same_data_conformance": {
+    "status": "pass-with-documented-renderer-limits",
+    "fixture": "festival.more-vnutri",
+    "astro_selector": "[data-festival-card=\"more-vnutri\"]",
+    "astro_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "penpot_linked_shape_id": "880e839b-f453-8082-8008-8419161d517f",
+    "terminal_instance_geometry_overrides": 0,
+    "central_changes": [
+      "FestivalCard F01 variant master geometry",
+      "shared Festival Date badge master",
+      "shared Festival announced Status badge master",
+      "shared Festival Theme chip master",
+      "shared Festival Favorite desktop/off/default master"
+    ],
+    "root_geometry": {
+      "astro_px": {
+        "width": 263.469,
+        "height": 277.719
+      },
+      "penpot_px": {
+        "width": 263.469,
+        "height": 277.719
+      }
+    },
+    "resolved_content_equal": true,
+    "media_source_equal": true,
+    "media_crop_equal_by_geometry_contract": true,
+    "pixel_metric": {
+      "normalized_mae": 30.11,
+      "normalized_rms": 51.459,
+      "interpretation": "informational only; not a pixel-equality gate"
+    },
+    "engine_limits": [
+      "Astro variable weights 740/760 map to Penpot discrete 700/800",
+      "Penpot retains full semantic theme text because CSS ellipsis is unavailable"
+    ],
+    "artifacts": {
+      "astro.png": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/astro.png",
+        "sha256": "74997f705fcada7da3be41d2db13f9fa5ed1ae50558cc0e37bdf728ec800a9c0"
+      },
+      "astro-facts.json": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/astro-facts.json",
+        "sha256": "427d4cdf81308f4312242ba35b4f9542991f94735f5e486233259a36895c29f6"
+      },
+      "penpot-after-systemic.png": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/penpot-after-systemic.png",
+        "sha256": "75c440a69abe93edc22e5160bdd26d256a425ad747572c22b4c42cbe026600c5"
+      },
+      "penpot-after-systemic-crop.png": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/penpot-after-systemic-crop.png",
+        "sha256": "8760ebb0638cce03cb2e4b04cc8f87bca1ec420e4775d058a9ddc443746ee969"
+      },
+      "penpot-facts.json": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/penpot-facts.json",
+        "sha256": "c7baad6894605e108f60c5ebe26365d662172d583c32b6e5f46e591d2f789e18"
+      },
+      "same-data-side-by-side-after.png": {
+        "path": "artifacts/ui-conformance/festival-more-vnutri-20260821/same-data-side-by-side-after.png",
+        "sha256": "4cc4411aed67d4c7ee28dfc6c9eb1e9e109b4ba2e1021e7fa9530ff739e1a317"
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "registry_id",
+    "component_id",
+    "contract_path",
+    "contract_sha256",
+    "design_sha",
+    "astro_sha",
+    "events_tooling_sha",
+    "corpus_sha256",
+    "batch_id",
+    "active_case_count",
+    "cases",
+    "evidence_readiness",
+    "promotion_status",
+    "owner_review_target",
+    "registry_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "event_card_large_current_v2_registry.v1"
+    },
+    "registry_id": {
+      "const": "event-card-large-current-v2"
+    },
+    "component_id": {
+      "const": "event.card"
+    },
+    "contract_path": {
+      "type": "string"
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "design_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "astro_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "corpus_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "batch_id": {
+      "const": "event-card-large-current-v2"
+    },
+    "active_case_count": {
+      "const": 7
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7
+    },
+    "evidence_readiness": {
+      "enum": [
+        "BLOCKED",
+        "READY"
+      ]
+    },
+    "promotion_status": {
+      "const": "NOT_PROMOTED"
+    },
+    "owner_review_target": {
+      "const": "staging-v2-master-archetype"
+    },
+    "registry_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "events_tooling_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    }
+  },
+  "additionalProperties": false
+}

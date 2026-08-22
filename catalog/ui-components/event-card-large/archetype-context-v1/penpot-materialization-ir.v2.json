@@ -1,0 +1,547 @@
+{
+  "schema_version": "penpot-materialization-ir.v2",
+  "ir_id": "event-card-large.archetype-context.staging.v2",
+  "lifecycle": "candidate-unexecuted",
+  "component_id": "event.card",
+  "contract_sha256": "10b5469869585ba738ce193b3763982bdfeffc0d68e3303ae1172c2e756333ae",
+  "baseline": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+    "revision": 1256,
+    "variant_container_id": "195df023-6fe5-80a0-8008-82cad7dbc855",
+    "governed_active_variant_count": 11,
+    "live_container_member_count": 13,
+    "known_anomaly_ids": [
+      "b0fe69fd-ccaf-8025-8008-844af25a752a",
+      "b0fe69fd-ccaf-8025-8008-844b61ec1ee8"
+    ]
+  },
+  "staging_policy": {
+    "isolated_from_live_variant_container": true,
+    "new_ids_must_be_discovered": true,
+    "no_guessed_ids": true,
+    "no_production_binding": true,
+    "preserve_existing_masters": true
+  },
+  "execution_gate": {
+    "exact_live_readback_required": true,
+    "required_revision": 1256,
+    "required_member_count": 13,
+    "on_revision_or_membership_drift": "halt-and-regenerate-ir",
+    "owner_approval_required_before_quarantine_reconcile": true
+  },
+  "operations": [
+    {
+      "operation_id": "readback-live-container",
+      "phase": 0,
+      "operation_type": "exact-live-readback",
+      "owner_level": "live-readback",
+      "stable_resource_key": "live.event-card-large.variant-container",
+      "target": {
+        "binding_mode": "known-live-id",
+        "target_id": "195df023-6fe5-80a0-8008-82cad7dbc855",
+        "discovery_ref": "live EventCard Large variant container at page 40.1a"
+      },
+      "preconditions": [
+        "authenticated exact read-only Penpot snapshot available"
+      ],
+      "changes": {
+        "read_revision": true,
+        "read_child_ids": true,
+        "read_component_links": true,
+        "assert_governed_members": 11,
+        "assert_live_members": 13
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "exact member IDs and linkage captured in execution receipt"
+      ],
+      "expected_propagation_consumers": [],
+      "rollback": "read-only operation"
+    },
+    {
+      "operation_id": "create-isolated-event-card-v2-master",
+      "phase": 1,
+      "operation_type": "discover-or-create-master",
+      "owner_level": "parent-master",
+      "stable_resource_key": "staging.event-card.large.v2.master",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.event-card.large.v2.master on isolated staging board"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "component_name": "EventCard · Large · v2 candidate",
+        "resource_path": "Staging / Event cards / Large v2",
+        "width_policy": "fill-parent",
+        "height_policy": "intrinsic-row-equalized",
+        "attach_to_live_variant_container": false,
+        "consumer_contract_ref": "consumer-layout-contract.v1.json",
+        "meta_flow_contract": {
+          "display": "flex-wrap",
+          "child_order": [
+            "event.meta.event-type",
+            "occurrence",
+            "event.meta.admission"
+          ],
+          "horizontal_gap_px": 6.72,
+          "vertical_gap_px": 5.12,
+          "admission_layout": "one-line-hug-min-height-28"
+        },
+        "penpot_cached_geometry_policy": "deterministic-linked-instance-rematerialization-without-detach"
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "component master id stored against stable resource key",
+        "nested event.media-frame and semantic action masters remain linked"
+      ],
+      "expected_propagation_consumers": [
+        "staging.archetype.optimized-event-card-grid.desktop-1280.v1",
+        "staging.fixture.7906",
+        "staging.fixture.8156",
+        "staging.fixture.6628",
+        "staging.fixture.4327"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-optimized-grid-archetype-master",
+      "phase": 2,
+      "operation_type": "discover-or-create-master",
+      "owner_level": "parent-master",
+      "stable_resource_key": "staging.archetype.optimized-event-card-grid.desktop-1280.v1",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "component_name": "OptimizedEventCardGrid · desktop 1280 · v1 candidate",
+        "container_width_px": 1180,
+        "columns": 3,
+        "gap_px": 20,
+        "track_definition": "repeat(3, minmax(0, 1fr))",
+        "align_items": "stretch",
+        "row_equalization": "tallest-intrinsic-card-in-row",
+        "used_card_width_px": 380,
+        "attach_to_live_variant_container": false
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "four child slots require linked instances of staging.event-card.large.v2.master"
+      ],
+      "expected_propagation_consumers": [
+        "staging.review.event-detail-related.desktop-1280"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-review-wrapper",
+      "phase": 3,
+      "operation_type": "discover-or-create-wrapper",
+      "owner_level": "review-wrapper",
+      "stable_resource_key": "staging.review.event-detail-related.desktop-1280",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.review.event-detail-related.desktop-1280"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "board_name": "EventCard v2 · Optimized grid · exact four-fixture review",
+        "locked_astro_evidence_required": true,
+        "comparison_status": "blocked-until-captures-exist"
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "contains one linked staging archetype instance and four fixture review instances"
+      ],
+      "expected_propagation_consumers": [
+        "owner-review"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-linked-fixture-7906",
+      "phase": 4,
+      "operation_type": "discover-or-create-linked-instance",
+      "owner_level": "content-instance",
+      "stable_resource_key": "staging.fixture.7906",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.fixture.7906"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "fixture_id": "event.real.7906",
+        "row_index": 0,
+        "column_index": 0,
+        "used_width_px": 380,
+        "content_source": "catalog/fixtures/ui-reference-events/v1/events/event.real.7906.json",
+        "media_binding": "discovery-ref:event.media-frame.fixture.7906.candidate",
+        "content_overrides_only": true
+      },
+      "allowed_content_fields": [
+        "title",
+        "occurrence",
+        "resolved-place",
+        "event-type-label",
+        "admission-label",
+        "share-count",
+        "like-count",
+        "calendar-label",
+        "media-component-swap"
+      ],
+      "expected_linkage": [
+        "component link -> staging.event-card.large.v2.master",
+        "parent slot -> staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      ],
+      "expected_propagation_consumers": [
+        "staging.review.event-detail-related.desktop-1280"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-linked-fixture-8156",
+      "phase": 4,
+      "operation_type": "discover-or-create-linked-instance",
+      "owner_level": "content-instance",
+      "stable_resource_key": "staging.fixture.8156",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.fixture.8156"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "fixture_id": "event.real.8156",
+        "row_index": 0,
+        "column_index": 1,
+        "used_width_px": 380,
+        "content_source": "catalog/fixtures/ui-reference-events/v1/events/event.real.8156.json",
+        "media_binding": "discovery-ref:event.media-frame.fixture.8156.candidate",
+        "content_overrides_only": true
+      },
+      "allowed_content_fields": [
+        "title",
+        "occurrence",
+        "resolved-place",
+        "event-type-label",
+        "admission-label",
+        "share-count",
+        "like-count",
+        "calendar-label",
+        "media-component-swap"
+      ],
+      "expected_linkage": [
+        "component link -> staging.event-card.large.v2.master",
+        "parent slot -> staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      ],
+      "expected_propagation_consumers": [
+        "staging.review.event-detail-related.desktop-1280"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-linked-fixture-6628",
+      "phase": 4,
+      "operation_type": "discover-or-create-linked-instance",
+      "owner_level": "content-instance",
+      "stable_resource_key": "staging.fixture.6628",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.fixture.6628"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "fixture_id": "event.real.6628",
+        "row_index": 0,
+        "column_index": 2,
+        "used_width_px": 380,
+        "content_source": "catalog/fixtures/ui-reference-events/v1/events/event.real.6628.json",
+        "media_binding": "discovery-ref:event.media-frame.fixture.6628.candidate",
+        "content_overrides_only": true
+      },
+      "allowed_content_fields": [
+        "title",
+        "occurrence",
+        "resolved-place",
+        "event-type-label",
+        "admission-label",
+        "share-count",
+        "like-count",
+        "calendar-label",
+        "media-component-swap"
+      ],
+      "expected_linkage": [
+        "component link -> staging.event-card.large.v2.master",
+        "parent slot -> staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      ],
+      "expected_propagation_consumers": [
+        "staging.review.event-detail-related.desktop-1280"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-linked-fixture-4327",
+      "phase": 4,
+      "operation_type": "discover-or-create-linked-instance",
+      "owner_level": "content-instance",
+      "stable_resource_key": "staging.fixture.4327",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.fixture.4327"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "fixture_id": "event.real.4327",
+        "row_index": 1,
+        "column_index": 0,
+        "used_width_px": 380,
+        "content_source": "catalog/fixtures/ui-reference-events/v1/events/event.real.4327.json",
+        "media_binding": "discovery-ref:event.media-frame.fixture.4327.candidate",
+        "content_overrides_only": true
+      },
+      "allowed_content_fields": [
+        "title",
+        "occurrence",
+        "resolved-place",
+        "event-type-label",
+        "admission-label",
+        "share-count",
+        "like-count",
+        "calendar-label",
+        "media-component-swap"
+      ],
+      "expected_linkage": [
+        "component link -> staging.event-card.large.v2.master",
+        "parent slot -> staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      ],
+      "expected_propagation_consumers": [
+        "staging.review.event-detail-related.desktop-1280"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "create-linked-archetype-review-instance",
+      "phase": 5,
+      "operation_type": "discover-or-create-linked-instance",
+      "owner_level": "review-wrapper",
+      "stable_resource_key": "staging.review.archetype-instance",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "discover by plugin_data.sot_resource_key=staging.review.archetype-instance"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "instance_of": "staging.archetype.optimized-event-card-grid.desktop-1280.v1",
+        "container_width_px": 1180,
+        "ordered_fixture_keys": [
+          "staging.fixture.7906",
+          "staging.fixture.8156",
+          "staging.fixture.6628",
+          "staging.fixture.4327"
+        ]
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "component link -> staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+      ],
+      "expected_propagation_consumers": [
+        "owner-review"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "quarantine-duplicate-member",
+      "phase": 6,
+      "operation_type": "reconcile-quarantine",
+      "owner_level": "binding",
+      "stable_resource_key": "quarantine.live.duplicate-state-01",
+      "target": {
+        "binding_mode": "known-live-id",
+        "target_id": "b0fe69fd-ccaf-8025-8008-844af25a752a",
+        "discovery_ref": "exact live member classified accidental duplicate state01 at revision 1256"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift",
+        "owner approval for quarantine reconciliation recorded"
+      ],
+      "changes": {
+        "action": "move-to-isolated-quarantine-board",
+        "delete": false,
+        "detach_component": false,
+        "preserve_shape_id": true
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "removed from live variant-container membership only after owner approval",
+        "remains inspectable and linked in quarantine"
+      ],
+      "expected_propagation_consumers": [
+        "live.event-card-large.variant-container"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "quarantine-experimental-member",
+      "phase": 6,
+      "operation_type": "reconcile-quarantine",
+      "owner_level": "binding",
+      "stable_resource_key": "quarantine.live.experimental-dynamic",
+      "target": {
+        "binding_mode": "known-live-id",
+        "target_id": "b0fe69fd-ccaf-8025-8008-844b61ec1ee8",
+        "discovery_ref": "exact live member classified ungoverned experimental dynamic at revision 1256"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift",
+        "owner approval for quarantine reconciliation recorded"
+      ],
+      "changes": {
+        "action": "move-to-isolated-quarantine-board",
+        "delete": false,
+        "detach_component": false,
+        "preserve_shape_id": true
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "removed from live variant-container membership only after owner approval",
+        "remains inspectable and linked in quarantine"
+      ],
+      "expected_propagation_consumers": [
+        "live.event-card-large.variant-container"
+      ],
+      "rollback": "remove only resources created by this IR receipt; preserve every pre-existing live resource"
+    },
+    {
+      "operation_id": "audit-staging-propagation",
+      "phase": 7,
+      "operation_type": "propagation-audit",
+      "owner_level": "audit",
+      "stable_resource_key": "audit.event-card-v2-archetype-propagation",
+      "target": {
+        "binding_mode": "discovery-ref",
+        "target_id": null,
+        "discovery_ref": "execution receipt allocates propagation audit receipt id"
+      },
+      "preconditions": [
+        "exact live readback at revision 1256 passed",
+        "live variant container membership is exactly 13 with the two recorded anomalies",
+        "no revision or membership drift"
+      ],
+      "changes": {
+        "mutate_event_card_master_probe": true,
+        "verify_four_fixture_instances": true,
+        "verify_archetype_instance": true,
+        "verify_no_live_container_mutation": true
+      },
+      "allowed_content_fields": [],
+      "expected_linkage": [
+        "all four fixtures remain linked",
+        "archetype review remains linked",
+        "no detached instances",
+        "no forbidden geometry overrides"
+      ],
+      "expected_propagation_consumers": [
+        "owner-review"
+      ],
+      "rollback": "restore staging master from before-probe snapshot; no live resource rollback should be necessary"
+    }
+  ],
+  "linkage_assertions": [
+    "new EventCard v2 is a component master isolated from the current live variant container",
+    "OptimizedEventCardGrid is a component master linked to EventCard v2 child instances",
+    "all four fixture review instances retain component links to EventCard v2",
+    "fixture values are content overrides only; geometry, typography, colors and anatomy remain master-owned",
+    "review wrapper retains a component link to the OptimizedEventCardGrid archetype",
+    "no live governed member is deleted, detached or silently overwritten"
+  ],
+  "propagation_audit": {
+    "required": true,
+    "source_resource_keys": [
+      "staging.event-card.large.v2.master",
+      "staging.archetype.optimized-event-card-grid.desktop-1280.v1"
+    ],
+    "expected_linked_consumers": [
+      "staging.fixture.7906",
+      "staging.fixture.8156",
+      "staging.fixture.6628",
+      "staging.fixture.4327",
+      "staging.review.archetype-instance"
+    ],
+    "fail_on": [
+      "detached-instance",
+      "broken-component-link",
+      "forbidden-geometry-override",
+      "stale-master-value",
+      "unexpected-live-container-mutation"
+    ]
+  },
+  "quarantine_plan": {
+    "member_actions": [
+      {
+        "shape_id": "b0fe69fd-ccaf-8025-8008-844af25a752a",
+        "classification": "accidental-duplicate-state-01",
+        "action": "move-to-isolated-quarantine-after-approved-exact-readback"
+      },
+      {
+        "shape_id": "b0fe69fd-ccaf-8025-8008-844b61ec1ee8",
+        "classification": "ungoverned-experimental-dynamic",
+        "action": "move-to-isolated-quarantine-after-approved-exact-readback"
+      }
+    ],
+    "delete_forbidden": true,
+    "detach_forbidden": true,
+    "preserve_shape_ids": true,
+    "postcondition": "live variant container contains exactly the 11 governed members; anomalies remain inspectable in quarantine"
+  },
+  "idempotency": {
+    "stable_resource_keys": true,
+    "reconcile_before_create": true,
+    "second_run_created": 0,
+    "second_run_unexpected_updates": 0
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema_version": "penpot-materialization-ir.v1",
+  "ir_id": "event-card-large.exact-fixture-pilot.v1",
+  "component_id": "event.card",
+  "contract_sha256": "45a67d195c626d9d0f643d0c56be53b9d2ffe3413a0cab3cbb1bd465b5bf31d1",
+  "baseline_revision": 1236,
+  "operations": [
+    {
+      "operation_id": "resource-discoverability",
+      "type": "master-update",
+      "owner_level": "parent-master",
+      "target_id": "195df023-6fe5-80a0-8008-82cad7dbc855",
+      "changes": {
+        "component_name": "EventCard · Large",
+        "component_path": "Event cards / Large"
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "E01",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E10",
+        "E11",
+        "E12"
+      ]
+    },
+    {
+      "operation_id": "fixture-media-masters",
+      "type": "master-update",
+      "owner_level": "child-master",
+      "target_id": "b0fe69fd-ccaf-8025-8008-8446adae8dab",
+      "changes": {
+        "create_fixture_bound_media_components": [
+          "event.real.7906",
+          "event.real.8156",
+          "event.real.4327",
+          "event.real.6628"
+        ],
+        "component_ids": [
+          "b0fe69fd-ccaf-8025-8008-8446bc38e2dc",
+          "b0fe69fd-ccaf-8025-8008-8446bcc30fe0",
+          "b0fe69fd-ccaf-8025-8008-8446bd4519cd",
+          "b0fe69fd-ccaf-8025-8008-8446bddf86cb"
+        ],
+        "no_detached_fills": true
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "pilot.desktop.landscape",
+        "pilot.desktop.portrait",
+        "pilot.desktop.ocr-protected",
+        "pilot.desktop.multi-image"
+      ]
+    },
+    {
+      "operation_id": "pilot-review-board-landscape",
+      "type": "review-instance-create",
+      "owner_level": "review-wrapper",
+      "target_id": "b0fe69fd-ccaf-8025-8008-845630283a00",
+      "changes": {
+        "board_name": "40.1aE · event.real.7906 · ASTRO vs PENPOT · OWNER REVIEW",
+        "layout": "locked exact Astro evidence beside one linked Penpot component reconstruction"
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "b0fe69fd-ccaf-8025-8008-845634364103"
+      ]
+    },
+    {
+      "operation_id": "pilot-review-board-portrait",
+      "type": "review-instance-create",
+      "owner_level": "review-wrapper",
+      "target_id": "b0fe69fd-ccaf-8025-8008-845635b1474d",
+      "changes": {
+        "board_name": "40.1aE · event.real.8156 · ASTRO vs PENPOT · OWNER REVIEW",
+        "layout": "locked exact Astro evidence beside one linked Penpot component reconstruction"
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "b0fe69fd-ccaf-8025-8008-84563952314d"
+      ]
+    },
+    {
+      "operation_id": "pilot-review-board-ocr",
+      "type": "review-instance-create",
+      "owner_level": "review-wrapper",
+      "target_id": "b0fe69fd-ccaf-8025-8008-84563a6dcc59",
+      "changes": {
+        "board_name": "40.1aE · event.real.4327 · ASTRO vs PENPOT · OWNER REVIEW",
+        "layout": "locked exact Astro evidence beside one linked Penpot component reconstruction"
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "b0fe69fd-ccaf-8025-8008-84563e400624"
+      ]
+    },
+    {
+      "operation_id": "pilot-review-board-multi-image",
+      "type": "review-instance-create",
+      "owner_level": "review-wrapper",
+      "target_id": "b0fe69fd-ccaf-8025-8008-84563ffcf243",
+      "changes": {
+        "board_name": "40.1aE · event.real.6628 · ASTRO vs PENPOT · OWNER REVIEW",
+        "layout": "locked exact Astro evidence beside one linked Penpot component reconstruction"
+      },
+      "allowed_content_fields": [],
+      "expected_propagation_consumers": [
+        "b0fe69fd-ccaf-8025-8008-845644eefd19"
+      ]
+    },
+    {
+      "operation_id": "pilot-native-instances",
+      "type": "instance-content-override",
+      "owner_level": "content-instance",
+      "target_id": null,
+      "changes": {
+        "fixtures": [
+          "event.real.7906",
+          "event.real.8156",
+          "event.real.4327",
+          "event.real.6628"
+        ],
+        "viewports": [
+          "desktop"
+        ],
+        "instance_ids": [
+          "b0fe69fd-ccaf-8025-8008-845634364103",
+          "b0fe69fd-ccaf-8025-8008-84563952314d",
+          "b0fe69fd-ccaf-8025-8008-84563e400624",
+          "b0fe69fd-ccaf-8025-8008-845644eefd19"
+        ],
+        "binding_metadata_required": true,
+        "mobile_disposition": "not-materialized-current-taxonomy-gap"
+      },
+      "allowed_content_fields": [
+        "title",
+        "occurrence",
+        "resolved-place",
+        "event-type-label",
+        "admission-label",
+        "share-count",
+        "like-count",
+        "calendar-label",
+        "media-component-swap"
+      ],
+      "expected_propagation_consumers": [
+        "pilot.desktop.landscape",
+        "pilot.desktop.portrait",
+        "pilot.desktop.ocr-protected",
+        "pilot.desktop.multi-image"
+      ]
+    }
+  ],
+  "propagation_audit_required": true,
+  "idempotency": {
+    "stable_ids": true,
+    "second_run_created": 0,
+    "second_run_unexpected_updates": 0
+  }
+}

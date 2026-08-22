@@ -3,8 +3,8 @@
   "schema_version": "event_card_systemic_boundaries_candidate_v1",
   "package_id": "candidate.event-card-systemic-boundaries",
   "family_id": "family.event-preview-representations",
-  "contract_version": "1.0.0-candidate.2",
-  "contract_payload_sha256": "91a5350b72f3c54cc8a7ecad2a830b876dd9f719c8b029cd1a1fca2a5e8e67d9",
+  "contract_version": "1.0.0-candidate.11",
+  "contract_payload_sha256": "637e18cc57d5954c3f404fce8cd09f72434eb2629b705b45ac1c048caf5fb00e",
   "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
   "status": "penpot-reconciled-ready-for-owner-rereview",
   "authority_mode": "reconstructed",
@@ -14,12 +14,16 @@
   "source_baseline": {
     "repository": "onedayonemasterpiece/events-bot-new",
     "exact_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
-    "previous_stale_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411"
+    "previous_stale_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+    "same_data_visual_reference_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "latest_same_data_harness_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721"
   },
   "supersedes_for_bounded_scope": [
     "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json semantic child boundaries",
     "catalog/normalization/families/event-preview-representations/event-card-visual-spec-candidate-v1.json loose icon/count composition",
-    "receipts/penpot/event-card-library-architecture-remediation-v1.json rail review-layout conclusion"
+    "receipts/penpot/event-card-library-architecture-remediation-v1.json rail review-layout conclusion",
+    "event-card-systemic-boundaries-candidate-v1@1.0.0-candidate.2:91a5350b72f3c54cc8a7ecad2a830b876dd9f719c8b029cd1a1fca2a5e8e67d9",
+    "event-card-systemic-boundaries-candidate-v1@1.0.0-candidate.3:d9c695062586cde24c09d2f9427febc8848129ff17a35aa22e5778a3fe2de086"
   ],
   "owner_comment_binding": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
@@ -44,7 +48,8 @@
       94,
       95
     ],
-    "disposition": "accepted-as-correction-input; materialize from this Git contract; keep visual acceptance open"
+    "disposition": "accepted-as-correction-input; materialize from this Git contract; keep visual acceptance open",
+    "exhibition_slider_authority_decision": "docs/normalization/exhibition-slider-astro-authority-20260821.md"
   },
   "semantic_components": {
     "event.social-proof.share": {
@@ -176,9 +181,9 @@
     },
     "event.identity.medallion": {
       "display_path": "Event cards / Shared / Identity / Medallion",
-      "role": "consumer wrapper",
+      "role": "semantic identity boundary; consumer master owns transparent tier/placement slot",
       "composition": [
-        "linked event.medallion-frame",
+        "parent card/row master owns transparent tier slot",
         "linked Medallion / Artwork / {stable_slug}"
       ],
       "axes": {
@@ -194,9 +199,10 @@
         ]
       },
       "content_overrides": [
-        "artwork linked instance"
+        "artwork linked instance selected at parent-master construction; no detached raster copy"
       ],
-      "instance_name_template": "linked Medallion / {stable_slug} / tier={tier} / placement={placement}"
+      "instance_name_template": "linked Medallion / {stable_slug} / tier={tier} / placement={placement}",
+      "penpot_rule": "Do not fake an artwork-swap slot inside a generic frame when Penpot has no valid component swap-slot binding. Keep the artwork as a linked native component; tier and placement are centralized in the consuming card master."
     }
   },
   "semantic_slots": {
@@ -256,7 +262,121 @@
         "inside",
         "rail"
       ],
-      "forbid_loose_icon_count": true
+      "forbid_loose_icon_count": true,
+      "layout_contract": {
+        "visual_gap_px": 4,
+        "media_width_formula": "card used width - tail width - visual gap",
+        "tail_width_px": {
+          "none": 0,
+          "proof-only": 40,
+          "compact-identity-or-proof": 64,
+          "split-three-identities-plus-proof": 100
+        },
+        "identity_rail": {
+          "standard_tier_px": 60,
+          "item_gap_px": 4,
+          "vertical_origin": "media top"
+        },
+        "social_proof_rail": {
+          "width_px": 36,
+          "min_height_px": 24,
+          "row_gap_px": 4,
+          "vertical_alignment": "media bottom",
+          "padding_px": 0
+        },
+        "social_proof_inside": {
+          "top_px": 8,
+          "right_px": 8,
+          "row_gap_px": 4,
+          "min_height_px": 32
+        },
+        "desktop_overlay_medallion": {
+          "tier": "standard60",
+          "diameter_px": 60,
+          "right_px": 10,
+          "bottom_px": 10
+        },
+        "mobile_popular_overlay_medallion": {
+          "tier": "compact44",
+          "diameter_px": 44
+        }
+      },
+      "centralization_rule": "geometry is owned by ListingEventCard variant masters; count and artwork are the only nested content selections",
+      "penpot_readback": {
+        "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
+        "named_version": "ListingEventCard S04 · fixture 3132 · exact same-data Astro comparison",
+        "canonical_master_count": 10,
+        "linked_review_root_count": 10,
+        "detached_review_root_count": 0,
+        "semantic_medallion_count": 9,
+        "validation_issues": [],
+        "receipt": "receipts/penpot/listing-event-card-source-geometry-remediation-v1.json",
+        "linked_same_data_evidence_root_count": 1,
+        "same_data_evidence_board_id": "d012936b-5394-80cb-8008-85524a579974",
+        "same_data_evidence_linked_instance_id": "d012936b-5394-80cb-8008-85524c6be853",
+        "same_data_conformance": {
+          "status": "instrumental-pass-render-export-gateway-blocked",
+          "fixture_id": "event.real.3132",
+          "event_id": "3132",
+          "preview_event_sha256": "3b722cf9514969274be612bb6341db52d0b83d2d93f322b1c9e992aeb2596818",
+          "surface_scenario": "v1.e3132.date-listing",
+          "astro_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721",
+          "resolved_content_equal": true,
+          "media_bytes_equal": true,
+          "media_sha256": "5cfd08c6f8897f56a0f14b218013696198ebe8a28b77e7f7c97f58e3b874c4bf",
+          "root_geometry_px": {
+            "astro": [
+              420,
+              279.797
+            ],
+            "penpot_master": [
+              420,
+              279.797
+            ],
+            "penpot_linked_review": [
+              420,
+              279.797
+            ]
+          },
+          "media_geometry_px": {
+            "astro": [
+              172.875,
+              221
+            ],
+            "penpot": [
+              172.875,
+              221
+            ]
+          },
+          "like_proof_geometry_px": {
+            "astro": [
+              176.875,
+              185,
+              36,
+              36
+            ],
+            "penpot": [
+              176.875,
+              185,
+              36,
+              36
+            ]
+          },
+          "like_count_inside_component": true,
+          "share_state": "absent-at-master",
+          "title_and_place_separate_parent_owned_slots": true,
+          "terminal_instance_geometry_overrides": 0,
+          "comparison_board_id": "d012936b-5394-80cb-8008-85524a579974",
+          "comparison_board_created_on_rerun": 0,
+          "penpot_export_status": "HTTP 504 for bounded 1000×360 board; no blind retry",
+          "artifacts": [
+            "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop.png",
+            "artifacts/ui-conformance/listing-3132-20260822/astro-listing-event-card-3132-desktop-facts.json",
+            "artifacts/ui-conformance/listing-3132-20260822/astro-surface-placement-receipt.json",
+            "artifacts/ui-conformance/listing-3132-20260822/penpot-facts.json"
+          ]
+        }
+      }
     },
     "listing.rail-row": {
       "display_path": "Event cards / Mobile rail / MobileListingRailRow · Track",
@@ -294,6 +414,115 @@
         "full_tracks": "one specimen per vertical row; full intrinsic width visible",
         "viewport_patterns": "separate section",
         "outer_board_clip": false
+      },
+      "penpot_readback": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "page_id": "579a886e-56e8-80a3-8008-81882dc703ba",
+        "track_component_id": "a21f0524-f565-8038-8008-786ff2935002",
+        "track_main_instance_id": "a21f0524-f565-8038-8008-786fef5d0e6a",
+        "track_component_path": "Event cards / Mobile rail / MobileListingRailRow · Track",
+        "track_horizontal_sizing": "auto",
+        "track_flex_direction": "row",
+        "track_wrap": "nowrap",
+        "track_clip": false,
+        "track_height_px": 112,
+        "track_gap_px": 7,
+        "composition_proof_count": 15,
+        "composition_proofs_are_component_instances": false,
+        "composition_proof_role": "non-authoritative review evidence composed from linked semantic children",
+        "composition_proof_width_range_px": [
+          560,
+          1295
+        ],
+        "viewport_variant_set_id": "579a886e-56e8-80a3-8008-8189203d3b5d",
+        "viewport_variant_path": "Patterns / Mobile rail / Rail viewport states · 390",
+        "viewport_variant_axis": {
+          "state": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08",
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ]
+        },
+        "viewport_width_px": 390,
+        "viewport_clip": true,
+        "feature_medallion_tier": "feature88",
+        "detached_semantic_children": 0,
+        "page_root_board_count_after_cleanup": 7,
+        "removed_nonreview_evidence_boards": 3,
+        "validation_issues": [],
+        "exact_native_track_component": {
+          "fixture_id": "event.real.7906",
+          "event_id": "7906",
+          "component_id": "d012936b-5394-80cb-8008-855655e1b216",
+          "main_instance_id": "a6e7f5b4-ff51-80c0-8008-830fd1240e92",
+          "linked_review_instance_id": "d012936b-5394-80cb-8008-855658312715",
+          "linked_comparison_instance_id": "d012936b-5394-80cb-8008-8556e20336c6",
+          "resource_path": "Event cards / Mobile rail / MobileListingRailRow · Track · T04 exact",
+          "size_px": [
+            1012.875,
+            112
+          ],
+          "clip": false,
+          "media_count": 3,
+          "media_width_px": 140,
+          "identity_state": "absent-at-master",
+          "artifact_state": "absent-at-master",
+          "like_count_inside_component": true,
+          "terminal_instance_geometry_overrides": 0
+        },
+        "same_data_conformance": {
+          "status": "native-track-readback-pass-exact-same-data",
+          "fixture_id": "event.real.7906",
+          "preview_event_sha256": "2052001842c42ac5aeaac6295cfc87a20010f6394cc16941d3386aef64579318",
+          "astro_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721",
+          "resolved_content_equal": true,
+          "media_bytes_equal": true,
+          "media_sha256": [
+            "0496a6ed06d9d44403161af767d841442dfccd8e82b49bba622220a7ef851ddc",
+            "3b39decaefc68395b19183aff5ec5195775ccc83e543198621240013da13b73f",
+            "3e9309efb815c1e01151498af064e1dadd87b2877f5deb25608767ffe82cb7eb"
+          ],
+          "track_geometry_px": {
+            "astro": [
+              1012.875,
+              112
+            ],
+            "penpot_master": [
+              1012.875,
+              112
+            ],
+            "penpot_linked_review": [
+              1012.875,
+              112
+            ]
+          },
+          "viewport_width_px": 390,
+          "viewport_scroll_width_px_rounded": 1013,
+          "full_track_unclipped": true,
+          "small_like_count_inside_component": true,
+          "action_like_count_inside_component": true,
+          "terminal_instance_geometry_overrides": 0,
+          "comparison_board_id": "d012936b-5394-80cb-8008-8556d37b6bdd",
+          "penpot_export_status": "not retried after repeated file-scoped HTTP 504; exact Astro screenshot and linked native component coexist on bounded Penpot board",
+          "artifacts": [
+            "artifacts/ui-conformance/listing-rail-7906-20260822/astro-mobile-rail-7906-viewport-390.png",
+            "artifacts/ui-conformance/listing-rail-7906-20260822/astro-mobile-rail-7906-facts.json",
+            "artifacts/ui-conformance/listing-rail-7906-20260822/penpot-mobile-rail-facts.json"
+          ]
+        }
       }
     },
     "festival.card": {
@@ -302,25 +531,389 @@
         "Content / Event title",
         "Content / Event place",
         "Date badge",
-        "Program status badge",
-        "Category badge",
-        "Action / Like local-save"
+        "Status badge",
+        "Theme chip",
+        "Action / Favorite local-save"
       ],
-      "aggregate_count": "absent by source; do not invent"
+      "aggregate_count": "absent by source; do not invent",
+      "source_contract": {
+        "source_path": "site/src/pages/festivali/index.astro",
+        "card_geometry": {
+          "desktop": "row column weight supplies --festival-card-aspect; card aspect-ratio uses row-derived packed geometry",
+          "mobile_default": "two-column card aspect-ratio 0.95",
+          "mobile_row_only": "single wide card aspect-ratio 1.86",
+          "mobile_document": "source-derived --festival-mobile-aspect",
+          "very_small": "single-column card aspect-ratio 16/10"
+        },
+        "layer_order": [
+          "linked event.media-frame",
+          "native media veil",
+          "parent-owned Content / Event title",
+          "parent-owned Content / Event place",
+          "linked Date badge",
+          "linked Status badge",
+          "linked Theme chip",
+          "linked Favorite action"
+        ],
+        "topline": {
+          "default_min_height_px": 27,
+          "dense_min_height_px": 25,
+          "wrap": false,
+          "justify": "space-between"
+        },
+        "theme_chip": {
+          "background": "rgba(15,15,15,0.66)",
+          "transparent_parent": true,
+          "width": "content-hug with card max-width",
+          "label_case": "lowercase"
+        },
+        "favorite": {
+          "semantic": "local-save action",
+          "count": "absent",
+          "position": "bottom-right"
+        },
+        "aggregate_count": "absent"
+      },
+      "component_boundary": {
+        "source_skeleton_role": "evidence only; forbidden as a child of FestivalCard reusable masters",
+        "source_skeleton_component_path": "Evidence / Source skeletons / Source skeleton · festival.card · Astro as-is",
+        "native_card_master_owns": [
+          "root surface",
+          "veil",
+          "title slot",
+          "place slot",
+          "placement of linked semantic children"
+        ],
+        "linked_children": [
+          "event.media-frame",
+          "Date badge",
+          "Status badge",
+          "Theme chip",
+          "Favorite action"
+        ],
+        "forbidden": [
+          "duplicate raw date/status/theme layers behind linked semantic components",
+          "duplicate standalone category icon outside Theme chip",
+          "loose aggregate count",
+          "detached icon or action copies",
+          "fixture-specific geometry patches on review instances"
+        ]
+      },
+      "penpot_audit": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "file_revn_readback": 1356,
+        "page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+        "festival_variant_set_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+        "variant_count": 9,
+        "variant_properties": [
+          "viewport",
+          "packed-aspect",
+          "layout",
+          "status",
+          "media",
+          "favorite",
+          "content",
+          "interaction"
+        ],
+        "variant_errors": 0,
+        "linked_review_instance_count": 9,
+        "detached_review_root_count": 0,
+        "direct_child_count_per_master": 8,
+        "masters_with_evidence_skeleton_dependency": 0,
+        "masters_with_duplicate_category_icon": 0,
+        "wide_master_with_duplicate_raw_meta_layers": 0,
+        "aggregate_count_text_count": 0,
+        "meta_hug_readback": {
+          "status": "pass-exact-source-fixture-geometry",
+          "date_badge_px": {
+            "width": 57.375,
+            "height": 25
+          },
+          "status_badge_px": {
+            "announced": {
+              "width": 96.594,
+              "height": 25
+            },
+            "program-pending": {
+              "width": 120,
+              "height": 25
+            },
+            "date-pending": {
+              "width": 110,
+              "height": 25
+            }
+          },
+          "theme_chip_px": {
+            "width": 193.313,
+            "height": 24.266
+          },
+          "theme_icon_before_label": true
+        },
+        "favorite_action_variant_set": {
+          "container_id": "d2dce362-5739-80f9-8008-84c04ce7c277",
+          "path": "Event cards / Festival / Action / Favorite",
+          "variant_count": 5,
+          "axes": {
+            "viewport": [
+              "desktop",
+              "mobile"
+            ],
+            "favorite": [
+              "off",
+              "on"
+            ],
+            "interaction": [
+              "default",
+              "hover",
+              "focus-visible"
+            ]
+          },
+          "component_ids": [
+            "d2dce362-5739-80f9-8008-84c00ba4e19f",
+            "d2dce362-5739-80f9-8008-84c00da46765",
+            "d2dce362-5739-80f9-8008-84c02911f50a",
+            "d2dce362-5739-80f9-8008-84c02a6673a0",
+            "d2dce362-5739-80f9-8008-84c04cd532c1"
+          ],
+          "variant_errors": 0,
+          "linked_icon_primitive": "Icon / UI / Heart",
+          "aggregate_count": "absent"
+        },
+        "materializer_idempotency": {
+          "rerun_master_count": 9,
+          "favorite_instances_created_on_rerun": 0,
+          "pass": true
+        },
+        "file_validation_issues": [],
+        "bounded_visual_sanity_exports": [
+          "F01",
+          "F03",
+          "F04",
+          "F06",
+          "F08"
+        ],
+        "remediation_status": "readback-pass-same-data-visual-conformance-pass-with-engine-limits",
+        "same_data_conformance": {
+          "fixture": "festival.more-vnutri",
+          "astro_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+          "root_geometry_px": {
+            "astro": [
+              263.469,
+              277.719
+            ],
+            "penpot": [
+              263.469,
+              277.719
+            ]
+          },
+          "resolved_content_equal": true,
+          "media_source_equal": true,
+          "terminal_instance_geometry_overrides": 0,
+          "renderer_limits": [
+            "variable-font weight mapping",
+            "CSS ellipsis unavailable in Penpot"
+          ],
+          "receipt": "receipts/penpot/festival-card-architecture-audit-v1.json"
+        }
+      }
     },
     "exhibition.row": {
-      "display_path": "Event cards / Exhibition / ExhibitionRow",
+      "display_path": "Event rows / Exhibition / ExhibitionRow",
       "required_semantic_children": [
-        "Content / Event title",
-        "Content / Event place",
-        "Event media deck",
-        "Identity / Medallion",
-        "Social proof / Share",
-        "Action / Like",
-        "Action / Reject",
-        "Discussed signal"
+        "Content / Event title (parent-owned slot)",
+        "Content / Event venue or lifecycle · location (parent-owned slot)",
+        "protected Event media deck checkpoint",
+        "Event identity / Medallion / Exhibition overlay",
+        "Event rows / Exhibition / Social proof / Share proof",
+        "Event rows / Exhibition / Action / Like with count",
+        "Event cards / Shared / Action / Reject action",
+        "Event rows / Exhibition / Signal / Discussed",
+        "Event rows / Exhibition / Meta / Lifecycle rail status",
+        "Event rows / Exhibition / Feedback / Rejected hidden",
+        "Event rows / Exhibition / Keyboard keycap when hints are visible"
       ],
-      "forbid_loose_icon_count": true
+      "forbid_loose_icon_count": true,
+      "authority_exception": {
+        "exception_ref": "exhibition-row.media-deck-slider.astro-authority.v1",
+        "region": "media_deck.slider",
+        "implementation_authority": "astro-reference",
+        "penpot_role": "linked-static-checkpoint-only",
+        "conformance_disposition": "slider-only deltas are non-blocking when exact exception scope, state, profile, and approval match; outer deck and card remain blocking",
+        "protected_source_selectors": [
+          "[data-deck]",
+          "[data-deck-frame]",
+          "[data-deck-cursor]",
+          "[data-deck-phase]"
+        ],
+        "protected_source_paths": [
+          {
+            "path": "site/src/components/ExhibitionPrototypeRow.astro",
+            "sha256": "2d7695dc2383790906818287f912016ffdd449a2ad927728ccd0b7b9245a1629"
+          },
+          {
+            "path": "site/src/components/ExhibitionsPersonalSurface.astro",
+            "sha256": "02ae12f1d16c0fbe4174dd0f3b8c33354bbd571ed2aeaa06221d59b54c79bf84"
+          }
+        ]
+      },
+      "reverse_generation_guard": {
+        "direction": "penpot-to-sot-to-astro",
+        "policy": "preserve-source-no-overwrite",
+        "protected_region": "media_deck.slider",
+        "forbidden_operations": [
+          "replace Astro slider runtime from Penpot static geometry",
+          "derive slider sequence or interaction from Penpot",
+          "normalize source-specific image framing from Penpot",
+          "remove measurement, paging, keyboard, focus, loading, error, ARIA, or reduced-motion behavior"
+        ],
+        "required_evidence_before_change": [
+          "new explicit owner decision superseding the exception",
+          "passing Astro authority behavior test",
+          "same-data ExhibitionRow conformance outside the protected region"
+        ]
+      },
+      "component_boundary": {
+        "outer_surface_authority": "SoT UI and native Penpot components; eligible for later reviewed reverse generation",
+        "protected_slider_region": "Astro-authoritative by authority_exception; preserve and never synthesize from Penpot",
+        "parent_owned_content_slots": [
+          "Content / Event title",
+          "Content / Event venue",
+          "Content / Event lifecycle · location"
+        ],
+        "count_ownership": {
+          "share": "count text is a descendant of Share proof",
+          "like": "count text is a descendant of Like with count",
+          "loose_icon_or_count_siblings": "forbidden"
+        },
+        "forbidden": [
+          "evidence source skeleton inside ExhibitionRow master",
+          "deprecated medallion consumer-geometry wrapper",
+          "loose functional icons",
+          "raw keyboard rectangles or labels",
+          "fixture-only overrides on review roots"
+        ]
+      },
+      "penpot_readback": {
+        "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+        "file_revn": 1358,
+        "page_id": "579a886e-56e8-80a3-8008-81882dcbdd84",
+        "page_name": "40.5 — ExhibitionRow · Native variants",
+        "variant_set_id": "45777396-2f2a-80c0-8008-818fb13828b8",
+        "variant_count": 7,
+        "variant_properties": [
+          "viewport",
+          "presentation",
+          "lifecycle",
+          "media-count",
+          "deck-binding",
+          "deck-phase",
+          "media-state",
+          "feedback-selection"
+        ],
+        "variant_errors": 0,
+        "linked_review_root_count": 8,
+        "detached_review_root_count": 0,
+        "evidence_skeleton_descendant_count": 0,
+        "loose_functional_icon_count": 0,
+        "deprecated_medallion_wrapper_count": 0,
+        "semantic_components": {
+          "share_proof": {
+            "component_id": "a6e7f5b4-ff51-80c0-8008-83417dbca444",
+            "count_inside": true
+          },
+          "like_with_count": {
+            "off_component_id": "a6e7f5b4-ff51-80c0-8008-83417ed8b143",
+            "on_component_id": "a6e7f5b4-ff51-80c0-8008-83418005a3a1",
+            "count_inside": true
+          },
+          "discussed": {
+            "component_id": "446b4522-f9dd-80eb-8008-835e16d4ac82"
+          },
+          "reject_action": {
+            "component_id": "a6e7f5b4-ff51-80c0-8008-8312d6108a6d"
+          },
+          "exhibition_medallion": {
+            "component_id": "446b4522-f9dd-80eb-8008-835807b9b981",
+            "tier": "compact44"
+          },
+          "keyboard_keycap": {
+            "component_id": "880e839b-f453-8082-8008-840730cf6576",
+            "linked_instances_in_liked_state": 2
+          },
+          "rejected_hidden": {
+            "component_id": "d2dce362-5739-80f9-8008-84c41b330b2e",
+            "main_id": "d2dce362-5739-80f9-8008-84c41aede8cb"
+          }
+        },
+        "protected_slider_shape_ids_unchanged": [
+          "eca15719-f452-809c-8008-82107b296924",
+          "eca15719-f452-809c-8008-82107a2cb4f6",
+          "eca15719-f452-809c-8008-820fbaf6bdf9",
+          "446b4522-f9dd-80eb-8008-8372c512fc1e",
+          "446b4522-f9dd-80eb-8008-8372a2345f80",
+          "446b4522-f9dd-80eb-8008-83727cfbe1ef",
+          "446b4522-f9dd-80eb-8008-837259812b8e",
+          "446b4522-f9dd-80eb-8008-837222900ff6"
+        ],
+        "materializer_idempotency": {
+          "rerun_master_count": 7,
+          "created_on_rerun": 0,
+          "deleted_on_rerun": 0,
+          "pass": true
+        },
+        "bounded_visual_sanity_exports": [
+          "X05",
+          "X06",
+          "X07"
+        ],
+        "file_validation_issues": [],
+        "remediation_status": "outer-surface-same-data-instrumental-pass-slider-protected-visual-export-gateway-blocked",
+        "linked_same_data_evidence_root_count": 1,
+        "same_data_evidence_board_id": "d012936b-5394-80cb-8008-854b8727dd56",
+        "same_data_evidence_linked_instance_id": "d012936b-5394-80cb-8008-854b88d8f6c8",
+        "same_data_conformance": {
+          "fixture_event_id": "4240",
+          "astro_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+          "resolved_content_equal": true,
+          "root_geometry_px": {
+            "astro": [
+              1194,
+              132.531
+            ],
+            "penpot_master": [
+              1194,
+              132.531
+            ],
+            "penpot_linked_review": [
+              1194,
+              132.531
+            ]
+          },
+          "outer_regions_geometry_equal": true,
+          "like_count_inside_component": true,
+          "absent_slots_encoded_at_master": [
+            "topic",
+            "share",
+            "discussed"
+          ],
+          "terminal_instance_geometry_overrides": 0,
+          "protected_region": "media_deck.slider",
+          "protected_evidence_mask_descendant_count": 4,
+          "penpot_export_status": "HTTP 504 after bounded protected-mask export; no repeated blind retry",
+          "artifacts": [
+            "artifacts/ui-conformance/exhibition-4240-20260821/astro-facts.json",
+            "artifacts/ui-conformance/exhibition-4240-20260821/astro-outer-surface-1194-slider-blocked.png",
+            "artifacts/ui-conformance/exhibition-4240-20260821/penpot-facts.json"
+          ],
+          "receipt": "receipts/penpot/exhibition-row-outer-surface-remediation-v1.json"
+        },
+        "same_data_evidence_idempotency": {
+          "board_count": 1,
+          "linked_evidence_root_count": 1,
+          "created_on_rerun": 0,
+          "pass": true
+        }
+      }
     },
     "event.list-item": {
       "display_path": "Event cards / Row / EventListItem",
@@ -364,7 +957,18 @@
       "event_card_large_review": "45777396-2f2a-80c0-8008-818b87df1e84",
       "mobile_rail_review": "579a886e-56e8-80a3-8008-8189000fe2e6"
     },
-    "materialization_receipt": "receipts/penpot/event-card-systemic-component-remediation-v1.json"
+    "materialization_receipt": "receipts/penpot/event-card-systemic-component-remediation-v1.json",
+    "latest_listing_event_card_readback": {
+      "page_id": "579a886e-56e8-80a3-8008-81882dc397aa",
+      "named_version": "ListingEventCard · source geometry + medallion tier + proof placement",
+      "canonical_master_count": 10,
+      "linked_review_root_count": 10,
+      "detached_review_root_count": 0,
+      "semantic_medallion_count": 9,
+      "validation_issues": [],
+      "receipt": "receipts/penpot/listing-event-card-source-geometry-remediation-v1.json"
+    },
+    "materialization_receipt_contract_sha256": "91a5350b72f3c54cc8a7ecad2a830b876dd9f719c8b029cd1a1fca2a5e8e67d9"
   },
   "non_claims": [
     "owner visual acceptance",
@@ -377,5 +981,6 @@
   "rollback": {
     "git": "revert the bounded systemic-boundary commit",
     "penpot": "restore saved version immediately preceding systemic reconciliation"
-  }
+  },
+  "supersedes_contract_payload_sha256": "91a5350b72f3c54cc8a7ecad2a830b876dd9f719c8b029cd1a1fca2a5e8e67d9"
 }

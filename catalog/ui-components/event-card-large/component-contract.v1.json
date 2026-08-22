@@ -1,0 +1,145 @@
+{
+  "component_id": "event.card",
+  "content_slots": [
+    "title",
+    "occurrence",
+    "resolved-place",
+    "event-type-label",
+    "admission-label",
+    "share-count",
+    "like-count",
+    "calendar-label",
+    "media-asset",
+    "media-focal-point"
+  ],
+  "contract_sha256": "45a67d195c626d9d0f643d0c56be53b9d2ffe3413a0cab3cbb1bd465b5bf31d1",
+  "contract_version": "event-card-large.candidate.v1",
+  "decision_lifecycle": "owner-corrected-candidate",
+  "forbidden_instance_overrides": [
+    "typography",
+    "colors",
+    "padding",
+    "gaps",
+    "radii",
+    "icon-geometry",
+    "media-treatment",
+    "region-order",
+    "component-anatomy",
+    "visibility-rule"
+  ],
+  "penpot": {
+    "active_variant_count": 11,
+    "baseline_revision": 1236,
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+    "resource_name": "EventCard · Large",
+    "resource_path": "Event cards / Large",
+    "variant_container_id": "195df023-6fe5-80a0-8008-82cad7dbc855",
+    "materialized_viewports": [
+      "desktop"
+    ],
+    "source_supported_not_materialized": [
+      "mobile",
+      "calendar=absent",
+      "dynamic-intrinsic-media-height"
+    ]
+  },
+  "reference_authority": "astro-reference",
+  "schema_version": "ui-component-contract.v1",
+  "semantic_children": [
+    {
+      "component_id": "event.media-frame",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.action.not-interested",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.action.calendar",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.action.share",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.action.like",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.meta.event-type",
+      "owner_level": "child-master",
+      "required_linkage": true
+    },
+    {
+      "component_id": "event.meta.admission",
+      "owner_level": "child-master",
+      "required_linkage": true
+    }
+  ],
+  "source": {
+    "paths": [
+      "site/src/components/EventCard.astro",
+      "site/src/layouts/EventLayout.astro"
+    ],
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "repository_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "runtime_baseline_sha": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc"
+  },
+  "supersedes": [
+    "event-card-systemic-boundaries-candidate-v1:event.card.active_variant_count=12",
+    "event-card-owner-review-4-remediation-v1:active-assertions-only",
+    "ui-conformance/pilot-v1/event-card-large-desktop.case.json",
+    "ui-conformance/pilot-v1/event-card-large-mobile.case.json"
+  ],
+  "variant_axes": {
+    "calendar": [
+      "eligible",
+      "absent"
+    ],
+    "layout": [
+      "split-actions"
+    ],
+    "media": [
+      "loaded-visual",
+      "loaded-protected",
+      "loading",
+      "missing-fallback"
+    ],
+    "presentation": [
+      "dark-shell"
+    ],
+    "viewport": [
+      "desktop"
+    ],
+    "visibility": [
+      "shown"
+    ]
+  },
+  "known_materialization_gaps": [
+    {
+      "gap_id": "mobile-large-not-materialized",
+      "scope": "viewport=mobile",
+      "description": "The current Penpot EventCard Large set has no linked mobile master; mobile pilot cases are intentionally not created.",
+      "comparison_disposition": "not-materialized"
+    },
+    {
+      "gap_id": "calendar-absent-not-materialized",
+      "scope": "calendar=absent",
+      "description": "Current linked masters keep the Calendar action where the exact Astro case omits the node.",
+      "comparison_disposition": "fail"
+    },
+    {
+      "gap_id": "intrinsic-media-height-not-propagated",
+      "scope": "media-frame",
+      "description": "Current absolute-layout parent masters do not inherit arbitrary intrinsic media height from a swapped linked media component.",
+      "comparison_disposition": "fail"
+    }
+  ]
+}

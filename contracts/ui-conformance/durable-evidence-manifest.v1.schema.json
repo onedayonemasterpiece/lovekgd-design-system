@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","additionalProperties":false,
+  "required":["schema_version","case_id","contract_sha256","pack_sha256","created_at","retention_class","total_bytes","files"],
+  "properties":{"schema_version":{"const":"durable_evidence_manifest.v1"},"case_id":{"type":"string"},"contract_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"pack_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"pack_path":{"type":"string","pattern":"^[a-f0-9]{64}$"},"created_at":{"type":"string","format":"date-time"},"retention_class":{"const":"current-v2-long-term"},"total_bytes":{"type":"integer","minimum":1,"maximum":26214400},"files":{"type":"array","minItems":11,"maxItems":11,"items":{"type":"object","additionalProperties":false,"required":["name","sha256","bytes"],"properties":{"name":{"type":"string"},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"bytes":{"type":"integer","minimum":1}}}}}
+}

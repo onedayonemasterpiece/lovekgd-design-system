@@ -1,0 +1,121 @@
+{
+  "$schema": "../../../../schemas/event-card-large-mobile-390-framing-correction-v1.schema.json",
+  "schema_version": "event_card_large_mobile_390_framing_correction_v1",
+  "package_id": "event-card.large-mobile-390.candidate.13",
+  "contract_version": "event-card-large.candidate.13-mobile-390",
+  "contract_payload_sha256": "e49aced35d1efb1a6452fcd8d6c4870084ee9eda50df2f251c9693d9cc6b7b1a",
+  "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
+  "status": "materialized-readback-pass-awaiting-owner-review",
+  "authority_mode": "bounded-corrective-SoT-UI-contract",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "capture_case": "event-card-large-landscape-crop-safe-7906-mobile-390",
+    "fixture_id": "event.real.7906",
+    "fixture_payload_sha256": "2052001842c42ac5aeaac6295cfc87a20010f6394cc16941d3386aef64579318",
+    "viewport_px": [
+      390,
+      1100
+    ],
+    "device_scale_factor": 1,
+    "actual_capture_sha256": "ceebde688956c098f3f5a69dab86684204d24f2538e53e4b6b511170ef89a211"
+  },
+  "conflict_resolution": {
+    "stale_or_incomplete_signal": "The first resolved-case generator reported the intrinsic 1187:668 image height (218.352148px) instead of the frame selected by the mobile consumer.",
+    "decisive_evidence": "The exact same-data Astro callsite capture at viewport 390 rendered a 388 x 310.390625 media shell with CSS aspect ratio 1.25.",
+    "decision": "visual landscape media in standalone EventCard Large mobile flow uses horizontal 5:4 cover",
+    "reason": "This actual callsite result agrees with the later framing policy and the existing resolveMobileEventCardMedia consumer decision; the intrinsic-only resolver output was capture-metadata drift, not a competing design rule."
+  },
+  "framing_policy": {
+    "visual_landscape": {
+      "frame": "5:4",
+      "fit": "cover",
+      "logical_content_width_px": 388,
+      "logical_content_height_px": 310.4,
+      "actual_browser_content_height_px": 310.390625,
+      "object_position": "50% 60%"
+    },
+    "portrait_identity": {
+      "frame": "4:5",
+      "fit": "contextual-cover-or-contain-by-protected-regions"
+    },
+    "ocr_or_document": {
+      "frame": "intrinsic-or-bounded-safe-crop",
+      "fit": "contain-by-default",
+      "blanket_5x4_or_4x5": "forbidden"
+    },
+    "parent_context_rule": "Desktop equal-height rows may dictate card/media height; standalone mobile flow uses its own fixed visual frame. Width or height may therefore be parent-contextual, never globally hard-coded across all consumers."
+  },
+  "astro_capture": {
+    "root_px": [
+      390,
+      519.828125
+    ],
+    "media_shell_px": [
+      388,
+      310.390625
+    ],
+    "media_ratio": 1.25,
+    "media_fit": "cover",
+    "media_position": "50% 60%",
+    "capture_path": "artifacts/ui-conformance/event-card-large-mobile-390-7906-20260822/astro.png",
+    "facts_path": "artifacts/ui-conformance/event-card-large-mobile-390-7906-20260822/astro-facts.json",
+    "exact_stable": true
+  },
+  "penpot_materialization": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "7f078c80-87b8-80f5-8008-8581500b62a4",
+    "page_label": "40.1c — EventCard · Large · Mobile 390",
+    "review_board_id": "7f078c80-87b8-80f5-8008-858456e24559",
+    "review_board_label": "Board 40.1cA · event.real.7906 · ASTRO vs PENPOT mobile-390",
+    "card_component_id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+    "card_component_name": "EventCard · Large · Mobile flow",
+    "card_component_path": "Event cards / Large",
+    "media_component_id": "7f078c80-87b8-80f5-8008-85831e139d49",
+    "share_absent_component_id": "7f078c80-87b8-80f5-8008-85831ea2e556",
+    "component_root_px": [
+      390,
+      519.828125
+    ],
+    "file_validation_errors": 0,
+    "named_version": "EventCard Large mobile 390 · exact same-data 5:4 · candidate.13"
+  },
+  "component_graph_rule": {
+    "card_master": "native component main, not a detached terminal reconstruction",
+    "media": "linked Event media frame · Mobile flow · visual 5:4",
+    "share": "linked Share action · count absent semantic component",
+    "other_linked_components": [
+      "Like action",
+      "Calendar",
+      "Not interested",
+      "Event type",
+      "Admission",
+      "Icon / UI / Heart",
+      "Icon / UI / Calendar",
+      "Icon / UI / Dislike"
+    ],
+    "terminal_geometry_patch": "forbidden"
+  },
+  "visual_evidence": {
+    "same_data": true,
+    "comparison_layout": "narrow cards side by side so the final evidence canvas approaches square",
+    "astro_side": "left",
+    "penpot_side": "right",
+    "comparison_path": "artifacts/ui-conformance/event-card-large-mobile-390-7906-20260822/comparison-astro-penpot-side-by-side.jpg",
+    "comparison_sha256": "3751847b149a76f7570ba9fb5998f71d447833b16e0ff52b41230e0c9f28569b",
+    "penpot_export_path": "artifacts/ui-conformance/event-card-large-mobile-390-7906-20260822/penpot.png",
+    "penpot_export_sha256": "168b6bafc9b65656737f6849411d20702bfbad9164617e33856e69b5f6bcf2f6",
+    "telegram_message_id": 1071,
+    "telegram_link": "https://t.me/c/4337049383/1071",
+    "verdict": "minor-typography-baseline-drift-awaiting-owner-review"
+  },
+  "migration_rule": "Resolve framing from the semantic media classification and consuming parent context, then update the media-frame/card masters and all linked consumers; never repair a review instance alone.",
+  "overall_card_family_status": "unfinished",
+  "non_claims": [
+    "EventCard family complete",
+    "owner Penpot acceptance",
+    "pixel-perfect typography parity",
+    "Astro production backport complete",
+    "all mobile/desktop card variants materialized"
+  ]
+}

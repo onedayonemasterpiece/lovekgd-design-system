@@ -1,6 +1,6 @@
 # UI source-of-truth round trip
 
-> Status: accepted operational contract.  
+> Status: accepted operational contract.
 > Scope: `lovekgd-design-system` ↔ Resource Graph Penpot ↔
 > `events-bot-new` Astro/runtime.
 
@@ -109,11 +109,47 @@ For every reviewed route/state/viewport:
 1. Pin the exact Astro commit, route, fixture/data identity, viewport, DPR,
    browser, loaded fonts, theme, locale/timezone, authentication,
    personalization/consent and interaction state.
+   For event UI, select that identity from the versioned Golden Event Corpus
+   and bind the full public `PreviewEvent` payload hash, frozen clock,
+   resolved-render-case hash and media-byte hashes. The Astro evidence and
+   Penpot reconstruction must use one and the same real event and resolved
+   content; comparing different events, even with similar geometry, is invalid.
 2. Capture the current generated Astro result at those exact conditions. Store
    the image hash and capture manifest. This raster is **source evidence**, not a
    component, insertable resource or new source of truth.
+   When a full route is too large or unstable to render instrumentally, derive a
+   bounded single-component harness from the **same built Astro artifact**: keep
+   the exact component markup, emitted stylesheets, fixture identity and
+   viewport width, and record the derivation in the capture manifest. Do not
+   hand-recreate the markup or substitute a visually similar fixture. This
+   harness is capture infrastructure only and never becomes a component master.
+   A contractually protected runtime region may be blocked or masked only when
+   the exception names that exact region; the surrounding layout, content and
+   states must still be measured and compared, while the protected runtime code
+   remains authoritative.
+   A framing value copied from asset metadata or an old helper is not decisive
+   when it contradicts the real consuming callsite. Resolve the conflict in
+   this order: semantic media class and the latest accepted framing policy,
+   actual DOM/CSS capture at the exact parent/viewport, then intrinsic asset
+   geometry. Visual-only landscape media may use a fixed 5:4 mobile frame,
+   portrait identity media may use 4:5, and OCR/document media must keep an
+   intrinsic or explicitly bounded safe frame. Desktop equal-height rows and
+   standalone mobile flow are different parent contexts; never globalize one
+   row's width/height rule across every card consumer. Correct both the SoT
+   resolver metadata and the component master when the callsite proves this
+   kind of systemic drift.
+   Optional state absence must also be represented in the component graph. If
+   the exact callsite has no Calendar or no social-proof count, use a dedicated
+   semantic `absent` variant/master; hiding that node on a final review instance
+   is not an honest reconstruction. For narrow cards publish the comparison
+   side by side; stack wide rows vertically so the evidence canvas stays close
+   to square and remains readable in Telegram.
 3. Put that screenshot on the archetype review page in a locked, clearly named
    `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
+   Keep evidence bounded: use one case per small review board where practical.
+   Do not export a giant page/board or leave detached semantic masters and
+   obsolete debris inside owner-review scope when the exact component root is
+   sufficient.
 4. Immediately beside it build `COMPONENT RECONSTRUCTION` from linked accepted
    design-system instances only. Text and artwork may be fixture overrides;
    detached component copies and broad visual patch layers are forbidden.

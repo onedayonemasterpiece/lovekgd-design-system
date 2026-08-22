@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/consumer-layout-contract.v1.schema.json",
+  "title": "Event-card consumer layout contract v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "contract_sha256", "component_id", "decision_lifecycle", "reference_authority", "source", "resolution_order", "contexts", "known_context_gaps", "candidate_delta_policy", "non_claims"],
+  "properties": {
+    "schema_version": { "const": "consumer-layout-contract.v1" },
+    "contract_id": { "$ref": "#/$defs/id" }, "contract_sha256": { "$ref": "#/$defs/sha256" },
+    "component_id": { "const": "event.card" }, "decision_lifecycle": { "const": "owner-corrected-candidate" },
+    "reference_authority": { "const": "astro-reference" },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "repository_sha", "runtime_baseline_sha", "paths"],
+      "properties": {
+        "repository": { "const": "onedayonemasterpiece/events-bot-new" }, "repository_sha": { "$ref": "#/$defs/gitSha" },
+        "runtime_baseline_sha": { "$ref": "#/$defs/gitSha" },
+        "paths": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "resolution_order": {
+      "type": "array",
+      "prefixItems": [{"const":"surface-archetype"},{"const":"viewport-container"},{"const":"grid-columns"},{"const":"packing-placement"},{"const":"row-sibling-equalization"},{"const":"used-card-geometry"},{"const":"media-available-box"},{"const":"framing-rule"}],
+      "items": false, "minItems": 8, "maxItems": 8
+    },
+    "contexts": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["context_id", "status", "surface_id", "archetype_id", "parent_component", "viewport_id", "viewport_width_px", "container_width_expression", "container_width_px", "columns", "gap_expression", "resolved_gap_px", "align_items", "ordered_input_fixture_ids", "ordered_output_fixture_ids", "card_width_formula", "used_card_width_px", "row_equalization", "media_box_formula", "fixture_rows", "measurement_requirement"],
+        "properties": {
+          "context_id": { "$ref": "#/$defs/id" }, "status": { "const": "resolved-from-astro-source" },
+          "surface_id": { "const": "event-detail-related" }, "archetype_id": { "const": "optimized-event-card-grid" },
+          "parent_component": { "const": "OptimizedEventCardGrid" }, "viewport_id": { "const": "desktop-1280" },
+          "viewport_width_px": { "const": 1280 }, "container_width_expression": { "const": "min(1180px, viewport_width_px - 32px)" },
+          "container_width_px": { "const": 1180 }, "columns": { "const": 3 },
+          "gap_expression": { "const": "clamp(0.85rem, 1.6vw, 1.25rem)" }, "resolved_gap_px": { "const": 20 },
+          "align_items": { "const": "stretch" }, "ordered_input_fixture_ids": { "$ref": "#/$defs/fixtureIds" },
+          "ordered_output_fixture_ids": { "$ref": "#/$defs/fixtureIds" },
+          "card_width_formula": { "const": "(container_width_px - 2 * resolved_gap_px) / 3" }, "used_card_width_px": { "const": 380 },
+          "row_equalization": {
+            "type": "object", "additionalProperties": false,
+            "required": ["policy", "card_height_style", "internal_tracks", "height_owner"],
+            "properties": {
+              "policy": { "const": "equal-height-within-row" }, "card_height_style": { "const": "100%" },
+              "internal_tracks": { "const": "auto minmax(0, 1fr) minmax(58px, auto) minmax(56px, auto)" },
+              "height_owner": { "const": "tallest-intrinsic-card-in-row" }
+            }
+          },
+          "media_box_formula": { "const": "available_width_px = used_card_width_px; available_height_px = used_card_width_px / astro_row_ratio" },
+          "fixture_rows": {
+            "type": "array", "minItems": 2, "maxItems": 2,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["row_index", "fixture_ids", "astro_row_ratio", "astro_row_mode", "media_available_height_px"],
+              "properties": {
+                "row_index": { "type": "integer", "minimum": 0 }, "fixture_ids": { "$ref": "#/$defs/fixtureIds" },
+                "astro_row_ratio": { "$ref": "#/$defs/positiveNumber" },
+                "astro_row_mode": { "enum": ["document-led-bounded-cover", "document-led-uncropped"] },
+                "media_available_height_px": { "$ref": "#/$defs/positiveNumber" }
+              }
+            }
+          },
+          "measurement_requirement": { "const": "capture per-card and media DOMRects before pixel comparison; source-derived widths and aspect boxes do not fabricate equalized card heights" }
+        }
+      }
+    },
+    "known_context_gaps": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["gap_id", "context", "source_facts", "disposition"],
+        "properties": {
+          "gap_id": { "$ref": "#/$defs/id" }, "context": { "type": "string", "minLength": 1 },
+          "source_facts": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "disposition": { "const": "record-unresolved-do-not-blend-authority" }
+        }
+      }
+    },
+    "candidate_delta_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_region", "allowed_property", "owner_decision_ref", "authority_scope", "layout_geometry_must_remain_astro_reference", "promotion_effect"],
+      "properties": {
+        "allowed_region": { "const": "media" }, "allowed_property": { "const": "framing-rule" },
+        "owner_decision_ref": { "const": "catalog/normalization/event-media/framing-v2.json#large_card_resolution" },
+        "authority_scope": { "const": "penpot-candidate-only" }, "layout_geometry_must_remain_astro_reference": { "const": true },
+        "promotion_effect": { "const": "none-before-owner-browser-approval" }
+      }
+    },
+    "non_claims": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,159}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "gitSha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "positiveNumber": { "type": "number", "exclusiveMinimum": 0 }, "fixtureId": { "type": "string", "pattern": "^event\\.real\\.[0-9]+$" },
+    "fixtureIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/fixtureId" } }
+  }
+}

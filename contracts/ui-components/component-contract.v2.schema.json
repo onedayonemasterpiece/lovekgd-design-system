@@ -1,0 +1,371 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/component-contract.v2.schema.json",
+  "title": "UI component contract v2 with consumer layout resolution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "component_id",
+    "contract_version",
+    "contract_sha256",
+    "decision_lifecycle",
+    "reference_authority",
+    "source",
+    "penpot",
+    "variant_axes",
+    "semantic_children",
+    "semantic_layout_contracts",
+    "content_slots",
+    "forbidden_instance_overrides",
+    "known_materialization_gaps",
+    "supersedes",
+    "consumer_layout_contract_ref",
+    "consumer_layout_invariants",
+    "penpot_materialization_ir_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ui-component-contract.v2"
+    },
+    "component_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "contract_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "decision_lifecycle": {
+      "enum": [
+        "reconstructed",
+        "owner-corrected-candidate",
+        "owner-accepted-candidate",
+        "promoted"
+      ]
+    },
+    "reference_authority": {
+      "enum": [
+        "astro-reference",
+        "penpot-candidate-reference",
+        "promoted-contract-reference"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "repository",
+        "repository_sha",
+        "paths"
+      ]
+    },
+    "penpot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_id",
+        "page_id",
+        "variant_container_id",
+        "baseline_revision",
+        "governed_active_variant_count",
+        "live_container_member_count",
+        "live_member_anomalies",
+        "resource_name",
+        "resource_path",
+        "materialized_viewports",
+        "source_supported_not_materialized"
+      ],
+      "properties": {
+        "file_id": {
+          "type": "string"
+        },
+        "page_id": {
+          "type": "string"
+        },
+        "variant_container_id": {
+          "type": "string"
+        },
+        "baseline_revision": {
+          "const": 1256
+        },
+        "governed_active_variant_count": {
+          "const": 11
+        },
+        "live_container_member_count": {
+          "const": 13
+        },
+        "live_member_anomalies": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "shape_id",
+              "classification",
+              "governance_status"
+            ],
+            "properties": {
+              "shape_id": {
+                "type": "string"
+              },
+              "classification": {
+                "enum": [
+                  "accidental-duplicate-state-01",
+                  "ungoverned-experimental-dynamic"
+                ]
+              },
+              "governance_status": {
+                "const": "quarantine-required"
+              }
+            }
+          }
+        },
+        "resource_name": {
+          "type": "string"
+        },
+        "resource_path": {
+          "type": "string"
+        },
+        "materialized_viewports": {
+          "type": "array"
+        },
+        "source_supported_not_materialized": {
+          "type": "array"
+        }
+      }
+    },
+    "variant_axes": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "semantic_children": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "component_id",
+          "owner_level",
+          "required_linkage"
+        ]
+      }
+    },
+    "semantic_layout_contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta_flow",
+        "penpot_geometry_reconciliation"
+      ],
+      "properties": {
+        "meta_flow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner_level",
+            "child_order",
+            "display",
+            "horizontal_gap_px",
+            "vertical_gap_px",
+            "event_type",
+            "admission",
+            "penpot_font_weight_fallbacks"
+          ],
+          "properties": {
+            "owner_level": {"const": "event.card-master"},
+            "child_order": {
+              "const": ["event.meta.event-type", "occurrence", "event.meta.admission"]
+            },
+            "display": {"const": "flex-wrap"},
+            "horizontal_gap_px": {"const": 6.72},
+            "vertical_gap_px": {"const": 5.12},
+            "event_type": {"type": "object"},
+            "admission": {"type": "object"},
+            "penpot_font_weight_fallbacks": {"type": "object"}
+          }
+        },
+        "penpot_geometry_reconciliation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "trigger",
+            "allowed_instance_overrides",
+            "fixture_specific_visual_patches",
+            "detached_instances"
+          ],
+          "properties": {
+            "mode": {"const": "deterministic-rematerialization-after-master-change"},
+            "trigger": {"const": "linked-instance-cache-does-not-recompute-child-auto-width"},
+            "allowed_instance_overrides": {
+              "const": ["content-slot-text", "media-content-image-fill"]
+            },
+            "fixture_specific_visual_patches": {"const": false},
+            "detached_instances": {"const": 0}
+          }
+        }
+      }
+    },
+    "content_slots": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_instance_overrides": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_materialization_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gap_id",
+          "scope",
+          "description",
+          "comparison_disposition"
+        ],
+        "properties": {
+          "gap_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comparison_disposition": {
+            "enum": [
+              "fail",
+              "blocked",
+              "not-materialized"
+            ]
+          }
+        }
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consumer_layout_contract_ref": {
+      "const": "catalog/ui-components/event-card-large/archetype-context-v1/consumer-layout-contract.v1.json"
+    },
+    "consumer_layout_invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolution_order",
+        "surface_owns",
+        "component_owns",
+        "candidate_delta_boundary"
+      ],
+      "properties": {
+        "resolution_order": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "surface-archetype"
+            },
+            {
+              "const": "viewport-container"
+            },
+            {
+              "const": "grid-columns"
+            },
+            {
+              "const": "packing-placement"
+            },
+            {
+              "const": "row-sibling-equalization"
+            },
+            {
+              "const": "used-card-geometry"
+            },
+            {
+              "const": "media-available-box"
+            },
+            {
+              "const": "framing-rule"
+            }
+          ],
+          "items": false,
+          "minItems": 8,
+          "maxItems": 8
+        },
+        "surface_owns": {
+          "type": "array",
+          "const": [
+            "container-width",
+            "column-count",
+            "grid-gaps",
+            "packing-order-and-placement",
+            "equal-height-row-policy",
+            "used-card-width",
+            "media-available-box"
+          ]
+        },
+        "component_owns": {
+          "type": "array",
+          "const": [
+            "semantic-media-policy",
+            "nested-media-frame",
+            "card-anatomy"
+          ]
+        },
+        "candidate_delta_boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "allowed_region",
+            "allowed_property",
+            "authority_scope",
+            "astro_authority_elsewhere"
+          ],
+          "properties": {
+            "allowed_region": {
+              "const": "media"
+            },
+            "allowed_property": {
+              "const": "framing-rule"
+            },
+            "authority_scope": {
+              "const": "penpot-candidate-only"
+            },
+            "astro_authority_elsewhere": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "penpot_materialization_ir_ref": {
+      "const": "catalog/ui-components/event-card-large/archetype-context-v1/penpot-materialization-ir.v2.json"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

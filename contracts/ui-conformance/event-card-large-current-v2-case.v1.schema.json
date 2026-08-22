@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "event-card-large-current-v2-case.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "component_id",
+    "lifecycle_status",
+    "contract_sha256",
+    "design_sha",
+    "astro_sha",
+    "events_tooling_sha",
+    "corpus_sha256",
+    "fixture_id",
+    "fixture_sha256",
+    "fixture_snapshot_sha256",
+    "asset_manifest_sha256",
+    "resolved_case_sha256",
+    "resolved_case_path",
+    "viewport",
+    "state_key",
+    "current_penpot_structural_readback",
+    "penpot_binding",
+    "astro_binding",
+    "evidence_status",
+    "evidence_manifest_path"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "event_card_large_current_v2_case.v1"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]+$"
+    },
+    "component_id": {
+      "const": "event.card"
+    },
+    "lifecycle_status": {
+      "enum": [
+        "active_blocked",
+        "active_ready"
+      ]
+    },
+    "contract_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "design_sha": {
+      "$ref": "#/$defs/gitsha"
+    },
+    "astro_sha": {
+      "$ref": "#/$defs/gitsha"
+    },
+    "corpus_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "fixture_id": {
+      "type": "string"
+    },
+    "fixture_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "fixture_snapshot_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "asset_manifest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "resolved_case_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "resolved_case_path": {
+      "type": "string"
+    },
+    "viewport": {
+      "type": "object",
+      "required": [
+        "id",
+        "width",
+        "height",
+        "container_width",
+        "parent_container_width",
+        "device_scale_factor"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "container_width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "device_scale_factor": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "parent_container_width": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "state_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "current_penpot_structural_readback": {
+      "type": "object",
+      "required": [
+        "status",
+        "file_revision",
+        "page_id",
+        "shape_id",
+        "facts_sha256",
+        "facts_path"
+      ],
+      "properties": {
+        "status": {
+          "const": "verified_found"
+        },
+        "file_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "shape_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "facts_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "facts_path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "penpot_binding": {
+      "type": "object",
+      "required": [
+        "binding_status",
+        "file_id",
+        "page_id",
+        "shape_id",
+        "revision",
+        "export_sha256",
+        "contract_sha256",
+        "metadata_readback_status",
+        "cache_key_sha256",
+        "cache_tuple",
+        "export_revision_status",
+        "metadata_readback_revision",
+        "historical_materialization_label"
+      ],
+      "properties": {
+        "binding_status": {
+          "const": "bound"
+        },
+        "file_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "page_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "shape_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "export_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "metadata_readback_status": {
+          "enum": [
+            "verified_current_v2",
+            "blocked_requires_current_v2_verified_readback"
+          ]
+        },
+        "cache_key_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "cache_tuple": {
+          "type": "object"
+        },
+        "export_revision_status": {
+          "enum": [
+            "verified_exact",
+            "unknown_historical_verified_hash"
+          ]
+        },
+        "metadata_readback_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "historical_materialization_label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "board_or_component_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "font_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "astro_binding": {
+      "type": "object",
+      "required": [
+        "binding_status",
+        "repository_sha",
+        "route",
+        "root_selector"
+      ],
+      "properties": {
+        "binding_status": {
+          "enum": [
+            "source_bound_capture_blocked",
+            "source_bound_captured"
+          ]
+        },
+        "repository_sha": {
+          "$ref": "#/$defs/gitsha"
+        },
+        "route": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "root_selector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_package_sha": {
+          "$ref": "#/$defs/gitsha"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_status": {
+      "enum": [
+        "blocked_missing_durable_pack",
+        "durable_pack_verified"
+      ]
+    },
+    "evidence_manifest_path": {
+      "type": "string"
+    },
+    "events_tooling_sha": {
+      "$ref": "#/$defs/gitsha"
+    },
+    "contract_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_mode": {
+      "type": "string"
+    },
+    "conformance_profile": {
+      "type": "string"
+    },
+    "container_width": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "corpus_id": {
+      "type": "string"
+    },
+    "fixture_mode": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "expected_candidate_deltas": {
+      "type": "array"
+    },
+    "viewport_id": {
+      "type": "string"
+    },
+    "viewport_width": {
+      "type": "number"
+    },
+    "viewport_height": {
+      "type": "number"
+    },
+    "device_scale_factor": {
+      "type": "number"
+    },
+    "resolved_render_case_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "fixture_source": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "gitsha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "uuid": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    }
+  }
+}

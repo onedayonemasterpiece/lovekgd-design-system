@@ -1,0 +1,93 @@
+{
+  "schema_version": "penpot_event_card_large_mobile_390_document_materialization_v1",
+  "status": "materialized-readback-pass-awaiting-owner-review",
+  "date": "2026-08-22",
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "page_id": "7f078c80-87b8-80f5-8008-8581500b62a4",
+  "page_label": "40.1c — EventCard · Large · Mobile 390",
+  "review_board_id": "7f078c80-87b8-80f5-8008-858af74dc9e4",
+  "review_board_label": "Board 40.1cC · event.real.4327 · ASTRO vs PENPOT mobile-390",
+  "root_cause": {
+    "classification": "missing semantic mobile document-natural and honest calendar-absent variants",
+    "decisive_evidence": "Exact event.real.4327 Astro capture at viewport 390 measured a 388 x 258.5625 media shell from intrinsic 1280:853, fit contain, and zero calendar nodes.",
+    "decision": "OCR/document media preserves the natural aspect inside the mobile flow; calendar absence is represented by a distinct native card master, not a hidden final-instance action.",
+    "forbidden_fix": "blind fixed 5:4/4:5 framing, detached screenshot reconstruction, or terminal instance visibility patch"
+  },
+  "astro_readback": {
+    "repository_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "fixture_id": "event.real.4327",
+    "root_px": [390, 483.671875],
+    "media_shell_px": [388, 258.5625],
+    "intrinsic_px": [1280, 853],
+    "fit": "contain",
+    "object_position": "50% 50%",
+    "calendar_nodes": 0,
+    "capture_sha256": "93d9c60f741928e6346f1a8683b07fc42060694cb60c0edae676448b6d794ec4",
+    "resolved_render_case_sha256": "81b699275d7da718acc9f2f12e521f2c8d1fff22d4781654dc67b614f7dd62f3"
+  },
+  "penpot_readback": {
+    "card_component": {
+      "id": "7f078c80-87b8-80f5-8008-858afd4f04d2",
+      "main_id": "7f078c80-87b8-80f5-8008-858af84b8da6",
+      "name": "EventCard · Large · Mobile flow · document · calendar absent",
+      "path": "Event cards / Large",
+      "root_px": [390, 483.671875]
+    },
+    "media_component": {
+      "id": "7f078c80-87b8-80f5-8008-858a6558d8dd",
+      "name": "Event media frame · Mobile flow · document natural",
+      "path": "Event cards / Large / Media",
+      "linked_instance": true
+    },
+    "like_absent_component": {
+      "id": "7f078c80-87b8-80f5-8008-858a51830ccd",
+      "name": "Like action · count absent",
+      "linked_instance": true
+    },
+    "share_absent_component": {
+      "id": "7f078c80-87b8-80f5-8008-85831ea2e556",
+      "name": "Share action · count absent",
+      "linked_instance": true
+    },
+    "place_component": {
+      "id": "7f078c80-87b8-80f5-8008-858d50070ed2",
+      "name": "Event place · one-line ellipsis",
+      "path": "Event cards / Shared / Content",
+      "linked_instance": true
+    },
+    "other_linked_components": ["Event type", "Admission", "Not interested", "Icon / UI / Heart", "Icon / UI / Share", "Icon / UI / Dislike"],
+    "calendar_shapes": 0,
+    "detached_nested_boards": 0,
+    "terminal_card_override": false,
+    "linked_component_instances": 38,
+    "penpot_validation_errors": 0
+  },
+  "named_version": "EventCard Large mobile document 390 · exact same-data · calendar absent · candidate.14",
+  "comparison": {
+    "layout": "narrow cards side by side",
+    "path": "artifacts/ui-conformance/event-card-large-mobile-390-4327-20260822/comparison-astro-penpot-side-by-side.jpg",
+    "sha256": "7d40421f6bb6bf43d8f5a563e601dbb49b3964dc982ca6a943740c98aa144959",
+    "penpot_export_sha256": "57fb48ddb346c41c596c1c6212564ad15c2094dc6ce1fec4720ce784589dec40",
+    "pixel_ae_fuzz_8_percent": 4818.79,
+    "pixel_ae_fraction": 0.0255286,
+    "rmse_normalized": 0.125947,
+    "verdict": "minor-raster-font-baseline-drift-awaiting-owner-review"
+  },
+  "contract": {
+    "path": "catalog/normalization/families/event-preview-representations/event-card-large-mobile-390-framing-correction-v1.json",
+    "version": "event-card-large.candidate.13-mobile-390",
+    "sha256": "e49aced35d1efb1a6452fcd8d6c4870084ee9eda50df2f251c9693d9cc6b7b1a"
+  },
+  "telegram": {
+    "message_id": 1072,
+    "message_link": "https://t.me/c/4337049383/1072",
+    "read_back_status": "verified",
+    "receipt": "receipts/ui-conformance/incremental-event-components-20260822/telegram/event-card-large-4327-mobile-390.json"
+  },
+  "overall_card_family_status": "unfinished",
+  "remaining_deltas": [
+    "minor raster/font/baseline drift on the exact pair",
+    "event title/occurrence are still content nodes inside the card master rather than separately promoted shared semantic content components",
+    "unreviewed EventCard and event-row variants remain outside this bounded correction"
+  ]
+}
