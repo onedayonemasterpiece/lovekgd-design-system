@@ -3,7 +3,8 @@
 - Lane ID: `design-contract`
 - Requirements: R01-design-consumer, R02, R03, R04-reusable, R05, R06, R07, R08-design
 - Base SHA: `0882917a1328607c498d82e4c2a652bbd3df946d`
-- Implementation head SHA: `d0da4b9823990025745d9aa025b5d1a8f49088e7`
+- Initial implementation SHA: `d0da4b9823990025745d9aa025b5d1a8f49088e7`
+- Corrected implementation head SHA: `c3b9b7ea0d6b916c655a800207d4988cbba1af0a`
 - Branch: `integration/event-card-conformance-p0p1-20260822`
 - Scope: lovekgd-design-system only
 
@@ -44,7 +45,7 @@ Seven structural Penpot read-backs at file revision 1408 are committed with hash
 ## Risks / blockers
 
 1. Exact 11-file durable evidence packs are not yet present; current receipts correctly remain BLOCKED.
-2. Penpot structural shapes were read at revision 1408, but the new current-v2 contract hash has not received a verified live Penpot metadata/export read-back. No false PASS is recorded.
+2. Penpot structural shapes were read at revision 1408, but the new current-v2 contract hash has not received a verified live Penpot metadata/export read-back. Mobile PNG hashes have no proven numeric export revision: `revision=null` and `export_revision_status=unknown_historical_verified_hash` keep them BLOCKED. No materialization label is misrepresented as a revision and no false PASS is recorded.
 3. Design PR #40 / events PR #546 external GitHub state still needs to be marked superseded outside this repository; the immutable contour ledger records the required action.
 4. The changed-scope/full-batch GitHub Actions run belongs to integration after the design candidate SHA is bound by the follow-up provenance commit.
 5. Telegram was not republished. Current bindings require changed image/verdict hashes, a superseding message and verified read-back.
