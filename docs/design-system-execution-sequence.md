@@ -128,10 +128,13 @@ Golden Event Corpus нужен для воспроизводимой Astro ↔ P
 Текущий census `703` событий публичной проекции обнаружил `31` фактически
 отрендеренный label типа события, `61` различный произвольный paid/range label,
 а также ticket, free-registration, registration, phone и sold-out families.
-Он зафиксирован в
-`events-bot-new: artifacts/codex/event-card-semantic-closure/production-census.json`
-(SHA-256
-`3578bee41bda0b5e32e950fd1f27a2561b1ca3714ce7ac9bdd8cc4068e36ff08`).
+Exact public-projection resolver census зафиксирован в
+`events-bot-new: tests/fixtures/ui-conformance/event-card-large-production-semantic-census.v1.json`
+и связан с исходным machine artifact SHA-256
+`30c8ac5adfaeff17c463191714f660b3ed5d0a00aa8799e90f2be70cb1ca9993`.
+Более широкий DB aggregate SHA-256
+`3578bee41bda0b5e32e950fd1f27a2561b1ca3714ce7ac9bdd8cc4068e36ff08`
+остаётся вспомогательным raw-DB evidence и не заменяет exact resolver census.
 Эти данные определяют coverage contract; Golden fixtures выбираются из этого
 coverage как небольшой долговременный корпус, а не заменяют census.
 

@@ -15,10 +15,13 @@ production UI, component contract, or unrelated documentation was changed.
 - Existing Astro runtime gaps: 96 obsolete `Условия уточняются` outputs and two
   invalid `0 ₽` outputs. Neither is accepted as a SoT state; unknown admission
   is hidden fail-closed by owner decision.
-- Evidence:
-  `/home/dev/.codex/worktrees/events-bot-new/event-card-semantic-runtime/artifacts/codex/event-card-semantic-closure/production-census.json`
-- Evidence SHA-256:
+- Durable exact public-projection resolver census:
+  `events-bot-new: tests/fixtures/ui-conformance/event-card-large-production-semantic-census.v1.json`
+- Source exact machine artifact SHA-256:
+  `30c8ac5adfaeff17c463191714f660b3ed5d0a00aa8799e90f2be70cb1ca9993`
+- The broader DB aggregate SHA-256
   `3578bee41bda0b5e32e950fd1f27a2561b1ca3714ce7ac9bdd8cc4068e36ff08`
+  is supporting raw-DB evidence only, not the exact public-projection identity.
 
 ## Documentation result
 
