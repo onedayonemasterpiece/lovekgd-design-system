@@ -2,11 +2,11 @@
   "$schema": "../../contracts/receipts/penpot-materialization-receipt.v1.schema.json",
   "schema_version": "penpot_mobile_listing_rail_remediation_receipt_v1",
   "receipt_id": "penpot.mobile-listing-rail.systemic-remediation.20260821.v1",
-  "status": "readback-pass-visual-export-pending",
+  "status": "readback-pass-exact-same-data-native-track-visual-export-gateway-blocked",
   "contract": {
     "path": "catalog/normalization/families/event-preview-representations/event-card-systemic-boundaries-candidate-v1.json",
-    "version": "1.0.0-candidate.10",
-    "sha256": "ad569c8f2e49efe735eb93b0f293dd40e3f298982a997b4e662ee5b96221a58e"
+    "version": "1.0.0-candidate.11",
+    "sha256": "637e18cc57d5954c3f404fce8cd09f72434eb2629b705b45ac1c048caf5fb00e"
   },
   "penpot": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
@@ -16,7 +16,8 @@
       "Mobile rail · semantic names + bounded page cleanup",
       "Mobile rail · viewport variant axis repaired",
       "Mobile rail · viewport variant member names reconciled",
-      "Mobile rail · component versus proof boundary explicit"
+      "Mobile rail · component versus proof boundary explicit",
+      "MobileListingRailRow T04 · fixture 7906 · exact 1012.875px linked track"
     ],
     "validation_issues": []
   },
@@ -40,30 +41,54 @@
       "action_like": "linked component copy",
       "social_proof_like_rail": "linked component copy 36×20"
     },
-    "fixture_specific_overrides": 0
+    "fixture_specific_overrides": 0,
+    "exact_t04_native_component": {
+      "component_id": "d012936b-5394-80cb-8008-855655e1b216",
+      "main_instance_id": "a6e7f5b4-ff51-80c0-8008-830fd1240e92",
+      "resource_path": "Event cards / Mobile rail / MobileListingRailRow · Track · T04 exact",
+      "size_px": [
+        1012.875,
+        112
+      ],
+      "layout": {
+        "direction": "row",
+        "wrap": "nowrap",
+        "gap_px": 7,
+        "clip": false
+      },
+      "fixture_specific_content": "event.real.7906 exact immutable reference data; geometry is the reusable T04 state contract",
+      "linked_review_instance_id": "d012936b-5394-80cb-8008-855658312715",
+      "linked_comparison_instance_id": "d012936b-5394-80cb-8008-8556e20336c6",
+      "terminal_instance_geometry_overrides": 0
+    }
   },
   "review_page": {
     "root_board_count_before": 8,
-    "root_board_count_after": 5,
+    "root_board_count_after": 7,
     "removed_nonreview_boards": [
       "ARCHIVE INDEX · Mobile rail · NOT OWNER REVIEW",
       "LOCKED SOURCE SCREENSHOTS · Mobile rail · NOT OWNER REVIEW",
       "SOURCE MEDIA ASSETS · Mobile rail · NOT OWNER REVIEW"
     ],
-    "full_intrinsic_composition_proofs": 16,
+    "full_intrinsic_composition_proofs": 15,
     "proof_width_range_px": [
       560,
       1295
     ],
     "all_proofs_height_px": 112,
     "all_proofs_unclipped": true,
-    "proof_roots_are_reusable_component_instances": false,
+    "proof_roots_are_reusable_component_instances": "15 legacy evidence roots remain non-authoritative; T04 is now a native component master with two linked review/evidence roots",
     "proof_root_boundary": "review evidence only; the reusable component is the generic max-content Track master and semantic children remain linked",
     "linked_semantic_instance_readback_count": 342,
     "feature88_medallion_readback_count": 4,
     "feature88_geometry_px": [
       88,
       88
+    ],
+    "native_exact_track_review_roots": 2,
+    "added_small_boards": [
+      "CANONICAL MASTER · MobileListingRailRow T04 · fixture 7906 · NOT OWNER REVIEW",
+      "40.3E · MobileListingRailRow 7906 · exact same-data comparison"
     ]
   },
   "viewport_pattern": {
@@ -104,14 +129,77 @@
     "correction": "the 16 page roots are non-authoritative composition proofs, not linked Track component roots; their semantic children are linked and the reusable Track master is separate"
   },
   "visual_evidence": {
-    "status": "pending",
-    "reason": "bounded Penpot shape export still returns HTTP 504; stale Telegram exports must not be treated as current evidence"
+    "status": "same-data-on-canvas-pass-export-gateway-blocked",
+    "reason": "exact Astro 390 viewport screenshot and linked 1012.875px native Penpot track coexist on bounded 1100×330 board; export was not blindly retried after repeated file-scoped HTTP 504",
+    "comparison_board": {
+      "page_id": "579a886e-56e8-80a3-8008-81882dc703ba",
+      "board_id": "d012936b-5394-80cb-8008-8556d37b6bdd",
+      "source_shape_id": "d012936b-5394-80cb-8008-8556d952b960",
+      "linked_instance_id": "d012936b-5394-80cb-8008-8556e20336c6",
+      "width": 1100,
+      "height": 330
+    }
   },
   "non_claims": [
+    "all 16 legacy composition proofs converted to native track variants; only exact T04 is converted in this bounded pass",
     "owner visual acceptance",
-    "fresh visual parity",
     "Astro reverse integration",
     "production mutation",
     "family promotion"
-  ]
+  ],
+  "same_data_conformance": {
+    "fixture_id": "event.real.7906",
+    "event_id": "7906",
+    "preview_event_sha256": "2052001842c42ac5aeaac6295cfc87a20010f6394cc16941d3386aef64579318",
+    "resolved_content_equal": true,
+    "media_bytes_equal": true,
+    "media_sha256": [
+      "0496a6ed06d9d44403161af767d841442dfccd8e82b49bba622220a7ef851ddc",
+      "3b39decaefc68395b19183aff5ec5195775ccc83e543198621240013da13b73f",
+      "3e9309efb815c1e01151498af064e1dadd87b2877f5deb25608767ffe82cb7eb"
+    ],
+    "track_geometry": {
+      "astro_px": {
+        "width": 1012.875,
+        "height": 112
+      },
+      "penpot_master_px": {
+        "width": 1012.875,
+        "height": 112
+      },
+      "penpot_linked_review_px": {
+        "width": 1012.875,
+        "height": 112
+      }
+    },
+    "viewport": {
+      "width_px": 390,
+      "scroll_width_px_rounded": 1013
+    },
+    "full_track_unclipped": true,
+    "semantic_counts_inside_components": [
+      "small Like 37",
+      "Like action 37"
+    ],
+    "absent_slots_encoded_at_master": [
+      "Identity medallion",
+      "Artifact"
+    ],
+    "terminal_instance_geometry_overrides": 0,
+    "penpot_validation_issues": [],
+    "artifacts": {
+      "astro-mobile-rail-7906-viewport-390.png": {
+        "path": "artifacts/ui-conformance/listing-rail-7906-20260822/astro-mobile-rail-7906-viewport-390.png",
+        "sha256": "cc7e672d6ce59c2f12feff58858697775fa1e3ba30c4274e811032be4406f2ed"
+      },
+      "astro-mobile-rail-7906-facts.json": {
+        "path": "artifacts/ui-conformance/listing-rail-7906-20260822/astro-mobile-rail-7906-facts.json",
+        "sha256": "b9d7b4a8fe2145ea34842cec5436ce3216592fdf4e674bf7bd3819388b4a3786"
+      },
+      "penpot-mobile-rail-facts.json": {
+        "path": "artifacts/ui-conformance/listing-rail-7906-20260822/penpot-mobile-rail-facts.json",
+        "sha256": "a4e2d0676d33e343ffbdb54ddc6426db741c8e87015b27174d8fd57a3c57e4d1"
+      }
+    }
+  }
 }

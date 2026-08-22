@@ -57,10 +57,33 @@ def main() -> None:
     rail_readback = families["listing.rail-row"]["penpot_readback"]
     assert rail_readback["track_horizontal_sizing"] == "auto"
     assert rail_readback["track_wrap"] == "nowrap" and rail_readback["track_clip"] is False
-    assert rail_readback["composition_proof_count"] == 16
+    assert rail_readback["composition_proof_count"] == 15
     assert rail_readback["composition_proofs_are_component_instances"] is False
     assert rail_readback["viewport_variant_axis"] == {"state": [f"T{i:02d}" for i in range(1, 17)]}
     assert rail_readback["validation_issues"] == []
+    exact_track = rail_readback["exact_native_track_component"]
+    assert exact_track["fixture_id"] == "event.real.7906"
+    assert exact_track["size_px"] == [1012.875, 112]
+    assert exact_track["clip"] is False
+    assert exact_track["media_count"] == 3
+    assert exact_track["like_count_inside_component"] is True
+    assert exact_track["terminal_instance_geometry_overrides"] == 0
+    rail_same_data = rail_readback["same_data_conformance"]
+    assert rail_same_data["status"] == "native-track-readback-pass-exact-same-data"
+    assert rail_same_data["fixture_id"] == "event.real.7906"
+    assert rail_same_data["resolved_content_equal"] is True
+    assert rail_same_data["media_bytes_equal"] is True
+    assert rail_same_data["track_geometry_px"] == {
+        "astro": [1012.875, 112],
+        "penpot_master": [1012.875, 112],
+        "penpot_linked_review": [1012.875, 112],
+    }
+    assert rail_same_data["viewport_width_px"] == 390
+    assert rail_same_data["viewport_scroll_width_px_rounded"] == 1013
+    assert rail_same_data["full_track_unclipped"] is True
+    assert rail_same_data["small_like_count_inside_component"] is True
+    assert rail_same_data["action_like_count_inside_component"] is True
+    assert rail_same_data["terminal_instance_geometry_overrides"] == 0
     listing = families["listing.event-card"]
     listing_layout = listing["layout_contract"]
     assert listing_layout["visual_gap_px"] == 4
@@ -297,7 +320,9 @@ def main() -> None:
     }
 
     rail_receipt = json.loads(RAIL_RECEIPT_PATH.read_text())
-    assert rail_receipt["status"] == "readback-pass-visual-export-pending"
+    assert rail_receipt["status"] == (
+        "readback-pass-exact-same-data-native-track-visual-export-gateway-blocked"
+    )
     assert rail_receipt["contract"]["sha256"] == data["contract_payload_sha256"]
     assert rail_receipt["reusable_track_component"]["layout"] == {
         "horizontal_sizing": "auto",
@@ -307,14 +332,35 @@ def main() -> None:
         "clip": False,
     }
     assert rail_receipt["reusable_track_component"]["fixture_specific_overrides"] == 0
-    assert rail_receipt["review_page"]["full_intrinsic_composition_proofs"] == 16
-    assert rail_receipt["review_page"]["proof_roots_are_reusable_component_instances"] is False
-    assert rail_receipt["review_page"]["root_board_count_after"] == 5
+    assert rail_receipt["review_page"]["full_intrinsic_composition_proofs"] == 15
+    assert rail_receipt["review_page"]["native_exact_track_review_roots"] == 2
+    assert rail_receipt["review_page"]["root_board_count_after"] == 7
     assert rail_receipt["viewport_pattern"]["axis"] == {
         "state": [f"T{i:02d}" for i in range(1, 17)]
     }
     assert rail_receipt["viewport_pattern"]["all_variant_errors_null"] is True
     assert rail_receipt["penpot"]["validation_issues"] == []
+    receipt_rail_same_data = rail_receipt["same_data_conformance"]
+    assert receipt_rail_same_data["fixture_id"] == "event.real.7906"
+    assert receipt_rail_same_data["resolved_content_equal"] is True
+    assert receipt_rail_same_data["media_bytes_equal"] is True
+    assert receipt_rail_same_data["track_geometry"] == {
+        "astro_px": {"width": 1012.875, "height": 112},
+        "penpot_master_px": {"width": 1012.875, "height": 112},
+        "penpot_linked_review_px": {"width": 1012.875, "height": 112},
+    }
+    assert receipt_rail_same_data["viewport"] == {
+        "width_px": 390,
+        "scroll_width_px_rounded": 1013,
+    }
+    assert receipt_rail_same_data["full_track_unclipped"] is True
+    assert receipt_rail_same_data["terminal_instance_geometry_overrides"] == 0
+    assert receipt_rail_same_data["penpot_validation_issues"] == []
+    assert set(receipt_rail_same_data["artifacts"]) == {
+        "astro-mobile-rail-7906-viewport-390.png",
+        "astro-mobile-rail-7906-facts.json",
+        "penpot-mobile-rail-facts.json",
+    }
 
     festival_receipt = json.loads(FESTIVAL_RECEIPT_PATH.read_text())
     assert festival_receipt["status"] == (
