@@ -79,22 +79,26 @@ export function validateBundle(repo = defaultRepo) {
   if (materializationReceipt.result !== 'pass'
     || feedbackRepair?.status !== 'applied-master-plus-declared-rematerialization'
     || mediaRepair?.status !== 'pass-systemic-master-plus-content-binding-rematerialization'
-    || metaRepair?.status !== 'readback-pass-export-pending-504'
+    || metaRepair?.status !== 'readback-and-current-export-pass'
     || metaRepair?.detached_instances !== 0
-    || visualEvidence?.status !== 'superseded-by-systemic-meta-repair-export-pending') errors.push('completed materialization/read-back evidence mismatch');
+    || visualEvidence?.status !== 'current-after-systemic-meta-repair'
+    || visualEvidence?.penpot_archetype_export_sha256 !== comparisonSummary.penpot_parent_sha256
+    || JSON.stringify(visualEvidence?.telegram_message_ids) !== JSON.stringify([1066,1067,1068,1069])) errors.push('completed materialization/read-back evidence mismatch');
   if (propagationAudit.result !== 'pass'
     || propagationAudit.integrity?.detached_instance_count !== 0
     || propagationAudit.fixture_instances?.find((row) => row.fixture_id === 'event.real.4327')?.height_px !== 528.640625
     || propagationAudit.semantic_checks?.meta_flow_is_master_owned !== true
     || propagationAudit.semantic_checks?.admission_is_one_line_hug !== true
     || propagationAudit.semantic_checks?.fixture_specific_visual_patches !== false) errors.push('post-fix propagation audit mismatch');
-  if (comparisonSummary.status !== 'BLOCKED'
-    || comparisonSummary.owner_status !== 'NOT_REVIEWABLE_STALE_EXPORT'
+  if (comparisonSummary.status !== 'MINOR'
+    || comparisonSummary.owner_status !== 'AWAITING_REVIEW'
     || comparisonSummary.exact_same_parent_capture !== true
     || comparisonSummary.actual_scale !== 1
     || comparisonSummary.stretched !== false
     || comparisonSummary.cases?.length !== 4
-    || comparisonSummary.cases?.some((row) => ![1053,1054,1055,1056].includes(row.telegram_message_id) || row.evidence_status !== 'stale-pre-meta-repair')) errors.push('current exact comparison/Telegram summary mismatch');
+    || comparisonSummary.cases?.some((row) => ![1066,1067,1068,1069].includes(row.telegram_message_id) || row.evidence_status !== 'current-after-systemic-meta-repair')
+    || comparisonSummary.current_capture?.penpot_parent_sha256 !== comparisonSummary.penpot_parent_sha256
+    || JSON.stringify(comparisonSummary.current_capture?.telegram_message_ids) !== JSON.stringify([1066,1067,1068,1069])) errors.push('current exact comparison/Telegram summary mismatch');
   if (component.penpot.baseline_revision !== 1256 || component.penpot.governed_active_variant_count !== 11 || component.penpot.live_container_member_count !== 13) errors.push('live Penpot revision/member governance evidence drift');
   if (component.penpot.live_member_anomalies.length !== 2) errors.push('two live Penpot anomalies must remain explicit until quarantine reconciliation');
   if (materializationIr.lifecycle !== 'candidate-unexecuted' || materializationIr.execution_gate.exact_live_readback_required !== true) errors.push('materialization IR must remain gated and unexecuted');

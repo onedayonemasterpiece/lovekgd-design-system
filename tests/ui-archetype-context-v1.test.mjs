@@ -15,13 +15,14 @@ const schemaValidate = (instance, schema, shouldPass = true) => {
 };
 
 const result = validateBundle(repo);
-assert.deepEqual(result, {cases:4, status:'blocked-fresh-export-after-systemic-meta-repair'});
+assert.deepEqual(result, {cases:4, status:'current-minor-awaiting-owner-review'});
 schemaValidate(join(base, 'consumer-layout-contract.v1.json'), join(repo, 'contracts/ui-components/consumer-layout-contract.v1.schema.json'));
 schemaValidate(join(repo, 'catalog/ui-components/event-card-large/component-contract.v2.json'), join(repo, 'contracts/ui-components/component-contract.v2.schema.json'));
 schemaValidate(join(base, 'penpot-materialization-ir.v2.json'), join(repo, 'contracts/ui-components/penpot-materialization-ir.v2.schema.json'));
 schemaValidate(join(base, registry.materialization_receipt_ref), join(repo, 'contracts/ui-components/penpot-materialization-receipt.v1.schema.json'));
 for (const fixtureId of ['7906','8156','4327','6628']) {
   schemaValidate(join(repo, `receipts/ui-conformance/golden-event-corpus-v1-archetype-v2/telegram-readback-${fixtureId}.json`), join(repo, 'contracts/ui-conformance/telegram-readback-receipt.v1.schema.json'));
+  schemaValidate(join(repo, `receipts/ui-conformance/golden-event-corpus-v1-archetype-v2/telegram-current-${fixtureId}.json`), join(repo, 'contracts/ui-conformance/telegram-readback-receipt.v1.schema.json'));
 }
 for (const entry of registry.cases) {
   schemaValidate(join(base, entry.case_path), join(repo, 'contracts/ui-conformance/ui-conformance-case.v2.schema.json'));
