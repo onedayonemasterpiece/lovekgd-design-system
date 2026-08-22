@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/ui-components/festival-card-semantic-contract.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "contract_id", "contract_version",
+    "contract_payload_sha256", "status", "canonical", "promotion_status",
+    "owner_acceptance", "authority", "corrects", "theme", "like",
+    "penpot_reconciliation", "production_mutation"
+  ],
+  "properties": {
+    "$schema": { "const": "https://lovekgd.example/contracts/ui-components/festival-card-semantic-contract.v1.schema.json" },
+    "schema_version": { "const": "festival_card_semantic_contract.v1" },
+    "contract_id": { "const": "festival-card.semantic.v1" },
+    "contract_version": { "type": "string", "minLength": 1 },
+    "contract_payload_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "status": { "const": "not_ready_penpot_reconciliation_required" },
+    "canonical": { "const": false },
+    "promotion_status": { "const": "not_promoted" },
+    "owner_acceptance": { "type": "string", "minLength": 1 },
+    "authority": {
+      "type": "object",
+      "required": ["owner_override", "source_visual_role", "source_repository", "source_exact_commit", "census_path", "census_sha256", "census_byte_length", "festival_count", "category_count"],
+      "properties": {
+        "owner_override": { "type": "string", "minLength": 1 },
+        "source_visual_role": { "type": "string", "minLength": 1 },
+        "source_repository": { "const": "onedayonemasterpiece/events-bot-new" },
+        "source_exact_commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "census_path": { "type": "string", "minLength": 1 },
+        "census_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "census_byte_length": { "type": "integer", "minimum": 1 },
+        "festival_count": { "const": 21 },
+        "category_count": { "const": 16 }
+      },
+      "additionalProperties": false
+    },
+    "corrects": { "type": "object" },
+    "theme": {
+      "type": "object",
+      "required": ["component_id", "display_path", "component_per_literal", "component_variant", "label_role", "icon_slots", "secondary_icon_presence", "responsive_rule", "actual_generated_values", "forbidden"],
+      "properties": {
+        "component_id": { "const": "festival.meta.theme" },
+        "display_path": { "type": "string" },
+        "component_per_literal": { "const": false },
+        "component_variant": { "const": "default" },
+        "label_role": { "const": "content_override" },
+        "icon_slots": { "const": ["primary", "secondary"] },
+        "secondary_icon_presence": { "const": "optional" },
+        "responsive_rule": { "type": "object" },
+        "actual_generated_values": {
+          "type": "array", "minItems": 16, "maxItems": 16,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["label", "semantic_value", "occurrence_count", "icons", "icon_slot_count"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "semantic_value": { "type": "string", "minLength": 1 },
+              "occurrence_count": { "type": "integer", "minimum": 1 },
+              "icons": { "type": "array", "minItems": 1, "maxItems": 2, "items": { "type": "string", "minLength": 1 } },
+              "icon_slot_count": { "type": "integer", "minimum": 1, "maximum": 2 }
+            }
+          }
+        },
+        "forbidden": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "like": {
+      "type": "object",
+      "required": ["action_component_id", "proof_component_id", "display_path", "festival_specific_component_allowed", "selected_state", "count_owner", "count_rule", "exact_joined_counts", "forbidden"],
+      "properties": {
+        "action_component_id": { "const": "event.action.like" },
+        "proof_component_id": { "const": "event.social-proof.like" },
+        "display_path": { "type": "string" },
+        "festival_specific_component_allowed": { "const": false },
+        "selected_state": { "type": "string" },
+        "count_owner": { "const": "event.social-proof.like" },
+        "count_rule": { "type": "string" },
+        "exact_joined_counts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["grozd", "more-vnutri", "bolshoy-kaup", "territoriya-mira"],
+          "properties": {
+            "grozd": { "const": 7 },
+            "more-vnutri": { "const": 84 },
+            "bolshoy-kaup": { "const": 198 },
+            "territoriya-mira": { "const": 3 }
+          }
+        },
+        "forbidden": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "penpot_reconciliation": { "type": "object" },
+    "production_mutation": {
+      "type": "object",
+      "required": ["allowed", "state", "reverse_integration"],
+      "properties": {
+        "allowed": { "const": false },
+        "state": { "const": "pre-acceptance" },
+        "reverse_integration": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
