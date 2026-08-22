@@ -3,6 +3,7 @@ name: EventCard Large current-v2 conformance
 on:
   workflow_call:
     inputs:
+      design_tooling_sha: { type: string, required: true }
       design_sha: { type: string, required: true }
       events_tooling_sha: { type: string, required: true }
       astro_sha: { type: string, required: true }
@@ -11,6 +12,7 @@ on:
       trusted_source: { type: boolean, required: false, default: false }
   workflow_dispatch:
     inputs:
+      design_tooling_sha: { description: 'Immutable design-system tooling/catalog SHA', required: true }
       design_sha: { description: 'Immutable 40-hex design SHA', required: true }
       events_tooling_sha: { description: 'Immutable 40-hex events tooling SHA', required: true }
       astro_sha: { description: 'Immutable 40-hex Astro source SHA', required: true }
@@ -37,18 +39,19 @@ jobs:
       - name: Reject mutable refs
         shell: bash
         run: |
-          for value in '${{ inputs.design_sha }}' '${{ inputs.events_tooling_sha }}' '${{ inputs.astro_sha }}'; do
+          for value in '${{ inputs.design_tooling_sha }}' '${{ inputs.design_sha }}' '${{ inputs.events_tooling_sha }}' '${{ inputs.astro_sha }}'; do
             [[ "$value" =~ ^[0-9a-f]{40}$ ]] || { echo "immutable 40-hex SHA required: $value"; exit 2; }
           done
           test -z '${{ inputs.batch }}' || test '${{ inputs.batch }}' = 'event-card-large-current-v2'
       - uses: actions/checkout@v4
-        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_sha }}', fetch-depth: 2, path: design-system }
+        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_tooling_sha }}', fetch-depth: 0, path: design-system }
       - uses: actions/checkout@v4
         with: { repository: onedayonemasterpiece/events-bot-new, ref: '${{ inputs.events_tooling_sha }}', fetch-depth: 2, path: events-bot-new }
       - name: Verify immutable checkouts
         shell: bash
         run: |
-          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_sha }}'
+          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_tooling_sha }}'
+          git -C design-system cat-file -e '${{ inputs.design_sha }}^{commit}'
           test "$(git -C events-bot-new rev-parse HEAD)" = '${{ inputs.events_tooling_sha }}'
       - id: scope
         name: Select exact batch or changed scope
@@ -83,7 +86,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_sha }}', fetch-depth: 1, path: design-system }
+        with: { repository: onedayonemasterpiece/lovekgd-design-system, ref: '${{ inputs.design_tooling_sha }}', fetch-depth: 0, path: design-system }
       - uses: actions/checkout@v4
         with: { repository: onedayonemasterpiece/events-bot-new, ref: '${{ inputs.events_tooling_sha }}', fetch-depth: 1, path: events-bot-new }
       - uses: actions/checkout@v4
@@ -91,7 +94,8 @@ jobs:
       - name: Verify all immutable heads
         shell: bash
         run: |
-          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_sha }}'
+          test "$(git -C design-system rev-parse HEAD)" = '${{ inputs.design_tooling_sha }}'
+          git -C design-system cat-file -e '${{ inputs.design_sha }}^{commit}'
           test "$(git -C events-bot-new rev-parse HEAD)" = '${{ inputs.events_tooling_sha }}'
           test "$(git -C astro-source rev-parse HEAD)" = '${{ inputs.astro_sha }}'
       - uses: actions/setup-node@v4

@@ -221,6 +221,12 @@
             "string",
             "null"
           ]
+        },
+        "board_or_component_id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "font_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
         }
       },
       "additionalProperties": false
@@ -250,6 +256,9 @@
         "root_selector": {
           "type": "string",
           "minLength": 1
+        },
+        "candidate_package_sha": {
+          "$ref": "#/$defs/gitsha"
         }
       },
       "additionalProperties": false
@@ -265,6 +274,50 @@
     },
     "events_tooling_sha": {
       "$ref": "#/$defs/gitsha"
+    },
+    "contract_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_mode": {
+      "type": "string"
+    },
+    "conformance_profile": {
+      "type": "string"
+    },
+    "container_width": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "corpus_id": {
+      "type": "string"
+    },
+    "fixture_mode": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "expected_candidate_deltas": {
+      "type": "array"
+    },
+    "viewport_id": {
+      "type": "string"
+    },
+    "viewport_width": {
+      "type": "number"
+    },
+    "viewport_height": {
+      "type": "number"
+    },
+    "device_scale_factor": {
+      "type": "number"
+    },
+    "resolved_render_case_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "fixture_source": {
+      "type": "string"
     }
   },
   "$defs": {

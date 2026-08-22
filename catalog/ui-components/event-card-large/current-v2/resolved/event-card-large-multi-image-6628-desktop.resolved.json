@@ -1,25 +1,328 @@
 {
-  "schema_version": "event_card_large_current_v2_resolved_case.v1",
+  "schema_version": "resolved-render-case.v2",
   "case_id": "event-card-large-multi-image-6628-desktop",
   "component_id": "event.card",
+  "contract_version": "event-card-large.current-v2.1",
   "contract_sha256": "dfc49a54ebd9a4d2d9da1f9c24321abf349714c62d3abf1dd00f71c1ce63ae1e",
+  "authority_mode": "astro-reference",
+  "conformance_profile": "pixel-strict",
+  "state_key": "viewport=desktop;layout=split-actions;presentation=dark-shell;media=loaded-protected;fixture=event.real.6628;consumer=event-detail-related.optimized-grid;placement=0,2",
+  "viewport_id": "desktop-1280",
+  "container_geometry": {
+    "viewport_width": 1280,
+    "viewport_height": 900,
+    "container_width": 1180,
+    "used_card_width": 380,
+    "device_scale_factor": 1
+  },
+  "event_fixture_id": "event.real.6628",
+  "event_payload_sha256": "3e8a3f3ffa0200933f5189cf5d8c38a509eaf156580e65a6fd01676ace499e5a",
+  "event_fixture_path": "events/event.real.6628.json",
+  "corpus_id": "ui-reference-events.v1",
+  "corpus_sha256": "9ca2960fb8d723f95b19c012b50f8abb5e4503eedcf673fe178ed0f4afd46320",
+  "source_database_snapshot_fingerprint": "5ff3be3ce417145f97b4b5c5a2d315fd820acf0ba5d222ea282523d04500adf1",
+  "reference_clock": {
+    "current_date": "2026-08-21",
+    "reference_iso": "2026-08-21T09:00:00+02:00",
+    "timezone": "Europe/Kaliningrad"
+  },
+  "asset_refs": [
+    "asset.sha256.04af982da4861b834adc0eac96652b40d5d4cfa929b909b12da0f4780045041a",
+    "asset.sha256.3117f0d5374a496acf5c84ce8380701ca56167e06fb62223ebddcac53ce75d39",
+    "asset.sha256.b0dd0345b575799fab8408ac68e0c880595568d95071b7d6a110e761ace41144",
+    "asset.sha256.d1b524cc6b23b461d8dcbbf41c6c840eef7e7745bf84fe7183e0ea68acd97fbf",
+    "asset.sha256.1b75707655141eff58789126f2cc612dc18baf99b1937c98325de5a53ddf4990"
+  ],
+  "asset_manifest_sha256": "3819811e9598a65e03a2a4467672c5e836142c6fd6c3a21178b644fe0dff6953",
+  "resolved_content": {
+    "title": "ТОГДА",
+    "date": "10 июля — до 23 августа",
+    "time": "19:00",
+    "place": "Калининград · Барн",
+    "admission": "Билеты",
+    "counts": {
+      "likes": 5,
+      "shares": 0
+    },
+    "labels": {
+      "event_type": "выставка",
+      "occurrence": "10 июля 19:00",
+      "not_interested": "Не интересно",
+      "calendar": null,
+      "share": "Поделиться"
+    }
+  },
+  "resolved_media": {
+    "asset_id": "asset.sha256.1b75707655141eff58789126f2cc612dc18baf99b1937c98325de5a53ddf4990",
+    "frame_role": "event-card-primary",
+    "frame_geometry": {
+      "outer_width": 380,
+      "content_width": 380,
+      "content_height": 456.00000000000006,
+      "border_width": 0,
+      "intrinsic_width": 1007,
+      "intrinsic_height": 1280
+    },
+    "fit": "cover",
+    "object_position": "50% 50%",
+    "crop_window": null,
+    "protected_regions": {
+      "ocr_boxes": [],
+      "face_boxes": [],
+      "valuable_region": {
+        "confidence": 1,
+        "h": 0.955,
+        "w": 0.937,
+        "x": 0.031,
+        "y": 0.024
+      }
+    },
+    "media_treatment": "document-safe-cover",
+    "crop_reason": "document_bounded_cover"
+  },
+  "resolved_visibility": {
+    "event_type": true,
+    "place": true,
+    "admission": true,
+    "calendar": false,
+    "share": true,
+    "like": true,
+    "not_interested": true,
+    "media": true
+  },
+  "resolved_nested_components": [
+    {
+      "component_id": "event.media-frame",
+      "role": "media"
+    },
+    {
+      "component_id": "event.action.not-interested",
+      "role": "negative-action"
+    },
+    {
+      "component_id": "event.action.share",
+      "role": "share-action"
+    },
+    {
+      "component_id": "event.action.like",
+      "role": "like-action"
+    },
+    {
+      "component_id": "event.meta.event-type",
+      "role": "event-type"
+    },
+    {
+      "component_id": "event.meta.admission",
+      "role": "admission"
+    }
+  ],
+  "resolved_props": {
+    "variant": "split-actions",
+    "desktopRelatedCrop": true,
+    "mobileFlowMedia": false,
+    "presentation": "dark-shell",
+    "desktopRelatedLayout": {
+      "rowIndex": 0,
+      "rowColumn": 2,
+      "rowRatio": 0.8333333333333333,
+      "rowMode": "document-led-bounded-cover"
+    }
+  },
+  "expected_candidate_deltas": [
+    {
+      "delta_id": "event-real-6628.owner-penpot-framing-candidate",
+      "owner_decision_ref": "catalog/normalization/event-media/framing-v2.json#large_card_resolution/2",
+      "authority_scope": "penpot-candidate-only",
+      "region": "media",
+      "property": "framing-rule",
+      "astro_value": {
+        "frame_aspect_ratio": 0.8333333333333333,
+        "fit": "cover",
+        "object_position": "50% 50%",
+        "crop_fraction": 0.19999999999999996,
+        "policy": "document-safe-cover"
+      },
+      "candidate_value": {
+        "frame_aspect_ratio": 0.78671875,
+        "fit": "source-preserving",
+        "object_position": "50% 40%",
+        "crop_fraction": 0,
+        "policy": "owner-candidate-protected-source-preserving-intrinsic"
+      },
+      "reason": "Owner-approved Penpot framing direction remains an explicit candidate delta while current Astro source stays the visual authority.",
+      "does_not_change_reference_authority": true,
+      "promotion_effect": "none-before-owner-browser-approval"
+    }
+  ],
+  "consumer_layout_resolution": {
+    "schema_version": "consumer-layout-resolution.v1",
+    "resolution_id": "event-real-6628.event-detail-related.desktop-1280",
+    "surface": {
+      "surface_id": "event-detail-related",
+      "archetype_id": "optimized-event-card-grid",
+      "parent_component": "OptimizedEventCardGrid",
+      "consumer_role": "related-discovery-feed",
+      "layout_authority": "astro-reference",
+      "placement_claim": "controlled-layout-only"
+    },
+    "viewport": {
+      "viewport_id": "desktop-1280",
+      "width_px": 1280,
+      "height_px": 900,
+      "device_scale_factor": 1,
+      "breakpoint": "desktop"
+    },
+    "container": {
+      "containing_block": "page-shell",
+      "width_expression": "min(1180px, viewport_width_px - 32px)",
+      "border_box_width_px": 1180,
+      "content_width_px": 1180,
+      "padding_inline_px": 0,
+      "box_sizing": "border-box"
+    },
+    "grid": {
+      "display": "grid",
+      "columns": 3,
+      "gap_expression": "clamp(0.85rem, 1.6vw, 1.25rem)",
+      "column_gap_px": 20,
+      "row_gap_px": 20,
+      "track_definition": "repeat(3, minmax(0, 1fr))",
+      "align_items": "stretch"
+    },
+    "packing": {
+      "algorithm": "packRelatedCardRows",
+      "limit": 4,
+      "row_size": 3,
+      "ordered_input_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.4327",
+        "event.real.6628"
+      ],
+      "ordered_output_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "placement": {
+        "fixture_id": "event.real.6628",
+        "row_index": 0,
+        "column_index": 2,
+        "row_ratio": 0.8333333333333333,
+        "media_ratio": 0.78671875,
+        "row_mode": "document-led-bounded-cover"
+      }
+    },
+    "row_policy": {
+      "peer_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628"
+      ],
+      "equal_height_policy": "equal-height-within-row",
+      "height_basis": "row-track-max-content",
+      "card_height_style": "100%",
+      "internal_track_definition": "auto minmax(0, 1fr) minmax(58px, auto) minmax(56px, auto)",
+      "tallest_sibling_determines_used_height": true,
+      "shared_media_ratio_within_row": true
+    },
+    "used_card_geometry": {
+      "width_px": 380,
+      "height_px": null,
+      "height_resolution": "row-track-max-content-runtime-measurement-required",
+      "box_sizing": "border-box",
+      "measured_rect": {
+        "status": "runtime-measurement-required",
+        "x_px": null,
+        "y_px": null,
+        "width_px": null,
+        "height_px": null,
+        "capture_ref": null
+      }
+    },
+    "media_available_box": {
+      "available_width_px": 380,
+      "available_height_px": 456.00000000000006,
+      "frame_aspect_ratio": 0.8333333333333333,
+      "geometry_source": "used-card-width-divided-by-row-ratio",
+      "measured_rect": {
+        "status": "runtime-measurement-required",
+        "x_px": null,
+        "y_px": null,
+        "width_px": null,
+        "height_px": null,
+        "capture_ref": null
+      }
+    },
+    "framing_rule": {
+      "authority": "astro-reference",
+      "policy_id": "document-safe-cover",
+      "media_kind": "document",
+      "frame_aspect_ratio": 0.8333333333333333,
+      "fit": "cover",
+      "object_position": "50% 50%",
+      "crop_fraction": 0.19999999999999996,
+      "crop_reason": "document_bounded_cover",
+      "safe_crop_evidence": false
+    },
+    "candidate_deltas": [
+      {
+        "delta_id": "event-real-6628.owner-penpot-framing-candidate",
+        "owner_decision_ref": "catalog/normalization/event-media/framing-v2.json#large_card_resolution/2",
+        "authority_scope": "penpot-candidate-only",
+        "region": "media",
+        "property": "framing-rule",
+        "astro_value": {
+          "frame_aspect_ratio": 0.8333333333333333,
+          "fit": "cover",
+          "object_position": "50% 50%",
+          "crop_fraction": 0.19999999999999996,
+          "policy": "document-safe-cover"
+        },
+        "candidate_value": {
+          "frame_aspect_ratio": 0.78671875,
+          "fit": "source-preserving",
+          "object_position": "50% 40%",
+          "crop_fraction": 0,
+          "policy": "owner-candidate-protected-source-preserving-intrinsic"
+        },
+        "reason": "Owner-approved Penpot framing direction remains an explicit candidate delta while current Astro source stays the visual authority.",
+        "does_not_change_reference_authority": true,
+        "promotion_effect": "none-before-owner-browser-approval"
+      }
+    ],
+    "derivation": {
+      "resolution_order": [
+        "surface-archetype",
+        "viewport-container",
+        "grid-columns",
+        "packing-placement",
+        "row-sibling-equalization",
+        "used-card-geometry",
+        "media-available-box",
+        "framing-rule"
+      ],
+      "source_refs": [
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/OptimizedEventCardGrid.astro",
+        "site/src/components/EventCard.astro",
+        "site/src/lib/relatedCardLayout.mjs"
+      ],
+      "formulas": {
+        "container_width": "min(1180, viewport_width_px - 32)",
+        "resolved_gap": "min(max(13.6, viewport_width_px * 0.016), 20)",
+        "used_card_width": "(container_width_px - 2 * resolved_gap_px) / 3",
+        "media_available_height": "used_card_width_px / row_ratio"
+      },
+      "rounding_digits": 9
+    }
+  },
+  "consumer_layout_resolution_sha256": "bc0c1ae98469d5686809f29363a4c8d6e563c7937b86bc2c48eab507ff3790fd",
   "design_sha": "0882917a1328607c498d82e4c2a652bbd3df946d",
   "astro_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
   "events_tooling_sha": "713a035a8aaa9ecfdcdd5fbd817fe504160df2f5",
-  "corpus_sha256": "9ca2960fb8d723f95b19c012b50f8abb5e4503eedcf673fe178ed0f4afd46320",
-  "fixture_id": "event.real.6628",
-  "fixture_sha256": "3e8a3f3ffa0200933f5189cf5d8c38a509eaf156580e65a6fd01676ace499e5a",
-  "fixture_snapshot_sha256": "5ff3be3ce417145f97b4b5c5a2d315fd820acf0ba5d222ea282523d04500adf1",
-  "asset_manifest_sha256": "3819811e9598a65e03a2a4467672c5e836142c6fd6c3a21178b644fe0dff6953",
-  "source_resolved_render_case_sha256": "1b41bd3ebda7f5a1ab163d56fc0b940490ea94b149d65b643ef1019543b32d06",
-  "viewport": {
-    "id": "desktop-1280",
-    "width": 1280,
-    "height": 900,
-    "container_width": 380,
-    "parent_container_width": 1180,
-    "device_scale_factor": 1
-  },
-  "state_key": "viewport=desktop;layout=split-actions;presentation=dark-shell;media=loaded-protected;fixture=event.real.6628;consumer=event-detail-related.optimized-grid;placement=0,2",
-  "resolved_case_sha256": "2d4f6b6b21a41fbb8a9d2d2ee5937bd345830721eb4f84590a6b398fe24dfe2e"
+  "resolved_case_sha256": "29b1697cbc0c9b330eaa916b292ddb8135ea32a80933d58c68a54f53eb0667bb",
+  "resolved_render_case_sha256": "29b1697cbc0c9b330eaa916b292ddb8135ea32a80933d58c68a54f53eb0667bb"
 }
