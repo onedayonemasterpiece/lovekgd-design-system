@@ -35,6 +35,8 @@ components:
 - media frame/deck;
 - Medallion consumer wrapper: linked frame plus linked artwork.
 
+Medallion Artwork uses the **final self-framed runtime asset**: its source background, source ring and identity mark remain one linked native asset. A consumer frame may own only outer slot geometry, clipping, stroke and placement; it must not draw a second inner ring or shrink the final medallion as if it were a raw logo. For the Exhibition overlay the source-derived border-box is `44 px`, with a `1 px` consumer stroke and the linked artwork at `42 px` inset by `1 px`. Identity swaps are reconciled on the consuming master, never on terminal review instances.
+
 The raw `Icon / UI / …` resource remains the nested graphic primitive. A layer
 named `nested Icon / UI / heart` is never an adequate consumer-visible name for
 a like metric or action. Every functional instance name exposes its role.
