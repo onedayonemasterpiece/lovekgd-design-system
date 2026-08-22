@@ -18,6 +18,7 @@ const casePaths = [
   'event-card-large-portrait-poster-8156-desktop.case.json',
   'event-card-large-ocr-protected-4327-desktop.case.json',
   'event-card-large-multi-image-6628-desktop.case.json',
+  'event-card-large-landscape-crop-safe-7906-mobile-390.case.json',
 ].map((name) => join(casesDir, name));
 const cases = casePaths.map(readJson);
 const corpus = readJson(join(corpusRoot, 'corpus.json'));

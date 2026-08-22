@@ -127,6 +127,17 @@ For every reviewed route/state/viewport:
    the exception names that exact region; the surrounding layout, content and
    states must still be measured and compared, while the protected runtime code
    remains authoritative.
+   A framing value copied from asset metadata or an old helper is not decisive
+   when it contradicts the real consuming callsite. Resolve the conflict in
+   this order: semantic media class and the latest accepted framing policy,
+   actual DOM/CSS capture at the exact parent/viewport, then intrinsic asset
+   geometry. Visual-only landscape media may use a fixed 5:4 mobile frame,
+   portrait identity media may use 4:5, and OCR/document media must keep an
+   intrinsic or explicitly bounded safe frame. Desktop equal-height rows and
+   standalone mobile flow are different parent contexts; never globalize one
+   row's width/height rule across every card consumer. Correct both the SoT
+   resolver metadata and the component master when the callsite proves this
+   kind of systemic drift.
 3. Put that screenshot on the archetype review page in a locked, clearly named
    `SOURCE EVIDENCE · Astro · <route/state/viewport>` frame.
    Keep evidence bounded: use one case per small review board where practical.
