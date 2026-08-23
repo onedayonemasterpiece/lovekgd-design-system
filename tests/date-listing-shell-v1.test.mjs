@@ -42,6 +42,7 @@ assert.equal(foundations.breakpoints.mobile_listing_max_px, 720);
 assert.equal(foundations.breakpoints.mobile_shell_max_px, 759);
 assert.equal(foundations.typography.renderer_resolution.astro_source_max_weight, 920);
 assert.equal(foundations.typography.renderer_resolution.penpot_display_resolved_weight, 900);
+assert.equal(foundations.typography.renderer_resolution.penpot_line_height_mode, 'unitless_ratio');
 assert(foundations.accessibility.minimum_target_px >= 44);
 assert(foundations.accessibility.safe_areas.length === 4);
 
@@ -56,5 +57,6 @@ assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-007' && /Penpot display styles resolve it/.test(item.decision)));
+assert(decisions.decisions.some((item) => item.id === 'DL-008' && /unitless ratio/.test(item.decision)));
 
 console.log('date-listing-shell-v1.test: PASS (fixtures, representations, foundations, dependencies, states, shell)');

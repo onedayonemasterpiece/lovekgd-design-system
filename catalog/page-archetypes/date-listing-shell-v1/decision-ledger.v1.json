@@ -36,6 +36,11 @@
       "id": "DL-007",
       "status": "evidence-backed-renderer-resolution",
       "decision": "Astro keeps the variable-font display weight 920; Penpot display styles resolve it to the supported maximum 900 instead of silently failing or substituting Times New Roman. The resulting visual delta must remain visible to conformance review."
+    },
+    {
+      "id": "DL-008",
+      "status": "evidence-backed-renderer-resolution",
+      "decision": "Penpot Text.lineHeight is materialized as a unitless ratio. Pixel line-height targets from Astro are divided by font size before assignment; otherwise Penpot multiplies twice and produces extreme text boxes."
     }
   ]
 }
