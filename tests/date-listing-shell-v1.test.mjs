@@ -129,6 +129,18 @@ assert.match(mobileFeedHead.geometry_rule, /1px #e1d3c2 bottom divider/);
 assert.equal(mobileHeadsFixture.penpot_board_id, '06b5fc29-ba80-803f-8008-873d90c03796');
 assert.match(mobileHeadsFixture.classification, /not a product component variant/);
 assert.match(mobileHeadsFixture.materialization_rule, /stacked vertically/);
+assert(components.body_components.some((item) => item.id === 'social-proof.like.rail-inline'));
+assert(components.body_components.some((item) => item.id === 'listing.rail-row.event-summary'));
+assert(components.body_components.some((item) => item.id === 'listing.rail-row.track'));
+const railInlineLike = components.body_components.find((item) => item.id === 'social-proof.like.rail-inline');
+const railEventSummary = components.body_components.find((item) => item.id === 'listing.rail-row.event-summary');
+const railTrack = components.body_components.find((item) => item.id === 'listing.rail-row.track');
+assert.match(railInlineLike.materialization_rule, /count=37 exact master is a fixture-bound adapter/);
+assert.deepEqual(railEventSummary.dependencies, ['social-proof.like.rail-inline', 'icon.product.rail-arrow-right']);
+assert.match(railEventSummary.component_topology, /no detached copies/);
+assert.match(railEventSummary.parent_adoption_status, /pending owning T04 main-instance migration/);
+assert.equal(railTrack.recursive_decomposition_status, 'in-progress');
+assert.match(railTrack.known_structural_gap, /ordinary Summary, Digest and exact media boards/);
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
@@ -184,6 +196,7 @@ assert(components.icon_components.items.some((item) => item.id === 'icon.shell.m
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.personal'));
 assert(components.composition_rules.some((rule) => /icon masters live on Page 25/.test(rule)));
 assert(components.composition_rules.some((rule) => /mobile listing head masters live on Page 60.1d/.test(rule)));
+assert(components.composition_rules.some((rule) => /mobile rail correction is recursive/.test(rule)));
 
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));

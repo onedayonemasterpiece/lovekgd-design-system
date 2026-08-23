@@ -227,6 +227,66 @@
       "materialization_rule": "390x156 review board with linked instances only; canvas #fbf7ef; bounded comparison is stacked vertically because the specimen is wide"
     },
     {
+      "id": "social-proof.like.rail-inline",
+      "source": "MobileListingRailSurface.astro#.event-signal--like",
+      "states": [
+        "count-present",
+        "count-absent"
+      ],
+      "overridable": [
+        "count"
+      ],
+      "dependencies": [
+        "icon.ui.heart"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "materialization_rule": "semantic Like proof owns linked Heart plus count; the current count=37 exact master is a fixture-bound adapter, not a product variant"
+    },
+    {
+      "id": "listing.rail-row.event-summary",
+      "source": "MobileListingRailRow.astro#.event-summary",
+      "states": [
+        "timed",
+        "date-primary",
+        "program-day"
+      ],
+      "dependencies": [
+        "social-proof.like.rail-inline",
+        "icon.product.rail-arrow-right"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-874329afd09a",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "exact_fixture_id": "event.real.7906",
+      "review_board_id": "06b5fc29-ba80-803f-8008-87434cadac86",
+      "geometry_rule": "296x112 master; bounded comparison adds 8px canvas context on every side and therefore exports 312x128",
+      "component_topology": "native Event summary component with linked rail-inline Like proof and linked product rail-arrow icon; no detached copies",
+      "parent_adoption_status": "pending owning T04 main-instance migration; the compact review copy is not terminally overridden"
+    },
+    {
+      "id": "listing.rail-row.track",
+      "source": "MobileListingRailRow.astro#.event-track",
+      "states": [
+        "identity-present",
+        "identity-absent",
+        "artifact-present",
+        "artifact-absent",
+        "like-count-present",
+        "media-1",
+        "media-many",
+        "media-absent"
+      ],
+      "penpot_component_id": "d012936b-5394-80cb-8008-855655e1b216",
+      "recursive_decomposition_status": "in-progress",
+      "known_structural_gap": "T04 exact track still owns ordinary Summary, Digest and exact media boards; semantic Event summary exists and is directly conformant but must be adopted at the owning main instance before inheritance is claimed"
+    },
+    {
       "id": "listing.mobile-date-accessory",
       "source": "MobileDateAccessory.astro",
       "states": [
@@ -594,7 +654,8 @@
     "stress proof is two bounded sequential viewport slices, never one long review board: upper renders the first two chronological fixtures and continuation renders the remaining four including the three-card program row",
     "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only",
     "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays",
-    "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only"
+    "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only",
+    "mobile rail correction is recursive: compare and correct Event summary, inline Like, media cells, Digest, identity/artifact slots and Like CTA independently before a track or viewport verdict; a parent screenshot never substitutes for these leaves"
   ],
   "archetype_variants": [
     {
