@@ -1,13 +1,13 @@
 {
   "schema_version": "date-listing-shell-penpot-materialization-progress.v1",
-  "status": "READY_FOR_OWNER_REVIEW",
+  "status": "WORKING_NOT_READY_FOR_OWNER_REVIEW",
   "lifecycle": "candidate",
   "canonical": false,
   "promoted": false,
   "production_deployed": false,
   "penpot": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "revision": 1675,
+    "revision": null,
     "pages": [
       {
         "page_id": "a21f5e36-5d76-8065-8008-86ac7b368ff6",
@@ -35,7 +35,11 @@
       {
         "page_id": "a21f5e36-5d76-8065-8008-86cf6e519227",
         "name": "60.6 — Date Listing · Stress",
-        "board_id": "a21f5e36-5d76-8065-8008-86cf6ef9e9fa"
+        "board_id": "a21f5e36-5d76-8065-8008-86cf6ef9e9fa",
+        "board_ids": [
+          "a21f5e36-5d76-8065-8008-86cf6ef9e9fa",
+          "a21f5e36-5d76-8065-8008-86fa5074d260"
+        ]
       },
       {
         "page_id": "a21f5e36-5d76-8065-8008-86d50476abce",
@@ -49,11 +53,12 @@
       }
     ],
     "validation_errors": [],
-    "stable_component_count_current_namespace": 48,
+    "stable_component_count_current_namespace": 63,
     "competing_insertable_stable_id_duplicates": 0,
     "detached_managed_shape_count": 0,
-    "named_version": "Date Listing + Shell v1 · 7 representations candidate",
-    "repeat_materialization_would_create": 0
+    "named_version": "Mobile shell · exact utility icon sizes + close tag source shadow",
+    "repeat_materialization_would_create": 0,
+    "revision_status": "latest named-version saved; numeric revision unavailable in current plugin API"
   },
   "representation": {
     "id": "typical-desktop",
@@ -98,7 +103,7 @@
   "known_nonterminal_gaps": [
     "owner review is pending; lifecycle remains candidate and canonical=false",
     "minor Penpot renderer typography/color drift remains in several comparisons",
-    "mobile menu background-blur and close-tag shadow differ slightly from browser raster; exact geometry, copy and source icon identity are preserved"
+    "Penpot cannot reproduce browser backdrop-filter sampling exactly; source geometry, source assets, alpha contract and component identity are preserved"
   ],
   "state_progress": {
     "id": "loading-empty-error",
@@ -163,11 +168,7 @@
       "event.real.4327",
       "event.real.6628"
     ],
-    "visible_viewport_fixture_ids": [
-      "event.real.7807",
-      "event.real.7906"
-    ],
-    "viewport": "1280x1000",
+    "viewport": "two bounded slices: 1280x1000 upper + 1280x720 continuation",
     "shell": "body-crop",
     "astro_candidate_sha": "480f412dd",
     "astro_candidate_composition": "sot-linked-primitives",
@@ -185,7 +186,46 @@
       "listing.city-filter-rail",
       "listing.media.7807",
       "listing.media.7906",
-      "social-proof.like.inside"
+      "social-proof.like.inside",
+      "archetype.listing.date.stress.viewport.continuation",
+      "listing.media.6628",
+      "listing.media.4327",
+      "listing.media.8156",
+      "listing.media.7888",
+      "content.event-title.clamp2",
+      "content.event-place.listing-on-light",
+      "medallion.frame.normalized"
+    ],
+    "penpot_board_ids": [
+      "a21f5e36-5d76-8065-8008-86cf6ef9e9fa",
+      "a21f5e36-5d76-8065-8008-86fa5074d260"
+    ],
+    "viewport_slices": [
+      {
+        "id": "upper",
+        "fixture_ids": [
+          "event.real.7807",
+          "event.real.7906"
+        ],
+        "telegram_message_id": 1094,
+        "penpot_board_id": "a21f5e36-5d76-8065-8008-86cf6ef9e9fa"
+      },
+      {
+        "id": "continuation",
+        "fixture_ids": [
+          "event.real.6628",
+          "event.real.4327",
+          "event.real.8156",
+          "event.real.7888"
+        ],
+        "astro_png_sha256": "4ff04190f00e9c23359ea031636596bb92056d9203f62294b8ab22ed6175696c",
+        "penpot_png_sha256": "e3db69b447b5fc5725c2be4fa257a611ce8da1187774de55f7d71b21cd4909f6",
+        "comparison_sha256": "c5d8906f487512dec28876c0ddf4d33908bc899fd0da684d2ff6833d597d5b11",
+        "telegram_message_id": 1097,
+        "telegram_read_back": "verified",
+        "penpot_board_id": "a21f5e36-5d76-8065-8008-86fa5074d260",
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292"
+      }
     ]
   },
   "full_desktop_shell_progress": {
@@ -234,9 +274,9 @@
     "viewport": "390x844",
     "astro_candidate_sha": "480f412dde36a36df8b1accae600999e78ecdf8b",
     "astro_png_sha256": "fd4aa68df91189faf0dccc0344774572d9b1a5344cbc1c74ba510d0d923b405c",
-    "penpot_png_sha256": "5686ea5ff0bea0e9517ac8b768f0cf24dd0fa797ea7abc079f780aec23a5db15",
-    "published_diagnostic_comparison_sha256": "846a439ca4f0b9bf2f1b50b680f3bfbe8d8a25d218adc4c8f2e8f1911e66d9fb",
-    "telegram_message_id": 1096,
+    "penpot_png_sha256": "b4a493bb996e36e5d081ccf2d772f60528b3b48eb6ccdfe91a0fb7e7a8457d24",
+    "published_diagnostic_comparison_sha256": "f133ed5c43058f3bd6a53b22e5abdc86f9dedb268220fb480e537e352305960f",
+    "telegram_message_id": 1098,
     "telegram_read_back": "verified",
     "penpot_page_id": "a21f5e36-5d76-8065-8008-86dada867482",
     "penpot_board_id": "a21f5e36-5d76-8065-8008-86db03cc44ac",
@@ -250,14 +290,27 @@
       "icon.ui.reference4.popular-trend-up",
       "icon.ui.reference4.handshake",
       "icon.ui.reference4.search",
-      "icon.ui.reference4.user-focus"
+      "icon.ui.reference4.user-focus",
+      "shell.mobile-menu-plane.main",
+      "shell.mobile-menu-plane.collections",
+      "shell.mobile-menu-plane.service",
+      "icon.ui.reference4.heart-thin.20",
+      "icon.ui.reference4.share-network-thin.25"
     ],
-    "source_icon_contract": "exact Astro reference4-v8 SVG assets as linked Penpot components"
+    "source_icon_contract": "exact Astro reference4-v8 SVG assets as linked Penpot components",
+    "telegram_supersedes_message_id": 1096,
+    "central_component_fixes": [
+      "exact Reference4 source SVG masters on Page25",
+      "size-specific linked utility icons 20/25; no frame-only resize",
+      "exact close-tag leather raster with top radii 0 and Astro drop-shadows",
+      "utility alpha contract .18/.075/.58",
+      "main/collections/service as centralized linked menu-plane components"
+    ]
   },
   "validation": {
     "penpot_validate_errors": [],
     "managed_page_count": 8,
-    "managed_component_count": 48,
+    "managed_component_count": 63,
     "duplicate_stable_ids": 0,
     "detached_linked_named_instances": 0,
     "repeat_materialization_would_create": 0,

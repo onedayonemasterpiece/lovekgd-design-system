@@ -54,6 +54,16 @@ assert.deepEqual(dependencies.dependencies.map((item) => item.semantic_id), [
   'listing.media.7807',
   'listing.media.7906',
   'social-proof.like.inside',
+  'listing.media.6628',
+  'listing.media.4327',
+  'listing.media.8156',
+  'listing.media.7888',
+  'content.event-title.clamp2',
+  'content.event-place.listing-on-light',
+  'medallion.frame.normalized',
+  'archetype.listing.date.stress.viewport.continuation',
+  'icon.ui.reference4.heart-thin.20',
+  'icon.ui.reference4.share-network-thin.25',
 ]);
 assert(components.body_components.some((item) => item.id === 'listing.desktop-flow'));
 assert(components.body_components.some((item) => item.id === 'listing.page-date-header.specific-date'));
@@ -63,6 +73,23 @@ assert(components.body_components.some((item) => item.id === 'listing.page-date-
 assert(components.body_components.some((item) => item.id === 'listing.date-nav-item.wide.selected'));
 assert(components.body_components.some((item) => item.id === 'listing.city-filter-rail'));
 assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.stress.viewport'));
+const stress = components.archetype_variants.find((item) => item.id === 'archetype.listing.date.stress.viewport');
+assert.equal(stress.viewport_slices.length, 2);
+assert.deepEqual(stress.viewport_slices.map((slice) => slice.id), ['upper', 'continuation']);
+assert.deepEqual(
+  [...new Set(stress.viewport_slices.flatMap((slice) => slice.fixture_ids))].sort(),
+  [...stress.fixture_registry].sort(),
+);
+assert(stress.viewport_slices.some((slice) => slice.fixture_ids.length > 2), 'stress continuation must exercise a real multi-item listing');
+const stressContinuation = components.archetype_variants.find((item) => item.id === 'archetype.listing.date.stress.viewport.continuation');
+assert(stressContinuation);
+assert.equal(stressContinuation.fixture_ids.length, 4);
+assert(stressContinuation.dependencies.includes('content.event-title.clamp2'));
+assert(stressContinuation.dependencies.includes('content.event-place.listing-on-light'));
+assert(stressContinuation.dependencies.includes('medallion.frame.normalized'));
+assert(components.body_components.some((item) => item.id === 'content.event-title.clamp2'));
+assert(components.body_components.some((item) => item.id === 'content.event-place.listing-on-light'));
+assert(components.body_components.some((item) => item.id === 'medallion.frame.normalized'));
 assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.sparse'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
@@ -71,6 +98,21 @@ assert(components.body_components.some((item) => item.id === 'listing.mobile-cal
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
 assert(components.composition_rules.some((rule) => /one centered chronological column/.test(rule)));
 assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu'));
+const mobileMenu = components.shell_components.find((item) => item.id === 'shell.mobile-menu');
+assert.deepEqual(mobileMenu.states, ['main', 'collections', 'service']);
+for (const plane of ['main', 'collections', 'service']) {
+  assert(components.shell_components.some((item) => item.id === `shell.mobile-menu-plane.${plane}`));
+}
+assert(components.icon_components.items.some((item) => item.id === 'icon.ui.reference4.sparkle'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.ui.reference4.chats'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.ui.reference4.heart-thin.20' && item.size_px === 20));
+assert(components.icon_components.items.some((item) => item.id === 'icon.ui.reference4.share-network-thin.25' && item.size_px === 25));
+assert.equal(components.icon_components.owner_page, '25 — Iconography');
+assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.ticket'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.calendar'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.search'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.personal'));
+assert(components.composition_rules.some((rule) => /icon masters live on Page 25/.test(rule)));
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-007' && /Penpot display styles resolve it/.test(item.decision)));

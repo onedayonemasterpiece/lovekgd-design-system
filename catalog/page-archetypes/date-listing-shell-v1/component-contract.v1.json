@@ -152,6 +152,69 @@
         "default",
         "expanded"
       ]
+    },
+    {
+      "id": "listing.media.6628",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.6628",
+      "state": "visual-cover",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f83754ded1"
+    },
+    {
+      "id": "listing.media.4327",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.4327",
+      "state": "visual-cover",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f84528c2e7"
+    },
+    {
+      "id": "listing.media.8156",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.8156",
+      "state": "document-contain",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f8567b334b"
+    },
+    {
+      "id": "listing.media.7888",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.7888",
+      "state": "absent",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f865937fa4"
+    },
+    {
+      "id": "content.event-title.clamp2",
+      "source": "ListingEventCard.astro#ke-listing-card__title",
+      "states": [
+        "one-line",
+        "two-line-clamp"
+      ],
+      "overridable": [
+        "text"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f9b81df4c1"
+    },
+    {
+      "id": "content.event-place.listing-on-light",
+      "source": "ListingEventCard.astro#ke-listing-card__copy p",
+      "states": [
+        "one-line",
+        "two-line"
+      ],
+      "overridable": [
+        "text"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fc1c65c1f5"
+    },
+    {
+      "id": "medallion.frame.normalized",
+      "source": "Medallion / Frame / Normalized",
+      "states": [
+        "compact44",
+        "standard60",
+        "feature88"
+      ],
+      "rule": "consumer positions the normalized frame; artwork remains a linked nested component and may not be resized independently",
+      "penpot_component_id": "446b4522-f9dd-80eb-8008-8358ef7540b4"
     }
   ],
   "shell_components": [
@@ -164,12 +227,103 @@
       "source": "Reference4MobileMenu.astro"
     },
     {
+      "id": "shell.mobile-menu-trigger",
+      "source": "Reference4MobileMenu.astro",
+      "states": [
+        "closed"
+      ],
+      "asset": "assets/ui/mobile-head-skinny-leather-3x.webp"
+    },
+    {
       "id": "shell.mobile-menu",
-      "source": "Reference4MobileMenu.astro"
+      "source": "Reference4MobileMenu.astro",
+      "states": [
+        "main",
+        "collections",
+        "service"
+      ],
+      "dependencies": [
+        "shell.mobile-menu-trigger",
+        "shell.mobile-menu-item",
+        "icon.ui.reference4.free",
+        "icon.ui.reference4.squares-four",
+        "icon.ui.reference4.palette",
+        "icon.ui.reference4.buildings",
+        "icon.ui.reference4.popular-trend-up",
+        "icon.ui.reference4.sparkle",
+        "icon.ui.reference4.chats",
+        "icon.ui.reference4.handshake",
+        "icon.ui.reference4.search",
+        "icon.ui.reference4.user-focus",
+        "icon.ui.reference4.heart",
+        "icon.ui.reference4.share-network",
+        "icon.ui.chevron-right",
+        "icon.ui.chevron-back",
+        "icon.ui.reference4.heart-thin.20",
+        "icon.ui.reference4.share-network-thin.25"
+      ],
+      "utility_surface": {
+        "shell_fill_opacity": 0.18,
+        "account_row_fill_opacity": 0.075,
+        "login_favorite_fill_opacity": 0.58,
+        "share_fill_opacity": 0.58,
+        "background_mode": "translucent; never opaque local override"
+      },
+      "close_tag": {
+        "asset": "assets/ui/reference4-leather-close-v8.webp",
+        "corner_radii_px": [
+          0,
+          0,
+          18,
+          18
+        ],
+        "drop_shadows": [
+          {
+            "offset_y": 8,
+            "blur": 9,
+            "color": "rgba(42,22,15,.24)"
+          },
+          {
+            "offset_y": 18,
+            "blur": 28,
+            "color": "rgba(42,22,15,.18)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shell.mobile-menu-plane.main",
+      "source": "Reference4MobileMenu.astro#menu-main",
+      "state": "main",
+      "ownership": "native linked master on Page 60.1"
+    },
+    {
+      "id": "shell.mobile-menu-plane.collections",
+      "source": "Reference4MobileMenu.astro#menu-collections",
+      "state": "collections",
+      "ownership": "native linked master on Page 60.1"
+    },
+    {
+      "id": "shell.mobile-menu-plane.service",
+      "source": "Reference4MobileMenu.astro#menu-service",
+      "state": "service",
+      "ownership": "native linked master on Page 60.1"
     },
     {
       "id": "shell.mobile-bottom-navigation",
-      "source": "MobileBottomNav.astro"
+      "source": "MobileBottomNav.astro",
+      "states": [
+        "afisha-current",
+        "dates-current",
+        "search-current",
+        "personal-current"
+      ],
+      "dependencies": [
+        "icon.shell.mobile-bottom.ticket",
+        "icon.shell.mobile-bottom.calendar",
+        "icon.shell.mobile-bottom.search",
+        "icon.shell.mobile-bottom.personal"
+      ]
     },
     {
       "id": "shell.overlay-layer",
@@ -188,7 +342,8 @@
     "shell overlay owns stacking and safe-area offsets",
     "desktop and mobile are separate parent contexts at 759/720 boundaries",
     "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype",
-    "stress proof is a bounded viewport component, not a long review page; its metadata owns the complete six-fixture registry while the viewport renders only chronologically visible fixtures"
+    "stress proof is two bounded sequential viewport slices, never one long review board: upper renders the first two chronological fixtures and continuation renders the remaining four including the three-card program row",
+    "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only"
   ],
   "archetype_variants": [
     {
@@ -238,10 +393,6 @@
         "event.real.4327",
         "event.real.6628"
       ],
-      "visible_viewport_fixtures": [
-        "event.real.7807",
-        "event.real.7906"
-      ],
       "dependencies": [
         "listing.page-date-header.tomorrow",
         "listing.city-filter-rail",
@@ -250,8 +401,164 @@
         "listing.media.7807",
         "listing.media.7906",
         "social-proof.like.inside",
-        "social-proof.like.compact36"
+        "social-proof.like.compact36",
+        "listing.media.6628",
+        "listing.media.4327",
+        "listing.media.8156",
+        "listing.media.7888",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light",
+        "medallion.frame.normalized"
+      ],
+      "viewport_slices": [
+        {
+          "id": "upper",
+          "y_range_px": [
+            0,
+            1000
+          ],
+          "fixture_ids": [
+            "event.real.7807",
+            "event.real.7906"
+          ]
+        },
+        {
+          "id": "continuation",
+          "y_range_px": [
+            960,
+            1760
+          ],
+          "fixture_ids": [
+            "event.real.6628",
+            "event.real.4327",
+            "event.real.8156",
+            "event.real.7888"
+          ]
+        }
       ]
+    },
+    {
+      "id": "archetype.listing.date.stress.viewport.continuation",
+      "extends": "archetype.listing.date.stress.viewport",
+      "viewport": "1280x720",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "layout_contract": "one chronological continuation slice with a three-card row; bounded board, no giant canvas",
+      "dependencies": [
+        "listing.event-card.compact",
+        "listing.media.6628",
+        "listing.media.4327",
+        "listing.media.8156",
+        "listing.media.7888",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light",
+        "social-proof.like.compact36",
+        "social-proof.like.inside",
+        "medallion.frame.normalized"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292"
     }
-  ]
+  ],
+  "icon_components": {
+    "owner_page": "25 — Iconography",
+    "consumer_rule": "all shell/listing consumers use linked instances; no Unicode or locally redrawn substitutes",
+    "items": [
+      {
+        "id": "icon.ui.reference4.free",
+        "source": "Reference4MobileMenu.astro#reference4-icon--free"
+      },
+      {
+        "id": "icon.ui.reference4.squares-four",
+        "source_asset": "assets/icons/reference4-v8/squares-four-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.chats",
+        "source_asset": "assets/icons/reference4-v8/chats-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.sparkle",
+        "source_asset": "assets/icons/reference4-v8/sparkle-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.palette",
+        "source_asset": "assets/icons/reference4-v8/palette-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.buildings",
+        "source_asset": "assets/icons/reference4-v8/buildings-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.popular-trend-up",
+        "source_asset": "assets/icons/reference4-v8/popular-trend-up-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.handshake",
+        "source_asset": "assets/icons/reference4-v8/handshake-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.search",
+        "source_asset": "assets/icons/reference4-v8/search-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.user-focus",
+        "source_asset": "assets/icons/reference4-v8/user-focus-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.heart",
+        "source_asset": "assets/icons/reference4-v8/heart-thin.svg",
+        "supported_sizes_px": [
+          29
+        ]
+      },
+      {
+        "id": "icon.ui.reference4.share-network",
+        "source_asset": "assets/icons/reference4-v8/share-network-thin.svg",
+        "supported_sizes_px": [
+          29
+        ]
+      },
+      {
+        "id": "icon.ui.chevron-right",
+        "source": "Reference4MobileMenu.astro#reference4-menu__row > i"
+      },
+      {
+        "id": "icon.ui.chevron-back",
+        "source": "Reference4MobileMenu.astro#reference4-menu__back-icon"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.ticket",
+        "source": "MobileBottomNav.astro#ticket"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.calendar",
+        "source": "MobileBottomNav.astro#calendar"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.search",
+        "source": "MobileBottomNav.astro#search"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.personal",
+        "source": "MobileBottomNav.astro#personal"
+      },
+      {
+        "id": "icon.ui.reference4.heart-thin.20",
+        "source_asset": "assets/icons/reference4-v8/heart-thin.svg",
+        "size_px": 20,
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-87039fc1393c",
+        "consumer": "shell.mobile-menu utility favorite"
+      },
+      {
+        "id": "icon.ui.reference4.share-network-thin.25",
+        "source_asset": "assets/icons/reference4-v8/share-network-thin.svg",
+        "size_px": 25,
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-8703a0c7571e",
+        "consumer": "shell.mobile-menu utility share"
+      }
+    ]
+  }
 }
