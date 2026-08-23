@@ -132,8 +132,10 @@ assert.match(mobileDateChip.today_outline_rule, /bounded PNG exporter drops a fi
 assert.equal(mobileDateChip.exact_fixture_materialization_adapters.board_id, 'a21f5e36-5d76-8065-8008-871fd9ef0b32');
 assert.match(mobileDateChip.exact_fixture_materialization_adapters.classification, /not product taxonomy variants/);
 assert.equal(Object.keys(mobileDateChip.exact_fixture_materialization_adapters.component_ids).length, 7);
-assert.deepEqual(mobileCalendarTrigger.dependencies, ['icon.shell.mobile-bottom.calendar']);
-assert.match(mobileCalendarTrigger.icon_rule, /calendar-with-clock action artwork is not valid/);
+assert.deepEqual(mobileCalendarTrigger.dependencies, ['icon.shell.mobile-date-accessory.calendar.23']);
+assert.match(mobileCalendarTrigger.icon_rule, /calendar-with-clock action artwork/);
+assert.equal(mobileCalendarTrigger.linked_icon_component_id, 'a43684fa-6ddf-80af-8008-87357e243598');
+assert.match(mobileCalendarTrigger.geometry_rule, /50x46 at composite x=335,y=6/);
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
 assert(components.composition_rules.some((rule) => /one to three intrinsic-width linked card instances/.test(rule)));
 for (const fixtureId of ['6628', '4327', '8156', '7888']) {
@@ -160,6 +162,7 @@ assert(components.icon_components.items.some((item) => item.id === 'icon.ui.refe
 assert.equal(components.icon_components.owner_page, '25 — Iconography');
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.ticket'));
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.calendar'));
+assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-date-accessory.calendar.23' && item.size_px === 23));
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.search'));
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.personal'));
 assert(components.composition_rules.some((rule) => /icon masters live on Page 25/.test(rule)));

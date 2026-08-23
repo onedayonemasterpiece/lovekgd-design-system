@@ -133,6 +133,13 @@ rematerialization boundary.
 Keep review boards small: normally one case per board, no unrelated media
 gallery or detached semantic-master pile inside the owner-review board, and no
 full-page/giant-board export when a bounded component root is sufficient.
+Separate Penpot ownership levels: foundations/tokens, icon masters, leaf
+semantic masters, composite masters, exact fixture adapters, archetype proofs,
+and owner-review targets do not share a catch-all page. Exact fixture adapters
+are implementation evidence, not new product variants. Use stable sortable
+page/board prefixes and include every required direct link in the handoff;
+sidebar adjacency or visual similarity never substitutes for an explicit review
+inventory.
 If the linked archetype master itself is the exact bounded review root, export
 it directly and crop locally; do not duplicate the whole graph into a second
 Penpot review board merely to obtain the same PNG. At final read-back, inspect
