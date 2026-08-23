@@ -123,6 +123,7 @@ const mobileHeadsFixture = components.body_components.find((item) => item.id ===
 assert.equal(mobilePageHead.owner_page.id, '06b5fc29-ba80-803f-8008-873ce354560a');
 assert.match(mobilePageHead.typography_residual, /Penpot 2.17.2 plugin API rejects/);
 assert.equal(mobileCitySummary.penpot_component_id, '06b5fc29-ba80-803f-8008-873d66059d3a');
+assert.match(mobileCitySummary.geometry_rule, /119\.375x42 exact current state/);
 assert.deepEqual(mobileFeedHead.dependencies, ['listing.mobile-city-picker-summary']);
 assert.match(mobileFeedHead.geometry_rule, /1px #e1d3c2 bottom divider/);
 assert.equal(mobileHeadsFixture.penpot_board_id, '06b5fc29-ba80-803f-8008-873d90c03796');
