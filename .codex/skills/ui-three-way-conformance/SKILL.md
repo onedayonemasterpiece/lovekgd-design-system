@@ -160,6 +160,15 @@ handoff, remove superseded/debris layers and verify instance provenance. A
 consumer-local override is allowed only when the Git contract explicitly owns
 that override slot.
 
+Replacing one linked nested component with another is itself a component swap,
+not remove-plus-append surgery. Use Penpot's `swapComponent()` on the existing
+component copy and then require exact component/geometry read-back plus an empty
+`currentFile.validate()` result before persistence. Manual remove-plus-append
+inside a component main can leave components-v2 swap provenance without its
+required slot and fail persistence with `referential-integrity / missing-slot`;
+page size, batch size, and memory are not valid diagnoses for that explicit
+error.
+
 Treat image identity and media treatment as separate bindings. An event image
 may be an instance content override, but fit, aspect preservation, crop policy,
 focal position and clipping remain owned by `event.media-frame` (or by an
