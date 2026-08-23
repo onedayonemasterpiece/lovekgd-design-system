@@ -95,6 +95,10 @@ async def send_one(args: argparse.Namespace) -> None:
             entity,
             str(image),
             caption=plan["caption"],
+            # Receipts hash the literal caption.  Do not let Telethon's default
+            # Markdown parser silently remove backticks or other formatting
+            # markers before the read-back check.
+            parse_mode=None,
             reply_to=TOPIC_ID,
             force_document=False,
         )

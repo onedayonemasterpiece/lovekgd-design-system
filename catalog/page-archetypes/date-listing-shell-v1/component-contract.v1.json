@@ -284,7 +284,28 @@
       ],
       "penpot_component_id": "d012936b-5394-80cb-8008-855655e1b216",
       "recursive_decomposition_status": "in-progress",
-      "known_structural_gap": "T04 exact track now owns the linked semantic Event summary and its review instance inherits that link; Digest and the three exact media cells remain ordinary boards and require bounded leaf-by-leaf migration before recursive decomposition is complete"
+      "known_structural_gap": "T04 exact track now owns linked semantic Event summary and Event digest children and its review instance inherits both links; the three exact media cells remain ordinary boards and require bounded leaf-by-leaf migration before recursive decomposition is complete"
+    },
+    {
+      "id": "listing.rail-row.event-digest",
+      "source": "MobileListingRailRow.astro#.event-digest",
+      "states": [
+        "present",
+        "clamped-six-lines"
+      ],
+      "overridable": [
+        "body"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-874d4c59fc59",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874c7ba10efc",
+        "name": "60.1f — Mobile rail digest · Native component"
+      },
+      "exact_fixture_id": "event.real.7906",
+      "review_board_id": "06b5fc29-ba80-803f-8008-874d4c6f633c",
+      "geometry_rule": "168x112 exact leaf; 10px horizontal inset; heading at y=14.25 and six-line body begins at y=24.75",
+      "materialization_rule": "semantic Event digest owns heading and overridable body; current exact-data adapter materializes the source six-line clamp with explicit terminal ellipsis because Penpot has no runtime CSS line clamp",
+      "parent_adoption_status": "complete: owning T04 main owns linked child 06b5fc29-ba80-803f-8008-87508d267296 and compact review instance inherited linked child 06b5fc29-ba80-803f-8008-87509b92901f without terminal override"
     },
     {
       "id": "listing.mobile-date-accessory",
