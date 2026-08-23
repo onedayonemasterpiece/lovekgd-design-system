@@ -50,8 +50,13 @@ assert.deepEqual(dependencies.dependencies.map((item) => item.semantic_id), [
   'event.card.large',
   'listing.event-card.compact',
   'listing.rail-row.track',
+  'social-proof.like.compact36',
 ]);
 assert(components.body_components.some((item) => item.id === 'listing.desktop-flow'));
+assert(components.body_components.some((item) => item.id === 'listing.page-date-header.specific-date'));
+assert(components.body_components.some((item) => item.id === 'listing.date-nav-item.wide'));
+assert(components.body_components.some((item) => item.id === 'listing.time-group-header.sparse'));
+assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.sparse'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));

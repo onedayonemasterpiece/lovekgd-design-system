@@ -14,6 +14,26 @@
       ]
     },
     {
+      "id": "listing.page-date-header.specific-date",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "date-fixture-bound"
+      ],
+      "dependencies": [
+        "listing.date-nav-item.wide"
+      ]
+    },
+    {
+      "id": "listing.date-nav-item.wide",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "today",
+        "tomorrow",
+        "weekend",
+        "popular"
+      ]
+    },
+    {
       "id": "listing.controls",
       "source": "ListingControls.astro",
       "states": [
@@ -46,6 +66,13 @@
         "timed",
         "untimed",
         "earlier"
+      ]
+    },
+    {
+      "id": "listing.time-group-header.sparse",
+      "source": "ExactTimeTimeline.astro",
+      "states": [
+        "single-event"
       ]
     },
     {
@@ -133,6 +160,44 @@
     "state surfaces are semantic states, not hidden terminal overrides",
     "mobile date accessory is a linked fixed-position listing component above the linked shell bottom navigation; its date chips and calendar trigger remain linked semantic actions",
     "shell overlay owns stacking and safe-area offsets",
-    "desktop and mobile are separate parent contexts at 759/720 boundaries"
+    "desktop and mobile are separate parent contexts at 759/720 boundaries",
+    "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype"
+  ],
+  "archetype_variants": [
+    {
+      "id": "archetype.listing.date.today",
+      "view": "today",
+      "density": [
+        "regular",
+        "stress"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.tomorrow",
+      "view": "tomorrow",
+      "density": [
+        "regular",
+        "stress"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.specific",
+      "view": "specific-date",
+      "density": [
+        "regular",
+        "sparse"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.sparse",
+      "view": "specific-date",
+      "density": "sparse",
+      "dependencies": [
+        "listing.page-date-header.specific-date",
+        "listing.time-group-header.sparse",
+        "listing.event-card.compact",
+        "social-proof.like.compact36"
+      ]
+    }
   ]
 }
