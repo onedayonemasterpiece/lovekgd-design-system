@@ -568,7 +568,8 @@
         "name": "60.1i — Listing copy fixture adapters"
       },
       "materialization_rule": "fixture-bound native component defaults own the exact frozen title and explicit Astro line wrapping; consumers link the adapter and do not rely on a terminal nested text override",
-      "renderer_reason": "Penpot 2.17.2 plugin read-back reported changed nested instance characters while bounded export still painted the generic source text; the adapter preserves component linkage and makes exported content deterministic"
+      "renderer_reason": "Penpot 2.17.2 plugin read-back reported changed nested instance characters while bounded export still painted the generic source text; the adapter preserves component linkage and makes exported content deterministic",
+      "geometry_rule": "adapter width equals the full ListingEventCard root width, not media width: 420 / 395.703125 / 248.15625 / 338.34375; exact Astro two-line wrapping is explicit in frozen fixtures"
     },
     {
       "id": "content.event-place.fixture-adapter",
@@ -593,8 +594,9 @@
         "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
         "name": "60.1i — Listing copy fixture adapters"
       },
-      "materialization_rule": "fixture-bound native component defaults own the full frozen place; long states own the on-light clipping mask and terminal ellipsis inside the semantic component rather than as an ordinary sibling text layer",
-      "renderer_reason": "same deterministic nested-instance export boundary as the title adapter; resolved full place remains stored on component metadata"
+      "materialization_rule": "fixture-bound native component defaults own the renderer-resolved one-line place label; long states include the terminal ellipsis in the semantic text itself, the full place remains in component metadata, and no ordinary external overflow mask or ellipsis sibling is allowed",
+      "renderer_reason": "same deterministic nested-instance export boundary as the title adapter; resolved full place remains stored on component metadata",
+      "geometry_rule": "adapter width equals full card root width and spans under the side rail exactly as Astro copy does; height 18 in Penpot versus 21.216 browser line box is a registered renderer baseline delta"
     },
     {
       "id": "medallion.frame.normalized",
@@ -661,7 +663,8 @@
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6af1a5cb",
       "owner_page": "60.1b — ListingEventCard · Compact variants",
-      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=7b1ec455b59057c54669f557af2149458f2e8143fae8c984ddf812dc3619c1de; MAE=14.787835/255"
     },
     {
       "id": "listing.event-card.compact.event.real.8156",
@@ -677,7 +680,8 @@
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6c686ced",
       "owner_page": "60.1b — ListingEventCard · Compact variants",
-      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=a71b8fd9ae0bf40a2e6f1dbe54df4cf75f582a3cb81a9636baba5630bd7a3964; MAE=20.642869/255; poster geometry is exact cover with object-position 50% 40%, while source-original versus Astro 512w derivative rasterization remains MINOR"
     },
     {
       "id": "listing.event-card.compact.event.real.7888",
@@ -693,7 +697,8 @@
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6e7d6ef9",
       "owner_page": "60.1b — ListingEventCard · Compact variants",
-      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=246a697c8319275bb46aad079b9948697ffa002b2eb463687ce7fda2a6d30e47; MAE=9.261154/255"
     }
   ],
   "shell_components": [

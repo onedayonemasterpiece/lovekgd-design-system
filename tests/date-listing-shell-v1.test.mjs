@@ -115,7 +115,8 @@ assert.equal(titleFixtureAdapters.owner_page.id, 'd87e18f1-dcb4-80a6-8008-876664
 assert.equal(Object.keys(titleFixtureAdapters.penpot_component_ids).length, 4);
 assert.equal(Object.keys(placeFixtureAdapters.penpot_component_ids).length, 4);
 assert.match(titleFixtureAdapters.renderer_reason, /read-back reported changed nested instance characters/);
-assert.match(placeFixtureAdapters.materialization_rule, /ellipsis inside the semantic component/);
+assert.match(placeFixtureAdapters.materialization_rule, /terminal ellipsis in the semantic text itself/);
+assert.match(placeFixtureAdapters.geometry_rule, /full card root width/);
 assert(components.body_components.some((item) => item.id === 'medallion.frame.normalized'));
 assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.sparse'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
