@@ -53,6 +53,7 @@ assert.deepEqual(dependencies.dependencies.map((item) => item.semantic_id), [
 ]);
 assert(components.body_components.some((item) => item.id === 'listing.desktop-flow'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
+assert(components.composition_rules.some((rule) => /one centered chronological column/.test(rule)));
 assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu'));
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
