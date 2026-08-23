@@ -124,6 +124,14 @@ assert.match(mobileDateChip.responsive_rule, /60x48 default and 74x48 weekend-ra
 assert(mobileDateChip.states.includes('disabled'));
 assert(mobileDateChip.states.includes('month-label-present'));
 assert.match(mobileDateChip.materialization_integrity, /generated markup and bounded export/);
+assert.equal(mobileDateChip.owner_page.id, 'a21f5e36-5d76-8065-8008-871c5ba59b76');
+assert.equal(Object.keys(mobileDateChip.state_component_ids).length, 7);
+assert.equal(mobileDateChip.state_component_ids.today, 'a21f5e36-5d76-8065-8008-871cd0e3ca14');
+assert(mobileDateChip.representative_combinations.includes('state=disabled;month-label=present'));
+assert.match(mobileDateChip.today_outline_rule, /bounded PNG exporter drops a fill-less inner-shadow/);
+assert.equal(mobileDateChip.exact_fixture_materialization_adapters.board_id, 'a21f5e36-5d76-8065-8008-871fd9ef0b32');
+assert.match(mobileDateChip.exact_fixture_materialization_adapters.classification, /not product taxonomy variants/);
+assert.equal(Object.keys(mobileDateChip.exact_fixture_materialization_adapters.component_ids).length, 7);
 assert.deepEqual(mobileCalendarTrigger.dependencies, ['icon.shell.mobile-bottom.calendar']);
 assert.match(mobileCalendarTrigger.icon_rule, /calendar-with-clock action artwork is not valid/);
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
