@@ -97,6 +97,8 @@ assert(components.body_components.some((item) => item.id === 'listing.mobile-dat
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
 assert(components.composition_rules.some((rule) => /one centered chronological column/.test(rule)));
+const desktopHeader = components.shell_components.find((item) => item.id === 'shell.desktop-header');
+assert.deepEqual(desktopHeader.brand_tag.corner_radii_px, [0, 0, 12, 12]);
 assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu'));
 const mobileMenu = components.shell_components.find((item) => item.id === 'shell.mobile-menu');
 assert.deepEqual(mobileMenu.states, ['main', 'collections', 'service']);
