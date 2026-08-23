@@ -61,7 +61,9 @@ assert.equal(Object.keys(foundations.typography.roles).length, 6);
 assert.equal(Object.keys(foundations.semantic_color_resources).length, 14);
 assert.equal(foundations.spacing_roles_px['page.large'], 32);
 assert.equal(foundations.radius_roles_px['rail.media'], 12);
-assert.match(foundations.penpot_materialization.token_set_status, /UNVERIFIED/);
+assert.equal(foundations.penpot_materialization.token_set_status, 'PASS_ACTIVE_READBACK');
+assert.equal(foundations.penpot_materialization.token_count, 40);
+assert.equal(Object.values(foundations.penpot_materialization.token_groups).reduce((a, b) => a + b, 0), 40);
 assert(foundations.accessibility.minimum_target_px >= 44);
 assert(foundations.accessibility.safe_areas.length === 4);
 
