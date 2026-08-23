@@ -150,6 +150,83 @@
       }
     },
     {
+      "id": "listing.mobile-page-head",
+      "source": "MobileListingRailSurface.astro#.page-head",
+      "states": [
+        "today",
+        "tomorrow",
+        "weekend",
+        "popular",
+        "specific-date"
+      ],
+      "overridable": [
+        "title",
+        "date-meta",
+        "event-count"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d47f32180",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "390x96; title baseline and metadata are materialized from the exact current fixture; parent shell shadow is external context, not part of this master",
+      "typography_residual": "Penpot 2.17.2 plugin API rejects Astro negative letter-spacing -1.98px; keep the linked native master and an explicit MINOR residual until Penpot 2.18 or a native UI typography route is validated"
+    },
+    {
+      "id": "listing.mobile-city-picker-summary",
+      "source": "MobileListingRailSurface.astro#.city-picker>summary",
+      "states": [
+        "all",
+        "city-selected"
+      ],
+      "overridable": [
+        "label"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d66059d3a",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "120x42 current exact state; pill fill #fffdf8, inner 1px #793014/15%, semantic dropdown cue"
+    },
+    {
+      "id": "listing.mobile-feed-head",
+      "source": "MobileListingRailSurface.astro#.feed-head",
+      "states": [
+        "default"
+      ],
+      "dependencies": [
+        "listing.mobile-city-picker-summary"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d7cca3ede",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "390x60 with exact title/hint, linked city picker summary, and 1px #e1d3c2 bottom divider"
+    },
+    {
+      "id": "listing.mobile-heads.current-fixture",
+      "classification": "bounded exact-data review composition; not a product component variant",
+      "fixture_state": {
+        "title": "Завтра",
+        "meta": "22 августа · суббота · 3 события",
+        "sort": "По времени",
+        "hint": "Фото → о событии → лайк",
+        "city": "Вся область"
+      },
+      "dependencies": [
+        "listing.mobile-page-head",
+        "listing.mobile-feed-head"
+      ],
+      "penpot_board_id": "06b5fc29-ba80-803f-8008-873d90c03796",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "materialization_rule": "390x156 review board with linked instances only; canvas #fbf7ef; bounded comparison is stacked vertically because the specimen is wide"
+    },
+    {
       "id": "listing.mobile-date-accessory",
       "source": "MobileDateAccessory.astro",
       "states": [
@@ -516,7 +593,8 @@
     "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype",
     "stress proof is two bounded sequential viewport slices, never one long review board: upper renders the first two chronological fixtures and continuation renders the remaining four including the three-card program row",
     "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only",
-    "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays"
+    "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays",
+    "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only"
   ],
   "archetype_variants": [
     {

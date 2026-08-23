@@ -112,6 +112,22 @@ assert(components.archetype_variants.some((item) => item.id === 'archetype.listi
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
 const mobileRailViewport = components.body_components.find((item) => item.id === 'listing.mobile-rail-viewport');
 assert.match(mobileRailViewport.content_delivery.date_today_tomorrow_weekend_popular, /build-time rendered/);
+assert(components.body_components.some((item) => item.id === 'listing.mobile-page-head'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-city-picker-summary'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-feed-head'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-heads.current-fixture'));
+const mobilePageHead = components.body_components.find((item) => item.id === 'listing.mobile-page-head');
+const mobileCitySummary = components.body_components.find((item) => item.id === 'listing.mobile-city-picker-summary');
+const mobileFeedHead = components.body_components.find((item) => item.id === 'listing.mobile-feed-head');
+const mobileHeadsFixture = components.body_components.find((item) => item.id === 'listing.mobile-heads.current-fixture');
+assert.equal(mobilePageHead.owner_page.id, '06b5fc29-ba80-803f-8008-873ce354560a');
+assert.match(mobilePageHead.typography_residual, /Penpot 2.17.2 plugin API rejects/);
+assert.equal(mobileCitySummary.penpot_component_id, '06b5fc29-ba80-803f-8008-873d66059d3a');
+assert.deepEqual(mobileFeedHead.dependencies, ['listing.mobile-city-picker-summary']);
+assert.match(mobileFeedHead.geometry_rule, /1px #e1d3c2 bottom divider/);
+assert.equal(mobileHeadsFixture.penpot_board_id, '06b5fc29-ba80-803f-8008-873d90c03796');
+assert.match(mobileHeadsFixture.classification, /not a product component variant/);
+assert.match(mobileHeadsFixture.materialization_rule, /stacked vertically/);
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
@@ -166,6 +182,8 @@ assert(components.icon_components.items.some((item) => item.id === 'icon.shell.m
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.search'));
 assert(components.icon_components.items.some((item) => item.id === 'icon.shell.mobile-bottom.personal'));
 assert(components.composition_rules.some((rule) => /icon masters live on Page 25/.test(rule)));
+assert(components.composition_rules.some((rule) => /mobile listing head masters live on Page 60.1d/.test(rule)));
+
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-007' && /Penpot display styles resolve it/.test(item.decision)));
