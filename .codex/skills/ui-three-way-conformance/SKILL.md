@@ -110,6 +110,13 @@ foundation/token → primitive/icon → leaf component → composite component
 - Re-running an unchanged page comparison is revalidation, not progress. New
   progress requires a corrected owner/master, newly covered state, or an
   evidence-backed change in verdict.
+- Penpot plugin proxy read-back is not sufficient for component-instance text
+  overrides. The resolved `generateMarkup()` output and the bounded PNG export
+  must contain the exact case text. If the proxy reports the requested value
+  while rendered markup/export still contains the master value, classify the
+  case as `BLOCKED_MATERIALIZATION_INTEGRITY`; do not publish it as a visual
+  match. Repair the native state/fixture materialization and repeat the parent
+  check rather than overlaying detached text on the review board.
 
 ## Archetype reconstruction gate
 

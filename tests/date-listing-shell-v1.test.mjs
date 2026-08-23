@@ -121,6 +121,9 @@ const mobileCalendarTrigger = components.body_components.find((item) => item.id 
 assert.equal(mobileDateAccessory.penpot_component_id, 'a21f5e36-5d76-8065-8008-86c0f46904e6');
 assert.match(mobileDateAccessory.materialization_rule, /compared independently/);
 assert.match(mobileDateChip.responsive_rule, /60x48 default and 74x48 weekend-range/);
+assert(mobileDateChip.states.includes('disabled'));
+assert(mobileDateChip.states.includes('month-label-present'));
+assert.match(mobileDateChip.materialization_integrity, /generated markup and bounded export/);
 assert.deepEqual(mobileCalendarTrigger.dependencies, ['icon.shell.mobile-bottom.calendar']);
 assert.match(mobileCalendarTrigger.icon_rule, /calendar-with-clock action artwork is not valid/);
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
