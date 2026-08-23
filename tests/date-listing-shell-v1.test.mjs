@@ -138,9 +138,11 @@ const railTrack = components.body_components.find((item) => item.id === 'listing
 assert.match(railInlineLike.materialization_rule, /count=37 exact master is a fixture-bound adapter/);
 assert.deepEqual(railEventSummary.dependencies, ['social-proof.like.rail-inline', 'icon.product.rail-arrow-right']);
 assert.match(railEventSummary.component_topology, /no detached copies/);
-assert.match(railEventSummary.parent_adoption_status, /pending owning T04 main-instance migration/);
+assert.match(railEventSummary.parent_adoption_status, /complete: owning T04 main instance/);
+assert.match(railEventSummary.parent_adoption_status, /inherited linked child/);
 assert.equal(railTrack.recursive_decomposition_status, 'in-progress');
-assert.match(railTrack.known_structural_gap, /ordinary Summary, Digest and exact media boards/);
+assert.match(railTrack.known_structural_gap, /owns the linked semantic Event summary/);
+assert.match(railTrack.known_structural_gap, /Digest and the three exact media cells remain ordinary boards/);
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
