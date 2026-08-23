@@ -83,6 +83,34 @@ bounded contract; neither may silently become a new baseline.
 9. Run cleanup at start/end. Delete only marker-backed eligible ephemeral runs;
    never delete accepted exports, contracts, exceptions, or final receipts.
 
+## Recursive conformance correction ladder
+
+This is a correction framework, not an evidence-production exercise. Run it at
+every material level that exists in the SoT graph:
+
+```text
+foundation/token → primitive/icon → leaf component → composite component
+→ section/pattern → archetype/shell → bounded page consumer
+```
+
+- A page or archetype comparison never substitutes for a direct comparison of
+  its material leaf/composite components and their representative states.
+- Bind Astro and Penpot to the same exact data, state and parent context at the
+  current level. Compare the smallest honest root that still supplies required
+  surface, sizing, inheritance and clipping context.
+- Treat each comparison as a diagnostic loop: inspect geometry, computed style,
+  structure and pixels; identify the lowest owning SoT/master that explains the
+  drift; fix that owner; let linked descendants inherit; then re-export both the
+  changed root and affected parent consumers.
+- Publishing a comparison or receipt does not make a state conformant. A level
+  is complete only after the mismatch is corrected or a bounded, versioned
+  exception names the exact property/region and authority.
+- Maintain an explicit per-level/state backlog. `MISSING`, `FAIL`, `MINOR` and
+  `BLOCKED` remain active work and prevent a family from being called ready.
+- Re-running an unchanged page comparison is revalidation, not progress. New
+  progress requires a corrected owner/master, newly covered state, or an
+  evidence-backed change in verdict.
+
 ## Archetype reconstruction gate
 
 Before assembling page archetypes, capture the exact Astro archetype at one

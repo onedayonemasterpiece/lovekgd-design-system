@@ -75,13 +75,24 @@ pinned Astro AS-IS
 2. **Foundation delta:** какие шрифты, цвета, spacing, radii, grid, icons, media и accessibility rules нужны этой волне.
 3. **SoT contract:** identity, anatomy, states, fixtures, dependencies и разрешённые overrides.
 4. **Penpot materialization:** native masters, variants и linked instances без detached copies.
-5. **Conformance:** одинаковые fixtures/state/viewport в Astro и Penpot, instrumental comparison и визуальный review.
+5. **Recursive conformance correction:** пройти один и тот же exact
+   fixture/state/viewport снизу вверх — foundation/icon, leaf component,
+   composite, section/pattern, archetype/shell и только затем bounded page.
+   На каждом уровне comparison служит для поиска причины и правки самого
+   нижнего owning SoT/master; после исправления повторно проверяются его linked
+   parents/consumers. Сверка страницы целиком не заменяет сверку вложенных
+   material components.
 6. **Owner review:** комментарии относятся к exact resource/version/hash.
 7. **Correction:** Git SoT first, затем Penpot reconciliation; после acceptance — Astro candidate.
 8. **Migration:** убрать дубли и route-local forks только в затронутом scope.
 9. **Checklist update:** evidence, status и следующий конкретный blocker.
 
 Нельзя считать волну закрытой только потому, что появился красивый Penpot board или зелёный pixel diff.
+Нельзя также считать компонент проверенным потому, что он случайно виден внутри
+сверки страницы: его собственные states, sizing context и наследование должны
+пройти отдельный bounded Astro ↔ Penpot correction loop. `MISSING`, `FAIL`,
+`MINOR` и `BLOCKED` остаются активной работой, а повторный снимок без изменения
+master/coverage/verdict считается revalidation, не прогрессом.
 
 ---
 

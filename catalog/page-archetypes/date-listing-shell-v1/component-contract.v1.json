@@ -3,6 +3,29 @@
   "component_family": "archetype.listing.date",
   "lifecycle": "candidate",
   "canonical": false,
+  "conformance_framework": {
+    "mode": "recursive-correction",
+    "status": "in-progress",
+    "levels": [
+      "foundation",
+      "primitive-icon",
+      "leaf-component",
+      "composite-component",
+      "section-pattern",
+      "archetype-shell",
+      "bounded-page-consumer"
+    ],
+    "direct_component_comparison_required": true,
+    "parent_or_page_comparison_substitutes_for_child": false,
+    "same_exact_fixture_state_viewport_required": true,
+    "mismatch_action": "fix the lowest owning SoT/native master, inherit through linked instances, then recheck affected parents",
+    "active_nonconformant_statuses": [
+      "missing",
+      "fail",
+      "minor",
+      "blocked"
+    ]
+  },
   "body_components": [
     {
       "id": "listing.page-date-header",
@@ -136,7 +159,9 @@
       "dependencies": [
         "listing.mobile-date-chip",
         "listing.mobile-calendar-trigger"
-      ]
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c0f46904e6",
+      "materialization_rule": "390x56 composite; linked chips and trigger; exact visible state is compared independently from its page consumer"
     },
     {
       "id": "listing.mobile-date-chip",
@@ -147,7 +172,9 @@
         "weekend",
         "weekend-range",
         "selected"
-      ]
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c06b7db572",
+      "responsive_rule": "60x48 default and 74x48 weekend-range; full-width fixed text slots remain centered when the linked instance width changes"
     },
     {
       "id": "listing.mobile-calendar-trigger",
@@ -155,7 +182,12 @@
       "states": [
         "default",
         "expanded"
-      ]
+      ],
+      "dependencies": [
+        "icon.shell.mobile-bottom.calendar"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c08913c1a5",
+      "icon_rule": "reuse the linked plain calendar icon; calendar-with-clock action artwork is not valid here"
     },
     {
       "id": "listing.media.6628",

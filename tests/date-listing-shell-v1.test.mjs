@@ -21,6 +21,19 @@ assert.equal(new Set(manifest.representations.map((item) => item.id)).size, 7);
 assert.equal(manifest.canonical, false);
 assert.equal(manifest.promoted, false);
 assert.equal(manifest.production_deployed, false);
+assert.equal(components.conformance_framework.mode, 'recursive-correction');
+assert.equal(components.conformance_framework.status, 'in-progress');
+assert.equal(components.conformance_framework.direct_component_comparison_required, true);
+assert.equal(components.conformance_framework.parent_or_page_comparison_substitutes_for_child, false);
+assert.deepEqual(components.conformance_framework.levels, [
+  'foundation',
+  'primitive-icon',
+  'leaf-component',
+  'composite-component',
+  'section-pattern',
+  'archetype-shell',
+  'bounded-page-consumer',
+]);
 
 const fixtureIds = new Set(manifest.fixtures.map((fixture) => fixture.fixture_id));
 for (const representation of manifest.representations) {
@@ -102,6 +115,14 @@ assert.match(mobileRailViewport.content_delivery.date_today_tomorrow_weekend_pop
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
+const mobileDateAccessory = components.body_components.find((item) => item.id === 'listing.mobile-date-accessory');
+const mobileDateChip = components.body_components.find((item) => item.id === 'listing.mobile-date-chip');
+const mobileCalendarTrigger = components.body_components.find((item) => item.id === 'listing.mobile-calendar-trigger');
+assert.equal(mobileDateAccessory.penpot_component_id, 'a21f5e36-5d76-8065-8008-86c0f46904e6');
+assert.match(mobileDateAccessory.materialization_rule, /compared independently/);
+assert.match(mobileDateChip.responsive_rule, /60x48 default and 74x48 weekend-range/);
+assert.deepEqual(mobileCalendarTrigger.dependencies, ['icon.shell.mobile-bottom.calendar']);
+assert.match(mobileCalendarTrigger.icon_rule, /calendar-with-clock action artwork is not valid/);
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
 assert(components.composition_rules.some((rule) => /one to three intrinsic-width linked card instances/.test(rule)));
 for (const fixtureId of ['6628', '4327', '8156', '7888']) {
