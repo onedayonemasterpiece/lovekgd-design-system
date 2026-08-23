@@ -764,6 +764,150 @@
         "id": "579a886e-56e8-80a3-8008-81882de5171b",
         "name": "48 — Event medallions · Normalized tiers v2"
       }
+    },
+    {
+      "id": "social-proof.like.rail-inline.exact-fixture-count",
+      "classification": "exact-data adapters, not product variants",
+      "source": "social-proof.like.rail-inline + Golden Event Corpus likes_count",
+      "fixture_counts": {
+        "event.real.7807": 10,
+        "event.real.7906": 37,
+        "event.real.7888": 53
+      },
+      "penpot_component_ids": {
+        "count=10": "d87e18f1-dcb4-80a6-8008-877b9c166cf6",
+        "count=37": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+        "count=53": "d87e18f1-dcb4-80a6-8008-877b9c4319e3"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "materialization_rule": "count is inside the linked semantic Like proof; fixture review surfaces never place a sibling number"
+    },
+    {
+      "id": "listing.rail-row.event-summary.exact-fixtures",
+      "classification": "exact-data adapters, not product variants",
+      "source": "MobileListingRailRow.astro#.event-summary + Golden Event Corpus",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "social-proof.like.rail-inline.exact-fixture-count",
+        "icon.product.rail-arrow-right"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877b9cc484e4",
+        "event.real.7906": "06b5fc29-ba80-803f-8008-874329afd09a",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877bcb4ea604"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "geometry_rule": "296x112 exact event summary with 96x82 time/date surface and full functional Like proof inside the summary",
+      "materialization_rule": "title/place/date/time/Like content belongs to the linked fixture summary; no review-board text overlays"
+    },
+    {
+      "id": "listing.rail-row.event-digest.exact-fixtures",
+      "classification": "exact-data adapters, not product variants",
+      "source": "MobileListingRailRow.astro#.event-digest + Golden Event Corpus summary",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877bec2f094a",
+        "event.real.7906": "06b5fc29-ba80-803f-8008-874d4c59fc59",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877bec5bbf34"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874c7ba10efc",
+        "name": "60.1f — Mobile rail digest · Native component"
+      },
+      "geometry_rule": "168x112 exact six-line digest surface",
+      "materialization_rule": "fixture adapter owns deterministic line wrapping/ellipsis and is linked directly by the track"
+    },
+    {
+      "id": "listing.rail-row.media.fixture-7807",
+      "classification": "exact fixture media adapter",
+      "source": "immutable event.real.7807 primary asset + rail cover/object-position 45% 55%",
+      "dependencies": [
+        "listing.rail-row.media-frame"
+      ],
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-877c30292ad4",
+      "penpot_image_id": "c269caa0-e456-818c-8008-8781853752dc",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-875146957d25",
+        "name": "60.1g — Mobile rail media · Exact adapters"
+      },
+      "source_asset_sha256": "00da20e7dd8d036df2b908e20202550e77d4f166742479234902b33697b0416d",
+      "derived_crop_sha256": "e73ec401a7d90b50ac1c56216fa0823b97b7d497c2c8c5f3bb2652af1dd4a064",
+      "geometry_rule": "140x112 deterministic cover crop from immutable 2560x1707 source at object-position 45% 55%",
+      "materialization_rule": "derived crop is a fixture-bound image adapter required because Penpot plugin ImageData exposes no object-position transform; it is not a screenshot or product variant"
+    },
+    {
+      "id": "listing.rail-row.identity-slot.free.fixture-7807",
+      "classification": "exact fixture identity adapter",
+      "source": "MobileListingRailRow.astro free medallion slot",
+      "dependencies": [
+        "medallion.free.feature88"
+      ],
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-877cefd48e4b",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "geometry_rule": "94x112 slot with linked free 88x88 medallion centered at x=3,y=12",
+      "materialization_rule": "identity comes from exact fixture semantics; event.real.7807 uses free, never venue artwork"
+    },
+    {
+      "id": "action.like.rail.exact-fixture-count",
+      "classification": "exact-data adapters, not product variants",
+      "source": "action.like.rail + Golden Event Corpus likes_count",
+      "penpot_component_ids": {
+        "count=10": "d87e18f1-dcb4-80a6-8008-877c0d055223",
+        "count=37": "d87e18f1-dcb4-80a6-8008-8761830829b6",
+        "count=53": "d87e18f1-dcb4-80a6-8008-877c0d3f7d0b"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "geometry_rule": "69.875x56 with linked canonical Heart 28 and count inside the action boundary"
+    },
+    {
+      "id": "listing.rail-row.track.exact-date-typical",
+      "classification": "parent-context exact adapters",
+      "source": "MobileListingRailRow.astro exact full horizontal tracks",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "listing.rail-row.event-summary.exact-fixtures",
+        "listing.rail-row.event-digest.exact-fixtures",
+        "listing.rail-row.media.fixture-7807",
+        "listing.rail-row.media.fixture-7906",
+        "listing.rail-row.identity-slot.free.fixture-7807",
+        "action.like.rail.exact-fixture-count",
+        "listing.rail-row.artifact-slot"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877d21489602",
+        "event.real.7906": "d012936b-5394-80cb-8008-855655e1b216",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877d21d0f7f4"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-877b1ef7b3d6",
+        "name": "60.1k — Mobile rail exact fixture adapters"
+      },
+      "geometry_rule": "full uncut tracks: 7807=819.875x112; 7906=1012.875x112; 7888=571.875x112; parent viewport clips only the visible 390px window",
+      "parent_adoption_status": "complete: Mobile rail viewport centrally owns all three linked exact tracks; Page60.4 inherited them and has zero ordinary data overlays"
     }
   ],
   "shell_components": [
@@ -906,7 +1050,8 @@
     "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays",
     "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only",
     "mobile rail correction is recursive: compare and correct Event summary, inline Like, media cells, Digest, identity/artifact slots and Like CTA independently before a track or viewport verdict; a parent screenshot never substitutes for these leaves",
-    "date typical-desktop proves three exact chronological fixtures in the linked Desktop listing flow: linked time-group headers and parent-context ListingEventCard adapters own data and geometry; review boards contain no event/title/place overlays"
+    "date typical-desktop proves three exact chronological fixtures in the linked Desktop listing flow: linked time-group headers and parent-context ListingEventCard adapters own data and geometry; review boards contain no event/title/place overlays",
+    "typical mobile rail viewport owns three linked full-width exact tracks (7807/7906/7888); each track is reviewed uncut and the 390px page board only provides viewport clipping"
   ],
   "archetype_variants": [
     {

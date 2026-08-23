@@ -275,6 +275,23 @@ assert(components.icon_components.items.some((item) => item.id === 'icon.shell.m
 assert(components.composition_rules.some((rule) => /icon masters live on Page 25/.test(rule)));
 assert(components.composition_rules.some((rule) => /mobile listing head masters live on Page 60.1d/.test(rule)));
 assert(components.composition_rules.some((rule) => /mobile rail correction is recursive/.test(rule)));
+assert(components.body_components.some((item) => item.id === 'listing.rail-row.track.exact-date-typical'));
+const exactMobileTracks = components.body_components.find((item) => item.id === 'listing.rail-row.track.exact-date-typical');
+assert.deepEqual(exactMobileTracks.fixture_ids, ['event.real.7807', 'event.real.7906', 'event.real.7888']);
+assert.equal(exactMobileTracks.penpot_component_ids['event.real.7807'], 'd87e18f1-dcb4-80a6-8008-877d21489602');
+assert.match(exactMobileTracks.geometry_rule, /819\.875x112/);
+assert.match(exactMobileTracks.parent_adoption_status, /zero ordinary data overlays/);
+const media7807 = components.body_components.find((item) => item.id === 'listing.rail-row.media.fixture-7807');
+assert(media7807);
+assert.equal(media7807.source_asset_sha256, '00da20e7dd8d036df2b908e20202550e77d4f166742479234902b33697b0416d');
+assert.match(media7807.geometry_rule, /object-position 45% 55%/);
+assert.match(media7807.materialization_rule, /not a screenshot/);
+const mobileSummaries = components.body_components.find((item) => item.id === 'listing.rail-row.event-summary.exact-fixtures');
+assert.equal(Object.keys(mobileSummaries.penpot_component_ids).length, 3);
+const mobileDigests = components.body_components.find((item) => item.id === 'listing.rail-row.event-digest.exact-fixtures');
+assert.equal(Object.keys(mobileDigests.penpot_component_ids).length, 3);
+assert(components.composition_rules.some((rule) => /three linked full-width exact tracks/.test(rule)));
+for (const id of ['DL-018', 'DL-019', 'DL-020']) assert(decisions.decisions.some((item) => item.id === id));
 
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
