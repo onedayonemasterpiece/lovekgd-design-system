@@ -60,8 +60,20 @@ bounded contract; neither may silently become a new baseline.
    the exact component markup, emitted stylesheet links, fixture identity and
    viewport rule. Record this derivation in the manifest; never hand-recreate
    the markup or swap in a similar event.
+   For a horizontally overflowing rail, keep the real mobile viewport and
+   fixture, make only the capture ancestors overflow-visible in the disposable
+   page, and use a browser screenshot clip with `captureBeyondViewport=true`.
+   Round a fractional CSS width outward (`Math.ceil`) rather than truncating a
+   1012.875px track to 1012px. Do not wait on dev-server `networkidle`; official
+   Playwright guidance discourages it. Wait on the exact row locator, loaded
+   fonts and the target row's decoded images with bounded timeouts.
 5. Produce geometry, computed-style, structural, and pixel evidence. Never
    autoscale/crop/center images to hide drift.
+   Remote Penpot `export_shape` responses contain base64 image bytes. For a
+   large payload, write wrapped base64 through a temporary filesystem text
+   file, decode it locally and delete the temporary file; never pass the full
+   payload as one shell argument or stream it through a PTY. Verify file type,
+   dimensions, byte size and SHA-256 before comparison.
 6. Open `astro.png`, `penpot.png`, `overlay-50.png`, and `diff.png` yourself and
    write `agent-review.json`. A threshold cannot replace visual review.
 7. Finalize to `PASS`, `MINOR`, `FAIL`, `EXCEPTION`, or `BLOCKED`; keep owner
@@ -175,6 +187,14 @@ inside a component main can leave components-v2 swap provenance without its
 required slot and fail persistence with `referential-integrity / missing-slot`;
 page size, batch size, and memory are not valid diagnoses for that explicit
 error.
+
+Penpot flex child indices run in reverse of their visual row/column order.
+Before inserting or unwrapping a semantic child, read the siblings'
+`parentIndex` values and use `setParentIndex()` against that reversed order;
+never derive the target index from the array position alone. Let flex
+propagation settle, then re-read geometry, component provenance, inherited
+descendants and `currentFile.validate()`. Immediate geometry and transient
+`missing-slot` findings during propagation are not final evidence.
 
 Treat image identity and media treatment as separate bindings. An event image
 may be an instance content override, but fit, aspect preservation, crop policy,
