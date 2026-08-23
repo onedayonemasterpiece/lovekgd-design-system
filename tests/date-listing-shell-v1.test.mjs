@@ -53,6 +53,10 @@ assert.deepEqual(dependencies.dependencies.map((item) => item.semantic_id), [
 ]);
 assert(components.body_components.some((item) => item.id === 'listing.desktop-flow'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
+assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
+assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
 assert(components.composition_rules.some((rule) => /one centered chronological column/.test(rule)));
 assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu'));
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));

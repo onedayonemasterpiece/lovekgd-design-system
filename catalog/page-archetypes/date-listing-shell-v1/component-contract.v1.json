@@ -68,6 +68,37 @@
         "empty",
         "error"
       ]
+    },
+    {
+      "id": "listing.mobile-date-accessory",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "visible",
+        "calendar-open"
+      ],
+      "dependencies": [
+        "listing.mobile-date-chip",
+        "listing.mobile-calendar-trigger"
+      ]
+    },
+    {
+      "id": "listing.mobile-date-chip",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "default",
+        "today",
+        "weekend",
+        "weekend-range",
+        "selected"
+      ]
+    },
+    {
+      "id": "listing.mobile-calendar-trigger",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "default",
+        "expanded"
+      ]
     }
   ],
   "shell_components": [
@@ -100,6 +131,7 @@
     "ready archetype instances use linked listing-card and mobile-rail resources",
     "desktop ready flow is one centered chronological column: each time-group header is co-located with its linked ListingEventCard slot; cards are never regrouped into a visual grid",
     "state surfaces are semantic states, not hidden terminal overrides",
+    "mobile date accessory is a linked fixed-position listing component above the linked shell bottom navigation; its date chips and calendar trigger remain linked semantic actions",
     "shell overlay owns stacking and safe-area offsets",
     "desktop and mobile are separate parent contexts at 759/720 boundaries"
   ]
