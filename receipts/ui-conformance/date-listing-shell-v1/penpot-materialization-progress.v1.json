@@ -1,13 +1,13 @@
 {
   "schema_version": "date-listing-shell-penpot-materialization-progress.v1",
-  "status": "WORKING_NOT_READY_FOR_REVIEW",
+  "status": "READY_FOR_OWNER_REVIEW",
   "lifecycle": "candidate",
   "canonical": false,
   "promoted": false,
   "production_deployed": false,
   "penpot": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
-    "revision": 1643,
+    "revision": 1675,
     "pages": [
       {
         "page_id": "a21f5e36-5d76-8065-8008-86ac7b368ff6",
@@ -36,13 +36,24 @@
         "page_id": "a21f5e36-5d76-8065-8008-86cf6e519227",
         "name": "60.6 — Date Listing · Stress",
         "board_id": "a21f5e36-5d76-8065-8008-86cf6ef9e9fa"
+      },
+      {
+        "page_id": "a21f5e36-5d76-8065-8008-86d50476abce",
+        "name": "60.7 — Date Listing · Full desktop shell",
+        "board_id": "a21f5e36-5d76-8065-8008-86d5130eea0e"
+      },
+      {
+        "page_id": "a21f5e36-5d76-8065-8008-86dada867482",
+        "name": "60.8 — Date Listing · Full mobile shell",
+        "board_id": "a21f5e36-5d76-8065-8008-86db03cc44ac"
       }
     ],
     "validation_errors": [],
-    "stable_component_count_current_namespace": 39,
+    "stable_component_count_current_namespace": 48,
     "competing_insertable_stable_id_duplicates": 0,
     "detached_managed_shape_count": 0,
-    "named_version": "Date Listing · stress exact viewport"
+    "named_version": "Date Listing + Shell v1 · 7 representations candidate",
+    "repeat_materialization_would_create": 0
   },
   "representation": {
     "id": "typical-desktop",
@@ -85,10 +96,9 @@
     ]
   },
   "known_nonterminal_gaps": [
-    "typical desktop header, weather and controls spacing has not reached terminal raster conformance",
-    "typical mobile is materially aligned but still has renderer typography/icon deltas",
-    "state variants are structurally aligned but have minor renderer typography wrapping drift",
-    "representations full-page-desktop-shell and full-page-mobile-shell are not yet terminal"
+    "owner review is pending; lifecycle remains candidate and canonical=false",
+    "minor Penpot renderer typography/color drift remains in several comparisons",
+    "mobile menu background-blur and close-tag shadow differ slightly from browser raster; exact geometry, copy and source icon identity are preserved"
   ],
   "state_progress": {
     "id": "loading-empty-error",
@@ -177,5 +187,86 @@
       "listing.media.7906",
       "social-proof.like.inside"
     ]
+  },
+  "full_desktop_shell_progress": {
+    "id": "full-page-desktop-shell",
+    "fixture_ids": [
+      "event.real.8156",
+      "event.real.7807",
+      "event.real.7906",
+      "event.real.7888",
+      "event.real.4327",
+      "event.real.6628"
+    ],
+    "visible_viewport_fixture_ids": [
+      "event.real.7807",
+      "event.real.7906"
+    ],
+    "viewport": "1280x900",
+    "astro_candidate_sha": "480f412dde36a36df8b1accae600999e78ecdf8b",
+    "astro_png_sha256": "02eb3637db447dcb3a648739976aee4c4d8f55b617b1ac0cb9a16d54de076d8d",
+    "penpot_png_sha256": "755df1ab180e82aace43ecb8229402cf09215aa51b04a8d7868240e4b9a69693",
+    "published_diagnostic_comparison_sha256": "eddc71b3fe7f6b93c798f9735c18c70e052b2eb53ba51e7bc6958837d88a2cef",
+    "telegram_message_id": 1095,
+    "telegram_read_back": "verified",
+    "penpot_page_id": "a21f5e36-5d76-8065-8008-86d50476abce",
+    "penpot_board_id": "a21f5e36-5d76-8065-8008-86d5130eea0e",
+    "linked_component_additions": [
+      "archetype.listing.date.full-desktop-shell.viewport"
+    ],
+    "central_component_fixes": [
+      "shell.desktop-header flex removed",
+      "desktop-head-leather-r5 source asset linked",
+      "exact desktop nav geometry and active state"
+    ]
+  },
+  "full_mobile_shell_progress": {
+    "id": "full-page-mobile-shell",
+    "state": "menu-open",
+    "fixture_ids": [
+      "event.real.8156",
+      "event.real.7807",
+      "event.real.7906",
+      "event.real.7888",
+      "event.real.4327",
+      "event.real.6628"
+    ],
+    "viewport": "390x844",
+    "astro_candidate_sha": "480f412dde36a36df8b1accae600999e78ecdf8b",
+    "astro_png_sha256": "fd4aa68df91189faf0dccc0344774572d9b1a5344cbc1c74ba510d0d923b405c",
+    "penpot_png_sha256": "5686ea5ff0bea0e9517ac8b768f0cf24dd0fa797ea7abc079f780aec23a5db15",
+    "published_diagnostic_comparison_sha256": "846a439ca4f0b9bf2f1b50b680f3bfbe8d8a25d218adc4c8f2e8f1911e66d9fb",
+    "telegram_message_id": 1096,
+    "telegram_read_back": "verified",
+    "penpot_page_id": "a21f5e36-5d76-8065-8008-86dada867482",
+    "penpot_board_id": "a21f5e36-5d76-8065-8008-86db03cc44ac",
+    "linked_component_additions": [
+      "archetype.listing.date.full-mobile-shell.viewport",
+      "shell.mobile-menu",
+      "shell.mobile-menu-item",
+      "icon.ui.reference4.squares-four",
+      "icon.ui.reference4.palette",
+      "icon.ui.reference4.buildings",
+      "icon.ui.reference4.popular-trend-up",
+      "icon.ui.reference4.handshake",
+      "icon.ui.reference4.search",
+      "icon.ui.reference4.user-focus"
+    ],
+    "source_icon_contract": "exact Astro reference4-v8 SVG assets as linked Penpot components"
+  },
+  "validation": {
+    "penpot_validate_errors": [],
+    "managed_page_count": 8,
+    "managed_component_count": 48,
+    "duplicate_stable_ids": 0,
+    "detached_linked_named_instances": 0,
+    "repeat_materialization_would_create": 0,
+    "design_test": "node --test tests/date-listing-shell-v1.test.mjs PASS",
+    "astro_tests": [
+      "node --test site/tests/date-listing-shell-v1-candidate.test.mjs PASS",
+      "node --experimental-strip-types --test site/tests/date-listing-order.test.mjs PASS"
+    ],
+    "astro_build": "PASS · 476 pages · 2m10s",
+    "playwright": "PASS · 7/7 representations · no horizontal overflow · no clipped actions · no distorted media"
   }
 }
