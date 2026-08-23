@@ -699,6 +699,71 @@
       "owner_page": "60.1b — ListingEventCard · Compact variants",
       "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
       "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=246a697c8319275bb46aad079b9948697ffa002b2eb463687ce7fda2a6d30e47; MAE=9.261154/255"
+    },
+    {
+      "id": "listing.time-group-header.exact-date-typical",
+      "classification": "exact-data adapters, not product variants",
+      "source": "DateListingSurface.astro + immutable Golden Event Corpus resolved groups",
+      "states": [
+        "12:00/count=1",
+        "18:00/count=1",
+        "untimed/count=1"
+      ],
+      "dependencies": [
+        "listing.time-group"
+      ],
+      "penpot_component_ids": {
+        "12:00/count=1": "d87e18f1-dcb4-80a6-8008-87756ae21037",
+        "18:00/count=1": "d87e18f1-dcb4-80a6-8008-87756b6935bc",
+        "untimed/count=1": "d87e18f1-dcb4-80a6-8008-87756bf04917"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "geometry_rule": "timed 120x62.859375; untimed 120x73.78125; count and multiline untimed label are owned by the linked exact-data adapter",
+      "materialization_rule": "chronological group consumers link one exact header adapter; no detached or top-level review text is permitted"
+    },
+    {
+      "id": "listing.event-card.compact.context.date-typical-desktop",
+      "classification": "parent-context exact adapters, not product taxonomy variants",
+      "source": "ListingEventCard.astro rendered inside the exact Date typical-desktop parent grid",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter",
+        "social-proof.like.inside",
+        "social-proof.like.compact36",
+        "social-proof.share.compact36",
+        "medallion.frame.standard60.free"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-87733a67d4bb",
+        "event.real.7906": "d87e18f1-dcb4-80a6-8008-8773575484aa",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877370383914"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-877243d3fa8b",
+        "name": "60.1j — Listing compact context adapters"
+      },
+      "geometry_rule": "root widths and content-driven heights are resolved by the parent grid: 7807=444.109375x326.984375; 7906=433.21875x279.796875; 7888=420x279.796875",
+      "identity_rule": "event.real.7807 uses the linked free medallion; venue artwork must not be inferred from another fixture",
+      "parent_adoption_status": "complete: Desktop listing flow owns three linked context adapters in three chronological groups; no top-level third-card overlay remains"
+    },
+    {
+      "id": "medallion.frame.standard60.world-ocean-museum",
+      "source": "normalized medallion wrapper + linked world-ocean-museum artwork",
+      "state": "identity=world-ocean-museum;size=standard60",
+      "rule": "60x60 clipped wrapper centralizes identity framing; consumers link this semantic frame only when the exact fixture identity requires it",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-8772ed67a8d0",
+      "owner_page": {
+        "id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "name": "48 — Event medallions · Normalized tiers v2"
+      }
     }
   ],
   "shell_components": [
@@ -840,7 +905,8 @@
     "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only",
     "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays",
     "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only",
-    "mobile rail correction is recursive: compare and correct Event summary, inline Like, media cells, Digest, identity/artifact slots and Like CTA independently before a track or viewport verdict; a parent screenshot never substitutes for these leaves"
+    "mobile rail correction is recursive: compare and correct Event summary, inline Like, media cells, Digest, identity/artifact slots and Like CTA independently before a track or viewport verdict; a parent screenshot never substitutes for these leaves",
+    "date typical-desktop proves three exact chronological fixtures in the linked Desktop listing flow: linked time-group headers and parent-context ListingEventCard adapters own data and geometry; review boards contain no event/title/place overlays"
   ],
   "archetype_variants": [
     {
@@ -953,6 +1019,29 @@
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292",
       "card_instance_topology": "four linked fixture-bound ListingEventCard Compact instances; all media/content/social-proof/medallion slots are nested in their card masters"
+    },
+    {
+      "id": "archetype.listing.date.typical-desktop",
+      "view": "tomorrow",
+      "density": "regular",
+      "viewport": "1280x1261",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "listing.page-date-header.tomorrow",
+        "listing.city-filter-rail",
+        "listing.time-group-header.exact-date-typical",
+        "listing.event-card.compact.context.date-typical-desktop"
+      ],
+      "penpot_flow_component_id": "a21f5e36-5d76-8065-8008-86afc4f1ab36",
+      "penpot_archetype_component_id": "a21f5e36-5d76-8065-8008-86b497f8d491",
+      "penpot_page_id": "a21f5e36-5d76-8065-8008-86b55dcd3bf3",
+      "penpot_board_id": "a21f5e36-5d76-8065-8008-86b589c29f08",
+      "component_topology": "one linked archetype instance plus linked shell header; three event cards and three group headers are inherited from the linked Desktop listing flow",
+      "bounded_visual_status": "agent verdict MINOR; geometry/card count/fixture identity PASS; shell header raster and minor typography/media raster remain active deltas"
     }
   ],
   "icon_components": {
