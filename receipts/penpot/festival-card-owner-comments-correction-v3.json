@@ -1,0 +1,243 @@
+{
+  "schema_version": "penpot_festival_card_owner_comments_correction_v3",
+  "receipt_id": "penpot.festival-card.owner-comments-correction.20260823.v3",
+  "status": "awaiting_owner_review",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "supersedes_for_current_status": "receipts/penpot/festival-card-visual-conformance-correction-v2.json",
+  "owner_comments": [
+    {
+      "finding": "rounding looked inconsistent in Telegram 1086",
+      "root_cause": "comparison evidence flattened the native Penpot RGBA export to RGB without alpha compositing, so transparent antialiased corner pixels became dark pixels and falsely changed the visible radius",
+      "component_change_required": false,
+      "evidence_fix": "native RGBA export composited onto exact Astro canvas color"
+    },
+    {
+      "finding": "insufficient spacing to the left of Like",
+      "root_cause": "the exact 263.469 px master inherited a 180 px Theme width from the 267 px masters, leaving only 5.437 px",
+      "component_change_required": true,
+      "systemic_fix": "exact FestivalCard master now enforces a 12 px Theme-to-Like gap; linked review instance inherited the change"
+    }
+  ],
+  "rounding_readback": {
+    "astro_effective_border_radius_px": 11,
+    "penpot_root_border_radius_px": 11,
+    "penpot_clip_content": true,
+    "corner_occupied_start_x_by_row": {
+      "astro": [
+        null,
+        6,
+        4,
+        3,
+        2,
+        1,
+        1,
+        0
+      ],
+      "penpot": [
+        null,
+        6,
+        5,
+        3,
+        2,
+        2,
+        1,
+        0
+      ]
+    },
+    "geometry_px": {
+      "astro": [
+        264,
+        279
+      ],
+      "penpot": [
+        264,
+        279
+      ]
+    },
+    "comparison_sha256": "88d49f00646c5b3b35a34ff0e97e0ef15cd4d0a063f1deefed40c257600a873f"
+  },
+  "spacing_readback": {
+    "variant_master_id": "579a886e-56e8-80a3-8008-818783ed949f",
+    "theme_instance_id": "a6e7f5b4-ff51-80c0-8008-833fb1754bcf",
+    "old_gap_px": 5.437,
+    "new_gap_px": 12,
+    "new_theme_width_px": 173.437,
+    "terminal_review_override": false
+  },
+  "chip_census": {
+    "authority": "actual Astro generated projection census, not documentation-only",
+    "astro_generated_card_count": 21,
+    "unique_theme_value_count": 16,
+    "penpot_linked_specimen_count": 16,
+    "one_semantic_master": true,
+    "all_labels_match": true,
+    "all_primary_icons_match": true,
+    "all_optional_secondary_icons_match": true,
+    "values": [
+      {
+        "label": "авторская песня",
+        "semantic_value": "авторская-песня",
+        "icons": [
+          "mic",
+          "music"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "вино и гастрономия",
+        "semantic_value": "вино-и-гастрономия",
+        "icons": [
+          "carrot"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "гастрономия",
+        "semantic_value": "гастрономия",
+        "icons": [
+          "carrot",
+          "users"
+        ],
+        "occurrence_count": 2
+      },
+      {
+        "label": "джаз",
+        "semantic_value": "джаз",
+        "icons": [
+          "saxophone",
+          "music"
+        ],
+        "occurrence_count": 2
+      },
+      {
+        "label": "история и реконструкция",
+        "semantic_value": "история-и-реконструкция",
+        "icons": [
+          "history",
+          "map-pin"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "кино",
+        "semantic_value": "кино",
+        "icons": [
+          "camera",
+          "ticket"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "классическая музыка",
+        "semantic_value": "классическая-музыка",
+        "icons": [
+          "music"
+        ],
+        "occurrence_count": 2
+      },
+      {
+        "label": "косплей",
+        "semantic_value": "косплей",
+        "icons": [
+          "palette",
+          "star"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "культура народов",
+        "semantic_value": "культура-народов",
+        "icons": [
+          "users",
+          "palette"
+        ],
+        "occurrence_count": 2
+      },
+      {
+        "label": "литература",
+        "semantic_value": "литература",
+        "icons": [
+          "book-open"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "море и техника",
+        "semantic_value": "море-и-техника",
+        "icons": [
+          "anchor",
+          "history"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "музыка",
+        "semantic_value": "музыка",
+        "icons": [
+          "music"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "путешествия",
+        "semantic_value": "путешествия",
+        "icons": [
+          "map-pin",
+          "history"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "семейный фестиваль",
+        "semantic_value": "семейный-фестиваль",
+        "icons": [
+          "star",
+          "carrot"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "современное искусство",
+        "semantic_value": "современное-искусство",
+        "icons": [
+          "palette"
+        ],
+        "occurrence_count": 1
+      },
+      {
+        "label": "театр",
+        "semantic_value": "театр",
+        "icons": [
+          "theatre-masks"
+        ],
+        "occurrence_count": 2
+      }
+    ],
+    "clarification": "Date is variable content override, not a literal-per-component catalog. Festival status is a finite semantic state with overridable visible text. This receipt proves the category/theme chip inventory."
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "variant_page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+    "variant_set_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+    "exact_review_page_id": "a21f5e36-5d76-8065-8008-8602db63b9db",
+    "exact_linked_shape_id": "a21f5e36-5d76-8065-8008-8602eb21fb00",
+    "theme_inventory_page_id": "a21f5e36-5d76-8065-8008-860f72da9702",
+    "theme_inventory_root_id": "a21f5e36-5d76-8065-8008-860f8fbac9a1",
+    "named_version": "FestivalCard · exact radius evidence + 12px Theme→Like gap",
+    "validation_issues": []
+  },
+  "telegram": {
+    "topic_root_message_id": 1030,
+    "message_id": 1088,
+    "message_link": "https://t.me/c/4337049383/1088",
+    "supersedes_message_id": 1086,
+    "read_back_status": "verified"
+  },
+  "non_claims": [
+    "owner acceptance",
+    "FestivalCard promotion",
+    "Astro reverse integration",
+    "all card families complete"
+  ]
+}

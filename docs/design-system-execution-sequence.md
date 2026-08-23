@@ -174,9 +174,11 @@ Large`. Wave 0 целиком нельзя объявлять завершённ
 family. Новый прогресс фиксируется только когда изменился contract, master,
 state coverage, exact evidence или terminal status. Последняя системная
 коррекция `festival.card` записана в
-`receipts/penpot/festival-card-visual-conformance-correction-v2.json`; verified
-live comparison — Telegram message `1086`, которое помечает прежнее `1085` как
-непригодное для review. Exact artifact-tail rail зафиксирован отдельно в
+`receipts/penpot/festival-card-owner-comments-correction-v3.json`; verified
+live comparison — Telegram message `1088`. Оно исправляет alpha-compositing
+скруглений из `1086`, сохраняет одинаковый radius 11 px и фиксирует 12 px
+между Theme и Like; прежние `1085` и `1086` не являются текущей целью review.
+Exact artifact-tail rail зафиксирован отдельно в
 `receipts/penpot/mobile-listing-rail-artifact-exact-v1.json` и Telegram message
 `1087`. До обновления этой таблицы фраза
 «карточки событий завершены в целом» запрещена.
