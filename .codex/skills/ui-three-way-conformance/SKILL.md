@@ -184,6 +184,14 @@ back after materialization: `fillImage.keepAspectRatio` being `null` or `false`
 is a blocking distortion unless the contract explicitly declares stretch.
 Never infer CSS `cover` merely because an image fills the Penpot rectangle.
 
+Image fills are live Penpot `ImageData` proxies, not plain JSON metadata. Never
+reconstruct `fillImage` from serialized id/name/dimensions: structural read-back
+may still look valid while the renderer exports a black rectangle because the
+native `.data()` capability was discarded. Preserve the source `fills` proxy
+across the page switch, or use the supported import path, then require
+`typeof fillImage.data === "function"` and a bounded leaf export before parent
+adoption.
+
 Transparent nested actions must be exported inside their real parent surface.
 Exporting a child by itself against an implicit black/transparent canvas is not
 valid evidence for a light consumer. Any master change invalidates the previous

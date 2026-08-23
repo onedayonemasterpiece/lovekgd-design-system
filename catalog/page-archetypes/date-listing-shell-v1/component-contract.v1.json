@@ -284,7 +284,7 @@
       ],
       "penpot_component_id": "d012936b-5394-80cb-8008-855655e1b216",
       "recursive_decomposition_status": "in-progress",
-      "known_structural_gap": "T04 exact track now owns linked semantic Event summary and Event digest children and its review instance inherits both links; the three exact media cells remain ordinary boards and require bounded leaf-by-leaf migration before recursive decomposition is complete"
+      "known_structural_gap": "T04 exact track now owns linked semantic Event summary, three rail media fixture adapters and Event digest children and its review instance inherits all five links; the identity-absent wrapper and outer Like action wrapper remain ordinary nested boards even though their visible descendants are linked, so recursive decomposition is not yet complete"
     },
     {
       "id": "listing.rail-row.event-digest",
@@ -306,6 +306,40 @@
       "geometry_rule": "168x112 exact leaf; 10px horizontal inset; heading at y=14.25 and six-line body begins at y=24.75",
       "materialization_rule": "semantic Event digest owns heading and overridable body; current exact-data adapter materializes the source six-line clamp with explicit terminal ellipsis because Penpot has no runtime CSS line clamp",
       "parent_adoption_status": "complete: owning T04 main owns linked child 06b5fc29-ba80-803f-8008-87508d267296 and compact review instance inherited linked child 06b5fc29-ba80-803f-8008-87509b92901f without terminal override"
+    },
+    {
+      "id": "listing.rail-row.media-frame",
+      "source": "MobileListingRailRow.astro#.event-media",
+      "states": [
+        "ready-cover",
+        "absent"
+      ],
+      "overridable": [
+        "media"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-87516651257f",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-875146957d25",
+        "name": "60.1g — Mobile rail media · Exact adapters"
+      },
+      "geometry_rule": "140x112 rail media frame, cover crop, 12px corners; the parent track owns 7px gaps",
+      "materialization_rule": "the reusable frame owns geometry and clipping while a fixture adapter binds the actual media; assignments must preserve the native Penpot ImageData proxy rather than reconstructing serialized fillImage metadata"
+    },
+    {
+      "id": "listing.rail-row.media.fixture-7906",
+      "classification": "exact-data adapters, not additional product variants",
+      "exact_fixture_id": "event.real.7906",
+      "dependencies": [
+        "listing.rail-row.media-frame"
+      ],
+      "penpot_component_ids": {
+        "slot-1": "06b5fc29-ba80-803f-8008-87517be0c7e1",
+        "slot-2": "06b5fc29-ba80-803f-8008-87519478607c",
+        "slot-3": "06b5fc29-ba80-803f-8008-8751af9f2c0c"
+      },
+      "review_board_id": "06b5fc29-ba80-803f-8008-8751c9aeb9af",
+      "materialization_rule": "each exact adapter contains a linked rail media frame and binds one immutable corpus asset through a native ImageData proxy; the review row uses three linked adapter instances",
+      "parent_adoption_status": "complete: owning T04 main linked children are 06b5fc29-ba80-803f-8008-8753d0c04927, 06b5fc29-ba80-803f-8008-8753d23f02c8 and 06b5fc29-ba80-803f-8008-8753d33a03d5; compact review inherited linked children 06b5fc29-ba80-803f-8008-8753dba6c618, 06b5fc29-ba80-803f-8008-8753dba557ed and 06b5fc29-ba80-803f-8008-8753dba223a5"
     },
     {
       "id": "listing.mobile-date-accessory",
