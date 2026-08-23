@@ -24,6 +24,17 @@
       ]
     },
     {
+      "id": "listing.page-date-header.tomorrow",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "tomorrow-active"
+      ],
+      "dependencies": [
+        "listing.date-nav-item.wide",
+        "listing.date-nav-item.wide.selected"
+      ]
+    },
+    {
       "id": "listing.date-nav-item.wide",
       "source": "ListingPageHeader.astro",
       "states": [
@@ -34,12 +45,27 @@
       ]
     },
     {
+      "id": "listing.date-nav-item.wide.selected",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "selected"
+      ]
+    },
+    {
       "id": "listing.controls",
       "source": "ListingControls.astro",
       "states": [
         "default",
         "filters-applied",
         "search-active"
+      ]
+    },
+    {
+      "id": "listing.city-filter-rail",
+      "source": "ListingDiscoveryRail.astro",
+      "states": [
+        "all-selected",
+        "city-selected"
       ]
     },
     {
@@ -161,7 +187,8 @@
     "mobile date accessory is a linked fixed-position listing component above the linked shell bottom navigation; its date chips and calendar trigger remain linked semantic actions",
     "shell overlay owns stacking and safe-area offsets",
     "desktop and mobile are separate parent contexts at 759/720 boundaries",
-    "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype"
+    "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype",
+    "stress proof is a bounded viewport component, not a long review page; its metadata owns the complete six-fixture registry while the viewport renders only chronologically visible fixtures"
   ],
   "archetype_variants": [
     {
@@ -196,6 +223,33 @@
         "listing.page-date-header.specific-date",
         "listing.time-group-header.sparse",
         "listing.event-card.compact",
+        "social-proof.like.compact36"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.stress.viewport",
+      "view": "tomorrow",
+      "density": "stress",
+      "fixture_registry": [
+        "event.real.8156",
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888",
+        "event.real.4327",
+        "event.real.6628"
+      ],
+      "visible_viewport_fixtures": [
+        "event.real.7807",
+        "event.real.7906"
+      ],
+      "dependencies": [
+        "listing.page-date-header.tomorrow",
+        "listing.city-filter-rail",
+        "listing.time-group-header.sparse",
+        "listing.event-card.compact",
+        "listing.media.7807",
+        "listing.media.7906",
+        "social-proof.like.inside",
         "social-proof.like.compact36"
       ]
     }
