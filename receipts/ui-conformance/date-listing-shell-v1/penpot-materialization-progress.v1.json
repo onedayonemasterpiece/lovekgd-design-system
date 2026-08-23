@@ -21,13 +21,18 @@
         "page_id": "a21f5e36-5d76-8065-8008-86b55dcd3bf3",
         "name": "60.3 — Date Listing · Typical desktop",
         "board_id": "a21f5e36-5d76-8065-8008-86b589c29f08"
+      },
+      {
+        "page_id": "a21f5e36-5d76-8065-8008-86baaa49f139",
+        "name": "60.4 — Date Listing · Mobile + states",
+        "board_id": "a21f5e36-5d76-8065-8008-86bad054b9ac"
       }
     ],
     "validation_errors": [],
-    "stable_component_count": 28,
+    "stable_component_count_current_namespace": 27,
     "competing_insertable_stable_id_duplicates": 0,
     "detached_managed_shape_count": 0,
-    "named_version": "Date Listing · typical desktop · chronological flow"
+    "named_version": "Date Listing · mobile fixed stack linked components"
   },
   "representation": {
     "id": "typical-desktop",
@@ -45,9 +50,31 @@
     "telegram_message_id": 1089,
     "telegram_read_back": "verified"
   },
+  "mobile_progress": {
+    "id": "typical-mobile",
+    "manifest_id": "archetype.listing.date-shell-v1.golden-v1",
+    "manifest_version": "1.0.0-candidate.1",
+    "fixture_ids": [
+      "event.real.7807",
+      "event.real.7906",
+      "event.real.7888"
+    ],
+    "viewport": "390x844",
+    "astro_png_sha256": "918f082f449659d9a8bce567b2135e920edabb7786ef5ce9c0c355f9d287aa93",
+    "penpot_progress_png_sha256": "c7bb2ba5f9570a1c8d4d6ea024e42c724a833dd41de90307aaa4d45eb00ba546",
+    "published_diagnostic_comparison_sha256": "db54ac8ed830a9a4b31c64f15e980861a97cd2c0d7082b3bcb9a968b1d54918f",
+    "telegram_message_id": 1090,
+    "telegram_read_back": "verified",
+    "linked_component_additions": [
+      "listing.mobile-date-accessory",
+      "listing.mobile-date-chip",
+      "listing.mobile-calendar-trigger"
+    ]
+  },
   "known_nonterminal_gaps": [
     "isolated Astro candidate still delegates ready state to the production DateListingSurface and must be materialized from the same candidate contract",
     "typical desktop header, weather and controls spacing has not reached terminal raster conformance",
-    "representations 2 through 7 are not yet terminal"
+    "typical mobile is materially aligned but still has renderer typography/icon deltas",
+    "representations 3 through 7 are not yet terminal"
   ]
 }
