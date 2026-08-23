@@ -64,6 +64,13 @@ assert.deepEqual(dependencies.dependencies.map((item) => item.semantic_id), [
   'archetype.listing.date.stress.viewport.continuation',
   'icon.ui.reference4.heart-thin.20',
   'icon.ui.reference4.share-network-thin.25',
+  'social-proof.share.compact36',
+  'medallion.frame.standard60.free',
+  'medallion.frame.standard60.more-vnutri',
+  'listing.event-card.compact.event.real.6628',
+  'listing.event-card.compact.event.real.4327',
+  'listing.event-card.compact.event.real.8156',
+  'listing.event-card.compact.event.real.7888',
 ]);
 assert(components.body_components.some((item) => item.id === 'listing.desktop-flow'));
 assert(components.body_components.some((item) => item.id === 'listing.page-date-header.specific-date'));
@@ -84,9 +91,7 @@ assert(stress.viewport_slices.some((slice) => slice.fixture_ids.length > 2), 'st
 const stressContinuation = components.archetype_variants.find((item) => item.id === 'archetype.listing.date.stress.viewport.continuation');
 assert(stressContinuation);
 assert.equal(stressContinuation.fixture_ids.length, 4);
-assert(stressContinuation.dependencies.includes('content.event-title.clamp2'));
-assert(stressContinuation.dependencies.includes('content.event-place.listing-on-light'));
-assert(stressContinuation.dependencies.includes('medallion.frame.normalized'));
+assert.deepEqual(stressContinuation.dependencies, ['listing.event-card.compact.event.real.6628', 'listing.event-card.compact.event.real.4327', 'listing.event-card.compact.event.real.8156', 'listing.event-card.compact.event.real.7888']);
 assert(components.body_components.some((item) => item.id === 'content.event-title.clamp2'));
 assert(components.body_components.some((item) => item.id === 'content.event-place.listing-on-light'));
 assert(components.body_components.some((item) => item.id === 'medallion.frame.normalized'));
@@ -98,7 +103,16 @@ assert(components.body_components.some((item) => item.id === 'listing.mobile-dat
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
 assert.equal(foundations.mobile_fixed_stack_px.content_clearance_without_safe_area, 120);
-assert(components.composition_rules.some((rule) => /one centered chronological column/.test(rule)));
+assert(components.composition_rules.some((rule) => /one to three intrinsic-width linked card instances/.test(rule)));
+for (const fixtureId of ['6628', '4327', '8156', '7888']) {
+  const card = components.body_components.find((item) => item.id === `listing.event-card.compact.event.real.${fixtureId}`);
+  assert(card, `missing fixture-bound compact card ${fixtureId}`);
+  assert.match(card.topology, /linked semantic children/);
+}
+assert(components.body_components.some((item) => item.id === 'social-proof.share.compact36'));
+assert(components.body_components.some((item) => item.id === 'medallion.frame.standard60.free'));
+assert(components.body_components.some((item) => item.id === 'medallion.frame.standard60.more-vnutri'));
+assert.match(stressContinuation.card_instance_topology, /four linked fixture-bound/);
 const desktopHeader = components.shell_components.find((item) => item.id === 'shell.desktop-header');
 assert.deepEqual(desktopHeader.brand_tag.corner_radii_px, [0, 0, 12, 12]);
 assert(components.shell_components.some((item) => item.id === 'shell.mobile-menu'));

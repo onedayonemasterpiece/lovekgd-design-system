@@ -219,6 +219,89 @@
       ],
       "rule": "consumer positions the normalized frame; artwork remains a linked nested component and may not be resized independently",
       "penpot_component_id": "446b4522-f9dd-80eb-8008-8358ef7540b4"
+    },
+    {
+      "id": "social-proof.share.compact36",
+      "source": "ListingEventCard.astro#ke-listing-card__share",
+      "states": [
+        "count-present"
+      ],
+      "overridable": [
+        "count"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870c7b58f649"
+    },
+    {
+      "id": "medallion.frame.standard60.free",
+      "source": "Medallion / Artwork / free",
+      "state": "standard60",
+      "rule": "concrete linked frame variant; no runtime swap or independently resized artwork",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870cb279b877"
+    },
+    {
+      "id": "medallion.frame.standard60.more-vnutri",
+      "source": "Medallion / Artwork / more-vnutri",
+      "state": "standard60",
+      "rule": "concrete linked frame variant; no runtime swap or independently resized artwork",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870cb2e2cbdb"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.6628",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.6628",
+      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "dependencies": [
+        "listing.media.6628",
+        "social-proof.like.compact36",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b37a2202b",
+      "owner_page": "60.1b — ListingEventCard · Compact variants"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.4327",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.4327",
+      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "dependencies": [
+        "listing.media.4327",
+        "medallion.frame.standard60.free",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6af1a5cb",
+      "owner_page": "60.1b — ListingEventCard · Compact variants"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.8156",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.8156",
+      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "dependencies": [
+        "listing.media.8156",
+        "medallion.frame.standard60.more-vnutri",
+        "social-proof.like.compact36",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6c686ced",
+      "owner_page": "60.1b — ListingEventCard · Compact variants"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.7888",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.7888",
+      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "dependencies": [
+        "listing.media.7888",
+        "social-proof.share.compact36",
+        "social-proof.like.compact36",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6e7d6ef9",
+      "owner_page": "60.1b — ListingEventCard · Compact variants"
     }
   ],
   "shell_components": [
@@ -350,14 +433,15 @@
   ],
   "composition_rules": [
     "ready archetype instances use linked listing-card and mobile-rail resources",
-    "desktop ready flow is one centered chronological column: each time-group header is co-located with its linked ListingEventCard slot; cards are never regrouped into a visual grid",
+    "desktop ready flow preserves chronological time groups; each group lays out one to three intrinsic-width linked card instances, and the untimed stress group proves a real three-card row",
     "state surfaces are semantic states, not hidden terminal overrides",
     "mobile date accessory is a linked fixed-position listing component above the linked shell bottom navigation; its date chips and calendar trigger remain linked semantic actions",
     "shell overlay owns stacking and safe-area offsets",
     "desktop and mobile are separate parent contexts at 759/720 boundaries",
     "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype",
     "stress proof is two bounded sequential viewport slices, never one long review board: upper renders the first two chronological fixtures and continuation renders the remaining four including the three-card program row",
-    "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only"
+    "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only",
+    "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays"
   ],
   "archetype_variants": [
     {
@@ -461,20 +545,15 @@
         "event.real.8156",
         "event.real.7888"
       ],
-      "layout_contract": "one chronological continuation slice with a three-card row; bounded board, no giant canvas",
+      "layout_contract": "one chronological continuation slice with a real three-card row; bounded board, no giant canvas",
       "dependencies": [
-        "listing.event-card.compact",
-        "listing.media.6628",
-        "listing.media.4327",
-        "listing.media.8156",
-        "listing.media.7888",
-        "content.event-title.clamp2",
-        "content.event-place.listing-on-light",
-        "social-proof.like.compact36",
-        "social-proof.like.inside",
-        "medallion.frame.normalized"
+        "listing.event-card.compact.event.real.6628",
+        "listing.event-card.compact.event.real.4327",
+        "listing.event-card.compact.event.real.8156",
+        "listing.event-card.compact.event.real.7888"
       ],
-      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292"
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292",
+      "card_instance_topology": "four linked fixture-bound ListingEventCard Compact instances; all media/content/social-proof/medallion slots are nested in their card masters"
     }
   ],
   "icon_components": {
