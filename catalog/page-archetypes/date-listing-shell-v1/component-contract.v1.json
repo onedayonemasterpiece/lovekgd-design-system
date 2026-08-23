@@ -1,0 +1,105 @@
+{
+  "schema_version": "date-listing-shell-component-contract.v1",
+  "component_family": "archetype.listing.date",
+  "lifecycle": "candidate",
+  "canonical": false,
+  "body_components": [
+    {
+      "id": "listing.page-date-header",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "today",
+        "tomorrow",
+        "date"
+      ]
+    },
+    {
+      "id": "listing.controls",
+      "source": "ListingControls.astro",
+      "states": [
+        "default",
+        "filters-applied",
+        "search-active"
+      ]
+    },
+    {
+      "id": "listing.date-weather-context",
+      "source": "WeatherDateContext.astro",
+      "states": [
+        "ready",
+        "unavailable"
+      ]
+    },
+    {
+      "id": "listing.time-navigation",
+      "source": "ListingTimeNav.astro",
+      "states": [
+        "hidden-by-content-rule",
+        "visible",
+        "earlier-present"
+      ]
+    },
+    {
+      "id": "listing.time-group",
+      "source": "ExactTimeTimeline.astro",
+      "states": [
+        "timed",
+        "untimed",
+        "earlier"
+      ]
+    },
+    {
+      "id": "listing.desktop-flow",
+      "source": "DateListingSurface.astro",
+      "states": [
+        "ready",
+        "sparse",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    {
+      "id": "listing.mobile-rail-viewport",
+      "source": "MobileListingRailSurface.astro",
+      "states": [
+        "ready",
+        "loading",
+        "empty",
+        "error"
+      ]
+    }
+  ],
+  "shell_components": [
+    {
+      "id": "shell.desktop-header",
+      "source": "EventLayout.astro"
+    },
+    {
+      "id": "shell.mobile-header",
+      "source": "Reference4MobileMenu.astro"
+    },
+    {
+      "id": "shell.mobile-menu",
+      "source": "Reference4MobileMenu.astro"
+    },
+    {
+      "id": "shell.mobile-bottom-navigation",
+      "source": "MobileBottomNav.astro"
+    },
+    {
+      "id": "shell.overlay-layer",
+      "source": "EventLayout.astro + listing sheets/toasts"
+    },
+    {
+      "id": "shell.footer",
+      "source": "SiteFooter.astro"
+    }
+  ],
+  "composition_rules": [
+    "ready archetype instances use linked listing-card and mobile-rail resources",
+    "state surfaces are semantic states, not hidden terminal overrides",
+    "shell overlay owns stacking and safe-area offsets",
+    "desktop and mobile are separate parent contexts at 759/720 boundaries"
+  ]
+}

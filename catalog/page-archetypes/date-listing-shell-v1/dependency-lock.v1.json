@@ -1,0 +1,33 @@
+{
+  "schema_version": "date-listing-shell-dependency-lock.v1",
+  "lifecycle": "candidate",
+  "frozen_at_penpot_revision": 1563,
+  "dependencies": [
+    {
+      "semantic_id": "event.card.large",
+      "status": "candidate-awaiting-owner-review",
+      "penpot_component_id": "b0fe69fd-ccaf-8025-8008-844b666fe76c",
+      "resource_path": "Event cards / Large",
+      "receipt": "receipts/penpot/event-card-large-semantic-closure-v1.json"
+    },
+    {
+      "semantic_id": "listing.event-card.compact",
+      "status": "candidate-exact-same-data-pass",
+      "penpot_component_id": "579a886e-56e8-80a3-8008-818874efe150",
+      "resource_path": "Event cards / Compact",
+      "receipt": "receipts/penpot/listing-event-card-source-geometry-remediation-v1.json"
+    },
+    {
+      "semantic_id": "listing.rail-row.track",
+      "status": "candidate-exact-t04-pass-general-family-partial",
+      "penpot_component_id": "a21f0524-f565-8038-8008-786ff2935002",
+      "resource_path": "Event cards / Mobile rail",
+      "receipt": "receipts/penpot/mobile-listing-rail-systemic-remediation-v1.json"
+    }
+  ],
+  "duplicate_policy": {
+    "scope": "transitive Date Listing + Shell dependency closure only",
+    "remove_only_if": "same semantic id, same state axes, same behavior, and identical insertable purpose are proven",
+    "similarity_alone_is_not_proof": true
+  }
+}
