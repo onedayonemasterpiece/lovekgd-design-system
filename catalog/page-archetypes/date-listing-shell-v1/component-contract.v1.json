@@ -545,6 +545,58 @@
       "penpot_component_id": "a21f5e36-5d76-8065-8008-86fc1c65c1f5"
     },
     {
+      "id": "content.event-title.fixture-adapter",
+      "classification": "exact-data adapters, not product variants",
+      "source": "content.event-title.clamp2 + immutable Golden Event Corpus resolved content",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-title.clamp2"
+      ],
+      "penpot_component_ids": {
+        "event.real.6628": "d87e18f1-dcb4-80a6-8008-8766da07f8e2",
+        "event.real.4327": "d87e18f1-dcb4-80a6-8008-8766dcdb59bc",
+        "event.real.8156": "d87e18f1-dcb4-80a6-8008-8766df5fdc26",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-8766e1d0964f"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "materialization_rule": "fixture-bound native component defaults own the exact frozen title and explicit Astro line wrapping; consumers link the adapter and do not rely on a terminal nested text override",
+      "renderer_reason": "Penpot 2.17.2 plugin read-back reported changed nested instance characters while bounded export still painted the generic source text; the adapter preserves component linkage and makes exported content deterministic"
+    },
+    {
+      "id": "content.event-place.fixture-adapter",
+      "classification": "exact-data adapters, not product variants",
+      "source": "content.event-place.listing-on-light + immutable Golden Event Corpus resolved content",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_ids": {
+        "event.real.6628": "d87e18f1-dcb4-80a6-8008-8766db7a0c8f",
+        "event.real.4327": "d87e18f1-dcb4-80a6-8008-8766de3c2ad0",
+        "event.real.8156": "d87e18f1-dcb4-80a6-8008-8766e0b121f4",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-8766e3255e9f"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "materialization_rule": "fixture-bound native component defaults own the full frozen place; long states own the on-light clipping mask and terminal ellipsis inside the semantic component rather than as an ordinary sibling text layer",
+      "renderer_reason": "same deterministic nested-instance export boundary as the title adapter; resolved full place remains stored on component metadata"
+    },
+    {
       "id": "medallion.frame.normalized",
       "source": "Medallion / Frame / Normalized",
       "states": [
@@ -584,59 +636,64 @@
       "id": "listing.event-card.compact.event.real.6628",
       "source": "ListingEventCard.astro",
       "fixture_id": "event.real.6628",
-      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
       "dependencies": [
         "listing.media.6628",
         "social-proof.like.compact36",
-        "content.event-title.clamp2",
-        "content.event-place.listing-on-light"
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b37a2202b",
-      "owner_page": "60.1b — ListingEventCard · Compact variants"
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "ready-for-owner-review: exact event.real.6628 direct Astro/Penpot card comparison at 420x280; title, place and like count all resolve inside linked semantic components; comparison sha256=34633e149cf9cf7a717b8c0905219891d83e78bb5fee3a759a060af49e4f8279"
     },
     {
       "id": "listing.event-card.compact.event.real.4327",
       "source": "ListingEventCard.astro",
       "fixture_id": "event.real.4327",
-      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
       "dependencies": [
         "listing.media.4327",
         "medallion.frame.standard60.free",
-        "content.event-title.clamp2",
-        "content.event-place.listing-on-light"
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6af1a5cb",
-      "owner_page": "60.1b — ListingEventCard · Compact variants"
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
     },
     {
       "id": "listing.event-card.compact.event.real.8156",
       "source": "ListingEventCard.astro",
       "fixture_id": "event.real.8156",
-      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
       "dependencies": [
         "listing.media.8156",
         "medallion.frame.standard60.more-vnutri",
         "social-proof.like.compact36",
-        "content.event-title.clamp2",
-        "content.event-place.listing-on-light"
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6c686ced",
-      "owner_page": "60.1b — ListingEventCard · Compact variants"
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
     },
     {
       "id": "listing.event-card.compact.event.real.7888",
       "source": "ListingEventCard.astro",
       "fixture_id": "event.real.7888",
-      "topology": "component master with linked semantic children; no sibling overlay assembly in archetype",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
       "dependencies": [
         "listing.media.7888",
         "social-proof.share.compact36",
         "social-proof.like.compact36",
-        "content.event-title.clamp2",
-        "content.event-place.listing-on-light"
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
       ],
       "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6e7d6ef9",
-      "owner_page": "60.1b — ListingEventCard · Compact variants"
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters"
     }
   ],
   "shell_components": [

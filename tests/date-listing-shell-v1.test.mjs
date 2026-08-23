@@ -107,6 +107,15 @@ assert.equal(stressContinuation.fixture_ids.length, 4);
 assert.deepEqual(stressContinuation.dependencies, ['listing.event-card.compact.event.real.6628', 'listing.event-card.compact.event.real.4327', 'listing.event-card.compact.event.real.8156', 'listing.event-card.compact.event.real.7888']);
 assert(components.body_components.some((item) => item.id === 'content.event-title.clamp2'));
 assert(components.body_components.some((item) => item.id === 'content.event-place.listing-on-light'));
+const titleFixtureAdapters = components.body_components.find((item) => item.id === 'content.event-title.fixture-adapter');
+const placeFixtureAdapters = components.body_components.find((item) => item.id === 'content.event-place.fixture-adapter');
+assert(titleFixtureAdapters);
+assert(placeFixtureAdapters);
+assert.equal(titleFixtureAdapters.owner_page.id, 'd87e18f1-dcb4-80a6-8008-876664e327e7');
+assert.equal(Object.keys(titleFixtureAdapters.penpot_component_ids).length, 4);
+assert.equal(Object.keys(placeFixtureAdapters.penpot_component_ids).length, 4);
+assert.match(titleFixtureAdapters.renderer_reason, /read-back reported changed nested instance characters/);
+assert.match(placeFixtureAdapters.materialization_rule, /ellipsis inside the semantic component/);
 assert(components.body_components.some((item) => item.id === 'medallion.frame.normalized'));
 assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.sparse'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
@@ -210,7 +219,8 @@ assert(components.composition_rules.some((rule) => /one to three intrinsic-width
 for (const fixtureId of ['6628', '4327', '8156', '7888']) {
   const card = components.body_components.find((item) => item.id === `listing.event-card.compact.event.real.${fixtureId}`);
   assert(card, `missing fixture-bound compact card ${fixtureId}`);
-  assert.match(card.topology, /linked semantic children/);
+  assert.match(card.topology, /linked semantic media\/proof\/identity children/);
+  assert.deepEqual(card.dependencies.filter((item) => item.startsWith('content.')), ['content.event-title.fixture-adapter', 'content.event-place.fixture-adapter']);
 }
 assert(components.body_components.some((item) => item.id === 'social-proof.share.compact36'));
 assert(components.body_components.some((item) => item.id === 'medallion.frame.standard60.free'));
