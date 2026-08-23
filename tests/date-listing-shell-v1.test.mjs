@@ -56,6 +56,12 @@ assert.equal(foundations.breakpoints.mobile_shell_max_px, 759);
 assert.equal(foundations.typography.renderer_resolution.astro_source_max_weight, 920);
 assert.equal(foundations.typography.renderer_resolution.penpot_display_resolved_weight, 900);
 assert.equal(foundations.typography.renderer_resolution.penpot_line_height_mode, 'unitless_ratio');
+assert.equal(foundations.candidate_id, 'listing-foundations-candidate-v1');
+assert.equal(Object.keys(foundations.typography.roles).length, 6);
+assert.equal(Object.keys(foundations.semantic_color_resources).length, 14);
+assert.equal(foundations.spacing_roles_px['page.large'], 32);
+assert.equal(foundations.radius_roles_px['rail.media'], 12);
+assert.match(foundations.penpot_materialization.token_set_status, /UNVERIFIED/);
 assert(foundations.accessibility.minimum_target_px >= 44);
 assert(foundations.accessibility.safe_areas.length === 4);
 
@@ -254,5 +260,8 @@ assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit sema
 assert(decisions.decisions.some((item) => item.id === 'DL-007' && /Penpot display styles resolve it/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-008' && /unitless ratio/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-009' && /build-time rendered static listing rows/.test(item.decision)));
+assert(decisions.decisions.some((item) => item.id === 'DL-010' && /bounded export/.test(item.decision)));
+assert(decisions.decisions.some((item) => item.id === 'DL-011' && /full card root width/.test(item.decision)));
+assert(decisions.decisions.some((item) => item.id === 'DL-013' && /Astro-authoritative/.test(item.decision)));
 
 console.log('date-listing-shell-v1.test: PASS (fixtures, representations, foundations, dependencies, states, shell)');
