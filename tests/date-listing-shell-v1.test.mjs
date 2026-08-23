@@ -92,6 +92,8 @@ assert(components.body_components.some((item) => item.id === 'content.event-plac
 assert(components.body_components.some((item) => item.id === 'medallion.frame.normalized'));
 assert(components.archetype_variants.some((item) => item.id === 'archetype.listing.date.sparse'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-rail-viewport'));
+const mobileRailViewport = components.body_components.find((item) => item.id === 'listing.mobile-rail-viewport');
+assert.match(mobileRailViewport.content_delivery.date_today_tomorrow_weekend_popular, /build-time rendered/);
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-accessory'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-date-chip'));
 assert(components.body_components.some((item) => item.id === 'listing.mobile-calendar-trigger'));
@@ -119,5 +121,6 @@ assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-007' && /Penpot display styles resolve it/.test(item.decision)));
 assert(decisions.decisions.some((item) => item.id === 'DL-008' && /unitless ratio/.test(item.decision)));
+assert(decisions.decisions.some((item) => item.id === 'DL-009' && /build-time rendered static listing rows/.test(item.decision)));
 
 console.log('date-listing-shell-v1.test: PASS (fixtures, representations, foundations, dependencies, states, shell)');
