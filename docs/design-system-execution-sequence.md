@@ -1,8 +1,23 @@
 # LoveKGD Design System — практическая очерёдность завершения
 
 > **Статус:** рабочий план выполнения, связанный с [чек-листом завершения](design-system-progress-checklist.md).  
+> **Актуальность checkpoint:** 23 августа 2026 года.  
 > **Назначение:** определить, что делать после карточек событий, когда нормализовать foundations, shell, полки, модальные окна и архетипы, не выполняя одну и ту же работу дважды.  
 > **Принцип:** дизайн-система строится для устранения визуального и технического дрейфа сайта, а не ради полноты каталога.
+
+## 0. Фактический checkpoint
+
+Этот план описывает не старт с нуля, а продолжение уже идущей работы.
+
+На момент актуализации:
+
+- current-v2 EventCard Large имеет active seven-case registry, но остаётся `BLOCKED` до полного evidence/read-back closure и точной mobile export revision;
+- PR [#43](https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/43) уже содержит bounded `listing-foundations-candidate-v1`, Date Listing и Shell v1 на 7 real-event fixtures и 7 representations; статус — candidate `READY_FOR_OWNER_REVIEW`, не accepted/promoted/deployed;
+- Weekend и общий `Listing Page Pattern v1` входят в текущую автономную Goal и не считаются завершёнными до появления exact evidence;
+- production Event Detail, Search, Favorites и For Me реально существуют в Astro, но это ещё не нормализованные и не promoted дизайн-системные архетипы;
+- Event Detail source уже содержит desktop `editorial`/`split`, mobile composition, transport и question CTA; обязательный case «широкая фотография + отдельно выделенная identity poster сбоку» должен быть явно закреплён в archetype contract, а не оставаться скрытой routing-веткой.
+
+Checkpoint обновляет статус, но не меняет правило завершения: candidate materialization без owner acceptance и consumer migration не получает `[x]`.
 
 ## 1. Основное решение
 
@@ -97,6 +112,7 @@ pinned Astro AS-IS
 - card actions и meta components;
 - card iconography;
 - media framing;
+- medallion tiers and bindings;
 - Golden Event Corpus и Astro ↔ Penpot conformance.
 
 ### Результат
@@ -107,9 +123,12 @@ pinned Astro AS-IS
 - разрешены только content/state instance overrides;
 - системные visual overrides на конечных instances отсутствуют;
 - comparison cases воспроизводимы локально и в CI;
-- owner может проверять Astro/Penpot comparison в Telegram.
+- owner может проверять Astro/Penpot comparison в Telegram;
+- current-v2 evidence/read-back не содержит неизвестной или подменённой export revision.
 
 Это обязательная зависимость следующих волн. Не требуется одновременно продвигать все пять card families в production, но exact versions, states и remaining candidate deltas должны быть известны.
+
+Актуальный blocker не следует заменять старым текстом PR: current-v2 closure должен честно закрыть evidence packs, contract metadata read-back и mobile export provenance.
 
 ---
 
@@ -175,6 +194,8 @@ pinned Astro AS-IS
 
 Это `listing-foundations-candidate-v1`, а не обещание, что глобальный брендбук и все значения сайта окончательно завершены. Значения проверяются на первом архетипе и стабилизируются после второго listing archetype.
 
+Текущий candidate в PR #43 является evidence этой волны, но не заменяет owner acceptance.
+
 ---
 
 ## Волна 2 — первый вертикальный срез: архетип страницы на дату
@@ -236,13 +257,15 @@ external dependency
 
 ### Representation set
 
-Для Penpot достаточно:
+Минимум:
 
 1. typical desktop;
 2. typical mobile;
 3. sparse;
-4. empty;
-5. один stress case.
+4. loading/empty/error matrix;
+5. один stress case;
+6. full-page desktop shell;
+7. full-page mobile shell.
 
 Не требуется статически дублировать в Penpot полный production-листинг из 20–30 карточек.
 
@@ -337,42 +360,211 @@ Header, mobile menu и bottom navigation важнее footer, потому чт�
 → event detail
 ```
 
-Scope:
+`archetype.event-detail` — один responsive archetype с explicit composition variants, а не один усреднённый экран и не набор несвязанных страниц.
+
+### 6.1. Обязательная desktop composition matrix
+
+#### A. `editorial-wide`
+
+Широкая crop-safe фотография является основным hero. Проверить:
+
+- bounded cover/object-position;
+- optional media rail;
+- title/summary/content flow;
+- actions and sticky/continuous behavior;
+- gallery states;
+- long copy and related events.
+
+#### B. `split-poster`
+
+Узкая/вертикальная афиша, portrait visual или protected document media показывается в отдельной narrow stage рядом с content flow. Проверить:
+
+- отсутствие растяжения и необоснованных полей;
+- bounded poster/document framing;
+- portrait viewer and rail;
+- long title/content;
+- no-image-compatible layout fallback.
+
+#### C. `editorial-with-poster-companion`
+
+Широкая фотография остаётся hero, а отдельно классифицированная `event_identity_poster` показывается выделенным companion-блоком сбоку.
+
+Это обязательный отдельный case:
+
+```text
+wide landscape hero
++ classified identity poster
++ side companion/arrival region
+```
+
+Нельзя растворять его в общей метке `editorial` или заменять обычной thumbnail rail. В manifest должны быть точные `heroImageIndex`, `ocrCompanionImageIndex`, companion layout/state и shared fixture.
+
+#### D. `no-image`
+
+Typed fallback без выдуманного media. Actions, facts, description, transport, feedback и related content продолжают работать.
+
+### 6.2. Обязательная mobile composition matrix
+
+Mobile имеет отдельные representations, но те же semantic contracts:
+
+1. photo hero/gallery;
+2. poster/protected-media hero;
+3. no-image fallback;
+4. sticky primary action;
+5. medallions/participants;
+6. description/facts;
+7. transport;
+8. question/feedback CTA;
+9. related events;
+10. archived/closed and interaction checkpoints.
+
+### 6.3. Общий scope Event Detail
 
 - hero composition;
 - media frame/viewer/gallery;
-- summary;
+- summary and occurrence navigation;
 - admission/actions;
 - facts;
 - participants/venue;
 - medallions;
+- description/long-form content;
 - transport;
+- question/feedback;
 - related events;
-- no-image and protected-media branches.
+- optional personal feed;
+- no-image, protected-media, archived/closed and source-update branches.
+
+### 6.4. Transport pattern
+
+Собрать один conditional `event.transport` pattern из реальных consumers:
+
+- rail schedule;
+- bus schedule;
+- Kaup/special route;
+- multiple modes together;
+- no transport data;
+- unavailable/stale/error/source-update states;
+- desktop and mobile density;
+- explicit-end/time feasibility behavior.
+
+Transport не должен становиться обязательным пустым блоком каждого события. Archetype объявляет slot и условия появления.
+
+### 6.5. Question, feedback и NPS
+
+Развести три разных Jobs:
+
+1. **Current production question CTA** — «Остались вопросы?» с переходом к источнику/партнёру;
+2. **Event/surface feedback** — ошибка в событии, полезность страницы, предложение улучшения;
+3. **Overall relationship NPS** — редкий cadence/trigger-based вопрос о продукте в целом.
+
+В Wave 6:
+
+- нормализовать desktop/mobile `EventQuestionCta`;
+- добавить optional `event_issue`, `surface_usefulness` и `improvement` slots/states;
+- подготовить binding к shared feedback dialog foundation;
+- не размещать overall NPS постоянно на каждой event page.
+
+Overall NPS стабилизируется после появления нескольких реальных page-family consumers в Wave 7.
+
+### 6.6. Representation and conformance set
+
+Минимальный acceptance set:
+
+- четыре desktop composition cases;
+- три mobile media cases;
+- transport present/absent/multi-mode;
+- question CTA present/absent;
+- feedback dialog checkpoints;
+- gallery/viewer open/close, keyboard and swipe checkpoints;
+- long copy, long title, no image, protected poster and archived state.
+
+Использовать один manifest и одни real-event fixtures на Astro/Penpot. Penpot показывает устойчивые checkpoints; browser остаётся authority для swipe, drag, scroll physics, keyboard flow и animations.
 
 ### Modal/dialog system
 
-Общий overlay foundation уже должен существовать после shell/date waves. Здесь добавить domain-specific gallery/dialog states без создания второго modal framework.
-
-Browser remains authority для swipe, drag, scroll physics, keyboard flow и animations. Penpot показывает устойчивые checkpoints.
+Общий overlay foundation уже должен существовать после shell/date waves. Здесь добавить domain-specific gallery/viewer/feedback states без создания второго modal framework.
 
 ---
 
-## Волна 7 — Search, Favorites и Personal Feed
+## Волна 7 — Search, Favorites, Personal Feed и shared feedback system
 
-Эти архетипы идут после основной карточной и listing инфраструктуры, поскольку добавляют прежде всего состояния данных и identity:
+Эти архетипы идут после основной карточной, listing и Event Detail инфраструктуры. Они добавляют прежде всего состояния данных, auth/identity и recovery.
 
-- anonymous/authenticated;
-- loading;
+### 7.1. Search
+
+Собрать `archetype.search` из production `/poisk/` и `AuthorizedEventSearch`.
+
+Обязательные states:
+
+- auth checking;
+- signed out;
+- signed in/account/logout;
+- idle input;
+- validation;
+- loading/progress/skeleton;
+- populated results;
 - empty;
-- populated;
-- error;
-- retry;
-- stale;
-- saved/personalized;
-- recovery.
+- pagination/load more;
+- slow/timeout/error/retry/fallback;
+- query preservation through auth callback;
+- mobile bottom-navigation reconciliation.
 
-Нельзя создавать отдельные визуальные карточки для Search/Favorites, если они используют уже принятую card family. Отличия оформляются state/context contract.
+Search results используют принятую card family. Новый visual card type создаётся только при доказанной anatomy/behavior delta.
+
+### 7.2. Favorites
+
+Собрать `archetype.favorites` из production `/izbrannoe/` и `FavoritesSurface`.
+
+Обязательные states:
+
+- initial loading skeleton;
+- signed-out local saves;
+- auth-required explanation;
+- signed-in local + cloud reconciliation;
+- populated future-only deduplicated list;
+- empty;
+- catalog/renderer/cloud failure без потери local state;
+- stale/past cleanup;
+- live update after like/calendar action;
+- desktop/mobile layout.
+
+Favorites не получает отдельную карточку, если production consumer использует принятую event card с context/state contract.
+
+### 7.3. For Me / Personal Feed
+
+Сначала зафиксировать разницу между текущим noindex prototype `/dlya-menya/` и целевым персональным feed.
+
+Обязательные states:
+
+- consent not granted/granted/revoked;
+- empty/populated explicit interest profile;
+- computed interest index with insufficient/sufficient data;
+- local storage unavailable;
+- digest eligibility locked/eligible/enabled;
+- recommendations, explanation and reaction states;
+- hidden/restored items;
+- signed out/signed in boundary;
+- no-JavaScript fallback;
+- loading/empty/populated/stale/error для target real feed;
+- gated focus-participant feedback.
+
+Не объявлять prototype promoted product archetype, пока target data/identity contract не принят.
+
+### 7.4. Shared feedback/NPS stabilization
+
+После Event Detail и как минимум ещё одного page-family consumer извлечь общий pattern:
+
+- `feedback.surface-usefulness`;
+- `feedback.improvement`;
+- `feedback.event-issue`;
+- `feedback.overall-nps`;
+- dialog/sheet, confirmation, error and retry states;
+- auth/participant gate;
+- cadence/trigger and persistence contract;
+- privacy/no-PII copy;
+- page-family/context binding.
+
+Overall NPS остаётся отдельным relationship signal и не смешивается с полезностью конкретной страницы.
 
 ---
 
@@ -385,6 +577,7 @@ Browser remains authority для swipe, drag, scroll physics, keyboard flow и a
 - shell;
 - card families;
 - listing patterns;
+- Event Detail journey;
 - state system;
 - basic personalization;
 - page typography and layout foundations.
@@ -459,13 +652,20 @@ Browser remains authority для swipe, drag, scroll physics, keyboard flow и a
 | Containers/grid/breakpoints | До Date Listing | После Date + shell + Weekend |
 | Brand basics | До/в Shell v1 | Расширить с Home/editorial surfaces |
 | Iconography | По card scope сейчас | Global registry в Shell/Core waves |
-| Modal/dialog/sheet | При первом calendar/menu/filter flow | Расширить в Event Detail/Search |
+| Modal/dialog/sheet | При первом calendar/menu/filter flow | Расширить в Event Detail/Search/feedback |
 | Loading/empty/error/retry | В каждой component/archetype wave | Никогда не откладывать на финал |
 | Focus/keyboard/a11y/motion | С первой component wave | Проверять в каждой последующей wave |
 | Control/navigation rails | Date Listing | Проверить Weekend/Popular |
 | Generic content shelves | Не делать заранее | После двух реальных shelf consumers |
 | Header/mobile navigation | После первого body archetype | До масштабирования на остальные страницы |
 | Footer | После top shell | До promotion первой полной page family |
+| Event Detail composition matrix | Wave 6 до materialization archetype | После wide + split + wide/companion + mobile fixtures |
+| Transport pattern | Wave 6 | После rail/bus/special + absent/stale/error states |
+| Event question and event-issue feedback | Wave 6 | После desktop/mobile Event Detail review |
+| Overall NPS/usefulness/improvement | Не делать page-local заранее | Wave 7 после минимум двух page-family consumers и trigger contract |
+| Search fields/results/account states | Wave 7 Search | После mobile/desktop/auth/recovery acceptance |
+| Favorites/local-cloud reconciliation | Wave 7 Favorites | После local/cloud/error/stale coverage |
+| Personal profile/feed states | Wave 7 For Me | После prototype/target boundary и real-feed contract |
 
 ---
 
@@ -538,6 +738,19 @@ groups:
 
 Astro и Penpot получают один и тот же manifest и те же fixture IDs. Ручное отдельное заполнение двух сторон запрещено.
 
+Для Event Detail тот же принцип распространяется на composition metadata:
+
+```yaml
+representation_id: event-detail.desktop.editorial-with-poster-companion
+archetype_id: archetype.event-detail
+viewport_id: desktop-1728x900
+fixture_id: event.landscape-plus-identity-poster
+composition: editorial
+hero_source_index: 1
+poster_companion_source_index: 0
+poster_companion_layout: arrival
+```
+
 ---
 
 # Правила эффективности
@@ -552,6 +765,8 @@ Astro и Penpot получают один и тот же manifest и те же f
 8. Live Penpot export выполняется при изменении Penpot resource, а не при каждом Astro rerun.
 9. Owner review получает representative Telegram boards, а не сотни однотипных PASS-картинок.
 10. Checklist обновляется после каждой волны, чтобы исследования и candidates не выглядели как внедрённый результат.
+11. Наличие production route подтверждает consumer, но не закрывает DS archetype.
+12. Optional product signal не превращается в постоянный блок страницы только потому, что уже существует prototype.
 
 # Что не делать
 
@@ -565,20 +780,25 @@ Astro и Penpot получают один и тот же manifest и те же f
 - не вставлять карточки как detached copies;
 - не требовать уникальные данные для каждой из десятков layout-fill cards;
 - не считать повторяющиеся карточки достаточным stress coverage;
-- не откладывать loading/error/accessibility на финальную волну.
+- не откладывать loading/error/accessibility на финальную волну;
+- не сокращать Event Detail до generic wide/narrow и не терять wide+poster-companion case;
+- не считать NPS синонимом полезности страницы или сообщения об ошибке события;
+- не переносить noindex For Me prototype в promoted product без target data/identity contract.
 
-# Следующий конкретный шаг после карточек
+# Текущий автономный контур и следующий рубеж
 
 ```text
-1. Зафиксировать card versions, fixtures и conformance.
-2. Создать listing-foundations-candidate-v1.
-3. Оформить archetype.listing.date.
-4. Собрать typical mobile/desktop + sparse + empty + stress representations.
-5. Довести Penpot до Astro parity в astro-reference mode.
-6. Провести owner review.
-7. Нормализовать shell v1.
-8. Перейти к Weekend как reuse-first delta.
-9. После двух архетипов выделить общий Listing Page Pattern.
+1. Закрыть current-v2 card handoff без потери текущей работы.
+2. Зафиксировать listing-foundations-candidate-v1.
+3. Довести archetype.listing.date.
+4. Довести site-shell-v1.
+5. Собрать archetype.listing.weekend reuse-first.
+6. После Date + Weekend извлечь Listing Page Pattern v1.
+7. Провести один consolidated owner review.
+8. Проверить pattern на Popular/Unusual.
+9. Собрать Event Detail по полной desktop/mobile composition matrix.
+10. Нормализовать Search, Favorites и For Me.
+11. Стабилизировать shared feedback/NPS pattern на нескольких consumers.
 ```
 
-Эта последовательность одновременно уменьшает повторную работу и не позволяет локальному Astro-дрейфу стать новой дизайн-системой.
+Эта последовательность одновременно уменьшает повторную работу, не позволяет локальному Astro-дрейфу стать новой дизайн-системой и не теряет уже существующие сложные product branches.
