@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/global-archetype-sot-v1-corrective-20260824
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
 
 permissions:
   contents: read
@@ -16,6 +19,7 @@ jobs:
       - name: Checkout latest design-system feature head
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Checkout locked Astro source
@@ -66,18 +70,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf '%s\n' "$(git rev-parse HEAD)" > "$RUNNER_TEMP/design-head.txt"
-          printf '%s\n' "$(git -C events-bot rev-parse HEAD)" > "$RUNNER_TEMP/astro-head.txt"
+          mkdir -p "$RUNNER_TEMP/inspection-meta"
+          cp "$RUNNER_TEMP/handoff-validation.json" "$RUNNER_TEMP/inspection-meta/"
+          cp "$RUNNER_TEMP/byte-equality-proof.json" "$RUNNER_TEMP/inspection-meta/"
+          git rev-parse HEAD > "$RUNNER_TEMP/inspection-meta/design-head.txt"
+          git -C events-bot rev-parse HEAD > "$RUNNER_TEMP/inspection-meta/astro-head.txt"
           tar -czf "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" \
             catalog/global-archetype-sot-v1 \
             catalog/reconstruction-atlas/v1 \
             scripts/global-archetype-sot-v1 \
             AGENTS.md \
             events-bot/src \
-            "$RUNNER_TEMP/handoff-validation.json" \
-            "$RUNNER_TEMP/byte-equality-proof.json" \
-            "$RUNNER_TEMP/design-head.txt" \
-            "$RUNNER_TEMP/astro-head.txt"
+            -C "$RUNNER_TEMP" inspection-meta
           sha256sum "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" > "$RUNNER_TEMP/global-archetype-corrective-inspection.sha256"
 
       - name: Upload inspection bundle
@@ -87,7 +91,7 @@ jobs:
           path: |
             ${{ runner.temp }}/global-archetype-corrective-inspection.tar.gz
             ${{ runner.temp }}/global-archetype-corrective-inspection.sha256
-            ${{ runner.temp }}/handoff-validation.json
-            ${{ runner.temp }}/byte-equality-proof.json
+            ${{ runner.temp }}/inspection-meta/handoff-validation.json
+            ${{ runner.temp }}/inspection-meta/byte-equality-proof.json
           if-no-files-found: error
           retention-days: 3
