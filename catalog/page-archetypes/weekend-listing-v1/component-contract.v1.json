@@ -1,0 +1,77 @@
+{
+  "schema_version": "weekend-listing-component-contract.v1",
+  "component_family": "archetype.listing.weekend",
+  "lifecycle": "candidate",
+  "canonical": false,
+  "reuse_first": true,
+  "common_dependencies": [
+    "listing-foundations-candidate-v1",
+    "site-shell-v1",
+    "listing.page-date-header",
+    "listing.city-filter-rail",
+    "listing.mobile-page-head",
+    "listing.mobile-feed-head",
+    "listing.rail-row.track",
+    "listing.event-card.compact",
+    "listing.mobile-date-accessory",
+    "listing.mobile-bottom-navigation",
+    "listing.state-action"
+  ],
+  "weekend_delta": [
+    {
+      "id": "listing.weekend-range-navigation",
+      "source": "WeekendRangeNav.astro",
+      "states": ["default", "selected-current", "wrapped-compact-desktop"],
+      "dependencies": ["icon.product.long-arrow-right"],
+      "materialization_rule": "one semantic range-navigation parent owns linked range items and the continuation icon; per-page text overlays are forbidden"
+    },
+    {
+      "id": "listing.weekend-day-header",
+      "source": "WeekendListingSurface.astro#.ke-weekend-day__head",
+      "states": ["saturday", "sunday", "empty-day"],
+      "overridable": ["weekday", "date", "count", "weather-state"]
+    },
+    {
+      "id": "listing.weekend-time-marker",
+      "source": "ListingTimeMarker.astro",
+      "states": ["timed", "untimed", "day-counts"],
+      "reuse": "shared listing time marker with weekend day-count presentation"
+    },
+    {
+      "id": "listing.weekend-editorial-timeline",
+      "source": "WeekendEditorialTimeline.astro",
+      "states": ["two-day", "single-day-concentration", "empty-opposite-day", "compact-desktop"],
+      "dependencies": ["listing.weekend-time-marker", "listing.event-card.compact"]
+    },
+    {
+      "id": "archetype.listing.weekend",
+      "source": "WeekendListingCandidateSurface.astro",
+      "states": ["typical-desktop", "typical-mobile", "sparse", "empty", "stress"],
+      "dependencies": [
+        "listing.weekend-range-navigation",
+        "listing.weekend-day-header",
+        "listing.weekend-editorial-timeline"
+      ]
+    }
+  ],
+  "state_policy": {
+    "typical": "two exact Saturday events from the frozen corpus and an honestly empty Sunday column",
+    "sparse": "one exact Saturday event and an honestly empty Sunday column",
+    "empty": "dedicated weekend empty-state message with adjacent-weekend navigation action",
+    "stress": "same two exact events with six real-shaped range links at compact desktop width; no duplicated fixtures"
+  },
+  "conformance": {
+    "mode": "recursive-correction",
+    "same_exact_fixture_state_viewport_required": true,
+    "direct_component_comparison_required": true,
+    "parent_or_page_comparison_substitutes_for_child": false,
+    "mismatch_action": "fix the lowest owning SoT/native master, inherit through linked instances, then recheck affected Weekend parents"
+  },
+  "forbidden": [
+    "detached Penpot copies",
+    "unregistered visual overrides",
+    "fabricated stress events",
+    "exhibition-like event.real.7888 in the primary Weekend fixture projection",
+    "promotion, merge, deployment or production-route mutation"
+  ]
+}

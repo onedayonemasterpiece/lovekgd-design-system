@@ -1,0 +1,31 @@
+{
+  "schema_version": "weekend-listing-decision-ledger.v1",
+  "family": "archetype.listing.weekend",
+  "decisions": [
+    {
+      "id": "WL-001",
+      "status": "source-bound",
+      "decision": "The nearest frozen weekend is 2026-08-22 through 2026-08-23 in Europe/Kaliningrad and uses the corpus reference clock 2026-08-21T09:00:00+02:00."
+    },
+    {
+      "id": "WL-002",
+      "status": "fixture-bound",
+      "decision": "The typical Weekend projection contains exactly event.real.7807 and event.real.7906. Both belong to Saturday; Sunday remains visibly empty rather than receiving fabricated data."
+    },
+    {
+      "id": "WL-003",
+      "status": "corpus-authoritative",
+      "decision": "event.real.7888 is not materialized in Weekend even though its source date is Saturday: frozen surface expectations classify exhibition-like events outside the primary date/weekend listing."
+    },
+    {
+      "id": "WL-004",
+      "status": "reuse-first",
+      "decision": "Foundations, shell, listing cards, mobile rail rows, state action and shared navigation primitives are reused. Only range navigation, two-day grouping and weekend timeline behavior are new semantic delta."
+    },
+    {
+      "id": "WL-005",
+      "status": "honest-stress",
+      "decision": "Stress coverage uses six range links, compact desktop wrapping, two time rows and a single-day event concentration. It does not clone or mutate frozen events to simulate density."
+    }
+  ]
+}
