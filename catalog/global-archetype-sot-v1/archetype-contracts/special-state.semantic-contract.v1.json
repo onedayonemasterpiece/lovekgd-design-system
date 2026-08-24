@@ -1,0 +1,361 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "special.prelaunch",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "special.membership-check",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "special.locked",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "special.closed-hub",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "special.unavailable",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.special-state",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "authorization.static-site",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#authorization.static-site",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "authorization.static-site"
+      ]
+    },
+    {
+      "component_id": "brand.identity-and-pwa",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#brand.identity-and-pwa",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "brand.identity-and-pwa"
+      ]
+    },
+    {
+      "component_id": "focus.feedback",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.feedback",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "focus.feedback"
+      ]
+    },
+    {
+      "component_id": "focus.lab-badge",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.lab-badge",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "focus.lab-badge"
+      ]
+    },
+    {
+      "component_id": "runtime.special-state",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.special-state"
+      ]
+    },
+    {
+      "component_id": "special.closed-hub",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#special.closed-hub",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "special.closed-hub"
+      ]
+    },
+    {
+      "component_id": "special.membership-gate",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#special.membership-gate",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "special.membership-gate"
+      ]
+    },
+    {
+      "component_id": "special.prelaunch",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#special.prelaunch",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "special.prelaunch"
+      ]
+    },
+    {
+      "component_id": "system.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.state-panel",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "system.state-panel"
+      ]
+    },
+    {
+      "component_id": "unresolved.gap-prelaunch-runtime",
+      "dependency_type": "unresolved_contract",
+      "disposition": "unresolved",
+      "required": false,
+      "source_identity_ids": [
+        "gap:GAP-PRELAUNCH-RUNTIME"
+      ],
+      "unresolved_reason": "GAP-PRELAUNCH-RUNTIME"
+    },
+    {
+      "component_id": "unresolved.gap-unavailable-route",
+      "dependency_type": "unresolved_contract",
+      "disposition": "unresolved",
+      "required": false,
+      "source_identity_ids": [
+        "gap:GAP-UNAVAILABLE-ROUTE"
+      ],
+      "unresolved_reason": "GAP-UNAVAILABLE-ROUTE"
+    }
+  ],
+  "contract_id": "archetype.special-state.global-sot-v1",
+  "disposition": "runtime_only",
+  "dispositions_summary": {
+    "new_component": 3,
+    "reuse_existing": 4,
+    "runtime_only": 3,
+    "unresolved": 2
+  },
+  "final_owner_page": {
+    "key": "final-owner.special-state",
+    "title": "Special states"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/zakrytaya-afisha/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "locked"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "special.prelaunch",
+      "required": true,
+      "semantic_role": "special.prelaunch"
+    },
+    {
+      "order": 2,
+      "region_id": "special.membership-check",
+      "required": true,
+      "semantic_role": "special.membership-check"
+    },
+    {
+      "order": 3,
+      "region_id": "special.locked",
+      "required": true,
+      "semantic_role": "special.locked"
+    },
+    {
+      "order": 4,
+      "region_id": "special.closed-hub",
+      "required": true,
+      "semantic_role": "special.closed-hub"
+    },
+    {
+      "order": 5,
+      "region_id": "special.unavailable",
+      "required": true,
+      "semantic_role": "special.unavailable"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop special-state panel/hub"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile guarded single-column state flow"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/zakrytaya-afisha/"
+    ],
+    "route_patterns": [
+      "/:home-prelaunch-env/",
+      "/zakrytaya-afisha/",
+      "/:unavailable/"
+    ],
+    "source_pages": [
+      "site/src/pages/index.astro",
+      "site/src/pages/zakrytaya-afisha/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "checking"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "hub"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "locked"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "noscript"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "prelaunch-env"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "unavailable"
+    }
+  ],
+  "title": "Prelaunch, закрытая афиша и специальные недоступные состояния"
+}

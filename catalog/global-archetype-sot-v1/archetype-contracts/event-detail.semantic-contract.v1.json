@@ -1,0 +1,540 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "event.hero",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "event.media-frame",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "event.summary",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "event.admission-actions",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "event.facts",
+      "required": true
+    },
+    {
+      "order": 6,
+      "part_id": "event.participants",
+      "required": true
+    },
+    {
+      "order": 7,
+      "part_id": "event.venue",
+      "required": true
+    },
+    {
+      "order": 8,
+      "part_id": "event.medallions",
+      "required": true
+    },
+    {
+      "order": 9,
+      "part_id": "event.transport",
+      "required": true
+    },
+    {
+      "order": 10,
+      "part_id": "event.related-events",
+      "required": true
+    },
+    {
+      "order": 11,
+      "part_id": "event.question-cta",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.event-detail",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "action.calendar",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#action.calendar",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "action.calendar"
+      ]
+    },
+    {
+      "component_id": "action.share",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#action.share",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "action.share"
+      ]
+    },
+    {
+      "component_id": "event.card.large",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.card.large",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.card.large"
+      ]
+    },
+    {
+      "component_id": "event.detail.facts",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.detail.facts",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "event.detail.facts"
+      ]
+    },
+    {
+      "component_id": "event.detail.hero-composition",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.detail.hero-composition",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "event.detail.hero-composition"
+      ]
+    },
+    {
+      "component_id": "event.detail.related",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.detail.related",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "event.detail.related"
+      ]
+    },
+    {
+      "component_id": "event.detail.transport",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.detail.transport",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "event.detail.transport"
+      ]
+    },
+    {
+      "component_id": "event.medallion",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.medallion",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.medallion"
+      ]
+    },
+    {
+      "component_id": "event.media-frame",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.media-frame",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.media-frame"
+      ]
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ]
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ]
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ]
+    },
+    {
+      "component_id": "social-proof.like",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#social-proof.like",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "social-proof.like"
+      ]
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.event-detail.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 5,
+    "reuse_existing": 12,
+    "runtime_only": 1,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.event-detail",
+    "title": "Event detail"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "admission-absent",
+        "admission-present",
+        "calendar-absent",
+        "calendar-present",
+        "no-image",
+        "transport-absent",
+        "transport-present"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    },
+    {
+      "content_type": "event-detail-scenario",
+      "fixture_refs": [
+        "wide-image:/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "portrait-image:/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "no-image:/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "event-media-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "event.hero",
+      "required": true,
+      "semantic_role": "event.hero"
+    },
+    {
+      "order": 2,
+      "region_id": "event.media-frame",
+      "required": true,
+      "semantic_role": "event.media-frame"
+    },
+    {
+      "order": 3,
+      "region_id": "event.summary",
+      "required": true,
+      "semantic_role": "event.summary"
+    },
+    {
+      "order": 4,
+      "region_id": "event.admission-actions",
+      "required": true,
+      "semantic_role": "event.admission-actions"
+    },
+    {
+      "order": 5,
+      "region_id": "event.facts",
+      "required": true,
+      "semantic_role": "event.facts"
+    },
+    {
+      "order": 6,
+      "region_id": "event.participants",
+      "required": true,
+      "semantic_role": "event.participants"
+    },
+    {
+      "order": 7,
+      "region_id": "event.venue",
+      "required": true,
+      "semantic_role": "event.venue"
+    },
+    {
+      "order": 8,
+      "region_id": "event.medallions",
+      "required": true,
+      "semantic_role": "event.medallions"
+    },
+    {
+      "order": 9,
+      "region_id": "event.transport",
+      "required": true,
+      "semantic_role": "event.transport"
+    },
+    {
+      "order": 10,
+      "region_id": "event.related-events",
+      "required": true,
+      "semantic_role": "event.related-events"
+    },
+    {
+      "order": 11,
+      "region_id": "event.question-cta",
+      "required": true,
+      "semantic_role": "event.question-cta"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop presentation resolver and editorial/split compositions"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile accepted-v8 hero, continuation and action dock"
+    },
+    {
+      "branch_id": "tablet",
+      "condition": "tablet transition breakpoint",
+      "structure": "tablet transition between branches"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+      "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+      "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+    ],
+    "route_patterns": [
+      "/sobytiya/:slug/"
+    ],
+    "source_pages": [
+      "site/src/pages/sobytiya/[slug].astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "admission-absent"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "admission-present"
+    },
+    {
+      "category": "lifecycle",
+      "required": true,
+      "state_id": "archived"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "calendar-absent"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "calendar-present"
+    },
+    {
+      "category": "responsive_or_media",
+      "required": true,
+      "state_id": "multi-image"
+    },
+    {
+      "category": "responsive_or_media",
+      "required": true,
+      "state_id": "no-image"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "ocr-protected"
+    },
+    {
+      "category": "responsive_or_media",
+      "required": true,
+      "state_id": "portrait-image"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "transport-absent"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "transport-present"
+    },
+    {
+      "category": "responsive_or_media",
+      "required": true,
+      "state_id": "wide-image"
+    }
+  ],
+  "title": "Страница события"
+}

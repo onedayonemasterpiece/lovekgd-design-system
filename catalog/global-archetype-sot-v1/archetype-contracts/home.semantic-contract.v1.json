@@ -1,0 +1,337 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "home.hero-talk",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "home.quick-navigation",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "home.cold-start-feed",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.home",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "event.card.large",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.card.large",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.card.large"
+      ]
+    },
+    {
+      "component_id": "home.cold-start-feed",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#home.cold-start-feed",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "home.cold-start-feed"
+      ]
+    },
+    {
+      "component_id": "home.hero-talk",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#home.hero-talk",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "home.hero-talk"
+      ]
+    },
+    {
+      "component_id": "home.quick-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#home.quick-navigation",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "home.quick-navigation"
+      ]
+    },
+    {
+      "component_id": "listing.page-pattern",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.page-pattern",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "listing.page-pattern"
+      ]
+    },
+    {
+      "component_id": "runtime.home",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.home"
+      ]
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ]
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ]
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ]
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.home.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 4,
+    "reuse_existing": 8,
+    "runtime_only": 2,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.home",
+    "title": "Home"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "home.hero-talk",
+      "required": true,
+      "semantic_role": "home.hero-talk"
+    },
+    {
+      "order": 2,
+      "region_id": "home.quick-navigation",
+      "required": true,
+      "semantic_role": "home.quick-navigation"
+    },
+    {
+      "order": 3,
+      "region_id": "home.cold-start-feed",
+      "required": true,
+      "semantic_role": "home.cold-start-feed"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop editorial hero and feed"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile single-column hero, quick navigation and feed"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/"
+    ],
+    "route_patterns": [
+      "/"
+    ],
+    "source_pages": [
+      "site/src/pages/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "cold-start"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "personalized-local"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "prelaunch-env-branch"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "ready"
+    }
+  ],
+  "title": "Главная"
+}
