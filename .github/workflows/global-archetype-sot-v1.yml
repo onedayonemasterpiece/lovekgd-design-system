@@ -1,0 +1,79 @@
+name: Global archetype SoT v1
+
+on:
+  push:
+    branches:
+      - 'feature/global-archetype-sot-v1-*'
+  pull_request:
+    paths:
+      - 'catalog/global-archetype-sot-v1/**'
+      - 'catalog/reconstruction-atlas/v1/**'
+      - 'scripts/global-archetype-sot-v1/**'
+      - 'scripts/reconstruction-atlas/build-global-archetype-sot.mjs'
+      - 'tests/global-archetype-sot-v1.test.mjs'
+      - '.github/workflows/global-archetype-sot-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: global-archetype-sot-v1-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout child branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.12.0
+
+      - name: Build global archetype SoT
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/global-archetype-sot-v1/build.mjs
+
+      - name: Prove deterministic generation
+        shell: bash
+        run: |
+          set -euo pipefail
+          find catalog/global-archetype-sot-v1 -type f -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > "$RUNNER_TEMP/global-archetype-before.sha256"
+          node scripts/global-archetype-sot-v1/build.mjs
+          find catalog/global-archetype-sot-v1 -type f -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > "$RUNNER_TEMP/global-archetype-after.sha256"
+          diff -u "$RUNNER_TEMP/global-archetype-before.sha256" "$RUNNER_TEMP/global-archetype-after.sha256"
+
+      - name: Run fail-closed validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/global-archetype-sot-v1/validate.mjs
+          node tests/global-archetype-sot-v1.test.mjs
+          git diff --check
+
+      - name: Commit deterministic generated outputs
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- catalog/global-archetype-sot-v1
+          if git diff --cached --quiet; then
+            echo 'Generated outputs are current.'
+            exit 0
+          fi
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'chore(ds): materialize global archetype SoT v1 [generated]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
