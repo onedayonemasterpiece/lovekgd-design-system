@@ -9,8 +9,14 @@ For every UI, component, archetype, Penpot, or Astro synchronization task read:
 3. `docs/normalization/design-system-family-lifecycle.md` — ordered lifecycle gates;
 4. the affected family contract, decision ledger, and latest Penpot receipt.
 
-Material visual component/foundation/archetype change → use project skill
-`ui-three-way-conformance`.
+Route UI work through the narrow project skills:
+
+- archetype assembly/materialization of an approved semantic SoT →
+  `$penpot-visual-reconstruction`;
+- new or materially changed owning component, new context/state, failed regression,
+  owner defect, or promotion gate → `$ui-component-certification`;
+- `ui-three-way-conformance` is a deprecated explicit compatibility wrapper and
+  must not activate for ordinary linked reuse.
 
 Exact owner decisions outrank derived documentation. Do not rewrite historical
 source evidence to make a later decision look pre-existing.

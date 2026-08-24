@@ -21,6 +21,14 @@ Runtime evidence
 Product Atlas + Resource Graph
 ```
 
+## Workflow skills
+
+- Use [`$penpot-visual-reconstruction`](../.codex/skills/penpot-visual-reconstruction/SKILL.md) to materialize ready semantic SoT as native UI-only Penpot archetypes.
+- Use [`$ui-component-certification`](../.codex/skills/ui-component-certification/SKILL.md) only when a component certification trigger is present. Ordinary linked reuse remains assembly.
+- [`$ui-three-way-conformance`](../.codex/skills/ui-three-way-conformance/SKILL.md) is deprecated compatibility only.
+
+The four bounded validators in the reconstruction skill gate handoff freshness, Penpot UI-only plans, visual readiness, and the assembly/certification boundary.
+
 ## Product Atlas
 
 Владеет вопросом «зачем»:
