@@ -1,0 +1,261 @@
+name: Global archetype evidence-bound corrective delta
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824-r2
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
+    paths:
+      - 'catalog/global-archetype-sot-v1/**'
+      - 'scripts/global-archetype-sot-v1/**'
+      - 'tests/global-archetype-sot-v1-semantic-completeness.test.mjs'
+      - '.github/workflows/global-archetype-corrective.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: global-archetype-corrective-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      ASTRO_SHA: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+      TARGET_BRANCH: feature/global-archetype-sot-v1-corrective-20260824-r2
+      BOOTSTRAP_BRANCH: feature/global-archetype-sot-v1-corrective-20260824
+    steps:
+      - name: Checkout clean corrective child branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Resolve and prove actual latest feature parent
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin feature/date-listing-shell-v1-20260823
+          parent="$(git rev-parse origin/feature/date-listing-shell-v1-20260823)"
+          git merge-base --is-ancestor "$parent" HEAD
+          test "$(git rev-list --count HEAD..origin/feature/date-listing-shell-v1-20260823)" = 0
+          echo "BASE_SHA=$parent" >> "$GITHUB_ENV"
+          echo "Actual parent: $parent"
+
+      - name: Checkout locked Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .astro-source
+          sparse-checkout: |
+            site/src
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Bootstrap corrective builder only when absent
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f scripts/global-archetype-sot-v1/build-corrective.py || ! -f tests/global-archetype-sot-v1-semantic-completeness.test.mjs ]]; then
+            git fetch origin "$BOOTSTRAP_BRANCH"
+            mkdir -p scripts/global-archetype-sot-v1 tests
+            git show "origin/${BOOTSTRAP_BRANCH}:scripts/global-archetype-sot-v1/build-corrective.py" > scripts/global-archetype-sot-v1/build-corrective.py
+            git show "origin/${BOOTSTRAP_BRANCH}:tests/global-archetype-sot-v1-semantic-completeness.test.mjs" > tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+            chmod +x scripts/global-archetype-sot-v1/build-corrective.py tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          fi
+
+      - name: Make builder preserve integrated parent manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('scripts/global-archetype-sot-v1/build-corrective.py')
+          text = path.read_text(encoding='utf-8')
+          marker = 'parent_manifest_preservation = "PASS"'
+          if marker in text:
+              raise SystemExit(0)
+          text = text.replace('import sys\n', 'import sys\nimport subprocess\n', 1)
+          pattern = re.compile(
+              r'          manifest = \{\n.*?          dump\(manifest_path, manifest, sort_keys=True\)\n',
+              re.DOTALL,
+          )
+          replacement = '''          parent_manifest_preservation = "PASS"
+          manifest_path = PKG / "manifest.v1.json"
+          parent_manifest_raw = subprocess.run(
+              ["git", "show", f"{BASE_SHA}:catalog/global-archetype-sot-v1/manifest.v1.json"],
+              cwd=ROOT,
+              check=True,
+              capture_output=True,
+              text=True,
+          ).stdout
+          manifest = json.loads(parent_manifest_raw)
+          manifest.update({
+              "schema_version": "global-archetype-sot-v1.corrective",
+              "status": "CORRECTIVE_CANDIDATE_READY_WITH_EXPLICIT_UNRESOLVED",
+              "authority_mode": "reconstructed",
+              "canonical": False,
+              "corrective_parent_sha": BASE_SHA,
+              "astro_commit": ASTRO_SHA,
+              "source_lock_id": LOCK_ID,
+              "baseline_byte_equality": {"status": "PASS", "proof": rel(proof_path)},
+              "route_registry": {"path": rel(registry_path), "sha256": registry_hash, "byte_changed": False},
+              "component_graph": {"path": rel(graph_path), "sha256": new_graph_hash, "identity_gate_summary": graph_gate_counts},
+              "contracts": {"count": 17, "sorted_checksum_manifest_sha256": sha_bytes(contract_manifest_lines.encode("utf-8")), "changed": changed_contracts},
+              "high_risk_state_evidence": {"observed": observed_states, "unresolved": unresolved_states},
+              "outputs": {
+                  "source_lock": rel(source_lock_path),
+                  "ui_materialization_plan": rel(plan_path),
+                  "corrective_receipt": rel(receipt_path),
+                  "sha256_manifest": "catalog/global-archetype-sot-v1/sha256-manifest.v1.json",
+              },
+              "constraints": {"design_tool_mutation": False, "date_weekend_artifact_changes": False, "production_astro_changes": False, "merge": False, "promotion": False, "deploy": False},
+          })
+          pinned_inputs = dict(manifest.get("pinned_inputs", {}))
+          pinned_inputs["design_system_commit"] = BASE_SHA
+          pinned_inputs["astro_commit"] = ASTRO_SHA
+          manifest["pinned_inputs"] = pinned_inputs
+          visual_materialization = dict(manifest.get("visual_materialization", {}))
+          visual_materialization.update({
+              "status": "UI_ONLY_PLAN_READY_NOT_MATERIALIZED",
+              "owner_pages_required": 17,
+              "required_viewports": ["desktop", "mobile"],
+              "unique_states": "only exact-source/browser-computed visible UI states",
+              "plan": rel(plan_path),
+          })
+          manifest["visual_materialization"] = visual_materialization
+          penpot_policy = dict(manifest.get("penpot_policy", {}))
+          penpot_policy.update({
+              "semantic_input": False,
+              "materialization_scope": "foundations, reusable UI, visual patterns, desktop/mobile compositions and visible UI states only",
+          })
+          manifest["penpot_policy"] = penpot_policy
+          dump(manifest_path, manifest, sort_keys=True)
+'''
+          updated, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit('corrective manifest block not found exactly once')
+          path.write_text(updated, encoding='utf-8')
+          PY
+
+      - name: Prove handoff byte equality before corrective mutation
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          if [[ ! -f catalog/global-archetype-sot-v1/byte-equality-proof.v1.json ]]; then
+            git fetch origin 8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d || true
+            node scripts/global-archetype-sot-v1/validate-handoff.mjs
+          fi
+
+      - name: Apply narrow corrective build
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          before_registry="$(sha256sum catalog/global-archetype-sot-v1/route-archetype-registry.v1.json | cut -d' ' -f1)"
+          python3 scripts/global-archetype-sot-v1/build-corrective.py
+          after_registry="$(sha256sum catalog/global-archetype-sot-v1/route-archetype-registry.v1.json | cut -d' ' -f1)"
+          test "$before_registry" = "$after_registry"
+          test "$after_registry" = "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d"
+
+      - name: Run semantic-completeness and identity gates
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          git diff --check
+
+      - name: Prove parent operating and unrelated work is preserved
+        shell: bash
+        run: |
+          set -euo pipefail
+          parent_manifest="$(mktemp)"
+          git show "$BASE_SHA:catalog/global-archetype-sot-v1/manifest.v1.json" > "$parent_manifest"
+          node --input-type=module - "$parent_manifest" <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const parent = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          const current = JSON.parse(readFileSync('catalog/global-archetype-sot-v1/manifest.v1.json', 'utf8'));
+          for (const key of ['pinned_handoff', 'operating_contract']) {
+            if (JSON.stringify(current[key]) !== JSON.stringify(parent[key])) {
+              throw new Error(`parent manifest field was not preserved: ${key}`);
+            }
+          }
+          if (!current.penpot_policy || !current.visual_materialization) {
+            throw new Error('parent visual operating policy was not preserved');
+          }
+          NODE
+          protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
+          if git diff --name-only "$BASE_SHA" | grep -E "$protected"; then
+            echo 'Protected Date/Weekend artifact changed' >&2
+            exit 1
+          fi
+          if git diff --name-only "$BASE_SHA" -- docs AGENTS.md receipts/penpot | grep -q .; then
+            echo 'Operating docs or unrelated Visual Reconstruction work changed' >&2
+            exit 1
+          fi
+
+      - name: Commit deterministic corrective delta
+        if: github.event_name == 'push'
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git add -- \
+            catalog/global-archetype-sot-v1/archetype-contracts \
+            catalog/global-archetype-sot-v1/component-composition-graph.v1.json \
+            catalog/global-archetype-sot-v1/byte-equality-proof.v1.json \
+            catalog/global-archetype-sot-v1/source-lock.v1.json \
+            catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json \
+            catalog/global-archetype-sot-v1/manifest.v1.json \
+            catalog/global-archetype-sot-v1/corrective-receipt.v1.json \
+            catalog/global-archetype-sot-v1/sha256-manifest.v1.json \
+            scripts/global-archetype-sot-v1/build-corrective.py \
+            tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          if git diff --cached --quiet; then
+            echo 'Corrective delta is deterministic and current.'
+            exit 0
+          fi
+          if git diff --cached --name-only | grep -E '^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|docs/|AGENTS\.md$|receipts/)'; then
+            echo 'Out-of-scope file staged' >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'fix(ds): bind global archetype semantics to exact Astro evidence'
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${TARGET_BRANCH}"
+
+      - name: Print final manifest and changed contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const root = 'catalog/global-archetype-sot-v1';
+          const manifest = JSON.parse(readFileSync(`${root}/manifest.v1.json`, 'utf8'));
+          const receipt = JSON.parse(readFileSync(`${root}/corrective-receipt.v1.json`, 'utf8'));
+          const hashes = JSON.parse(readFileSync(`${root}/sha256-manifest.v1.json`, 'utf8'));
+          console.log(JSON.stringify({
+            status: 'PASS',
+            corrective_parent_sha: manifest.corrective_parent_sha,
+            astro_commit: manifest.astro_commit,
+            route_registry: manifest.route_registry,
+            changed_contracts: receipt.changed_contracts,
+            high_risk_state_evidence: receipt.high_risk_state_evidence,
+            component_identity_gate: receipt.component_identity_gate,
+            sha256_manifest_file_count: Object.keys(hashes.files).length,
+          }, null, 2));
+          NODE
