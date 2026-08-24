@@ -77,12 +77,12 @@ jobs:
           cp "$RUNNER_TEMP/byte-equality-proof.json" "$RUNNER_TEMP/inspection-meta/"
           git rev-parse HEAD > "$RUNNER_TEMP/inspection-meta/design-head.txt"
           git -C events-bot rev-parse HEAD > "$RUNNER_TEMP/inspection-meta/astro-head.txt"
-          tar -czf "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" \
+          tar --exclude='events-bot/.git' -czf "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" \
             catalog/global-archetype-sot-v1 \
             catalog/reconstruction-atlas/v1 \
             scripts/global-archetype-sot-v1 \
             AGENTS.md \
-            events-bot/src \
+            events-bot \
             -C "$RUNNER_TEMP" inspection-meta
           sha256sum "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" > "$RUNNER_TEMP/global-archetype-corrective-inspection.sha256"
 
