@@ -908,6 +908,43 @@
       },
       "geometry_rule": "full uncut tracks: 7807=819.875x112; 7906=1012.875x112; 7888=571.875x112; parent viewport clips only the visible 390px window",
       "parent_adoption_status": "complete: Mobile rail viewport centrally owns all three linked exact tracks; Page60.4 inherited them and has zero ordinary data overlays"
+    },
+    {
+      "id": "listing.mobile-date-accessory.exact-date-typical",
+      "classification": "fixture-bound parent-context adapter",
+      "source": "MobileDateAccessory.astro + Golden Event Corpus reference clock",
+      "calendar_reference_date": "2026-08-21",
+      "selected_date": "2026-08-22",
+      "dependencies": [
+        "listing.mobile-date-chip.state.today",
+        "listing.mobile-date-chip.state.selected-weekend-range",
+        "listing.mobile-date-chip.state.weekend",
+        "listing.mobile-date-chip.state.default",
+        "listing.mobile-date-chip.state.disabled",
+        "icon.shell.mobile-date-accessory.calendar.23"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c0f46904e6",
+      "exact_adapter_component_ids": {
+        "2026-08-21": "a21f5e36-5d76-8065-8008-871fe40dd0fd",
+        "2026-08-22/23": "a21f5e36-5d76-8065-8008-871fe58c5350",
+        "2026-08-23": "a21f5e36-5d76-8065-8008-871fe8df4d07",
+        "2026-08-24": "a21f5e36-5d76-8065-8008-871fec94d7b0",
+        "2026-08-25": "a21f5e36-5d76-8065-8008-871ff17a70ae"
+      },
+      "semantic_state_component_ids": {
+        "today": "a21f5e36-5d76-8065-8008-871cd0e3ca14",
+        "selected-weekend-range": "a21f5e36-5d76-8065-8008-871ce36ade7b",
+        "weekend": "a21f5e36-5d76-8065-8008-871cdc9f883e",
+        "default": "a21f5e36-5d76-8065-8008-871c8b1e42b3",
+        "disabled": "a21f5e36-5d76-8065-8008-871ce7ba8339"
+      },
+      "registered_content_overrides": [
+        "weekday",
+        "date-or-range",
+        "month-label visibility"
+      ],
+      "layout_rule": "visible chips start at x=12 with 6px gap; calendar trigger x=335; first chip carries month and today outline",
+      "parent_adoption_status": "complete in Mobile date accessory master and inherited by Page60.4; detached=0"
     }
   ],
   "shell_components": [
@@ -935,7 +972,15 @@
       "states": [
         "closed"
       ],
-      "asset": "assets/ui/mobile-head-skinny-leather-3x.webp"
+      "asset": "assets/ui/mobile-head-skinny-leather-3x.webp",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86aebe1f05bb",
+      "wordmark_component_id": "d87e18f1-dcb4-80a6-8008-87853121d15c",
+      "wordmark_owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-878517c731e9",
+        "name": "10.1 — Announcements wordmark · Native component"
+      },
+      "composition_rule": "live endorsement text plus linked exact native vector wordmark; typographic AНОНСЫ substitute is forbidden",
+      "fill_stack_rule": "solid #98401f is the fallback under the native leather image; image must be the visible top fill"
     },
     {
       "id": "shell.mobile-menu",
@@ -1187,6 +1232,29 @@
       "penpot_board_id": "a21f5e36-5d76-8065-8008-86b589c29f08",
       "component_topology": "one linked archetype instance plus linked shell header; three event cards and three group headers are inherited from the linked Desktop listing flow",
       "bounded_visual_status": "agent verdict MINOR; geometry/card count/fixture identity PASS; shell header raster and minor typography/media raster remain active deltas"
+    },
+    {
+      "id": "archetype.listing.date.typical-mobile",
+      "view": "tomorrow",
+      "density": "regular",
+      "viewport": "390x844",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "calendar_reference_date": "2026-08-21",
+      "selected_date": "2026-08-22",
+      "dependencies": [
+        "shell.mobile-menu-trigger",
+        "listing.mobile-date-accessory.exact-date-typical",
+        "listing.rail-row.track.exact-date-typical"
+      ],
+      "penpot_page_id": "a21f5e36-5d76-8065-8008-86baaa49f139",
+      "penpot_board_id": "a21f5e36-5d76-8065-8008-86bad054b9ac",
+      "component_topology": "linked header + linked Mobile rail viewport + linked corpus-clock date accessory + linked bottom navigation; zero review-board overlays",
+      "feed_to_rows_gap_px": 10,
+      "bounded_visual_status": "diagnostic MINOR; exact exporter blocked by HTTP 504, generatedMarkup fallback is nonterminal"
     }
   ],
   "icon_components": {

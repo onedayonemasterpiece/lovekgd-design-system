@@ -292,6 +292,19 @@ const mobileDigests = components.body_components.find((item) => item.id === 'lis
 assert.equal(Object.keys(mobileDigests.penpot_component_ids).length, 3);
 assert(components.composition_rules.some((rule) => /three linked full-width exact tracks/.test(rule)));
 for (const id of ['DL-018', 'DL-019', 'DL-020']) assert(decisions.decisions.some((item) => item.id === id));
+for (const id of ['DL-021', 'DL-022', 'DL-023', 'DL-024']) assert(decisions.decisions.some((item) => item.id === id));
+const exactMobileAccessory = components.body_components.find((item) => item.id === 'listing.mobile-date-accessory.exact-date-typical');
+assert(exactMobileAccessory);
+assert.equal(exactMobileAccessory.calendar_reference_date, '2026-08-21');
+assert.equal(Object.keys(exactMobileAccessory.semantic_state_component_ids).length, 5);
+assert.match(exactMobileAccessory.parent_adoption_status, /detached=0/);
+const mobileTrigger = components.shell_components.find((item) => item.id === 'shell.mobile-menu-trigger');
+assert.equal(mobileTrigger.wordmark_component_id, 'd87e18f1-dcb4-80a6-8008-87853121d15c');
+assert.match(mobileTrigger.fill_stack_rule, /fallback under the native leather image/);
+const typicalMobile = components.archetype_variants.find((item) => item.id === 'archetype.listing.date.typical-mobile');
+assert(typicalMobile);
+assert.equal(typicalMobile.feed_to_rows_gap_px, 10);
+assert.match(typicalMobile.component_topology, /zero review-board overlays/);
 
 assert(components.shell_components.some((item) => item.id === 'shell.footer'));
 assert(decisions.decisions.some((item) => item.id === 'DL-003' && /explicit semantic states/.test(item.decision)));
