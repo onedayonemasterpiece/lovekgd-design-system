@@ -296,6 +296,11 @@ for (const id of ['DL-021', 'DL-022', 'DL-023', 'DL-024']) assert(decisions.deci
 for (const id of ['DL-025', 'DL-026']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-027', 'DL-028', 'DL-029']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-030', 'DL-031']) assert(decisions.decisions.some((item) => item.id === id));
+for (const id of ['DL-032', 'DL-033']) assert(decisions.decisions.some((item) => item.id === id));
+for (const id of ['shell.mobile-menu.close-tag', 'action.shell.mobile-menu.login', 'action.shell.mobile-menu.favorites', 'action.shell.mobile-menu.share', 'shell.mobile-menu.utility']) assert(components.shell_components.some((item) => item.id === id));
+const shellUtility = components.shell_components.find((item) => item.id === 'shell.mobile-menu.utility');
+assert.match(shellUtility.layer_rule, /no alpha surface may overlay/);
+assert.equal(shellUtility.dependencies.length, 3);
 const cityRail = components.body_components.find((item) => item.id === 'listing.city-filter-rail');
 assert.equal(cityRail.penpot_component_id, 'a21f5e36-5d76-8065-8008-86cf6749b5d4');
 assert.match(cityRail.surface_rule, /bottom divider/);

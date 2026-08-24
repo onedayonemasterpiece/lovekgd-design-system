@@ -1097,7 +1097,15 @@
             "blur": 28,
             "color": "rgba(42,22,15,.18)"
           }
-        ]
+        ],
+        "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879d463241b8",
+        "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879d4631a294"
+      },
+      "utility_component_id": "d87e18f1-dcb4-80a6-8008-879eea37802f",
+      "utility_action_component_ids": {
+        "login": "d87e18f1-dcb4-80a6-8008-879e63407fd4",
+        "favorites": "d87e18f1-dcb4-80a6-8008-879eb8e04475",
+        "share": "d87e18f1-dcb4-80a6-8008-879ed0343d66"
       }
     },
     {
@@ -1141,6 +1149,61 @@
     {
       "id": "shell.footer",
       "source": "SiteFooter.astro"
+    },
+    {
+      "id": "shell.mobile-menu.close-tag",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__close",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879d463241b8",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879d4631a294",
+      "geometry_rule": "112x112; corner radii 0 0 18 18",
+      "asset": "assets/ui/reference4-leather-close-v8.webp",
+      "shadow_rule": "drop-shadow 0 8 9 rgba(42,22,15,.24) + 0 18 28 rgba(42,22,15,.18)",
+      "materialization_rule": "Mobile menu master owns a linked Close tag instance; local image rectangles are forbidden"
+    },
+    {
+      "id": "action.shell.mobile-menu.login",
+      "source": "Reference4MobileMenu.astro#[data-static-auth-login]",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879e63407fd4",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879e633ebf9c",
+      "geometry_rule": "167x44 exact signed-out action",
+      "surface_rule": "rgba(255,253,249,.58), 1px rgba(255,255,255,.48), radius23"
+    },
+    {
+      "id": "action.shell.mobile-menu.favorites",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__account-row>a[href*=izbrannoe]",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879eb8e04475",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879eb8df8946",
+      "geometry_rule": "167x44 exact signed-out action",
+      "dependencies": [
+        "icon.ui.reference4.heart-thin.20"
+      ],
+      "materialization_rule": "heart icon is a linked 20px icon master inside the functional Favorites action"
+    },
+    {
+      "id": "action.shell.mobile-menu.share",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__share",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879ed0343d66",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879ed033019d",
+      "geometry_rule": "360x50 exact utility action",
+      "dependencies": [
+        "icon.ui.reference4.share-network-thin.25"
+      ],
+      "surface_rule": "rgba(255,252,247,.58), transparent base, no opaque override"
+    },
+    {
+      "id": "shell.mobile-menu.utility",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__utility",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879eea37802f",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879eea35f2cc",
+      "geometry_rule": "362x108",
+      "dependencies": [
+        "action.shell.mobile-menu.login",
+        "action.shell.mobile-menu.favorites",
+        "action.shell.mobile-menu.share"
+      ],
+      "component_topology": "utility shell, account-row surface, linked Login, linked Favorites, divider, linked Share; labels/icons live inside action masters",
+      "layer_rule": "semi-transparent shell/row/action surfaces precede labels and icons; no alpha surface may overlay functional content",
+      "parent_adoption_status": "Mobile menu master contains one linked Utility instance; previous scattered shapes removed"
     }
   ],
   "composition_rules": [
