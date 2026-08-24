@@ -9,7 +9,7 @@ on:
       - feature/date-listing-shell-v1-20260823
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: global-archetype-sot-v1-bootstrap-${{ github.ref }}
@@ -21,7 +21,6 @@ jobs:
     timeout-minutes: 20
     env:
       BASE_SHA: 149cc9c56a1245e846c1abc614723078c3417cb7
-      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
       - name: Checkout child branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -61,26 +60,25 @@ jobs:
           node tests/global-archetype-sot-v1.test.mjs
           git diff --check
 
-      - name: Commit clean source and generated SoT
+      - name: Pack verified clean result
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf node_modules
-          git add -- \
+          artifact="$RUNNER_TEMP/global-archetype-sot-v1-final.tar.gz"
+          tar -czf "$artifact" \
             .github/workflows/global-archetype-sot-v1.yml \
             catalog/global-archetype-sot-v1 \
             scripts/global-archetype-sot-v1 \
             scripts/reconstruction-atlas/build-global-archetype-sot.mjs \
             tests/global-archetype-sot-v1.test.mjs
-          git add -u -- .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
-          protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
-          if git diff --cached --name-only | grep -E "$protected"; then
-            echo 'Protected Date/Weekend artifact changed' >&2
-            exit 1
-          fi
-          git diff --cached --check
-          git status --short
-          git config user.name 'global-archetype-sot-bot'
-          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
-          git commit -m 'feat(ds): assemble global archetype SoT v1'
-          git push origin "HEAD:${TARGET_BRANCH}"
+          sha256sum "$artifact" | tee "$RUNNER_TEMP/global-archetype-sot-v1-final.sha256"
+
+      - name: Upload verified result
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-archetype-sot-v1-final
+          path: |
+            ${{ runner.temp }}/global-archetype-sot-v1-final.tar.gz
+            ${{ runner.temp }}/global-archetype-sot-v1-final.sha256
+          if-no-files-found: error
+          retention-days: 3
