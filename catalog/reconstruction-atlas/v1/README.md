@@ -5,7 +5,7 @@
 
 ## Current phase status
 
-`SEMANTIC_ATLAS_READY_FOR_PENPOT_BATCH`
+`RECONSTRUCTION_ATLAS_READY`
 
 - 17/17 checklist archetypes;
 - 29/29 production Astro page sources mapped;
@@ -14,6 +14,15 @@
 - two expected 404 observations for club detail are bound to
   `GAP-CLUB-DETAIL-RUNTIME` rather than hidden;
 - validation: 230 checks, 0 failures.
+- Penpot: 17 bounded owner pages, 51 native masters, 17 linked review rows;
+- closure: detached `0`, unregistered overrides `0`, `validate=[]`;
+- sampled native structural/geometry conformance: `PASS` (5/5);
+- second materializer replay: created `0`.
+
+The required atlas suite passes in full. The broader repository suite retains
+one registered out-of-scope historical receipt failure caused by two
+unreachable legacy SHAs; accelerated mode forbids rewriting that history or
+backporting it into this batch. See `test-summary.v1.json`.
 
 Semantic contracts, Penpot bindings and evidence are deliberately separate:
 

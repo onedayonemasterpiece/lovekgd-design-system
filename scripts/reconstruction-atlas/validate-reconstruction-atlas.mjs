@@ -80,7 +80,7 @@ check(failed.length === 2 && failed.every((item) => item.archetype_id === 'arche
 check(gaps.gaps.some((item) => item.id === 'GAP-CLUB-DETAIL-RUNTIME'), 'ATLAS-GAP-CLUB-DETAIL', 'browser 404 contradiction is present in the gap ledger');
 check(gaps.gaps.some((item) => item.id === 'GAP-LEGAL-ROUTE'), 'ATLAS-GAP-LEGAL', 'missing legal source route is present in the gap ledger');
 check(gaps.gaps.some((item) => item.id === 'GAP-PRELAUNCH-RUNTIME'), 'ATLAS-GAP-PRELAUNCH', 'source-only prelaunch branch is present in the gap ledger');
-check(penpot.status === 'CHECKPOINTED_DEFERRED_UNTIL_SEMANTIC_ATLAS_VALIDATED' && Array.isArray(penpot.batch_bindings), 'ATLAS-PENPOT-BINDINGS-SEPARATE', penpot.status);
+check(['CHECKPOINTED_DEFERRED_UNTIL_SEMANTIC_ATLAS_VALIDATED', 'BATCH_MATERIALIZED'].includes(penpot.status) && Array.isArray(penpot.batch_bindings), 'ATLAS-PENPOT-BINDINGS-SEPARATE', penpot.status);
 check(evidence.browser_observations_sha256 === sha256(await readFile(join(atlasRoot, 'evidence/browser-observations.v1.json'))), 'ATLAS-BROWSER-HASH', evidence.browser_observations_sha256);
 
 const report = {

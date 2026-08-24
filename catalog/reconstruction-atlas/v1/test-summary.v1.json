@@ -1,0 +1,25 @@
+{
+  "schema_version": "reconstruction-atlas-test-summary.v1",
+  "required_scope": {
+    "status": "PASS",
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "command": "node --test tests/reconstruction-atlas-v1.test.mjs tests/reconstruction-atlas-materialization-ir.test.mjs tests/complete-reconstruction-atlas.test.mjs tests/weekend-listing-v1.test.mjs"
+  },
+  "broader_suite": {
+    "status": "PASS_WITH_REGISTERED_OUT_OF_SCOPE_FAILURE",
+    "tests": 21,
+    "passed": 20,
+    "failed": 1,
+    "command": "node --test tests/*.test.mjs",
+    "registered_out_of_scope_failures": [
+      {
+        "test": "tests/event-card-large-current-v2.test.mjs",
+        "reason": "Historical current-v2 receipt references unreachable Astro/tooling SHAs 22ebe3c5e92b13684cca32c14357ef7b91834977 and 713a035a8aaa9ecfdcdd5fbd817fe504160df2f5. The accelerated atlas scope forbids backport or rewriting historical evidence.",
+        "impact_on_atlas": "NONE",
+        "disposition": "Preserve as stale historical-contract evidence; do not mutate during reconstruction atlas materialization."
+      }
+    ]
+  }
+}

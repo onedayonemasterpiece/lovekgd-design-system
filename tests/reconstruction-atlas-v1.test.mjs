@@ -46,7 +46,7 @@ test('semantic SoT keeps Penpot bindings and evidence separate', () => {
   const validation = read('validation-report.v1.json');
   assert.doesNotMatch(JSON.stringify(atlas.archetypes), /penpot_component_id|penpot_main_shape_id|review_board_id/u);
   assert.doesNotMatch(JSON.stringify(foundations), /penpot_component_id|penpot_typography_id|penpot_materialization/u);
-  assert.equal(penpot.status, 'CHECKPOINTED_DEFERRED_UNTIL_SEMANTIC_ATLAS_VALIDATED');
+  assert.ok(['CHECKPOINTED_DEFERRED_UNTIL_SEMANTIC_ATLAS_VALIDATED', 'BATCH_MATERIALIZED'].includes(penpot.status));
   assert.equal(validation.status, 'SEMANTIC_ATLAS_READY_FOR_PENPOT_BATCH');
   assert.equal(validation.fail_count, 0);
 });
