@@ -1,0 +1,225 @@
+name: Deliver corrective global archetype SoT in Git
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824-r4
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: corrective-sot-delivery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout corrective branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: feature/global-archetype-sot-v1-corrective-20260824-r4
+          fetch-depth: 0
+
+      - name: Checkout pinned Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .external/events-bot-new
+          fetch-depth: 1
+
+      - name: Detect committed corrective outputs
+        id: state
+        shell: bash
+        run: |
+          if [[ -f catalog/global-archetype-sot-v1/corrective-receipt.v1.json \
+             && -f scripts/global-archetype-sot-v1/build-corrective.mjs \
+             && -f tests/global-archetype-sot-v1-semantic-completeness.test.mjs \
+             && -f tests/global-archetype-sot-v1-corrective-boundaries.test.mjs ]]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract and run existing corrective implementation
+        if: steps.state.outputs.ready == 'false'
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess, os, re, json, sys
+          try:
+              import yaml
+          except Exception:
+              subprocess.run([sys.executable, '-m', 'pip', 'install', 'pyyaml', '-q'], check=True)
+              import yaml
+          repo = Path.cwd()
+          self_path = '.github/workflows/global-archetype-sot-v1-corrective-deliver.yml'
+          base = 'origin/feature/date-listing-shell-v1-20260823'
+          changed = subprocess.check_output(['git','diff','--name-only',f'{base}...HEAD'], text=True).splitlines()
+          workflows = [repo / p for p in changed if p.startswith('.github/workflows/') and p != self_path]
+          env = os.environ.copy()
+          env.update({
+              'GITHUB_WORKSPACE': str(repo),
+              'RUNNER_TEMP': os.environ.get('RUNNER_TEMP', '/tmp'),
+              'GITHUB_REPOSITORY': 'onedayonemasterpiece/lovekgd-design-system',
+              'GITHUB_REF_NAME': 'feature/global-archetype-sot-v1-corrective-20260824-r4',
+              'GITHUB_SHA': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+          })
+          logs=[]
+          # First execute the original generation/hardening run blocks, never delivery blocks.
+          for path in workflows:
+              text = path.read_text()
+              if not any(x in text for x in ('semantic-completeness','corrective-boundary','corrective delta','pinned_handoff')):
+                  continue
+              data = yaml.safe_load(text)
+              for job in (data.get('jobs') or {}).values():
+                  for step in job.get('steps') or []:
+                      run = step.get('run')
+                      if not run:
+                          continue
+                      label = str(step.get('name',''))
+                      lower = (label + '\n' + run).lower()
+                      if any(x in lower for x in ('git push','api.github.com','create pull request','gh pr','upload-artifact','download-artifact')):
+                          continue
+                      run = run.replace('${{ github.workspace }}', str(repo)).replace('${{ runner.temp }}', env['RUNNER_TEMP']).replace('${{ github.sha }}', env['GITHUB_SHA']).replace('${{ github.ref_name }}', env['GITHUB_REF_NAME'])
+                      step_env = env.copy()
+                      for k,v in (step.get('env') or {}).items():
+                          s=str(v).replace('${{ github.workspace }}',str(repo)).replace('${{ runner.temp }}',env['RUNNER_TEMP']).replace('${{ github.sha }}',env['GITHUB_SHA'])
+                          if '${{' in s:
+                              s=''
+                          step_env[k]=s
+                      result=subprocess.run(['bash','-lc',run], cwd=repo, env=step_env, text=True, capture_output=True)
+                      logs.append({'step':label,'returncode':result.returncode,'stdout':result.stdout[-3000:],'stderr':result.stderr[-3000:]})
+          Path(os.environ['RUNNER_TEMP'],'corrective-original-run.json').write_text(json.dumps(logs,indent=2))
+          # Materialize every canonical file embedded as a shell heredoc.
+          pattern=re.compile(r"cat\s+>\s+(?:\"([^\"]+)\"|'([^']+)'|([^\s]+))\s*<<-?\s*['\"]?([A-Za-z0-9_]+)['\"]?\s*\n",re.M)
+          for path in workflows:
+              text=path.read_text(); pos=0
+              while True:
+                  match=pattern.search(text,pos)
+                  if not match: break
+                  raw=match.group(1) or match.group(2) or match.group(3); tag=match.group(4); start=match.end()
+                  end_match=re.search(rf'^\s*{re.escape(tag)}\s*$',text[start:],re.M)
+                  if not end_match: pos=match.end(); continue
+                  content=text[start:start+end_match.start()]
+                  lines=content.splitlines(); indents=[len(x)-len(x.lstrip()) for x in lines if x.strip()]
+                  if indents:
+                      indent=min(indents); lines=[x[indent:] if len(x)>=indent else '' for x in lines]
+                  raw=raw.replace('$GITHUB_WORKSPACE/','').replace('${GITHUB_WORKSPACE}/','')
+                  if '$' not in raw and not raw.startswith('/') and raw.startswith(('scripts/','tests/','catalog/')):
+                      target=repo/raw; target.parent.mkdir(parents=True,exist_ok=True); target.write_text('\n'.join(lines).rstrip()+'\n')
+                  pos=start+end_match.end()
+          PY
+
+      - name: Install canonical manifest preservation and deterministic wrapper
+        if: steps.state.outputs.ready == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p scripts/global-archetype-sot-v1
+          cat > scripts/global-archetype-sot-v1/preserve-corrective-parent-manifest.mjs <<'NODE'
+          #!/usr/bin/env node
+          import { createHash } from 'node:crypto';
+          import { execFileSync } from 'node:child_process';
+          import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+          import { dirname, join, resolve } from 'node:path';
+          import { fileURLToPath } from 'node:url';
+          const here=dirname(fileURLToPath(import.meta.url)); const root=resolve(here,'../..');
+          const base=process.env.CORRECTIVE_BASE_SHA||'da16dde8812220125a806bd5a03d5015357d4c07';
+          const pkg=join(root,'catalog/global-archetype-sot-v1'); const path=join(pkg,'manifest.v1.json');
+          const parentRaw=execFileSync('git',['show',`${base}:catalog/global-archetype-sot-v1/manifest.v1.json`],{cwd:root,encoding:'utf8'});
+          const parent=JSON.parse(parentRaw); const current=JSON.parse(readFileSync(path,'utf8'));
+          current.pinned_handoff=structuredClone(parent.pinned_handoff);
+          const sha=p=>createHash('sha256').update(readFileSync(p)).digest('hex');
+          const lock=JSON.parse(readFileSync(join(pkg,'handoff-lock.v1.json'),'utf8'));
+          const contracts=readdirSync(join(pkg,'archetype-contracts')).filter(n=>n.endsWith('.semantic-contract.v1.json')).sort();
+          const contractManifest=contracts.map(n=>`${sha(join(pkg,'archetype-contracts',n))}  catalog/global-archetype-sot-v1/archetype-contracts/${n}\n`).join('');
+          const route=sha(join(pkg,'route-archetype-registry.v1.json')); const before=lock.approved_outputs.route_archetype_registry.sha256;
+          if(route!==before) throw new Error('route registry byte equality failed');
+          current.corrective_handoff={status:'PASS',base_sha:base,verified_handoff_head:lock.green_handoff.head_sha,verified_handoff_lock:'catalog/global-archetype-sot-v1/handoff-lock.v1.json',byte_equality_proof:'catalog/global-archetype-sot-v1/byte-equality-proof.v1.json',route_registry_byte_equal:true};
+          current.corrective_source_lock={path:'catalog/global-archetype-sot-v1/source-lock.v1.json',sha256:sha(join(pkg,'source-lock.v1.json')),excludes_penpot_ir_evidence_renderer_inputs:true};
+          current.corrective_outputs={semantic_contracts:{path:'catalog/global-archetype-sot-v1/archetype-contracts/',count:contracts.length,sorted_checksum_manifest_sha256:createHash('sha256').update(contractManifest).digest('hex')},component_composition_graph:{path:'catalog/global-archetype-sot-v1/component-composition-graph.v1.json',sha256:sha(join(pkg,'component-composition-graph.v1.json'))},route_archetype_registry:{path:'catalog/global-archetype-sot-v1/route-archetype-registry.v1.json',before_sha256:before,after_sha256:route},ui_only_materialization_plan:{path:'catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json',sha256:sha(join(pkg,'penpot-materialization-plan.v1.json'))}};
+          current.corrective_policy={git_only:true,penpot_mutations:0,production_astro_changes:0,date_weekend_artifact_changes:0,merge:false,promotion:false,deploy:false};
+          let output=JSON.stringify(current,null,2)+'\n';
+          const range=(text,key)=>{const token=`"${key}"`;const k=text.indexOf(token);let i=text.indexOf(':',k+token.length)+1;while(/\s/u.test(text[i]))i++;const op=text[i],cl=op==='{'?'}':']';let d=0,s=false,e=false;for(let j=i;j<text.length;j++){const c=text[j];if(s){if(e)e=false;else if(c==='\\')e=true;else if(c==='"')s=false;}else{if(c==='"')s=true;else if(c===op)d++;else if(c===cl&&--d===0)return[i,j+1];}}throw new Error(key);};
+          const [ps,pe]=range(parentRaw,'pinned_handoff');const [os,oe]=range(output,'pinned_handoff');const raw=parentRaw.slice(ps,pe);output=output.slice(0,os)+raw+output.slice(oe);writeFileSync(path,output);const [fs,fe]=range(readFileSync(path,'utf8'),'pinned_handoff');if(readFileSync(path,'utf8').slice(fs,fe)!==raw)throw new Error('pinned_handoff raw bytes changed');
+          NODE
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('scripts/global-archetype-sot-v1')
+          candidates=[]
+          for path in root.glob('*.mjs'):
+              if path.name in {'build-corrective.mjs','preserve-corrective-parent-manifest.mjs'}: continue
+              text=path.read_text(errors='ignore')
+              score=sum(x in text for x in ('corrective-receipt.v1.json','penpot-materialization-plan.v1.json','reconciliation-proofs.v1.json','semantic-completeness'))
+              if score: candidates.append((score,len(text),path.name))
+          if not candidates: raise SystemExit('canonical hardener was not extracted')
+          candidates.sort(reverse=True); hardener=candidates[0][2]
+          Path(root/'build-corrective.mjs').write_text(f'''#!/usr/bin/env node\nimport {{ spawnSync }} from "node:child_process";\nimport {{ dirname, resolve }} from "node:path";\nimport {{ fileURLToPath }} from "node:url";\nconst here=dirname(fileURLToPath(import.meta.url));const root=resolve(here,"../..");\nfor(const rel of ["scripts/global-archetype-sot-v1/{hardener}","scripts/global-archetype-sot-v1/preserve-corrective-parent-manifest.mjs"]){{const r=spawnSync(process.execPath,[resolve(root,rel)],{{cwd:root,stdio:"inherit",env:process.env}});if(r.status!==0)process.exit(r.status??1);}}\n''')
+          PY
+
+      - name: Build, preserve parent manifest, and validate
+        if: steps.state.outputs.ready == 'false'
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: |
+          set -euo pipefail
+          node scripts/global-archetype-sot-v1/build-corrective.mjs
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          node scripts/global-archetype-sot-v1/validate-handoff.mjs
+          git diff --check
+
+      - name: Commit real semantic outputs and canonical implementation
+        if: steps.state.outputs.ready == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .external node_modules
+          git add -- \
+            catalog/global-archetype-sot-v1/archetype-contracts \
+            catalog/global-archetype-sot-v1/component-composition-graph.v1.json \
+            catalog/global-archetype-sot-v1/source-lock.v1.json \
+            catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json \
+            catalog/global-archetype-sot-v1/reconciliation-proofs.v1.json \
+            catalog/global-archetype-sot-v1/byte-equality-proof.v1.json \
+            catalog/global-archetype-sot-v1/manifest.v1.json \
+            catalog/global-archetype-sot-v1/corrective-receipt.v1.json \
+            catalog/global-archetype-sot-v1/sha256-manifest.v1.json \
+            scripts/global-archetype-sot-v1 \
+            tests/global-archetype-sot-v1-semantic-completeness.test.mjs \
+            tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          if git diff --cached --name-only | grep -E '(^AGENTS\.md$|^docs/|^receipts/|catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)|tests/(date-listing-shell-v1|weekend-listing-v1)|route-archetype-registry\.v1\.json$)'; then
+            echo 'protected file changed' >&2; exit 1
+          fi
+          test "$(git diff --cached --name-only | grep -c '/archetype-contracts/.*semantic-contract.v1.json')" -eq 17
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'fix(ds): commit corrective semantic SoT outputs [skip ci]'
+          git push origin HEAD:feature/global-archetype-sot-v1-corrective-20260824-r4
+
+      - name: Verify committed state
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: |
+          set -euo pipefail
+          test -f catalog/global-archetype-sot-v1/corrective-receipt.v1.json
+          test -f scripts/global-archetype-sot-v1/build-corrective.mjs
+          test "$(find catalog/global-archetype-sot-v1/archetype-contracts -name '*.semantic-contract.v1.json' | wc -l)" -eq 17
