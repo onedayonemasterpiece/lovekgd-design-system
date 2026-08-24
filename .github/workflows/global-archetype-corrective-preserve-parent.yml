@@ -1,0 +1,161 @@
+name: Preserve parent operating manifest in corrective delta
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824
+
+permissions:
+  contents: write
+
+concurrency:
+  group: global-archetype-corrective-preserve-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  patch-validate-commit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+      ASTRO_SHA: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+      TARGET_BRANCH: feature/global-archetype-sot-v1-corrective-20260824
+    steps:
+      - name: Checkout corrective branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: feature/global-archetype-sot-v1-corrective-20260824
+          fetch-depth: 0
+
+      - name: Checkout locked Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .astro-source
+          sparse-checkout: |
+            site/src
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Make corrective builder merge the parent manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('scripts/global-archetype-sot-v1/build-corrective.py')
+          text = path.read_text(encoding='utf-8')
+          marker = 'parent_manifest_preservation = "PASS"'
+          if marker in text:
+              raise SystemExit(0)
+          text = text.replace('import sys\n', 'import sys\nimport subprocess\n', 1)
+          pattern = re.compile(
+              r'          manifest = \{\n.*?          dump\(manifest_path, manifest, sort_keys=True\)\n',
+              re.DOTALL,
+          )
+          replacement = '''          parent_manifest_preservation = "PASS"
+          manifest_path = PKG / "manifest.v1.json"
+          parent_manifest_raw = subprocess.run(
+              ["git", "show", f"{BASE_SHA}:catalog/global-archetype-sot-v1/manifest.v1.json"],
+              cwd=ROOT,
+              check=True,
+              capture_output=True,
+              text=True,
+          ).stdout
+          manifest = json.loads(parent_manifest_raw)
+          manifest.update({
+              "schema_version": "global-archetype-sot-v1.corrective",
+              "status": "CORRECTIVE_CANDIDATE_READY_WITH_EXPLICIT_UNRESOLVED",
+              "authority_mode": "reconstructed",
+              "canonical": False,
+              "corrective_parent_sha": BASE_SHA,
+              "astro_commit": ASTRO_SHA,
+              "source_lock_id": LOCK_ID,
+              "baseline_byte_equality": {"status": "PASS", "proof": rel(proof_path)},
+              "route_registry": {"path": rel(registry_path), "sha256": registry_hash, "byte_changed": False},
+              "component_graph": {"path": rel(graph_path), "sha256": new_graph_hash, "identity_gate_summary": graph_gate_counts},
+              "contracts": {"count": 17, "sorted_checksum_manifest_sha256": sha_bytes(contract_manifest_lines.encode("utf-8")), "changed": changed_contracts},
+              "high_risk_state_evidence": {"observed": observed_states, "unresolved": unresolved_states},
+              "outputs": {
+                  "source_lock": rel(source_lock_path),
+                  "ui_materialization_plan": rel(plan_path),
+                  "corrective_receipt": rel(receipt_path),
+                  "sha256_manifest": "catalog/global-archetype-sot-v1/sha256-manifest.v1.json",
+              },
+              "constraints": {"design_tool_mutation": False, "date_weekend_artifact_changes": False, "production_astro_changes": False, "merge": False, "promotion": False, "deploy": False},
+          })
+          pinned_inputs = dict(manifest.get("pinned_inputs", {}))
+          pinned_inputs["design_system_commit"] = BASE_SHA
+          pinned_inputs["astro_commit"] = ASTRO_SHA
+          manifest["pinned_inputs"] = pinned_inputs
+          visual_materialization = dict(manifest.get("visual_materialization", {}))
+          visual_materialization.update({
+              "status": "UI_ONLY_PLAN_READY_NOT_MATERIALIZED",
+              "owner_pages_required": 17,
+              "required_viewports": ["desktop", "mobile"],
+              "unique_states": "only exact-source/browser-computed visible UI states",
+              "plan": rel(plan_path),
+          })
+          manifest["visual_materialization"] = visual_materialization
+          penpot_policy = dict(manifest.get("penpot_policy", {}))
+          penpot_policy.update({
+              "semantic_input": False,
+              "materialization_scope": "foundations, reusable UI, visual patterns, desktop/mobile compositions and visible UI states only",
+          })
+          manifest["penpot_policy"] = penpot_policy
+          dump(manifest_path, manifest, sort_keys=True)
+'''
+          updated, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit('corrective manifest block not found exactly once')
+          path.write_text(updated, encoding='utf-8')
+          PY
+
+      - name: Rebuild corrective metadata and validate
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          python3 scripts/global-archetype-sot-v1/build-corrective.py
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          git diff --check
+          parent_manifest="$(mktemp)"
+          git show "$BASE_SHA:catalog/global-archetype-sot-v1/manifest.v1.json" > "$parent_manifest"
+          node --input-type=module "$parent_manifest" <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const parent = JSON.parse(readFileSync(process.argv[1], 'utf8'));
+          const current = JSON.parse(readFileSync('catalog/global-archetype-sot-v1/manifest.v1.json', 'utf8'));
+          for (const key of ['pinned_handoff', 'operating_contract']) {
+            if (JSON.stringify(current[key]) !== JSON.stringify(parent[key])) {
+              throw new Error(`parent manifest field was not preserved: ${key}`);
+            }
+          }
+          if (!current.penpot_policy || !current.visual_materialization) {
+            throw new Error('parent visual operating policy was not preserved');
+          }
+          NODE
+
+      - name: Commit parent-preserving correction
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git add -- \
+            scripts/global-archetype-sot-v1/build-corrective.py \
+            catalog/global-archetype-sot-v1/manifest.v1.json \
+            catalog/global-archetype-sot-v1/corrective-receipt.v1.json \
+            catalog/global-archetype-sot-v1/sha256-manifest.v1.json
+          if git diff --cached --quiet; then
+            echo 'Parent operating manifest is already preserved.'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'fix(ds): preserve integrated global archetype operating manifest'
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${TARGET_BRANCH}"
