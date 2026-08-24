@@ -1,0 +1,384 @@
+name: Materialize corrective SoT bundle
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824-r4
+
+permissions:
+  contents: read
+
+env:
+  ASTRO_SHA: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+  TARGET_BRANCH: feature/global-archetype-sot-v1-corrective-20260824-r4
+  BOOTSTRAP_BRANCH: feature/global-archetype-sot-v1-corrective-20260824
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout current corrective branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: feature/global-archetype-sot-v1-corrective-20260824-r4
+          fetch-depth: 0
+
+      - name: Resolve latest parent
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin feature/date-listing-shell-v1-20260823
+          parent="$(git rev-parse origin/feature/date-listing-shell-v1-20260823)"
+          git merge-base --is-ancestor "$parent" HEAD
+          test "$(git rev-list --count HEAD..origin/feature/date-listing-shell-v1-20260823)" = 0
+          echo "BASE_SHA=$parent" >> "$GITHUB_ENV"
+
+      - name: Checkout locked Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .astro-source
+          sparse-checkout: |
+            site/src
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Materialize canonical scripts and tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "$BOOTSTRAP_BRANCH"
+          mkdir -p scripts/global-archetype-sot-v1 tests
+          git show "origin/${BOOTSTRAP_BRANCH}:scripts/global-archetype-sot-v1/build-corrective.py" > scripts/global-archetype-sot-v1/build-corrective.py
+          git show "origin/${BOOTSTRAP_BRANCH}:tests/global-archetype-sot-v1-semantic-completeness.test.mjs" > tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          workflow = Path('.github/workflows/global-archetype-corrective.yml')
+          lines = workflow.read_text(encoding='utf-8').splitlines()
+
+          def extract(marker: str, terminator: str) -> str:
+              start = next(i for i, line in enumerate(lines) if marker in line) + 1
+              end = next(i for i in range(start, len(lines)) if lines[i].strip() == terminator)
+              body = lines[start:end]
+              indents = [len(line) - len(line.lstrip()) for line in body if line.strip()]
+              indent = min(indents) if indents else 0
+              return '\n'.join(line[indent:] if len(line) >= indent else '' for line in body).rstrip() + '\n'
+
+          hardener = extract("cat > scripts/global-archetype-sot-v1/harden-corrective.py <<'PY'", 'PY')
+          boundary = extract("cat > tests/global-archetype-sot-v1-corrective-boundaries.test.mjs <<'NODE'", 'NODE')
+
+          hardener = hardener.replace(
+              'dump(manifest_path, manifest, sort_keys=True)',
+              'dump(manifest_path, manifest)',
+          )
+          Path('scripts/global-archetype-sot-v1/harden-corrective.py').write_text(hardener, encoding='utf-8')
+          Path('tests/global-archetype-sot-v1-corrective-boundaries.test.mjs').write_text(boundary, encoding='utf-8')
+
+          builder = Path('scripts/global-archetype-sot-v1/build-corrective.py')
+          text = builder.read_text(encoding='utf-8')
+          pattern = re.compile(
+              r'reconciliation_receipt = ROOT / "receipts/penpot/[^"]+"\nreconciliation_ok = reconciliation_receipt\.exists\(\) and load\(reconciliation_receipt\)\.get\("status"\) == "PASS"\n'
+          )
+          replacement = 'reconciliation_receipt = PKG / "reconciliation-proofs.v1.json"\nreconciliation_ok = False\n'
+          if 'receipts/penpot/' in text:
+              text, count = pattern.subn(replacement, text, count=1)
+              if count != 1:
+                  raise SystemExit('design-tool reconciliation source was not replaced exactly once')
+          if 'materialization-ir.v1.json' in text or 'receipts/penpot/' in text:
+              raise SystemExit('semantic builder still references forbidden design-tool input')
+          builder.write_text(text, encoding='utf-8')
+          PY
+          chmod +x scripts/global-archetype-sot-v1/*.py tests/global-archetype-sot-v1-*.test.mjs
+
+      - name: Write manifest finalizer
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > scripts/global-archetype-sot-v1/finalize-corrective-manifest.py <<'PY'
+          #!/usr/bin/env python3
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+          from typing import Any
+
+          ROOT = Path(__file__).resolve().parents[2]
+          PKG = ROOT / 'catalog/global-archetype-sot-v1'
+          CONTRACT_ROOT = PKG / 'archetype-contracts'
+          BASE_SHA = os.environ['BASE_SHA']
+          ASTRO_SHA = os.environ.get('ASTRO_SHA', '7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00')
+
+          def load(path: Path) -> Any:
+              return json.loads(path.read_text(encoding='utf-8'))
+
+          def dump(path: Path, value: Any, *, sort_keys: bool = False) -> None:
+              path.write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=sort_keys) + '\n', encoding='utf-8')
+
+          def sha_bytes(value: bytes) -> str:
+              return hashlib.sha256(value).hexdigest()
+
+          def sha_file(path: Path) -> str:
+              return sha_bytes(path.read_bytes())
+
+          def rel(path: Path) -> str:
+              return path.resolve().relative_to(ROOT.resolve()).as_posix()
+
+          manifest_path = PKG / 'manifest.v1.json'
+          source_lock_path = PKG / 'source-lock.v1.json'
+          plan_path = PKG / 'penpot-materialization-plan.v1.json'
+          graph_path = PKG / 'component-composition-graph.v1.json'
+          registry_path = PKG / 'route-archetype-registry.v1.json'
+          proof_path = PKG / 'byte-equality-proof.v1.json'
+          reconciliation_path = PKG / 'reconciliation-proofs.v1.json'
+          receipt_path = PKG / 'corrective-receipt.v1.json'
+          sha_manifest_path = PKG / 'sha256-manifest.v1.json'
+
+          parent_raw = subprocess.run(
+              ['git', 'show', f'{BASE_SHA}:catalog/global-archetype-sot-v1/manifest.v1.json'],
+              cwd=ROOT,
+              check=True,
+              capture_output=True,
+              text=True,
+          ).stdout
+          parent = json.loads(parent_raw)
+          generated = load(manifest_path)
+          source_lock = load(source_lock_path)
+          receipt = load(receipt_path)
+          proof = load(proof_path)
+          handoff = load(PKG / 'handoff-lock.v1.json')
+
+          contract_paths = sorted(CONTRACT_ROOT.glob('*.semantic-contract.v1.json'))
+          if len(contract_paths) != 17:
+              raise SystemExit(f'expected 17 contracts, got {len(contract_paths)}')
+          contract_hashes = {path.name: sha_file(path) for path in contract_paths}
+          contract_manifest_lines = ''.join(f'{contract_hashes[path.name]}  {rel(path)}\n' for path in contract_paths)
+          contract_manifest_sha = sha_bytes(contract_manifest_lines.encode('utf-8'))
+          route_sha = sha_file(registry_path)
+          expected_route_sha = handoff['approved_outputs']['route_archetype_registry']['sha256']
+          if route_sha != expected_route_sha:
+              raise SystemExit('route registry lost byte equality')
+
+          parent_pinned_compact = json.dumps(parent['pinned_handoff'], ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+          final = dict(parent)
+          final['corrective_manifest_version'] = 'global-archetype-sot-v1.corrective.v3'
+          final['corrective_handoff'] = {
+              'status': 'PASS',
+              'corrective_parent_sha': BASE_SHA,
+              'astro_commit': ASTRO_SHA,
+              'source_lock_id': source_lock['source_lock_id'],
+              'baseline_byte_equality': proof,
+              'parent_pinned_handoff_value_sha256': sha_bytes(parent_pinned_compact),
+              'constraints': generated.get('constraints', {
+                  'design_tool_mutation': False,
+                  'date_weekend_artifact_changes': False,
+                  'production_astro_changes': False,
+                  'merge': False,
+                  'promotion': False,
+                  'deploy': False,
+              }),
+          }
+          final['corrective_source_lock'] = {
+              'path': rel(source_lock_path),
+              'sha256': sha_file(source_lock_path),
+              'source_lock_id': source_lock['source_lock_id'],
+              'allowed_input_classes': source_lock['allowed_input_classes'],
+          }
+          final['corrective_outputs'] = {
+              'route_archetype_registry': {
+                  'path': rel(registry_path),
+                  'sha256_before': expected_route_sha,
+                  'sha256_after': route_sha,
+                  'byte_equal': True,
+              },
+              'component_composition_graph': {'path': rel(graph_path), 'sha256': sha_file(graph_path)},
+              'archetype_contracts': {
+                  'path': rel(CONTRACT_ROOT),
+                  'count': 17,
+                  'sorted_checksum_manifest_sha256': contract_manifest_sha,
+              },
+              'semantic_source_lock': {'path': rel(source_lock_path), 'sha256': sha_file(source_lock_path)},
+              'ui_only_materialization_plan': {'path': rel(plan_path), 'sha256': sha_file(plan_path)},
+              'semantic_reconciliation_proofs': {'path': rel(reconciliation_path), 'sha256': sha_file(reconciliation_path)},
+              'byte_equality_proof': {'path': rel(proof_path), 'sha256': sha_file(proof_path)},
+              'corrective_receipt': {'path': rel(receipt_path)},
+              'sha256_manifest': {'path': rel(sha_manifest_path)},
+          }
+          dump(manifest_path, final)
+
+          current = load(manifest_path)
+          current_pinned_compact = json.dumps(current['pinned_handoff'], ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+          if current_pinned_compact != parent_pinned_compact:
+              raise SystemExit('parent pinned_handoff was not preserved byte-identically')
+          if current.get('operating_contract') != parent.get('operating_contract'):
+              raise SystemExit('parent operating_contract was not preserved')
+          if current.get('approved_semantic_outputs') != parent.get('approved_semantic_outputs'):
+              raise SystemExit('parent approved_semantic_outputs was not preserved')
+
+          receipt.update({
+              'schema_version': 'global-archetype-corrective-receipt.v3',
+              'status': 'PASS',
+              'corrective_parent_sha': BASE_SHA,
+              'astro_commit': ASTRO_SHA,
+              'parent_pinned_handoff_byte_equal': True,
+              'parent_pinned_handoff_value_sha256': sha_bytes(parent_pinned_compact),
+              'corrective_manifest_path': rel(manifest_path),
+              'corrective_manifest_sha256': sha_file(manifest_path),
+              'route_registry_sha256_before_after': {
+                  'before': expected_route_sha,
+                  'after': route_sha,
+                  'equal': True,
+              },
+              'corrected_graph_sha256': sha_file(graph_path),
+              'corrected_contract_hashes': contract_hashes,
+              'sorted_17_contract_manifest_sha256': contract_manifest_sha,
+              'source_lock_sha256': sha_file(source_lock_path),
+              'ui_materialization_plan_sha256': sha_file(plan_path),
+              'semantic_reconciliation_proofs_sha256': sha_file(reconciliation_path),
+              'sha256_manifest_path': rel(sha_manifest_path),
+          })
+          dump(receipt_path, receipt, sort_keys=True)
+
+          tracked = [
+              registry_path,
+              graph_path,
+              proof_path,
+              source_lock_path,
+              plan_path,
+              reconciliation_path,
+              manifest_path,
+              receipt_path,
+              ROOT / 'scripts/global-archetype-sot-v1/build-corrective.py',
+              ROOT / 'scripts/global-archetype-sot-v1/harden-corrective.py',
+              ROOT / 'scripts/global-archetype-sot-v1/finalize-corrective-manifest.py',
+              ROOT / 'tests/global-archetype-sot-v1-semantic-completeness.test.mjs',
+              ROOT / 'tests/global-archetype-sot-v1-corrective-boundaries.test.mjs',
+          ] + contract_paths
+          sha_manifest = {
+              'schema_version': 'global-archetype-corrective-sha256-manifest.v3',
+              'corrective_parent_sha': BASE_SHA,
+              'astro_commit': ASTRO_SHA,
+              'files': {rel(path): sha_file(path) for path in tracked},
+              'contract_directory_sorted_manifest_sha256': contract_manifest_sha,
+              'route_registry_sha256_before_after': {
+                  'before': expected_route_sha,
+                  'after': route_sha,
+                  'equal': True,
+              },
+          }
+          dump(sha_manifest_path, sha_manifest, sort_keys=True)
+
+          print(json.dumps({
+              'status': 'PASS',
+              'manifest_sha256': sha_file(manifest_path),
+              'source_lock_sha256': sha_file(source_lock_path),
+              'ui_materialization_plan_sha256': sha_file(plan_path),
+              'component_graph_sha256': sha_file(graph_path),
+              'sorted_17_contract_manifest_sha256': contract_manifest_sha,
+              'route_registry_sha256': route_sha,
+          }, indent=2))
+          PY
+          chmod +x scripts/global-archetype-sot-v1/finalize-corrective-manifest.py
+
+      - name: Add manifest preservation assertions to boundary test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('tests/global-archetype-sot-v1-corrective-boundaries.test.mjs')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace(
+              "import { join, resolve } from 'node:path';",
+              "import { join, resolve } from 'node:path';\nimport { execFileSync } from 'node:child_process';",
+          )
+          marker = "const manifest = readJson(join(pkg, 'manifest.v1.json'));"
+          insertion = """const manifest = readJson(join(pkg, 'manifest.v1.json'));
+const baseSha = process.env.BASE_SHA;
+assert.ok(baseSha, 'BASE_SHA is required');
+const parentManifest = JSON.parse(execFileSync('git', ['show', `${baseSha}:catalog/global-archetype-sot-v1/manifest.v1.json`], { encoding: 'utf8' }));
+assert.equal(JSON.stringify(manifest.pinned_handoff), JSON.stringify(parentManifest.pinned_handoff), 'pinned_handoff changed');
+assert.deepEqual(manifest.operating_contract, parentManifest.operating_contract, 'operating_contract changed');
+assert.deepEqual(manifest.approved_semantic_outputs, parentManifest.approved_semantic_outputs, 'parent semantic authority changed');
+assert.equal(manifest.corrective_handoff.status, 'PASS');
+assert.equal(manifest.corrective_handoff.corrective_parent_sha, baseSha);
+assert.equal(manifest.corrective_source_lock.path, 'catalog/global-archetype-sot-v1/source-lock.v1.json');
+assert.equal(manifest.corrective_outputs.route_archetype_registry.byte_equal, true);"""
+          if marker not in text:
+              raise SystemExit('manifest marker missing from boundary test')
+          text = text.replace(marker, insertion, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Build, harden, finalize and test
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          if [[ ! -f catalog/global-archetype-sot-v1/byte-equality-proof.v1.json ]]; then
+            git fetch origin 8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d || true
+            node scripts/global-archetype-sot-v1/validate-handoff.mjs
+          fi
+          python3 scripts/global-archetype-sot-v1/build-corrective.py
+          python3 scripts/global-archetype-sot-v1/harden-corrective.py
+          python3 scripts/global-archetype-sot-v1/finalize-corrective-manifest.py
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          git diff --check
+
+      - name: Prove deterministic output
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
+        run: |
+          set -euo pipefail
+          find catalog/global-archetype-sot-v1 scripts/global-archetype-sot-v1 tests \
+            -type f \( -name '*.json' -o -name '*.py' -o -name 'global-archetype-sot-v1-*.test.mjs' \) \
+            -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/before.sha256"
+          python3 scripts/global-archetype-sot-v1/build-corrective.py
+          python3 scripts/global-archetype-sot-v1/harden-corrective.py
+          python3 scripts/global-archetype-sot-v1/finalize-corrective-manifest.py
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          find catalog/global-archetype-sot-v1 scripts/global-archetype-sot-v1 tests \
+            -type f \( -name '*.json' -o -name '*.py' -o -name 'global-archetype-sot-v1-*.test.mjs' \) \
+            -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/after.sha256"
+          diff -u "$RUNNER_TEMP/before.sha256" "$RUNNER_TEMP/after.sha256"
+
+      - name: Package corrective Git payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -czf "$RUNNER_TEMP/global-archetype-corrective-git-payload.tar.gz" \
+            catalog/global-archetype-sot-v1/archetype-contracts \
+            catalog/global-archetype-sot-v1/component-composition-graph.v1.json \
+            catalog/global-archetype-sot-v1/source-lock.v1.json \
+            catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json \
+            catalog/global-archetype-sot-v1/reconciliation-proofs.v1.json \
+            catalog/global-archetype-sot-v1/byte-equality-proof.v1.json \
+            catalog/global-archetype-sot-v1/manifest.v1.json \
+            catalog/global-archetype-sot-v1/corrective-receipt.v1.json \
+            catalog/global-archetype-sot-v1/sha256-manifest.v1.json \
+            scripts/global-archetype-sot-v1/build-corrective.py \
+            scripts/global-archetype-sot-v1/harden-corrective.py \
+            scripts/global-archetype-sot-v1/finalize-corrective-manifest.py \
+            tests/global-archetype-sot-v1-semantic-completeness.test.mjs \
+            tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          sha256sum "$RUNNER_TEMP/global-archetype-corrective-git-payload.tar.gz" > "$RUNNER_TEMP/global-archetype-corrective-git-payload.sha256"
+
+      - name: Upload corrective Git payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-archetype-corrective-git-payload
+          path: |
+            ${{ runner.temp }}/global-archetype-corrective-git-payload.tar.gz
+            ${{ runner.temp }}/global-archetype-corrective-git-payload.sha256
+          if-no-files-found: error
+          retention-days: 3
