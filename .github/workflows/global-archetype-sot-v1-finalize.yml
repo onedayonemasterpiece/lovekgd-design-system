@@ -46,7 +46,17 @@ jobs:
           set -euo pipefail
           git merge-base --is-ancestor "$BASE_SHA" HEAD
           archive="$RUNNER_TEMP/global-archetype-sot-v1-source.tar.gz"
-          tr -cd 'A-Za-z0-9+/=' < .bootstrap/global-archetype-sot-v1-source.tar.gz.b64 | base64 --decode > "$archive"
+          ARCHIVE="$archive" python3 - <<'PY'
+          import base64
+          import os
+          import re
+          from pathlib import Path
+
+          source = Path('.bootstrap/global-archetype-sot-v1-source.tar.gz.b64').read_text(encoding='utf-8')
+          clean = re.sub(r'[^A-Za-z0-9+/=]', '', source)
+          clean += '=' * (-len(clean) % 4)
+          Path(os.environ['ARCHIVE']).write_bytes(base64.b64decode(clean, validate=False))
+          PY
           printf '%s  %s\n' e6cc088150756f9345a59940a58cecbcb35e788ff8173983d3edcb7541cb5d56 "$archive" | sha256sum --check --strict
           tar -xzf "$archive" -C .
           rm -rf .bootstrap
