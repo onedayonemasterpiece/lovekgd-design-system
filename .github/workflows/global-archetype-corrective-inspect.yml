@@ -28,7 +28,7 @@ jobs:
           repository: onedayonemasterpiece/events-bot-new
           ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
           path: events-bot
-          sparse-checkout: src
+          sparse-checkout: site/src
           sparse-checkout-cone-mode: true
           fetch-depth: 1
 
@@ -82,7 +82,7 @@ jobs:
             catalog/reconstruction-atlas/v1 \
             scripts/global-archetype-sot-v1 \
             AGENTS.md \
-            events-bot \
+            events-bot/site/src \
             -C "$RUNNER_TEMP" inspection-meta
           sha256sum "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" > "$RUNNER_TEMP/global-archetype-corrective-inspection.sha256"
 
