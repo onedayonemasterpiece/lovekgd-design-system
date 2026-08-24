@@ -1,0 +1,76 @@
+name: Bootstrap global archetype SoT v1
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-20260824-r2
+
+permissions:
+  contents: write
+
+concurrency:
+  group: global-archetype-sot-v1-bootstrap-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unpack-build-validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      BASE_SHA: 1d252c5f01bfab507de4a026d00a1e4a83a37d9a
+      BRANCH_NAME: feature/global-archetype-sot-v1-20260824-r2
+    steps:
+      - name: Checkout child branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify payload and materialize source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor "$BASE_SHA" HEAD
+
+          cat > "$RUNNER_TEMP/parts.sha256" <<'CHECKSUMS'
+          606b1385be2599819e52fa4b6ddb69246176df46aa2c580f4d6be428d5ff5ecc  .bootstrap/global-archetype-sot-v1/part-00
+          150237a0b2ae9c3f31ab9eec523cca889e3947b8f69c70484722fbd8b2d223e2  .bootstrap/global-archetype-sot-v1/part-01
+          e3c5bde9865ded18d72b55b714bcff58ebf18b163996fd6a714232a648ed4be8  .bootstrap/global-archetype-sot-v1/part-02
+          2406019a684712fa1017d91d2a9ce3bacaf71e7ba56947388e06245c47424a88  .bootstrap/global-archetype-sot-v1/part-03
+          9fc04dd83903c01a9fba78c00f12ebec7913757b99ee2964145ad2184ceee900  .bootstrap/global-archetype-sot-v1/part-04
+          e17300385b0b5bc16fe9289fa4d4523f4c98c166f0894cadd4a6471f47c7435e  .bootstrap/global-archetype-sot-v1/part-05
+          CHECKSUMS
+          sha256sum --check --strict "$RUNNER_TEMP/parts.sha256"
+
+          archive="$RUNNER_TEMP/global-archetype-sot-v1.tar.gz"
+          cat .bootstrap/global-archetype-sot-v1/part-* | base64 --decode > "$archive"
+          printf '%s  %s\n' 65d9610e3685b5ab9774689179fe18a249683d5bce04884baef7d80f9e1a6f3e "$archive" | sha256sum --check --strict
+          tar -tzf "$archive"
+          tar -xzf "$archive" -C .
+          rm -rf .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
+
+      - name: Build and run fail-closed checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check scripts/global-archetype-sot-v1/build.mjs
+          node --check scripts/global-archetype-sot-v1/validate.mjs
+          node scripts/global-archetype-sot-v1/build.mjs
+          node scripts/global-archetype-sot-v1/validate.mjs
+          node tests/global-archetype-sot-v1.test.mjs
+          git diff --check
+
+      - name: Commit clean source and generated SoT
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A
+          protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
+          if git diff --cached --name-only | grep -E "$protected"; then
+            echo 'Protected Date/Weekend artifact changed' >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'feat(ds): assemble global archetype SoT v1'
+          git push origin "HEAD:${BRANCH_NAME}"
