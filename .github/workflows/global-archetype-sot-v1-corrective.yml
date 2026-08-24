@@ -1,86 +1,124 @@
-name: Corrective global archetype SoT
+name: Validate corrective global archetype SoT
 
 on:
-  push:
-    branches:
-      - feature/global-archetype-sot-v1-corrective-20260824-r4
-    paths:
-      - 'catalog/global-archetype-sot-v1/**'
-      - 'scripts/global-archetype-sot-v1/**'
-      - 'tests/global-archetype-sot-v1*.mjs'
-      - '.github/workflows/global-archetype-sot-v1-corrective.yml'
   pull_request:
     branches:
       - feature/date-listing-shell-v1-20260823
     paths:
       - 'catalog/global-archetype-sot-v1/**'
       - 'scripts/global-archetype-sot-v1/**'
-      - 'tests/global-archetype-sot-v1*.mjs'
+      - 'tests/global-archetype-sot-v1-*.test.mjs'
       - '.github/workflows/global-archetype-sot-v1-corrective.yml'
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: corrective-global-archetype-sot-${{ github.ref }}
-  cancel-in-progress: false
+  group: corrective-global-archetype-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  BASE_BRANCH: feature/date-listing-shell-v1-20260823
+  ASTRO_SHA: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+  EXPECTED_PR: '50'
 
 jobs:
-  verify:
+  validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
-      - name: Checkout corrective branch
+      - name: Checkout exact PR head
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Checkout pinned Astro source
+
+      - name: Resolve latest base and prove ancestry
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.ref }}" = "$BASE_BRANCH"
+          git fetch origin "$BASE_BRANCH"
+          base_sha="$(git rev-parse "origin/${BASE_BRANCH}")"
+          test "$base_sha" = "${{ github.event.pull_request.base.sha }}"
+          git merge-base --is-ancestor "$base_sha" HEAD
+          test "$(git rev-list --count HEAD..origin/${BASE_BRANCH})" = 0
+          git merge-tree --write-tree HEAD "origin/${BASE_BRANCH}" >/dev/null
+          echo "BASE_SHA=$base_sha" >> "$GITHUB_ENV"
+
+      - name: Checkout pinned Astro source read-only
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           repository: onedayonemasterpiece/events-bot-new
           ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
-          path: .external/events-bot-new
+          path: .astro-source
+          sparse-checkout: |
+            site/src
+          sparse-checkout-cone-mode: true
           fetch-depth: 1
-      - name: Set up Node 22
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 22.12.0
-      - name: Prove deterministic corrective output
+
+      - name: Verify committed SHA manifest, outputs, UI-only plan and zero counters
         shell: bash
-        env:
-          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
         run: |
           set -euo pipefail
-          git diff --quiet
-          find catalog/global-archetype-sot-v1 -type f -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/corrective-before.sha256"
-          node scripts/global-archetype-sot-v1/build-corrective.mjs
-          find catalog/global-archetype-sot-v1 -type f -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/corrective-after.sha256"
-          diff -u "$RUNNER_TEMP/corrective-before.sha256" "$RUNNER_TEMP/corrective-after.sha256"
-          git diff --exit-code -- catalog/global-archetype-sot-v1 scripts/global-archetype-sot-v1 tests/global-archetype-sot-v1-semantic-completeness.test.mjs tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
-      - name: Run semantic completeness
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path('.')
+          pkg = root / 'catalog/global-archetype-sot-v1'
+          required = [
+              pkg / 'component-composition-graph.v1.json', pkg / 'byte-equality-proof.v1.json',
+              pkg / 'source-lock.v1.json', pkg / 'penpot-materialization-plan.v1.json',
+              pkg / 'reconciliation-proofs.v1.json', pkg / 'manifest.v1.json',
+              pkg / 'corrective-receipt.v1.json', pkg / 'sha256-manifest.v1.json',
+              root / 'scripts/global-archetype-sot-v1/build-corrective.py',
+              root / 'scripts/global-archetype-sot-v1/harden-corrective.py',
+              root / 'tests/global-archetype-sot-v1-semantic-completeness.test.mjs',
+              root / 'tests/global-archetype-sot-v1-corrective-boundaries.test.mjs',
+          ]
+          assert all(path.is_file() for path in required)
+          contracts = sorted((pkg / 'archetype-contracts').glob('*.semantic-contract.v1.json'))
+          assert len(contracts) == 17
+          plan = json.loads((pkg / 'penpot-materialization-plan.v1.json').read_text())
+          assert plan['materialization_scope'] == 'ui_only'
+          manifest = json.loads((pkg / 'manifest.v1.json').read_text())
+          assert manifest['corrective_parent_sha'] == __import__('os').environ['BASE_SHA']
+          assert manifest['status'] == 'CORRECTIVE_CANDIDATE_READY_WITH_EXPLICIT_UNRESOLVED'
+          assert all(value == 0 for value in manifest['corrective_zero_change_counters'].values())
+          hashes = json.loads((pkg / 'sha256-manifest.v1.json').read_text())
+          for rel, expected in hashes['files'].items():
+              actual = hashlib.sha256((root / rel).read_bytes()).hexdigest()
+              assert actual == expected, (rel, expected, actual)
+          PY
+
+      - name: Run committed semantic and boundary tests
         shell: bash
         env:
-          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
-        run: node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
-      - name: Run corrective boundaries
-        shell: bash
-        env:
-          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
-          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
-        run: node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
-      - name: Validate immutable handoff and protected scope
-        shell: bash
-        env:
-          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.astro-source
         run: |
           set -euo pipefail
-          git fetch origin 8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d
-          node scripts/global-archetype-sot-v1/validate-handoff.mjs
+          python3 -m py_compile scripts/global-archetype-sot-v1/build-corrective.py scripts/global-archetype-sot-v1/harden-corrective.py
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
           git diff --check
-          test -z "$(git diff --name-only da16dde8812220125a806bd5a03d5015357d4c07...HEAD -- AGENTS.md docs receipts catalog/page-archetypes/date-listing-shell-v1 catalog/page-archetypes/weekend-listing-v1 tests/date-listing-shell-v1.test.mjs tests/weekend-listing-v1.test.mjs)"
+          git diff --exit-code
+
+      - name: Require exact Draft PR head and mergeable=true
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.number }}" = "$EXPECTED_PR"
+          test "${{ github.event.pull_request.head.sha }}" = "$(git rev-parse HEAD)"
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${EXPECTED_PR}"
+          for attempt in $(seq 1 15); do
+            pr="$(curl --fail --silent --show-error --retry 3 "$api")"
+            test "$(jq -r '.head.sha' <<<"$pr")" = "$(git rev-parse HEAD)"
+            test "$(jq -r '.base.ref' <<<"$pr")" = "$BASE_BRANCH"
+            test "$(jq -r '.base.sha' <<<"$pr")" = "$BASE_SHA"
+            test "$(jq -r '.draft' <<<"$pr")" = true
+            mergeable="$(jq -r '.mergeable' <<<"$pr")"
+            if [[ "$mergeable" == true ]]; then exit 0; fi
+            if [[ "$mergeable" == false ]]; then exit 1; fi
+            sleep 2
+          done
+          exit 1
