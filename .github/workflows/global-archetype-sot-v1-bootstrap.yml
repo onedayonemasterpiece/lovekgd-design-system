@@ -9,7 +9,7 @@ on:
       - feature/date-listing-shell-v1-20260823
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: global-archetype-sot-v1-bootstrap-${{ github.ref }}
@@ -21,6 +21,7 @@ jobs:
     timeout-minutes: 20
     env:
       BASE_SHA: 149cc9c56a1245e846c1abc614723078c3417cb7
+      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
       - name: Checkout child branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -82,3 +83,28 @@ jobs:
             ${{ runner.temp }}/global-archetype-sot-v1-final.sha256
           if-no-files-found: error
           retention-days: 3
+
+      - name: Commit verified result to the real child branch
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf node_modules
+          git add -- \
+            .github/workflows/global-archetype-sot-v1.yml \
+            catalog/global-archetype-sot-v1 \
+            scripts/global-archetype-sot-v1 \
+            scripts/reconstruction-atlas/build-global-archetype-sot.mjs \
+            tests/global-archetype-sot-v1.test.mjs
+          git add -u -- .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
+          protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
+          if git diff --cached --name-only | grep -E "$protected"; then
+            echo 'Protected Date/Weekend artifact changed' >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'feat(ds): assemble global archetype SoT v1'
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${TARGET_BRANCH}"
