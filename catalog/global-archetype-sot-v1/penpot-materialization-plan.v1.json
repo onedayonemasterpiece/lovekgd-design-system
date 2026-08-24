@@ -1,0 +1,1166 @@
+{
+  "schema_version": "global-archetype-ui-materialization-plan.v1",
+  "materialization_scope": "ui_only",
+  "allowed_content": [
+    "foundations",
+    "ui_components",
+    "visual_patterns",
+    "desktop_compositions",
+    "mobile_compositions",
+    "visual_states"
+  ],
+  "forbidden_content": [
+    "source-state indexes",
+    "runtime dashboards",
+    "status dashboards",
+    "coverage dashboards",
+    "gap dashboards",
+    "hash dashboards",
+    "test dashboards",
+    "service review routes"
+  ],
+  "owner_pages": [
+    {
+      "owner_page_key": "owner.artifacts",
+      "archetype_id": "archetype.artifacts",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "border"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "artifact.collection-header",
+        "artifact.progress",
+        "artifact.cards",
+        "artifact.reserved-slots",
+        "artifact.dialog"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop collection grid/dialog"
+            }
+          ],
+          "region_ids": [
+            "artifact.collection-header",
+            "artifact.progress",
+            "artifact.cards",
+            "artifact.reserved-slots",
+            "artifact.dialog"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile collection cards and bottom-sheet-like dialog"
+            }
+          ],
+          "region_ids": [
+            "artifact.collection-header",
+            "artifact.progress",
+            "artifact.cards",
+            "artifact.reserved-slots",
+            "artifact.dialog"
+          ]
+        }
+      },
+      "visual_states": [
+        "complete",
+        "content",
+        "dialog-open",
+        "empty",
+        "locked",
+        "partial",
+        "runtime",
+        "semantic",
+        "unlocked"
+      ]
+    },
+    {
+      "owner_page_key": "owner.collections",
+      "archetype_id": "archetype.collections",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "collection.index-header",
+        "collection.directory",
+        "collection.detail-header",
+        "collection.criteria",
+        "collection.results",
+        "collection.fallback-results",
+        "collection.gastronomy-surface"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop editorial/result grid"
+            }
+          ],
+          "region_ids": [
+            "collection.index-header",
+            "collection.directory",
+            "collection.detail-header",
+            "collection.criteria",
+            "collection.results",
+            "collection.fallback-results",
+            "collection.gastronomy-surface"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile single-column result flow"
+            }
+          ],
+          "region_ids": [
+            "collection.index-header",
+            "collection.directory",
+            "collection.detail-header",
+            "collection.criteria",
+            "collection.results",
+            "collection.fallback-results",
+            "collection.gastronomy-surface"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "detail-empty",
+        "detail-fallback",
+        "detail-populated",
+        "free-collection",
+        "gastronomy-editorial",
+        "index",
+        "semantic"
+      ]
+    },
+    {
+      "owner_page_key": "owner.event-detail",
+      "archetype_id": "archetype.event-detail",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "shadow",
+        "breakpoint",
+        "media"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "event.hero",
+        "event.media-frame",
+        "event.summary",
+        "event.admission-actions",
+        "event.facts",
+        "event.participants",
+        "event.venue",
+        "event.medallions",
+        "event.transport",
+        "event.related-events",
+        "event.question-cta"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop presentation resolver and editorial/split compositions"
+            }
+          ],
+          "region_ids": [
+            "event.hero",
+            "event.media-frame",
+            "event.summary",
+            "event.admission-actions",
+            "event.facts",
+            "event.participants",
+            "event.venue",
+            "event.medallions",
+            "event.transport",
+            "event.related-events",
+            "event.question-cta"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile accepted-v8 hero, continuation and action dock"
+            }
+          ],
+          "region_ids": [
+            "event.hero",
+            "event.media-frame",
+            "event.summary",
+            "event.admission-actions",
+            "event.facts",
+            "event.participants",
+            "event.venue",
+            "event.medallions",
+            "event.transport",
+            "event.related-events",
+            "event.question-cta"
+          ]
+        }
+      },
+      "visual_states": [
+        "layout.editorial-with-poster-companion",
+        "layout.no-image",
+        "mobile-media.single",
+        "mobile-media.poster",
+        "mobile-media.gallery",
+        "transport.rail",
+        "transport.bus",
+        "transport.kaup",
+        "transport.absent",
+        "transport.unavailable",
+        "transport.error",
+        "question-cta",
+        "feedback-boundary.page-feedback",
+        "feedback-boundary.event-error-report"
+      ]
+    },
+    {
+      "owner_page_key": "owner.exhibitions",
+      "archetype_id": "archetype.exhibitions",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "media"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "exhibition.header",
+        "exhibition.personalization",
+        "exhibition.rows",
+        "exhibition.media-deck",
+        "exhibition.hide-undo"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop long exhibition rows/deck"
+            }
+          ],
+          "region_ids": [
+            "exhibition.header",
+            "exhibition.personalization",
+            "exhibition.rows",
+            "exhibition.media-deck",
+            "exhibition.hide-undo"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile stacked row/deck"
+            }
+          ],
+          "region_ids": [
+            "exhibition.header",
+            "exhibition.personalization",
+            "exhibition.rows",
+            "exhibition.media-deck",
+            "exhibition.hide-undo"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "empty",
+        "hidden",
+        "media-single",
+        "media-slider",
+        "personalized",
+        "ready",
+        "runtime",
+        "semantic",
+        "undo",
+        "unpersonalized"
+      ]
+    },
+    {
+      "owner_page_key": "owner.favorites",
+      "archetype_id": "archetype.favorites",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "motion",
+        "state"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "favorites.header",
+        "favorites.identity-gate",
+        "favorites.saved-events",
+        "favorites.recovery"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop saved-event grid"
+            }
+          ],
+          "region_ids": [
+            "favorites.header",
+            "favorites.identity-gate",
+            "favorites.saved-events",
+            "favorites.recovery"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile single-column saved flow"
+            }
+          ],
+          "region_ids": [
+            "favorites.header",
+            "favorites.identity-gate",
+            "favorites.saved-events",
+            "favorites.recovery"
+          ]
+        }
+      },
+      "visual_states": [
+        "favorites.local-only",
+        "favorites.auth-required",
+        "favorites.reconciling",
+        "favorites.empty",
+        "favorites.catalog-failure",
+        "favorites.cloud-failure"
+      ]
+    },
+    {
+      "owner_page_key": "owner.festivals",
+      "archetype_id": "archetype.festivals",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "media"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "festival.header",
+        "festival.timeline",
+        "festival.card-flow",
+        "festival.category-chip"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop calendar/timeline flow"
+            }
+          ],
+          "region_ids": [
+            "festival.header",
+            "festival.timeline",
+            "festival.card-flow",
+            "festival.category-chip"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile stacked cards and timeline"
+            }
+          ],
+          "region_ids": [
+            "festival.header",
+            "festival.timeline",
+            "festival.card-flow",
+            "festival.category-chip"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "empty-period",
+        "favorite-count",
+        "lifecycle",
+        "past",
+        "ready",
+        "semantic",
+        "theme-values",
+        "upcoming"
+      ]
+    },
+    {
+      "owner_page_key": "owner.focus-group",
+      "archetype_id": "archetype.focus-group",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "state"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "focus.program",
+        "focus.invitation-intake",
+        "focus.feedback",
+        "focus.connectivity-diagnostic",
+        "focus.collection",
+        "focus.completion"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop research panels"
+            }
+          ],
+          "region_ids": [
+            "focus.program",
+            "focus.invitation-intake",
+            "focus.feedback",
+            "focus.connectivity-diagnostic",
+            "focus.collection",
+            "focus.completion"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile sheet/panel flow and touch targets"
+            }
+          ],
+          "region_ids": [
+            "focus.program",
+            "focus.invitation-intake",
+            "focus.feedback",
+            "focus.connectivity-diagnostic",
+            "focus.collection",
+            "focus.completion"
+          ]
+        }
+      },
+      "visual_states": [
+        "feedback.overall-nps",
+        "feedback.page-usefulness",
+        "feedback.improvement-suggestion",
+        "feedback.event-error-report"
+      ]
+    },
+    {
+      "owner_page_key": "owner.home",
+      "archetype_id": "archetype.home",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "shadow",
+        "breakpoint",
+        "media",
+        "motion"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "home.hero-talk",
+        "home.quick-navigation",
+        "home.cold-start-feed"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop editorial hero and feed"
+            }
+          ],
+          "region_ids": [
+            "home.hero-talk",
+            "home.quick-navigation",
+            "home.cold-start-feed"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile single-column hero, quick navigation and feed"
+            }
+          ],
+          "region_ids": [
+            "home.hero-talk",
+            "home.quick-navigation",
+            "home.cold-start-feed"
+          ]
+        }
+      },
+      "visual_states": [
+        "cold-start",
+        "personalized-local",
+        "prelaunch-env-branch",
+        "ready",
+        "runtime",
+        "semantic"
+      ]
+    },
+    {
+      "owner_page_key": "owner.information-pages",
+      "archetype_id": "archetype.information-pages",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "breakpoint"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "information.page-header",
+        "information.long-form-content",
+        "partners.logo-grid",
+        "partnership.conditions",
+        "information.secondary-navigation"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop document/content width"
+            }
+          ],
+          "region_ids": [
+            "information.page-header",
+            "information.long-form-content",
+            "partners.logo-grid",
+            "partnership.conditions",
+            "information.secondary-navigation"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile readable single-column document flow"
+            }
+          ],
+          "region_ids": [
+            "information.page-header",
+            "information.long-form-content",
+            "partners.logo-grid",
+            "partnership.conditions",
+            "information.secondary-navigation"
+          ]
+        }
+      },
+      "visual_states": [
+        "legal-document",
+        "long-content",
+        "partners-index",
+        "partnership-content",
+        "semantic"
+      ]
+    },
+    {
+      "owner_page_key": "owner.interest-clubs",
+      "archetype_id": "archetype.interest-clubs",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "media"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "club.catalog-header",
+        "club.catalog-grid",
+        "club.card",
+        "club.detail-hero",
+        "club.detail-facts",
+        "club.meeting-list",
+        "club.empty-meetings"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop catalogue/detail grids"
+            }
+          ],
+          "region_ids": [
+            "club.catalog-header",
+            "club.catalog-grid",
+            "club.card",
+            "club.detail-hero",
+            "club.detail-facts",
+            "club.meeting-list",
+            "club.empty-meetings"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile single-column cards/facts/meetings"
+            }
+          ],
+          "region_ids": [
+            "club.catalog-header",
+            "club.catalog-grid",
+            "club.card",
+            "club.detail-hero",
+            "club.detail-facts",
+            "club.meeting-list",
+            "club.empty-meetings"
+          ]
+        }
+      },
+      "visual_states": [
+        "catalog",
+        "content",
+        "cover-absent",
+        "cover-present",
+        "detail-future-meetings",
+        "detail-no-future-meetings",
+        "semantic"
+      ]
+    },
+    {
+      "owner_page_key": "owner.listing-date",
+      "archetype_id": "archetype.listing.date",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "motion"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "listing.page-date-header",
+        "listing.discovery-rail",
+        "listing.controls",
+        "listing.time-navigation",
+        "listing.time-groups",
+        "listing.desktop-card-flow",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop time-group grid/flow"
+            }
+          ],
+          "region_ids": [
+            "listing.page-date-header",
+            "listing.discovery-rail",
+            "listing.controls",
+            "listing.time-navigation",
+            "listing.time-groups",
+            "listing.desktop-card-flow",
+            "listing.mobile-rail",
+            "listing.personal-slot"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile full-width rail rows with pinned date accessory"
+            }
+          ],
+          "region_ids": [
+            "listing.page-date-header",
+            "listing.discovery-rail",
+            "listing.controls",
+            "listing.time-navigation",
+            "listing.time-groups",
+            "listing.desktop-card-flow",
+            "listing.mobile-rail",
+            "listing.personal-slot"
+          ]
+        }
+      },
+      "visual_states": [
+        "completed",
+        "content",
+        "empty",
+        "error",
+        "lifecycle",
+        "loading",
+        "now",
+        "ready",
+        "runtime",
+        "semantic",
+        "sparse",
+        "specific-date",
+        "stress",
+        "today",
+        "tomorrow",
+        "untimed",
+        "upcoming"
+      ]
+    },
+    {
+      "owner_page_key": "owner.listing-popular",
+      "archetype_id": "archetype.listing.popular",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "popular.grouping",
+        "popular.feed",
+        "listing.personal-slot"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop grouped listing"
+            }
+          ],
+          "region_ids": [
+            "listing.page-header",
+            "listing.discovery-rail",
+            "popular.grouping",
+            "popular.feed",
+            "listing.personal-slot"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile sequential rail/feed"
+            }
+          ],
+          "region_ids": [
+            "listing.page-header",
+            "listing.discovery-rail",
+            "popular.grouping",
+            "popular.feed",
+            "listing.personal-slot"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "dense",
+        "empty",
+        "personalized",
+        "ready",
+        "runtime",
+        "semantic",
+        "sparse",
+        "unpersonalized"
+      ]
+    },
+    {
+      "owner_page_key": "owner.listing-unusual",
+      "archetype_id": "archetype.listing.unusual",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "media"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "unusual.unread-context",
+        "unusual.feed"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop grouped listing"
+            }
+          ],
+          "region_ids": [
+            "listing.page-header",
+            "listing.discovery-rail",
+            "unusual.unread-context",
+            "unusual.feed"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile sequential feed with unread state"
+            }
+          ],
+          "region_ids": [
+            "listing.page-header",
+            "listing.discovery-rail",
+            "unusual.unread-context",
+            "unusual.feed"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "dense",
+        "empty",
+        "read",
+        "ready",
+        "runtime",
+        "semantic",
+        "stale",
+        "unread"
+      ]
+    },
+    {
+      "owner_page_key": "owner.listing-weekend",
+      "archetype_id": "archetype.listing.weekend",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "motion"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "listing.page-date-header",
+        "listing.weekend-range-navigation",
+        "listing.discovery-rail",
+        "listing.weekend-day-headers",
+        "listing.weekend-editorial-timeline",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop two-day lanes and exact time rows"
+            }
+          ],
+          "region_ids": [
+            "listing.page-date-header",
+            "listing.weekend-range-navigation",
+            "listing.discovery-rail",
+            "listing.weekend-day-headers",
+            "listing.weekend-editorial-timeline",
+            "listing.mobile-rail",
+            "listing.personal-slot"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile sequential rail tracks without viewport clipping"
+            }
+          ],
+          "region_ids": [
+            "listing.page-date-header",
+            "listing.weekend-range-navigation",
+            "listing.discovery-rail",
+            "listing.weekend-day-headers",
+            "listing.weekend-editorial-timeline",
+            "listing.mobile-rail",
+            "listing.personal-slot"
+          ]
+        }
+      },
+      "visual_states": [
+        "content",
+        "current-range",
+        "empty",
+        "empty-opposite-day",
+        "historical-range",
+        "lifecycle",
+        "semantic",
+        "single-day-concentration",
+        "sparse",
+        "stress",
+        "typical"
+      ]
+    },
+    {
+      "owner_page_key": "owner.personal-feed",
+      "archetype_id": "archetype.personal-feed",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "motion",
+        "state",
+        "storage"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "personal.header",
+        "personal.interest-profile",
+        "personal.filters",
+        "personal.feed",
+        "personal.feedback"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop profile/feed composition"
+            }
+          ],
+          "region_ids": [
+            "personal.header",
+            "personal.interest-profile",
+            "personal.filters",
+            "personal.feed",
+            "personal.feedback"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile stacked profile and feed"
+            }
+          ],
+          "region_ids": [
+            "personal.header",
+            "personal.interest-profile",
+            "personal.filters",
+            "personal.feed",
+            "personal.feedback"
+          ]
+        }
+      },
+      "visual_states": [
+        "personal-feed.consent",
+        "personal-feed.profile-insufficient",
+        "personal-feed.profile-ready",
+        "personal-feed.profile-deleted",
+        "personal-feed.loading",
+        "personal-feed.empty",
+        "personal-feed.populated",
+        "personal-feed.stale",
+        "personal-feed.error",
+        "personal-feed.hidden",
+        "personal-feed.restore"
+      ]
+    },
+    {
+      "owner_page_key": "owner.search",
+      "archetype_id": "archetype.search",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "breakpoint",
+        "motion",
+        "state"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "search.header",
+        "search.query-field",
+        "search.filters",
+        "search.results",
+        "search.collection-links",
+        "search.identity-gate"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop search controls and result grid"
+            }
+          ],
+          "region_ids": [
+            "search.header",
+            "search.query-field",
+            "search.filters",
+            "search.results",
+            "search.collection-links",
+            "search.identity-gate"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile search controls and search-specific bottom navigation"
+            }
+          ],
+          "region_ids": [
+            "search.header",
+            "search.query-field",
+            "search.filters",
+            "search.results",
+            "search.collection-links",
+            "search.identity-gate"
+          ]
+        }
+      },
+      "visual_states": [
+        "search.validation",
+        "search.progress",
+        "search.loading",
+        "search.results",
+        "search.empty",
+        "search.error",
+        "search.retry",
+        "search.stale",
+        "search.load-more",
+        "search.timeout",
+        "search.recovery"
+      ]
+    },
+    {
+      "owner_page_key": "owner.special-state",
+      "archetype_id": "archetype.special-state",
+      "foundations": [
+        "color",
+        "typography",
+        "spacing",
+        "radius",
+        "state"
+      ],
+      "ui_components": [],
+      "visual_patterns": [
+        "special.prelaunch",
+        "special.membership-check",
+        "special.locked",
+        "special.closed-hub",
+        "special.unavailable"
+      ],
+      "compositions": {
+        "desktop": {
+          "responsive_branches": [
+            {
+              "branch_id": "desktop",
+              "condition": "desktop breakpoint",
+              "structure": "desktop special-state panel/hub"
+            }
+          ],
+          "region_ids": [
+            "special.prelaunch",
+            "special.membership-check",
+            "special.locked",
+            "special.closed-hub",
+            "special.unavailable"
+          ]
+        },
+        "mobile": {
+          "responsive_branches": [
+            {
+              "branch_id": "mobile",
+              "condition": "mobile breakpoint",
+              "structure": "mobile guarded single-column state flow"
+            }
+          ],
+          "region_ids": [
+            "special.prelaunch",
+            "special.membership-check",
+            "special.locked",
+            "special.closed-hub",
+            "special.unavailable"
+          ]
+        }
+      },
+      "visual_states": [
+        "checking",
+        "hub",
+        "locked",
+        "noscript",
+        "prelaunch-env",
+        "runtime",
+        "semantic",
+        "unavailable"
+      ]
+    }
+  ]
+}
