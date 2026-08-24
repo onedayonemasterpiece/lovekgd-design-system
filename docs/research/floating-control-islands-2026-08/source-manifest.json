@@ -6,38 +6,53 @@
   "source": {
     "telegram": {
       "url": "https://t.me/c/4337049383/1162",
-      "target_title": "KenigEvents · UI review",
       "message_id": 1162,
-      "mcp_metadata_read": true,
-      "mcp_reported_media_count": 2
+      "message_metadata_read_via_eventsbot_mcp": true,
+      "historical_album_metadata": {
+        "reported_media_count": 2,
+        "scope": "telegram_message_album_metadata_only",
+        "is_not_direct_attachment_count": true
+      }
     },
     "direct_conversation_attachments": {
       "count": 6,
-      "dimensions": [921, 2048],
-      "pixels_available_for_visual_review": true,
+      "all_visually_reviewed": true,
+      "pixels_available_for_design_review": true,
       "screens": [
         {
           "id": "screen-01-kimi-home",
+          "width": 921,
+          "height": 2048,
           "sha256": "ed00a48873a178db8586030ff82d96e01da6fb1647d30aa9c6df6f7fae594568"
         },
         {
           "id": "screen-02-kimi-reading",
+          "width": 921,
+          "height": 2048,
           "sha256": "4c1de460664b24a1301255d6909fe9b63b4a0914fb8ebc66fb575146d3ae358f"
         },
         {
           "id": "screen-03-telegram-chat-list",
+          "width": 921,
+          "height": 2048,
           "sha256": "2bfa52267c2deb92b3063c02108e29ca9b077c4088a6737760cfcd443d0dd3d0"
         },
         {
           "id": "screen-04-telegram-conversation",
+          "width": 921,
+          "height": 2048,
           "sha256": "6e1ab7772db57c8daa37f7a43ccd6eee7f3f07a2718b62e5fcfe23485229fc96"
         },
         {
-          "id": "screen-05-music-player",
+          "id": "screen-05-media-player",
+          "width": 921,
+          "height": 2048,
           "sha256": "4a671925760a193c44ecce0deceec3c9b5ad298df4ae441f5e377ece5f19a339"
         },
         {
-          "id": "screen-06-music-library",
+          "id": "screen-06-media-library",
+          "width": 921,
+          "height": 2048,
           "sha256": "6f1a04fab422a41c1b3a163dfbb313058dc160a34bee344102ba299ec0fe3dfd"
         }
       ]
@@ -46,59 +61,58 @@
   "acquisition": {
     "mcp_media_materialization": "failed",
     "mcp_failure_is_separate_infrastructure_issue": true,
-    "manual_attachment_fallback": "complete",
-    "fidelity": "source_informed_anonymized_skeletons",
-    "all_six_screens_visually_reviewed": true
+    "direct_attachment_fallback": "complete",
+    "previous_source_pixel_limitation_for_design_analysis": "removed",
+    "fidelity": "source-informed anonymized skeletons"
   },
   "privacy": {
-    "original_media_committed": false,
-    "reason": "Screens contain personal names, messages, avatars and third-party app/content branding.",
+    "raw_media_committed": false,
     "derived_skeletons_committed": true,
     "source_text_copied": false,
-    "source_photography_copied": false,
-    "source_avatars_copied": false
+    "personal_names_copied": false,
+    "avatars_or_photographs_copied": false,
+    "cover_art_or_logos_copied": false,
+    "one_to_one_source_icons_copied": false,
+    "reason": "The source screenshots contain personal names, messages, avatars, imagery and third-party branded content."
   },
+  "files": [
+    "README.md",
+    "source-manifest.json",
+    "screen-observations.json",
+    "assets/reference-board.svg",
+    "assets/anatomy.svg",
+    "assets/variant-a-distributed.svg",
+    "assets/variant-b-split-dock.svg"
+  ],
   "terminology": {
     "umbrella": [
       "detached chrome",
       "floating chrome",
       "floating control islands"
     ],
-    "top_composition": [
-      "floating top app bar",
-      "clustered top app bar"
+    "geometry_descriptors": [
+      "pill",
+      "capsule"
     ],
-    "center": [
-      "context capsule",
-      "mode capsule"
-    ],
-    "utility": [
-      "utility island",
-      "utility cluster"
-    ],
-    "bottom": [
-      "floating composer",
-      "floating navigation dock",
-      "persistent mini-player dock"
-    ],
-    "avoid_as_umbrella": [
-      "chip",
-      "pill"
-    ]
+    "chip_scope": "compact_filter_select_suggestion_or_input_controls_only"
   },
-  "files": [
-    "README.md",
-    "screen-observations.json",
-    "assets/source-screen-patterns.svg",
-    "assets/source-pattern-anatomy.svg",
-    "assets/reference-board.svg",
-    "assets/anatomy.svg",
-    "assets/variant-a-distributed.svg",
-    "assets/variant-b-split-dock.svg"
-  ],
   "disposition": {
     "component_promotion": "unresolved",
     "token_promotion": "unresolved",
+    "reuse_existing": [],
+    "new_component": [],
+    "runtime_layout_candidates": [
+      {
+        "id": "floating-chrome-anchor",
+        "status": "runtime_only_candidate",
+        "confirmed": false
+      },
+      {
+        "id": "content-occlusion-compensation",
+        "status": "runtime_only_candidate",
+        "confirmed": false
+      }
+    ],
     "canonical_penpot_materialization": "forbidden_until_family_mapping_and_runtime_validation"
   }
 }

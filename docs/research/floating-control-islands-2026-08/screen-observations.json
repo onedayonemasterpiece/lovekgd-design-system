@@ -1,117 +1,193 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "artifact_id": "floating-control-islands-reference-2026-08",
+  "status": "exploration_input",
   "source_pack": {
+    "telegram_source": "https://t.me/c/4337049383/1162",
+    "message_metadata_read_via_eventsbot_mcp": true,
+    "mcp_media_materialization": "failed",
     "directly_supplied_screenshots": 6,
-    "dimensions": [921, 2048],
-    "raw_media_committed": false,
-    "reason": "The screenshots contain personal names, messages, avatars and app/content branding. Only anonymized derived skeletons are committed."
+    "all_six_screens_visually_reviewed": true,
+    "fidelity": "source-informed anonymized skeletons",
+    "raw_media_committed": false
+  },
+  "privacy_boundary": {
+    "contains_personal_or_branded_source_material": true,
+    "raw_screenshots_committed": false,
+    "permitted_derivatives": [
+      "anonymized_vector_skeletons",
+      "textual_pattern_analysis",
+      "machine_readable_observations",
+      "provenance_without_media_bytes"
+    ],
+    "excluded_from_derivatives": [
+      "personal_names",
+      "message_text",
+      "avatars",
+      "photographs",
+      "cover_art",
+      "logos",
+      "specific_chat_names",
+      "one_to_one_source_icons"
+    ]
   },
   "screens": [
     {
       "id": "screen-01-kimi-home",
+      "screen_type": "Kimi home",
       "pattern_label": "detached_top_islands",
       "observed_regions": [
-        "leading_icon_island",
-        "centered_mode_capsule",
-        "trailing_icon_island",
-        "quick_action_chips",
-        "floating_bottom_composer"
+        "leading_menu_island",
+        "centered_mode_context_capsule",
+        "trailing_mute_audio_island",
+        "quick_action_chip_row",
+        "large_inset_floating_composer"
       ],
-      "notes": "Top chrome is split into three independent surfaces; bottom input is inset and raised above the system edge."
+      "notes": "Leading navigation, central mode context and trailing audio utility are visually separate role-owned surfaces. The task input is a raised inset composer rather than a full-width bottom bar."
     },
     {
       "id": "screen-02-kimi-reading",
-      "pattern_label": "floating_composer_with_scroll_utility",
+      "screen_type": "Kimi reading",
+      "pattern_label": "floating_composer_with_transient_scroll_utility",
       "observed_regions": [
-        "leading_icon_island",
-        "centered_mode_capsule",
+        "leading_menu_island",
+        "centered_mode_context_capsule",
         "trailing_utility_capsule",
-        "floating_scroll_button",
-        "floating_bottom_composer"
+        "content_heavy_reading_surface",
+        "transient_scroll_to_bottom_utility",
+        "floating_composer"
       ],
-      "notes": "The same top composition persists over a reading surface; the scroll affordance is transient and detached."
+      "notes": "The detached top composition persists above a reading surface. Scroll recovery appears as an independent transient control and does not change the main content flow."
     },
     {
       "id": "screen-03-telegram-chat-list",
-      "pattern_label": "header_filter_dock_fab_nav",
+      "screen_type": "Telegram chat list",
+      "pattern_label": "monolithic_header_filter_dock_fab_navigation",
       "observed_regions": [
-        "header",
+        "relatively_monolithic_header_zone",
         "segmented_filter_dock",
         "context_banner",
         "floating_action_button",
-        "floating_navigation_dock"
+        "floating_bottom_navigation_dock"
       ],
-      "notes": "Counterexample to a universal island model: the header remains more monolithic while filters, FAB and navigation are separate layers."
+      "notes": "This is the counterexample to an all-island model: rounded styling does not require every header function to be detached. Filters, banner, FAB and destination navigation are separate layers around a comparatively unified header zone."
     },
     {
       "id": "screen-04-telegram-conversation",
-      "pattern_label": "clustered_top_app_bar",
+      "screen_type": "Telegram conversation",
+      "pattern_label": "clustered_conversation_app_bar",
       "observed_regions": [
-        "back_icon_island",
-        "identity_capsule",
-        "utility_capsule",
+        "back_island",
+        "identity_context_capsule",
+        "grouped_utility_capsule",
         "pinned_context_banner",
         "bottom_composer"
       ],
-      "notes": "A page app bar is composed from role-owned clusters rather than one full-width background."
+      "notes": "Back navigation, identity context and related utility actions have separate semantic owners. The pinned banner is another independent context surface below the top cluster."
     },
     {
-      "id": "screen-05-music-player",
-      "pattern_label": "immersive_media_control_cluster",
+      "id": "screen-05-media-player",
+      "screen_type": "media player",
+      "pattern_label": "immersive_media_control_islands",
       "observed_regions": [
-        "centered_title_pill",
-        "edge_actions",
+        "centered_title_mode_pill",
+        "edge_utility_actions",
         "playback_control_islands",
-        "borderless_bottom_navigation"
+        "content_first_immersive_canvas",
+        "borderless_bottom_destination_navigation"
       ],
-      "notes": "Chrome floats over an immersive content canvas; navigation icons are not necessarily enclosed by a dock surface."
+      "notes": "Controls float over an immersive canvas. Destination navigation remains one navigation model even when no common dock substrate is visible."
     },
     {
-      "id": "screen-06-music-library",
-      "pattern_label": "persistent_media_dock_stack",
+      "id": "screen-06-media-library",
+      "screen_type": "media library",
+      "pattern_label": "persistent_mini_player_navigation_stack",
       "observed_regions": [
         "content_header_actions",
-        "persistent_now_playing_dock",
-        "borderless_bottom_navigation"
+        "persistent_mini_player_now_playing_dock",
+        "separate_bottom_navigation_model"
       ],
-      "notes": "A persistent mini-player dock is stacked above a separate destination navigation model."
+      "notes": "The persistent state dock and destination navigation are stacked but remain different compositions with different responsibilities and state models."
     }
   ],
   "taxonomy": {
-    "umbrella": [
+    "umbrella_terms": [
       "detached chrome",
       "floating chrome",
       "floating control islands"
     ],
-    "components": [
+    "top_compositions": [
       "floating top app bar",
+      "clustered top app bar"
+    ],
+    "context_surfaces": [
       "context capsule",
+      "mode capsule",
+      "pinned context banner"
+    ],
+    "utility_surfaces": [
       "utility island",
-      "floating composer",
-      "segmented control",
-      "filter chips",
-      "floating navigation dock",
-      "persistent mini-player dock",
+      "utility cluster",
+      "transient floating utility",
       "floating action button"
     ],
-    "warning": "Pill/capsule describes geometry, not semantic component identity. Chip is valid only for compact selection/filter/suggestion controls."
+    "bottom_compositions": [
+      "floating composer",
+      "floating navigation dock",
+      "persistent mini-player dock",
+      "mini-player plus navigation state stack"
+    ],
+    "terminology_rule": {
+      "pill_and_capsule": "geometry_descriptors_not_component_identity",
+      "chip": "compact_filter_select_suggestion_or_input_control_only",
+      "forbidden_umbrella_usage": [
+        "header_as_chip",
+        "composer_as_chip",
+        "navigation_dock_as_chip"
+      ]
+    }
   },
   "design_system_implications": [
-    "Share a surface primitive only where material and state requirements match; do not merge compositions by rounded geometry.",
-    "Model top-leading, center-context and top-trailing ownership independently in page archetypes.",
-    "Treat safe-area anchoring, keyboard avoidance, scroll compaction and content occlusion as runtime/layout contracts.",
-    "Keep destinations in one navigation model even when the dock is detached from the screen edge.",
-    "Test contrast over photo, poster, plain and scrolling underlays before accepting blur/translucency/elevation."
+    "Leading, center context and trailing utility regions may have different semantic owners and lifecycle rules.",
+    "The content canvas does not have to begin below a full monolithic app bar.",
+    "Related actions should remain grouped when they operate as one utility cluster.",
+    "Composer, destination navigation and persistent mini-player stacks are different compositions.",
+    "Transient utilities may overlay content flow and appear or disappear independently.",
+    "Persistent cross-screen state may form its own dock.",
+    "Bottom destinations remain one navigation model even without a shared visible substrate.",
+    "A shared radius does not prove shared component identity."
   ],
-  "disposition": {
-    "component_promotion": "unresolved",
+  "semantic_slots": [
+    {"id": "top-leading-context", "disposition": "unresolved"},
+    {"id": "top-center-context", "disposition": "unresolved"},
+    {"id": "top-trailing-utility", "disposition": "unresolved"},
+    {"id": "context-banner", "disposition": "unresolved"},
+    {"id": "quick-action-chip-row", "disposition": "unresolved"},
+    {"id": "floating-composer", "disposition": "unresolved"},
+    {"id": "floating-scroll-utility", "disposition": "unresolved"},
+    {"id": "bottom-destination-navigation", "disposition": "unresolved"},
+    {"id": "persistent-state-dock", "disposition": "unresolved"},
+    {"id": "control-surface-material", "disposition": "unresolved"},
+    {
+      "id": "floating-chrome-anchor",
+      "disposition": "runtime_only_candidate",
+      "confirmed": false,
+      "contract_accepted": false
+    },
+    {
+      "id": "content-occlusion-compensation",
+      "disposition": "runtime_only_candidate",
+      "confirmed": false,
+      "contract_accepted": false
+    }
+  ],
+  "dispositions": {
+    "component_family_promotion": "unresolved",
     "token_promotion": "unresolved",
-    "penpot_canonical_materialization": "forbidden_until_family_mapping_and_runtime_validation",
-    "allowed_now": [
-      "owner_review",
-      "archetype_exploration",
-      "fixture_matrix_preparation"
-    ]
+    "reuse_existing": [],
+    "new_component": [],
+    "canonical_penpot_materialization": "forbidden_until_family_mapping_and_runtime_validation",
+    "header_replacement": "not_authorized",
+    "bottom_navigation_replacement": "not_authorized"
   }
 }
