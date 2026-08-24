@@ -1,56 +1,104 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "artifact_id": "floating-control-islands-reference-2026-08",
   "status": "exploration_input",
   "promotion_authority": false,
   "source": {
-    "platform": "telegram",
-    "url": "https://t.me/c/4337049383/1162",
-    "target_title": "KenigEvents · UI review",
-    "message_id": 1162,
-    "album_media_count": 2,
-    "message_metadata_read": true
+    "telegram": {
+      "url": "https://t.me/c/4337049383/1162",
+      "target_title": "KenigEvents · UI review",
+      "message_id": 1162,
+      "mcp_metadata_read": true,
+      "mcp_reported_media_count": 2
+    },
+    "direct_conversation_attachments": {
+      "count": 6,
+      "dimensions": [921, 2048],
+      "pixels_available_for_visual_review": true,
+      "screens": [
+        {
+          "id": "screen-01-kimi-home",
+          "sha256": "ed00a48873a178db8586030ff82d96e01da6fb1647d30aa9c6df6f7fae594568"
+        },
+        {
+          "id": "screen-02-kimi-reading",
+          "sha256": "4c1de460664b24a1301255d6909fe9b63b4a0914fb8ebc66fb575146d3ae358f"
+        },
+        {
+          "id": "screen-03-telegram-chat-list",
+          "sha256": "2bfa52267c2deb92b3063c02108e29ca9b077c4088a6737760cfcd443d0dd3d0"
+        },
+        {
+          "id": "screen-04-telegram-conversation",
+          "sha256": "6e1ab7772db57c8daa37f7a43ccd6eee7f3f07a2718b62e5fcfe23485229fc96"
+        },
+        {
+          "id": "screen-05-music-player",
+          "sha256": "4a671925760a193c44ecce0deceec3c9b5ad298df4ae441f5e377ece5f19a339"
+        },
+        {
+          "id": "screen-06-music-library",
+          "sha256": "6f1a04fab422a41c1b3a163dfbb313058dc160a34bee344102ba299ec0fe3dfd"
+        }
+      ]
+    }
   },
   "acquisition": {
-    "source_pixels_materialized": false,
-    "preview_result": "rejected",
-    "control_preview_result": "rejected_on_accessible_story",
-    "root_cause": "unconfirmed; connector cross-call asset materialization is the leading inference",
-    "fidelity": "semantic_skeleton_not_raster_traced",
-    "derived_from": [
-      "Telegram message metadata",
-      "owner observation: monolithic top and bottom chrome replaced by capsule-like detached controls"
-    ]
+    "mcp_media_materialization": "failed",
+    "mcp_failure_is_separate_infrastructure_issue": true,
+    "manual_attachment_fallback": "complete",
+    "fidelity": "source_informed_anonymized_skeletons",
+    "all_six_screens_visually_reviewed": true
   },
   "privacy": {
     "original_media_committed": false,
+    "reason": "Screens contain personal names, messages, avatars and third-party app/content branding.",
+    "derived_skeletons_committed": true,
     "source_text_copied": false,
-    "source_logos_or_branding_copied": false,
     "source_photography_copied": false,
-    "source_icons_copied": false
+    "source_avatars_copied": false
   },
   "terminology": {
     "umbrella": [
       "detached chrome",
-      "floating chrome"
+      "floating chrome",
+      "floating control islands"
     ],
-    "composition": "floating control islands",
-    "top_group": "floating toolbar / utility island",
-    "bottom_group": "floating navigation dock / floating tab bar",
-    "single_action": "pill button / action pill",
-    "avoid_as_umbrella": "chip"
+    "top_composition": [
+      "floating top app bar",
+      "clustered top app bar"
+    ],
+    "center": [
+      "context capsule",
+      "mode capsule"
+    ],
+    "utility": [
+      "utility island",
+      "utility cluster"
+    ],
+    "bottom": [
+      "floating composer",
+      "floating navigation dock",
+      "persistent mini-player dock"
+    ],
+    "avoid_as_umbrella": [
+      "chip",
+      "pill"
+    ]
   },
   "files": [
     "README.md",
+    "screen-observations.json",
+    "assets/source-screen-patterns.svg",
+    "assets/source-pattern-anatomy.svg",
     "assets/reference-board.svg",
+    "assets/anatomy.svg",
     "assets/variant-a-distributed.svg",
-    "assets/variant-b-split-dock.svg",
-    "assets/anatomy.svg"
+    "assets/variant-b-split-dock.svg"
   ],
-  "local_generated_exports": [
-    "assets/reference-board.png",
-    "assets/variant-a-distributed.png",
-    "assets/variant-b-split-dock.png",
-    "assets/anatomy.png"
-  ]
+  "disposition": {
+    "component_promotion": "unresolved",
+    "token_promotion": "unresolved",
+    "canonical_penpot_materialization": "forbidden_until_family_mapping_and_runtime_validation"
+  }
 }
