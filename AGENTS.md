@@ -41,6 +41,11 @@ source evidence to make a later decision look pre-existing.
 
 ## Penpot review and evidence
 
+- Penpot stores UI only: native foundations, reusable component masters,
+  linked component instances, and real desktop/mobile visual compositions.
+  Source-state indexes, status/coverage/gap/test/hash dashboards, operational
+  receipts, and service metadata stay in Git and must not be materialized as
+  Penpot boards or components.
 - Ingest comment threads file-scoped first, then bind them to the exact origin
   page/board/resource and deduplicate by thread identity/sequence.
 - Comments are problem/decision input, not implementation authority by
@@ -53,6 +58,9 @@ source evidence to make a later decision look pre-existing.
   exact review scope, validation/export results, and any deliberately open gates.
 - Screenshots are review evidence/oracles, never component fills or substitutes
   for native reusable resources.
+- Archetype owner pages contain the actual Astro AS-IS reconstruction, not a
+  scaffold or proxy. Dense/stress/full-list behavior is tested in generated
+  Astro; Penpot carries only real visual states required for review.
 
 ## Repository boundary
 

@@ -1,0 +1,72 @@
+{
+  "schema_version": "global-archetype-sot-handoff-lock.v1",
+  "status": "PASS",
+  "verified_at": "2026-08-24T11:18:08Z",
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "green_handoff": {
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "pull_request": 44,
+    "head_sha": "8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d",
+    "workflow_name": "Bootstrap global archetype SoT v1",
+    "workflow_run_id": 32718565248,
+    "workflow_run_number": 58,
+    "workflow_conclusion": "success",
+    "artifact_id": 9516848991,
+    "artifact_name": "global-archetype-sot-v1-final",
+    "artifact_zip_sha256": "7fa40f13b67720067d3b43f2d8fb406877dc3ba93ee05fa2bad6f8d249dea775",
+    "payload_tar_sha256": "2e76f651d38a8d9a81d53b67f802964fec0dc6a5c94e3d5e5f8fbdc4eb913871"
+  },
+  "freshness": {
+    "design_system_parent_sha": "149cc9c56a1245e846c1abc614723078c3417cb7",
+    "design_system_local_head_at_verification": "149cc9c56a1245e846c1abc614723078c3417cb7",
+    "astro_source_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+    "astro_local_head_at_verification": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+    "locked_input_hashes_match_local": true,
+    "artifact_validates_in_exact_commit_context": true,
+    "artifact_rebuild_is_deterministic": true
+  },
+  "approved_outputs": {
+    "route_archetype_registry": {
+      "path": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json",
+      "sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d"
+    },
+    "component_composition_graph": {
+      "path": "catalog/global-archetype-sot-v1/component-composition-graph.v1.json",
+      "sha256": "c4ec8dbe54eb11f51f10417703373ad7b51bd1bdab3a073ec95aa7cce8ab895d"
+    },
+    "archetype_contracts": {
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/",
+      "count": 17,
+      "sorted_checksum_manifest_sha256": "eac4fea4534397e4d06204434e318097c4f6919d918439bbc92f7732d9bbacc0"
+    },
+    "foundations": {
+      "path": "catalog/reconstruction-atlas/v1/foundations.v1.json",
+      "sha256": "4c7911e4fa31727a3b792b72af025b034ba919f50b8076343b1344eb0d9f49ed"
+    },
+    "fixtures": {
+      "path": "catalog/reconstruction-atlas/v1/fixtures.v1.json",
+      "sha256": "27981bc4d1235436302cb70111fe670b626458981f7bb845e5fb6323367b4ff1"
+    },
+    "reuse_new_map": {
+      "path": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json",
+      "sha256": "82c6697d4df4148a305521fbe8035aebef5fcd7528ca36ed8ca2270c99c6c619"
+    },
+    "gap_ledger": {
+      "path": "catalog/reconstruction-atlas/v1/gap-ledger.v1.json",
+      "sha256": "8a1a4efe2afac7334e52e3b33f1edc5d44c91d29b48b13f2306287bdcd090b80"
+    }
+  },
+  "excluded_from_materialization_input": [
+    "catalog/reconstruction-atlas/v1/penpot/materialization-ir.v1.json",
+    "catalog/reconstruction-atlas/v1/penpot/bindings.v1.json",
+    "catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json",
+    "catalog/global-archetype-sot-v1/contract-bindings.v1.json",
+    "catalog/global-archetype-sot-v1/coverage-matrix.v1.json",
+    "catalog/reconstruction-atlas/v1/completion-report.v1.json",
+    "catalog/reconstruction-atlas/v1/penpot/closure-audit.v1.json"
+  ],
+  "gate": {
+    "penpot_mutation_allowed_after_this_lock": true,
+    "reason": "Latest green immutable handoff is complete, fresh against both local input SHAs, hash-verified, locally validated and deterministically reproducible."
+  }
+}

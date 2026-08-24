@@ -98,6 +98,20 @@ owner receipt; их наличие не переводит family lifecycle в
 
 Resource Graph не является brainstorm-canvas. В `80 — Candidate review and promotion` попадают только bounded candidates, подготовленные к системному review/promotion.
 
+### Penpot stores UI only
+
+Resource Graph pages contain native visual foundations, reusable component
+masters, linked instances, archetype compositions, and real product screen
+states. Git owns source-state indexes, lifecycle/status data, coverage and gap
+ledgers, test results, hashes, run receipts, and other service metadata. Those
+operational records may link to Penpot objects, but they must not be represented
+as Penpot boards or components.
+
+Consequently a review hub/dashboard is not an owner-review target. Review is an
+ordered list of direct links to small real UI pages. Archetype pages contain
+desktop/mobile visual compositions and only states that change the visible UI;
+dense/stress/full-list behavior remains a generated-Astro test concern.
+
 ## Page composition, archetype and representation
 
 ```text

@@ -1,0 +1,408 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "exhibition.header",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "exhibition.personalization",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "exhibition.rows",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "exhibition.media-deck",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "exhibition.hide-undo",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.exhibitions",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "event.medallion",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.medallion",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.medallion"
+      ]
+    },
+    {
+      "component_id": "exhibition.hide-undo",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#exhibition.hide-undo",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "exhibition.hide-undo"
+      ]
+    },
+    {
+      "component_id": "exhibition.media-deck",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#exhibition.media-deck",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "exhibition.media-deck"
+      ]
+    },
+    {
+      "component_id": "exhibition.personal-surface",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#exhibition.personal-surface",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "exhibition.personal-surface"
+      ]
+    },
+    {
+      "component_id": "exhibition.row",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#exhibition.row",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "exhibition.row"
+      ]
+    },
+    {
+      "component_id": "runtime.exhibitions",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.exhibitions"
+      ]
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ]
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ]
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ]
+    },
+    {
+      "component_id": "social-proof.like",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#social-proof.like",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "social-proof.like"
+      ]
+    },
+    {
+      "component_id": "system.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.state-panel",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "system.state-panel"
+      ]
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.exhibitions.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 4,
+    "reuse_existing": 10,
+    "runtime_only": 2,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.exhibitions",
+    "title": "Exhibitions"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/vystavki/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "empty"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "exhibition.header",
+      "required": true,
+      "semantic_role": "exhibition.header"
+    },
+    {
+      "order": 2,
+      "region_id": "exhibition.personalization",
+      "required": true,
+      "semantic_role": "exhibition.personalization"
+    },
+    {
+      "order": 3,
+      "region_id": "exhibition.rows",
+      "required": true,
+      "semantic_role": "exhibition.rows"
+    },
+    {
+      "order": 4,
+      "region_id": "exhibition.media-deck",
+      "required": true,
+      "semantic_role": "exhibition.media-deck"
+    },
+    {
+      "order": 5,
+      "region_id": "exhibition.hide-undo",
+      "required": true,
+      "semantic_role": "exhibition.hide-undo"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop long exhibition rows/deck"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile stacked row/deck"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/vystavki/"
+    ],
+    "route_patterns": [
+      "/vystavki/"
+    ],
+    "source_pages": [
+      "site/src/pages/vystavki/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "empty"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "hidden"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "media-single"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "media-slider"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "personalized"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "ready"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "undo"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "unpersonalized"
+    }
+  ],
+  "title": "Выставки"
+}

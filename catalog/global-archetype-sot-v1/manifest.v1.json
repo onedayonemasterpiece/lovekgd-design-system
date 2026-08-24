@@ -1,89 +1,73 @@
 {
   "schema_version": "global-archetype-sot-v1",
-  "status": "READY_FOR_BATCH_MATERIALIZATION",
-  "pinned_design_input_commit": "adeb9e4",
-  "pinned_astro_commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
-  "authority": "Current Astro source + generated browser output, normalized by the semantic atlas. Penpot bindings and evidence remain separate planes.",
+  "status": "HANDOFF_VERIFIED_READY_FOR_VISUAL_RECONSTRUCTION",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "lifecycle": "candidate",
+  "promoted": false,
+  "production_deployed": false,
+  "pinned_handoff": {
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "pull_request": 44,
+    "head_sha": "8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d",
+    "workflow_run_id": 32718565248,
+    "workflow_run_number": 58,
+    "artifact_id": 9516848991,
+    "artifact_name": "global-archetype-sot-v1-final",
+    "artifact_zip_sha256": "7fa40f13b67720067d3b43f2d8fb406877dc3ba93ee05fa2bad6f8d249dea775",
+    "payload_tar_sha256": "2e76f651d38a8d9a81d53b67f802964fec0dc6a5c94e3d5e5f8fbdc4eb913871",
+    "lock": "catalog/global-archetype-sot-v1/handoff-lock.v1.json"
+  },
+  "pinned_inputs": {
+    "design_system_commit": "149cc9c56a1245e846c1abc614723078c3417cb7",
+    "astro_commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "approved_semantic_outputs": {
+    "route_archetype_registry": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json",
+    "archetype_contracts": "catalog/global-archetype-sot-v1/archetype-contracts/",
+    "component_composition_graph": "catalog/global-archetype-sot-v1/component-composition-graph.v1.json",
+    "foundations": "catalog/reconstruction-atlas/v1/foundations.v1.json",
+    "fixtures": "catalog/reconstruction-atlas/v1/fixtures.v1.json",
+    "reuse_new_map": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json",
+    "gap_ledger": "catalog/reconstruction-atlas/v1/gap-ledger.v1.json"
+  },
   "coverage": {
-    "archetypes": {
-      "covered": 17,
-      "total": 17,
-      "percent": 100
-    },
-    "astro_pages": {
-      "mapped": 29,
-      "total": 29,
-      "percent": 100
-    },
-    "browser_observations": 67,
-    "required_projection_classes": [
-      "desktop",
-      "mobile",
-      "unique-state-index"
+    "semantic_archetypes": 17,
+    "semantic_contracts": 17,
+    "production_source_pages_mapped": 29,
+    "production_source_pages_total": 29,
+    "generated_routes_mapped": 32,
+    "generated_routes_total": 32,
+    "speculative_component_merges": 0,
+    "explicit_unresolved_contracts": 6
+  },
+  "visual_materialization": {
+    "status": "NOT_STARTED_FROM_VERIFIED_HANDOFF",
+    "owner_pages_required": 17,
+    "owner_pages_complete": 0,
+    "required_viewports": ["desktop", "mobile"],
+    "unique_states": "only states that alter visible UI"
+  },
+  "penpot_policy": {
+    "stores": "native reusable UI and linked UI compositions only",
+    "operational_data_authority": "Git",
+    "delete_page": "63.00 — Atlas · Review route",
+    "forbidden_on_active_owner_pages": [
+      "source-state-index",
+      "status dashboards",
+      "coverage dashboards",
+      "gap dashboards",
+      "test dashboards",
+      "hash dashboards",
+      "screenshots as UI",
+      "detached component copies"
     ]
-  },
-  "semantic_plane": {
-    "semantic_atlas": {
-      "path": "catalog/reconstruction-atlas/v1/semantic-atlas.v1.json",
-      "sha256": "fb52a915aee2a4214851b0c731bfcd73f62f56ca970014928287fbd10a008c17"
-    },
-    "route_registry": {
-      "path": "catalog/reconstruction-atlas/v1/route-registry.v1.json",
-      "sha256": "fadad551b352a84038b64060731914f8aeb5628b2f75d897fe15df42079c7afe"
-    },
-    "foundations": {
-      "path": "catalog/reconstruction-atlas/v1/foundations.v1.json",
-      "sha256": "4c7911e4fa31727a3b792b72af025b034ba919f50b8076343b1344eb0d9f49ed"
-    },
-    "fixtures": {
-      "path": "catalog/reconstruction-atlas/v1/fixtures.v1.json",
-      "sha256": "27981bc4d1235436302cb70111fe670b626458981f7bb845e5fb6323367b4ff1"
-    },
-    "reuse_new_map": {
-      "path": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json",
-      "sha256": "82c6697d4df4148a305521fbe8035aebef5fcd7528ca36ed8ca2270c99c6c619"
-    },
-    "gap_ledger": {
-      "path": "catalog/reconstruction-atlas/v1/gap-ledger.v1.json",
-      "sha256": "8a1a4efe2afac7334e52e3b33f1edc5d44c91d29b48b13f2306287bdcd090b80"
-    }
-  },
-  "penpot_plane": {
-    "bindings": {
-      "path": "catalog/reconstruction-atlas/v1/penpot/bindings.v1.json",
-      "sha256": "484e805e488cfd94ff900fa25e6c48391563717083a9975c1eb1330d54bdcc8b"
-    },
-    "materialization_ir": {
-      "path": "catalog/reconstruction-atlas/v1/penpot/materialization-ir.v1.json",
-      "binding": "IR hashes this manifest; no reverse hash to avoid a cyclic contract"
-    },
-    "materialization_ir_validation": {
-      "path": "catalog/reconstruction-atlas/v1/penpot/materialization-ir-validation.v1.json"
-    }
-  },
-  "evidence_plane": {
-    "index": {
-      "path": "catalog/reconstruction-atlas/v1/evidence/index.v1.json",
-      "sha256": "0e50a6407998615a31f6bf6a0d4242659c35f1c22092e15ba176e5a0fad46de8"
-    },
-    "browser_observations": {
-      "path": "catalog/reconstruction-atlas/v1/evidence/browser-observations.v1.json",
-      "sha256": "aaa4c1baca327b02bc4e82af84d5bc50d2edc1505f1785dbb7724469f0bf359c"
-    }
   },
   "operating_contract": {
     "path": "docs/accelerated-reconstruction-mode.md",
     "central_fix_dependency_closure": true,
     "dense_stress_authority": "generated Astro",
-    "penpot_projection_policy": "representative linked instances",
-    "review_mode": "REVIEW_BY_EXCEPTION",
-    "no_recorded_objection_is_approval": false,
-    "forbidden": [
-      "redesign",
-      "backport",
-      "merge",
-      "promotion",
-      "deploy"
-    ]
+    "review_mode": "direct links to real UI owner pages",
+    "forbidden": ["redesign", "backport", "merge", "promotion", "deploy"]
   }
 }

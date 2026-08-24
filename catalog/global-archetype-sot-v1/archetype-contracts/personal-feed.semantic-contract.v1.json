@@ -1,0 +1,400 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "personal.header",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "personal.interest-profile",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "personal.filters",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "personal.feed",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "personal.feedback",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.personal-feed",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "event.card.large",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.card.large",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.card.large"
+      ]
+    },
+    {
+      "component_id": "focus.feedback",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.feedback",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "focus.feedback"
+      ]
+    },
+    {
+      "component_id": "listing.personal-filter",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.personal-filter",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "listing.personal-filter"
+      ]
+    },
+    {
+      "component_id": "personal.interest-profile",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#personal.interest-profile",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "personal.interest-profile"
+      ]
+    },
+    {
+      "component_id": "personal.rerank-controller",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#personal.rerank-controller",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "personal.rerank-controller"
+      ]
+    },
+    {
+      "component_id": "runtime.personal-feed",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.personal-feed"
+      ]
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ]
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ]
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ]
+    },
+    {
+      "component_id": "system.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.state-panel",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "system.state-panel"
+      ]
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.personal-feed.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 3,
+    "reuse_existing": 10,
+    "runtime_only": 2,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.personal-feed",
+    "title": "Personal feed"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/dlya-menya/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "empty",
+        "loading",
+        "stale"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "personal.header",
+      "required": true,
+      "semantic_role": "personal.header"
+    },
+    {
+      "order": 2,
+      "region_id": "personal.interest-profile",
+      "required": true,
+      "semantic_role": "personal.interest-profile"
+    },
+    {
+      "order": 3,
+      "region_id": "personal.filters",
+      "required": true,
+      "semantic_role": "personal.filters"
+    },
+    {
+      "order": 4,
+      "region_id": "personal.feed",
+      "required": true,
+      "semantic_role": "personal.feed"
+    },
+    {
+      "order": 5,
+      "region_id": "personal.feedback",
+      "required": true,
+      "semantic_role": "personal.feedback"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop profile/feed composition"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile stacked profile and feed"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/dlya-menya/"
+    ],
+    "route_patterns": [
+      "/dlya-menya/"
+    ],
+    "source_pages": [
+      "site/src/pages/dlya-menya/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "cold-start"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "empty"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "failure"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "filtered"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "loading"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "profile-ready"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "reranked"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "stale"
+    }
+  ],
+  "title": "Для меня / personal feed"
+}
