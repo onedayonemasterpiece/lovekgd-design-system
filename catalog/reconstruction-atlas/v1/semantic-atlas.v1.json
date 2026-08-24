@@ -1,0 +1,1548 @@
+{
+  "schema_version": "complete-reconstruction-semantic-atlas.v1",
+  "generated_at": "2026-08-24T08:54:27.115Z",
+  "mode": "accelerated-reconstruction",
+  "target_status": "RECONSTRUCTION_ATLAS_READY",
+  "authority": {
+    "astro_source": "current checked-out events-bot-new source",
+    "generated_browser_output": "catalog/reconstruction-atlas/v1/evidence/browser-observations.v1.json",
+    "semantic_sot": "this file and sibling foundations/fixtures/reuse contracts",
+    "penpot_bindings": "separate: catalog/reconstruction-atlas/v1/penpot/bindings.v1.json",
+    "evidence": "separate: catalog/reconstruction-atlas/v1/evidence/index.v1.json"
+  },
+  "review_semantics": {
+    "no_interaction": "NOT_REVIEWED",
+    "bounded_feedback_and_verified_correction": "REVIEWED_BY_EXCEPTION",
+    "uncommented": "NO_RECORDED_OBJECTION",
+    "explicit_decision_required_for": [
+      "Astro-conflicting change",
+      "product change"
+    ]
+  },
+  "archetype_count": 17,
+  "archetypes": [
+    {
+      "id": "archetype.home",
+      "checklist_label": "Главная",
+      "route_patterns": [
+        "/"
+      ],
+      "source_files": [
+        "site/src/pages/index.astro"
+      ],
+      "representative_routes": [
+        "/"
+      ],
+      "anatomy": [
+        "home.hero-talk",
+        "home.quick-navigation",
+        "home.cold-start-feed"
+      ],
+      "states": [
+        "ready",
+        "cold-start",
+        "personalized-local",
+        "prelaunch-env-branch"
+      ],
+      "responsive": [
+        "desktop editorial hero and feed",
+        "mobile single-column hero, quick navigation and feed"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "event.card.large",
+        "listing.page-pattern"
+      ],
+      "delta": [
+        "home.hero-talk",
+        "home.quick-navigation",
+        "home.cold-start-feed"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/index.astro",
+          "sha256": "14a88bcf50daa70ea636a0b7389aafb5de7c615da96e0cdee6c5e69ef7a27406"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 620px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.listing.date",
+      "checklist_label": "Листинг по дате: сегодня / завтра / произвольная дата",
+      "route_patterns": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-:date/"
+      ],
+      "source_files": [
+        "site/src/pages/segodnya/index.astro",
+        "site/src/pages/zavtra/index.astro",
+        "site/src/pages/date-[date].astro"
+      ],
+      "representative_routes": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-2026-07-25/"
+      ],
+      "anatomy": [
+        "listing.page-date-header",
+        "listing.discovery-rail",
+        "listing.controls",
+        "listing.time-navigation",
+        "listing.time-groups",
+        "listing.desktop-card-flow",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "today",
+        "tomorrow",
+        "specific-date",
+        "ready",
+        "sparse",
+        "empty",
+        "stress",
+        "completed",
+        "upcoming",
+        "now",
+        "untimed",
+        "loading",
+        "error"
+      ],
+      "responsive": [
+        "desktop time-group grid/flow",
+        "mobile full-width rail rows with pinned date accessory"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "listing-foundations-candidate-v1",
+        "listing.event-card.compact",
+        "listing.rail-row.track",
+        "listing.state-panel"
+      ],
+      "delta": [
+        "listing.page-date-header",
+        "listing.date-weather-context",
+        "listing.time-navigation",
+        "listing.time-groups"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/segodnya/index.astro",
+          "sha256": "1cc5174c95e3eb199da88b61958cc3ce9dda1cd073375441d1204a9aaa58131c"
+        },
+        {
+          "path": "site/src/pages/zavtra/index.astro",
+          "sha256": "d6d69ab1998fdd00063d0f61f4875ed5a75578fa9d6bb3fd3f8bf1cf485a884e"
+        },
+        {
+          "path": "site/src/pages/date-[date].astro",
+          "sha256": "3e10305c3f06339d2e20ee4b74518800e5098658d74ee314cbf93a275a5fdc0e"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width:720px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.listing.weekend",
+      "checklist_label": "Выходные",
+      "route_patterns": [
+        "/vyhodnye/",
+        "/vyhodnye/:start/"
+      ],
+      "source_files": [
+        "site/src/pages/vyhodnye/index.astro",
+        "site/src/pages/vyhodnye/[start].astro"
+      ],
+      "representative_routes": [
+        "/vyhodnye/",
+        "/vyhodnye/2026-07-25/"
+      ],
+      "anatomy": [
+        "listing.page-date-header",
+        "listing.weekend-range-navigation",
+        "listing.discovery-rail",
+        "listing.weekend-day-headers",
+        "listing.weekend-editorial-timeline",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "typical",
+        "sparse",
+        "empty",
+        "stress",
+        "current-range",
+        "historical-range",
+        "single-day-concentration",
+        "empty-opposite-day"
+      ],
+      "responsive": [
+        "desktop two-day lanes and exact time rows",
+        "mobile sequential rail tracks without viewport clipping"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "listing-foundations-candidate-v1",
+        "listing.page-pattern",
+        "listing.event-card.compact",
+        "listing.rail-row.track"
+      ],
+      "delta": [
+        "listing.weekend-range-navigation",
+        "listing.weekend-day-header",
+        "listing.weekend-editorial-timeline"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/vyhodnye/index.astro",
+          "sha256": "6805f36effb0f3ae1b4494d67a2db8e7404a84447240473196215387230afef1"
+        },
+        {
+          "path": "site/src/pages/vyhodnye/[start].astro",
+          "sha256": "39086b87e50f84e221a895ce48cb5f9b32d582c8f6ed339f006b3fd340364ba0"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.listing.popular",
+      "checklist_label": "Популярное",
+      "route_patterns": [
+        "/populyarnoe/"
+      ],
+      "source_files": [
+        "site/src/pages/populyarnoe/index.astro"
+      ],
+      "representative_routes": [
+        "/populyarnoe/"
+      ],
+      "anatomy": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "popular.grouping",
+        "popular.feed",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "ready",
+        "sparse",
+        "empty",
+        "personalized",
+        "unpersonalized",
+        "dense"
+      ],
+      "responsive": [
+        "desktop grouped listing",
+        "mobile sequential rail/feed"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "listing-foundations-candidate-v1",
+        "listing.page-pattern",
+        "listing.event-card.compact",
+        "listing.rail-row.track"
+      ],
+      "delta": [
+        "popular.grouping",
+        "popular.trend-context"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/populyarnoe/index.astro",
+          "sha256": "7033aa1887e0b7199650a4e2ea7a01f72e64ba04a65f134de2eb55df11dba2a2"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.listing.unusual",
+      "checklist_label": "Необычное",
+      "route_patterns": [
+        "/neobychnoe/"
+      ],
+      "source_files": [
+        "site/src/pages/neobychnoe/index.astro"
+      ],
+      "representative_routes": [
+        "/neobychnoe/"
+      ],
+      "anatomy": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "unusual.unread-context",
+        "unusual.feed"
+      ],
+      "states": [
+        "ready",
+        "empty",
+        "unread",
+        "read",
+        "stale",
+        "dense"
+      ],
+      "responsive": [
+        "desktop grouped listing",
+        "mobile sequential feed with unread state"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "listing-foundations-candidate-v1",
+        "listing.page-pattern",
+        "listing.event-card.compact"
+      ],
+      "delta": [
+        "unusual.unread-context",
+        "unusual.status-behavior"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/neobychnoe/index.astro",
+          "sha256": "cce0f1e21f97fccc099a741b7dbe6bd02ab5700b54849d044d39faafbabf6d69"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.search",
+      "checklist_label": "Поиск",
+      "route_patterns": [
+        "/poisk/"
+      ],
+      "source_files": [
+        "site/src/pages/poisk/index.astro"
+      ],
+      "representative_routes": [
+        "/poisk/"
+      ],
+      "anatomy": [
+        "search.header",
+        "search.query-field",
+        "search.filters",
+        "search.results",
+        "search.collection-links",
+        "search.identity-gate"
+      ],
+      "states": [
+        "anonymous",
+        "authenticated",
+        "idle",
+        "loading",
+        "results",
+        "empty",
+        "error",
+        "retry",
+        "stale"
+      ],
+      "responsive": [
+        "desktop search controls and result grid",
+        "mobile search controls and search-specific bottom navigation"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "core.field",
+        "core.button",
+        "listing.event-card.compact",
+        "system.state-panel",
+        "authorization.static-site"
+      ],
+      "delta": [
+        "search.query-controller",
+        "search.collection-links"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/poisk/index.astro",
+          "sha256": "e6dae6ee652f5fe1b66c8e9c4cfe6b495901e43158bd8c05891a0eaabd093c20"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.event-detail",
+      "checklist_label": "Страница события",
+      "route_patterns": [
+        "/sobytiya/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "representative_routes": [
+        "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ],
+      "anatomy": [
+        "event.hero",
+        "event.media-frame",
+        "event.summary",
+        "event.admission-actions",
+        "event.facts",
+        "event.participants",
+        "event.venue",
+        "event.medallions",
+        "event.transport",
+        "event.related-events",
+        "event.question-cta"
+      ],
+      "states": [
+        "wide-image",
+        "portrait-image",
+        "ocr-protected",
+        "multi-image",
+        "no-image",
+        "archived",
+        "calendar-present",
+        "calendar-absent",
+        "admission-present",
+        "admission-absent",
+        "transport-present",
+        "transport-absent"
+      ],
+      "responsive": [
+        "desktop presentation resolver and editorial/split compositions",
+        "mobile accepted-v8 hero, continuation and action dock",
+        "tablet transition between branches"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "event.card.large",
+        "event.media-frame",
+        "event.medallion",
+        "action.calendar",
+        "action.share",
+        "social-proof.like"
+      ],
+      "delta": [
+        "event.detail.hero-composition",
+        "event.detail.facts",
+        "event.detail.transport",
+        "event.detail.related"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/sobytiya/[slug].astro",
+          "sha256": "af6c94e63981db9feee81dc96271232c292fdeb2bdb69b1178a7c32e649dbd87"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "tablet-768x1024",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "min-width: 1024px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.collections",
+      "checklist_label": "Подборки: индекс и detail",
+      "route_patterns": [
+        "/podborki/",
+        "/podborki/:slug/",
+        "/podborki/gastronomiya/"
+      ],
+      "source_files": [
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/podborki/gastronomiya/index.astro"
+      ],
+      "representative_routes": [
+        "/podborki/",
+        "/podborki/besplatnye-sobytiya/",
+        "/podborki/dzhaz-na-vyhodnyh/",
+        "/podborki/gastronomiya/"
+      ],
+      "anatomy": [
+        "collection.index-header",
+        "collection.directory",
+        "collection.detail-header",
+        "collection.criteria",
+        "collection.results",
+        "collection.fallback-results",
+        "collection.gastronomy-surface"
+      ],
+      "states": [
+        "index",
+        "detail-populated",
+        "detail-empty",
+        "detail-fallback",
+        "free-collection",
+        "gastronomy-editorial"
+      ],
+      "responsive": [
+        "desktop editorial/result grid",
+        "mobile single-column result flow"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "core.breadcrumbs",
+        "event.card.large",
+        "listing.state-panel"
+      ],
+      "delta": [
+        "collection.directory",
+        "collection.criteria",
+        "collection.gastronomy-surface"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/podborki/index.astro",
+          "sha256": "1c7b01c8ad19be4e8246b923d496f54194776164f701b8ca8b5df9dd4f6d1e2f"
+        },
+        {
+          "path": "site/src/pages/podborki/[slug]/index.astro",
+          "sha256": "374db59147e8001e24d364d1181114ff41eff4bb9e8653f40a9e5a06b7b0c055"
+        },
+        {
+          "path": "site/src/pages/podborki/gastronomiya/index.astro",
+          "sha256": "ff90bfede281435696512a2d4074fda759bcf2800005d3301e5a6e2b5aba7d12"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 759px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.festivals",
+      "checklist_label": "Фестивали",
+      "route_patterns": [
+        "/festivali/"
+      ],
+      "source_files": [
+        "site/src/pages/festivali/index.astro"
+      ],
+      "representative_routes": [
+        "/festivali/"
+      ],
+      "anatomy": [
+        "festival.header",
+        "festival.timeline",
+        "festival.card-flow",
+        "festival.category-chip"
+      ],
+      "states": [
+        "ready",
+        "empty-period",
+        "theme-values",
+        "past",
+        "upcoming",
+        "favorite-count"
+      ],
+      "responsive": [
+        "desktop calendar/timeline flow",
+        "mobile stacked cards and timeline"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "festival.card",
+        "social-proof.like",
+        "semantic.theme-chip"
+      ],
+      "delta": [
+        "festival.header",
+        "festival.timeline"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/festivali/index.astro",
+          "sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 339px",
+          "max-width: 370px",
+          "max-width: 760px",
+          "max-width: 819px",
+          "min-width: 1100px",
+          "min-width: 820px",
+          "prefers-reduced-motion: reduce"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.exhibitions",
+      "checklist_label": "Выставки",
+      "route_patterns": [
+        "/vystavki/"
+      ],
+      "source_files": [
+        "site/src/pages/vystavki/index.astro"
+      ],
+      "representative_routes": [
+        "/vystavki/"
+      ],
+      "anatomy": [
+        "exhibition.header",
+        "exhibition.personalization",
+        "exhibition.rows",
+        "exhibition.media-deck",
+        "exhibition.hide-undo"
+      ],
+      "states": [
+        "ready",
+        "personalized",
+        "unpersonalized",
+        "hidden",
+        "undo",
+        "empty",
+        "media-single",
+        "media-slider"
+      ],
+      "responsive": [
+        "desktop long exhibition rows/deck",
+        "mobile stacked row/deck"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "exhibition.row",
+        "event.medallion",
+        "social-proof.like",
+        "system.state-panel"
+      ],
+      "delta": [
+        "exhibition.personal-surface",
+        "exhibition.hide-undo",
+        "exhibition.media-deck"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/vystavki/index.astro",
+          "sha256": "ab65ead5b97e7ca1bbcec0348e1912369a5393f93c2b5a0fa071c2c9c87f4584"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.interest-clubs",
+      "checklist_label": "Клубы по интересам: индекс и detail",
+      "route_patterns": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+      ],
+      "representative_routes": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/game-vibes/"
+      ],
+      "anatomy": [
+        "club.catalog-header",
+        "club.catalog-grid",
+        "club.card",
+        "club.detail-hero",
+        "club.detail-facts",
+        "club.meeting-list",
+        "club.empty-meetings"
+      ],
+      "states": [
+        "catalog",
+        "detail-future-meetings",
+        "detail-no-future-meetings",
+        "cover-present",
+        "cover-absent"
+      ],
+      "responsive": [
+        "desktop catalogue/detail grids",
+        "mobile single-column cards/facts/meetings"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "core.breadcrumbs",
+        "system.state-panel"
+      ],
+      "delta": [
+        "club.card",
+        "club.detail-facts",
+        "club.meeting-list"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/kluby-po-interesam/index.astro",
+          "sha256": "96f5aa16ac876c9f8a7d9f377e3d1137b0d54c6c651cc673ed587f3965ab1c8a"
+        },
+        {
+          "path": "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+          "sha256": "2218b1700d6a1afd9d1918fa5db4e059b2b8952af2f2a31240b0a4e808a7b03a"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 620px",
+          "max-width: 760px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.favorites",
+      "checklist_label": "Избранное",
+      "route_patterns": [
+        "/izbrannoe/"
+      ],
+      "source_files": [
+        "site/src/pages/izbrannoe/index.astro"
+      ],
+      "representative_routes": [
+        "/izbrannoe/"
+      ],
+      "anatomy": [
+        "favorites.header",
+        "favorites.identity-gate",
+        "favorites.saved-events",
+        "favorites.recovery"
+      ],
+      "states": [
+        "anonymous",
+        "authenticated",
+        "loading",
+        "empty",
+        "populated",
+        "error",
+        "retry",
+        "stale"
+      ],
+      "responsive": [
+        "desktop saved-event grid",
+        "mobile single-column saved flow"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "authorization.static-site",
+        "event.card.large",
+        "listing.event-card.compact",
+        "system.state-panel"
+      ],
+      "delta": [
+        "favorites.saved-events-controller"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/izbrannoe/index.astro",
+          "sha256": "5c95e0f13ef57262f681a0425a1c4ea561245eec67cfcb027a94712bc4e14821"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.personal-feed",
+      "checklist_label": "Для меня / personal feed",
+      "route_patterns": [
+        "/dlya-menya/"
+      ],
+      "source_files": [
+        "site/src/pages/dlya-menya/index.astro"
+      ],
+      "representative_routes": [
+        "/dlya-menya/"
+      ],
+      "anatomy": [
+        "personal.header",
+        "personal.interest-profile",
+        "personal.filters",
+        "personal.feed",
+        "personal.feedback"
+      ],
+      "states": [
+        "cold-start",
+        "profile-ready",
+        "filtered",
+        "reranked",
+        "stale",
+        "loading",
+        "empty",
+        "failure"
+      ],
+      "responsive": [
+        "desktop profile/feed composition",
+        "mobile stacked profile and feed"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "listing.personal-filter",
+        "event.card.large",
+        "system.state-panel",
+        "focus.feedback"
+      ],
+      "delta": [
+        "personal.interest-profile",
+        "personal.rerank-controller"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/dlya-menya/index.astro",
+          "sha256": "9dfb5b8b4eab89f0bfb1b0dde50d6695cd773f26c2985a4c2f529ac170286184"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 700px",
+          "prefers-reduced-motion: reduce"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.focus-group",
+      "checklist_label": "Фокус-группа",
+      "route_patterns": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "source_files": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+      ],
+      "representative_routes": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "anatomy": [
+        "focus.program",
+        "focus.invitation-intake",
+        "focus.feedback",
+        "focus.connectivity-diagnostic",
+        "focus.collection",
+        "focus.completion"
+      ],
+      "states": [
+        "program",
+        "invitation-loading",
+        "invitation-valid",
+        "invitation-invalid",
+        "diagnostic-idle",
+        "diagnostic-running",
+        "diagnostic-success",
+        "diagnostic-failure",
+        "collection-locked",
+        "collection-open",
+        "completion"
+      ],
+      "responsive": [
+        "desktop research panels",
+        "mobile sheet/panel flow and touch targets"
+      ],
+      "reuse": [
+        "focus.lab-badge",
+        "focus.feedback",
+        "focus.thank-you",
+        "authorization.static-site",
+        "system.state-panel"
+      ],
+      "delta": [
+        "focus.invitation-intake",
+        "focus.connectivity-diagnostic",
+        "focus.completion"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/fokus-gruppa/index.astro",
+          "sha256": "0578d0b32a045cc8337e0c83d22a385dfa4b8dc7bf3ab62d62ba3b67a50aec0e"
+        },
+        {
+          "path": "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+          "sha256": "9cb16318b1f88a6d92730c63d3dd3a879d29c8df154bdba4f38c83dd9f0d148e"
+        },
+        {
+          "path": "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+          "sha256": "1443baf13396cf46b316d7b0fe5180c8538926a17f03beca47d275ac9f9ad937"
+        },
+        {
+          "path": "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+          "sha256": "50a33447164d81c9c2790716546eb29ba14e34a42fcc1b4cfb6f7bd0cd4ee2a9"
+        },
+        {
+          "path": "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+          "sha256": "a7ff6d7146b78c2e6f7c0482cfa5e7647cd5e0fe1009023605c8d3e24b3b4252"
+        },
+        {
+          "path": "site/src/pages/fokus-gruppa/zavershenie/index.astro",
+          "sha256": "e0aa5a8f914684d324e8efab203c2ef8a053495c6a112066d1da51ae8b310f1b"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 720px",
+          "max-width: 760px",
+          "min-width: 680px",
+          "min-width: 920px",
+          "prefers-reduced-motion: reduce"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.artifacts",
+      "checklist_label": "Артефакты / коллекция",
+      "route_patterns": [
+        "/artefakty/"
+      ],
+      "source_files": [
+        "site/src/pages/artefakty/index.astro"
+      ],
+      "representative_routes": [
+        "/artefakty/"
+      ],
+      "anatomy": [
+        "artifact.collection-header",
+        "artifact.progress",
+        "artifact.cards",
+        "artifact.reserved-slots",
+        "artifact.dialog"
+      ],
+      "states": [
+        "empty",
+        "partial",
+        "complete",
+        "locked",
+        "unlocked",
+        "dialog-open"
+      ],
+      "responsive": [
+        "desktop collection grid/dialog",
+        "mobile collection cards and bottom-sheet-like dialog"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "artifact.collection-card",
+        "core.dialog",
+        "system.state-panel"
+      ],
+      "delta": [
+        "artifact.collection-progress",
+        "artifact.unlock-dialog"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/artefakty/index.astro",
+          "sha256": "dbaacd436940bae67ae650ad023415e32be92cc92a4e4de3aba2c9057f4d24f6"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": []
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.information-pages",
+      "checklist_label": "Информационные, партнёрские и legal pages",
+      "route_patterns": [
+        "/partners/",
+        "/partnerstvo/",
+        "/legal/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro"
+      ],
+      "representative_routes": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "anatomy": [
+        "information.page-header",
+        "information.long-form-content",
+        "partners.logo-grid",
+        "partnership.conditions",
+        "information.secondary-navigation"
+      ],
+      "states": [
+        "partners-index",
+        "partnership-content",
+        "legal-document",
+        "long-content"
+      ],
+      "responsive": [
+        "desktop document/content width",
+        "mobile readable single-column document flow"
+      ],
+      "reuse": [
+        "shell.event-layout",
+        "shell.desktop-header",
+        "shell.mobile-header",
+        "shell.mobile-menu",
+        "shell.mobile-bottom-navigation",
+        "shell.footer",
+        "system.toast-region",
+        "core.breadcrumbs",
+        "document.typography",
+        "system.state-panel"
+      ],
+      "delta": [
+        "partners.logo-grid",
+        "partnership.conditions"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/partners/index.astro",
+          "sha256": "5e0b1d21c2017ab684732427e0976730ecaba0e763b9b4c9764ada829336f482"
+        },
+        {
+          "path": "site/src/pages/partnerstvo/index.astro",
+          "sha256": "7e9b3f585a8ca01039843361274f9c45d7842d49d8a2b4d2a190345f9c401c08"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 360px",
+          "max-width: 620px",
+          "min-width: 680px",
+          "min-width: 980px"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    },
+    {
+      "id": "archetype.special-state",
+      "checklist_label": "Prelaunch, закрытая афиша и специальные недоступные состояния",
+      "route_patterns": [
+        "/:home-prelaunch-env/",
+        "/zakrytaya-afisha/",
+        "/:unavailable/"
+      ],
+      "source_files": [
+        "site/src/pages/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "representative_routes": [
+        "/zakrytaya-afisha/"
+      ],
+      "anatomy": [
+        "special.prelaunch",
+        "special.membership-check",
+        "special.locked",
+        "special.closed-hub",
+        "special.unavailable"
+      ],
+      "states": [
+        "prelaunch-env",
+        "checking",
+        "locked",
+        "hub",
+        "unavailable",
+        "noscript"
+      ],
+      "responsive": [
+        "desktop special-state panel/hub",
+        "mobile guarded single-column state flow"
+      ],
+      "reuse": [
+        "brand.identity-and-pwa",
+        "focus.lab-badge",
+        "focus.feedback",
+        "authorization.static-site",
+        "system.state-panel"
+      ],
+      "delta": [
+        "special.membership-gate",
+        "special.closed-hub",
+        "special.prelaunch"
+      ],
+      "lifecycle": "reconstructed-source-conformant",
+      "review_status": "NOT_REVIEWED",
+      "interaction_semantics": "Browser remains authoritative for scroll, gesture, focus, keyboard, animation and runtime state transitions.",
+      "source_evidence": [
+        {
+          "path": "site/src/pages/index.astro",
+          "sha256": "14a88bcf50daa70ea636a0b7389aafb5de7c615da96e0cdee6c5e69ef7a27406"
+        },
+        {
+          "path": "site/src/pages/zakrytaya-afisha/index.astro",
+          "sha256": "2136359481b7ffdc22fe7994ecd67c9afcbb2c04fa56383eca629b490f887298"
+        }
+      ],
+      "responsive_evidence": {
+        "required_viewports": [
+          "mobile-390x844",
+          "desktop-1280x800"
+        ],
+        "source_media_queries": [
+          "max-width: 560px",
+          "max-width: 620px",
+          "max-width: 820px",
+          "prefers-reduced-motion: reduce"
+        ]
+      },
+      "allowed_instance_overrides": [
+        "content",
+        "declared semantic state",
+        "declared slot",
+        "fixture identity"
+      ],
+      "forbidden_instance_overrides": [
+        "font",
+        "color role",
+        "spacing",
+        "radius",
+        "icon geometry",
+        "media treatment",
+        "anatomy order"
+      ]
+    }
+  ]
+}

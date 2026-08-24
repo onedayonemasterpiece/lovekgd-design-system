@@ -6,6 +6,36 @@
 
 ## 1. Основное решение
 
+### Ускоренный режим полного атласа
+
+Когда owner явно запускает `Complete Reconstruction Atlas`, обычные
+вертикальные волны временно объединяются в один reconstruction batch. Это не
+меняет authority и не означает promotion:
+
+```text
+current Astro source + generated browser output
+→ semantic SoT для 100% archetypes/routes
+→ отдельные Penpot bindings/evidence
+→ один dependency-closure materialization batch
+→ одна review route + gap ledger
+```
+
+В этом режиме запрещены per-parent receipts, per-parent Telegram proofs и
+повторная сверка каждого родителя после уже доказанного central fix. Новый или
+изменённый lowest-owning resource получает bounded comparison; его linked
+dependency closure проверяется одним batch regression. Dense/stress lists
+проверяются полностью в Astro, а Penpot хранит только representative linked
+instances. Source-conformant components замораживаются и открываются повторно
+только при owner defect, новом contract/structural context или failed
+regression.
+
+Review трактуется по фактам: отсутствие взаимодействия — `NOT_REVIEWED`,
+bounded feedback с проверенной коррекцией — `REVIEWED_BY_EXCEPTION`, отсутствие
+комментария — `NO_RECORDED_OBJECTION`, но не approval. Explicit decision нужен
+только для Astro-conflicting или product changes. Точный operating contract
+этого режима зафиксирован в
+[`complete-reconstruction-atlas-accelerated-mode.md`](complete-reconstruction-atlas-accelerated-mode.md).
+
 Нельзя выбирать одну из двух крайностей:
 
 ```text
