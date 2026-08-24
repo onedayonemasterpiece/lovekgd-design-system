@@ -4,12 +4,15 @@ on:
   push:
     branches:
       - feature/global-archetype-sot-v1-20260824-r4
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
 
 permissions:
   contents: write
 
 concurrency:
-  group: global-archetype-sot-v1-finalize-${{ github.ref }}
+  group: global-archetype-sot-v1-finalize-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
 jobs:
