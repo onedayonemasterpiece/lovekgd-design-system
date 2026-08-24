@@ -26,7 +26,18 @@ jobs:
           ref: feature/global-archetype-sot-v1-20260824-r4
           fetch-depth: 0
 
+      - name: Detect bootstrap payload
+        id: payload
+        shell: bash
+        run: |
+          if [[ -f .bootstrap/global-archetype-sot-v1-source.tar.gz.b64 ]]; then
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Materialize verified source
+        if: steps.payload.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -35,9 +46,20 @@ jobs:
           base64 --decode .bootstrap/global-archetype-sot-v1-source.tar.gz.b64 > "$archive"
           printf '%s  %s\n' e6cc088150756f9345a59940a58cecbcb35e788ff8173983d3edcb7541cb5d56 "$archive" | sha256sum --check --strict
           tar -xzf "$archive" -C .
-          rm -rf .bootstrap .github/workflows/global-archetype-sot-v1-finalize.yml
+          rm -rf .bootstrap
+          rm -f .github/workflows/global-archetype-sot-v1.yml
+          python3 - <<'PY'
+          from pathlib import Path
+          for path in (
+              Path('catalog/global-archetype-sot-v1/README.md'),
+              Path('scripts/global-archetype-sot-v1/build.mjs'),
+          ):
+              lines = path.read_text(encoding='utf-8').splitlines()
+              path.write_text('\n'.join(line.rstrip() for line in lines).rstrip() + '\n', encoding='utf-8')
+          PY
 
       - name: Build and validate fail closed
+        if: steps.payload.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -48,7 +70,8 @@ jobs:
           node tests/global-archetype-sot-v1.test.mjs
           git diff --check
 
-      - name: Commit only final SoT paths
+      - name: Commit final SoT paths
+        if: steps.payload.outputs.present == 'true'
         shell: bash
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -56,12 +79,11 @@ jobs:
           set -euo pipefail
           rm -rf node_modules
           git add -- \
-            .github/workflows/global-archetype-sot-v1.yml \
             catalog/global-archetype-sot-v1 \
             scripts/global-archetype-sot-v1 \
             scripts/reconstruction-atlas/build-global-archetype-sot.mjs \
             tests/global-archetype-sot-v1.test.mjs
-          git add -u -- .bootstrap .github/workflows/global-archetype-sot-v1-finalize.yml
+          git add -u -- .bootstrap
           protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
           if git diff --cached --name-only | grep -E "$protected"; then
             echo 'Protected Date/Weekend artifact changed' >&2
