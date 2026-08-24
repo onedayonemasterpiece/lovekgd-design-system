@@ -1,0 +1,65 @@
+name: Materialize corrective semantic outputs once
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824-r4
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: corrective-materialize-once-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout corrective branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: feature/global-archetype-sot-v1-corrective-20260824-r4
+          fetch-depth: 0
+      - name: Checkout pinned Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .external/events-bot-new
+          fetch-depth: 1
+      - name: Build and test canonical corrective delta
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: |
+          set -euo pipefail
+          test -f scripts/global-archetype-sot-v1/build-corrective.mjs
+          test -f tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          test -f tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          node scripts/global-archetype-sot-v1/build-corrective.mjs
+          node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+          node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          git diff --check
+      - name: Commit only canonical versioned outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .external node_modules
+          git add -- catalog/global-archetype-sot-v1 scripts/global-archetype-sot-v1 tests/global-archetype-sot-v1-semantic-completeness.test.mjs tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+          if git diff --cached --quiet; then
+            echo 'Committed corrective outputs are already current.'
+            exit 0
+          fi
+          if git diff --cached --name-only | grep -E '(^AGENTS\.md$|^docs/|^receipts/|catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)|tests/(date-listing-shell-v1|weekend-listing-v1)|route-archetype-registry\.v1\.json$)'; then
+            echo 'Protected scope changed.' >&2
+            exit 1
+          fi
+          git config user.name global-archetype-sot-bot
+          git config user.email global-archetype-sot-bot@users.noreply.github.com
+          git commit -m 'fix(ds): synchronize corrective semantic outputs [skip ci]'
+          git push origin HEAD:feature/global-archetype-sot-v1-corrective-20260824-r4
