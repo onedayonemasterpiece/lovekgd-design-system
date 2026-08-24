@@ -1,98 +1,123 @@
 # Floating control islands / detached chrome
 
-> **Статус:** exploration input. Это не accepted component family, не component contract, не токены и не решение о замене текущей шапки или bottom navigation.
+> **Статус:** exploration input. Материал фиксирует визуально подтверждённые паттерны из шести приложенных экранов, но не принимает component family, tokens, Penpot components и не разрешает замену текущей шапки или bottom navigation.
 
-Обезличенный семантический референс служебного UI, где application chrome не образует две монолитные полосы по краям viewport, а распределён между несколькими компактными плавающими поверхностями.
+Обезличенный набор референсов для служебного UI, где application chrome частично отделяется от краёв viewport и раскладывается по компактным role-owned surfaces: icon islands, context capsules, utility clusters, composers, navigation docks и persistent media docks.
 
-![Reference board](assets/reference-board.svg)
+![Source-informed screen patterns](assets/source-screen-patterns.svg)
 
-## Что удалось получить из источника
+![Pattern anatomy](assets/source-pattern-anatomy.svg)
+
+## Источник и fidelity
 
 | Поле | Результат |
 |---|---|
-| Источник | Telegram: `https://t.me/c/4337049383/1162` |
-| Чат | `KenigEvents · UI review` |
-| Сообщение | найдено и прочитано через eventsBot MCP |
-| Вложения | альбом из 2 media items |
-| Исходные пиксели | **не получены**: `social_asset_preview` отклоняет materialization media refs даже для контрольной доступной story |
-| Fidelity этого набора | **semantic skeleton, not raster-traced** |
-| Исходный контент в Git | отсутствует: не копировались тексты, логотипы, фотографии, брендинг или оригинальные иконки |
+| Первичный указатель | Telegram: `https://t.me/c/4337049383/1162` |
+| MCP | сообщение и metadata прочитаны; materialization media bytes не сработала |
+| Фактический visual input | 6 скриншотов `921×2048`, приложенных владельцем непосредственно в текущем треде |
+| Visual review | выполнен по всем 6 изображениям |
+| Fidelity производных изображений | source-informed anonymized skeletons |
+| Raw screenshots в Git | **не добавлены**: на них есть имена, сообщения, аватары и сторонний контент |
+| Machine-readable разбор | [`screen-observations.json`](screen-observations.json) |
 
-Следствие: этот набор фиксирует **структурную гипотезу из наблюдения владельца** — переход от монолитной верхней/нижней полосы к отделённым capsule-shaped control surfaces. Он не фиксирует точные размеры, цвета, material, blur, elevation, иконки, количество элементов или scroll behavior исходных экранов.
+Новые вложения снимают прежнее ограничение «исходные пиксели не получены» для дизайн-разбора. Ошибка MCP остаётся отдельной инфраструктурной проблемой и не должна больше ограничивать fidelity этого reference pack.
 
-## Как это называть
+## Как называть паттерн
 
-Рекомендуемая рабочая терминология:
+Единого стандартного названия для всей совокупности экранов нет. Рабочая терминология:
 
-- **detached chrome / floating chrome** — общий подход: служебный UI отделён от края viewport и визуально плавает над content canvas;
-- **floating control islands** — композиционный принцип: chrome разбит на небольшое число поверхностей по семантическим ролям;
-- **floating toolbar / utility island** — капсула с группой родственных служебных действий;
-- **floating navigation dock / floating tab bar** — отделённая от края группа destination navigation;
-- **pill button / action pill** — одиночное действие в capsule geometry.
+- **detached chrome / floating chrome** — общий подход: служебные controls визуально отделены от края viewport и могут лежать над content canvas;
+- **floating control islands** — композиционный принцип: chrome разделён на несколько поверхностей по семантическим владельцам;
+- **floating top app bar / clustered top app bar** — верхняя композиция из leading, center/context и trailing/utility областей;
+- **context capsule / mode capsule** — центральная капсула с режимом, scope или page identity;
+- **utility island / utility cluster** — поверхность для родственных служебных действий;
+- **floating composer** — inset input surface над системным краем;
+- **floating navigation dock** — отделённая от края, но цельная destination navigation;
+- **persistent mini-player dock / now-playing dock** — persistent state/action surface над нижней навигацией.
 
-`Chip` здесь неточен. Chip — прежде всего компактный input/filter/select/suggestion control. Capsule — форма, а control island — контейнер или композиция.
+`Pill` или `capsule` описывают форму. `Chip` корректен только для компактного выбора, фильтра, suggestion или input-token; им нельзя называть всю шапку, composer или navigation dock.
 
-## Извлечённая структурная гипотеза
+## Разбор экранов
 
-1. **Content-first canvas.** Контент остаётся непрерывной основной плоскостью; chrome накладывается поверх неё, а не отрезает две постоянные полосы.
-2. **Semantic islands.** Context, utility, destination navigation и primary/contextual action могут иметь разных владельцев и поэтому не обязаны жить в одном монолитном контейнере.
-3. **Navigation stays grouped.** Элементы одной navigation model следует держать в одном dock; дробление каждого destination в отдельную капсулу создаёт визуальный шум и ухудшает считывание группы.
-4. **Detached action only by role.** Отдельный action island оправдан другой семантикой или приоритетом, а не одной лишь декоративной асимметрией.
-5. **Edge detachment is layout behavior.** Safe-area anchoring, viewport inset, keyboard avoidance, scroll compaction и occlusion принадлежат layout/runtime contract, а не внутреннему API icon button.
-6. **Arbitrary-underlay contrast.** Floating surface должна сохранять читаемость над изображением, карточкой и пустым canvas; material/blur/elevation нельзя принимать без реальных underlay fixtures.
+| ID | Экран | Основная композиция | Наблюдаемые служебные элементы |
+|---|---|---|---|
+| A | Kimi · главная | `detached_top_islands` | leading menu island, centered mode capsule, trailing mute island, quick-action chips, floating composer |
+| B | Kimi · чтение | `floating_composer_with_scroll_utility` | та же top composition, trailing utility capsule, transient scroll button, floating composer |
+| C | Telegram · список | `header_filter_dock_fab_nav` | более монолитный header, segmented filter dock, context banner, FAB, floating navigation dock |
+| D | Telegram · диалог | `clustered_top_app_bar` | back island, identity capsule, utility capsule, pinned context banner, bottom composer |
+| E | медиаплеер | `immersive_media_control_cluster` | centered title pill, edge actions, playback islands, borderless bottom navigation |
+| F | медиатека | `persistent_media_dock_stack` | content header actions, persistent mini-player dock, отдельная bottom navigation model |
 
-## Визуальные skeletons
+Экран C важен как контрпример: современный rounded UI не означает, что все служебные зоны обязаны стать islands. Здесь header остаётся относительно цельным, а filters, FAB и navigation вынесены в отдельные слои.
 
-### A · Distributed control islands
+## Извлечённые паттерны
 
-![Distributed control islands](assets/variant-a-distributed.svg)
+1. **Role-owned top chrome.** Leading navigation, center context и trailing utilities могут иметь разных владельцев и разные lifecycle/state rules.
+2. **Content-first canvas.** Контентная плоскость не обязана начинаться после полной app-bar полосы; chrome может накладываться поверх неё.
+3. **Related actions stay grouped.** Call + overflow, playback controls или destination navigation не следует дробить на отдельные pills без семантической причины.
+4. **Bottom chrome имеет разные архитектуры.** Composer, navigation dock и mini-player + navigation stack — разные compositions, а не варианты одной универсальной панели.
+5. **Transient utilities float independently.** Scroll-to-bottom и FAB могут появляться над контентом и исчезать без изменения основной layout flow.
+6. **Persistent state can form a dock.** Now-playing surface сохраняет состояние и действия между экранами, оставаясь отдельной от destination navigation.
+7. **Borderless navigation is possible.** Нижние destinations могут быть сгруппированы семантически без общей видимой подложки; отсутствие container не отменяет единую navigation model.
 
-Контекст слева, utility-группа справа, navigation dock снизу и отдельное primary/contextual action. Это не рекомендация всегда использовать четыре острова; это тестовая anatomy-композиция.
+## Что это означает для LoveKGD
 
-### B · Split dock + context island
-
-![Split dock](assets/variant-b-split-dock.svg)
-
-Контекстная capsule в верхней зоне, отдельное utility action и split bottom composition. Вариант нужен для проверки семантической группировки, а не для выбора winner.
-
-### Anatomy
-
-![Anatomy](assets/anatomy.svg)
-
-## Слоты для проверки в LoveKGD
-
-| Semantic slot | Роль | Disposition в этом артефакте |
+| Semantic slot / primitive | Роль | Disposition |
 |---|---|---|
-| `top-leading-context` | back / close / scope | `unresolved` |
-| `top-context-summary` | краткая page/context identity | `unresolved` |
-| `top-trailing-utility` | search / share / overflow и родственные actions | `unresolved` |
-| `bottom-destination-navigation` | переход между основными destinations | `unresolved` |
-| `bottom-contextual-action` | действие текущего surface | `unresolved` |
+| `top-leading-context` | back / menu / close / scope entry | `unresolved` |
+| `top-center-context` | mode, page identity, scope summary | `unresolved` |
+| `top-trailing-utility` | search, share, call, overflow, mute | `unresolved` |
+| `context-banner` | pinned or persistent page context | `unresolved` |
+| `quick-action-chip-row` | suggestions / shortcuts | `unresolved` |
+| `floating-composer` | task input and attachments/voice | `unresolved` |
+| `floating-scroll-utility` | transient recovery/navigation action | `unresolved` |
+| `bottom-destination-navigation` | core destinations | `unresolved` |
+| `persistent-state-dock` | mini-player or other cross-screen state | `unresolved` |
 | `control-surface-material` | background, border, elevation, blur, contrast | `unresolved` |
-| `floating-chrome-anchor` | safe area, viewport inset, keyboard/scroll behavior | `runtime_only` candidate; контракт не принят |
-| `content-occlusion-compensation` | last-item inset и достижимость контента | `runtime_only` candidate; контракт не принят |
+| `floating-chrome-anchor` | safe area, viewport inset, keyboard and scroll behavior | `runtime_only` candidate; contract not accepted |
+| `content-occlusion-compensation` | last-item inset and reachability | `runtime_only` candidate; contract not accepted |
 
-Ни один слот не объявлен `reuse_existing` или `new_component`: сначала требуется сопоставление с актуальным production registry и archetype contracts. Визуальное сходство не является основанием для merge или нового component identity.
+Ни один элемент пока не помечен `reuse_existing` или `new_component`. Сначала требуется mapping к актуальному production registry и archetype contracts.
 
-## Вопросы следующей проверки
+## Не делать один универсальный «pill component»
 
-- Какие из двух исходных экранов используют destination navigation, а какие — contextual actions?
-- Сохраняются ли острова при scroll или меняют размер/состав?
-- Что происходит с keyboard, modal sheets, landscape и узкими viewport?
-- Есть ли blur/translucency или это opaque surfaces?
-- Как обеспечен contrast над фотографиями и насыщенными poster backgrounds?
-- Является ли top context интерактивным или только informational?
-- Какие current Astro controls уже покрывают внутренние action slots без создания нового компонента?
+Визуально похожая capsule geometry не доказывает общую component identity. Безопаснее разделять четыре уровня:
+
+1. **Surface primitive:** material, radius, border, elevation, contrast.
+2. **Composition:** top app bar, composer, navigation dock, mini-player dock.
+3. **Control semantics:** icon button, segmented control, chip, text input, destination item.
+4. **Runtime behavior:** safe area, keyboard avoidance, scroll compaction, occlusion, show/hide.
+
+Shared primitive допустим только там, где совпадают state model, accessibility и underlay requirements. Композиции нельзя сливать только по округлой форме.
+
+## Обязательная fixture/state matrix перед применением
+
+- plain, photo, poster и saturated underlays;
+- expanded / compact / scrolled top state;
+- keyboard open / closed;
+- modal or sheet open;
+- long title, badge, notification and overflow states;
+- narrow viewport and landscape;
+- one-handed reach and system navigation insets;
+- last-item reachability under floating bottom chrome;
+- reduced motion and high-contrast modes.
 
 ## Adoption gate
 
-До получения исходных пикселей и проверки production output запрещено:
+До family mapping и runtime validation запрещено:
 
 - считать геометрию skeleton эталонной;
-- переносить указанные размеры или spacing в tokens;
+- переносить размеры, blur, elevation или spacing в tokens;
 - заменять существующие header/bottom-navigation artifacts;
-- принимать `FloatingControlSurface`, `FloatingToolbar` или `FloatingNavDock` как component families;
-- делать speculative merge существующих controls по capsule geometry;
-- материализовать это как canonical Penpot component.
+- принимать `FloatingControlSurface`, `FloatingTopAppBar`, `FloatingComposer` или `FloatingNavDock` как component families;
+- делать speculative merge по capsule geometry;
+- материализовать этот набор как canonical Penpot components.
 
-Допустимое использование сейчас: reference board для owner discussion, archetype exploration и подготовки fixture matrix.
+Допустимое использование сейчас: owner review, archetype exploration, comparison with current Astro output и подготовка fixture matrix.
+
+## Дополнительные exploratory варианты
+
+Ранние абстрактные варианты сохранены как вспомогательные, но не являются source-faithful трассировкой:
+
+- [Distributed control islands](assets/variant-a-distributed.svg)
+- [Split dock + context island](assets/variant-b-split-dock.svg)
