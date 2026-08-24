@@ -294,6 +294,15 @@ assert(components.composition_rules.some((rule) => /three linked full-width exac
 for (const id of ['DL-018', 'DL-019', 'DL-020']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-021', 'DL-022', 'DL-023', 'DL-024']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-025', 'DL-026']) assert(decisions.decisions.some((item) => item.id === id));
+for (const id of ['DL-027', 'DL-028', 'DL-029']) assert(decisions.decisions.some((item) => item.id === id));
+const stressViewport = components.archetype_variants.find((item) => item.id === 'archetype.listing.date.stress.viewport');
+assert(stressViewport);
+assert.match(stressViewport.upper_slice_component_topology, /ordinary content overlays=0/);
+assert.equal(stressViewport.group_marker_x_px, 32);
+assert.equal(Object.keys(stressViewport.upper_slice_exact_component_ids).length, 4);
+const tomorrowHeader = components.body_components.find((item) => item.id === 'listing.page-date-header.tomorrow');
+assert.equal(tomorrowHeader.penpot_component_id, 'a21f5e36-5d76-8065-8008-86cf6598eff5');
+assert.match(tomorrowHeader.rendered_markup_gate, /Популярное/);
 const mobileStatePanel = components.body_components.find((item) => item.id === 'listing.mobile-state-panel');
 assert(mobileStatePanel);
 assert.deepEqual(mobileStatePanel.states, ['loading', 'empty', 'error']);
