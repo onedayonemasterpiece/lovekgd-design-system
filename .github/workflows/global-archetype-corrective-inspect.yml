@@ -28,7 +28,9 @@ jobs:
           repository: onedayonemasterpiece/events-bot-new
           ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
           path: events-bot
-          fetch-depth: 0
+          sparse-checkout: src
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
 
       - name: Prove verified handoff byte equality
         shell: bash
