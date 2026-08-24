@@ -3,6 +3,8 @@
 ## Оперативное состояние
 
 - [`design-system-progress-checklist.md`](design-system-progress-checklist.md) — GitHub-only чек-лист фактической готовности foundations, компонентов, shell, архетипов и сквозного SoT → Penpot → Astro цикла.
+- [`design-system-execution-sequence.md`](design-system-execution-sequence.md) — обязательная практическая очерёдность AS-IS reconstruction, acceptance, migration и promotion по волнам.
+- [`design-system-planned-patterns-checklist.md`](design-system-planned-patterns-checklist.md) — принятые в roadmap направления редизайна, которые проектируются только после AS-IS archetypes и exact `Astro == Git SoT == Penpot`; первым зарегистрирован `pattern.detached-chrome-control-islands`.
 
 ## Нормативные документы
 
