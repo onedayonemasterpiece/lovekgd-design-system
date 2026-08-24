@@ -1,0 +1,118 @@
+{
+  "schema_version": "consumer-layout-contract.v1",
+  "contract_id": "event-card-large.consumer-layout.event-detail-related.v1",
+  "component_id": "event.card",
+  "decision_lifecycle": "owner-corrected-candidate",
+  "reference_authority": "astro-reference",
+  "source": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "repository_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "runtime_baseline_sha": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+    "paths": [
+      "site/src/layouts/EventLayout.astro",
+      "site/src/components/DesktopEventPage.astro",
+      "site/src/components/OptimizedEventCardGrid.astro",
+      "site/src/components/EventCard.astro",
+      "site/src/lib/relatedCardLayout.mjs"
+    ]
+  },
+  "resolution_order": [
+    "surface-archetype",
+    "viewport-container",
+    "grid-columns",
+    "packing-placement",
+    "row-sibling-equalization",
+    "used-card-geometry",
+    "media-available-box",
+    "framing-rule"
+  ],
+  "contexts": [
+    {
+      "context_id": "event-detail-related.optimized-grid.desktop-1280",
+      "status": "resolved-from-astro-source",
+      "surface_id": "event-detail-related",
+      "archetype_id": "optimized-event-card-grid",
+      "parent_component": "OptimizedEventCardGrid",
+      "viewport_id": "desktop-1280",
+      "viewport_width_px": 1280,
+      "container_width_expression": "min(1180px, viewport_width_px - 32px)",
+      "container_width_px": 1180,
+      "columns": 3,
+      "gap_expression": "clamp(0.85rem, 1.6vw, 1.25rem)",
+      "resolved_gap_px": 20,
+      "align_items": "stretch",
+      "ordered_input_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.4327",
+        "event.real.6628"
+      ],
+      "ordered_output_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "card_width_formula": "(container_width_px - 2 * resolved_gap_px) / 3",
+      "used_card_width_px": 380,
+      "row_equalization": {
+        "policy": "equal-height-within-row",
+        "card_height_style": "100%",
+        "internal_tracks": "auto minmax(0, 1fr) minmax(58px, auto) minmax(56px, auto)",
+        "height_owner": "tallest-intrinsic-card-in-row"
+      },
+      "media_box_formula": "available_width_px = used_card_width_px; available_height_px = used_card_width_px / astro_row_ratio",
+      "fixture_rows": [
+        {
+          "row_index": 0,
+          "fixture_ids": [
+            "event.real.7906",
+            "event.real.8156",
+            "event.real.6628"
+          ],
+          "astro_row_ratio": 0.8333333333333333,
+          "astro_row_mode": "document-led-bounded-cover",
+          "media_available_height_px": 456
+        },
+        {
+          "row_index": 1,
+          "fixture_ids": [
+            "event.real.4327"
+          ],
+          "astro_row_ratio": 1.5005861664712778,
+          "astro_row_mode": "document-led-uncropped",
+          "media_available_height_px": 253.234375
+        }
+      ],
+      "measurement_requirement": "capture per-card and media DOMRects before pixel comparison; source-derived widths and aspect boxes do not fabricate equalized card heights"
+    }
+  ],
+  "known_context_gaps": [
+    {
+      "gap_id": "mobile-flow-ratio-callsite-discrepancy",
+      "context": "EventCard mobile consumer at viewport <= 560px; used width resolves to viewport_width_px - 58px",
+      "source_facts": [
+        "EventCard cardTargetAspect fallback is 4 / 5",
+        "mobileFlowMedia resolves a 5 / 4 row ratio at current call sites"
+      ],
+      "disposition": "record-unresolved-do-not-blend-authority"
+    }
+  ],
+  "candidate_delta_policy": {
+    "allowed_region": "media",
+    "allowed_property": "framing-rule",
+    "owner_decision_ref": "catalog/normalization/event-media/framing-v2.json#large_card_resolution",
+    "authority_scope": "penpot-candidate-only",
+    "layout_geometry_must_remain_astro_reference": true,
+    "promotion_effect": "none-before-owner-browser-approval"
+  },
+  "non_claims": [
+    "related-placement-selection",
+    "Penpot-materialization",
+    "owner-browser-acceptance",
+    "Astro-source-mutation",
+    "family-promotion",
+    "mobile-ratio-reconciliation"
+  ],
+  "contract_sha256": "a6167daab97cf8ccfadc09b1b45d23718dffcf9ebf4b3d96b3169ccd67e29136"
+}

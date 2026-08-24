@@ -1,0 +1,142 @@
+{
+  "schema_version": "penpot_festival_card_semantic_correction_v1",
+  "receipt_id": "penpot.festival-card.semantic-correction.20260822.v1",
+  "status": "penpot-reconciled-awaiting-owner-review",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "supersedes_for_current_status": "receipts/penpot/festival-card-architecture-audit-v1.json",
+  "root_cause": {
+    "obsolete_contract_exception": "FestivalCard was allowed to keep a private local-save Favorite with aggregate count absent because the pinned Astro renderer has no aggregate count.",
+    "audit_gap": "The previous audit checked linkage and absence of a loose count, but did not require the shared event.action.like -> event.social-proof.like identity or inventory every generated category/icon pair.",
+    "process_error": "The compact comparison repeated one F01 fixture and was incorrectly reported as forward family progress instead of bounded cleanup/revalidation."
+  },
+  "contract": {
+    "path": "catalog/ui-components/festival-card/semantic-contract.v1.json",
+    "version": "1.0.0-candidate.1",
+    "payload_sha256": "ed55a9e7acb2a6531da49e96fa7acb8126cde7914b8840280c14c0180125a006",
+    "design_repository_commit_at_materialization_start": "31cdbdaf3e95a66cbf3df1a836e93f84d3cc847f"
+  },
+  "astro_evidence": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "005aeb52fc204fc1e492e42eacf0b1d7b15b923c",
+    "census_path": "tests/fixtures/ui-conformance/festival-card-semantic-census.v1.json",
+    "census_sha256": "623469b0ec32031e2b3e8753f72ba29a03f8abde8e5f384a4dc76083d1788c76",
+    "festival_count": 21,
+    "actual_generated_theme_value_count": 16,
+    "joined_preview_event_count": 4,
+    "more_vnutri_likes_count": 84,
+    "production_source_mutated": false
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "file_revn_readback": 1543,
+    "validation_issues": [],
+    "festival_variant_page": {
+      "page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+      "page_name": "40.4 — FestivalCard · Native variants",
+      "variant_set_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+      "variant_count": 9,
+      "old_favorite_instance_count": 0,
+      "shared_like_action_instance_count": 9,
+      "shared_like_proof_binding_count": 9,
+      "interaction_fallback_count": 0,
+      "semantic_theme_instance_count": 9
+    },
+    "theme_component": {
+      "component_id": "a6e7f5b4-ff51-80c0-8008-833f4ebb5a58",
+      "semantic_id": "festival.meta.theme",
+      "stable_id": "festival.meta.theme.v1",
+      "component_per_literal": false,
+      "icon_slots": [
+        "primary",
+        "secondary"
+      ],
+      "secondary_icon_presence": "optional",
+      "icon_framing": "16.266px linked roots; source artwork fitted inside slot; source fill/stroke roles preserved and recolored to currentColor-equivalent light tone"
+    },
+    "shared_like_family": {
+      "base_component_id": "a6e7f5b4-ff51-80c0-8008-82f39544e294",
+      "proof_component_id": "7f078c80-87b8-80f5-8008-85e0aee9a615",
+      "variant_count_after": 8,
+      "added_variants": [
+        {
+          "component_id": "a21f5e36-5d76-8065-8008-8615d8846108",
+          "state": "hover",
+          "selected": "off",
+          "count": "nonzero",
+          "variant_error": null
+        },
+        {
+          "component_id": "a21f5e36-5d76-8065-8008-86161cdc4ee6",
+          "state": "focus-visible",
+          "selected": "off",
+          "count": "nonzero",
+          "variant_error": null
+        }
+      ]
+    },
+    "exact_fixture_review": {
+      "page_id": "a21f5e36-5d76-8065-8008-8602db63b9db",
+      "page_name": "40.4f — FestivalCard · Exact conformance · Compact",
+      "shape_id": "a21f5e36-5d76-8065-8008-8602eb21fb00",
+      "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+      "fixture": "festival.more-vnutri.v1",
+      "root_geometry_px": [
+        263.469,
+        277.719
+      ],
+      "theme_label": "современное искусство",
+      "theme_icon_components": [
+        "fd45a474-7b74-809d-8008-8184e1a55fd9"
+      ],
+      "like_count": 84,
+      "old_favorite_instance_count": 0
+    },
+    "bounded_theme_review": {
+      "page_id": "a21f5e36-5d76-8065-8008-860f72da9702",
+      "page_name": "40.4g — FestivalCard · Theme + Like semantics · Compact",
+      "root_id": "a21f5e36-5d76-8065-8008-860f8fbac9a1",
+      "root_geometry_px": [
+        760,
+        430
+      ],
+      "theme_specimen_count": 16,
+      "theme_specimens_all_linked_to_one_component": true,
+      "shared_like_84_specimen_count": 1,
+      "full_page_exported": false
+    }
+  },
+  "comparison": {
+    "case_id": "festival-card-more-vnutri-exact",
+    "orientation": "side-by-side",
+    "same_event_and_media": true,
+    "astro_role": "as-is visual evidence",
+    "penpot_role": "owner-corrected candidate component model",
+    "intentional_delta": "Penpot contains the shared Like social-proof count 84 while Astro retains its private no-count local favorite until owner acceptance and reverse integration.",
+    "astro_png_sha256": "74997f705fcada7da3be41d2db13f9fa5ed1ae50558cc0e37bdf728ec800a9c0",
+    "penpot_root_png_sha256": "267c5c6beb8a30ea267b0b36288393227ce37b44b9041f9a160c634b168f05e5",
+    "comparison_png_sha256": "b7c5e837421c5e6ce160a8f3f3dcc66139c729c39356110e894bac2daac82a03",
+    "agent_verdict": "MINOR",
+    "owner_status": "AWAITING_REVIEW"
+  },
+  "telegram": {
+    "topic_root_message_id": 1030,
+    "message_id": 1085,
+    "message_link": "https://t.me/c/4337049383/1085",
+    "supersedes_message_id": 1084,
+    "read_back_status": "verified",
+    "caption_sha256": "648c9120e59b6389d8324eb694fc83bb0f6591eee33fc941ab4ccce363f0ba85",
+    "content_hash": "501abbd88b15cec04958a5674e27c5023ecd7c3728e25099f046fbc07c79842e"
+  },
+  "remaining_gates": [
+    "owner visual review/acceptance",
+    "Astro reverse integration only after owner acceptance",
+    "Wave 0 remains in progress until every scoped card family has an exact status and remaining delta ledger"
+  ],
+  "non_claims": [
+    "FestivalCard production promotion",
+    "Astro production mutation",
+    "Wave 0 completion",
+    "completion of ListingEventCard, ListingRailRow or ExhibitionRow"
+  ]
+}

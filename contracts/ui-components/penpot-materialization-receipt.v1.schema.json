@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/penpot-materialization-receipt.v1.schema.json",
+  "title": "Penpot materialization and read-back receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "ir_id", "contract_sha256", "file_id", "page_id", "revision_before", "revision_after", "named_version_created", "operation_results", "propagation_audit_path", "validation_errors", "idempotency", "result"],
+  "properties": {
+    "schema_version": {"const": "penpot-materialization-receipt.v1"},
+    "ir_id": {"type": "string"},
+    "contract_sha256": {"pattern": "^[a-f0-9]{64}$"},
+    "file_id": {"type": "string"},
+    "page_id": {"type": "string"},
+    "revision_before": {"type": "integer"},
+    "revision_after": {"type": "integer"},
+    "named_version_created": {"type": "boolean"},
+    "operation_results": {"type": "array"},
+    "propagation_audit_path": {"type": "string"},
+    "validation_errors": {"type": "array", "maxItems": 0},
+    "idempotency": {"type": "object"},
+    "result": {"enum": ["pass", "fail", "blocked"]}
+  }
+}

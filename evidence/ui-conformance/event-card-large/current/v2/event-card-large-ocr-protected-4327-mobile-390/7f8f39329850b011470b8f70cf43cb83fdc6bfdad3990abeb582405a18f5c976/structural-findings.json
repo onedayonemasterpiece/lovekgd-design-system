@@ -1,0 +1,39 @@
+{
+  "schema_version": "structural_findings.v1",
+  "case_id": "event-card-large-ocr-protected-4327-mobile-390",
+  "contract_sha256": "dfc49a54ebd9a4d2d9da1f9c24321abf349714c62d3abf1dd00f71c1ce63ae1e",
+  "status": "minor",
+  "blocking_count": 0,
+  "findings": [
+    {
+      "id": "same-data",
+      "severity": "info",
+      "status": "PASS",
+      "detail": "event.real.4327"
+    },
+    {
+      "id": "geometry",
+      "severity": "info",
+      "status": "PASS",
+      "detail": "astro=390x484; penpot=390x484; exact scale=1; no scaling"
+    },
+    {
+      "id": "semantic-actions",
+      "severity": "info",
+      "status": "PASS",
+      "detail": "Like/Share counters and Calendar present/absent are linked semantic components"
+    },
+    {
+      "id": "occurrence-semantic-target",
+      "severity": "minor",
+      "status": "OPEN_P1",
+      "detail": "Penpot occurrence remains an override text slot; target event.meta.occurrence is not materialized"
+    },
+    {
+      "id": "place-ellipsis",
+      "severity": "minor",
+      "status": "MINOR",
+      "detail": "full semantic place is preserved; visual ellipsis differs slightly"
+    }
+  ]
+}

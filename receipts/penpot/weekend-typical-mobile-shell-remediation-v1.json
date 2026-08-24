@@ -1,0 +1,79 @@
+{
+  "schema_version": "penpot-weekend-typical-mobile-shell-remediation.v1",
+  "status": "PASS_WITH_MINOR_RENDERER_AND_RASTER_DELTA",
+  "family": "component.listing.weekend-mobile-shell",
+  "semantic_id": "listing.weekend.mobile.shell.typical.exact-2026-08-22",
+  "same_exact_case": {
+    "manifest_id": "archetype.listing.weekend-v1.golden-v1",
+    "representation": "typical-mobile390x844",
+    "fixture_ids": [
+      "event.real.7807",
+      "event.real.7906"
+    ],
+    "component_bounds_css": {
+      "x": 0,
+      "y": 84,
+      "width": 390,
+      "height": 478
+    },
+    "capture_policy": "site header hidden to isolate the shell boundary"
+  },
+  "git": {
+    "design_sha_before_receipt": "9ebc45b",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision_after_named_save": "not_exposed_by_current_plugin_readback",
+    "page_id": "d87e18f1-dcb4-80a6-8008-87e2fdb55cc6",
+    "page_name": "61.12 — Weekend · Typical mobile shell",
+    "review_board_id": "d87e18f1-dcb4-80a6-8008-87e313b5fee8",
+    "component_id": "d87e18f1-dcb4-80a6-8008-87e313acdd0f",
+    "component_main_id": "d87e18f1-dcb4-80a6-8008-87e3132a7de7",
+    "direct_linked_slots": [
+      {
+        "slot": "page-head",
+        "component_id": "d87e18f1-dcb4-80a6-8008-87dae9359089",
+        "y": 0
+      },
+      {
+        "slot": "feed-head",
+        "component_id": "06b5fc29-ba80-803f-8008-873d7cca3ede",
+        "y": 96
+      },
+      {
+        "slot": "section",
+        "component_id": "d87e18f1-dcb4-80a6-8008-87e26bcfdfcc",
+        "y": 156
+      }
+    ],
+    "linked_shape_count_in_review_closure": 101,
+    "detached_copies": 0,
+    "validation": [],
+    "named_version": "61.12 C01 · Weekend typical mobile shell exact linked closure · current"
+  },
+  "systemic_remediation": [
+    "assembled the shell exclusively from three linked slots: page-head, existing reusable feed-head, and the exact mobile section",
+    "kept the mobile date accessory outside the 478px shell because the Astro DOM positions it as a separate fixed/pinned dependency",
+    "created a separate bounded shell page with only master and review instance instead of growing the semantic-leaf page"
+  ],
+  "evidence": {
+    "layout": "2x2 grid chosen because 390×478 portrait panels make the final evidence closest to square",
+    "astro_png_sha256": "ddf83ce01a98266c302d445823bde9c5b870a18a81c581b12551b9627bb09734",
+    "penpot_png_sha256": "0c98ae7b5172c2f6831ed2a0338059102001b091824a9109959d9c38af04515c",
+    "overlay_png_sha256": "ecfde6db3a2edc89c7f52ee19888f5143f6a6b4c650d7cbb1453b4d20b8fa41e",
+    "diff_png_sha256": "88fcaf3b392ac22daf5996519c6c8d832f8109a350c1433843cc00f87ed0de54",
+    "comparison_png_sha256": "1554f82f71b754d107e103fad0afe6f5aeb674c5c8463372fe235159f541d823",
+    "mean_normalized_abs_error": 0.038388395589970786,
+    "visual_review": "Exact data, bounds, hierarchy, counters, functional icon, gaps and media framing. Minor renderer/raster delta remains."
+  },
+  "telegram": {
+    "message_id": 1155,
+    "message_link": "https://t.me/c/4337049383/1155",
+    "read_back_status": "verified"
+  },
+  "decisions": [
+    "WL-004",
+    "WL-008"
+  ]
+}

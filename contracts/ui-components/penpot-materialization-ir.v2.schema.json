@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/penpot-materialization-ir.v2.schema.json",
+  "title": "Bounded Penpot archetype materialization IR v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "ir_id", "lifecycle", "component_id", "contract_sha256", "baseline", "staging_policy", "execution_gate", "operations", "linkage_assertions", "propagation_audit", "quarantine_plan", "idempotency"],
+  "properties": {
+    "schema_version": {"const":"penpot-materialization-ir.v2"}, "ir_id": {"type":"string","minLength":3},
+    "lifecycle": {"const":"candidate-unexecuted"}, "component_id": {"const":"event.card"}, "contract_sha256": {"$ref":"#/$defs/sha256"},
+    "baseline": {
+      "type":"object","additionalProperties":false,
+      "required":["file_id","page_id","revision","variant_container_id","governed_active_variant_count","live_container_member_count","known_anomaly_ids"],
+      "properties": {
+        "file_id":{"$ref":"#/$defs/uuid"},"page_id":{"$ref":"#/$defs/uuid"},"revision":{"const":1256},"variant_container_id":{"$ref":"#/$defs/uuid"},
+        "governed_active_variant_count":{"const":11},"live_container_member_count":{"const":13},
+        "known_anomaly_ids":{"type":"array","minItems":2,"maxItems":2,"uniqueItems":true,"items":{"$ref":"#/$defs/uuid"}}
+      }
+    },
+    "staging_policy": {
+      "type":"object","additionalProperties":false,
+      "required":["isolated_from_live_variant_container","new_ids_must_be_discovered","no_guessed_ids","no_production_binding","preserve_existing_masters"],
+      "properties": {
+        "isolated_from_live_variant_container":{"const":true},"new_ids_must_be_discovered":{"const":true},"no_guessed_ids":{"const":true},
+        "no_production_binding":{"const":true},"preserve_existing_masters":{"const":true}
+      }
+    },
+    "execution_gate": {
+      "type":"object","additionalProperties":false,
+      "required":["exact_live_readback_required","required_revision","required_member_count","on_revision_or_membership_drift","owner_approval_required_before_quarantine_reconcile"],
+      "properties": {
+        "exact_live_readback_required":{"const":true},"required_revision":{"const":1256},"required_member_count":{"const":13},
+        "on_revision_or_membership_drift":{"const":"halt-and-regenerate-ir"},"owner_approval_required_before_quarantine_reconcile":{"const":true}
+      }
+    },
+    "operations": {"type":"array","minItems":9,"items":{"$ref":"#/$defs/operation"}},
+    "linkage_assertions": {"type":"array","minItems":6,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+    "propagation_audit": {
+      "type":"object","additionalProperties":false,
+      "required":["required","source_resource_keys","expected_linked_consumers","fail_on"],
+      "properties": {
+        "required":{"const":true},"source_resource_keys":{"type":"array","minItems":2,"uniqueItems":true,"items":{"type":"string"}},
+        "expected_linked_consumers":{"type":"array","minItems":4,"uniqueItems":true,"items":{"type":"string"}},
+        "fail_on":{"type":"array","minItems":4,"uniqueItems":true,"items":{"enum":["detached-instance","broken-component-link","forbidden-geometry-override","stale-master-value","unexpected-live-container-mutation"]}}
+      }
+    },
+    "quarantine_plan": {
+      "type":"object","additionalProperties":false,
+      "required":["member_actions","delete_forbidden","detach_forbidden","preserve_shape_ids","postcondition"],
+      "properties": {
+        "member_actions":{"type":"array","minItems":2,"maxItems":2,"items":{"type":"object","additionalProperties":false,"required":["shape_id","classification","action"],"properties":{"shape_id":{"$ref":"#/$defs/uuid"},"classification":{"enum":["accidental-duplicate-state-01","ungoverned-experimental-dynamic"]},"action":{"const":"move-to-isolated-quarantine-after-approved-exact-readback"}}}},
+        "delete_forbidden":{"const":true},"detach_forbidden":{"const":true},"preserve_shape_ids":{"const":true},
+        "postcondition":{"const":"live variant container contains exactly the 11 governed members; anomalies remain inspectable in quarantine"}
+      }
+    },
+    "idempotency": {
+      "type":"object","additionalProperties":false,"required":["stable_resource_keys","reconcile_before_create","second_run_created","second_run_unexpected_updates"],
+      "properties":{"stable_resource_keys":{"const":true},"reconcile_before_create":{"const":true},"second_run_created":{"const":0},"second_run_unexpected_updates":{"const":0}}
+    }
+  },
+  "$defs": {
+    "sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"uuid":{"type":"string","pattern":"^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"},
+    "target": {
+      "type":"object","additionalProperties":false,"required":["binding_mode","target_id","discovery_ref"],
+      "properties":{"binding_mode":{"enum":["known-live-id","discovery-ref"]},"target_id":{"type":["string","null"]},"discovery_ref":{"type":"string","minLength":3}},
+      "allOf":[
+        {"if":{"properties":{"binding_mode":{"const":"discovery-ref"}}},"then":{"properties":{"target_id":{"type":"null"}}}},
+        {"if":{"properties":{"binding_mode":{"const":"known-live-id"}}},"then":{"properties":{"target_id":{"$ref":"#/$defs/uuid"}}}}
+      ]
+    },
+    "operation": {
+      "type":"object","additionalProperties":false,
+      "required":["operation_id","phase","operation_type","owner_level","stable_resource_key","target","preconditions","changes","allowed_content_fields","expected_linkage","expected_propagation_consumers","rollback"],
+      "properties": {
+        "operation_id":{"type":"string","minLength":3},"phase":{"type":"integer","minimum":0,"maximum":9},
+        "operation_type":{"enum":["exact-live-readback","discover-or-create-master","discover-or-create-wrapper","discover-or-create-linked-instance","reconcile-quarantine","propagation-audit"]},
+        "owner_level":{"enum":["live-readback","parent-master","content-instance","review-wrapper","binding","audit"]},
+        "stable_resource_key":{"type":"string","minLength":3},"target":{"$ref":"#/$defs/target"},
+        "preconditions":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},"changes":{"type":"object"},
+        "allowed_content_fields":{"type":"array","uniqueItems":true,"items":{"type":"string"}},
+        "expected_linkage":{"type":"array","uniqueItems":true,"items":{"type":"string"}},
+        "expected_propagation_consumers":{"type":"array","uniqueItems":true,"items":{"type":"string"}},"rollback":{"type":"string","minLength":3}
+      }
+    }
+  }
+}

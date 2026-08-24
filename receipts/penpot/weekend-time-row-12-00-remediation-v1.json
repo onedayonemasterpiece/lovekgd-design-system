@@ -1,0 +1,75 @@
+{
+  "schema_version": "penpot-weekend-time-row-remediation.v1",
+  "status": "MINOR_RENDERER_FILTER_DELTA",
+  "family": "archetype.listing.weekend",
+  "semantic_id": "listing.weekend.time-row",
+  "same_exact_case": {
+    "manifest_id": "archetype.listing.weekend-v1.golden-v1",
+    "manifest_sha256": "474f633e52a5038a23e8baea6239ed75574651e9555005fe745d81cfa017b762",
+    "representation": "typical-desktop",
+    "fixture_id": "event.real.7807",
+    "date": "2026-08-22",
+    "time": "12:00",
+    "saturday_count": 1,
+    "sunday_count": 0,
+    "row_bounds_css": { "x": 32, "y": 411.28125, "width": 1216, "height": 331.765625 },
+    "card_bounds_css": { "x": 186, "y": 425.28125, "width": 334.546875, "height": 295.765625 },
+    "media_bounds_css": { "x": 186, "y": 425.28125, "width": 209.59375, "height": 178 }
+  },
+  "git": {
+    "design_sha_before_receipt": "65187e06c7ba90b0063f3b7f473ab7e46f69e0c4",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 2037,
+    "page_id": "d87e18f1-dcb4-80a6-8008-87b6d693b243",
+    "page_name": "61.4 — Weekend · Time row 12:00",
+    "review_board_id": "d87e18f1-dcb4-80a6-8008-87bc861d67fa",
+    "components": {
+      "temporal_status_past": "d87e18f1-dcb4-80a6-8008-87b70d41213b",
+      "listing_media_weekend_exact_crop": "d87e18f1-dcb4-80a6-8008-87bc046886a4",
+      "media_state_past": "d87e18f1-dcb4-80a6-8008-87b87c7e7861",
+      "event_title_weekend_exact": "d87e18f1-dcb4-80a6-8008-87baa269575c",
+      "event_place_weekend_exact_rendered": "d87e18f1-dcb4-80a6-8008-87bb0e025e86",
+      "listing_event_card_7807_weekend": "d87e18f1-dcb4-80a6-8008-87b75354f2ed",
+      "time_row_12_00": "d87e18f1-dcb4-80a6-8008-87b8e1ccea5f"
+    },
+    "linked_shape_count_in_review_closure": 32,
+    "detached_copies": 0,
+    "unregistered_visual_overrides": 0,
+    "validation": [],
+    "idempotent_reconciliation_created": 0,
+    "named_version": "Weekend time row 12:00 · exact crop and content adapters"
+  },
+  "framing_remediation": {
+    "root_cause": "The reused date-media image fill stretched the 1.5015 source into the 1.1775 weekend frame instead of reproducing Astro object-fit cover at object-position 45% 55%.",
+    "central_fix": "A fixture framing component now owns a content-addressed 210x178 crop; the semantic past-media component links it and applies the registered native filter approximation. The card and row inherit through linked instances.",
+    "source_asset_sha256": "0c2266566d0cfb757505f739adef10467120e9e9fa7bb662f08179d4d84e6ec0",
+    "derived_crop_sha256": "461f4ddd308d2a1eeac0868c3b58438a27fd5a17eed695a112e557b1372a0b6e",
+    "crop_contract": "source 512x341; crop 402x341+50+0; resize 210x178; object-position 45% 55%",
+    "native_fill_data_readback": true
+  },
+  "evidence": {
+    "layout": "four-wide-strips-stacked-vertically",
+    "astro_png_sha256": "5bc575efe68361c0f390e29e0fd3e69380b5ecc2589a0fcb994ce93c268697a2",
+    "penpot_png_sha256": "4d715c0f477632ee778b60eea7dd35b10a391a72a7c75addfcd2a60767935d1d",
+    "overlay_png_sha256": "8496048709623dc53f573c539bcfbf4b0ee53f83d463b1eeb72c30f09feff24a",
+    "diff_png_sha256": "7b8b14f907fedd6a80386ed37eb7b5f22fa00d3203105ceff8d90cd44a987e46",
+    "comparison_png_sha256": "abab0444dbec99819e4c47b3761c5b3ce89f10c5c8b2bfa012e15dfa1e042905",
+    "mean_normalized_abs_error": 0.0191617,
+    "visual_review": "Same exact event, geometry, source crop, semantic children, line breaks and ellipsis. Remaining visible delta is text rasterization and the native Penpot approximation of CSS grayscale/saturate/opacity."
+  },
+  "exporter_incident": {
+    "remote_export_shape_attempts": ["internal_error", "http_504_unknown_outcome"],
+    "research_source": "https://help.penpot.app/technical-guide/developer/architecture/exporter/",
+    "documented_contract": "Bitmap export is rendered by a backend headless browser.",
+    "bounded_workaround": "Used the supported Shape.export({type:'png',scale:1}) plugin API, transferred base64 in 48K chunks, and required dimensions plus SHA-256 read-back."
+  },
+  "telegram": {
+    "message_id": 1142,
+    "message_link": "https://t.me/c/4337049383/1142",
+    "read_back_status": "verified"
+  },
+  "decisions": ["WL-004", "WL-008"]
+}

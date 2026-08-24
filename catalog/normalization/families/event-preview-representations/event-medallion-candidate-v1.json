@@ -1,0 +1,4560 @@
+{
+  "$schema": "../../../../contracts/normalization/event-medallion-candidate.v1.schema.json",
+  "schema_version": "event-medallion-candidate.v1",
+  "package_id": "candidate.event-medallion-collection-v1",
+  "contract_version": "1.0.0-candidate.5",
+  "contract_payload_sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
+  "hash_scope": "whole-document-except-contract_payload_sha256",
+  "lifecycle": "candidate",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+    "registries": [
+      {
+        "kind": "organizer",
+        "path": "site/src/data/organizerMedallions.json",
+        "schema_version": "organizer_medallion_assets_v2",
+        "sha256": "5a9230728567c66e8436a3e4d2d69a712858d34fcc11bd5d73f5a721999d3601",
+        "record_count": 28
+      },
+      {
+        "kind": "festival",
+        "path": "site/src/data/festivalMedallions.json",
+        "schema_version": "festival_medallion_assets_v1",
+        "sha256": "b158dbae07548c5950f35b90c5b6aab313b7b6e9e08bb838cf63dc2deb446dba",
+        "record_count": 11
+      }
+    ]
+  },
+  "counts": {
+    "source_registry_records": 39,
+    "bindings": 43,
+    "unique_visuals": 42,
+    "deduplicated_visuals": 1
+  },
+  "deduplication": {
+    "stable_id": "medallion.identity.kaup",
+    "binding_ids": [
+      "organizer:kaup",
+      "festival:kaup"
+    ],
+    "policy": "one linked visual component with both exact registry bindings"
+  },
+  "consumer_frame_contract": {
+    "component_id": "event.medallion-frame",
+    "variant_axes": {
+      "consumer": [
+        "detail",
+        "listing-card",
+        "mobile-rail",
+        "exhibition",
+        "catalog"
+      ],
+      "slot": [
+        "inline",
+        "top",
+        "overlay",
+        "side-rail",
+        "rail-segment",
+        "deck-seal"
+      ],
+      "resolution": [
+        "resolved",
+        "conflicting-source",
+        "ambiguous-venue",
+        "empty"
+      ],
+      "density": [
+        "single",
+        "multiple"
+      ],
+      "interaction": [
+        "rest",
+        "hover",
+        "focus"
+      ]
+    },
+    "source_geometries_px": {
+      "detail_mobile": "84-92",
+      "detail_desktop_inline": "72-94",
+      "detail_top": "88-108",
+      "listing_overlay_default": 64,
+      "listing_overlay_weekend": 60,
+      "listing_overlay_popular": 56,
+      "listing_overlay_popular_mobile": 46,
+      "listing_side_single": 60,
+      "listing_side_multiple": 51,
+      "listing_side_split": "48-52",
+      "listing_side_popular_mobile": 40,
+      "mobile_rail_slot": [
+        94,
+        112
+      ],
+      "mobile_rail_art": 86,
+      "exhibition": 44
+    },
+    "penpot_binding": {
+      "status": "materialized-readback",
+      "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+      "variant_container_id": "45777396-2f2a-80c0-8008-819e0f36c65c",
+      "variant_count": 6,
+      "validation_error_count": 0,
+      "readback_note": "Six AS-IS placement variants read back at Penpot file rev767; candidate 44/60/88 linked specimens remain pending owner approval and visual export."
+    },
+    "presentation_invariants": [
+      "medallion artwork is circular and never receives a square white backing",
+      "consumer slot/frame surfaces are transparent; only source-proven circular ring and artwork are visible",
+      "rectangular dimensions describe a transparent placement slot, not a rounded-card background",
+      "catalog empty is an explicitly labelled resolver state, never presented as a real medallion"
+    ],
+    "normalized_review_tiers_px": {
+      "status": "owner-approved-implemented-v2",
+      "tier_count": 3,
+      "tiers": {
+        "compact": {
+          "diameter": 44,
+          "consumers": [
+            "exhibition",
+            "listing popular mobile"
+          ]
+        },
+        "standard": {
+          "diameter": 60,
+          "consumers": [
+            "listing overlay",
+            "listing side rail"
+          ]
+        },
+        "feature": {
+          "diameter": 88,
+          "consumers": [
+            "event detail",
+            "mobile rail artwork"
+          ]
+        }
+      },
+      "source_geometry_policy": "retain exact pre-normalization Astro sizes as AS-IS evidence; production identity medallions now converge to compact=44, standard=60 and feature=88",
+      "owner_comment_thread": 30,
+      "penpot_readback": {
+        "status": "owner-approved-v2-materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "page_name": "48 — Event medallions · Normalized tiers v2",
+        "specimen_ids": {
+          "compact": "c0d4e5a2-7db6-80c7-8008-81ee68875b89",
+          "standard": "c0d4e5a2-7db6-80c7-8008-81ee6b7767f5",
+          "feature": "c0d4e5a2-7db6-80c7-8008-81ee6dd9eb05"
+        },
+        "linked_component_instance_count": 3,
+        "geometry_readback": {
+          "compact": [
+            44,
+            44
+          ],
+          "standard": [
+            60,
+            60
+          ],
+          "feature": [
+            88,
+            88
+          ]
+        },
+        "validation_error_count": 0
+      },
+      "owner_authorization": {
+        "date": "2026-08-20",
+        "source": "active Codex task continuation after restored context",
+        "exact_wording": "Раз контекст восстановлен, то продолжи реализацию, по готовности сообщишь, чтобы я мог начать ревью и на каких страницах Penpot",
+        "interpretation": "authorization to continue the sole remaining implementation decision, owner thread 30, using the already documented 44/60/88 candidate tiers",
+        "scope": [
+          "promote the three medallion size tiers in Penpot",
+          "backport the same tiers to Astro production consumers",
+          "preserve pre-normalization sizes as labelled AS-IS evidence"
+        ]
+      },
+      "implementation_receipt": {
+        "astro_repository": "onedayonemasterpiece/events-bot-new",
+        "astro_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+        "astro_pull_request": 545,
+        "production_component_version": "EventTokenMedallions@2",
+        "consumer_migration": {
+          "event_detail": "feature-88",
+          "mobile_listing_rail": "feature-88-in-slot-94x112",
+          "desktop_listing": "standard-60",
+          "mobile_popular_listing": "compact-44",
+          "exhibition": "compact-44"
+        },
+        "legacy_policy": "EventTokenMedallions@1 is deprecated and catalog-only; pre-normalization Penpot variants remain labelled AS-IS evidence",
+        "validation": [
+          "medallion contract tests 4/4",
+          "content-media tests 6/6",
+          "design-system check PASS",
+          "Astro preview build 446 pages PASS",
+          "preview check PASS",
+          "Playwright L1 desktop/mobile geometry PASS"
+        ]
+      }
+    }
+  },
+  "resolver_contract": {
+    "states": [
+      "resolved",
+      "conflicting-source",
+      "ambiguous-venue",
+      "empty"
+    ],
+    "fallback_order": [
+      "exact festival binding",
+      "exact venue/organizer binding",
+      "declared fallback asset",
+      "empty non-identity state"
+    ],
+    "forbidden_promotions": [
+      "ordinary icon",
+      "price pill",
+      "sold-out pill",
+      "kids pill",
+      "charity pill",
+      "festival text pill"
+    ]
+  },
+  "bindings": [
+    {
+      "binding_id": "organizer:world-ocean-museum",
+      "stable_id": "medallion.identity.world-ocean-museum",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "world-ocean-museum",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:history-art-museum",
+      "stable_id": "medallion.identity.history-art-museum",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "history-art-museum",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:kaliningrad-philharmonic",
+      "stable_id": "medallion.identity.kaliningrad-philharmonic",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kaliningrad-philharmonic",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:kant-island",
+      "stable_id": "medallion.identity.kant-island",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kant-island",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:dom-kitoboya",
+      "stable_id": "medallion.identity.dom-kitoboya",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "dom-kitoboya",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:tretyakovka-kaliningrad",
+      "stable_id": "medallion.identity.tretyakovka-kaliningrad",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "tretyakovka-kaliningrad",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:konb",
+      "stable_id": "medallion.identity.konb",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "konb",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:act-opus",
+      "stable_id": "medallion.identity.act-opus",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "act-opus",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:znanie-russia",
+      "stable_id": "medallion.identity.znanie-russia",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "znanie-russia",
+      "listing_status": "blocked_missing_binding",
+      "listing_binding": "organizer",
+      "category": "organizer"
+    },
+    {
+      "binding_id": "organizer:kgd80",
+      "stable_id": "medallion.identity.kgd80",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kgd80",
+      "listing_status": "detail_only",
+      "listing_binding": "festival",
+      "category": "festival_brand"
+    },
+    {
+      "binding_id": "organizer:kantata-festival",
+      "stable_id": "medallion.identity.kantata-festival",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kantata-festival",
+      "listing_status": "listing_ready",
+      "listing_binding": "festival",
+      "category": "festival_brand"
+    },
+    {
+      "binding_id": "organizer:kaup",
+      "stable_id": "medallion.identity.kaup",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kaup",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:dramteatr39",
+      "stable_id": "medallion.identity.dramteatr39",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "dramteatr39",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:yantar-hall",
+      "stable_id": "medallion.identity.yantar-hall",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "yantar-hall",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:muzteatr39",
+      "stable_id": "medallion.identity.muzteatr39",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "muzteatr39",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:dom-iskusstv",
+      "stable_id": "medallion.identity.dom-iskusstv",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "dom-iskusstv",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:city-jazz-club",
+      "stable_id": "medallion.identity.city-jazz-club",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "city-jazz-club",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:rostec-arena",
+      "stable_id": "medallion.identity.rostec-arena",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "rostec-arena",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:bar-bastion",
+      "stable_id": "medallion.identity.bar-bastion",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "bar-bastion",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:signal",
+      "stable_id": "medallion.identity.signal",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "signal",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:mumod",
+      "stable_id": "medallion.identity.mumod",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "mumod",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:kldzoo",
+      "stable_id": "medallion.identity.kldzoo",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kldzoo",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:locostandup",
+      "stable_id": "medallion.identity.locostandup",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "locostandup",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:kaliningrad-art-museum",
+      "stable_id": "medallion.identity.kaliningrad-art-museum",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "kaliningrad-art-museum",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:brachert",
+      "stable_id": "medallion.identity.brachert",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "brachert",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "organizer:profitur",
+      "stable_id": "medallion.identity.profitur",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "profitur",
+      "listing_status": "listing_ready",
+      "listing_binding": "organizer",
+      "category": "organizer"
+    },
+    {
+      "binding_id": "organizer:ruin-keepers",
+      "stable_id": "medallion.identity.ruin-keepers",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "ruin-keepers",
+      "listing_status": "listing_ready",
+      "listing_binding": "organizer",
+      "category": "organizer"
+    },
+    {
+      "binding_id": "organizer:greza-khutor",
+      "stable_id": "medallion.identity.greza-khutor",
+      "registry_kind": "organizer",
+      "registry_path": "site/src/data/organizerMedallions.json",
+      "registry_schema_version": "organizer_medallion_assets_v2",
+      "slug": "greza-khutor",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "festival:kgd80-80-stories",
+      "stable_id": "medallion.identity.kgd80-80-stories",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "kgd80-80-stories",
+      "listing_status": "listing_ready",
+      "listing_binding": "festival",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:kaliningrad-city-jazz",
+      "stable_id": "medallion.identity.kaliningrad-city-jazz",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "kaliningrad-city-jazz",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:kaliningrad-street-food",
+      "stable_id": "medallion.identity.kaliningrad-street-food",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "kaliningrad-street-food",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:grozd-festival",
+      "stable_id": "medallion.identity.grozd-festival",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "grozd-festival",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:koroche",
+      "stable_id": "medallion.identity.koroche",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "koroche",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:ostrova",
+      "stable_id": "medallion.identity.ostrova",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "ostrova",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:more-vnutri",
+      "stable_id": "medallion.identity.more-vnutri",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "more-vnutri",
+      "listing_status": "listing_ready",
+      "listing_binding": "festival",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:simfoniya-vetra",
+      "stable_id": "medallion.identity.simfoniya-vetra",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "simfoniya-vetra",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:bahosluzhenie",
+      "stable_id": "medallion.identity.bahosluzhenie",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "bahosluzhenie",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:tolkin-fest",
+      "stable_id": "medallion.identity.tolkin-fest",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "tolkin-fest",
+      "listing_status": "unset",
+      "listing_binding": "unset",
+      "category": "festival"
+    },
+    {
+      "binding_id": "festival:kaup",
+      "stable_id": "medallion.identity.kaup",
+      "registry_kind": "festival",
+      "registry_path": "site/src/data/festivalMedallions.json",
+      "registry_schema_version": "festival_medallion_assets_v1",
+      "slug": "kaup",
+      "listing_status": "listing_ready",
+      "listing_binding": "venue",
+      "category": "venue_brand"
+    },
+    {
+      "binding_id": "source:meow-afisha",
+      "stable_id": "medallion.source.meow-afisha",
+      "registry_kind": "special",
+      "registry_path": null,
+      "registry_schema_version": null,
+      "slug": "meow-afisha",
+      "listing_status": "source-proven-special",
+      "listing_binding": "source",
+      "category": "special"
+    },
+    {
+      "binding_id": "program:rzd-lastochka",
+      "stable_id": "medallion.program.rzd-lastochka",
+      "registry_kind": "special",
+      "registry_path": null,
+      "registry_schema_version": null,
+      "slug": "rzd-lastochka",
+      "listing_status": "source-proven-special",
+      "listing_binding": "program",
+      "category": "special"
+    },
+    {
+      "binding_id": "payment:pushkin-card",
+      "stable_id": "medallion.payment.pushkin-card",
+      "registry_kind": "special",
+      "registry_path": null,
+      "registry_schema_version": null,
+      "slug": "pushkin-card",
+      "listing_status": "source-proven-special",
+      "listing_binding": "payment",
+      "category": "special"
+    },
+    {
+      "binding_id": "admission:free",
+      "stable_id": "medallion.admission.free",
+      "registry_kind": "special",
+      "registry_path": null,
+      "registry_schema_version": null,
+      "slug": "free",
+      "listing_status": "source-proven-special",
+      "listing_binding": "admission",
+      "category": "special"
+    }
+  ],
+  "visuals": [
+    {
+      "stable_id": "medallion.identity.world-ocean-museum",
+      "name": "Музей Мирового океана",
+      "short_name": "ММО",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:world-ocean-museum"
+      ],
+      "aliases": [
+        "Музей Мирового океана",
+        "ММО",
+        "World Ocean Museum"
+      ],
+      "aria_label": "Организатор: Музей Мирового океана",
+      "background": "#F6F0E6",
+      "ring": "#D9CAB6",
+      "fit_box": [
+        196,
+        114
+      ],
+      "logo_crop": "top-symbol-from-mobile-logo",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/world-ocean-museum.svg",
+        "repo_path": "site/public/assets/organizers/world-ocean-museum.svg",
+        "sha256": "d47fe4b62d9d99aa27a559a21740d5bd7a6d6fc6370edef15536f90eef77a075",
+        "byte_length": 502,
+        "dimensions": {
+          "view_box": "0 0 320 320",
+          "width": 320.0,
+          "height": 320.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/world-ocean-museum.png",
+        "repo_path": "site/public/assets/organizers/world-ocean-museum.png",
+        "sha256": "39b89e8a13bdd65dd12ec0709daa031ebf2caac63c38908018ad89c7094f2c0b",
+        "byte_length": 21697,
+        "dimensions": {
+          "width": 256,
+          "height": 256
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/world-ocean-museum.logo_new_mobile_v2.svg",
+      "source_page": "https://www.world-ocean.ru/",
+      "source_url": "https://www.world-ocean.ru/images/main/logo_new_mobile_v2.svg",
+      "source_file": "world-ocean-museum.logo_new_mobile_v2.svg",
+      "retrieved_at": "2026-06-29",
+      "render_note": "Runtime asset переведён в SVG-примитивы по официальному мобильному SVG-логотипу; PNG/WebP сохранены только как QA/fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "world-ocean-museum",
+            "name": "Музей Мирового океана",
+            "shortName": "ММО",
+            "aliases": [
+              "Музей Мирового океана",
+              "ММО",
+              "World Ocean Museum"
+            ],
+            "sourcePage": "https://www.world-ocean.ru/",
+            "sourceUrl": "https://www.world-ocean.ru/images/main/logo_new_mobile_v2.svg",
+            "sourceFile": "world-ocean-museum.logo_new_mobile_v2.svg",
+            "background": "#F6F0E6",
+            "ring": "#D9CAB6",
+            "logoCrop": "top-symbol-from-mobile-logo",
+            "fitBox": [
+              196,
+              114
+            ],
+            "ariaLabel": "Организатор: Музей Мирового океана",
+            "renderNote": "Runtime asset переведён в SVG-примитивы по официальному мобильному SVG-логотипу; PNG/WebP сохранены только как QA/fallback.",
+            "avatarUrl": "/assets/organizers/world-ocean-museum.svg",
+            "fallbackPngUrl": "/assets/organizers/world-ocean-museum.png",
+            "sourcePath": "site/src/assets/organizers/source/world-ocean-museum.logo_new_mobile_v2.svg",
+            "retrievedAt": "2026-06-29",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81911cd062ad",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81911c233328"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.history-art-museum",
+      "name": "Историко-художественный музей",
+      "short_name": "КОИХМ",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:history-art-museum"
+      ],
+      "aliases": [
+        "Историко-художественный музей",
+        "Калининградский областной историко-художественный музей",
+        "КОИХМ"
+      ],
+      "aria_label": "Организатор: Историко-художественный музей",
+      "background": "#65463D",
+      "ring": "#8E6D61",
+      "fit_box": [
+        182,
+        142
+      ],
+      "logo_crop": "left-building-and-koihm-from-official-white-logo",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/history-art-museum.svg",
+        "repo_path": "site/public/assets/organizers/history-art-museum.svg",
+        "sha256": "ab037a507f4d8ed92b70636558ac04a5000a88dd98989ff75bfcf4e632b87ae9",
+        "byte_length": 15823,
+        "dimensions": {
+          "view_box": "0 0 320 320",
+          "width": 320.0,
+          "height": 320.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/history-art-museum.png",
+        "repo_path": "site/public/assets/organizers/history-art-museum.png",
+        "sha256": "7b2a5cd5c01cf1aa4927920083bcab69d1738793f9ef8c39876ebce491aeaa4f",
+        "byte_length": 29411,
+        "dimensions": {
+          "width": 256,
+          "height": 256
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/history-art-museum.logo_koihm_white.png",
+      "source_page": "https://koihm.ru/",
+      "source_url": "https://koihm.ru/wp-content/uploads/2026/03/logo_koihm_white.png",
+      "source_file": "history-art-museum.logo_koihm_white.png",
+      "retrieved_at": "2026-06-29",
+      "render_note": "SVG-исходник не найден; runtime SVG получен локальной векторизацией геометричного белого KOIHM-знака из текущего source-faithful PNG-медальона; PNG/WebP сохранены как fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "history-art-museum",
+            "name": "Историко-художественный музей",
+            "shortName": "КОИХМ",
+            "aliases": [
+              "Историко-художественный музей",
+              "Калининградский областной историко-художественный музей",
+              "КОИХМ"
+            ],
+            "sourcePage": "https://koihm.ru/",
+            "sourceUrl": "https://koihm.ru/wp-content/uploads/2026/03/logo_koihm_white.png",
+            "sourceFile": "history-art-museum.logo_koihm_white.png",
+            "background": "#65463D",
+            "ring": "#8E6D61",
+            "logoCrop": "left-building-and-koihm-from-official-white-logo",
+            "fitBox": [
+              182,
+              142
+            ],
+            "ariaLabel": "Организатор: Историко-художественный музей",
+            "renderNote": "SVG-исходник не найден; runtime SVG получен локальной векторизацией геометричного белого KOIHM-знака из текущего source-faithful PNG-медальона; PNG/WebP сохранены как fallback.",
+            "avatarUrl": "/assets/organizers/history-art-museum.svg",
+            "fallbackPngUrl": "/assets/organizers/history-art-museum.png",
+            "sourcePath": "site/src/assets/organizers/source/history-art-museum.logo_koihm_white.png",
+            "retrievedAt": "2026-06-29",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191439fd420",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81914364ce3c"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kaliningrad-philharmonic",
+      "name": "Калининградская филармония",
+      "short_name": "Филармония",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:kaliningrad-philharmonic"
+      ],
+      "aliases": [
+        "Калининградская филармония",
+        "Филармония",
+        "Калининградская областная филармония"
+      ],
+      "aria_label": "Организатор: Калининградская филармония",
+      "background": "#FAB534",
+      "ring": "#D19B38",
+      "fit_box": [
+        186,
+        154
+      ],
+      "logo_crop": "full-official-symbol",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/kaliningrad-philharmonic.svg",
+        "repo_path": "site/public/assets/organizers/kaliningrad-philharmonic.svg",
+        "sha256": "1ab4b7674172533cf6afd4fd2027511a4fd9616ab195c8e3d464d4f7fd598ada",
+        "byte_length": 68050,
+        "dimensions": {
+          "view_box": "0 0 320 320",
+          "width": 320.0,
+          "height": 320.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/kaliningrad-philharmonic.png",
+        "repo_path": "site/public/assets/organizers/kaliningrad-philharmonic.png",
+        "sha256": "50c35ec9de056c882015d5b56a1fa764099e5e0ef93401e4ecfcec2e8c6cbbc7",
+        "byte_length": 25585,
+        "dimensions": {
+          "width": 256,
+          "height": 256
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/kaliningrad-philharmonic.logo_black.svg",
+      "source_page": "https://filarmonia39.ru/",
+      "source_url": "https://filarmonia39.ru/local/templates/filarmonia/images/logo_black.svg",
+      "source_file": "kaliningrad-philharmonic.logo_black.svg",
+      "retrieved_at": "2026-06-29",
+      "render_note": "Runtime asset теперь SVG, использует официальный чёрный SVG-знак без растрирования на жёлтом фоне #FAB534; PNG/WebP сохранены как fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kaliningrad-philharmonic",
+            "name": "Калининградская филармония",
+            "shortName": "Филармония",
+            "aliases": [
+              "Калининградская филармония",
+              "Филармония",
+              "Калининградская областная филармония"
+            ],
+            "sourcePage": "https://filarmonia39.ru/",
+            "sourceUrl": "https://filarmonia39.ru/local/templates/filarmonia/images/logo_black.svg",
+            "sourceFile": "kaliningrad-philharmonic.logo_black.svg",
+            "background": "#FAB534",
+            "ring": "#D19B38",
+            "logoCrop": "full-official-symbol",
+            "fitBox": [
+              186,
+              154
+            ],
+            "ariaLabel": "Организатор: Калининградская филармония",
+            "renderNote": "Runtime asset теперь SVG, использует официальный чёрный SVG-знак без растрирования на жёлтом фоне #FAB534; PNG/WebP сохранены как fallback.",
+            "avatarUrl": "/assets/organizers/kaliningrad-philharmonic.svg",
+            "fallbackPngUrl": "/assets/organizers/kaliningrad-philharmonic.png",
+            "sourcePath": "site/src/assets/organizers/source/kaliningrad-philharmonic.logo_black.svg",
+            "retrievedAt": "2026-06-29",
+            "brandBackgroundSource": "https://t.me/filarmonia_39",
+            "backgroundEvidence": "Telegram profile OG image uses yellow harp background; dominant sampled color #FAB534 on 2026-06-29.",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191464217ea",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819145edacaf"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kant-island",
+      "name": "Остров Канта",
+      "short_name": "Остров Канта",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:kant-island"
+      ],
+      "aliases": [
+        "Остров Канта",
+        "Кафедральный собор",
+        "ГАУКО Остров Канта"
+      ],
+      "aria_label": "Организатор: Остров Канта",
+      "background": "#344C42",
+      "ring": "#5D776B",
+      "fit_box": [
+        218,
+        454
+      ],
+      "logo_crop": "cathedral-mark-from-official-horizontal-logo",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/kant-island.svg",
+        "repo_path": "site/public/assets/organizers/kant-island.svg",
+        "sha256": "a9dd3091bce6ee24cbc4dcb2fe2f1fc21595103560d3a570207e3a8a860feac6",
+        "byte_length": 22012,
+        "dimensions": {
+          "view_box": "0 0 320 320",
+          "width": 320.0,
+          "height": 320.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/kant-island.png",
+        "repo_path": "site/public/assets/organizers/kant-island.png",
+        "sha256": "ec48e7e130d6b4eb93622d66dea7c37e874e58c32e7e3e4e9c40d5f08574be0f",
+        "byte_length": 35831,
+        "dimensions": {
+          "width": 320,
+          "height": 320
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/kant-island.sobor-logo.svg",
+      "source_page": "https://sobor39.ru/",
+      "source_url": "https://sobor39.ru/images/logo.svg",
+      "source_file": "kant-island.sobor-logo.svg",
+      "retrieved_at": "2026-06-29",
+      "render_note": "Runtime asset теперь SVG: из официального sobor39 SVG взят path знака Кафедрального собора и увеличен внутри круга без растрирования; PNG/WebP сохранены как fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kant-island",
+            "name": "Остров Канта",
+            "shortName": "Остров Канта",
+            "aliases": [
+              "Остров Канта",
+              "Кафедральный собор",
+              "ГАУКО Остров Канта"
+            ],
+            "sourcePage": "https://sobor39.ru/",
+            "sourceUrl": "https://sobor39.ru/images/logo.svg",
+            "sourceFile": "kant-island.sobor-logo.svg",
+            "background": "#344C42",
+            "ring": "#5D776B",
+            "logoCrop": "cathedral-mark-from-official-horizontal-logo",
+            "fitBox": [
+              218,
+              454
+            ],
+            "ariaLabel": "Организатор: Остров Канта",
+            "renderNote": "Runtime asset теперь SVG: из официального sobor39 SVG взят path знака Кафедрального собора и увеличен внутри круга без растрирования; PNG/WebP сохранены как fallback.",
+            "avatarUrl": "/assets/organizers/kant-island.svg",
+            "fallbackPngUrl": "/assets/organizers/kant-island.png",
+            "sourcePath": "site/src/assets/organizers/source/kant-island.sobor-logo.svg",
+            "retrievedAt": "2026-06-29",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81914899df04",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191483eadce"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.dom-kitoboya",
+      "name": "Дом китобоя",
+      "short_name": "Дом китобоя",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:dom-kitoboya"
+      ],
+      "aliases": [
+        "Дом китобоя",
+        "domkitoboya",
+        "Дом Китобоя"
+      ],
+      "aria_label": "Локация: Дом китобоя",
+      "background": "#5060A0",
+      "ring": "#CFD6EA",
+      "fit_box": [
+        640,
+        640
+      ],
+      "logo_crop": "stacked-words-dom-over-kitoboya-dom-enlarged-left-shifted-v2",
+      "asset_format_claim": "webp-source-only",
+      "primary_asset": {
+        "url": "/assets/organizers/dom-kitoboya-stacked.webp",
+        "repo_path": "site/public/assets/organizers/dom-kitoboya-stacked.webp",
+        "sha256": "c2baabd163e199ce3220cc9cd12d827b33a30a2f0cabdd49fcf35305e101c237",
+        "byte_length": 23136,
+        "dimensions": {
+          "width": 640,
+          "height": 640
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/dom-kitoboya-stacked.png",
+        "repo_path": "site/public/assets/organizers/dom-kitoboya-stacked.png",
+        "sha256": "ac63bd2641773e23dc043a959de65931bad5212568a0fb6568faa7003d1e0fc0",
+        "byte_length": 70185,
+        "dimensions": {
+          "width": 640,
+          "height": 640
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/dom-kitoboya.logo.webp",
+      "source_page": "https://t.me/domkitoboya",
+      "source_url": "https://domkitoboya.ru/ (site logo snapshot) + https://t.me/domkitoboya (public social palette), retrieved 2026-07-01",
+      "source_file": "dom-kitoboya.logo.webp",
+      "retrieved_at": "2026-07-01",
+      "render_note": "Медальон упрощён до читаемого стекового знака: исходные слова «дом» и «Китобоя» размещены одно над другим и вписаны в круг; слово «дом» дополнительно увеличено и сдвинуто левее так, чтобы правая граница визуально оставалась почти на прежнем месте, а верх круга использовался эффективнее. Цветовая схема взята из публичного Telegram-аватара @domkitoboya: доминирующий синий фон #5060A0, светлая рукописная подпись #D0D8E5 и светло-синий ring #CFD6EA. SVG-исходник на сайте не найден (проверены публичные logo.svg-кандидаты); медальон оставлен в исходном WebP виде с PNG fallback по design contract.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "dom-kitoboya",
+            "name": "Дом китобоя",
+            "shortName": "Дом китобоя",
+            "aliases": [
+              "Дом китобоя",
+              "domkitoboya",
+              "Дом Китобоя"
+            ],
+            "sourcePage": "https://t.me/domkitoboya",
+            "sourceUrl": "https://domkitoboya.ru/ (site logo snapshot) + https://t.me/domkitoboya (public social palette), retrieved 2026-07-01",
+            "sourceFile": "dom-kitoboya.logo.webp",
+            "background": "#5060A0",
+            "ring": "#CFD6EA",
+            "logoCrop": "stacked-words-dom-over-kitoboya-dom-enlarged-left-shifted-v2",
+            "fitBox": [
+              640,
+              640
+            ],
+            "ariaLabel": "Локация: Дом китобоя",
+            "renderNote": "Медальон упрощён до читаемого стекового знака: исходные слова «дом» и «Китобоя» размещены одно над другим и вписаны в круг; слово «дом» дополнительно увеличено и сдвинуто левее так, чтобы правая граница визуально оставалась почти на прежнем месте, а верх круга использовался эффективнее. Цветовая схема взята из публичного Telegram-аватара @domkitoboya: доминирующий синий фон #5060A0, светлая рукописная подпись #D0D8E5 и светло-синий ring #CFD6EA. SVG-исходник на сайте не найден (проверены публичные logo.svg-кандидаты); медальон оставлен в исходном WebP виде с PNG fallback по design contract.",
+            "avatarUrl": "/assets/organizers/dom-kitoboya-stacked.webp",
+            "fallbackPngUrl": "/assets/organizers/dom-kitoboya-stacked.png",
+            "sourcePath": "site/src/assets/organizers/source/dom-kitoboya.logo.webp",
+            "retrievedAt": "2026-07-01",
+            "brandBackgroundSource": "https://t.me/domkitoboya",
+            "backgroundEvidence": "Public Telegram profile avatar uses blue background with white handwritten mark; sampled 2026-07-01 from t.me/domkitoboya OG image: dominant bin #5060A0, average blue #4D62A0, light mark #D0D8E5. The medallion uses the source site logo words recomposed as a stacked mark over that palette.",
+            "assetFormat": "webp-source-only",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81914aee6d2c",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81914ab42a3f"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.tretyakovka-kaliningrad",
+      "name": "Филиал Третьяковской галереи",
+      "short_name": "Третьяковка",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:tretyakovka-kaliningrad"
+      ],
+      "aliases": [
+        "Филиал Третьяковской галереи",
+        "Третьяковская галерея",
+        "Государственная Третьяковская галерея",
+        "Третьяковка",
+        "tretyakovka_kaliningrad"
+      ],
+      "aria_label": "Локация: филиал Третьяковской галереи",
+      "background": "#FAF6EC",
+      "ring": "#D09A43",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "telegram-profile-avatar-centered-t-mark",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/tretyakovka-kaliningrad.svg",
+        "repo_path": "site/public/assets/organizers/tretyakovka-kaliningrad.svg",
+        "sha256": "ca2a614d8bb9cbc6554df11f7990b6f20cd4b44cf942c826e748f89eb4c846f1",
+        "byte_length": 516,
+        "dimensions": {
+          "view_box": "0 0 320 320",
+          "width": 320.0,
+          "height": 320.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/tretyakovka-kaliningrad.png",
+        "repo_path": "site/public/assets/organizers/tretyakovka-kaliningrad.png",
+        "sha256": "a2e173be9e9f4e52700d08b0354c380421a2093bdee6f968229786bc2d9d9d8b",
+        "byte_length": 27423,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/tretyakovka-kaliningrad.telegram-avatar-20260701.jpg",
+      "source_page": "https://t.me/tretyakovka_kaliningrad",
+      "source_url": "https://t.me/tretyakovka_kaliningrad (public Telegram profile avatar), retrieved 2026-07-01",
+      "source_file": "tretyakovka-kaliningrad.telegram-avatar-20260701.jpg",
+      "retrieved_at": "2026-07-01",
+      "render_note": "Runtime asset переведён в SVG-примитивы по простому геометричному T-знаку из публичного Telegram-аватара; PNG/WebP сохранены как fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "tretyakovka-kaliningrad",
+            "name": "Филиал Третьяковской галереи",
+            "shortName": "Третьяковка",
+            "aliases": [
+              "Филиал Третьяковской галереи",
+              "Третьяковская галерея",
+              "Государственная Третьяковская галерея",
+              "Третьяковка",
+              "tretyakovka_kaliningrad"
+            ],
+            "sourcePage": "https://t.me/tretyakovka_kaliningrad",
+            "sourceUrl": "https://t.me/tretyakovka_kaliningrad (public Telegram profile avatar), retrieved 2026-07-01",
+            "sourceFile": "tretyakovka-kaliningrad.telegram-avatar-20260701.jpg",
+            "background": "#FAF6EC",
+            "ring": "#D09A43",
+            "logoCrop": "telegram-profile-avatar-centered-t-mark",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Локация: филиал Третьяковской галереи",
+            "renderNote": "Runtime asset переведён в SVG-примитивы по простому геометричному T-знаку из публичного Telegram-аватара; PNG/WebP сохранены как fallback.",
+            "avatarUrl": "/assets/organizers/tretyakovka-kaliningrad.svg",
+            "fallbackPngUrl": "/assets/organizers/tretyakovka-kaliningrad.png",
+            "sourcePath": "site/src/assets/organizers/source/tretyakovka-kaliningrad.telegram-avatar-20260701.jpg",
+            "retrievedAt": "2026-07-01",
+            "brandBackgroundSource": "https://t.me/tretyakovka_kaliningrad",
+            "backgroundEvidence": "Public Telegram profile avatar uses light warm background with gold Tretyakovka T mark; sampled/used source image from t.me/tretyakovka_kaliningrad OG image on 2026-07-01.",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81914d94624b",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81914d358485"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.konb",
+      "name": "Калининградская областная научная библиотека",
+      "short_name": "КОНБ",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:konb"
+      ],
+      "aliases": [
+        "Калининградская областная научная библиотека",
+        "Областная научная библиотека",
+        "Научная библиотека",
+        "КОНБ"
+      ],
+      "aria_label": "Локация: Калининградская областная научная библиотека",
+      "background": "#F7F1E8",
+      "ring": "#151515",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "left-konb-building-only-right-text-removed",
+      "asset_format_claim": "webp-raster-exception",
+      "primary_asset": {
+        "url": "/assets/organizers/konb.webp",
+        "repo_path": "site/public/assets/organizers/konb.webp",
+        "sha256": "3a4cb8ab8b2cec7dc4fd11381baa930d7a2d3ce10a7ce01c35f661caf93444f2",
+        "byte_length": 23680,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/konb.png",
+        "repo_path": "site/public/assets/organizers/konb.png",
+        "sha256": "a6ffda888b47865d86a699a0ade259af595b8526affa47023c9a76cdc2de8616",
+        "byte_length": 40636,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/konb.logo.png",
+      "source_page": "local docs/reference/лого КОНБ (1)(1).png",
+      "source_url": "docs/reference/лого КОНБ (1)(1).png",
+      "source_file": "konb.logo.png",
+      "retrieved_at": "2026-07-01",
+      "render_note": "Из исходного логотипа удалена правая текстовая часть «Калининградская областная научная библиотека»; в медальоне оставлены только рисунок здания и надпись «КОНБ» сверху. Оставлен raster exception: КОНБ не переводится в SVG в текущей задаче.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "konb",
+            "name": "Калининградская областная научная библиотека",
+            "shortName": "КОНБ",
+            "aliases": [
+              "Калининградская областная научная библиотека",
+              "Областная научная библиотека",
+              "Научная библиотека",
+              "КОНБ"
+            ],
+            "sourcePage": "local docs/reference/лого КОНБ (1)(1).png",
+            "sourceUrl": "docs/reference/лого КОНБ (1)(1).png",
+            "sourceFile": "konb.logo.png",
+            "background": "#F7F1E8",
+            "ring": "#151515",
+            "logoCrop": "left-konb-building-only-right-text-removed",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Локация: Калининградская областная научная библиотека",
+            "renderNote": "Из исходного логотипа удалена правая текстовая часть «Калининградская областная научная библиотека»; в медальоне оставлены только рисунок здания и надпись «КОНБ» сверху. Оставлен raster exception: КОНБ не переводится в SVG в текущей задаче.",
+            "avatarUrl": "/assets/organizers/konb.webp",
+            "fallbackPngUrl": "/assets/organizers/konb.png",
+            "sourcePath": "site/src/assets/organizers/source/konb.logo.png",
+            "retrievedAt": "2026-07-01",
+            "assetFormat": "webp-raster-exception",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819150091e7b",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81914fd0509e"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.act-opus",
+      "name": "Театр «Акт Опус»",
+      "short_name": "Акт Опус",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:act-opus"
+      ],
+      "aliases": [
+        "Театр Акт Опус",
+        "Акт Опус",
+        "Актопус",
+        "Act Opus",
+        "ActOpus",
+        "actop.us",
+        "actopustheatre"
+      ],
+      "aria_label": "Организатор: театр «Акт Опус»",
+      "background": "#F6EFE5",
+      "ring": "#111111",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "official-wordmark-act-over-opus-stacked",
+      "asset_format_claim": "svg-embedded-source-png",
+      "primary_asset": {
+        "url": "/assets/organizers/act-opus.svg",
+        "repo_path": "site/public/assets/organizers/act-opus.svg",
+        "sha256": "10f3690d40329841a7b6f97ea571747af848d63f181066fc6e0ec5cdcca2c3da",
+        "byte_length": 49896,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/act-opus.png",
+        "repo_path": "site/public/assets/organizers/act-opus.png",
+        "sha256": "d7c3242c4e4beaddbd2ec1dc93b32f2b0abd6ab13577e6b11f7ffe7b71800412",
+        "byte_length": 44468,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/act-opus.logo_new_black.png",
+      "source_page": "https://actop.us/plays",
+      "source_url": "https://actop.us/plays (Next image /_next/static/media/logo_new_black.3136802c.png)",
+      "source_file": "act-opus.logo_new_black.png",
+      "retrieved_at": "2026-07-02",
+      "render_note": "Медальон заменён с осьминога на надпись из официального логотипа: блок «АКТ» и слово «ОПУС» сохранены из source PNG и размещены друг над другом, как стековый знак внутри круга; блок «АКТ» оптически уменьшен и опущен, чтобы не выходить за круг. Runtime SVG self-contained; PNG fallback сохранён для QA/старых клиентов.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "act-opus",
+            "name": "Театр «Акт Опус»",
+            "shortName": "Акт Опус",
+            "aliases": [
+              "Театр Акт Опус",
+              "Акт Опус",
+              "Актопус",
+              "Act Opus",
+              "ActOpus",
+              "actop.us",
+              "actopustheatre"
+            ],
+            "sourcePage": "https://actop.us/plays",
+            "sourceUrl": "https://actop.us/plays (Next image /_next/static/media/logo_new_black.3136802c.png)",
+            "sourceFile": "act-opus.logo_new_black.png",
+            "background": "#F6EFE5",
+            "ring": "#111111",
+            "logoCrop": "official-wordmark-act-over-opus-stacked",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Организатор: театр «Акт Опус»",
+            "renderNote": "Медальон заменён с осьминога на надпись из официального логотипа: блок «АКТ» и слово «ОПУС» сохранены из source PNG и размещены друг над другом, как стековый знак внутри круга; блок «АКТ» оптически уменьшен и опущен, чтобы не выходить за круг. Runtime SVG self-contained; PNG fallback сохранён для QA/старых клиентов.",
+            "avatarUrl": "/assets/organizers/act-opus.svg",
+            "fallbackPngUrl": "/assets/organizers/act-opus.png",
+            "sourcePath": "site/src/assets/organizers/source/act-opus.logo_new_black.png",
+            "retrievedAt": "2026-07-02",
+            "assetFormat": "svg-embedded-source-png",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81915d7b4f42",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81915d17ff9b"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.znanie-russia",
+      "name": "Российское общество «Знание»",
+      "short_name": "Знание",
+      "category": "organizer",
+      "semantic_facet": "organizer",
+      "binding_ids": [
+        "organizer:znanie-russia"
+      ],
+      "aliases": [
+        "Российское общество Знание",
+        "Российское общество «Знание»",
+        "Общество Знание",
+        "Знание Лекторий",
+        "Знание.Лекторий",
+        "znanierussia.ru",
+        "znanie russia"
+      ],
+      "aria_label": "Организатор или партнёр: Российское общество «Знание»",
+      "background": "#0501D0",
+      "ring": "#FFFFFF",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "white-inner-z-symbol-from-kgd80-znanie-vector-on-official-blue-circle",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/znanie-russia.svg",
+        "repo_path": "site/public/assets/organizers/znanie-russia.svg",
+        "sha256": "03e3b2f0a2da2c0153dfc2fb70d7b850ac7ae5410865e3b0e95ae1ad986522ca",
+        "byte_length": 1576,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/znanie-russia.png",
+        "repo_path": "site/public/assets/organizers/znanie-russia.png",
+        "sha256": "e013ff092c9346ba976f7b622007125717b7ff54dc8db1e95baa78725c11bf7a",
+        "byte_length": 28024,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/znanie.logo-znanie-festival.svg",
+      "source_page": "https://znanierussia.ru/",
+      "source_url": "Official site CSS primary color #0501D0 plus local kgd80 shared assets logo-znanie-festival.svg / logo-znanie-main.svg",
+      "source_file": "znanie.logo-znanie-festival.svg",
+      "retrieved_at": "2026-07-02",
+      "render_note": "Медальон обновлён под текущую палитру официального сайта «Знание»: полный круг залит brand primary #0501D0, внутренний знак «З» оставлен белым, увеличен, оптически выровнен через root-clipped SVG group и намеренно обрезается нижним краем круга. Для событий фестиваля «80 историй о главном» медальон показывается по curated festival policy, даже если source text не повторяет организатора.",
+      "effective_listing_status": "blocked_missing_binding",
+      "effective_listing_binding": "organizer",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "znanie-russia",
+            "name": "Российское общество «Знание»",
+            "shortName": "Знание",
+            "aliases": [
+              "Российское общество Знание",
+              "Российское общество «Знание»",
+              "Общество Знание",
+              "Знание Лекторий",
+              "Знание.Лекторий",
+              "znanierussia.ru",
+              "znanie russia"
+            ],
+            "sourcePage": "https://znanierussia.ru/",
+            "sourceUrl": "Official site CSS primary color #0501D0 plus local kgd80 shared assets logo-znanie-festival.svg / logo-znanie-main.svg",
+            "sourceFile": "znanie.logo-znanie-festival.svg",
+            "background": "#0501D0",
+            "ring": "#FFFFFF",
+            "logoCrop": "white-inner-z-symbol-from-kgd80-znanie-vector-on-official-blue-circle",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Организатор или партнёр: Российское общество «Знание»",
+            "renderNote": "Медальон обновлён под текущую палитру официального сайта «Знание»: полный круг залит brand primary #0501D0, внутренний знак «З» оставлен белым, увеличен, оптически выровнен через root-clipped SVG group и намеренно обрезается нижним краем круга. Для событий фестиваля «80 историй о главном» медальон показывается по curated festival policy, даже если source text не повторяет организатора.",
+            "avatarUrl": "/assets/organizers/znanie-russia.svg",
+            "fallbackPngUrl": "/assets/organizers/znanie-russia.png",
+            "sourcePath": "site/src/assets/organizers/source/znanie.logo-znanie-festival.svg",
+            "retrievedAt": "2026-07-02",
+            "assetFormat": "svg",
+            "brandBackgroundSource": "https://znanierussia.ru/ production CSS --primary / --primary-default",
+            "backgroundEvidence": "Official site CSS sampled 2026-07-02 exposes --primary-default / --primary as #0501D0; legacy --color-primary-old is #426FFF.",
+            "category": "organizer",
+            "impliedByFestivalAliases": [
+              "80 историй о главном"
+            ],
+            "listingStatus": "blocked_missing_binding",
+            "listingBinding": "organizer"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191627508f2",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819162041671"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kgd80",
+      "name": "Фестиваль «80 историй о главном»",
+      "short_name": "80 историй",
+      "category": "festival_brand",
+      "semantic_facet": "festival_brand",
+      "binding_ids": [
+        "organizer:kgd80"
+      ],
+      "aliases": [
+        "80 историй о главном",
+        "Фестиваль 80 историй о главном",
+        "kgd80",
+        "kgd80.ru"
+      ],
+      "aria_label": "Фестиваль: 80 историй о главном",
+      "background": "#F8F4EE",
+      "ring": "#D84B31",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "official-hero-logo-centered-in-circle",
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/organizers/kgd80.svg",
+        "repo_path": "site/public/assets/organizers/kgd80.svg",
+        "sha256": "dcda6e278a5987ee62826ccaa51ce04d285acedca2fc1ff216e120bee467f3fa",
+        "byte_length": 28138,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/kgd80.png",
+        "repo_path": "site/public/assets/organizers/kgd80.png",
+        "sha256": "8b2f7bdea6c5557b57226d01580e18bd2b3fbc6f183599ef4e34a72728dce8f5",
+        "byte_length": 50650,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/kgd80.logo-80-istorii-hero.svg",
+      "source_page": "https://kgd80.ru/",
+      "source_url": "site/src/assets/partners/source/kgd80.logo-80-istorii-hero.svg copied from KGD80 hero logo",
+      "source_file": "kgd80.logo-80-istorii-hero.svg",
+      "retrieved_at": "2026-07-02",
+      "render_note": "Медальон использует официальный hero lockup фестиваля «80 историй о главном» из kgd80 shared assets, вписанный в светлый круг с оранжевым ring; lockup увеличен через tighter viewBox, оптически опущен на несколько пикселей и оставляет безопасные отступы от кольца. Для event.festival=«80 историй о главном» показывается вместе с медальоном Российского общества «Знание».",
+      "effective_listing_status": "detail_only",
+      "effective_listing_binding": "festival",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kgd80",
+            "name": "Фестиваль «80 историй о главном»",
+            "shortName": "80 историй",
+            "aliases": [
+              "80 историй о главном",
+              "Фестиваль 80 историй о главном",
+              "kgd80",
+              "kgd80.ru"
+            ],
+            "sourcePage": "https://kgd80.ru/",
+            "sourceUrl": "site/src/assets/partners/source/kgd80.logo-80-istorii-hero.svg copied from KGD80 hero logo",
+            "sourceFile": "kgd80.logo-80-istorii-hero.svg",
+            "background": "#F8F4EE",
+            "ring": "#D84B31",
+            "logoCrop": "official-hero-logo-centered-in-circle",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Фестиваль: 80 историй о главном",
+            "renderNote": "Медальон использует официальный hero lockup фестиваля «80 историй о главном» из kgd80 shared assets, вписанный в светлый круг с оранжевым ring; lockup увеличен через tighter viewBox, оптически опущен на несколько пикселей и оставляет безопасные отступы от кольца. Для event.festival=«80 историй о главном» показывается вместе с медальоном Российского общества «Знание».",
+            "avatarUrl": "/assets/organizers/kgd80.svg",
+            "fallbackPngUrl": "/assets/organizers/kgd80.png",
+            "sourcePath": "site/src/assets/organizers/source/kgd80.logo-80-istorii-hero.svg",
+            "retrievedAt": "2026-07-02",
+            "assetFormat": "svg",
+            "category": "festival_brand",
+            "listingStatus": "detail_only",
+            "listingBinding": "festival"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191679c92ba",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819166e57b93"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kantata-festival",
+      "name": "Фестиваль «Кантата»",
+      "short_name": "Кантата",
+      "category": "festival_brand",
+      "semantic_facet": "festival_brand",
+      "binding_ids": [
+        "organizer:kantata-festival"
+      ],
+      "aliases": [
+        "Фестиваль Кантата",
+        "фестиваль «Кантата»",
+        "Кантатафест",
+        "kantatafest.ru",
+        "festkantata"
+      ],
+      "aria_label": "Фестиваль: Кантата",
+      "background": "#F8F4EE",
+      "ring": "#251A13",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "official-wordmark-kantata",
+      "asset_format_claim": "webp-source-only",
+      "primary_asset": {
+        "url": "/assets/organizers/kantata-festival.webp",
+        "repo_path": "site/public/assets/organizers/kantata-festival.webp",
+        "sha256": "0bf35abce4f7b60910dceaedd3d7b10061464752ecd4cd538bfa2aa41510d3d1",
+        "byte_length": 14230,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/kantata-festival.png",
+        "repo_path": "site/public/assets/organizers/kantata-festival.png",
+        "sha256": "06624b8cc593e33679082115af1bc38a226224aa6f7ffbaa2a0e0e3c8f4e6302",
+        "byte_length": 35224,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/partners/source/kantata-education.Kantata_logo_Black_R.png",
+      "source_page": "https://kantatafest.ru/obrazovatelnaya-programma",
+      "source_url": "https://static.tildacdn.com/tild6532-3334-4662-b835-383932633238/Kantata_logo_Black_R.png (captured in prior static-site asset lane)",
+      "source_file": "kantata-education.Kantata_logo_Black_R.png",
+      "retrieved_at": "2026-07-02",
+      "render_note": "По фестивалю используется начертание слова «КАНТАТА». Официальный доступный source — PNG, поэтому runtime medallion WebP-first с PNG fallback.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "festival",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kantata-festival",
+            "name": "Фестиваль «Кантата»",
+            "shortName": "Кантата",
+            "aliases": [
+              "Фестиваль Кантата",
+              "фестиваль «Кантата»",
+              "Кантатафест",
+              "kantatafest.ru",
+              "festkantata"
+            ],
+            "sourcePage": "https://kantatafest.ru/obrazovatelnaya-programma",
+            "sourceUrl": "https://static.tildacdn.com/tild6532-3334-4662-b835-383932633238/Kantata_logo_Black_R.png (captured in prior static-site asset lane)",
+            "sourceFile": "kantata-education.Kantata_logo_Black_R.png",
+            "background": "#F8F4EE",
+            "ring": "#251A13",
+            "logoCrop": "official-wordmark-kantata",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Фестиваль: Кантата",
+            "renderNote": "По фестивалю используется начертание слова «КАНТАТА». Официальный доступный source — PNG, поэтому runtime medallion WebP-first с PNG fallback.",
+            "avatarUrl": "/assets/organizers/kantata-festival.webp",
+            "fallbackPngUrl": "/assets/organizers/kantata-festival.png",
+            "sourcePath": "site/src/assets/partners/source/kantata-education.Kantata_logo_Black_R.png",
+            "retrievedAt": "2026-07-02",
+            "assetFormat": "webp-source-only",
+            "category": "festival_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "festival"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81916c255066",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81916be72961"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kaup",
+      "name": "Поселение викингов «Кауп»",
+      "short_name": "Кауп",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:kaup",
+        "festival:kaup"
+      ],
+      "aliases": [
+        "Поселение викингов Кауп",
+        "поселение викингов «Кауп»",
+        "Кауп",
+        "kaup39.ru",
+        "nightkaup.ru"
+      ],
+      "aria_label": "Локация и бренд: поселение викингов «Кауп»",
+      "background": "#26372D",
+      "ring": "#B9A06A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/festivals/kaup.svg",
+        "repo_path": "site/public/assets/festivals/kaup.svg",
+        "sha256": "fa2a6de30e49f91dadb098e740305ba4558234c8adf16dccba71ece00eab7cfc",
+        "byte_length": 18831,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/kaup.png",
+        "repo_path": "site/public/assets/festivals/kaup.png",
+        "sha256": "48c47be07c31a8f46bb0b9471f4e375da98f555063cbf9c16c232a42b64660f2",
+        "byte_length": 71667,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/kaup-logo.svg",
+      "source_page": "https://www.kaup39.ru/",
+      "source_url": "https://static.tildacdn.com/tild3166-3161-4133-a638-363932633936/Logo_wh_main.svg",
+      "source_file": "kaup-logo.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный знак площадки «Кауп» возвращён в общий runtime-манифест как venue-brand; совпадение выполняется по нормализованным алиасам площадки/источника.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kaup",
+            "name": "Поселение викингов «Кауп»",
+            "shortName": "Кауп",
+            "aliases": [
+              "Поселение викингов Кауп",
+              "поселение викингов «Кауп»",
+              "Кауп",
+              "kaup39.ru",
+              "nightkaup.ru"
+            ],
+            "sourcePage": "https://www.kaup39.ru/",
+            "sourceUrl": "https://static.tildacdn.com/tild3166-3161-4133-a638-363932633936/Logo_wh_main.svg",
+            "sourceFile": "kaup-logo.svg",
+            "background": "#26372D",
+            "ring": "#B9A06A",
+            "ariaLabel": "Локация и бренд: поселение викингов «Кауп»",
+            "renderNote": "Официальный знак площадки «Кауп» возвращён в общий runtime-манифест как venue-brand; совпадение выполняется по нормализованным алиасам площадки/источника.",
+            "avatarUrl": "/assets/festivals/kaup.svg",
+            "sourcePath": "site/src/assets/organizers/source/kaup-logo.svg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "svg",
+            "category": "venue_brand",
+            "fallbackPngUrl": "/assets/festivals/kaup.png"
+          }
+        },
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "kaup",
+            "name": "Кауп",
+            "shortName": "Кауп",
+            "sourcePage": "https://www.kaup39.ru/",
+            "sourceUrl": "https://static.tildacdn.com/tild3166-3161-4133-a638-363932633936/Logo_wh_main.svg",
+            "sourceFile": "kaup-logo.svg",
+            "background": "#26372D",
+            "ring": "#B9A06A",
+            "avatarUrl": "/assets/festivals/kaup.svg",
+            "ariaLabel": "Локация и бренд: Кауп",
+            "renderNote": "Официальный знак поселения викингов «Кауп». Система хранит Кауп как локацию (`Поселение викингов Кауп`); в фестивальной лаборатории этот знак оставлен как площадочный бренд для событий Каупа без отдельного чистого логотипа.",
+            "sourcePath": "site/src/assets/festivals/source/kaup-logo.svg",
+            "retrievedAt": "2026-07-03",
+            "category": "venue_brand",
+            "aliases": [
+              "Кауп",
+              "Поселение викингов Кауп",
+              "Большой Кауп",
+              "Ночной Кауп"
+            ],
+            "fallbackPngUrl": "/assets/festivals/kaup.png",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81916e721fe4",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81916e3d714d"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.dramteatr39",
+      "name": "Калининградский драматический театр",
+      "short_name": "Драмтеатр",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:dramteatr39"
+      ],
+      "aliases": [
+        "Драматический театр",
+        "Драмтеатр",
+        "Калининградский драматический театр",
+        "Калининградский областной драматический театр",
+        "dramteatr39",
+        "dramteatr39.ru"
+      ],
+      "aria_label": "Площадка: Калининградский драматический театр",
+      "background": "#8F151B",
+      "ring": "#F4EEE4",
+      "fit_box": [
+        370,
+        370
+      ],
+      "logo_crop": "left-emblem-from-official-horizontal-svg",
+      "asset_format_claim": "svg-embedded-source-svg-cropped",
+      "primary_asset": {
+        "url": "/assets/organizers/dramteatr39.svg",
+        "repo_path": "site/public/assets/organizers/dramteatr39.svg",
+        "sha256": "d0d362452c83b73d421281d6cc5026a02ecbdb89ec6d6af94bc350ebecbe30ba",
+        "byte_length": 12703,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/dramteatr39.png",
+        "repo_path": "site/public/assets/organizers/dramteatr39.png",
+        "sha256": "c2d41b64aff90898d0f1696da54251225b8e8cb5aff7c660712c219bea6418d5",
+        "byte_length": 52154,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/dramteatr39.logo.svg",
+      "source_page": "https://dramteatr39.ru/",
+      "source_url": "https://dramteatr39.ru/img/logo.svg?v=2",
+      "source_file": "dramteatr39.logo.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный горизонтальный SVG-логотип масштабирован и кругом обрезан до левого театрального знака, чтобы медальон был читаемым на мобильном размере; текстовая часть намеренно выведена за круг.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "dramteatr39",
+            "name": "Калининградский драматический театр",
+            "shortName": "Драмтеатр",
+            "aliases": [
+              "Драматический театр",
+              "Драмтеатр",
+              "Калининградский драматический театр",
+              "Калининградский областной драматический театр",
+              "dramteatr39",
+              "dramteatr39.ru"
+            ],
+            "sourcePage": "https://dramteatr39.ru/",
+            "sourceUrl": "https://dramteatr39.ru/img/logo.svg?v=2",
+            "sourceFile": "dramteatr39.logo.svg",
+            "background": "#8F151B",
+            "ring": "#F4EEE4",
+            "logoCrop": "left-emblem-from-official-horizontal-svg",
+            "fitBox": [
+              370,
+              370
+            ],
+            "ariaLabel": "Площадка: Калининградский драматический театр",
+            "renderNote": "Официальный горизонтальный SVG-логотип масштабирован и кругом обрезан до левого театрального знака, чтобы медальон был читаемым на мобильном размере; текстовая часть намеренно выведена за круг.",
+            "avatarUrl": "/assets/organizers/dramteatr39.svg",
+            "sourcePath": "site/src/assets/organizers/source/dramteatr39.logo.svg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "svg-embedded-source-svg-cropped",
+            "category": "venue_brand",
+            "fallbackPngUrl": "/assets/organizers/dramteatr39.png"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819170e25449",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819170a5cbd1"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.yantar-hall",
+      "name": "Янтарь холл",
+      "short_name": "Янтарь холл",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:yantar-hall"
+      ],
+      "aliases": [
+        "Янтарь холл",
+        "Янтарь-холл",
+        "Янтарь Холл",
+        "Янтарь холл, Ленина 11, Светлогорск",
+        "yantarholl",
+        "yantarhall",
+        "янтарьхолл.рф"
+      ],
+      "aria_label": "Площадка: Янтарь холл",
+      "background": "#062F4F",
+      "ring": "#FECC00",
+      "fit_box": [
+        308,
+        308
+      ],
+      "logo_crop": "official-square-yh-symbol",
+      "asset_format_claim": "svg-embedded-source-svg",
+      "primary_asset": {
+        "url": "/assets/organizers/yantar-hall.svg",
+        "repo_path": "site/public/assets/organizers/yantar-hall.svg",
+        "sha256": "4cd1dec1a4bb32cc5f8a733b3c89c35e181ddc54326de93f6d512075d9cd6ece",
+        "byte_length": 12259,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/yantar-hall.png",
+        "repo_path": "site/public/assets/organizers/yantar-hall.png",
+        "sha256": "dbf80eb6b3c1c3ffc80b7c38c493ed828fb22111d1d2738e96859b7300a2df0b",
+        "byte_length": 49661,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/yantar-hall.yh_ya_logo.svg",
+      "source_page": "https://янтарьхолл.рф/",
+      "source_url": "https://янтарьхолл.рф/bitrix/templates/yh/yh_ya_logo.svg",
+      "source_file": "yantar-hall.yh_ya_logo.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный квадратный SVG-знак YH с сайта Янтарь холла встроен в круглый SVG-медальон; выбран вместо горизонтального wordmark для читаемости на 90–112px.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "yantar-hall",
+            "name": "Янтарь холл",
+            "shortName": "Янтарь холл",
+            "aliases": [
+              "Янтарь холл",
+              "Янтарь-холл",
+              "Янтарь Холл",
+              "Янтарь холл, Ленина 11, Светлогорск",
+              "yantarholl",
+              "yantarhall",
+              "янтарьхолл.рф"
+            ],
+            "sourcePage": "https://янтарьхолл.рф/",
+            "sourceUrl": "https://янтарьхолл.рф/bitrix/templates/yh/yh_ya_logo.svg",
+            "sourceFile": "yantar-hall.yh_ya_logo.svg",
+            "background": "#062F4F",
+            "ring": "#FECC00",
+            "logoCrop": "official-square-yh-symbol",
+            "fitBox": [
+              308,
+              308
+            ],
+            "ariaLabel": "Площадка: Янтарь холл",
+            "renderNote": "Официальный квадратный SVG-знак YH с сайта Янтарь холла встроен в круглый SVG-медальон; выбран вместо горизонтального wordmark для читаемости на 90–112px.",
+            "avatarUrl": "/assets/organizers/yantar-hall.svg",
+            "sourcePath": "site/src/assets/organizers/source/yantar-hall.yh_ya_logo.svg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "svg-embedded-source-svg",
+            "category": "venue_brand",
+            "fallbackPngUrl": "/assets/organizers/yantar-hall.png",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819173848596",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191731b3d62"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.muzteatr39",
+      "name": "Калининградский музыкальный театр",
+      "short_name": "Музыкальный театр",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:muzteatr39"
+      ],
+      "aliases": [
+        "Музыкальный театр",
+        "Калининградский музыкальный театр",
+        "Калининградский областной музыкальный театр",
+        "muzteatr39",
+        "muztear39"
+      ],
+      "aria_label": "Площадка: Калининградский музыкальный театр",
+      "background": "#5B4427",
+      "ring": "#D8B982",
+      "fit_box": [
+        336,
+        336
+      ],
+      "logo_crop": "official-square-logo",
+      "asset_format_claim": "webp-source-png",
+      "primary_asset": {
+        "url": "/assets/organizers/muzteatr39.webp",
+        "repo_path": "site/public/assets/organizers/muzteatr39.webp",
+        "sha256": "cec25df02b1b3bf9a8159bb652e572e2e5b60e3924a4ce7a41827f19012ec498",
+        "byte_length": 33654,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/muzteatr39.png",
+        "repo_path": "site/public/assets/organizers/muzteatr39.png",
+        "sha256": "652543778edd056a0b549756df1a3866596e05b980ab734388ef0775d0faeda9",
+        "byte_length": 107642,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/muzteatr39.logo2.png",
+      "source_page": "https://muzteatr39.ru/",
+      "source_url": "https://muzteatr39.ru/wp-content/uploads/image_theme/logo2.png",
+      "source_file": "muzteatr39.logo2.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный квадратный PNG-логотип пересобран как WebP-primary медальон с PNG fallback; трассировка не используется.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "muzteatr39",
+            "name": "Калининградский музыкальный театр",
+            "shortName": "Музыкальный театр",
+            "aliases": [
+              "Музыкальный театр",
+              "Калининградский музыкальный театр",
+              "Калининградский областной музыкальный театр",
+              "muzteatr39",
+              "muztear39"
+            ],
+            "sourcePage": "https://muzteatr39.ru/",
+            "sourceUrl": "https://muzteatr39.ru/wp-content/uploads/image_theme/logo2.png",
+            "sourceFile": "muzteatr39.logo2.png",
+            "background": "#5B4427",
+            "ring": "#D8B982",
+            "logoCrop": "official-square-logo",
+            "fitBox": [
+              336,
+              336
+            ],
+            "ariaLabel": "Площадка: Калининградский музыкальный театр",
+            "renderNote": "Официальный квадратный PNG-логотип пересобран как WebP-primary медальон с PNG fallback; трассировка не используется.",
+            "avatarUrl": "/assets/organizers/muzteatr39.webp",
+            "sourcePath": "site/src/assets/organizers/source/muzteatr39.logo2.png",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "webp-source-png",
+            "fallbackPngUrl": "/assets/organizers/muzteatr39.png",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819182948b91",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81918247095b"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.dom-iskusstv",
+      "name": "Калининградский театр эстрады / Дом искусств",
+      "short_name": "Дом искусств",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:dom-iskusstv"
+      ],
+      "aliases": [
+        "Калининградский театр эстрады (Дом искусств)",
+        "Калининградский театр эстрады",
+        "Театр эстрады",
+        "Дом искусств",
+        "teatrestrady39",
+        "domiskusstv",
+        "домискусств39.рф"
+      ],
+      "aria_label": "Площадка: Калининградский театр эстрады / Дом искусств",
+      "background": "#F6F2EA",
+      "ring": "#37556F",
+      "fit_box": [
+        384,
+        152
+      ],
+      "logo_crop": "official-horizontal-svg-wordmark",
+      "asset_format_claim": "svg-embedded-source-svg",
+      "primary_asset": {
+        "url": "/assets/organizers/dom-iskusstv.svg",
+        "repo_path": "site/public/assets/organizers/dom-iskusstv.svg",
+        "sha256": "9394834c0f44a3b35c697768ee36b8db585fe2b1edd27293f4cfcaa786a44a65",
+        "byte_length": 127618,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/dom-iskusstv.png",
+        "repo_path": "site/public/assets/organizers/dom-iskusstv.png",
+        "sha256": "7dc23264cee7ffc451b57592887d20f5c0b44582f3cb782c8114e974f2043d2d",
+        "byte_length": 49452,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/dom-iskusstv.teatr-estrady.svg",
+      "source_page": "https://домискусств39.рф/",
+      "source_url": "https://static.tildacdn.com/tild3965-6438-4135-a233-383865633034/svg.svg",
+      "source_file": "dom-iskusstv.teatr-estrady.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный Tilda SVG-логотип Театра эстрады/Дома искусств встроен в круглый светлый медальон без растрирования исходника.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "dom-iskusstv",
+            "name": "Калининградский театр эстрады / Дом искусств",
+            "shortName": "Дом искусств",
+            "aliases": [
+              "Калининградский театр эстрады (Дом искусств)",
+              "Калининградский театр эстрады",
+              "Театр эстрады",
+              "Дом искусств",
+              "teatrestrady39",
+              "domiskusstv",
+              "домискусств39.рф"
+            ],
+            "sourcePage": "https://домискусств39.рф/",
+            "sourceUrl": "https://static.tildacdn.com/tild3965-6438-4135-a233-383865633034/svg.svg",
+            "sourceFile": "dom-iskusstv.teatr-estrady.svg",
+            "background": "#F6F2EA",
+            "ring": "#37556F",
+            "logoCrop": "official-horizontal-svg-wordmark",
+            "fitBox": [
+              384,
+              152
+            ],
+            "ariaLabel": "Площадка: Калининградский театр эстрады / Дом искусств",
+            "renderNote": "Официальный Tilda SVG-логотип Театра эстрады/Дома искусств встроен в круглый светлый медальон без растрирования исходника.",
+            "avatarUrl": "/assets/organizers/dom-iskusstv.svg",
+            "sourcePath": "site/src/assets/organizers/source/dom-iskusstv.teatr-estrady.svg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "svg-embedded-source-svg",
+            "category": "venue_brand",
+            "fallbackPngUrl": "/assets/organizers/dom-iskusstv.png",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819186598aec",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191860853e8"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.city-jazz-club",
+      "name": "Калининград Сити Джаз Клуб",
+      "short_name": "City Jazz Club",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:city-jazz-club"
+      ],
+      "aliases": [
+        "Калининград Сити Джаз Клуб",
+        "Сити Джаз клуб",
+        "Клуб Калининград Сити Джаз",
+        "Лондон. Калининград Сити Джаз",
+        "Паб Лондон",
+        "londonpub.ru/cityjazz",
+        "jazzpub"
+      ],
+      "aria_label": "Площадка: Калининград Сити Джаз Клуб",
+      "background": "#FFFFFF",
+      "ring": "#D7B56D",
+      "fit_box": [
+        388,
+        235
+      ],
+      "logo_crop": "source-faithful-official-png-on-medallion",
+      "asset_format_claim": "webp-source-raster-official-png",
+      "primary_asset": {
+        "url": "/assets/organizers/city-jazz-club.webp",
+        "repo_path": "site/public/assets/organizers/city-jazz-club.webp",
+        "sha256": "5232bee39c8ff7fd344826380a8aed04e207b3aeb64e580bc054ce953fb02268",
+        "byte_length": 39214,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/city-jazz-club.png",
+        "repo_path": "site/public/assets/organizers/city-jazz-club.png",
+        "sha256": "279fee43f90f01768ee4d25fa2c50646543f97002cc16e4c16bb38bc419c3d8b",
+        "byte_length": 81063,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/city-jazz-club.official-logojazz.png",
+      "source_page": "https://londonpub.ru/cityjazz/events",
+      "source_url": "https://static.tildacdn.com/tild6331-6539-4430-a531-343262333939/logojazz.png",
+      "source_file": "recheck-20260704/city-jazz-club.official-logojazz.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Ручная SVG-перерисовка была отклонена как исказившая реальный логотип клуба. Runtime теперь WebP-first: в круг помещён официальный Tilda PNG с круглым знаком и фирменной подписью без замены на invented CITY JAZZ CLUB lockup.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "city-jazz-club",
+            "name": "Калининград Сити Джаз Клуб",
+            "shortName": "City Jazz Club",
+            "aliases": [
+              "Калининград Сити Джаз Клуб",
+              "Сити Джаз клуб",
+              "Клуб Калининград Сити Джаз",
+              "Лондон. Калининград Сити Джаз",
+              "Паб Лондон",
+              "londonpub.ru/cityjazz",
+              "jazzpub"
+            ],
+            "sourcePage": "https://londonpub.ru/cityjazz/events",
+            "sourceUrl": "https://static.tildacdn.com/tild6331-6539-4430-a531-343262333939/logojazz.png",
+            "background": "#FFFFFF",
+            "ring": "#D7B56D",
+            "logoCrop": "source-faithful-official-png-on-medallion",
+            "fitBox": [
+              388,
+              235
+            ],
+            "ariaLabel": "Площадка: Калининград Сити Джаз Клуб",
+            "renderNote": "Ручная SVG-перерисовка была отклонена как исказившая реальный логотип клуба. Runtime теперь WebP-first: в круг помещён официальный Tilda PNG с круглым знаком и фирменной подписью без замены на invented CITY JAZZ CLUB lockup.",
+            "avatarUrl": "/assets/organizers/city-jazz-club.webp",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/city-jazz-club.official-logojazz.png",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "webp-source-raster-official-png",
+            "fallbackPngUrl": "/assets/organizers/city-jazz-club.png",
+            "sourceFile": "recheck-20260704/city-jazz-club.official-logojazz.png",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819188f7b9a4",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819188b4fa62"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.rostec-arena",
+      "name": "Ростех Арена",
+      "short_name": "Ростех Арена",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:rostec-arena"
+      ],
+      "aliases": [
+        "Ростех Арена",
+        "Rostec Arena",
+        "rostec_arena",
+        "rostec-arena.ru"
+      ],
+      "aria_label": "Площадка: Ростех Арена",
+      "background": "#003975",
+      "ring": "#00B4E5",
+      "fit_box": [
+        402,
+        71
+      ],
+      "logo_crop": "official-svg-full-lockup-in-circle",
+      "asset_format_claim": "svg-official-source",
+      "primary_asset": {
+        "url": "/assets/organizers/rostec-arena.svg",
+        "repo_path": "site/public/assets/organizers/rostec-arena.svg",
+        "sha256": "34e325fb1953e0515a061ad997903c85f684b3ac0554b1d229ee06fcaf0e71ad",
+        "byte_length": 2716,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": null,
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/rostec-arena.official-logo.svg",
+      "source_page": "https://www.rostec-arena.ru/",
+      "source_url": "https://www.rostec-arena.ru/theme/src/logo.svg",
+      "source_file": "recheck-20260704/rostec-arena.official-logo.svg",
+      "retrieved_at": "2026-07-04",
+      "render_note": "Официальный SVG-логотип с сайта Ростех Арены встроен в медальон без ручной перерисовки: сохранены фирменные голубые полосы и белый wordmark на синем градиентном круге.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "rostec-arena",
+            "name": "Ростех Арена",
+            "shortName": "Ростех Арена",
+            "aliases": [
+              "Ростех Арена",
+              "Rostec Arena",
+              "rostec_arena",
+              "rostec-arena.ru"
+            ],
+            "sourcePage": "https://www.rostec-arena.ru/",
+            "sourceUrl": "https://www.rostec-arena.ru/theme/src/logo.svg",
+            "sourceFile": "recheck-20260704/rostec-arena.official-logo.svg",
+            "background": "#003975",
+            "ring": "#00B4E5",
+            "logoCrop": "official-svg-full-lockup-in-circle",
+            "fitBox": [
+              402,
+              71
+            ],
+            "ariaLabel": "Площадка: Ростех Арена",
+            "renderNote": "Официальный SVG-логотип с сайта Ростех Арены встроен в медальон без ручной перерисовки: сохранены фирменные голубые полосы и белый wordmark на синем градиентном круге.",
+            "avatarUrl": "/assets/organizers/rostec-arena.svg",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/rostec-arena.official-logo.svg",
+            "retrievedAt": "2026-07-04",
+            "assetFormat": "svg-official-source",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81918b88989b",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81918b3eaf03"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.bar-bastion",
+      "name": "Бар Бастион",
+      "short_name": "Бастион",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:bar-bastion"
+      ],
+      "aliases": [
+        "Бар Бастион",
+        "БАСТИОН. Калининград",
+        "Бастион",
+        "Паб Бастион",
+        "bar_bastion",
+        "bastion_kld"
+      ],
+      "aria_label": "Площадка: Бар Бастион",
+      "background": "#0C0B0A",
+      "ring": "#B79356",
+      "fit_box": [
+        430,
+        430
+      ],
+      "logo_crop": "public-vk-avatar-inner-circle-mask-ring-on-top",
+      "asset_format_claim": "webp-source-vk-avatar",
+      "primary_asset": {
+        "url": "/assets/organizers/bar-bastion.webp",
+        "repo_path": "site/public/assets/organizers/bar-bastion.webp",
+        "sha256": "2e2c64a02ff3543b88f481893de36c5ec9b6cda4df7e076fab4e2740bcb5bb36",
+        "byte_length": 19170,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/bar-bastion.png",
+        "repo_path": "site/public/assets/organizers/bar-bastion.png",
+        "sha256": "e63306e5e97a08daad39e33c74f1ca53d2e08fd8ad596a98ee9e1c365f94f397",
+        "byte_length": 68166,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/bar-bastion.vk-avatar-20260704.jpg",
+      "source_page": "https://vk.com/bar_bastion",
+      "source_url": "https://sun9-10.userapi.com/s/v1/ig2/S-X-dYFbBe1CvkEhtbf6ykc5pZessFPqVOyJZQIUavWXFEVszgi_m83MwRSIshqb3ldhDkXlgQ0ICGxtJCZGoibr.jpg?quality=95&crop=146,181,452,452&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&ava=1&u=VGFGH8SPGTtDSXUrD6HHR2MuiM_oHfifmRGJnRF4_qw&cs=200x200",
+      "source_file": "bar-bastion.vk-avatar-20260704.jpg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "VK-аватар теперь маскируется во внутренний круг до отрисовки бренд-обводки; золотое кольцо рисуется последним и больше не разрывается квадратной картинкой. Runtime остаётся WebP-primary с PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "bar-bastion",
+            "name": "Бар Бастион",
+            "shortName": "Бастион",
+            "aliases": [
+              "Бар Бастион",
+              "БАСТИОН. Калининград",
+              "Бастион",
+              "Паб Бастион",
+              "bar_bastion",
+              "bastion_kld"
+            ],
+            "sourcePage": "https://vk.com/bar_bastion",
+            "sourceUrl": "https://sun9-10.userapi.com/s/v1/ig2/S-X-dYFbBe1CvkEhtbf6ykc5pZessFPqVOyJZQIUavWXFEVszgi_m83MwRSIshqb3ldhDkXlgQ0ICGxtJCZGoibr.jpg?quality=95&crop=146,181,452,452&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&ava=1&u=VGFGH8SPGTtDSXUrD6HHR2MuiM_oHfifmRGJnRF4_qw&cs=200x200",
+            "sourceFile": "bar-bastion.vk-avatar-20260704.jpg",
+            "background": "#0C0B0A",
+            "ring": "#B79356",
+            "logoCrop": "public-vk-avatar-inner-circle-mask-ring-on-top",
+            "fitBox": [
+              430,
+              430
+            ],
+            "ariaLabel": "Площадка: Бар Бастион",
+            "renderNote": "VK-аватар теперь маскируется во внутренний круг до отрисовки бренд-обводки; золотое кольцо рисуется последним и больше не разрывается квадратной картинкой. Runtime остаётся WebP-primary с PNG fallback.",
+            "avatarUrl": "/assets/organizers/bar-bastion.webp",
+            "sourcePath": "site/src/assets/organizers/source/bar-bastion.vk-avatar-20260704.jpg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "webp-source-vk-avatar",
+            "fallbackPngUrl": "/assets/organizers/bar-bastion.png",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-81918f5d1fb8",
+        "main_shape_id": "45777396-2f2a-80c0-8008-81918ee4360a"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.signal",
+      "name": "Сигнал",
+      "short_name": "Сигнал",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:signal"
+      ],
+      "aliases": [
+        "Сигнал",
+        "Signal",
+        "signalkld",
+        "signalcommunity.timepad.ru",
+        "signalcommunity"
+      ],
+      "aria_label": "Площадка: Сигнал",
+      "background": "#FFFFFF",
+      "ring": "#111111",
+      "fit_box": [
+        438,
+        255
+      ],
+      "logo_crop": "source-faithful-official-social-avatar-oval",
+      "asset_format_claim": "webp-source-raster-official-social-avatar",
+      "primary_asset": {
+        "url": "/assets/organizers/signal.webp",
+        "repo_path": "site/public/assets/organizers/signal.webp",
+        "sha256": "bb1bd409891871e5b8352489eb8b199058d1a1c88d760d1e05d2fc026bc4c82e",
+        "byte_length": 24416,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/signal.png",
+        "repo_path": "site/public/assets/organizers/signal.png",
+        "sha256": "15908d9bbb865bb3fcda671a4560077cfe2d7f1e22f58830f4803d489cafe5ee",
+        "byte_length": 62299,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/signal.telegram-avatar-20260704.jpg",
+      "source_page": "https://t.me/signalkld",
+      "source_url": "https://t.me/signalkld public Telegram profile avatar; Timepad organization page https://signalcommunity.timepad.ru/ exposes the same oval logo",
+      "source_file": "recheck-20260704/signal.telegram-avatar-20260704.jpg",
+      "retrieved_at": "2026-07-04",
+      "render_note": "SVG-наборный вариант был отклонён: он потерял фирменный овал и подменил шрифт. Runtime теперь WebP-first из официального Telegram/Timepad овального знака, с сохранёнными двойными oval-strokes и исходным положением подписи.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "signal",
+            "name": "Сигнал",
+            "shortName": "Сигнал",
+            "aliases": [
+              "Сигнал",
+              "Signal",
+              "signalkld",
+              "signalcommunity.timepad.ru",
+              "signalcommunity"
+            ],
+            "sourcePage": "https://t.me/signalkld",
+            "sourceUrl": "https://t.me/signalkld public Telegram profile avatar; Timepad organization page https://signalcommunity.timepad.ru/ exposes the same oval logo",
+            "background": "#FFFFFF",
+            "ring": "#111111",
+            "logoCrop": "source-faithful-official-social-avatar-oval",
+            "fitBox": [
+              438,
+              255
+            ],
+            "ariaLabel": "Площадка: Сигнал",
+            "renderNote": "SVG-наборный вариант был отклонён: он потерял фирменный овал и подменил шрифт. Runtime теперь WebP-first из официального Telegram/Timepad овального знака, с сохранёнными двойными oval-strokes и исходным положением подписи.",
+            "avatarUrl": "/assets/organizers/signal.webp",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/signal.telegram-avatar-20260704.jpg",
+            "retrievedAt": "2026-07-04",
+            "assetFormat": "webp-source-raster-official-social-avatar",
+            "fallbackPngUrl": "/assets/organizers/signal.png",
+            "sourceFile": "recheck-20260704/signal.telegram-avatar-20260704.jpg",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-819191c55e3d",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191918ec64e"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.mumod",
+      "name": "Музей курортной моды",
+      "short_name": "Музей моды",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:mumod"
+      ],
+      "aliases": [
+        "Музей курортной моды",
+        "Музей Курортной Моды",
+        "mumod",
+        "muzeymod",
+        "mumod.ru"
+      ],
+      "aria_label": "Площадка: Музей курортной моды",
+      "background": "#FCF9ED",
+      "ring": "#D7282F",
+      "fit_box": [
+        374,
+        116
+      ],
+      "logo_crop": "official-horizontal-svg-wordmark",
+      "asset_format_claim": "svg-embedded-source-svg",
+      "primary_asset": {
+        "url": "/assets/organizers/mumod.svg",
+        "repo_path": "site/public/assets/organizers/mumod.svg",
+        "sha256": "ec870be2269d8106226e69bd98b19552a2d0631ee0ec41bc46c2bf90f5870579",
+        "byte_length": 26031,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/mumod.png",
+        "repo_path": "site/public/assets/organizers/mumod.png",
+        "sha256": "8b65f0f5739860641ad22d23554802c9e883a962c3230e7834c915459b5c86b2",
+        "byte_length": 52672,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/mumod.logo.svg",
+      "source_page": "https://mumod.ru/",
+      "source_url": "https://mumod.ru/wp-content/themes/mumod/images/logo.svg",
+      "source_file": "mumod.logo.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG-логотип с сайта mumod.ru встроен в светлый круглый медальон и увеличен более чем на 10% относительно первой версии.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "mumod",
+            "name": "Музей курортной моды",
+            "shortName": "Музей моды",
+            "aliases": [
+              "Музей курортной моды",
+              "Музей Курортной Моды",
+              "mumod",
+              "muzeymod",
+              "mumod.ru"
+            ],
+            "sourcePage": "https://mumod.ru/",
+            "sourceUrl": "https://mumod.ru/wp-content/themes/mumod/images/logo.svg",
+            "sourceFile": "mumod.logo.svg",
+            "background": "#FCF9ED",
+            "ring": "#D7282F",
+            "logoCrop": "official-horizontal-svg-wordmark",
+            "fitBox": [
+              374,
+              116
+            ],
+            "ariaLabel": "Площадка: Музей курортной моды",
+            "renderNote": "Официальный SVG-логотип с сайта mumod.ru встроен в светлый круглый медальон и увеличен более чем на 10% относительно первой версии.",
+            "avatarUrl": "/assets/organizers/mumod.svg",
+            "sourcePath": "site/src/assets/organizers/source/mumod.logo.svg",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "svg-embedded-source-svg",
+            "category": "venue_brand",
+            "fallbackPngUrl": "/assets/organizers/mumod.png"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191943e8c32",
+        "main_shape_id": "45777396-2f2a-80c0-8008-819193f2f459"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kldzoo",
+      "name": "Калининградский зоопарк",
+      "short_name": "Зоопарк",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:kldzoo"
+      ],
+      "aliases": [
+        "Калининградский зоопарк",
+        "Зоопарк",
+        "kldzoo",
+        "Калининградский зоопарк, проспект Мира"
+      ],
+      "aria_label": "Площадка: Калининградский зоопарк",
+      "background": "#F7F5E9",
+      "ring": "#D8D1BE",
+      "fit_box": [
+        452,
+        452
+      ],
+      "logo_crop": "official-square-logo",
+      "asset_format_claim": "webp-source-png",
+      "primary_asset": {
+        "url": "/assets/organizers/kldzoo.webp",
+        "repo_path": "site/public/assets/organizers/kldzoo.webp",
+        "sha256": "c72ab4cb45a64754b127fa44c900d0cdac6379eb6a36f26ee90cbb47c9be0ecc",
+        "byte_length": 35030,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/kldzoo.png",
+        "repo_path": "site/public/assets/organizers/kldzoo.png",
+        "sha256": "cb81cac44fe35d81a3fc892b00763357cf4dd0d1ddb59f61c6641c94d6678e49",
+        "byte_length": 193550,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/kldzoo.logo.png",
+      "source_page": "https://kldzoo.ru/",
+      "source_url": "https://kldzoo.ru/local/templates/s1/img/logo.png",
+      "source_file": "kldzoo.logo.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный квадратный PNG-логотип зоопарка увеличен примерно на 30% относительно первой версии; конкурирующая салатовая внешняя обводка убрана, потому что у исходного знака есть собственная круговая рамка.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "venue",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kldzoo",
+            "name": "Калининградский зоопарк",
+            "shortName": "Зоопарк",
+            "aliases": [
+              "Калининградский зоопарк",
+              "Зоопарк",
+              "kldzoo",
+              "Калининградский зоопарк, проспект Мира"
+            ],
+            "sourcePage": "https://kldzoo.ru/",
+            "sourceUrl": "https://kldzoo.ru/local/templates/s1/img/logo.png",
+            "sourceFile": "kldzoo.logo.png",
+            "background": "#F7F5E9",
+            "ring": "#D8D1BE",
+            "logoCrop": "official-square-logo",
+            "fitBox": [
+              452,
+              452
+            ],
+            "ariaLabel": "Площадка: Калининградский зоопарк",
+            "renderNote": "Официальный квадратный PNG-логотип зоопарка увеличен примерно на 30% относительно первой версии; конкурирующая салатовая внешняя обводка убрана, потому что у исходного знака есть собственная круговая рамка.",
+            "avatarUrl": "/assets/organizers/kldzoo.webp",
+            "sourcePath": "site/src/assets/organizers/source/kldzoo.logo.png",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "webp-source-png",
+            "fallbackPngUrl": "/assets/organizers/kldzoo.png",
+            "category": "venue_brand",
+            "listingStatus": "listing_ready",
+            "listingBinding": "venue"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191a2a45c0c",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191a24d796f"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.locostandup",
+      "name": "Стендап-клуб «Локация»",
+      "short_name": "Локация",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:locostandup"
+      ],
+      "aliases": [
+        "Стендап клуб Локация",
+        "Стендап-клуб Локация",
+        "Стендап-клуб «Локация»",
+        "Локация",
+        "locostandup",
+        "locostandup.ru"
+      ],
+      "aria_label": "Площадка: стендап-клуб «Локация»",
+      "background": "#F4F1EC",
+      "ring": "#595959",
+      "fit_box": [
+        400,
+        120
+      ],
+      "logo_crop": "official-vector-wordmark-in-circle",
+      "asset_format_claim": "svg-official-source-medallion-wrap",
+      "primary_asset": {
+        "url": "/assets/organizers/locostandup.svg",
+        "repo_path": "site/public/assets/organizers/locostandup.svg",
+        "sha256": "9466883032afa6a7196814c225469f29ec4b624508e5b2d6346ce5f172860a7d",
+        "byte_length": 4457,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": null,
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/locostandup.official-logo.svg",
+      "source_page": "https://locostandup.ru/",
+      "source_url": "https://img3.creatium.ru/disk2/ee/53/e9/5338346aed3353ce0b7a71e35231aeda9e/lokaciya.svg",
+      "source_file": "recheck-20260704/locostandup.official-logo.svg",
+      "retrieved_at": "2026-07-04",
+      "render_note": "Используется официальный векторный wordmark «ЛОКАЦИЯ» с locostandup.ru; добавленная ранее подпись «СТЕНДАП-КЛУБ» удалена, а кольцо сделано нейтрально-серым в тон исходного wordmark, чтобы не выдавать контекстный акцент за часть логотипа.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "locostandup",
+            "name": "Стендап-клуб «Локация»",
+            "shortName": "Локация",
+            "aliases": [
+              "Стендап клуб Локация",
+              "Стендап-клуб Локация",
+              "Стендап-клуб «Локация»",
+              "Локация",
+              "locostandup",
+              "locostandup.ru"
+            ],
+            "sourcePage": "https://locostandup.ru/",
+            "sourceUrl": "https://img3.creatium.ru/disk2/ee/53/e9/5338346aed3353ce0b7a71e35231aeda9e/lokaciya.svg",
+            "sourceFile": "recheck-20260704/locostandup.official-logo.svg",
+            "background": "#F4F1EC",
+            "ring": "#595959",
+            "logoCrop": "official-vector-wordmark-in-circle",
+            "fitBox": [
+              400,
+              120
+            ],
+            "ariaLabel": "Площадка: стендап-клуб «Локация»",
+            "renderNote": "Используется официальный векторный wordmark «ЛОКАЦИЯ» с locostandup.ru; добавленная ранее подпись «СТЕНДАП-КЛУБ» удалена, а кольцо сделано нейтрально-серым в тон исходного wordmark, чтобы не выдавать контекстный акцент за часть логотипа.",
+            "avatarUrl": "/assets/organizers/locostandup.svg",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/locostandup.official-logo.svg",
+            "retrievedAt": "2026-07-04",
+            "assetFormat": "svg-official-source-medallion-wrap",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191a54ba9f9",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191a504186d"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kaliningrad-art-museum",
+      "name": "Калининградский музей изобразительных искусств",
+      "short_name": "Музей искусств",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:kaliningrad-art-museum"
+      ],
+      "aliases": [
+        "Музей Изобразительных искусств",
+        "Калининградский музей изобразительных искусств",
+        "Музей ИЗО",
+        "kaliningradartmuseum",
+        "kaliningradartmuseum.ru"
+      ],
+      "aria_label": "Площадка: Калининградский музей изобразительных искусств",
+      "background": "#871B30",
+      "ring": "#F4EFE4",
+      "fit_box": [
+        330,
+        360
+      ],
+      "logo_crop": "official-inline-svg-mark-plus-readable-museum-arts-label",
+      "asset_format_claim": "svg-official-source-plus-readable-label",
+      "primary_asset": {
+        "url": "/assets/organizers/kaliningrad-art-museum.svg",
+        "repo_path": "site/public/assets/organizers/kaliningrad-art-museum.svg",
+        "sha256": "abd145b8630d96af034921c141a9ed1e846dc3b56b6ce5979fc28d71f7e83191",
+        "byte_length": 18148,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": null,
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/kaliningrad-art-museum.official-inline-logo.svg",
+      "source_page": "https://www.kaliningradartmuseum.ru/",
+      "source_url": "https://www.kaliningradartmuseum.ru/ homepage inline SVG logo; footer PNG https://www.kaliningradartmuseum.ru/local/templates/museum2023/images/logo-footer.png",
+      "source_file": "recheck-20260704/kaliningrad-art-museum.official-inline-logo.svg",
+      "retrieved_at": "2026-07-04",
+      "render_note": "Фон — официальный бордовый #871B30 из сайта музея. Аббревиатура «ИЗО» убрана: под официальным знаком стоит крупная читаемая подпись «МУЗЕЙ ИСКУССТВ», чтобы сохранить смысл без нечитаемого полного названия в 90–112px круге.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "kaliningrad-art-museum",
+            "name": "Калининградский музей изобразительных искусств",
+            "shortName": "Музей искусств",
+            "aliases": [
+              "Музей Изобразительных искусств",
+              "Калининградский музей изобразительных искусств",
+              "Музей ИЗО",
+              "kaliningradartmuseum",
+              "kaliningradartmuseum.ru"
+            ],
+            "sourcePage": "https://www.kaliningradartmuseum.ru/",
+            "sourceUrl": "https://www.kaliningradartmuseum.ru/ homepage inline SVG logo; footer PNG https://www.kaliningradartmuseum.ru/local/templates/museum2023/images/logo-footer.png",
+            "sourceFile": "recheck-20260704/kaliningrad-art-museum.official-inline-logo.svg",
+            "background": "#871B30",
+            "ring": "#F4EFE4",
+            "logoCrop": "official-inline-svg-mark-plus-readable-museum-arts-label",
+            "fitBox": [
+              330,
+              360
+            ],
+            "ariaLabel": "Площадка: Калининградский музей изобразительных искусств",
+            "renderNote": "Фон — официальный бордовый #871B30 из сайта музея. Аббревиатура «ИЗО» убрана: под официальным знаком стоит крупная читаемая подпись «МУЗЕЙ ИСКУССТВ», чтобы сохранить смысл без нечитаемого полного названия в 90–112px круге.",
+            "avatarUrl": "/assets/organizers/kaliningrad-art-museum.svg",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/kaliningrad-art-museum.official-inline-logo.svg",
+            "retrievedAt": "2026-07-04",
+            "assetFormat": "svg-official-source-plus-readable-label",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191a7dc4ae5",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191a79e73aa"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.brachert",
+      "name": "Дом-музей Германа Брахерта",
+      "short_name": "Брахерт",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:brachert"
+      ],
+      "aliases": [
+        "Дом-музей Германа Брахерта",
+        "Дом-музей Брахерта",
+        "Брахерт",
+        "hbrachert",
+        "hbrachert.ru",
+        "Музей Брахерта"
+      ],
+      "aria_label": "Площадка: Дом-музей Германа Брахерта",
+      "background": "#8A5E38",
+      "ring": "#EFE5D5",
+      "fit_box": [
+        318,
+        264
+      ],
+      "logo_crop": "official-site-logo",
+      "asset_format_claim": "webp-source-png",
+      "primary_asset": {
+        "url": "/assets/organizers/brachert.webp",
+        "repo_path": "site/public/assets/organizers/brachert.webp",
+        "sha256": "074846868ae25dc498148a3934c2579838748da3512f3e2c101e837875fa9ef6",
+        "byte_length": 26592,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/brachert.png",
+        "repo_path": "site/public/assets/organizers/brachert.png",
+        "sha256": "ae64e347637385caa380b39c24251ec76de17e4d4a3739aff9d5f5f6b5ceaae9",
+        "byte_length": 56977,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/brachert.logo-br.png",
+      "source_page": "https://hbrachert.ru/",
+      "source_url": "https://hbrachert.ru/bitrix/templates/brachert/images/logo-br.png",
+      "source_file": "brachert.logo-br.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный PNG-логотип hbrachert.ru пересобран как WebP-primary круглый медальон с PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "brachert",
+            "name": "Дом-музей Германа Брахерта",
+            "shortName": "Брахерт",
+            "aliases": [
+              "Дом-музей Германа Брахерта",
+              "Дом-музей Брахерта",
+              "Брахерт",
+              "hbrachert",
+              "hbrachert.ru",
+              "Музей Брахерта"
+            ],
+            "sourcePage": "https://hbrachert.ru/",
+            "sourceUrl": "https://hbrachert.ru/bitrix/templates/brachert/images/logo-br.png",
+            "sourceFile": "brachert.logo-br.png",
+            "background": "#8A5E38",
+            "ring": "#EFE5D5",
+            "logoCrop": "official-site-logo",
+            "fitBox": [
+              318,
+              264
+            ],
+            "ariaLabel": "Площадка: Дом-музей Германа Брахерта",
+            "renderNote": "Официальный PNG-логотип hbrachert.ru пересобран как WebP-primary круглый медальон с PNG fallback.",
+            "avatarUrl": "/assets/organizers/brachert.webp",
+            "sourcePath": "site/src/assets/organizers/source/brachert.logo-br.png",
+            "retrievedAt": "2026-07-03",
+            "assetFormat": "webp-source-png",
+            "fallbackPngUrl": "/assets/organizers/brachert.png",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191aaf5e232",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191aab304e3"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.profitur",
+      "name": "Профи-тур",
+      "short_name": "Профи-тур",
+      "category": "organizer",
+      "semantic_facet": "organizer",
+      "binding_ids": [
+        "organizer:profitur"
+      ],
+      "aliases": [
+        "Профи-тур",
+        "ПУТЕШЕСТВИЯ «ПРОФИ-ТУР»",
+        "ПУТЕШЕСТВИЯ \"ПРОФИ-ТУР\"",
+        "profi_tur39",
+        "excursions_profitour"
+      ],
+      "aria_label": "Организатор: Профи-тур",
+      "background": "#FFFFFF",
+      "ring": "#222222",
+      "fit_box": [
+        320,
+        320
+      ],
+      "logo_crop": "official-telegram-avatar-circular-mask",
+      "asset_format_claim": "webp-source-raster-official-social-avatar",
+      "primary_asset": {
+        "url": "/assets/organizers/profitur.webp",
+        "repo_path": "site/public/assets/organizers/profitur.webp",
+        "sha256": "bf4f5c6c8913a4e835a37cff8e2027c524fb3298240f9e207fae7ebbfa5df4a1",
+        "byte_length": 17674,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/profitur.png",
+        "repo_path": "site/public/assets/organizers/profitur.png",
+        "sha256": "1947e10a3ea39990b8aecb1ae93602b7a6fe3ba6f5dde248a370c65eef242c52",
+        "byte_length": 96562,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/r14-20260727/profitur.telegram-avatar-20260727.jpg",
+      "source_page": "https://t.me/excursions_profitour",
+      "source_url": "https://t.me/excursions_profitour public Telegram profile avatar",
+      "source_file": "r14-20260727/profitur.telegram-avatar-20260727.jpg",
+      "retrieved_at": "2026-07-27",
+      "render_note": "Runtime WebP/PNG получен локальным resize и круглой alpha-маской из публичного Telegram-аватара без перерисовки логотипа.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "organizer",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "profitur",
+            "name": "Профи-тур",
+            "shortName": "Профи-тур",
+            "aliases": [
+              "Профи-тур",
+              "ПУТЕШЕСТВИЯ «ПРОФИ-ТУР»",
+              "ПУТЕШЕСТВИЯ \"ПРОФИ-ТУР\"",
+              "profi_tur39",
+              "excursions_profitour"
+            ],
+            "sourcePage": "https://t.me/excursions_profitour",
+            "sourceUrl": "https://t.me/excursions_profitour public Telegram profile avatar",
+            "sourceFile": "r14-20260727/profitur.telegram-avatar-20260727.jpg",
+            "background": "#FFFFFF",
+            "ring": "#222222",
+            "logoCrop": "official-telegram-avatar-circular-mask",
+            "fitBox": [
+              320,
+              320
+            ],
+            "ariaLabel": "Организатор: Профи-тур",
+            "renderNote": "Runtime WebP/PNG получен локальным resize и круглой alpha-маской из публичного Telegram-аватара без перерисовки логотипа.",
+            "avatarUrl": "/assets/organizers/profitur.webp",
+            "fallbackPngUrl": "/assets/organizers/profitur.png",
+            "sourcePath": "site/src/assets/organizers/source/r14-20260727/profitur.telegram-avatar-20260727.jpg",
+            "retrievedAt": "2026-07-27",
+            "assetFormat": "webp-source-raster-official-social-avatar",
+            "category": "organizer",
+            "listingStatus": "listing_ready",
+            "listingBinding": "organizer"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191ad858e9e",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191ad4d5bad"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.ruin-keepers",
+      "name": "Хранители руин",
+      "short_name": "Хранители руин",
+      "category": "organizer",
+      "semantic_facet": "organizer",
+      "binding_ids": [
+        "organizer:ruin-keepers"
+      ],
+      "aliases": [
+        "Хранители руин",
+        "Ruin Keepers",
+        "ruin_keepers",
+        "ruin.keepers",
+        "ruin-keepers.ru"
+      ],
+      "aria_label": "Организатор: Хранители руин",
+      "background": "#F8F4EA",
+      "ring": "#111111",
+      "fit_box": [
+        350,
+        350
+      ],
+      "logo_crop": "source-faithful-official-png-alpha-medallion",
+      "asset_format_claim": "webp-source-raster-official-png",
+      "primary_asset": {
+        "url": "/assets/organizers/ruin-keepers.webp",
+        "repo_path": "site/public/assets/organizers/ruin-keepers.webp",
+        "sha256": "37e8f2f67e896cf353f1cafd27874b7c9261787bac40968d2f5a1958c97d9781",
+        "byte_length": 22148,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/ruin-keepers.png",
+        "repo_path": "site/public/assets/organizers/ruin-keepers.png",
+        "sha256": "979c13fcbe3c728fca517fb252ddaac2c297f5e83f62b6b96b753e2ed08c67de",
+        "byte_length": 27566,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/recheck-20260704/ruin-keepers.official-logo.png",
+      "source_page": "https://ruin-keepers.ru/",
+      "source_url": "https://static.tildacdn.one/tild6664-6533-4665-a166-356135616237/tild3638-3334-4965-a.png",
+      "source_file": "recheck-20260704/ruin-keepers.official-logo.png",
+      "retrieved_at": "2026-07-04",
+      "render_note": "Ручная SVG-силуэтная башня была отклонена как не похожая на знак. Runtime теперь WebP-first из официального 1-bit PNG: сохранены outline-башня, сердце/нижние кривые и wordmark «Хранители руин» без invented filled-tower redraw.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "organizer",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "ruin-keepers",
+            "name": "Хранители руин",
+            "shortName": "Хранители руин",
+            "aliases": [
+              "Хранители руин",
+              "Ruin Keepers",
+              "ruin_keepers",
+              "ruin.keepers",
+              "ruin-keepers.ru"
+            ],
+            "sourcePage": "https://ruin-keepers.ru/",
+            "sourceUrl": "https://static.tildacdn.one/tild6664-6533-4665-a166-356135616237/tild3638-3334-4965-a.png",
+            "background": "#F8F4EA",
+            "ring": "#111111",
+            "logoCrop": "source-faithful-official-png-alpha-medallion",
+            "fitBox": [
+              350,
+              350
+            ],
+            "ariaLabel": "Организатор: Хранители руин",
+            "renderNote": "Ручная SVG-силуэтная башня была отклонена как не похожая на знак. Runtime теперь WebP-first из официального 1-bit PNG: сохранены outline-башня, сердце/нижние кривые и wordmark «Хранители руин» без invented filled-tower redraw.",
+            "avatarUrl": "/assets/organizers/ruin-keepers.webp",
+            "sourcePath": "site/src/assets/organizers/source/recheck-20260704/ruin-keepers.official-logo.png",
+            "retrievedAt": "2026-07-04",
+            "assetFormat": "webp-source-raster-official-png",
+            "fallbackPngUrl": "/assets/organizers/ruin-keepers.png",
+            "sourceFile": "recheck-20260704/ruin-keepers.official-logo.png",
+            "category": "organizer",
+            "listingStatus": "listing_ready",
+            "listingBinding": "organizer"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191b02b419a",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191afe49947"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.greza-khutor",
+      "name": "Грёза Хутор",
+      "short_name": "Грёза Хутор",
+      "category": "venue_brand",
+      "semantic_facet": "venue_brand",
+      "binding_ids": [
+        "organizer:greza-khutor"
+      ],
+      "aliases": [
+        "Грёза Хутор",
+        "Грёза хутор",
+        "Греза Хутор",
+        "Греза хутор",
+        "greza khutor"
+      ],
+      "aria_label": "Локация: Грёза Хутор",
+      "background": "#F7EFE3",
+      "ring": "#9A6A3F",
+      "fit_box": [
+        512,
+        512
+      ],
+      "logo_crop": "vk-poll-winning-variant-04-source-faithful-square",
+      "asset_format_claim": "manifest-format-absent",
+      "primary_asset": {
+        "url": "/assets/organizers/greza-khutor.webp",
+        "repo_path": "site/public/assets/organizers/greza-khutor.webp",
+        "sha256": "ccad5842b1fa4d6e0548ca727725d09d0f82416333053cbd0568e76d4ad1e798",
+        "byte_length": 122304,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/organizers/greza-khutor.png",
+        "repo_path": "site/public/assets/organizers/greza-khutor.png",
+        "sha256": "ed0fb01cb9377caa7e56a7e4e410b30fcc9fc0bc6c71a33da174e287cda04240",
+        "byte_length": 535077,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/organizers/source/greza-khutor-variant-04.png",
+      "source_page": "https://vk.com/wall-231920894_5687",
+      "source_url": "docs/reference/greza-khutor/987234 (4).png",
+      "source_file": "greza-khutor-variant-04.png",
+      "retrieved_at": "2026-07-08",
+      "render_note": "Медальон изготовлен из варианта 04, победившего в VK-опросе на wall-231920894_5687: 4 явных голоса за вариант 04, ближайший альтернативный вариант 07 не обгоняет даже при ручном учёте неоднозначных комментариев. Источник — локальная папка docs/reference/greza-khutor; экспорт выполнен локально, без AI-генерации.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "organizer",
+          "registry_path": "site/src/data/organizerMedallions.json",
+          "item": {
+            "slug": "greza-khutor",
+            "name": "Грёза Хутор",
+            "shortName": "Грёза Хутор",
+            "aliases": [
+              "Грёза Хутор",
+              "Грёза хутор",
+              "Греза Хутор",
+              "Греза хутор",
+              "greza khutor"
+            ],
+            "sourcePage": "https://vk.com/wall-231920894_5687",
+            "sourceUrl": "docs/reference/greza-khutor/987234 (4).png",
+            "sourceFile": "greza-khutor-variant-04.png",
+            "background": "#F7EFE3",
+            "ring": "#9A6A3F",
+            "logoCrop": "vk-poll-winning-variant-04-source-faithful-square",
+            "fitBox": [
+              512,
+              512
+            ],
+            "ariaLabel": "Локация: Грёза Хутор",
+            "renderNote": "Медальон изготовлен из варианта 04, победившего в VK-опросе на wall-231920894_5687: 4 явных голоса за вариант 04, ближайший альтернативный вариант 07 не обгоняет даже при ручном учёте неоднозначных комментариев. Источник — локальная папка docs/reference/greza-khutor; экспорт выполнен локально, без AI-генерации.",
+            "avatarUrl": "/assets/organizers/greza-khutor.webp",
+            "fallbackPngUrl": "/assets/organizers/greza-khutor.png",
+            "sourcePath": "site/src/assets/organizers/source/greza-khutor-variant-04.png",
+            "retrievedAt": "2026-07-08",
+            "category": "venue_brand"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191b2bf2a12",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191b26ab2a5"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kgd80-80-stories",
+      "name": "80 историй о главном",
+      "short_name": "80 историй",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:kgd80-80-stories"
+      ],
+      "aliases": [
+        "80 историй о главном",
+        "Фестиваль 80 историй о главном"
+      ],
+      "aria_label": "Фестиваль: 80 историй о главном",
+      "background": "#F7EFE3",
+      "ring": "#D84B31",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "manifest-format-absent",
+      "primary_asset": {
+        "url": "/assets/festivals/kgd80-80-stories.svg",
+        "repo_path": "site/public/assets/festivals/kgd80-80-stories.svg",
+        "sha256": "a3e67ed234c2218eb12a46fb257f6a8d4c2c243603a808bd077feb4ba87d3a46",
+        "byte_length": 28058,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/kgd80-80-stories.png",
+        "repo_path": "site/public/assets/festivals/kgd80-80-stories.png",
+        "sha256": "415171c776792db543a2edcce21772c5ddd967b847c2b761d7189a0291962d43",
+        "byte_length": 41966,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/kgd80-logo-hero.svg",
+      "source_page": "https://kgd80.ru/",
+      "source_url": "https://kgd80.ru/shared-assets/logo-80-istorii-hero.svg",
+      "source_file": "kgd80-logo-hero.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG с сайта фестиваля; в круг вписан знак/композиция hero-логотипа.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "festival",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "kgd80-80-stories",
+            "name": "80 историй о главном",
+            "shortName": "80 историй",
+            "sourcePage": "https://kgd80.ru/",
+            "sourceUrl": "https://kgd80.ru/shared-assets/logo-80-istorii-hero.svg",
+            "sourceFile": "kgd80-logo-hero.svg",
+            "background": "#F7EFE3",
+            "ring": "#D84B31",
+            "avatarUrl": "/assets/festivals/kgd80-80-stories.svg",
+            "ariaLabel": "Фестиваль: 80 историй о главном",
+            "renderNote": "Официальный SVG с сайта фестиваля; в круг вписан знак/композиция hero-логотипа.",
+            "sourcePath": "site/src/assets/festivals/source/kgd80-logo-hero.svg",
+            "retrievedAt": "2026-07-03",
+            "category": "festival",
+            "aliases": [
+              "80 историй о главном",
+              "Фестиваль 80 историй о главном"
+            ],
+            "fallbackPngUrl": "/assets/festivals/kgd80-80-stories.png",
+            "listingStatus": "listing_ready",
+            "listingBinding": "festival"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191bec153df",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191be0ed597"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kaliningrad-city-jazz",
+      "name": "Kaliningrad City Jazz",
+      "short_name": "City Jazz",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:kaliningrad-city-jazz"
+      ],
+      "aliases": [
+        "Kaliningrad City Jazz",
+        "Калининград Сити Джаз",
+        "Сити Джаз"
+      ],
+      "aria_label": "Фестиваль: Kaliningrad City Jazz",
+      "background": "#F7F1E6",
+      "ring": "#D7B56D",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/kaliningrad-city-jazz.webp",
+        "repo_path": "site/public/assets/festivals/kaliningrad-city-jazz.webp",
+        "sha256": "2def130f8cb0436281dc54b48aca7fa9fde0420661eb9d9e8c19cb4894e055b4",
+        "byte_length": 7562,
+        "dimensions": {
+          "width": 320,
+          "height": 320
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/kaliningrad-city-jazz.png",
+        "repo_path": "site/public/assets/festivals/kaliningrad-city-jazz.png",
+        "sha256": "4cc302b0a813fca20a1be61af7b24744fcdc9367345d0265be2474344dfc6297",
+        "byte_length": 45978,
+        "dimensions": {
+          "width": 320,
+          "height": 320
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/kaliningrad-city-jazz.jpg",
+      "source_page": "https://t.me/jazzfestivalru",
+      "source_url": "https://t.me/jazzfestivalru (public Telegram avatar, retrieved 2026-07-03)",
+      "source_file": "kaliningrad-city-jazz.jpg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Заменён прежний полный SVG на публичный Telegram-аватар фестиваля: надпись City Jazz 2026 крупнее и читается лучше в круглом медальоне. Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "kaliningrad-city-jazz",
+            "name": "Kaliningrad City Jazz",
+            "shortName": "City Jazz",
+            "sourcePage": "https://t.me/jazzfestivalru",
+            "sourceUrl": "https://t.me/jazzfestivalru (public Telegram avatar, retrieved 2026-07-03)",
+            "sourceFile": "kaliningrad-city-jazz.jpg",
+            "background": "#F7F1E6",
+            "ring": "#D7B56D",
+            "avatarUrl": "/assets/festivals/kaliningrad-city-jazz.webp",
+            "ariaLabel": "Фестиваль: Kaliningrad City Jazz",
+            "renderNote": "Заменён прежний полный SVG на публичный Telegram-аватар фестиваля: надпись City Jazz 2026 крупнее и читается лучше в круглом медальоне. Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/kaliningrad-city-jazz.jpg",
+            "retrievedAt": "2026-07-03",
+            "category": "festival",
+            "fallbackPngUrl": "/assets/festivals/kaliningrad-city-jazz.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Kaliningrad City Jazz",
+              "Калининград Сити Джаз",
+              "Сити Джаз"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191c1af51f2",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191c16b0515"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.kaliningrad-street-food",
+      "name": "Городской пикник Kaliningrad Street Food",
+      "short_name": "Street Food",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:kaliningrad-street-food"
+      ],
+      "aliases": [
+        "Городской пикник Kaliningrad Street Food",
+        "Kaliningrad Street Food",
+        "Street Food",
+        "Калининград Стрит Фуд"
+      ],
+      "aria_label": "Фестиваль: Городской пикник Kaliningrad Street Food",
+      "background": "#FFF8EF",
+      "ring": "#FF634B",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "manifest-format-absent",
+      "primary_asset": {
+        "url": "/assets/festivals/kaliningrad-street-food.svg",
+        "repo_path": "site/public/assets/festivals/kaliningrad-street-food.svg",
+        "sha256": "fb83997210e71f71109e4daf901e4837a6eae82fc780fe837c09f5cdbab1e584",
+        "byte_length": 13651,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/kaliningrad-street-food.png",
+        "repo_path": "site/public/assets/festivals/kaliningrad-street-food.png",
+        "sha256": "ed1a068720069fece628ac65380b7459b89f70a34142d159c50c6714a34e49c6",
+        "byte_length": 38659,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/street-food-kaliningrad-logo.svg",
+      "source_page": "https://streetfoodfestival.ru/",
+      "source_url": "https://static.tildacdn.com/tild6634-6663-4633-b138-333363653339/LOGO_black_main.svg",
+      "source_file": "street-food-kaliningrad-logo.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG Kaliningrad Street Food; знак широковат, поэтому используется как крупная brand-плашка внутри круга.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "kaliningrad-street-food",
+            "name": "Городской пикник Kaliningrad Street Food",
+            "shortName": "Street Food",
+            "sourcePage": "https://streetfoodfestival.ru/",
+            "sourceUrl": "https://static.tildacdn.com/tild6634-6663-4633-b138-333363653339/LOGO_black_main.svg",
+            "sourceFile": "street-food-kaliningrad-logo.svg",
+            "background": "#FFF8EF",
+            "ring": "#FF634B",
+            "avatarUrl": "/assets/festivals/kaliningrad-street-food.svg",
+            "ariaLabel": "Фестиваль: Городской пикник Kaliningrad Street Food",
+            "renderNote": "Официальный SVG Kaliningrad Street Food; знак широковат, поэтому используется как крупная brand-плашка внутри круга.",
+            "sourcePath": "site/src/assets/festivals/source/street-food-kaliningrad-logo.svg",
+            "retrievedAt": "2026-07-03",
+            "category": "festival",
+            "aliases": [
+              "Городской пикник Kaliningrad Street Food",
+              "Kaliningrad Street Food",
+              "Street Food",
+              "Калининград Стрит Фуд"
+            ],
+            "fallbackPngUrl": "/assets/festivals/kaliningrad-street-food.png"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191c464a372",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191c41b3f29"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.grozd-festival",
+      "name": "Гроздь",
+      "short_name": "Гроздь",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:grozd-festival"
+      ],
+      "aliases": [
+        "Гроздь",
+        "Фестиваль Гроздь"
+      ],
+      "aria_label": "Фестиваль: Гроздь",
+      "background": "#462E47",
+      "ring": "#AF8B64",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "manifest-format-absent",
+      "primary_asset": {
+        "url": "/assets/festivals/grozd-festival.svg",
+        "repo_path": "site/public/assets/festivals/grozd-festival.svg",
+        "sha256": "723ba69a3b81233fd0873bf75c44c0b252e4d41068821c9cd61f08ef7223ddfd",
+        "byte_length": 54790,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/grozd-festival.png",
+        "repo_path": "site/public/assets/festivals/grozd-festival.png",
+        "sha256": "ae1e833c10e4e27b84e012ebe6425517cf8b9b7d681ec478f838ff9fb617b675",
+        "byte_length": 39544,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/grozd-layer13.svg",
+      "source_page": "https://xn--80adeebpd0a2atfmx3jf.xn--p1ai/",
+      "source_url": "https://static.tildacdn.com/tild3438-3966-4661-b131-613566643434/Layer_13.svg",
+      "source_file": "grozd-layer13.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG-слой с сайта фестиваля; белый wordmark сохранён на тёмном фиолетовом фоне.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "grozd-festival",
+            "name": "Гроздь",
+            "shortName": "Гроздь",
+            "sourcePage": "https://xn--80adeebpd0a2atfmx3jf.xn--p1ai/",
+            "sourceUrl": "https://static.tildacdn.com/tild3438-3966-4661-b131-613566643434/Layer_13.svg",
+            "sourceFile": "grozd-layer13.svg",
+            "background": "#462E47",
+            "ring": "#AF8B64",
+            "avatarUrl": "/assets/festivals/grozd-festival.svg",
+            "ariaLabel": "Фестиваль: Гроздь",
+            "renderNote": "Официальный SVG-слой с сайта фестиваля; белый wordmark сохранён на тёмном фиолетовом фоне.",
+            "sourcePath": "site/src/assets/festivals/source/grozd-layer13.svg",
+            "retrievedAt": "2026-07-03",
+            "category": "festival",
+            "aliases": [
+              "Гроздь",
+              "Фестиваль Гроздь"
+            ],
+            "fallbackPngUrl": "/assets/festivals/grozd-festival.png"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191c6e6a541",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191c694c452"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.koroche",
+      "name": "Короче",
+      "short_name": "Короче",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:koroche"
+      ],
+      "aliases": [
+        "Короче",
+        "Фестиваль Короче"
+      ],
+      "aria_label": "Фестиваль: Короче",
+      "background": "#FFFFFF",
+      "ring": "#D1AD6A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/koroche.webp",
+        "repo_path": "site/public/assets/festivals/koroche.webp",
+        "sha256": "32d02bf7289bcc1e70c884a19634dd9b020016bc68c08577cbf1018be5a3cadc",
+        "byte_length": 8452,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/koroche.png",
+        "repo_path": "site/public/assets/festivals/koroche.png",
+        "sha256": "5d8e1de22d45dcbdc95a6f0638b0ab9f78bc19f7fd6b1c2991ea1973b7bbb452",
+        "byte_length": 31767,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/koroche-official.png",
+      "source_page": "https://korochekino.ru/",
+      "source_url": "https://static.tildacdn.com/tild3861-3461-4363-b136-666532343734/__2023-07-19__012939.png",
+      "source_file": "koroche-official.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный PNG-знак с сайта фестиваля; Telegram-аватар тоже проверен, но для медальона выбран более чистый site logo. Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "koroche",
+            "name": "Короче",
+            "shortName": "Короче",
+            "category": "festival",
+            "sourcePage": "https://korochekino.ru/",
+            "sourceUrl": "https://static.tildacdn.com/tild3861-3461-4363-b136-666532343734/__2023-07-19__012939.png",
+            "sourceFile": "koroche-official.png",
+            "background": "#FFFFFF",
+            "ring": "#D1AD6A",
+            "avatarUrl": "/assets/festivals/koroche.webp",
+            "ariaLabel": "Фестиваль: Короче",
+            "renderNote": "Официальный PNG-знак с сайта фестиваля; Telegram-аватар тоже проверен, но для медальона выбран более чистый site logo. Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/koroche-official.png",
+            "retrievedAt": "2026-07-03",
+            "fallbackPngUrl": "/assets/festivals/koroche.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Короче",
+              "Фестиваль Короче"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191c974e9c5",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191c92269b5"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.ostrova",
+      "name": "Семейно-музейный фестиваль «Острова»",
+      "short_name": "Острова",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:ostrova"
+      ],
+      "aliases": [
+        "Острова",
+        "Семейно-музейный фестиваль Острова"
+      ],
+      "aria_label": "Фестиваль: Острова",
+      "background": "#FFF8EF",
+      "ring": "#B995D1",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/ostrova.webp",
+        "repo_path": "site/public/assets/festivals/ostrova.webp",
+        "sha256": "c34ef536ae7c66fe0e2409648f56ba5055d7d0e4ea190b86e817d0dae22ab378",
+        "byte_length": 16776,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/ostrova.png",
+        "repo_path": "site/public/assets/festivals/ostrova.png",
+        "sha256": "0b233b8bb87bac9a23c3472840f9ed247925e16f10b84bdcc9660829072be4b1",
+        "byte_length": 59576,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/ostrova-logo-alt.png",
+      "source_page": "https://detivmuzee.ru/",
+      "source_url": "https://static.tildacdn.com/tild6330-6433-4135-b532-343738366262/__2.png",
+      "source_file": "ostrova-logo-alt.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный логотип с сайта detivmuzee.ru; Telegram-аватар проверен, но site logo даёт читаемый полный wordmark с подписью «музейно-семейный фестиваль». Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "ostrova",
+            "name": "Семейно-музейный фестиваль «Острова»",
+            "shortName": "Острова",
+            "category": "festival",
+            "sourcePage": "https://detivmuzee.ru/",
+            "sourceUrl": "https://static.tildacdn.com/tild6330-6433-4135-b532-343738366262/__2.png",
+            "sourceFile": "ostrova-logo-alt.png",
+            "background": "#FFF8EF",
+            "ring": "#B995D1",
+            "avatarUrl": "/assets/festivals/ostrova.webp",
+            "ariaLabel": "Фестиваль: Острова",
+            "renderNote": "Официальный логотип с сайта detivmuzee.ru; Telegram-аватар проверен, но site logo даёт читаемый полный wordmark с подписью «музейно-семейный фестиваль». Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/ostrova-logo-alt.png",
+            "retrievedAt": "2026-07-03",
+            "fallbackPngUrl": "/assets/festivals/ostrova.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Острова",
+              "Семейно-музейный фестиваль Острова"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191cc1ba8df",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191cbd7a2e4"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.more-vnutri",
+      "name": "Море внутри",
+      "short_name": "Море внутри",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:more-vnutri"
+      ],
+      "aliases": [
+        "Море внутри",
+        "Фестиваль Море внутри"
+      ],
+      "aria_label": "Фестиваль: Море внутри",
+      "background": "#F7EFE3",
+      "ring": "#D1AD6A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "manifest-format-absent",
+      "primary_asset": {
+        "url": "/assets/festivals/more-vnutri.svg",
+        "repo_path": "site/public/assets/festivals/more-vnutri.svg",
+        "sha256": "8ec391c938e4b117eba4368cb95c162a9c32bf4c7dbe8d20bdb1af87a51bb408",
+        "byte_length": 2571,
+        "dimensions": {
+          "view_box": "0 0 808 808",
+          "width": 808.0,
+          "height": 808.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/more-vnutri.png",
+        "repo_path": "site/public/assets/festivals/more-vnutri.png",
+        "sha256": "45e058a23c4b52948381d2135009801f08013583fc34b070750cefb02e2e504d",
+        "byte_length": 30476,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/more-vnutri.svg",
+      "source_page": "https://sea-inside.ru/",
+      "source_url": "https://sea-inside.ru/assets/logo.svg",
+      "source_file": "more-vnutri.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG-логотип сайта фестиваля; использован как чистый знак вместо афишной обложки Telegram.",
+      "effective_listing_status": "listing_ready",
+      "effective_listing_binding": "festival",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "more-vnutri",
+            "name": "Море внутри",
+            "shortName": "Море внутри",
+            "category": "festival",
+            "sourcePage": "https://sea-inside.ru/",
+            "sourceUrl": "https://sea-inside.ru/assets/logo.svg",
+            "sourceFile": "more-vnutri.svg",
+            "background": "#F7EFE3",
+            "ring": "#D1AD6A",
+            "avatarUrl": "/assets/festivals/more-vnutri.svg",
+            "ariaLabel": "Фестиваль: Море внутри",
+            "renderNote": "Официальный SVG-логотип сайта фестиваля; использован как чистый знак вместо афишной обложки Telegram.",
+            "sourcePath": "site/src/assets/festivals/source/more-vnutri.svg",
+            "retrievedAt": "2026-07-03",
+            "aliases": [
+              "Море внутри",
+              "Фестиваль Море внутри"
+            ],
+            "fallbackPngUrl": "/assets/festivals/more-vnutri.png",
+            "listingStatus": "listing_ready",
+            "listingBinding": "festival"
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191cf1e0b80",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191cedecca1"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.simfoniya-vetra",
+      "name": "Симфония ветра",
+      "short_name": "Симфония ветра",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:simfoniya-vetra"
+      ],
+      "aliases": [
+        "Симфония ветра",
+        "Симфония ветра фестиваль искусств"
+      ],
+      "aria_label": "Фестиваль: Симфония ветра",
+      "background": "#F7EFE3",
+      "ring": "#D1AD6A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/simfoniya-vetra.webp",
+        "repo_path": "site/public/assets/festivals/simfoniya-vetra.webp",
+        "sha256": "5ef44e4fa33ee26de75baff878a980c9b72ee5968ab04c78e88e9d6aa2df7fd1",
+        "byte_length": 6194,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/simfoniya-vetra.png",
+        "repo_path": "site/public/assets/festivals/simfoniya-vetra.png",
+        "sha256": "8c165e41ba607c5d642dd6fa705dc26ab01c1872a92af5a8abd1da0e474c81aa",
+        "byte_length": 15399,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/simfoniya-vetra-bkf.svg",
+      "source_page": "https://xn--80awafglm0a6dza.xn--p1ai/",
+      "source_url": "https://xn--80awafglm0a6dza.xn--p1ai/bitrix/templates/yh/assets/images/bkf.svg",
+      "source_file": "simfoniya-vetra-bkf.svg",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный SVG-знак БКФ/«Симфония ветра» с сайта Янтарь-холла; афиша события проверена как подтверждение связки. Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "simfoniya-vetra",
+            "name": "Симфония ветра",
+            "shortName": "Симфония ветра",
+            "category": "festival",
+            "sourcePage": "https://xn--80awafglm0a6dza.xn--p1ai/",
+            "sourceUrl": "https://xn--80awafglm0a6dza.xn--p1ai/bitrix/templates/yh/assets/images/bkf.svg",
+            "sourceFile": "simfoniya-vetra-bkf.svg",
+            "background": "#F7EFE3",
+            "ring": "#D1AD6A",
+            "avatarUrl": "/assets/festivals/simfoniya-vetra.webp",
+            "ariaLabel": "Фестиваль: Симфония ветра",
+            "renderNote": "Официальный SVG-знак БКФ/«Симфония ветра» с сайта Янтарь-холла; афиша события проверена как подтверждение связки. Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/simfoniya-vetra-bkf.svg",
+            "retrievedAt": "2026-07-03",
+            "fallbackPngUrl": "/assets/festivals/simfoniya-vetra.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Симфония ветра",
+              "Симфония ветра фестиваль искусств"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191dae694f6",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191daab1a03"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.bahosluzhenie",
+      "name": "Бахослужение",
+      "short_name": "Бахослужение",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:bahosluzhenie"
+      ],
+      "aliases": [
+        "Бахослужение",
+        "Международный музыкальный фестиваль Бахослужение"
+      ],
+      "aria_label": "Фестиваль: Бахослужение",
+      "background": "#FFFFFF",
+      "ring": "#D1AD6A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/bahosluzhenie.webp",
+        "repo_path": "site/public/assets/festivals/bahosluzhenie.webp",
+        "sha256": "f7376f1821a08929dedfcfd2d6e15664385a6db1124020f5b8f49dcddc96e6f5",
+        "byte_length": 9678,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/bahosluzhenie.png",
+        "repo_path": "site/public/assets/festivals/bahosluzhenie.png",
+        "sha256": "0ab4e85cec00387092caca74dd1f854d5cdfbae8262b77b9c531ee57a06a183b",
+        "byte_length": 35967,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/bahosluzhenie-logo.png",
+      "source_page": "https://filarmonia39.ru/festivali/mezhdunarodnyy-muzykalnyy-festival-bakhosluzhenie-4/",
+      "source_url": "https://filarmonia39.ru/upload/iblock/aae/6dk15dbws94827t8588xmjl2jnvmkd42.png",
+      "source_file": "bahosluzhenie-logo.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный широкий логотип со страницы фестиваля филармонии; для читаемости в круге локально скомпонованы его Bach/organ icon и основной wordmark без AI-генерации. Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "bahosluzhenie",
+            "name": "Бахослужение",
+            "shortName": "Бахослужение",
+            "category": "festival",
+            "sourcePage": "https://filarmonia39.ru/festivali/mezhdunarodnyy-muzykalnyy-festival-bakhosluzhenie-4/",
+            "sourceUrl": "https://filarmonia39.ru/upload/iblock/aae/6dk15dbws94827t8588xmjl2jnvmkd42.png",
+            "sourceFile": "bahosluzhenie-logo.png",
+            "background": "#FFFFFF",
+            "ring": "#D1AD6A",
+            "avatarUrl": "/assets/festivals/bahosluzhenie.webp",
+            "ariaLabel": "Фестиваль: Бахослужение",
+            "renderNote": "Официальный широкий логотип со страницы фестиваля филармонии; для читаемости в круге локально скомпонованы его Bach/organ icon и основной wordmark без AI-генерации. Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/bahosluzhenie-logo.png",
+            "retrievedAt": "2026-07-03",
+            "fallbackPngUrl": "/assets/festivals/bahosluzhenie.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Бахослужение",
+              "Международный музыкальный фестиваль Бахослужение"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191dd695f65",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191dd2c8d03"
+      }
+    },
+    {
+      "stable_id": "medallion.identity.tolkin-fest",
+      "name": "Толкин Фест",
+      "short_name": "Толкин Фест",
+      "category": "festival",
+      "semantic_facet": "festival",
+      "binding_ids": [
+        "festival:tolkin-fest"
+      ],
+      "aliases": [
+        "Толкин Фест",
+        "Tolkin Fest",
+        "Толкинфест"
+      ],
+      "aria_label": "Фестиваль: Толкин Фест",
+      "background": "#10234F",
+      "ring": "#D1AD6A",
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp-raster-primary",
+      "primary_asset": {
+        "url": "/assets/festivals/tolkin-fest.webp",
+        "repo_path": "site/public/assets/festivals/tolkin-fest.webp",
+        "sha256": "7ad396c9b2f1826bd0b7884b88149796314a2843313bc7ce342870ce9de2a352",
+        "byte_length": 41648,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/festivals/tolkin-fest.png",
+        "repo_path": "site/public/assets/festivals/tolkin-fest.png",
+        "sha256": "3c70cfa823c451a3e0c4eb2ece73bdc714f97ebd70404403d1394076423ccdf5",
+        "byte_length": 380869,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/festivals/source/tolkin-fest-logo.png",
+      "source_page": "https://tolkinfest.ru/tolkinfest2025",
+      "source_url": "https://static.tildacdn.com/tild3132-6135-4666-a466-613662666530/photo.png",
+      "source_file": "tolkin-fest-logo.png",
+      "retrieved_at": "2026-07-03",
+      "render_note": "Официальный квадратный знак с архивной страницы Tolkin Fest; отдельный чистый логотип 2026 в открытых результатах не найден. Raster source is served WebP-primary with PNG fallback.",
+      "effective_listing_status": "unset",
+      "effective_listing_binding": "unset",
+      "source_records": [
+        {
+          "registry_kind": "festival",
+          "registry_path": "site/src/data/festivalMedallions.json",
+          "item": {
+            "slug": "tolkin-fest",
+            "name": "Толкин Фест",
+            "shortName": "Толкин Фест",
+            "category": "festival",
+            "sourcePage": "https://tolkinfest.ru/tolkinfest2025",
+            "sourceUrl": "https://static.tildacdn.com/tild3132-6135-4666-a466-613662666530/photo.png",
+            "sourceFile": "tolkin-fest-logo.png",
+            "background": "#10234F",
+            "ring": "#D1AD6A",
+            "avatarUrl": "/assets/festivals/tolkin-fest.webp",
+            "ariaLabel": "Фестиваль: Толкин Фест",
+            "renderNote": "Официальный квадратный знак с архивной страницы Tolkin Fest; отдельный чистый логотип 2026 в открытых результатах не найден. Raster source is served WebP-primary with PNG fallback.",
+            "sourcePath": "site/src/assets/festivals/source/tolkin-fest-logo.png",
+            "retrievedAt": "2026-07-03",
+            "fallbackPngUrl": "/assets/festivals/tolkin-fest.png",
+            "assetFormat": "webp-raster-primary",
+            "aliases": [
+              "Толкин Фест",
+              "Tolkin Fest",
+              "Толкинфест"
+            ]
+          }
+        }
+      ],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191dfbfdb77",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191df80a818"
+      }
+    },
+    {
+      "stable_id": "medallion.source.meow-afisha",
+      "name": "MEOW AFISHA",
+      "short_name": null,
+      "category": "special",
+      "semantic_facet": "source",
+      "binding_ids": [
+        "source:meow-afisha"
+      ],
+      "aliases": [],
+      "aria_label": "MEOW AFISHA",
+      "background": null,
+      "ring": null,
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp+png",
+      "primary_asset": {
+        "url": "/assets/sources/meow-afisha.webp",
+        "repo_path": "site/public/assets/sources/meow-afisha.webp",
+        "sha256": "2036ef0265835795a7f0af381307ef6e1392bd21d6d955919c5a7566f37869d3",
+        "byte_length": 25304,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/sources/meow-afisha.png",
+        "repo_path": "site/public/assets/sources/meow-afisha.png",
+        "sha256": "6c8b28f8c24da9601ca169510ed414b4335b40b9f17740a207df180dae26d041",
+        "byte_length": 159720,
+        "dimensions": {
+          "width": 512,
+          "height": 512
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/sources/meow-afisha.telegram-avatar-20260701.jpg",
+      "source_page": null,
+      "source_url": null,
+      "source_file": "meow-afisha.telegram-avatar-20260701.jpg",
+      "retrieved_at": null,
+      "render_note": "Source-proven special medallion; not an organizer/festival registry identity.",
+      "effective_listing_status": "source-proven-special",
+      "effective_listing_binding": "source",
+      "source_records": [],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191e1fe325d",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191e1c42369"
+      }
+    },
+    {
+      "stable_id": "medallion.program.rzd-lastochka",
+      "name": "РЖД Ласточка",
+      "short_name": null,
+      "category": "special",
+      "semantic_facet": "transport_program",
+      "binding_ids": [
+        "program:rzd-lastochka"
+      ],
+      "aliases": [],
+      "aria_label": "РЖД Ласточка",
+      "background": null,
+      "ring": null,
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "webp+png",
+      "primary_asset": {
+        "url": "/assets/transport/rzd-lastochka-medallion.webp",
+        "repo_path": "site/public/assets/transport/rzd-lastochka-medallion.webp",
+        "sha256": "30e4af969969d6b90a23f3e81c839724e848232ed076e8e8f9d687a5a4a8ca9a",
+        "byte_length": 368718,
+        "dimensions": {
+          "width": 768,
+          "height": 768
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/transport/rzd-lastochka-medallion.png",
+        "repo_path": "site/public/assets/transport/rzd-lastochka-medallion.png",
+        "sha256": "993293a783956e01044e648a2d569cf0f5d987f9dedd4661b24ba1fec27ad4b4",
+        "byte_length": 518830,
+        "dimensions": {
+          "width": 768,
+          "height": 768
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/transport/source/kppk-lastochka.png",
+      "source_page": null,
+      "source_url": null,
+      "source_file": "kppk-lastochka.png",
+      "retrieved_at": null,
+      "render_note": "Source-proven special medallion; not an organizer/festival registry identity.",
+      "effective_listing_status": "source-proven-special",
+      "effective_listing_binding": "program",
+      "source_records": [],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191e445bfae",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191e40426ec"
+      }
+    },
+    {
+      "stable_id": "medallion.payment.pushkin-card",
+      "name": "Пушкинская карта",
+      "short_name": null,
+      "category": "special",
+      "semantic_facet": "payment",
+      "binding_ids": [
+        "payment:pushkin-card"
+      ],
+      "aliases": [],
+      "aria_label": "Пушкинская карта",
+      "background": null,
+      "ring": null,
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "composite-webp+png",
+      "primary_asset": {
+        "url": "/assets/badges/pushkin-card-medallion.webp",
+        "repo_path": "site/public/assets/badges/pushkin-card-medallion.webp",
+        "sha256": "b33e98f0220368ed12496fe6e3ee74027767bfbd9819ff975f7a284d1c01ce0a",
+        "byte_length": 21448,
+        "dimensions": {
+          "width": 630,
+          "height": 560
+        },
+        "extension": "webp"
+      },
+      "fallback_asset": {
+        "url": "/assets/badges/pushkin-card-medallion.png",
+        "repo_path": "site/public/assets/badges/pushkin-card-medallion.png",
+        "sha256": "d8cf733de2a852a7124386f434573daf0a6a118b2a87e5592d1ec8a6268a8d11",
+        "byte_length": 161348,
+        "dimensions": {
+          "width": 630,
+          "height": 560
+        },
+        "extension": "png"
+      },
+      "source_path": "site/src/assets/badges/source/pushkin-card.item_2637.jpg",
+      "source_page": null,
+      "source_url": null,
+      "source_file": "pushkin-card.item_2637.jpg",
+      "retrieved_at": null,
+      "render_note": "Source-proven special medallion; not an organizer/festival registry identity.",
+      "effective_listing_status": "source-proven-special",
+      "effective_listing_binding": "payment",
+      "source_records": [],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191e81dd231",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191e7b244a5"
+      }
+    },
+    {
+      "stable_id": "medallion.admission.free",
+      "name": "Бесплатно",
+      "short_name": null,
+      "category": "special",
+      "semantic_facet": "admission",
+      "binding_ids": [
+        "admission:free"
+      ],
+      "aliases": [],
+      "aria_label": "Бесплатно",
+      "background": null,
+      "ring": null,
+      "fit_box": null,
+      "logo_crop": null,
+      "asset_format_claim": "svg",
+      "primary_asset": {
+        "url": "/assets/badges/free-listing-medallion.svg",
+        "repo_path": "site/public/assets/badges/free-listing-medallion.svg",
+        "sha256": "27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31",
+        "byte_length": 754,
+        "dimensions": {
+          "view_box": "0 0 512 512",
+          "width": 512.0,
+          "height": 512.0
+        },
+        "extension": "svg"
+      },
+      "fallback_asset": null,
+      "source_path": null,
+      "source_page": null,
+      "source_url": null,
+      "source_file": null,
+      "retrieved_at": null,
+      "render_note": "Source-proven special medallion; not an organizer/festival registry identity.",
+      "effective_listing_status": "source-proven-special",
+      "effective_listing_binding": "admission",
+      "source_records": [],
+      "penpot_binding": {
+        "status": "materialized-readback",
+        "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "component_id": "45777396-2f2a-80c0-8008-8191ed0c2940",
+        "main_shape_id": "45777396-2f2a-80c0-8008-8191ec7f2912"
+      }
+    }
+  ],
+  "penpot_collection": {
+    "page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+    "page_name": "48 — Event medallions · Normalized tiers v2",
+    "root_id": "45777396-2f2a-80c0-8008-8191034dba1b",
+    "status": "materialized-readback-normalized-size-v2",
+    "unique_visual_count": 42
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": "reconstruction-atlas-fixtures.v1",
+  "policy": {
+    "same_fixture_both_sides": true,
+    "dense_and_stress": "Validate full density, scrolling, sticky behavior and performance in Astro; Penpot receives representative linked instances only.",
+    "penpot_representations": [
+      "typical-desktop",
+      "typical-mobile",
+      "sparse",
+      "empty",
+      "one-stress-sample"
+    ],
+    "event_content_coverage": [
+      "standard-photo",
+      "portrait-or-ocr",
+      "no-image",
+      "long-title-or-place",
+      "free",
+      "arbitrary-paid",
+      "admission-absent",
+      "untimed-or-multi-day-or-completed"
+    ]
+  },
+  "golden_event_corpus": {
+    "schema_version": "ui-reference-event-corpus.v1",
+    "corpus_id": "ui-reference-events.v1",
+    "fixture_ids": [
+      "event.real.3132",
+      "event.real.4327",
+      "event.real.6399",
+      "event.real.6628",
+      "event.real.7807",
+      "event.real.7888",
+      "event.real.7906",
+      "event.real.8156"
+    ]
+  },
+  "archetype_manifests": {
+    "archetype.listing.date": {
+      "path": "catalog/page-archetypes/date-listing-shell-v1/fixture-manifest.v1.json",
+      "sha256": "4c0e3d11bf98dde644f296429ad246ff7044f6a663cb54cf770897a424f5c373"
+    },
+    "archetype.listing.weekend": {
+      "path": "catalog/page-archetypes/weekend-listing-v1/fixture-manifest.v1.json",
+      "sha256": "fc680492e480d1c74d2db28a96ebd9267d6e77f318863ea8f3a17f03baa7fa33"
+    }
+  },
+  "route_fixtures": [
+    {
+      "archetype_id": "archetype.home",
+      "routes": [
+        "/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.listing.date",
+      "routes": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-2026-07-25/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.listing.weekend",
+      "routes": [
+        "/vyhodnye/",
+        "/vyhodnye/2026-07-25/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.listing.popular",
+      "routes": [
+        "/populyarnoe/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.listing.unusual",
+      "routes": [
+        "/neobychnoe/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.search",
+      "routes": [
+        "/poisk/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.event-detail",
+      "routes": [
+        "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.collections",
+      "routes": [
+        "/podborki/",
+        "/podborki/besplatnye-sobytiya/",
+        "/podborki/dzhaz-na-vyhodnyh/",
+        "/podborki/gastronomiya/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.festivals",
+      "routes": [
+        "/festivali/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.exhibitions",
+      "routes": [
+        "/vystavki/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.interest-clubs",
+      "routes": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/game-vibes/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.favorites",
+      "routes": [
+        "/izbrannoe/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.personal-feed",
+      "routes": [
+        "/dlya-menya/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.focus-group",
+      "routes": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.artifacts",
+      "routes": [
+        "/artefakty/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.information-pages",
+      "routes": [
+        "/partners/",
+        "/partnerstvo/"
+      ]
+    },
+    {
+      "archetype_id": "archetype.special-state",
+      "routes": [
+        "/zakrytaya-afisha/"
+      ]
+    }
+  ],
+  "event_detail_scenarios": [
+    {
+      "fixture_role": "wide-image",
+      "event_id": 698,
+      "route": "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/"
+    },
+    {
+      "fixture_role": "portrait-image",
+      "event_id": 2601,
+      "route": "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/"
+    },
+    {
+      "fixture_role": "no-image",
+      "event_id": 6996,
+      "route": "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+    }
+  ]
+}

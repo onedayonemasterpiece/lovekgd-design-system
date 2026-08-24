@@ -1,0 +1,839 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/ui-components/event-card-large-semantic-content-contract.v1.schema.json",
+  "title": "EventCard Large semantic content contract v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "package_id",
+    "component_id",
+    "contract_version",
+    "contract_payload_sha256",
+    "hash_scope",
+    "status",
+    "authority_mode",
+    "canonical",
+    "promotion_status",
+    "source_provenance",
+    "supersedes_for_bounded_scope",
+    "event_type",
+    "admission",
+    "interactive_actions",
+    "social_proof",
+    "penpot_reconciliation",
+    "known_gaps",
+    "non_claims"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://lovekgd.example/contracts/ui-components/event-card-large-semantic-content-contract.v1.schema.json"
+    },
+    "schema_version": {
+      "const": "event_card_large_semantic_content_contract_v1"
+    },
+    "package_id": {
+      "const": "candidate.event-card-large-semantic-content"
+    },
+    "component_id": {
+      "const": "event.card"
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+-candidate\\.[0-9]+$"
+    },
+    "contract_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "hash_scope": {
+      "const": "stable-json-with-/contract_payload_sha256-omitted"
+    },
+    "status": {
+      "const": "owner-corrected-candidate"
+    },
+    "authority_mode": {
+      "const": "reconstructed"
+    },
+    "canonical": {
+      "const": false
+    },
+    "promotion_status": {
+      "const": "not_promoted"
+    },
+    "source_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "design_base_sha",
+        "events_base_sha",
+        "broad_database_census",
+        "exact_public_projection_census"
+      ],
+      "properties": {
+        "design_base_sha": {
+          "$ref": "#/$defs/sha1"
+        },
+        "events_base_sha": {
+          "$ref": "#/$defs/sha1"
+        },
+        "broad_database_census": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "artifact_ref",
+            "artifact_sha256",
+            "observed_at",
+            "mode",
+            "scope",
+            "total_database_events"
+          ],
+          "properties": {
+            "artifact_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "artifact_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "observed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mode": {
+              "const": "read-only-schema-first-aggregate-census"
+            },
+            "scope": {
+              "const": "broad-database-aggregate-not-the-rendered-public-projection"
+            },
+            "total_database_events": {
+              "const": 7861
+            }
+          }
+        },
+        "exact_public_projection_census": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "artifact_ref",
+            "artifact_sha256",
+            "schema_version",
+            "observed_at",
+            "events_repository_sha",
+            "projected_event_count",
+            "authority_role"
+          ],
+          "properties": {
+            "artifact_ref": {
+              "const": "catalog/ui-components/event-card-large/semantic-production-census.v1.json"
+            },
+            "artifact_sha256": {
+              "const": "30c8ac5adfaeff17c463191714f660b3ed5d0a00aa8799e90f2be70cb1ca9993"
+            },
+            "schema_version": {
+              "const": "event_card_semantic_exact_public_census.v1"
+            },
+            "observed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "events_repository_sha": {
+              "$ref": "#/$defs/sha1"
+            },
+            "projected_event_count": {
+              "const": 703
+            },
+            "authority_role": {
+              "const": "normative-observed-vocabulary-and-count-evidence"
+            }
+          }
+        }
+      }
+    },
+    "supersedes_for_bounded_scope": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "event_type": {
+      "$ref": "#/$defs/eventType"
+    },
+    "admission": {
+      "$ref": "#/$defs/admission"
+    },
+    "interactive_actions": {
+      "$ref": "#/$defs/interactiveActions"
+    },
+    "social_proof": {
+      "$ref": "#/$defs/socialProof"
+    },
+    "penpot_reconciliation": {
+      "type": "object",
+      "required": [
+        "status",
+        "existing_evidence_refs",
+        "required_next_readback",
+        "penpot_write_performed_by_this_contract"
+      ],
+      "properties": {
+        "status": {
+          "const": "required-after-contract-integration"
+        },
+        "existing_evidence_refs": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_next_readback": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "penpot_write_performed_by_this_contract": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "known_gaps": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gap_id",
+          "count",
+          "disposition"
+        ],
+        "properties": {
+          "gap_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "disposition": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "non_claims": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "eventType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "semantic_role",
+        "identity_count",
+        "presence_states",
+        "value_model",
+        "component_per_literal",
+        "production_observed",
+        "materialization_rule"
+      ],
+      "properties": {
+        "component_id": {
+          "const": "event.meta.event-type"
+        },
+        "semantic_role": {
+          "const": "event-category-label"
+        },
+        "identity_count": {
+          "const": 1
+        },
+        "presence_states": {
+          "const": [
+            "present",
+            "absent"
+          ]
+        },
+        "value_model": {
+          "const": "arbitrary-nonempty-text-content-override"
+        },
+        "component_per_literal": {
+          "const": false
+        },
+        "production_observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "projected_event_count",
+            "distinct_rendered_label_count",
+            "rendered_labels",
+            "rendered_label_counts"
+          ],
+          "properties": {
+            "projected_event_count": {
+              "const": 703
+            },
+            "distinct_rendered_label_count": {
+              "const": 31
+            },
+            "rendered_labels": {
+              "type": "array",
+              "minItems": 31,
+              "maxItems": 31,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "rendered_label_counts": {
+              "type": "array",
+              "minItems": 31,
+              "maxItems": 31,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "count"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "materialization_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "semantic_role",
+        "identity_count",
+        "presence_states",
+        "semantic_states",
+        "component_per_literal",
+        "display_text_model",
+        "price_content",
+        "production_output_counts",
+        "unknown_policy",
+        "invalid_source_data",
+        "forbidden_semantic_states",
+        "forbidden_display_literals",
+        "materialization_rule"
+      ],
+      "properties": {
+        "component_id": {
+          "const": "event.meta.admission"
+        },
+        "semantic_role": {
+          "const": "admission-status-or-price-label"
+        },
+        "identity_count": {
+          "const": 1
+        },
+        "presence_states": {
+          "const": [
+            "present",
+            "absent"
+          ]
+        },
+        "semantic_states": {
+          "const": [
+            "ticket",
+            "free-entry",
+            "free-registration",
+            "registration-only",
+            "sold-out",
+            "phone",
+            "price",
+            "absent"
+          ]
+        },
+        "component_per_literal": {
+          "const": false
+        },
+        "display_text_model": {
+          "const": "semantic-state-resolved-content-override"
+        },
+        "price_content": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "amount_model",
+            "minimum_exclusive",
+            "range_order",
+            "currency_model",
+            "currency_default",
+            "current_renderer_symbol",
+            "currency_is_variant_axis",
+            "production_distinct_display_label_count"
+          ],
+          "properties": {
+            "amount_model": {
+              "const": "positive-decimal-or-range"
+            },
+            "minimum_exclusive": {
+              "const": 0
+            },
+            "range_order": {
+              "const": "maximum-greater-than-or-equal-to-minimum"
+            },
+            "currency_model": {
+              "const": "arbitrary-nonempty-currency-code-or-symbol"
+            },
+            "currency_default": {
+              "type": "string",
+              "minLength": 1
+            },
+            "current_renderer_symbol": {
+              "type": "string",
+              "minLength": 1
+            },
+            "currency_is_variant_axis": {
+              "const": false
+            },
+            "production_distinct_display_label_count": {
+              "const": 61
+            }
+          }
+        },
+        "production_output_counts": {
+          "$ref": "#/$defs/admissionCounts"
+        },
+        "unknown_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "semantic_state",
+            "visible",
+            "source_gap_count",
+            "candidate_delta"
+          ],
+          "properties": {
+            "semantic_state": {
+              "const": "absent"
+            },
+            "visible": {
+              "const": false
+            },
+            "source_gap_count": {
+              "const": 96
+            },
+            "candidate_delta": {
+              "const": true
+            }
+          }
+        },
+        "invalid_source_data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "zero_price_count",
+            "disposition"
+          ],
+          "properties": {
+            "zero_price_count": {
+              "const": 2
+            },
+            "disposition": {
+              "const": "fail-closed-no-visible-price-chip"
+            }
+          }
+        },
+        "forbidden_semantic_states": {
+          "const": [
+            "paid",
+            "unspecified",
+            "unknown"
+          ]
+        },
+        "forbidden_display_literals": {
+          "const": [
+            "Условия уточняются"
+          ]
+        },
+        "materialization_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "admissionCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ticket",
+        "free-entry",
+        "obsolete-unknown-source-gap",
+        "free-registration",
+        "registration-only",
+        "sold-out",
+        "phone",
+        "price",
+        "total"
+      ],
+      "properties": {
+        "ticket": {
+          "const": 181
+        },
+        "free-entry": {
+          "const": 141
+        },
+        "obsolete-unknown-source-gap": {
+          "const": 96
+        },
+        "free-registration": {
+          "const": 20
+        },
+        "registration-only": {
+          "const": 16
+        },
+        "sold-out": {
+          "const": 9
+        },
+        "phone": {
+          "const": 7
+        },
+        "price": {
+          "const": 233
+        },
+        "total": {
+          "const": 703
+        }
+      }
+    },
+    "interactiveActions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_rule",
+        "wrappers",
+        "forbidden_identity_patterns"
+      ],
+      "properties": {
+        "identity_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wrappers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "like",
+            "share",
+            "calendar",
+            "not_interested"
+          ],
+          "properties": {
+            "like": {
+              "$ref": "#/$defs/proofActionLike"
+            },
+            "share": {
+              "$ref": "#/$defs/proofActionShare"
+            },
+            "calendar": {
+              "$ref": "#/$defs/calendarAction"
+            },
+            "not_interested": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "component_id",
+                "semantic_role"
+              ],
+              "properties": {
+                "component_id": {
+                  "const": "event.action.not-interested"
+                },
+                "semantic_role": {
+                  "const": "interactive-negative-feedback-action"
+                }
+              }
+            }
+          }
+        },
+        "forbidden_identity_patterns": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "proofActionLike": {
+      "const": {
+        "component_id": "event.action.like",
+        "semantic_role": "interactive-like-action",
+        "nested_component_ref": "event.social-proof.like"
+      }
+    },
+    "proofActionShare": {
+      "const": {
+        "component_id": "event.action.share",
+        "semantic_role": "interactive-share-action",
+        "nested_component_ref": "event.social-proof.share"
+      }
+    },
+    "calendarAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "semantic_role",
+        "eligibility_states",
+        "production_counts"
+      ],
+      "properties": {
+        "component_id": {
+          "const": "event.action.calendar"
+        },
+        "semantic_role": {
+          "const": "interactive-calendar-action"
+        },
+        "eligibility_states": {
+          "const": [
+            "eligible",
+            "absent"
+          ]
+        },
+        "production_counts": {
+          "$ref": "#/$defs/eligibleCounts"
+        }
+      }
+    },
+    "eligibleCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eligible",
+        "absent",
+        "total"
+      ],
+      "properties": {
+        "eligible": {
+          "const": 588
+        },
+        "absent": {
+          "const": 115
+        },
+        "total": {
+          "const": 703
+        }
+      }
+    },
+    "socialProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_rule",
+        "components",
+        "count_content_contract",
+        "forbidden"
+      ],
+      "properties": {
+        "identity_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "components": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "like",
+            "share"
+          ],
+          "properties": {
+            "like": {
+              "$ref": "#/$defs/likeProof"
+            },
+            "share": {
+              "$ref": "#/$defs/shareProof"
+            }
+          }
+        },
+        "count_content_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value_type",
+            "positive_value_is_arbitrary_content",
+            "zero_or_missing_resolves_to",
+            "node_name",
+            "required_ancestry",
+            "component_per_numeric_value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "nonnegative-integer-content-override"
+            },
+            "positive_value_is_arbitrary_content": {
+              "const": true
+            },
+            "zero_or_missing_resolves_to": {
+              "const": "count-absent"
+            },
+            "node_name": {
+              "const": "Content / Count"
+            },
+            "required_ancestry": {
+              "const": "descendant-of-owning-social-proof-instance"
+            },
+            "component_per_numeric_value": {
+              "const": false
+            }
+          }
+        },
+        "forbidden": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "likeProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "semantic_role",
+        "count_owner_component_id",
+        "count_states",
+        "production_counts"
+      ],
+      "properties": {
+        "component_id": {
+          "const": "event.social-proof.like"
+        },
+        "semantic_role": {
+          "const": "like-count-proof"
+        },
+        "count_owner_component_id": {
+          "const": "event.social-proof.like"
+        },
+        "count_states": {
+          "const": [
+            "count-positive",
+            "count-absent"
+          ]
+        },
+        "production_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "count-positive",
+            "count-absent",
+            "total"
+          ],
+          "properties": {
+            "count-positive": {
+              "const": 557
+            },
+            "count-absent": {
+              "const": 146
+            },
+            "total": {
+              "const": 703
+            }
+          }
+        }
+      }
+    },
+    "shareProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "semantic_role",
+        "count_owner_component_id",
+        "count_states",
+        "production_counts"
+      ],
+      "properties": {
+        "component_id": {
+          "const": "event.social-proof.share"
+        },
+        "semantic_role": {
+          "const": "share-count-proof"
+        },
+        "count_owner_component_id": {
+          "const": "event.social-proof.share"
+        },
+        "count_states": {
+          "const": [
+            "count-positive",
+            "count-absent"
+          ]
+        },
+        "production_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "count-positive",
+            "count-absent",
+            "total"
+          ],
+          "properties": {
+            "count-positive": {
+              "const": 205
+            },
+            "count-absent": {
+              "const": 498
+            },
+            "total": {
+              "const": 703
+            }
+          }
+        }
+      }
+    }
+  }
+}

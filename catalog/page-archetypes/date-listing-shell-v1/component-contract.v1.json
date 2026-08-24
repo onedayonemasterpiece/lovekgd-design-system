@@ -1,0 +1,1561 @@
+{
+  "schema_version": "date-listing-shell-component-contract.v1",
+  "component_family": "archetype.listing.date",
+  "lifecycle": "candidate",
+  "canonical": false,
+  "conformance_framework": {
+    "mode": "recursive-correction",
+    "status": "in-progress",
+    "levels": [
+      "foundation",
+      "primitive-icon",
+      "leaf-component",
+      "composite-component",
+      "section-pattern",
+      "archetype-shell",
+      "bounded-page-consumer"
+    ],
+    "direct_component_comparison_required": true,
+    "parent_or_page_comparison_substitutes_for_child": false,
+    "same_exact_fixture_state_viewport_required": true,
+    "mismatch_action": "fix the lowest owning SoT/native master, inherit through linked instances, then recheck affected parents",
+    "active_nonconformant_statuses": [
+      "missing",
+      "fail",
+      "minor",
+      "blocked"
+    ]
+  },
+  "body_components": [
+    {
+      "id": "listing.page-date-header",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "today",
+        "tomorrow",
+        "date"
+      ]
+    },
+    {
+      "id": "listing.page-date-header.specific-date",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "date-fixture-bound"
+      ],
+      "dependencies": [
+        "listing.date-nav-item.wide"
+      ]
+    },
+    {
+      "id": "listing.page-date-header.tomorrow",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "tomorrow-active"
+      ],
+      "dependencies": [
+        "listing.date-nav-item.wide",
+        "listing.date-nav-item.wide.selected"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86cf6598eff5",
+      "geometry_rule": "1280x182.28125 source root; exact state tomorrow, count=6 and four semantic nav targets",
+      "typography_rule": "date eyebrow uses uppercase transform and 1.44px letter spacing; title and event count remain semantic text layers",
+      "rendered_markup_gate": "Сегодня, Завтра, Выходные and Популярное must all be present in current generated markup; proxy-only overrides are insufficient"
+    },
+    {
+      "id": "listing.date-nav-item.wide",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "today",
+        "tomorrow",
+        "weekend",
+        "popular"
+      ]
+    },
+    {
+      "id": "listing.date-nav-item.wide.selected",
+      "source": "ListingPageHeader.astro",
+      "states": [
+        "selected"
+      ]
+    },
+    {
+      "id": "listing.controls",
+      "source": "ListingControls.astro",
+      "states": [
+        "default",
+        "filters-applied",
+        "search-active"
+      ]
+    },
+    {
+      "id": "listing.city-filter-rail",
+      "source": "ListingDiscoveryRail.astro",
+      "states": [
+        "all-selected",
+        "city-selected"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86cf6749b5d4",
+      "penpot_main_shape_id": "a21f5e36-5d76-8065-8008-86cf65b30c69",
+      "all_selected_fixture": [
+        "Все",
+        "Калининград",
+        "Светлогорск",
+        "Дружба"
+      ],
+      "surface_rule": "1280x52; #fbf7f0 composited Astro surface; only bottom divider #e7dcce; no enclosing four-sided stroke",
+      "typography_rule": "14.4/23.04 Inter; source weights 880 selected and 690 unselected are represented by supported Penpot 900 and 700",
+      "geometry_rule": "first label x=462; gaps and label widths are exact browser read-back; selected underline bottom=2 height=2",
+      "exact_export_status": "PASS_WITH_REGISTERED_RENDERER_DELTA"
+    },
+    {
+      "id": "listing.date-weather-context",
+      "source": "WeatherDateContext.astro",
+      "states": [
+        "ready",
+        "unavailable"
+      ]
+    },
+    {
+      "id": "listing.time-navigation",
+      "source": "ListingTimeNav.astro",
+      "states": [
+        "hidden-by-content-rule",
+        "visible",
+        "earlier-present"
+      ]
+    },
+    {
+      "id": "listing.time-group",
+      "source": "ExactTimeTimeline.astro",
+      "states": [
+        "timed",
+        "untimed",
+        "earlier"
+      ]
+    },
+    {
+      "id": "listing.time-group-header.sparse",
+      "source": "ExactTimeTimeline.astro",
+      "states": [
+        "single-event"
+      ]
+    },
+    {
+      "id": "listing.desktop-flow",
+      "source": "DateListingSurface.astro",
+      "states": [
+        "ready",
+        "sparse",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    {
+      "id": "listing.mobile-rail-viewport",
+      "source": "MobileListingRailSurface.astro",
+      "states": [
+        "ready",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "content_delivery": {
+        "date_today_tomorrow_weekend_popular": "Astro build-time rendered rows from props; client controller only filters/gestures/sticky state",
+        "favorites_personal": "may hydrate/fetch by its own explicit surface contract; not inherited by date listing"
+      }
+    },
+    {
+      "id": "listing.mobile-state-panel",
+      "source": "DateListingCandidateSurface.astro#.date-listing-candidate__state",
+      "states": [
+        "loading",
+        "empty",
+        "error"
+      ],
+      "viewport_each": "360x240",
+      "penpot_component_ids": {
+        "loading": "a21f5e36-5d76-8065-8008-86ada7c03c70",
+        "empty": "a21f5e36-5d76-8065-8008-86adcb9194ed",
+        "error": "a21f5e36-5d76-8065-8008-86adcd7481c0"
+      },
+      "geometry_rule": "browser border-box is materialized as a 1px inner stroke plus 17px loading content edge or 19px empty/error content edge; title/description/action vertical origins are 19/79/133px for message states",
+      "title_flow_rule": "the 360px state master owns a bounded fixed text frame that resolves the same two-line wrap as Astro; detached text overlays and explicit review-board labels are forbidden",
+      "parent_adoption_status": "Page 60.4 review instances are linked to the three state masters; detached=0 and unbound duplicate state boards=0"
+    },
+    {
+      "id": "listing.state-action",
+      "source": "DateListingCandidateSurface.astro#.date-listing-candidate__message a|button",
+      "states": [
+        "choose-date",
+        "retry"
+      ],
+      "overridable": [
+        "label",
+        "fixture-owned-width"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86ada69598f2",
+      "geometry_rule": "48px high, radius 14; exact resolved widths are 148.421875px for «Выбрать дату» and 120.734375px for «Повторить»",
+      "materialization_rule": "empty/error state masters consume linked instances of one reusable State action master; label/width are registered instance overrides, never detached boards"
+    },
+    {
+      "id": "listing.mobile-page-head",
+      "source": "MobileListingRailSurface.astro#.page-head",
+      "states": [
+        "today",
+        "tomorrow",
+        "weekend",
+        "popular",
+        "specific-date"
+      ],
+      "overridable": [
+        "title",
+        "date-meta",
+        "event-count"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d47f32180",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "390x96; title baseline and metadata are materialized from the exact current fixture; parent shell shadow is external context, not part of this master",
+      "typography_residual": "Penpot 2.17.2 plugin API rejects Astro negative letter-spacing -1.98px; keep the linked native master and an explicit MINOR residual until Penpot 2.18 or a native UI typography route is validated"
+    },
+    {
+      "id": "listing.mobile-city-picker-summary",
+      "source": "MobileListingRailSurface.astro#.city-picker>summary",
+      "states": [
+        "all",
+        "city-selected"
+      ],
+      "overridable": [
+        "label"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d66059d3a",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "119.375x42 exact current state (PNG bounds 120x43 at fractional page coordinates); pill fill #fffdf8, inner 1px #793014/15%, semantic dropdown cue"
+    },
+    {
+      "id": "listing.mobile-feed-head",
+      "source": "MobileListingRailSurface.astro#.feed-head",
+      "states": [
+        "default"
+      ],
+      "dependencies": [
+        "listing.mobile-city-picker-summary"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-873d7cca3ede",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "geometry_rule": "390x60 with exact title/hint, linked city picker summary, and 1px #e1d3c2 bottom divider"
+    },
+    {
+      "id": "listing.mobile-heads.current-fixture",
+      "classification": "bounded exact-data review composition; not a product component variant",
+      "fixture_state": {
+        "title": "Завтра",
+        "meta": "22 августа · суббота · 3 события",
+        "sort": "По времени",
+        "hint": "Фото → о событии → лайк",
+        "city": "Вся область"
+      },
+      "dependencies": [
+        "listing.mobile-page-head",
+        "listing.mobile-feed-head"
+      ],
+      "penpot_board_id": "06b5fc29-ba80-803f-8008-873d90c03796",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-873ce354560a",
+        "name": "60.1d — Mobile listing head · Native components"
+      },
+      "materialization_rule": "390x156 review board with linked instances only; canvas #fbf7ef; bounded comparison is stacked vertically because the specimen is wide"
+    },
+    {
+      "id": "social-proof.like.rail-inline",
+      "family_id": "social-proof.like",
+      "context_variant": "rail-inline",
+      "source": "MobileListingRailSurface.astro#.event-signal--like",
+      "states": [
+        "count-present",
+        "count-absent"
+      ],
+      "overridable": [
+        "count"
+      ],
+      "dependencies": [
+        "icon.ui.heart"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "materialization_rule": "one canonical rail-inline context master owns linked Heart plus overridable count; fixture adapters and archetype consumers must link this master and may override count only. A direct Heart+text reconstruction is forbidden",
+      "canonical_context_master": {
+        "penpot_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+        "default_fixture_value": 37,
+        "family_relation": "context variant of social-proof.like; not a second semantic identity"
+      }
+    },
+    {
+      "id": "listing.rail-row.event-summary",
+      "source": "MobileListingRailRow.astro#.event-summary",
+      "states": [
+        "timed",
+        "date-primary",
+        "program-day"
+      ],
+      "dependencies": [
+        "social-proof.like.rail-inline",
+        "icon.product.rail-arrow-right"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-874329afd09a",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "exact_fixture_id": "event.real.7906",
+      "review_board_id": "06b5fc29-ba80-803f-8008-87434cadac86",
+      "geometry_rule": "296x112 master; bounded comparison adds 8px canvas context on every side and therefore exports 312x128",
+      "component_topology": "native Event summary component with linked rail-inline Like proof and linked product rail-arrow icon; no detached copies",
+      "parent_adoption_status": "complete: owning T04 main instance d012936b-5394-80cb-8008-855655e1b216 / a6e7f5b4-ff51-80c0-8008-830fd1240e92 owns linked Event summary child 06b5fc29-ba80-803f-8008-874a6958850e; compact review instance a21f5e36-5d76-8065-8008-860245e91ad2 inherited linked child 06b5fc29-ba80-803f-8008-874a6abce2e1 without terminal override"
+    },
+    {
+      "id": "listing.rail-row.track",
+      "source": "MobileListingRailRow.astro#.event-track",
+      "states": [
+        "identity-present",
+        "identity-absent",
+        "artifact-present",
+        "artifact-absent",
+        "like-count-present",
+        "media-1",
+        "media-many",
+        "media-absent"
+      ],
+      "penpot_component_id": "d012936b-5394-80cb-8008-855655e1b216",
+      "recursive_decomposition_status": "complete",
+      "component_graph_readback": "the owning T04 master and compact review instance each expose eight direct linked children: Event summary, three rail media fixture adapters, Event digest, semantic identity-absent state, Like action and semantic artifact-absent state; no ordinary top-level nested board remains and currentFile.validate()=[]",
+      "bounded_visual_status": "ready-for-owner-review: current Astro and Penpot exports are exact 1013x112; stacked v6 uses event.real.7906 on both sides and confirms canonical Heart 28 plus count 37; comparison sha256=09eb632c47a6ebc2179f219d9625d3f573426d6d1f478bc93413ea6109b335b0"
+    },
+    {
+      "id": "listing.rail-row.event-digest",
+      "source": "MobileListingRailRow.astro#.event-digest",
+      "states": [
+        "present",
+        "clamped-six-lines"
+      ],
+      "overridable": [
+        "body"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-874d4c59fc59",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874c7ba10efc",
+        "name": "60.1f — Mobile rail digest · Native component"
+      },
+      "exact_fixture_id": "event.real.7906",
+      "review_board_id": "06b5fc29-ba80-803f-8008-874d4c6f633c",
+      "geometry_rule": "168x112 exact leaf; 10px horizontal inset; heading at y=14.25 and six-line body begins at y=24.75",
+      "materialization_rule": "semantic Event digest owns heading and overridable body; current exact-data adapter materializes the source six-line clamp with explicit terminal ellipsis because Penpot has no runtime CSS line clamp",
+      "parent_adoption_status": "complete: owning T04 main owns linked child 06b5fc29-ba80-803f-8008-87508d267296 and compact review instance inherited linked child 06b5fc29-ba80-803f-8008-87509b92901f without terminal override"
+    },
+    {
+      "id": "listing.rail-row.media-frame",
+      "source": "MobileListingRailRow.astro#.event-media",
+      "states": [
+        "ready-cover",
+        "absent"
+      ],
+      "overridable": [
+        "media"
+      ],
+      "penpot_component_id": "06b5fc29-ba80-803f-8008-87516651257f",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-875146957d25",
+        "name": "60.1g — Mobile rail media · Exact adapters"
+      },
+      "geometry_rule": "140x112 rail media frame, cover crop, 12px corners; the parent track owns 7px gaps",
+      "materialization_rule": "the reusable frame owns geometry and clipping while a fixture adapter binds the actual media; assignments must preserve the native Penpot ImageData proxy rather than reconstructing serialized fillImage metadata"
+    },
+    {
+      "id": "listing.rail-row.media.fixture-7906",
+      "classification": "exact-data adapters, not additional product variants",
+      "exact_fixture_id": "event.real.7906",
+      "dependencies": [
+        "listing.rail-row.media-frame"
+      ],
+      "penpot_component_ids": {
+        "slot-1": "06b5fc29-ba80-803f-8008-87517be0c7e1",
+        "slot-2": "06b5fc29-ba80-803f-8008-87519478607c",
+        "slot-3": "06b5fc29-ba80-803f-8008-8751af9f2c0c"
+      },
+      "review_board_id": "06b5fc29-ba80-803f-8008-8751c9aeb9af",
+      "materialization_rule": "each exact adapter contains a linked rail media frame and binds one immutable corpus asset through a native ImageData proxy; the review row uses three linked adapter instances",
+      "parent_adoption_status": "complete: owning T04 main linked children are 06b5fc29-ba80-803f-8008-8753d0c04927, 06b5fc29-ba80-803f-8008-8753d23f02c8 and 06b5fc29-ba80-803f-8008-8753d33a03d5; compact review inherited linked children 06b5fc29-ba80-803f-8008-8753dba6c618, 06b5fc29-ba80-803f-8008-8753dba557ed and 06b5fc29-ba80-803f-8008-8753dba223a5"
+    },
+    {
+      "id": "listing.rail-row.identity-slot",
+      "source": "MobileListingRailRow.astro identity state slot",
+      "states": [
+        "absent",
+        "present"
+      ],
+      "dependencies": [
+        "medallion.frame.normalized"
+      ],
+      "penpot_variant_container_id": "06b5fc29-ba80-803f-8008-87567d5d5dec",
+      "state_component_ids": {
+        "absent": "06b5fc29-ba80-803f-8008-875656cacadf",
+        "present": "06b5fc29-ba80-803f-8008-875656fc74ea"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "materialization_rule": "state=absent is an empty linked component without a hidden present-state child; in the flex track it is positioned as an absolute semantic slot so absence consumes no layout width, while state=present owns a linked normalized Medallion",
+      "parent_adoption_status": "complete: owning T04 main owns direct linked state=absent child 06b5fc29-ba80-803f-8008-8756a22ff810 and compact review inherited linked child 06b5fc29-ba80-803f-8008-8756b2eb16f8; both are visible empty-state components positioned absolute so absence consumes no flex width"
+    },
+    {
+      "id": "action.like.rail",
+      "source": "MobileListingRailRow.astro#.event-signal--like",
+      "states": [
+        "count-present",
+        "count-absent"
+      ],
+      "dependencies": [
+        "icon.ui.heart"
+      ],
+      "penpot_variant_container_id": "d87e18f1-dcb4-80a6-8008-8761942b908a",
+      "state_component_ids": {
+        "count-present": "d87e18f1-dcb4-80a6-8008-8761830829b6",
+        "count-absent": "d87e18f1-dcb4-80a6-8008-8761830f2e07"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "geometry_rule": "count-present is 69.875x56 with linked canonical Heart artwork at true 28x28 and a 15px weight-900 overridable count; count-absent is 56x56 with the same linked Heart",
+      "materialization_rule": "the rail-specific Like action is the functional component boundary; its master owns the linked Heart geometry and count slot, while fixture consumers override only count content",
+      "parent_adoption_status": "complete: owning T04 main owns direct linked count-present child 06b5fc29-ba80-803f-8008-87574ca3dde5 with count=37 and compact review inherited linked child 06b5fc29-ba80-803f-8008-875757d1df26 without an ordinary wrapper"
+    },
+    {
+      "id": "listing.rail-row.artifact-slot",
+      "source": "MobileListingRailRow.astro artifact state slot",
+      "states": [
+        "absent",
+        "present"
+      ],
+      "dependencies": [
+        "artifact.rail"
+      ],
+      "penpot_variant_container_id": "d87e18f1-dcb4-80a6-8008-875cfd828f63",
+      "state_component_ids": {
+        "absent": "d87e18f1-dcb4-80a6-8008-875ce3d79aee",
+        "present": "d87e18f1-dcb4-80a6-8008-875ce3e699be"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "materialization_rule": "state=absent is an empty linked component rather than a hidden present artifact; state=present owns the existing linked rail artifact component; the absent flex consumer is absolute and consumes no layout width",
+      "parent_adoption_status": "complete: owning T04 child a6e7f5b4-ff51-80c0-8008-833d99680337 was swapped in place to state=absent and compact review inherited linked child a21f5e36-5d76-8065-8008-860245e91ad3; validation=[]"
+    },
+    {
+      "id": "listing.mobile-date-accessory",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "visible",
+        "calendar-open"
+      ],
+      "dependencies": [
+        "listing.mobile-date-chip",
+        "listing.mobile-calendar-trigger"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c0f46904e6",
+      "materialization_rule": "390x56 composite; linked chips and trigger; exact visible state is compared independently from its page consumer"
+    },
+    {
+      "id": "listing.mobile-date-chip",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "default",
+        "today",
+        "weekend",
+        "weekend-range",
+        "selected",
+        "disabled",
+        "month-label-present"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c06b7db572",
+      "responsive_rule": "60x48 default and 74x48 weekend-range; full-width fixed text slots remain centered when the linked instance width changes",
+      "materialization_integrity": "plugin proxy text values do not satisfy read-back; generated markup and bounded export must contain the exact resolved day/date/month content",
+      "owner_page": {
+        "id": "a21f5e36-5d76-8065-8008-871c5ba59b76",
+        "name": "60.1c — Mobile date chip · Native variants"
+      },
+      "state_component_ids": {
+        "default": "a21f5e36-5d76-8065-8008-871c8b1e42b3",
+        "today": "a21f5e36-5d76-8065-8008-871cd0e3ca14",
+        "weekend": "a21f5e36-5d76-8065-8008-871cdc9f883e",
+        "weekend-range": "a21f5e36-5d76-8065-8008-871ce0f25fea",
+        "selected-weekend-range": "a21f5e36-5d76-8065-8008-871ce36ade7b",
+        "disabled": "a21f5e36-5d76-8065-8008-871ce7ba8339",
+        "disabled;month-label=present": "a21f5e36-5d76-8065-8008-871ce965e0e8"
+      },
+      "representative_combinations": [
+        "state=default",
+        "state=today;month-label=present",
+        "state=weekend",
+        "state=weekend-range",
+        "state=selected-weekend-range",
+        "state=disabled",
+        "state=disabled;month-label=present"
+      ],
+      "today_outline_rule": "Astro inset 0 0 0 1px rgba(121,48,20,.22); Penpot master uses an inner 1px #793014/22% stroke because its bounded PNG exporter drops a fill-less inner-shadow.",
+      "exact_fixture_materialization_adapters": {
+        "classification": "fixture-bound materialization adapters, not product taxonomy variants",
+        "reason": "Penpot instance text proxy overrides can report requested values while generated markup and PNG still render the master text; exact native masters are therefore required until renderer integrity is proven.",
+        "board_id": "a21f5e36-5d76-8065-8008-871fd9ef0b32",
+        "component_path": "Listing / Mobile / Date chip / Exact 2026-08-22",
+        "component_ids": {
+          "2026-08-19": "a21f5e36-5d76-8065-8008-871fdd3f59a3",
+          "2026-08-20": "a21f5e36-5d76-8065-8008-871fe0c8e266",
+          "2026-08-21": "a21f5e36-5d76-8065-8008-871fe40dd0fd",
+          "2026-08-22--23-selected": "a21f5e36-5d76-8065-8008-871fe58c5350",
+          "2026-08-23": "a21f5e36-5d76-8065-8008-871fe8df4d07",
+          "2026-08-24": "a21f5e36-5d76-8065-8008-871fec94d7b0",
+          "2026-08-25-disabled": "a21f5e36-5d76-8065-8008-871ff17a70ae"
+        }
+      }
+    },
+    {
+      "id": "listing.mobile-calendar-trigger",
+      "source": "MobileDateAccessory.astro",
+      "states": [
+        "default",
+        "expanded"
+      ],
+      "dependencies": [
+        "icon.shell.mobile-date-accessory.calendar.23"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c08913c1a5",
+      "icon_rule": "reuse the linked exact 23px plain-calendar master from Page 25; calendar-with-clock action artwork and resizing the 21px bottom-navigation instance without scaling its vector are invalid",
+      "geometry_rule": "50x46 at composite x=335,y=6; linked 23x23 icon at local x=14,y=10; left divider 1x46",
+      "linked_icon_component_id": "a43684fa-6ddf-80af-8008-87357e243598"
+    },
+    {
+      "id": "listing.media.6628",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.6628",
+      "state": "visual-cover",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f83754ded1"
+    },
+    {
+      "id": "listing.media.4327",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.4327",
+      "state": "visual-cover",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f84528c2e7"
+    },
+    {
+      "id": "listing.media.8156",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.8156",
+      "state": "document-contain",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f8567b334b"
+    },
+    {
+      "id": "listing.media.7888",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.7888",
+      "state": "absent",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f865937fa4"
+    },
+    {
+      "id": "content.event-title.clamp2",
+      "source": "ListingEventCard.astro#ke-listing-card__title",
+      "states": [
+        "one-line",
+        "two-line-clamp"
+      ],
+      "overridable": [
+        "text"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86f9b81df4c1"
+    },
+    {
+      "id": "content.event-place.listing-on-light",
+      "source": "ListingEventCard.astro#ke-listing-card__copy p",
+      "states": [
+        "one-line",
+        "two-line"
+      ],
+      "overridable": [
+        "text"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fc1c65c1f5"
+    },
+    {
+      "id": "content.event-title.fixture-adapter",
+      "classification": "exact-data adapters, not product variants",
+      "source": "content.event-title.clamp2 + immutable Golden Event Corpus resolved content",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-title.clamp2"
+      ],
+      "penpot_component_ids": {
+        "event.real.6628": "d87e18f1-dcb4-80a6-8008-8766da07f8e2",
+        "event.real.4327": "d87e18f1-dcb4-80a6-8008-8766dcdb59bc",
+        "event.real.8156": "d87e18f1-dcb4-80a6-8008-8766df5fdc26",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-8766e1d0964f"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "materialization_rule": "fixture-bound native component defaults own the exact frozen title and explicit Astro line wrapping; consumers link the adapter and do not rely on a terminal nested text override",
+      "renderer_reason": "Penpot 2.17.2 plugin read-back reported changed nested instance characters while bounded export still painted the generic source text; the adapter preserves component linkage and makes exported content deterministic",
+      "geometry_rule": "adapter width equals the full ListingEventCard root width, not media width: 420 / 395.703125 / 248.15625 / 338.34375; exact Astro two-line wrapping is explicit in frozen fixtures"
+    },
+    {
+      "id": "content.event-place.fixture-adapter",
+      "classification": "exact-data adapters, not product variants",
+      "source": "content.event-place.listing-on-light + immutable Golden Event Corpus resolved content",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-place.listing-on-light"
+      ],
+      "penpot_component_ids": {
+        "event.real.6628": "d87e18f1-dcb4-80a6-8008-8766db7a0c8f",
+        "event.real.4327": "d87e18f1-dcb4-80a6-8008-8766de3c2ad0",
+        "event.real.8156": "d87e18f1-dcb4-80a6-8008-8766e0b121f4",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-8766e3255e9f"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "materialization_rule": "fixture-bound native component defaults own the renderer-resolved one-line place label; long states include the terminal ellipsis in the semantic text itself, the full place remains in component metadata, and no ordinary external overflow mask or ellipsis sibling is allowed",
+      "renderer_reason": "same deterministic nested-instance export boundary as the title adapter; resolved full place remains stored on component metadata",
+      "geometry_rule": "adapter width equals full card root width and spans under the side rail exactly as Astro copy does; height 18 in Penpot versus 21.216 browser line box is a registered renderer baseline delta"
+    },
+    {
+      "id": "medallion.frame.normalized",
+      "source": "Medallion / Frame / Normalized",
+      "states": [
+        "compact44",
+        "standard60",
+        "feature88"
+      ],
+      "rule": "consumer positions the normalized frame; artwork remains a linked nested component and may not be resized independently",
+      "penpot_component_id": "446b4522-f9dd-80eb-8008-8358ef7540b4"
+    },
+    {
+      "id": "social-proof.share.compact36",
+      "source": "ListingEventCard.astro#ke-listing-card__share",
+      "states": [
+        "count-present"
+      ],
+      "overridable": [
+        "count"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870c7b58f649"
+    },
+    {
+      "id": "medallion.frame.standard60.free",
+      "source": "Medallion / Artwork / free",
+      "state": "standard60",
+      "rule": "concrete linked frame variant; no runtime swap or independently resized artwork",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870cb279b877"
+    },
+    {
+      "id": "medallion.frame.standard60.more-vnutri",
+      "source": "Medallion / Artwork / more-vnutri",
+      "state": "standard60",
+      "rule": "concrete linked frame variant; no runtime swap or independently resized artwork",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870cb2e2cbdb"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.6628",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.6628",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
+      "dependencies": [
+        "listing.media.6628",
+        "social-proof.like.compact36",
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b37a2202b",
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "ready-for-owner-review: exact event.real.6628 direct Astro/Penpot card comparison at 420x280; title, place and like count all resolve inside linked semantic components; comparison sha256=34633e149cf9cf7a717b8c0905219891d83e78bb5fee3a759a060af49e4f8279"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.4327",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.4327",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
+      "dependencies": [
+        "listing.media.4327",
+        "medallion.frame.standard60.free",
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6af1a5cb",
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=7b1ec455b59057c54669f557af2149458f2e8143fae8c984ddf812dc3619c1de; MAE=14.787835/255"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.8156",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.8156",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
+      "dependencies": [
+        "listing.media.8156",
+        "medallion.frame.standard60.more-vnutri",
+        "social-proof.like.compact36",
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6c686ced",
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=a71b8fd9ae0bf40a2e6f1dbe54df4cf75f582a3cb81a9636baba5630bd7a3964; MAE=20.642869/255; poster geometry is exact cover with object-position 50% 40%, while source-original versus Astro 512w derivative rasterization remains MINOR"
+    },
+    {
+      "id": "listing.event-card.compact.event.real.7888",
+      "source": "ListingEventCard.astro",
+      "fixture_id": "event.real.7888",
+      "topology": "component master with linked semantic media/proof/identity children plus exact-data title/place adapter components; no ordinary title/place/ellipsis siblings and no archetype overlay assembly",
+      "dependencies": [
+        "listing.media.7888",
+        "social-proof.share.compact36",
+        "social-proof.like.compact36",
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-870b6e7d6ef9",
+      "owner_page": "60.1b — ListingEventCard · Compact variants",
+      "parent_adoption_status": "master corrected centrally on Page 60.1b; linked stress/archetype instances inherit the exact copy adapters",
+      "bounded_visual_status": "working direct Astro/Penpot same-fixture comparison; semantic structure and full-card copy geometry PASS; agent verdict MINOR; comparison sha256=246a697c8319275bb46aad079b9948697ffa002b2eb463687ce7fda2a6d30e47; MAE=9.261154/255"
+    },
+    {
+      "id": "listing.time-group-header.exact-date-typical",
+      "classification": "exact-data adapters, not product variants",
+      "source": "DateListingSurface.astro + immutable Golden Event Corpus resolved groups",
+      "states": [
+        "12:00/count=1",
+        "18:00/count=1",
+        "untimed/count=1"
+      ],
+      "dependencies": [
+        "listing.time-group"
+      ],
+      "penpot_component_ids": {
+        "12:00/count=1": "d87e18f1-dcb4-80a6-8008-87756ae21037",
+        "18:00/count=1": "d87e18f1-dcb4-80a6-8008-87756b6935bc",
+        "untimed/count=1": "d87e18f1-dcb4-80a6-8008-87756bf04917"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-876664e327e7",
+        "name": "60.1i — Listing copy fixture adapters"
+      },
+      "geometry_rule": "timed 120x62.859375; untimed 120x73.78125; count and multiline untimed label are owned by the linked exact-data adapter",
+      "materialization_rule": "chronological group consumers link one exact header adapter; no detached or top-level review text is permitted"
+    },
+    {
+      "id": "listing.event-card.compact.context.date-typical-desktop",
+      "classification": "parent-context exact adapters, not product taxonomy variants",
+      "source": "ListingEventCard.astro rendered inside the exact Date typical-desktop parent grid",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "content.event-title.fixture-adapter",
+        "content.event-place.fixture-adapter",
+        "social-proof.like.inside",
+        "social-proof.like.compact36",
+        "social-proof.share.compact36",
+        "medallion.frame.standard60.free"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-87733a67d4bb",
+        "event.real.7906": "d87e18f1-dcb4-80a6-8008-8773575484aa",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877370383914"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-877243d3fa8b",
+        "name": "60.1j — Listing compact context adapters"
+      },
+      "geometry_rule": "root widths and content-driven heights are resolved by the parent grid: 7807=444.109375x326.984375; 7906=433.21875x279.796875; 7888=420x279.796875",
+      "identity_rule": "event.real.7807 uses the linked free medallion; venue artwork must not be inferred from another fixture",
+      "parent_adoption_status": "complete: Desktop listing flow owns three linked context adapters in three chronological groups; no top-level third-card overlay remains"
+    },
+    {
+      "id": "medallion.frame.standard60.world-ocean-museum",
+      "source": "normalized medallion wrapper + linked world-ocean-museum artwork",
+      "state": "identity=world-ocean-museum;size=standard60",
+      "rule": "60x60 clipped wrapper centralizes identity framing; consumers link this semantic frame only when the exact fixture identity requires it",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-8772ed67a8d0",
+      "owner_page": {
+        "id": "579a886e-56e8-80a3-8008-81882de5171b",
+        "name": "48 — Event medallions · Normalized tiers v2"
+      }
+    },
+    {
+      "id": "social-proof.like.rail-inline.exact-fixture-count",
+      "classification": "exact-data adapters, not product variants",
+      "source": "social-proof.like.rail-inline + Golden Event Corpus likes_count",
+      "fixture_counts": {
+        "event.real.7807": 10,
+        "event.real.7906": 37,
+        "event.real.7888": 53
+      },
+      "penpot_component_ids": {
+        "count=10": "d87e18f1-dcb4-80a6-8008-877b9c166cf6",
+        "count=37": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+        "count=53": "d87e18f1-dcb4-80a6-8008-877b9c4319e3"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "materialization_rule": "count=37 uses the canonical rail-inline context master with its default fixture value. count=10 and count=53 adapters each contain one linked instance of that same master and override only Content / Count. They must not recreate Heart or count as direct visual children; fixture review surfaces never place a sibling number"
+    },
+    {
+      "id": "listing.rail-row.event-summary.exact-fixtures",
+      "classification": "exact-data adapters, not product variants",
+      "source": "MobileListingRailRow.astro#.event-summary + Golden Event Corpus",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "social-proof.like.rail-inline.exact-fixture-count",
+        "icon.product.rail-arrow-right"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877b9cc484e4",
+        "event.real.7906": "06b5fc29-ba80-803f-8008-874329afd09a",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877bcb4ea604"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874226210f1a",
+        "name": "60.1e — Mobile rail summary · Native component"
+      },
+      "geometry_rule": "296x112 exact event summary with 96x82 time/date surface and full functional Like proof inside the summary",
+      "materialization_rule": "title/place/date/time/Like content belongs to the linked fixture summary; no review-board text overlays"
+    },
+    {
+      "id": "listing.rail-row.event-digest.exact-fixtures",
+      "classification": "exact-data adapters, not product variants",
+      "source": "MobileListingRailRow.astro#.event-digest + Golden Event Corpus summary",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877bec2f094a",
+        "event.real.7906": "06b5fc29-ba80-803f-8008-874d4c59fc59",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877bec5bbf34"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-874c7ba10efc",
+        "name": "60.1f — Mobile rail digest · Native component"
+      },
+      "geometry_rule": "168x112 exact six-line digest surface",
+      "materialization_rule": "fixture adapter owns deterministic line wrapping/ellipsis and is linked directly by the track"
+    },
+    {
+      "id": "listing.rail-row.media.fixture-7807",
+      "classification": "exact fixture media adapter",
+      "source": "immutable event.real.7807 primary asset + rail cover/object-position 45% 55%",
+      "dependencies": [
+        "listing.rail-row.media-frame"
+      ],
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-877c30292ad4",
+      "penpot_image_id": "c269caa0-e456-818c-8008-8781853752dc",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-875146957d25",
+        "name": "60.1g — Mobile rail media · Exact adapters"
+      },
+      "source_asset_sha256": "00da20e7dd8d036df2b908e20202550e77d4f166742479234902b33697b0416d",
+      "derived_crop_sha256": "e73ec401a7d90b50ac1c56216fa0823b97b7d497c2c8c5f3bb2652af1dd4a064",
+      "geometry_rule": "140x112 deterministic cover crop from immutable 2560x1707 source at object-position 45% 55%",
+      "materialization_rule": "derived crop is a fixture-bound image adapter required because Penpot plugin ImageData exposes no object-position transform; it is not a screenshot or product variant"
+    },
+    {
+      "id": "listing.rail-row.identity-slot.free.fixture-7807",
+      "classification": "exact fixture identity adapter",
+      "source": "MobileListingRailRow.astro free medallion slot",
+      "dependencies": [
+        "medallion.free.feature88"
+      ],
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-877cefd48e4b",
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "geometry_rule": "94x112 slot with linked free 88x88 medallion centered at x=3,y=12",
+      "materialization_rule": "identity comes from exact fixture semantics; event.real.7807 uses free, never venue artwork"
+    },
+    {
+      "id": "action.like.rail.exact-fixture-count",
+      "classification": "exact-data adapters, not product variants",
+      "source": "action.like.rail + Golden Event Corpus likes_count",
+      "penpot_component_ids": {
+        "count=10": "d87e18f1-dcb4-80a6-8008-877c0d055223",
+        "count=37": "d87e18f1-dcb4-80a6-8008-8761830829b6",
+        "count=53": "d87e18f1-dcb4-80a6-8008-877c0d3f7d0b"
+      },
+      "owner_page": {
+        "id": "06b5fc29-ba80-803f-8008-8756546e15af",
+        "name": "60.1h — Mobile rail state slots · Native components"
+      },
+      "geometry_rule": "69.875x56 with linked canonical Heart 28 and count inside the action boundary"
+    },
+    {
+      "id": "listing.rail-row.track.exact-date-typical",
+      "classification": "parent-context exact adapters",
+      "source": "MobileListingRailRow.astro exact full horizontal tracks",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "listing.rail-row.event-summary.exact-fixtures",
+        "listing.rail-row.event-digest.exact-fixtures",
+        "listing.rail-row.media.fixture-7807",
+        "listing.rail-row.media.fixture-7906",
+        "listing.rail-row.identity-slot.free.fixture-7807",
+        "action.like.rail.exact-fixture-count",
+        "listing.rail-row.artifact-slot"
+      ],
+      "penpot_component_ids": {
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-877d21489602",
+        "event.real.7906": "d012936b-5394-80cb-8008-855655e1b216",
+        "event.real.7888": "d87e18f1-dcb4-80a6-8008-877d21d0f7f4"
+      },
+      "owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-877b1ef7b3d6",
+        "name": "60.1k — Mobile rail exact fixture adapters"
+      },
+      "geometry_rule": "full uncut tracks: 7807=819.875x112; 7906=1012.875x112; 7888=571.875x112; parent viewport clips only the visible 390px window",
+      "parent_adoption_status": "complete: Mobile rail viewport centrally owns all three linked exact tracks; Page60.4 inherited them and has zero ordinary data overlays"
+    },
+    {
+      "id": "listing.mobile-date-accessory.exact-date-typical",
+      "classification": "fixture-bound parent-context adapter",
+      "source": "MobileDateAccessory.astro + Golden Event Corpus reference clock",
+      "calendar_reference_date": "2026-08-21",
+      "selected_date": "2026-08-22",
+      "dependencies": [
+        "listing.mobile-date-chip.state.today",
+        "listing.mobile-date-chip.state.selected-weekend-range",
+        "listing.mobile-date-chip.state.weekend",
+        "listing.mobile-date-chip.state.default",
+        "listing.mobile-date-chip.state.disabled",
+        "icon.shell.mobile-date-accessory.calendar.23"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86c0f46904e6",
+      "exact_adapter_component_ids": {
+        "2026-08-21": "a21f5e36-5d76-8065-8008-871fe40dd0fd",
+        "2026-08-22/23": "a21f5e36-5d76-8065-8008-871fe58c5350",
+        "2026-08-23": "a21f5e36-5d76-8065-8008-871fe8df4d07",
+        "2026-08-24": "a21f5e36-5d76-8065-8008-871fec94d7b0",
+        "2026-08-25": "a21f5e36-5d76-8065-8008-871ff17a70ae"
+      },
+      "semantic_state_component_ids": {
+        "today": "a21f5e36-5d76-8065-8008-871cd0e3ca14",
+        "selected-weekend-range": "a21f5e36-5d76-8065-8008-871ce36ade7b",
+        "weekend": "a21f5e36-5d76-8065-8008-871cdc9f883e",
+        "default": "a21f5e36-5d76-8065-8008-871c8b1e42b3",
+        "disabled": "a21f5e36-5d76-8065-8008-871ce7ba8339"
+      },
+      "registered_content_overrides": [
+        "weekday",
+        "date-or-range",
+        "month-label visibility"
+      ],
+      "layout_rule": "visible chips start at x=12 with 6px gap; calendar trigger x=335; first chip carries month and today outline",
+      "parent_adoption_status": "complete in Mobile date accessory master and inherited by Page60.4; detached=0"
+    }
+  ],
+  "shell_components": [
+    {
+      "id": "shell.desktop-header",
+      "source": "EventLayout.astro",
+      "brand_tag": {
+        "asset": "assets/ui/desktop-head-leather-r5.webp",
+        "corner_radii_px": [
+          0,
+          0,
+          12,
+          12
+        ],
+        "source_css": "EventLayout.astro#.site-header__brand-tag",
+        "geometry_px": [
+          240,
+          88
+        ],
+        "endorsement_rule": "11/12 Inter 600, uppercase, 0.88px letter spacing",
+        "wordmark_rule": "exact announcements wordmark vector, 192x37.17, #ffffff",
+        "layering_rule": "header divider is behind the brand tag and must never cross the leather or wordmark"
+      },
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+      "penpot_main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+      "root_rule": "1280x57 #fffaf2 with bottom-only #efe2d7 divider behind the 240x88 brand tag",
+      "navigation_rule": "transparent 44px items, radius 8; inactive #6d6259/600, active #793014/source 760 represented by Penpot 800; underline inset 11.52px",
+      "exact_export_status": "PASS_WITH_REGISTERED_RENDERER_DELTA"
+    },
+    {
+      "id": "shell.mobile-header",
+      "source": "Reference4MobileMenu.astro"
+    },
+    {
+      "id": "shell.mobile-menu-trigger",
+      "source": "Reference4MobileMenu.astro",
+      "states": [
+        "closed"
+      ],
+      "asset": "assets/ui/mobile-head-skinny-leather-3x.webp",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86aebe1f05bb",
+      "wordmark_component_id": "d87e18f1-dcb4-80a6-8008-87853121d15c",
+      "wordmark_owner_page": {
+        "id": "d87e18f1-dcb4-80a6-8008-878517c731e9",
+        "name": "10.1 — Announcements wordmark · Native component"
+      },
+      "composition_rule": "live endorsement text plus linked exact native vector wordmark; typographic AНОНСЫ substitute is forbidden",
+      "fill_stack_rule": "solid #98401f is the fallback under the native leather image; image must be the visible top fill"
+    },
+    {
+      "id": "shell.mobile-menu",
+      "source": "Reference4MobileMenu.astro",
+      "states": [
+        "main",
+        "collections",
+        "service"
+      ],
+      "dependencies": [
+        "shell.mobile-menu-trigger",
+        "shell.mobile-menu-item",
+        "icon.ui.reference4.free",
+        "icon.ui.reference4.squares-four",
+        "icon.ui.reference4.palette",
+        "icon.ui.reference4.buildings",
+        "icon.ui.reference4.popular-trend-up",
+        "icon.ui.reference4.sparkle",
+        "icon.ui.reference4.chats",
+        "icon.ui.reference4.handshake",
+        "icon.ui.reference4.search",
+        "icon.ui.reference4.user-focus",
+        "icon.ui.reference4.heart",
+        "icon.ui.reference4.share-network",
+        "icon.ui.chevron-right",
+        "icon.ui.chevron-back",
+        "icon.ui.reference4.heart-thin.20",
+        "icon.ui.reference4.share-network-thin.25"
+      ],
+      "utility_surface": {
+        "shell_fill_opacity": 0.18,
+        "account_row_fill_opacity": 0.075,
+        "login_favorite_fill_opacity": 0.58,
+        "share_fill_opacity": 0.58,
+        "background_mode": "translucent; never opaque local override"
+      },
+      "close_tag": {
+        "asset": "assets/ui/reference4-leather-close-v8.webp",
+        "corner_radii_px": [
+          0,
+          0,
+          18,
+          18
+        ],
+        "drop_shadows": [
+          {
+            "offset_y": 8,
+            "blur": 9,
+            "color": "rgba(42,22,15,.24)"
+          },
+          {
+            "offset_y": 18,
+            "blur": 28,
+            "color": "rgba(42,22,15,.18)"
+          }
+        ],
+        "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879d463241b8",
+        "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879d4631a294"
+      },
+      "utility_component_id": "d87e18f1-dcb4-80a6-8008-879eea37802f",
+      "utility_action_component_ids": {
+        "login": "d87e18f1-dcb4-80a6-8008-879e63407fd4",
+        "favorites": "d87e18f1-dcb4-80a6-8008-879eb8e04475",
+        "share": "d87e18f1-dcb4-80a6-8008-879ed0343d66"
+      },
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86aefc9d8004",
+      "penpot_main_shape_id": "a21f5e36-5d76-8065-8008-86aefaa1e22e",
+      "layer_rule": "Frosted veil and simulated backdrop precede functional composites; linked Close tag is frontmost.",
+      "utility_clip_rule": "Utility parent clips descendants to 22px on all corners so account/share surfaces cannot square off the shell.",
+      "direct_parent_conformance": "Exact Mobile menu master export is authoritative while the separately registered Page60.8 nested-composite render-cache blocker remains open."
+    },
+    {
+      "id": "action.shell.mobile-menu.row",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__row",
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86aefa74325d",
+      "penpot_main_shape_id": "a21f5e36-5d76-8065-8008-86aef9a3ecfb",
+      "geometry_rule": "360x52 in the 390px mobile shell",
+      "content_slots": [
+        "linked semantic icon",
+        "overridable action label",
+        "linked chevron-right"
+      ],
+      "materialization_rule": "Every menu action is one linked Row instance. Its exact icon is a nested linked icon swap; sibling icon overlays are forbidden.",
+      "main_plane_adoption": {
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-86f39e717fd7",
+        "penpot_main_shape_id": "a21f5e36-5d76-8065-8008-86f39cec1c8e",
+        "linked_row_instances": 8,
+        "nested_linked_icons": 8,
+        "external_icon_overlays": 0
+      }
+    },
+    {
+      "id": "shell.mobile-menu.brand",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__brand",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-87a644fc494e",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-87a64452dd17",
+      "geometry_rule": "150x112; endorsement at y=54.875; wordmark at y=79.875",
+      "dependencies": [
+        "brand.announcements.wordmark.monochrome"
+      ],
+      "materialization_rule": "Brand owns the live endorsement text and one linked Announcements Wordmark instance. The menu master owns one linked Brand instance; a copied vector group is forbidden.",
+      "registered_overrides": {
+        "wordmark.color": "dark-on-light #2b211c"
+      }
+    },
+    {
+      "id": "shell.mobile-menu.date-navigation",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__dates",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-87a7a547f2da",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-87a7a4195e0d",
+      "geometry_rule": "362x58; three columns 103/104/139 with 8px gaps; linked items vertically centered at y=6",
+      "dependencies": [
+        "action.shell.mobile-menu.date-navigation-item"
+      ],
+      "exact_state": [
+        "Сегодня",
+        "Завтра:selected",
+        "Выходные"
+      ],
+      "materialization_rule": "The parent Date navigation component owns three linked item instances and the Mobile menu owns one linked Date navigation instance. Direct sibling chips in the menu master are forbidden."
+    },
+    {
+      "id": "shell.mobile-menu-plane.main",
+      "source": "Reference4MobileMenu.astro#menu-main",
+      "state": "main",
+      "ownership": "native linked master on Page 60.1"
+    },
+    {
+      "id": "shell.mobile-menu-plane.collections",
+      "source": "Reference4MobileMenu.astro#menu-collections",
+      "state": "collections",
+      "ownership": "native linked master on Page 60.1"
+    },
+    {
+      "id": "shell.mobile-menu-plane.service",
+      "source": "Reference4MobileMenu.astro#menu-service",
+      "state": "service",
+      "ownership": "native linked master on Page 60.1"
+    },
+    {
+      "id": "shell.mobile-bottom-navigation",
+      "source": "MobileBottomNav.astro",
+      "states": [
+        "afisha-current",
+        "dates-current",
+        "search-current",
+        "personal-current"
+      ],
+      "dependencies": [
+        "icon.shell.mobile-bottom.ticket",
+        "icon.shell.mobile-bottom.calendar",
+        "icon.shell.mobile-bottom.search",
+        "icon.shell.mobile-bottom.personal"
+      ]
+    },
+    {
+      "id": "shell.overlay-layer",
+      "source": "EventLayout.astro + listing sheets/toasts"
+    },
+    {
+      "id": "shell.footer",
+      "source": "SiteFooter.astro"
+    },
+    {
+      "id": "shell.mobile-menu.close-tag",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__close",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879d463241b8",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879d4631a294",
+      "geometry_rule": "112x112; corner radii 0 0 18 18",
+      "asset": "assets/ui/reference4-leather-close-v8.webp",
+      "shadow_rule": "drop-shadow 0 8 9 rgba(42,22,15,.24) + 0 18 28 rgba(42,22,15,.18)",
+      "materialization_rule": "Mobile menu master owns a linked Close tag instance; local image rectangles are forbidden"
+    },
+    {
+      "id": "action.shell.mobile-menu.login",
+      "source": "Reference4MobileMenu.astro#[data-static-auth-login]",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879e63407fd4",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879e633ebf9c",
+      "geometry_rule": "167x44 exact signed-out action",
+      "surface_rule": "rgba(255,253,249,.58), 1px rgba(255,255,255,.48), radius23"
+    },
+    {
+      "id": "action.shell.mobile-menu.favorites",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__account-row>a[href*=izbrannoe]",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879eb8e04475",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879eb8df8946",
+      "geometry_rule": "167x44 exact signed-out action",
+      "dependencies": [
+        "icon.ui.reference4.heart-thin.20"
+      ],
+      "materialization_rule": "heart icon is a linked 20px icon master inside the functional Favorites action"
+    },
+    {
+      "id": "action.shell.mobile-menu.share",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__share",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879ed0343d66",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879ed033019d",
+      "geometry_rule": "360x50 exact utility action",
+      "dependencies": [
+        "icon.ui.reference4.share-network-thin.25"
+      ],
+      "surface_rule": "rgba(255,252,247,.58), transparent base, no opaque override"
+    },
+    {
+      "id": "shell.mobile-menu.utility",
+      "source": "Reference4MobileMenu.astro#.reference4-menu__utility",
+      "penpot_component_id": "d87e18f1-dcb4-80a6-8008-879eea37802f",
+      "penpot_main_shape_id": "d87e18f1-dcb4-80a6-8008-879eea35f2cc",
+      "geometry_rule": "362x108",
+      "dependencies": [
+        "action.shell.mobile-menu.login",
+        "action.shell.mobile-menu.favorites",
+        "action.shell.mobile-menu.share"
+      ],
+      "component_topology": "utility shell, account-row surface, linked Login, linked Favorites, divider, linked Share; labels/icons live inside action masters",
+      "layer_rule": "semi-transparent shell/row/action surfaces precede labels and icons; no alpha surface may overlay functional content",
+      "parent_adoption_status": "Mobile menu master contains one linked Utility instance; previous scattered shapes removed"
+    }
+  ],
+  "composition_rules": [
+    "ready archetype instances use linked listing-card and mobile-rail resources",
+    "desktop ready flow preserves chronological time groups; each group lays out one to three intrinsic-width linked card instances, and the untimed stress group proves a real three-card row",
+    "state surfaces are semantic states, not hidden terminal overrides",
+    "mobile date accessory is a linked fixed-position listing component above the linked shell bottom navigation; its date chips and calendar trigger remain linked semantic actions",
+    "shell overlay owns stacking and safe-area offsets",
+    "desktop and mobile are separate parent contexts at 759/720 boundaries",
+    "sparse desktop is a bounded linked archetype variant: one specific-date header, one time-group header, one linked compact listing card, and one semantic Like-with-count proof; review boards only instantiate the archetype",
+    "stress proof is two bounded sequential viewport slices, never one long review board: upper renders the first two chronological fixtures and continuation renders the remaining four including the three-card program row",
+    "all shell icon masters live on Page 25; shell masters and review boards contain linked instances only",
+    "fixture-bound ListingEventCard Compact masters live on Page 60.1b and nest linked media, content, social-proof and concrete medallion-frame variants; archetypes consume only card instances, never sibling slot overlays",
+    "mobile listing head masters live on Page 60.1d: Page head and Feed head are separate native components, Feed head nests a linked City picker summary, and the exact review board contains linked instances only",
+    "mobile rail correction is recursive: compare and correct Event summary, inline Like, media cells, Digest, identity/artifact slots and Like CTA independently before a track or viewport verdict; a parent screenshot never substitutes for these leaves",
+    "date typical-desktop proves three exact chronological fixtures in the linked Desktop listing flow: linked time-group headers and parent-context ListingEventCard adapters own data and geometry; review boards contain no event/title/place overlays",
+    "typical mobile rail viewport owns three linked full-width exact tracks (7807/7906/7888); each track is reviewed uncut and the 390px page board only provides viewport clipping"
+  ],
+  "archetype_variants": [
+    {
+      "id": "archetype.listing.date.today",
+      "view": "today",
+      "density": [
+        "regular",
+        "stress"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.tomorrow",
+      "view": "tomorrow",
+      "density": [
+        "regular",
+        "stress"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.specific",
+      "view": "specific-date",
+      "density": [
+        "regular",
+        "sparse"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.sparse",
+      "view": "specific-date",
+      "density": "sparse",
+      "dependencies": [
+        "listing.page-date-header.specific-date",
+        "listing.time-group-header.sparse",
+        "listing.event-card.compact",
+        "social-proof.like.compact36"
+      ]
+    },
+    {
+      "id": "archetype.listing.date.stress.viewport",
+      "view": "tomorrow",
+      "density": "stress",
+      "fixture_registry": [
+        "event.real.8156",
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888",
+        "event.real.4327",
+        "event.real.6628"
+      ],
+      "dependencies": [
+        "listing.page-date-header.tomorrow",
+        "listing.city-filter-rail",
+        "listing.time-group-header.sparse",
+        "listing.event-card.compact",
+        "listing.media.7807",
+        "listing.media.7906",
+        "social-proof.like.inside",
+        "social-proof.like.compact36",
+        "listing.media.6628",
+        "listing.media.4327",
+        "listing.media.8156",
+        "listing.media.7888",
+        "content.event-title.clamp2",
+        "content.event-place.listing-on-light",
+        "medallion.frame.normalized"
+      ],
+      "viewport_slices": [
+        {
+          "id": "upper",
+          "y_range_px": [
+            0,
+            1000
+          ],
+          "fixture_ids": [
+            "event.real.7807",
+            "event.real.7906"
+          ]
+        },
+        {
+          "id": "continuation",
+          "y_range_px": [
+            960,
+            1760
+          ],
+          "fixture_ids": [
+            "event.real.6628",
+            "event.real.4327",
+            "event.real.8156",
+            "event.real.7888"
+          ]
+        }
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86cf6e3ce517",
+      "upper_slice_component_topology": "six direct linked children only: date header, city rail, exact 12:00 header, exact 18:00 header, exact fixture-bound card 7807 and exact fixture-bound card 7906; ordinary content overlays=0",
+      "upper_slice_exact_component_ids": {
+        "time.12:00": "d87e18f1-dcb4-80a6-8008-87756ae21037",
+        "time.18:00": "d87e18f1-dcb4-80a6-8008-87756b6935bc",
+        "event.real.7807": "d87e18f1-dcb4-80a6-8008-87733a67d4bb",
+        "event.real.7906": "d87e18f1-dcb4-80a6-8008-8773575484aa"
+      },
+      "group_marker_x_px": 32,
+      "media_identity_rule": "event.real.7906 date listing uses exact asset 0496a6ed06d9… selected by Astro consumer logic; the linked card inherits native ImageData from Listing media master"
+    },
+    {
+      "id": "archetype.listing.date.stress.viewport.continuation",
+      "extends": "archetype.listing.date.stress.viewport",
+      "viewport": "1280x720",
+      "fixture_ids": [
+        "event.real.6628",
+        "event.real.4327",
+        "event.real.8156",
+        "event.real.7888"
+      ],
+      "layout_contract": "one chronological continuation slice with a real three-card row; bounded board, no giant canvas",
+      "dependencies": [
+        "listing.event-card.compact.event.real.6628",
+        "listing.event-card.compact.event.real.4327",
+        "listing.event-card.compact.event.real.8156",
+        "listing.event-card.compact.event.real.7888"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86fa1bf41292",
+      "card_instance_topology": "four linked fixture-bound ListingEventCard Compact instances; all media/content/social-proof/medallion slots are nested in their card masters"
+    },
+    {
+      "id": "archetype.listing.date.typical-desktop",
+      "view": "tomorrow",
+      "density": "regular",
+      "viewport": "1280x1261",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "dependencies": [
+        "listing.page-date-header.tomorrow",
+        "listing.city-filter-rail",
+        "listing.time-group-header.exact-date-typical",
+        "listing.event-card.compact.context.date-typical-desktop"
+      ],
+      "penpot_flow_component_id": "a21f5e36-5d76-8065-8008-86afc4f1ab36",
+      "penpot_archetype_component_id": "a21f5e36-5d76-8065-8008-86b497f8d491",
+      "penpot_page_id": "a21f5e36-5d76-8065-8008-86b55dcd3bf3",
+      "penpot_board_id": "a21f5e36-5d76-8065-8008-86b589c29f08",
+      "component_topology": "one linked archetype instance plus linked shell header; three event cards and three group headers are inherited from the linked Desktop listing flow",
+      "bounded_visual_status": "agent verdict MINOR; geometry/card count/fixture identity PASS; shell header raster and minor typography/media raster remain active deltas"
+    },
+    {
+      "id": "archetype.listing.date.typical-mobile",
+      "view": "tomorrow",
+      "density": "regular",
+      "viewport": "390x844",
+      "fixture_ids": [
+        "event.real.7807",
+        "event.real.7906",
+        "event.real.7888"
+      ],
+      "calendar_reference_date": "2026-08-21",
+      "selected_date": "2026-08-22",
+      "dependencies": [
+        "shell.mobile-menu-trigger",
+        "listing.mobile-date-accessory.exact-date-typical",
+        "listing.rail-row.track.exact-date-typical"
+      ],
+      "penpot_page_id": "a21f5e36-5d76-8065-8008-86baaa49f139",
+      "penpot_board_id": "a21f5e36-5d76-8065-8008-86bad054b9ac",
+      "component_topology": "linked header + linked Mobile rail viewport + linked corpus-clock date accessory + linked bottom navigation; zero review-board overlays",
+      "feed_to_rows_gap_px": 10,
+      "bounded_visual_status": "diagnostic MINOR; exact exporter blocked by HTTP 504, generatedMarkup fallback is nonterminal"
+    }
+  ],
+  "icon_components": {
+    "owner_page": "25 — Iconography",
+    "consumer_rule": "all shell/listing consumers use linked instances; no Unicode or locally redrawn substitutes",
+    "items": [
+      {
+        "id": "icon.ui.reference4.free",
+        "source": "Reference4MobileMenu.astro#reference4-icon--free"
+      },
+      {
+        "id": "icon.ui.reference4.squares-four",
+        "source_asset": "assets/icons/reference4-v8/squares-four-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.chats",
+        "source_asset": "assets/icons/reference4-v8/chats-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.sparkle",
+        "source_asset": "assets/icons/reference4-v8/sparkle-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.palette",
+        "source_asset": "assets/icons/reference4-v8/palette-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.buildings",
+        "source_asset": "assets/icons/reference4-v8/buildings-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.popular-trend-up",
+        "source_asset": "assets/icons/reference4-v8/popular-trend-up-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.handshake",
+        "source_asset": "assets/icons/reference4-v8/handshake-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.search",
+        "source_asset": "assets/icons/reference4-v8/search-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.user-focus",
+        "source_asset": "assets/icons/reference4-v8/user-focus-thin.svg"
+      },
+      {
+        "id": "icon.ui.reference4.heart",
+        "source_asset": "assets/icons/reference4-v8/heart-thin.svg",
+        "supported_sizes_px": [
+          29
+        ]
+      },
+      {
+        "id": "icon.ui.reference4.share-network",
+        "source_asset": "assets/icons/reference4-v8/share-network-thin.svg",
+        "supported_sizes_px": [
+          29
+        ]
+      },
+      {
+        "id": "icon.ui.chevron-right",
+        "source": "Reference4MobileMenu.astro#reference4-menu__row > i"
+      },
+      {
+        "id": "icon.ui.chevron-back",
+        "source": "Reference4MobileMenu.astro#reference4-menu__back-icon"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.ticket",
+        "source": "MobileBottomNav.astro#ticket"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.calendar",
+        "source": "MobileBottomNav.astro#calendar"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.search",
+        "source": "MobileBottomNav.astro#search"
+      },
+      {
+        "id": "icon.shell.mobile-bottom.personal",
+        "source": "MobileBottomNav.astro#personal"
+      },
+      {
+        "id": "icon.ui.reference4.heart-thin.20",
+        "source_asset": "assets/icons/reference4-v8/heart-thin.svg",
+        "size_px": 20,
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-87039fc1393c",
+        "consumer": "shell.mobile-menu utility favorite"
+      },
+      {
+        "id": "icon.ui.reference4.share-network-thin.25",
+        "source_asset": "assets/icons/reference4-v8/share-network-thin.svg",
+        "size_px": 25,
+        "penpot_component_id": "a21f5e36-5d76-8065-8008-8703a0c7571e",
+        "consumer": "shell.mobile-menu utility share"
+      },
+      {
+        "id": "icon.shell.mobile-date-accessory.calendar.23",
+        "source": "MobileDateAccessory.astro#plain-calendar",
+        "size_px": 23,
+        "penpot_component_id": "a43684fa-6ddf-80af-8008-87357e243598",
+        "owner_page": "25 — Iconography"
+      }
+    ]
+  }
+}

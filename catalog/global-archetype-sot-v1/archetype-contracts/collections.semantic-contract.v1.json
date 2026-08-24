@@ -1,0 +1,410 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "collection.index-header",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "collection.directory",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "collection.detail-header",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "collection.criteria",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "collection.results",
+      "required": true
+    },
+    {
+      "order": 6,
+      "part_id": "collection.fallback-results",
+      "required": true
+    },
+    {
+      "order": 7,
+      "part_id": "collection.gastronomy-surface",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.collections",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "collection.criteria",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#collection.criteria",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "collection.criteria"
+      ]
+    },
+    {
+      "component_id": "collection.directory",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#collection.directory",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "collection.directory"
+      ]
+    },
+    {
+      "component_id": "collection.gastronomy-surface",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#collection.gastronomy-surface",
+      "dependency_type": "component",
+      "disposition": "new_component",
+      "required": true,
+      "source_identity_ids": [
+        "collection.gastronomy-surface"
+      ]
+    },
+    {
+      "component_id": "core.breadcrumbs",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#core.breadcrumbs",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "core.breadcrumbs"
+      ]
+    },
+    {
+      "component_id": "event.card.large",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#event.card.large",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "event.card.large"
+      ]
+    },
+    {
+      "component_id": "listing.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.state-panel",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "listing.state-panel"
+      ]
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ]
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ]
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ]
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "reuse_existing",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ]
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.collections.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 4,
+    "reuse_existing": 9,
+    "runtime_only": 1,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.collections",
+    "title": "Collections"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/podborki/",
+        "/podborki/besplatnye-sobytiya/",
+        "/podborki/dzhaz-na-vyhodnyh/",
+        "/podborki/gastronomiya/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "detail-empty"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": {
+    "accessibility_roles": [
+      "focus_color",
+      "focus_ring_px",
+      "minimum_target_px",
+      "preferred_target_px",
+      "rail_like_target_px",
+      "safe_areas"
+    ],
+    "breakpoint_roles": [
+      "desktop_compact_max_px",
+      "mobile_listing_max_px",
+      "mobile_shell_max_px"
+    ],
+    "container_roles": [
+      "desktop_inline_gutter_px",
+      "desktop_max_px",
+      "mobile_min_px",
+      "mobile_reference_px"
+    ],
+    "cross_cutting_contracts": [
+      "iconography",
+      "interaction",
+      "media_framing",
+      "runtime_states"
+    ],
+    "elevation_roles": [
+      "control",
+      "flat",
+      "floating",
+      "modal",
+      "rail.summary"
+    ],
+    "radius_roles": [
+      "container",
+      "control",
+      "media.compact",
+      "overlay",
+      "pill",
+      "rail.media",
+      "rail.summary.end",
+      "sheet",
+      "surface.small",
+      "time",
+      "weekend.column"
+    ],
+    "semantic_color_roles": [
+      "accent",
+      "accent_soft",
+      "canvas",
+      "canvas_soft",
+      "danger",
+      "focus",
+      "line",
+      "muted",
+      "positive",
+      "primary",
+      "primary_strong",
+      "surface",
+      "surface_strong",
+      "text"
+    ],
+    "spacing_roles": [
+      "block.gap",
+      "component.gap",
+      "control.gap",
+      "group.gap",
+      "inline.md",
+      "inline.sm",
+      "inline.xs",
+      "page.gap",
+      "page.large",
+      "section.gap",
+      "section.large"
+    ],
+    "typography_roles": [
+      "body",
+      "caption",
+      "control",
+      "display.desktop",
+      "display.mobile",
+      "heading"
+    ]
+  },
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "collection.index-header",
+      "required": true,
+      "semantic_role": "collection.index-header"
+    },
+    {
+      "order": 2,
+      "region_id": "collection.directory",
+      "required": true,
+      "semantic_role": "collection.directory"
+    },
+    {
+      "order": 3,
+      "region_id": "collection.detail-header",
+      "required": true,
+      "semantic_role": "collection.detail-header"
+    },
+    {
+      "order": 4,
+      "region_id": "collection.criteria",
+      "required": true,
+      "semantic_role": "collection.criteria"
+    },
+    {
+      "order": 5,
+      "region_id": "collection.results",
+      "required": true,
+      "semantic_role": "collection.results"
+    },
+    {
+      "order": 6,
+      "region_id": "collection.fallback-results",
+      "required": true,
+      "semantic_role": "collection.fallback-results"
+    },
+    {
+      "order": 7,
+      "region_id": "collection.gastronomy-surface",
+      "required": true,
+      "semantic_role": "collection.gastronomy-surface"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop editorial/result grid"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile single-column result flow"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/podborki/",
+      "/podborki/besplatnye-sobytiya/",
+      "/podborki/dzhaz-na-vyhodnyh/",
+      "/podborki/gastronomiya/"
+    ],
+    "route_patterns": [
+      "/podborki/",
+      "/podborki/:slug/",
+      "/podborki/gastronomiya/"
+    ],
+    "source_pages": [
+      "site/src/pages/podborki/index.astro",
+      "site/src/pages/podborki/[slug]/index.astro",
+      "site/src/pages/podborki/gastronomiya/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.149cc9c56a12.7774004b48f1",
+  "states": [
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "detail-empty"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "detail-fallback"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "detail-populated"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "free-collection"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "gastronomy-editorial"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "index"
+    }
+  ],
+  "title": "Подборки: индекс и detail"
+}
