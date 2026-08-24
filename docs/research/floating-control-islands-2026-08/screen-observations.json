@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "artifact_id": "floating-control-islands-reference-2026-08",
+  "source_pack": {
+    "directly_supplied_screenshots": 6,
+    "dimensions": [921, 2048],
+    "raw_media_committed": false,
+    "reason": "The screenshots contain personal names, messages, avatars and app/content branding. Only anonymized derived skeletons are committed."
+  },
+  "screens": [
+    {
+      "id": "screen-01-kimi-home",
+      "pattern_label": "detached_top_islands",
+      "observed_regions": [
+        "leading_icon_island",
+        "centered_mode_capsule",
+        "trailing_icon_island",
+        "quick_action_chips",
+        "floating_bottom_composer"
+      ],
+      "notes": "Top chrome is split into three independent surfaces; bottom input is inset and raised above the system edge."
+    },
+    {
+      "id": "screen-02-kimi-reading",
+      "pattern_label": "floating_composer_with_scroll_utility",
+      "observed_regions": [
+        "leading_icon_island",
+        "centered_mode_capsule",
+        "trailing_utility_capsule",
+        "floating_scroll_button",
+        "floating_bottom_composer"
+      ],
+      "notes": "The same top composition persists over a reading surface; the scroll affordance is transient and detached."
+    },
+    {
+      "id": "screen-03-telegram-chat-list",
+      "pattern_label": "header_filter_dock_fab_nav",
+      "observed_regions": [
+        "header",
+        "segmented_filter_dock",
+        "context_banner",
+        "floating_action_button",
+        "floating_navigation_dock"
+      ],
+      "notes": "Counterexample to a universal island model: the header remains more monolithic while filters, FAB and navigation are separate layers."
+    },
+    {
+      "id": "screen-04-telegram-conversation",
+      "pattern_label": "clustered_top_app_bar",
+      "observed_regions": [
+        "back_icon_island",
+        "identity_capsule",
+        "utility_capsule",
+        "pinned_context_banner",
+        "bottom_composer"
+      ],
+      "notes": "A page app bar is composed from role-owned clusters rather than one full-width background."
+    },
+    {
+      "id": "screen-05-music-player",
+      "pattern_label": "immersive_media_control_cluster",
+      "observed_regions": [
+        "centered_title_pill",
+        "edge_actions",
+        "playback_control_islands",
+        "borderless_bottom_navigation"
+      ],
+      "notes": "Chrome floats over an immersive content canvas; navigation icons are not necessarily enclosed by a dock surface."
+    },
+    {
+      "id": "screen-06-music-library",
+      "pattern_label": "persistent_media_dock_stack",
+      "observed_regions": [
+        "content_header_actions",
+        "persistent_now_playing_dock",
+        "borderless_bottom_navigation"
+      ],
+      "notes": "A persistent mini-player dock is stacked above a separate destination navigation model."
+    }
+  ],
+  "taxonomy": {
+    "umbrella": [
+      "detached chrome",
+      "floating chrome",
+      "floating control islands"
+    ],
+    "components": [
+      "floating top app bar",
+      "context capsule",
+      "utility island",
+      "floating composer",
+      "segmented control",
+      "filter chips",
+      "floating navigation dock",
+      "persistent mini-player dock",
+      "floating action button"
+    ],
+    "warning": "Pill/capsule describes geometry, not semantic component identity. Chip is valid only for compact selection/filter/suggestion controls."
+  },
+  "design_system_implications": [
+    "Share a surface primitive only where material and state requirements match; do not merge compositions by rounded geometry.",
+    "Model top-leading, center-context and top-trailing ownership independently in page archetypes.",
+    "Treat safe-area anchoring, keyboard avoidance, scroll compaction and content occlusion as runtime/layout contracts.",
+    "Keep destinations in one navigation model even when the dock is detached from the screen edge.",
+    "Test contrast over photo, poster, plain and scrolling underlays before accepting blur/translucency/elevation."
+  ],
+  "disposition": {
+    "component_promotion": "unresolved",
+    "token_promotion": "unresolved",
+    "penpot_canonical_materialization": "forbidden_until_family_mapping_and_runtime_validation",
+    "allowed_now": [
+      "owner_review",
+      "archetype_exploration",
+      "fixture_matrix_preparation"
+    ]
+  }
+}
