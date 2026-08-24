@@ -1,0 +1,76 @@
+{
+  "schema_version": "penpot-weekend-time-row-remediation.v1",
+  "status": "MINOR_RENDERER_FILTER_DELTA",
+  "family": "archetype.listing.weekend",
+  "semantic_id": "listing.weekend.time-row",
+  "same_exact_case": {
+    "manifest_id": "archetype.listing.weekend-v1.golden-v1",
+    "manifest_sha256": "474f633e52a5038a23e8baea6239ed75574651e9555005fe745d81cfa017b762",
+    "representation": "typical-desktop",
+    "fixture_id": "event.real.7906",
+    "date": "2026-08-22",
+    "time": "18:00",
+    "saturday_count": 1,
+    "sunday_count": 0,
+    "row_bounds_css": { "x": 32, "y": 743.046875, "width": 1216, "height": 289.484375 },
+    "card_bounds_css": { "x": 186, "y": 757.046875, "width": 420, "height": 253.484375 },
+    "media_bounds_css": { "x": 186, "y": 757.046875, "width": 312.703125, "height": 178 }
+  },
+  "git": {
+    "design_sha_before_receipt": "6d4a2b420ab97c4969fc2756ae9432596547fc9f",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 2049,
+    "page_id": "d87e18f1-dcb4-80a6-8008-87be43cf2da2",
+    "page_name": "61.5 — Weekend · Time row 18:00",
+    "review_board_id": "d87e18f1-dcb4-80a6-8008-87bf93c2db3f",
+    "components": {
+      "time_marker_18_00": "d87e18f1-dcb4-80a6-8008-87be5be8214f",
+      "listing_media_weekend_exact_contain": "d87e18f1-dcb4-80a6-8008-87be8f9db58b",
+      "media_state_past": "d87e18f1-dcb4-80a6-8008-87be9e64455c",
+      "like_proof_compact36_count_37": "d87e18f1-dcb4-80a6-8008-87bf633fc834",
+      "event_title_weekend_exact": "d87e18f1-dcb4-80a6-8008-87beb34510be",
+      "event_place_weekend_exact": "d87e18f1-dcb4-80a6-8008-87beb3f14d3e",
+      "listing_event_card_7906_weekend": "d87e18f1-dcb4-80a6-8008-87becba472c7",
+      "time_row_18_00": "d87e18f1-dcb4-80a6-8008-87beec29e49a"
+    },
+    "linked_shape_count_in_review_closure": 30,
+    "detached_copies": 0,
+    "unregistered_visual_overrides": 0,
+    "validation": [],
+    "idempotent_reconciliation_created": 0,
+    "named_version": "Weekend time row 18:00 · exact like count 37"
+  },
+  "framing_remediation": {
+    "root_cause": "The reusable date-media fill did not encode the weekend contain frame, and direct resize risked stretching the 16:9 source into a 312.703125x178 surface.",
+    "central_fix": "A fixture framing component owns a content-addressed 313x178 contain canvas; the semantic past-media component links it and applies the registered native filter approximation.",
+    "source_asset_sha256": "cdff21cb2a9d117f458bfbcdcb32094154381b53fcda384c0ea0af2d30ad64bc",
+    "derived_contain_sha256": "7e784a86057da58c5cf544567e2c8e915bcdcee938ee71347bfa3c9d9a0ad0ef",
+    "framing_contract": "source 512x288; object-fit contain; object-position 55% 50%; canvas 313x178",
+    "native_fill_data_readback": true
+  },
+  "social_proof_remediation": {
+    "root_cause": "The compact36 base master carries count=2; reusing it without a semantic count adapter rendered the wrong event value.",
+    "central_fix": "The card now links Like proof · compact36 · count=37 exact, which itself links the shared compact36 proof and owns the fixture count override.",
+    "count": 37,
+    "count_inside_component": true
+  },
+  "evidence": {
+    "layout": "four-wide-strips-stacked-vertically",
+    "astro_png_sha256": "384e44ddebcfbce720e197e17c2ee78925d58a9226f2047b73b792ac0c02eeda",
+    "penpot_png_sha256": "055451186e856d3f2ccf94ec9191655ffd5fdd37b5ff130f8b53342efe9bd417",
+    "overlay_png_sha256": "1e9a6e7ad9bf9c455452543326cf4ef180db5f8578f40ea48af2a93c7a74a225",
+    "diff_png_sha256": "c5044c5ddead4de2f0f24c70a70c506d7851b67f4f8ad1da0ba6413a8fce7c3b",
+    "comparison_png_sha256": "5baf574ea6ed98ce6abbc969e2c181c70c5f74c592851c40430b581132c00a5b",
+    "mean_normalized_abs_error": 0.0185223,
+    "visual_review": "Same exact event, geometry, contain frame, Like count 37, semantic children, text and terminal radii. Remaining visible delta is text rasterization and the native Penpot approximation of CSS grayscale/saturate/opacity."
+  },
+  "telegram": {
+    "message_id": 1143,
+    "message_link": "https://t.me/c/4337049383/1143",
+    "read_back_status": "verified"
+  },
+  "decisions": ["WL-004", "WL-008"]
+}
