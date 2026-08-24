@@ -150,6 +150,39 @@
       }
     },
     {
+      "id": "listing.mobile-state-panel",
+      "source": "DateListingCandidateSurface.astro#.date-listing-candidate__state",
+      "states": [
+        "loading",
+        "empty",
+        "error"
+      ],
+      "viewport_each": "360x240",
+      "penpot_component_ids": {
+        "loading": "a21f5e36-5d76-8065-8008-86ada7c03c70",
+        "empty": "a21f5e36-5d76-8065-8008-86adcb9194ed",
+        "error": "a21f5e36-5d76-8065-8008-86adcd7481c0"
+      },
+      "geometry_rule": "browser border-box is materialized as a 1px inner stroke plus 17px loading content edge or 19px empty/error content edge; title/description/action vertical origins are 19/79/133px for message states",
+      "title_flow_rule": "the 360px state master owns a bounded fixed text frame that resolves the same two-line wrap as Astro; detached text overlays and explicit review-board labels are forbidden",
+      "parent_adoption_status": "Page 60.4 review instances are linked to the three state masters; detached=0 and unbound duplicate state boards=0"
+    },
+    {
+      "id": "listing.state-action",
+      "source": "DateListingCandidateSurface.astro#.date-listing-candidate__message a|button",
+      "states": [
+        "choose-date",
+        "retry"
+      ],
+      "overridable": [
+        "label",
+        "fixture-owned-width"
+      ],
+      "penpot_component_id": "a21f5e36-5d76-8065-8008-86ada69598f2",
+      "geometry_rule": "48px high, radius 14; exact resolved widths are 148.421875px for «Выбрать дату» and 120.734375px for «Повторить»",
+      "materialization_rule": "empty/error state masters consume linked instances of one reusable State action master; label/width are registered instance overrides, never detached boards"
+    },
+    {
       "id": "listing.mobile-page-head",
       "source": "MobileListingRailSurface.astro#.page-head",
       "states": [
