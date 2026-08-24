@@ -1,0 +1,74 @@
+{
+  "schema_version": "penpot-social-proof-like-compact36-remediation.v2",
+  "status": "PASS_WITH_MINOR_RENDERER_TYPOGRAPHY_DELTA",
+  "family": "component.social-proof.like",
+  "semantic_id": "social-proof.like.compact36.count37.exact-7906",
+  "supersedes_findings_in": "receipts/penpot/weekend-time-row-18-00-remediation-v1.json",
+  "same_exact_case": {
+    "astro_selector": ".ke-listing-card__social-proof",
+    "fixture_id": "event.real.7906",
+    "count": 37,
+    "component_bounds_css": {
+      "width": 36,
+      "height": 36
+    },
+    "capture_policy": "all ancestor backgrounds and pseudo-elements forced transparent; exact alpha raster"
+  },
+  "git": {
+    "design_sha_before_receipt": "520b817",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 2159,
+    "exact_adapter_page_id": "d87e18f1-dcb4-80a6-8008-87be43cf2da2",
+    "exact_adapter_page_name": "61.5 — Weekend · Time row 18:00",
+    "exact_adapter_component_id": "d87e18f1-dcb4-80a6-8008-87bf633fc834",
+    "exact_adapter_main_id": "d87e18f1-dcb4-80a6-8008-87bf62ece678",
+    "shared_base_page_id": "a21f5e36-5d76-8065-8008-86b27eb10a3d",
+    "shared_base_component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+    "shared_base_main_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+    "semantic_heart_component_id": "eca15719-f452-809c-8008-820ab4eb966a",
+    "heart_source_component_id": "fd45a474-7b74-809d-8008-8184518604e9",
+    "linked_shape_count_in_exact_adapter_closure": 7,
+    "detached_copies": 0,
+    "validation": [],
+    "named_versions": [
+      "25 Heart · responsive source vector scaling · current",
+      "60.2 Social proof Like compact36 · exact Astro opacity typography and responsive Heart · current",
+      "61.5 C02 · Social proof Like compact36 count37 · canonical Heart reuse exact · current"
+    ]
+  },
+  "root_cause": {
+    "owner_hypothesis": "a visually similar duplicate may have been used instead of the established component",
+    "finding": "No duplicate was used. The exact adapter linked the established shared Like proof and canonical Heart, but the canonical nested Heart instance had stale 12px descendants inside a 17px semantic slot because responsive constraints were missing. Shared Like styling also lacked Astro opacity and used stale typography.",
+    "prior_false_assumption": "The earlier time-row receipt treated the 36x36 box and count ownership as sufficient; it did not compare the leaf alpha raster or inspect the nested vector bounds."
+  },
+  "systemic_remediation": [
+    "set scale constraints in Heart Source and semantic Heart masters",
+    "reset the shared Like proof Heart instance against the corrected master and resized it to the canonical 17px slot, yielding a 14.1667x12.9979 path",
+    "restored shared Like opacity=.58 and #6d6259/68% semantic color",
+    "restored count font size10.56 and line-height1; recorded Astro requested weight760 and Penpot host-safe weight800",
+    "kept the exact fixture adapter as a linked instance whose only content override is count=37; created no new visual duplicate"
+  ],
+  "evidence": {
+    "layout": "2x2 grid because the owning component is square; 8x nearest-neighbor inspection",
+    "astro_png_sha256": "78136acbe69ae660a3a47c95a9f7e79fff4fd34464e1cbafb7b8e35fded7157c",
+    "penpot_png_sha256": "80ef1ad96821325ceaf894106eacaf52f2960a340af2597bc9087257785ba80c",
+    "overlay_png_sha256": "2a8ec90a3ebd7a20950f463abcd7c037dd9e8a92e19d0d48e660e01c15759843",
+    "diff_png_sha256": "f2d43eb486e423f1c31b1d222e38662bafe3fc77c65a19517fff5319d21e9c42",
+    "comparison_png_sha256": "e5a19e8a24a4358d204529d9cf158c8f64507a16d8d8cacb4b949b34b319519e",
+    "mean_normalized_abs_error_rgba": 0.02165032679738562,
+    "mean_normalized_abs_error_alpha": 0.01888465262648269,
+    "visual_review": "Heart geometry and alpha now match; remaining minor delta is Chromium variable weight760 versus Penpot host-safe800 and rasterization."
+  },
+  "telegram": {
+    "message_id": 1159,
+    "message_link": "https://t.me/c/4337049383/1159",
+    "read_back_status": "verified"
+  },
+  "decisions": [
+    "WL-004",
+    "WL-008"
+  ]
+}

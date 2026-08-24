@@ -1,0 +1,14 @@
+{
+  "schema_version": "ui_conformance_telegram_publish_plan_v1",
+  "target_link": "https://t.me/c/4337049383/1030",
+  "topic_root_message_id": 1030,
+  "status": "ready-for-existing-human-session-transport",
+  "publish_requested": true,
+  "image_path": "/home/dev/.codex/worktrees/events-bot-new/event-card-semantic-closure-int/site/artifacts/weekend-listing-v1/comparisons/weekend-like-37-current-grid-review.png",
+  "caption": "🟢 LEAF COMPONENT CONFORMANCE · LIKE PROOF COMPACT36 · COUNT=37\n\nПроверен ровно тот же leaf component на тех же данных: Astro `.ke-listing-card__social-proof` count=37 и Penpot fixture adapter Like proof · compact36 · count=37 exact. Для квадратного компонента панели собраны 2×2: Astro / Penpot / overlay / diff; исходный raster 36×36 увеличен nearest-neighbor, чтобы был виден каждый пиксель.\n\nГипотеза владельца подтвердилась частично: новый визуальный дубль не создавался — карточка действительно ссылалась на shared Like proof → canonical Icon/UI/Heart → Heart Source. Ошибка была внутри переиспользуемой цепочки: 17px Heart-instance держал 12px source vector из-за неверных resize constraints. Кроме того, base Like proof потерял Astro opacity=.58 и имел 10/400 вместо 10.56/760.\n\nИсправление централизованное, без нового компонента и без terminal override: source/semantic Heart получили scale constraints; shared Like proof обновлён до Heart 17×17, path 14.1667×12.9979, opacity=.58, color #6d6259/68%, count 10.56/host-safe800 (requested760 записан в metadata). Exact adapter по-прежнему только переопределяет значение count=37.\n\nClosure: 7 linked shapes, detached=0, validate=[]. Alpha MNAE=0.018885. Остаток MINOR — Chromium weight760 против доступного в Penpot Inter weight800 и rasterization.\n\nPenpot exact fixture · Page 61.5 · Like count37 master:\nhttps://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-87be43cf2da2&board-id=d87e18f1-dcb4-80a6-8008-87bf62ece678\n\nShared base · Page 60.2 · Like proof compact36:\nhttps://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=a21f5e36-5d76-8065-8008-86b27eb10a3d&board-id=a21f5e36-5d76-8065-8008-86cd5b96589f\n\nAgent verdict: PASS_WITH_MINOR_RENDERER_TYPOGRAPHY_DELTA\nOwner status: NOT_REQUESTED\nGoal: WORKING_NOT_READY_FOR_CONSOLIDATED_OWNER_REVIEW\nDesign SHA: 520b817\nAstro SHA: 7774004b4\nRun: weekend-like-37-current-20260824-v2",
+  "case_id": "component.social-proof.like.compact36.event.real.7906.count37",
+  "run_id": "weekend-like-37-current-20260824-v2",
+  "image_sha256": "e5a19e8a24a4358d204529d9cf158c8f64507a16d8d8cacb4b949b34b319519e",
+  "caption_sha256": "0a9b3ac91cd99aa47ef15eaffac855ef03b240f133bb00e97ee08f2a413c712e",
+  "content_hash": "989f585dde6b235249d6ccd885f07cf44d0dd893f71424217e28605f20d68f2d"
+}
