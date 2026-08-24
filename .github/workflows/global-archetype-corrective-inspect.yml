@@ -1,0 +1,93 @@
+name: Inspect global archetype corrective handoff
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout latest design-system feature head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout locked Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: events-bot
+          fetch-depth: 0
+
+      - name: Prove verified handoff byte equality
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/events-bot
+        run: |
+          set -euo pipefail
+          git fetch origin 8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d || true
+          node scripts/global-archetype-sot-v1/validate-handoff.mjs | tee "$RUNNER_TEMP/handoff-validation.json"
+          node --input-type=module <<'NODE' > "$RUNNER_TEMP/byte-equality-proof.json"
+          import { createHash } from 'node:crypto';
+          import { readFileSync, readdirSync } from 'node:fs';
+          import { join } from 'node:path';
+          const sha = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
+          const root = 'catalog/global-archetype-sot-v1';
+          const lock = JSON.parse(readFileSync(join(root, 'handoff-lock.v1.json'), 'utf8'));
+          const contracts = readdirSync(join(root, 'archetype-contracts'))
+            .filter((n) => n.endsWith('.semantic-contract.v1.json')).sort();
+          const manifest = contracts.map((name) => `${sha(join(root, 'archetype-contracts', name))}  ${join(root, 'archetype-contracts', name)}\n`).join('');
+          const contractManifestHash = createHash('sha256').update(manifest).digest('hex');
+          const actual = {
+            route_archetype_registry: sha(join(root, 'route-archetype-registry.v1.json')),
+            component_composition_graph: sha(join(root, 'component-composition-graph.v1.json')),
+            archetype_contracts_sorted_manifest: contractManifestHash,
+            archetype_contract_count: contracts.length,
+          };
+          const expected = {
+            route_archetype_registry: lock.approved_outputs.route_archetype_registry.sha256,
+            component_composition_graph: lock.approved_outputs.component_composition_graph.sha256,
+            archetype_contracts_sorted_manifest: lock.approved_outputs.archetype_contracts.sorted_checksum_manifest_sha256,
+            archetype_contract_count: lock.approved_outputs.archetype_contracts.count,
+          };
+          const equality = Object.fromEntries(Object.keys(expected).map((key) => [key, actual[key] === expected[key]]));
+          if (!Object.values(equality).every(Boolean)) throw new Error(`byte equality failed: ${JSON.stringify({ expected, actual, equality })}`);
+          console.log(JSON.stringify({ schema_version: 'global-archetype-byte-equality-proof.v1', status: 'PASS', parent_sha: process.env.GITHUB_SHA, verified_handoff_head: lock.green_handoff.head_sha, expected, actual, equality, contract_files: contracts }, null, 2));
+          NODE
+
+      - name: Package exact corrective inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$(git rev-parse HEAD)" > "$RUNNER_TEMP/design-head.txt"
+          printf '%s\n' "$(git -C events-bot rev-parse HEAD)" > "$RUNNER_TEMP/astro-head.txt"
+          tar -czf "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" \
+            catalog/global-archetype-sot-v1 \
+            catalog/reconstruction-atlas/v1 \
+            scripts/global-archetype-sot-v1 \
+            AGENTS.md \
+            events-bot/src \
+            "$RUNNER_TEMP/handoff-validation.json" \
+            "$RUNNER_TEMP/byte-equality-proof.json" \
+            "$RUNNER_TEMP/design-head.txt" \
+            "$RUNNER_TEMP/astro-head.txt"
+          sha256sum "$RUNNER_TEMP/global-archetype-corrective-inspection.tar.gz" > "$RUNNER_TEMP/global-archetype-corrective-inspection.sha256"
+
+      - name: Upload inspection bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-archetype-corrective-inspection
+          path: |
+            ${{ runner.temp }}/global-archetype-corrective-inspection.tar.gz
+            ${{ runner.temp }}/global-archetype-corrective-inspection.sha256
+            ${{ runner.temp }}/handoff-validation.json
+            ${{ runner.temp }}/byte-equality-proof.json
+          if-no-files-found: error
+          retention-days: 3
