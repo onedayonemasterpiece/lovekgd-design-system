@@ -165,7 +165,10 @@ const railMedia7906 = components.body_components.find((item) => item.id === 'lis
 const railIdentitySlot = components.body_components.find((item) => item.id === 'listing.rail-row.identity-slot');
 const railLikeAction = components.body_components.find((item) => item.id === 'action.like.rail');
 const railArtifactSlot = components.body_components.find((item) => item.id === 'listing.rail-row.artifact-slot');
-assert.match(railInlineLike.materialization_rule, /count=37 exact master is a fixture-bound adapter/);
+assert.equal(railInlineLike.family_id, 'social-proof.like');
+assert.equal(railInlineLike.context_variant, 'rail-inline');
+assert.equal(railInlineLike.canonical_context_master.penpot_component_id, railInlineLike.penpot_component_id);
+assert.match(railInlineLike.materialization_rule, /direct Heart\+text reconstruction is forbidden/);
 assert.deepEqual(railEventSummary.dependencies, ['social-proof.like.rail-inline', 'icon.product.rail-arrow-right']);
 assert.match(railEventSummary.component_topology, /no detached copies/);
 assert.match(railEventSummary.parent_adoption_status, /complete: owning T04 main instance/);

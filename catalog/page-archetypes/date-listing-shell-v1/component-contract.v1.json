@@ -277,6 +277,8 @@
     },
     {
       "id": "social-proof.like.rail-inline",
+      "family_id": "social-proof.like",
+      "context_variant": "rail-inline",
       "source": "MobileListingRailSurface.astro#.event-signal--like",
       "states": [
         "count-present",
@@ -293,7 +295,12 @@
         "id": "06b5fc29-ba80-803f-8008-874226210f1a",
         "name": "60.1e — Mobile rail summary · Native component"
       },
-      "materialization_rule": "semantic Like proof owns linked Heart plus count; the current count=37 exact master is a fixture-bound adapter, not a product variant"
+      "materialization_rule": "one canonical rail-inline context master owns linked Heart plus overridable count; fixture adapters and archetype consumers must link this master and may override count only. A direct Heart+text reconstruction is forbidden",
+      "canonical_context_master": {
+        "penpot_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+        "default_fixture_value": 37,
+        "family_relation": "context variant of social-proof.like; not a second semantic identity"
+      }
     },
     {
       "id": "listing.rail-row.event-summary",
@@ -832,7 +839,7 @@
         "id": "06b5fc29-ba80-803f-8008-874226210f1a",
         "name": "60.1e — Mobile rail summary · Native component"
       },
-      "materialization_rule": "count is inside the linked semantic Like proof; fixture review surfaces never place a sibling number"
+      "materialization_rule": "count=37 uses the canonical rail-inline context master with its default fixture value. count=10 and count=53 adapters each contain one linked instance of that same master and override only Content / Count. They must not recreate Heart or count as direct visual children; fixture review surfaces never place a sibling number"
     },
     {
       "id": "listing.rail-row.event-summary.exact-fixtures",

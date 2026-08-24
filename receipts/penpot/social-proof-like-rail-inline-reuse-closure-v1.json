@@ -1,0 +1,64 @@
+{
+  "schema_version": "penpot-social-proof-like-rail-inline-reuse-closure.v1",
+  "status": "PASS",
+  "recorded_at": "2026-08-24T11:51:44Z",
+  "family": "component.social-proof.like",
+  "context_variant": "rail-inline",
+  "owner_finding": "The rail Like with count appeared to be a visually similar duplicate instead of reuse of the established semantic component.",
+  "root_cause": {
+    "confirmed": true,
+    "detail": "The count=10, count=37 and count=53 rail-inline fixtures were three separate masters that each rebuilt linked Heart plus direct count text. Their pixels followed the Astro rail context, but their component topology duplicated the same semantic Like boundary.",
+    "why_the_visual_size_differs_from_compact36": "Astro .event-signal--like is a 12px inline context with 3px icon/count gap and 10.5px type; .ke-listing-card__social-proof is a distinct 36x36 context. They are context variants of one semantic family, not interchangeable geometry."
+  },
+  "sot_first_correction": {
+    "contract": "catalog/page-archetypes/date-listing-shell-v1/component-contract.v1.json",
+    "family_id": "social-proof.like",
+    "rule": "one canonical rail-inline context master; fixtures and archetypes link it and override count only"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 2238,
+    "owner_page_id": "06b5fc29-ba80-803f-8008-874226210f1a",
+    "owner_page_name": "60.1e — Mobile rail summary · Native component",
+    "canonical_context_master": {
+      "component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e",
+      "main_shape_id": "06b5fc29-ba80-803f-8008-8742b0cc0e95",
+      "library_path": "Social proof / Like",
+      "library_name": "context=rail-inline",
+      "bounds": [29.625, 12],
+      "default_count": 37,
+      "direct_visible_children": [
+        "linked Icon / UI / Heart / rail-inline",
+        "Content / Count / overridable"
+      ]
+    },
+    "fixture_adapters": [
+      {
+        "count": 10,
+        "component_id": "d87e18f1-dcb4-80a6-8008-877b9c166cf6",
+        "main_shape_id": "d87e18f1-dcb4-80a6-8008-877b9be169ed",
+        "visible_direct_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e"
+      },
+      {
+        "count": 53,
+        "component_id": "d87e18f1-dcb4-80a6-8008-877b9c4319e3",
+        "main_shape_id": "d87e18f1-dcb4-80a6-8008-877b9c184c8a",
+        "visible_direct_component_id": "06b5fc29-ba80-803f-8008-8742d3f6ac5e"
+      }
+    ],
+    "detached_visible_copies": 0,
+    "validation": []
+  },
+  "visual_evidence": {
+    "same_exact_case": "social-proof.like.rail-inline.count37.current-v1",
+    "astro_fixture_count": 37,
+    "astro_png_sha256": "f0930f1a8dc192d56c5120e2b5129f0a04872592ae85ada1fe4d4ef4894c122c",
+    "penpot_pre_topology_correction_png_sha256": "8636e7f0e50fc25fd896fdb9ca69111d04fa43187fc41ce95a6f44b0449fe9c1",
+    "comparison_png_sha256": "f7f4edb3dd564d221beb24948605e42e11bdb7887893eba035ce33df11571a83",
+    "visual_disposition": "The topology-only consolidation preserves the already compared 29.625x12 visible master. A fresh export was attempted but the bounded Penpot export returned HTTP 504; no new raster hash is claimed."
+  },
+  "residual": {
+    "kind": "component-v2 legacy descendant",
+    "detail": "Each migrated count=10/count=53 adapter retains one hidden deprecated pre-consolidation direct text descendant because removing a descendant from a component main instance becomes an invisibility override. It is not visible UI and is not used for layout or export. A future stable-ID migration may replace those adapters entirely."
+  }
+}
