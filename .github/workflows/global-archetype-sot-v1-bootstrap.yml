@@ -1,0 +1,40 @@
+name: Bootstrap global archetype SoT v1
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-20260824
+
+permissions:
+  contents: write
+
+jobs:
+  unpack-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify child branch and unpack atomic source payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=7357015c53b3d2b48d6e775531fa7ae3e91423e4
+          archive="$RUNNER_TEMP/global-archetype-sot-v1.tar.gz"
+          git merge-base --is-ancestor "$base" HEAD
+          cat .bootstrap/part-00 .bootstrap/part-01 .bootstrap/part-02 .bootstrap/part-03 > "$archive"
+          printf '%s  %s\n' d8d7e7a5394f75c7161eda3df09c15bdf7c8e1dcaf4905e84e9140ff02a47d04 "$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C .
+          rm -rf .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
+          git add -A
+          if git diff --cached --name-only | grep -E '^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'; then
+            echo 'Protected Date/Weekend artifact changed' >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name 'global-archetype-sot-bot'
+          git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
+          git commit -m 'feat(ds): add global archetype SoT v1 reconstruction pipeline'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
