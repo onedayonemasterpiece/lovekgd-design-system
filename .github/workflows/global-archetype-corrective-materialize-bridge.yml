@@ -1,0 +1,78 @@
+name: Bridge corrective materialization artifact
+
+on:
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  bridge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Locate successful push materialization run
+        id: locate
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 90); do
+            response="$(curl --fail --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${HEAD_SHA}&per_page=50")"
+            run_id="$(jq -r '.workflow_runs[] | select(.name == "Materialize corrective SoT bundle" and .event == "push") | .id' <<<"$response" | head -n1)"
+            conclusion="$(jq -r '.workflow_runs[] | select(.name == "Materialize corrective SoT bundle" and .event == "push") | .conclusion // ""' <<<"$response" | head -n1)"
+            status="$(jq -r '.workflow_runs[] | select(.name == "Materialize corrective SoT bundle" and .event == "push") | .status // ""' <<<"$response" | head -n1)"
+            if [[ -n "$run_id" && "$status" == "completed" ]]; then
+              test "$conclusion" = success
+              echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'materialization run did not complete successfully' >&2
+          exit 1
+
+      - name: Download materialization artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ steps.locate.outputs.run_id }}
+        run: |
+          set -euo pipefail
+          artifacts="$(curl --fail --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}/artifacts")"
+          artifact_id="$(jq -r '.artifacts[] | select(.name == "global-archetype-corrective-git-payload") | .id' <<<"$artifacts" | head -n1)"
+          test -n "$artifact_id"
+          curl --fail --location --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${artifact_id}/zip" \
+            --output "$RUNNER_TEMP/materialized.zip"
+          mkdir -p "$RUNNER_TEMP/materialized"
+          unzip -q "$RUNNER_TEMP/materialized.zip" -d "$RUNNER_TEMP/materialized"
+          test -f "$RUNNER_TEMP/materialized/global-archetype-corrective-git-payload.tar.gz"
+          test -f "$RUNNER_TEMP/materialized/global-archetype-corrective-git-payload.sha256"
+          (cd "$RUNNER_TEMP/materialized" && sha256sum --check global-archetype-corrective-git-payload.sha256)
+
+      - name: Re-upload artifact on PR run
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-archetype-corrective-git-payload-bridge
+          path: |
+            ${{ runner.temp }}/materialized/global-archetype-corrective-git-payload.tar.gz
+            ${{ runner.temp }}/materialized/global-archetype-corrective-git-payload.sha256
+          if-no-files-found: error
+          retention-days: 3
