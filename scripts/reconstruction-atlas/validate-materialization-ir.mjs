@@ -14,6 +14,8 @@ const check = (id, pass, actual) => checks.push({ id, pass: Boolean(pass), actua
 
 check('schema', ir.schema_version === 'reconstruction-atlas-materialization-ir.v1', ir.schema_version);
 check('semantic-hash', ir.semantic_atlas_sha256 === hash('semantic-atlas.v1.json'), ir.semantic_atlas_sha256);
+const globalSotPath = path.join(repoRoot, 'catalog/global-archetype-sot-v1/manifest.v1.json');
+check('global-archetype-sot-v1', Boolean(ir.global_archetype_sot_v1) && ir.global_archetype_sot_v1.path === 'catalog/global-archetype-sot-v1/manifest.v1.json' && ir.global_archetype_sot_v1.sha256 === crypto.createHash('sha256').update(fs.readFileSync(globalSotPath)).digest('hex'), ir.global_archetype_sot_v1);
 check('owner-page-count', ir.pages.length === semantic.archetypes.length && ir.pages.length === 17, ir.pages.length);
 check('unique-page-names', new Set(ir.pages.map((p) => p.page_name)).size === ir.pages.length, ir.pages.map((p) => p.page_name));
 check('unique-page-stable-ids', new Set(ir.pages.map((p) => p.stable_page_id)).size === ir.pages.length, ir.pages.map((p) => p.stable_page_id));

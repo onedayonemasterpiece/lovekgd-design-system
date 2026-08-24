@@ -12,6 +12,7 @@ const sha256 = (value) => crypto.createHash('sha256').update(value).digest('hex'
 const semantic = read('semantic-atlas.v1.json');
 const reuseMap = read('reuse-new-map.v1.json');
 const fixtures = read('fixtures.v1.json');
+const globalSotPath = path.join(repoRoot, 'catalog/global-archetype-sot-v1/manifest.v1.json');
 
 const titles = {
   'archetype.home': 'Home',
@@ -207,6 +208,10 @@ const ir = {
   schema_version: 'reconstruction-atlas-materialization-ir.v1',
   generated_at: new Date().toISOString(),
   semantic_atlas_sha256: sha256(fs.readFileSync(path.join(atlasRoot, 'semantic-atlas.v1.json'))),
+  global_archetype_sot_v1: fs.existsSync(globalSotPath) ? {
+    path: 'catalog/global-archetype-sot-v1/manifest.v1.json',
+    sha256: sha256(fs.readFileSync(globalSotPath)),
+  } : null,
   file_id: '3be9e5e1-190f-8090-8008-713c0fbe6260',
   checkpoint_revision: 2160,
   governance: {

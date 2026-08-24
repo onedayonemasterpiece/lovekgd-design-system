@@ -1,4 +1,9 @@
-# Complete Reconstruction Atlas — accelerated reconstruction mode
+# Complete Reconstruction Atlas — compatibility pointer
+
+The canonical operating contract is now
+[`accelerated-reconstruction-mode.md`](accelerated-reconstruction-mode.md),
+pinned to design input commit `adeb9e4`. This file remains only so older links
+do not break.
 
 ## Назначение
 

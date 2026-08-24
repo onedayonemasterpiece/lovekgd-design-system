@@ -34,7 +34,7 @@ bounded feedback с проверенной коррекцией — `REVIEWED_BY
 комментария — `NO_RECORDED_OBJECTION`, но не approval. Explicit decision нужен
 только для Astro-conflicting или product changes. Точный operating contract
 этого режима зафиксирован в
-[`complete-reconstruction-atlas-accelerated-mode.md`](complete-reconstruction-atlas-accelerated-mode.md).
+[`accelerated-reconstruction-mode.md`](accelerated-reconstruction-mode.md).
 
 Нельзя выбирать одну из двух крайностей:
 

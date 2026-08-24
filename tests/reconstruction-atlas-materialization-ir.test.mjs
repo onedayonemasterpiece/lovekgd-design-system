@@ -39,3 +39,8 @@ test('IR validator passes before Penpot writes', () => {
   assert.equal(validation.status, 'MATERIALIZATION_IR_READY');
   assert.equal(validation.fail_count, 0);
 });
+
+test('materialization IR is bound to global-archetype-sot-v1', () => {
+  assert.equal(ir.global_archetype_sot_v1.path, 'catalog/global-archetype-sot-v1/manifest.v1.json');
+  assert.match(ir.global_archetype_sot_v1.sha256, /^[a-f0-9]{64}$/);
+});
