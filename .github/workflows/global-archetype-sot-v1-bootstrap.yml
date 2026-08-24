@@ -34,31 +34,6 @@ jobs:
         run: |
           set -euo pipefail
           git merge-base --is-ancestor "$BASE_SHA" HEAD
-
-          cat > "$RUNNER_TEMP/chunks.sha256" <<'CHECKSUMS'
-          1d8a470c083276ac8b59acf68eefa9ad416acc3bf2ca07df3db9b520ab0a5bb3  .bootstrap/global-archetype-sot-v1-v2/chunk-00
-          a3cab7dedaf995816e5ac9226564405fef5aaed132aff33b681491258ee209f4  .bootstrap/global-archetype-sot-v1-v2/chunk-01
-          22240a2c8a739bc5fd6b05b97e921f347e172f0ed1f2c4eb583b92233677f8e9  .bootstrap/global-archetype-sot-v1-v2/chunk-02
-          6b74bd041291b39d9efd67d2986d8eb3ca86d3a532622d8cda345c54e3a38723  .bootstrap/global-archetype-sot-v1-v2/chunk-03
-          761ded89044225de20a831c89c17983330b15a964276736497a05964150d65a9  .bootstrap/global-archetype-sot-v1-v2/chunk-04
-          6e8a47473ae23a489eba9953e18a3448195e6ca607e6633c03fc7461d4fac567  .bootstrap/global-archetype-sot-v1-v2/chunk-05
-          ea355a059d19c07b6bdec44a80648844e348a49f15781b268473096476d5fad0  .bootstrap/global-archetype-sot-v1-v2/chunk-06
-          a37b622788f39c6b8383f6cab8585d22e408cea987cf8cffa19327ecfbc6c43d  .bootstrap/global-archetype-sot-v1-v2/chunk-07
-          7d854cb6eee1dc553389a821c20b775706afa36ec9313b2257764a047ede6108  .bootstrap/global-archetype-sot-v1-v2/chunk-08
-          230dcf4a39a5a23545e98d1a8e55bc4375444d812c4561f7259f364bc7494426  .bootstrap/global-archetype-sot-v1-v2/chunk-09
-          0974b0e6e277566617ef8afbe9704e579c75301f52626a9d79e5e67785bab3c5  .bootstrap/global-archetype-sot-v1-v2/chunk-10
-          855469746cb32286d14888a9e68c4b7e6aed045304f1d34cf89bfa85dacaef02  .bootstrap/global-archetype-sot-v1-v2/chunk-11
-          b5c94479e9842e26d44ad2edd5c73274af8c29b891c5ce9f6eeaf4f114edb0f1  .bootstrap/global-archetype-sot-v1-v2/chunk-12
-          06a4f831ad8ffa613575212e861c49724a46c8893a8c7cbf9432f99c28edb290  .bootstrap/global-archetype-sot-v1-v2/chunk-13
-          47987109db59736a9a508c738460f67ba247abc0f15b6e211d6d5b16e39a5e9f  .bootstrap/global-archetype-sot-v1-v2/chunk-14
-          cc9d2e715040e3bbc2541e8af9cb0ebf8a187042b907654a3c473ebc06654bd5  .bootstrap/global-archetype-sot-v1-v2/chunk-15
-          dc4a146bee3245bc119e862f2f48e61ec52ba3e08b84fa25e8e6c676e4e402a0  .bootstrap/global-archetype-sot-v1-v2/chunk-16
-          cd92acec41dcd867a4974d6ec5e70490667d2cfae9b03d4ef48336a9324936d4  .bootstrap/global-archetype-sot-v1-v2/chunk-17
-          c8c95c512de65168daccc541a71d9605b0d9fd0553cd101b6bd1557fb06501e3  .bootstrap/global-archetype-sot-v1-v2/chunk-18
-          2a3505905d662b686aa4fd6aecd6f410caa43488b7ce0b4b250306414d8a4424  .bootstrap/global-archetype-sot-v1-v2/chunk-19
-          CHECKSUMS
-          sha256sum --check --strict "$RUNNER_TEMP/chunks.sha256"
-
           archive="$RUNNER_TEMP/global-archetype-sot-v1.tar.gz"
           cat .bootstrap/global-archetype-sot-v1-v2/chunk-* | base64 --decode > "$archive"
           printf '%s  %s\n' a025652a9332785c402c6c4fdaefeee8ccb71bf7f02bae16a3e6d652c02d123e "$archive" | sha256sum --check --strict
@@ -81,13 +56,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add -A
+          rm -rf node_modules
+          git add -- \
+            .github/workflows/global-archetype-sot-v1.yml \
+            catalog/global-archetype-sot-v1 \
+            scripts/global-archetype-sot-v1 \
+            scripts/reconstruction-atlas/build-global-archetype-sot.mjs \
+            tests/global-archetype-sot-v1.test.mjs
+          git add -u -- .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
           protected='^(catalog/page-archetypes/(date-listing-shell-v1|weekend-listing-v1)/|tests/(date-listing-shell-v1|weekend-listing-v1)\.test\.mjs$|receipts/(penpot|ui-conformance)/(date-listing|date-listing-shell-v1|weekend|weekend-listing-v1)(/|-))'
           if git diff --cached --name-only | grep -E "$protected"; then
             echo 'Protected Date/Weekend artifact changed' >&2
             exit 1
           fi
           git diff --cached --check
+          git status --short
           git config user.name 'global-archetype-sot-bot'
           git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
           git commit -m 'feat(ds): assemble global archetype SoT v1'
