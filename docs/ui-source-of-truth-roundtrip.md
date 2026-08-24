@@ -16,6 +16,10 @@ package.
 Therefore neither Penpot nor a route-local Astro copy may be edited as an
 independent source of truth.
 
+## Executable skill routing
+
+Archetype materialization uses [`$penpot-visual-reconstruction`](../.codex/skills/penpot-visual-reconstruction/SKILL.md). Component certification is reopened only for its explicit triggers and uses [`$ui-component-certification`](../.codex/skills/ui-component-certification/SKILL.md); ordinary linked assembly does not recertify leaf components.
+
 ## The required loop
 
 ### 1. Reconstruct the existing system
