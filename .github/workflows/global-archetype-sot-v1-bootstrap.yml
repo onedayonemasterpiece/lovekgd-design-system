@@ -40,6 +40,15 @@ jobs:
           tar -tzf "$archive"
           tar -xzf "$archive" -C .
           rm -rf .bootstrap .github/workflows/global-archetype-sot-v1-bootstrap.yml
+          python3 - <<'PY'
+          from pathlib import Path
+          for path in (
+              Path('catalog/global-archetype-sot-v1/README.md'),
+              Path('scripts/global-archetype-sot-v1/build.mjs'),
+          ):
+              lines = path.read_text(encoding='utf-8').splitlines()
+              path.write_text('\n'.join(line.rstrip() for line in lines).rstrip() + '\n', encoding='utf-8')
+          PY
 
       - name: Build and run fail-closed checks
         shell: bash
