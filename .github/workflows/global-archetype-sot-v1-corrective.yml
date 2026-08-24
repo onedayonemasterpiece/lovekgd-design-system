@@ -1,0 +1,86 @@
+name: Corrective global archetype SoT
+
+on:
+  push:
+    branches:
+      - feature/global-archetype-sot-v1-corrective-20260824-r4
+    paths:
+      - 'catalog/global-archetype-sot-v1/**'
+      - 'scripts/global-archetype-sot-v1/**'
+      - 'tests/global-archetype-sot-v1*.mjs'
+      - '.github/workflows/global-archetype-sot-v1-corrective.yml'
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
+    paths:
+      - 'catalog/global-archetype-sot-v1/**'
+      - 'scripts/global-archetype-sot-v1/**'
+      - 'tests/global-archetype-sot-v1*.mjs'
+      - '.github/workflows/global-archetype-sot-v1-corrective.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corrective-global-archetype-sot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout corrective branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+      - name: Checkout pinned Astro source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00
+          path: .external/events-bot-new
+          fetch-depth: 1
+      - name: Set up Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.12.0
+      - name: Prove deterministic corrective output
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: |
+          set -euo pipefail
+          git diff --quiet
+          find catalog/global-archetype-sot-v1 -type f -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/corrective-before.sha256"
+          node scripts/global-archetype-sot-v1/build-corrective.mjs
+          find catalog/global-archetype-sot-v1 -type f -print0 | sort -z | xargs -0 sha256sum > "$RUNNER_TEMP/corrective-after.sha256"
+          diff -u "$RUNNER_TEMP/corrective-before.sha256" "$RUNNER_TEMP/corrective-after.sha256"
+          git diff --exit-code -- catalog/global-archetype-sot-v1 scripts/global-archetype-sot-v1 tests/global-archetype-sot-v1-semantic-completeness.test.mjs tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+      - name: Run semantic completeness
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: node tests/global-archetype-sot-v1-semantic-completeness.test.mjs
+      - name: Run corrective boundaries
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          ASTRO_ROOT: ${{ github.workspace }}/.external/events-bot-new
+          CORRECTIVE_BASE_SHA: da16dde8812220125a806bd5a03d5015357d4c07
+        run: node tests/global-archetype-sot-v1-corrective-boundaries.test.mjs
+      - name: Validate immutable handoff and protected scope
+        shell: bash
+        env:
+          EVENTS_BOT_ROOT: ${{ github.workspace }}/.external/events-bot-new
+        run: |
+          set -euo pipefail
+          git fetch origin 8c6b9c1017f1fb646b6bb757e1b6b2cf0e7b815d
+          node scripts/global-archetype-sot-v1/validate-handoff.mjs
+          git diff --check
+          test -z "$(git diff --name-only da16dde8812220125a806bd5a03d5015357d4c07...HEAD -- AGENTS.md docs receipts catalog/page-archetypes/date-listing-shell-v1 catalog/page-archetypes/weekend-listing-v1 tests/date-listing-shell-v1.test.mjs tests/weekend-listing-v1.test.mjs)"
