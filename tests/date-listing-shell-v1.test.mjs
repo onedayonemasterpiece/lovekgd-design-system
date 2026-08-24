@@ -296,8 +296,8 @@ for (const id of ['DL-021', 'DL-022', 'DL-023', 'DL-024']) assert(decisions.deci
 for (const id of ['DL-025', 'DL-026']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-027', 'DL-028', 'DL-029']) assert(decisions.decisions.some((item) => item.id === id));
 for (const id of ['DL-030', 'DL-031']) assert(decisions.decisions.some((item) => item.id === id));
-for (const id of ['DL-032', 'DL-033', 'DL-034', 'DL-035', 'DL-036']) assert(decisions.decisions.some((item) => item.id === id));
-for (const id of ['shell.mobile-menu.close-tag', 'action.shell.mobile-menu.login', 'action.shell.mobile-menu.favorites', 'action.shell.mobile-menu.share', 'shell.mobile-menu.utility', 'action.shell.mobile-menu.row', 'shell.mobile-menu.brand']) assert(components.shell_components.some((item) => item.id === id));
+for (const id of ['DL-032', 'DL-033', 'DL-034', 'DL-035', 'DL-036', 'DL-037']) assert(decisions.decisions.some((item) => item.id === id));
+for (const id of ['shell.mobile-menu.close-tag', 'action.shell.mobile-menu.login', 'action.shell.mobile-menu.favorites', 'action.shell.mobile-menu.share', 'shell.mobile-menu.utility', 'action.shell.mobile-menu.row', 'shell.mobile-menu.brand', 'shell.mobile-menu.date-navigation']) assert(components.shell_components.some((item) => item.id === id));
 const shellUtility = components.shell_components.find((item) => item.id === 'shell.mobile-menu.utility');
 assert.match(shellUtility.layer_rule, /no alpha surface may overlay/);
 assert.equal(shellUtility.dependencies.length, 3);
@@ -310,6 +310,10 @@ const shellMenuBrand = components.shell_components.find((item) => item.id === 's
 assert.equal(shellMenuBrand.penpot_component_id, 'd87e18f1-dcb4-80a6-8008-87a644fc494e');
 assert.equal(shellMenuBrand.registered_overrides['wordmark.color'], 'dark-on-light #2b211c');
 assert.match(shellMenuBrand.materialization_rule, /copied vector group is forbidden/);
+const shellMenuDates = components.shell_components.find((item) => item.id === 'shell.mobile-menu.date-navigation');
+assert.equal(shellMenuDates.penpot_component_id, 'd87e18f1-dcb4-80a6-8008-87a7a547f2da');
+assert.deepEqual(shellMenuDates.exact_state, ['Сегодня', 'Завтра:selected', 'Выходные']);
+assert.match(shellMenuDates.materialization_rule, /Direct sibling chips.*forbidden/);
 const cityRail = components.body_components.find((item) => item.id === 'listing.city-filter-rail');
 assert.equal(cityRail.penpot_component_id, 'a21f5e36-5d76-8065-8008-86cf6749b5d4');
 assert.match(cityRail.surface_rule, /bottom divider/);
