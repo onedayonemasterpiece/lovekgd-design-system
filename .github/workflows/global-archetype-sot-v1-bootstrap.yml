@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/global-archetype-sot-v1-20260824-r2
+  pull_request:
+    branches:
+      - feature/date-listing-shell-v1-20260823
 
 permissions:
   contents: write
@@ -18,11 +21,12 @@ jobs:
     timeout-minutes: 20
     env:
       BASE_SHA: 1d252c5f01bfab507de4a026d00a1e4a83a37d9a
-      BRANCH_NAME: feature/global-archetype-sot-v1-20260824-r2
+      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
       - name: Checkout child branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Verify payload and materialize source
@@ -73,4 +77,4 @@ jobs:
           git config user.name 'global-archetype-sot-bot'
           git config user.email 'global-archetype-sot-bot@users.noreply.github.com'
           git commit -m 'feat(ds): assemble global archetype SoT v1'
-          git push origin "HEAD:${BRANCH_NAME}"
+          git push origin "HEAD:${TARGET_BRANCH}"
