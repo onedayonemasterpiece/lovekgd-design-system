@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "pattern_id": "pattern.detached-chrome-control-islands",
+  "display_name": "Detached chrome / floating control islands",
+  "direction_status": "accepted_for_roadmap",
+  "implementation_status": "not_started",
+  "current_phase": "reference_captured",
+  "owner_decision": "design_and_implement_after_as_is_archetype_parity",
+  "reference_pack": {
+    "artifact_id": "floating-control-islands-reference-2026-08",
+    "status": "exploration_input",
+    "source_informed": true,
+    "final_lovekgd_design": false,
+    "files": [
+      "README.md",
+      "screen-observations.json",
+      "source-manifest.json",
+      "assets/reference-board.svg",
+      "assets/anatomy.svg"
+    ]
+  },
+  "required_entry_gate": {
+    "gate_id": "as_is_archetypes_and_three_way_parity",
+    "all_conditions_required": true,
+    "conditions": [
+      "all_current_production_routes_mapped_to_as_is_archetypes",
+      "target_archetype_contracts_stable",
+      "astro_git_sot_penpot_baseline_version_equal",
+      "fixtures_states_and_semantic_regions_equal",
+      "current_top_and_bottom_chrome_ownership_known",
+      "safe_area_keyboard_scroll_overlay_and_occlusion_have_browser_evidence",
+      "no_speculative_component_merges_for_affected_surfaces"
+    ]
+  },
+  "design_program": {
+    "site_specific_variants_required": true,
+    "abstract_variants_are_final_output": false,
+    "third_party_screen_cloning_allowed": false,
+    "universal_site_wide_replacement_allowed": false,
+    "consumer_selection": "evidence_backed_after_parity_gate",
+    "steps": [
+      "map_real_lovekgd_archetypes_and_user_jobs",
+      "select_applicable_semantic_regions",
+      "design_custom_variants_on_real_page_fixtures",
+      "separate_surface_composition_control_and_runtime_contracts",
+      "define_responsive_state_fallback_and_accessibility_behavior",
+      "perform_owner_review_on_specific_lovekgd_pages",
+      "accept_versioned_pattern_and_variant_contracts",
+      "materialize_native_penpot_and_isolated_astro_candidates",
+      "verify_browser_and_device_conformance",
+      "migrate_selected_consumers_and_enable_drift_gates"
+    ]
+  },
+  "design_layers": [
+    "surface_primitive",
+    "composition",
+    "control_semantics",
+    "runtime_layout_behavior"
+  ],
+  "bottom_architectures": [
+    "floating_composer",
+    "floating_navigation_dock",
+    "persistent_state_dock_plus_navigation",
+    "borderless_semantically_grouped_navigation"
+  ],
+  "site_specific_variant_registry": [],
+  "variant_registry_policy": {
+    "populate_before_parity_gate": false,
+    "speculative_entries_allowed": false,
+    "required_fields": [
+      "variant_id",
+      "target_archetype_id",
+      "route_fixtures",
+      "user_job",
+      "affected_regions",
+      "baseline_binding",
+      "candidate_binding",
+      "runtime_contract",
+      "status",
+      "evidence"
+    ]
+  },
+  "authority": {
+    "component_family_accepted": false,
+    "tokens_accepted": false,
+    "reuse_existing": [],
+    "new_component": [],
+    "canonical_penpot_materialization_allowed_now": false,
+    "header_replacement_authorized_now": false,
+    "bottom_navigation_replacement_authorized_now": false
+  },
+  "completion_criteria": [
+    "custom_variants_exist_for_selected_real_lovekgd_archetypes",
+    "each_variant_has_accepted_git_sot_contract",
+    "exact_baseline_and_candidate_bindings_exist",
+    "native_penpot_and_astro_candidate_share_one_version",
+    "mobile_desktop_scroll_keyboard_safe_area_underlay_occlusion_and_accessibility_verified",
+    "owner_review_closed_on_specific_pages",
+    "selected_production_consumers_migrated",
+    "drift_gates_enabled_for_promoted_variants"
+  ],
+  "checklist_binding": {
+    "pull_request": "https://github.com/onedayonemasterpiece/lovekgd-design-system/pull/39",
+    "branch": "docs/design-system-progress-checklist-20260820",
+    "path": "docs/design-system-planned-patterns-checklist.md"
+  }
+}
