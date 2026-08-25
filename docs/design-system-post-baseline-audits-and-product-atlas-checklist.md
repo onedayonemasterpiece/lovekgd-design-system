@@ -1,18 +1,18 @@
 # LoveKGD Design System — post-baseline audits and Product Atlas checklist
 
-> **Статус:** обязательное приложение к [`design-system-progress-checklist.md`](design-system-progress-checklist.md), [`design-system-execution-sequence.md`](design-system-execution-sequence.md) и [`design-system-planned-patterns-checklist.md`](design-system-planned-patterns-checklist.md).  
-> **Назначение:** не пропустить профессиональный независимый аудит foundations, фактические skeleton/loading states и момент запуска Product Atlas после завершения честного AS-IS baseline.  
-> **Граница:** этот документ не разрешает автоматический redesign, token merge или promotion по мнению одной модели.
+> **Status:** mandatory companion to `design-system-progress-checklist.md`, `design-system-execution-sequence.md` and `design-system-planned-patterns-checklist.md`.  
+> **Updated:** 25 August 2026.  
+> **Boundary:** this checklist does not authorize automatic redesign, token merge, UI promotion or Penpot mutation.
 
-## 1. Место в общей последовательности
+## 1. Place in the delivery sequence
 
 ```text
 production Astro AS-IS
-→ stable Git SoT archetypes/components
+→ stable Git UI semantic contracts
 → native Penpot AS-IS
 → exact Astro == Git SoT == Penpot baseline
 → audit evidence packs
-→ независимые color + typography audits
+→ independent color + typography audits
 → synthesis + owner decisions
 → Unified Design v1 candidates
 → Penpot + isolated Astro implementation
@@ -20,108 +20,95 @@ production Astro AS-IS
 → migration and promotion
 ```
 
-Product Atlas имеет отдельный параллельный контур:
+Product Atlas follows a related but separate sequence:
 
 ```text
-stable route/archetype/component IDs + product model
-→ Product Atlas Git SoT linkage
+stable route/archetype/region IDs
++ Product Atlas Git model
+→ Git-only Product Atlas linkage
 → Jobs / outcomes / journeys / capabilities / UI gaps
-→ после parity gate: отдельная Product Atlas Penpot projection
-→ reviewed product evidence and decisions
+→ reviewed source and evidence locks
+→ after the safe target/parity gate: explicit Penpot MCP materialization
+→ exact read-back receipt
+→ owner review
 ```
 
-**Product Atlas Git SoT не обязан ждать финальной визуальной унификации.** Его можно начинать, когда существуют стабильные semantic IDs и route → archetype mapping. **Product Atlas Penpot projection ждёт закрытого AS-IS/parity gate**, чтобы ссылки на дизайн-систему не указывали на временные или дублирующиеся ресурсы.
+Product Atlas Git SoT does not wait for final visual unification. Its Penpot projection must not invent native bindings before a safe target and read-back exist.
 
----
+Canonical product meaning remains in `events-bot-new`. The design-system repository owns only UI foreign-key projection and visual/runtime conformance.
 
-## 2. Принцип независимого аудита
+## 2. Independent audit principle
 
-Foundation-решение нельзя принимать по одному красивому board или по желанию одной нейросети.
+Foundation decisions cannot be accepted from one attractive board or one model opinion.
 
-Минимальный protocol для цветов и типографики:
+Minimum protocol for color and typography:
 
-1. один exact evidence pack для всех аудиторов;
-2. минимум два независимых прохода, не читающих выводы друг друга;
-3. один визуальный аудитор с доступом к Penpot/archetypes;
-4. один source/runtime-аудитор с доступом к Astro, computed styles, usage census и SoT;
-5. отдельный synthesis, который фиксирует совпадения, расхождения и owner decisions;
-6. никакого автоматического принятия по большинству голосов;
-7. merge/keep/split/deprecate определяется semantic role, реальными consumers, accessibility и product context, а не только близостью значений.
+1. one exact evidence pack for every reviewer;
+2. at least two independent passes that do not read each other first;
+3. one visual pass with direct read-only archetype/Penpot access;
+4. one source/runtime pass using Astro, generated HTML, computed styles, usage census and Git SoT;
+5. one synthesis that exposes agreements, disagreements and owner decisions;
+6. no majority-vote auto-acceptance;
+7. merge/keep/split/deprecate is based on semantic role, real consumers, accessibility and product context, not value similarity alone.
 
-Рекомендуемый минимальный набор:
+## 3. Baseline entry gate for foundation audits
 
-- **Gemini visual pass:** прямой read-only просмотр Penpot и representative archetypes;
-- **ChatGPT/GPT source pass:** repository + generated HTML + browser-computed values + usage counts;
-- **synthesis pass:** сопоставляет оба отчёта и готовит bounded decision package.
+- [ ] 100% production routes are mapped to archetypes.
+- [ ] 17/17 archetypes have stable semantic contracts.
+- [ ] Desktop/mobile representations contain real UI, not metadata scaffolds.
+- [ ] Astro and Penpot use the same fixtures/state/viewport.
+- [ ] Stable component/archetype IDs link to Astro implementation and read-back Penpot IDs.
+- [ ] Service-only resources are absent from product UI boards.
+- [ ] Detached copies and unregistered terminal overrides are absent.
+- [ ] Renderer/tool limitations are separated from design decisions.
+- [ ] Owner review can reach exact UI objects and source evidence.
 
-Третья или четвёртая модель нужна только при реальном содержательном расхождении, а не ради количества мнений.
+Before this gate, audit inventory and scripts may be prepared, but a visible difference cannot yet be classified confidently as a foundation problem.
 
----
+## 4. Foundation Audit Pack v1
 
-## 3. Entry gate: baseline готов к foundation-аудиту
+The same versioned pack is used for every independent reviewer.
 
-- [ ] 100% production routes сопоставлены archetypes.
-- [ ] 17/17 archetypes имеют stable semantic contracts.
-- [ ] Desktop/mobile boards содержат реальный UI, а не metadata scaffolds.
-- [ ] Astro и Penpot используют одинаковые fixtures/state/viewport.
-- [ ] Stable component/archetype IDs связаны с Astro implementation и Penpot IDs.
-- [ ] Service-only Penpot resources отсутствуют.
-- [ ] Detached copies и unregistered terminal overrides отсутствуют.
-- [ ] Известные renderer deltas отделены от design decisions.
-- [ ] Owner review может выполняться по прямым UI-ссылкам.
+Required:
 
-До этого gate можно готовить inventory/scripts, но нельзя утверждать, что визуальный drift является именно foundation-проблемой: он может быть следствием неверной composition, detached instance или renderer delta.
-
----
-
-## 4. Общий Foundation Audit Pack v1
-
-Один versioned pack используется всеми моделями и человеком-дизайнером.
-
-### Обязательное содержимое
-
-- exact design-system, Astro и SoT SHAs;
-- exact Penpot file/revision;
-- прямые ссылки на 17 archetype pages и 34 desktop/mobile boards;
-- route/archetype/component/state/fixture identities;
-- generated HTML и browser-computed output;
+- exact design-system, Astro and semantic SoT SHAs;
+- exact Penpot file/revision and read-back receipt;
+- direct references to 17 archetype pages and desktop/mobile representations;
+- route/archetype/component/state/fixture IDs;
+- generated HTML and browser-computed output;
 - Astro source selectors/files;
-- Penpot library resources и фактические instance usages;
-- usage count и consumer list для каждого значения/role;
-- representative current screenshots на desktop/mobile;
+- Penpot resources and actual instance usage;
+- usage count and consumer list per value/role;
+- representative screenshots;
 - contrast/accessibility results;
-- known renderer/API limitations;
+- known renderer/API limits;
 - explicit unresolved list;
-- machine-readable current → candidate mapping template.
+- machine-readable current → candidate template.
 
-### Запреты
+Forbidden:
 
-- [ ] не использовать только token declarations без фактических consumers;
-- [ ] не использовать только Penpot library без instance census;
-- [ ] не принимать screenshot proxy за native component evidence;
-- [ ] не смешивать AS-IS observation и candidate recommendation;
-- [ ] не скрывать значения, которые встречаются один раз;
-- [ ] не объединять цвета/стили только по визуальной близости.
+- [ ] token declarations without real consumers;
+- [ ] Penpot library inventory without instance census;
+- [ ] screenshot proxy treated as native component evidence;
+- [ ] AS-IS observation mixed with candidate recommendation;
+- [ ] rare values hidden from the census;
+- [ ] values merged only by visual similarity.
 
----
+## 5. Independent color audit
 
-# 5. Независимый аудит цвета
+### Evidence census
 
-## 5.1. Evidence census
+- [ ] collect actual colors from Astro source and computed output;
+- [ ] collect Git semantic roles;
+- [ ] collect Penpot library values and actual instance fills/strokes/text;
+- [ ] count use and consumer coverage;
+- [ ] separate canvas, surface, text, border, action, brand, status, overlay, media-support and interaction roles;
+- [ ] test default/hover/focus/active/disabled/error/success/warning;
+- [ ] test contrast on real backgrounds;
+- [ ] show use on representative archetypes;
+- [ ] separate intentional editorial/artifact color from drift.
 
-- [ ] собрать все фактические colors из Astro source и browser-computed output;
-- [ ] собрать SoT color tokens/roles;
-- [ ] собрать Penpot library colors/tokens и instance fills/strokes/text colors;
-- [ ] посчитать usage frequency и consumer coverage;
-- [ ] разделить canvas, surface, text, border, action, brand, status, overlay, media-support и interaction roles;
-- [ ] проверить default/hover/focus/active/disabled/error/success/warning;
-- [ ] проверить contrast на реальных background combinations;
-- [ ] показать usage на representative archetypes, а не только swatches;
-- [ ] отдельно отметить intentional editorial/artifact colors и случайный drift.
-
-## 5.2. Professional decision criteria
-
-Для каждого current color/value требуется disposition:
+Every value receives one disposition:
 
 ```text
 KEEP
@@ -132,55 +119,38 @@ EXCEPTION_WITH_OWNER
 UNRESOLVED
 ```
 
-Решение учитывает одновременно:
+Perceptual distance can suggest clusters but cannot prove semantic identity.
 
-- semantic job;
-- реальных consumers;
-- визуальную иерархию;
-- brand continuity;
-- contrast/accessibility;
-- interaction states;
-- compatibility cost;
-- light/photo/saturated underlays;
-- риск сделать интерфейс монотонным или, наоборот, пёстрым.
-
-Perceptual distance (`OKLCH`, Delta E и аналогичные методы) используется как сигнал кластеризации, но **не является доказательством общей semantic identity**.
-
-## 5.3. Результат
+Required output:
 
 - [ ] current palette census;
 - [ ] semantic role map;
-- [ ] proposed compact palette;
+- [ ] compact palette candidate;
 - [ ] current → candidate mapping;
-- [ ] kept exceptions с обоснованием;
+- [ ] justified exceptions;
 - [ ] affected components/archetypes;
 - [ ] contrast matrix;
-- [ ] 3–5 baseline/candidate page examples;
-- [ ] migration order и rollback;
-- [ ] model disagreements и owner decision list.
+- [ ] 3–5 baseline/candidate examples;
+- [ ] migration/rollback;
+- [ ] disagreements and owner decisions.
 
-Цвета не меняются в production или canonical Penpot до synthesis и owner decision.
+No production or canonical Penpot color changes occur before synthesis and owner decision.
 
----
+## 6. Independent typography audit
 
-# 6. Независимый аудит типографики
+### Evidence census
 
-## 6.1. Evidence census
+- [ ] collect family, size, weight, line-height, tracking, case and decoration from Astro/computed output;
+- [ ] collect Git roles and Penpot instance values;
+- [ ] count use and consumers;
+- [ ] separate display/page title, section, card title, body, meta, label, control, data/time and long-form roles;
+- [ ] test desktop/mobile branches;
+- [ ] test Cyrillic, long Russian titles, addresses, dates, prices and controls;
+- [ ] test line length, wrapping, truncation, vertical rhythm and density;
+- [ ] separate renderer limits from design drift;
+- [ ] verify real available weights/variable-font behavior.
 
-- [ ] собрать фактические font family, size, weight, line-height, tracking, case и decoration из Astro/browser output;
-- [ ] собрать SoT typography roles;
-- [ ] собрать Penpot library typographies и фактические text instance values;
-- [ ] посчитать usage frequency и consumer coverage;
-- [ ] разделить display/page title, section heading, card title, body, meta, label, control, data/time и long-form roles;
-- [ ] проверить desktop/mobile responsive branches;
-- [ ] проверить Cyrillic, длинные русские заголовки, даты, адреса, цены и служебные подписи;
-- [ ] проверить line length, wrapping, truncation, vertical rhythm и content density;
-- [ ] отделить renderer/API limitations Penpot от реального design drift;
-- [ ] проверить доступные реальные font weights и variable-font behavior.
-
-## 6.2. Professional decision criteria
-
-Для каждого текущего style/value требуется disposition:
+Every current style receives one disposition:
 
 ```text
 KEEP
@@ -192,307 +162,215 @@ EXCEPTION_WITH_OWNER
 UNRESOLVED
 ```
 
-Нельзя сокращать type scale только ради малого числа tokens. Укрупнение допускается, если сохраняются:
+A smaller token count is not a goal if hierarchy, readability or accessible reflow is lost.
 
-- иерархия страницы;
-- различимость title/section/card/meta;
-- читаемость mobile/desktop;
-- длинный контент;
-- интерактивные labels;
-- Cyrillic rendering;
-- accessible zoom/reflow;
-- реальные product densities.
-
-## 6.3. Результат
+Required output:
 
 - [ ] current typography census;
 - [ ] semantic role map;
-- [ ] proposed compact type scale;
+- [ ] compact type scale candidate;
 - [ ] current → candidate mapping;
-- [ ] responsive limits и wrapping rules;
-- [ ] kept exceptions;
+- [ ] responsive/wrapping rules;
+- [ ] justified exceptions;
 - [ ] affected components/archetypes;
-- [ ] 3–5 baseline/candidate page examples;
-- [ ] migration order и rollback;
-- [ ] model disagreements и owner decision list.
+- [ ] 3–5 examples;
+- [ ] migration/rollback;
+- [ ] disagreements and owner decisions.
 
-Типографика не меняется в production или canonical Penpot до synthesis и owner decision.
+## 7. Actual skeleton/loading states
 
----
-
-# 7. Фактические skeleton/loading states
-
-Архив с уже снятыми фактическими skeleton screenshots является обязательным AS-IS evidence. Нельзя заново угадывать skeleton geometry по статическим страницам.
-
-## 7.1. Момент загрузки
+The existing screenshot archive is AS-IS evidence. Loading geometry must not be guessed from static pages.
 
 ```text
-AS-IS baseline почти закрыт
-→ загрузить skeleton archive
-→ catalog + hashes + route/component/state mapping
+AS-IS baseline nearly closed
+→ ingest skeleton archive
+→ hashes + route/component/state mapping
 → loading-state audit
-→ только затем unified loading/skeleton design
+→ unified loading/skeleton design
 ```
 
-Отсутствие архива не блокирует закрытие общей parity, но **блокирует redesign loading/skeleton states**.
+Archive intake:
 
-## 7.2. Intake checklist
+- [ ] preserve archive SHA-256 and manifest;
+- [ ] identify source date, viewport and route/component/state;
+- [ ] remove only proven duplicates/irrelevant frames;
+- [ ] exclude secret/personal data;
+- [ ] link each frame to archetype region and owner component/pattern;
+- [ ] classify production, prototype, obsolete and unresolved;
+- [ ] measure loading→content geometry shift;
+- [ ] separate skeleton, progress, optimistic, empty and blocked states.
 
-- [ ] принять один archive без ручного переноса файлов;
-- [ ] сохранить SHA-256 и manifest;
-- [ ] определить source date, viewport и route/component/state для каждого screenshot;
-- [ ] удалить только доказанные дубли и нерелевантные кадры;
-- [ ] не использовать пользовательские/секретные данные;
-- [ ] связать screenshot с archetype region и owning component/pattern;
-- [ ] отметить production, prototype, obsolete и unresolved states;
-- [ ] проверить loading→content geometry shift и perceived continuity;
-- [ ] отличить skeleton, progress, optimistic state, empty и blocked state.
-
-## 7.3. Результат
+Required output:
 
 - [ ] `skeleton-as-is-manifest`;
 - [ ] route/component/state coverage matrix;
 - [ ] missing/obsolete/duplicate list;
-- [ ] representative Penpot/Astro evidence links;
-- [ ] candidate loading-state vocabulary;
+- [ ] representative evidence links;
+- [ ] candidate loading vocabulary;
 - [ ] redesign decision package.
 
----
+Absence of the archive does not block all parity, but it blocks loading-state redesign.
 
-# 8. Structured design-system audit вместо «аудита всего»
+## 8. Structured audits instead of one giant review
 
-Комплексный аудит выполняется отдельными bounded passes:
+Use bounded passes:
 
-1. **Color** — этот документ, §5.
-2. **Typography** — §6.
-3. **Spacing / radius / elevation / grid** — фактические values, roles, exceptions и responsive rhythm.
-4. **Controls / selectors / menus / overlays** — desktop popover/dropdown ↔ mobile sheet/dialog, keyboard/focus/escape.
-5. **Navigation / search / shell** — mobile/desktop jobs, search entry, desktop menu, bottom navigation и floating-islands applicability.
-6. **Loading / feedback / status / accessibility** — skeleton archive, empty/error/retry/stale/undo/NPS/issue flows.
-7. **Product linkage** — Jobs, journeys, capabilities, outcomes, UI gaps и measurement slots.
+1. color;
+2. typography;
+3. spacing/radius/elevation/grid;
+4. controls/selectors/menus/overlays;
+5. navigation/search/shell;
+6. loading/feedback/status/accessibility;
+7. product linkage.
 
-Каждый pass использует общие archetypes, но имеет собственный evidence pack, outputs и decision boundary. Один «сделай профессиональный аудит всего» запрещён: он даёт трудно проверяемый отчёт и смешивает наблюдение, вкус и продуктовые решения.
+Every pass uses the shared archetypes but has its own evidence pack, outputs and decision boundary.
 
----
+## 9. Product Atlas authority and current implementation
 
-# 9. Product Atlas: ранний Git SoT и поздняя Penpot projection
+Canonical product model:
 
-Канонический product meaning остаётся в `events-bot-new`; Product Atlas — отдельный Penpot-файл и отдельный plugin. Design-system Resource Graph не превращается в Product Atlas и не получает product dashboards.
+```text
+onedayonemasterpiece/events-bot-new/docs/product-model/atlas/v1/
+```
 
-## 9.1. Gate P0 — можно начинать Git-only Product Atlas SoT
+Corrected UI foreign-key projection:
 
-- [ ] production route → archetype coverage = 100%;
-- [ ] stable archetype IDs существуют;
-- [ ] stable component/pattern IDs существуют или gaps помечены;
-- [ ] semantic regions и states описаны;
-- [ ] product model source определён;
-- [ ] Product Atlas IDs не выводятся из координат или display text;
-- [ ] отсутствующие Jobs/partner needs остаются `not_modeled`, а не выдумываются.
+```text
+catalog/product-atlas-ui-linkage-v1/
+```
 
-Этот gate можно закрывать параллельно с финальной Astro↔SoT↔Penpot reconciliation.
+Active Product Atlas Penpot delivery:
 
-## 9.2. Git-only Product Atlas SoT scope
+```text
+reviewed Git Product Atlas SoT
+→ explicit scoped Penpot MCP task
+→ exact target verification
+→ bounded mutation
+→ read-back
+→ Git receipt
+→ owner review
+```
 
-- [ ] user needs;
-- [ ] Jobs / Job Stories;
-- [ ] user and owner outcomes;
-- [ ] journeys and recovery paths;
-- [ ] capabilities;
-- [ ] operator jobs and technical enablers;
-- [ ] acceptance scenarios;
-- [ ] product problems and stable UI-gap IDs;
-- [ ] route/archetype/region/component links;
-- [ ] measurement questions and semantic signal slots;
-- [ ] implementation/release/runtime/evidence facets;
-- [ ] unresolved and not-modeled ledger.
+The historical Product Atlas delivery experiment is not an active architecture. Its contract, workflow and prototype are removed from the current UI-linkage child branch; history remains available in Git.
 
-Generic component master не обязан иметь один Job. Product meaning может принадлежать configured instance, pattern, archetype region или ProductScreenState.
+Product Atlas remains a separate Penpot file. Resource Graph does not receive product dashboards.
 
-## 9.3. Minimum design-system linkage
+## 9.1 Gate P0 — Git-only Product Atlas SoT
+
+- [x] production route → archetype mapping is 100% in corrected UI SoT;
+- [x] 17 stable archetype IDs exist;
+- [x] semantic regions and ProductScreenStates exist, with unresolved states explicit;
+- [x] product authority is `events-bot-new`;
+- [x] Product Atlas IDs do not derive from coordinates/display text;
+- [x] future partner meaning remains `not_modeled`;
+- [x] Product Atlas Git registry candidate exists in Draft PR `events-bot-new#574`;
+- [x] all 17 archetypes have product foreign-key linkage in Draft child PR `lovekgd-design-system#51`;
+- [ ] product and UI-linkage validation workflows are green;
+- [ ] owner has reviewed entity boundaries/statuses and unresolved evidence.
+
+A Draft PR is a candidate, not publication in `main` or outcome proof.
+
+## 9.2 Git Product Atlas scope
+
+- [x] user needs;
+- [x] Jobs / Job Stories;
+- [x] user and owner outcomes;
+- [x] journeys, steps and recovery paths;
+- [x] capabilities;
+- [x] User Stories, operator jobs and technical enablers;
+- [x] guardrails;
+- [x] acceptance rules/scenarios;
+- [x] stable domain events;
+- [x] measurement questions;
+- [x] product problems, UI gaps, findings and decisions;
+- [x] independent implementation/release/runtime/evidence/outcome facets;
+- [x] unresolved/not-modeled/binding-pending ledger;
+- [x] exact product-to-UI context links;
+- [ ] owner review and merge decision.
+
+## 9.3 Minimum UI-side linkage
 
 ```yaml
 product_links:
-  job_ids: []
-  outcome_ids: []
-  journey_ids: []
-  capability_ids: []
+  product_entity_ids: []
   acceptance_scenario_ids: []
   measurement_question_ids: []
+  route_or_route_pattern: ...
+  archetype_id: ...
+  semantic_region_id: ...
+  pattern_id: ...
+  component_id: ...
+  product_screen_state_ids: []
+  native_binding: binding_pending
+  relation_status: proven | partial | unresolved | not_modeled | not_applicable
 ```
 
-Для каждого link сохраняются:
+For every link preserve exact product/UI IDs, context/state, relation status, source lock and unresolved reason. Never copy product definitions into the design-system repository.
 
-- exact product entity ID;
-- exact design-system entity ID;
-- context/state/viewport;
-- relation type;
-- source/evidence ref;
-- status: proven | partial | unresolved | not_applicable.
+Generic component masters do not need one Job; meaning may belong to configured instance, pattern, archetype region or ProductScreenState.
 
-## 9.4. Gate P1 — можно материализовать Product Atlas в отдельном Penpot-файле
+## 9.4 Gate P1 — Penpot MCP materialization
 
-- [ ] AS-IS parity baseline закрыт;
-- [ ] Resource Graph stable IDs больше не меняются массово;
-- [ ] Product Atlas catalog/schema валидны;
-- [ ] отдельный file marker и namespace готовы;
-- [ ] wrong-file guard доказан с обеих сторон;
-- [ ] deep links Product Atlas ↔ Resource Graph детерминированы;
-- [ ] Product Atlas использует accepted foundation snapshot, но не становится source of tokens;
-- [ ] raw analytics не читаются напрямую;
-- [ ] только reviewed evidence package может создавать finding/decision.
+- [ ] exact Product Atlas Git revision accepted for the requested scope;
+- [ ] linked UI IDs stable enough for that scope;
+- [ ] exact Product Atlas target file/page read through MCP;
+- [ ] no assumed file/page/board/object IDs;
+- [ ] bounded dry-run and impact scope reviewed;
+- [ ] comment/unmanaged-object preservation defined;
+- [ ] rollback/read-back procedure defined;
+- [ ] raw analytics/production DB access absent;
+- [ ] `binding_pending` retained for unresolved native identities;
+- [ ] MCP receipt schema accepted.
 
-Existing architecture:
+No Penpot mutation belongs to P0. P1 is a later explicit task and must not run while another design task owns the target context.
 
-- [`product-atlas-penpot-extension.md`](product-atlas-penpot-extension.md);
-- [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md);
-- `events-bot-new/docs/product-model/product-atlas-architecture.md`.
+## 10. Synthesis and Unified Design v1
 
----
+After independent audits:
 
-# 10. Synthesis и переход к Unified Design v1
+- [ ] build agreement/disagreement matrix;
+- [ ] test recommendations on all 17 archetypes;
+- [ ] assess effect on Product Atlas Jobs/outcomes and accessibility;
+- [ ] choose bounded foundation candidates;
+- [ ] show baseline/candidate on Date Listing, Event Detail, Search or better justified consumers;
+- [ ] obtain owner decisions by exception;
+- [ ] fix exact semantic contracts and migration plan;
+- [ ] apply one version in Git SoT, Penpot and isolated Astro;
+- [ ] run browser/device conformance;
+- [ ] migrate selected consumers;
+- [ ] enable drift gates.
 
-После двух независимых foundation-аудитов:
+Floating control islands, desktop search/menu and other redesign directions start only over this audit-ready baseline.
 
-- [ ] собрать agreement matrix;
-- [ ] отдельно показать disagreements;
-- [ ] проверить рекомендации на всех 17 archetypes;
-- [ ] проверить влияние на product Jobs и accessibility;
-- [ ] выбрать bounded candidate foundations;
-- [ ] показать baseline/candidate минимум на Date Listing, Event Detail и Search или лучше обоснованных consumers;
-- [ ] получить owner decisions by exception;
-- [ ] зафиксировать exact semantic contracts и migration plan;
-- [ ] применить одну версию в SoT, Penpot и isolated Astro;
-- [ ] выполнить browser/device conformance;
-- [ ] мигрировать selected consumers;
-- [ ] включить drift gates.
+## 11. Review prompts
 
-Floating islands, desktop search/menu, selectors и другие pattern changes проектируются поверх этого audit-ready baseline. Они не должны случайно цементировать старую пёструю палитру или старый типографический drift.
-
----
-
-# 11. Готовые prompts для независимых моделей
-
-## 11.1. Color system audit
+### Color audit
 
 ```text
-Выполни read-only профессиональный аудит цветовой системы LoveKGD.
-
-Входы:
-- exact Foundation Audit Pack v1: <PATH/URL + SHA-256>;
-- Astro commit: <SHA>;
-- design-system/SoT commit: <SHA>;
-- Penpot file/revision: <FILE_ID / REV>;
-- direct archetype links: <MANIFEST>.
-
-Не изменяй Penpot, Git или Astro. Не читай выводы других моделей.
-
-Используй фактические Astro browser-computed colors, SoT roles, Penpot library
-и instance usages, usage counts, contrast results и representative desktop/mobile
-archetypes. Не ограничивайся swatches и token declarations.
-
-Для каждого current color/role определи:
-KEEP | MERGE_INTO_ROLE | SPLIT_BY_SEMANTICS | DEPRECATE |
-EXCEPTION_WITH_OWNER | UNRESOLVED.
-
-Не объединяй значения только по близости HEX/OKLCH/Delta E. Учитывай semantic
-job, brand continuity, content hierarchy, interaction states, accessibility,
-photo/saturated underlays, affected consumers и migration cost.
-
-Выход:
-1. фактический census и проблемные кластеры;
-2. compact semantic palette candidate;
-3. current → candidate mapping;
-4. kept exceptions;
-5. contrast/accessibility matrix;
-6. affected components/archetypes;
-7. 3–5 concrete baseline/candidate examples;
-8. риски, неопределённость и owner decisions;
-9. ссылки на exact Penpot boards/source evidence для каждого крупного вывода.
-
-Чётко разделяй OBSERVED, INFERRED и RECOMMENDED. Не объявляй candidate accepted.
+Perform a read-only professional color-system audit using the exact Foundation Audit Pack. Use Astro computed values, Git roles, Penpot library and real instance usage, counts, contrast and representative archetypes. For every current value choose KEEP | MERGE_INTO_ROLE | SPLIT_BY_SEMANTICS | DEPRECATE | EXCEPTION_WITH_OWNER | UNRESOLVED. Separate OBSERVED, INFERRED and RECOMMENDED; do not accept a candidate or mutate Git/Penpot/Astro.
 ```
 
-## 11.2. Typography system audit
+### Typography audit
 
 ```text
-Выполни read-only профессиональный аудит типографической системы LoveKGD.
-
-Входы:
-- exact Foundation Audit Pack v1: <PATH/URL + SHA-256>;
-- Astro commit: <SHA>;
-- design-system/SoT commit: <SHA>;
-- Penpot file/revision: <FILE_ID / REV>;
-- direct archetype links: <MANIFEST>.
-
-Не изменяй Penpot, Git или Astro. Не читай выводы других моделей.
-
-Используй фактические Astro browser-computed font family/size/weight/line-height/
-tracking/case, SoT roles, Penpot library и instance values, usage counts и
-representative desktop/mobile archetypes. Обязательно проверь Cyrillic, длинные
-русские заголовки, адреса, даты, цены, controls, long-form content, wrapping,
-truncation, line length, density и responsive behavior.
-
-Для каждого current style/role определи:
-KEEP | MAP_TO_SEMANTIC_ROLE | MERGE | SPLIT_BY_CONTENT_JOB | DEPRECATE |
-EXCEPTION_WITH_OWNER | UNRESOLVED.
-
-Не сокращай scale только ради малого числа tokens. Отделяй Penpot renderer/API
-ограничения от реального design drift. Учитывай доступные реальные weights,
-variable font behavior, accessibility zoom/reflow и migration cost.
-
-Выход:
-1. фактический census и проблемные кластеры;
-2. compact semantic type scale candidate;
-3. current → candidate mapping;
-4. responsive limits/wrapping rules;
-5. kept exceptions;
-6. affected components/archetypes;
-7. 3–5 concrete baseline/candidate examples;
-8. риски, неопределённость и owner decisions;
-9. ссылки на exact Penpot boards/source evidence для каждого крупного вывода.
-
-Чётко разделяй OBSERVED, INFERRED и RECOMMENDED. Не объявляй candidate accepted.
+Perform a read-only professional typography audit using the exact Foundation Audit Pack. Include actual family/size/weight/line-height/tracking, Git roles, Penpot instances, consumer counts, Cyrillic, long Russian content, wrapping, density and accessible reflow. For every style choose KEEP | MAP_TO_SEMANTIC_ROLE | MERGE | SPLIT_BY_CONTENT_JOB | DEPRECATE | EXCEPTION_WITH_OWNER | UNRESOLVED. Separate OBSERVED, INFERRED and RECOMMENDED; do not mutate or accept candidates.
 ```
 
-## 11.3. Product Atlas Git-only bootstrap
+### Product Atlas MCP materialization
 
 ```text
-На отдельной child-ветке от latest accepted product-model/design-system inputs,
-без Penpot mutations, собери Product Atlas SoT bootstrap.
-
-Используй существующий events-bot-new product model. Не выдумывай Jobs, partner
-needs, outcomes или metrics. Missing information сохраняй как not_modeled или
-unresolved.
-
-Свяжи stable product entities с 17 design-system archetypes, semantic regions,
-patterns, configured component instances и ProductScreenStates. Для каждой связи
-зафиксируй exact IDs, context/state/viewport, relation type, source refs и status.
-
-Выход:
-- Jobs/outcomes/journeys/capabilities registry;
-- route/archetype/region/component linkage graph;
-- UI-gap registry;
-- acceptance-scenario bindings;
-- measurement-question and semantic-signal slots;
-- unresolved/not-modeled ledger;
-- Product Atlas Penpot readiness report;
-- fail-closed tests против fabricated Jobs и orphan design-system links.
-
-Product Atlas Penpot materialization не выполнять. Draft PR, no merge.
+Use only the accepted Product Atlas Git revision and corrected UI-linkage lock. Read the exact Product Atlas Penpot target through MCP before any write. Produce a bounded dry-run, preserve comments and unrelated objects, keep unknown bindings as binding_pending, mutate only the verified scope, read back every changed identity/relation and commit a Git receipt. Do not read production DB/raw analytics and do not infer product meaning in the design repository.
 ```
 
----
+## 12. Closure criteria
 
-## 12. Критерий закрытия этого checklist
-
-- [ ] baseline `Astro == Git SoT == Penpot` закрыт;
-- [ ] exact color and typography evidence packs опубликованы;
-- [ ] два независимых color audits завершены;
-- [ ] два независимых typography audits завершены;
-- [ ] synthesis и owner decision package готовы;
-- [ ] skeleton archive принят и связан с states либо честно отмечен как отсутствующий blocker loading redesign;
-- [ ] Product Atlas Git SoT linkage готов;
-- [ ] Product Atlas Penpot entry gate определён и проверяем;
-- [ ] Unified Design v1 использует versioned accepted decisions, а не вкус одной модели;
-- [ ] одинаковые решения реализуются в SoT, Penpot и isolated Astro;
-- [ ] browser/device conformance и migration plan готовы.
+- [ ] Astro == Git SoT == Penpot AS-IS baseline closed;
+- [ ] color and typography evidence packs published;
+- [ ] independent audits complete;
+- [ ] synthesis and owner decisions complete;
+- [ ] skeleton archive linked or an explicit loading-redesign blocker remains;
+- [ ] Product Atlas product PR and UI-linkage child PR pass validation;
+- [ ] Product Atlas entity/status review complete;
+- [ ] Penpot MCP entry gate and receipt contract are verified;
+- [ ] Unified Design v1 uses versioned accepted decisions;
+- [ ] browser/device conformance and migration plan are ready.
