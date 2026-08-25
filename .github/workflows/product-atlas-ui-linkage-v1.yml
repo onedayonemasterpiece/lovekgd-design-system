@@ -1,0 +1,39 @@
+name: Product Atlas UI linkage v1
+
+on:
+  pull_request:
+    paths:
+      - "catalog/product-atlas-ui-linkage-v1/**"
+      - "docs/product-atlas-penpot-*.md"
+      - "docs/penpot-product-design-operating-model.md"
+      - "scripts/validate-product-atlas-ui-linkage-v1.mjs"
+      - "tests/product-atlas-ui-linkage-v1.test.mjs"
+      - "contracts/product-atlas-001.plugin.json"
+      - "prototypes/penpot-product-atlas-001/**"
+      - ".github/workflows/product-atlas-*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-product-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out corrected UI child branch
+        uses: actions/checkout@v4
+      - name: Check out locked Product Atlas product branch
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 511d3fe6f83612e59517b6073d8dbd3d72c3e67b
+          path: _product/events-bot-new
+      - name: Validate corrected UI sources and product foreign keys
+        env:
+          PRODUCT_ATLAS_PRODUCT_ROOT: ${{ github.workspace }}/_product/events-bot-new
+        run: node scripts/validate-product-atlas-ui-linkage-v1.mjs --product-root "$PRODUCT_ATLAS_PRODUCT_ROOT"
+      - name: Run focused test
+        env:
+          PRODUCT_ATLAS_PRODUCT_ROOT: ${{ github.workspace }}/_product/events-bot-new
+        run: node --test tests/product-atlas-ui-linkage-v1.test.mjs
