@@ -1,0 +1,36 @@
+{
+  "schema_version": "unified-design-wave1.pattern-contract.v1",
+  "pattern_id": "pattern.floating-action-island.candidate-v1",
+  "status": "CANDIDATE_NOT_ACCEPTED",
+  "problem": "Event Detail already groups ticket, calendar, share and like actions, but desktop and mobile use different containment and reachability rules.",
+  "lowest_owner": "event-detail.actions.primary-island",
+  "baseline": {
+    "component_id": "d87e18f1-dcb4-80a6-8008-88603c044ff2",
+    "component_identity": "Event detail / Action panel / viewport=desktop;fixture=event.real.5459",
+    "consumer": "archetype.event-detail"
+  },
+  "candidate": {
+    "semantic_id": "event-detail.action-island.candidate-v1",
+    "anatomy": ["admission", "primary-ticket-cta", "calendar", "share-with-count", "like-with-count"],
+    "desktop": "compact sticky-capable side island",
+    "mobile": "bottom-safe floating island after hero summary; does not cover long-form content",
+    "states": ["ticket-available", "calendar-generating", "calendar-error", "share-opening", "like-queued", "offline"],
+    "linked_dependencies": [
+      "core.calendar-action",
+      "core.share-action",
+      "core.favorite-action"
+    ]
+  },
+  "applicability": {
+    "archetype.event-detail": "candidate",
+    "archetype.listing.date": "not_applicable_actions_belong_to_cards",
+    "archetype.search": "not_applicable_no_persistent_primary_action"
+  },
+  "constraints": {
+    "new_foundation_tokens": 0,
+    "counts_remain_inside_semantic_actions": true,
+    "content_occlusion_allowed": false,
+    "minimum_target_px": 44
+  },
+  "review_question": "Unify Event Detail actions as one linked responsive island and explicitly reject floating action islands on Date Listing and Search?"
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "unified-design-wave1.pattern-contract.v1",
+  "pattern_id": "pattern.desktop-search-navigation.candidate-v1",
+  "status": "CANDIDATE_NOT_ACCEPTED",
+  "problem": "Desktop shell exposes route links but no persistent search entry, while mobile already has a semantic Search destination.",
+  "lowest_owner": "shell.desktop.primary-navigation",
+  "baseline": {
+    "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+    "component_identity": "Shell v1 / Desktop / Desktop header",
+    "consumers": ["archetype.listing.date", "archetype.event-detail", "archetype.search"]
+  },
+  "candidate": {
+    "semantic_id": "navigation.desktop.search-entry.candidate-v1",
+    "job": "Open Search from every desktop route without replacing the route navigation.",
+    "anatomy": ["brand", "primary-route-links", "search-entry"],
+    "states": ["default", "hover", "focus-visible", "current-search"],
+    "responsive_rule": "desktop-only addition; mobile retains the existing linked Search tab",
+    "interaction": {
+      "activation": "navigate:/poisk/",
+      "keyboard": ["Tab", "Enter", "Space"],
+      "minimum_target_px": 44
+    }
+  },
+  "constraints": {
+    "shell_replacement": false,
+    "existing_route_links_removed": 0,
+    "mobile_new_navigation_pattern": false,
+    "new_foundation_tokens": 0
+  },
+  "review_question": "Add the bounded desktop Search entry while retaining current mobile navigation and the existing route links?"
+}
