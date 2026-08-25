@@ -1,0 +1,72 @@
+{
+  "schema_version": "round-trip-reconstruction.penpot-replay.v1",
+  "captured_at": "2026-08-25T16:07:00Z",
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "snapshot_revision": 2460,
+  "mode": "actual_idempotent_ensure_replay",
+  "component_count_before": 709,
+  "component_count_after": 709,
+  "creates": 0,
+  "validation": [],
+  "phases": [
+    {
+      "phase": "popular-mobile-fixtures",
+      "page_id": "8e7accff-5c78-8007-8008-89765b9b2207",
+      "materializer": "scripts/round-trip-reconstruction/penpot-materialize-popular-mobile-fixtures.js",
+      "actual_functions": ["ensureProofs", "createPopularMobileRow", "createPopularMobileGroup"],
+      "proofs": 10,
+      "rows": 10,
+      "groups": 2,
+      "creates": 0
+    },
+    {
+      "phase": "exhibitions-mobile-dependencies",
+      "page_id": "d87e18f1-dcb4-80a6-8008-880cc5490f78",
+      "materializer": "scripts/round-trip-reconstruction/penpot-fix-exhibitions-mobile-card-6983.js",
+      "actual_functions": ["ensureRemainingCount34", "ensureRejectCompact", "ensureDiscussedCompact", "ensureMobileDeck6983"],
+      "component_ids": [
+        "8e7accff-5c78-8007-8008-899a0e08efa7",
+        "8e7accff-5c78-8007-8008-899a30f643f5",
+        "8e7accff-5c78-8007-8008-899a63cb4e89",
+        "8e7accff-5c78-8007-8008-899a86ec8701"
+      ],
+      "creates": 0
+    },
+    {
+      "phase": "exhibitions-header-and-section-state",
+      "page_id": "d87e18f1-dcb4-80a6-8008-880cc5490f78",
+      "materializers": [
+        "scripts/round-trip-reconstruction/penpot-fix-exhibitions-mobile-header-badge.js",
+        "scripts/round-trip-reconstruction/penpot-fix-exhibitions-mobile-section.js"
+      ],
+      "actual_functions": ["ensureExhibitionsBadge", "ensureExhibitionsHeaderState", "ensureMarkNewSeenAction"],
+      "component_ids": [
+        "8e7accff-5c78-8007-8008-899dc801bc16",
+        "8e7accff-5c78-8007-8008-899ded3d1028",
+        "8e7accff-5c78-8007-8008-899cadd1d7a9"
+      ],
+      "creates": 0
+    },
+    {
+      "phase": "exhibitions-desktop-decks",
+      "page_id": "d87e18f1-dcb4-80a6-8008-880cc5490f78",
+      "materializer": "scripts/round-trip-reconstruction/penpot-fix-exhibitions-desktop-rows-v1.js",
+      "actual_function": "ensureDesktopDeck",
+      "fixtures": ["6983", "6871", "6995", "7036"],
+      "component_ids": [
+        "8e7accff-5c78-8007-8008-89a8d768fc38",
+        "8e7accff-5c78-8007-8008-89a8fb6360dc",
+        "8e7accff-5c78-8007-8008-89a92177d902",
+        "8e7accff-5c78-8007-8008-89a94a3b97b9"
+      ],
+      "creates": 0
+    }
+  ],
+  "assertions": {
+    "actual_materializer_entrypoints_invoked": true,
+    "stable_component_ids_unchanged": true,
+    "unknown_timeout_replayed": false,
+    "detached_copies_created": 0,
+    "service_resources_created": 0
+  }
+}
