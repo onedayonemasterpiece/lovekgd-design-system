@@ -283,3 +283,9 @@ Runtime actual никогда не заменяет accepted baseline автом
 evidence. После owner acceptance accepted Penpot reconstruction становится
 visual reference того же Git SoT contract. Это разные роли: ни один raster сам
 по себе не является SoT.
+
+## Owner-review page materialization
+
+Full page boards show complete vertical page content. Desktop/mobile page boards are arranged horizontally. Specimens and diagnostics sit outside the page-board row. Horizontal clipping is valid inside a real viewport for intrinsic rails, but never justifies vertical truncation of a page board.
+
+This rule governs owner-review presentation only. It does not widen the runtime viewport, promote an archetype, or justify detached diagnostic copies inside the owner-page row.
