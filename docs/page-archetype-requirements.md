@@ -27,6 +27,18 @@ Product meaning remains in `events-bot-new` and Product Atlas. A future visual a
 
 In the normative [family lifecycle](normalization/design-system-family-lifecycle.md), this overlay is evidence for `AS_IS_RECONSTRUCTED` only. It does not satisfy `PAGE_ARCHETYPE_CANDIDATE`, `PRODUCT_REPRESENTATIONS` or `FAMILY_AND_ARCHETYPE_PROMOTION`. Those states require a native instance graph, real configured screens and their own receipts.
 
+## Owner-page materialization rule
+
+A Penpot owner page used for Astro ↔ UI SoT ↔ Penpot review must obey all of the following:
+
+- a full page board shows the complete vertical page content;
+- desktop and mobile full page boards are arranged horizontally in one owner-page row;
+- specimens, diagnostics, annotations and anatomy sit outside that full-page row;
+- horizontal clipping is valid inside a real viewport for an intrinsic horizontal rail;
+- horizontal clipping never justifies vertical truncation of a page board.
+
+The rule controls review evidence placement only. It does not widen a mobile viewport, change runtime behavior, promote an archetype, or create a component contract.
+
 ## Why this belongs beside the archetype
 
 A page composition without its original purpose is easy to copy but hard to evaluate. The source overlay prevents three common errors:
