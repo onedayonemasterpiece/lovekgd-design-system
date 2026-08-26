@@ -16,18 +16,19 @@
 - Live / Unified Design Wave 1 Penpot revision: `2479`
 - Audit branch: `audit/independent-as-is-wave1-20260825`
 
-PR #52 was re-read before the audit branch was created. It remained open and Draft, with the requested head and base. The audit branch was created directly from the pinned head; neither the PR branch nor the audited commit was changed.
+PR #52 was re-read before the audit branch was created and again before final continuation. It remained open and Draft, with head `b86bab3e91511b3d4bd7d953b22bceb847f02a51` and base `9b8043f3bdb86fab4eee00bf94b0f10d4f029c50`. The audit branch was created directly from the pinned head; neither the PR branch nor the audited commit was changed.
 
 ## Delivery and reproducibility checkpoint
 
 - Exact-head checks completed successfully.
 - Production Astro generation diff is `0`.
 - Wave 1 boundaries remain `new_foundation_tokens=0`, `canonical_foundation_mutations=0`, and `production_astro_changes=0`.
-- Live Penpot is revision `2479`; `validate()=[]`.
+- Live Penpot readback target is revision `2479`; the successful audit readback reported `validate()=[]`.
 - Committed baseline revision `2463` contains 17 archetypes, 34 desktop/mobile cases, 709 components and 0 validation errors.
 - Browser receipt reports 34/34 cases passed.
 - Idempotent replay reports creates `0`, components `709→709`, validation `[]`.
 - Wave 1 readback reports 3 pages, 6 review cases, 717 components and status `REVIEWABLE_NOT_ACCEPTED`.
+- A final continuation attempt to invoke the live Penpot connector returned a connector-level `FORBIDDEN`; no retry loop or mutation was attempted. The state and Wave 1 conclusions below use the earlier successful bounded live readbacks plus committed revision-bound Git evidence.
 
 ## Live staleness classification
 
@@ -123,39 +124,63 @@ The matrix separates semantic visual conformance from renderer/capture differenc
 - No image stretching, letterboxing, missing/extra page region, route/fixture substitution, detached composition or changed responsive branch was proven in the 34 committed comparisons.
 - High RMSE cases were not treated as failures by threshold. Focus Group, Search mobile, Information Pages mobile and Festivals desktop retain their expected semantic regions and linked ownership.
 
-## State-coverage checkpoint
+## State-coverage matrix
 
-Corrected contracts declare **180 states**, of which **172 are materialization-eligible**, with **8 explicit gaps**. Thirty-four default owner boards do not by themselves establish complete state coverage. Final per-archetype ownership and runtime-only classification is the next checkpoint.
+The corrected contracts declare 180 states. Of these, 172 are materialization-eligible and have an owner-board, linked source-component or explicit runtime/Git evidence path. Eight declared states remain explicit source-evidence gaps. They are not silently counted as represented and do not invalidate the 34 default owner-board identities; they do block a claim of complete flow coverage for the affected archetypes.
 
-Explicit gaps retained for final classification:
-
-1. Event Detail — `layout.editorial-wide`;
-2. Event Detail — `layout.split-poster`;
-3. Event Detail — `mobile-media.no-image`;
-4. Event Detail — `transport.multiple`;
-5. Event Detail — `transport.stale`;
-6. Favorites — `favorites.populated`;
-7. Favorites — `favorites.action-refresh`;
-8. Personal Feed — `personal-feed.storage-failure`.
-
-## Unified Design Wave 1 checkpoint
-
-Live revision 2479 confirms native candidate identities and reuse of existing semantic components. No candidate-specific foundation fork was found. Final page-context and required-state verdicts remain to be checkpointed.
-
-| case | context | architecture | responsive/state completeness | preliminary verdict |
+| archetype | required states/compositions | represented | runtime-only | gaps |
 | --- | --- | --- | --- | --- |
-| 01.search-nav.desktop | isolated 1280×120 header region | existing header plus native linked search-entry candidate | narrow desktop, auth/account and body context absent | NEEDS_PAGE_CONTEXT |
-| 02.search-nav.mobile | existing bottom navigation region | linked current Search destination; no second navigation family | preservation question sufficiently represented | READY_FOR_OWNER_REVIEW |
-| 03.selectors.desktop | isolated 1180×88 selector surface | native candidate reuses existing filter controls | open/selected/long-label/error/zero-results and real Date Listing placement absent | NEEDS_REQUIRED_STATES |
-| 04.selectors.mobile | isolated 390×112 trigger surface | two linked triggers; existing date rail intentionally retained | actual sheet/dialog, focus/Escape, error, long-label and zero-result evidence absent | NEEDS_REQUIRED_STATES |
-| 05.floating.desktop | isolated 404×220 island | native candidate reuses linked Calendar/Share/Like semantics | full Event Detail placement, sticky/scrolled/underlay/unavailable states absent | NEEDS_PAGE_CONTEXT |
-| 06.floating.mobile | isolated 366×196 island | native responsive branch reuses shared semantic actions | safe area, occlusion, last-content reachability, underlays and unavailable states absent | NEEDS_PAGE_CONTEXT |
+| archetype.home | 4 declared; desktop/mobile shell, hero, quick navigation, cold-start/personalized branch | 4/4 through two owner boards and linked Home components | personalized-local and prelaunch environment behavior remain runtime/Git-evidenced | none |
+| archetype.listing.date | 13 declared; date navigation, listing composition and loading/error branches | 13/13 through owner boards, linked date navigation and source-bound list-state components | network/loading transition behavior | none |
+| archetype.listing.weekend | 8 declared; desktop/mobile weekend listing compositions | 8/8 through owner boards and linked listing dependencies | no separate static runtime board required | none |
+| archetype.listing.popular | 6 declared; grouping plus personalized/unpersonalized branches | 6/6 through owner boards and linked grouping components | personalization selection | none |
+| archetype.listing.unusual | 6 declared; default and stale branches | 6/6 through owner boards and source-bound state evidence | stale-data transition | none |
+| archetype.search | 20 evidence-bound states covering idle, validation, loading/progress, results, empty, error, retry, load-more, timeout, recovery and anonymous/authenticated boundaries | 20/20 through owner composition, page-level state components and exact source/browser evidence | authorization, request timing, focus trapping, incremental load and recovery mechanics | none |
+| archetype.event-detail | 31 declared compositions/states across layout, media, transport and support actions | 26/31: current desktop/mobile owners plus linked editorial-with-poster-companion, desktop no-image, mobile photo and poster/protected-media, transport absent/rail/bus/Kaup, question CTA, page feedback and event-error-report ownership | gallery/dialog behavior, ticket/calendar/share/like runtime transitions | `layout.editorial-wide`; `layout.split-poster`; `mobile-media.no-image`; `transport.multiple`; `transport.stale` |
+| archetype.collections | 6 declared collection compositions | 6/6 through owner boards and linked collection regions | collection data refresh | none |
+| archetype.festivals | 6 declared festival compositions | 6/6 through owner boards and linked header/timeline/card regions | schedule data refresh | none |
+| archetype.exhibitions | 8 declared, including hidden, personalized, undo and unpersonalized branches | 8/8 through owner boards, linked exhibition regions and source/runtime evidence | personalization, hide and undo mechanics | none |
+| archetype.interest-clubs | 5 declared index/detail compositions | 5/5 through owner boards and linked club regions | detail data loading | none |
+| archetype.favorites | 16 declared across local-only, auth-required, reconciliation, populated/empty and failure flows | 14/16: anonymous-empty owners plus linked local/auth/reconciliation/empty/catalog-failure/cloud-failure evidence | authentication, loading, retry and stale reconciliation mechanics | `favorites.populated`; `favorites.action-refresh` |
+| archetype.personal-feed | 20 declared across consent, profile readiness, loading, empty/populated, stale/error, hidden and restore flows | 19/20 through consent-undecided owners, linked feed/profile components and source/runtime evidence | filtering, reranking, stale refresh and restore mechanics | `personal-feed.storage-failure` |
+| archetype.focus-group | 15 declared stages and diagnostic branches | 15/15 through owner boards, linked program navigation/hero/steps/stage cards and runtime evidence | invitation, identity, feedback, completion and diagnostic transitions | none |
+| archetype.artifacts | 6 declared artifact states | 6/6 through owner boards and linked artifact regions | locked/unlocked authorization behavior | none |
+| archetype.information-pages | 4 declared information-page compositions | 4/4 through partnership owner boards and linked hero/benefit/directory regions | route content loading | none |
+| archetype.special-state | 6 declared special access states | 6/6 through owner boards and exact source/runtime evidence | checking, locked and prelaunch environment behavior | none |
+
+### State-coverage conclusion
+
+- All 172 materialization-eligible states have a bounded evidence disposition.
+- The eight gaps are explicit and source-related; no speculative Penpot board should be invented to hide them.
+- Event Detail, Favorites and Personal Feed are not ready for a claim of complete flow coverage until each gap is either source-proven and checkpointed or explicitly reclassified outside the AS-IS owner-review scope with a stable runtime/unresolved disposition.
+- Search state ownership is sufficient: static components cover visible states, while authorization, focus, request timing and recovery mechanics remain correctly runtime-owned.
+
+## Unified Design Wave 1 matrix
+
+Live revision 2479 and the committed readback confirm native candidate identities, reuse of existing semantic components, stable component IDs and no candidate-specific foundation fork. The deficiencies are evidence/context completeness problems, not detached-component or duplicate-family defects.
+
+| case | context | architecture | responsive/state completeness | verdict |
+| --- | --- | --- | --- | --- |
+| 01.search-nav.desktop | isolated 1280×120 header region; route body absent | existing desktop header plus native linked search-entry candidate; route links retained | current 1280 state shown; narrow desktop, long-label pressure, auth/account branch and destination/page context absent | NEEDS_PAGE_CONTEXT |
+| 02.search-nav.mobile | existing bottom-navigation region with Search as the current destination | linked current mobile navigation; no second mobile navigation family | preservation question is sufficiently represented and target remains `/poisk/` | READY_FOR_OWNER_REVIEW |
+| 03.selectors.desktop | isolated 1180×88 selector surface; real Date Listing composition absent | native candidate reuses existing filter controls as one contextual owner | default only; open, selected, long label, error, zero-results and page placement absent | NEEDS_REQUIRED_STATES |
+| 04.selectors.mobile | isolated 390×112 trigger surface; existing date rail intentionally retained | native two-trigger responsive branch; no duplicate date controller | actual sheet/dialog relation, focus/Escape behavior, selected/error/long-label/zero-results states and page placement absent | NEEDS_REQUIRED_STATES |
+| 05.floating.desktop | isolated 404×220 action island; full Event Detail composition absent | native candidate reuses linked Calendar/Share/Like semantics; not applicable to listing/search remains justified | sticky/scrolled anchoring, long labels/counts, focus order, underlays and archived/sold-out/unavailable states absent | NEEDS_PAGE_CONTEXT |
+| 06.floating.mobile | isolated 366×196 action island; no real long-content or safe-area context | native responsive branch reuses shared semantic actions; no universal floating-pill expansion | safe-area, occlusion, last-content reachability, scroll, underlays, focus order and unavailable states absent | NEEDS_PAGE_CONTEXT |
+
+### Wave 1 conclusion
+
+- Native architecture: `PASS` for all six cases.
+- Candidate-specific foundation fork: none found.
+- Detached visual duplicate family: none found.
+- Ready now: only `02.search-nav.mobile`.
+- Five cases require bounded page/state evidence before a combined owner review.
 
 ## Validator independence
 
 Independent checks include hashes, exact file/case sets, file existence, screenshot hashes, geometry equality, board IDs and URLs, linked ancestry, generation diff and replay invariants. These establish identity, integrity and reproducibility.
 
-The semantic status labels, builder receipts and their validators still share one evidence-production pipeline. No independent oracle checks whether a comparison that exists is visually or product-semantically correct. Therefore validator success is supporting evidence, not the final UI/state verdict; the baseline matrix above is based on the independent case-level semantic audit.
+The semantic status labels, builder receipts and their validators still share one evidence-production pipeline. No independent oracle checks whether a comparison that exists is visually or product-semantically correct. Therefore validator success is supporting evidence, not the final UI/state verdict; the baseline, state and Wave 1 matrices above are based on the independent case-level semantic audit.
 
 ## Audit progress
 
@@ -164,8 +189,8 @@ The semantic status labels, builder receipts and their validators still share on
 - [x] 34/34 owner-board identity and structure retained
 - [x] Three live staleness deltas semantically classified
 - [x] Final 34-case baseline visual verdicts assigned
-- [ ] Final 17-archetype state-coverage matrix
-- [ ] Final six-case Unified Design Wave 1 verdicts
+- [x] Final 17-archetype state-coverage matrix assigned
+- [x] Final six-case Unified Design Wave 1 verdicts assigned
 - [ ] Terminal verdict, bounded fixes and correction prompt
 
 ## Checkpoint history
@@ -173,4 +198,5 @@ The semantic status labels, builder receipts and their validators still share on
 | commit | completed scope | remaining work |
 | --- | --- | --- |
 | `3e1c6632b1fa6bbe05d3fab7b24c1e801314106d` — `docs(audit): materialize independent audit checkpoint` | authoritative checkpoint preserved on remote audit branch; immutable scope and prior evidence retained | staleness, visual, state, Wave 1 and terminal verdict |
-| `(this commit)` — `docs(audit): classify baseline visual and staleness findings` | three live deltas classified; 34-case visual matrix completed; committed baseline found current | state coverage, Wave 1 and terminal verdict |
+| `0ff316b6c09d74d5eee27809ffa9ad5c71967c54` — `docs(audit): classify baseline visual and staleness findings` | three live deltas classified; 34-case visual matrix completed; committed baseline found current | state coverage, Wave 1 and terminal verdict |
+| `(this commit)` — `docs(audit): complete state and Wave 1 coverage` | 17-archetype state matrix and six-case Wave 1 matrix completed | terminal verdict, bounded fixes and correction prompt |
