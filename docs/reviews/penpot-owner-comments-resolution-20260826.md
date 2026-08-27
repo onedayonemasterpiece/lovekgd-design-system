@@ -134,3 +134,43 @@ The remaining historical explicit defects are `#168–#173`, `#175` and `#177`. 
 | Mapping correction | `99e3b175b13a408b91d47a917c5c4e80902c34fb` | 2479 | exact page/target mapping corrected |
 | Direct integration preflight | `36b81a717a2bedb3b91ff8c0664aaf39fcaad2d6` | 2509 | GitHub/Penpot read-write-export-comment channels verified; temporary objects removed |
 | CP-01 owner pages + Popular rail | `THIS_COMMIT` | 2509 | 17 pages / 34 linked boards PASS; `#181–#187` readback/export PASS; comment closure follows remote SHA verification |
+
+## 7. Rail cleanup continuation checkpoint — 2026-08-27
+
+Status: `PARTIAL_DURABLE_CHECKPOINT / PENPOT_CONNECTION_BLOCKED`
+
+This section supersedes the stale current-state fields above where it records a newer exact readback. It is a durability checkpoint, not Rail completion and not owner-review readiness. `OV-01`, `OV-02`, `OV-08`, `OV-25`, `OV-26` and `OV-27` remain `processed: NO`.
+
+### 7.1 Fresh state before mutation
+
+- Penpot file: `3be9e5e1-190f-8090-8008-713c0fbe6260`.
+- Fresh revision: `2553`.
+- `63.04 — Atlas · Popular listing`, shape `e57c842a-ea36-803b-8008-8b62bbf9a8a0`, already read back to canonical period component `cd5c3cad-a82a-806e-8008-8c33cdfc0d1c` / main `cd5c3cad-a82a-806e-8008-8c33ca5b2d62`.
+- Fresh `validate()` at revision `2553`: `[]`; the handoff mismatch was stale and was not blindly re-mutated.
+- Three handoff legacy-main UUIDs were already absent on `40.3a`: `8e7accff-5c78-8007-8008-897b3d41c56a`, `8e7accff-5c78-8007-8008-897b2cdc2521`, `8e7accff-5c78-8007-8008-897add53ed11`.
+- Page-scoped inventory found `18` surviving copy heads of former component `8e7accff-5c78-8007-8008-897ace18e994`: nine nested consumers plus nine root fixtures.
+
+### 7.2 Proven canonical replacements
+
+All rows below were created from the canonical exact-date owner `cd5c3cad-a82a-806e-8008-8c351a4f2dcb` / main `cd5c3cad-a82a-806e-8008-8c3515bb5cc6`. Nested media read back to canonical `EventMediaFrame / rail-5x4 / cover`, component `a21f0524-f565-8038-8008-787378260237` / main `a21f0524-f565-8038-8008-787377eb13b2`, with `clipContent=true`.
+
+| Fixture / role | Removed legacy copy | Canonical replacement | Proof |
+|---|---|---|---|
+| `event.real.6941`, nested consumer | `e57c842a-ea36-803b-8008-8b62ac9c4525` | `dcae186c-d2c9-80c9-8008-8c6922cb6a82` | exact date/time/title/place/count and image ID `502b4555-3f5f-807a-8008-89652b5e532f` preserved; `112×112` cover |
+| `event.real.6986`, nested consumer | `e57c842a-ea36-803b-8008-8b62ae6ee725` | `dcae186c-d2c9-80c9-8008-8c692483b44e` | exact content and image ID `502b4555-3f5f-807a-8008-89657e217f66` preserved; wrapper `184×112`, image `184×112.125` |
+| `event.real.6870`, root fixture | `e57c842a-ea36-803b-8008-8b623288c784` | `dcae186c-d2c9-80c9-8008-8c69f3c1e225` | multi-date text preserved; date slot restored to `96×34`, `y=32.5`; square cover `112×112` |
+| `event.real.6652`, root fixture | `e57c842a-ea36-803b-8008-8b623e9c24e2` | `dcae186c-d2c9-80c9-8008-8c69f6f4cc23` | exact content and image ID `c269caa0-e456-818c-8008-8966ada50b95` preserved; portrait cover wrapper `93×112`, image `93×139.636` |
+| `event.real.6870`, nested consumer | `e57c842a-ea36-803b-8008-8b62ab387764` | `dcae186c-d2c9-80c9-8008-8c6a716d4c94` | semantic equality plus exact-date and EventMediaFrame lineage read back |
+| `event.real.6652`, nested consumer | `e57c842a-ea36-803b-8008-8b62b6ab6988` | `dcae186c-d2c9-80c9-8008-8c6a72f23072` | semantic equality plus exact-date and EventMediaFrame lineage read back |
+
+- Last proven Penpot revision after the six legacy-copy removals: `2559`.
+- Last obtained validation: `validate()=[]` at revision `2557`; a final post-removal validation at revision `2559` was not obtainable after the plugin disconnected.
+- The arithmetic remainder is `12` former-component copies, but this is **not** accepted as a fresh census until Penpot reconnects and the page-scoped query is repeated.
+
+### 7.3 Fail-closed interruption
+
+- A bounded attempt to create the canonical `event.real.4211` root returned: `No Penpot instance connected for user token`.
+- Mutation execution is therefore `UNKNOWN`; do not retry it until an exact page-scoped postcondition read checks for `linked Event cards / Mobile rail / Schedule=exact-date / event.real.4211`.
+- Two subsequent minimal readbacks returned the same connection error. After three consecutive small failures, further Penpot mutations were stopped as required.
+- Focused exports, final former-component census and final `validate()=[]` are pending the restored plugin connection.
+- Rail cleanup is **not** remotely or technically complete; no item is promoted to `READY_FOR_OWNER_REREVIEW` or `processed: YES` by this checkpoint.
