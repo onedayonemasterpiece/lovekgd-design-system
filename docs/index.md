@@ -5,6 +5,7 @@
 | Документ | Владеет | Текущий статус |
 |---|---|---|
 | [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md) | обязательный Astro → Git SoT → Penpot → owner review → Astro preview → production round trip и межрепозиторные gates | accepted operational contract |
+| [`reviews/index.md`](reviews/index.md) | обязательный реестр owner review: отдельные intake records, per-item status, processing evidence и fail-closed readiness routing | accepted operational router; `REV-TG-20260826-01` IN_PROGRESS |
 | [`normalization/event-card-large-primitives-owner-comments-20260820.md`](normalization/event-card-large-primitives-owner-comments-20260820.md) | owner-authorized correction contract for EventCard Large actions, counts, typography, icon geometry, and meta primitives | in-progress candidate contract |
 | [`normalization/event-card-systemic-component-boundaries-20260820.md`](normalization/event-card-systemic-component-boundaries-20260820.md) | systemic icon+count, semantic naming, Medallion consumer and intrinsic mobile-rail correction across all event-card families | reconciled to Penpot rev1034; ready for bounded owner re-review; candidate/noncanonical |
 | [`normalization/event-card-owner-review-2-20260820.md`](normalization/event-card-owner-review-2-20260820.md) | owner comments 96–125: source-faithful consumer geometry, state matrices, Exhibition/Festival recomposition and Page40.1b retirement | reconciled to Penpot rev1087; awaiting owner rereview; candidate/noncanonical |
