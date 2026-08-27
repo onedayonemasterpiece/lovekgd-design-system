@@ -40,11 +40,13 @@ Status: `ACCEPTED_OPERATIONAL_ROUTER`
 | Review ID | Source boundary | Intake record | Processing ledger | Working contour | Current status | Processed |
 |---|---|---|---|---|---|---|
 | `REV-PENPOT-20260826-01` | Resource Graph Penpot, текущие owner threads `#178–#202` и связанные исторические defects | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) — legacy/current combined intake+ledger | тот же файл | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
-| `REV-TG-20260826-01` | Telegram `KenigEvents · UI review`, `https://t.me/c/4337049383/1030`; marker `Мои замечания ревью по текущей дизайн системе в Penpot 👇`; `2026-08-26 22:54:08` — `2026-08-27 00:42:23`, `Europe/Kaliningrad` | [`telegram-owner-voice-intake-20260826-27.md`](telegram-owner-voice-intake-20260826-27.md) | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
+| `REV-TG-20260826-01` | Telegram `KenigEvents · UI review`, `https://t.me/c/4337049383/1030`; initial marker batch `2026-08-26 22:54:08` — `2026-08-27 00:42:23`; continuation `2026-08-27 08:06:31` — `09:24:56`, `Europe/Kaliningrad` | [`telegram-owner-voice-intake-20260826-27.md`](telegram-owner-voice-intake-20260826-27.md) (`OV-01…OV-08`); [`telegram-owner-voice-intake-20260827-continuation-01.md`](telegram-owner-voice-intake-20260827-continuation-01.md) (`OV-09…OV-49`) | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) for existing implementation evidence; continuation file is the capture/triage ledger for `OV-09…OV-49` until bounded ownership is assigned | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
 
 ## 4. Disposition текущего Telegram review
 
-Граница review определена явным Telegram marker. В неё входят восемь комментариев `OV-01…OV-08`. Перемежающиеся сообщения о схемах IdeaHub, аудиториях, каналах, MCP, лекциях и других продуктах не относятся к этому review и не включаются в его completion count.
+Первый batch review определён явным Telegram marker и содержит `OV-01…OV-08`. Продолжение той же source-сессии зарегистрировано отдельно как [`REV-TG-20260826-01-CONT-01`](telegram-owner-voice-intake-20260827-continuation-01.md) и содержит `OV-09…OV-49`.
+
+Continuation не смешивает продуктовые completion counts: `OV-09…OV-19` сохраняют semantic feedback по IdeaHub/Penpot Business как cross-contour capture, а `OV-20…OV-49` относятся к Astro ↔ Penpot design-system parity. Все `41` continuation items имеют `processed: NO`.
 
 | Item | Requirement | Current status | Processed | Текущее доказательство / открытый gate |
 |---|---|---|---|---|
@@ -57,7 +59,20 @@ Status: `ACCEPTED_OPERATIONAL_ROUTER`
 | `OV-07` | Home HeroTalk: полная `phrase → arrow → phrase → …` chain | `CAPTURED` | `NO` | source-faithful chain specimen и mapping/readback отсутствуют |
 | `OV-08` | глобальный запрет визуально скрытых duplicate component roots | `BLOCKED` | `NO` | глобальный lineage table, duplicate-root census, canonical UUIDs и detached-instance proof отсутствуют |
 
-Итог batch: `7` actionable items остаются необработанными (`2` partial/evidence-incomplete, `5` captured/blocked); `1` context-only item зарегистрирован. Статус `READY_FOR_OWNER_REVIEW` для этого contour запрещён до перевода всех actionable items как минимум в `READY_FOR_OWNER_REREVIEW` с точным readback.
+Итог первого batch: `7` actionable items остаются необработанными (`2` partial/evidence-incomplete, `5` captured/blocked); `1` context-only item зарегистрирован.
+
+### Continuation `REV-TG-20260826-01-CONT-01`
+
+- intake/triage record: [`telegram-owner-voice-intake-20260827-continuation-01.md`](telegram-owner-voice-intake-20260827-continuation-01.md);
+- source boundary: `2026-08-27 08:06:31` — `09:24:56`, `Europe/Kaliningrad`;
+- registered: `41` (`OV-09…OV-49`);
+- exact transcript ready: `41`; pending transcript: `0`;
+- cross-contour IdeaHub/Penpot Business comments: `11` (`OV-09…OV-19`);
+- design-system/Astro ↔ Penpot observations: `30` (`OV-20…OV-49`);
+- processed: `0`;
+- Penpot mutation/readback/visual evidence in this registration commit: none.
+
+Статус `READY_FOR_OWNER_REVIEW` запрещён. Следующий продуктовый этап — назначить owning contour для каждого item и выполнять bounded source-faithful fixes с доказательствами, а не считать Git-регистрацию обработкой.
 
 ## 5. Обязательный маршрут обработки
 
