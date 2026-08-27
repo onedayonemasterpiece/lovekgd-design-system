@@ -121,3 +121,16 @@ At Penpot revision `2568`, three additional nested former-component consumers we
 | `6710` | `e57c842a-ea36-803b-8008-8b62b3b1a60d` | same canonical exact-date owner | same canonical media owner; cover `168×112`, image `168.6588×112` | `33,314` bytes |
 
 Exact content overrides, image-fill IDs, original parent positions and target UUIDs survived. `validate()=[]`; former-component census decreased `12 → 9`. Rail cleanup and the full actionable contour remain incomplete.
+
+## 9. Rail cleanup live checkpoint — batch 2
+
+Status: `IN_PROGRESS`; `processed: NO`.
+
+At Penpot revision `2570`, the two remaining nested former-component consumers were migrated in place:
+
+| Fixture | Surviving UUID | Schedule / source disposition | Canonical media / crop | Focused PNG |
+|---|---|---|---|---:|
+| `6936` | `e57c842a-ea36-803b-8008-8b62b5004102` | canonical exact-date component `cd5c3cad-a82a-806e-8008-8c351a4f2dcb`; main `cd5c3cad-a82a-806e-8008-8c3515bb5cc6` | canonical `EventMediaFrame`; wrapper `93×112`; image `93×139.6364`, `y=-13.8182`; image `502b4555-3f5f-807a-8008-8966abab8953` | `31,623` bytes |
+| `4211` | `e57c842a-ea36-803b-8008-8b62b8611dcc` | pinned Astro authority `events-bot-new@7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00` declares `startDate=2026-08-08`, `endDate=2026-08-09`, label `8–9 августа`; therefore canonical **period** component `cd5c3cad-a82a-806e-8008-8c33cdfc0d1c`; main `cd5c3cad-a82a-806e-8008-8c33ca5b2d62` | canonical `EventMediaFrame`; square wrapper/image `112×112`; image `c269caa0-e456-818c-8008-8966af7fdcd6` | `36,312` bytes |
+
+The page-scoped former-component census is now `7`, all seven are root fixtures and nested former-component copies are `0`. `validate()=[]`. Rail cleanup is not complete until the root fixtures are migrated and the remote checkpoint is updated.
