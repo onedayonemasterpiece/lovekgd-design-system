@@ -174,3 +174,55 @@ All rows below were created from the canonical exact-date owner `cd5c3cad-a82a-8
 - Two subsequent minimal readbacks returned the same connection error. After three consecutive small failures, further Penpot mutations were stopped as required.
 - Focused exports, final former-component census and final `validate()=[]` are pending the restored plugin connection.
 - Rail cleanup is **not** remotely or technically complete; no item is promoted to `READY_FOR_OWNER_REREVIEW` or `processed: YES` by this checkpoint.
+
+## 8. Supersession checkpoint — revision 2565
+
+Status: `PARTIAL_DURABLE_CHECKPOINT / ACTIVE_CONTINUATION`
+
+This append-only entry supersedes the two incorrect nested-consumer rows in §7.2 and the stale interruption state in §7.3. It does not erase the earlier history and does not mark Rail or any owner item complete.
+
+### 8.1 Corrected nested-consumer identity
+
+The nested consumers for `event.real.6870` and `event.real.6652` were fixed **in place** with `swapComponent`; their original UUIDs remained canonical. The temporary overlapping copies recorded in §7.2 were removed after reload and are not surviving consumers:
+
+- removed temporary copy: `dcae186c-d2c9-80c9-8008-8c6a716d4c94`;
+- removed temporary copy: `dcae186c-d2c9-80c9-8008-8c6a72f23072`.
+
+Surviving nested consumers:
+
+| Fixture | Surviving shape | Canonical Rail lineage | Canonical media lineage | Restored parity / export |
+|---|---|---|---|---|
+| `event.real.6870` | `e57c842a-ea36-803b-8008-8b62ab387764` | exact-date component `cd5c3cad-a82a-806e-8008-8c351a4f2dcb`; main `cd5c3cad-a82a-806e-8008-8c3515bb5cc6` | `EventMediaFrame` component `a21f0524-f565-8038-8008-787378260237`; main `a21f0524-f565-8038-8008-787377eb13b2` | `24, 26\nиюл`, `17:00`, original title/place/count, image `c269caa0-e456-818c-8008-89652a2b1151`, cover `112×112`, `clipContent=true`; focused PNG `26,531` bytes |
+| `event.real.6652` | `e57c842a-ea36-803b-8008-8b62b6ab6988` | exact-date component `cd5c3cad-a82a-806e-8008-8c351a4f2dcb`; main `cd5c3cad-a82a-806e-8008-8c3515bb5cc6` | `EventMediaFrame` component `a21f0524-f565-8038-8008-787378260237`; main `a21f0524-f565-8038-8008-787377eb13b2` | `2 авг`, `18:00`, original title/place/count, image `c269caa0-e456-818c-8008-8966ada50b95`, wrapper `93×112`, image `93×139.636…`, `y=-13.818…`, `clipContent=true`; focused PNG `31,602` bytes |
+
+Latest proven Penpot state before this GitHub checkpoint:
+
+- revision `2565`;
+- current page `40.3a — Popular mobile fixtures · current-v1`;
+- `validate()=[]`;
+- the last fresh census still reported `12` former-component copies: `5` nested consumers and `7` root fixtures. This count must be fresh-read before any next mutation.
+
+### 8.2 Crash cause and mandatory guardrail
+
+The prior black screen was caused by an unsafe mutation, not by pre-existing file corruption:
+
+- containers `8e7accff-5c78-8007-8008-897c2ed30706` and `8e7accff-5c78-8007-8008-897c45ac62ac` were main component instances, not ordinary boards;
+- full canonical Rail clones were inserted into them beside existing children;
+- old and new complete trees overlapped at the same coordinates;
+- component propagation plus rendering of the heavy page caused the black screen and plugin disconnection.
+
+After reload the file opened normally and `validate()=[]`.
+
+For every remaining Rail target, the required process is now:
+
+1. resolve the exact page and search only within `page.root`;
+2. inspect target parent and component-main/copy status;
+3. capture a bounded snapshot of identity, index, geometry, content, image fill and crop;
+4. choose period versus exact-date from real schedule semantics and Astro/UI SoT;
+5. run `swapComponent` **in place** on the existing target;
+6. restore overrides and media geometry;
+7. immediately read exact lineage, run `validate()`, and export one focused row.
+
+Forbidden operations include parallel full-tree clones, two overlapping Rail trees, global `findShapeById`, full-page serialization/export, multi-target mutations, and treating `remove()` as successful without an exact postcondition read.
+
+`OV-01`, `OV-02`, `OV-08`, `OV-25`, `OV-26` and `OV-27` remain `processed: NO`. Rail cleanup remains incomplete until the former component count is zero, all consumers inherit canonical Rail and `EventMediaFrame`, focused exports pass, `validate()=[]`, and the result is committed and fresh-read from remote GitHub.
