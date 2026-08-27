@@ -100,3 +100,10 @@ Review нельзя закрыть агрегированной фразой «�
 - Git SoT и Penpot evidence ссылаются на точные версии/UUID/revisions;
 - визуальный export не подменяет component-lineage readback;
 - owner acceptance не выводится из thread resolution или отсутствия новых комментариев.
+
+## 7. Continuation access gate — 2026-08-27
+
+- Existing branch `fix/penpot-owner-comments-20260826` and Draft PR `#53` were fresh-read before further Penpot mutation.
+- Pre-write remote head: `3237f12db06df57af9386509661f607281e7030e`.
+- The Library skill and handoff records were recovered; their Penpot state is treated as provisional until exact page-scoped structural readback.
+- This checkpoint proves direct GitHub `update_file` → commit/push on the existing branch. It does not claim a Penpot fix and does not change any owner item to processed.
