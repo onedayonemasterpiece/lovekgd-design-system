@@ -107,3 +107,17 @@ Review нельзя закрыть агрегированной фразой «�
 - Pre-write remote head: `3237f12db06df57af9386509661f607281e7030e`.
 - The Library skill and handoff records were recovered; their Penpot state is treated as provisional until exact page-scoped structural readback.
 - This checkpoint proves direct GitHub `update_file` → commit/push on the existing branch. It does not claim a Penpot fix and does not change any owner item to processed.
+
+## 8. Rail cleanup live checkpoint — batch 1
+
+Status: `IN_PROGRESS`; `processed: NO`.
+
+At Penpot revision `2568`, three additional nested former-component consumers were migrated one at a time, in place, on `40.3a — Popular mobile fixtures · current-v1`:
+
+| Fixture | Surviving UUID | Canonical Rail | Canonical EventMediaFrame | Focused PNG |
+|---|---|---|---|---:|
+| `5374` | `e57c842a-ea36-803b-8008-8b62b0207781` | exact-date component `cd5c3cad-a82a-806e-8008-8c351a4f2dcb`; main `cd5c3cad-a82a-806e-8008-8c3515bb5cc6` | component `a21f0524-f565-8038-8008-787378260237`; main `a21f0524-f565-8038-8008-787377eb13b2`; cover `140×112`, image `167.6725×112` | `28,083` bytes |
+| `7015` | `e57c842a-ea36-803b-8008-8b62b27c87df` | same canonical exact-date owner | same canonical media owner; cover `90×112`, image `90×112.3902` | `28,158` bytes |
+| `6710` | `e57c842a-ea36-803b-8008-8b62b3b1a60d` | same canonical exact-date owner | same canonical media owner; cover `168×112`, image `168.6588×112` | `33,314` bytes |
+
+Exact content overrides, image-fill IDs, original parent positions and target UUIDs survived. `validate()=[]`; former-component census decreased `12 → 9`. Rail cleanup and the full actionable contour remain incomplete.
