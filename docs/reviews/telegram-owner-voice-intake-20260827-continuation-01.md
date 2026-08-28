@@ -628,7 +628,7 @@ Share-controls не должны впервые владеться страни�
 - item ref: `itm_dC0PDDle51J6FaOL9ZQ7yqIgRdl_G8sm`
 - transcription ref: `atr_Q65nPixyzPOm4F_w_uBrvPQzlHwpYQgoHgOtV4bZDRc`
 - transcription state: `COMPLETE`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -638,6 +638,20 @@ Share-controls не должны впервые владеться страни�
 **Нормализованное требование**
 
 На `63.16` восстановить фактическую Astro-страницу партнёров. Не проектировать отдельную воронку/страницу «Стать партнёром». Показать корректный информационно-партнёрский блок и точный список из Astro; для контакта достаточно короткой строки с email. ASR-названия и адрес не считать authoritative без сверки с Astro.
+
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.16` now reconstructs current Astro `/partners/` at commit `49c3518`
+instead of the speculative `/partnerstvo/` hero and benefits funnel. Both owners
+contain the exact heading, lead and six source partner marks: КППК, «Знание»,
+«80 историй о главном», «Кантата», «Акт Опус» and ИЦАЭ. The desktop/mobile
+owners retain linked shell ancestry and linked source-exact bodies with native
+text and editable image fills; there is no page screenshot overlay. Six obsolete
+partnership/funnel components are explicitly hidden and marked deprecated. The
+global footer's shared «Стать партнёром» navigation item is not treated as a
+page-local funnel. Contract:
+`catalog/reconstruction-atlas/v1/partners-ov34-source-exact.v1.json`.
+Owner acceptance is not claimed; `processed: NO` until direct rereview.
 
 ---
 
