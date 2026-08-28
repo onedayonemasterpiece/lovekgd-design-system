@@ -16,7 +16,13 @@ test('OV-44 binds Page 63.08 to one concrete nonempty Free collection', () => {
   assert.equal(contract.collection.ongoing_exhibition_count, 14);
   assert.equal(contract.representative_events.length, 3);
   assert.equal(new Set(contract.representative_events.map(({ event_id }) => event_id)).size, 3);
+  assert.deepEqual(
+    contract.representative_events.map(({ event_id, image_fit }) => [event_id, image_fit]),
+    [[7030, 'contain'], [6947, 'contain'], [7006, 'cover']],
+  );
+  assert.ok(contract.representative_events.every(({ occurrence, price, place }) => occurrence && price && place));
   assert.equal(contract.penpot.required_projection.includes('not the /podborki/ navigation catalog'), true);
+  assert.match(contract.penpot.fixture_adapter_rule, /linked canonical EventCard large instance/);
   assert.equal(contract.penpot.detached_cards_allowed, 0);
 });
 
