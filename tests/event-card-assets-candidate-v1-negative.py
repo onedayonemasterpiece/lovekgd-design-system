@@ -52,6 +52,13 @@ def main() -> None:
     art_path.write_text(json.dumps(art))
     cases.append(("amber-state-or-hash", run(root)))
 
+    root = fixture()
+    art_path = root / FILES[1]
+    art = json.loads(art_path.read_text())
+    art["reference_inventory"]["items"][5]["concept"] = "Amber Cosmonaut"
+    art_path.write_text(json.dumps(art))
+    cases.append(("owner-seven-identity-or-hash", run(root)))
+
     failed = [(name, result.stdout, result.stderr) for name, result in cases if result.returncode == 0]
     if failed:
         raise SystemExit(f"negative validator unexpectedly accepted: {failed}")

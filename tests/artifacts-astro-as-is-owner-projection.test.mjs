@@ -52,8 +52,20 @@ test('OV-06 recovery keeps the pre-presentation build as visual base and proves 
   assert.match(contract.authority.primary_visual_donor_rule, /base visual composition/u);
   assert.deepEqual(contract.penpot.corrected_existing_masters.desktop.geometry, {
     width: 1180,
-    height: 970,
+    height: 1174,
   });
+  assert.deepEqual(contract.penpot.corrected_existing_masters.desktop.owner_geometry, {
+    width: 1280,
+    height: 1988.390625,
+  });
+  assert.equal(
+    contract.penpot.corrected_existing_masters.desktop.astro_browser_geometry.title.height,
+    209.71875,
+  );
+  assert.equal(
+    contract.penpot.corrected_existing_masters.desktop.astro_browser_geometry.footer.y,
+    1306.53125,
+  );
   assert.equal(receipt.structural_readback.full_desktop_astro_composition.linked_artifact_visuals, 7);
   assert.equal(receipt.structural_readback.full_desktop_astro_composition.detached_artifact_visuals, 0);
   assert.equal(receipt.structural_readback.full_desktop_astro_composition.visible_page_root_orphans, 0);
@@ -64,5 +76,13 @@ test('OV-06 recovery keeps the pre-presentation build as visual base and proves 
   assert.equal(receipt.structural_readback.mobile_reconstruction.detached_artifact_visuals, 0);
   assert.deepEqual(receipt.structural_readback.mobile_reconstruction.page_validation, []);
   assert.equal(receipt.structural_readback.mobile_reconstruction.blind_retry_performed, false);
+  assert.equal(
+    receipt.visual_readback.post_source_geometry_desktop_export.status,
+    'HTTP_504_AFTER_EXACT_GEOMETRY_READBACK',
+  );
+  assert.deepEqual(
+    receipt.visual_readback.post_source_geometry_desktop_export.structural_overlap_check,
+    { title_bottom: 301, lead_top: 320, gap: 19 },
+  );
   assert.equal(receipt.saved_version.full_composition_named_version, 'SAVED');
 });

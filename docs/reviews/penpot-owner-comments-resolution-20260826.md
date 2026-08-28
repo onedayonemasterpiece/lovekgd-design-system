@@ -553,12 +553,14 @@ blank page-root panel over the real screen. The two page-root orphans were
 removed and exact readback proved that no visible orphan remained at `(0,0)`.
 
 The linked desktop collection master was subsequently rebuilt in place from
-the actual Astro surface rather than the service rail. It now has the complete
-`1180×970` anatomy: hero eyebrow, two-line page title, explanatory lead,
-device-local state notice, `Найдено 7 из 7`, and seven found cards in the
+the actual Astro surface rather than the service rail. A browser-measured
+follow-up corrected it to the complete `1180×1174` anatomy: hero eyebrow,
+source-sized three-line page title, explanatory lead with a 19px structural
+gap, device-local state notice, `Найдено 7 из 7`, and seven found cards in the
 source CSS `4 + 3` grid. Every card retains one linked exact artifact visual.
-The owner archetype inherited that master at `1280×1770`; its footer now starts
-after the complete collection rather than at the former `538px` rail boundary.
+The owner archetype inherited that master at `1280×1988.390625`; its footer
+starts at the Astro-measured `y=1306.53125`, after the complete collection
+rather than at the former `538px` rail boundary.
 Exact readback found seven distinct linked artifact component IDs, zero
 detached roots, zero visible page-root orphans and `currentFile.validate()=[]`.
 
