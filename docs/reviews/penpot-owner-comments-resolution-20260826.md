@@ -542,8 +542,35 @@ seven exact reference visuals.
 Structural readback and every affected board/page `validate()` returned `[]`.
 The corrected desktop archetype export visibly contains seven distinct source
 assets. A later focused all-found export returned HTTP 504 only after exact
-readback and was not blindly retried. The current plugin runtime exposes no
-`createSavedVersion` utility, so no named-version ID is fabricated.
+readback and was not blindly retried. The initially attempted
+`penpotUtils.createSavedVersion` utility does not exist; the supported
+`currentFile.saveVersion()` method was then used for the overlay-cleanup
+checkpoint. No version ID was fabricated.
+
+Owner visual rereview then exposed a second defect: the first correction left
+the product archetype as a narrow service rail and an interrupted write left a
+blank page-root panel over the real screen. The two page-root orphans were
+removed and exact readback proved that no visible orphan remained at `(0,0)`.
+
+The linked desktop collection master was subsequently rebuilt in place from
+the actual Astro surface rather than the service rail. It now has the complete
+`1180×970` anatomy: hero eyebrow, two-line page title, explanatory lead,
+device-local state notice, `Найдено 7 из 7`, and seven found cards in the
+source CSS `4 + 3` grid. Every card retains one linked exact artifact visual.
+The owner archetype inherited that master at `1280×1770`; its footer now starts
+after the complete collection rather than at the former `538px` rail boundary.
+Exact readback found seven distinct linked artifact component IDs, zero
+detached roots, zero visible page-root orphans and `currentFile.validate()=[]`.
+
+This correction also records the owner's clarified visual precedence:
+`events-bot-new@008839b14598105d1fed5b4e386d6d6f29d93d1f` is the primary
+pre-presentation visual donor. Later commits may change that base only as
+source-proven corrections; the exact-seven owner decision remains such a
+correction. The mobile master was expanded into the source single-column flow
+using the existing seven linked visuals, but the final old-brick/readback and
+named-version calls are pending because the Penpot plugin entered repeated
+HTTP 504 after the bounded writes. No blind replay was performed, so the item
+is not represented as fully rereview-ready yet.
 
 Contract: `catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-seven-receipt.v1.json`.

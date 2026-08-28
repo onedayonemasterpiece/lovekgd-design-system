@@ -1,7 +1,7 @@
 {
   "schema_version": "penpot-artifact-collection-1-owner-exact-seven-receipt.v1",
   "review_item": "OV-06",
-  "captured_at": "2026-08-28T19:15:00Z",
+  "captured_at": "2026-08-28T19:35:52Z",
   "processed": false,
   "penpot_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
   "page_id": "d87e18f1-dcb4-80a6-8008-880f9a822a76",
@@ -115,6 +115,54 @@
     "every_state_contains_all_seven_distinct_linked_component_roots": true,
     "selected_detail_boards_add_one_linked_selected_visual": true,
     "detached_artifact_root_instances": 0,
+    "accidental_page_root_overlay_cleanup": {
+      "owner_reported_visual_defect": true,
+      "removed_shape_ids": [
+        "8f804431-c282-8075-8008-8db65cbbe0be",
+        "8f804431-c282-8075-8008-8db68d00dcbb"
+      ],
+      "removed_shapes_absent_on_exact_readback": true,
+      "desktop_archetype_regions_read_back": [
+        "linked Shell / Desktop header",
+        "linked Artifacts / Collection / desktop;state=ready",
+        "linked Shell / Desktop footer viewport"
+      ]
+    },
+    "full_desktop_astro_composition": {
+      "component_main_id": "d87e18f1-dcb4-80a6-8008-886a9dd56004",
+      "component_geometry": {
+        "width": 1180,
+        "height": 970
+      },
+      "owner_archetype_id": "d87e18f1-dcb4-80a6-8008-880f9aaea84e",
+      "owner_archetype_geometry": {
+        "width": 1280,
+        "height": 1770
+      },
+      "regions": [
+        "hero eyebrow",
+        "two-line page title",
+        "lead",
+        "local device-state notice",
+        "7 of 7 progress",
+        "4 plus 3 found-card grid",
+        "linked desktop footer"
+      ],
+      "linked_artifact_visuals": 7,
+      "detached_artifact_visuals": 0,
+      "visible_page_root_orphans": 0,
+      "page_validation": []
+    },
+    "mobile_reconstruction": {
+      "component_main_id": "d87e18f1-dcb4-80a6-8008-886a9e3f9cc2",
+      "intended_geometry": {
+        "width": 366,
+        "height": 1860
+      },
+      "linked_existing_artifact_visuals_reused": 7,
+      "final_readback": "PENDING_AFTER_REPEATED_PENPOT_HTTP_504",
+      "blind_retry_performed": false
+    },
     "page_validation": []
   },
   "visual_readback": {
@@ -127,6 +175,12 @@
       "shape_id": "8f804431-c282-8075-8008-8db62574764a",
       "status": "HTTP_504_AFTER_EXACT_STRUCTURAL_READBACK",
       "retry": "not_performed"
+    },
+    "post_overlay_cleanup_desktop_export": {
+      "shape_id": "d87e18f1-dcb4-80a6-8008-880f9aaea84e",
+      "status": "HTTP_504_AFTER_EXACT_STRUCTURAL_READBACK",
+      "retry": "not_performed",
+      "owner_rereview_required": true
     }
   },
   "stale_projection": {
@@ -137,8 +191,11 @@
     "superseded_by": "owner exact seven"
   },
   "saved_version": {
-    "status": "UNAVAILABLE",
-    "evidence": "penpotUtils.createSavedVersion is not a function in current plugin runtime"
+    "status": "SAVED",
+    "label": "OV06 artifacts · remove accidental root overlay · exact 7 collection",
+    "created_at": "2026-08-28T19:35:52.474Z",
+    "scope": "overlay cleanup before full-composition rebuild",
+    "full_composition_named_version": "PENDING_AFTER_PENPOT_HTTP_504"
   },
-  "status": "READY_FOR_OWNER_REREVIEW"
+  "status": "CORRECTION_MATERIALIZED_DESKTOP_READBACK_PASS_MOBILE_READBACK_PENDING"
 }

@@ -43,3 +43,24 @@ test('OV-06 state matrix includes none, subset, all, interactions and desktop/mo
   assert.equal(receipt.visual_readback.focused_all_found_export.status, 'HTTP_504_AFTER_EXACT_STRUCTURAL_READBACK');
   assert.equal(receipt.visual_readback.focused_all_found_export.retry, 'not_performed');
 });
+
+test('OV-06 recovery keeps the pre-presentation build as visual base and proves the full desktop page composition', () => {
+  assert.equal(
+    contract.authority.primary_visual_donor_commit,
+    '008839b14598105d1fed5b4e386d6d6f29d93d1f',
+  );
+  assert.match(contract.authority.primary_visual_donor_rule, /base visual composition/u);
+  assert.deepEqual(contract.penpot.corrected_existing_masters.desktop.geometry, {
+    width: 1180,
+    height: 970,
+  });
+  assert.equal(receipt.structural_readback.full_desktop_astro_composition.linked_artifact_visuals, 7);
+  assert.equal(receipt.structural_readback.full_desktop_astro_composition.detached_artifact_visuals, 0);
+  assert.equal(receipt.structural_readback.full_desktop_astro_composition.visible_page_root_orphans, 0);
+  assert.deepEqual(receipt.structural_readback.full_desktop_astro_composition.page_validation, []);
+  assert.equal(
+    receipt.structural_readback.mobile_reconstruction.final_readback,
+    'PENDING_AFTER_REPEATED_PENPOT_HTTP_504',
+  );
+  assert.equal(receipt.structural_readback.mobile_reconstruction.blind_retry_performed, false);
+});
