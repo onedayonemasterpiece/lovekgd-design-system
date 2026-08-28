@@ -227,6 +227,53 @@ Forbidden operations include parallel full-tree clones, two overlapping Rail tre
 
 `OV-01`, `OV-02`, `OV-08`, `OV-25`, `OV-26` and `OV-27` remain `processed: NO`. Rail cleanup remains incomplete until the former component count is zero, all consumers inherit canonical Rail and `EventMediaFrame`, focused exports pass, `validate()=[]`, and the result is committed and fresh-read from remote GitHub.
 
+### 8.3 Fresh completion census for Rail ancestry
+
+A current page-scoped read-only census on `40.3a` supersedes the stale
+remainder in §§7–8. The former component
+`8e7accff-5c78-8007-8008-897ace18e994` now has `0` surviving copies. All `26`
+visible Rail roots are linked instances of the single canonical
+`MobileListingRailRow · Schedule variants` family: `22` exact-date component
+`cd5c3cad-a82a-806e-8008-8c351a4f2dcb` and `4` period component
+`cd5c3cad-a82a-806e-8008-8c33cdfc0d1c`. No alternative Mobile Rail root
+component and no detached Rail root remain; `currentFile.validate()=[]`.
+
+Both linked `event.real.5459` period specimens preserve the exact text
+`5 июня–\n30 августа`, including NBSP and the intended line break. The complete
+26-UUID census is in
+`evidence/recovery-20260828/penpot/popular-mobile-rail-lineage-census.v1.json`.
+This is sufficient structural evidence for `OV-01` to reach
+`READY_FOR_OWNER_REREVIEW`; it remains `processed: NO` until owner acceptance.
+
+### 8.4 Media parity correction: blanket cover is not factual Astro
+
+The same source audit found that the prior Penpot-only interpretation of
+`EventMediaFrame / rail-5x4 / cover` is not a complete Astro contract. Current
+Astro has no `EventMediaFrame` symbol. The real owner is
+`MobileListingRailRow.astro` plus `mobileListingRailMedia.mjs`: only positively
+classified crop-safe photos use `140×112` cover; OCR, document, contradictory
+or crop-unsafe media use a content-sized authored-ratio wrapper with `contain`.
+That is how Astro avoids internal fields without blindly cropping protected
+content.
+
+Targeted current readback confirms two concrete Penpot mismatches:
+
+- `event.real.6936`: factual Astro `75×112 contain`; Penpot `93×112` wrapper
+  with `93×139.636…` cover image;
+- `event.real.6652`: factual Astro `75×112 contain`; Penpot has the same wrong
+  `93×112` cover treatment.
+
+Six bounded controls (`5374`, `7015`, `6710`, `4211`, `6941`, `6986`) match
+their source-sized cover/contain widths. The exact comparison and source gaps
+are recorded in
+`catalog/reconstruction-atlas/v1/mobile-rail-media-astro-penpot-reconciliation.v1.json`.
+
+`OV-02` is therefore no longer an unspecified evidence gap: it is
+`MISMATCH_CONFIRMED / LOWEST_OWNER_DECISION_PENDING`, still `processed: NO`.
+The next safe step is a new authored-contain state on the lowest owning design
+component and three-way certification before swapping the two affected linked
+rows. Page-local resizing or blind cover would repeat the original defect.
+
 ## 9. Recovery readback and bounded corrections — 2026-08-28
 
 Status: `PARTIAL_DURABLE_CHECKPOINT / READY_TO_CONTINUE_OWNER_REVIEW`.

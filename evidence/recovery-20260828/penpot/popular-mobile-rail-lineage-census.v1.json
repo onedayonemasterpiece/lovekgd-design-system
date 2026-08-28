@@ -1,0 +1,85 @@
+{
+  "schema_version": "popular-mobile-rail-lineage-census.v1",
+  "review_items": ["OV-01", "OV-08"],
+  "status": "STRUCTURAL_PASS / OWNER_REREVIEW_PENDING",
+  "processed": false,
+  "source_tuple": {
+    "design_commit": "ccd04f45d91314fc1e2b6a468473718e433b0bc1",
+    "astro_commit": "c33652ed01f6fb16945af67a53d5e27acece3cef"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "8e7accff-5c78-8007-8008-89765b9b2207",
+    "page_name": "40.3a — Popular mobile fixtures · current-v1",
+    "validation": []
+  },
+  "canonical_components": {
+    "exact_date": {
+      "component_id": "cd5c3cad-a82a-806e-8008-8c351a4f2dcb",
+      "main_id": "cd5c3cad-a82a-806e-8008-8c3515bb5cc6",
+      "variant": "Schedule=exact-date"
+    },
+    "period": {
+      "component_id": "cd5c3cad-a82a-806e-8008-8c33cdfc0d1c",
+      "main_id": "cd5c3cad-a82a-806e-8008-8c33ca5b2d62",
+      "variant": "Schedule=period"
+    }
+  },
+  "former_page_local_component": {
+    "component_id": "8e7accff-5c78-8007-8008-897ace18e994",
+    "current_copy_count": 0
+  },
+  "census": {
+    "canonical_root_count": 26,
+    "exact_date_root_count": 22,
+    "period_root_count": 4,
+    "alternative_mobile_rail_root_component_count": 0,
+    "detached_root_count": 0,
+    "root_instances": [
+      {"id":"e57c842a-ea36-803b-8008-8b62340618b7","event":"event.real.6941","schedule":"exact-date"},
+      {"id":"dcae186c-d2c9-80c9-8008-8c69f6f4cc23","event":"event.real.6652","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b6238f7bb62","event":"event.real.7015","schedule":"exact-date"},
+      {"id":"dcae186c-d2c9-80c9-8008-8c692483b44e","event":"event.real.6986","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b623c68f4a0","event":"event.real.6936","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b623aa8ba91","event":"event.real.6710","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b6ab6988","event":"event.real.6652","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c36607f178a","event":"event.real.6936","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c36625510c7","event":"event.real.7015","schedule":"exact-date"},
+      {"id":"dcae186c-d2c9-80c9-8008-8c69f3c1e225","event":"event.real.6870","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c387752b401","event":"event.real.6710","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b6235ed20e4","event":"event.real.6986","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c351b3cf20f","event":"event.real.5374","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c3879c5ba14","event":"event.real.6986","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b27c87df","event":"event.real.7015","schedule":"exact-date"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c387c91a816","event":"event.real.6941","schedule":"exact-date"},
+      {"id":"dcae186c-d2c9-80c9-8008-8c6922cb6a82","event":"event.real.6941","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b0207781","event":"event.real.5374","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b3b1a60d","event":"event.real.6710","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b5004102","event":"event.real.6936","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b62ab387764","event":"event.real.6870","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b6237c8dbf5","event":"event.real.5374","schedule":"exact-date"},
+      {"id":"e57c842a-ea36-803b-8008-8b623fd39127","event":"event.real.4211","schedule":"period"},
+      {"id":"cd5c3cad-a82a-806e-8008-8c33cf5e920a","event":"event.real.5459","schedule":"period"},
+      {"id":"e57c842a-ea36-803b-8008-8b62b8611dcc","event":"event.real.4211","schedule":"period"},
+      {"id":"e57c842a-ea36-803b-8008-8b62aa538bc7","event":"event.real.5459","schedule":"period"}
+    ]
+  },
+  "period_canary": {
+    "event": "event.real.5459",
+    "root_ids": [
+      "cd5c3cad-a82a-806e-8008-8c33cf5e920a",
+      "e57c842a-ea36-803b-8008-8b62aa538bc7"
+    ],
+    "text": "5 июня–\n30 августа",
+    "readback": "both linked period instances preserve the same NBSP and line break"
+  },
+  "method": {
+    "scope": "Page-scoped read-only direct component/root census; inherited component-copy descendants were excluded from root counts.",
+    "timeout_disposition": "Two later broad descendant aggregation calls returned HTTP 504. Official Penpot MCP source confirms global tree walking when no bounded root is supplied, so further evidence used Page.getShapeById and bounded subtree traversal rather than another broad retry.",
+    "official_research": [
+      "https://github.com/penpot/penpot/blob/develop/mcp/packages/plugin/src/PenpotUtils.ts",
+      "https://github.com/penpot/penpot/blob/develop/mcp/packages/server/src/PenpotMcpServer.ts"
+    ]
+  },
+  "verdict": "Every visible Rail root on 40.3a is a linked instance of the one canonical Schedule variant family. The former page-local component has zero surviving copies. OV-01 is structurally ready for owner rereview; this does not close OV-02 media parity."
+}
