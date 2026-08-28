@@ -26,7 +26,7 @@ test('OV-01 preserves the exact source-backed period canary', () => {
 
 test('OV-02 matches the real-data Astro fixture and corrected linked media states', () => {
   assert.equal(media.status, 'READY_FOR_OWNER_REREVIEW');
-  assert.equal(media.authority.astro_commit, '49c351873');
+  assert.equal(media.authority.astro_commit, '49c351873d40a2ea55f0a32837c7376e344d9c17');
   assert.equal(media.certified_components.authored_contain_1702x2553.component_id, '8f804431-c282-8075-8008-8db194fb8344');
   assert.deepEqual(media.certified_components.authored_contain_1702x2553.geometry, [75, 112]);
   const cases = Object.fromEntries(media.corrected_cases.map((item) => [item.event, item]));

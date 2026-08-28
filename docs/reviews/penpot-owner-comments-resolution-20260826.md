@@ -524,7 +524,7 @@ Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This section supersedes
 The higher-priority owner decision at events-bot-new commit
 `f5ea5e497a3c137e350645e0f6c35304853a8908` requires exactly seven prepared
 artifacts from `references/artefact-collection-1` and explicitly rejects the
-5-slot runtime, 8-item draft and 12 Focus eggs. Astro commit `49c351873` now
+5-slot runtime, 8-item draft and 12 Focus eggs. Astro commit `49c351873d40a2ea55f0a32837c7376e344d9c17` now
 contains the exact seven-item registry, all seven source hashes, seven bounded
 focus assets and generic local progress/detail behavior. Ordinary production
 remains fail-closed. Historical stories are not invented: current copy is
@@ -552,7 +552,7 @@ Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-se
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
 the earlier assertion that both `6936` and `6652` must be `75×112 contain`.
-Real-data Astro fixture/browser readback at `49c351873` proves:
+Real-data Astro fixture/browser readback at `49c351873d40a2ea55f0a32837c7376e344d9c17` proves:
 
 - `5374`: `140×112 cover`, safe visual;
 - `6936`: `75×112 contain`, protected authored geometry;
