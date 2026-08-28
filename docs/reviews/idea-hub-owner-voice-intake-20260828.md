@@ -1,21 +1,99 @@
 # IdeaHub owner voice intake — 2026-08-28
 
-Status: `TRIAGED`
+Status: `HISTORY_AUDITED / TRIAGED`
 
 - review ID: `REV-IDEAHUB-20260828-01`
 - source repository: `onedayonemasterpiece/idea-hub` (read-only)
-- evaluated source HEAD: `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`
-- source boundary: `voice-20260828-114654-2c907d62.md` through `voice-20260828-125353-9e0a4426.md`, inclusive
-- relevant design-system voices: `1`
-- excluded cross-project voices: `4`
-- new `OV-*` IDs: `0`
+- evaluated source HEAD: `76c337ee1bf5a0d90b93222cf9db662e6d4167e6`
+- history boundary: every commit reachable from fetched refs that touches
+  `inbox/voice/2026/08` (`27` commits, `23` packet files)
+- relevant design-system voices: `2`
+- excluded non-design-system voices: `21`
+- new `OV-*` IDs: `3` (`OV-50…OV-52`)
 - processed: `NO`
 
-This record adds the corrected IdeaHub voice as a source reference and clarification for existing owner items. It does not claim an Astro, UI SoT or Penpot mutation. `OV-09…OV-19` remain cross-contour and outside the Astro ↔ UI SoT ↔ Penpot completion count.
+The first version of this record only scanned forward from the known `e8813a5`
+checkpoint. That boundary was insufficient: an earlier relevant packet,
+`voice-20260828-112125-6de734d5`, was omitted. The history audit now covers the
+whole directory across all fetched commits, including later normalization edits.
+It does not treat packet discovery as an Astro, UI SoT or Penpot fix.
+`OV-09…OV-19` remain cross-contour and outside the Astro ↔ UI SoT ↔ Penpot
+completion count.
+
+## History-wide census
+
+- first packet commit: `32296697296e1a65734ff5f1300ec24ab817c812`;
+- last packet commit: `14a65d75b94aa8ebb7a78e6d01bba60899444226`;
+- latest fetched `origin/main`: `76c337ee1bf5a0d90b93222cf9db662e6d4167e6`;
+- commits touching the directory: `27`;
+- packet files ever added: `23`;
+- packet files still present at the evaluated HEAD: `23`;
+- deleted/renamed packet files: `0`;
+- relevant LoveKGD/KenigEvents design-system audits: `2`;
+- excluded test, IdeaHub, lecture, MCP/intellectual-center and other-project packets: `21`.
+
+Both relevant packets were read at every committed version. The edits in
+`531ff01` and `3ac4b0d` normalize terminology and repair the synthesis/transcript
+presentation; they do not remove a product observation from the original audio.
+
+## Earlier relevant voice omitted by the first cursor
+
+Source file: [`inbox/voice/2026/08/voice-20260828-112125-6de734d5.md`](https://github.com/onedayonemasterpiece/idea-hub/blob/76c337ee1bf5a0d90b93222cf9db662e6d4167e6/inbox/voice/2026/08/voice-20260828-112125-6de734d5.md)
+Captured: `2026-08-28 11:21:25–11:27:40 Europe/Kaliningrad`
+Packet: `voice-20260828-112125-6de734d5`
+History: created by `5deb06583b19cc5eca3c08178b9df02060e57821`, terminology-normalized by `531ff01add115b49824aa0bda96d6978bcf8dbce`.
+
+| Source observation / target | Item(s) | Disposition |
+|---|---|---|
+| `63.01 Home`: the product hero must use the real HeroTalk `Photo Mosaic` mechanism, not the recurring fabricated legacy hero | `OV-50` | New product-change requirement. It is not the same as `OV-07`, which asks for a separate communication-chain documentation specimen. Astro/UI SoT must be changed before Penpot main parity can be claimed. |
+| `63.01 Home`: event cards are page-local lookalikes | `OV-08`, `OV-30` | Concrete Home consumer evidence for the existing canonical-lineage gate. |
+| `63.02 Date listing`: visually plausible event cards point to `60.1g`, not the one canonical event-card owner | `OV-08`, `OV-30` | Concrete Date-listing consumer evidence; visual similarity is not closure. |
+| `10.1 Announcements Wordmark`: missing spacing/use rules, leather-backed tags and PWA cover | `OV-04`, `OV-05` | Direct clarification of the already-open Branding batch. |
+| `61.3 Weekend Time marker`: the marker block should not carry its own opaque background | `OV-51` | New page-specific visual/structural requirement. Verify Astro/UI surface rules before mutation. |
+| Weekend consumers: event cards must inherit the one canonical event-card family | `OV-08`, `OV-30` | Broadens the required consumer census to Weekend pages. |
+| `61.10 Weekend Discovery rail exact`: turn the full-width installed shelf into a content-sized transparent `Floating Island` | `OV-52` | New page-specific product-change requirement; `OV-33` concerns the Popular header/city shelf and does not close this separate Weekend rail. |
+
+### Exact transcript — earlier relevant voice
+
+#### 00:00:00–00:01:15
+
+Это ревью проекта статический сайт э-э kenigevents.ru и EventsBot дизайн-система. Смотрю его в Penpot. Значит, начинаем с главной. Похоже, ты неправильно понимаешь наименование блока HeroTalk. HeroTalk он у нас реализуется в виде интерактивной системы, которая показывает фразы и показывает картинки в таких кубиках, квадратиках, появляющиеся и исчезающие. Ты же на мою предыдущую доработку о том, что нужно показать э-э все фразы, цепочки фраз взял и какой-то старый нелегитимный блок дополнил сверху еще, э-э ну, просто, записями хочется выбраться, а не листать всю афишу. Один понятный выбор. Я еще раз напомню, каким-то образом когда-то э-э нейросеть сама сделала выдуманную главную страницу, и теперь этот блок постоянно тас
+
+#### 00:01:15–00:02:07
+
+кается из раза в раз. То, что сейчас показано с картинкой предметные страсти натюрморт двадцатого века, где где заголовок куда пойти без лишнего шума, это неправильный блок. Такого э это не не то, что должно быть на главной. На главной блок должен начинаться, да, главный должен начинаться с HeroTalk, там, где квадратиками картинки показываются. Вот сейчас это натюрморт с нос но со страстями. Home HeroTalk, Viewport Desktop Mobile, Mode равно Photo Mosaic. Вот это ближе к правильному.
+
+#### 00:02:07–00:02:52
+
+Продолжаю я смотрю страницу 63.01 Astro Home. Так вот, а блоки, карточки событий здесь, а-а, почему-то созданы локально. Видно, что они неправильные. Я нажал на э-э переход к исходному компоненту, и вижу, что исходный компонент находится на этой же странице, а должен, э, подключать централизованную ну единую большую карточку. А то, что ты собрал здесь, является э визуальной ошибкой, собрано неправильно, не из централизованного компонента.
+
+#### 00:02:52–00:03:03
+
+К странице 63.02 Astro Date Listing как будто бы претензий нету, ну, точнее, непонятно.
+
+#### 00:03:03–00:04:07
+
+А понятно, нет претензий. Есть, потому что оно почему-то ведет на 60.1g, э ну визуально компонент собран верно, но он не относится к исходному компоненту э карточки событий. Это опять э созданная вариация карточки событий где-то на другой странице. Задача была в дизайн-системе единообразно. Вот если есть определенный вид карточки событий, у него только один родительский компонент, один всего на всю дизайн-систему. Дальше он идет наследовании на-на-наследованиями, ну и определенными изменениями. Так мы должны получить были на одной странице все виды э карточек событий, все виды. А так получается, вот ты сделал куча мутирующих, которые визуально похожи, но не централизованы, то есть задача дизайн-системы не э не решается таким образом.
+
+#### 00:04:07–00:04:37
+
+Смотрю страницу 10.1 Announcements Wordmark, и здесь всего один заголовок. Здесь нет правил отступов, правил работы с брендом, нету почему-то вот этих бирок, которые у нас декоративные с кожаной подложкой, нет обложки PWA-приложения. Ну то есть, много чего не доработано.
+
+#### 00:04:37–00:04:57
+
+Смотрю страницу 60. 61.3 Weekend Time Maker. Особых претензий нет, но блок, если у блока фон задан, это немножко странно. То есть по идее такие блоки без своего фона должны быть.
+
+#### 00:04:57–00:05:39
+
+Еще раз напомню, я вот смотрю страницы в Weekend сейчас, несмотря на то, что это Weekend, у неё должна быть должны карточки компоненты карточек исходить из самых родительских, которые единообразные. Вот карточка события на одной странице. То есть ты по сути не довел унификацию унификацию некоторых компонентов. А значит, если мы какие-то компоненты будем менять централизованно, на этих страницах они просто не будут поменены. Это неправильно.
+
+#### 00:05:39–00:06:14
+
+Я смотрю страницу 61.10 Weekend Discovery Rail Exact и здесь я вижу Listing Weekend Discovery Rail Exact Weekend. Но это по сути полка устанавливаемая. Вот эти полки нужно будет перепроектировать уже на Floating Island, плавающий остров, чтобы освободить вот это вот занимаемое пространство и добавить прозрачности. Это уже доработка.
 
 ## Relevant voice and dedup disposition
 
-Source file: [`inbox/voice/2026/08/voice-20260828-114654-2c907d62.md`](https://github.com/onedayonemasterpiece/idea-hub/blob/5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533/inbox/voice/2026/08/voice-20260828-114654-2c907d62.md)
+Source file: [`inbox/voice/2026/08/voice-20260828-114654-2c907d62.md`](https://github.com/onedayonemasterpiece/idea-hub/blob/76c337ee1bf5a0d90b93222cf9db662e6d4167e6/inbox/voice/2026/08/voice-20260828-114654-2c907d62.md)
 Captured: `2026-08-28 11:46:54–11:54:44 Europe/Kaliningrad`
 Packet: `voice-20260828-114654-2c907d62`
 File content commit on the evaluated HEAD: `3ac4b0daac735025b8b43a0521aba203dcaed340`
@@ -29,7 +107,10 @@ File content commit on the evaluated HEAD: `3ac4b0daac735025b8b43a0521aba203dcae
 | `63.06 Astro Search`: cards do not show a complete entered-query/results page | `OV-47`, `OV-48` | Clarifies that isolated cards are not the required search result state. Astro remains the AS-IS source; no new requirement. |
 | `63.07 Event Details`: first-screen title/overlap and CTA differ from Astro; the CTA is described as invented | `OV-45`, `OV-46` | Adds explicit first-screen and CTA parity evidence. It supersedes any acceptance of the current page-local Event Details/CTA composition; exact mobile defects still require focused visual context. |
 
-No genuinely new requirement remains after this dedup, so numbering stays at `OV-49`. All mapped actionable items remain `processed: NO` until Git SoT disposition, bounded Penpot mutation, structural readback, focused Astro ↔ Penpot evidence and owner re-review exist.
+The later packet creates no additional ID. The earlier packet creates
+`OV-50…OV-52`; all three remain `processed: NO`. All mapped actionable items
+remain open until Git SoT disposition, bounded Penpot mutation, structural
+readback, focused Astro ↔ Penpot evidence and owner re-review exist.
 
 ## Exact transcript
 
@@ -61,21 +142,44 @@ No genuinely new requirement remains after this dedup, so numbering stays at `OV
 
 Я смотрю страницу `63.07 Event Details` и по-прежнему не вижу никаких доработок. Предыдущее замечание было в том, что текущее отображение в Penpot не соответствует Astro. На первом экране я должен сразу видеть как минимум название события, и это фактически реализовано в Astro. Подробная карточка здесь опущена слишком низко. Это выглядит как локальная фантазия: не фактическая реализация, а приблизительно похожая сборка. То же самое с CTA-блоком с ценой и остальным. Этот блок выдуман. Я уже оставлял комментарий поверх, но он не обработан.
 
-## Later files classified and excluded
+## Complete excluded packet census
 
-All four later files were read through their full transcripts at the evaluated source HEAD. They are outside the LoveKGD design-system contour and do not create or supersede an `OV-*` item.
+Every excluded packet was read through its full transcript at the evaluated
+HEAD. Incidental mentions of LoveKGD, Astro, Atlas, Penpot or «Полюбить
+Калининград» do not make a packet a design-system audit when its actionable
+content belongs to another product contour.
 
-| Captured at (`Europe/Kaliningrad`) | Source file | Classification / exclusion reason |
-|---|---|---|
-| `2026-08-28 12:02:03` | `voice-20260828-120203-210f441f.md` | Intellectual-center architecture and a business diagram for the regional branch of Российское общество «Знание»; IdeaHub/Penpot Business cross-project work. |
-| `2026-08-28 12:06:27` | `voice-20260828-120627-2822710b.md` | Business-audience terminology for architecture diagrams (`ChatGPT`, `Claude`, `OpenCode` instead of an abstract MCP client); not Astro/UI/Penpot design-system feedback. |
-| `2026-08-28 12:08:23` | `voice-20260828-120823-1d4c2002.md` | Voice-driven lecture/presentation editing through a mobile MCP client; wonderful-lections/intellectual-center product contour. |
-| `2026-08-28 12:53:53` | `voice-20260828-125353-9e0a4426.md` | GigaChat API option for the mobile lecture client and architecture schemes; IdeaHub/wonderful-lections contour. |
+| Packet | Classification / exclusion reason |
+|---|---|
+| `voice-20260828-065647-08b64f70` | Explicitly excluded synthetic devstand voice-intake smoke test. |
+| `voice-20260828-091227-0cfdc48c` | Audio test and ownership statement about IdeaHub; no design-system feedback. |
+| `voice-20260828-091731-d34c6629` | IdeaHub mobile recording/keyboard/productivity session. |
+| `voice-20260828-094518-2f5696ac` | Accidental, non-substantive recording. |
+| `voice-20260828-102528-cf606b7d` | Terminology and GitHub-readback test. |
+| `voice-20260828-104415-14bca319` | Voice recording/transcription test. |
+| `voice-20260828-104907-784cbf35` | Mobile MCP-capable client for the regional «Знание» contour. |
+| `voice-20260828-110522-574b04cd` | «Паровоз в Багратионовск» portfolio/project-map work. |
+| `voice-20260828-111218-bbe4e1bc` | Terminology enumeration for IdeaHub/MCP architecture; no page defect. |
+| `voice-20260828-112621-0a01265a` | Second terminology enumeration; no actionable design-system review. |
+| `voice-20260828-113325-d4048f1e` | Accidental recording. |
+| `voice-20260828-120203-210f441f` | «Знание» intellectual-center architecture/business diagram. |
+| `voice-20260828-120627-2822710b` | Business-audience wording for architecture diagrams. |
+| `voice-20260828-120823-1d4c2002` | Voice-driven lecture/presentation editing. |
+| `voice-20260828-125353-9e0a4426` | GigaChat API for the mobile lecture client. |
+| `voice-20260828-130901-4d1e4066` | Functions of the «Знание» intellectual center. |
+| `voice-20260828-140642-a04d7bea` | Agent-system educational courses. |
+| `voice-20260828-141916-08910102` | Architecture-component terminology enumeration. |
+| `voice-20260828-142057-92be2926` | Correction of course audience/format. |
+| `voice-20260828-142355-c5a8dc75` | `record-idea-hub` lecture/excursion ingestion; its LoveKGD mention concerns content capture, not this UI audit. |
+| `voice-20260828-142841-979ee3f3` | Real-time dialogue/fact-checking assistant. |
 
 ## Cursor
 
-- source HEAD read: `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`
-- last file read: `inbox/voice/2026/08/voice-20260828-125353-9e0a4426.md`
-- last packet: `voice-20260828-125353-9e0a4426`
-- cursor timestamp: `2026-08-28T12:53:53.313466+02:00`
-- next intake starts strictly after this file on a fresh IdeaHub HEAD.
+- source HEAD read: `76c337ee1bf5a0d90b93222cf9db662e6d4167e6`
+- history mode: all commits touching `inbox/voice/2026/08` were enumerated;
+- last file by capture time read: `inbox/voice/2026/08/voice-20260828-142841-979ee3f3.md`;
+- last packet: `voice-20260828-142841-979ee3f3`;
+- cursor timestamp: `2026-08-28T14:28:41.658705+02:00`;
+- next intake starts after this packet on a fresh IdeaHub HEAD, while a future
+  history audit must still detect backfilled files whose capture time predates
+  the cursor.

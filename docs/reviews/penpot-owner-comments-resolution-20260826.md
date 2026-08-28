@@ -236,8 +236,10 @@ This checkpoint supersedes unverified chat claims for revisions `2582–2596`; i
 ### 9.1 Fresh authority and intake
 
 - Astro authority: `events-bot-new@8710e56fa3685f6c30a90cd062d532dce0348cce`.
-- IdeaHub intake authority: `idea-hub@5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`.
-- One relevant corrected voice packet was deduplicated into existing `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45–OV-49`; four later cross-project packets were excluded. No new `OV-*` ID was created.
+- IdeaHub intake authority is superseded by the history-wide checkpoint in §11.
+- The original forward-only intake found one relevant corrected voice packet. It
+  was incomplete because it omitted an earlier audit packet; use §11 counts and
+  dispositions instead.
 - Penpot preflight: exact file `3be9e5e1-190f-8090-8008-713c0fbe6260`, start revision `2604`, temporary preflight shape removed, `validate()=[]`, focused export passed.
 
 ### 9.2 `63.01 — Atlas · Home`
@@ -252,7 +254,7 @@ The untrusted `HeroTalk / Evidence chain` structures were removed from both nati
 - fresh page-scoped readback found `0` remaining `Evidence chain` shapes and `validate()=[]` at revision `2606`;
 - focused export: `evidence/recovery-20260828/penpot/home-herotalk-mobile.png`.
 
-`OV-07` remains `processed: NO`: its requested communication-chain specimen needs a separate Git-bound product-pattern contract and must not be embedded into the HeroTalk product main.
+`OV-07` remains `processed: NO`: its requested communication-chain specimen needs a separate Git-bound product-pattern contract and must not be embedded into the HeroTalk product main. The history-wide IdeaHub audit also created `OV-50`: removing the fabricated chain did not implement the owner-requested HeroTalk `Photo Mosaic` product mechanism, so Home is not closed.
 
 ### 9.3 `63.11 — Atlas · Interest clubs`
 
@@ -310,3 +312,53 @@ Evidence:
 - receipt: `evidence/recovery-20260828/penpot/recovery-receipt.v1.json`.
 
 `OV-40` remains `processed: NO` because the broader owner backlog and release gate are still open; this status does not invalidate the corrected card parity proven above.
+
+## 11. History-wide IdeaHub voice correction — 2026-08-28
+
+Status: `INTAKE_CORRECTED / PRODUCT_BACKLOG_OPEN`.
+
+The earlier claim that all relevant IdeaHub voice feedback had been covered was
+wrong. A fresh `git fetch --all --prune --tags` followed by a directory-history
+walk across every fetched ref found `27` commits touching
+`inbox/voice/2026/08` and `23` packet files. Two packets are relevant to this
+design-system contour; `21` were read and excluded as tests, accidental audio,
+IdeaHub/MCP, lecture, business-diagram or other-project work.
+
+The previously registered packet remains:
+
+- `voice-20260828-114654-2c907d62` — existing `OV-08`, `OV-30`, `OV-33`,
+  `OV-42`, `OV-45…OV-49` clarification/supersession evidence.
+
+The omitted earlier packet is:
+
+- `voice-20260828-112125-6de734d5` — Home HeroTalk, Home/Date/Weekend
+  event-card lineage, Branding completeness, Weekend time-marker background
+  and Weekend Discovery rail Floating Island.
+
+Deduplication retained existing `OV-04`, `OV-05`, `OV-08` and `OV-30`, and
+created three genuinely new items:
+
+- `OV-50` — `63.01 Home` must implement the real HeroTalk `Photo Mosaic`
+  product mechanism; the current static `HomeHeroTalk.astro` event-feature
+  skeleton and current Penpot Astro-AS-IS main do not close it;
+- `OV-51` — `61.3 Weekend Time marker` must not have an opaque page-local
+  background. Current Astro CSS declares the time rail background transparent.
+  At Penpot revision `2614`, the only opaque fill was removed from
+  `C01 · Weekend time marker 12:00 · exact review`; reopen readback found zero
+  root fills and the exact Astro binding, `validate()=[]`, and focused export
+  `evidence/recovery-20260828/penpot/weekend-time-marker-transparent.png`
+  (`120×89`, `4,561` bytes, SHA-256
+  `7c0f87d4ab546b73d97596565044bb1ff64ccebe6b8c1c483152e29a35288e8b`).
+  It is `READY_FOR_OWNER_REREVIEW` but remains `processed: NO`; global ancestry
+  is still governed by `OV-08`/`OV-30`;
+- `OV-52` — `61.10 Weekend Discovery rail exact` must become a content-sized
+  transparent Floating Island. Current Astro CSS and the Penpot main still use
+  a full-width rail (`100vw` in Astro, `1280×52` in Penpot), so this is an open
+  product change, not Penpot-only parity.
+
+The exact transcript, every-version history, complete exclusion census and new
+cursor are recorded in
+[`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md).
+None of `OV-50…OV-52` is `processed: YES`, and no previous Home/Weekend evidence
+may be used to imply their closure. `OV-51` has bounded product evidence and is
+ready for owner rereview; `OV-50` and `OV-52` remain open product changes.

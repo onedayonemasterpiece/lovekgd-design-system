@@ -41,7 +41,7 @@ Status: `ACCEPTED_OPERATIONAL_ROUTER`
 |---|---|---|---|---|---|---|
 | `REV-PENPOT-20260826-01` | Resource Graph Penpot, текущие owner threads `#178–#202` и связанные исторические defects | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) — legacy/current combined intake+ledger | тот же файл | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
 | `REV-TG-20260826-01` | Telegram `KenigEvents · UI review`, `https://t.me/c/4337049383/1030`; initial marker batch `2026-08-26 22:54:08` — `2026-08-27 00:42:23`; continuation `2026-08-27 08:06:31` — `09:24:56`, `Europe/Kaliningrad` | [`telegram-owner-voice-intake-20260826-27.md`](telegram-owner-voice-intake-20260826-27.md) (`OV-01…OV-08`); [`telegram-owner-voice-intake-20260827-continuation-01.md`](telegram-owner-voice-intake-20260827-continuation-01.md) (`OV-09…OV-49`) | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) for existing implementation evidence; continuation file is the capture/triage ledger for `OV-09…OV-49` until bounded ownership is assigned | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
-| `REV-IDEAHUB-20260828-01` | IdeaHub voice packets at source HEAD `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`, inclusive boundary `voice-20260828-114654-2c907d62.md` — `voice-20260828-125353-9e0a4426.md` | [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md): 1 relevant corrected voice mapped to existing `OV-*`; 4 later cross-project voices excluded | existing `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45…OV-49`; no new `OV-*` | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `TRIAGED` | `NO` |
+| `REV-IDEAHUB-20260828-01` | Complete fetched Git history of `inbox/voice/2026/08` at IdeaHub HEAD `76c337ee1bf5a0d90b93222cf9db662e6d4167e6`: 27 commits / 23 packets | [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md): 2 relevant design-system audits; 21 non-design-system packets excluded | existing `OV-04`, `OV-05`, `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45…OV-49`; new `OV-50…OV-52` | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `HISTORY_AUDITED / TRIAGED` | `NO` |
 
 ## 4. Disposition текущего Telegram review
 
@@ -78,12 +78,19 @@ Continuation не смешивает продуктовые completion counts: `
 ### IdeaHub voice continuation `REV-IDEAHUB-20260828-01`
 
 - intake record: [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md);
-- evaluated IdeaHub HEAD: `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`;
-- relevant voices: `1`; excluded later cross-project voices: `4`;
-- dedup result: source clarification/supersession refs added to existing `OV-*`; new IDs: `0`;
+- evaluated IdeaHub HEAD: `76c337ee1bf5a0d90b93222cf9db662e6d4167e6`;
+- history boundary: every fetched commit touching `inbox/voice/2026/08`;
+- census: `27` commits, `23` packets, `2` relevant audits, `21` excluded non-design-system packets;
+- dedup result: source clarification/supersession refs added to existing `OV-*`; new IDs: `OV-50…OV-52`;
 - `OV-09…OV-19` remain cross-contour and outside design-system completion;
-- cursor: `inbox/voice/2026/08/voice-20260828-125353-9e0a4426.md` at the evaluated HEAD;
+- cursor: `inbox/voice/2026/08/voice-20260828-142841-979ee3f3.md` at the evaluated HEAD; history-aware intake must still detect backfilled older captures;
 - processed: `0`; Penpot mutation/readback evidence in this intake: none.
+
+| Item | Requirement | Current status | Processed | Current evidence / open gate |
+|---|---|---|---|---|
+| `OV-50` | `63.01 Home`: replace the fabricated/legacy hero with the real HeroTalk `Photo Mosaic` product mechanism | `CAPTURED` | `NO` | Current Astro still renders the static `HomeHeroTalk.astro` event-feature skeleton; the Penpot page contains a separate `mode=photo-mosaic` board but the main archetype still follows Astro AS-IS. Requires Astro/UI SoT implementation first. |
+| `OV-51` | `61.3 Weekend Time marker`: no opaque page-local block background | `READY_FOR_OWNER_REREVIEW` | `NO` | Astro SoT declares `.ke-weekend-time-rail { background: transparent; }`. Penpot revision `2614` removed the only opaque review-board fill, preserved the marker content, passed reopen readback and `validate()=[]`; focused PNG: `evidence/recovery-20260828/penpot/weekend-time-marker-transparent.png`. Global ancestry remains tracked separately by `OV-08`/`OV-30`. |
+| `OV-52` | `61.10 Weekend Discovery rail exact`: content-sized transparent `Floating Island` rather than a full-width installed shelf | `CAPTURED` | `NO` | Fresh Penpot readback found the main rail at `1280×52` plus page-local fixture boards. Product contract and canonical component lineage remain open. |
 
 ## 5. Обязательный маршрут обработки
 
