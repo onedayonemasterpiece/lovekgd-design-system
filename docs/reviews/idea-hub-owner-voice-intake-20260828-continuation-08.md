@@ -1,6 +1,6 @@
 # IdeaHub owner voice intake — 2026-08-28/29 continuation 08
 
-Status: `HISTORY_AUDITED / TRIAGED / IN_PROGRESS`
+Status: `HISTORY_AUDITED / TRIAGED / CORRECTION_MATERIALIZED / OWNER_REREVIEW_REQUIRED`
 
 - review ID: `REV-IDEAHUB-20260828-08`
 - source repository: `onedayonemasterpiece/idea-hub` (read-only)
@@ -23,8 +23,8 @@ future Floating Island redesign before the factual AS-IS is finished.
 
 | Item | Packet | Commit | Owner requirement | Initial disposition |
 |---|---|---|---|---|
-| `OV-55` | `voice-20260829-000214-17b772ab` | `bcd2f03` | Add a real Event Detail vertical-image state; preserve/document the Astro hero-image parallax contract and keyboard navigation; keep universal Floating Island as a later candidate after AS-IS | `IN_PROGRESS`: locate real Astro fixture and exact motion/keyboard source before Penpot mutation; no invented Floating Island |
-| `OV-56` | `voice-20260829-000723-952a7c41` | `76bdb6d` | Correct terminology to **Hero image** (not Hero Talk) on event pages; include transport and `related events → footer`; prove EventCard and medallion inheritance and split boards if needed for operability | `IN_PROGRESS`: audit Page 63.07 continuation and exact linked ancestry; correct lowest owning SoT |
+| `OV-55` | `voice-20260829-000214-17b772ab` | `bcd2f03` | Add a real Event Detail vertical-image state; preserve/document the Astro hero-image parallax contract and keyboard navigation; keep universal Floating Island as a later candidate after AS-IS | `CORRECTION_MATERIALIZED`: real `event.real.4783` Hero image/rail and two-up efficient viewer were reconstructed natively; exact desktop/mobile motion and keyboard rules are recorded in `event-detail-motion-keyboard-source-contract-v1.md`; Floating Island remains deferred |
+| `OV-56` | `voice-20260829-000723-952a7c41` | `76bdb6d` | Correct terminology to **Hero image** (not Hero Talk) on event pages; include transport and `related events → footer`; prove EventCard and medallion inheritance and split boards if needed for operability | `CORRECTION_MATERIALIZED`: real `event.real.4671` Kaup transport and `transport → related → footer` continuation are native/linked on Page 63.07; owner rereview remains required |
 
 ## Excluded packets
 
