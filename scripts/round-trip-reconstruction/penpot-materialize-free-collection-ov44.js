@@ -21,6 +21,8 @@ const MOBILE_NAV_ID = 'a21f5e36-5d76-8065-8008-86aec0a54bb5';
 
 const FIXTURE_PATH = 'Collections / Free / EventCard fixture adapter';
 const BODY_PATH = 'Collections / Free / Page body';
+const STICKY_PATH = 'Collections / Free / Sticky identity';
+const MEDALLION_SOURCE_URL = 'https://kenigevents.ru/assets/badges/free-listing-medallion.svg';
 
 const EVENTS = {
   7030: {
@@ -147,6 +149,14 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
   };
 
   const fixtureName = (eventId, viewport) => `event.real.${eventId} · ${viewport} · source-exact`;
+  const stickyName = (viewport) => `viewport=${viewport};scroll=hero-passed;identity=free`;
+
+  async function sourceMedallionMedia() {
+    if (storage.ov44FreeMedallionMedia?.id) return storage.ov44FreeMedallionMedia;
+    const media = await penpot.uploadMediaUrl('OV44 free-listing-medallion source SVG', MEDALLION_SOURCE_URL);
+    storage.ov44FreeMedallionMedia = media;
+    return media;
+  }
 
   async function ensureCardAdapter(eventId, viewport) {
     assertContext();
@@ -168,7 +178,10 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
       place(card, 0, 0, width, height);
       overrideExactText(card, /^Content \/ Event title$/, spec.title);
       overrideExactText(card, /^Label \/ instance content$/, spec.type);
-      overrideExactText(card, /^Content \/ Event occurrence$/, spec.occurrence);
+      // The certified desktop Large master still exposes its occurrence text
+      // under the historical `schedule` leaf name; the mobile-flow master uses
+      // the normalized semantic name. Bind both exact source-backed leaves.
+      overrideExactText(card, /^(?:Content \/ Event occurrence|schedule)$/, spec.occurrence);
       overrideExactText(card, /^Value \/ instance content$/, spec.price);
       overrideExactText(card, /^Content \/ Event place$/, spec.place);
       const mediaShapes = walk(card).filter((shape) => Array.isArray(shape.fills)
@@ -196,25 +209,18 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     }
   }
 
-  function makeMedallion(parent, viewport) {
+  function makeMedallion(parent, viewport, media) {
     const size = viewport === 'desktop' ? 294 : 96;
     const x = viewport === 'desktop' ? 830 : 252;
     const y = viewport === 'desktop' ? 102 : 118;
     const root = board(parent, `Free collection medallion / ${viewport}`, x, y, size, size);
     root.clipContent = false;
-    const outer = penpot.createEllipse();
-    outer.name = 'Medallion / outer';
-    outer.fills = [{ fillColor: '#f7f3ec', fillOpacity: 1 }];
-    outer.strokes = [{ strokeColor: '#5f5a54', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: viewport === 'desktop' ? 6 : 2, strokeAlignment: 'inner' }];
-    root.appendChild(outer);
-    place(outer, 0, 0, size, size);
-    makeText(root, 'Medallion / star', '★', 0, size * 0.12, size, size * 0.18, size * 0.14, 800, 1, '#5f5a54', 'center');
-    makeText(root, 'Medallion / zero price', '0 ₽', 0, size * 0.34, size, size * 0.28, size * 0.27, 850, 0.95, '#302d29', 'center');
-    makeText(root, 'Medallion / free label', 'БЕСПЛАТНО', 0, size * 0.67, size, size * 0.12, size * 0.085, 800, 1, '#5f5a54', 'center');
+    const image = rectangle(root, 'Medallion / exact Astro source SVG', 0, 0, size, size, '#f7f3ec');
+    image.fills = [{ fillImage: media, fillOpacity: 1 }];
     return root;
   }
 
-  function makeHero(parent, viewport) {
+  function makeHero(parent, viewport, media) {
     if (viewport === 'desktop') {
       const hero = board(parent, 'Free collection / Hero / desktop', 0, 84, 1180, 500, '#fffdf8', 32);
       rectangle(hero, 'Hero / green atmosphere', 760, 0, 420, 500, '#eef5e7', 0, 0.88);
@@ -223,7 +229,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
       makeText(hero, 'Lead / source exact', 'Все актуальные события с подтверждённым бесплатным входом,\nвключая продолжающиеся выставки.', 64, 278, 680, 58, 20, 500, 1.45, '#493d35');
       makeText(hero, 'Criteria / source exact', 'Как собрана: Событие активно, ещё не закончилось, а в выгрузке афиши вход\nподтверждён как бесплатный.', 64, 350, 690, 52, 17, 500, 1.45, '#493d35');
       makeText(hero, 'Updated / source exact', 'Данные афиши обновлены 2026-07-23; подборка рассчитана на 2026-07-23. Это не личный\nсохранённый поиск.', 64, 422, 700, 42, 14, 500, 1.45, '#786c63');
-      makeMedallion(hero, viewport);
+      makeMedallion(hero, viewport, media);
       return hero;
     }
     const hero = board(parent, 'Free collection / Hero / mobile', 0, 74, 366, 436, '#fffdf8', 24);
@@ -233,11 +239,11 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     makeText(hero, 'Lead / source exact', 'Все актуальные события с подтверждённым бесплатным входом, включая продолжающиеся выставки.', 18, 158, 220, 64, 15, 500, 1.35, '#493d35');
     makeText(hero, 'Criteria / source exact', 'Как собрана: событие активно, ещё не закончилось, а вход подтверждён как бесплатный.', 18, 244, 312, 58, 12, 500, 1.35, '#493d35');
     makeText(hero, 'Updated / source exact', 'Данные афиши обновлены 2026-07-23. Это не личный сохранённый поиск.', 18, 326, 312, 48, 11, 500, 1.35, '#786c63');
-    makeMedallion(hero, viewport);
+    makeMedallion(hero, viewport, media);
     return hero;
   }
 
-  function ensureBody(viewport) {
+  async function ensureBody(viewport) {
     assertContext();
     if (!['desktop', 'mobile'].includes(viewport)) throw new Error(`unknown OV-44 body viewport ${viewport}`);
     const name = BODY_NAME[viewport];
@@ -245,6 +251,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     if (existing) return { existing: true, id: existing.id, main: existing.mainInstance().id, path: BODY_PATH, name };
     const adapters = [7030, 6947, 7006].map((eventId) => componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport)));
     if (adapters.some((component) => !component)) throw new Error(`create all three ${viewport} fixture adapters before the body`);
+    const medallionMedia = await sourceMedallionMedia();
     const block = penpot.history.undoBlockBegin();
     try {
       const width = viewport === 'desktop' ? 1180 : 366;
@@ -252,7 +259,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
       const root = board(null, `${BODY_PATH} / ${name}`, viewport === 'desktop' ? 5200 : 6500, 0, width, height);
       root.fills = [];
       makeText(root, 'Breadcrumb / source exact', 'Афиша  /  Бесплатные события', 0, viewport === 'desktop' ? 24 : 20, width, 24, viewport === 'desktop' ? 14 : 12, 600, 1.3, '#756b64');
-      makeHero(root, viewport);
+      makeHero(root, viewport, medallionMedia);
       if (viewport === 'desktop') {
         const results = board(root, 'Free collection / Results / desktop', 0, 617, 1180, 1535, '#fffdf8', 26);
         makeText(results, 'Results heading / source exact', '23 событий', 49, 44, 520, 54, 40, 900, 1.1, '#221a14');
@@ -283,7 +290,30 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     }
   }
 
-  function applyOwner(viewport) {
+  async function ensureStickyIdentity(viewport) {
+    assertContext();
+    if (!['desktop', 'mobile'].includes(viewport)) throw new Error(`unknown OV-44 sticky viewport ${viewport}`);
+    const name = stickyName(viewport);
+    const existing = componentByIdentity(STICKY_PATH, name);
+    if (existing) return { existing: true, id: existing.id, main: existing.mainInstance().id, path: STICKY_PATH, name };
+    const media = await sourceMedallionMedia();
+    const block = penpot.history.undoBlockBegin();
+    try {
+      const root = board(null, `${STICKY_PATH} / ${name}`, viewport === 'desktop' ? 7800 : 8100, 0, 240, 96, '#fffdf8', 18);
+      root.clipContent = false;
+      makeText(root, 'State label / source exact', 'scroll=hero-passed', 16, 15, 136, 18, 11, 750, 1.2, '#756b64');
+      makeText(root, 'Identity label / source exact', 'Бесплатные события', 16, 39, 136, 34, 15, 850, 1.15, '#221a14');
+      const size = viewport === 'desktop' ? 58 : 50;
+      const image = rectangle(root, 'Compact identity / exact Astro source SVG', 240 - size - 16, (96 - size) / 2, size, size, '#f7f3ec');
+      image.fills = [{ fillImage: media, fillOpacity: 1 }];
+      const component = penpot.library.local.createComponent([root]);
+      return { existing: false, id: component.id, main: component.mainInstance().id, path: component.path, name: component.name, media: media.id };
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
+  async function applyOwner(viewport) {
     assertContext();
     const owner = penpot.currentPage.getShapeById(viewport === 'desktop' ? DESKTOP_OWNER_ID : MOBILE_OWNER_ID);
     if (!owner?.isComponentMainInstance()) throw new Error(`missing Collections ${viewport} owner main`);
@@ -296,6 +326,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     const nav = navId ? [...owner.children].find((shape) => shape.isComponentCopyInstance?.() && shape.component()?.id === navId) : null;
     if (!header || (viewport === 'mobile' && !nav)) throw new Error(`Collections ${viewport} shell linkage missing`);
     const block = penpot.history.undoBlockBegin();
+    let result;
     try {
       for (const child of [...owner.children]) {
         if (child.id !== header.id && child.id !== nav?.id && child.id !== existingBody?.id) child.remove();
@@ -309,19 +340,19 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
       body.name = `linked Collections / Free body / ${viewport};fixture=2026-07-23`;
       place(body, viewport === 'desktop' ? 50 : 12, viewport === 'desktop' ? 57 : 84, viewport === 'desktop' ? 1180 : 366, viewport === 'desktop' ? 2200 : 2260);
       if (nav) place(nav, 0, 1136, 390, 64);
-      return {
+      result = {
         owner: { id: owner.id, width: owner.width, height: owner.height, name: owner.name },
         header: { id: header.id, componentId: header.component()?.id },
         body: { id: body.id, componentId: body.component()?.id, width: body.width, height: body.height },
         nav: nav ? { id: nav.id, componentId: nav.component()?.id } : null,
-        validation: penpot.currentFile.validate(),
       };
     } finally {
       penpot.history.undoBlockFinish(block);
     }
+    return { ...result, validation: await penpot.currentFile.validate() };
   }
 
-  function readback() {
+  async function readback() {
     assertContext();
     const summarize = (shape) => ({
       id: shape.id,
@@ -345,16 +376,21 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
         const component = componentByIdentity(BODY_PATH, BODY_NAME[viewport]);
         return component ? { viewport, id: component.id, main: component.mainInstance().id } : { viewport, missing: true };
       }),
-      validation: penpot.currentFile.validate(),
+      stickyIdentity: ['desktop', 'mobile'].map((viewport) => {
+        const component = componentByIdentity(STICKY_PATH, stickyName(viewport));
+        return component ? { viewport, id: component.id, main: component.mainInstance().id } : { viewport, missing: true };
+      }),
+      validation: await penpot.currentFile.validate(),
     };
   }
 
   storage.ov44FreeCollection = {
     ensureCardAdapter,
     ensureBody,
+    ensureStickyIdentity,
     applyOwner,
     readback,
-    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, EVENTS, FIXTURE_PATH, BODY_PATH, BODY_NAME },
+    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, EVENTS, FIXTURE_PATH, BODY_PATH, STICKY_PATH, MEDALLION_SOURCE_URL, BODY_NAME },
   };
   return { installed: true, methods: Object.keys(storage.ov44FreeCollection), eventIds: Object.keys(EVENTS) };
 }
@@ -369,6 +405,8 @@ if (typeof module !== 'undefined') module.exports = {
     MOBILE_OWNER_ID,
     FIXTURE_PATH,
     BODY_PATH,
+    STICKY_PATH,
+    MEDALLION_SOURCE_URL,
     BODY_NAME,
   },
 };

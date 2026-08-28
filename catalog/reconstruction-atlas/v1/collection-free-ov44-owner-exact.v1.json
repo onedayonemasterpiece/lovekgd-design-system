@@ -125,6 +125,15 @@
     "required_projection": "one concrete Free collection, not the /podborki/ navigation catalog",
     "required_representative_cards": 3,
     "required_card_lineage": "canonical EventCard large family",
+    "required_compact_sticky_state": {
+      "path": "Collections / Free / Sticky identity",
+      "states": [
+        "viewport=desktop;scroll=hero-passed;identity=free",
+        "viewport=mobile;scroll=hero-passed;identity=free"
+      ],
+      "source_asset": "https://kenigevents.ru/assets/badges/free-listing-medallion.svg",
+      "rule": "The top-of-page owner projection keeps the compact identity hidden; separate native scroll-crossed state components prove the persistent identity without falsely showing both large and compact medallions at once."
+    },
     "fixture_adapter_rule": "Each representative card is a native exact-data adapter around a linked canonical EventCard large instance. Exact poster, title, occurrence, price and place are source-bound in the adapter; owner projections contain no detached card copies.",
     "detached_cards_allowed": 0
   }

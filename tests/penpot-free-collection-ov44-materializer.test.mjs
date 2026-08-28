@@ -14,6 +14,7 @@ test('OV-44 materializer targets the exact Collections owner page and source fix
   assert.equal(materializer.EVENTS[7030].title, 'Праздник непослушания');
   assert.equal(materializer.EVENTS[6947].title, 'Лекция Жизнь и боль Фриды Кало');
   assert.equal(materializer.EVENTS[7006].price, 'Бесплатно · регистрация');
+  assert.equal(materializer.constants.MEDALLION_SOURCE_URL, 'https://kenigevents.ru/assets/badges/free-listing-medallion.svg');
   assert.ok(Object.values(materializer.EVENTS).every(({ template }) => (
     template.desktop === 'b0fe69fd-ccaf-8025-8008-844b666fe76c'
     && template.mobile === '7f078c80-87b8-80f5-8008-85839e8975f6'
@@ -25,6 +26,9 @@ test('OV-44 materializer preserves linked native component ancestry', () => {
   assert.match(source, /component\.instance\(\)/);
   assert.match(source, /penpot\.library\.local\.createComponent/);
   assert.match(source, /penpot\.uploadMediaUrl/);
+  assert.match(source, /Content \\\/ Event occurrence\|schedule/);
+  assert.match(source, /ensureStickyIdentity/);
+  assert.match(source, /Compact identity \/ exact Astro source SVG/);
   assert.doesNotMatch(source, /\.detach\s*\(/);
 });
 
@@ -32,4 +36,5 @@ test('OV-44 owner boards remain source viewport proofs while dense stress stays 
   assert.match(source, /owner\.resize\(viewport === 'desktop' \? 1280 : 390, 1200\)/);
   assert.match(source, /Dense 23 \+ 14 listing stress remains\n \* Astro-owned/);
   assert.match(source, /23 событий/);
+  assert.match(source, /scroll=hero-passed/);
 });
