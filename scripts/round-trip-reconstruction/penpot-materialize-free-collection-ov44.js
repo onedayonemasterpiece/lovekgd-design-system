@@ -22,7 +22,7 @@ const MOBILE_NAV_ID = 'a21f5e36-5d76-8065-8008-86aec0a54bb5';
 const FIXTURE_PATH = 'Collections / Free / EventCard fixture adapter';
 const BODY_PATH = 'Collections / Free / Page body';
 const STICKY_PATH = 'Collections / Free / Sticky identity';
-const MEDALLION_SOURCE_URL = 'https://kenigevents.ru/assets/badges/free-listing-medallion.svg';
+const MEDALLION_SOURCE_URL = 'https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/49c351873d40a2ea55f0a32837c7376e344d9c17/site/public/assets/badges/free-listing-medallion.svg';
 
 const EVENTS = {
   7030: {
@@ -301,8 +301,8 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     try {
       const root = board(null, `${STICKY_PATH} / ${name}`, viewport === 'desktop' ? 7800 : 8100, 0, 240, 96, '#fffdf8', 18);
       root.clipContent = false;
-      makeText(root, 'State label / source exact', 'scroll=hero-passed', 16, 15, 136, 18, 11, 750, 1.2, '#756b64');
-      makeText(root, 'Identity label / source exact', 'Бесплатные события', 16, 39, 136, 34, 15, 850, 1.15, '#221a14');
+      makeText(root, 'State label / source exact', 'scroll=hero-passed', 16, 15, 136, 18, 11, 700, 1.2, '#756b64');
+      makeText(root, 'Identity label / source exact', 'Бесплатные события', 16, 39, 136, 34, 15, 900, 1.15, '#221a14');
       const size = viewport === 'desktop' ? 58 : 50;
       const image = rectangle(root, 'Compact identity / exact Astro source SVG', 240 - size - 16, (96 - size) / 2, size, size, '#f7f3ec');
       image.fills = [{ fillImage: media, fillOpacity: 1 }];
