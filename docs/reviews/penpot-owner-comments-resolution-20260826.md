@@ -326,6 +326,49 @@ This does not enable the feature in Astro. Production-default visibility remains
 
 Durable receipt: `evidence/recovery-20260828/penpot/recovery-receipt.v1.json`.
 
+### 9.4a `63.15 — Atlas · Artifacts` factual state projection (`OV-06`)
+
+The owner requirement remains authoritative: seven focus-group artifacts must
+eventually be shown in none/subset/all-expanded, hover/focus and selected-detail
+states. The current source tuple does not yet contain those seven canonical
+identities or that interaction model. It contains three distinct inventories
+which must not be conflated:
+
+- the Astro Amber collection implements one real `amber_cosmonaut` in five
+  slots, with four future slots reserved;
+- seven local reference images represent six concepts and are not runtime
+  artifacts;
+- the separate Focus Lab defines twelve `FG-E01…FG-E12` eggs.
+
+Instead of inventing the missing target, page `63.15` now projects the complete
+factual Astro AS-IS behavior through thirteen linked native instances:
+
+- `C01` (`8f804431-c282-8075-8008-8dab3850410e`) — all eight source-defined
+  Amber rail presence/lifecycle/motion states, including keyboard focus and
+  reduced motion;
+- `C02` (`8f804431-c282-8075-8008-8dab9616c32c`) — production unavailable,
+  non-production `0 из 5`, and found `1 из 5`;
+- `C03` (`8f804431-c282-8075-8008-8dabaafee4c5`) — the actual desktop and
+  `390px` mobile selected-detail dialogs for `Янтарный космонавт`.
+
+Fresh readback found `13/13` component-copy instances, `0` detached managed
+instances, idempotent reconciliation `created=0`, and
+`currentFile.validate()=[]`. Named version:
+`Recovery 2026-08-28 · OV-06 factual Astro AS-IS artifact states · 13 linked`.
+The bounded `C01` PNG export returned external Penpot HTTP `504` and was not
+blindly retried. The plugin API did not expose the post-write file revision, so
+the receipt records it as unknown rather than fabricating a number.
+
+Contract:
+`catalog/reconstruction-atlas/v1/artifacts-astro-as-is-owner-projection.v1.json`.
+Receipt:
+`evidence/recovery-20260828/penpot/artifacts-astro-as-is-owner-projection-receipt.v1.json`.
+
+`OV-06` advances from a blank blocker to `PARTIAL_AS_IS_PROJECTION`, but remains
+`processed: NO` and not ready for owner rereview. Closure still requires an
+authoritative seven-item identity contract plus the owner-required expanded
+state model in Astro/UI SoT before a new native component can be certified.
+
 ## 10. Owner correction: Interest-club card visual authority — 2026-08-28
 
 Status: `SUPERSEDES §9.3 VISUAL INTERPRETATION / PARTIAL_DURABLE_CHECKPOINT`.

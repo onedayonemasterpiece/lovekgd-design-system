@@ -1,0 +1,109 @@
+{
+  "schema_version": "artifacts-astro-as-is-owner-projection.v1",
+  "contract_id": "recovery.ov-06.artifacts-astro-as-is-owner-projection.v1",
+  "review_item": "OV-06",
+  "authority_disposition": {
+    "owner_required_target": {
+      "artifact_count": 7,
+      "states": [
+        "none-expanded",
+        "subset-expanded",
+        "all-expanded",
+        "hover",
+        "keyboard-focus",
+        "selected-detail"
+      ],
+      "source": "docs/reviews/telegram-owner-voice-intake-20260826-27.md#ov-06--complete-seven-artifact-state-matrix"
+    },
+    "current_astro_as_is": {
+      "implemented_artifact_count": 1,
+      "implemented_artifact_id": "amber_cosmonaut",
+      "collection_slot_count": 5,
+      "reserved_future_slot_count": 4,
+      "focus_egg_count": 12,
+      "focus_egg_system_is_separate": true
+    },
+    "conflict": "The current Astro runtime does not define seven canonical artifacts. Seven source-reference images represent six concepts, the Amber collection implements one artifact in five slots, and the separate Focus Lab defines twelve eggs.",
+    "fail_closed_rule": "This projection must not relabel reference images, reserved slots, or Focus eggs as seven implemented artifacts and must not claim OV-06 closure."
+  },
+  "source_tuple": {
+    "design_repository": "onedayonemasterpiece/lovekgd-design-system",
+    "design_commit_before_projection": "09044d3b7181c322ab21723fa096b40c2315f2a8",
+    "astro_repository": "onedayonemasterpiece/events-bot-new",
+    "astro_commit": "c33652ed01f6fb16945af67a53d5e27acece3cef",
+    "astro_paths": [
+      "site/src/pages/artefakty/index.astro",
+      "site/src/components/artifacts/ArtifactCollection.astro",
+      "site/src/components/listings/AmberRailArtifact.astro",
+      "site/src/lib/artifacts.mjs",
+      "site/src/lib/focus-easter-eggs.ts",
+      "docs/features/static-site-pages/amber-artifact-easter-egg.md",
+      "docs/features/static-site-pages/references/artefact-locations.md"
+    ],
+    "existing_design_contract": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json"
+  },
+  "penpot_target": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "d87e18f1-dcb4-80a6-8008-880f9a822a76",
+    "page_name": "63.15 — Atlas · Artifacts",
+    "projection_mode": "linked-native-assembly",
+    "candidate_source_page_id": "579a886e-56e8-80a3-8008-81882de9c074"
+  },
+  "source_faithful_state_groups": [
+    {
+      "group_id": "amber-rail-runtime",
+      "component_ids": [
+        "45777396-2f2a-80c0-8008-81924ec0bd97",
+        "45777396-2f2a-80c0-8008-81924f2da156",
+        "45777396-2f2a-80c0-8008-81924f9208ca",
+        "45777396-2f2a-80c0-8008-81924ff5e7d5",
+        "45777396-2f2a-80c0-8008-8192508a3ed5",
+        "45777396-2f2a-80c0-8008-8192510b3ed3",
+        "45777396-2f2a-80c0-8008-819251c7e98e",
+        "45777396-2f2a-80c0-8008-81925298d509"
+      ],
+      "states": [
+        "absent-idle-full",
+        "amber-tail-idle-full",
+        "amber-tail-awake-full",
+        "amber-tail-keyboard-focus-full",
+        "amber-tail-collecting-collected-full",
+        "amber-tail-collected-full",
+        "amber-tail-awake-reduced",
+        "amber-tail-collected-reduced"
+      ]
+    },
+    {
+      "group_id": "artifact-collection",
+      "component_ids": [
+        "45777396-2f2a-80c0-8008-819f11af0223",
+        "45777396-2f2a-80c0-8008-819f155d5b63",
+        "45777396-2f2a-80c0-8008-819f18cca946"
+      ],
+      "states": [
+        "production-unavailable",
+        "nonprod-empty-0-of-5",
+        "found-1-of-5"
+      ]
+    },
+    {
+      "group_id": "artifact-detail",
+      "component_ids": [
+        "45777396-2f2a-80c0-8008-819f1ada64df",
+        "c0d4e5a2-7db6-80c7-8008-81ef578bc3ae"
+      ],
+      "states": [
+        "dialog-open",
+        "dialog-open-mobile"
+      ]
+    }
+  ],
+  "acceptance": {
+    "linked_instance_count": 13,
+    "detached_instance_count": 0,
+    "required_validation": [],
+    "owner_status_after_projection": "PARTIAL_AS_IS_PROJECTION",
+    "processed": false,
+    "remaining_blocker": "Exact seven canonical artifact identities and an Astro implementation of the owner-required expansion/selection matrix are absent from the current authority tuple."
+  }
+}
