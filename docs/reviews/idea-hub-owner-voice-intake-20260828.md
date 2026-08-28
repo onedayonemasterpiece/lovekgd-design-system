@@ -161,6 +161,22 @@ now explicit rather than inferred from one heading:
 Both items remain `processed: NO`: Penpot is paused, so native page ancestry,
 readback, focused export and owner re-review do not yet exist.
 
+### OV-08 / OV-30 event-card lineage correction
+
+`catalog/ui-components/event-card-family/consumer-lineage.v1.json` now records
+the corrective family rule and the actual Astro path for audited consumers
+`63.01…63.07`. The later owner audit supersedes the earlier non-promoted
+candidate decision to materialize the large card, compact listing card and
+mobile rail as unrelated Penpot roots. They may remain separate Astro runtime
+adapters, but Penpot must expose one navigable canonical family owner with
+linked structural representations.
+
+The contract intentionally leaves the canonical Penpot UUID empty rather than
+guessing while the window is closed. `OV-08` and `OV-30` remain `processed: NO`:
+the exact root/copy census, icon and other-family scope, replacements,
+detached-copy proof, validation and focused consumer exports still require
+Penpot readback.
+
 ### OV-52 implementation receipt
 
 - Astro/UI SoT: `events-bot-new` Draft PR

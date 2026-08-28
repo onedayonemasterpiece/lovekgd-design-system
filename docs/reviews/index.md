@@ -58,7 +58,7 @@ Continuation не смешивает продуктовые completion counts: `
 | `OV-05` | desktop/mobile tag, vertical/horizontal lockups, spacing и component/static-asset classification | `SOT_READY / PENPOT_PAUSED` | `NO` | `catalog/branding/announcements-v1/contract.v1.json` source-locks фактическую desktop/mobile geometry, live component/static-asset classification, leather skins и PWA artwork; Penpot materialization/readback отложены |
 | `OV-06` | `63.15 Artifacts`: 7/7 artifacts и none/subset/all expanded, hover/focus, selected-detail states | `BLOCKED` | `NO` | существование общей Artifacts page не закрывает расширенный state matrix; обязательные state boards/readback отсутствуют |
 | `OV-07` | Home HeroTalk: полная `phrase → arrow → phrase → …` chain | `SOT_READY / PENPOT_PAUSED` | `NO` | Git SoT теперь фиксирует 7 source-faithful chains из canonical research commit `52f3afe73`; отдельная native Penpot page и readback ещё отсутствуют |
-| `OV-08` | глобальный запрет визуально скрытых duplicate component roots | `BLOCKED` | `NO` | глобальный lineage table, duplicate-root census, canonical UUIDs и detached-instance proof отсутствуют |
+| `OV-08` | глобальный запрет визуально скрытых duplicate component roots | `PARTIAL_SOT / PENPOT_PAUSED` | `NO` | corrective Event-card consumer map now source-locks `63.01…63.07` to one required Penpot family owner; icon/other-family scope, exact canonical UUID, global census and detached-instance proof remain open |
 
 Итог первого batch: `7` actionable items остаются необработанными; `OV-04`,
 `OV-05` и `OV-07` имеют Git SoT, но остаются незакрытыми без Penpot/readback,

@@ -285,6 +285,19 @@ This does not close either item. Penpot is paused, so the owner-readable page,
 native master ancestry, linked specimens, focused export and readback are still
 missing. On resume, begin with read-only exact-ID reconciliation.
 
+### 9.2b Event-card family consumers (`OV-08` / `OV-30`)
+
+The Git-side correction is now explicit in
+`catalog/ui-components/event-card-family/consumer-lineage.v1.json`. It maps the
+actual Astro paths for Home, Date, Weekend, Popular, Unusual, Search final
+results and Event Details related cards. The large card, compact listing card
+and mobile rail may remain separate runtime adapters, but they must project to
+one navigable Penpot family owner rather than unrelated local roots.
+
+No canonical Penpot UUID is fabricated while the window is closed. The item is
+only `PARTIAL_SOT`: the read-only duplicate-root census, exact family UUID,
+bounded swaps, detached-copy proof, validation and focused exports remain open.
+
 ### 9.3 `63.11 — Atlas · Interest clubs`
 
 The fabricated `Клуб настольных игр`, `6 встреч · Калининград` and single-club counts were removed. The existing lowest owner `Interest clubs / Club card / state=ready` now uses the committed fixtures from `site/src/data/interest-clubs.json`:
