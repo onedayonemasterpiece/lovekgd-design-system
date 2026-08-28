@@ -83,6 +83,12 @@ Continuation не смешивает продуктовые completion counts: `
 - processed: `0`;
 - Penpot mutation/readback/visual evidence in this registration commit: none.
 
+Current bounded corrections from this continuation:
+
+| Item | Status | Evidence | Processed |
+|---|---|---|---|
+| `OV-38`, `OV-39` | `READY_FOR_OWNER_REREVIEW` | Page `63.12` revision `2737` now uses the real future fixtures `7030` calendar-saved, followed by liked `7006` and `6947`, in three desktop columns / one mobile column. Both full owners retain the anonymous identity gate, linked canonical EventCard ancestry and source-sized document frames. Contract: `catalog/reconstruction-atlas/v1/favorites-ov38-39-populated-source-exact.v1.json` | `NO` |
+
 Статус `READY_FOR_OWNER_REVIEW` запрещён. Следующий продуктовый этап — назначить owning contour для каждого item и выполнять bounded source-faithful fixes с доказательствами, а не считать Git-регистрацию обработкой.
 
 ### IdeaHub voice continuation `REV-IDEAHUB-20260828-01`

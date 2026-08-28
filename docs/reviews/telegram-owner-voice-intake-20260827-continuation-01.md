@@ -716,7 +716,7 @@ Share-controls не должны впервые владеться страни�
 - item ref: `itm_t9cqQrrYZQmBQ0vBnERPRfEJI4jR3qnt`
 - transcription ref: `atr_YQZUbdMIc_vWvbuG3vdpedpjer6SscaAx3wTvU-lFxA`
 - transcription state: `COMPLETE`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -726,6 +726,15 @@ Share-controls не должны впервые владеться страни�
 **Нормализованное требование**
 
 На `63.12` добавить реальное populated-state представление; пустая страница не доказывает контракт поверхности.
+
+**Correction evidence (2026-08-28)**
+
+Page `63.12` now has source-exact desktop/mobile owner compositions with the
+three real future fixtures `7030`, `7006`, `6947`, linked through canonical
+EventCard adapters. Exact Astro browser evidence, Penpot revision `2737`, named
+version, focused exports and receipt are recorded in
+`catalog/reconstruction-atlas/v1/favorites-ov38-39-populated-source-exact.v1.json`.
+Owner acceptance is not claimed; `processed: NO` remains.
 
 ---
 
@@ -738,7 +747,7 @@ Share-controls не должны впервые владеться страни�
 - item ref: `itm_AW7do1bf2sYS08fgPg7Lmfk0iETPONKj`
 - transcription ref: `atr_CDpJBkGRMb3pT4d-FuqtoorzOpoeayLGwdCn8Tk5vA0`
 - transcription state: `COMPLETE`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -748,6 +757,15 @@ Share-controls не должны впервые владеться страни�
 **Нормализованное требование**
 
 На `63.12` показать состояние с минимум тремя событиями и различимые представления избранного/календаря/лайков. Семантику и порядок «зарегистрировано / будущие планы / понравилось» сначала сверить с документацией и Astro; неточную формулировку transcript не превращать в новый контракт без проверки.
+
+**Verified semantic correction (2026-08-28)**
+
+Astro proves two saved sources, not three invented groups: `calendar_saved`
+sorts first; `favorite_saved` and local `liked_event_ids` are the same
+favorite/like semantic. Event IDs deduplicate. The materialized state therefore
+shows `7030` as calendar/`Добавлено`, followed by liked `7006` and `6947` with
+active likes. Evidence and receipt are in the OV-38/39 contract above.
+`processed: NO`; direct owner rereview is still required.
 
 ## 6. Page-specific design-system comments — `OV-40…OV-49`
 

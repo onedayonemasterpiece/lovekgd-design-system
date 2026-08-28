@@ -1,0 +1,51 @@
+{
+  "schema_version": "favorites-ov38-39-populated-source-exact.v1",
+  "contract_id": "recovery.ov-38-39.favorites.populated-source-exact.v1",
+  "review_items": ["OV-38", "OV-39"],
+  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
+  "processed": false,
+  "authority": {
+    "current_astro_commit": "49c351873d40a2ea55f0a32837c7376e344d9c17",
+    "route": "/izbrannoe/",
+    "source_component": "site/src/components/FavoritesSurface.astro",
+    "source_join": "site/src/lib/favorites.mjs",
+    "rule": "Calendar-saved entries sort first; favorite_saved and liked_event_ids are one favorite/like semantic, not two invented categories; one event ID is deduplicated."
+  },
+  "astro": {
+    "browser_evidence": "evidence/recovery-20260828/astro/ov38-39-favorites-browser-evidence.v1.json",
+    "fixtures": [
+      {"event_id": "7030", "title": "Праздник непослушания", "saved_source": "calendar", "calendar_label": "Добавлено", "like_pressed": false},
+      {"event_id": "7006", "title": "Открытая лекция по Трансцендентальной Медитации", "saved_source": "like", "calendar_label": "В календарь", "like_pressed": true},
+      {"event_id": "6947", "title": "Лекция Жизнь и боль Фриды Кало", "saved_source": "like", "calendar_label": "В календарь", "like_pressed": true}
+    ],
+    "desktop": {"viewport": [1280, 900], "document_size": [1280, 2288], "grid": [50, 712.734375, 1180, 765.65625], "columns": 3, "card_width": 380, "overflow_x": 0},
+    "mobile": {"viewport": [390, 844], "document_size": [390, 2742], "grid": [11.203125, 664.765625, 367.59375, 1845.203125], "columns": 1, "card_width": 367.59375, "overflow_x": 0},
+    "status": "Показаны сохранения и лайки с этого устройства.",
+    "console_errors": []
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "d87e18f1-dcb4-80a6-8008-880d209a7fcd",
+    "page_name": "63.12 — Atlas · Favorites",
+    "owners": {
+      "desktop": {"component_id": "d87e18f1-dcb4-80a6-8008-880d2c628515", "main_id": "d87e18f1-dcb4-80a6-8008-880d20bc67e8", "size": [1280, 2288], "state_component": "8f804431-c282-8075-8008-8ded98c025cc"},
+      "mobile": {"component_id": "d87e18f1-dcb4-80a6-8008-880d3512f2f7", "main_id": "d87e18f1-dcb4-80a6-8008-880d230a2b8b", "size": [390, 2742], "state_component": "8f804431-c282-8075-8008-8dedaae19e2e"}
+    },
+    "card_ancestry": {
+      "desktop": ["8f804431-c282-8075-8008-8dcf952bc4bb", "8f804431-c282-8075-8008-8dcfba2a1afb", "8f804431-c282-8075-8008-8dcfa2365ea2"],
+      "mobile": ["8f804431-c282-8075-8008-8dcfd8d7353c", "8f804431-c282-8075-8008-8dd1aad61572", "8f804431-c282-8075-8008-8dd021bd6414"],
+      "canonical_desktop_base": "b0fe69fd-ccaf-8025-8008-844b666fe76c",
+      "canonical_mobile_base": "7f078c80-87b8-80f5-8008-85839e8975f6",
+      "detached_instances": 0
+    },
+    "named_version": {"label": "OV38-39 Favorites · 7030 calendar + 7006/6947 liked · Astro source exact", "created_at": "2026-08-28T23:15:23.767Z", "revision": 2737},
+    "validation": [],
+    "owner_review_status": "REREVIEW_REQUIRED"
+  },
+  "visual_evidence": {
+    "desktop": {"path": "evidence/recovery-20260828/penpot/ov38-39-favorites-populated-desktop-source-exact.png", "dimensions": [320, 572], "scale": 0.25, "sha256": "d191aa25a79af14418edb87942f2090f6c26d5c436c53a8fbe4da6b0a311d53b"},
+    "mobile": {"path": "evidence/recovery-20260828/penpot/ov38-39-favorites-populated-mobile-source-exact.png", "dimensions": [98, 686], "scale": 0.25, "sha256": "07c2b0cfd37c4f5ed39f4bb162d05f8d5ad36254c935405480394fcae6848a2a"},
+    "result": "FULL_VISUAL_QA_PASS",
+    "owner_acceptance": "NOT_CLAIMED"
+  }
+}
