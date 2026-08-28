@@ -66,3 +66,11 @@ visually inspected. Saved version:
 
 The batch is `READY_FOR_OWNER_REREVIEW`, not processed: owner acceptance is
 still required.
+
+As the first bounded `OV-54` component migration pilot, the desktop/mobile
+endorsement masters now consume exact composite typography tokens, the
+canonical wordmark path consumes `color.header`, and the documentation board
+consumes `color.canvas`. Readback preserved the same source values and linked
+ancestry with `validate()=[]`; a new post-binding export hit the external
+Penpot exporter `HTTP 504`, while the same geometry passed visual export before
+the no-delta token binding.

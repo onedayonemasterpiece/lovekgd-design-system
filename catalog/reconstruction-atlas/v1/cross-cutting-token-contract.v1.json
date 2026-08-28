@@ -1,0 +1,91 @@
+{
+  "schema_version": "cross-cutting-token-contract.v1",
+  "status": "PENPOT_FOUNDATIONS_AND_BRANDING_COMPONENT_PILOT_MIGRATION_IN_PROGRESS",
+  "owner_item": "OV-54",
+  "authority": {
+    "foundation_values": "catalog/reconstruction-atlas/v1/foundations.v1.json",
+    "astro_projection": "site/src/styles/design-system.css",
+    "penpot_projection_page": "20 — Foundations"
+  },
+  "required_groups": [
+    "semantic colors",
+    "font family",
+    "typography roles",
+    "spacing scale and semantic spacing roles",
+    "radii",
+    "elevation",
+    "containers and sizing",
+    "accessibility targets"
+  ],
+  "change_propagation_rule": "Components consume semantic tokens. Raw values remain primitives; route/page-local overrides require a registered contract delta.",
+  "penpot_audit_before_materialization": {
+    "revision": 2647,
+    "pages": 112,
+    "shapes": 25504,
+    "token_sets": 1,
+    "active_token_set": {
+      "id": "d87e18f1-dcb4-80a6-8008-876d85fbb5bb",
+      "name": "listing-foundations-candidate-v1",
+      "tokens": 40
+    },
+    "themes": 0,
+    "token_bound_shapes": 0,
+    "finding": "Token values exist, but no shape or component consumes them; global propagation is therefore not implemented."
+  },
+  "migration_gates": [
+    "Materialize complete source-conformant token groups and one current theme.",
+    "Populate Page 20 with native token-bound specimens and coverage/gap census.",
+    "Migrate canonical component families in bounded batches; do not bulk-rewrite 25k shapes blindly.",
+    "For each batch prove component ancestry, token property bindings, validation and focused visual comparison.",
+    "Keep local raw values only where the UI SoT registers an explicit exception."
+  ],
+  "penpot_projection": {
+    "page_id": "10a29786-8dcf-802c-8008-739d9196f216",
+    "page_name": "20 — Foundations",
+    "root_id": "10a29786-8dcf-802c-8008-739e45940a0f",
+    "token_set": {
+      "id": "d87e18f1-dcb4-80a6-8008-876d85fbb5bb",
+      "name": "listing-foundations-candidate-v1",
+      "tokens": 96
+    },
+    "theme": {
+      "id": "8f804431-c282-8075-8008-8da496c17950",
+      "group": "Brand",
+      "name": "KenigEvents current",
+      "active": true
+    },
+    "page_shapes": 186,
+    "page_token_bound_shapes": 70,
+    "bound_property_counts": {
+      "fill": 9,
+      "typography": 40,
+      "sizing_width": 3,
+      "sizing_height": 3,
+      "shadow": 3,
+      "border_radius_sides": 20,
+      "column_gap": 10
+    },
+    "spacing_exception": "space.4 columnGap stayed visually 4 but the Plugin API did not persist the token binding after repeated exact calls; the other 10 gap tokens read back correctly.",
+    "component_migration_pilots": [
+      {
+        "family": "Brand / Announcements",
+        "page_id": "d87e18f1-dcb4-80a6-8008-878517c731e9",
+        "bindings": [
+          {"shape_id": "8f804431-c282-8075-8008-8d9fde04c2cf", "property": "typography", "token": "typography.brand-endorsement-desktop"},
+          {"shape_id": "8f804431-c282-8075-8008-8d9fde555051", "property": "typography", "token": "typography.brand-endorsement-mobile"},
+          {"shape_id": "d87e18f1-dcb4-80a6-8008-8785310bafce", "property": "fill", "token": "color.header"},
+          {"shape_id": "8f804431-c282-8075-8008-8d9fdd350862", "property": "fill", "token": "color.canvas"}
+        ],
+        "saved_version": "Recovery 2026-08-28 · OV-54 branding component token pilot · 96 tokens",
+        "validation_errors": [],
+        "post_binding_export": "BLOCKED_EXTERNAL_EXPORTER_HTTP_504",
+        "prior_same_geometry_visual_export": "PASS_IN_SESSION"
+      }
+    ],
+    "saved_version": "Recovery 2026-08-28 · OV-54 cross-cutting foundations pilot · 94 tokens",
+    "validation_errors": [],
+    "visual_export": "BLOCKED_EXTERNAL_EXPORTER_HTTP_504",
+    "status": "FOUNDATIONS_PAGE_MATERIALIZED / BRANDING_COMPONENT_PILOT_BOUND / GLOBAL_MIGRATION_IN_PROGRESS"
+  },
+  "processed": false
+}
