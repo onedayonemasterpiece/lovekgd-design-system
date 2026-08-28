@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "status": "CURRENT_COMPLETE",
+  "authority": {
+    "accepted_preview_url": "https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/",
+    "accepted_astro_commit": "0eaf08c6827d5b2cbd4c2603380dd13a36be1ada",
+    "restored_astro_commit": "4243401a4",
+    "component_path": "site/src/components/HomeHeroTalk.astro",
+    "deck_path": "site/src/lib/homeHeroTalk.ts",
+    "editorial_path": "site/src/data/homeHeroTalkEditorial.ts",
+    "chain_research_ref": "origin/agent/hero-talk-chain-research-20260803",
+    "chain_research_commit": "52f3afe73"
+  },
+  "accepted_donor": {
+    "placement": "home_hero",
+    "scene_limit": 4,
+    "first_scene": {
+      "editorial_id": "still-life-passions",
+      "event_id": 5459,
+      "mode": "photo-mosaic",
+      "fragments": ["Натюрморт.", "Но со", "страстями."]
+    },
+    "desktop_1440": {
+      "root": [0, 89, 1440, 360],
+      "message": [100, 190.46875, 576, 106.53125],
+      "media": [360, 18.28125, 1080, 323.4375],
+      "grid": { "columns": 16, "rows": 5, "visible_tiles": 80, "column_gap": 3, "row_gap": 0 }
+    },
+    "desktop_1280_projection": {
+      "root": [0, 87.71875, 1280, 360],
+      "message": [20, 190.46875, 512, 106.53125],
+      "media": [320, 37.03125, 960, 285.9375],
+      "grid": { "columns": 16, "rows": 5, "visible_tiles": 80, "column_gap": 3, "row_gap": 0 }
+    },
+    "mobile_390": {
+      "root": [0, 84, 390, 250],
+      "message": [16, 89.859375, 358, 70.28125],
+      "font_size": 33.15,
+      "line_height": 33.15,
+      "media_display": "none"
+    },
+    "runtime": {
+      "prepared_tiles": 100,
+      "responsive_columns": { "default": 16, "min_1536": 18, "min_1792": 20 },
+      "rows": 5,
+      "scene_interval_ms": 7200,
+      "semantic_fragment_entry": true,
+      "linked_fragments_are_atomic": true,
+      "reduced_motion_is_static_first_scene": true,
+      "manual_previous_next_controls": false,
+      "details_block": false,
+      "cta_button": false
+    }
+  },
+  "chains": [
+    {
+      "id": "intrasession-return-delta",
+      "source_section": "7.1",
+      "nodes": [
+        "Добрый день!",
+        "Пока вас не было — 12 новых событий.",
+        "Больше всего нового в выбранной теме «лекции».",
+        "Посмотреть новое в «Для меня»."
+      ]
+    },
+    {
+      "id": "page-end-festival",
+      "source_section": "7.2",
+      "nodes": [
+        "Вы посмотрели лекцию из программы «Кантаты».",
+        "В программе на этой неделе есть ещё одна встреча и два концерта.",
+        "Открыть программу фестиваля."
+      ]
+    },
+    {
+      "id": "page-end-calendar-save",
+      "source_section": "7.2",
+      "nodes": [
+        "Событие сохранено.",
+        "Можно отдельно включить напоминание за сутки.",
+        "Настроить уведомления."
+      ]
+    },
+    {
+      "id": "page-end-club",
+      "source_section": "7.2",
+      "nodes": [
+        "Это встреча клуба.",
+        "У клуба уже объявлена следующая дата.",
+        "Открыть клуб."
+      ]
+    },
+    {
+      "id": "cross-session-festival",
+      "source_section": "7.3",
+      "nodes": [
+        "В прошлый раз вы открыли программу фестиваля.",
+        "С тех пор добавилась ещё одна лекция.",
+        "Посмотреть новое."
+      ]
+    },
+    {
+      "id": "feature-smart-search",
+      "source_section": "6",
+      "nodes": [
+        "Можно спросить обычными словами:",
+        "«куда с ребёнком в выходные»."
+      ]
+    },
+    {
+      "id": "feature-first-artifact",
+      "source_section": "6",
+      "nodes": [
+        "На сайте спрятан первый артефакт.",
+        "Подсказка: начните со страницы выходных."
+      ]
+    }
+  ],
+  "penpot_projection": {
+    "status": "PAUSED_OWNER_CLOSED_WINDOW",
+    "desktop_visual": "lightweight accepted-preview raster overlay is allowed as an explicit exception; keep phrase/cursor native",
+    "mobile_visual": "native text-only state; do not load or draw mosaic media",
+    "chain_page": "native text nodes and arrows; no event-dependent images required",
+    "forbidden": [
+      "card-like hero with rounded container",
+      "event details under the phrase",
+      "manual previous/next controls",
+      "5x4 card mosaic",
+      "fabricated CTA"
+    ]
+  }
+}

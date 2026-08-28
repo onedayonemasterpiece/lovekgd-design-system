@@ -254,7 +254,20 @@ The untrusted `HeroTalk / Evidence chain` structures were removed from both nati
 - fresh page-scoped readback found `0` remaining `Evidence chain` shapes and `validate()=[]` at revision `2606`;
 - focused export: `evidence/recovery-20260828/penpot/home-herotalk-mobile.png`.
 
-`OV-07` remains `processed: NO`: its requested communication-chain specimen needs a separate Git-bound product-pattern contract and must not be embedded into the HeroTalk product main. The history-wide IdeaHub audit also created `OV-50`: removing the fabricated chain did not implement the owner-requested HeroTalk `Photo Mosaic` product mechanism, so Home is not closed.
+`OV-07` remains `processed: NO`, but its separate Git-bound product-pattern
+contract now exists in
+`catalog/ui-components/hero-talk/accepted-donor-and-chains.v1.json`. It contains
+seven canonical chains from research commit `52f3afe73`; the native Penpot
+chain page/readback is still pending and must not be embedded into the HeroTalk
+product main.
+
+The history-wide IdeaHub audit also created `OV-50`. The owner later supplied
+the accepted live donor preview
+`https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/`, backed by
+Astro commit `0eaf08c6827d5b2cbd4c2603380dd13a36be1ada`. The exact donor was restored
+in `events-bot-new#596` commit `4243401a4`; the intervening card-like attempt
+`7d026b30d` was reverted. Penpot remains paused and incomplete, so Home is not
+closed and no prior export is valid `OV-50` closure evidence.
 
 ### 9.3 `63.11 — Atlas · Interest clubs`
 
@@ -373,5 +386,6 @@ cursor are recorded in
 [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md).
 None of `OV-50…OV-52` is `processed: YES`, and no previous Home/Weekend evidence
 may be used to imply their closure. `OV-51` and `OV-52` have bounded product
-evidence and are ready for owner rereview; `OV-50` remains an open product
-change.
+evidence and are ready for owner rereview. `OV-50` now has corrected Astro and
+Git SoT evidence, but Penpot was paused before clean materialization/readback;
+it is therefore still open.

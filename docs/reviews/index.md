@@ -57,7 +57,7 @@ Continuation не смешивает продуктовые completion counts: `
 | `OV-04` | отдельная owner-readable Branding page | `CAPTURED` | `NO` | Branding page/readback отсутствуют; блокирует общий `READY_FOR_OWNER_REVIEW` |
 | `OV-05` | desktop/mobile tag, vertical/horizontal lockups, spacing и component/static-asset classification | `CAPTURED` | `NO` | variant matrix, classification и ancestry/readback evidence отсутствуют |
 | `OV-06` | `63.15 Artifacts`: 7/7 artifacts и none/subset/all expanded, hover/focus, selected-detail states | `BLOCKED` | `NO` | существование общей Artifacts page не закрывает расширенный state matrix; обязательные state boards/readback отсутствуют |
-| `OV-07` | Home HeroTalk: полная `phrase → arrow → phrase → …` chain | `CAPTURED` | `NO` | source-faithful chain specimen и mapping/readback отсутствуют |
+| `OV-07` | Home HeroTalk: полная `phrase → arrow → phrase → …` chain | `SOT_READY / PENPOT_PAUSED` | `NO` | Git SoT теперь фиксирует 7 source-faithful chains из canonical research commit `52f3afe73`; отдельная native Penpot page и readback ещё отсутствуют |
 | `OV-08` | глобальный запрет визуально скрытых duplicate component roots | `BLOCKED` | `NO` | глобальный lineage table, duplicate-root census, canonical UUIDs и detached-instance proof отсутствуют |
 
 Итог первого batch: `7` actionable items остаются необработанными (`2` partial/evidence-incomplete, `5` captured/blocked); `1` context-only item зарегистрирован.
@@ -88,9 +88,9 @@ Continuation не смешивает продуктовые completion counts: `
 
 | Item | Requirement | Current status | Processed | Current evidence / open gate |
 |---|---|---|---|---|
-| `OV-50` | `63.01 Home`: replace the fabricated/legacy hero with the real HeroTalk `Photo Mosaic` product mechanism | `CAPTURED` | `NO` | Current Astro still renders the static `HomeHeroTalk.astro` event-feature skeleton; the Penpot page contains a separate `mode=photo-mosaic` board but the main archetype still follows Astro AS-IS. Requires Astro/UI SoT implementation first. |
+| `OV-50` | `63.01 Home`: replace the fabricated/legacy hero with the real HeroTalk `Photo Mosaic` product mechanism | `ASTRO_RESTORED / PENPOT_PAUSED` | `NO` | Owner supplied the accepted preview `preview-20260730-hero-talk-date-donor-r2`; historical Astro source is `0eaf08c…`, restored in `events-bot-new#596` commit `4243401a4`. The rejected card-like attempt `7d026b30d` was reverted. Penpot was paused by the owner before a clean lightweight projection/readback; resume read-only first. |
 | `OV-51` | `61.3 Weekend Time marker`: no opaque page-local block background | `READY_FOR_OWNER_REREVIEW` | `NO` | Astro SoT declares `.ke-weekend-time-rail { background: transparent; }`. Penpot revision `2614` removed the only opaque review-board fill, preserved the marker content, passed reopen readback and `validate()=[]`; focused PNG: `evidence/recovery-20260828/penpot/weekend-time-marker-transparent.png`. Global ancestry remains tracked separately by `OV-08`/`OV-30`. |
-| `OV-52` | `61.10 Weekend Discovery rail exact`: content-sized transparent `Floating Island` rather than a full-width installed shelf | `CAPTURED` | `NO` | Fresh Penpot readback found the main rail at `1280×52` plus page-local fixture boards. Product contract and canonical component lineage remain open. |
+| `OV-52` | `61.10 Weekend Discovery rail exact`: content-sized transparent `Floating Island` rather than a full-width installed shelf | `READY_FOR_OWNER_REREVIEW` | `NO` | Shared Astro owner `ListingDiscoveryRail@6` exposes `plane` / `floating-island`; Weekend consumes the transparent content-sized island. Penpot revision `2621` records the Git-bound native master and linked copy, `validate()=[]`, plus focused Astro/Penpot evidence. |
 
 ## 5. Обязательный маршрут обработки
 

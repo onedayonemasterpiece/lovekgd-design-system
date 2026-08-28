@@ -109,8 +109,35 @@ File content commit on the evaluated HEAD: `3ac4b0daac735025b8b43a0521aba203dcae
 
 The later packet creates no additional ID. The earlier packet creates
 `OV-50…OV-52`; all three remain `processed: NO`. `OV-51` and `OV-52` now have
-bounded Git/Penpot evidence and are ready for owner re-review; `OV-50` remains
-an open product change. No item becomes processed until owner re-review.
+bounded Git/Penpot evidence and are ready for owner re-review. For `OV-50`, the
+owner subsequently supplied the accepted live donor preview
+`https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/`. Its exact
+historical source is Astro commit `0eaf08c6827d5b2cbd4c2603380dd13a36be1ada`;
+the source-faithful restoration is `events-bot-new#596` commit `4243401a4`.
+Penpot projection remains paused/incomplete, so `OV-50` is not ready for
+re-review. No item becomes processed until owner re-review.
+
+### OV-50 source correction and Astro receipt
+
+- accepted visual/runtime oracle:
+  `https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/`;
+- exact historical Astro source: `0eaf08c6827d5b2cbd4c2603380dd13a36be1ada`;
+- restored Astro/UI SoT: `events-bot-new#596`, commit `4243401a4`;
+- rejected and reverted attempt: `7d026b30d` (rounded event-card anatomy,
+  details, CTA, manual controls and `5×4` grid were not present in the donor);
+- accepted desktop anatomy: full-width `360px` stage, `75vw` media, default
+  `16×5` grid, `3px` column gaps and no row gaps;
+- accepted mobile anatomy at `390px`: `250px` text-only stage; mosaic media is
+  not displayed;
+- focused evidence:
+  `evidence/recovery-20260828/astro/home-herotalk-{accepted,restored}-{1440,390}.png`
+  and `home-herotalk-accepted-restored.v1.json`;
+- exact donor plus seven canonical phrase chains:
+  `catalog/ui-components/hero-talk/accepted-donor-and-chains.v1.json`;
+- owner explicitly allowed a lightweight raster-overlay exception for the
+  Penpot desktop mosaic, while Astro must retain real generated/animated tiles;
+- owner paused Penpot and may close the window. Resume with read-only exact-ID
+  reconciliation; do not replay the interrupted/partial projection.
 
 ### OV-52 implementation receipt
 
