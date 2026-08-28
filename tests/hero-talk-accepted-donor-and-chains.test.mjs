@@ -35,4 +35,7 @@ test('Hero-talk chain page has the source-required bounded chains', () => {
   assert.ok(contract.chains.every((chain) => chain.nodes.length >= 2));
   assert.match(contract.penpot_projection.desktop_visual, /overlay/u);
   assert.match(contract.penpot_projection.mobile_visual, /text-only/u);
+  assert.equal(contract.penpot_projection.page_name, '40.6 — HeroTalk · Communication chains');
+  assert.equal(contract.penpot_projection.penpot_revision, 2641);
+  assert.match(contract.penpot_projection.status, /MATERIALIZED_STRUCTURAL_QA_COMPLETE/u);
 });

@@ -20,6 +20,11 @@ It does not treat packet discovery as an Astro, UI SoT or Penpot fix.
 `OV-09…OV-19` remain cross-contour and outside the Astro ↔ UI SoT ↔ Penpot
 completion count.
 
+Later packets after this exact cursor are registered separately in
+[`REV-IDEAHUB-20260828-02`](idea-hub-owner-voice-intake-20260828-continuation-02.md).
+That continuation adds no new IDs; it clarifies `OV-02`, `OV-08`, `OV-30`,
+`OV-41` and `OV-42` and makes the centralized UI SoT round trip explicit.
+
 ## History-wide census
 
 - first packet commit: `32296697296e1a65734ff5f1300ec24ab817c812`;
@@ -114,8 +119,11 @@ owner subsequently supplied the accepted live donor preview
 `https://kenigevents.ru/preview-20260730-hero-talk-date-donor-r2/`. Its exact
 historical source is Astro commit `0eaf08c6827d5b2cbd4c2603380dd13a36be1ada`;
 the source-faithful restoration is `events-bot-new#596` commit `4243401a4`.
-Penpot projection remains paused/incomplete, so `OV-50` is not ready for
-re-review. No item becomes processed until owner re-review.
+Penpot projection resumed with read-only reconciliation and is now complete at
+revision `2639`: accepted desktop/mobile mains and their Home consumers remain
+linked, `validate()=[]`, and focused exports plus an exact receipt were saved.
+`OV-50` is therefore ready for owner re-review but remains `processed: NO`.
+No item becomes processed until owner re-review.
 
 ### OV-50 source correction and Astro receipt
 

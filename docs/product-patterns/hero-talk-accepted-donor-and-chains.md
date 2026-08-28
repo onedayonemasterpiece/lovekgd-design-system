@@ -1,6 +1,6 @@
 # Hero-talk: accepted Astro donor and phrase-chain SoT
 
-Status: `CURRENT_COMPLETE / PENPOT_PAUSED`
+Status: `CURRENT_COMPLETE / PENPOT_PROJECTED / OWNER_REREVIEW_PENDING`
 
 This record corrects the false reconstruction made during `OV-50`. The accepted
 visual/runtime reference is the live noindex preview
@@ -57,12 +57,29 @@ The literal node text is source-locked in the JSON contract. The chain page is
 documentation UI only; it does not claim that the future compiler/thread state
 is already released in Astro.
 
-## Penpot resumption rule
+The native page now exists as `40.6 — HeroTalk · Communication chains` at
+Penpot revision `2641`. Structural readback confirms all seven literal chains,
+the expected `13` visible arrows, no event-dependent images and
+`validate()=[]`. The named version is
+`Recovery 2026-08-28 · OV-07 HeroTalk 7 canonical chains · 52f3afe73`.
 
-The owner paused Penpot work and may close the window. On reconnection, the
-first action is a read-only exact-ID readback. Do not replay unknown writes.
+Focused visual export is still blocked by the external Penpot exporter: whole
+board and bounded-row PNG/SVG attempts returned HTTP `504`. Exact attempts and
+official exporter/config references are recorded in
+[`hero-talk-chains-structural-receipt.v1.json`](../../evidence/recovery-20260828/penpot/hero-talk-chains-structural-receipt.v1.json).
+
+## Penpot projection receipt
+
+Penpot resumed with a read-only exact-ID readback before any write. At file
+revision `2639`, page `63.01 — Atlas · Home` contains linked accepted donor
+components for both desktop and mobile, `validate()=[]`, and the named version
+`Recovery 2026-08-28 · OV-50 accepted donor 4243401a4 · overlay exception`.
 
 For the desktop mosaic, the owner explicitly allows one lightweight raster
 overlay exception so the page does not become unusably heavy. The phrase and
 cursor remain native. Mobile remains native text-only. This exception does not
 change Astro: Astro must continue to generate and animate the real tile field.
+
+Exact component/consumer IDs, negative readback and focused export hashes are
+recorded in
+[`home-herotalk-accepted-receipt.v1.json`](../../evidence/recovery-20260828/penpot/home-herotalk-accepted-receipt.v1.json).
