@@ -5,7 +5,7 @@ Status: `HISTORY_AUDITED / TRIAGED / CORRECTION_MATERIALIZED / OWNER_REREVIEW_RE
 - review ID: `REV-IDEAHUB-20260828-08`
 - source repository: `onedayonemasterpiece/idea-hub` (read-only)
 - prior voice cursor: `0d61090fda75db5c737e1c522ffd7d731246d3ba`
-- evaluated source HEAD: `e0760b9927eecf794cb3fcbae02048497eeecb9c`
+- evaluated source HEAD: `f251c257e9124451d0b338e451d591455aa89a00`
 - boundary: every commit after the prior cursor touching `inbox/voice/2026/08`
 - commits/packets evaluated: `5` / `5`
 - relevant LoveKGD/KenigEvents design-system audits: `2`
@@ -48,10 +48,13 @@ future Floating Island redesign before the factual AS-IS is finished.
 ## Cursor
 
 - latest fetched repository HEAD evaluated:
-  `e0760b9927eecf794cb3fcbae02048497eeecb9c`;
+  `f251c257e9124451d0b338e451d591455aa89a00`;
 - latest relevant directory commit evaluated: `76bdb6d`;
 - latest packet by capture time evaluated:
   `voice-20260829-000723-952a7c41`;
+- the five commits after `e0760b9` through `f251c25` are a microelectronics
+  dataset batch; none touches `inbox/voice/2026/08` and none is relevant to the
+  LoveKGD/KenigEvents design-system recovery;
 - future intake must compare Git history so backfilled packets are not skipped.
 
 `processed: NO` remains mandatory until each relevant requirement has source
