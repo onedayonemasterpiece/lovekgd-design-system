@@ -1,6 +1,6 @@
 # «Анонсы»: branding SoT for OV-04 / OV-05
 
-Status: `SOT_READY / PENPOT_PAUSED`
+Status: `PENPOT_MATERIALIZED / READY_FOR_OWNER_REREVIEW`
 
 This contract records the existing Astro brand system without inventing a new
 logo family. It is the Git-side input for the owner-readable Penpot page
@@ -27,8 +27,8 @@ are source-locked in
 
 | Context | Tag | Lockup | Endorsement | Wordmark |
 |---|---:|---:|---:|---:|
-| desktop header, `≥1024px` | `240×88`, padding `18 24 16 24`, bottom radius `12` | width `192`, rows `12px / auto`, gap `4` | `11/12px`, `.08em`, uppercase, one line | `192px` wide |
-| mobile header | `120×84`, padding `0 0 12 14`, bottom radius `14` | column, start/end aligned, gap `4` | `7.5/8px`, `.075em`, uppercase, two lines | `96px` wide |
+| desktop header, `≥1024px` | `240×88`, padding `18 24 16 24`, bottom radius `12` | width `192`, rows `12px / auto`, gap `4` | `11/12px`, weight `600`, `.08em`, uppercase, one line | `192px` wide |
+| mobile header | `120×84`, padding `0 0 12 14`, bottom radius `14` | column, start/end aligned, gap `4` | `7.5/8px`, runtime weight `750`, `.075em`, uppercase, two lines | `96px` wide |
 
 The fallback surface is `#98401f`. Desktop uses the `30:11` leather skin;
 mobile uses the `10:7` skin supplied at `3×` density. Lettering stays live and
@@ -47,10 +47,22 @@ canonical `512×512` any-purpose artwork beside the `512×512` maskable safe-are
 artwork. It must be labelled as static launcher artwork, not rebuilt as a UI
 component or substituted by an approximate card.
 
-## Penpot gate
+## Penpot projection
 
-Penpot is deliberately paused. When the window is available again, begin with
-read-only exact-ID reconciliation. The branding page must then show native
-wordmark/lockup masters and linked desktop/mobile tag specimens, while the
-leather and PWA artwork remain static referenced assets. No item becomes
-`READY_FOR_OWNER_REREVIEW` until ancestry, readback and focused export exist.
+Page `10.1 — Announcements wordmark · Native component`
+(`d87e18f1-dcb4-80a6-8008-878517c731e9`) now contains the owner-readable
+branding board, the preserved canonical wordmark master, native desktop/mobile
+lockup masters and linked specimens. Desktop/mobile leather stays a static
+image fill behind linked lockup content. The PWA specimens are explicitly
+classified as static application artwork.
+
+The canonical `512×512` PWA PNG payload exceeded the MCP JSON request-body
+limit (`HTTP 413`), so Penpot uses source-derived `256×256` WebP display proxies.
+This is a display-only transport exception: canonical paths and SHA-256 values
+remain in the Git contract. Exact component ancestry and image identity were
+read back, file validation returned `[]`, and a focused `1440×1980` export was
+visually inspected. Saved version:
+`Recovery 2026-08-28 · OV-04/05 branding accepted projection · Astro c33652ed0`.
+
+The batch is `READY_FOR_OWNER_REREVIEW`, not processed: owner acceptance is
+still required.

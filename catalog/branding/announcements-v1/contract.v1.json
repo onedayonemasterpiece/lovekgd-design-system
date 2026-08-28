@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "status": "SOT_READY_PENPOT_PAUSED",
+  "status": "PENPOT_MATERIALIZED_READY_FOR_OWNER_REREVIEW",
   "authority": {
     "astro_repository": "onedayonemasterpiece/events-bot-new",
-    "verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "verified_head": "c33652ed01f6fb16945af67a53d5e27acece3cef",
     "wordmark_component": "site/src/components/brand/AnnouncementsWordmark.astro",
     "lockup_component": "site/src/components/brand/AnnouncementsLockup.astro",
     "desktop_consumer": "site/src/layouts/EventLayout.astro",
@@ -69,13 +69,13 @@
       "viewport_min_width": 1024,
       "tag": {"width": 240, "height": 88, "padding": [18, 24, 16, 24], "bottom_radius": 12},
       "lockup": {"width": 192, "row_sizes": [12, "auto"], "row_gap": 4},
-      "endorsement": {"font_size": 11, "line_height": 12, "letter_spacing_em": 0.08, "case": "uppercase"},
+      "endorsement": {"font_size": 11, "line_height": 12, "font_weight": 600, "letter_spacing_em": 0.08, "case": "uppercase", "color": "#fffaf2"},
       "wordmark_width": 192
     },
     "mobile_header": {
       "tag": {"width": 120, "height": 84, "padding": [0, 0, 12, 14], "bottom_radius": 14},
       "layout": {"direction": "column", "align": "start", "justify": "end", "gap": 4},
-      "endorsement": {"font_size": 7.5, "line_height": 8, "letter_spacing_em": 0.075, "case": "uppercase"},
+      "endorsement": {"font_size": 7.5, "line_height": 8, "font_weight": 750, "letter_spacing_em": 0.075, "case": "uppercase", "color": "#fffaf4"},
       "wordmark_width": 96
     }
   },
@@ -89,11 +89,29 @@
     "Do not treat a Penpot raster screenshot of the lockup as the canonical component."
   ],
   "penpot_projection": {
-    "status": "PAUSED_OWNER_CLOSED_WINDOW",
+    "status": "MATERIALIZED_READY_FOR_OWNER_REREVIEW",
     "required_page": "10.1 Announcements Wordmark",
     "required_native_components": ["AnnouncementsWordmark", "AnnouncementsLockup/desktop", "AnnouncementsLockup/mobile"],
     "allowed_static_assets": ["desktop leather skin", "mobile leather skin", "PWA any icon", "PWA maskable icon", "favicon"],
     "required_specimens": ["desktop tag", "mobile tag", "horizontal lockup", "vertical lockup", "spacing and minimum-size rules", "PWA launcher artwork", "component versus static-asset classification"],
-    "resume_rule": "read-only exact-ID reconciliation before any mutation"
+    "page_id": "d87e18f1-dcb4-80a6-8008-878517c731e9",
+    "root_id": "8f804431-c282-8075-8008-8d9fdd350862",
+    "native_components": {
+      "wordmark": "d87e18f1-dcb4-80a6-8008-87853121d15c",
+      "lockup_desktop": "8f804431-c282-8075-8008-8d9fde40299c",
+      "lockup_mobile": "8f804431-c282-8075-8008-8d9fdf1d379a"
+    },
+    "linked_specimens": {
+      "wordmark": "8f804431-c282-8075-8008-8da189cab5de",
+      "lockup_desktop": "8f804431-c282-8075-8008-8da189e2bbf2",
+      "lockup_mobile": "8f804431-c282-8075-8008-8da189fb2dbf",
+      "desktop_tag": "8f804431-c282-8075-8008-8d9fdfe9be23",
+      "mobile_tag": "8f804431-c282-8075-8008-8d9fe0483b6b"
+    },
+    "static_media_note": "Leather sources are uploaded at canonical source dimensions. PWA 512 PNGs are represented by source-derived 256 WebP display proxies because the MCP JSON request body rejected the canonical payload with HTTP 413; Git SHA-256 remains authoritative.",
+    "saved_version": "Recovery 2026-08-28 · OV-04/05 branding accepted projection · Astro c33652ed0",
+    "validation_errors": [],
+    "processed": false,
+    "remaining_gate": "Owner rereview in Penpot"
   }
 }
