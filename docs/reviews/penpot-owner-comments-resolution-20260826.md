@@ -614,6 +614,46 @@ than duplicated by hand in Penpot.
 Contract: `catalog/reconstruction-atlas/v1/collection-free-ov44-owner-exact.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/collection-free-ov44-owner-exact-receipt.v1.json`.
 
+### 9.4d Event detail source overlap and states (`OV-45`)
+
+Status: `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_BLOCKED`;
+`processed: NO`.
+
+The former desktop Event detail owner stacked its title panel after the hero.
+That composition did not match Astro and is superseded. Browser evidence from
+real fixture `5459` now drives the native owner: its hero is `1280×843` at
+`y=57`, while the `783.1875×449.46875` summary begins at `y=660`. The resulting
+`240px` overlap exposes the full source headline on the first `1280×900`
+viewport. The source action panel, `+3 фото` companion board, description and
+practical section were moved to their measured positions without detaching any
+of the seven direct linked regions. Exact readback returned
+`currentFile.validate()=[]`.
+
+Two further real Astro fixtures close the states omitted by the old board:
+
+- `5757` supplies the centered `94.71875px` top medallion and links the existing
+  native `dramteatr39` artwork component;
+- `5511` supplies the compact `Другие даты (2) ↓` summary and the three-row
+  practical occurrence matrix (`24 июля`, `25 июля`, `27 сентября`).
+
+Those states are native components collected by a fourth native source-state
+board with three linked instances. A second materializer pass returned
+`existing:true` for all four components and created nothing. Named version
+`OV45 event detail · Astro overlap medallion occurrences` was saved at revision
+`2715`.
+
+Penpot's current plugin validation rejected Astro's negative `-2.2176px`
+headline letter spacing. The materializer therefore keeps the exact measured
+headline box and records the source value in the contract, but uses the nearest
+accepted native spacing (`0`) instead of aborting the write. The bounded owner
+PNG export then returned external HTTP 504. It was not blindly retried, and the
+state-board export was not attempted after that exporter failure. Consequently
+this checkpoint claims native/readback parity, **not** visual acceptance; direct
+owner rereview in Penpot is still required.
+
+Contract: `catalog/reconstruction-atlas/v1/event-detail-ov45-owner-exact.v1.json`.
+Receipt: `evidence/recovery-20260828/penpot/event-detail-ov45-owner-exact-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
