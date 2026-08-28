@@ -1,187 +1,131 @@
 # Penpot product-design operating model
 
-## Назначение
+> **Status:** active operating contract.  
+> **Updated:** 2026-08-25.
 
-Документ связывает три визуальных контура и implementation/runtime loop, не превращая их во второй backlog или enterprise workflow engine.
+## Purpose
+
+The product/design loop uses three separate visual contexts and one implementation/runtime loop:
 
 ```text
-Product Atlas
+Product Atlas Git SoT
 product problem / Job / journey / capability / outcome / UI gap
-        ↓ stable IDs and product context
+        ↓ typed foreign keys and exact context
+Product Atlas Penpot file
+reviewed spatial projection created through scoped MCP operations
+
 UI Exploration
-visual analysis / references / candidates / compositions / shortlist
+references / candidates / compositions / shortlist
         ↓ selected package
 Resource Graph
-contracts / components / patterns / archetypes / representations / evidence
+foundations / components / patterns / archetypes / representations / evidence
         ↓ implementation package
-Canonical Astro component or application implementation
-        ↓ browser tests
-Runtime evidence
-        ↓ decision/readiness update
-Product Atlas + Resource Graph
+Canonical Astro implementation
+        ↓ browser/device tests
+Runtime and reviewed product evidence
+        ↓ Git finding / decision / readiness update
+Product Atlas + Resource Graph projections
 ```
+
+None of these contexts becomes a second backlog or product source of truth.
 
 ## Product Atlas
 
-Владеет вопросом «зачем»:
+Canonical product meaning lives in:
 
-- user need;
-- Job and Job Story;
-- user/owner outcome;
-- journey;
-- capability;
-- stories/enablers;
-- acceptance scenarios;
-- product problem and UI-gap identity;
-- implementation/release/runtime readiness;
-- decisions and risks.
+```text
+onedayonemasterpiece/events-bot-new/docs/product-model/atlas/v1/
+```
 
-Product Atlas хранит link на visual exploration и Resource Graph evidence, но не весь brainstorm.
+It owns needs, Jobs, outcomes, journeys, capabilities, stories, operator work, acceptance, measurement questions, findings and decisions.
+
+The design-system repository stores only foreign-key linkage and exact UI context in:
+
+```text
+catalog/product-atlas-ui-linkage-v1/
+```
+
+Product Atlas uses a separate Penpot file. It is materialized only through an explicit, scoped Penpot MCP task after target verification and ends with an exact read-back receipt in Git.
 
 ## UI Exploration
 
-Владеет незавершённым визуальным поиском:
+UI Exploration owns unfinished visual search:
 
-- current runtime/archetype context;
-- product-value map snapshot;
-- references, AI images and extracted claims;
-- local component candidates;
-- pattern/block candidates;
-- page composition alternatives;
-- whole iterations;
-- shortlist;
-- selected for build;
-- parked/rejected alternatives;
-- runtime closure after implementation.
+- current archetype/runtime context;
+- references and extracted claims;
+- component/pattern candidates;
+- page compositions and whole iterations;
+- shortlist, selected, parked and rejected alternatives;
+- implementation/runtime closure evidence.
 
-Одна активная содержательная UI-gap задача по умолчанию занимает одну Penpot page. Whole iterations оформляются крупными coherent packages, а не серией микроправок.
+It is not Resource Graph authority. Local/exploration resources remain candidates until the normative family lifecycle accepts them.
 
-### Canonical UI Exploration target
-
-Канонический контур незавершённого визуального исследования находится в
-отдельном Penpot file **LoveKGD — UI Exploration**:
-
-- team ID: `81f57451-85cc-819d-8008-70ebaeab3fd6`;
-- file ID: `81f57451-85cc-819d-8008-76829a28696b`;
-- entry page: `00 — Exploration map`, page ID
-  `81f57451-85cc-819d-8008-76829a28696c`;
-- [прямая ссылка на UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c).
-
-Machine authority: [`../contracts/ui-exploration-target.v1.json`](../contracts/ui-exploration-target.v1.json).
-Фактический Event Media read-back: [`../receipts/penpot/event-media-visual-exploration-v1.json`](../receipts/penpot/event-media-visual-exploration-v1.json).
-
-Penpot Plugin API и современный workspace URL не раскрывают `project_id`.
-Поэтому contract сохраняет `project_id: null` с точным статусом ограничения,
-вместо выдуманного UUID. Team, file, page и revision проверены read-back.
-
-Этот file не является Resource Graph authority. Нативные ресурсы с
-`status: EXPLORATION_ONLY` остаются визуальными кандидатами до отдельного
-owner receipt; их наличие не переводит family lifecycle в
-`PENPOT_COMPONENT_CANDIDATE`.
+The current UI Exploration target remains defined by `contracts/ui-exploration-target.v1.json` and its read-back receipts. A missing project ID remains null rather than an invented value.
 
 ## Resource Graph
 
-Владеет созревшим системным представлением:
+Resource Graph owns mature system representation:
 
 - foundations and brand resources;
 - native components and variants;
-- composite product patterns;
+- composite patterns;
 - page archetypes;
 - real product representations;
-- state matrices;
-- UX-flow links;
-- coverage and fragmentation;
-- candidate promotion packages;
-- runtime evidence;
-- accepted exports/test references;
-- review archive.
+- state matrices and flow links;
+- coverage/fragmentation;
+- promotion packages;
+- runtime and visual evidence;
+- accepted exports and test references.
 
-Resource Graph не является brainstorm-canvas. В `80 — Candidate review and promotion` попадают только bounded candidates, подготовленные к системному review/promotion.
+Resource Graph is not a brainstorm canvas and does not receive product dashboards.
 
-### Penpot stores UI only
-
-Resource Graph pages contain native visual foundations, reusable component
-masters, linked instances, archetype compositions, and real product screen
-states. Git owns source-state indexes, lifecycle/status data, coverage and gap
-ledgers, test results, hashes, run receipts, and other service metadata. Those
-operational records may link to Penpot objects, but they must not be represented
-as Penpot boards or components.
-
-Consequently a review hub/dashboard is not an owner-review target. Review is an
-ordered list of direct links to small real UI pages. Archetype pages contain
-desktop/mobile visual compositions and only states that change the visible UI;
-dense/stress/full-list behavior remains a generated-Astro test concern.
-
-## Page composition, archetype and representation
+## Composition, archetype and representation
 
 ```text
 page composition
-= конкретная исследуемая сборка
+= one concrete explored assembly
 
 page archetype
-= reusable route/page-family contract; candidate until final family/archetype promotion
+= reusable route/page-family semantic contract
 
 product representation
-= реальный configured candidate/accepted screen state из одного archetype и native instances
+= configured screen state of one archetype using native instances
 ```
 
-Один archetype может иметь mobile/desktop, authorized/anonymous, open/sold-out/ended, wide-photo/portrait-poster/no-image representations.
-
-The exact authority boundary is defined by the [normative family lifecycle](normalization/design-system-family-lifecycle.md): `PAGE_ARCHETYPE_CANDIDATE` and `PRODUCT_REPRESENTATIONS` remain reconstructed candidates; archetype acceptance occurs only at `FAMILY_AND_ARCHETYPE_PROMOTION`. A source-requirements overlay or detached screen mockup is not an archetype.
-
-### Обязательная раскладка archetype review
-
-Каждое проверяемое состояние archetype размещается отдельной горизонтальной
-строкой, без перекрытий и скрытого clipping:
-
-```text
-[locked SOURCE EVIDENCE · exact Astro screenshot]
-[COMPONENT RECONSTRUCTION · linked native instances]
-[VISUAL COMPARISON · overlay/blink/diff + findings]
-```
-
-Source evidence и reconstruction стоят рядом и имеют одинаковый viewport и
-пиксельный размер. Screenshot никогда не публикуется в Resources и не маскирует
-недостающие компоненты. Reconstruction собирается только из linked accepted
-components; fixture text/media are overrides, а detached copy, source skeleton
-под компонентом и общая визуальная «нашлёпка» запрещены.
-
-Перед передачей владельцу агент обязан экспортировать reconstruction, заново
-импортировать/отрендерить пару и **посмотреть глазами** в масштабе, достаточном
-для проверки шрифтов, crop, baseline, spacing, opacity, icon alignment,
-clipping и порядка элементов. Обязательны side-by-side и 50% overlay/blink;
-pixel diff добавляется, когда доступен. Все необъяснённые расхождения получают
-component/slot owner и исправляются системно во всех consumers.
-
-Точный capture manifest, критерии остановки и reverse Astro gate заданы в
-[`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md#3a-mandatory-archetype-visual-parity-gate).
+An archetype may have desktop/mobile, anonymous/authorized, loading/error/recovery, media and lifecycle representations. A detached screen or source-requirements overlay is not an accepted archetype.
 
 ## Product linkage
 
-Generic component master не обязан иметь один Job. Product meaning фиксируется на уровне instance, product pattern, archetype region или ProductScreenState.
+Generic component masters do not need one Job. Product meaning may belong to a configured instance, pattern, archetype region or ProductScreenState.
 
-Минимальная связь archetype:
+Minimum UI-side record:
 
 ```yaml
 product_links:
-  job_ids: []
-  outcome_ids: []
-  journey_ids: []
-  capability_ids: []
+  product_entity_ids: []
   acceptance_scenario_ids: []
+  measurement_question_ids: []
+  route_or_route_pattern: ...
+  archetype_id: ...
+  semantic_region_id: ...
+  pattern_id: ...
+  component_id: ...
+  product_screen_state_ids: []
+  native_binding: binding_pending
+  relation_status: proven | partial | unresolved | not_modeled | not_applicable
 ```
 
-UI gap содержит stable product links, affected archetypes/regions, current evidence, exploration ref и decision state.
+This repository never copies product definitions or decisions. Until an actual MCP read-back exists, native Product Atlas binding remains `binding_pending`.
 
 ## UI-improvement lifecycle
 
 ```text
 comment or runtime evidence
-→ file-level deduplicated review thread
+→ file-level deduplicated review
 → exact resource/screen/flow association
 → reproduced gap
 → understood cause
-→ visual/component/pattern/composition candidates
+→ bounded candidates
 → impact report
 → owner acceptance or rejection
 → implementation handoff
@@ -190,96 +134,83 @@ comment or runtime evidence
 → explicit comment resolution and gap closure
 ```
 
-Комментарий не закрывается автоматически после mutation. Изменение не равно acceptance.
+A mutation, resolved comment or completed handoff does not by itself advance family authority.
 
-This UI-improvement lifecycle is orthogonal to the family lifecycle. A resolved comment, owner-approved correction or completed handoff does not by itself advance a family state or change authority.
+## Comment behavior
 
-## Verified comment behavior
+Comment ingestion is file-scoped first and resource/page-scoped second. The same thread may appear during page traversal; stable thread ID is the primary dedupe key. Current open page does not replace the origin page, and ambiguous spatial association remains explicit.
 
-Официальный Penpot MCP подтвердил:
-
-- comments читаются независимо от currently open page;
-- file traversal может возвращать один и тот же thread на каждой page;
-- ingestion therefore file-scoped first, page/resource-scoped second;
-- primary dedupe key — stable thread ID/sequence;
-- fallback signature: normalized author + created_at + initial text + origin page/board;
-- currently open page не заменяет origin page;
-- ambiguous spatial association remains manual/ambiguous.
+Product Atlas comments may propose analysis work, but they do not directly write the product model. The resulting reviewed analysis/finding/decision is committed in `events-bot-new` first.
 
 ## MCP operation model
 
 ```text
 patch
-  изменить properties/content/token/variant внутри stable wrapper
+  bounded property/content change inside one verified wrapper
 
 reflow-zone
-  детерминированно переразложить managed siblings одной зоны
+  deterministic layout of managed siblings in one verified zone
 
 rematerialize-page
-  пересобрать page/major section из IR при topology change
+  rebuild one page/major section when topology changed
 
 rebuild-file
-  исключительная schema migration, не локальная правка
+  exceptional schema migration only
 ```
 
-Каждая write operation:
+Before every MCP write:
 
-1. читает revision/metadata/target IDs;
-2. строит dry-run plan and impact scope;
-3. создаёт rollback point для non-trivial batch;
-4. использует bounded undo transaction;
-5. сохраняет comment-bearing wrappers;
-6. проверяет component links/references;
-7. проверяет overlap/off-canvas/clipping/minimum gap;
-8. экспортирует focused before/after evidence;
-9. формирует changed-resource receipt;
-10. оставляет результат candidate до explicit acceptance.
+1. read exact file/page/revision;
+2. verify target kind and source/model locks;
+3. build a dry-run and impact scope;
+4. create rollback evidence for non-trivial work;
+5. preserve comments and foreign objects;
+6. limit mutation to the selected zone/page;
+7. check overlap, clipping, off-canvas content and minimum gaps;
+8. read back changed identities and relations;
+9. write a Git receipt;
+10. leave result candidate until explicit acceptance.
 
-For family work, “explicit acceptance” here means the machine lifecycle transition. Candidate writes remain `authority_mode=reconstructed`, `canonical=false` until `FAMILY_AND_ARCHETYPE_PROMOTION`.
+A workspace link is not proof that MCP switched context. Parallel mutation across different files is forbidden without an explicit verified target for each operation.
 
-## Managed spatial layout
-
-```text
-managed page
-→ managed zones
-→ stable wrapper boards
-→ native resources, instances, specimens and annotations
-```
-
-Targeted patch не двигает unrelated objects. Reflow ограничен zone. Manual/exploration space не перезаписывается. Topology change вызывает rematerialization, а не цепочку coordinate nudges.
-
-## GitHub Actions, plugin and MCP
+## GitHub Actions and MCP
 
 ```text
 GitHub Actions
-  heavy deterministic work and immutable artifacts
+  deterministic validation, generated artifacts and drift gates
 
-Resource Graph plugin
-  reproducible bulk materialization/reconciliation
-
-MCP
-  interactive scoped work, comments, candidates, diagnostics and evidence
+Penpot MCP
+  interactive scoped materialization, inspection, comments and read-back
 ```
 
-Оба mutation channels используют один IR/Component Contract, stable IDs, hashes and operation locks.
-
-### Gemini MCP visual audit
-
-The `GEMINI_MCP_VISUAL_AUDIT` lifecycle state uses Penpot MCP only for read-only inspection/export of a hash-bound full-resolution bundle. Only `gemini-3-pro-preview` or `gemini-3.1-pro-preview` satisfies the advisory review gate. Gemini may report visible hierarchy, composition, reuse, responsive and state-coverage risks, but cannot prove DOM/accessibility semantics, interaction behavior, contract hashes, three-way conformance, production release, owner acceptance or promotion. It may not mutate Penpot or resolve comments. Lower-class probes and provider failures do not satisfy the gate.
+Both use the same Git IDs, source locks and semantic contracts. There is no automatic/background Product Atlas synchronization and no mutation on connection/open.
 
 ## Baseline policy
 
 ```text
 accepted Penpot specimen/export
-→ immutable reference manifest
+→ immutable reference identity
 
 Astro/runtime actual
-→ screenshot and diff
+→ screenshot + functional/interaction/accessibility evidence
 ```
 
-Runtime actual никогда не заменяет accepted baseline автоматически. Visual diff дополняет, но не заменяет functional, interaction и accessibility tests.
+Runtime actual never replaces an accepted baseline automatically. Pixel similarity is supporting evidence, not proof of semantics, accessibility, behavior or outcome.
 
-Во время первичной реконструкции pinned Astro screenshot является AS-IS source
-evidence. После owner acceptance accepted Penpot reconstruction становится
-visual reference того же Git SoT contract. Это разные роли: ни один raster сам
-по себе не является SoT.
+## Evidence boundary
+
+Product Atlas Penpot receives only reviewed Git entities and immutable reviewed evidence packages. It does not read production DBs or raw analytics.
+
+```text
+MeasurementQuestion
+→ evidence
+→ finding
+→ decision
+→ follow-up
+```
+
+A hotspot, visual overlay or runtime symptom cannot create a finding, UI gap or component promotion automatically.
+
+## Current delivery boundary
+
+The Product Atlas Git SoT and 17-archetype UI projection can be reviewed before Penpot materialization. Penpot work starts only after the exact target and entry gate are verified. This branch performs zero Penpot reads and writes.

@@ -1,0 +1,143 @@
+name: Product Atlas UI linkage v1
+
+on:
+  pull_request:
+    paths:
+      - "catalog/product-atlas-ui-linkage-v1/**"
+      - "catalog/product-atlas-linkage-handoff/v1/**"
+      - "docs/product-atlas-penpot-*.md"
+      - "docs/penpot-product-design-operating-model.md"
+      - "scripts/validate-product-atlas-ui-linkage-v1.mjs"
+      - "scripts/validate-product-atlas-ui-recovery-20260828.mjs"
+      - "tests/product-atlas-ui-linkage-v1.test.mjs"
+      - "tests/product-atlas-ui-recovery-20260828.test.mjs"
+      - "contracts/product-atlas-001.plugin.json"
+      - "prototypes/penpot-product-atlas-001/**"
+      - ".github/workflows/product-atlas-*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-product-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out recovered UI linkage candidate
+        uses: actions/checkout@v4
+
+      - name: Check out locked recovered Product Atlas
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 2b666550311d502bfec2f40a7ab3edfc8b65c8d9
+          path: _sources/product
+          fetch-depth: 1
+
+      - name: Check out active owner-review delta
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/lovekgd-design-system
+          ref: 47d0fef53c33200492d92f6a086d9b8813fe187e
+          path: _sources/review
+          fetch-depth: 1
+
+      - name: Check out active Astro UI candidate
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: 49c351873d40a2ea55f0a32837c7376e344d9c17
+          path: _sources/astro
+          fetch-depth: 1
+
+      - name: Check out agent-assisted discovery hypothesis
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: f78e7c5974b4192bddf9eea901ee6d8b57f51560
+          path: _sources/hypothesis
+          fetch-depth: 1
+
+      - name: Validate stable UI foreign keys
+        id: stable
+        shell: bash
+        env:
+          PRODUCT_ATLAS_PRODUCT_ROOT: ${{ github.workspace }}/_sources/product
+        run: |
+          set +e
+          node scripts/validate-product-atlas-ui-linkage-v1.mjs \
+            --product-root "$PRODUCT_ATLAS_PRODUCT_ROOT" \
+            > product-atlas-ui-stable.log 2>&1
+          status=$?
+          cat product-atlas-ui-stable.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+
+      - name: Validate layered recovery and separate-account boundary
+        if: always()
+        id: recovery
+        shell: bash
+        env:
+          PRODUCT_ATLAS_PRODUCT_ROOT: ${{ github.workspace }}/_sources/product
+          PRODUCT_ATLAS_REVIEW_ROOT: ${{ github.workspace }}/_sources/review
+          PRODUCT_ATLAS_ASTRO_ROOT: ${{ github.workspace }}/_sources/astro
+          PRODUCT_ATLAS_HYPOTHESIS_ROOT: ${{ github.workspace }}/_sources/hypothesis
+        run: |
+          set +e
+          node scripts/validate-product-atlas-ui-recovery-20260828.mjs \
+            --product-root "$PRODUCT_ATLAS_PRODUCT_ROOT" \
+            --review-root "$PRODUCT_ATLAS_REVIEW_ROOT" \
+            --astro-root "$PRODUCT_ATLAS_ASTRO_ROOT" \
+            --hypothesis-root "$PRODUCT_ATLAS_HYPOTHESIS_ROOT" \
+            > product-atlas-ui-recovery.log 2>&1
+          status=$?
+          cat product-atlas-ui-recovery.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+
+      - name: Run focused tests
+        if: always()
+        id: tests
+        shell: bash
+        env:
+          PRODUCT_ATLAS_PRODUCT_ROOT: ${{ github.workspace }}/_sources/product
+          PRODUCT_ATLAS_REVIEW_ROOT: ${{ github.workspace }}/_sources/review
+          PRODUCT_ATLAS_ASTRO_ROOT: ${{ github.workspace }}/_sources/astro
+          PRODUCT_ATLAS_HYPOTHESIS_ROOT: ${{ github.workspace }}/_sources/hypothesis
+        run: |
+          set +e
+          node --test \
+            tests/product-atlas-ui-linkage-v1.test.mjs \
+            tests/product-atlas-ui-recovery-20260828.test.mjs \
+            > product-atlas-ui-tests.log 2>&1
+          status=$?
+          cat product-atlas-ui-tests.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+
+      - name: Publish diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-atlas-ui-linkage-validation-${{ github.run_id }}
+          path: |
+            product-atlas-ui-stable.log
+            product-atlas-ui-recovery.log
+            product-atlas-ui-tests.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Write validation summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Product Atlas UI linkage + 2026-08-28 recovery"
+            echo "- stable foreign-key exit: ${{ steps.stable.outputs.exit_code }}"
+            echo "- layered recovery exit: ${{ steps.recovery.outputs.exit_code }}"
+            echo "- focused tests exit: ${{ steps.tests.outputs.exit_code }}"
+            echo "- AS-IS baseline: PR #52 / 17 archetypes / 34 boards / 97 regions / 180 states"
+            echo "- target account/file bindings: 0 (binding_pending)"
+            echo "- Penpot calls: 0"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,321 @@
+{
+  "schema_version": "lovekgd-design-system-product-links.v1",
+  "registry_id": "product-atlas-ui-linkage-v1.product-links",
+  "product_definition_root": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "path": "docs/product-model/atlas/v1",
+    "linkage_path": "docs/product-model/atlas/v1/ui-linkage.v1.json"
+  },
+  "authority_rule": "This file contains foreign keys and exact UI context only. Product definitions, findings and decisions are forbidden.",
+  "coverage": {
+    "archetypes_expected": 17,
+    "archetypes_linked": 17,
+    "route_registry_mapping_percent": 100,
+    "native_binding_status": "binding_pending"
+  },
+  "links": [
+    {
+      "link_id": "uilink.home.discovery",
+      "archetype_id": "archetype.home",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/home.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.home", "representative_routes": ["/"]},
+      "product_entity_ids": ["job.discover-event", "capability.listing-discovery", "user-outcome.find-relevant-within-30-cards"],
+      "acceptance_scenario_ids": ["rule.current-card-identity", "rule.static-core-available", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.find-interest-within-30-cards", "mq.event-value-rate", "mq.return-after-event-value"],
+      "region_bindings": [
+        {"region_id": "home.hero-talk", "pattern_id": "home.hero-talk", "component_id": "home.hero-talk", "state_ids": ["default", "reduced-motion"], "native_binding": "binding_pending"},
+        {"region_id": "home.quick-navigation", "pattern_id": "home.quick-navigation", "component_id": "home.quick-navigation", "state_ids": ["default", "keyboard-focus"], "native_binding": "binding_pending"},
+        {"region_id": "home.cold-start-feed", "pattern_id": "home.cold-start-feed", "component_id": "event.card.large", "state_ids": ["cold-start", "contextual", "personalized-compatible", "static-fallback"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.listing-date.discovery",
+      "archetype_id": "archetype.listing.date",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/listing-date.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.listing.date", "representative_routes": ["/segodnya/", "/zavtra/", "/date-2026-07-25/"], "route_patterns": ["/date-:date/"]},
+      "product_entity_ids": ["job.discover-event", "capability.listing-discovery", "user-outcome.find-relevant-within-30-cards"],
+      "acceptance_scenario_ids": ["rule.current-card-identity", "rule.no-fabricated-results", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.find-interest-within-30-cards", "mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "listing.page-date-header", "pattern_id": "listing.page-header", "component_id": "listing.page-date-header", "state_ids": ["today", "tomorrow", "exact-date", "weather-present", "weather-absent"], "native_binding": "binding_pending"},
+        {"region_id": "listing.discovery-rail", "pattern_id": "listing.discovery-rail", "component_id": "listing.rail-row.track", "state_ids": ["default", "sticky", "keyboard-focus"], "native_binding": "binding_pending"},
+        {"region_id": "listing.controls", "pattern_id": "listing.controls", "component_id": "listing.state-panel", "state_ids": ["default", "filtered", "empty", "error"], "native_binding": "binding_pending"},
+        {"region_id": "listing.time-navigation", "pattern_id": "listing.time-navigation", "component_id": "listing.time-navigation", "state_ids": ["upcoming", "now", "completed"], "native_binding": "binding_pending"},
+        {"region_id": "listing.time-groups", "pattern_id": "listing.time-groups", "component_id": "listing.time-groups", "state_ids": ["dense", "sparse", "empty"], "native_binding": "binding_pending"},
+        {"region_id": "listing.desktop-card-flow", "pattern_id": "listing.card-flow", "component_id": "listing.event-card.compact", "state_ids": ["default", "media-loaded", "media-fallback"], "native_binding": "binding_pending"},
+        {"region_id": "listing.mobile-rail", "pattern_id": "listing.mobile-rail", "component_id": "event.card.large", "state_ids": ["default", "touch-scroll"], "native_binding": "binding_pending"},
+        {"region_id": "listing.personal-slot", "pattern_id": "listing.personal-slot", "component_id": "runtime.listing.date", "state_ids": ["absent", "static", "personalized-compatible"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.listing-weekend.discovery",
+      "archetype_id": "archetype.listing.weekend",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/listing-weekend.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.listing.weekend", "representative_routes": ["/vyhodnye/", "/vyhodnye/2026-07-25/"]},
+      "product_entity_ids": ["job.discover-event", "capability.listing-discovery", "user-outcome.find-relevant-within-30-cards"],
+      "acceptance_scenario_ids": ["rule.current-card-identity", "rule.no-fabricated-results", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.find-interest-within-30-cards", "mq.event-value-rate"],
+      "region_bindings": [
+        {"region_id": "listing.page-date-header", "pattern_id": "listing.page-header", "component_id": "listing.page-date-header", "state_ids": ["current-weekend", "dated-weekend"], "native_binding": "binding_pending"},
+        {"region_id": "listing.weekend-range-navigation", "pattern_id": "listing.range-navigation", "component_id": "listing.weekend-range-navigation", "state_ids": ["previous-disabled", "previous-enabled", "next-enabled"], "native_binding": "binding_pending"},
+        {"region_id": "listing.discovery-rail", "pattern_id": "listing.discovery-rail", "component_id": "listing.rail-row.track", "state_ids": ["default", "sticky"], "native_binding": "binding_pending"},
+        {"region_id": "listing.weekend-day-headers", "pattern_id": "listing.weekend-grouping", "component_id": "listing.weekend-day-header", "state_ids": ["two-day", "three-day"], "native_binding": "binding_pending"},
+        {"region_id": "listing.weekend-editorial-timeline", "pattern_id": "listing.weekend-timeline", "component_id": "listing.weekend-editorial-timeline", "state_ids": ["dense", "sparse", "empty"], "native_binding": "binding_pending"},
+        {"region_id": "listing.mobile-rail", "pattern_id": "listing.mobile-rail", "component_id": "event.card.large", "state_ids": ["default", "touch-scroll"], "native_binding": "binding_pending"},
+        {"region_id": "listing.personal-slot", "pattern_id": "listing.personal-slot", "component_id": "runtime.listing.weekend", "state_ids": ["absent", "static", "personalized-compatible"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.listing-popular.discovery",
+      "archetype_id": "archetype.listing.popular",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/listing-popular.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.listing.popular", "representative_routes": ["/populyarnoe/"]},
+      "product_entity_ids": ["job.discover-event", "capability.listing-discovery", "capability.personalized-discovery"],
+      "acceptance_scenario_ids": ["rule.current-card-identity", "rule.no-duplicate-event-family", "rule.no-fabricated-results"],
+      "measurement_question_ids": ["mq.find-interest-within-30-cards", "mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "listing.page-header", "pattern_id": "listing.page-header", "component_id": "listing.page-pattern", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "listing.discovery-rail", "pattern_id": "listing.discovery-rail", "component_id": "listing.rail-row.track", "state_ids": ["default", "sticky"], "native_binding": "binding_pending"},
+        {"region_id": "popular.grouping", "pattern_id": "popular.grouping", "component_id": "popular.grouping", "state_ids": ["fast-growth", "multi-source", "discussed", "frequently-shared", "fallback"], "native_binding": "binding_pending"},
+        {"region_id": "popular.feed", "pattern_id": "listing.card-flow", "component_id": "listing.event-card.compact", "state_ids": ["desktop-shelves", "mobile-large", "mobile-compact"], "native_binding": "binding_pending"},
+        {"region_id": "listing.personal-slot", "pattern_id": "listing.personal-slot", "component_id": "runtime.listing.popular", "state_ids": ["absent", "warm-profile-4-plus-1"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.listing-unusual.discovery",
+      "archetype_id": "archetype.listing.unusual",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/listing-unusual.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.listing.unusual", "representative_routes": ["/neobychnoe/"]},
+      "product_entity_ids": ["job.discover-event", "capability.listing-discovery", "capability.current-event-catalog"],
+      "acceptance_scenario_ids": ["rule.current-card-identity", "rule.no-fabricated-results", "rule.static-core-available"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "listing.page-header", "pattern_id": "listing.page-header", "component_id": "listing.page-pattern", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "listing.discovery-rail", "pattern_id": "listing.discovery-rail", "component_id": "listing.rail-row.track", "state_ids": ["default", "sticky"], "native_binding": "binding_pending"},
+        {"region_id": "unusual.unread-context", "pattern_id": "unusual.unread-context", "component_id": "runtime.listing.unusual", "state_ids": ["unread", "read", "reset"], "native_binding": "binding_pending"},
+        {"region_id": "unusual.feed", "pattern_id": "listing.card-flow", "component_id": "listing.event-card.compact", "state_ids": ["populated", "empty", "stale-last-good"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.event-detail.decision",
+      "archetype_id": "archetype.event-detail",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/event-detail.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.event-detail", "route_patterns": ["/sobytiya/:slug/"], "representative_routes": ["/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/", "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/", "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"]},
+      "product_entity_ids": ["job.evaluate-event", "job.plan-attendance", "capability.event-detail", "capability.intent-actions", "capability.related-discovery", "user-outcome.make-confident-event-decision", "user-outcome.complete-intent-action"],
+      "acceptance_scenario_ids": ["rule.critical-fact-coherence", "rule.media-semantic-treatment", "rule.authoritative-action-ack", "acceptance.ADD-EVENT-05", "acceptance.ADD-MEDIA-02", "acceptance.ADD-MEDIA-03", "acceptance.ADD-RELATED-05", "acceptance.ADD-RELATED-06", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.event-detail-supports-decision", "mq.intent-action-reliability", "mq.critical-fact-coherence", "mq.event-value-rate"],
+      "region_bindings": [
+        {"region_id": "event.hero", "pattern_id": "event.hero-composition", "component_id": "event.detail.hero-composition", "state_ids": ["wide-image", "portrait-image", "no-image", "multi-image", "archived"], "native_binding": "binding_pending"},
+        {"region_id": "event.media-frame", "pattern_id": "event.media-frame", "component_id": "event.media-frame", "state_ids": ["visual-only-cover", "ocr-protected", "poster", "gallery"], "native_binding": "binding_pending"},
+        {"region_id": "event.summary", "pattern_id": "event.summary", "component_id": "document.typography", "state_ids": ["default", "long-copy"], "native_binding": "binding_pending"},
+        {"region_id": "event.admission-actions", "pattern_id": "event.intent-actions", "component_id": "action.calendar", "state_ids": ["admission-present", "admission-absent", "calendar-present", "calendar-absent"], "native_binding": "binding_pending"},
+        {"region_id": "event.facts", "pattern_id": "event.facts", "component_id": "event.detail.facts", "state_ids": ["complete", "partial", "source-consistent-repair"], "native_binding": "binding_pending"},
+        {"region_id": "event.participants", "pattern_id": "event.participants", "component_id": "event.detail.facts", "state_ids": ["present", "absent"], "native_binding": "binding_pending"},
+        {"region_id": "event.venue", "pattern_id": "event.venue", "component_id": "event.detail.facts", "state_ids": ["named-location", "partial-location"], "native_binding": "binding_pending"},
+        {"region_id": "event.medallions", "pattern_id": "event.medallions", "component_id": "event.medallion", "state_ids": ["absent", "single", "multiple-safe"], "native_binding": "binding_pending"},
+        {"region_id": "event.transport", "pattern_id": "event.transport", "component_id": "event.detail.transport", "state_ids": ["transport-present", "transport-absent", "provider-stale"], "native_binding": "binding_pending"},
+        {"region_id": "event.related-events", "pattern_id": "event.related-and-broad-continuation", "component_id": "event.detail.related", "state_ids": ["related-present", "related-absent", "broader-diverse", "loading-skeleton"], "native_binding": "binding_pending"},
+        {"region_id": "event.question-cta", "pattern_id": "feedback.event-question", "component_id": "focus.feedback", "state_ids": ["eligible", "submitted", "unavailable"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.search.intent",
+      "archetype_id": "archetype.search",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/search.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.search", "representative_routes": ["/poisk/"]},
+      "product_entity_ids": ["job.search-by-intent", "job.recover-discovery", "capability.smart-search", "capability.identity-and-session", "user-outcome.receive-result-or-honest-recovery"],
+      "acceptance_scenario_ids": ["rule.search-one-physical-request", "rule.search-result-card-identity", "rule.search-feedback-terminal-only", "rule.search-fallback-separated", "acceptance.SEARCH-HEALTH-STAGE2", "acceptance.USR-04", "acceptance.USR-05"],
+      "measurement_question_ids": ["mq.search-useful-or-recovered", "mq.search-feedback-rate-and-result", "mq.runtime-and-cost-health"],
+      "region_bindings": [
+        {"region_id": "search.header", "pattern_id": "search.header", "component_id": "shell.event-layout", "state_ids": ["anonymous", "authorized"], "native_binding": "binding_pending"},
+        {"region_id": "search.query-field", "pattern_id": "search.query-controller", "component_id": "search.query-controller", "state_ids": ["idle", "multiline", "invalid", "submitting"], "native_binding": "binding_pending"},
+        {"region_id": "search.filters", "pattern_id": "search.filters", "component_id": "core.field", "state_ids": ["default", "applied"], "native_binding": "binding_pending"},
+        {"region_id": "search.results", "pattern_id": "search.results", "component_id": "listing.event-card.compact", "state_ids": ["structural-skeleton", "exact-results", "zero-results", "timeout", "quota", "offline", "terminal-feedback", "separate-fallback"], "native_binding": "binding_pending"},
+        {"region_id": "search.collection-links", "pattern_id": "search.collection-links", "component_id": "search.collection-links", "state_ids": ["absent", "approved-static-searches"], "native_binding": "binding_pending"},
+        {"region_id": "search.identity-gate", "pattern_id": "authorization.static-site", "component_id": "authorization.static-site", "state_ids": ["authorized", "auth-required", "session-expired", "recovered"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "proven"
+    },
+    {
+      "link_id": "uilink.personal-feed.relevance",
+      "archetype_id": "archetype.personal-feed",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.personal-feed", "representative_routes": ["/dlya-menya/"]},
+      "product_entity_ids": ["job.receive-personal-relevance", "job.recover-discovery", "capability.personalized-discovery", "user-outcome.find-relevant-within-30-cards"],
+      "acceptance_scenario_ids": ["rule.no-fabricated-results", "rule.authoritative-action-ack", "rule.static-core-available"],
+      "measurement_question_ids": ["mq.personalization-value-and-diversity", "mq.find-interest-within-30-cards", "mq.return-after-event-value"],
+      "region_bindings": [
+        {"region_id": "personal.header", "pattern_id": "personal.header", "component_id": "shell.event-layout", "state_ids": ["inactive", "cold-start", "active"], "native_binding": "binding_pending"},
+        {"region_id": "personal.interest-profile", "pattern_id": "personal.interest-profile", "component_id": "personal.interest-profile", "state_ids": ["not-activated", "immature", "mature", "stale", "reset"], "native_binding": "binding_pending"},
+        {"region_id": "personal.filters", "pattern_id": "listing.personal-filter", "component_id": "listing.personal-filter", "state_ids": ["default", "filtered"], "native_binding": "binding_pending"},
+        {"region_id": "personal.feed", "pattern_id": "personal.feed", "component_id": "event.card.large", "state_ids": ["static-fallback", "contextual", "personalized", "empty-prohibited", "error-fallback"], "native_binding": "binding_pending"},
+        {"region_id": "personal.feedback", "pattern_id": "feedback.personal", "component_id": "focus.feedback", "state_ids": ["eligible", "hidden", "submitted"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.favorites.return",
+      "archetype_id": "archetype.favorites",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/favorites.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.favorites", "representative_routes": ["/izbrannoe/"]},
+      "product_entity_ids": ["job.return-to-saved-event", "job.recover-discovery", "capability.saved-events", "capability.identity-and-session", "user-outcome.recover-saved-state"],
+      "acceptance_scenario_ids": ["rule.saved-event-unique", "rule.authoritative-action-ack", "rule.static-core-available"],
+      "measurement_question_ids": ["mq.saved-state-recovery", "mq.return-after-event-value"],
+      "region_bindings": [
+        {"region_id": "favorites.header", "pattern_id": "favorites.header", "component_id": "shell.event-layout", "state_ids": ["local", "account"], "native_binding": "binding_pending"},
+        {"region_id": "favorites.identity-gate", "pattern_id": "authorization.static-site", "component_id": "authorization.static-site", "state_ids": ["anonymous-local", "authorized", "session-expired", "account-switch"], "native_binding": "binding_pending"},
+        {"region_id": "favorites.saved-events", "pattern_id": "favorites.saved-events", "component_id": "favorites.saved-events-controller", "state_ids": ["loading", "empty", "populated", "stale", "deduplicating", "error"], "native_binding": "binding_pending"},
+        {"region_id": "favorites.recovery", "pattern_id": "favorites.recovery", "component_id": "system.state-panel", "state_ids": ["retry", "undo", "lifecycle-reconciled"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.collections.curated",
+      "archetype_id": "archetype.collections",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/collections.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.collections", "representative_routes": ["/podborki/", "/podborki/besplatnye-sobytiya/", "/podborki/dzhaz-na-vyhodnyh/", "/podborki/gastronomiya/"]},
+      "product_entity_ids": ["job.discover-event", "capability.curated-discovery", "capability.current-event-catalog"],
+      "acceptance_scenario_ids": ["rule.source-grounded-membership", "rule.no-fabricated-results", "acceptance.ADD-DISC-03"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "collection.index-header", "pattern_id": "collection.header", "component_id": "core.breadcrumbs", "state_ids": ["index"], "native_binding": "binding_pending"},
+        {"region_id": "collection.directory", "pattern_id": "collection.directory", "component_id": "collection.directory", "state_ids": ["populated", "sparse"], "native_binding": "binding_pending"},
+        {"region_id": "collection.detail-header", "pattern_id": "collection.header", "component_id": "core.breadcrumbs", "state_ids": ["detail"], "native_binding": "binding_pending"},
+        {"region_id": "collection.criteria", "pattern_id": "collection.criteria", "component_id": "collection.criteria", "state_ids": ["visible", "collapsed"], "native_binding": "binding_pending"},
+        {"region_id": "collection.results", "pattern_id": "collection.results", "component_id": "event.card.large", "state_ids": ["populated", "short-supply"], "native_binding": "binding_pending"},
+        {"region_id": "collection.fallback-results", "pattern_id": "collection.fallback", "component_id": "listing.state-panel", "state_ids": ["absent", "honest-fallback"], "native_binding": "binding_pending"},
+        {"region_id": "collection.gastronomy-surface", "pattern_id": "collection.gastronomy", "component_id": "collection.gastronomy-surface", "state_ids": ["gastronomy"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.festivals.curated",
+      "archetype_id": "archetype.festivals",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/festivals.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.festivals", "representative_routes": ["/festivali/"]},
+      "product_entity_ids": ["job.discover-event", "capability.curated-discovery", "capability.current-event-catalog"],
+      "acceptance_scenario_ids": ["rule.source-grounded-membership", "rule.current-card-identity", "rule.no-fabricated-results"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "festival.header", "pattern_id": "festival.header", "component_id": "festival.header", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "festival.timeline", "pattern_id": "festival.timeline", "component_id": "festival.timeline", "state_ids": ["current", "future", "completed"], "native_binding": "binding_pending"},
+        {"region_id": "festival.card-flow", "pattern_id": "festival.card-flow", "component_id": "festival.card", "state_ids": ["populated", "empty"], "native_binding": "binding_pending"},
+        {"region_id": "festival.category-chip", "pattern_id": "semantic.theme-chip", "component_id": "semantic.theme-chip", "state_ids": ["default", "selected"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.exhibitions.curated",
+      "archetype_id": "archetype.exhibitions",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/exhibitions.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.exhibitions", "representative_routes": ["/vystavki/"]},
+      "product_entity_ids": ["job.discover-event", "capability.curated-discovery", "capability.personalized-discovery"],
+      "acceptance_scenario_ids": ["rule.source-grounded-membership", "rule.media-semantic-treatment", "rule.authoritative-action-ack"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.personalization-value-and-diversity"],
+      "region_bindings": [
+        {"region_id": "exhibition.header", "pattern_id": "exhibition.header", "component_id": "shell.event-layout", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "exhibition.personalization", "pattern_id": "exhibition.personal-surface", "component_id": "exhibition.personal-surface", "state_ids": ["inactive", "contextual", "personalized"], "native_binding": "binding_pending"},
+        {"region_id": "exhibition.rows", "pattern_id": "exhibition.row", "component_id": "exhibition.row", "state_ids": ["populated", "sparse"], "native_binding": "binding_pending"},
+        {"region_id": "exhibition.media-deck", "pattern_id": "exhibition.media-deck", "component_id": "exhibition.media-deck", "state_ids": ["photo", "poster", "mixed"], "native_binding": "binding_pending"},
+        {"region_id": "exhibition.hide-undo", "pattern_id": "exhibition.hide-undo", "component_id": "exhibition.hide-undo", "state_ids": ["visible", "hidden", "undo"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.interest-clubs.curated",
+      "archetype_id": "archetype.interest-clubs",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.interest-clubs", "representative_routes": ["/kluby-po-interesam/", "/kluby-po-interesam/game-vibes/"]},
+      "product_entity_ids": ["job.discover-event", "capability.curated-discovery", "capability.current-event-catalog"],
+      "acceptance_scenario_ids": ["rule.source-grounded-membership", "acceptance.ADD-RECENT-01"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.catalog-quality-and-coverage"],
+      "region_bindings": [
+        {"region_id": "club.catalog-header", "pattern_id": "club.catalog-header", "component_id": "core.breadcrumbs", "state_ids": ["catalog"], "native_binding": "binding_pending"},
+        {"region_id": "club.catalog-grid", "pattern_id": "club.catalog-grid", "component_id": "club.card", "state_ids": ["populated", "empty"], "native_binding": "binding_pending"},
+        {"region_id": "club.card", "pattern_id": "club.card", "component_id": "club.card", "state_ids": ["approved", "stale-prohibited"], "native_binding": "binding_pending"},
+        {"region_id": "club.detail-hero", "pattern_id": "club.detail-hero", "component_id": "club.detail-facts", "state_ids": ["detail"], "native_binding": "binding_pending"},
+        {"region_id": "club.detail-facts", "pattern_id": "club.detail-facts", "component_id": "club.detail-facts", "state_ids": ["complete", "partial"], "native_binding": "binding_pending"},
+        {"region_id": "club.meeting-list", "pattern_id": "club.meeting-list", "component_id": "club.meeting-list", "state_ids": ["populated", "deferred-provider"], "native_binding": "binding_pending"},
+        {"region_id": "club.empty-meetings", "pattern_id": "system.state-panel", "component_id": "system.state-panel", "state_ids": ["honest-empty"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial",
+      "unresolved_reason": "Both corrected browser observations for the representative detail route failed; mapping is retained without claiming browser health."
+    },
+    {
+      "link_id": "uilink.artifacts.discovery",
+      "archetype_id": "archetype.artifacts",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/artifacts.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.artifacts", "representative_routes": ["/artefakty/"]},
+      "product_entity_ids": ["job.discover-event", "capability.curated-discovery"],
+      "acceptance_scenario_ids": ["rule.static-core-available", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.event-value-rate", "mq.return-after-event-value"],
+      "region_bindings": [
+        {"region_id": "artifact.collection-header", "pattern_id": "artifact.collection-header", "component_id": "artifact.collection-card", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "artifact.progress", "pattern_id": "artifact.collection-progress", "component_id": "artifact.collection-progress", "state_ids": ["none", "partial", "complete"], "native_binding": "binding_pending"},
+        {"region_id": "artifact.cards", "pattern_id": "artifact.collection-card", "component_id": "artifact.collection-card", "state_ids": ["locked", "found", "opened"], "native_binding": "binding_pending"},
+        {"region_id": "artifact.reserved-slots", "pattern_id": "artifact.reserved-slots", "component_id": "artifact.collection-card", "state_ids": ["reserved"], "native_binding": "binding_pending"},
+        {"region_id": "artifact.dialog", "pattern_id": "artifact.unlock-dialog", "component_id": "artifact.unlock-dialog", "state_ids": ["closed", "open", "reduced-motion"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.focus-group.research",
+      "archetype_id": "archetype.focus-group",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/focus-group.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.focus-group", "representative_routes": ["/fokus-gruppa/", "/fokus-gruppa/priglashenie/", "/fokus-gruppa/diagnostika/", "/fokus-gruppa/diagnostika-ustoychivost/", "/fokus-gruppa/kollektsiya/", "/fokus-gruppa/zavershenie/"]},
+      "product_entity_ids": ["job.recover-discovery", "capability.degraded-mode-and-recovery"],
+      "acceptance_scenario_ids": ["rule.static-core-available", "acceptance.ADD-A11Y-01"],
+      "measurement_question_ids": ["mq.runtime-and-cost-health"],
+      "region_bindings": [
+        {"region_id": "focus.program", "pattern_id": "focus.program", "component_id": "focus.lab-badge", "state_ids": ["active", "completed"], "native_binding": "binding_pending"},
+        {"region_id": "focus.invitation-intake", "pattern_id": "focus.invitation-intake", "component_id": "focus.invitation-intake", "state_ids": ["eligible", "locked", "submitted"], "native_binding": "binding_pending"},
+        {"region_id": "focus.feedback", "pattern_id": "focus.feedback", "component_id": "focus.feedback", "state_ids": ["usefulness", "improvement", "event-issue", "overall-nps"], "native_binding": "binding_pending"},
+        {"region_id": "focus.connectivity-diagnostic", "pattern_id": "focus.connectivity-diagnostic", "component_id": "focus.connectivity-diagnostic", "state_ids": ["checking", "healthy", "degraded", "failed"], "native_binding": "binding_pending"},
+        {"region_id": "focus.collection", "pattern_id": "focus.collection", "component_id": "system.state-panel", "state_ids": ["available", "locked"], "native_binding": "binding_pending"},
+        {"region_id": "focus.completion", "pattern_id": "focus.completion", "component_id": "focus.completion", "state_ids": ["complete"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    },
+    {
+      "link_id": "uilink.information-pages.boundary",
+      "archetype_id": "archetype.information-pages",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/information-pages.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.information-pages", "representative_routes": ["/partners/", "/partnerstvo/"]},
+      "product_entity_ids": ["decision.partner-needs-not-modeled"],
+      "acceptance_scenario_ids": ["rule.static-core-available"],
+      "measurement_question_ids": [],
+      "measurement_status": "not_modeled",
+      "region_bindings": [
+        {"region_id": "information.page-header", "pattern_id": "information.page-header", "component_id": "core.breadcrumbs", "state_ids": ["partners", "partnership"], "native_binding": "binding_pending"},
+        {"region_id": "information.long-form-content", "pattern_id": "document.long-form", "component_id": "document.typography", "state_ids": ["default"], "native_binding": "binding_pending"},
+        {"region_id": "partners.logo-grid", "pattern_id": "partners.logo-grid", "component_id": "partners.logo-grid", "state_ids": ["populated", "empty"], "native_binding": "binding_pending"},
+        {"region_id": "partnership.conditions", "pattern_id": "partnership.conditions", "component_id": "partnership.conditions", "state_ids": ["published"], "native_binding": "binding_pending"},
+        {"region_id": "information.secondary-navigation", "pattern_id": "information.secondary-navigation", "component_id": "core.breadcrumbs", "state_ids": ["default"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "not_modeled"
+    },
+    {
+      "link_id": "uilink.special-state.recovery",
+      "archetype_id": "archetype.special-state",
+      "archetype_contract_ref": "catalog/global-archetype-sot-v1/archetype-contracts/special-state.semantic-contract.v1.json",
+      "route_registry_selector": {"archetype_id": "archetype.special-state", "representative_routes": ["/zakrytaya-afisha/"], "nonproduction_route_states": ["/:home-prelaunch-env/", "/:unavailable/"]},
+      "product_entity_ids": ["job.recover-discovery", "capability.degraded-mode-and-recovery"],
+      "acceptance_scenario_ids": ["rule.static-core-available", "rule.no-fabricated-results"],
+      "measurement_question_ids": ["mq.runtime-and-cost-health"],
+      "region_bindings": [
+        {"region_id": "special.prelaunch", "pattern_id": "special.prelaunch", "component_id": "special.prelaunch", "state_ids": ["prelaunch"], "native_binding": "binding_pending"},
+        {"region_id": "special.membership-check", "pattern_id": "special.membership-gate", "component_id": "special.membership-gate", "state_ids": ["checking", "eligible", "ineligible"], "native_binding": "binding_pending"},
+        {"region_id": "special.locked", "pattern_id": "system.state-panel", "component_id": "system.state-panel", "state_ids": ["locked"], "native_binding": "binding_pending"},
+        {"region_id": "special.closed-hub", "pattern_id": "special.closed-hub", "component_id": "special.closed-hub", "state_ids": ["closed"], "native_binding": "binding_pending"},
+        {"region_id": "special.unavailable", "pattern_id": "system.state-panel", "component_id": "system.state-panel", "state_ids": ["unavailable", "retry"], "native_binding": "binding_pending"}
+      ],
+      "relation_status": "partial"
+    }
+  ]
+}
