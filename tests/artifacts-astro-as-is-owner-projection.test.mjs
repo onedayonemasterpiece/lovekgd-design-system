@@ -58,9 +58,11 @@ test('OV-06 recovery keeps the pre-presentation build as visual base and proves 
   assert.equal(receipt.structural_readback.full_desktop_astro_composition.detached_artifact_visuals, 0);
   assert.equal(receipt.structural_readback.full_desktop_astro_composition.visible_page_root_orphans, 0);
   assert.deepEqual(receipt.structural_readback.full_desktop_astro_composition.page_validation, []);
-  assert.equal(
-    receipt.structural_readback.mobile_reconstruction.final_readback,
-    'PENDING_AFTER_REPEATED_PENPOT_HTTP_504',
-  );
+  assert.equal(receipt.structural_readback.mobile_reconstruction.final_readback, 'PASS');
+  assert.equal(receipt.structural_readback.mobile_reconstruction.linked_existing_artifact_visuals_reused, 7);
+  assert.equal(receipt.structural_readback.mobile_reconstruction.distinct_artifact_component_ids, 7);
+  assert.equal(receipt.structural_readback.mobile_reconstruction.detached_artifact_visuals, 0);
+  assert.deepEqual(receipt.structural_readback.mobile_reconstruction.page_validation, []);
   assert.equal(receipt.structural_readback.mobile_reconstruction.blind_retry_performed, false);
+  assert.equal(receipt.saved_version.full_composition_named_version, 'SAVED');
 });

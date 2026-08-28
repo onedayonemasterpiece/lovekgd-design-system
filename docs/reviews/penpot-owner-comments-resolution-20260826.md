@@ -567,10 +567,15 @@ This correction also records the owner's clarified visual precedence:
 pre-presentation visual donor. Later commits may change that base only as
 source-proven corrections; the exact-seven owner decision remains such a
 correction. The mobile master was expanded into the source single-column flow
-using the existing seven linked visuals, but the final old-brick/readback and
-named-version calls are pending because the Penpot plugin entered repeated
-HTTP 504 after the bounded writes. No blind replay was performed, so the item
-is not represented as fully rereview-ready yet.
+using the existing seven linked visuals. After Penpot reconnected, exact
+readback proved that the interrupted old-brick write had already completed:
+all seven distinct artifact component IDs were present and `detached=0`. The
+mobile owner was then expanded from the stale clipped `390×1200` viewport to a
+full `390×2008` composition containing the linked `366×1860` body and linked
+bottom navigation. A named full desktop/mobile version was saved, and settled
+readback again returned `currentFile.validate()=[]`. The subsequent focused
+mobile PNG export returned external HTTP 504; it was not retried because the
+native structural and owner-visible composition was already durable.
 
 Contract: `catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-seven-receipt.v1.json`.
