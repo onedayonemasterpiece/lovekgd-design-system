@@ -514,3 +514,52 @@ may be used to imply their closure. `OV-51` and `OV-52` have bounded product
 evidence and are ready for owner rereview. `OV-50` now also has corrected Astro,
 Git SoT and clean linked Penpot materialization/readback evidence. It is ready
 for owner rereview and remains open only until that review.
+
+
+### 9.4b Owner correction — exact seven-artifact Collection 1 (`OV-06`)
+
+Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This section supersedes
+§9.4a's stale `1/5` authority conclusion.
+
+The higher-priority owner decision at events-bot-new commit
+`f5ea5e497a3c137e350645e0f6c35304853a8908` requires exactly seven prepared
+artifacts from `references/artefact-collection-1` and explicitly rejects the
+5-slot runtime, 8-item draft and 12 Focus eggs. Astro commit `49c351873` now
+contains the exact seven-item registry, all seven source hashes, seven bounded
+focus assets and generic local progress/detail behavior. Ordinary production
+remains fail-closed. Historical stories are not invented: current copy is
+provenance-only pending a separate editorial fact-check.
+
+Page `63.15` now contains seven native component masters and linked boards for
+`0/7`, subset `3/7`, all `7/7`, pointer hover, keyboard focus, selected desktop
+detail and selected `390px` mobile detail. Each state board has all seven
+distinct linked component roots; selected-detail boards add one linked selected
+visual. The former `1/5` and Amber-only detail evidence boards remain hidden and
+explicitly marked superseded. The existing desktop/mobile collection masters
+were corrected in place, so their linked archetype consumers now display all
+seven exact reference visuals.
+
+Structural readback and every affected board/page `validate()` returned `[]`.
+The corrected desktop archetype export visibly contains seven distinct source
+assets. A later focused all-found export returned HTTP 504 only after exact
+readback and was not blindly retried. The current plugin runtime exposes no
+`createSavedVersion` utility, so no named-version ID is fabricated.
+
+Contract: `catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json`.
+Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-seven-receipt.v1.json`.
+
+### 9.2b Mobile rail media correction (`OV-02`)
+
+Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
+the earlier assertion that both `6936` and `6652` must be `75×112 contain`.
+Real-data Astro fixture/browser readback at `49c351873` proves:
+
+- `5374`: `140×112 cover`, safe visual;
+- `6936`: `75×112 contain`, protected authored geometry;
+- `6652`: `140×112 cover`, explicit source-reviewed safe override.
+
+Penpot now has the native authored-contain master
+`8f804431-c282-8075-8008-8db194fb8344`. Row `6936` links to it at `75×112`;
+row `6652` links to canonical cover `a21f0524-f565-8038-8008-787378260237` at
+`140×112`. Exact readback and `validate()=[]` pass. Receipt:
+`evidence/recovery-20260828/penpot/mobile-rail-media-parity-receipt.v1.json`.

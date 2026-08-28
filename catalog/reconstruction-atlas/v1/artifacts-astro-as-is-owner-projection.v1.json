@@ -16,31 +16,29 @@
       "source": "docs/reviews/telegram-owner-voice-intake-20260826-27.md#ov-06--complete-seven-artifact-state-matrix"
     },
     "current_astro_as_is": {
-      "implemented_artifact_count": 1,
-      "implemented_artifact_id": "amber_cosmonaut",
-      "collection_slot_count": 5,
-      "reserved_future_slot_count": 4,
-      "focus_egg_count": 12,
-      "focus_egg_system_is_separate": true
+      "astro_commit": "49c351873",
+      "implemented_artifact_count": 7,
+      "collection_slot_count": 7,
+      "reserved_future_slot_count": 0,
+      "focus_egg_system_is_separate": true,
+      "ordinary_production": "fail-closed"
     },
-    "conflict": "The current Astro runtime does not define seven canonical artifacts. Seven source-reference images represent six concepts, the Amber collection implements one artifact in five slots, and the separate Focus Lab defines twelve eggs.",
-    "fail_closed_rule": "This projection must not relabel reference images, reserved slots, or Focus eggs as seven implemented artifacts and must not claim OV-06 closure."
+    "conflict": "Resolved by higher-priority owner decision f5ea5e497 and the exact seven-file reference catalog. The former 1/5 projection is retained only as superseded evidence.",
+    "fail_closed_rule": "Use artifact-collection-1-owner-exact-seven.v1.json. Never restore the rejected 5/8/12 models."
   },
   "source_tuple": {
     "design_repository": "onedayonemasterpiece/lovekgd-design-system",
     "design_commit_before_projection": "09044d3b7181c322ab21723fa096b40c2315f2a8",
     "astro_repository": "onedayonemasterpiece/events-bot-new",
-    "astro_commit": "c33652ed01f6fb16945af67a53d5e27acece3cef",
+    "astro_commit": "49c351873",
     "astro_paths": [
-      "site/src/pages/artefakty/index.astro",
+      "site/src/data/artifact-collection-1.json",
       "site/src/components/artifacts/ArtifactCollection.astro",
-      "site/src/components/listings/AmberRailArtifact.astro",
       "site/src/lib/artifacts.mjs",
-      "site/src/lib/focus-easter-eggs.ts",
-      "docs/features/static-site-pages/amber-artifact-easter-egg.md",
-      "docs/features/static-site-pages/references/artefact-locations.md"
+      "docs/features/static-site-pages/artifacts/collection-1-inventory-2026-08-28.md"
     ],
-    "existing_design_contract": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json"
+    "existing_design_contract": "catalog/normalization/families/event-preview-representations/event-artifact-candidate-v1.json",
+    "current_owner_contract": "catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json"
   },
   "penpot_target": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
@@ -99,11 +97,10 @@
     }
   ],
   "acceptance": {
-    "linked_instance_count": 13,
-    "detached_instance_count": 0,
-    "required_validation": [],
-    "owner_status_after_projection": "PARTIAL_AS_IS_PROJECTION",
+    "status": "SUPERSEDED",
     "processed": false,
-    "remaining_blocker": "Exact seven canonical artifact identities and an Astro implementation of the owner-required expansion/selection matrix are absent from the current authority tuple."
-  }
+    "replacement_contract": "catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json",
+    "owner_status_after_replacement": "READY_FOR_OWNER_REREVIEW"
+  },
+  "status": "SUPERSEDED_BY_OWNER_EXACT_SEVEN"
 }

@@ -2,66 +2,75 @@
   "schema_version": "mobile-rail-media-astro-penpot-reconciliation.v1",
   "contract_id": "recovery.ov-02.mobile-rail-media-astro-penpot-reconciliation.v1",
   "review_item": "OV-02",
-  "status": "MISMATCH_CONFIRMED / LOWEST_OWNER_DECISION_PENDING",
+  "status": "READY_FOR_OWNER_REREVIEW",
   "processed": false,
   "authority": {
-    "astro_commit": "c33652ed01f6fb16945af67a53d5e27acece3cef",
+    "astro_commit": "49c351873",
     "actual_runtime_owner": [
+      "site/src/components/listings/MobileListingRailSurface.astro",
       "site/src/components/listings/MobileListingRailRow.astro",
       "site/src/lib/mobileListingRailMedia.mjs"
     ],
-    "runtime_routes": [
-      "/segodnya/",
-      "/zavtra/",
-      "/date-[date]/",
-      "/vyhodnye/",
-      "/populyarnoe/"
-    ],
-    "design_media_component": {
-      "component_id": "a21f0524-f565-8038-8008-787378260237",
-      "main_id": "a21f0524-f565-8038-8008-787377eb13b2",
-      "name": "EventMediaFrame / rail-5x4 / cover",
-      "astro_symbol_exists": false
-    }
+    "real_data_fixture": "site/src/pages/lab/design-system/mobile-listing-rail-media/index.astro",
+    "runtime_routes": ["/segodnya/", "/zavtra/", "/date-[date]/", "/vyhodnye/", "/populyarnoe/"]
   },
   "runtime_rule": {
-    "cover": "Only aggregate+asset visual_only, classified event_photo, confidence >= 0.9, safe_crop=true and a focal point may use the 140×112 5:4 cover window.",
-    "contain": "OCR, document, unknown, contradictory or crop-unsafe media preserve authored ratio in a 62–199px content-sized wrapper at 112px height.",
-    "no_field_interpretation": "For protected media, no internal letterbox is achieved by making the wrapper follow the authored ratio; it is not permission to blind-cover or crop document text."
+    "cover": "Aggregate+asset visual_only event photos may use the 140×112 cover window when source review or safe crop policy explicitly allows it.",
+    "contain": "OCR, document, unknown, contradictory or crop-unsafe media preserve physical authored ratio in a content-sized wrapper at 112px height.",
+    "no_field_interpretation": "Protected media follows the physical source aspect ratio; rejected selector crop geometry does not redefine the authored ratio."
   },
-  "confirmed_penpot_mismatches": [
+  "certified_components": {
+    "cover": {
+      "component_id": "a21f0524-f565-8038-8008-787378260237",
+      "main_id": "a21f0524-f565-8038-8008-787377eb13b2",
+      "name": "EventMediaFrame / rail-5x4 / cover"
+    },
+    "authored_contain_1702x2553": {
+      "component_id": "8f804431-c282-8075-8008-8db194fb8344",
+      "main_id": "8f804431-c282-8075-8008-8db194acd552",
+      "stable_id": "ov02.event-media.authored-contain.1702x2553.v1",
+      "name": "EventMediaFrame / rail-authored / contain-1702x2553",
+      "geometry": [75, 112],
+      "validation": []
+    }
+  },
+  "corrected_cases": [
     {
       "event": "event.real.6936",
       "source_size": [1702, 2553],
-      "source_semantics": "ocr_text / event_identity_poster / safe_crop=false",
-      "astro_expected": {"fit":"contain","width":75,"height":112,"reason":"protected_natural_geometry"},
-      "penpot_observed": {"row_id":"e57c842a-ea36-803b-8008-8b62b5004102","wrapper":[93,112],"image":[93,139.63636363636374],"treatment":"cover crop"}
+      "runtime": {"fit": "contain", "width": 75, "height": 112, "reason": "protected_natural_geometry"},
+      "penpot": {
+        "row_id": "e57c842a-ea36-803b-8008-8b62b5004102",
+        "media_instance_id": "8f804431-c282-8075-8008-8db1f5b68ee0",
+        "component_id": "8f804431-c282-8075-8008-8db194fb8344",
+        "geometry": [75, 112]
+      },
+      "result": "MATCH"
     },
     {
       "event": "event.real.6652",
       "source_size": [1170, 1755],
-      "source_semantics": "visual_only / event_photo / safe_crop=false",
-      "astro_expected": {"fit":"contain","width":75,"height":112,"reason":"protected_natural_geometry"},
-      "penpot_observed": {"row_id":"e57c842a-ea36-803b-8008-8b62b6ab6988","wrapper":[93,112],"image":[93,139.63636363636374],"treatment":"cover crop"}
+      "runtime": {"fit": "cover", "width": 140, "height": 112, "reason": "source_reviewed_safe_override"},
+      "penpot": {
+        "row_id": "e57c842a-ea36-803b-8008-8b62b6ab6988",
+        "media_instance_id": "6fd90e70-153b-804f-8008-8c6cc29d4699",
+        "component_id": "a21f0524-f565-8038-8008-787378260237",
+        "geometry": [140, 112],
+        "image_geometry": [167.6725, 112]
+      },
+      "result": "MATCH"
     }
   ],
-  "bounded_conforming_examples": [
-    {"event":"event.real.5374","astro":"140×112 cover","penpot_row":"e57c842a-ea36-803b-8008-8b62b0207781","penpot_wrapper":[140,112]},
-    {"event":"event.real.7015","astro":"90×112 authored contain","penpot_row":"e57c842a-ea36-803b-8008-8b62b27c87df","penpot_wrapper":[90,112]},
-    {"event":"event.real.6710","astro":"168×112 authored contain","penpot_row":"e57c842a-ea36-803b-8008-8b62b3b1a60d","penpot_wrapper":[168,112]},
-    {"event":"event.real.4211","astro":"112×112 authored contain","penpot_row":"e57c842a-ea36-803b-8008-8b62b8611dcc","penpot_wrapper":[112,112]},
-    {"event":"event.real.6941","astro":"112×112 authored contain","penpot_row":"dcae186c-d2c9-80c9-8008-8c6922cb6a82","penpot_wrapper":[112,112]},
-    {"event":"event.real.6986","astro":"184×112 authored contain","penpot_row":"dcae186c-d2c9-80c9-8008-8c692483b44e","penpot_wrapper":[184,112]}
+  "browser_readback": [
+    {"event": "event.real.5374", "result": "140×112 cover", "reason": "safe_visual"},
+    {"event": "event.real.6936", "result": "75×112 contain", "reason": "protected_natural_geometry"},
+    {"event": "event.real.6652", "result": "140×112 cover", "reason": "source_reviewed_safe_override"}
   ],
-  "source_gaps": [
-    "The design-system production surface contract omits MobileListingRailSurface.astro and mobileListingRailMedia.mjs.",
-    "The design-only EventMediaFrame name implies cover while current Astro has no EventMediaFrame symbol and supports protected authored-contain geometry.",
-    "A Playwright expectation for event.real.6939 is stale against the current resolver and documentation."
-  ],
-  "next_gate": {
-    "component_change_required": true,
-    "certification_trigger": "new structural media-fit state on the lowest owning design component",
-    "forbidden_shortcut": "Do not resize page-local images or blindly convert protected media to cover.",
-    "required_result": "Define and certify a source-faithful authored-contain media state, then switch the affected linked rows and run focused Astro/Penpot visual comparisons."
+  "acceptance": {
+    "astro_tests": "21/21 PASS",
+    "astro_build": "471 pages PASS",
+    "penpot_validation": [],
+    "owner_status": "READY_FOR_OWNER_REREVIEW",
+    "processed": false
   }
 }
