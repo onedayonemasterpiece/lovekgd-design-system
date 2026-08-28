@@ -1,8 +1,8 @@
 # Owner review record — template
 
-Review ID: `REV-<SOURCE>-<YYYYMMDD>-<NN>`  
-Status: `CAPTURED`  
-Processed: `NO`  
+Review ID: `REV-<SOURCE>-<YYYYMMDD>-<NN>`
+Status: `CAPTURED`
+Processed: `NO`
 Registered in: [`index.md`](index.md)
 
 Этот шаблон обязателен для каждой новой ограниченной сессии owner review. Один файл может содержать несколько сообщений только тогда, когда они принадлежат одной доказуемой review boundary: одному marker/thread range, одной странице/экрану либо одной явно заданной временной сессии.
