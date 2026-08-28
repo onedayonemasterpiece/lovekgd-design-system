@@ -41,6 +41,7 @@ Status: `ACCEPTED_OPERATIONAL_ROUTER`
 |---|---|---|---|---|---|---|
 | `REV-PENPOT-20260826-01` | Resource Graph Penpot, текущие owner threads `#178–#202` и связанные исторические defects | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) — legacy/current combined intake+ledger | тот же файл | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
 | `REV-TG-20260826-01` | Telegram `KenigEvents · UI review`, `https://t.me/c/4337049383/1030`; initial marker batch `2026-08-26 22:54:08` — `2026-08-27 00:42:23`; continuation `2026-08-27 08:06:31` — `09:24:56`, `Europe/Kaliningrad` | [`telegram-owner-voice-intake-20260826-27.md`](telegram-owner-voice-intake-20260826-27.md) (`OV-01…OV-08`); [`telegram-owner-voice-intake-20260827-continuation-01.md`](telegram-owner-voice-intake-20260827-continuation-01.md) (`OV-09…OV-49`) | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md) for existing implementation evidence; continuation file is the capture/triage ledger for `OV-09…OV-49` until bounded ownership is assigned | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `IN_PROGRESS` | `NO` |
+| `REV-IDEAHUB-20260828-01` | IdeaHub voice packets at source HEAD `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`, inclusive boundary `voice-20260828-114654-2c907d62.md` — `voice-20260828-125353-9e0a4426.md` | [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md): 1 relevant corrected voice mapped to existing `OV-*`; 4 later cross-project voices excluded | existing `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45…OV-49`; no new `OV-*` | branch `fix/penpot-owner-comments-20260826`, Draft PR `#53` | `TRIAGED` | `NO` |
 
 ## 4. Disposition текущего Telegram review
 
@@ -73,6 +74,16 @@ Continuation не смешивает продуктовые completion counts: `
 - Penpot mutation/readback/visual evidence in this registration commit: none.
 
 Статус `READY_FOR_OWNER_REVIEW` запрещён. Следующий продуктовый этап — назначить owning contour для каждого item и выполнять bounded source-faithful fixes с доказательствами, а не считать Git-регистрацию обработкой.
+
+### IdeaHub voice continuation `REV-IDEAHUB-20260828-01`
+
+- intake record: [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md);
+- evaluated IdeaHub HEAD: `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`;
+- relevant voices: `1`; excluded later cross-project voices: `4`;
+- dedup result: source clarification/supersession refs added to existing `OV-*`; new IDs: `0`;
+- `OV-09…OV-19` remain cross-contour and outside design-system completion;
+- cursor: `inbox/voice/2026/08/voice-20260828-125353-9e0a4426.md` at the evaluated HEAD;
+- processed: `0`; Penpot mutation/readback evidence in this intake: none.
 
 ## 5. Обязательный маршрут обработки
 
