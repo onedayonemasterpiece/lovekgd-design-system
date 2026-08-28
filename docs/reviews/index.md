@@ -54,13 +54,16 @@ Continuation не смешивает продуктовые completion counts: `
 | `OV-01` | `40.3A`: единый canonical Rail, period-date variant, отсутствие page-local альтернативных roots | `EVIDENCE_INCOMPLETE` | `NO` | CP-01 подтверждает period wrap и связанные fixture rows; полный canonical-root/lineage census и доказательство отсутствия альтернативных roots ещё не закрыты |
 | `OV-02` | `40.3A`: cover crop без полей, letterbox и растяжения | `EVIDENCE_INCOMPLETE` | `NO` | два затронутых fixture получили wrapper/crop/export readback; полный affected-scope visual proof и owner re-review отсутствуют |
 | `OV-03` | владелец намеренно не взаимодействовал с контролами во время аудита | `CONTEXT_ONLY` | `YES` | контекст сохранён; отсутствие кликов нельзя интерпретировать как отсутствие необходимых interaction states |
-| `OV-04` | отдельная owner-readable Branding page | `CAPTURED` | `NO` | Branding page/readback отсутствуют; блокирует общий `READY_FOR_OWNER_REVIEW` |
-| `OV-05` | desktop/mobile tag, vertical/horizontal lockups, spacing и component/static-asset classification | `CAPTURED` | `NO` | variant matrix, classification и ancestry/readback evidence отсутствуют |
+| `OV-04` | отдельная owner-readable Branding page | `SOT_READY / PENPOT_PAUSED` | `NO` | Git SoT фиксирует фактических Astro-владельцев и обязательный состав страницы `10.1`; native Penpot page, ancestry/readback и owner re-review отсутствуют |
+| `OV-05` | desktop/mobile tag, vertical/horizontal lockups, spacing и component/static-asset classification | `SOT_READY / PENPOT_PAUSED` | `NO` | `catalog/branding/announcements-v1/contract.v1.json` source-locks фактическую desktop/mobile geometry, live component/static-asset classification, leather skins и PWA artwork; Penpot materialization/readback отложены |
 | `OV-06` | `63.15 Artifacts`: 7/7 artifacts и none/subset/all expanded, hover/focus, selected-detail states | `BLOCKED` | `NO` | существование общей Artifacts page не закрывает расширенный state matrix; обязательные state boards/readback отсутствуют |
 | `OV-07` | Home HeroTalk: полная `phrase → arrow → phrase → …` chain | `SOT_READY / PENPOT_PAUSED` | `NO` | Git SoT теперь фиксирует 7 source-faithful chains из canonical research commit `52f3afe73`; отдельная native Penpot page и readback ещё отсутствуют |
 | `OV-08` | глобальный запрет визуально скрытых duplicate component roots | `BLOCKED` | `NO` | глобальный lineage table, duplicate-root census, canonical UUIDs и detached-instance proof отсутствуют |
 
-Итог первого batch: `7` actionable items остаются необработанными (`2` partial/evidence-incomplete, `5` captured/blocked); `1` context-only item зарегистрирован.
+Итог первого batch: `7` actionable items остаются необработанными; `OV-04`,
+`OV-05` и `OV-07` имеют Git SoT, но остаются незакрытыми без Penpot/readback,
+а `OV-01`, `OV-02`, `OV-06` и `OV-08` сохраняют свои partial/blocked gates.
+`1` context-only item зарегистрирован.
 
 ### Continuation `REV-TG-20260826-01-CONT-01`
 

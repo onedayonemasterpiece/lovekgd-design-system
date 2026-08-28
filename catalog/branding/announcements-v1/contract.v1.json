@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "SOT_READY_PENPOT_PAUSED",
+  "authority": {
+    "astro_repository": "onedayonemasterpiece/events-bot-new",
+    "verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "wordmark_component": "site/src/components/brand/AnnouncementsWordmark.astro",
+    "lockup_component": "site/src/components/brand/AnnouncementsLockup.astro",
+    "desktop_consumer": "site/src/layouts/EventLayout.astro",
+    "mobile_consumer": "site/src/components/Reference4MobileMenu.astro",
+    "pwa_manifest": "site/src/pages/manifest.webmanifest.ts",
+    "pwa_source_note": "site/src/assets/pwa/source/README.md"
+  },
+  "ownership": {
+    "AnnouncementsWordmark": {
+      "classification": "component",
+      "implementation": "live SVG use element",
+      "source_asset": "/brand/announcements-wordmark-ui.svg#announcements-wordmark-ui",
+      "view_box": [0, 0, 7819, 1514],
+      "source_sha256": "2e08393273700b0669951f2de217b4a0841b2a7e00d05539051f81e656af3a51"
+    },
+    "AnnouncementsLockup": {
+      "classification": "component",
+      "variants": ["desktop", "mobile"],
+      "composition": ["endorsement", "AnnouncementsWordmark"],
+      "endorsement": {
+        "desktop": ["Полюбить Калининград"],
+        "mobile": ["Полюбить", "Калининград"]
+      }
+    },
+    "leather_skins": {
+      "classification": "static decorative assets behind live lockup content",
+      "desktop": {
+        "path": "/assets/ui/desktop-head-leather-r5.webp",
+        "source_dimensions": [960, 352],
+        "runtime_dimensions": [240, 88],
+        "sha256": "2b51f46b803181800e7c5acadfd663306f84fe5134d7baaa0da7c34102068827"
+      },
+      "mobile": {
+        "path": "/assets/ui/mobile-head-skinny-leather-3x.webp",
+        "source_dimensions": [360, 252],
+        "runtime_dimensions": [120, 84],
+        "retina_scale": 3,
+        "sha256": "a57f81e60f438ccf003f0a7570468e67fd31d29d5f7063599f7d1bb235d52946"
+      }
+    },
+    "pwa_launcher_artwork": {
+      "classification": "operator-approved static application artwork; not a UI component",
+      "canonical_source": "docs/reference/PKA-PWA2.png",
+      "manifest_name": "Анонсы",
+      "manifest_short_name": "Анонсы",
+      "theme_color": "#98401f",
+      "background_color": "#fbf7ef",
+      "artifacts": [
+        {"path": "/assets/pwa/announcements-brand-v2-192.png", "size": [192, 192], "purpose": "any", "sha256": "e99b28e73f966732155f4cba802b470f1d85e2c5c5294cfd864403d61bdf0512"},
+        {"path": "/assets/pwa/announcements-brand-v2-512.png", "size": [512, 512], "purpose": "any", "sha256": "cb1a469e7584a62bab005babcb63805e8d921c73a8c12ec221094c5d8719827d"},
+        {"path": "/assets/pwa/announcements-brand-v2-maskable-192.png", "size": [192, 192], "purpose": "maskable", "sha256": "17cda57f44dd6d1d3bcd6190b846088ce17b030c1e51bbd789302f0676002d0e"},
+        {"path": "/assets/pwa/announcements-brand-v2-maskable-512.png", "size": [512, 512], "purpose": "maskable", "sha256": "278010225b5bfa00641819bbd77586aeb8f875672606f0d4296d3c3cfdd7fb27"}
+      ]
+    },
+    "favicon": {
+      "classification": "static asset",
+      "path": "/brand/favicon-tag-wide-o.svg",
+      "sha256": "2a85ce2a393720738437a9def56eac4ef4d7abc4b0d02bf436ca11e46247295d"
+    }
+  },
+  "variant_matrix": {
+    "desktop_header": {
+      "viewport_min_width": 1024,
+      "tag": {"width": 240, "height": 88, "padding": [18, 24, 16, 24], "bottom_radius": 12},
+      "lockup": {"width": 192, "row_sizes": [12, "auto"], "row_gap": 4},
+      "endorsement": {"font_size": 11, "line_height": 12, "letter_spacing_em": 0.08, "case": "uppercase"},
+      "wordmark_width": 192
+    },
+    "mobile_header": {
+      "tag": {"width": 120, "height": 84, "padding": [0, 0, 12, 14], "bottom_radius": 14},
+      "layout": {"direction": "column", "align": "start", "justify": "end", "gap": 4},
+      "endorsement": {"font_size": 7.5, "line_height": 8, "letter_spacing_em": 0.075, "case": "uppercase"},
+      "wordmark_width": 96
+    }
+  },
+  "usage_rules": [
+    "Keep endorsement and wordmark as live native text/SVG above the leather skin.",
+    "Do not bake lettering into the desktop or mobile leather asset.",
+    "Do not stretch the leather: preserve the 30:11 desktop and 10:7 mobile runtime ratios.",
+    "Use #98401f as the immediate image-loading/error fallback.",
+    "Use the mobile lockup with two endorsement lines; use the desktop lockup with one endorsement line.",
+    "PWA any-purpose artwork preserves the complete square source; maskable artwork uses the documented 82% safe-area treatment.",
+    "Do not treat a Penpot raster screenshot of the lockup as the canonical component."
+  ],
+  "penpot_projection": {
+    "status": "PAUSED_OWNER_CLOSED_WINDOW",
+    "required_page": "10.1 Announcements Wordmark",
+    "required_native_components": ["AnnouncementsWordmark", "AnnouncementsLockup/desktop", "AnnouncementsLockup/mobile"],
+    "allowed_static_assets": ["desktop leather skin", "mobile leather skin", "PWA any icon", "PWA maskable icon", "favicon"],
+    "required_specimens": ["desktop tag", "mobile tag", "horizontal lockup", "vertical lockup", "spacing and minimum-size rules", "PWA launcher artwork", "component versus static-asset classification"],
+    "resume_rule": "read-only exact-ID reconciliation before any mutation"
+  }
+}

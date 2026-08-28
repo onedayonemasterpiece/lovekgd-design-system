@@ -139,6 +139,28 @@ re-review. No item becomes processed until owner re-review.
 - owner paused Penpot and may close the window. Resume with read-only exact-ID
   reconciliation; do not replay the interrupted/partial projection.
 
+### OV-04 / OV-05 Git-side branding disposition
+
+The owner-readable Penpot page is still pending, but the required Git input is
+now explicit rather than inferred from one heading:
+
+- machine-readable contract:
+  `catalog/branding/announcements-v1/contract.v1.json`;
+- owner-readable rules:
+  `docs/branding/announcements-branding-sot.md`;
+- the one live owners are `AnnouncementsWordmark.astro` and
+  `AnnouncementsLockup.astro` with `desktop` / `mobile` variants;
+- desktop/mobile leather is classified as decorative static skin behind live
+  text/SVG, not as an alternate component root;
+- actual header dimensions, spacing, fallback colour and asset hashes are
+  source-locked;
+- the PWA `any` and `maskable` `192/512` launcher pairs are classified as
+  static application artwork, with the operator-approved source and `82%`
+  maskable safe-area rule retained.
+
+Both items remain `processed: NO`: Penpot is paused, so native page ancestry,
+readback, focused export and owner re-review do not yet exist.
+
 ### OV-52 implementation receipt
 
 - Astro/UI SoT: `events-bot-new` Draft PR

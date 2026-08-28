@@ -269,6 +269,22 @@ in `events-bot-new#596` commit `4243401a4`; the intervening card-like attempt
 `7d026b30d` was reverted. Penpot remains paused and incomplete, so Home is not
 closed and no prior export is valid `OV-50` closure evidence.
 
+### 9.2a `10.1 — Announcements Wordmark`
+
+`OV-04` and `OV-05` now have a bounded Git-side source contract:
+
+- `catalog/branding/announcements-v1/contract.v1.json` pins the one live
+  `AnnouncementsWordmark` and `AnnouncementsLockup` family;
+- `docs/branding/announcements-branding-sot.md` records desktop/mobile tag
+  geometry, spacing, usage and the component/static-asset boundary;
+- leather remains a decorative raster skin behind live DOM/SVG lettering;
+- the favicon and four PWA `any`/`maskable` `192/512` images remain static
+  application artwork and carry exact Astro hashes.
+
+This does not close either item. Penpot is paused, so the owner-readable page,
+native master ancestry, linked specimens, focused export and readback are still
+missing. On resume, begin with read-only exact-ID reconciliation.
+
 ### 9.3 `63.11 — Atlas · Interest clubs`
 
 The fabricated `Клуб настольных игр`, `6 встреч · Калининград` and single-club counts were removed. The existing lowest owner `Interest clubs / Club card / state=ready` now uses the committed fixtures from `site/src/data/interest-clubs.json`:
