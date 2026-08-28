@@ -3,7 +3,7 @@
   "review_item": "OV-44",
   "captured_at": "2026-08-28T21:32:48Z",
   "processed": false,
-  "status": "CORRECTION_MATERIALIZED_DESKTOP_AND_MOBILE_READBACK_PASS_VISUAL_EXPORT_BLOCKED",
+  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
   "source_contract": "catalog/reconstruction-atlas/v1/collection-free-ov44-owner-exact.v1.json",
   "source_tuple": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
@@ -153,8 +153,11 @@
   "visual_export": {
     "shape_id": "d87e18f1-dcb4-80a6-8008-880c4a6d708e",
     "format": "png",
-    "status": "HTTP_504_AFTER_NAMED_VERSION_AND_EXACT_READBACK",
-    "retry": "not_performed",
+    "status": "PASS_NATIVE_SHAPE_EXPORT",
+    "external_exporter": "HTTP 504 after the named version; not blindly retried",
+    "desktop": {"path": "evidence/recovery-20260828/penpot/ov44-free-collection-desktop-source-exact.png", "dimensions": [320, 300], "scale": 0.25, "sha256": "62cb21b74202dc8fd5438e2209a3fb23168aae3112c841287219bcfd405d3e15"},
+    "mobile": {"path": "evidence/recovery-20260828/penpot/ov44-free-collection-mobile-source-exact.png", "dimensions": [98, 300], "scale": 0.25, "sha256": "5d406a06508bb6b6825c3077fb7001b6ecd4f4cd5150cf46196d660216e2d18d"},
+    "visual_inspection": "PASS",
     "visual_acceptance": "NOT_CLAIMED",
     "owner_rereview_required": true
   }

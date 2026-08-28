@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_EXPORT_BLOCKED",
+  "status": "CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_QA_PASS / OWNER_REREVIEW_REQUIRED",
   "authority": {
     "owner_voice_packets": [
       "voice-20260828-184659-08d36dc1",
@@ -140,7 +140,7 @@
         "crop loss percent",
         "semantic crop disposition"
       ],
-      "status": "MATERIALIZED_STRUCTURAL_QA_COMPLETE_VISUAL_EXPORT_BLOCKED",
+      "status": "MATERIALIZED_STRUCTURAL_AND_VISUAL_QA_COMPLETE_OWNER_REREVIEW_REQUIRED",
       "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
       "page_id": "8f804431-c282-8075-8008-8d9c992fa627",
       "root_id": "8f804431-c282-8075-8008-8d9d13fc5522",
@@ -149,14 +149,15 @@
       "linked_instances": 12,
       "detached_instances": 0,
       "validation_errors": [],
-      "export_status": "BLOCKED: bounded festival-2 section PNG returned HTTP 504; same exporter had already failed whole-board and bounded HeroTalk-chain exports"
+      "export_status": "PASS via native shape.export at scale 0.125; external exporter HTTP 504 was not blindly retried",
+      "export_path": "evidence/recovery-20260828/penpot/ov42-event-card-container-packed-rows-full.png",
+      "export_sha256": "51f3d49a79cfeab8f9659537035927cd3f8932facae33c2b1c4759a814bcc0f2"
     }
   },
   "closure": {
     "processed": false,
     "owner_rereview_required": true,
     "remaining": [
-      "successful focused Penpot export and visual inspection",
       "owner re-review"
     ]
   }

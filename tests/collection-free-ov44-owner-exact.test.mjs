@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
@@ -41,8 +42,8 @@ test('OV-44 browser evidence proves responsive large-card composition without ov
   assert.equal(browser.viewports.mobile.overflow, 0);
 });
 
-test('OV-44 Penpot receipt proves exact linked native state without claiming visual acceptance', () => {
-  assert.equal(penpot.status, 'CORRECTION_MATERIALIZED_DESKTOP_AND_MOBILE_READBACK_PASS_VISUAL_EXPORT_BLOCKED');
+test('OV-44 Penpot receipt proves exact linked native state without claiming owner acceptance', async () => {
+  assert.equal(penpot.status, 'CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED');
   assert.equal(penpot.penpot.revision_after_named_version, 2703);
   assert.equal(penpot.event_adapter_readback.length, 6);
   assert.ok(penpot.event_adapter_readback.every(({ exact_text, native_image_data_type }) => (
@@ -56,6 +57,11 @@ test('OV-44 Penpot receipt proves exact linked native state without claiming vis
   assert.equal(penpot.idempotency.sticky_created_count_on_second_run, 0);
   assert.equal(penpot.visual_export.visual_acceptance, 'NOT_CLAIMED');
   assert.equal(penpot.visual_export.owner_rereview_required, true);
+  for (const item of [penpot.visual_export.desktop, penpot.visual_export.mobile]) {
+    const buffer = await readFile(new URL(`../${item.path}`, import.meta.url));
+    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], item.dimensions);
+    assert.equal(createHash('sha256').update(buffer).digest('hex'), item.sha256);
+  }
 });
 
 test('OV-49 remains explicit rather than fabricating a nonempty Unusual feed', () => {

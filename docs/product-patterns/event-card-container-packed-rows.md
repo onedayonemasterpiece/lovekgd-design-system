@@ -1,6 +1,6 @@
 # Event-card container: packed rows and ecological crop
 
-Status: `CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_EXPORT_BLOCKED`
+Status: `CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_QA_PASS / OWNER_REREVIEW_REQUIRED`
 
 Owner clarification is registered in
 [`REV-IDEAHUB-20260828-02`](../reviews/idea-hub-owner-voice-intake-20260828-continuation-02.md).
@@ -75,8 +75,12 @@ contains `12` linked instances and `0` detached copies across the required
 version is `Recovery 2026-08-28 · OV-42 packed rows · Astro c33652ed0` and
 `validate()=[]`.
 
-The external Penpot exporter still returns HTTP `504`, including for the
-bounded two-card section. Structural and Astro receipts are:
+The external Penpot exporter still returned HTTP `504`, but the documented
+native `shape.export({type: 'png', scale})` path produced a focused full-board
+export which was visually inspected. The `213×346` proof is
+`evidence/recovery-20260828/penpot/ov42-event-card-container-packed-rows-full.png`
+(`sha256:51f3d49a79cfeab8f9659537035927cd3f8932facae33c2b1c4759a814bcc0f2`).
+Structural and Astro receipts are:
 
 - [`event-card-container-packed-rows-receipt.v1.json`](../../evidence/recovery-20260828/astro/event-card-container-packed-rows-receipt.v1.json);
 - [`event-card-container-packed-rows-structural-receipt.v1.json`](../../evidence/recovery-20260828/penpot/event-card-container-packed-rows-structural-receipt.v1.json).

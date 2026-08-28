@@ -808,7 +808,7 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 - duration: `39s`
 - item ref: `itm_kUZECdpB-ie1ocH15Yw5m5c6mt8YG_cX`
 - transcription ref: `atr_QZspXk1pR0pMCLwH5wrZZy8-5VsFa7xHXgElnOj6pYY`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -818,6 +818,17 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 **Нормализованное требование**
 
 Показать несколько вариантов раскладки фестивальных карточек: широкая, узкие, комбинации по доступной ширине и числу событий; закрыть промежуточное состояние между одной большой и фиксированной сеткой.
+
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.09` now projects the complete live Astro source: `21` festivals across
+July—December, not the prior one-card crop. The desktop rows prove the actual
+`1`, `4+3`, `4+1`, `4+1`, `2`, `1` formations; the mobile owner carries the
+complete `390×4091` document. The reusable native `2/3/4` packed-row pattern
+on page `40.7` has `12` linked instances, `0` detached copies and a successful
+focused visual export. Contract:
+`catalog/reconstruction-atlas/v1/festivals-ov41-43-source-exact.v1.json`.
+Owner acceptance is not claimed; `processed: NO`.
 
 ---
 
@@ -829,7 +840,7 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 - duration: `106s`
 - item ref: `itm_Zlc63dyKD3P7mPaumGr6Ug-sgZvyVdh7`
 - transcription ref: `atr_7WNIpoG7LDsMdOZiM1o5naZ9onik4_G3_8blDiqphPk`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -844,6 +855,13 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 
 Ввести и визуально доказать универсальный паттерн `Event card container`: контейнер занимает 100% доступной ширины; несколько карточек делят его полностью по детерминированным правилам — поровну или неравномерно с учётом исходных изображений. Применить как минимум к `63.09`, странице выходных и странице даты.
 
+**Verified bounded correction (2026-08-28)**
+
+The native page `40.7` already binds the production related/festival packers
+and now has a successful visually inspected export in addition to its exact
+structural receipt. Page `63.09` visibly consumes the same formation rules in
+the complete Astro projection. Owner rereview remains required; `processed: NO`.
+
 ---
 
 ## OV-43 — потерян акцент на количестве фестивалей и периоде
@@ -854,7 +872,7 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 - duration: `16s`
 - item ref: `itm_U5qvVoPfwbkbXFAlx4qljBB3bBOMt80C`
 - transcription ref: `atr_P2g4KICTHussnmhdokcbbP0gqMI-P3ZYi0pkTzYfE4Q`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -864,6 +882,13 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 **Нормализованное требование**
 
 Сверить с Astro и восстановить акцентное представление количества фестивалей и временного периода, а не только текстовое наличие этих данных.
+
+**Verified source-exact correction (2026-08-28)**
+
+Both complete owners restore the Astro hero metric block with large separated
+values `21` and `Июль—декабрь`; this is not an invented text-only substitute.
+Visual and browser evidence are bound by the OV-41/42/43 contract. Owner
+acceptance is not claimed; `processed: NO`.
 
 ---
 
@@ -875,7 +900,7 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 - duration: `87s`
 - item ref: `itm_GUEDtwzpmkQBNDS298PbLAME9NJ0a4EM`
 - transcription ref: `atr__ddGLKxWmoDxalf8Xc4ppt-fz2Vp9gJjtizyciHgB-4`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -887,6 +912,16 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 **Нормализованное требование**
 
 `63.08` не должна быть пользовательской страницей с набором навигационных кнопок. Каноническая подборка — это список событий, преимущественно с крупными карточками. Floating Island должен постоянно показывать тип подборки: «Бесплатно», локация, фестиваль или более сложная подпись.
+
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.08` is the concrete Astro Free collection, not the navigation catalog:
+it has the `0 ₽ БЕСПЛАТНО` identity, `23` timed events, `14` ongoing
+exhibitions, large linked EventCard adapters and compact sticky-identity states.
+Both native owners now have successful focused exports and visual inspection;
+the exact receipt remains
+`evidence/recovery-20260828/penpot/collection-free-ov44-owner-exact-receipt.v1.json`.
+Owner acceptance is not claimed; `processed: NO`.
 
 ---
 
