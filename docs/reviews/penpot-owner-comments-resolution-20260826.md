@@ -582,6 +582,38 @@ native structural and owner-visible composition was already durable.
 Contract: `catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-seven-receipt.v1.json`.
 
+### 9.4c Concrete Free collection (`OV-44`)
+
+Status: `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_BLOCKED`;
+`processed: NO`.
+
+Page `63.08` no longer uses the `/podborki/` navigation catalog as its product
+owner. Desktop and mobile owners now link the exact
+`/podborki/besplatnye-sobytiya/` composition: the large source medallion,
+source hero copy, `23 событий`, three representative real large EventCards and
+the responsive shell. Separate desktop/mobile native states preserve the
+compact `scroll=hero-passed` identity instead of showing the large and compact
+medallions simultaneously.
+
+The six exact-data adapters bind real fixtures `7030`, `6947` and `7006` to the
+certified desktop/mobile EventCard templates. Bounded readback verified every
+title, type, occurrence, price and place, native image data capability, six
+linked adapter roots, zero detached adapter roots and
+`currentFile.validate()=[]`. A second materializer run created zero adapters,
+body components or sticky states. The desktop owner rerun returned HTTP 504;
+settled exact readback proved the expected two direct linked regions and clean
+validation, so no blind retry was performed. The mobile rerun returned cleanly.
+
+Named version `OV44 collections · real Free collection desktop mobile` was
+saved at revision `2703`. The subsequent bounded desktop owner PNG export still
+returned external HTTP 504. Therefore this checkpoint does **not** claim visual
+acceptance or `CORRECTIONS_VERIFIED`; it is awaiting direct owner rereview in
+Penpot. Dense `23 + 14` list stress remains generated and tested in Astro rather
+than duplicated by hand in Penpot.
+
+Contract: `catalog/reconstruction-atlas/v1/collection-free-ov44-owner-exact.v1.json`.
+Receipt: `evidence/recovery-20260828/penpot/collection-free-ov44-owner-exact-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
