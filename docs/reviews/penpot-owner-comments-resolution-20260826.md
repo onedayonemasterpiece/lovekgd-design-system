@@ -654,6 +654,37 @@ owner rereview in Penpot is still required.
 Contract: `catalog/reconstruction-atlas/v1/event-detail-ov45-owner-exact.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/event-detail-ov45-owner-exact-receipt.v1.json`.
 
+### 9.4e Event detail mobile production surface (`OV-46`)
+
+Status: `FOCUSED_VISUAL_QA_PASS / OWNER_REREVIEW_REQUIRED`;
+`processed: NO`.
+
+The vague mobile defect report is now anchored to the actual production route,
+not inferred from the desktop composition. At `390×844`, fixture `5459` uses
+the `accepted-v8` mobile surface: a `390×551.484375` authored poster, the
+`366×422.59375` decision card overlapping it at `y=529.890625`, the complete
+three-row action/meta structure, source medallions, full description, `Коротко`
+facts and source gate. The browser document has zero horizontal overflow.
+
+The existing Penpot owner was corrected in place. Its linked hero, summary,
+identity/description, transparent header and bottom-navigation ancestry are
+preserved. The missing `Коротко` facts and source gate were added as native
+editable shapes; the owner now continues through that gate instead of clipping
+inside the description. A second facts pass returned `existing:true`, the
+second owner pass changed no identities, and `currentFile.validate()=[]`.
+
+Visual QA was not treated as optional. The first full-owner export exposed a
+real z-order defect: the dark action surface covered the orange primary CTA.
+The CTA and its label were reordered above that surface. The final focused
+`366×430` export visibly contains `Купить билет`, calendar, share/`13`,
+like/`164`, weekday, date and venue, and passed review against the saved Astro
+top capture. Named version `OV46 event detail · mobile source exact final` was
+saved at revision `2720`. This is focused visual QA, not owner acceptance; the
+item remains `processed: NO` until direct rereview.
+
+Contract: `catalog/reconstruction-atlas/v1/event-detail-ov46-mobile-owner-exact.v1.json`.
+Receipt: `evidence/recovery-20260828/penpot/event-detail-ov46-mobile-owner-exact-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
