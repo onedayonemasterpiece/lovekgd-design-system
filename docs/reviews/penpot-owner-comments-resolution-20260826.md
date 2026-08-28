@@ -226,3 +226,87 @@ For every remaining Rail target, the required process is now:
 Forbidden operations include parallel full-tree clones, two overlapping Rail trees, global `findShapeById`, full-page serialization/export, multi-target mutations, and treating `remove()` as successful without an exact postcondition read.
 
 `OV-01`, `OV-02`, `OV-08`, `OV-25`, `OV-26` and `OV-27` remain `processed: NO`. Rail cleanup remains incomplete until the former component count is zero, all consumers inherit canonical Rail and `EventMediaFrame`, focused exports pass, `validate()=[]`, and the result is committed and fresh-read from remote GitHub.
+
+## 9. Recovery readback and bounded corrections — 2026-08-28
+
+Status: `PARTIAL_DURABLE_CHECKPOINT / READY_TO_CONTINUE_OWNER_REVIEW`.
+
+This checkpoint supersedes unverified chat claims for revisions `2582–2596`; it does not mark the current backlog complete. Fresh file history contains autosaves `2583`, `2585`, `2590` and `2595`, but acceptance is based only on revision `2604+` structural readback.
+
+### 9.1 Fresh authority and intake
+
+- Astro authority: `events-bot-new@8710e56fa3685f6c30a90cd062d532dce0348cce`.
+- IdeaHub intake authority: `idea-hub@5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`.
+- One relevant corrected voice packet was deduplicated into existing `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45–OV-49`; four later cross-project packets were excluded. No new `OV-*` ID was created.
+- Penpot preflight: exact file `3be9e5e1-190f-8090-8008-713c0fbe6260`, start revision `2604`, temporary preflight shape removed, `validate()=[]`, focused export passed.
+
+### 9.2 `63.01 — Atlas · Home`
+
+The title remains the current Astro source text, `Куда пойти — без лишнего шума`; it was not replaced with new copy.
+
+The untrusted `HeroTalk / Evidence chain` structures were removed from both native HeroTalk mains rather than retained inside product UI:
+
+- desktop main `d87e18f1-dcb4-80a6-8008-88510b4e2f4e`, component `d87e18f1-dcb4-80a6-8008-885112b50a4a`;
+- mobile main `d87e18f1-dcb4-80a6-8008-88510ffeb115`, component `d87e18f1-dcb4-80a6-8008-8851133f333f`;
+- desktop consumer `d87e18f1-dcb4-80a6-8008-88532b1475e4` and mobile consumer `d87e18f1-dcb4-80a6-8008-88532cc843be` retained linked ancestry;
+- fresh page-scoped readback found `0` remaining `Evidence chain` shapes and `validate()=[]` at revision `2606`;
+- focused export: `evidence/recovery-20260828/penpot/home-herotalk-mobile.png`.
+
+`OV-07` remains `processed: NO`: its requested communication-chain specimen needs a separate Git-bound product-pattern contract and must not be embedded into the HeroTalk product main.
+
+### 9.3 `63.11 — Atlas · Interest clubs`
+
+The fabricated `Клуб настольных игр`, `6 встреч · Калининград` and single-club counts were removed. The existing lowest owner `Interest clubs / Club card / state=ready` now uses the committed fixtures from `site/src/data/interest-clubs.json`:
+
+- `Game Vibes` — `3 даты в каталоге · 1 встреча впереди`;
+- `Клуб исследователей нейронок` — `2 даты в каталоге`;
+- `Клуб исследователей технологий` — `3 даты в каталоге`.
+
+Desktop and mobile ready-state lists each contain three linked instances of component `d87e18f1-dcb4-80a6-8008-88648c204cec`; detached copies remain `0`. The page status is `В каталоге: 3`; fabricated-content hits are `0`; `validate()=[]` at revision `2609`.
+
+Focused export from this superseded interpretation was intentionally not retained; accepted exports are recorded in §10.
+
+This does not enable the feature in Astro. Production-default visibility remains controlled by `PUBLIC_INTEREST_CLUBS_ENABLED`; the ready state is a source-backed archetype fixture, not release permission. `OV-40` remains `processed: NO` until full card visual conformance and the rest of its evidence contract pass.
+
+### 9.4 Suspicious-page disposition
+
+- `63.12 — Atlas · Favorites`: fresh readback confirmed desktop/mobile `authenticated-with-items` archetypes plus linked saved-event components using the real `event.real.5459` fixture. No new mutation was applied.
+- `63.15 — Atlas · Artifacts`: fresh readback confirmed one real `amber_cosmonaut` artifact and explicit states for all five slots. Slots `02–05` remain reserved because current Astro supplies no canonical artifact payload for them; their content must not be invented.
+- `10 — Brand assets`: current page still materializes only runtime wordmark and shell lockup. PWA/campaign/application variants remain outside this checkpoint and are not represented as complete.
+
+Durable receipt: `evidence/recovery-20260828/penpot/recovery-receipt.v1.json`.
+
+## 10. Owner correction: Interest-club card visual authority — 2026-08-28
+
+Status: `SUPERSEDES §9.3 VISUAL INTERPRETATION / PARTIAL_DURABLE_CHECKPOINT`.
+
+The first revision of §9.3 fixed fixture identity but retained a compressed white five-node card. The owner correctly rejected that result: it did not represent the actual `InterestClubCard.astro` surface. This entry supersedes that visual interpretation while preserving the source-backed three-fixture census.
+
+Fresh Astro browser evidence at `events-bot-new@8710e56fa3685f6c30a90cd062d532dce0348cce` established the actual card contract:
+
+- desktop card: `375.75 × 544`, radius `28`;
+- mobile card: `366 × 448`, radius `22`;
+- dark cover/fallback surface with media veil;
+- `Game Vibes` uses reviewed cover media from `event.real.2897` and the conditional `Ближайших встреч: 1` badge;
+- the other two fixtures use the deterministic dark fallback, not invented photos;
+- required visible anatomy: topic, title, full description, `Активность`, `Наблюдаем`, and `Подробнее →`.
+
+The lowest native main `d87e18f1-dcb4-80a6-8008-88648ab79ab4` / component `d87e18f1-dcb4-80a6-8008-88648c204cec` was rebuilt to that anatomy. All three desktop and all three mobile consumers remain component-copy instances; each has `18` descendants and an exact Git source binding. Desktop and mobile page compositions were resized to the real card geometry, and the footer/navigation were moved below the complete lists.
+
+Post-reopen readback at Penpot revision `2613` found:
+
+- `3` linked desktop cards and `3` linked mobile cards;
+- `0` detached card roots;
+- `0` fabricated-text hits;
+- exact fixture descriptions and observed ranges for all three clubs;
+- hidden future-meeting badge on the two fixtures with `future_meeting_count=0`;
+- `currentFile.validate()=[]`.
+
+Evidence:
+
+- Astro computed geometry: `evidence/recovery-20260828/astro/interest-club-card-computed.v1.json`;
+- Astro focused card captures: `evidence/recovery-20260828/astro/interest-club-card-game-vibes-desktop.png` and `...-mobile.png`;
+- Penpot focused exports: `evidence/recovery-20260828/penpot/interest-clubs-game-vibes-card-v2.png` and `interest-clubs-desktop-list-v2.png`;
+- receipt: `evidence/recovery-20260828/penpot/recovery-receipt.v1.json`.
+
+`OV-40` remains `processed: NO` because the broader owner backlog and release gate are still open; this status does not invalidate the corrected card parity proven above.
