@@ -3,7 +3,7 @@
   "review_item": "OV-45",
   "captured_at": "2026-08-28T21:58:26Z",
   "processed": false,
-  "status": "CORRECTION_MATERIALIZED_READBACK_PASS_VISUAL_EXPORT_BLOCKED",
+  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
   "source_contract": "catalog/reconstruction-atlas/v1/event-detail-ov45-owner-exact.v1.json",
   "source_tuple": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
@@ -176,7 +176,11 @@
   "visual_export": {
     "shape_id": "d87e18f1-dcb4-80a6-8008-880bfe361a1d",
     "format": "png",
-    "status": "HTTP_504_AFTER_NAMED_VERSION_AND_EXACT_READBACK",
+    "status": "PASS_NATIVE_SHAPE_EXPORT",
+    "external_exporter": "HTTP 504 after named version; not blindly retried",
+    "desktop_owner": {"path": "evidence/recovery-20260828/penpot/ov45-event-detail-desktop-owner-source-exact.png", "dimensions": [320, 782], "scale": 0.25, "sha256": "75ea7075e6edf4587bc2f2a6e1fbcd004f2b39c2a55abf1dddb74ff0524b0a65"},
+    "source_states": {"path": "evidence/recovery-20260828/penpot/ov45-event-detail-source-states.png", "dimensions": [275, 230], "scale": 0.25, "sha256": "9f9213a926f0d3da20cc1d022ee478a347ee8aa739651a7f9703c9d3bfb32c42"},
+    "visual_inspection": "PASS",
     "retry": "not_performed",
     "state_board_export": "not_attempted_after_exporter_504",
     "visual_acceptance": "NOT_CLAIMED",

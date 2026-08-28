@@ -933,7 +933,7 @@ Owner acceptance is not claimed; `processed: NO`.
 - duration: `57s`
 - item ref: `itm__YkPXcs3yplVJKrUpeQ89dJMHdJzTJOk`
 - transcription ref: `atr_gV7_6X1Qe_67oYDbt7oj6y6fz6yCnxGQq9PxR6BYfE8`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -948,6 +948,16 @@ Owner acceptance is not claimed; `processed: NO`.
 2. канонический overlap информационного блока на изображение, чтобы заголовок был виден на первом экране;
 3. состояния multi-date / multi-event и соответствующий компонент.
 
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.07` now contains the donor-accurate `event.real.5459` desktop owner
+with a `240px` first-screen title overlap, the linked `dramteatr39` top
+medallion state for `5757`, and both summary/practical multi-occurrence states
+for `5511`. The complete owner and focused state board now have successful
+native exports and visual inspection. Receipt:
+`evidence/recovery-20260828/penpot/event-detail-ov45-owner-exact-receipt.v1.json`.
+Owner acceptance is not claimed; `processed: NO`.
+
 ---
 
 ## OV-46 — мобильный вариант содержит визуальные ошибки
@@ -958,7 +968,7 @@ Owner acceptance is not claimed; `processed: NO`.
 - duration: `5s`
 - item ref: `itm_adnJp3aRAoHkEtkT7N9O830TlKUr6VN7`
 - transcription ref: `atr_BBljbiNfWIWL08eV-y2lMLdb3tZDNIsegezrD0HjXGs`
-- status: `CAPTURED_NEEDS_VISUAL_CONTEXT`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -968,6 +978,14 @@ Owner acceptance is not claimed; `processed: NO`.
 **Нормализованное требование**
 
 Привязать сообщение к соседнему page context и провести визуальный Astro ↔ Penpot diff мобильного варианта. Без изображения/точки комментария нельзя честно закрыть пункт.
+
+**Verified contextual correction (2026-08-28)**
+
+The adjacent context is `63.07 Event detail`. Its mobile owner was rebuilt
+against the exact Astro `5459` route and has focused visual QA evidence in
+`catalog/reconstruction-atlas/v1/event-detail-ov46-mobile-owner-exact.v1.json`.
+The original five-second report is therefore no longer contextless. Owner
+rereview is still required; `processed: NO`.
 
 ---
 
@@ -979,7 +997,7 @@ Owner acceptance is not claimed; `processed: NO`.
 - duration: `15s`
 - item ref: `itm_xjgAZp15Yszqa6jRuw_9_7WTUkThj6Iu`
 - transcription ref: `atr_Zxhng5o-IHlouLAKNoeutCg_XqvbiCTCUHK1sa167q4`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -989,6 +1007,13 @@ Owner acceptance is not claimed; `processed: NO`.
 **Нормализованное требование**
 
 Показать полный state matrix поиска: skeleton/loading, прогресс выполнения, результаты и необходимые пустые/ошибочные состояния.
+
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.06` now includes the actual Astro loading/skeleton/progress controller
+and results state for the source query, with full mobile visual QA and exact
+receipt `evidence/recovery-20260828/penpot/search-ov47-mobile-source-exact-receipt.v1.json`.
+Owner acceptance is not claimed; `processed: NO`.
 
 ---
 
@@ -1000,7 +1025,7 @@ Owner acceptance is not claimed; `processed: NO`.
 - duration: `2s`
 - item ref: `itm_El-JeD57aClxcyAaaQIud45ekZwdThe-`
 - transcription ref: `atr_IFCvkkUUaCa8jDTJIceRtVCgcrElZLq2JJBkP1Kts3A`
-- status: `CONTEXT_FOR_OV-47`
+- status: `CONTEXT_RESOLVED_FOR_OV-47`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -1010,6 +1035,12 @@ Owner acceptance is not claimed; `processed: NO`.
 **Нормализованное требование**
 
 Не проектировать состояния поиска заново; взять Astro как проверяемый исходный материал и перенести в Penpot с parity evidence.
+
+**Verified source binding (2026-08-28)**
+
+OV-47 uses the existing Astro controller and result fixtures rather than a new
+invented search flow. This context is resolved into the OV-47 contract;
+`processed: NO` remains until owner rereview.
 
 ---
 

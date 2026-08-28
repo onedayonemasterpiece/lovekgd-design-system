@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
@@ -20,7 +21,7 @@ test('OV-45 exact source tuple preserves overlap, top medallion and occurrence f
   assert.equal(contract.penpot.detached_instances_allowed, 0);
 });
 
-test('OV-45 Penpot receipt preserves linked native states without claiming visual acceptance', () => {
+test('OV-45 Penpot receipt preserves linked native states without claiming owner acceptance', async () => {
   assert.equal(receipt.processed, false);
   assert.equal(receipt.penpot.desktop_owner.overlap_px, 240);
   assert.equal(receipt.penpot.desktop_owner.detached_direct_instances, 0);
@@ -29,6 +30,12 @@ test('OV-45 Penpot receipt preserves linked native states without claiming visua
   assert.equal(receipt.idempotency.created_on_second_run, 0);
   assert.deepEqual(receipt.structural_readback.page_validation, []);
   assert.equal(receipt.visual_export.visual_acceptance, 'NOT_CLAIMED');
+  assert.equal(receipt.visual_export.status, 'PASS_NATIVE_SHAPE_EXPORT');
+  for (const item of [receipt.visual_export.desktop_owner, receipt.visual_export.source_states]) {
+    const buffer = await readFile(new URL(`../${item.path}`, import.meta.url));
+    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], item.dimensions);
+    assert.equal(createHash('sha256').update(buffer).digest('hex'), item.sha256);
+  }
 });
 
 test('OV-45 browser evidence proves the three source branches at 1280x900', () => {
