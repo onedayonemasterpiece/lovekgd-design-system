@@ -777,7 +777,7 @@ active likes. Evidence and receipt are in the OV-38/39 contract above.
 - duration: `25s`
 - item ref: `itm_liUUolEmKagzar5KzEQmjR9u1Om3sdqt`
 - transcription ref: `atr_YAtS_sLPAQ1s6Bw_bHAcmg91pJ2JmArgC3SaoaFrpJ4`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -787,6 +787,16 @@ active likes. Evidence and receipt are in the OV-38/39 contract above.
 **Нормализованное требование**
 
 Материализовать реальные карточки клубов из Astro; убрать недопустимое состояние «каталог готовится», поскольку базовый непустой каталог гарантирован.
+
+**Verified source-exact correction (2026-08-28)**
+
+Page `63.11`, named revision `2739`, now contains the exact Astro fixtures
+`game-vibes`, `neural-researchers` and `technology-researchers` in both complete
+owners. All `3 + 3` roots remain linked to the one canonical Club card
+component; both catalog headers are reconciled to `state=ready;catalog=3`.
+Full-owner desktop/mobile exports, structural receipt and the source contract
+are recorded in `catalog/reconstruction-atlas/v1/interest-clubs-ov40-source-exact.v1.json`.
+Owner acceptance is not claimed; `processed: NO` until direct rereview.
 
 ---
 

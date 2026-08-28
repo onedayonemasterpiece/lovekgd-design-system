@@ -88,6 +88,7 @@ Current bounded corrections from this continuation:
 | Item | Status | Evidence | Processed |
 |---|---|---|---|
 | `OV-38`, `OV-39` | `READY_FOR_OWNER_REREVIEW` | Page `63.12` revision `2737` now uses the real future fixtures `7030` calendar-saved, followed by liked `7006` and `6947`, in three desktop columns / one mobile column. Both full owners retain the anonymous identity gate, linked canonical EventCard ancestry and source-sized document frames. Contract: `catalog/reconstruction-atlas/v1/favorites-ov38-39-populated-source-exact.v1.json` | `NO` |
+| `OV-40` | `READY_FOR_OWNER_REREVIEW` | Page `63.11` revision `2739` now shows the three factual Astro clubs in both complete owners. All `3 + 3` roots remain linked to the canonical Club card component; stale empty-state header identities are now `state=ready;catalog=3`. Contract: `catalog/reconstruction-atlas/v1/interest-clubs-ov40-source-exact.v1.json` | `NO` |
 
 Статус `READY_FOR_OWNER_REVIEW` запрещён. Следующий продуктовый этап — назначить owning contour для каждого item и выполнять bounded source-faithful fixes с доказательствами, а не считать Git-регистрацию обработкой.
 
