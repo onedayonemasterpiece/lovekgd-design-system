@@ -51,7 +51,7 @@ History: created by `5deb06583b19cc5eca3c08178b9df02060e57821`, terminology-norm
 | `10.1 Announcements Wordmark`: missing spacing/use rules, leather-backed tags and PWA cover | `OV-04`, `OV-05` | Direct clarification of the already-open Branding batch. |
 | `61.3 Weekend Time marker`: the marker block should not carry its own opaque background | `OV-51` | New page-specific visual/structural requirement. Verify Astro/UI surface rules before mutation. |
 | Weekend consumers: event cards must inherit the one canonical event-card family | `OV-08`, `OV-30` | Broadens the required consumer census to Weekend pages. |
-| `61.10 Weekend Discovery rail exact`: turn the full-width installed shelf into a content-sized transparent `Floating Island` | `OV-52` | New page-specific product-change requirement; `OV-33` concerns the Popular header/city shelf and does not close this separate Weekend rail. |
+| `61.10 Weekend Discovery rail exact`: turn the full-width installed shelf into a content-sized transparent `Floating Island` | `OV-52` | Implemented as shared `ListingDiscoveryRail@6`, with explicit `plane` / `floating-island` axis. Weekend consumes the Floating Island; Date and Popular consume the same v6 owner on the plane surface. Git-bound Penpot main and linked instance are recorded below. Owner re-review is still required. |
 
 ### Exact transcript — earlier relevant voice
 
@@ -108,9 +108,32 @@ File content commit on the evaluated HEAD: `3ac4b0daac735025b8b43a0521aba203dcae
 | `63.07 Event Details`: first-screen title/overlap and CTA differ from Astro; the CTA is described as invented | `OV-45`, `OV-46` | Adds explicit first-screen and CTA parity evidence. It supersedes any acceptance of the current page-local Event Details/CTA composition; exact mobile defects still require focused visual context. |
 
 The later packet creates no additional ID. The earlier packet creates
-`OV-50…OV-52`; all three remain `processed: NO`. All mapped actionable items
-remain open until Git SoT disposition, bounded Penpot mutation, structural
-readback, focused Astro ↔ Penpot evidence and owner re-review exist.
+`OV-50…OV-52`; all three remain `processed: NO`. `OV-51` and `OV-52` now have
+bounded Git/Penpot evidence and are ready for owner re-review; `OV-50` remains
+an open product change. No item becomes processed until owner re-review.
+
+### OV-52 implementation receipt
+
+- Astro/UI SoT: `events-bot-new` Draft PR
+  [`#596`](https://github.com/onedayonemasterpiece/events-bot-new/pull/596),
+  commits `95db01388` and `59fc98031`;
+- shared contract: `ListingDiscoveryRail@6`, surfaces `plane` and
+  `floating-island`; Weekend explicitly selects `floating-island`;
+- browser readback at `/vyhodnye/`, `1440×1000`: transparent `1440×52` outer
+  plane, content-sized `1188.734375×52` island, `0 px` city/time overlap;
+- Penpot revision `2621`: native component
+  `c0b867fa-32d2-8062-8008-8d679ca1da53`, native main
+  `c0b867fa-32d2-8062-8008-8d6799e9e61f`, linked copy
+  `c0b867fa-32d2-8062-8008-8d679cafd229`; old v5 component is retained as
+  deprecated and points to the v6 replacement;
+- named Penpot version:
+  `Recovery 2026-08-28 · OV-52 Git-bound 59fc98031`;
+- Penpot `validate()=[]`;
+- focused evidence:
+  `evidence/recovery-20260828/penpot/weekend-discovery-rail-v6.png`
+  (`1589×524`, `25,776` bytes, SHA-256
+  `2276afb40c612be593b3ccaa5d4be3b38bb4952701a8ea38b33f8e4d4f13200b`)
+  and `evidence/recovery-20260828/astro/weekend-discovery-rail-v6.{png,json}`.
 
 ## Exact transcript
 

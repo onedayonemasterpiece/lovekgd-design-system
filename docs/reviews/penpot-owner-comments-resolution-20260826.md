@@ -352,13 +352,26 @@ created three genuinely new items:
   It is `READY_FOR_OWNER_REREVIEW` but remains `processed: NO`; global ancestry
   is still governed by `OV-08`/`OV-30`;
 - `OV-52` — `61.10 Weekend Discovery rail exact` must become a content-sized
-  transparent Floating Island. Current Astro CSS and the Penpot main still use
-  a full-width rail (`100vw` in Astro, `1280×52` in Penpot), so this is an open
-  product change, not Penpot-only parity.
+  transparent Floating Island. The shared Astro/UI owner is now
+  `ListingDiscoveryRail@6` in Draft PR `events-bot-new#596` (commits
+  `95db01388`, `59fc98031`): the outer sticky plane remains transparent while
+  the inner island is content-sized, and the shared component retains an
+  explicit `plane` surface for Date and Popular. Browser readback at
+  `/vyhodnye/` (`1440×1000`) measured a transparent `1440×52` outer plane, a
+  `1188.734375×52` inner island and `0 px` overlap. Penpot revision `2621`
+  contains native v6 component `c0b867fa-32d2-8062-8008-8d679ca1da53`, native
+  main `c0b867fa-32d2-8062-8008-8d6799e9e61f` and linked copy
+  `c0b867fa-32d2-8062-8008-8d679cafd229`; v5 is retained as deprecated and
+  bound to the replacement. Reopen readback found the exact Git contract and
+  `validate()=[]`. Focused exports are
+  `evidence/recovery-20260828/penpot/weekend-discovery-rail-v6.png` and
+  `evidence/recovery-20260828/astro/weekend-discovery-rail-v6.{png,json}`.
+  It is `READY_FOR_OWNER_REREVIEW`, still `processed: NO`.
 
 The exact transcript, every-version history, complete exclusion census and new
 cursor are recorded in
 [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md).
 None of `OV-50…OV-52` is `processed: YES`, and no previous Home/Weekend evidence
-may be used to imply their closure. `OV-51` has bounded product evidence and is
-ready for owner rereview; `OV-50` and `OV-52` remain open product changes.
+may be used to imply their closure. `OV-51` and `OV-52` have bounded product
+evidence and are ready for owner rereview; `OV-50` remains an open product
+change.
