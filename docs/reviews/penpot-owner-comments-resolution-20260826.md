@@ -685,6 +685,43 @@ item remains `processed: NO` until direct rereview.
 Contract: `catalog/reconstruction-atlas/v1/event-detail-ov46-mobile-owner-exact.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/event-detail-ov46-mobile-owner-exact-receipt.v1.json`.
 
+### 9.4f Search complete runtime pages (`OV-47`, `OV-48`)
+
+Status: `FULL_VISUAL_QA_PASS / OWNER_REREVIEW_REQUIRED`;
+`processed: NO`.
+
+The earlier Search board was not a result: it exposed an anonymous idle shell,
+nine tiny state labels, three incomplete shimmer strips and an unrelated event
+fixture. The correction is anchored to the actual `/poisk/` production DOM,
+production EventCard renderer and the repository's search progress fixture. At
+`390×844`, query `послушать хор` now has two complete native page states:
+
+- loading: the button itself is `55%` progress, followed by `Варианты
+  найдены…`, the precision status, two `366×418.125` full-card skeletons and a
+  source `128px` peek;
+- results: `Найдено: 1`, the complete `event.real.7003` fallback card
+  (`Хоровое многоголосие`), dislike/share/like controls and the full search
+  feedback block.
+
+Both owners retain linked header, sticky `current=search` navigation and the
+existing collection-links ancestry. The collection adapter restores all nine
+source phrase rows, including `арт-вечеринка с музыкой`, before the three
+source explanatory notes. The result-card adapter retains linked Large Mobile
+EventCard ancestry while its editable native overlay records the exact measured
+`456 + 103.78125 + 47.1875 + 44` region anatomy. Screenshots remain evidence,
+never Penpot fills.
+
+The first full results export caught two real defects: the generic navigation
+showed Date as active and the ninth phrase was missing. Both were corrected
+before the final exports. Final Penpot PNGs are `390×2626` and `390×2521`, the
+second structural readback returned `currentFile.validate()=[]`, and named
+version `OV47-48 Search · mobile loading + results · Astro source exact` was
+saved at revision `2729`. This is visual QA, not owner acceptance; both items
+remain `processed: NO` until direct rereview.
+
+Contract: `catalog/reconstruction-atlas/v1/search-ov47-mobile-source-exact.v1.json`.
+Receipt: `evidence/recovery-20260828/penpot/search-ov47-mobile-source-exact-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
