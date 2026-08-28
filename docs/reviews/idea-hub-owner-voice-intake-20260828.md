@@ -15,9 +15,9 @@ This record adds the corrected IdeaHub voice as a source reference and clarifica
 
 ## Relevant voice and dedup disposition
 
-Source file: [`inbox/voice/2026/08/voice-20260828-114654-2c907d62.md`](https://github.com/onedayonemasterpiece/idea-hub/blob/5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533/inbox/voice/2026/08/voice-20260828-114654-2c907d62.md)  
-Captured: `2026-08-28 11:46:54–11:54:44 Europe/Kaliningrad`  
-Packet: `voice-20260828-114654-2c907d62`  
+Source file: [`inbox/voice/2026/08/voice-20260828-114654-2c907d62.md`](https://github.com/onedayonemasterpiece/idea-hub/blob/5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533/inbox/voice/2026/08/voice-20260828-114654-2c907d62.md)
+Captured: `2026-08-28 11:46:54–11:54:44 Europe/Kaliningrad`
+Packet: `voice-20260828-114654-2c907d62`
 File content commit on the evaluated HEAD: `3ac4b0daac735025b8b43a0521aba203dcaed340`
 
 | Source observation / target | Existing item(s) | Disposition and supersession |

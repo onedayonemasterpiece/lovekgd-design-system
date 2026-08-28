@@ -38,12 +38,13 @@ This receipt is committed as a follow-up metadata commit, so the final branch he
 - Read IdeaHub tree `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533` and all five voice files from `voice-20260828-114654-2c907d62.md` through `voice-20260828-125353-9e0a4426.md`.
 - Read the existing review index and `OV-01…OV-49` intake records for deduplication.
 - Ran a Python 3 docs intake check comparing the transcript byte-for-byte, resolving local links and asserting the inclusive five-file cursor.
-- Ran `git diff --check`.
+- Ran `git diff --check` during implementation and the exact range check `git diff --check 58555eaa435c20f730178de6c5cfee7c264065cd..HEAD` after the receipt correction.
 
 ## Tests / verification
 
 - `docs intake validation: PASS (exact transcript, links, 5-file inclusive cursor)`
 - `git diff --check: PASS`
+- `git diff --check 58555eaa435c20f730178de6c5cfee7c264065cd..HEAD: PASS`
 - Relevant voice count: `1`; excluded later cross-project voices: `4`.
 - Dedup result: `0` new owner IDs; mapped source clarification/supersession refs to existing `OV-08`, `OV-30`, `OV-33`, `OV-42`, `OV-45…OV-49`.
 - Cursor: `inbox/voice/2026/08/voice-20260828-125353-9e0a4426.md` at IdeaHub HEAD `5881ec64d0384cfc95ba7eb8cf07f5f15c8d4533`.
