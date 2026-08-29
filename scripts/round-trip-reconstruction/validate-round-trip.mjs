@@ -52,8 +52,12 @@ for (const item of comparisons.cases) {
 }
 
 const review = read('catalog/round-trip-reconstruction/v1/owner-review-manifest.v1.json');
-assert.equal(review.coverage.reviewable, 34);
-assert.equal(review.coverage.missing.length, 0);
+const invalidatedArchetypes = new Set((bindings.correction_overlays ?? [])
+  .filter(overlay => overlay.comparison_status?.startsWith('INVALIDATED_'))
+  .map(overlay => overlay.archetype_id));
+const invalidatedCaseIds = bindings.cases.filter(item => invalidatedArchetypes.has(item.archetype_id)).map(item => item.case_id).sort();
+assert.equal(review.coverage.reviewable, 34 - invalidatedCaseIds.length);
+assert.deepEqual([...review.coverage.missing].sort(), invalidatedCaseIds);
 assert.equal(new Set(review.cases.map(item => item.penpot.direct_url)).size, 34);
 
 const replay = read('evidence/round-trip-reconstruction/v1/penpot/replay-receipt.v1.json');

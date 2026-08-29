@@ -13,7 +13,9 @@ const comparisonById = new Map(comparisons.cases.map(item => [item.case_id, item
 const sha256 = path => createHash('sha256').update(readFileSync(path)).digest('hex');
 
 const cases = bindings.cases.map(item => {
-  const comparison = comparisonById.get(item.case_id);
+  const correction = bindings.correction_overlays?.find(overlay => overlay.archetype_id === item.archetype_id);
+  const evidenceInvalidated = correction?.comparison_status?.startsWith('INVALIDATED_') ?? false;
+  const comparison = evidenceInvalidated ? undefined : comparisonById.get(item.case_id);
   const penpotPath = `evidence/round-trip-reconstruction/v1/penpot/${item.case_id}.png`;
   const astroPath = `evidence/round-trip-reconstruction/v1/astro/${item.case_id}.png`;
   return {
@@ -25,13 +27,13 @@ const cases = bindings.cases.map(item => {
       page_id: item.penpot.page_id,
       board_id: item.penpot.board_id,
       direct_url: item.penpot.direct_url,
-      screenshot: existsSync(penpotPath) ? { path: penpotPath, sha256: sha256(penpotPath) } : null
+      screenshot: !evidenceInvalidated && existsSync(penpotPath) ? { path: penpotPath, sha256: sha256(penpotPath) } : null
     },
     astro: {
       commit: item.astro.commit,
       route: item.astro.route,
       candidate_url: `http://127.0.0.1:4322${item.astro.route}`,
-      screenshot: existsSync(astroPath) ? { path: astroPath, sha256: sha256(astroPath) } : null
+      screenshot: !evidenceInvalidated && existsSync(astroPath) ? { path: astroPath, sha256: sha256(astroPath) } : null
     },
     comparison: comparison ?? null,
     status: comparison ? 'reviewable' : 'missing_evidence'
