@@ -2,32 +2,71 @@
 
 Репозиторий хранит архитектуру, контракты, инструменты и воспроизводимые доказательства дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы».
 
-## Текущий статус
+## Начать отсюда
+
+Для любой задачи о статическом сайте, Astro ↔ Git UI SoT ↔ Penpot, Golden
+fixtures, архетипах или component lineage сначала откройте
+[`docs/static-site-design-system-current-state.md`](docs/static-site-design-system-current-state.md).
+
+Опубликованный `main@c6419a62af3d73f53e81d95a518fbe62a4a1c942`
+— исторический snapshot от 19 августа 2026 года. Текущие evidence и изменения
+распределены между Draft PR `#52`, активным owner-review PR `#53` и Astro/UI PR
+`events-bot-new#596`. Нельзя выводить текущее состояние только из `main` или из
+старого PR body; перед работой нужен fresh-read фактических heads.
+
+## Текущий layered status
+
+```text
+published main snapshot: historical reconstruction state
+source-proven AS-IS baseline: PR #52 PASS / DRAFT / UNMERGED
+active owner-review corrections: PR #53 IN_PROGRESS
+Golden Event Corpus pilot: identity PASS / visual FAIL
+active Astro/UI candidate: events-bot-new PR #596 DRAFT
+per-family global promotion: 0
+production migration of draft candidate: NOT AUTHORIZED
+```
+
+Это означает одновременно две вещи:
+
+1. старая таблица `native components: 0 / variants: 0 / tokens: 0` больше не
+   описывает активный owner-review contour;
+2. наличие реальных Penpot components, fixtures и bounded parity receipts не
+   означает, что система целиком owner-accepted, promoted или deployed.
+
+Точное текущее состояние и запретные утверждения находятся в current-state
+router, а per-item review status — в `docs/reviews/index.md` на актуальном head
+PR `#53`.
+
+## Исторический reconstruction snapshot
+
+Следующие числа относятся к исходному опубликованному snapshot, а не к текущему
+состоянию активной ветки:
 
 ```text
 phase: reconstruction
 Penpot Resource Graph: TO-BE scaffold created and validated
 Penpot file_id: 3be9e5e1-190f-8090-8008-713c0fbe6260
-Penpot revision: 30
+historical Penpot revision: 30
 pages: 23
 managed zones: 257
-native components: 0
-variants: 0
-tokens/styles: 0
-imported assets: 0
+historical native components: 0
+historical variants: 0
+historical tokens/styles: 0
 decoder snapshot: reviewed v1 committed
 logical current-UI components: 107
-candidate AS-IS contracts: 12 (not accepted)
+candidate AS-IS contracts: 12 (not accepted at that snapshot)
 reviewed reconciliation capsules: 6
 manually reviewed rasters: 157
 promoted resource families: 0
 ```
 
-**Принятой компонентной дизайн-системы пока нет.** Runtime Review 003.*, Resource Graph 004a/004b и runtime-derived 005 были техническими экспериментами. Активный Penpot-файл очищен и заново содержит только утверждённую TO-BE структуру. Старые Penpot-компоненты, screenshots и object IDs не являются источником истины и не участвуют в будущем декодировании.
+Runtime Review 003.*, Resource Graph 004a/004b и runtime-derived 005 были
+техническими экспериментами. Их screenshots и object IDs не являются
+автоматически действующей нормой. Фактический historical PASS receipt:
+[`receipts/penpot/resource-graph-to-be-structure-v1.json`](receipts/penpot/resource-graph-to-be-structure-v1.json).
 
-Фактический PASS receipt: [`receipts/penpot/resource-graph-to-be-structure-v1.json`](receipts/penpot/resource-graph-to-be-structure-v1.json).
-
-Машиночитаемый контракт структуры: [`contracts/resource-graph-scaffold.v1.json`](contracts/resource-graph-scaffold.v1.json).
+Машиночитаемый historical scaffold:
+[`contracts/resource-graph-scaffold.v1.json`](contracts/resource-graph-scaffold.v1.json).
 
 ## Три связанных, но раздельных Penpot-контура
 
@@ -43,21 +82,29 @@ Resource Graph
   product representations, evidence, promotion and accepted exports
 ```
 
-Resource Graph не является свободным brainstorm-canvas. Product Atlas и UI Exploration находятся в отдельных Penpot-файлах и связываются stable IDs и deep links.
+Resource Graph не является свободным brainstorm-canvas. Product Atlas и UI
+Exploration находятся в отдельных Penpot-файлах и связываются stable IDs и deep
+links.
 
 ## Два режима авторитетности
 
 ### `reconstructed`
 
-Текущий Astro-код и runtime показывают, что фактически существует. Декодер восстанавливает component families, состояния и фрагментацию. Penpot нормализует и визуализирует результат, но ещё не является нормативным источником реализации.
+До promotion текущий Astro-код/runtime показывает, что фактически существует.
+Git UI SoT восстанавливает и нормализует contracts, fixtures и lineage; Penpot
+материализует native visual projection для review. Ни Penpot, ни отдельный
+`.astro`-файл не получают независимую authority.
 
 ### `design-system-led`
 
-Режим включается **по отдельному resource family** только после promotion gate. Для принятой версии один Component Contract связывает native Penpot component, canonical Astro implementation и runtime state evidence. Приложение обязано использовать принятую package-версию.
+Режим включается по отдельному resource family только после promotion gate. Для
+принятой версии один Component Contract связывает package/API, native Penpot
+component, Astro implementation, fixtures и runtime evidence. Product consumer
+использует pinned package version и не хранит тихий визуальный fork.
 
-## Будущий единый центр компонентов
+## Единый центр компонентов
 
-Целевая единица истины — versioned component package в Git:
+Долговечная единица истины — versioned component package/contract в Git:
 
 ```text
 Component Contract
@@ -70,13 +117,36 @@ Component Contract
 + version, migration and promotion receipts
 ```
 
-До promotion текущий UI в `events-bot-new` остаётся источником факта о реализации. После promotion семейства `events-bot-new` импортирует зафиксированную версию package и не хранит независимо редактируемую копию компонента.
+До promotion текущий UI в `events-bot-new` остаётся executable источником факта
+о реализации. После promotion семейства `events-bot-new` импортирует
+зафиксированную package version.
 
-Подробности: [`docs/component-contract-authority.md`](docs/component-contract-authority.md).
+Подробности:
+[`docs/component-contract-authority.md`](docs/component-contract-authority.md) и
+[`docs/ui-source-of-truth-roundtrip.md`](docs/ui-source-of-truth-roundtrip.md)
+на актуальном owner-review head.
 
-## Завершённый source-first decoder
+## Reference fixtures и parity
 
-Первый ограниченный source-first decoder завершён на exact source и runtime evidence:
+Owner requirement «один Golden Corpus» операционно означает один exact named
+scenario/pool на bounded comparison, с одинаковыми fixture IDs, hashes, clock,
+viewport и state в Astro и Penpot.
+
+Текущие scopes различаются по назначению:
+
+- 8 factual events — component conformance;
+- 5 factual events — archetype core;
+- 7 festivals;
+- 3 clubs;
+- 7 artifacts.
+
+Это не один универсальный payload list. Dense/full listings остаются generated
+Astro stress tests. Подробный executable bridge находится в
+`events-bot-new#596/docs/features/static-site-pages/design-system/reference-fixture-scenarios.md`.
+
+## Source-first decoder
+
+Первый bounded source-first decoder завершён на exact source/runtime evidence:
 
 ```text
 Astro source and generators
@@ -84,67 +154,62 @@ Astro source and generators
 → verification on real generated pages
 → candidate Component Contracts
 → mismatches and unresolved mappings
-→ manual visual review of 157/157 rasters and 135 raster-backed page records
 → immutable compact snapshot + permanent heavy evidence
-→ STOP before normalization and Penpot materialization
 ```
 
-Reviewed compact snapshot: [`catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/).
+Reviewed compact snapshot:
+[`catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/).
 
-Append-only behavioral evidence v1.1 импортирован в отдельный sibling-каталог
+Append-only behavioral evidence v1.1 находится в
 `catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`.
-Он не вложен в immutable v1 и не изменяет его component identities или решения. Отдельный
-validator проходит на 293 terminal probes (236 PASS, 39 MISMATCH,
-18 UNREACHABLE_WITH_REASON), 87 unresolved findings без readiness blockers и 134/134
-вручную просмотренных full-resolution rasters. Closure manifest
-`c676be4f2ad956b8a58c7707c8f71b7bb33afd771e506457309597e76d67d9a1` разрешает только
-аналитический project normalization synthesis.
+Исторические synthesis/readiness документы сохраняют доказательную историю, но
+не перекрывают более новые source-bound contracts/receipts активного PR `#53`.
 
-Исторический Project Normalization Synthesis v1 опубликован в
-[`docs/normalization/project-normalization-synthesis-v1.md`](docs/normalization/project-normalization-synthesis-v1.md),
-но его readiness-доказательство отклонено независимым red-team-аудитом. Текущая
-audit-remediation v1.1 и его v1.1.1 proof-closure contract находятся в
-[`docs/normalization/project-normalization-synthesis-v1-1.md`](docs/normalization/project-normalization-synthesis-v1-1.md) и
-[`docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md):
-47 аналитических групп, 0 strict-ready identities и пустая first wave.
+The normative
+[family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
+has eleven ordered states. Bounded materialization/readback evidence не
+переводит всю систему в `FAMILY_AND_ARCHETYPE_PROMOTION`.
 
-Это только исправление доказательной модели: exact-head Actions attestation и отдельный independent delta re-audit остаются обязательными; merge не разрешён.
-Candidate contracts остаются reconstructed, `NOT_MERGED` и не приняты как
-дизайн-система. Decoder не сопоставляет Astro со старыми Penpot-экспериментами и
-не мутирует Penpot. Подробности:
-[`docs/source-first-component-decoder.md`](docs/source-first-component-decoder.md).
+## Канонический маршрут
 
-The normative [family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md) has eleven ordered states. Current truth is `AS_IS_RECONSTRUCTED`; synthesis readiness is not `FAMILY_HYPOTHESIS_REVIEWED`, and authority changes only at `FAMILY_AND_ARCHETYPE_PROMOTION`.
-
-## Канонические документы
-
+- [Текущий layered state и routing](docs/static-site-design-system-current-state.md)
 - [Карта документации](docs/index.md)
+- [UI Source of Truth round trip](docs/ui-source-of-truth-roundtrip.md) — читать на актуальном PR `#53`
+- [Owner-review register](docs/reviews/index.md) — читать на актуальном PR `#53`
 - [Resource Graph 004 — operating contract](docs/resource-graph-004.md)
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
 - [Product-design operating model](docs/penpot-product-design-operating-model.md)
 - [Family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
-- [Project Normalization Synthesis v1.1 audit remediation](docs/normalization/project-normalization-synthesis-v1-1.md)
-- [Project Normalization Synthesis v1.1.1 proof-closure ledger](docs/audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md)
 - [История неканонических экспериментов](docs/legacy-experiments.md)
-- [Evidence-based research: UI normalization и component defragmentation](docs/research/ui-normalization-2026-08/README.md)
-- [First-party карта действий: исследования сигналов](docs/research/first-party-action-map-2026-08/README.md)
 
 ## Инструментальные роли
 
 ```text
 GitHub Actions
-  тяжёлое deterministic extraction, validation, screenshots, diffs and artifacts
+  deterministic extraction, validation, screenshots, diffs and artifacts
 
 Resource Graph plugin
-  воспроизводимая массовая материализация принятого package/IR
+  reproducible materialization of an accepted package/IR
 
 Penpot MCP
   scoped inspection, comments, bounded candidate mutations,
-  patch/reflow/rematerialization, evidence export and diagnostics
+  exact readback, focused export and diagnostics
 ```
 
-Плагин и MCP не имеют независимых каталогов: после появления компонентов оба пути должны потреблять один contract/IR и одинаковые stable IDs.
+Плагин и MCP не имеют независимых каталогов: оба пути должны потреблять один
+contract/IR и одинаковые stable IDs.
+
+## Запреты
+
+Пока owner/release gates открыты, нельзя утверждать:
+
+- что Penpot автоматически синхронизирован с Astro;
+- что дизайн-система полностью принята или промотирована;
+- что все визуально похожие карточки уже имеют одного технического предка;
+- что Golden Corpus визуально прошёл весь сайт;
+- что Draft candidate уже находится в production;
+- что green test, screenshot или `validate()=[]` равны owner acceptance.
 
 ## Репозитории
 
