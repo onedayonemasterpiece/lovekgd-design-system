@@ -835,3 +835,37 @@ Penpot now has the native authored-contain master
 row `6652` links to canonical cover `a21f0524-f565-8038-8008-787378260237` at
 `140×112`. Exact readback and `validate()=[]` pass. Receipt:
 `evidence/recovery-20260828/penpot/mobile-rail-media-parity-receipt.v1.json`.
+
+### 9.4k Popular desktop uses the centralized `ListingEventCard` owner (`OV-08`)
+
+Status: `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_QA_PARTIAL`;
+`processed: NO`.
+
+The visible desktop rows on `63.04 — Atlas · Popular listing` no longer depend
+on native `Popular card / slot=*` boards as their product card identity. Astro
+commit `52e220fc112d020b0a979de4ffa0101a3be6d76b` already delegates every row item
+to `ListingEventCard.astro` through
+`<ListingEventCard density="popular" ... />`; Penpot now expresses the same
+ownership.
+
+Fifteen source-exact Popular-density masters are registered under
+`Event cards / Compact variants / Popular density`. Every master preserves its
+factual event ID, source media component, source-sized frame, date/title/place,
+proof counts and optional medallion. The three desktop behavior groups
+`fast_growth`, `multi_source` and `discussed` each consume five linked masters
+and remain linked into the `1280×1415` desktop owner. The owner also uses the
+canonical Desktop header and `ListingDiscoveryRail@6`; deprecated local shell,
+rail and old group content stay hidden rather than becoming visible authority.
+
+A first focused owner export exposed that the linked media instances inherited
+a hidden flag. That was corrected at all fifteen card masters, and readback at
+Penpot revision `2909` proves `15/15` media instances visible and
+`currentFile.validate()=[]`. The next bounded central-card export returned
+external Penpot HTTP `504`, so this item does not claim complete visual or owner
+acceptance.
+
+Contract:
+`catalog/reconstruction-atlas/v1/popular-listing-event-card-centralization-20260829.v1.json`.
+Receipt:
+`evidence/recovery-20260829/penpot/popular-listing-event-card-centralization-receipt.v1.json`.
+Git checkpoint: `732d511`.
