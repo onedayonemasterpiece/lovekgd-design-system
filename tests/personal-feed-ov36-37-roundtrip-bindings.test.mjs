@@ -11,13 +11,13 @@ const receipt = read('evidence/recovery-20260829/penpot/personal-feed-ov36-37-na
 const archetype = bindings.archetypes.find((item) => item.archetype_id === 'archetype.personal-feed');
 const cases = bindings.cases.filter((item) => item.archetype_id === 'archetype.personal-feed');
 
-test('OV-36/37 round-trip binds the full current source-exact owners', () => {
+test('OV-36/37 round-trip binds the explicitly partial bounded owners', () => {
   assert.deepEqual(cases.map((item) => [item.viewport, item.width, item.height]), [['desktop', 1280, 3315], ['mobile', 390, 4612]]);
   assert.ok(cases.every((item) => item.astro.commit === '812ffc279728221b547707474bcb521f27c4a73d'));
   assert.ok(cases.every((item) => item.astro.capture.full_page === true));
   assert.ok(cases.every((item) => item.penpot.revision === 2798));
   assert.ok(cases.every((item) => item.penpot.direct_children.length === 6));
-  assert.ok(cases.every((item) => /profile-empty\+recommendations-3-of-9;auth=email\+yandex/.test(item.penpot.board_name)));
+  assert.ok(cases.every((item) => /bounded-coverage-3-of-16-interests\+3-of-9-recommendations;auth=email\+yandex · PARTIAL/.test(item.penpot.board_name)));
   assert.equal(JSON.stringify({ archetype, cases }).includes('consent-undecided'), false);
   assert.equal(JSON.stringify({ archetype, cases }).includes('state=undecided'), false);
 });
@@ -32,6 +32,13 @@ test('OV-36/37 round-trip preserves bounded fixture order, filters and embedded 
   assert.ok(feedback.penpot_instances.every((item) => item.role === 'recommendation-with-feedback'));
   assert.deepEqual(contract.semantic_resolution.source_exact_state.fixture_order, ['5459', '6870', '6941']);
   assert.equal(contract.semantic_resolution.source_exact_state.extra_personalization_consent, false);
+  assert.deepEqual(contract.bounded_penpot_projection.coverage, {
+    astro_interest_count: 16,
+    penpot_interest_count: 3,
+    astro_recommendation_count: 9,
+    penpot_recommendation_count: 3,
+    disposition: 'PARTIAL_NOT_SOURCE_EXACT_FULL_PAGE',
+  });
 });
 
 test('OV-36/37 source-exact correction is hash-bound and read back at revision 2798', () => {

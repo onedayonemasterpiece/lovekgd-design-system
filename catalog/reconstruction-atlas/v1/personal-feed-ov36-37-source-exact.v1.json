@@ -5,7 +5,7 @@
     "OV-36",
     "OV-37"
   ],
-  "status": "READY_FOR_OWNER_REREVIEW",
+  "status": "PARTIAL_BOUNDED_PROJECTION / FULL_16_INTERESTS_AND_9_RECOMMENDATIONS_MISSING_IN_PENPOT",
   "processed": false,
   "authority": {
     "astro_repository": "onedayonemasterpiece/events-bot-new",
@@ -40,6 +40,13 @@
       "exhibitions",
       "family"
     ],
+    "coverage": {
+      "astro_interest_count": 16,
+      "penpot_interest_count": 3,
+      "astro_recommendation_count": 9,
+      "penpot_recommendation_count": 3,
+      "disposition": "PARTIAL_NOT_SOURCE_EXACT_FULL_PAGE"
+    },
     "representative_events": [
       {
         "event_id": 5459,
@@ -104,8 +111,8 @@
     "round_trip_revision": 2798,
     "foundation_binding_revision": 2800,
     "owner_names": {
-      "desktop": "Archetype / Personal feed / viewport=desktop;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact",
-      "mobile": "Archetype / Personal feed / viewport=mobile;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact"
+      "desktop": "Archetype / Personal feed / viewport=desktop;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL",
+      "mobile": "Archetype / Personal feed / viewport=mobile;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL"
     },
     "owner_direct_children": {
       "desktop": [
@@ -139,16 +146,21 @@
     "overall_archetype_canonical": false,
     "resolved_scope": [
       "personal.header",
-      "personal.interest-profile",
-      "personal.filters",
-      "personal.feed",
-      "personal.feedback"
+      "personal.account",
+      "personal.runtime-note"
+    ],
+    "partial_scope": [
+      "personal.interest-profile:3-of-16",
+      "personal.filters:3-of-16",
+      "personal.feed:3-of-9",
+      "personal.feedback:3-of-9"
     ],
     "unresolved_scope": [
       "loading",
       "failure",
       "stale",
       "configured-profile",
+      "full-16-interests-in-penpot",
       "dense-9-in-penpot"
     ],
     "source_exact_state": {
@@ -158,7 +170,7 @@
       ],
       "extra_personalization_consent": false,
       "feed_is_never_blank": true,
-      "penpot_projection": "profile-empty+recommendations-3-of-9",
+      "penpot_projection": "bounded-coverage-3-of-16-interests+3-of-9-recommendations",
       "astro_dense_authority": "recommendations-9",
       "fixture_order": [
         "5459",

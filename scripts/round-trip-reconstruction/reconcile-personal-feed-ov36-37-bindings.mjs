@@ -35,15 +35,15 @@ const specs = {
     board: {
       id: 'd87e18f1-dcb4-80a6-8008-880d8c05a466',
       componentId: 'd87e18f1-dcb4-80a6-8008-880e09d93580',
-      componentName: 'viewport=desktop;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact',
-      name: 'Archetype / Personal feed / viewport=desktop;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact',
+      componentName: 'viewport=desktop;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL',
+      name: 'Archetype / Personal feed / viewport=desktop;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL',
       width: 1280,
       height: 3315,
     },
     workspace: {
       id: '8f804431-c282-8075-8008-8e0ced4d2a2d',
       componentId: '8f804431-c282-8075-8008-8e0b5a66375d',
-      componentName: 'viewport=desktop;state=profile-empty+recommendations-3-of-9',
+      componentName: 'viewport=desktop;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations',
     },
     interests: [
       ['8f804431-c282-8075-8008-8e0ced4d81ee', 'jazz'],
@@ -68,15 +68,15 @@ const specs = {
     board: {
       id: 'd87e18f1-dcb4-80a6-8008-880d8db35320',
       componentId: 'd87e18f1-dcb4-80a6-8008-880e925ae60b',
-      componentName: 'viewport=mobile;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact',
-      name: 'Archetype / Personal feed / viewport=mobile;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact',
+      componentName: 'viewport=mobile;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL',
+      name: 'Archetype / Personal feed / viewport=mobile;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL',
       width: 390,
       height: 4612,
     },
     workspace: {
       id: '8f804431-c282-8075-8008-8e0cfbb3ae6c',
       componentId: '8f804431-c282-8075-8008-8e0c48b3cc23',
-      componentName: 'viewport=mobile;state=profile-empty+recommendations-3-of-9',
+      componentName: 'viewport=mobile;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations',
     },
     interests: [
       ['8f804431-c282-8075-8008-8e0cfbb3d2ee', 'jazz'],
@@ -121,13 +121,14 @@ contract.authority.current_astro_commit = ASTRO_COMMIT;
 contract.semantic_resolution = {
   applies_over: 'catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json',
   overall_archetype_canonical: false,
-  resolved_scope: ['personal.header', 'personal.interest-profile', 'personal.filters', 'personal.feed', 'personal.feedback'],
-  unresolved_scope: ['loading', 'failure', 'stale', 'configured-profile', 'dense-9-in-penpot'],
+  resolved_scope: ['personal.header', 'personal.account', 'personal.runtime-note'],
+  partial_scope: ['personal.interest-profile:3-of-16', 'personal.filters:3-of-16', 'personal.feed:3-of-9', 'personal.feedback:3-of-9'],
+  unresolved_scope: ['loading', 'failure', 'stale', 'configured-profile', 'full-16-interests-in-penpot', 'dense-9-in-penpot'],
   source_exact_state: {
     authentication_choices: ['email', 'yandex'],
     extra_personalization_consent: false,
     feed_is_never_blank: true,
-    penpot_projection: 'profile-empty+recommendations-3-of-9',
+    penpot_projection: 'bounded-coverage-3-of-16-interests+3-of-9-recommendations',
     astro_dense_authority: 'recommendations-9',
     fixture_order: fixtureIds,
   },
@@ -146,7 +147,7 @@ receipt.round_trip = {
   mobile_owner_name: specs.mobile.board.name,
   desktop_direct_child_ids: specs.desktop.children.map((item) => item.shape_id),
   mobile_direct_child_ids: specs.mobile.children.map((item) => item.shape_id),
-  source_exact_state: 'profile-empty+recommendations-3-of-9;auth=email+yandex;policy=local-no-extra-consent',
+  source_exact_state: 'bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex;policy=local-no-extra-consent',
 };
 write(RECEIPT, receipt);
 

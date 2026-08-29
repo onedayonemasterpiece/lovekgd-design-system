@@ -20,8 +20,8 @@ const SUPPORT = {
   mobileNav: 'a21f5e36-5d76-8065-8008-86aec0a54bb5',
 };
 const WORKSPACE = {
-  desktop: { path: 'Personal feed / Workspace', name: 'viewport=desktop;state=profile-empty+recommendations-3-of-9', size: [1180, 1620], x: 5200, y: 0 },
-  mobile: { path: 'Personal feed / Workspace', name: 'viewport=mobile;state=profile-empty+recommendations-3-of-9', size: [366, 3430], x: 6440, y: 0 },
+  desktop: { path: 'Personal feed / Workspace', name: 'viewport=desktop;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations', size: [1180, 1620], x: 5200, y: 0 },
+  mobile: { path: 'Personal feed / Workspace', name: 'viewport=mobile;state=bounded-coverage-3-of-16-interests+3-of-9-recommendations', size: [366, 3430], x: 6440, y: 0 },
 };
 
 function installPersonalFeedOv3637NativeMaterializer(penpot, penpotUtils, storage) {
@@ -196,7 +196,7 @@ function installPersonalFeedOv3637NativeMaterializer(penpot, penpotUtils, storag
     const block = penpot.history.undoBlockBegin();
     try {
       replaceChildren(owner);
-      owner.name = `Archetype / Personal feed / viewport=${viewport};state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact`;
+      owner.name = `Archetype / Personal feed / viewport=${viewport};state=bounded-coverage-3-of-16-interests+3-of-9-recommendations;auth=email+yandex · PARTIAL`;
       owner.fills = [{ fillColor: '#fbf7ef', fillOpacity: 1 }]; owner.clipContent = true;
       if (mobile) {
         owner.resize(390, 4612);
