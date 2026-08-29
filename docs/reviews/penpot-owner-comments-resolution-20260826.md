@@ -700,6 +700,35 @@ remain `processed: NO` until direct rereview.
 Contract: `catalog/reconstruction-atlas/v1/search-ov47-mobile-source-exact.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/search-ov47-mobile-source-exact-receipt.v1.json`.
 
+### 9.4g Personal feed is never blank (`OV-36`, `OV-37`)
+
+Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`.
+
+The previous `63.13` composition was not an acceptable result: it replaced the
+real `/dlya-menya/` workspace with a blank/invented surface and a full-page
+raster projection. The correction is bound to Astro commit
+`bebb49b3ae5478cbb7d8f7c3ca303bd0c357bbbf`. Personal recommendations are
+available without an additional consent gate, the account block exposes both
+source authentication paths (`По электронной почте`, `Через Яндекс`), and the
+workspace represents both `not-yet` and configured profile states.
+
+Penpot now uses native editable, linked compositions rather than a screenshot
+fill. The desktop owner `d87e18f1-dcb4-80a6-8008-880d8c05a466` is
+`1280×3315`; the mobile owner `d87e18f1-dcb4-80a6-8008-880d8db35320` is
+`390×4612`. Each has six direct linked regions. Their workspace masters are
+`1180×1620` and `366×3430`, with exact recommendation fixtures `5459`, `6870`
+and `6941` laid out as three desktop columns and one mobile column. Those three
+cards are the bounded Penpot representative of the same factual nine-card
+Astro set, not a claim that runtime contains only three items.
+
+Readback reports `sourceProjectionCount=0` and `currentFile.validate()=[]`.
+Named version `OV36-37 Personal feed · native populated + email and Yandex`
+was saved. Both bounded owner exports passed visual inspection; this is not
+owner acceptance, so both observations remain `processed: NO`.
+
+Contract: `catalog/reconstruction-atlas/v1/personal-feed-ov36-37-source-exact.v1.json`.
+Receipt: `evidence/recovery-20260829/penpot/personal-feed-ov36-37-native-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
