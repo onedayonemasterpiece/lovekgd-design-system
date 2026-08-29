@@ -5579,7 +5579,29 @@
           "plan_bound": true,
           "region_id": "search.query-field",
           "required": true,
-          "semantic_role": "search.query-field"
+          "semantic_role": "search.query-field",
+          "source_exact_instances": [
+            {
+              "state": "loading",
+              "shape_id": "8f804431-c282-8075-8008-8de4a58ade17",
+              "component": {
+                "id": "8f804431-c282-8075-8008-8de4727d7df1",
+                "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                "name": "viewport=mobile;state=loading;progress=55;query=послушать хор",
+                "path": "Search / Runtime query controller"
+              }
+            },
+            {
+              "state": "results",
+              "shape_id": "8f804431-c282-8075-8008-8de4b62827b5",
+              "component": {
+                "id": "8f804431-c282-8075-8008-8de48d989f93",
+                "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                "name": "viewport=mobile;state=results;count=1;query=послушать хор",
+                "path": "Search / Runtime query controller"
+              }
+            }
+          ]
         },
         {
           "order": 3,
@@ -5595,7 +5617,35 @@
           "plan_bound": true,
           "region_id": "search.results",
           "required": true,
-          "semantic_role": "search.results"
+          "semantic_role": "search.results",
+          "source_exact_instances": [
+            {
+              "state": "loading",
+              "shape_id": "8f804431-c282-8075-8008-8de4a58bb445",
+              "role": "skeleton"
+            },
+            {
+              "state": "loading",
+              "shape_id": "8f804431-c282-8075-8008-8de4a58c021d",
+              "role": "skeleton"
+            },
+            {
+              "state": "loading",
+              "shape_id": "8f804431-c282-8075-8008-8de4a58c6f72",
+              "role": "skeleton-peek"
+            },
+            {
+              "state": "results",
+              "shape_id": "8f804431-c282-8075-8008-8de4b628818f",
+              "component": {
+                "id": "8f804431-c282-8075-8008-8de459b7d76c",
+                "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                "name": "event.real.7003 · source exact",
+                "path": "Search / Event result adapter"
+              },
+              "fixture": "event.real.7003"
+            }
+          ]
         },
         {
           "order": 5,
@@ -5622,7 +5672,29 @@
           "plan_bound": true,
           "region_id": "search.collection-links",
           "required": true,
-          "semantic_role": "search.collection-links"
+          "semantic_role": "search.collection-links",
+          "source_exact_instances": [
+            {
+              "state": "loading",
+              "shape_id": "8f804431-c282-8075-8008-8de4a608eca7",
+              "component": {
+                "id": "8f804431-c282-8075-8008-8de4444c11a6",
+                "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                "name": "viewport=mobile;source-exact-with-notes",
+                "path": "Search / Collection links"
+              }
+            },
+            {
+              "state": "results",
+              "shape_id": "8f804431-c282-8075-8008-8de4b6f14005",
+              "component": {
+                "id": "8f804431-c282-8075-8008-8de4444c11a6",
+                "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                "name": "viewport=mobile;source-exact-with-notes",
+                "path": "Search / Collection links"
+              }
+            }
+          ]
         },
         {
           "order": 6,
@@ -6109,7 +6181,238 @@
           "state_id": "search.recovery"
         }
       ],
-      "title": "Поиск"
+      "title": "Поиск",
+      "source_exact_correction": {
+        "contract_id": "recovery.ov-47-48.search.mobile-source-exact.v1",
+        "path": "catalog/reconstruction-atlas/v1/search-ov47-mobile-source-exact.v1.json",
+        "sha256": "7664d52dc5b736bd88c2cb4577e75ed2d2bd3ffa3c313e190f102ea4e1815e3d",
+        "status": "MOBILE_LOADING_RESULTS_CORRECTION_VERIFIED_DESKTOP_INTEGRATED_STATES_OPEN"
+      },
+      "source_exact_state_owners": [
+        {
+          "viewport": "mobile",
+          "state": "loading",
+          "width": 390,
+          "height": 2626,
+          "x": 7580,
+          "y": -520,
+          "penpot": {
+            "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+            "page_id": "d87e18f1-dcb4-80a6-8008-880ac732b6ae",
+            "revision": 2794,
+            "board_id": "8f804431-c282-8075-8008-8de4a4d7e156",
+            "board_name": "Archetype / Search / viewport=mobile;state=loading;progress=55 · Astro AS-IS",
+            "board_component": {
+              "id": "8f804431-c282-8075-8008-8de4a7073cd8",
+              "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+              "name": "viewport=mobile;state=loading;progress=55 · Astro AS-IS",
+              "path": "Archetype / Search"
+            },
+            "direct_children": [
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4a5382a81",
+                "name": "linked Shell / Mobile header",
+                "component": {
+                  "id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "Mobile header",
+                  "path": "Shell v1 / Mobile"
+                },
+                "width": 390,
+                "height": 84,
+                "x": 7592,
+                "y": -520,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4a58ade17",
+                "name": "linked Search / Runtime query / loading",
+                "component": {
+                  "id": "8f804431-c282-8075-8008-8de4727d7df1",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "viewport=mobile;state=loading;progress=55;query=послушать хор",
+                  "path": "Search / Runtime query controller"
+                },
+                "width": 366,
+                "height": 1504.734375,
+                "x": 7592,
+                "y": -424,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4a608eca7",
+                "name": "linked Search / Collection links / source exact",
+                "component": {
+                  "id": "8f804431-c282-8075-8008-8de4444c11a6",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "viewport=mobile;source-exact-with-notes",
+                  "path": "Search / Collection links"
+                },
+                "width": 366,
+                "height": 888,
+                "x": 7592,
+                "y": 1096.734375,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de598af7794",
+                "name": "linked Shell / Mobile bottom navigation / current=search / sticky",
+                "component": {
+                  "id": "8e7accff-5c78-8007-8008-89c2fd86089e",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "Mobile bottom navigation · current=search;surface=floating-island;source=Astro-53f7b2c2c",
+                  "path": "Shell v1 / Mobile"
+                },
+                "width": 366,
+                "height": 64,
+                "x": 7580,
+                "y": 260,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              }
+            ]
+          },
+          "skeleton_shape_ids": [
+            "8f804431-c282-8075-8008-8de4a58bb445",
+            "8f804431-c282-8075-8008-8de4a58c021d",
+            "8f804431-c282-8075-8008-8de4a58c6f72"
+          ]
+        },
+        {
+          "viewport": "mobile",
+          "state": "results",
+          "width": 390,
+          "height": 2521,
+          "x": 8010,
+          "y": -520,
+          "penpot": {
+            "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+            "page_id": "d87e18f1-dcb4-80a6-8008-880ac732b6ae",
+            "revision": 2794,
+            "board_id": "8f804431-c282-8075-8008-8de4b555573e",
+            "board_name": "Archetype / Search / viewport=mobile;state=results;fixture=event.real.7003 · Astro AS-IS",
+            "board_component": {
+              "id": "8f804431-c282-8075-8008-8de4b7e61c67",
+              "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+              "name": "viewport=mobile;state=results;fixture=event.real.7003 · Astro AS-IS",
+              "path": "Archetype / Search"
+            },
+            "direct_children": [
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4b5c48fe0",
+                "name": "linked Shell / Mobile header",
+                "component": {
+                  "id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "Mobile header",
+                  "path": "Shell v1 / Mobile"
+                },
+                "width": 390,
+                "height": 84,
+                "x": 8022,
+                "y": -520,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4b62827b5",
+                "name": "linked Search / Runtime query / results",
+                "component": {
+                  "id": "8f804431-c282-8075-8008-8de48d989f93",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "viewport=mobile;state=results;count=1;query=послушать хор",
+                  "path": "Search / Runtime query controller"
+                },
+                "width": 366,
+                "height": 1400.234375,
+                "x": 8022,
+                "y": -424,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de4b6f14005",
+                "name": "linked Search / Collection links / source exact",
+                "component": {
+                  "id": "8f804431-c282-8075-8008-8de4444c11a6",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "viewport=mobile;source-exact-with-notes",
+                  "path": "Search / Collection links"
+                },
+                "width": 366,
+                "height": 888,
+                "x": 8022,
+                "y": 992.234375,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              },
+              {
+                "shape_id": "8f804431-c282-8075-8008-8de5995b714b",
+                "name": "linked Shell / Mobile bottom navigation / current=search / sticky",
+                "component": {
+                  "id": "8e7accff-5c78-8007-8008-89c2fd86089e",
+                  "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+                  "name": "Mobile bottom navigation · current=search;surface=floating-island;source=Astro-53f7b2c2c",
+                  "path": "Shell v1 / Mobile"
+                },
+                "width": 366,
+                "height": 64,
+                "x": 8010,
+                "y": 260,
+                "hidden": false,
+                "is_component_copy": true,
+                "is_component_main": false,
+                "type": "board"
+              }
+            ]
+          },
+          "result_card": {
+            "shape_id": "8f804431-c282-8075-8008-8de4b628818f",
+            "fixture": "event.real.7003",
+            "component": {
+              "id": "8f804431-c282-8075-8008-8de459b7d76c",
+              "library_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+              "name": "event.real.7003 · source exact",
+              "path": "Search / Event result adapter"
+            },
+            "width": 366,
+            "height": 656.71875
+          }
+        }
+      ],
+      "coverage_correction": {
+        "mobile_integrated_states": [
+          "loading",
+          "results"
+        ],
+        "desktop_integrated_states": [],
+        "open_required_states": [
+          "desktop-loading",
+          "desktop-results",
+          "mobile-validation",
+          "mobile-empty",
+          "mobile-error-retry",
+          "mobile-stale",
+          "mobile-load-more"
+        ]
+      }
     },
     {
       "archetype_id": "archetype.event-detail",
@@ -22804,6 +23107,23 @@
       "review_items": [
         "OV-06"
       ]
+    },
+    {
+      "archetype_id": "archetype.search",
+      "astro_commit": "812ffc279728221b547707474bcb521f27c4a73d",
+      "contract": {
+        "contract_id": "recovery.ov-47-48.search.mobile-source-exact.v1",
+        "path": "catalog/reconstruction-atlas/v1/search-ov47-mobile-source-exact.v1.json",
+        "sha256": "7664d52dc5b736bd88c2cb4577e75ed2d2bd3ffa3c313e190f102ea4e1815e3d",
+        "status": "MOBILE_LOADING_RESULTS_CORRECTION_VERIFIED_DESKTOP_INTEGRATED_STATES_OPEN"
+      },
+      "penpot_page_id": "d87e18f1-dcb4-80a6-8008-880ac732b6ae",
+      "penpot_revision": 2794,
+      "review_items": [
+        "OV-47",
+        "OV-48"
+      ],
+      "scope": "mobile-loading-results"
     }
   ]
 }

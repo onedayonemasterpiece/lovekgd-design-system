@@ -5,11 +5,11 @@
     "OV-47",
     "OV-48"
   ],
-  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
+  "status": "MOBILE_LOADING_RESULTS_CORRECTION_VERIFIED_DESKTOP_INTEGRATED_STATES_OPEN",
   "processed": false,
   "authority": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
-    "current_astro_commit": "49c351873d40a2ea55f0a32837c7376e344d9c17",
+    "current_astro_commit": "812ffc279728221b547707474bcb521f27c4a73d",
     "route": "/poisk/",
     "source_component": "site/src/components/AuthorizedEventSearch.astro",
     "source_styles": "site/src/layouts/EventLayout.astro",
@@ -146,7 +146,8 @@
       "revision": 2729
     },
     "detached_instances_allowed": 0,
-    "owner_review_status": "REREVIEW_REQUIRED"
+    "owner_review_status": "REREVIEW_REQUIRED",
+    "round_trip_revision": 2794
   },
   "visual_evidence": {
     "loading_penpot_export": "evidence/recovery-20260828/penpot/ov47-search-loading-mobile-source-exact.png",
@@ -161,7 +162,23 @@
       2521
     ],
     "results_sha256": "f27efa18208f6e50fd4958c84cae147676fef7b07676dae56ffbb5f589d5ceda",
-    "result": "FULL_VISUAL_QA_PASS",
+    "result": "MOBILE_FULL_VISUAL_QA_PASS_DESKTOP_NOT_MATERIALIZED",
     "owner_acceptance": "NOT_CLAIMED"
+  },
+  "coverage": {
+    "mobile_integrated_states": [
+      "loading",
+      "results"
+    ],
+    "desktop_integrated_states": [],
+    "open_required_states": [
+      "desktop-loading",
+      "desktop-results",
+      "mobile-validation",
+      "mobile-empty",
+      "mobile-error-retry",
+      "mobile-stale",
+      "mobile-load-more"
+    ]
   }
 }
