@@ -1,0 +1,47 @@
+{
+  "schema_version": "ui-sot-page-closure.blocker.v1",
+  "status": "BLOCKED",
+  "route": "/podborki/besplatnye-sobytiya/",
+  "scenario": "free-collection-september-mobile-v3",
+  "reference_iso": "2026-08-29T14:00:00+02:00",
+  "timezone": "Europe/Kaliningrad",
+  "locale": "ru-RU",
+  "fixture_corpus": {
+    "id": "ui-reference-events.v2",
+    "sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+    "render_order": [8006, 8200, 2182, 6711, 7609]
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 3066,
+    "component_page_id": "8f804431-c282-8075-8008-8ee9d4ac86e0",
+    "route_page_id": "d87e18f1-dcb4-80a6-8008-880c4a36d153",
+    "mobile_scrolled_owner_id": "8f804431-c282-8075-8008-8eb2d74c1f16",
+    "mobile_scrolled_shape_id": "8f804431-c282-8075-8008-8eb2d06b7731",
+    "mobile_body_component_id": "8f804431-c282-8075-8008-8eb266baf6e7",
+    "event_8006_slot_id": "8f804431-c282-8075-8008-8eb25e3af873",
+    "canonical_variant_id": "8f804431-c282-8075-8008-8eeaa575ac8d",
+    "canonical_base_id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+    "validation_errors": []
+  },
+  "blocking_contract": "Required nested linked EventCard text/style/data overrides are accepted by Penpot readback but not materialized by native PNG export. A fixture-wrapper swap produces component-id-mismatch/missing-slot validation errors in linked owner instances; reverting and reset restores validation but also restores the stale raster. Detached/page-local/screenshot visual implementations are forbidden by the task.",
+  "reproduction": {
+    "readback_after": {
+      "characters": "Донорская акция «Стань\\nдонором крови»",
+      "font_size": "17.92",
+      "line_height": ".9932",
+      "width": 310.8125,
+      "height": 35.59375
+    },
+    "bounded_png": {
+      "width": 390,
+      "height": 844,
+      "bytes": 233648,
+      "base64_length": 311532,
+      "github_scratch_blob_sha": "663efc3dde9e11f876c8a5abca05ba2856df077d"
+    },
+    "native_png_identical_to_pre_mutation": true,
+    "known_upstream_issue": "https://github.com/penpot/penpot/issues/8826"
+  },
+  "terminal_gate": "The required fresh mobile-scrolled Astro/Penpot pair still has a visible EventCard title/font-wrap residual, so PASS and READY_FOR_OWNER_REVIEW are forbidden."
+}

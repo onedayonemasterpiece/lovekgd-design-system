@@ -10,6 +10,7 @@ const PAGE_NAME='40.1b — EventCard · Unified Golden variants';
 const PATH='Event cards / Large / Unified Golden v2';
 const DESKTOP_BASE_ID='b0fe69fd-ccaf-8025-8008-846f0b7f12cd';
 const MOBILE_BASE_ID='7f078c80-87b8-80f5-8008-85839e8975f6';
+const CALENDAR_ACTION_ID='c0d4e5a2-7db6-80c7-8008-81f1911414a5';
 const CORPUS_ID='ui-reference-events.v2';
 const PACKED_PLACE={2182:'Калининград · Калининградская…',6711:'Светлогорск · Информационно-…'};
 
@@ -57,9 +58,11 @@ function installUnifiedGoldenEventCards(penpot,penpotUtils,storage){
     const negativeX=desktop?13.46875:11.875,negativeY=5.40625;
     place(negative,negativeX,negativeY,124.9375,36.28125);negative.layoutChild.absolute=true;
     place(negativeIcon,4.515625,10.140625,16,16);place(negativeLabel,27.234375,8.671875,93.1875,18.9375);exactText(negativeLabel,11.84,900,1.6,'#ffffff',.56);
-    const calendar=byName(card,/^linked Action \/ Calendar$/);if(calendar){
+    let calendar=byName(card,/^linked Action \/ Calendar$/);if(calendar){
+      const target=componentById(CALENDAR_ACTION_ID);
+      if(target&&calendar.component?.()?.id!==target.id)calendar.swapComponent(target);
       const calendarIcon=byName(calendar,/^linked Icon \/ UI \/ Calendar/),calendarLabel=byName(calendar,/^Content \/ Action label$/);
-      if(calendarIcon&&calendarLabel){place(calendarIcon,11.875,12,20,20);place(calendarLabel,38.59375,11.5,96.96875,21);exactText(calendarLabel,13.12,900,1.6,'#ffffff');}
+      if(calendarIcon&&calendarLabel){place(calendarIcon,11.875,12,20,20);place(calendarLabel,38.59375,11.5,96.96875,21);}
     }
 
     const feedback=byName(card,/^Actions \/ feedback row \/ transparent$/),shareAction=byName(card,/^Event cards \/ Shared \/ Action \/ Share action$/),share=byName(card,/^linked Social proof \/ Share \/ count-owned$/),shareIcon=byName(share,/^linked Icon \/ UI \/ Share/),shareLabel=byName(share,/^Content \/ Action label$/),shareCount=walk(share).find(s=>s.type==='text'&&s.name==='Content / Count'),likeAction=byName(card,/^linked Action \/ Like \/ count inside$/),like=byName(card,/^linked Social proof \/ Like \/ count-owned$/),likeIcon=byName(like,/^linked Icon \/ UI \/ Heart/),likeCount=walk(like).find(s=>s.type==='text'&&s.name==='Content / Count');
@@ -88,7 +91,17 @@ function installUnifiedGoldenEventCards(penpot,penpotUtils,storage){
       shareCount.growType='fixed';shareCount.resize(shareCountWidth,21.5);shareCount.layoutChild.horizontalSizing='fix';shareAction.layoutChild.horizontalSizing='fix';shareAction.resize(shareActionWidth,44);share.flex.horizontalSizing='fix';share.resize(shareActionWidth-(card.width<400?10.925:10.925),44);
       likeCount.growType='fixed';likeCount.resize(likeCountWidth,25.09375);likeCount.layoutChild.horizontalSizing='fix';likeAction.layoutChild.horizontalSizing='fix';likeAction.resize(likeActionWidth,44);like.flex.horizontalSizing='fix';like.resize(likeActionWidth-10.96,44);
     }
-    const image=storage.freeSepV2Media?.[id];const artwork=byName(card,/^Content \/ media artwork override/);if(image&&artwork)artwork.fills=artwork.fills.map(fill=>fill.fillImage?{...fill,fillImage:image,fillOpacity:1}:fill);
+    const image=storage.freeSepV2Media?.[id],frame=byName(card,/^linked Event media frame/),artwork=byName(card,/^Content \/ media artwork override/);
+    if(image&&artwork){
+      artwork.fills=artwork.fills.map(fill=>fill.fillImage?{...fill,fillImage:image,fillOpacity:1}:fill);
+      if(frame&&image.width&&image.height){
+        const sourceRatio=image.width/image.height,frameRatio=frame.width/frame.height;
+        let width,height,x,y;
+        if(sourceRatio>frameRatio){height=frame.height;width=height*sourceRatio;x=(frame.width-width)/2;y=0;}
+        else {width=frame.width;height=width/sourceRatio;x=0;y=(frame.height-height)/2;}
+        frame.clipContent=true;place(artwork,x,y,width,height);artwork.setPluginData('media-fit','cover');artwork.setPluginData('media-position','center');
+      }
+    }
     card.setPluginData('fixture-id',`event.real.${id}`);card.setPluginData('fixture-corpus',CORPUS_ID);
   }
 
@@ -104,7 +117,7 @@ function installUnifiedGoldenEventCards(penpot,penpotUtils,storage){
     place(primary,0,primaryY,v.width,58);primary.fills=[{fillColor:'#15110f',fillOpacity:1}];primary.strokes=[{strokeColor:'#793014',strokeOpacity:.13,strokeStyle:'solid',strokeWidth:1,strokeAlignment:'inner'}];
     place(feedback,1.59375,v.height-56,v.width-3.1875,56);
     place(title,inset,13.59375,v.width-inset*2,titleH);place(meta,inset,13.59375+titleH+8,v.width-inset*2,metaH);place(placeClip,inset,13.59375+titleH+8+metaH+8,v.width-inset*2,17.203125);place(placeText,0,0,v.width-inset*2,17.203125);
-    exactText(title,desktop?21.6:16.48,900,1.08,'#ffffff');exactText(placeText,13.76,800,1.25,'#ffffff',.84);placeText.setPluginData('astro-source-font-weight','760');
+    exactText(title,desktop?23.52:17.92,900,desktop?.992:.9932,'#ffffff');exactText(placeText,13.76,800,1.25,'#ffffff',.84);placeText.setPluginData('astro-source-font-weight','760');
     if(calendar){place(calendar,desktop?145.125:142.25,1.546875,desktop?147.4375:185.875,44);calendar.hidden=!event;}
     const nested=applyNestedAstroGeometry(card,key);
     return {key,width:v.width,height:v.height,media:{x:1,y:1,width:v.width-2,height:v.media},bodyY,primaryY,feedbackY:v.height-56,nested};
