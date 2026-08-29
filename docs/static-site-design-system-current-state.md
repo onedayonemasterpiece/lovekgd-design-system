@@ -4,6 +4,9 @@ Status: `CURRENT_CROSS_BRANCH_ROUTER`
 
 Последняя фактическая сверка: `2026-08-29`.
 
+Latest registered owner review: `REV-IDEAHUB-20260829-14` / `OV-58` on active
+PR `#53`.
+
 Этот документ нужен потому, что опубликованный `main` и активная работа сейчас
 находятся в разных слоях. Он не дублирует contracts/receipts, а показывает, где
 искать текущую истину.
@@ -44,6 +47,9 @@ the operational loop is contract → materialization/integration → exact readb
 
 Source: IdeaHub `voice-20260829-201612-4feb9e87`.
 
+Canonical review route on active PR `#53`:
+[`REV-IDEAHUB-20260829-14 / OV-58`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md).
+
 - Full bounded parity and technical lineage are valid requirements.
 - “One Golden Corpus” means one exact named scenario/pool per comparison, not
   one universal event list. Current scopes include 8 component events, 5
@@ -59,12 +65,9 @@ Source: IdeaHub `voice-20260829-201612-4feb9e87`.
 
 ## Required route
 
-1. Current detailed router on active PR `#53`:
-   `docs/static-site-design-system-current-state.md`.
-2. Normative lifecycle on `#53`:
-   `docs/ui-source-of-truth-roundtrip.md`.
-3. Owner-review router on `#53`:
-   `docs/reviews/index.md`.
+1. [Current detailed router on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/static-site-design-system-current-state.md).
+2. [Normative lifecycle on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md).
+3. [Owner-review router on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md).
 4. Exact affected family/archetype contract and latest receipt on `#53`.
 5. Local Astro bridge on `events-bot-new#596`:
    `docs/features/static-site-pages/design-system/README.md`.
