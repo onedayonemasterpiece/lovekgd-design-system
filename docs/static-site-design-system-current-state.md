@@ -4,6 +4,8 @@ Status: `CURRENT_OPERATIONAL_ROUTER`
 
 Последняя фактическая сверка: `2026-08-29`.
 
+Latest registered owner review: `REV-IDEAHUB-20260829-14` / `OV-58`.
+
 Этот документ — первая точка входа для задач о статическом сайте KenigEvents,
 LoveKGD Design System, Astro ↔ Git UI SoT ↔ Penpot, компонентном наследовании,
 Golden/Reference fixtures и визуальном parity. Он отделяет **целевой контракт**
@@ -63,6 +65,9 @@ accepted Git UI SoT/package
 Нормативный lifecycle: [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md).
 
 ## 3. Как правильно понимать последнее owner voice
+
+Source route:
+[`reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md`](reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md).
 
 | Тезис | Фактическая интерпретация |
 |---|---|
@@ -139,8 +144,9 @@ promotion остаётся отдельным будущим решением.
 1. Этот файл — фактическая карта текущих слоёв.
 2. [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md) —
    нормативный lifecycle и parity gate.
-3. [`reviews/index.md`](reviews/index.md) — статус каждого owner-review item;
-   `processed: NO` означает, что owner acceptance ещё нет.
+3. [`reviews/index.md`](reviews/index.md) — current review router; latest revision
+   `REV-IDEAHUB-20260829-14` / `OV-58`. Detailed ledger through `OV-57` is
+   preserved at `reviews/index-through-20260829-13.md`.
 4. `catalog/fixtures/design-system-reference/v1/registry.v1.json` и scenario
    files — fixture authority.
 5. Затронутый family/archetype contract и самый новый receipt — точное состояние
