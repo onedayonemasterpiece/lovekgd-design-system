@@ -2,157 +2,136 @@
 
 Status: `ACCEPTED_OPERATIONAL_ROUTER`
 
-Current revision: `REV-IDEAHUB-20260829-14`.
+Current revision: `REV-CHAT-20260829-01` / `OV-59`.
 
-Этот файл — обязательная короткая точка входа для всех отзывов владельца о
-дизайн-системе: Penpot comments, IdeaHub/Telegram voice, text review и
-последующих browser/device review.
+Этот файл — обязательная короткая точка входа для owner review дизайн-системы:
+Penpot comments, IdeaHub/Telegram voice, текстовых уточнений и browser/device
+review.
 
-## Сохранение предыдущего реестра
+## История и полные ledgers
 
-Полный реестр и подробный per-item ledger через
-`REV-IDEAHUB-20260829-13` / `OV-57` сохранён **без изменения байтов** в
+Полный register через `REV-IDEAHUB-20260829-13` / `OV-57` сохранён без
+изменения evidence в
 [`index-through-20260829-13.md`](index-through-20260829-13.md).
 
-Это не удаление истории и не смена evidence authority. Новый `index.md` является
-коротким current router; точные старые формулировки, UUID, revisions, receipts и
-supersession history остаются в архивном снимке и связанных source-bound
-файлах. Более новый exact-source contract/receipt может уточнять статус, но не
-переписывает историческое evidence задним числом.
+Следующие отдельные records сохраняют более позднюю историю:
 
-## Обязательное правило регистрации
+- [`idea-hub-owner-voice-intake-20260829-continuation-14.md`](idea-hub-owner-voice-intake-20260829-continuation-14.md)
+  — первоначальный анализ последнего IdeaHub voice; теперь interpretation
+  superseded;
+- [`owner-text-sot-ui-centrality-correction-20260829.md`](owner-text-sot-ui-centrality-correction-20260829.md)
+  — точное owner clarification и текущая authority.
 
-Каждая отдельная review-сессия получает:
+Исторические формулировки не удаляются молча. Новый owner decision supersedes
+ошибочную интерпретацию, но не переписывает source evidence задним числом.
 
-1. устойчивый `review_id`;
-2. отдельный intake record с точной source boundary и dedup;
-3. строку в этом реестре;
-4. owner-item routing и processing/evidence owner;
-5. точные Git SoT, Penpot UUID/revision/export/readback и owner disposition;
-6. append-only supersession вместо молчаливого удаления.
+## Зарегистрированные последние review
 
-Если review отсутствует здесь и в сохранённом through-13 register, он считается
-`UNREGISTERED`.
+| Review ID | Source | Item | Current status | Processed |
+|---|---|---|---|---|
+| `REV-IDEAHUB-20260829-14` | `voice-20260829-201612-4feb9e87` | `OV-58` | `INTERPRETATION_SUPERSEDED` | `NO` |
+| `REV-CHAT-20260829-01` | owner text correction after the OV-58 handoff | `OV-59` | `READY_FOR_OWNER_REREVIEW` | `NO` |
 
-Стандарт: [`review-record-template.md`](review-record-template.md).
+All earlier sessions, exact source boundaries, UUIDs, revisions and receipts are
+routed through the preserved through-13 ledger and their individual intake
+files.
 
-## Зарегистрированные сессии
+## Current authority correction: `OV-59`
 
-| Review ID | Intake / durable register | Current status | Processed |
-|---|---|---|---|
-| `REV-PENPOT-20260826-01` | [`penpot-owner-comments-resolution-20260826.md`](penpot-owner-comments-resolution-20260826.md); exact prior row in [`index-through-20260829-13.md`](index-through-20260829-13.md) | `IN_PROGRESS` | `NO` |
-| `REV-TG-20260826-01` | [`telegram-owner-voice-intake-20260826-27.md`](telegram-owner-voice-intake-20260826-27.md), [`telegram-owner-voice-intake-20260827-continuation-01.md`](telegram-owner-voice-intake-20260827-continuation-01.md) | `IN_PROGRESS` | `NO` |
-| `REV-IDEAHUB-20260828-01` | [`idea-hub-owner-voice-intake-20260828.md`](idea-hub-owner-voice-intake-20260828.md) | `HISTORY_AUDITED / TRIAGED` | `NO` |
-| `REV-IDEAHUB-20260828-02` | [`idea-hub-owner-voice-intake-20260828-continuation-02.md`](idea-hub-owner-voice-intake-20260828-continuation-02.md) | `IN_PROGRESS` | `NO` |
-| `REV-IDEAHUB-20260828-03` | [`idea-hub-owner-voice-intake-20260828-continuation-03.md`](idea-hub-owner-voice-intake-20260828-continuation-03.md) | `IN_PROGRESS` | `NO` |
-| `REV-IDEAHUB-20260828-04` | [`idea-hub-owner-voice-intake-20260828-continuation-04.md`](idea-hub-owner-voice-intake-20260828-continuation-04.md) | `CONTEXT_ONLY` | `YES` |
-| `REV-IDEAHUB-20260828-05` | [`idea-hub-owner-voice-intake-20260828-continuation-05.md`](idea-hub-owner-voice-intake-20260828-continuation-05.md) | `CONTEXT_ONLY` | `YES` |
-| `REV-IDEAHUB-20260828-06` | [`idea-hub-owner-voice-intake-20260828-continuation-06.md`](idea-hub-owner-voice-intake-20260828-continuation-06.md) | `CONTEXT_ONLY` | `YES` |
-| `REV-IDEAHUB-20260828-07` | [`idea-hub-owner-voice-intake-20260828-continuation-07.md`](idea-hub-owner-voice-intake-20260828-continuation-07.md) | `CONTEXT_ONLY` | `YES` |
-| `REV-IDEAHUB-20260828-08` | [`idea-hub-owner-voice-intake-20260828-continuation-08.md`](idea-hub-owner-voice-intake-20260828-continuation-08.md) | `CORRECTION_MATERIALIZED / OWNER_REREVIEW_REQUIRED` | `NO` |
-| `REV-IDEAHUB-20260829-09` | [`idea-hub-owner-voice-intake-20260829-continuation-09.md`](idea-hub-owner-voice-intake-20260829-continuation-09.md) | `CONTEXT_ONLY` | `YES` |
-| `REV-IDEAHUB-20260829-10` | [`idea-hub-owner-voice-intake-20260829-continuation-10.md`](idea-hub-owner-voice-intake-20260829-continuation-10.md) | `ASTRO_AND_PENPOT_STRUCTURALLY_VERIFIED / VISUAL_EXPORT_BLOCKED` | `NO` |
-| `REV-IDEAHUB-20260829-11` | [`idea-hub-owner-voice-intake-20260829-continuation-11.md`](idea-hub-owner-voice-intake-20260829-continuation-11.md) | `AUDITED / NO_NEW_RELEVANT_PACKET` | `NO` |
-| `REV-IDEAHUB-20260829-12` | [`idea-hub-owner-voice-intake-20260829-continuation-12.md`](idea-hub-owner-voice-intake-20260829-continuation-12.md) | `AUDITED / NO_NEW_RELEVANT_PACKET` | `NO` |
-| `REV-IDEAHUB-20260829-13` | [`idea-hub-owner-voice-intake-20260829-continuation-13.md`](idea-hub-owner-voice-intake-20260829-continuation-13.md) | `AUDITED / NO_NEW_RELEVANT_PACKET` | `NO` |
-| `REV-IDEAHUB-20260829-14` | [`idea-hub-owner-voice-intake-20260829-continuation-14.md`](idea-hub-owner-voice-intake-20260829-continuation-14.md) | `READY_FOR_OWNER_REREVIEW` | `NO` |
+Owner decision:
 
-The exact source boundary and evidence for every through-13 row remain in the
-preserved register. Continuation 14 is a targeted registration of
-`voice-20260829-201612-4feb9e87`, the latest owner voice about static-site /
-design-system authority and parity.
+- **SoT UI is the central system**;
+- its current durable implementation is versioned Git contracts/package data,
+  fixture registry, bindings and receipts in `lovekgd-design-system`;
+- Penpot is a native visual projection and review surface;
+- Astro is the executable projection/consumer and, before promotion, current
+  AS-IS evidence;
+- an accepted Penpot review change returns to SoT UI first;
+- target propagation is `SoT UI → Penpot` and `SoT UI → Astro`;
+- Penpot must never become a direct or competing source for Astro.
 
-## Current item routing
-
-Detailed evidence through `OV-57` remains in
-[`index-through-20260829-13.md`](index-through-20260829-13.md) and the linked
-contracts/receipts. The table below is a high-signal current router; any item not
-expanded here is still explicitly routed to the preserved complete ledger and
-must not be treated as absent or closed.
-
-| Item(s) | Current status | Owning evidence / open gate |
-|---|---|---|
-| <a id="OV-01"></a>`OV-01` | `READY_FOR_OWNER_REREVIEW` | canonical Mobile Rail ancestry/readback complete; owner acceptance open |
-| `OV-02` | `READY_FOR_OWNER_REREVIEW` | source-bound cover/contain decisions and media parity readback complete |
-| `OV-03` | `CONTEXT_ONLY` | lack of owner clicks is not absence of required interaction states |
-| `OV-04`, `OV-05` | `READY_FOR_OWNER_REREVIEW` | Branding page, lockups, spacing and classification materialized; owner acceptance open |
-| `OV-06` | `READY_FOR_OWNER_REREVIEW` | exact-seven Artifacts owners and Astro/browser evidence complete |
-| `OV-07` | `PENPOT_MATERIALIZED / VISUAL_QA_BLOCKED` | HeroTalk chain structural receipt exists; focused export blocked by HTTP 504 |
-| `OV-08` | `STRUCTURAL_CORRECTION_ADVANCED / GLOBAL_NONCARD_CENSUS_PENDING` | event-card lineage has bounded proofs; global lineage and owner acceptance remain open |
-| `OV-09…OV-19` | `CROSS_CONTOUR_CAPTURE` | exact semantics/status remain in the preserved ledger; these items are not silently counted as design-system completion |
-| `OV-20…OV-24` | `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_BLOCKED_OR_DEFERRED` | responsive action/navigation islands have exact contracts; visual evidence remains open after HTTP 504 |
-| `OV-25…OV-27` | `READY_FOR_OWNER_REREVIEW` | Popular mobile Rail final readback complete |
-| `OV-28…OV-33` (including `OV-30`) | `SEE_EXACT_PRESERVED_LEDGER` | source-bound dispositions remain in `index-through-20260829-13.md`; `OV-30` continues to feed the global lineage gate together with `OV-08` and `OV-58` |
-| `OV-34…OV-46` | `READY_FOR_OWNER_REREVIEW` | Partners, Focus Group, Personal Feed, Favorites, Clubs, Festivals, Free Collection and Event Detail have bounded source-bound receipts |
-| `OV-47`, `OV-48` | `READY_FOR_OWNER_REREVIEW / CONTEXT_RESOLVED` | Search visual/runtime states materialized; some lifecycle export evidence remains deferred |
-| `OV-49` | `EXPLICIT_DECISION_REQUIRED` | `/neobychnoe/` has no approved nonempty editorial manifest or accepted last-good source |
-| `OV-50`, `OV-51`, `OV-52` | `READY_FOR_OWNER_REREVIEW` | accepted HeroTalk, Weekend marker and Floating Island Rail bounded corrections |
-| `OV-53` | `PENPOT_TAXONOMY_MATERIALIZED / VISUAL_EXPORT_BLOCKED` | icon candidate taxonomy/provenance exists; no arbitrary asset promotion |
-| `OV-54` | `FOUNDATIONS_AND_OWNER_ROOT_MIGRATIONS / GLOBAL_MIGRATION_IN_PROGRESS` | current token/root census is source-bound; remaining global/visual gates stay open |
-| `OV-55`, `OV-56` | `CORRECTION_MATERIALIZED / OWNER_REREVIEW_REQUIRED` | Event Detail portrait Hero image, parallax/keyboard, transport and related-events continuation are source-bound; exact receipts remain in the preserved ledger and current contracts |
-| `OV-57` | `ASTRO_AND_PENPOT_STRUCTURALLY_VERIFIED / VISUAL_EXPORT_BLOCKED` | exact bounded fixture pools and centralized FestivalCard lineage proven; final raster comparison blocked by one HTTP 504 |
-| <a id="OV-58"></a>`OV-58` | `READY_FOR_OWNER_REREVIEW` | actual Astro ↔ Git UI SoT ↔ Penpot authority, named-pool parity and agent routing corrected across design-system, static-site and IdeaHub docs |
-
-## `OV-58`: latest owner voice
-
-Source: `REV-IDEAHUB-20260829-14` / `voice-20260829-201612-4feb9e87`.
-
-Factual disposition:
-
-- durable UI SoT is versioned Git contract/package data in this repository;
-- pinned Astro/runtime remains executable AS-IS fact before family promotion;
-- Penpot is native visual implementation/review, not an independent automatic
-  release authority;
-- no automatic bidirectional Penpot ↔ Astro sync exists;
-- one bounded comparison uses one exact named scenario/pool, fixture IDs and
-  hashes; the 8-event component corpus and 5-event archetype pool are distinct;
-- component masters/state catalogs stay on bounded library pages; archetypes
-  consume linked instances;
-- visual similarity never proves component lineage;
-- bounded centralization is real, while global acceptance/promotion is open.
+The original full transcript already said that Source of Truth is the center.
+The false “Penpot is central” thesis came from the generated summary and later
+analysis, not from the owner.
 
 Current router:
 [`../static-site-design-system-current-state.md`](../static-site-design-system-current-state.md).
 
-Static-site bridge:
-`events-bot-new#596/docs/features/static-site-pages/design-system/README.md`.
+## Fixture authority correction
+
+`OV-59` also reopens one earlier interpretation:
+
+- current component certification uses 8 events;
+- current archetype core uses 5 different events;
+- both can support exact bounded tests;
+- they are not yet proven to be one canonical Golden Corpus authority.
+
+Target:
+
+```text
+one SoT UI fixture authority
+→ typed fixture records
+→ named scenarios/subsets
+→ identical IDs and hashes in Astro and Penpot per case
+```
+
+Current status: `SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
+
+Different entity types and named scenario subsets are allowed. Parallel unlinked
+event authorities are not a finished target architecture.
+
+## High-signal current item routing
+
+Detailed evidence remains in the preserved ledger and linked contracts.
+
+| Item(s) | Current status / route |
+|---|---|
+| `OV-01…OV-08` | exact prior statuses and receipts in `index-through-20260829-13.md`; global lineage remains open under `OV-08` |
+| `OV-09…OV-19` | cross-contour capture; not silently counted as design-system completion |
+| `OV-20…OV-27` | action/navigation/Rail corrections; several visual exports remain blocked/deferred |
+| `OV-28…OV-33` | exact dispositions in preserved ledger; `OV-30` continues to feed global lineage |
+| `OV-34…OV-48` | bounded source-bound archetype and state receipts; owner acceptance remains separate |
+| `OV-49` | `EXPLICIT_DECISION_REQUIRED` for `/neobychnoe/` editorial authority |
+| `OV-50…OV-52` | bounded HeroTalk/Weekend/Floating Island corrections ready for rereview |
+| `OV-53` | icon candidate taxonomy materialized; visual export blocked |
+| `OV-54` | foundations/root migrations advanced; global migration and acceptance open |
+| `OV-55`, `OV-56` | Event Detail portrait/motion/keyboard/continuation corrections materialized; owner rereview open |
+| `OV-57` | bounded fixtures and FestivalCard structural parity; raster comparison blocked |
+| `OV-58` | superseded only where it falsely attributed Penpot centrality and normalized fixture split |
+| `OV-59` | corrected SoT authority and fixture reanalysis ready for owner rereview |
 
 ## Status semantics
 
-- `CAPTURED` / `TRIAGED` / `IN_PROGRESS` / `EVIDENCE_INCOMPLETE` / `BLOCKED`
-  are nonterminal;
-- `READY_FOR_OWNER_REREVIEW` means implementation/readback is ready but owner
-  acceptance is absent;
+- `READY_FOR_OWNER_REREVIEW` means documentation/implementation/readback is
+  available but explicit owner acceptance is absent;
 - `processed: YES` is limited to `CONTEXT_ONLY`, `OWNER_ACCEPTED` or `CLOSED`;
 - structural PASS, visual PASS, owner acceptance, promotion and deploy are
-  separate gates.
+  separate gates;
+- a correction can supersede interpretation without closing the underlying
+  visual/component items.
 
-## Mandatory processing route
+## Mandatory route
 
 ```text
-source review
-→ separate intake record
-→ registration in this index
-→ dedup + owner-item routing
-→ per-item Git SoT disposition
-→ bounded Penpot/Astro materialization
-→ exact structural readback + focused visual evidence
+owner review
+→ separate intake/correction record
+→ registration here
+→ exact SoT disposition
+→ bounded Penpot/Astro projections from the same SoT version
+→ structural readback + visual evidence
 → READY_FOR_OWNER_REREVIEW
 → explicit owner acceptance
 → CLOSED
 ```
 
-## Fail-closed current gates
+## Whole-contour blockers
 
-`READY_FOR_OWNER_REVIEW` for the whole contour remains forbidden while any of
-these are open:
+Global `READY_FOR_OWNER_REVIEW` remains forbidden while any of these are open:
 
-- global component-lineage census/acceptance outside already proven scopes;
-- required focused visual exports blocked by Penpot HTTP 504;
+- component and non-card lineage census/acceptance outside proven scopes;
+- SoT fixture-authority unification across component and archetype event cases;
+- required visual exports blocked by Penpot HTTP 504;
 - `/neobychnoe/` editorial authority;
-- open token/family migration and per-family promotion;
+- token/family migration and per-family promotion;
 - explicit owner acceptance;
 - release approval and post-deploy conformance.
-
-A green test, `validate()=[]`, one screenshot, one component-main readback or a
-Draft PR never closes those gates by itself.
