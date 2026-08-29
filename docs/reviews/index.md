@@ -66,8 +66,9 @@ design-system authority and parity.
 
 Detailed evidence through `OV-57` remains in
 [`index-through-20260829-13.md`](index-through-20260829-13.md) and the linked
-contracts/receipts. The table below is a non-lossy status router, not a
-replacement for those receipts.
+contracts/receipts. The table below is a high-signal current router; any item not
+expanded here is still explicitly routed to the preserved complete ledger and
+must not be treated as absent or closed.
 
 | Item(s) | Current status | Owning evidence / open gate |
 |---|---|---|
@@ -78,14 +79,17 @@ replacement for those receipts.
 | `OV-06` | `READY_FOR_OWNER_REREVIEW` | exact-seven Artifacts owners and Astro/browser evidence complete |
 | `OV-07` | `PENPOT_MATERIALIZED / VISUAL_QA_BLOCKED` | HeroTalk chain structural receipt exists; focused export blocked by HTTP 504 |
 | `OV-08` | `STRUCTURAL_CORRECTION_ADVANCED / GLOBAL_NONCARD_CENSUS_PENDING` | event-card lineage has bounded proofs; global lineage and owner acceptance remain open |
+| `OV-09…OV-19` | `CROSS_CONTOUR_CAPTURE` | exact semantics/status remain in the preserved ledger; these items are not silently counted as design-system completion |
 | `OV-20…OV-24` | `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_BLOCKED_OR_DEFERRED` | responsive action/navigation islands have exact contracts; visual evidence remains open after HTTP 504 |
 | `OV-25…OV-27` | `READY_FOR_OWNER_REREVIEW` | Popular mobile Rail final readback complete |
+| `OV-28…OV-33` (including `OV-30`) | `SEE_EXACT_PRESERVED_LEDGER` | source-bound dispositions remain in `index-through-20260829-13.md`; `OV-30` continues to feed the global lineage gate together with `OV-08` and `OV-58` |
 | `OV-34…OV-46` | `READY_FOR_OWNER_REREVIEW` | Partners, Focus Group, Personal Feed, Favorites, Clubs, Festivals, Free Collection and Event Detail have bounded source-bound receipts |
 | `OV-47`, `OV-48` | `READY_FOR_OWNER_REREVIEW / CONTEXT_RESOLVED` | Search visual/runtime states materialized; some lifecycle export evidence remains deferred |
 | `OV-49` | `EXPLICIT_DECISION_REQUIRED` | `/neobychnoe/` has no approved nonempty editorial manifest or accepted last-good source |
 | `OV-50`, `OV-51`, `OV-52` | `READY_FOR_OWNER_REREVIEW` | accepted HeroTalk, Weekend marker and Floating Island Rail bounded corrections |
 | `OV-53` | `PENPOT_TAXONOMY_MATERIALIZED / VISUAL_EXPORT_BLOCKED` | icon candidate taxonomy/provenance exists; no arbitrary asset promotion |
 | `OV-54` | `FOUNDATIONS_AND_OWNER_ROOT_MIGRATIONS / GLOBAL_MIGRATION_IN_PROGRESS` | current token/root census is source-bound; remaining global/visual gates stay open |
+| `OV-55`, `OV-56` | `CORRECTION_MATERIALIZED / OWNER_REREVIEW_REQUIRED` | Event Detail portrait Hero image, parallax/keyboard, transport and related-events continuation are source-bound; exact receipts remain in the preserved ledger and current contracts |
 | `OV-57` | `ASTRO_AND_PENPOT_STRUCTURALLY_VERIFIED / VISUAL_EXPORT_BLOCKED` | exact bounded fixture pools and centralized FestivalCard lineage proven; final raster comparison blocked by one HTTP 504 |
 | <a id="OV-58"></a>`OV-58` | `READY_FOR_OWNER_REREVIEW` | actual Astro ↔ Git UI SoT ↔ Penpot authority, named-pool parity and agent routing corrected across design-system, static-site and IdeaHub docs |
 
