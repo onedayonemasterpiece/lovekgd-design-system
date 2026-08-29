@@ -1,0 +1,141 @@
+# UI reference fixtures and archetype scenarios
+
+## Authority
+
+The current canonical selection registry is
+[`catalog/fixtures/design-system-reference/v2/registry.v2.json`](../catalog/fixtures/design-system-reference/v2/registry.v2.json).
+It names factual entities by stable fixture ID and binds each event to the hash
+of its complete frozen `PreviewEvent` payload and exact media bytes. It does not
+replace the immutable Golden Event Corpus used by component certification.
+The old `design-system-reference/v1` registry and Golden Event Corpus v1 remain
+historical byte-locked evidence; current September page work advances to v2
+adjacently instead of silently rewriting either v1 source.
+
+Astro owns product data resolution. Its
+`site/src/data/design-system-reference-fixtures.json` file is an executable
+ID-only generated projection of this contract, not a second editable event
+database. It must pin the SHA-256 of both this registry and the selected
+scenario; an unpinned or stale projection is not admissible evidence. Penpot
+owns no fixture registry: it receives linked component instances for the exact
+scenario fixture IDs and records their ancestry in a receipt.
+
+## Mandatory route
+
+Every archetype comparison must name one versioned scenario from
+`catalog/fixtures/design-system-reference/v2/scenarios/`. A valid scenario pins:
+
+- the locked global route/archetype identity;
+- state, viewport, reference clock and ordered fixture identities;
+- the expected rendered order after the real Astro layout algorithm;
+- component family/representation and a separate container projection;
+- exact Astro DOM/screenshot and Penpot linked-instance acceptance gates.
+
+Page-local fixture ID arrays are forbidden. Characterization-only legacy arrays
+must be labelled as such and migrated to a named scenario before they can be
+used as cross-system evidence.
+
+## Container taxonomy
+
+`PackedCardRow` is not a universal component name. Current families are:
+
+| Semantic family | Astro owner | Card family | Purpose |
+|---|---|---|---|
+| EventCard equal-height grid | `OptimizedEventCardGrid.astro` + `packRelatedCardRows` | `EventCard` large | similar events, recommendations and collection results |
+| Desktop listing rows | `ExactTimeTimeline`, `PopularBehaviorRows`, `WeekendEditorialTimeline` | `ListingEventCard` | Date, Popular and Weekend desktop listings |
+| Festival timeline rows | `packFestivalTimeline` | `FestivalCard` | festival-specific 1/4/2 and status-aware packing |
+| Interest-club grid | current `.club-list` route container | `InterestClubCard` | complete club catalogue; container centralization remains explicit debt |
+
+Cards own content, actions and media semantics. Containers own packing, equal
+height, columns, gaps and overflow. A fixture adapter may bind exact content or
+state to a linked card, but it cannot become another card implementation.
+
+## First proof scenario
+
+`free-collection-september-desktop-v2` selects five factual-free fixtures from
+Golden Event Corpus v2: `2182, 6711, 7609, 8006, 8200`. All five are active in
+September 2026 and have exact verified media.
+
+This is a diagnostic selection, not “the first five recent rows”:
+
+- `2182` — crop-safe visual-only 3:2 landscape;
+- `6711` — crop-safe visual-only 4:3 gallery;
+- `7609` — square OCR poster and multi-image state;
+- `8006` — 3:4 portrait OCR poster;
+- `8200` — 6:7 programme/document poster.
+
+The set therefore covers landscape, square and portrait ratios; OCR and
+non-OCR; safe crop and protected document framing; single and multi-image
+cards. The repeated green Chernyakhovsk programme poster is explicitly banned
+by the corpus projection because it makes unrelated cards look duplicated and
+provides almost no diagnostic value.
+
+The actual Astro page has two semantic groups and that fact must remain visible
+in Penpot:
+
+1. timed events: `8006, 8200`, one full-width two-card row with shared 6:7 media
+   height;
+2. continuing exhibitions: `2182, 6711, 7609`, one full-width three-card row
+   with shared 1:1 media height.
+
+`OptimizedEventCardGrid` is cardinality-preserving for collection consumers.
+It may split an otherwise unsafe row, but it may not silently drop an event;
+each row owns its own dynamic column count and fills the available width.
+
+This scenario is a page-level subset of the immutable Golden Event Corpus v2.
+Component anatomy and appearance remain owned by the certified `EventCard ·
+Large` family and Penpot optimized-grid component
+`b0fe69fd-ccaf-8025-8008-847108143471`. A collection page must use linked
+instances of that owning family; a nearby hand-built card or a local adapter
+that redraws card anatomy is invalid.
+
+Historical v1 selections (`7030, 7006, 6901, 6996, 6997` and the later
+`7016, 6982, 7018, 6996, 5259` attempt) are superseded. They are not admissible
+current parity evidence: the former mostly repackaged existing route data, and
+the latter remained July/August data rather than the requested current
+September diagnostic corpus.
+
+A proof is accepted only after direct Astro and Penpot captures of the same
+fixture payloads have been inspected at native scale. Geometry, component
+ancestry, hashes and successful structural validation are necessary but cannot
+substitute for visual comparison. Export failure is a blocker, not a pass.
+
+The executable Penpot projection for this scenario is
+[`scripts/round-trip-reconstruction/penpot-materialize-free-collection-september-v2.js`](../scripts/round-trip-reconstruction/penpot-materialize-free-collection-september-v2.js).
+It is resumable and keeps fixture adapters data-only: every adapter owns one
+linked canonical desktop/mobile `EventCard`, while page body and owner states
+remain separate components. Its `repairAll` path is intentionally limited to
+these `NOT_REVIEWED` September-v2 candidates; it must not mutate an approved
+owner or redraw card anatomy locally.
+
+The current three-way receipt is
+[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v2.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v2.json).
+It records native Astro/Penpot captures, component ancestry, exact fixture
+order, hashes, idempotency and the final parity corrections. The technical
+result is `CORRECTIONS_VERIFIED`; product review remains
+`NOT_REVIEWED`, so this receipt cannot be cited as owner approval.
+
+Page `63.08 — Atlas · Collections` was then cleaned in place. The cleanup
+receipt is
+[`page-63.08-cleanup-receipt.v1.json`](../evidence/recovery-20260829/penpot/free-collection-september-v2/page-63.08-cleanup-receipt.v1.json):
+26 superseded July/first-five/rejected free-collection roots were removed,
+zero obsolete-name matches remain, and current owners, current resource
+masters and still-reusable collection-index components are arranged in three
+labelled canvas regions. Pre/post named Penpot versions make the destructive
+operation reversible.
+
+The collection proof must be reviewed through three explicit owner projections,
+not by selecting the clipped Results child inside the 1200px top viewport:
+
+1. `state=top` — real 1280×1200 viewport; later rows are intentionally below
+   its clip boundary;
+2. `scroll=hero-passed` — real 1280×1200 scrolled viewport with the compact
+   58px medallion and both `2 + 3` card rows;
+3. `scroll-content=full` — 1280×3338 full-page review composition with all five
+   linked cards and the linked desktop footer.
+
+The first receipt version gated only the Page-body component main. That was
+insufficient owner evidence and is recorded as a correction in the current
+receipt rather than being hidden.
+
+Fixture mode is local/preview-only. Production and secret-candidate builds must
+reject it. The production route remains data-driven.
