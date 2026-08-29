@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const BINDINGS = 'catalog/round-trip-reconstruction/v1/bindings.v1.json';
 const CONTRACT = 'catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json';
 const ASTRO_COMMIT = '812ffc279728221b547707474bcb521f27c4a73d';
-const REVISION = 2794;
+const REVISION = 2796;
 const FILE = '3be9e5e1-190f-8090-8008-713c0fbe6260';
 const PAGE = 'd87e18f1-dcb4-80a6-8008-880f9a822a76';
 const read = (path) => JSON.parse(readFileSync(path, 'utf8'));
@@ -64,6 +64,7 @@ const specs = {
 
 contract.astro.round_trip_commit = ASTRO_COMMIT;
 contract.penpot.round_trip_revision = REVISION;
+contract.penpot.foundation_binding_revision = REVISION;
 contract.penpot.owner_collision_readback = { revision: REVISION, visible_top_level_collisions: [], validation: [] };
 write(CONTRACT, contract);
 

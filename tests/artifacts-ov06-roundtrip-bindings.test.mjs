@@ -13,7 +13,7 @@ test('OV-06 round-trip owners use the exact-seven donor reconstruction', () => {
   assert.equal(JSON.stringify({ archetype, cases }).includes('state=unavailable'), false);
   assert.deepEqual(cases.map((item) => item.height), [2718, 2951]);
   assert.ok(cases.every((item) => item.astro.capture.full_page));
-  assert.ok(cases.every((item) => item.penpot.revision === 2794));
+  assert.ok(cases.every((item) => item.penpot.revision === 2796));
   assert.ok(cases.every((item) => /all-found-7-of-7/.test(item.penpot.board_name)));
   assert.deepEqual(contract.penpot.owner_collision_readback.visible_top_level_collisions, []);
 });

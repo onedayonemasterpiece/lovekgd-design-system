@@ -16,7 +16,7 @@ test('OV-40 round-trip no longer binds the default catalogue to state=empty', ()
   assert.deepEqual(cases.map((item) => item.height), [1781, 1983]);
   assert.ok(cases.every((item) => item.astro.capture.full_page === true));
   assert.ok(cases.every((item) => item.astro.commit === '812ffc279728221b547707474bcb521f27c4a73d'));
-  assert.ok(cases.every((item) => item.penpot.revision === 2793));
+  assert.ok(cases.every((item) => item.penpot.revision === 2797));
   assert.match(cases[0].penpot.board_name, /desktop;state=ready/);
   assert.match(cases[1].penpot.board_name, /mobile;state=ready/);
 });

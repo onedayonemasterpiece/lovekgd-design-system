@@ -8,7 +8,7 @@ const REUSE_MAP = 'catalog/reconstruction-atlas/v1/reuse-new-map.v1.json';
 const RECEIPT = 'evidence/recovery-20260828/penpot/interest-clubs-ov40-source-exact-receipt.v1.json';
 
 const ASTRO_COMMIT = '812ffc279728221b547707474bcb521f27c4a73d';
-const PENPOT_REVISION = 2793;
+const PENPOT_REVISION = 2797;
 const FILE_ID = '3be9e5e1-190f-8090-8008-713c0fbe6260';
 const PAGE_ID = 'd87e18f1-dcb4-80a6-8008-880cfe1ec779';
 const CARD_COMPONENT_ID = 'd87e18f1-dcb4-80a6-8008-88648c204cec';
@@ -158,10 +158,8 @@ sourceContract.semantic_resolution = {
 };
 sourceContract.astro.fixtures = sourceContract.astro.fixtures.map((fixture) => ({ ...fixture, route: `/kluby-po-interesam/${fixture.slug}/` }));
 sourceContract.penpot.canonical_club_card_name = CARD_COMPONENT_NAME;
-sourceContract.penpot.named_version = {
-  label: 'OV40 Interest clubs · responsive card owner + ready bindings',
-  revision: PENPOT_REVISION,
-};
+sourceContract.penpot.foundation_binding_revision = PENPOT_REVISION;
+sourceContract.penpot.round_trip_revision = PENPOT_REVISION;
 sourceContract.penpot.validation = [];
 write(CONTRACT, sourceContract);
 
@@ -173,7 +171,7 @@ write(REUSE_MAP, reuse);
 
 const receipt = read(RECEIPT);
 receipt.penpot.revision = PENPOT_REVISION;
-receipt.penpot.saved_version = { label: sourceContract.penpot.named_version.label, revision: PENPOT_REVISION };
+receipt.penpot.round_trip_revision = PENPOT_REVISION;
 receipt.native_ancestry.canonical_club_card_name = CARD_COMPONENT_NAME;
 receipt.source_readback.astro_commit = ASTRO_COMMIT;
 receipt.source_readback.default_catalog_state = 'ready';
