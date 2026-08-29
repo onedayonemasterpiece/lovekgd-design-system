@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const BINDINGS = 'catalog/round-trip-reconstruction/v1/bindings.v1.json';
 const CONTRACT = 'catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json';
 const ASTRO_COMMIT = '812ffc279728221b547707474bcb521f27c4a73d';
-const REVISION = 2796;
+const REVISION = 2869;
 const FILE = '3be9e5e1-190f-8090-8008-713c0fbe6260';
 const PAGE = 'd87e18f1-dcb4-80a6-8008-880f9a822a76';
 const read = (path) => JSON.parse(readFileSync(path, 'utf8'));
@@ -13,6 +13,7 @@ const write = (path, value) => writeFileSync(path, `${JSON.stringify(value, null
 const hash = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 const comp = (id, name, path) => ({ id, library_id: FILE, name, path });
 const item = (component, id, name, width, height, x, y, parent_index) => ({ component, height, hidden: false, is_component_copy: true, is_component_main: false, name, parent_index, shape_id: id, type: 'board', width, x, y });
+const textItem = (id, name, characters, width, height, x, y, parent_index) => ({ characters, height, hidden: false, is_component_copy: false, is_component_main: false, name, parent_index, shape_id: id, type: 'text', width, x, y });
 
 const contract = read(CONTRACT);
 const artifactByComponent = new Map(contract.artifacts.map((artifact) => [artifact.penpot_component_id, artifact]));
@@ -49,6 +50,9 @@ const specs = {
       item(comp('a21f5e36-5d76-8065-8008-86ae4bdf9963', 'Desktop header', 'Shell v1 / Desktop'), 'd87e18f1-dcb4-80a6-8008-886a9eba37d2', 'linked Shell / Desktop header', 1280, 57, 0, 0, 0),
       item(comp('d87e18f1-dcb4-80a6-8008-886a9e3cb500', 'viewport=desktop;state=all-found-7-of-7 · native donor reconstruction', 'Artifacts / Collection'), 'd87e18f1-dcb4-80a6-8008-886a9ecb0a02', 'linked Artifacts / Collection / desktop;state=all-found-7-of-7', 1180, 1900, 50, 88, 1),
       item(comp('d87e18f1-dcb4-80a6-8008-885914f2be1b', 'Footer viewport · representative', 'Shell v1 / Desktop'), 'd87e18f1-dcb4-80a6-8008-886a9edcb4b0', 'linked Shell / Desktop footer viewport', 1280, 681.859375, 0, 2036.109375, 2),
+      textItem('8f804431-c282-8075-8008-8e520b90c8c2', 'Breadcrumb / link / Афиша', 'Афиша', 48, 18, 80, 104, 3),
+      textItem('8f804431-c282-8075-8008-8e520d13c515', 'Breadcrumb / separator', '/', 10, 18, 134, 104, 4),
+      textItem('8f804431-c282-8075-8008-8e520d7118e6', 'Breadcrumb / current / Артефакты', 'Артефакты', 82, 18, 148, 104, 5),
     ],
   },
   mobile: {
@@ -56,8 +60,11 @@ const specs = {
     name: 'viewport=mobile;state=all-found-7-of-7 · native donor reconstruction',
     children: [
       item(comp('a21f5e36-5d76-8065-8008-86aebfc67027', 'Mobile header', 'Shell v1 / Mobile'), 'd87e18f1-dcb4-80a6-8008-886a9efc1891', 'linked Shell / Mobile header', 390, 84, 1320, 0, 0),
-      item(comp('d87e18f1-dcb4-80a6-8008-886a9eb225d0', 'viewport=mobile;state=all-found-7-of-7 · native donor reconstruction', 'Artifacts / Collection'), 'd87e18f1-dcb4-80a6-8008-886a9f08fe20', 'linked Artifacts / Collection / mobile;state=all-found-7-of-7', 366, 2700, 1332, 84, 1),
+      item(comp('d87e18f1-dcb4-80a6-8008-886a9eb225d0', 'viewport=mobile;state=all-found-7-of-7 · native donor reconstruction', 'Artifacts / Collection'), 'd87e18f1-dcb4-80a6-8008-886a9f08fe20', 'linked Artifacts / Collection / mobile;state=all-found-7-of-7', 366, 2700, 1332, 121, 1),
       item(comp('a21f5e36-5d76-8065-8008-86aec0a54bb5', 'surface=floating-island', 'Shell v1 / Mobile'), 'd87e18f1-dcb4-80a6-8008-886a9f21406a', 'linked Shell / Mobile bottom navigation', 366, 64, 1320, 2887, 2),
+      textItem('8f804431-c282-8075-8008-8e52302948e2', 'Breadcrumb / link / Афиша', 'Афиша', 48, 18, 1330, 98, 3),
+      textItem('8f804431-c282-8075-8008-8e5230750733', 'Breadcrumb / separator', '/', 10, 18, 1384, 98, 4),
+      textItem('8f804431-c282-8075-8008-8e5230c0cdc7', 'Breadcrumb / current / Артефакты', 'Артефакты', 82, 18, 1398, 98, 5),
     ],
   },
 };

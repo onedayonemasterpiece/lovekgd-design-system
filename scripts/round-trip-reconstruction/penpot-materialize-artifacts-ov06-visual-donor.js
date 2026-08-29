@@ -63,6 +63,32 @@ function installArtifactsOv06VisualDonorMaterializer(penpot, penpotUtils, storag
     parent.appendChild(shape);
     return place(shape, x, y, width, height);
   };
+  const upsertOwnerText = (parent, name, characters, x, y, width, height, size, weight, color) => {
+    let shape = [...parent.children].find((child) => child.name === name);
+    if (!shape) {
+      shape = penpot.createText(characters);
+      shape.name = name;
+      parent.appendChild(shape);
+    }
+    shape.characters = characters;
+    shape.fontFamily = 'Inter';
+    shape.fontStyle = 'normal';
+    shape.fontSize = String(size);
+    shape.fontWeight = String(weight);
+    shape.lineHeight = '1.3';
+    shape.letterSpacing = '0';
+    shape.align = 'left';
+    shape.fills = [{ fillColor: color, fillOpacity: 1 }];
+    return place(shape, x, y, width, height);
+  };
+  const repairBreadcrumb = (owner, mobile) => {
+    const x = mobile ? 10 : 80;
+    const y = mobile ? 98 : 104;
+    const size = mobile ? 12 : 13;
+    upsertOwnerText(owner, 'Breadcrumb / link / Афиша', 'Афиша', x, y, 48, 18, size, 500, '#98401f');
+    upsertOwnerText(owner, 'Breadcrumb / separator', '/', x + 54, y, 10, 18, size, 400, '#8a786e');
+    upsertOwnerText(owner, 'Breadcrumb / current / Артефакты', 'Артефакты', x + 68, y, 82, 18, size, 400, '#75645a');
+  };
   const linked = (componentId, name, parent, x, y, width, height) => {
     const component = componentById(componentId);
     if (!component) throw new Error(`missing artifact visual ${componentId}`);
@@ -208,6 +234,7 @@ function installArtifactsOv06VisualDonorMaterializer(penpot, penpotUtils, storag
       if (!desktopBody || !footer) throw new Error('desktop body/footer missing');
       desktopBody.name = 'linked Artifacts / Collection / desktop;state=all-found-7-of-7';
       place(desktopBody, 50, 88, 1180, 1900);
+      repairBreadcrumb(desktop, false);
       place(footer, 0, 2036.109375, 1280, 681.859375);
 
       mobile.name = 'Archetype / Artifacts / viewport=mobile;state=all-found-7-of-7 · native donor reconstruction';
@@ -216,7 +243,8 @@ function installArtifactsOv06VisualDonorMaterializer(penpot, penpotUtils, storag
       const nav = [...mobile.children].find((shape) => shape.name.includes('bottom navigation'));
       if (!mobileBody || !nav) throw new Error('mobile body/navigation missing');
       mobileBody.name = 'linked Artifacts / Collection / mobile;state=all-found-7-of-7';
-      place(mobileBody, 12, 84, 366, 2700);
+      place(mobileBody, 12, 121, 366, 2700);
+      repairBreadcrumb(mobile, true);
       place(nav, 0, 2887, 390, 64);
       return { desktop: desktop.id, mobile: mobile.id };
     } finally {

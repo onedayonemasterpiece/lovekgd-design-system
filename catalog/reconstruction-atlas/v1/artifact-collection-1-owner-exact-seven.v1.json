@@ -2,7 +2,7 @@
   "schema_version": "artifact-collection-1-owner-exact-seven.v1",
   "contract_id": "recovery.ov-06.artifact-collection-1.owner-exact-seven.v1",
   "review_item": "OV-06",
-  "status": "STRUCTURAL_OVERLAP_CORRECTION_VERIFIED_VISUAL_REREVIEW_REQUIRED",
+  "status": "STRUCTURAL_BREADCRUMB_AND_OVERLAP_CORRECTIONS_VERIFIED_VISUAL_REREVIEW_REQUIRED",
   "processed": false,
   "authority": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
@@ -35,7 +35,37 @@
     "visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
     "visual_donor_marker": "data-artifact-visual-donor",
     "semantic_overlay": "exact-seven local runtime, details and fail-closed production behavior",
-    "round_trip_commit": "812ffc279728221b547707474bcb521f27c4a73d"
+    "round_trip_commit": "812ffc279728221b547707474bcb521f27c4a73d",
+    "latest_verified_commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
+    "latest_verification": {
+      "build_profile": {
+        "PUBLIC_SITE_MODE": "preview",
+        "PUBLIC_ENABLE_AMBER_ARTIFACT_RESEARCH": "tail",
+        "PUBLIC_STATIC_SITE_CURRENT_DATE": "2026-07-23",
+        "PUBLIC_STATIC_SITE_REFERENCE_ISO": "2026-07-23T10:00:00.000Z"
+      },
+      "built_pages": 471,
+      "source_tests": "6/6 pass",
+      "generated_tests": "2/2 pass",
+      "desktop_all_found": {
+        "document_size": [
+          1280,
+          2669
+        ],
+        "artifact_cards": 7,
+        "open_dialogs": 0,
+        "horizontal_overflow_px": 0
+      },
+      "mobile_all_found": {
+        "document_size": [
+          390,
+          2932
+        ],
+        "artifact_cards": 7,
+        "open_dialogs": 0,
+        "horizontal_overflow_px": 0
+      }
+    }
   },
   "artifacts": [
     {
@@ -173,6 +203,7 @@
         },
         "owner_regions": [
           "linked Shell / Desktop header",
+          "Breadcrumb / current Astro route context",
           "linked Artifacts / Collection / desktop;state=all-found-7-of-7",
           "linked Shell / Desktop footer viewport"
         ]
@@ -204,6 +235,7 @@
         },
         "owner_regions": [
           "linked Shell / Mobile header",
+          "Breadcrumb / current Astro route context",
           "linked Artifacts / Collection / mobile;state=all-found-7-of-7",
           "linked Shell / Mobile bottom navigation"
         ]
@@ -244,13 +276,97 @@
       "owner_collisions_after": [],
       "page_validation_after": []
     },
-    "round_trip_revision": 2796,
+    "round_trip_revision": 2869,
     "owner_collision_readback": {
-      "revision": 2796,
+      "revision": 2869,
       "visible_top_level_collisions": [],
       "validation": []
     },
-    "foundation_binding_revision": 2796
+    "foundation_binding_revision": 2869,
+    "owner_breadcrumb_current_astro_correction": {
+      "cause": "The donor-native owners omitted the visible current Astro breadcrumb `Афиша / Артефакты`; on mobile the collection body therefore began 37px too high and the hero occupied the breadcrumb band.",
+      "source": "site/src/components/artifacts/ArtifactCollection.astro[data-artifact-collection] > nav.artifact-collection__crumbs",
+      "saved_version": {
+        "label": "Artifacts owners · restore current Astro breadcrumbs",
+        "created_at": "2026-08-29T06:33:22.889Z"
+      },
+      "desktop": {
+        "owner_id": "d87e18f1-dcb4-80a6-8008-880f9aaea84e",
+        "body_local_y": 88,
+        "breadcrumb_local_geometry": [
+          [
+            80,
+            104,
+            48,
+            18
+          ],
+          [
+            134,
+            104,
+            10,
+            18
+          ],
+          [
+            148,
+            104,
+            82,
+            18
+          ]
+        ],
+        "shape_ids": [
+          "8f804431-c282-8075-8008-8e520b90c8c2",
+          "8f804431-c282-8075-8008-8e520d13c515",
+          "8f804431-c282-8075-8008-8e520d7118e6"
+        ]
+      },
+      "mobile": {
+        "owner_id": "d87e18f1-dcb4-80a6-8008-880f9c4c81c4",
+        "body_local_y_before": 84,
+        "body_local_y_after": 121,
+        "breadcrumb_local_geometry": [
+          [
+            10,
+            98,
+            48,
+            18
+          ],
+          [
+            64,
+            98,
+            10,
+            18
+          ],
+          [
+            78,
+            98,
+            82,
+            18
+          ]
+        ],
+        "shape_ids": [
+          "8f804431-c282-8075-8008-8e52302948e2",
+          "8f804431-c282-8075-8008-8e5230750733",
+          "8f804431-c282-8075-8008-8e5230c0cdc7"
+        ]
+      },
+      "validation": [],
+      "selection_restored_to": "d87e18f1-dcb4-80a6-8008-880f9aaea84e",
+      "visual_export": "BLOCKED_BY_ACTIVE_PENPOT_EXPORTER_HTTP_504; no blind retry",
+      "penpot_revision": 2869,
+      "idempotency": {
+        "materializer_method": "storage.artifactsOv06VisualDonor.repairOwners()",
+        "rerun_revision": 2869,
+        "desktop_breadcrumb_count": 3,
+        "mobile_breadcrumb_count": 3,
+        "stable_shape_ids_unchanged": true,
+        "duplicate_breadcrumb_names": 0,
+        "validation": [],
+        "saved_version": {
+          "label": "Artifacts owners · breadcrumbs idempotency verified",
+          "created_at": "2026-08-29T06:37:29.631Z"
+        }
+      }
+    }
   },
   "editorial_gate": {
     "status": "PROVENANCE_ONLY",
@@ -262,7 +378,7 @@
     "all_state_boards_validation": [],
     "page_validation": [],
     "detached_artifact_root_instances": 0,
-    "owner_status": "VISUAL_REREVIEW_REQUIRED",
+    "owner_status": "VISUAL_REREVIEW_REQUIRED_AFTER_CURRENT_ASTRO_BREADCRUMB_CORRECTION",
     "processed": false,
     "native_owner_projection": true,
     "source_projection_count": 0,

@@ -74,6 +74,9 @@ test('OV-06 Penpot materializer uses linked native artifact components and forbi
   assert.match(materializer, /component\.instance\(\)/u);
   assert.match(materializer, /linked Artifact visual/u);
   assert.match(materializer, /sourceProjectionCount/u);
+  assert.match(materializer, /Breadcrumb \/ link \/ Афиша/u);
+  assert.match(materializer, /Breadcrumb \/ current \/ Артефакты/u);
+  assert.match(materializer, /place\(mobileBody, 12, 121, 366, 2700\)/u);
   assert.doesNotMatch(materializer, /uploadMedia|fillImage|source projection|screenshot fill/iu);
   assert.doesNotMatch(materializer, /detach\(/u);
 });
