@@ -6,6 +6,7 @@ import test from 'node:test';
 const json = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const contract = await json('../catalog/reconstruction-atlas/v1/partners-ov34-source-exact.v1.json');
 const receipt = await json('../evidence/recovery-20260828/penpot/partners-ov34-source-exact-receipt.v1.json');
+const bindings = await json('../catalog/round-trip-reconstruction/v1/bindings.v1.json');
 const pngSize = (buffer) => [buffer.readUInt32BE(16), buffer.readUInt32BE(20)];
 const sha256 = (buffer) => createHash('sha256').update(buffer).digest('hex');
 
@@ -18,6 +19,19 @@ test('OV-34 contract is anchored to the factual current Astro partners route', (
     'kppk-rzd', 'znanie-russia', 'kgd80', 'kantata-education', 'act-opus', 'icae-kaliningrad',
   ]);
   assert.equal(contract.source_truth.page_local_partnership_funnel, false);
+});
+
+test('OV-34 round-trip bindings no longer point to the superseded partnership funnel', () => {
+  const archetype = bindings.archetypes.find(({ archetype_id }) => archetype_id === 'archetype.information-pages');
+  assert.equal(archetype.source_exact_correction.contract_id, contract.contract_id);
+  for (const board of archetype.boards) {
+    assert.equal(board.astro.route, '/partners/');
+    assert.equal(board.penpot.revision, 2889);
+    assert.match(board.penpot.board_name, /route=partners;fixtures=6/u);
+  }
+  const logoGrid = archetype.dependencies.find(({ component_id }) => component_id === 'partners.logo-grid');
+  assert.equal(logoGrid.source_exact_resolution.status, 'RESOLVED_TO_SIX_FACTUAL_PARTNERS');
+  assert.equal(logoGrid.source_exact_resolution.page_local_partnership_funnel, false);
 });
 
 test('OV-34 Penpot owners are linked native compositions rather than screenshot overlays', () => {
