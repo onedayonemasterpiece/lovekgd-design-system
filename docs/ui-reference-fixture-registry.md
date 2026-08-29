@@ -113,7 +113,27 @@ structure. Its `repairAll` path is intentionally limited to these
 `NOT_REVIEWED` September-v2 candidates; it must not mutate an approved owner or
 redraw card anatomy locally.
 
-The current drift-closure receipt is
+The current conformance receipt is
+[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v5.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v5.json).
+It deliberately reduces the active review target to one exact desktop row with
+fixtures `2182, 6711, 7609` on Penpot page `63.08b — Free collection · 3-card
+bounded review`. The immutable 1082×623 Astro crop is placed on the left and
+three linked instances of the central desktop-packed `EventCard` variant are
+placed on the right. The live read-back receipt is
+[`bounded-three-card-review-readback.v1.json`](../evidence/recovery-20260829/penpot/free-collection-september-v2/bounded-three-card-review-readback.v1.json).
+It records linked ancestry through the central Golden v2 variant and canonical
+base, native image payloads for every card, empty Penpot validation and the
+named saved version.
+
+This smaller target does **not** clear the visual gate. Exporting the 1082×623
+three-card board returned HTTP 504, and exporting one isolated 347×622 linked
+card on the same minimal page also returned HTTP 504. Therefore v5 records
+`visual_conformance=BLOCKED`, `overlay=NOT_RUN` and `pixel_diff=NOT_RUN`; it
+must not be cited as an Astro = Penpot visual pass. The single-card retry also
+rules out the five-event/full-page size as a sufficient explanation for the
+failure.
+
+The preceding full-page drift-closure receipt is
 [`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v4.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v4.json).
 It records the live central-component ancestry, all ten collection slots, exact
 fixture order, Astro inspection evidence, cleanup and the Penpot validation
