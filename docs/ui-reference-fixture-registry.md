@@ -114,13 +114,17 @@ structure. Its `repairAll` path is intentionally limited to these
 redraw card anatomy locally.
 
 The current drift-closure receipt is
-[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v3.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v3.json).
+[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v4.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v4.json).
 It records the live central-component ancestry, all ten collection slots, exact
 fixture order, Astro inspection evidence, cleanup and the Penpot validation
-result. Product review remains `NOT_REVIEWED`. The Penpot PNG exporter returned
-HTTP 504 after the final centralization, so v3 deliberately reports structural
-and geometric closure but does not promote that failed export to a fresh
-pixel-diff pass.
+result. The Astro capture now scrolls through the document, requires all five
+lazy card images to have `naturalWidth > 0`, and awaits `decode()` before any
+proof screenshot. Page `63.08` starts with exactly two review pairs: desktop
+Penpot ↔ Astro, then mobile Penpot ↔ Astro; component masters begin below the
+explicit service-zone label at `y=7930`. Product review remains `NOT_REVIEWED`.
+Three bounded Penpot export attempts (full board, 340×604 component and raw
+image-fill mode) returned HTTP 504, so v4 records the repeated exporter blocker
+instead of promoting it to a pixel-diff pass.
 
 Page `63.08 — Atlas · Collections` was then cleaned in place. The cleanup
 receipt is

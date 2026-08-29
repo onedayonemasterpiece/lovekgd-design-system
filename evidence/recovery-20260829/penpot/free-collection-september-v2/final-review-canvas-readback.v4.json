@@ -1,0 +1,135 @@
+{
+  "schema": "penpot.free-collection.review-canvas-readback.v4",
+  "generated_at": "2026-08-29T18:55:00Z",
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "page": {
+    "id": "d87e18f1-dcb4-80a6-8008-880c4a36d153",
+    "name": "63.08 — Atlas · Collections",
+    "top_level_count": 29
+  },
+  "root_cause": {
+    "missing_astro_images": "The prior full-page screenshot was captured without requiring below-fold native lazy images to load and decode. A fullPage screenshot alone does not activate every lazy image.",
+    "canvas_disorder": "Comparison copies, owner masters, body masters and collection-index masters shared the same visual region without an explicit review-first order."
+  },
+  "capture_fix": {
+    "astro_commit": "6faddb367d200f50dee0e5ac9fe7be47f657d0ae",
+    "receipt": "astro-browser-receipt.v2.json",
+    "receipt_schema": "free-collection-browser-receipt.v3",
+    "guard": [
+      "exactly five data-event-card nodes",
+      "scroll through the full document",
+      "wait for every image.complete and naturalWidth > 0",
+      "await image.decode()",
+      "fail capture if any card image is incomplete"
+    ],
+    "desktop": {
+      "path": "astro-desktop-full.png",
+      "sha256": "137532d3a5a0b5959a32bf55e2921398d4295e0af3d0e63dd0725c0c2855fc49",
+      "width": 1280,
+      "height": 3338,
+      "decoded_event_ids": [
+        8006,
+        8200,
+        2182,
+        6711,
+        7609
+      ]
+    },
+    "mobile": {
+      "path": "astro-mobile-full.png",
+      "sha256": "4d15df62827efec2e26627b97730e4aac6ee4afe4a0c6d3068b1cad4efd43d50",
+      "width": 390,
+      "height": 4270,
+      "decoded_event_ids": [
+        8006,
+        8200,
+        2182,
+        6711,
+        7609
+      ]
+    }
+  },
+  "penpot_refresh": {
+    "desktop_board": {
+      "id": "8f804431-c282-8075-8008-8edd7c3fa9e9",
+      "image_media_id": "40e06342-8830-80d6-8008-8efafb0a7fe3",
+      "width": 1280,
+      "height": 3338
+    },
+    "mobile_board": {
+      "id": "8f804431-c282-8075-8008-8edd9aa2dd3e",
+      "image_media_id": "c828d3cf-7d4e-8145-8008-8efafb1bcb47",
+      "width": 390,
+      "height": 4270
+    },
+    "plugin_data": {
+      "astro-source-commit": "6faddb367d200f50dee0e5ac9fe7be47f657d0ae",
+      "all-card-images-decoded": "true"
+    },
+    "validation_errors_after_refresh": []
+  },
+  "review_order": [
+    {
+      "order": 1,
+      "viewport": "desktop",
+      "penpot": {
+        "id": "8f804431-c282-8075-8008-8edee54844c7",
+        "x": 0,
+        "y": 40,
+        "width": 1280,
+        "height": 3338.34375
+      },
+      "astro": {
+        "id": "8f804431-c282-8075-8008-8edd7c3fa9e9",
+        "x": 1360,
+        "y": 40,
+        "width": 1280,
+        "height": 3338
+      }
+    },
+    {
+      "order": 2,
+      "viewport": "mobile",
+      "penpot": {
+        "id": "8f804431-c282-8075-8008-8edefc9d5adb",
+        "x": 0,
+        "y": 3490,
+        "width": 390,
+        "height": 4270.4375
+      },
+      "astro": {
+        "id": "8f804431-c282-8075-8008-8edd9aa2dd3e",
+        "x": 470,
+        "y": 3490,
+        "width": 390,
+        "height": 4270
+      }
+    }
+  ],
+  "service_zone": {
+    "starts_at_y": 7930,
+    "label": "SERVICE ZONE — component masters · not for visual comparison",
+    "comparison_pairs_before_service_zone": 2,
+    "loose_state_label_removed": true
+  },
+  "export_attempts": [
+    {
+      "target": "desktop Astro screenshot board 1280x3338",
+      "mode": "shape/png",
+      "result": "HTTP 504"
+    },
+    {
+      "target": "mobile packed EventCard master 340x603.71875",
+      "mode": "shape/png",
+      "result": "HTTP 504"
+    },
+    {
+      "target": "desktop Astro screenshot board image fill",
+      "mode": "fill/png",
+      "result": "HTTP 504"
+    }
+  ],
+  "exporter_diagnosis": "The Penpot server-side exporter times out even for a 340x604 component and for raw image-fill mode. Official Penpot architecture documents that bitmap export depends on a separate headless-browser exporter; the repeated 504 is infrastructure-level, not treated as a successful visual gate.",
+  "live_mutation_validation_errors": [],
+  "product_approval": "NOT_REVIEWED"
+}

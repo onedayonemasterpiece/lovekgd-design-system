@@ -45,3 +45,20 @@ test('footer share strip is the centralized two-control Astro desktop state', ()
   assert.match(source, /penpot\.createPath\(\)/u);
   assert.doesNotMatch(source, /\['Поделиться',590,150\]/u);
 });
+
+test('review canvas contains only two ordered Penpot versus Astro comparison pairs before the service zone', () => {
+  assert.match(source, /function organizeReviewCanvas\(\)/u);
+  assert.match(source, /START HERE — Бесплатные события · Penpot ↔ Astro · Golden Corpus v2/u);
+  assert.match(source, /01 · DESKTOP — ASTRO REAL · 5\/5 IMAGES DECODED/u);
+  assert.match(source, /02 · MOBILE — ASTRO REAL · 5\/5 IMAGES DECODED/u);
+  assert.match(source, /serviceStartY:7930/u);
+  assert.match(source, /const reviewCanvas=organizeReviewCanvas\(\)/u);
+});
+
+test('comparison screenshots are refreshed only from a capture that decoded all five card images', () => {
+  assert.match(source, /ASTRO_CAPTURE_COMMIT = '6faddb367d200f50dee0e5ac9fe7be47f657d0ae'/u);
+  assert.match(source, /async function refreshComparisonScreenshots\(\)/u);
+  assert.match(source, /all-card-images-decoded','true'/u);
+  assert.match(source, /astro-desktop-full\.png/u);
+  assert.match(source, /astro-mobile-full\.png/u);
+});
