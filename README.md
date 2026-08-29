@@ -14,6 +14,9 @@ fixtures, архетипах или component lineage сначала откро�
 `events-bot-new#596`. Нельзя выводить текущее состояние только из `main` или из
 старого PR body; перед работой нужен fresh-read фактических heads.
 
+Latest registered owner review: `REV-IDEAHUB-20260829-14` / `OV-58` on active
+PR `#53`.
+
 ## Текущий layered status
 
 ```text
@@ -34,8 +37,8 @@ production migration of draft candidate: NOT AUTHORIZED
    означает, что система целиком owner-accepted, promoted или deployed.
 
 Точное текущее состояние и запретные утверждения находятся в current-state
-router, а per-item review status — в `docs/reviews/index.md` на актуальном head
-PR `#53`.
+router. Актуальный per-item review status находится в active PR `#53`:
+[`docs/reviews/index.md`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md).
 
 ## Исторический reconstruction snapshot
 
@@ -122,9 +125,13 @@ Component Contract
 зафиксированную package version.
 
 Подробности:
-[`docs/component-contract-authority.md`](docs/component-contract-authority.md) и
-[`docs/ui-source-of-truth-roundtrip.md`](docs/ui-source-of-truth-roundtrip.md)
-на актуальном owner-review head.
+
+- [`docs/component-contract-authority.md`](docs/component-contract-authority.md);
+- [UI Source of Truth round trip on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md).
+
+Relative link to `docs/ui-source-of-truth-roundtrip.md` is intentionally not used
+here: that file does not exist on this documentation branch and must be read from
+fresh active PR `#53`.
 
 ## Reference fixtures и parity
 
@@ -172,10 +179,12 @@ has eleven ordered states. Bounded materialization/readback evidence не
 
 ## Канонический маршрут
 
-- [Текущий layered state и routing](docs/static-site-design-system-current-state.md)
-- [Карта документации](docs/index.md)
-- [UI Source of Truth round trip](docs/ui-source-of-truth-roundtrip.md) — читать на актуальном PR `#53`
-- [Owner-review register](docs/reviews/index.md) — читать на актуальном PR `#53`
+- [Текущий cross-branch state и routing](docs/static-site-design-system-current-state.md)
+- [Карта документации этой ветки](docs/index.md)
+- [Detailed current-state router on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/static-site-design-system-current-state.md)
+- [UI Source of Truth round trip on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md)
+- [Owner-review register on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md)
+- [Latest review intake `REV-IDEAHUB-20260829-14`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md)
 - [Resource Graph 004 — operating contract](docs/resource-graph-004.md)
 - [Component authority and three-way conformance](docs/component-contract-authority.md)
 - [Source-first component decoder](docs/source-first-component-decoder.md)
