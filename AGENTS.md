@@ -4,10 +4,12 @@
 
 For every UI, component, archetype, Penpot, or Astro synchronization task read:
 
-1. `docs/ui-source-of-truth-roundtrip.md` — mandatory cross-repository loop;
-2. `docs/component-contract-authority.md` — authority before and after promotion;
-3. `docs/normalization/design-system-family-lifecycle.md` — ordered lifecycle gates;
-4. the affected family contract, decision ledger, and latest Penpot receipt.
+1. `docs/static-site-design-system-current-state.md` — current layered authority,
+   exact factual gaps and the distinction between target contract and active state;
+2. `docs/ui-source-of-truth-roundtrip.md` — mandatory cross-repository loop;
+3. `docs/component-contract-authority.md` — authority before and after promotion;
+4. `docs/normalization/design-system-family-lifecycle.md` — ordered lifecycle gates;
+5. the affected family contract, decision ledger, and latest Penpot receipt.
 
 Material visual component/foundation/archetype change → use project skill
 `ui-three-way-conformance`.
