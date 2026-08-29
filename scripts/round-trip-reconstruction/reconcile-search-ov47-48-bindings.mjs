@@ -115,6 +115,30 @@ write(DESKTOP_RECEIPT,desktopReceipt);
 const bindings=read(BINDINGS);
 const archetype=bindings.archetypes.find(a=>a.archetype_id==='archetype.search');
 if(!archetype) throw new Error('bindings have no Search archetype');
+const canonicalRepresentatives={
+  desktop:states.find(s=>s.viewport==='desktop'&&s.state==='results'),
+  mobile:states.find(s=>s.viewport==='mobile'&&s.state==='results'),
+};
+const canonicalBoard=(previous,s)=>({
+  ...previous,
+  astro:{...previous.astro,commit:ASTRO},
+  height:s.height,
+  penpot:{
+    ...previous.penpot,
+    board_component:comp(s.component_id,s.component_name,'Archetype / Search'),
+    board_id:s.main_id,
+    board_name:`Archetype / Search / ${s.component_name}`,
+    direct_children:s.children,
+    direct_url:`https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=${FILE}&page-id=${PAGE}&board-id=${s.main_id}`,
+    revision:REVISION,
+  },
+  viewport:s.viewport,
+  width:s.width,
+});
+archetype.boards=archetype.boards.map(board=>canonicalBoard(board,canonicalRepresentatives[board.viewport]));
+bindings.cases=bindings.cases.map(board=>board.archetype_id==='archetype.search'
+  ? canonicalBoard(board,canonicalRepresentatives[board.viewport])
+  : board);
 archetype.source_exact_correction={contract_id:contract.contract_id,path:CONTRACT,sha256:hash(CONTRACT),status:contract.status};
 archetype.source_exact_state_owners=allStates.map(s=>({
   viewport:s.viewport,state:s.state,width:s.width,height:s.height,x:s.x,y:s.y,

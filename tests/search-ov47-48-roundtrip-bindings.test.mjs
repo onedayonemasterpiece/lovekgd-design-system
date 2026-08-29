@@ -26,6 +26,19 @@ test('OV-47/48 round-trip registers the complete visible mobile lifecycle and de
   assert.equal(archetype.source_exact_correction.sha256,hash(archetype.source_exact_correction.path));
 });
 
+test('Search canonical Product Atlas boards use factual entered-query results, never the stale idle-anonymous baseline',()=>{
+  assert.deepEqual(archetype.boards.map(board=>[board.viewport,board.penpot.board_id]),[
+    ['desktop','8f804431-c282-8075-8008-8e292b4c6b49'],
+    ['mobile','8f804431-c282-8075-8008-8de4b555573e'],
+  ]);
+  assert.ok(archetype.boards.every(board=>board.astro.commit==='812ffc279728221b547707474bcb521f27c4a73d'));
+  assert.ok(archetype.boards.every(board=>board.penpot.revision===2813));
+  assert.ok(archetype.boards.every(board=>/state=results/.test(board.penpot.board_name)));
+  assert.ok(archetype.boards.every(board=>!JSON.stringify(board).includes('idle-anonymous')));
+  const cases=bindings.cases.filter(board=>board.archetype_id==='archetype.search');
+  assert.deepEqual(cases,archetype.boards);
+});
+
 test('OV-47/48 status closes the visible lifecycle and records stale as a non-visual guard',()=>{
   assert.deepEqual(contract.coverage.mobile_integrated_states,[
     'loading','results','validation','empty','error-retry','load-more-ready','load-more-loading','recovery-after-error',
