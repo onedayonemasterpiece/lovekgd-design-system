@@ -519,68 +519,46 @@ for owner rereview and remains open only until that review.
 ### 9.4b Owner correction — exact seven-artifact Collection 1 (`OV-06`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This section supersedes
-§9.4a's stale `1/5` authority conclusion.
+§9.4a's stale `1/5` authority conclusion and the later underspecified plain
+collection rail.
 
-The higher-priority owner decision at events-bot-new commit
-`f5ea5e497a3c137e350645e0f6c35304853a8908` requires exactly seven prepared
-artifacts from `references/artefact-collection-1` and explicitly rejects the
-5-slot runtime, 8-item draft and 12 Focus eggs. Astro commit `49c351873d40a2ea55f0a32837c7376e344d9c17` now
-contains the exact seven-item registry, all seven source hashes, seven bounded
-focus assets and generic local progress/detail behavior. Ordinary production
-remains fail-closed. Historical stories are not invented: current copy is
-provenance-only pending a separate editorial fact-check.
+The visual hierarchy now comes from the real pre-presentation donor
+`events-bot-new@008839b14598105d1fed5b4e386d6d6f29d93d1f`, as explicitly directed
+by the owner. The semantic overlay comes from the higher-priority exact-seven
+decision at `f5ea5e497a3c137e350645e0f6c35304853a8908` and current Astro
+`70d43a87bf7fdfb748ace6218f17befd0613d01a`: seven source-backed artifacts,
+local progress/details, the `5/7` application threshold and fail-closed ordinary
+production. The stale 5-slot runtime, 8-item draft and 12 Focus eggs remain
+rejected.
 
-Page `63.15` now contains seven native component masters and linked boards for
-`0/7`, subset `3/7`, all `7/7`, pointer hover, keyboard focus, selected desktop
-detail and selected `390px` mobile detail. Each state board has all seven
-distinct linked component roots; selected-detail boards add one linked selected
-visual. The former `1/5` and Amber-only detail evidence boards remain hidden and
-explicitly marked superseded. The existing desktop/mobile collection masters
-were corrected in place, so their linked archetype consumers now display all
-seven exact reference visuals.
+Astro `/artefakty/` was rebuilt around that donor rather than the later blank
+or service-like geometry. Browser evidence covers desktop/mobile and both
+`1/7` and `7/7`; it records zero console errors and zero horizontal overflow.
+The surface preserves the large `Знаки Янтарного края` hero, device-local note,
+progress, exact seven-card collection, threshold message and
+`Артефакт не убегает` rules while retaining the real runtime/dialog behavior.
 
-Structural readback and every affected board/page `validate()` returned `[]`.
-The corrected desktop archetype export visibly contains seven distinct source
-assets. A later focused all-found export returned HTTP 504 only after exact
-readback and was not blindly retried. The initially attempted
-`penpotUtils.createSavedVersion` utility does not exist; the supported
-`currentFile.saveVersion()` method was then used for the overlay-cleanup
-checkpoint. No version ID was fabricated.
+Penpot page `63.15` now uses native linked assembly only: no screenshot or
+full-page image fill is present. The desktop body
+`d87e18f1-dcb4-80a6-8008-886a9dd56004` is `1180×1900`; the mobile body
+`d87e18f1-dcb4-80a6-8008-886a9e3f9cc2` is `366×2700`. Each contains seven
+cards and one intact `180×250` linked native artifact instance per card. The
+owner compositions are `1280×2718` and `390×2951`, with linked shell regions.
+Exact readback found seven distinct component IDs in each viewport,
+`detached=0`, `sourceProjectionCount=0` and `currentFile.validate()=[]`.
 
-Owner visual rereview then exposed a second defect: the first correction left
-the product archetype as a narrow service rail and an interrupted write left a
-blank page-root panel over the real screen. The two page-root orphans were
-removed and exact readback proved that no visible orphan remained at `(0,0)`.
-
-The linked desktop collection master was subsequently rebuilt in place from
-the actual Astro surface rather than the service rail. A browser-measured
-follow-up corrected it to the complete `1180×1174` anatomy: hero eyebrow,
-source-sized three-line page title, explanatory lead with a 19px structural
-gap, device-local state notice, `Найдено 7 из 7`, and seven found cards in the
-source CSS `4 + 3` grid. Every card retains one linked exact artifact visual.
-The owner archetype inherited that master at `1280×1988.390625`; its footer
-starts at the Astro-measured `y=1306.53125`, after the complete collection
-rather than at the former `538px` rail boundary.
-Exact readback found seven distinct linked artifact component IDs, zero
-detached roots, zero visible page-root orphans and `currentFile.validate()=[]`.
-
-This correction also records the owner's clarified visual precedence:
-`events-bot-new@008839b14598105d1fed5b4e386d6d6f29d93d1f` is the primary
-pre-presentation visual donor. Later commits may change that base only as
-source-proven corrections; the exact-seven owner decision remains such a
-correction. The mobile master was expanded into the source single-column flow
-using the existing seven linked visuals. After Penpot reconnected, exact
-readback proved that the interrupted old-brick write had already completed:
-all seven distinct artifact component IDs were present and `detached=0`. The
-mobile owner was then expanded from the stale clipped `390×1200` viewport to a
-full `390×2008` composition containing the linked `366×1860` body and linked
-bottom navigation. A named full desktop/mobile version was saved, and settled
-readback again returned `currentFile.validate()=[]`. The subsequent focused
-mobile PNG export returned external HTTP 504; it was not retried because the
-native structural and owner-visible composition was already durable.
+The standard large export returned HTTP 504 and was not blindly retried.
+Bounded direct exports then succeeded and were visually inspected: the blank
+page-root block is gone, all seven distinct artifact visuals are visible, and
+the donor hero/progress/rules hierarchy is present on desktop and mobile.
+Named version
+`OV06 Artifacts · native 008839 donor + exact seven · full artifact visuals`
+was saved at `2026-08-29T01:09:17.772Z`.
 
 Contract: `catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json`.
 Receipt: `evidence/recovery-20260828/penpot/artifact-collection-1-owner-exact-seven-receipt.v1.json`.
+Astro evidence: `evidence/recovery-20260829/astro/ov06-artifacts-browser-evidence.v2.json`.
+Penpot exports: `evidence/recovery-20260829/penpot/ov06-artifacts-{desktop,mobile}-owner-native.png`.
 
 ### 9.4c Concrete Free collection (`OV-44`)
 
