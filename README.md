@@ -1,228 +1,204 @@
 # LoveKGD Design System
 
-Репозиторий хранит архитектуру, контракты, инструменты и воспроизводимые доказательства дизайн-системы бренда «Полюбить Калининград» и продукта «Полюбить Калининград Анонсы».
+Репозиторий хранит SoT UI contracts, component architecture, Penpot bindings,
+Astro conformance evidence и promotion/release records для продукта «Полюбить
+Калининград Анонсы».
 
 ## Начать отсюда
 
-Для любой задачи о статическом сайте, Astro ↔ Git UI SoT ↔ Penpot, Golden
-fixtures, архетипах или component lineage сначала откройте
+Для любой задачи о статическом сайте, компонентах, Astro ↔ Penpot parity,
+fixtures или archetypes сначала откройте
 [`docs/static-site-design-system-current-state.md`](docs/static-site-design-system-current-state.md).
 
-Опубликованный `main@c6419a62af3d73f53e81d95a518fbe62a4a1c942`
-— исторический snapshot от 19 августа 2026 года. Текущие evidence и изменения
-распределены между Draft PR `#52`, активным owner-review PR `#53` и Astro/UI PR
-`events-bot-new#596`. Нельзя выводить текущее состояние только из `main` или из
-старого PR body; перед работой нужен fresh-read фактических heads.
+Этот documentation branch не содержит полный текущий owner-review contour.
+Фактические текущие contracts и review находятся в Draft PR `#53`; executable
+Astro candidate — в `events-bot-new#596`.
 
-Latest registered owner review: `REV-IDEAHUB-20260829-14` / `OV-58` on active
-PR `#53`.
+Latest owner correction: `REV-CHAT-20260829-01` / `OV-59`.
 
-## Текущий layered status
+## Central authority
+
+**SoT UI is the central system.**
+
+```text
+owner/product decision
+→ SoT UI
+  ├─→ Penpot native visual projection/review
+  └─→ Astro executable projection/consumer
+→ structural + visual parity
+→ owner acceptance
+→ promotion and production migration
+```
+
+Current durable SoT UI implementation is versioned Git contracts/package data,
+tokens, behavior contracts, fixture authority, bindings and receipts in this
+repository.
+
+Penpot is not the central system and cannot directly govern Astro. A visual
+change proposed or reviewed in Penpot must return to SoT UI first; both
+projections are then updated from one SoT version.
+
+The full IdeaHub transcript explicitly says Source of Truth is the center and
+Penpot is the display/review instrument. A previous model summary and analysis
+misattributed Penpot centrality; current correction is routed on active PR `#53`.
+
+## Current layered status
 
 ```text
 published main snapshot: historical reconstruction state
 source-proven AS-IS baseline: PR #52 PASS / DRAFT / UNMERGED
-active owner-review corrections: PR #53 IN_PROGRESS
+active SoT and owner-review corrections: PR #53 IN_PROGRESS
 Golden Event Corpus pilot: identity PASS / visual FAIL
 active Astro/UI candidate: events-bot-new PR #596 DRAFT
+SoT event-fixture authority unification: OPEN
 per-family global promotion: 0
 production migration of draft candidate: NOT AUTHORIZED
 ```
 
-Это означает одновременно две вещи:
+`main@c6419a62af3d73f53e81d95a518fbe62a4a1c942` is a historical snapshot dated
+19 August 2026. Do not infer current state only from `main`, this README or an
+old PR body; fresh-read current heads.
 
-1. старая таблица `native components: 0 / variants: 0 / tokens: 0` больше не
-   описывает активный owner-review contour;
-2. наличие реальных Penpot components, fixtures и bounded parity receipts не
-   означает, что система целиком owner-accepted, promoted или deployed.
+## Historical reconstruction snapshot
 
-Точное текущее состояние и запретные утверждения находятся в current-state
-router. Актуальный per-item review status находится в active PR `#53`:
-[`docs/reviews/index.md`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md).
-
-## Исторический reconstruction snapshot
-
-Следующие числа относятся к исходному опубликованному snapshot, а не к текущему
-состоянию активной ветки:
+The following numbers describe the original published snapshot, not the active
+owner-review branch:
 
 ```text
-phase: reconstruction
-Penpot Resource Graph: TO-BE scaffold created and validated
-Penpot file_id: 3be9e5e1-190f-8090-8008-713c0fbe6260
+Penpot Resource Graph historical scaffold: PASS
 historical Penpot revision: 30
 pages: 23
 managed zones: 257
 historical native components: 0
 historical variants: 0
 historical tokens/styles: 0
-decoder snapshot: reviewed v1 committed
-logical current-UI components: 107
-candidate AS-IS contracts: 12 (not accepted at that snapshot)
+logical current-UI components decoded: 107
+candidate AS-IS contracts: 12
 reviewed reconciliation capsules: 6
 manually reviewed rasters: 157
 promoted resource families: 0
 ```
 
-Runtime Review 003.*, Resource Graph 004a/004b и runtime-derived 005 были
-техническими экспериментами. Их screenshots и object IDs не являются
-автоматически действующей нормой. Фактический historical PASS receipt:
+Historical receipt:
 [`receipts/penpot/resource-graph-to-be-structure-v1.json`](receipts/penpot/resource-graph-to-be-structure-v1.json).
 
-Машиночитаемый historical scaffold:
+Historical scaffold:
 [`contracts/resource-graph-scaffold.v1.json`](contracts/resource-graph-scaffold.v1.json).
 
-## Три связанных, но раздельных Penpot-контура
+## Product/design contours
 
 ```text
 Product Atlas
-→ зачем требуется изменение: need, Job, outcome, journey, capability, UI gap
+→ product meaning, Jobs, outcomes, journeys, capabilities and UI gaps
 
 UI Exploration
-→ какие решения исследуются: references, candidates, patterns, compositions, shortlist
+→ visual candidates, references, compositions and shortlist
 
-Resource Graph
-→ что созрело системно: resources, components, patterns, archetypes,
-  product representations, evidence, promotion and accepted exports
+Resource Graph / SoT UI delivery
+→ components, patterns, archetypes, bindings, evidence and promotion
 ```
 
-Resource Graph не является свободным brainstorm-canvas. Product Atlas и UI
-Exploration находятся в отдельных Penpot-файлах и связываются stable IDs и deep
-links.
+These are separate Penpot/product contours linked by stable IDs. None replaces
+the central SoT UI contract/package authority.
 
-## Два режима авторитетности
+## Authority by phase
 
-### `reconstructed`
+### Before promotion
 
-До promotion текущий Astro-код/runtime показывает, что фактически существует.
-Git UI SoT восстанавливает и нормализует contracts, fixtures и lineage; Penpot
-материализует native visual projection для review. Ни Penpot, ни отдельный
-`.astro`-файл не получают независимую authority.
+Pinned Astro/runtime is executable evidence of current AS-IS behavior.
+SoT UI reconstructs and normalizes the candidate contract. Penpot materializes
+the native visual projection for review.
 
-### `design-system-led`
+### After promotion
 
-Режим включается по отдельному resource family только после promotion gate. Для
-принятой версии один Component Contract связывает package/API, native Penpot
-component, Astro implementation, fixtures и runtime evidence. Product consumer
-использует pinned package version и не хранит тихий визуальный fork.
+A versioned SoT UI package becomes canonical for the promoted family. Astro
+consumes a pinned package version; Penpot remains bound to the same contract and
+accepted references. No independent visual fork is allowed.
 
-## Единый центр компонентов
+## Fixture authority
 
-Долговечная единица истины — versioned component package/contract в Git:
+Target:
 
 ```text
-Component Contract
-+ Astro presentation implementation
-+ generated props/state types
-+ fixtures and specimens
-+ interaction/accessibility/visual tests
-+ Penpot binding
-+ accepted visual references
-+ version, migration and promotion receipts
+one canonical SoT UI fixture authority
+→ typed factual fixture records
+→ named scenarios/subsets
+→ same IDs and hashes in Astro and Penpot per case
 ```
 
-До promotion текущий UI в `events-bot-new` остаётся executable источником факта
-о реализации. После promotion семейства `events-bot-new` импортирует
-зафиксированную package version.
+Current event evidence is split:
 
-Подробности:
+- 8-event component-certification corpus;
+- 5-event archetype-core registry with different IDs.
 
-- [`docs/component-contract-authority.md`](docs/component-contract-authority.md);
-- [UI Source of Truth round trip on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md).
+This is not yet a proven unified Golden Corpus. Status:
+`SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
 
-Relative link to `docs/ui-source-of-truth-roundtrip.md` is intentionally not used
-here: that file does not exist on this documentation branch and must be read from
-fresh active PR `#53`.
+Different typed pools for events, festivals, clubs and artifacts and different
+scenario subsets are allowed under one authority. Parallel unlinked event
+registries are not a finished target.
 
-## Reference fixtures и parity
+## Component lineage
 
-Owner requirement «один Golden Corpus» операционно означает один exact named
-scenario/pool на bounded comparison, с одинаковыми fixture IDs, hashes, clock,
-viewport и state в Astro и Penpot.
+- masters/state catalogs belong on bounded library pages;
+- archetypes use linked instances;
+- page-local masters, detached copies and screenshots-as-components are
+  forbidden;
+- visual similarity does not prove technical ancestry;
+- lineage requires source/version, component/main IDs, bindings and actual
+  owner-instance readback.
 
-Текущие scopes различаются по назначению:
+Bounded centralization exists for several card and Rail scopes on PR `#53`, but
+global lineage closure and owner acceptance remain open.
 
-- 8 factual events — component conformance;
-- 5 factual events — archetype core;
-- 7 festivals;
-- 3 clubs;
-- 7 artifacts.
+## Canonical current route
 
-Это не один универсальный payload list. Dense/full listings остаются generated
-Astro stress tests. Подробный executable bridge находится в
-`events-bot-new#596/docs/features/static-site-pages/design-system/reference-fixture-scenarios.md`.
+This branch:
 
-## Source-first decoder
+- [Cross-branch current-state router](docs/static-site-design-system-current-state.md)
+- [Documentation map](docs/index.md)
+- [Execution sequence](docs/design-system-execution-sequence.md)
+- [Progress checklist](docs/design-system-progress-checklist.md)
 
-Первый bounded source-first decoder завершён на exact source/runtime evidence:
+Active PR `#53`:
+
+- [Detailed current-state router](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/static-site-design-system-current-state.md)
+- [Review register](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md)
+- [Owner correction OV-59](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/owner-text-sot-ui-centrality-correction-20260829.md)
+- [UI Source of Truth round trip](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md)
+- [Fixture authority](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-reference-fixture-registry.md)
+
+Static-site consumer:
+
+- `events-bot-new#596/docs/features/static-site-pages/design-system/README.md`
+- `events-bot-new#596/docs/features/static-site-pages/design-system/reference-fixture-scenarios.md`
+
+## Instrument roles
 
 ```text
-Astro source and generators
-→ controlled generated component specimens
-→ verification on real generated pages
-→ candidate Component Contracts
-→ mismatches and unresolved mappings
-→ immutable compact snapshot + permanent heavy evidence
+GitHub / SoT UI
+  contracts, identities, fixtures, decisions, validation and receipts
+
+Penpot
+  native visual materialization, linked instances, comments and review exports
+
+Astro
+  executable consumer, generated pages, browser/device evidence and production
 ```
 
-Reviewed compact snapshot:
-[`catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/).
+## Forbidden claims
 
-Append-only behavioral evidence v1.1 находится в
-`catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`.
-Исторические synthesis/readiness документы сохраняют доказательную историю, но
-не перекрывают более новые source-bound contracts/receipts активного PR `#53`.
+Until corresponding gates close, do not claim:
 
-The normative
-[family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
-has eleven ordered states. Bounded materialization/readback evidence не
-переводит всю систему в `FAMILY_AND_ARCHETYPE_PROMOTION`.
+- Penpot is central or directly controls Astro;
+- automatic competing Penpot ↔ Astro authority;
+- current 8-event and 5-event sets are already one proven Golden Corpus;
+- all visual components share a proven accepted technical root;
+- the design system is fully accepted/promoted;
+- Draft candidate is production;
+- green tests, screenshots or `validate()=[]` equal owner acceptance.
 
-## Канонический маршрут
-
-- [Текущий cross-branch state и routing](docs/static-site-design-system-current-state.md)
-- [Карта документации этой ветки](docs/index.md)
-- [Detailed current-state router on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/static-site-design-system-current-state.md)
-- [UI Source of Truth round trip on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md)
-- [Owner-review register on active PR `#53`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md)
-- [Latest review intake `REV-IDEAHUB-20260829-14`](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md)
-- [Resource Graph 004 — operating contract](docs/resource-graph-004.md)
-- [Component authority and three-way conformance](docs/component-contract-authority.md)
-- [Source-first component decoder](docs/source-first-component-decoder.md)
-- [Product-design operating model](docs/penpot-product-design-operating-model.md)
-- [Family and archetype lifecycle](docs/normalization/design-system-family-lifecycle.md)
-- [История неканонических экспериментов](docs/legacy-experiments.md)
-
-## Инструментальные роли
-
-```text
-GitHub Actions
-  deterministic extraction, validation, screenshots, diffs and artifacts
-
-Resource Graph plugin
-  reproducible materialization of an accepted package/IR
-
-Penpot MCP
-  scoped inspection, comments, bounded candidate mutations,
-  exact readback, focused export and diagnostics
-```
-
-Плагин и MCP не имеют независимых каталогов: оба пути должны потреблять один
-contract/IR и одинаковые stable IDs.
-
-## Запреты
-
-Пока owner/release gates открыты, нельзя утверждать:
-
-- что Penpot автоматически синхронизирован с Astro;
-- что дизайн-система полностью принята или промотирована;
-- что все визуально похожие карточки уже имеют одного технического предка;
-- что Golden Corpus визуально прошёл весь сайт;
-- что Draft candidate уже находится в production;
-- что green test, screenshot или `validate()=[]` равны owner acceptance.
-
-## Репозитории
+## Repositories
 
 - Product/runtime source: `onedayonemasterpiece/events-bot-new`
-- Design-system contracts and delivery: `onedayonemasterpiece/lovekgd-design-system`
-
-Документация не создаёт GitHub Issues и не запускает implementation автоматически.
+- SoT UI contracts and delivery: `onedayonemasterpiece/lovekgd-design-system`
