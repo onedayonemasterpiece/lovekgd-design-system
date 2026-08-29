@@ -19,11 +19,13 @@ const MOBILE_OWNER_ID = 'd87e18f1-dcb4-80a6-8008-880c4cb4c4e6';
 const DESKTOP_HEADER_ID = 'a21f5e36-5d76-8065-8008-86ae4bdf9963';
 const MOBILE_HEADER_ID = 'a21f5e36-5d76-8065-8008-86aebfc67027';
 const MOBILE_NAV_ID = 'a21f5e36-5d76-8065-8008-86aec0a54bb5';
+const DESKTOP_FOOTER_ID = 'a21f5e36-5d76-8065-8008-86af602ad62a';
 
 const FIXTURE_PATH = 'Collections / Free / EventCard fixture adapter';
 const BODY_PATH = 'Collections / Free / Page body';
 const STICKY_PATH = 'Collections / Free / Sticky identity';
 const SCROLLED_PATH = 'Archetype / Collections / Scrolled state';
+const FULL_SCROLL_PATH = 'Archetype / Collections / Full scroll proof';
 const MEDALLION_SOURCE_URL = 'https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/49c351873d40a2ea55f0a32837c7376e344d9c17/site/public/assets/badges/free-listing-medallion.svg';
 
 const EVENTS = {
@@ -755,6 +757,75 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     }
   }
 
+  async function ensureFullScrollProof() {
+    assertContext();
+    const name = 'viewport=desktop;state=free-collection;scroll-content=full';
+    const baseOwner = penpot.currentPage.getShapeById(DESKTOP_OWNER_ID);
+    const headerComponent = componentById(DESKTOP_HEADER_ID);
+    const bodyComponent = componentByIdentity(BODY_PATH, BODY_NAME.desktop);
+    const footerComponent = componentById(DESKTOP_FOOTER_ID);
+    if (!baseOwner || !headerComponent || !bodyComponent || !footerComponent) {
+      throw new Error('missing linked prerequisites for full Free collection proof');
+    }
+    baseOwner.name = 'Archetype / Collections / viewport=desktop;state=top;collection=free · Astro AS-IS';
+    const summarize = async (component, created) => {
+      const root = component.mainInstance();
+      const all = walk(root);
+      const cards = all.filter((shape) => /linked Free collection EventCard \/ event\.real\./.test(shape.name))
+        .sort((left, right) => left.y - right.y || left.x - right.x)
+        .map((shape) => ({ id: shape.id, name: shape.name, x: shape.x, y: shape.y, width: shape.width, height: shape.height }));
+      return {
+        created,
+        componentId: component.id,
+        mainId: root.id,
+        name: component.name,
+        root: { x: root.x, y: root.y, width: root.width, height: root.height, clipContent: root.clipContent },
+        cards,
+        footer: all.filter((shape) => shape.isComponentCopyInstance?.() && shape.component?.()?.id === DESKTOP_FOOTER_ID)
+          .map((shape) => ({ id: shape.id, componentId: shape.component?.()?.id, x: shape.x, y: shape.y, width: shape.width, height: shape.height })),
+        validation: await penpot.currentFile.validate(),
+      };
+    };
+    const existing = componentByIdentity(FULL_SCROLL_PATH, name);
+    if (existing) {
+      const root = existing.mainInstance();
+      penpotUtils.setParentXY(root, baseOwner.x, baseOwner.y + baseOwner.height + 140);
+      for (const shape of walk(root)) {
+        if (shape.isComponentCopyInstance?.() && shape.component?.()?.id === bodyComponent.id) shape.resetOverrides();
+      }
+      return summarize(existing, false);
+    }
+    const block = penpot.history.undoBlockBegin();
+    try {
+      const root = board(
+        null,
+        `${FULL_SCROLL_PATH} / ${name}`,
+        baseOwner.x,
+        baseOwner.y + baseOwner.height + 140,
+        1280,
+        2820,
+        '#f8f1e7',
+      );
+      root.clipContent = false;
+      const header = headerComponent.instance();
+      header.name = 'linked Shell / Desktop header / full scroll proof';
+      root.appendChild(header);
+      place(header, 0, 0, 1280, 57);
+      const body = bodyComponent.instance();
+      body.name = `linked Collections / Free body / desktop / ${SCENARIO_ID}`;
+      root.appendChild(body);
+      place(body, 50, 57, 1180, 2200);
+      const footer = footerComponent.instance();
+      footer.name = 'linked Shell / Desktop footer / full scroll proof';
+      root.appendChild(footer);
+      place(footer, 50, 2257, 1180, 481.859375);
+      const component = penpot.library.local.createComponent([root]);
+      return summarize(component, true);
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
   async function readback() {
     assertContext();
     const summarize = (shape) => ({
@@ -849,9 +920,10 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     ensureStickyIdentity,
     applyOwner,
     ensureScrolledOwner,
+    ensureFullScrollProof,
     readback,
     readbackDesktopScenario,
-    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, EVENTS, REPRESENTATIVE_EVENTS, SCENARIO_EVENTS, SCENARIO_ID, FIXTURE_PATH, BODY_PATH, STICKY_PATH, SCROLLED_PATH, MEDALLION_SOURCE_URL, BODY_NAME },
+    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, DESKTOP_FOOTER_ID, EVENTS, REPRESENTATIVE_EVENTS, SCENARIO_EVENTS, SCENARIO_ID, FIXTURE_PATH, BODY_PATH, STICKY_PATH, SCROLLED_PATH, FULL_SCROLL_PATH, MEDALLION_SOURCE_URL, BODY_NAME },
   };
   return { installed: true, methods: Object.keys(storage.ov44FreeCollection), eventIds: Object.keys(EVENTS) };
 }
@@ -868,6 +940,8 @@ if (typeof module !== 'undefined') module.exports = {
     BODY_PATH,
     STICKY_PATH,
     SCROLLED_PATH,
+    FULL_SCROLL_PATH,
+    DESKTOP_FOOTER_ID,
     MEDALLION_SOURCE_URL,
     BODY_NAME,
     SCENARIO_ID,

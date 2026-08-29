@@ -61,5 +61,19 @@ currently returns HTTP 504, so the receipt deliberately does **not** claim
 Penpot visual acceptance. A structural pass is not allowed to silently become a
 visual pass.
 
+The collection proof must be reviewed through three explicit owner projections,
+not by selecting the clipped Results child inside the 1200px top viewport:
+
+1. `state=top` — real 1280×1200 viewport; later rows are intentionally below
+   its clip boundary;
+2. `scroll=hero-passed` — real 1280×1200 scrolled viewport with the compact
+   58px medallion and both `3 + 2` card rows;
+3. `scroll-content=full` — 1280×2820 full-page review composition with all five
+   linked cards and the linked desktop footer.
+
+The first receipt version gated only the Page-body component main. That was
+insufficient owner evidence and is recorded as a correction in the current
+receipt rather than being hidden.
+
 Fixture mode is local/preview-only. Production and secret-candidate builds must
 reject it. The production route remains data-driven.

@@ -68,6 +68,11 @@ source evidence to make a later decision look pre-existing.
   except explicitly labelled legacy characterization. Card and container
   identities are separate; never collapse every row/grid into one generic
   `PackedCardRow`.
+- A component-main readback is not owner evidence. Archetype gates must inspect
+  the actual owner descendants for every claimed viewport/state. If a top
+  viewport clips later content, materialize and read back the corresponding
+  scrolled state plus one full-scroll review projection; never present a clipped
+  child board as proof that the page is complete.
 
 ## Repository boundary
 

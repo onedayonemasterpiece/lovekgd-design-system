@@ -37,6 +37,9 @@ test('OV-44 materializer preserves linked native component ancestry', () => {
   assert.match(source, /Compact identity \/ exact Astro source SVG/);
   assert.match(source, /reconcileDesktopScenarioSlot/);
   assert.match(source, /readbackDesktopScenario/);
+  assert.match(source, /ensureFullScrollProof/);
+  assert.match(source, /linked Shell \/ Desktop footer \/ full scroll proof/);
+  assert.equal(materializer.constants.DESKTOP_FOOTER_ID, 'a21f5e36-5d76-8065-8008-86af602ad62a');
   assert.match(source, /Content \/ media fallback \/ event\.real\.6996/);
   assert.doesNotMatch(source, /, (?:750|850),/);
   assert.doesNotMatch(source, /\.detach\s*\(/);

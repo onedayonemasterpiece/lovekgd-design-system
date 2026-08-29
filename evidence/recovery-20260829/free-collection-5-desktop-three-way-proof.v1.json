@@ -1,7 +1,7 @@
 {
   "schema_version": "free-collection-three-way-proof.v1",
   "scenario_id": "free-collection-5-desktop-v1",
-  "status": "STRUCTURAL_THREE_WAY_PASS_PENPOT_VISUAL_EXPORT_BLOCKED",
+  "status": "OWNER_STATE_STRUCTURAL_PASS_PENPOT_VISUAL_EXPORT_BLOCKED",
   "scope": {
     "route": "/podborki/besplatnye-sobytiya/",
     "viewport": {
@@ -84,7 +84,13 @@
       "linked_canonical_event_card_component_id": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
       "linked_roots": 5,
       "detached_roots": 0,
-      "validation": []
+      "validation": [],
+      "base_viewport_state": "top",
+      "scrolled_viewport_component_id": "8f804431-c282-8075-8008-8e6128cb8d22",
+      "full_scroll_proof_component_id": "8f804431-c282-8075-8008-8e944a93d5a9",
+      "full_scroll_proof_height": 2820,
+      "desktop_footer_component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+      "compact_medallion_size": 58
     },
     "visual_export": {
       "status": "BLOCKED_HTTP_504",
@@ -106,6 +112,10 @@
           "result": "HTTP_504_AFTER_OFFICIAL_DOC_RESEARCH"
         }
       ]
+    },
+    "owner_states_readback": {
+      "path": "evidence/recovery-20260829/penpot/free-collection-5-desktop-owner-states-readback.v1.json",
+      "sha256": "7dd03cfff94297641947fb300e9069d029368915b1a8593753b2856d566c777c"
     }
   },
   "parity": {
@@ -114,12 +124,20 @@
     "row_topology": "PASS",
     "card_geometry_tolerance_px": 0.02,
     "component_ancestry": "PASS",
-    "visual_penpot_export": "BLOCKED_NOT_CLAIMED"
+    "visual_penpot_export": "BLOCKED_NOT_CLAIMED",
+    "owner_state_projection": "PASS",
+    "full_scroll_document_height": "PASS"
   },
   "known_out_of_scope_defect": {
     "production_collection_declared_timed_events": 23,
     "production_packer_observed_emitted_events": 18,
     "status": "OPEN_NOT_HIDDEN",
     "reason": "The bounded five-event proof renders all five; production count reconciliation is a separate defect."
+  },
+  "correction": {
+    "previous_gap": "The first receipt inspected the Page body component main but did not gate the rendered owner/state compositions.",
+    "owner_visible_symptom": "The 1200px top viewport clips the second row by definition; without an adjacent scrolled/full proof this looked like a truncated page.",
+    "remediation": "Added and read back explicit top viewport, hero-passed viewport with sticky medallion, and a 1280x2820 full-scroll proof with linked footer.",
+    "visual_acceptance_claimed": false
   }
 }
