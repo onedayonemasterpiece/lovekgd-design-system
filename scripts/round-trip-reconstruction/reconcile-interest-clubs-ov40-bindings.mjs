@@ -7,12 +7,16 @@ const CONTRACT = 'catalog/reconstruction-atlas/v1/interest-clubs-ov40-source-exa
 const REUSE_MAP = 'catalog/reconstruction-atlas/v1/reuse-new-map.v1.json';
 const RECEIPT = 'evidence/recovery-20260828/penpot/interest-clubs-ov40-source-exact-receipt.v1.json';
 
-const ASTRO_COMMIT = '812ffc279728221b547707474bcb521f27c4a73d';
-const PENPOT_REVISION = 2797;
+const ASTRO_COMMIT = 'dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e';
+const PENPOT_REVISION = 2879;
 const FILE_ID = '3be9e5e1-190f-8090-8008-713c0fbe6260';
 const PAGE_ID = 'd87e18f1-dcb4-80a6-8008-880cfe1ec779';
 const CARD_COMPONENT_ID = 'd87e18f1-dcb4-80a6-8008-88648c204cec';
 const CARD_COMPONENT_NAME = 'state=ready;surface=responsive;media=cover-or-fallback';
+const MOBILE_SHELL_COMPONENT_ID = '8f804431-c282-8075-8008-8e566809bac9';
+const MOBILE_SHELL_COMPONENT_NAME = 'state=ready;catalog=3;shelf=visible';
+const DESKTOP_SHELL_COMPONENT_ID = '8f804431-c282-8075-8008-8e586014178e';
+const DESKTOP_SHELL_COMPONENT_NAME = 'state=ready;active=clubs;catalog=3';
 const LIBRARY_ID = FILE_ID;
 
 const read = (path) => JSON.parse(readFileSync(path, 'utf8'));
@@ -22,14 +26,14 @@ const component = (id, name, path) => ({ id, library_id: LIBRARY_ID, name, path 
 
 const cards = {
   desktop: [
-    ['6fd90e70-153b-804f-8008-8cad4207e051', 'game-vibes', 50, 525, 375.75, 544],
-    ['c0b867fa-32d2-8062-8008-8d507611b262', 'neural-researchers', 452.125, 525, 375.75, 544],
-    ['c0b867fa-32d2-8062-8008-8d5076ce3473', 'technology-researchers', 854.25, 525, 375.75, 544],
+    ['6fd90e70-153b-804f-8008-8cad4207e051', 'game-vibes', 50, 523.953125, 375.75, 544],
+    ['c0b867fa-32d2-8062-8008-8d507611b262', 'neural-researchers', 452.125, 523.953125, 375.75, 544],
+    ['c0b867fa-32d2-8062-8008-8d5076ce3473', 'technology-researchers', 854.25, 523.953125, 375.75, 544],
   ],
   mobile: [
-    ['6fd90e70-153b-804f-8008-8cad4478d34c', 'game-vibes', 1332, 499, 366, 448],
-    ['c0b867fa-32d2-8062-8008-8d50b59284c7', 'neural-researchers', 1332, 963, 366, 448],
-    ['c0b867fa-32d2-8062-8008-8d50b627840c', 'technology-researchers', 1332, 1427, 366, 448],
+    ['6fd90e70-153b-804f-8008-8cad4478d34c', 'game-vibes', 1332, 521.765625, 366, 448],
+    ['c0b867fa-32d2-8062-8008-8d50b59284c7', 'neural-researchers', 1332, 985.765625, 366, 448],
+    ['c0b867fa-32d2-8062-8008-8d50b627840c', 'technology-researchers', 1332, 1449.765625, 366, 448],
   ],
 };
 
@@ -63,14 +67,14 @@ const specs = {
     },
     children: [
       {
-        component: component('a21f5e36-5d76-8065-8008-86ae4bdf9963', 'Desktop header', 'Shell v1 / Desktop'),
+        component: component(DESKTOP_SHELL_COMPONENT_ID, DESKTOP_SHELL_COMPONENT_NAME, 'Interest clubs / Desktop shell'),
         height: 57, hidden: false, is_component_copy: true, is_component_main: false,
-        name: 'linked Shell / Desktop header', parent_index: 0,
+        name: 'linked Interest clubs / Desktop shell / active=clubs;catalog=3', parent_index: 0,
         shape_id: 'd87e18f1-dcb4-80a6-8008-88648c77d8fe', type: 'board', width: 1280, x: 0, y: 0,
       },
       {
         component: component('d87e18f1-dcb4-80a6-8008-8864884b188a', 'viewport=desktop;state=ready;catalog=3', 'Interest clubs / Catalog header'),
-        height: 404, hidden: false, is_component_copy: true, is_component_main: false,
+        height: 402.953125, hidden: false, is_component_copy: true, is_component_main: false,
         name: 'linked Interest clubs / Catalog header / desktop ready', parent_index: 1,
         shape_id: 'd87e18f1-dcb4-80a6-8008-88648c958ade', type: 'board', width: 1180, x: 50, y: 89,
       },
@@ -78,7 +82,7 @@ const specs = {
         component: null,
         height: 544, hidden: false, is_component_copy: false, is_component_main: true,
         name: 'Interest clubs / Catalog ready / viewport=desktop', parent_index: 2,
-        shape_id: 'd87e18f1-dcb4-80a6-8008-88648cb927d6', type: 'board', width: 1180, x: 50, y: 525,
+        shape_id: 'd87e18f1-dcb4-80a6-8008-88648cb927d6', type: 'board', width: 1180, x: 50, y: 523.953125,
         linked_children: cards.desktop.map((row) => cardInstance('desktop', row)),
       },
       {
@@ -100,22 +104,22 @@ const specs = {
     },
     children: [
       {
-        component: component('a21f5e36-5d76-8065-8008-86aebfc67027', 'Mobile header', 'Shell v1 / Mobile'),
-        height: 84, hidden: false, is_component_copy: true, is_component_main: false,
-        name: 'linked Shell / Mobile header', parent_index: 0,
+        component: component(MOBILE_SHELL_COMPONENT_ID, MOBILE_SHELL_COMPONENT_NAME, 'Interest clubs / Mobile shell'),
+        height: 117, hidden: false, is_component_copy: true, is_component_main: false,
+        name: 'linked Interest clubs / Mobile shell / state=ready;catalog=3;shelf=visible', parent_index: 0,
         shape_id: 'd87e18f1-dcb4-80a6-8008-88648d18681a', type: 'board', width: 390, x: 1320, y: 0,
       },
       {
         component: component('d87e18f1-dcb4-80a6-8008-8864892f5750', 'viewport=mobile;state=ready;catalog=3', 'Interest clubs / Catalog header'),
-        height: 346, hidden: false, is_component_copy: true, is_component_main: false,
+        height: 372.953125, hidden: false, is_component_copy: true, is_component_main: false,
         name: 'linked Interest clubs / Catalog header / mobile ready', parent_index: 1,
-        shape_id: 'd87e18f1-dcb4-80a6-8008-88648d2c1b5a', type: 'board', width: 366, x: 1332, y: 134,
+        shape_id: 'd87e18f1-dcb4-80a6-8008-88648d2c1b5a', type: 'board', width: 366, x: 1332, y: 132.8125,
       },
       {
         component: null,
         height: 1376, hidden: false, is_component_copy: false, is_component_main: true,
         name: 'Interest clubs / Catalog ready / viewport=mobile', parent_index: 2,
-        shape_id: 'd87e18f1-dcb4-80a6-8008-88648d4a9273', type: 'board', width: 366, x: 1332, y: 499,
+        shape_id: 'd87e18f1-dcb4-80a6-8008-88648d4a9273', type: 'board', width: 366, x: 1332, y: 521.765625,
         linked_children: cards.mobile.map((row) => cardInstance('mobile', row)),
       },
       {
@@ -129,12 +133,13 @@ const specs = {
 };
 
 const sourceContract = read(CONTRACT);
+sourceContract.status = 'CORRECTION_MATERIALIZED_STRUCTURAL_EXACT_EXPORT_BLOCKED_OWNER_REREVIEW_REQUIRED';
 sourceContract.authority.current_astro_commit = ASTRO_COMMIT;
 sourceContract.authority.rule = 'The catalog is populated by default with the three factual Astro clubs. An empty catalogue is allowed only behind an explicit rollback/feature flag and is never the default projection.';
 sourceContract.semantic_resolution = {
   applies_over: 'catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json',
   overall_archetype_canonical: false,
-  resolved_scope: ['club.catalog-header', 'club.catalog-grid', 'club.card'],
+  resolved_scope: ['club.mobile-shelf', 'club.catalog-header', 'club.catalog-grid', 'club.card'],
   unresolved_scope: ['club.detail-hero', 'club.detail-facts', 'club.meeting-list', 'club.empty-meetings'],
   club_card: {
     disposition: 'reuse_existing',
@@ -157,10 +162,35 @@ sourceContract.semantic_resolution = {
   },
 };
 sourceContract.astro.fixtures = sourceContract.astro.fixtures.map((fixture) => ({ ...fixture, route: `/kluby-po-interesam/${fixture.slug}/` }));
+sourceContract.astro.page_source = {
+  commit: ASTRO_COMMIT,
+  path: 'site/src/pages/kluby-po-interesam/index.astro',
+  sha256: '96f5aa16ac876c9f8a7d9f377e3d1137b0d54c6c651cc673ed587f3965ab1c8a',
+};
+sourceContract.astro.ready_build = {
+  environment: { PUBLIC_INTEREST_CLUBS_ENABLED: '1' },
+  desktop: { intro: [50, 89, 1180, 402.953125], grid: [50, 523.953125, 1180, 544] },
+  mobile: { shelf: [0, 64.8125, 390, 52], intro: [12, 132.8125, 366, 372.953125], grid: [12, 521.765625, 366, 1376] },
+};
 sourceContract.penpot.canonical_club_card_name = CARD_COMPONENT_NAME;
+sourceContract.penpot.mobile_shell = {
+  component_id: MOBILE_SHELL_COMPONENT_ID,
+  component_name: MOBILE_SHELL_COMPONENT_NAME,
+  path: 'Interest clubs / Mobile shell',
+  linked_owner_shape_id: 'd87e18f1-dcb4-80a6-8008-88648d18681a',
+};
+sourceContract.penpot.desktop_shell = {
+  component_id: DESKTOP_SHELL_COMPONENT_ID,
+  component_name: DESKTOP_SHELL_COMPONENT_NAME,
+  path: 'Interest clubs / Desktop shell',
+  linked_owner_shape_id: 'd87e18f1-dcb4-80a6-8008-88648c77d8fe',
+};
 sourceContract.penpot.foundation_binding_revision = PENPOT_REVISION;
 sourceContract.penpot.round_trip_revision = PENPOT_REVISION;
+sourceContract.penpot.named_version = { label: 'OV40 Interest clubs · route shell idempotency verified', revision: PENPOT_REVISION };
 sourceContract.penpot.validation = [];
+sourceContract.visual_evidence.result = 'SUPERSEDED_BY_REVISION_2879_EXPORTER_HTTP_504_OWNER_REREVIEW_REQUIRED';
+sourceContract.visual_evidence.owner_acceptance = 'NOT_CLAIMED';
 write(CONTRACT, sourceContract);
 
 const reuse = read(REUSE_MAP);
@@ -170,15 +200,38 @@ clubCard.disposition = 'REUSE_FROZEN_OR_RECONCILE';
 write(REUSE_MAP, reuse);
 
 const receipt = read(RECEIPT);
+receipt.captured_at = '2026-08-29T06:57:02Z';
+receipt.status = sourceContract.status;
 receipt.penpot.revision = PENPOT_REVISION;
 receipt.penpot.round_trip_revision = PENPOT_REVISION;
+receipt.penpot.saved_version = { label: 'OV40 Interest clubs · route shell idempotency verified', revision: PENPOT_REVISION };
 receipt.native_ancestry.canonical_club_card_name = CARD_COMPONENT_NAME;
+receipt.native_ancestry.mobile_shell_component = MOBILE_SHELL_COMPONENT_ID;
+receipt.native_ancestry.desktop_shell_component = DESKTOP_SHELL_COMPONENT_ID;
 receipt.source_readback.astro_commit = ASTRO_COMMIT;
 receipt.source_readback.default_catalog_state = 'ready';
 receipt.structural_readback.desktop_owner_name = specs.desktop.board.name;
 receipt.structural_readback.mobile_owner_name = specs.mobile.board.name;
 receipt.structural_readback.desktop_card_shape_ids = cards.desktop.map(([id]) => id);
 receipt.structural_readback.mobile_card_shape_ids = cards.mobile.map(([id]) => id);
+receipt.structural_readback.desktop_intro = { x: 50, y: 89, width: 1180, height: 402.953125 };
+receipt.structural_readback.desktop_shell = { x: 0, y: 0, width: 1280, height: 57, component_id: DESKTOP_SHELL_COMPONENT_ID, active_route: 'clubs' };
+receipt.structural_readback.desktop_grid = { x: 50, y: 523.953125, width: 1180, height: 544 };
+receipt.structural_readback.mobile_shell = { x: 0, y: 0, width: 390, height: 117, component_id: MOBILE_SHELL_COMPONENT_ID };
+receipt.structural_readback.mobile_intro = { x: 12, y: 132.8125, width: 366, height: 372.953125 };
+receipt.structural_readback.mobile_grid = { x: 12, y: 521.765625, width: 366, height: 1376 };
+receipt.structural_readback.mobile_intro_text = 'Публичные сообщества Калининградской области, у которых подтверждено несколько встреч в разные даты. Площадка или похожее название сами по себе клубом не считаются.';
+receipt.idempotency.mobile_shell_component_count = 1;
+receipt.idempotency.mobile_shell_component_id_stable = true;
+receipt.idempotency.desktop_shell_component_count = 1;
+receipt.idempotency.desktop_shell_component_id_stable = true;
+receipt.visual_qa = {
+  desktop: 'STRUCTURAL_GEOMETRY_EXACT_VISUAL_EXPORT_BLOCKED_HTTP_504',
+  mobile: 'STRUCTURAL_GEOMETRY_EXACT_VISUAL_EXPORT_BLOCKED_HTTP_504',
+  result: 'OWNER_REREVIEW_REQUIRED',
+  owner_acceptance: 'NOT_CLAIMED',
+  owner_rereview_required: true,
+};
 write(RECEIPT, receipt);
 
 const bindings = read(BINDINGS);

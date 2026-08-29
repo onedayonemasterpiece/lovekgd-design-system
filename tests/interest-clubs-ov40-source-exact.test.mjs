@@ -25,6 +25,14 @@ test('OV-40 Penpot owners retain six linked canonical card roots', () => {
   assert.equal(receipt.native_ancestry.canonical_club_card_component, contract.penpot.canonical_club_card_component);
   assert.match(contract.penpot.headers.desktop.name, /state=ready;catalog=3/);
   assert.match(contract.penpot.headers.mobile.name, /state=ready;catalog=3/);
+  assert.equal(contract.penpot.round_trip_revision, 2879);
+  assert.equal(receipt.native_ancestry.desktop_shell_component, contract.penpot.desktop_shell.component_id);
+  assert.equal(receipt.native_ancestry.mobile_shell_component, contract.penpot.mobile_shell.component_id);
+  assert.equal(receipt.idempotency.mobile_shell_component_count, 1);
+  assert.deepEqual(receipt.structural_readback.mobile_intro, {
+    x: 12, y: 132.8125, width: 366, height: 372.953125,
+  });
+  assert.match(receipt.structural_readback.mobile_intro_text, /Калининградской области/);
   assert.deepEqual(receipt.structural_readback.page_validation, []);
 });
 
@@ -34,6 +42,7 @@ test('OV-40 full-owner exports are durable without claiming acceptance', async (
     assert.deepEqual(pngSize(buffer), item.dimensions);
     assert.equal(sha256(buffer), item.sha256);
   }
+  assert.match(contract.visual_evidence.result, /SUPERSEDED_BY_REVISION_2879/);
   assert.equal(contract.visual_evidence.owner_acceptance, 'NOT_CLAIMED');
   assert.equal(receipt.visual_qa.owner_rereview_required, true);
 });

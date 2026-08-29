@@ -4,11 +4,11 @@
   "review_items": [
     "OV-40"
   ],
-  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
+  "status": "CORRECTION_MATERIALIZED_STRUCTURAL_EXACT_EXPORT_BLOCKED_OWNER_REREVIEW_REQUIRED",
   "processed": false,
   "authority": {
     "visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
-    "current_astro_commit": "812ffc279728221b547707474bcb521f27c4a73d",
+    "current_astro_commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
     "route": "/kluby-po-interesam/",
     "rule": "The catalog is populated by default with the three factual Astro clubs. An empty catalogue is allowed only behind an explicit rollback/feature flag and is never the default projection."
   },
@@ -39,7 +39,51 @@
     ],
     "desktop_screenshot": "evidence/recovery-20260828/astro/interest-clubs-desktop-1280x800.png",
     "mobile_screenshot": "evidence/recovery-20260828/astro/interest-clubs-mobile-390x932.png",
-    "computed_evidence": "evidence/recovery-20260828/astro/interest-club-card-computed.v1.json"
+    "computed_evidence": "evidence/recovery-20260828/astro/interest-club-card-computed.v1.json",
+    "page_source": {
+      "commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
+      "path": "site/src/pages/kluby-po-interesam/index.astro",
+      "sha256": "96f5aa16ac876c9f8a7d9f377e3d1137b0d54c6c651cc673ed587f3965ab1c8a"
+    },
+    "ready_build": {
+      "environment": {
+        "PUBLIC_INTEREST_CLUBS_ENABLED": "1"
+      },
+      "desktop": {
+        "intro": [
+          50,
+          89,
+          1180,
+          402.953125
+        ],
+        "grid": [
+          50,
+          523.953125,
+          1180,
+          544
+        ]
+      },
+      "mobile": {
+        "shelf": [
+          0,
+          64.8125,
+          390,
+          52
+        ],
+        "intro": [
+          12,
+          132.8125,
+          366,
+          372.953125
+        ],
+        "grid": [
+          12,
+          521.765625,
+          366,
+          1376
+        ]
+      }
+    }
   },
   "penpot": {
     "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
@@ -80,14 +124,26 @@
       }
     },
     "named_version": {
-      "label": "OV40 Interest clubs · responsive card owner + ready bindings",
-      "revision": 2793
+      "label": "OV40 Interest clubs · route shell idempotency verified",
+      "revision": 2879
     },
     "validation": [],
     "owner_review_status": "REREVIEW_REQUIRED",
     "canonical_club_card_name": "state=ready;surface=responsive;media=cover-or-fallback",
-    "foundation_binding_revision": 2797,
-    "round_trip_revision": 2797
+    "foundation_binding_revision": 2879,
+    "round_trip_revision": 2879,
+    "mobile_shell": {
+      "component_id": "8f804431-c282-8075-8008-8e566809bac9",
+      "component_name": "state=ready;catalog=3;shelf=visible",
+      "path": "Interest clubs / Mobile shell",
+      "linked_owner_shape_id": "d87e18f1-dcb4-80a6-8008-88648d18681a"
+    },
+    "desktop_shell": {
+      "component_id": "8f804431-c282-8075-8008-8e586014178e",
+      "component_name": "state=ready;active=clubs;catalog=3",
+      "path": "Interest clubs / Desktop shell",
+      "linked_owner_shape_id": "d87e18f1-dcb4-80a6-8008-88648c77d8fe"
+    }
   },
   "visual_evidence": {
     "desktop": {
@@ -108,13 +164,14 @@
       "scale": 0.25,
       "sha256": "2855d40c08b9ffe747e691a1f36b3ee20fbe796a9b19e9dbcf009c9e4a74d7ed"
     },
-    "result": "FULL_VISUAL_QA_PASS",
+    "result": "SUPERSEDED_BY_REVISION_2879_EXPORTER_HTTP_504_OWNER_REREVIEW_REQUIRED",
     "owner_acceptance": "NOT_CLAIMED"
   },
   "semantic_resolution": {
     "applies_over": "catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json",
     "overall_archetype_canonical": false,
     "resolved_scope": [
+      "club.mobile-shelf",
       "club.catalog-header",
       "club.catalog-grid",
       "club.card"
@@ -140,17 +197,17 @@
           "source_identity_id": "club.card",
           "source_refs": [
             {
-              "commit": "812ffc279728221b547707474bcb521f27c4a73d",
+              "commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
               "path": "site/src/components/InterestClubCard.astro",
               "sha256": "0a79feef91f16692f9409a14af116f883847ef60b33e67f9c0e7efe555ccf74b"
             },
             {
-              "commit": "812ffc279728221b547707474bcb521f27c4a73d",
+              "commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
               "path": "site/src/data/interest-clubs.json",
               "sha256": "50f418d04dbb2eac3e8efd6c74c2470e39a24bbc135dd2aa51981a594c114014"
             },
             {
-              "commit": "812ffc279728221b547707474bcb521f27c4a73d",
+              "commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
               "path": "site/src/data/interest-club-covers.ts",
               "sha256": "169240a2a91baf24253fc787ae91c53793dbf33345fbec6c4111206b06e4a419"
             }
