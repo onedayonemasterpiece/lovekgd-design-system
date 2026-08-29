@@ -1,18 +1,24 @@
 {
   "schema_version": 1,
-  "status": "PARTIAL_SOT_PENPOT_PAUSED",
+  "status": "BOUNDED_CENTRALIZATION_VERIFIED_GLOBAL_LINEAGE_OPEN",
   "authority": {
     "owner_items": ["OV-08", "OV-30"],
-    "clarified_by": "REV-IDEAHUB-20260828-01",
+    "clarified_by": [
+      "REV-IDEAHUB-20260828-01",
+      "voice-20260829-201612-4feb9e87"
+    ],
     "astro_repository": "onedayonemasterpiece/events-bot-new",
-    "verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "historical_verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "active_candidate": "events-bot-new#596:fix/audio-audit-ui-20260828",
+    "active_design_system_contour": "lovekgd-design-system#53:fix/penpot-owner-comments-20260826",
     "supersedes_candidate_decision": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json#identity_decisions",
-    "supersession_scope": "Penpot family/root ownership only; Astro representation adapters remain valid implementation boundaries"
+    "supersession_scope": "Semantic family and Penpot lineage governance. Astro representation adapters remain valid where runtime anatomy and interaction materially differ."
   },
   "canonical_family": {
     "family_id": "event-card-family",
-    "penpot_rule": "one canonical family owner; every structural representation is a linked variant or linked nested composition from this owner",
-    "single_penpot_root_required": true,
+    "penpot_rule": "Library masters and state catalogs stay on bounded component pages; archetypes consume linked instances. Page-local masters, detached terminal copies and visually similar unrelated roots are forbidden.",
+    "global_semantic_family_required": true,
+    "single_global_penpot_root_proven": false,
     "visual_similarity_is_not_lineage": true,
     "representations": [
       {
@@ -33,6 +39,11 @@
         "astro_owner": "site/src/components/listings/MobileListingRailRow.astro",
         "semantic_role": "intrinsic horizontal swipe/track event representation",
         "viewport_owner": "site/src/components/listings/MobileListingRailSurface.astro"
+      },
+      {
+        "id": "festival",
+        "astro_owner": "site/src/components/festivals/FestivalCard.astro",
+        "semantic_role": "festival-specific event representation in deterministic timeline rows"
       }
     ],
     "shared_semantics": [
@@ -51,9 +62,19 @@
       "presence of actions",
       "media frame geometry",
       "social-proof placement",
-      "occurrence projection"
+      "occurrence projection",
+      "festival-specific status and timeline semantics"
     ],
-    "content_overrides_not_variants": ["event id", "title", "date/time", "venue", "city", "price", "image", "counts"]
+    "content_overrides_not_variants": [
+      "event id",
+      "title",
+      "date/time",
+      "venue",
+      "city",
+      "price",
+      "image",
+      "counts"
+    ]
   },
   "consumer_map": [
     {
@@ -103,7 +124,8 @@
       "route": "/neobychnoe/",
       "path": ["UnusualListingSurface.astro", "EventCard.astro"],
       "representation": "large",
-      "state": "mobileFlowMedia=true"
+      "state": "mobileFlowMedia=true",
+      "authority_status": "BLOCKED_PENDING_APPROVED_NONEMPTY_MANIFEST"
     },
     {
       "atlas_page": "63.06 Search final results",
@@ -111,7 +133,7 @@
       "path": ["AuthorizedEventSearch.astro", "window.KenigEventsRenderEventCard", "EventLayout.astro#createEventCardElement"],
       "representation": "large",
       "state": "layout=split-actions;mobile media contract",
-      "note": "vector preview cards are provisional verification UI, not canonical final-result cards"
+      "note": "Vector preview cards are provisional verification UI, not canonical final-result cards."
     },
     {
       "atlas_page": "63.07 Event details related feed",
@@ -119,26 +141,66 @@
       "path": ["[slug].astro", "EventCard.astro"],
       "representation": "large",
       "state": "source-selected feedCardVariant"
+    },
+    {
+      "atlas_page": "63.09 Festivals",
+      "route": "/festivali/",
+      "path": ["festivali/index.astro", "FestivalCard.astro"],
+      "representation": "festival",
+      "state": "source-derived 1/4/2 reference rows"
+    }
+  ],
+  "bounded_evidence": [
+    {
+      "scope": "Date and Weekend compact cards",
+      "receipt": "catalog/reconstruction-atlas/v1/listing-event-card-centralization-20260829.v1.json",
+      "status": "STRUCTURAL_CORRECTION_VERIFIED"
+    },
+    {
+      "scope": "Popular compact cards",
+      "receipt": "catalog/reconstruction-atlas/v1/popular-listing-event-card-centralization-20260829.v1.json",
+      "status": "STRUCTURAL_CORRECTION_VERIFIED_VISUAL_QA_PARTIAL"
+    },
+    {
+      "scope": "Festival cards",
+      "receipt": "catalog/reconstruction-atlas/v1/festival-card-centralization-20260829.v1.json",
+      "status": "BOUNDED_COMPONENTIZATION_VERIFIED_VISUAL_EXPORT_BLOCKED"
+    },
+    {
+      "scope": "Mobile listing Rail nested consumers",
+      "receipt": "docs/reviews/index.md#OV-01",
+      "status": "CANONICAL_ANCESTRY_READBACK_READY_FOR_OWNER_REREVIEW"
     }
   ],
   "penpot_gate": {
-    "status": "PAUSED_OWNER_CLOSED_WINDOW",
+    "status": "PARTIAL_VERIFIED_OWNER_REREVIEW_REQUIRED",
     "canonical_component_id": null,
     "canonical_main_ids": [],
-    "required_on_resume": [
-      "read-only page-scoped census of every event-card root and copy",
-      "choose one exact canonical family owner and record its UUID",
-      "replace Home, Date, Weekend, Popular, Unusual, Search and Event Details lookalikes with linked family instances",
-      "prove zero page-local alternative roots in the bounded consumer set",
+    "why_null": "Bounded representation owners are proven, but a single global Penpot family root UUID and complete all-consumer zero-alternative census are not proven. IDs must not be fabricated.",
+    "required_for_global_closure": [
+      "fresh exact-ID census of every claimed event-card representation and owner descendant",
+      "record semantic family registry and every representation owner/main ID",
+      "prove zero unauthorized page-local alternative masters in the bounded consumer set",
       "prove zero detached terminal copies",
-      "validate and focused-export every consumer page"
+      "bind exact source version and fixture scenario for every claimed consumer",
+      "complete focused visual parity for every required state and viewport",
+      "obtain explicit owner acceptance",
+      "perform per-family promotion and complete Astro consumer migration"
     ],
     "forbidden": [
       "page-local event-card component main",
       "static screenshot used as a card implementation",
       "visually similar but unrelated root",
       "invented consumer-only anatomy",
+      "global closure claim inferred from one component-main readback",
       "global mutation before exact-ID readback"
     ]
+  },
+  "acceptance": {
+    "bounded_structural_progress": "PROVEN",
+    "global_lineage_closure": "OPEN",
+    "owner_acceptance": "NOT_CLAIMED",
+    "family_promotion": "NOT_AUTHORIZED",
+    "production_migration": "NOT_AUTHORIZED"
   }
 }
