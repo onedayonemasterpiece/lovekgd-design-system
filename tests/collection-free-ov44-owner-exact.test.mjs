@@ -8,6 +8,7 @@ const contract = await readJson('../catalog/reconstruction-atlas/v1/collection-f
 const browser = await readJson('../evidence/recovery-20260828/astro/ov44-free-collection-browser-evidence.v1.json');
 const penpot = await readJson('../evidence/recovery-20260828/penpot/collection-free-ov44-owner-exact-receipt.v1.json');
 const unusual = await readJson('../catalog/reconstruction-atlas/v1/unusual-listing-ov49-authority-gap.v1.json');
+const unusualRefresh = await readJson('../evidence/recovery-20260829/astro/unusual-ov49-authority-refresh.v1.json');
 
 test('OV-44 binds Page 63.08 to one concrete nonempty Free collection', () => {
   assert.equal(contract.review_item, 'OV-44');
@@ -73,4 +74,9 @@ test('OV-49 remains explicit rather than fabricating a nonempty Unusual feed', (
   assert.equal(unusual.observed_authority.production_last_good_present, false);
   assert.equal(unusual.disposition.nonempty_publication_source_available, false);
   assert.equal(unusual.disposition.invent_event_ids_or_promote_blocked_candidates, false);
+  assert.equal(unusual.fresh_audit.astro_commit, '812ffc279728221b547707474bcb521f27c4a73d');
+  assert.equal(unusualRefresh.astro.item_count, 0);
+  assert.ok(unusualRefresh.astro.all_git_manifest_versions.every(({ item_count }) => item_count === 0));
+  assert.equal(unusualRefresh.public_route_probe.http_status, 404);
+  assert.equal(unusualRefresh.publication_disposition.safe_to_materialize_concrete_events, false);
 });
