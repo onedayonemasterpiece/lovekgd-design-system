@@ -797,6 +797,29 @@ in the active session. No visual-pass or owner-acceptance claim is made.
 Contract: `catalog/reconstruction-atlas/v1/navigation-floating-island-ov23-24-source-exact.v1.json`.
 Receipt: `evidence/recovery-20260829/penpot/navigation-floating-island-ov23-24-native-receipt.v1.json`.
 
+### 9.4j Popular mobile fixtures final Rail readback (`OV-25`, `OV-26`, `OV-27`)
+
+Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`.
+
+A new bounded `40.3a` readback confirms that the earlier Rail cleanup now also
+closes the three page-specific observations. The page has no top-level or
+descendant gray overlay covering fixture content. The two filled group headers
+are named, source-relevant `fast_growth` and `discussed` context surfaces; they
+occupy their own `390×80` header slots rather than overlap event information.
+
+All `26` visible Rail roots are linked to the canonical `40.3` Schedule family:
+`22` exact-date and `4` period instances. The former page-local component has
+zero copies, there are no alternative Rail roots and no detached roots. Thus
+«Go to main component» resolves to the canonical family rather than another
+`40.3a` lookalike, and the required period/date anatomy is owned before it is
+consumed. `currentFile.validate()=[]`.
+
+Named version `OV25-27 Popular mobile fixtures · canonical Rail final readback`
+was saved. This advances all three observations to owner rereview, but does not
+claim owner acceptance or change `processed: NO`.
+
+Receipt: `evidence/recovery-20260829/penpot/popular-mobile-rail-ov25-27-final-readback.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
