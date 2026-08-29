@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-reference-event-projection.v1.schema.json",
+  "title": "Route-specific projection of a Golden Event Corpus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "projection_id", "corpus_id", "route", "reference_window", "factual_predicates", "fixture_input_order", "expected_groups", "coverage_requirements", "explicit_exclusions", "selection_rule"],
+  "properties": {
+    "schema_version": {"const": "ui-reference-event-projection.v1"},
+    "projection_id": {"pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "corpus_id": {"const": "ui-reference-events.v2"},
+    "route": {"const": "/podborki/besplatnye-sobytiya/"},
+    "reference_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active_from", "active_to", "timezone"],
+      "properties": {
+        "active_from": {"const": "2026-09-01"},
+        "active_to": {"const": "2026-09-30"},
+        "timezone": {"const": "Europe/Kaliningrad"}
+      }
+    },
+    "factual_predicates": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string"}},
+    "fixture_input_order": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"pattern": "^event\\.real\\.[0-9]+$"}},
+    "expected_groups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "exhibitions"],
+      "properties": {
+        "events": {"type": "array", "uniqueItems": true, "items": {"pattern": "^event\\.real\\.[0-9]+$"}},
+        "exhibitions": {"type": "array", "uniqueItems": true, "items": {"pattern": "^event\\.real\\.[0-9]+$"}}
+      }
+    },
+    "coverage_requirements": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string"}},
+    "explicit_exclusions": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["reason", "asset_keys"]}},
+    "selection_rule": {"type": "string", "minLength": 20}
+  }
+}

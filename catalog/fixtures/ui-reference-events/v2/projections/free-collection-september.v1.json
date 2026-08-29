@@ -1,0 +1,54 @@
+{
+  "schema_version": "ui-reference-event-projection.v1",
+  "projection_id": "free-collection-september.v1",
+  "corpus_id": "ui-reference-events.v2",
+  "route": "/podborki/besplatnye-sobytiya/",
+  "reference_window": {
+    "active_from": "2026-09-01",
+    "active_to": "2026-09-30",
+    "timezone": "Europe/Kaliningrad"
+  },
+  "factual_predicates": [
+    "preview_event.ticket.is_free == true",
+    "preview_event.lifecycle_status == active",
+    "preview_event.image_url is normalized static CDN media"
+  ],
+  "fixture_input_order": [
+    "event.real.2182",
+    "event.real.6711",
+    "event.real.7609",
+    "event.real.8006",
+    "event.real.8200"
+  ],
+  "expected_groups": {
+    "events": [
+      "event.real.8006",
+      "event.real.8200"
+    ],
+    "exhibitions": [
+      "event.real.2182",
+      "event.real.6711",
+      "event.real.7609"
+    ]
+  },
+  "coverage_requirements": [
+    "multiple-landscape-visual-aspect-ratios",
+    "square-ocr-poster",
+    "portrait-ocr-poster",
+    "program-document",
+    "single-and-multi-image",
+    "visual-only-and-ocr-protected"
+  ],
+  "explicit_exclusions": [
+    {
+      "reason": "Do not use the repeated green Chernyakhovsk programme poster: it makes unrelated cards look duplicated and destroys diagnostic diversity.",
+      "asset_keys": [
+        "3f02c57279fb894be9b734b9cf3f39de134d64292bf3cac43cc9506243b696f0",
+        "4717a8978f46b70f3c2a6220f83157c9f041375c936ba1e5c2e4863791cd923e",
+        "e76bd4b631c6c03700dcfef1817c65cfe8acc4f3212b74af747dbcd50a3593dd",
+        "41bf6f47f7c5e81fff221a2844d08fe3118e3f0f0c7499f4bf94c31ea96e0db8"
+      ]
+    }
+  ],
+  "selection_rule": "Choose the smallest factual-free September-active subset that maximizes EventCard media-state and aspect-ratio coverage; never choose five homogeneous posters merely because they are recent."
+}
