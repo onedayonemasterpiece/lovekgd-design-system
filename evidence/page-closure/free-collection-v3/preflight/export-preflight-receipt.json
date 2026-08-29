@@ -1,0 +1,60 @@
+{
+  "schema_version": "penpot-bounded-export-preflight.v1",
+  "status": "PASS",
+  "performed_before_new_penpot_visual_mutation": true,
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "09c74c97-282f-80d0-8008-8efff3544d2a",
+    "observed_source_revision": 3044,
+    "validation": []
+  },
+  "reference_clock": {
+    "iso": "2026-08-29T14:00:00+02:00",
+    "timezone": "Europe/Kaliningrad",
+    "locale": "ru-RU"
+  },
+  "attempts": [
+    {
+      "method": "export_shape",
+      "shape_id": "09c74c97-282f-80d0-8008-8f004509fdbb",
+      "format": "png",
+      "result": "HTTP_504"
+    },
+    {
+      "method": "shape.export({type:'png'}) via penpot-bounded-export.js",
+      "shape_id": "09c74c97-282f-80d0-8008-8f004509fdbb",
+      "result": "PASS",
+      "width": 348,
+      "height": 623,
+      "bytes": 224884,
+      "sha256": "1e9cebb533e94f22c09253b86e994ca2cd34b18e3f3908572bc800f02f27bc44"
+    },
+    {
+      "method": "shape.export({type:'png'}) via penpot-bounded-export.js",
+      "shape_id": "09c74c97-282f-80d0-8008-8f0044e7a913",
+      "result": "PASS",
+      "width": 1082,
+      "height": 623,
+      "bytes": 669489,
+      "sha256": "ae3218e26302df162e1fe6be94fbe44e30f10d541c6a9172c4ab935e7c075092"
+    }
+  ],
+  "cases": [
+    {
+      "id": "card-2182",
+      "dimensions": "348x623",
+      "astro_sha256": "14a7c8b5248ccc7649d4f4085f4ff1c0a8088e95d7c1f57592f0f92f66234377",
+      "penpot_sha256": "1e9cebb533e94f22c09253b86e994ca2cd34b18e3f3908572bc800f02f27bc44",
+      "rmse_normalized": 0.35786,
+      "note": "Leaf Penpot export has transparent action-strip context; the valid surface-bound row case below is authoritative for visual comparison."
+    },
+    {
+      "id": "row-exhibitions",
+      "dimensions": "1082x623",
+      "astro_sha256": "9cdd474c1c540f540c5f5e345fa6b21cb7e5680ae454a20402950c0082777c7d",
+      "penpot_sha256": "ae3218e26302df162e1fe6be94fbe44e30f10d541c6a9172c4ab935e7c075092",
+      "rmse_normalized": 0.157876,
+      "visual_review": "PASS_EXPORT_ROUNDTRIP"
+    }
+  ]
+}

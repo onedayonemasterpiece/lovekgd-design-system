@@ -20,6 +20,19 @@
       }
     },
     "state": { "type": "string" },
+    "reference_clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_iso", "current_date", "timezone", "locale", "authority", "override_kind"],
+      "properties": {
+        "reference_iso": { "type": "string", "format": "date-time" },
+        "current_date": { "type": "string", "format": "date" },
+        "timezone": { "const": "Europe/Kaliningrad" },
+        "locale": { "const": "ru-RU" },
+        "authority": { "const": "catalog/fixtures/ui-reference-events/v2/corpus.json#reference_clock" },
+        "override_kind": { "const": "source-bound-scenario-clock" }
+      }
+    },
     "viewport": {
       "type": "object",
       "required": ["width", "height", "dpr"],

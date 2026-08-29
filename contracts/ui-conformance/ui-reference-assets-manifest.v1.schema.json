@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-reference-assets-manifest.v1.schema.json",
+  "title": "UI reference asset manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corpus_id", "verification_policy", "assets", "assets_manifest_sha256"],
+  "properties": {
+    "schema_version": {"const": "ui-reference-assets-manifest.v1"},
+    "corpus_id": {"pattern": "^ui-reference-events\\.v[0-9]+$"},
+    "verification_policy": {"const": "download-exact-bytes-and-sha256-before-render"},
+    "assets_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "assets": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["asset_id", "fixture_id", "event_id", "role", "source_url", "resolved_url", "mime_type", "width", "height", "byte_length", "sha256", "storage_mode", "cdn_path_content_key", "cache_control", "local_cache_relpath", "bundle_relpath"],
+        "properties": {
+          "asset_id": {"pattern": "^asset\\.sha256\\.[a-f0-9]{64}$"},
+          "fixture_id": {"pattern": "^event\\.real\\.[0-9]+$"},
+          "event_id": {"type": "integer", "minimum": 1},
+          "role": {"enum": ["primary", "gallery"]},
+          "source_url": {"type": "string", "format": "uri"},
+          "resolved_url": {"type": "string", "format": "uri"},
+          "mime_type": {"type": "string", "minLength": 3},
+          "width": {"type": "integer", "minimum": 1},
+          "height": {"type": "integer", "minimum": 1},
+          "byte_length": {"type": "integer", "minimum": 1},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "storage_mode": {"enum": ["immutable-cdn", "git-content-addressed-bundle"]},
+          "cdn_path_content_key": {"type": ["string", "null"]},
+          "cache_control": {"type": ["string", "null"]},
+          "local_cache_relpath": {"type": "string", "minLength": 1},
+          "bundle_relpath": {"type": ["string", "null"], "pattern": "^assets/[a-f0-9]{64}\\.[a-z0-9]+$"}
+        }
+      }
+    }
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

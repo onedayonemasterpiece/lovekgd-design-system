@@ -12,21 +12,55 @@ test('September v2 materializer owns exact Astro hero, breadcrumb and fixture cl
   assert.match(source, /2026-08-29/u);
   assert.match(source, /fillColorGradient:\{type:'linear'/u);
   assert.match(source, /style:'drop-shadow',offsetX:0,offsetY:18,blur:45/u);
+  assert.match(source, /repairSectionsExact/u);
+  assert.match(source, /place\(hero,0,84\.796875,1180,500\.78125\)/u);
+  assert.match(source, /820\.609375,103\.1875,294\.390625,294\.390625/u);
+  assert.match(source, /exactText\(eventHeading,38\.4,700,1\.08,'#221a14',-1\.344\)/u);
+  assert.match(source, /exactText\(note,16,400,1\.6,'#6d6259'\)/u);
 });
 
 test('September v2 materializer resolves surface-owned EventCard and shell states without detaching', () => {
-  assert.match(source, /calendar\.hidden=EVENTS\[id\]\.group==='exhibitions'/u);
-  assert.match(source, /shape\.characters=String\(values\[index\]\);shape\.hidden=values\[index\]===0/u);
-  assert.match(source, /card\.component\(\)\?\.id/u);
+  assert.match(source, /const value=lineage\.some\(name=>\/Share\//u);
+  assert.match(source, /shape\.characters=String\(value\);shape\.hidden=value===0/u);
+  assert.match(source, /linkedBaseId:card\.component\(\)\?\.id/u);
   assert.doesNotMatch(source, /\.detach\(/u);
   assert.match(source, /Mobile bottom navigation island \/ exact/u);
   assert.match(source, /h=state==='full'\?\(desktop\?3338\.34375:4270\.4375\):\(desktop\?1200:844\)/u);
   assert.match(source, /active=afisha/u);
+  assert.match(source, /root\.clipContent=true/u);
+  assert.match(source, /const navY=770/u);
+  assert.match(source, /activeLabel\.fontWeight='600'/u);
+  assert.match(source, /fillColor:'#25211e'/u);
+  assert.match(source, /UNIFIED_CARD_PATH = 'Event cards \/ Large \/ Unified Golden v2'/u);
+  assert.match(source, /slot\.swapComponent\(target\)/u);
+  assert.match(source, /storage\.freeSeptemberV2=\{ensureBody/u);
+  assert.match(source, /hydrateUnifiedSlot\(c,id\)/u);
+  assert.match(source, /PACKED_PLACE/u);
+  assert.match(source, /Калининград · Калининградская…/u);
 });
 
 test('footer share strip is the centralized two-control Astro desktop state', () => {
   assert.match(source, /WORDMARK_ID='d87e18f1-dcb4-80a6-8008-87853121d15c'/u);
-  assert.match(source, /\['Скопировать карточку','P'/u);
-  assert.match(source, /\['Скопировать текст и ссылку','S'/u);
+  assert.match(source, /label:'Скопировать карточку',key:'P'/u);
+  assert.match(source, /label:'Скопировать текст и ссылку',key:'S'/u);
+  assert.match(source, /Footer share \/ Скопировать карточку \/ icon/u);
+  assert.match(source, /Footer share \/ Скопировать текст и ссылку \/ icon/u);
+  assert.match(source, /penpot\.createPath\(\)/u);
   assert.doesNotMatch(source, /\['Поделиться',590,150\]/u);
+});
+
+test('review canvas contains only two ordered Penpot versus Astro comparison pairs before the service zone', () => {
+  assert.match(source, /function organizeReviewCanvas\(\)/u);
+  assert.match(source, /START HERE — Бесплатные события · Penpot ↔ Astro · Golden Corpus v2/u);
+  assert.match(source, /01 · DESKTOP — ASTRO REAL · 5\/5 IMAGES DECODED/u);
+  assert.match(source, /02 · MOBILE — ASTRO REAL · 5\/5 IMAGES DECODED/u);
+  assert.match(source, /serviceStartY:7930/u);
+  assert.match(source, /const reviewCanvas=organizeReviewCanvas\(\)/u);
+});
+
+test('closure materializer contains no stale Astro screenshot source', () => {
+  assert.doesNotMatch(source, /ASTRO_CAPTURE_COMMIT|refreshComparisonScreenshots|recovery-20260829/u);
+  assert.match(source, /for\(const state of \['top','scrolled','full'\]\)/u);
+  assert.match(source, /free-collection-september-desktop-v3/u);
+  assert.match(source, /free-collection-september-mobile-v3/u);
 });

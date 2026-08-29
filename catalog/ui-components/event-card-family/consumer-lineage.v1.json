@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "PARTIAL_SOT_PENPOT_PAUSED",
+  "authority": {
+    "owner_items": ["OV-08", "OV-30"],
+    "clarified_by": "REV-IDEAHUB-20260828-01",
+    "astro_repository": "onedayonemasterpiece/events-bot-new",
+    "verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "supersedes_candidate_decision": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json#identity_decisions",
+    "supersession_scope": "Penpot family/root ownership only; Astro representation adapters remain valid implementation boundaries"
+  },
+  "canonical_family": {
+    "family_id": "event-card-family",
+    "penpot_rule": "one canonical family owner; every structural representation is a linked variant or linked nested composition from this owner",
+    "single_penpot_root_required": true,
+    "visual_similarity_is_not_lineage": true,
+    "representations": [
+      {
+        "id": "large",
+        "astro_owner": "site/src/components/EventCard.astro",
+        "semantic_role": "general event preview with media, content and actions",
+        "layouts": ["split-actions", "overlay-controls-deprecated"]
+      },
+      {
+        "id": "listing-compact",
+        "astro_owner": "site/src/components/listings/ListingEventCard.astro",
+        "astro_version": 9,
+        "semantic_role": "compact desktop listing card",
+        "densities": ["regular", "weekend", "popular"]
+      },
+      {
+        "id": "mobile-rail-track",
+        "astro_owner": "site/src/components/listings/MobileListingRailRow.astro",
+        "semantic_role": "intrinsic horizontal swipe/track event representation",
+        "viewport_owner": "site/src/components/listings/MobileListingRailSurface.astro"
+      }
+    ],
+    "shared_semantics": [
+      "event identity and href",
+      "title",
+      "schedule/occurrence",
+      "place",
+      "media framing decision",
+      "admission",
+      "social proof where source-present",
+      "actions where source-present"
+    ],
+    "allowed_representation_differences": [
+      "layout and density",
+      "desktop versus mobile interaction model",
+      "presence of actions",
+      "media frame geometry",
+      "social-proof placement",
+      "occurrence projection"
+    ],
+    "content_overrides_not_variants": ["event id", "title", "date/time", "venue", "city", "price", "image", "counts"]
+  },
+  "consumer_map": [
+    {
+      "atlas_page": "63.01 Home",
+      "route": "/",
+      "path": ["HomeColdStartFeed.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "layout=split-actions;mobileFlowMedia=true"
+    },
+    {
+      "atlas_page": "63.02 Date listing",
+      "route_family": ["/segodnya/", "/zavtra/", "/date-YYYY-MM-DD/"],
+      "path": ["DateListingSurface.astro", "ExactTimeTimeline.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=regular"
+    },
+    {
+      "atlas_page": "63.03 Weekend listing",
+      "route": "/vyhodnye/",
+      "path": ["WeekendListingSurface.astro", "WeekendEditorialTimeline.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=weekend"
+    },
+    {
+      "atlas_page": "63.03 Weekend listing mobile",
+      "route": "/vyhodnye/",
+      "path": ["WeekendListingSurface.astro", "MobileListingRailSurface.astro", "MobileListingRailRow.astro"],
+      "representation": "mobile-rail-track",
+      "state": "occurrenceMode=per-family"
+    },
+    {
+      "atlas_page": "63.04 Popular listing",
+      "route": "/populyarnoe/",
+      "path": ["PopularListingSurface.astro", "PopularBehaviorRows.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=popular"
+    },
+    {
+      "atlas_page": "63.04 Popular listing mobile",
+      "route": "/populyarnoe/",
+      "path": ["PopularListingSurface.astro", "PopularMobileBehaviorRows.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "layout=split-actions"
+    },
+    {
+      "atlas_page": "63.05 Unusual listing",
+      "route": "/neobychnoe/",
+      "path": ["UnusualListingSurface.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "mobileFlowMedia=true"
+    },
+    {
+      "atlas_page": "63.06 Search final results",
+      "route": "/poisk/",
+      "path": ["AuthorizedEventSearch.astro", "window.KenigEventsRenderEventCard", "EventLayout.astro#createEventCardElement"],
+      "representation": "large",
+      "state": "layout=split-actions;mobile media contract",
+      "note": "vector preview cards are provisional verification UI, not canonical final-result cards"
+    },
+    {
+      "atlas_page": "63.07 Event details related feed",
+      "route_family": ["/sobytiya/[slug]/"],
+      "path": ["[slug].astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "source-selected feedCardVariant"
+    }
+  ],
+  "penpot_gate": {
+    "status": "PAUSED_OWNER_CLOSED_WINDOW",
+    "canonical_component_id": null,
+    "canonical_main_ids": [],
+    "required_on_resume": [
+      "read-only page-scoped census of every event-card root and copy",
+      "choose one exact canonical family owner and record its UUID",
+      "replace Home, Date, Weekend, Popular, Unusual, Search and Event Details lookalikes with linked family instances",
+      "prove zero page-local alternative roots in the bounded consumer set",
+      "prove zero detached terminal copies",
+      "validate and focused-export every consumer page"
+    ],
+    "forbidden": [
+      "page-local event-card component main",
+      "static screenshot used as a card implementation",
+      "visually similar but unrelated root",
+      "invented consumer-only anatomy",
+      "global mutation before exact-ID readback"
+    ]
+  }
+}
