@@ -15,12 +15,12 @@ test('OV-54 canonical owner-root census has an exact 34-board denominator and no
 });
 
 test('OV-54 reports current progress rather than calling partial owner-root coverage complete', () => {
-  assert.equal(census.coverage.bound_uniform_nonzero_radius_roots, 20);
-  assert.equal(census.coverage.unbound_uniform_nonzero_radius_roots, 4);
+  assert.equal(census.coverage.bound_uniform_nonzero_radius_roots, 23);
+  assert.equal(census.coverage.unbound_uniform_nonzero_radius_roots, 1);
   assert.equal(contract.penpot_projection.canonical_owner_root_census.receipt,
     'evidence/recovery-20260829/penpot/ov54-canonical-owner-root-token-census.v1.json');
-  assert.equal(contract.penpot_projection.canonical_owner_root_census.bound, 20);
-  assert.equal(contract.penpot_projection.canonical_owner_root_census.remaining, 4);
+  assert.equal(contract.penpot_projection.canonical_owner_root_census.bound, 23);
+  assert.equal(contract.penpot_projection.canonical_owner_root_census.remaining, 1);
   assert.match(contract.status, /IN_PROGRESS/u);
   assert.equal(contract.processed, false);
 });
