@@ -1,0 +1,687 @@
+{
+  "schema_version": "reconstruction-atlas-reuse-new-map.v1",
+  "central_fix_policy": "One lowest-owning SoT/master fix triggers one dependency-closure batch. Frozen source-conformant components reopen only for owner defect, contract/new structural context, or failed regression.",
+  "nodes": [
+    {
+      "id": "action.calendar",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "action.share",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "artifact.collection-card",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts"
+      ]
+    },
+    {
+      "id": "artifact.collection-progress",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.artifacts"
+      ]
+    },
+    {
+      "id": "artifact.unlock-dialog",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.artifacts"
+      ]
+    },
+    {
+      "id": "authorization.static-site",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.favorites",
+        "archetype.focus-group",
+        "archetype.search",
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "brand.identity-and-pwa",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "club.card",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.interest-clubs"
+      ]
+    },
+    {
+      "id": "club.detail-facts",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.interest-clubs"
+      ]
+    },
+    {
+      "id": "club.meeting-list",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.interest-clubs"
+      ]
+    },
+    {
+      "id": "collection.criteria",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.collections"
+      ]
+    },
+    {
+      "id": "collection.directory",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.collections"
+      ]
+    },
+    {
+      "id": "collection.gastronomy-surface",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.collections"
+      ]
+    },
+    {
+      "id": "core.breadcrumbs",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.collections",
+        "archetype.information-pages",
+        "archetype.interest-clubs"
+      ]
+    },
+    {
+      "id": "core.button",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "core.dialog",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts"
+      ]
+    },
+    {
+      "id": "core.field",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "document.typography",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.information-pages"
+      ]
+    },
+    {
+      "id": "event.card.large",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.favorites",
+        "archetype.home",
+        "archetype.personal-feed"
+      ]
+    },
+    {
+      "id": "event.detail.facts",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "event.detail.hero-composition",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "event.detail.related",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "event.detail.transport",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "event.medallion",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.event-detail",
+        "archetype.exhibitions"
+      ]
+    },
+    {
+      "id": "event.media-frame",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.event-detail"
+      ]
+    },
+    {
+      "id": "exhibition.hide-undo",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.exhibitions"
+      ]
+    },
+    {
+      "id": "exhibition.media-deck",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.exhibitions"
+      ]
+    },
+    {
+      "id": "exhibition.personal-surface",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.exhibitions"
+      ]
+    },
+    {
+      "id": "exhibition.row",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.exhibitions"
+      ]
+    },
+    {
+      "id": "favorites.saved-events-controller",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.favorites"
+      ]
+    },
+    {
+      "id": "festival.card",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.festivals"
+      ]
+    },
+    {
+      "id": "festival.header",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.festivals"
+      ]
+    },
+    {
+      "id": "festival.timeline",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.festivals"
+      ]
+    },
+    {
+      "id": "focus.completion",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.focus-group"
+      ]
+    },
+    {
+      "id": "focus.connectivity-diagnostic",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.focus-group"
+      ]
+    },
+    {
+      "id": "focus.feedback",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.focus-group",
+        "archetype.personal-feed",
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "focus.invitation-intake",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.focus-group"
+      ]
+    },
+    {
+      "id": "focus.lab-badge",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.focus-group",
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "focus.thank-you",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.focus-group"
+      ]
+    },
+    {
+      "id": "home.cold-start-feed",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.home"
+      ]
+    },
+    {
+      "id": "home.hero-talk",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.home"
+      ]
+    },
+    {
+      "id": "home.quick-navigation",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.home"
+      ]
+    },
+    {
+      "id": "listing-foundations-candidate-v1",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "listing.date-weather-context",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.date"
+      ]
+    },
+    {
+      "id": "listing.event-card.compact",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.favorites",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "listing.page-date-header",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.date"
+      ]
+    },
+    {
+      "id": "listing.page-pattern",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.home",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "listing.personal-filter",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.personal-feed"
+      ]
+    },
+    {
+      "id": "listing.rail-row.track",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "listing.state-panel",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.collections",
+        "archetype.listing.date"
+      ]
+    },
+    {
+      "id": "listing.time-groups",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.date"
+      ]
+    },
+    {
+      "id": "listing.time-navigation",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.date"
+      ]
+    },
+    {
+      "id": "listing.weekend-day-header",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "listing.weekend-editorial-timeline",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "listing.weekend-range-navigation",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.weekend"
+      ]
+    },
+    {
+      "id": "partners.logo-grid",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.information-pages"
+      ]
+    },
+    {
+      "id": "partnership.conditions",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.information-pages"
+      ]
+    },
+    {
+      "id": "personal.interest-profile",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.personal-feed"
+      ]
+    },
+    {
+      "id": "personal.rerank-controller",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.personal-feed"
+      ]
+    },
+    {
+      "id": "popular.grouping",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.popular"
+      ]
+    },
+    {
+      "id": "popular.trend-context",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.popular"
+      ]
+    },
+    {
+      "id": "search.collection-links",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "search.query-controller",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "semantic.theme-chip",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.festivals"
+      ]
+    },
+    {
+      "id": "shell.desktop-header",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "shell.event-layout",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "shell.footer",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "shell.mobile-bottom-navigation",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "shell.mobile-header",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "shell.mobile-menu",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "social-proof.like",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.festivals"
+      ]
+    },
+    {
+      "id": "special.closed-hub",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "special.membership-gate",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "special.prelaunch",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "system.state-panel",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.focus-group",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.personal-feed",
+        "archetype.search",
+        "archetype.special-state"
+      ]
+    },
+    {
+      "id": "system.toast-region",
+      "disposition": "REUSE_FROZEN_OR_RECONCILE",
+      "consumers": [
+        "archetype.artifacts",
+        "archetype.collections",
+        "archetype.event-detail",
+        "archetype.exhibitions",
+        "archetype.favorites",
+        "archetype.festivals",
+        "archetype.home",
+        "archetype.information-pages",
+        "archetype.interest-clubs",
+        "archetype.listing.date",
+        "archetype.listing.popular",
+        "archetype.listing.unusual",
+        "archetype.listing.weekend",
+        "archetype.personal-feed",
+        "archetype.search"
+      ]
+    },
+    {
+      "id": "unusual.status-behavior",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.unusual"
+      ]
+    },
+    {
+      "id": "unusual.unread-context",
+      "disposition": "NEW_OR_ARCHETYPE_DELTA",
+      "consumers": [
+        "archetype.listing.unusual"
+      ]
+    }
+  ]
+}

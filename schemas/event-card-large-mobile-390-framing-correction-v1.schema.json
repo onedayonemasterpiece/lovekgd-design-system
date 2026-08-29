@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/event-card-large-mobile-390-framing-correction-v1.schema.json",
+  "title": "EventCard Large mobile 390 framing correction v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "package_id",
+    "contract_version",
+    "contract_payload_sha256",
+    "source_baseline",
+    "conflict_resolution",
+    "framing_policy",
+    "astro_capture",
+    "penpot_materialization",
+    "component_graph_rule",
+    "visual_evidence",
+    "overall_card_family_status",
+    "non_claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "event_card_large_mobile_390_framing_correction_v1"
+    },
+    "contract_payload_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "conflict_resolution": {
+      "type": "object"
+    },
+    "framing_policy": {
+      "type": "object"
+    },
+    "astro_capture": {
+      "type": "object"
+    },
+    "penpot_materialization": {
+      "type": "object"
+    },
+    "component_graph_rule": {
+      "type": "object"
+    },
+    "visual_evidence": {
+      "type": "object"
+    },
+    "overall_card_family_status": {
+      "const": "unfinished"
+    },
+    "non_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,244 @@
+{
+  "asset_manifest_sha256": "3819811e9598a65e03a2a4467672c5e836142c6fd6c3a21178b644fe0dff6953",
+  "astro_binding": {
+    "binding_status": "source-resolved-pending-capture",
+    "repository_sha": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+    "candidate_package_sha": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "source_paths": [
+      "site/src/layouts/EventLayout.astro",
+      "site/src/components/DesktopEventPage.astro",
+      "site/src/components/OptimizedEventCardGrid.astro",
+      "site/src/components/EventCard.astro",
+      "site/src/lib/relatedCardLayout.mjs"
+    ],
+    "specimen_route": null,
+    "root_selector": "[data-optimized-event-card-grid] [data-event-card]"
+  },
+  "authority_mode": "astro-reference",
+  "case_id": "event-card-large-portrait-poster-8156-event-detail-related-desktop",
+  "component_id": "event.card",
+  "conformance_profile": "pixel-strict",
+  "container_width": 1180,
+  "contract_sha256": "a7e3f0dd972a242bfc0690850842a021473f32828f58a6c499cd95979760b24d",
+  "contract_version": "event-card-large.candidate.v2",
+  "corpus_id": "ui-reference-events.v1",
+  "corpus_sha256": "9ca2960fb8d723f95b19c012b50f8abb5e4503eedcf673fe178ed0f4afd46320",
+  "device_scale_factor": 1,
+  "event_title": "Выставка «Мой город»",
+  "exception_ref": null,
+  "expected_candidate_deltas": [
+    {
+      "delta_id": "event-real-8156.owner-penpot-framing-candidate",
+      "owner_decision_ref": "catalog/normalization/event-media/framing-v2.json#large_card_resolution/2",
+      "authority_scope": "penpot-candidate-only",
+      "region": "media",
+      "property": "framing-rule",
+      "astro_value": {
+        "frame_aspect_ratio": 0.8333333333333333,
+        "fit": "cover",
+        "object_position": "50% 50%",
+        "crop_fraction": 0.19999999999999996,
+        "policy": "document-safe-cover"
+      },
+      "candidate_value": {
+        "frame_aspect_ratio": 0.6666666666666666,
+        "fit": "source-preserving",
+        "object_position": "50% 40%",
+        "crop_fraction": 0,
+        "policy": "owner-candidate-protected-source-preserving-intrinsic"
+      },
+      "reason": "Owner-approved Penpot framing direction remains an explicit candidate delta while current Astro source stays the visual authority.",
+      "does_not_change_reference_authority": true,
+      "promotion_effect": "none-before-owner-browser-approval"
+    }
+  ],
+  "fixture_id": "event.real.8156",
+  "fixture_mode": "blocking-golden",
+  "fixture_sha256": "c2c4eaf7e9e88c89de7e4f510143237668073faf6dd07a36df65afa344b0518a",
+  "fixture_snapshot_sha256": "5ff3be3ce417145f97b4b5c5a2d315fd820acf0ba5d222ea282523d04500adf1",
+  "fixture_source": "events/event.real.8156.json",
+  "penpot_binding": {
+    "binding_status": "pending-materialization",
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "579a886e-56e8-80a3-8008-81882dbcfb6d",
+    "page_label": "Page 40.1a",
+    "board_or_component_id": null,
+    "board_label": null,
+    "revision": null,
+    "export_sha256": null,
+    "font_manifest_sha256": null
+  },
+  "resolved_case_path": "cases/resolved/event-card-large-portrait-poster-8156-event-detail-related-desktop.resolved-render-case.json",
+  "resolved_render_case_sha256": "6338da475eb1af6ade1ca497e9ddc8a38440e3ae3c58d37c64aa70807318960a",
+  "schema_version": "ui_conformance_case_v2",
+  "state_key": "viewport=desktop;layout=split-actions;presentation=dark-shell;media=loaded-protected;fixture=event.real.8156;consumer=event-detail-related.optimized-grid;placement=0,1",
+  "viewport_height": 900,
+  "viewport_id": "desktop-1280",
+  "viewport_width": 1280,
+  "consumer_layout_resolution": {
+    "schema_version": "consumer-layout-resolution.v1",
+    "resolution_id": "event-real-8156.event-detail-related.desktop-1280",
+    "surface": {
+      "surface_id": "event-detail-related",
+      "archetype_id": "optimized-event-card-grid",
+      "parent_component": "OptimizedEventCardGrid",
+      "consumer_role": "related-discovery-feed",
+      "layout_authority": "astro-reference",
+      "placement_claim": "controlled-layout-only"
+    },
+    "viewport": {
+      "viewport_id": "desktop-1280",
+      "width_px": 1280,
+      "height_px": 900,
+      "device_scale_factor": 1,
+      "breakpoint": "desktop"
+    },
+    "container": {
+      "containing_block": "page-shell",
+      "width_expression": "min(1180px, viewport_width_px - 32px)",
+      "border_box_width_px": 1180,
+      "content_width_px": 1180,
+      "padding_inline_px": 0,
+      "box_sizing": "border-box"
+    },
+    "grid": {
+      "display": "grid",
+      "columns": 3,
+      "gap_expression": "clamp(0.85rem, 1.6vw, 1.25rem)",
+      "column_gap_px": 20,
+      "row_gap_px": 20,
+      "track_definition": "repeat(3, minmax(0, 1fr))",
+      "align_items": "stretch"
+    },
+    "packing": {
+      "algorithm": "packRelatedCardRows",
+      "limit": 4,
+      "row_size": 3,
+      "ordered_input_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.4327",
+        "event.real.6628"
+      ],
+      "ordered_output_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628",
+        "event.real.4327"
+      ],
+      "placement": {
+        "fixture_id": "event.real.8156",
+        "row_index": 0,
+        "column_index": 1,
+        "row_ratio": 0.8333333333333333,
+        "media_ratio": 0.6666666666666666,
+        "row_mode": "document-led-bounded-cover"
+      }
+    },
+    "row_policy": {
+      "peer_fixture_ids": [
+        "event.real.7906",
+        "event.real.8156",
+        "event.real.6628"
+      ],
+      "equal_height_policy": "equal-height-within-row",
+      "height_basis": "row-track-max-content",
+      "card_height_style": "100%",
+      "internal_track_definition": "auto minmax(0, 1fr) minmax(58px, auto) minmax(56px, auto)",
+      "tallest_sibling_determines_used_height": true,
+      "shared_media_ratio_within_row": true
+    },
+    "used_card_geometry": {
+      "width_px": 380,
+      "height_px": null,
+      "height_resolution": "row-track-max-content-runtime-measurement-required",
+      "box_sizing": "border-box",
+      "measured_rect": {
+        "status": "runtime-measurement-required",
+        "x_px": null,
+        "y_px": null,
+        "width_px": null,
+        "height_px": null,
+        "capture_ref": null
+      }
+    },
+    "media_available_box": {
+      "available_width_px": 380,
+      "available_height_px": 456.00000000000006,
+      "frame_aspect_ratio": 0.8333333333333333,
+      "geometry_source": "used-card-width-divided-by-row-ratio",
+      "measured_rect": {
+        "status": "runtime-measurement-required",
+        "x_px": null,
+        "y_px": null,
+        "width_px": null,
+        "height_px": null,
+        "capture_ref": null
+      }
+    },
+    "framing_rule": {
+      "authority": "astro-reference",
+      "policy_id": "document-safe-cover",
+      "media_kind": "document",
+      "frame_aspect_ratio": 0.8333333333333333,
+      "fit": "cover",
+      "object_position": "50% 50%",
+      "crop_fraction": 0.19999999999999996,
+      "crop_reason": "document_bounded_cover",
+      "safe_crop_evidence": false
+    },
+    "candidate_deltas": [
+      {
+        "delta_id": "event-real-8156.owner-penpot-framing-candidate",
+        "owner_decision_ref": "catalog/normalization/event-media/framing-v2.json#large_card_resolution/2",
+        "authority_scope": "penpot-candidate-only",
+        "region": "media",
+        "property": "framing-rule",
+        "astro_value": {
+          "frame_aspect_ratio": 0.8333333333333333,
+          "fit": "cover",
+          "object_position": "50% 50%",
+          "crop_fraction": 0.19999999999999996,
+          "policy": "document-safe-cover"
+        },
+        "candidate_value": {
+          "frame_aspect_ratio": 0.6666666666666666,
+          "fit": "source-preserving",
+          "object_position": "50% 40%",
+          "crop_fraction": 0,
+          "policy": "owner-candidate-protected-source-preserving-intrinsic"
+        },
+        "reason": "Owner-approved Penpot framing direction remains an explicit candidate delta while current Astro source stays the visual authority.",
+        "does_not_change_reference_authority": true,
+        "promotion_effect": "none-before-owner-browser-approval"
+      }
+    ],
+    "derivation": {
+      "resolution_order": [
+        "surface-archetype",
+        "viewport-container",
+        "grid-columns",
+        "packing-placement",
+        "row-sibling-equalization",
+        "used-card-geometry",
+        "media-available-box",
+        "framing-rule"
+      ],
+      "source_refs": [
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/OptimizedEventCardGrid.astro",
+        "site/src/components/EventCard.astro",
+        "site/src/lib/relatedCardLayout.mjs"
+      ],
+      "formulas": {
+        "container_width": "min(1180, viewport_width_px - 32)",
+        "resolved_gap": "min(max(13.6, viewport_width_px * 0.016), 20)",
+        "used_card_width": "(container_width_px - 2 * resolved_gap_px) / 3",
+        "media_available_height": "used_card_width_px / row_ratio"
+      },
+      "rounding_digits": 9
+    }
+  },
+  "consumer_layout_resolution_sha256": "710da5702217d635947144b329fcd416a9f3c4dbf14ca2e51fc81ce17fa94e9f"
+}

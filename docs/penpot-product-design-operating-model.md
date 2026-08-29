@@ -98,6 +98,20 @@ owner receipt; их наличие не переводит family lifecycle в
 
 Resource Graph не является brainstorm-canvas. В `80 — Candidate review and promotion` попадают только bounded candidates, подготовленные к системному review/promotion.
 
+### Penpot stores UI only
+
+Resource Graph pages contain native visual foundations, reusable component
+masters, linked instances, archetype compositions, and real product screen
+states. Git owns source-state indexes, lifecycle/status data, coverage and gap
+ledgers, test results, hashes, run receipts, and other service metadata. Those
+operational records may link to Penpot objects, but they must not be represented
+as Penpot boards or components.
+
+Consequently a review hub/dashboard is not an owner-review target. Review is an
+ordered list of direct links to small real UI pages. Archetype pages contain
+desktop/mobile visual compositions and only states that change the visible UI;
+dense/stress/full-list behavior remains a generated-Astro test concern.
+
 ## Page composition, archetype and representation
 
 ```text
@@ -114,6 +128,33 @@ product representation
 Один archetype может иметь mobile/desktop, authorized/anonymous, open/sold-out/ended, wide-photo/portrait-poster/no-image representations.
 
 The exact authority boundary is defined by the [normative family lifecycle](normalization/design-system-family-lifecycle.md): `PAGE_ARCHETYPE_CANDIDATE` and `PRODUCT_REPRESENTATIONS` remain reconstructed candidates; archetype acceptance occurs only at `FAMILY_AND_ARCHETYPE_PROMOTION`. A source-requirements overlay or detached screen mockup is not an archetype.
+
+### Обязательная раскладка archetype review
+
+Каждое проверяемое состояние archetype размещается отдельной горизонтальной
+строкой, без перекрытий и скрытого clipping:
+
+```text
+[locked SOURCE EVIDENCE · exact Astro screenshot]
+[COMPONENT RECONSTRUCTION · linked native instances]
+[VISUAL COMPARISON · overlay/blink/diff + findings]
+```
+
+Source evidence и reconstruction стоят рядом и имеют одинаковый viewport и
+пиксельный размер. Screenshot никогда не публикуется в Resources и не маскирует
+недостающие компоненты. Reconstruction собирается только из linked accepted
+components; fixture text/media are overrides, а detached copy, source skeleton
+под компонентом и общая визуальная «нашлёпка» запрещены.
+
+Перед передачей владельцу агент обязан экспортировать reconstruction, заново
+импортировать/отрендерить пару и **посмотреть глазами** в масштабе, достаточном
+для проверки шрифтов, crop, baseline, spacing, opacity, icon alignment,
+clipping и порядка элементов. Обязательны side-by-side и 50% overlay/blink;
+pixel diff добавляется, когда доступен. Все необъяснённые расхождения получают
+component/slot owner и исправляются системно во всех consumers.
+
+Точный capture manifest, критерии остановки и reverse Astro gate заданы в
+[`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md#3a-mandatory-archetype-visual-parity-gate).
 
 ## Product linkage
 
@@ -237,3 +278,14 @@ Astro/runtime actual
 ```
 
 Runtime actual никогда не заменяет accepted baseline автоматически. Visual diff дополняет, но не заменяет functional, interaction и accessibility tests.
+
+Во время первичной реконструкции pinned Astro screenshot является AS-IS source
+evidence. После owner acceptance accepted Penpot reconstruction становится
+visual reference того же Git SoT contract. Это разные роли: ни один raster сам
+по себе не является SoT.
+
+## Owner-review page materialization
+
+Full page boards show complete vertical page content. Desktop/mobile page boards are arranged horizontally. Specimens and diagnostics sit outside the page-board row. Horizontal clipping is valid inside a real viewport for intrinsic rails, but never justifies vertical truncation of a page board.
+
+This rule governs owner-review presentation only. It does not widen the runtime viewport, promote an archetype, or justify detached diagnostic copies inside the owner-page row.

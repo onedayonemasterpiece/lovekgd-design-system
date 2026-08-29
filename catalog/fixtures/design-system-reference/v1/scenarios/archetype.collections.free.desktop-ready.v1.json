@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../../../contracts/ui-conformance/design-system-scenario-projection.v1.schema.json",
+  "schema_version": "design-system-scenario-projection.v1",
+  "scenario_id": "free-collection-5-desktop-v1",
+  "registry_ref": "catalog/fixtures/design-system-reference/v1/registry.v1.json#events.archetype-core.v1",
+  "route_ref": {
+    "registry": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json",
+    "archetype_id": "archetype.collections",
+    "route": "/podborki/besplatnye-sobytiya/"
+  },
+  "state": "ready",
+  "viewport": { "width": 1280, "height": 1200, "dpr": 1 },
+  "fixture_input_order": ["event.real.7030", "event.real.7006", "event.real.6901", "event.real.6996", "event.real.6997"],
+  "expected_render_order": ["event.real.7006", "event.real.6996", "event.real.6997", "event.real.7030", "event.real.6901"],
+  "component_projection": {
+    "family": "event-card-family", "representation": "large",
+    "astro_owner": "site/src/components/EventCard.astro",
+    "penpot_component_id": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
+    "detached_instances_allowed": 0
+  },
+  "container_projection": {
+    "semantic_id": "event-card-equal-height-grid",
+    "astro_owner": "site/src/components/OptimizedEventCardGrid.astro",
+    "layout_contract": "catalog/ui-components/event-card-container/packed-rows.v1.json",
+    "desktop_columns": 3, "row_card_counts": [3, 2], "equal_height_within_each_row": true
+  },
+  "acceptance": {
+    "heading": "5 событий", "exact_fixture_identity_required": true,
+    "astro_fixture_marker_required": true, "penpot_linked_instances_required": 5,
+    "horizontal_overflow": 0, "console_errors": 0, "production_data_replacement": false
+  }
+}

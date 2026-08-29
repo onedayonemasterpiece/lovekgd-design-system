@@ -1,0 +1,46 @@
+{
+  "$schema": "https://example.invalid/lovekgd/evidence/free-collection-three-way-proof.v5.schema.json",
+  "generated_at": "2026-08-29T19:21:00Z",
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "scenario": "free-collection-september-bounded-three-card-v2",
+    "reference_date": "2026-09-01"
+  },
+  "fixtures": {
+    "golden_corpus": "ui-reference-events.v2",
+    "bounded_review_order": [
+      2182,
+      6711,
+      7609
+    ]
+  },
+  "astro": {
+    "bounded_oracle_commit": "6b0335dd819f09cad70bd5a067c01c10e8ff1e07",
+    "single_card_owner": "site/src/components/EventCard.astro",
+    "crop_sha256": "cc03ae4cb916992e9c1581b84f3201c012e8e5ef44ddb437f42e7ca266400cd1",
+    "width": 1082,
+    "height": 623
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "09c74c97-282f-80d0-8008-8efff3544d2a",
+    "page_name": "63.08b — Free collection · 3-card bounded review",
+    "source_board_id": "09c74c97-282f-80d0-8008-8f0044bb36e4",
+    "target_board_id": "09c74c97-282f-80d0-8008-8f0044e7a913",
+    "linked_card_slots": 3,
+    "detached_card_slots": 0,
+    "validation_errors": [],
+    "readback_receipt": "evidence/recovery-20260829/penpot/free-collection-september-v2/bounded-three-card-review-readback.v1.json"
+  },
+  "result": {
+    "golden_fixture_identity": "PASS",
+    "central_component_linkage": "PASS",
+    "penpot_validation": "PASS",
+    "penpot_server_exporter": "BLOCKED_HTTP_504",
+    "fresh_penpot_png": "NOT_PRODUCED",
+    "fresh_automated_pixel_diff": "NOT_RUN",
+    "visual_conformance": "BLOCKED",
+    "product_approval": "AWAITING_REVIEW"
+  },
+  "claim_limit": "The dedicated page reduces review to exactly three cards and one side-by-side pair. Export still times out for both the 1082x623 target and one isolated 347x622 card, so no visual PASS is claimed."
+}

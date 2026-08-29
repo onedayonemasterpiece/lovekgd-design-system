@@ -1,0 +1,82 @@
+{
+  "schema_version": "listing-event-card-centralization.v1",
+  "status": "CORRECTION_VERIFIED",
+  "trigger": "owner-reported defect: event cards must come from the centralized card family rather than a page-local assembly",
+  "authority": {
+    "astro_commit": "52e220fc112d020b0a979de4ffa0101a3be6d76b",
+    "design_commit_before_correction": "d43857c",
+    "penpot_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "penpot_named_version_revision": 2890,
+    "penpot_readback_revision": 2891
+  },
+  "astro": {
+    "owning_component": {
+      "path": "site/src/components/listings/ListingEventCard.astro",
+      "sha256": "5a68eb840e2d16cff35c953b47ec24b67d687c00f390aaa2e879998db1dab296",
+      "data_ds_component": "ListingEventCard",
+      "data_ds_version": "9"
+    },
+    "consumer_sources": [
+      {
+        "path": "site/src/components/listings/DateListingSurface.astro",
+        "sha256": "fdc87cabb3e8c307de7e22ba4604e1266ef1d926057f3ca7bb31f951f3d087f7"
+      },
+      {
+        "path": "site/src/components/listings/WeekendListingSurface.astro",
+        "sha256": "9c96e9d59622336338fdd258b7f92c54aaaab51cb51b357da1f5c5ce47fb5e3c"
+      }
+    ]
+  },
+  "penpot": {
+    "canonical_path": "Event cards / Compact variants",
+    "identity_preservation": "component IDs, main IDs, linked child dependencies, geometry and all consumer instance IDs remain unchanged",
+    "variants": [
+      {
+        "component_id": "d87e18f1-dcb4-80a6-8008-87733a67d4bb",
+        "fixture": "event.real.7807",
+        "context": "date-typical-desktop",
+        "main_id": "d87e18f1-dcb4-80a6-8008-877339ef4539",
+        "size": [444.109375, 326.984375]
+      },
+      {
+        "component_id": "d87e18f1-dcb4-80a6-8008-8773575484aa",
+        "fixture": "event.real.7906",
+        "context": "date-typical-desktop",
+        "main_id": "d87e18f1-dcb4-80a6-8008-877356eb1e44",
+        "size": [433.21875, 279.796875]
+      },
+      {
+        "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+        "fixture": "event.real.7888",
+        "context": "date-typical-desktop",
+        "main_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+        "size": [420, 279.796875]
+      },
+      {
+        "component_id": "d87e18f1-dcb4-80a6-8008-87b75354f2ed",
+        "fixture": "event.real.7807",
+        "context": "weekend-typical-desktop",
+        "main_id": "d87e18f1-dcb4-80a6-8008-87b752efec44",
+        "size": [334.546875, 295.765625]
+      },
+      {
+        "component_id": "d87e18f1-dcb4-80a6-8008-87becba472c7",
+        "fixture": "event.real.7906",
+        "context": "weekend-typical-desktop",
+        "main_id": "d87e18f1-dcb4-80a6-8008-87becb5e869f",
+        "size": [420, 253.484375]
+      }
+    ],
+    "validation": []
+  },
+  "governance": {
+    "forbidden": [
+      "owner-local duplicate event-card master",
+      "detached visual copy",
+      "fixture mismatch",
+      "replacing the Weekend past-state with the regular Date state"
+    ],
+    "owner_acceptance": "NOT_CLAIMED"
+  }
+}
+

@@ -1,0 +1,213 @@
+{
+  "schema_version": "event-detail-ov45-owner-exact.v1",
+  "contract_id": "recovery.ov-45.event-detail.owner-exact.v1",
+  "review_item": "OV-45",
+  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
+  "processed": false,
+  "authority": {
+    "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
+    "current_astro_commit": "812ffc279728221b547707474bcb521f27c4a73d",
+    "rule": "Use the donor Event detail composition unless a later exact source change is proven. Structural validation without the source overlap, top-medallion state and occurrence family is not visual parity."
+  },
+  "astro": {
+    "route_source": "site/src/pages/sobytiya/[slug].astro",
+    "desktop_source": "site/src/components/DesktopEventPage.astro",
+    "occurrence_source": "site/src/components/EventOccurrenceNav.astro",
+    "medallion_source": "site/src/components/EventTokenMedallions.astro",
+    "browser_evidence": "evidence/recovery-20260828/astro/ov45-event-detail-browser-evidence.v1.json",
+    "screenshots": [
+      "evidence/recovery-20260828/astro/ov45-event-detail-5459-desktop.png",
+      "evidence/recovery-20260828/astro/ov45-event-detail-5757-desktop.png",
+      "evidence/recovery-20260828/astro/ov45-event-detail-5511-desktop.png"
+    ]
+  },
+  "fixtures": {
+    "overlap": {
+      "event_id": 5459,
+      "route": "/sobytiya/predmetnye-strasti-natyurmort-xx-veka-kaliningrad-5459/",
+      "title": "Предметные страсти. Натюрморт XX века",
+      "hero_media": "https://static.kenigevents.ru/p/image/v2/27/2710b5acf92a59c9ceae672693b51c9853bab55b1c8869a8888dab7ea5924c1e.webp",
+      "viewport": [
+        1280,
+        900
+      ],
+      "geometry": {
+        "hero": [
+          0,
+          57,
+          1280,
+          843
+        ],
+        "title_panel": [
+          38.390625,
+          660,
+          783.1875,
+          449.46875
+        ],
+        "headline": [
+          76.78125,
+          742.078125,
+          476.828125,
+          77.375
+        ],
+        "action": [
+          860,
+          503,
+          404,
+          228.28125
+        ],
+        "companion_board": [
+          860,
+          756.078125,
+          404,
+          387.65625
+        ],
+        "description": [
+          76.78125,
+          1174.46875,
+          692.21875,
+          1106.421875
+        ],
+        "practical": [
+          76.78125,
+          2370.484375,
+          706.40625,
+          525.234375
+        ]
+      },
+      "required_first_screen_overlap_px": 240
+    },
+    "top_medallion": {
+      "event_id": 5757,
+      "route": "/sobytiya/sobache-serdtse-kaliningrad-5757/",
+      "title": "Собачье сердце",
+      "event_type": "спектакль",
+      "occurrence": "29 августа · суббота · 18:00",
+      "digest": "Профессор Преображенский решается на немыслимый и рискованный эксперимент: пересадить человеческий гипофиз бездомному псу Шарику.",
+      "venue": "Драматический театр",
+      "address": "Мира 4",
+      "hero_media": "https://static.kenigevents.ru/p/image/v2/33/332c7d1cb57f9f9daa98323eb83ca0537984f33a21daef69ce1a36b68089a926.webp",
+      "medallion_component_id": "45777396-2f2a-80c0-8008-819170e25449",
+      "medallion_identity": "dramteatr39",
+      "geometry": {
+        "title_panel": [
+          38.390625,
+          660,
+          783.1875,
+          417.546875
+        ],
+        "headline": [
+          76.78125,
+          742.078125,
+          560.1875,
+          45.453125
+        ],
+        "top_medallion": [
+          382.625,
+          612.640625,
+          94.71875,
+          94.71875
+        ]
+      }
+    },
+    "occurrence_family": {
+      "event_id": 5511,
+      "route": "/sobytiya/rok-opera-orfey-i-evridika-kaliningrad-5511/",
+      "title": "Рок-опера «Орфей и Эвридика»",
+      "alternative_count": 2,
+      "desktop_summary": "24 июля · пятница · 19:00 · Другие даты (2) ↓",
+      "practical_rows": [
+        "24 июля · пятница · 19:00",
+        "25 июля · суббота · 17:00",
+        "27 сентября · воскресенье · 17:00"
+      ],
+      "family_event_ids": [
+        5511,
+        5512,
+        7020,
+        7021
+      ],
+      "geometry": {
+        "desktop_summary": [
+          983.484375,
+          131.6875,
+          250.4375,
+          56.890625
+        ],
+        "practical": [
+          746.578125,
+          1624.75,
+          471.640625,
+          128.6875
+        ]
+      }
+    }
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "d87e18f1-dcb4-80a6-8008-880bfdfbf2ec",
+    "page_name": "63.07 — Atlas · Event detail",
+    "desktop_owner_id": "d87e18f1-dcb4-80a6-8008-880bfe361a1d",
+    "mobile_owner_id": "d87e18f1-dcb4-80a6-8008-880c01b4fbef",
+    "desktop_owner_fixture": 5459,
+    "required_state_components": [
+      "fixture=event.real.5757;state=top-medallion;viewport=desktop",
+      "fixture=event.real.5511;variant=desktop-summary;state=multiple",
+      "fixture=event.real.5511;variant=practical;state=multiple"
+    ],
+    "detached_instances_allowed": 0,
+    "owner_review_status": "REREVIEW_REQUIRED",
+    "desktop_owner_size": [
+      1280,
+      3126.09375
+    ],
+    "desktop_owner_overlap_px": 240,
+    "named_version": {
+      "label": "OV45 event detail · Astro overlap medallion occurrences",
+      "created_at": "2026-08-28T21:56:36.574Z",
+      "revision": 2715
+    },
+    "materialized_components": {
+      "top_medallion": {
+        "component_id": "8f804431-c282-8075-8008-8ddbd1b013c6",
+        "main_id": "8f804431-c282-8075-8008-8ddbc9b60471",
+        "linked_artwork_component_id": "45777396-2f2a-80c0-8008-819170e25449"
+      },
+      "occurrence_summary": {
+        "component_id": "8f804431-c282-8075-8008-8ddbdcd954dc",
+        "main_id": "8f804431-c282-8075-8008-8ddbd8a72bf7"
+      },
+      "occurrence_practical": {
+        "component_id": "8f804431-c282-8075-8008-8ddbe8be798c",
+        "main_id": "8f804431-c282-8075-8008-8ddbdfe18c88"
+      },
+      "source_state_board": {
+        "component_id": "8f804431-c282-8075-8008-8ddbf1e94461",
+        "main_id": "8f804431-c282-8075-8008-8ddbedfd5ade"
+      }
+    },
+    "receipt": "evidence/recovery-20260828/penpot/event-detail-ov45-owner-exact-receipt.v1.json",
+    "visual_evidence": {
+      "desktop_owner": {
+        "path": "evidence/recovery-20260828/penpot/ov45-event-detail-desktop-owner-source-exact.png",
+        "dimensions": [
+          320,
+          782
+        ],
+        "scale": 0.25,
+        "sha256": "75ea7075e6edf4587bc2f2a6e1fbcd004f2b39c2a55abf1dddb74ff0524b0a65"
+      },
+      "source_states": {
+        "path": "evidence/recovery-20260828/penpot/ov45-event-detail-source-states.png",
+        "dimensions": [
+          275,
+          230
+        ],
+        "scale": 0.25,
+        "sha256": "9f9213a926f0d3da20cc1d022ee478a347ee8aa739651a7f9703c9d3bfb32c42"
+      },
+      "owner_acceptance": "NOT_CLAIMED"
+    },
+    "round_trip_revision": 2800
+  }
+}

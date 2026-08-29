@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/normalization/exhibition-medallion-self-framed-correction-v1.schema.json",
+  "title": "Exhibition medallion self-framed correction v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "package_id",
+    "contract_version",
+    "contract_payload_sha256",
+    "supersedes_for_bounded_scope",
+    "asset_anatomy",
+    "consumer_geometry",
+    "penpot_materialization",
+    "visual_evidence",
+    "non_claims"
+  ],
+  "properties": {
+    "schema_version": {"const": "exhibition_medallion_self_framed_correction_v1"},
+    "contract_payload_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "asset_anatomy": {"type": "object"},
+    "consumer_geometry": {"type": "object"},
+    "penpot_materialization": {"type": "object"},
+    "visual_evidence": {"type": "object"},
+    "non_claims": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

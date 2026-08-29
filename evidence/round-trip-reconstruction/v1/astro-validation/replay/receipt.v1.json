@@ -1,0 +1,38 @@
+{
+  "schema_version": "round-trip-reconstruction.astro-replay.v1",
+  "astro_commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+  "command": "npm run build",
+  "ui_scope": {
+    "includes": "generated HTML, CSS, JS, images, fonts, JSON and all other UI artifacts",
+    "excludes": [
+      "**/*.ics",
+      "sitemap.xml"
+    ]
+  },
+  "ui_before_manifest": {
+    "path": "evidence/round-trip-reconstruction/v1/astro-validation/replay/ui-before.sha256",
+    "sha256": "4a3fc51877d50c3f12e79be8b4db13d41707048349da235a6c48f9484bb169e6"
+  },
+  "ui_after_manifest": {
+    "path": "evidence/round-trip-reconstruction/v1/astro-validation/replay/ui-after.sha256",
+    "sha256": "4a3fc51877d50c3f12e79be8b4db13d41707048349da235a6c48f9484bb169e6"
+  },
+  "ui_generated_diff_files": 0,
+  "ui_replay_idempotent": true,
+  "non_ui_volatility": {
+    "status": "observed_outside_ui_scope",
+    "changed_unique_files": 367,
+    "classes": {
+      "ics_dtstamp": 366,
+      "sitemap": 1
+    },
+    "root_cause": "src/lib/ics.ts derives DTSTAMP from new Date() at build time; sitemap changes with build output metadata.",
+    "source_changes_made": 0,
+    "diff_path": "evidence/round-trip-reconstruction/v1/astro-validation/replay/full-tree-non-ui-volatility.diff",
+    "diff_sha256": "e5fec8a0da68a23e99882072232187f850c2a9effd81569d31909ecbe3eee2e1"
+  },
+  "build_log": {
+    "path": "evidence/round-trip-reconstruction/v1/astro-validation/replay/rebuild.log",
+    "sha256": "89658573fa4158101a36b6eb57df63ce653e47265fbc0a34e7ae0f5fc39154cb"
+  }
+}

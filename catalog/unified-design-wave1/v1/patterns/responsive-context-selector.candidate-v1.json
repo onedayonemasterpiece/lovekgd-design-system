@@ -1,0 +1,30 @@
+{
+  "schema_version": "unified-design-wave1.pattern-contract.v1",
+  "pattern_id": "pattern.responsive-context-selector.candidate-v1",
+  "status": "CANDIDATE_NOT_ACCEPTED",
+  "problem": "Date Listing exposes the same date, place and ordering context through unrelated desktop tabs/pills and a single mobile dropdown.",
+  "lowest_owner": "listing.controls.context-selector",
+  "baseline": {
+    "component_ids": [
+      "a21f5e36-5d76-8065-8008-86ad4746c01b",
+      "a21f5e36-5d76-8065-8008-86ad45c542f0",
+      "a21f5e36-5d76-8065-8008-86cf6749b5d4"
+    ],
+    "consumer": "archetype.listing.date"
+  },
+  "candidate": {
+    "semantic_id": "listing.context-selector.candidate-v1",
+    "axes": ["date", "place", "ordering"],
+    "desktop": "three explicit compact controls in one sticky-capable contextual surface",
+    "mobile": "two compact triggers for place and ordering; existing date rail remains the date controller",
+    "states": ["default", "selected", "focus-visible", "disabled", "sheet-open"],
+    "runtime_boundary": "mobile trigger opens a sheet/dialog; static Penpot represents trigger and sheet-open ownership but not focus trapping"
+  },
+  "constraints": {
+    "date_rail_removed": false,
+    "new_foundation_tokens": 0,
+    "content_values_are_overrides": true,
+    "minimum_target_px": 44
+  },
+  "review_question": "Use one responsive semantic selector family for the same context axes while preserving the existing mobile date rail?"
+}

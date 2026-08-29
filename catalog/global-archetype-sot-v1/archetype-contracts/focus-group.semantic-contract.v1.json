@@ -1,0 +1,670 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "focus.program",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "focus.invitation-intake",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "focus.feedback",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "focus.connectivity-diagnostic",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "focus.collection",
+      "required": true
+    },
+    {
+      "order": 6,
+      "part_id": "focus.completion",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.focus-group",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "authorization.static-site",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#authorization.static-site",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "authorization.static-site"
+      ]
+    },
+    {
+      "component_id": "focus.completion",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.completion",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "focus.completion"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "focus.connectivity-diagnostic",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.connectivity-diagnostic",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "focus.connectivity-diagnostic"
+      ]
+    },
+    {
+      "component_id": "focus.feedback",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.feedback",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "focus.feedback"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "focus.invitation-intake",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.invitation-intake",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "focus.invitation-intake"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "focus.lab-badge",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.lab-badge",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "focus.lab-badge"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "focus.thank-you",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#focus.thank-you",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "focus.thank-you"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "runtime.focus-group",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.focus-group"
+      ],
+      "baseline_disposition": "runtime_only",
+      "source_identity_contract": [
+        {
+          "source_identity_id": "runtime-boundary:archetype.focus-group",
+          "source_refs": []
+        }
+      ],
+      "identity_gate": {
+        "status": "NOT_APPLICABLE",
+        "source_identity_count": 1,
+        "all_identities_have_exact_source_refs": false,
+        "reconciliation_proof_ref": null,
+        "reason": null
+      }
+    },
+    {
+      "component_id": "system.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.state-panel",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "system.state-panel"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    }
+  ],
+  "contract_id": "archetype.focus-group.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 3,
+    "reuse_existing": 4,
+    "runtime_only": 3,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.focus-group",
+    "title": "Focus group"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "collection-locked",
+        "invitation-loading"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": [
+    {
+      "foundation_group": "color",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/semantic_colors",
+      "consumer_archetype": "archetype.focus-group"
+    },
+    {
+      "foundation_group": "typography",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/typography",
+      "consumer_archetype": "archetype.focus-group"
+    },
+    {
+      "foundation_group": "spacing",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/spacing_px",
+      "consumer_archetype": "archetype.focus-group"
+    },
+    {
+      "foundation_group": "radius",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/radius_roles_px",
+      "consumer_archetype": "archetype.focus-group"
+    }
+  ],
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "focus.program",
+      "required": true,
+      "semantic_role": "focus.program"
+    },
+    {
+      "order": 2,
+      "region_id": "focus.invitation-intake",
+      "required": true,
+      "semantic_role": "focus.invitation-intake"
+    },
+    {
+      "order": 3,
+      "region_id": "focus.feedback",
+      "required": true,
+      "semantic_role": "focus.feedback"
+    },
+    {
+      "order": 4,
+      "region_id": "focus.connectivity-diagnostic",
+      "required": true,
+      "semantic_role": "focus.connectivity-diagnostic"
+    },
+    {
+      "order": 5,
+      "region_id": "focus.collection",
+      "required": true,
+      "semantic_role": "focus.collection"
+    },
+    {
+      "order": 6,
+      "region_id": "focus.completion",
+      "required": true,
+      "semantic_role": "focus.completion"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop research panels"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile sheet/panel flow and touch targets"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/fokus-gruppa/",
+      "/fokus-gruppa/priglashenie/",
+      "/fokus-gruppa/diagnostika/",
+      "/fokus-gruppa/diagnostika-ustoychivost/",
+      "/fokus-gruppa/kollektsiya/",
+      "/fokus-gruppa/zavershenie/"
+    ],
+    "route_patterns": [
+      "/fokus-gruppa/",
+      "/fokus-gruppa/priglashenie/",
+      "/fokus-gruppa/diagnostika/",
+      "/fokus-gruppa/diagnostika-ustoychivost/",
+      "/fokus-gruppa/kollektsiya/",
+      "/fokus-gruppa/zavershenie/"
+    ],
+    "source_pages": [
+      "site/src/pages/fokus-gruppa/index.astro",
+      "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+      "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+      "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+      "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+      "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.corrective.da16dde88122.7774004b48f1",
+  "states": [
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "collection-locked"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "collection-open"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "completion"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "diagnostic-failure"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "diagnostic-idle"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "diagnostic-running"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "diagnostic-success"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "invitation-invalid"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "invitation-loading"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "invitation-valid"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "program"
+    }
+  ],
+  "title": "Фокус-группа",
+  "state_evidence_version": "exact-astro-or-browser-computed.v1",
+  "evidence_bound_states": [
+    {
+      "state_id": "feedback.overall-nps",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 32,
+          "line_end": 32,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "e1b13ce4c32f26b2c4c005069a8361c27b4919d6978457902e7152bb707ecdf6"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 40,
+          "line_end": 40,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "74dbd85200753cc449094badf9c6fda2d72fa72e6a667035ab9c08b420ca6a1f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 75,
+          "line_end": 75,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "905e5eb2cd8d8ce0abe6251f4fafe638f2bbfd9383512619331372048bc06f96"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.page-usefulness",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 32,
+          "line_end": 32,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "e1b13ce4c32f26b2c4c005069a8361c27b4919d6978457902e7152bb707ecdf6"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 44,
+          "line_end": 44,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "cdde9ef6f6cabe44f345859d1b37bc76e1573758c354995f8c811dbc84b9b3de"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 76,
+          "line_end": 76,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "b3afb8d7cbf46c12864efe3cdbf8131e6a6b0a1b6ffae1d862055cc53e1ecfce"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.improvement-suggestion",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 46,
+          "line_end": 46,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "e998599b151829819513d8c4776d1cb4e065c922ef56cc538b70fd2b44b8f004"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 77,
+          "line_end": 77,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "029c753855070931e5701a8b0a8c8a27be5297a45d584e285cbfbe79738972ae"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 121,
+          "line_end": 121,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "a1bf89ec8f1da0b5578ed97b3dec1f03422f9f63c1042105adc9fcd97123efb6"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.event-error-report",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 33,
+          "line_end": 33,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "9d1b53087d957878db1cecb94b9ad4fecfb55eafce7cb37c673396629b7fabb9"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 51,
+          "line_end": 51,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "c76f2b6431365b4a646c0043b58cc0847520dcbde5f04d680fd9d3facdec147b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 79,
+          "line_end": 79,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "c74a280277d4dc48956851119ed54c65d8d455123af2b80193939c4f8a7a3829"
+        }
+      ],
+      "browser_observation_refs": []
+    }
+  ],
+  "unresolved_state_ids": [],
+  "focus_feedback_surfaces": [
+    {
+      "state_id": "feedback.overall-nps",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 32,
+          "line_end": 32,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "e1b13ce4c32f26b2c4c005069a8361c27b4919d6978457902e7152bb707ecdf6"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 40,
+          "line_end": 40,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "74dbd85200753cc449094badf9c6fda2d72fa72e6a667035ab9c08b420ca6a1f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 75,
+          "line_end": 75,
+          "evidence_id": "focus-group:feedback.overall-nps",
+          "line_sha256": "905e5eb2cd8d8ce0abe6251f4fafe638f2bbfd9383512619331372048bc06f96"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.page-usefulness",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 32,
+          "line_end": 32,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "e1b13ce4c32f26b2c4c005069a8361c27b4919d6978457902e7152bb707ecdf6"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 44,
+          "line_end": 44,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "cdde9ef6f6cabe44f345859d1b37bc76e1573758c354995f8c811dbc84b9b3de"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 76,
+          "line_end": 76,
+          "evidence_id": "focus-group:feedback.page-usefulness",
+          "line_sha256": "b3afb8d7cbf46c12864efe3cdbf8131e6a6b0a1b6ffae1d862055cc53e1ecfce"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.improvement-suggestion",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 46,
+          "line_end": 46,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "e998599b151829819513d8c4776d1cb4e065c922ef56cc538b70fd2b44b8f004"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 77,
+          "line_end": 77,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "029c753855070931e5701a8b0a8c8a27be5297a45d584e285cbfbe79738972ae"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 121,
+          "line_end": 121,
+          "evidence_id": "focus-group:feedback.improvement-suggestion",
+          "line_sha256": "a1bf89ec8f1da0b5578ed97b3dec1f03422f9f63c1042105adc9fcd97123efb6"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "feedback.event-error-report",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 33,
+          "line_end": 33,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "9d1b53087d957878db1cecb94b9ad4fecfb55eafce7cb37c673396629b7fabb9"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 51,
+          "line_end": 51,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "c76f2b6431365b4a646c0043b58cc0847520dcbde5f04d680fd9d3facdec147b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/FocusGroupFeedback.astro",
+          "line_start": 79,
+          "line_end": 79,
+          "evidence_id": "focus-group:feedback.event-error-report",
+          "line_sha256": "c74a280277d4dc48956851119ed54c65d8d455123af2b80193939c4f8a7a3829"
+        }
+      ],
+      "browser_observation_refs": []
+    }
+  ]
+}

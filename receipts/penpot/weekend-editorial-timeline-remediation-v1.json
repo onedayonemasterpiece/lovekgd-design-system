@@ -1,0 +1,60 @@
+{
+  "schema_version": "penpot-weekend-editorial-timeline-remediation.v1",
+  "status": "MINOR_RENDERER_FILTER_DELTA",
+  "family": "archetype.listing.weekend",
+  "semantic_id": "listing.weekend.editorial-timeline",
+  "same_exact_case": {
+    "manifest_id": "archetype.listing.weekend-v1.golden-v1",
+    "manifest_sha256": "474f633e52a5038a23e8baea6239ed75574651e9555005fe745d81cfa017b762",
+    "representation": "typical-desktop",
+    "fixture_ids": ["event.real.7807", "event.real.7906"],
+    "date": "2026-08-22",
+    "time_rows": ["12:00", "18:00"],
+    "sunday_state": "empty",
+    "timeline_bounds_css": { "x": 32, "y": 411.28125, "width": 1216, "height": 621.25 }
+  },
+  "git": {
+    "design_sha_before_receipt": "75006a767a0b468852b1dd8fc42e3b414954b731",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 2052,
+    "page_id": "d87e18f1-dcb4-80a6-8008-87c0954b0b7a",
+    "page_name": "61.6 — Weekend · Editorial timeline",
+    "review_board_id": "d87e18f1-dcb4-80a6-8008-87c0be014a31",
+    "component_id": "d87e18f1-dcb4-80a6-8008-87c0abebc2ea",
+    "linked_rows": {
+      "12_00": "d87e18f1-dcb4-80a6-8008-87b8e1ccea5f",
+      "18_00": "d87e18f1-dcb4-80a6-8008-87beec29e49a"
+    },
+    "linked_shape_count_in_review_closure": 63,
+    "detached_copies": 0,
+    "unregistered_visual_overrides": 0,
+    "validation": [],
+    "idempotent_reconciliation_created": 0,
+    "named_version": "Weekend editorial timeline · exact linked rows"
+  },
+  "component_model": {
+    "construction": "The timeline contains only linked 12:00 and 18:00 Time row components; no card, media, proof, medallion, or content leaf is duplicated at timeline level.",
+    "inheritance_verified": true,
+    "row_stack_css": [331.765625, 289.484375],
+    "review_raster": [1216, 622]
+  },
+  "evidence": {
+    "layout": "astro-and-penpot-wide-surfaces-stacked-vertically; overlay-and-diff-hash-bound-separately",
+    "astro_png_sha256": "6814415704b383b9d375a441a49eded855409407d50b0c9f15aae19a79346d5f",
+    "penpot_png_sha256": "563a5b344664a594fbe6af5a268f5d6d8deeb601c86e353a6d45c979e850dc3c",
+    "overlay_png_sha256": "ac74ab41be849362662a8a7767df547c10690682e4cc5188c64d38351121bd0c",
+    "diff_png_sha256": "ec6ff3982cdad109aff410c65411cbddaf14027721c37b3e61a64b3ea98fc445",
+    "comparison_png_sha256": "3b5173c808f406c6e27f1710455122d4cd9e5a08f9cabcba5e4d29657af3a29c",
+    "mean_normalized_abs_error": 0.0189656,
+    "visual_review": "The linked composite preserves the corrected row geometry, exact fixtures, source framing, counters, text wrapping, empty Sunday lane and terminal radii. Remaining delta is renderer/filter-specific and does not grow at composite level."
+  },
+  "telegram": {
+    "message_id": 1144,
+    "message_link": "https://t.me/c/4337049383/1144",
+    "read_back_status": "verified"
+  },
+  "decisions": ["WL-004", "WL-008"]
+}

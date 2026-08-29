@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import test from 'node:test';
+const contract=JSON.parse(readFileSync('catalog/reconstruction-atlas/v1/cross-cutting-token-contract.v1.json','utf8'));
+const receipt=JSON.parse(readFileSync('evidence/recovery-20260829/penpot/cross-cutting-foundations-component-batch-14-receipt.v1.json','utf8'));
+const source=readFileSync('scripts/round-trip-reconstruction/penpot-bind-foundations-batch14-community-owner-roots.js','utf8');
+test('OV-54 batch 14 binds five factual community owner roots without geometry drift',()=>{assert.deepEqual(receipt.pages.map(x=>x.page_key),['festivals','interestClubs','focusGroup']);assert.equal(receipt.roots.length,5);assert.equal(receipt.persisted_token_properties,20);assert.ok(receipt.roots.every(x=>x.size_before.toString()===x.size_after.toString()));assert.ok(receipt.roots.every(x=>Object.values(x.persisted_tokens).every(name=>name==='radius.20')));assert.deepEqual(receipt.penpot.validation,[])});
+test('OV-54 batch 14 stays sequential and preserves the Artifacts review handoff',()=>{const batch=contract.penpot_projection.component_migration_pilots.find(x=>x.batch==='festivals-interest-clubs-focus-group-canonical-owner-roots');assert.ok(batch);assert.equal(batch.persisted_token_properties,20);assert.deepEqual(receipt.page_sequence,['festivals','interestClubs','focusGroup','return-artifacts-review']);assert.equal(receipt.penpot.selected_review_owner,'d87e18f1-dcb4-80a6-8008-880f9aaea84e');assert.match(source,/shape\.applyToken\(token,PROPERTIES\)/u);assert.doesNotMatch(source,/openPage|detach\(|fillImage|uploadMedia/u)});

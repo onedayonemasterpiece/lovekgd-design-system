@@ -1,0 +1,162 @@
+{
+  "schema_version": "round-trip-reconstruction.baseline-closure-receipt.v1",
+  "status": "AS_IS_BASELINE_CLOSED_AUDIT_READY",
+  "generation": "deterministic_from_hash_bound_inputs_no_wall_clock",
+  "authority": {
+    "design_system_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+    "astro_commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+    "sot_manifest": {
+      "path": "catalog/global-archetype-sot-v1/manifest.v1.json",
+      "sha256": "ac2cb64bbccb113dd7c81cdb8caec953d3d5e2f56ea10a1f54914d7a0ed46819"
+    },
+    "source_lock": {
+      "path": "catalog/global-archetype-sot-v1/source-lock.v1.json",
+      "sha256": "933d057992e5c8fc3ba60cfbe30f385bda06347c62c2186855d2521146d83e4f"
+    },
+    "component_graph": {
+      "path": "catalog/global-archetype-sot-v1/component-composition-graph.v1.json",
+      "sha256": "9824bab7b7e816d77dce043e769423f336c7807f8fba8d2dc33970d661dcbc0e"
+    },
+    "ui_only_plan": {
+      "path": "catalog/global-archetype-sot-v1/penpot-materialization-plan.v1.json",
+      "sha256": "3da2db6e5f16d16dcd0314831ced155368b2847c9fb88dea5fd5240ecb3c9a23"
+    },
+    "penpot": {
+      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+      "revision": 2463
+    },
+    "checklist": {
+      "path": "docs/design-system-post-baseline-audits-and-product-atlas-checklist.md",
+      "sha256": "fe151b469c60ac3036463d7bf5cccd7f0e36921d1d7d1222a16cc20714467817"
+    }
+  },
+  "gates": {
+    "route_to_archetype": {
+      "status": "PASS",
+      "archetypes": 17,
+      "cases": 34
+    },
+    "exact_case_identity": {
+      "status": "PASS",
+      "rule": "same bound route + fixture/state + viewport in Astro capture, native Penpot owner board and comparison tuple"
+    },
+    "native_penpot": {
+      "status": "PASS",
+      "pages": 17,
+      "boards": 34,
+      "components": 709,
+      "validation_errors": 0,
+      "service_resources": 0,
+      "detached_direct_children": 0,
+      "unregistered_terminal_overrides": 0,
+      "out_of_bounds_direct_children": 0
+    },
+    "astro_browser": {
+      "status": "PASS",
+      "cases": 34,
+      "failed": []
+    },
+    "astro_generation_diff": {
+      "status": "PASS",
+      "production_changes": 0
+    },
+    "raster_evidence": {
+      "status": "PASS",
+      "compared": 34,
+      "missing": []
+    },
+    "owner_review_links": {
+      "status": "PASS",
+      "reviewable": 34,
+      "missing": []
+    },
+    "idempotent_replay": {
+      "status": "PASS",
+      "mode": "actual_idempotent_ensure_replay",
+      "creates": 0,
+      "validation_errors": 0
+    },
+    "penpot_stability": {
+      "status": "GUARD_INSTALLED_AND_EXERCISED",
+      "incident": {
+        "path": "evidence/round-trip-reconstruction/v1/penpot-stability/incident-20260825-react-185.md",
+        "sha256": "2f52b9c4e882c605e1f81ba70a07321025a954f01f3daafe2992aa5f9286f5a5"
+      },
+      "recurrence_after_guard": 0
+    }
+  },
+  "evidence": {
+    "bindings": {
+      "path": "catalog/round-trip-reconstruction/v1/bindings.v1.json",
+      "sha256": "8f331c277982c3a32a2965664c96453394be6a93f2117c07398de8b0bac76972"
+    },
+    "comparisons": {
+      "path": "evidence/round-trip-reconstruction/v1/comparisons/manifest.v1.json",
+      "sha256": "138c0dc39b5a9f0bb694274386b4b2773c40899281eaaae5613a6738d77be549"
+    },
+    "owner_review": {
+      "path": "catalog/round-trip-reconstruction/v1/owner-review-manifest.v1.json",
+      "sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285"
+    },
+    "astro_browser": {
+      "path": "evidence/round-trip-reconstruction/v1/astro-validation/browser-cases.v1.json",
+      "sha256": "b4450bd1f0e3772925f51ac584bf31bb3b3597f5185ed023fbd335c6cfeb7315"
+    },
+    "astro_generation_diff": {
+      "path": "evidence/round-trip-reconstruction/v1/astro-validation/generation-diff.v1.json",
+      "sha256": "64519cf8f929f6f9c43f7410c97e68b759c290b644b8abd257f6584a5b30fb02"
+    },
+    "penpot_replay": {
+      "path": "evidence/round-trip-reconstruction/v1/penpot/replay-receipt.v1.json",
+      "sha256": "a3abfe59de19714d2686736ed41f53a41c1aec4293de1e7abe2281480ddaa760"
+    },
+    "foundation_audit_pack": {
+      "path": "evidence/round-trip-reconstruction/v1/foundation-audit-pack-v1/manifest.v1.json",
+      "sha256": "1d2a740c9fbd4e5bbe1d795303cdd8f8a5fc19cf66d28f348379a79094f3e7df"
+    },
+    "skeleton_intake": {
+      "path": "evidence/round-trip-reconstruction/v1/skeleton-intake/status.v1.json",
+      "sha256": "112e4bb2688d2da718eaf371011706ce58ebe69aace75b32efd9cc139d2a64c0"
+    },
+    "product_atlas_linkage": {
+      "path": "catalog/product-atlas-linkage-handoff/v1/design-system-linkage.v1.json",
+      "sha256": "b30d2dabcb547cb5e0f6ed2ce74cbb4a010fc4f58e823cd25ce7446eb45c0e88"
+    }
+  },
+  "next_gates": {
+    "foundation": {
+      "status": "AUDIT_INPUT_READY_NOT_A_FOUNDATION_DECISION",
+      "independent_audits_required": 2,
+      "canonical_foundation_mutations": 0
+    },
+    "skeleton_loading_redesign": {
+      "status": "AWAITING_SKELETON_ARCHIVE",
+      "blocks": [
+        "loading/skeleton redesign"
+      ],
+      "does_not_block": [
+        "AS-IS baseline closure",
+        "foundation audits",
+        "Product Atlas Git linkage",
+        "Wave 1 pattern candidate work"
+      ]
+    },
+    "product_atlas_git_sot": {
+      "status": "READY_FOR_PARALLEL_GIT_ONLY_PRODUCT_ATLAS_SOT",
+      "penpot_projection": "NOT_STARTED"
+    },
+    "unified_design_v1": {
+      "status": "READY_FOR_BOUNDED_WAVE_1_CANDIDATES",
+      "canonical_foundations_locked": false,
+      "production_astro_changes": 0,
+      "canonical_penpot_candidate_mutations": 0
+    }
+  },
+  "prohibitions_preserved": {
+    "production_astro_changes": 0,
+    "token_merges": 0,
+    "canonical_foundation_changes": 0,
+    "product_atlas_dashboards_in_design_system_penpot": 0,
+    "loading_redesign_without_archive": 0
+  }
+}

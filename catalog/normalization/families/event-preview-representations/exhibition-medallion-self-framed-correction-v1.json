@@ -1,0 +1,93 @@
+{
+  "$schema": "../../../../schemas/exhibition-medallion-self-framed-correction-v1.schema.json",
+  "schema_version": "exhibition_medallion_self_framed_correction_v1",
+  "package_id": "event-card.exhibition-medallion-self-framed.candidate.12",
+  "contract_version": "candidate.12",
+  "contract_payload_sha256": "08233836d7f4aa25b88c275db6def052e133d32ab265925c6c192defd3c2f237",
+  "hash_scope": "stable-json-with-/contract_payload_sha256-omitted",
+  "status": "materialized-readback-pass",
+  "authority_mode": "bounded-corrective-SoT-UI-contract",
+  "source_baseline": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "exact_commit": "7d4b1d32710f60d65c7eb0dbd084d8cad058b5dc",
+    "previous_stale_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+    "same_data_visual_reference_commit": "22ebe3c5e92b13684cca32c14357ef7b91834977",
+    "latest_same_data_harness_commit": "ff83a4b6b86257f6c907da054338c8b9ef9c8721"
+  },
+  "supersedes_for_bounded_scope": {
+    "contract_payload_sha256": "637e18cc57d5954c3f404fce8cd09f72434eb2629b705b45ac1c048caf5fb00e",
+    "scope": "event.identity.medallion asset anatomy and Exhibition overlay44 consumer geometry only"
+  },
+  "asset_anatomy": {
+    "linked_artwork": "final self-framed runtime medallion containing source background, source ring and identity mark",
+    "synthetic_inner_ring": "forbidden",
+    "raw_logo_inset_interpretation": "forbidden",
+    "penpot_artwork_master": {
+      "root_px": [
+        88,
+        88
+      ],
+      "primary_asset_px": [
+        88,
+        88
+      ],
+      "primary_asset_inset_px": [
+        0,
+        0
+      ],
+      "legacy_synthetic_ring": "hidden"
+    },
+    "reason": "Tretyakovka and the other runtime identity SVGs already encode their visible circle/ring; the previous ring44 plus inset artwork36 anatomy duplicated the ring."
+  },
+  "consumer_geometry": {
+    "normalized_frame": {
+      "tiers_px": {
+        "compact44": 44,
+        "standard60": 60,
+        "feature88": 88
+      },
+      "surface": "transparent placement geometry",
+      "linked_artwork": "fills the selected tier slot"
+    },
+    "exhibition_overlay44": {
+      "outer_slot_px": [
+        44,
+        44
+      ],
+      "consumer_stroke_px": 1,
+      "linked_artwork_px": [
+        42,
+        42
+      ],
+      "linked_artwork_inset_px": [
+        1,
+        1
+      ],
+      "authority": "ExhibitionPrototypeRow.astro .ex-deck__medallion border-box geometry and exact event.real.4240 capture"
+    }
+  },
+  "penpot_materialization": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "artwork_page_id": "579a886e-56e8-80a3-8008-81882de5171b",
+    "exhibition_page_id": "579a886e-56e8-80a3-8008-81882dcbdd84",
+    "artwork_masters_corrected": 41,
+    "normalized_frame_masters_corrected": 3,
+    "exhibition_component_mains_reconciled": 8,
+    "bad_exhibition_component_main_instances_after_readback": 0,
+    "file_validation_errors": 0,
+    "named_version": "Exhibition medallion compact44 · centralized geometry fix"
+  },
+  "migration_rule": "Correct Artwork masters first, then consuming component masters; never patch terminal review instances.",
+  "visual_evidence": {
+    "fixture_id": "event.real.4240",
+    "comparison_path": "artifacts/ui-conformance/exhibition-4240-20260822-medallion-fix/comparison-exhibition-4240-after-medallion-fix-vertical.png",
+    "same_data": true,
+    "layout": "wide Astro and Penpot strips stacked vertically at native scale with diagnostic crop below"
+  },
+  "non_claims": [
+    "Event-card family complete",
+    "mobile EventCard Large materialized",
+    "Exhibition topic chip parity complete",
+    "protected ExhibitionDeck slider normalized"
+  ]
+}

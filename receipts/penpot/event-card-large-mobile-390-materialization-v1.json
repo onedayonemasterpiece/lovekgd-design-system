@@ -1,0 +1,81 @@
+{
+  "schema_version": "penpot_event_card_large_mobile_390_materialization_v1",
+  "status": "materialized-readback-pass-awaiting-owner-review",
+  "date": "2026-08-22",
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "page_id": "7f078c80-87b8-80f5-8008-8581500b62a4",
+  "page_label": "40.1c — EventCard · Large · Mobile 390",
+  "review_board_id": "7f078c80-87b8-80f5-8008-858456e24559",
+  "review_board_label": "Board 40.1cA · event.real.7906 · ASTRO vs PENPOT mobile-390",
+  "root_cause": {
+    "classification": "resolved-case metadata drift plus missing Penpot mobile master",
+    "before": "The resolved case copied the source image intrinsic height while the actual mobile EventCard consumer selected a 5:4 visual frame; Penpot had no native mobile-390 EventCard Large component.",
+    "decisive_evidence": "Exact event.real.7906 Astro capture at viewport 390 measured 388 x 310.390625 and matched the later visual-landscape 5:4 framing policy.",
+    "forbidden_fix": "terminal review-instance override or blind import of a stale 4:5/intrinsic assumption"
+  },
+  "resolver_correction": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "1587a70b74d29e70308334f709f0f9f8fb6cf659",
+    "effect": "resolved frame geometry now follows resolveMobileEventCardMedia.rowRatio for fixed mobile visual media and keeps intrinsic geometry only for useNaturalAspect document media",
+    "logical_content_height_px": 310.4,
+    "actual_browser_content_height_px": 310.390625
+  },
+  "penpot_readback": {
+    "card_component": {
+      "id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+      "name": "EventCard · Large · Mobile flow",
+      "path": "Event cards / Large",
+      "root_px": [
+        390,
+        519.828125
+      ]
+    },
+    "media_component": {
+      "id": "7f078c80-87b8-80f5-8008-85831e139d49",
+      "name": "Event media frame · Mobile flow · visual 5:4",
+      "path": "Event cards / Large / Media",
+      "linked_instance": true
+    },
+    "share_component": {
+      "id": "7f078c80-87b8-80f5-8008-85831ea2e556",
+      "name": "Share action · count absent",
+      "path": "Event cards / Shared / Action",
+      "linked_instance": true
+    },
+    "other_linked_components": [
+      "Like action",
+      "Calendar",
+      "Not interested",
+      "Event type",
+      "Admission"
+    ],
+    "terminal_card_override": false,
+    "penpot_validation_errors": 0
+  },
+  "exact_fixture": {
+    "fixture_id": "event.real.7906",
+    "payload_sha256": "2052001842c42ac5aeaac6295cfc87a20010f6394cc16941d3386aef64579318",
+    "resolved_render_case_sha256": "0979417f7031fcd905edd7be43e05210e3b9d4fed46764218331f5225b038754",
+    "astro_capture_sha256": "ceebde688956c098f3f5a69dab86684204d24f2538e53e4b6b511170ef89a211"
+  },
+  "named_version": "EventCard Large mobile 390 · exact same-data 5:4 · candidate.13",
+  "comparison": "artifacts/ui-conformance/event-card-large-mobile-390-7906-20260822/comparison-astro-penpot-side-by-side.jpg",
+  "comparison_sha256": "3751847b149a76f7570ba9fb5998f71d447833b16e0ff52b41230e0c9f28569b",
+  "penpot_export_sha256": "168b6bafc9b65656737f6849411d20702bfbad9164617e33856e69b5f6bcf2f6",
+  "overall_card_family_status": "unfinished",
+  "contract": {
+    "path": "catalog/normalization/families/event-preview-representations/event-card-large-mobile-390-framing-correction-v1.json",
+    "version": "event-card-large.candidate.13-mobile-390",
+    "sha256": "e49aced35d1efb1a6452fcd8d6c4870084ee9eda50df2f251c9693d9cc6b7b1a"
+  },
+  "telegram": {
+    "message_id": 1071,
+    "message_link": "https://t.me/c/4337049383/1071",
+    "read_back_status": "verified",
+    "receipt": "receipts/ui-conformance/incremental-event-components-20260822/telegram/event-card-large-7906-mobile-390.json"
+  },
+  "remaining_deltas": [
+    "minor typography and baseline drift on the exact pair",
+    "unreviewed EventCard and event-row variants remain outside this bounded correction"
+  ]
+}

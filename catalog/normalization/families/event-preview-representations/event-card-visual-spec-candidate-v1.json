@@ -1,0 +1,855 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/event-card-visual-spec-candidate.v1.schema.json",
+  "schema_version": "event_card_visual_spec_candidate_v1",
+  "lifecycle": "candidate",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "source": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+    "authority_chain": [
+      "exact Astro DOM and fixture selection",
+      "exact CSS cascade and token values",
+      "Git candidate visual contract",
+      "native Penpot projection and bounded export comparison"
+    ]
+  },
+  "framing_ref": "catalog/normalization/event-media/framing-v2.json",
+  "visual_acceptance": {
+    "status": "not_ready",
+    "required_families": [
+      "listing.event-card",
+      "listing.rail-row",
+      "festival.card",
+      "exhibition.row",
+      "event.card"
+    ],
+    "passed_families": [
+      "listing.event-card",
+      "listing.rail-row",
+      "festival.card",
+      "exhibition.row",
+      "event.card"
+    ],
+    "screenshots_are_oracle_only": true
+  },
+  "specimens": [
+    {
+      "family": "listing.event-card",
+      "fixture": {
+        "event_id": 5376,
+        "title": "Акция «Регион, возрождённый всей страной»",
+        "route": "/date-2026-08-18/",
+        "density": "regular",
+        "image_text_mode": "ocr_text",
+        "media_role": "sponsor_or_brand",
+        "likes": 4,
+        "free": true
+      },
+      "source_paths": [
+        "site/src/components/listings/ListingEventCard.astro",
+        "site/src/styles/design-system.css",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.ke-listing-card[data-ds-version=\"9\"]",
+        ".ke-listing-card__visual",
+        ".ke-listing-card__side-rail",
+        ".ke-listing-card__copy"
+      ],
+      "geometry": {
+        "card_width_px": 420,
+        "card_height_px": 303.390625,
+        "visual_width_px": 396.65625,
+        "media_height_px": 221,
+        "natural_ratio": 1.505263,
+        "media_width_px": 328.65625,
+        "visual_gap_px": 4,
+        "tail_width_px": 64,
+        "media_radius_px": 14,
+        "identity_medallion_px": 51,
+        "social_proof_px": {
+          "desktop": 17,
+          "mobile": 14
+        },
+        "copy_padding_top_px": 10,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "card_width_formula": "mediaHeight * imageRatio + tailWidth",
+        "tail_width_options_px": [
+          0,
+          40,
+          64,
+          96
+        ]
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "900 20px/1.18",
+        "place": "400 16.32px/1.3"
+      },
+      "colors": {
+        "ink": "#221a14",
+        "muted": "#6d6259",
+        "canvas": "#fbf7ef"
+      },
+      "anatomy": [
+        "visual",
+        "event.media-frame",
+        "identity-rail",
+        "free-medallion",
+        "social-proof",
+        "copy",
+        "title",
+        "place"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp",
+          "width": 715,
+          "height": 475,
+          "fit": "contain",
+          "framing_reason": "ocr sponsor/brand natural ratio"
+        }
+      ],
+      "framing_profile": "ocr_bounded",
+      "penpot": {
+        "status": "materialized-readback-current-export-partial",
+        "component_id": "579a886e-56e8-80a3-8008-818874efe150",
+        "instance_ids": [
+          "579a886e-56e8-80a3-8008-818873518988",
+          "579a886e-56e8-80a3-8008-8188755b408b",
+          "579a886e-56e8-80a3-8008-8188767796ee",
+          "579a886e-56e8-80a3-8008-81887704279d",
+          "579a886e-56e8-80a3-8008-81887814949d",
+          "579a886e-56e8-80a3-8008-818878c65736",
+          "579a886e-56e8-80a3-8008-81887a39aa73",
+          "579a886e-56e8-80a3-8008-81887ba876f1",
+          "579a886e-56e8-80a3-8008-81887ca15d44",
+          "579a886e-56e8-80a3-8008-81887dd0ab8a"
+        ],
+        "state_keys": [
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=weekend;media=square-natural;proof=side-rail;content=short;temporal=current;identity-count=2;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=present",
+          "viewport=desktop;density=weekend;media=low-resolution;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=popular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=3;tail-layout=split;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=mobile;density=popular;media=visual-crop;proof=inside;content=long;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=present;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=started-earlier;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=past;identity-count=1;tail-layout=compact;interaction=default;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=hover;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=regular;media=protected-natural;proof=side-rail;content=long;temporal=current;identity-count=1;tail-layout=compact;interaction=focus-visible;overlay-medallion=absent;free-medallion=absent",
+          "viewport=desktop;density=popular;media=visual-crop;proof=inside;content=short;temporal=current;identity-count=0;tail-layout=none;interaction=default;overlay-medallion=absent;free-medallion=absent"
+        ],
+        "state_instance_count": 10,
+        "export_section_id": "579a886e-56e8-80a3-8008-818872c05a92",
+        "file_revision": 827,
+        "export_section_ids": [
+          "579a886e-56e8-80a3-8008-818872c05a92"
+        ],
+        "state_key_readback": {
+          "state_count": 10,
+          "variant_props_match": true,
+          "plugin_keys_match": true,
+          "viewport_present": 10,
+          "labels_aligned": 10
+        },
+        "current_export_ids": [
+          "579a886e-56e8-80a3-8008-818873518988",
+          "579a886e-56e8-80a3-8008-81887ca15d44"
+        ],
+        "social_proof_content_contract": {
+          "source": "ListingEventCard.astro lines 52-66,150-176",
+          "signal_compositions": [
+            "like-only",
+            "share-only",
+            "share-and-like"
+          ],
+          "placement_by_proof_axis": {
+            "side-rail": "vertical signal rows in source-derived tail",
+            "inside": "compact rows inside visual only for adaptive visual-crop"
+          },
+          "icon_sizes_px": {
+            "desktop": 17,
+            "mobile": 14
+          },
+          "penpot_requirement": "at least one linked Page25 share plus linked Page25 heart specimen; counts are native text; no local icon copies",
+          "owner_thread": 46,
+          "materialized": {
+            "state": "S01",
+            "linked_share_component_id": "fd45a474-7b74-809d-8008-8184a83b037f",
+            "share_size_px": 17,
+            "heart_size_px": 17,
+            "counts": "native text",
+            "current_export": "blocked-http-504-after-cooldown-rev828"
+          }
+        },
+        "runtime_oracle_fixture_materialization": {
+          "source_commit": "a68c7f23c4e014c6e9f66e95f394656e9cb0f411",
+          "S04": {
+            "owner_thread": 49,
+            "event_id": 7491,
+            "asset_url": "https://static.kenigevents.ru/p/image/v2/f4/f42be320b9fbe56e68d064b0ec33936e40619365b30ea48f981f161d4b2f2263.webp",
+            "source_size_px": [
+              906,
+              1280
+            ],
+            "media_height_px": 216,
+            "media_width_formula": "216 * (906 / 1280) / (1 - 0.2)",
+            "media_width_px": 191.109375,
+            "tail_width_px": 40,
+            "card_width_px": 231.109375,
+            "fit": "cover/document-safe-cover",
+            "linked_component_name": "listing.media.7491.vertical",
+            "status": "owner-approved-git-sot-before-astro-backport",
+            "source_ratio": 0.7078125,
+            "target_ratio": 0.884765625,
+            "media_treatment": "document-safe-cover",
+            "crop_reason": "document_bounded_cover",
+            "cover_crop": 0.2,
+            "vertical_retention": 0.8,
+            "framing_policy": "universal-very-tall-ocr-max-20-percent-crop"
+          },
+          "S05": {
+            "owner_thread": 54,
+            "event_id": 5459,
+            "asset_url": "https://static.kenigevents.ru/p/image/v2/e5/e5491488a57785a4808b7a8c06fe8c4e1c6f9bd7a3d8a777f5b9355835f6d1ec.webp",
+            "source_size_px": [
+              1280,
+              1810
+            ],
+            "media_size_px": [
+              300,
+              216
+            ],
+            "viewport": "mobile",
+            "overlay_medallion_px": 46,
+            "overlay_inset_right_bottom_px": [
+              7,
+              7
+            ],
+            "status": "git-sot-before-penpot-rematerialization"
+          },
+          "S02": {
+            "owner_thread": 48,
+            "route": "/vyhodnye/2026-08-22/",
+            "density": "weekend",
+            "anatomy": "split tail: 2 linked identity medallions + linked free medallion",
+            "source_media_size_px": [
+              1920,
+              1920
+            ],
+            "media_size_px": [
+              221,
+              221
+            ],
+            "tail_width_px": 96,
+            "status": "git-sot-before-penpot-state-rebind"
+          },
+          "S10": {
+            "owner_thread": 54,
+            "event_id": 6407,
+            "title": "Старший сын",
+            "route": "/populyarnoe/",
+            "asset_url": "https://static.kenigevents.ru/p/image/v2/76/76b6dcd7a39897bf396ddcffe82fb95ab929433ccadd6e7cf5ed0023eeea6388.webp",
+            "source_size_px": [
+              800,
+              534
+            ],
+            "media_height_px": 216,
+            "media_width_formula": "216 * 800 / 534",
+            "media_width_px": 323.59550561797755,
+            "fit": "cover/visual-crop",
+            "proof": "inside",
+            "share_count": 23,
+            "like_count": 90,
+            "status": "git-sot-before-penpot-rematerialization"
+          }
+        }
+      }
+    },
+    {
+      "family": "listing.rail-row",
+      "fixture": {
+        "event_id": 5376,
+        "title": "Акция «Регион, возрождённый всей страной»",
+        "route": "/date-2026-08-18/",
+        "time": "14:00",
+        "date": "18 августа",
+        "place": "Калининград · Музей Мирового океана",
+        "likes": 4
+      },
+      "source_paths": [
+        "site/src/components/listings/MobileListingRailRow.astro",
+        "site/src/components/listings/MobileListingRailSurface.astro",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.event-row",
+        ".rail-window",
+        ".event-track",
+        ".event-summary",
+        ".event-media",
+        ".event-digest",
+        ".event-like-cta"
+      ],
+      "geometry": {
+        "viewport_width_px": 390,
+        "row_height_px": 112,
+        "track_width_px": 939.4375,
+        "track_gap_px": 7,
+        "summary_offset_px": 12,
+        "summary_width_px": 296,
+        "summary_radius_px": 14,
+        "time_width_px": 96,
+        "time_height_px": 82,
+        "info_width_px": 162,
+        "media_width_px": 169,
+        "digest_width_px": 168,
+        "reference_viewport_px": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        },
+        "rail_window_width": "100vw",
+        "track_width": "max-content",
+        "track_padding_right_px": 12,
+        "summary_height_px": 112,
+        "info_height_px": 78,
+        "digest_height_px": 112,
+        "medallion_slot_px": [
+          94,
+          112
+        ],
+        "medallion_art_px": 86,
+        "like_tail_min_px": [
+          58,
+          56
+        ],
+        "cue_px": [
+          48,
+          23
+        ],
+        "media_width_rule": "source-ratio * 112px",
+        "multi_media_sequence": "linked source frames + 7px gaps + native 168x112 digest",
+        "medallion_art_offset_px": [
+          4,
+          13
+        ],
+        "gesture_translation_max_px": 96
+      },
+      "typography": {
+        "font_stack": "Inter, system-ui",
+        "time": "860 28px/1",
+        "title": "850 15px/17px",
+        "place": "680 10.5px/12px"
+      },
+      "colors": {
+        "surface": "#fffdf8",
+        "time_surface": "#f2e7d7",
+        "time_ink": "#793014",
+        "ink": "#221a14",
+        "muted": "#6d6259",
+        "dislike_underlay": "linear-gradient(90deg, rgba(177,38,38,.94), rgba(177,38,38,.34) 55%, rgba(177,38,38,0))",
+        "like_underlay": "linear-gradient(270deg, rgba(47,122,86,.96), rgba(47,122,86,.42) 58%, rgba(47,122,86,0))",
+        "dislike_summary_tint": "rgba(177,38,38,calc(progress * .13))",
+        "like_pull_cta_background": "rgba(47,122,86,.12)",
+        "like_pull_cta_color": "#2f7a56",
+        "like_committed_cta_background": "rgba(201,52,52,.10)",
+        "like_committed_cta_color": "#c93434"
+      },
+      "anatomy": [
+        "summary",
+        "time-date",
+        "title-place-like",
+        "direction-cue",
+        "event.media-frame panels",
+        "digest",
+        "medallions",
+        "like-cta",
+        "negative-control",
+        "dislike-underlay full viewport; track translated; summary tint; copy hidden until armed",
+        "like-underlay full viewport behind end-position track; linked heart32",
+        "like-cta linked heart28 plus native count; min58x56 expands with content",
+        "screenshots adjacent reference only; never component fills"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/dh16/02/02000f001c40332066486cc44d94d712552444446ce4648837001e600e800700.webp",
+          "width": 715,
+          "height": 475,
+          "fit": "contain",
+          "object_position": "50% 50%",
+          "framing_reason": "current mobile rail sponsor/brand frame"
+        }
+      ],
+      "framing_profile": "mobile_rail",
+      "penpot": {
+        "status": "materialized-current-pending-independent-readback-and-comment-resolution",
+        "component_id": "579a886e-56e8-80a3-8008-8189016141ca",
+        "instance_ids": [
+          "579a886e-56e8-80a3-8008-818900ac5045",
+          "579a886e-56e8-80a3-8008-818901e66003",
+          "579a886e-56e8-80a3-8008-81890385bebc",
+          "579a886e-56e8-80a3-8008-8189051177c7",
+          "579a886e-56e8-80a3-8008-81890680aa36",
+          "579a886e-56e8-80a3-8008-8189086ef4d8",
+          "579a886e-56e8-80a3-8008-818909d37ffe",
+          "579a886e-56e8-80a3-8008-81890bac7834",
+          "579a886e-56e8-80a3-8008-81890dde4dbc",
+          "579a886e-56e8-80a3-8008-81890f8a728a",
+          "579a886e-56e8-80a3-8008-81891169058c",
+          "579a886e-56e8-80a3-8008-81891330447a",
+          "579a886e-56e8-80a3-8008-818915470224",
+          "579a886e-56e8-80a3-8008-818917ee8660",
+          "579a886e-56e8-80a3-8008-81891ba573dc",
+          "579a886e-56e8-80a3-8008-81891de2d2df"
+        ],
+        "state_keys": [
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=digest;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=first-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=next-media;occurrence=per-date;schedule=exact-time;media-count-sequence=3-plus;gesture=rest;media-state=multi-image;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=identity;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=dislike-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-reveal;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=like-committed;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loading;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=error;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=started-earlier;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=exact-time;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=past;artifact=absent",
+          "viewport=mobile-390;scroll-position=end;occurrence=per-date;schedule=exact-time;media-count-sequence=0;gesture=rest;media-state=none;temporal=current;artifact=amber-tail",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-date;schedule=program-day-range;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent",
+          "viewport=mobile-390;scroll-position=start;occurrence=per-family;schedule=date-primary;media-count-sequence=1;gesture=rest;media-state=loaded;temporal=current;artifact=absent"
+        ],
+        "state_instance_count": 16,
+        "export_section_id": "579a886e-56e8-80a3-8008-8189000fe2e6",
+        "file_revision": 653,
+        "export_section_ids": [
+          "579a886e-56e8-80a3-8008-8189000fe2e6"
+        ],
+        "current_export_pass_states": [
+          "R01",
+          "R03",
+          "R04",
+          "R06",
+          "R07",
+          "R08",
+          "R13"
+        ],
+        "managed_digest_ids": [
+          "f2f31786-484f-80ce-8008-824cca7ad3d5",
+          "f2f31786-484f-80ce-8008-824ce6114059"
+        ]
+      }
+    },
+    {
+      "family": "festival.card",
+      "fixture": {
+        "slug": "more-vnutri",
+        "title": "Море внутри",
+        "route": "/festivali/",
+        "date": "8–9 авг",
+        "status": "официально",
+        "place": "Светлогорск",
+        "category": "Современное искусство"
+      },
+      "source_paths": [
+        "site/src/pages/festivali/index.astro",
+        "site/src/data/festival-timeline.json",
+        "site/src/data/festivalTimelineMedia.ts"
+      ],
+      "selectors": [
+        "article.festival-card[data-festival-card=\"more-vnutri\"]",
+        ".festival-card__topline",
+        ".festival-card__caption",
+        ".festival-card__theme",
+        ".festival-card__like"
+      ],
+      "geometry": {
+        "source_width_px": 1600,
+        "source_height_px": 1233,
+        "target_width_px": "packed-row-derived",
+        "target_height_px": "width / packed aspect",
+        "radius_px": 9.984,
+        "top_inset_px": 10.75,
+        "caption_inset_px": 9.71875,
+        "favorite_size_px": 32,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "mobile_aspects": [
+          0.95,
+          1.86,
+          1.6
+        ],
+        "heart_px": 17.92
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "760 19.8px/20.988px",
+        "place": "510 12.8px/16px",
+        "chips": "740 11.4px/12.768px",
+        "theme": "580 11.392px/11.392px"
+      },
+      "colors": {
+        "shell": "#31261f",
+        "date": "#a54821",
+        "status_bg": "#e8f5e9",
+        "status_text": "#24743b",
+        "theme_bg": "rgba(15,15,15,.66)",
+        "text": "#ffffff"
+      },
+      "anatomy": [
+        "event.media-frame",
+        "dual gradient veil",
+        "date chip",
+        "status chip",
+        "title",
+        "place",
+        "category icon chip",
+        "favorite circle"
+      ],
+      "media": [
+        {
+          "src": "https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/d2b7993b41187660efa13d6d9070fda0c0d5a6cd/site/public/assets/festivals/timeline/more-vnutri.webp",
+          "width": 1600,
+          "height": 1233,
+          "fit": "cover",
+          "object_position": "52% 46%"
+        }
+      ],
+      "framing_profile": "related_rail",
+      "penpot": {
+        "status": "rebuild-required-owner-comments-24-59",
+        "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+        "instance_ids": [
+          "579a886e-56e8-80a3-8008-818783ed949f",
+          "579a886e-56e8-80a3-8008-818785431b74",
+          "579a886e-56e8-80a3-8008-81878660d651",
+          "579a886e-56e8-80a3-8008-818787f1af03",
+          "579a886e-56e8-80a3-8008-818788bc706b",
+          "579a886e-56e8-80a3-8008-818789ade750",
+          "579a886e-56e8-80a3-8008-81878a7c1919",
+          "579a886e-56e8-80a3-8008-81878b82c621",
+          "579a886e-56e8-80a3-8008-81878c73a720"
+        ],
+        "state_keys": [
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=program-pending;media=visual;favorite=off;content=long;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=wide;status=announced;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=date-pending;media=visual;favorite=off;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=on;content=short;interaction=default",
+          "viewport=desktop;packed-aspect=row-derived;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=hover",
+          "viewport=mobile;packed-aspect=very-small-1.6;layout=compact;status=announced;media=visual;favorite=off;content=short;interaction=focus-visible",
+          "viewport=mobile;packed-aspect=mobile-full-1.86;layout=compact;status=announced;media=document;favorite=off;content=short;interaction=default"
+        ],
+        "state_instance_count": 9,
+        "export_section_id": "579a886e-56e8-80a3-8008-818783743e6f",
+        "file_revision": 653,
+        "export_section_ids": [
+          "579a886e-56e8-80a3-8008-818783743e6f"
+        ]
+      }
+    },
+    {
+      "family": "exhibition.row",
+      "fixture": {
+        "event_id": 5370,
+        "route": "/vystavki/",
+        "lifecycle": "active",
+        "state": "keyboard-inactive",
+        "title": "Точка и линия",
+        "venue": "Филиал Третьяковской галереи",
+        "likes": 374,
+        "shares": 27
+      },
+      "source_paths": [
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/components/ExhibitionPrototypeRow.astro"
+      ],
+      "selectors": [
+        "article.ex-row",
+        ".ex-row__rail",
+        ".ex-row__media",
+        ".ex-deck",
+        ".ex-row__body",
+        ".ex-row__aside"
+      ],
+      "geometry": {
+        "row_width_px": 1194,
+        "row_height_px": 140.390625,
+        "rail_width_px": 112,
+        "media_width_px": 537.59375,
+        "media_height_px": 121.859375,
+        "body_width_px": 377.96875,
+        "aside_width_px": 98,
+        "row_radius_px": 8,
+        "list_gap_px": 7,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "desktop_grid": "112px clamp(420px,42vw,680px) minmax(250px,1fr) auto",
+        "row_min_height_px": 132,
+        "deck_frame_min_px": 114,
+        "medallion_px": 44,
+        "source_deck_frame_radius_px": 4,
+        "candidate_deck_frame_radius_px": 8,
+        "candidate_clip_children": true
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "820 clamp(16px,1.35vw,18.88px)/1.15",
+        "venue": "400 12.48px",
+        "rail": "820 12.8px/1.1"
+      },
+      "colors": {
+        "background": "#0d0f10",
+        "surface": "#101214",
+        "text": "#f4f4f2",
+        "muted": "#a8adb2",
+        "ending": "#ef4b58",
+        "blue": "#54acf7",
+        "candidate_action_icon": "#a8adb2",
+        "candidate_action_icon_focus": "#f4f4f2"
+      },
+      "anatomy": [
+        "timeline rail and dot",
+        "event.media-frame deck",
+        "stacked gallery frames",
+        "title and venue",
+        "reason and tag chips",
+        "social proof",
+        "actions",
+        "hidden/undo state"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/7c/7c252477ceeb615cc03183234b1a21e13a409e5fea3b83ba71708421f8c2c0cb.webp",
+          "width": 2560,
+          "height": 1707,
+          "fit": "cover",
+          "object_position": "54% 55%",
+          "usage": "runtime deck slot 0"
+        },
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/95/950882b59bfd368dd78f78c4c04e8d71def52a0ed50be88705314d8d80542027.webp",
+          "width": 1280,
+          "height": 853,
+          "fit": "cover",
+          "object_position": "55% 50%",
+          "usage": "runtime deck slot 1"
+        },
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/a1/a16bd515994370e398e2046b8516efbad237fe51291d75c35b671f1f82223ee9.webp",
+          "width": 2560,
+          "height": 1707,
+          "fit": "cover",
+          "object_position": "45% 50%",
+          "usage": "runtime stacked deck slot 2"
+        }
+      ],
+      "framing_profile": "related_rail",
+      "penpot": {
+        "status": "materialized-readback-current-export-blocked",
+        "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
+        "instance_ids": [
+          "45777396-2f2a-80c0-8008-818f98a70101",
+          "45777396-2f2a-80c0-8008-818f9b9f74d2",
+          "45777396-2f2a-80c0-8008-818fa026d03b",
+          "45777396-2f2a-80c0-8008-818fa3b1b6c5",
+          "45777396-2f2a-80c0-8008-818fa6bab389",
+          "45777396-2f2a-80c0-8008-818faa5c31cd",
+          "45777396-2f2a-80c0-8008-818fafadc4f3"
+        ],
+        "state_keys": [
+          "viewport=desktop;presentation=desktop-row;lifecycle=upcoming;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=1;deck-binding=natural-width;deck-phase=forward;media-state=loading;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=backward;media-state=loaded;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=ending;media-count=1;deck-binding=natural-width;deck-phase=idle;media-state=error;feedback-selection=default",
+          "viewport=desktop;presentation=desktop-row;lifecycle=popular;media-count=9;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=liked",
+          "viewport=desktop;presentation=desktop-row;lifecycle=long;media-count=0;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=rejected-hidden-with-undo",
+          "viewport=mobile;presentation=mobile-gallery;lifecycle=recent;media-count=3;deck-binding=natural-width;deck-phase=idle;media-state=loaded;feedback-selection=default"
+        ],
+        "state_instance_count": 7,
+        "export_section_id": "45777396-2f2a-80c0-8008-818f96d40fc5",
+        "file_revision": 798,
+        "export_section_ids": [
+          "45777396-2f2a-80c0-8008-818f96d40fc5"
+        ],
+        "candidate_instance_ids": [
+          "36f3d4c4-7a64-8062-8008-82230094657f",
+          "36f3d4c4-7a64-8062-8008-822303317569"
+        ],
+        "candidate_readback": {
+          "instance_count": 2,
+          "linked_media_frame_count": 6,
+          "media_frame_radius_px": 8,
+          "clip_children": true,
+          "linked_icon_sizes_px": {
+            "share": 14,
+            "comment": 14,
+            "like": 19,
+            "reject": 18
+          },
+          "icon_color": "#a8adb2",
+          "validation_errors": [],
+          "current_export": "blocked-mcp--32603"
+        }
+      }
+    },
+    {
+      "family": "event.card",
+      "fixture": {
+        "event_id": 7244,
+        "title": "Право женщин на море",
+        "route": "/sobytiya/kinopokaz-reki-kaliningrad-7050/",
+        "variant": "split-actions",
+        "likes": 43,
+        "shares": 12,
+        "date_time": "9 августа 14:00",
+        "place": "Калининград · Филиал Третьяковской галереи",
+        "ticket_label": "Бесплатно · вход свободный",
+        "event_type": "кинопоказ"
+      },
+      "source_paths": [
+        "site/src/components/EventCard.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/data/preview-events.json"
+      ],
+      "selectors": [
+        "article.event-card.event-card--split-actions",
+        ".event-card__media-shell",
+        ".event-card__body",
+        ".event-card__utility-row",
+        ".event-card__feedback"
+      ],
+      "geometry": {
+        "card_width_px": 380,
+        "card_height_px": 579.140625,
+        "media_width_px": 378,
+        "media_height_px": 302.390625,
+        "radius_px": 24,
+        "body_height_px": 156,
+        "body_padding_px": 13.6,
+        "utility_height_px": 58,
+        "feedback_height_px": 56,
+        "control_min_px": 44,
+        "reference_viewport_px": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "media_geometry": "dynamic ratio or 4/5",
+        "split_feedback_placement": "below shell on transparent extension",
+        "overlay_calendar": "absent"
+      },
+      "typography": {
+        "font_stack": "Inter, ui-sans-serif, system-ui",
+        "title": "900 21.6px/1.08",
+        "meta": "750 13.12px/1.25",
+        "footer": "760 13.76px/1.25"
+      },
+      "colors": {
+        "dark_surface": "#15110f",
+        "light_surface": "#fffaf2",
+        "ink": "#241c17",
+        "muted": "#75685f",
+        "like": "#c93434"
+      },
+      "anatomy": [
+        "event.media-frame",
+        "body",
+        "title",
+        "type/date/admission chips",
+        "place",
+        "not-interested",
+        "calendar",
+        "share",
+        "like"
+      ],
+      "media": [
+        {
+          "src": "https://static.kenigevents.ru/p/image/v2/58/58cedbea33fc943fe29dbd50c51c51ec3f2761a20f65d6d97ceafd2cc3e2cb61.webp",
+          "width": 1920,
+          "height": 1080,
+          "fit": "cover",
+          "object_position": "98.6737% 50%",
+          "framing_reason": "runtime split-actions photo crop"
+        }
+      ],
+      "framing_profile": "large_portrait",
+      "penpot": {
+        "status": "materialized-readback-current-export-partial",
+        "component_id": "195df023-6fe5-80a0-8008-82c8c01613e9",
+        "instance_ids": [
+          "195df023-6fe5-80a0-8008-82c8bcd4c10f",
+          "195df023-6fe5-80a0-8008-82c8c141196f",
+          "195df023-6fe5-80a0-8008-82c868cf6471",
+          "195df023-6fe5-80a0-8008-82c8e91d0ca0",
+          "195df023-6fe5-80a0-8008-82c8ed5ec476",
+          "195df023-6fe5-80a0-8008-82c90fd7d577",
+          "195df023-6fe5-80a0-8008-82c9127cd327",
+          "195df023-6fe5-80a0-8008-82c925633106",
+          "195df023-6fe5-80a0-8008-82c928afee48",
+          "195df023-6fe5-80a0-8008-82c93cf88519",
+          "195df023-6fe5-80a0-8008-82c93fd8c1fe",
+          "195df023-6fe5-80a0-8008-82c95e375095"
+        ],
+        "state_keys": [
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=mobile;presentation=dark-shell;layout=overlay-controls;interaction=default;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=home;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=search;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=favorites;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=personal-feed;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=collections;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=short;commercial=free;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=unusual;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loaded-visual;content=long;commercial=unspecified;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=hover;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=focus-visible;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=pressed;media=loaded-protected;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown",
+          "consumer=related;viewport=desktop;presentation=dark-shell;layout=split-actions;interaction=default;media=loading;content=long;commercial=price-range;favorite=off;calendar=default;share=rest;visibility=shown"
+        ],
+        "state_instance_count": 12,
+        "export_section_id": "45777396-2f2a-80c0-8008-818b87df1e84",
+        "file_revision": 1075,
+        "export_section_ids": [
+          "45777396-2f2a-80c0-8008-818b87df1e84",
+          "a6e7f5b4-ff51-80c0-8008-833b1d08f44a"
+        ],
+        "runtime_oracle_readback": {
+          "e01_dark_shell_export": "pass",
+          "b23_dark_shell_calendar_absent_export": "blocked-mcp--32603",
+          "source_media_fill_only": true,
+          "screenshot_fill_reuse": false
+        }
+      }
+    }
+  ],
+  "contract_binding": {
+    "path": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json",
+    "contract_payload_sha256": "f8c2b08c60ee9edc6bf66a8e62e65d0a9ac4963ebfd4e20ca30ee72cb8b223fe",
+    "expected_native_state_count": 54,
+    "parent_surface_state_count": 17
+  },
+  "collection_bindings": {
+    "medallions": {
+      "contract_payload_sha256": "3728b47b98ee99e837f79857c8a4308df4c62f51a6d9b23802951bf4a88aced7",
+      "unique_visuals": 42,
+      "bindings": 43
+    },
+    "artifacts": {
+      "contract_payload_sha256": "a97d02b6287e3a468b64e634aa8d4b67938bbf60996efb17dcfc44420d9706cb",
+      "amber_states": 8,
+      "focus_lab_ids": 12
+    }
+  }
+}

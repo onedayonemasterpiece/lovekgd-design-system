@@ -1,0 +1,62 @@
+{
+  "schema_version": "penpot_festival_card_visual_conformance_correction_v2",
+  "receipt_id": "penpot.festival-card.visual-conformance-correction.20260823.v2",
+  "status": "awaiting_owner_review",
+  "canonical": false,
+  "promotion_status": "not_promoted",
+  "supersedes_for_current_status": "receipts/penpot/festival-card-semantic-correction-v1.json",
+  "root_causes": [
+    "Penpot gradient coordinates were stored as page coordinates and did not remain position-invariant when the FestivalCard master was instantiated on another page.",
+    "The previous comparison cropped the Penpot export from y=94 although the bounded card root began at y=78, truncating 16 px and producing a false height/content offset."
+  ],
+  "systemic_fix": {
+    "scope": "all nine FestivalCard variant masters",
+    "implementation": "CSS-equivalent transparent veil assets bound in the master variants; linked instances inherit the asset without page-coordinate gradient drift",
+    "terminal_instance_visual_overrides": 0,
+    "variant_master_count": 9,
+    "position_safe_veil_count": 9,
+    "penpot_validation_issues": []
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "variant_page_id": "fd45a474-7b74-809d-8008-8185f717df60",
+    "variant_set_id": "579a886e-56e8-80a3-8008-81878e4eaef3",
+    "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+    "exact_review_page_id": "a21f5e36-5d76-8065-8008-8602db63b9db",
+    "exact_linked_shape_id": "a21f5e36-5d76-8065-8008-8602eb21fb00",
+    "diagnostic_named_version": {
+      "label": "FestivalCard · absolute gradient coordinates · Astro veil parity",
+      "status": "superseded_failed_hypothesis"
+    },
+    "current_named_version": "FestivalCard · position-safe CSS veil assets · all variants"
+  },
+  "comparison": {
+    "case_id": "festival-card-more-vnutri-exact",
+    "fixture_id": "festival.more-vnutri.v1",
+    "same_data_and_media": true,
+    "astro_vector_geometry_px": [263.469, 277.719],
+    "penpot_vector_geometry_px": [263.469, 277.719],
+    "astro_raster_geometry_px": [264, 279],
+    "penpot_raster_geometry_px": [264, 279],
+    "stretch": false,
+    "comparison_orientation": "side-by-side",
+    "comparison_sha256": "81d8fd0e1f95480421ff59121cff247fdb6c0ece869cd14b2fc0fc97abd7ffff",
+    "agent_verdict": "MINOR",
+    "owner_status": "AWAITING_REVIEW",
+    "intentional_delta": "The SoT/Penpot shared Like action owns count 84 while the old Astro private favorite has no aggregate count."
+  },
+  "telegram": {
+    "topic_root_message_id": 1030,
+    "message_id": 1086,
+    "message_link": "https://t.me/c/4337049383/1086",
+    "supersedes_message_id": 1085,
+    "read_back_status": "verified",
+    "previous_message_status": "stale_not_reviewable_due_to_visual_blockers"
+  },
+  "non_claims": [
+    "owner acceptance",
+    "FestivalCard promotion",
+    "Astro reverse integration",
+    "Wave 0 completion"
+  ]
+}

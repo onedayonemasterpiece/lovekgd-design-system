@@ -1,0 +1,72 @@
+{
+  "schema_version": "penpot-weekend-mobile-group-head-remediation.v1",
+  "status": "PASS_WITH_MINOR_RENDERER_TYPOGRAPHY_DELTA",
+  "family": "component.listing.weekend-mobile-group-head",
+  "semantic_id": "listing.weekend.mobile.group-head.exact-2026-08-22",
+  "same_exact_case": {
+    "manifest_id": "archetype.listing.weekend-v1.golden-v1",
+    "representation": "typical-mobile390x844",
+    "fixture_ids": [
+      "event.real.7807",
+      "event.real.7906"
+    ],
+    "component_bounds_css": {
+      "x": 0,
+      "y": 240,
+      "width": 390,
+      "height": 54
+    }
+  },
+  "git": {
+    "design_sha_before_receipt": "6e421d2",
+    "astro_sha": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision_after_named_save": "not_exposed_by_current_plugin_readback",
+    "page_id": "d87e18f1-dcb4-80a6-8008-87d983ee3595",
+    "page_name": "61.11 — Weekend · Typical mobile",
+    "review_board_id": "d87e18f1-dcb4-80a6-8008-87dc57f3f119",
+    "component_id": "d87e18f1-dcb4-80a6-8008-87dc57ee9fae",
+    "component_main_id": "d87e18f1-dcb4-80a6-8008-87dc57391549",
+    "semantic_icon": {
+      "page_id": "d87e18f1-dcb4-80a6-8008-87dd63c4f5fc",
+      "page_name": "25.1 — Listing icons · Semantic",
+      "component_id": "d87e18f1-dcb4-80a6-8008-87dd7de32fc8",
+      "component_main_id": "d87e18f1-dcb4-80a6-8008-87dd7dbfbba1",
+      "name": "Icon / Listing / mobile-group-trend-up.18"
+    },
+    "linked_shape_count_in_review_closure": 7,
+    "detached_copies": 0,
+    "validation": [],
+    "named_versions": [
+      "25.1 C01 · mobile group trend-up 18 · exact inline SVG component",
+      "61.11 C02 · Weekend mobile group head exact · corrected semantic icon"
+    ]
+  },
+  "systemic_remediation": [
+    "proved that popular-trend-up-thin is a different pictogram from the inline Astro group-header icon rather than accepting the visually wrong asset",
+    "created one reusable semantic 18px icon component from the exact Astro inline SVG on a separate bounded icon page",
+    "swapped the nested icon component in the group-head master via swapComponent; no detached copy or terminal-instance patch",
+    "applied a documented host-safe typography adapter on the master only"
+  ],
+  "evidence": {
+    "layout": "four wide strips stacked vertically: Astro, Penpot, 50% overlay, raw diff",
+    "astro_png_sha256": "4aaa990f36254d87e4c4b4d2238147e341a1868720bf60a89b5b5329baeb1277",
+    "penpot_png_sha256": "c66f2712eba7041671dd862b4c3d129ea7f0387cc9f0c9f0d90bbf4d995fd8d0",
+    "overlay_png_sha256": "c37f661bb787adbf3e4012ac8a497850e326252e485a8112744d81e4866140a1",
+    "diff_png_sha256": "3058e5abb85783c417fc3e87cc52454949287ed94e6334c946eff3e6e2775597",
+    "comparison_png_sha256": "af107091dd55b06576bd6b7ad00683c3d19ebdcedf1d6eb257bd26d05a9c8f83",
+    "mean_normalized_abs_error": 0.03942262691718029,
+    "visual_review": "Exact bounds, dividers, icon, title and counter. Minor Inter rasterization delta remains."
+  },
+  "telegram": {
+    "message_id": 1151,
+    "message_link": "https://t.me/c/4337049383/1151",
+    "read_back_status": "verified"
+  },
+  "decisions": [
+    "WL-004",
+    "WL-008"
+  ]
+}

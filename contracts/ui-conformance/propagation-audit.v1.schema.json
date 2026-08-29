@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/propagation-audit.v1.schema.json",
+  "title": "Penpot master propagation audit v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_resource", "affected_child_masters", "affected_parent_masters", "affected_instances", "detached_instances", "forbidden_overrides", "broken_variant_connections", "stale_values", "representative_exports", "result"],
+  "properties": {
+    "schema_version": {"const": "propagation-audit.v1"},
+    "source_resource": {"type": "string", "minLength": 1},
+    "affected_child_masters": {"type": "array", "items": {"type": "string"}},
+    "affected_parent_masters": {"type": "array", "items": {"type": "string"}},
+    "affected_instances": {"type": "array", "items": {"type": "string"}},
+    "detached_instances": {"type": "array", "items": {"type": "string"}},
+    "forbidden_overrides": {"type": "array", "items": {"type": "string"}},
+    "broken_variant_connections": {"type": "array", "items": {"type": "string"}},
+    "stale_values": {"type": "array", "items": {"type": "string"}},
+    "representative_exports": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["shape_id", "sha256"]}},
+    "result": {"enum": ["pass", "fail", "blocked"]}
+  },
+  "allOf": [{
+    "if": {"properties": {"result": {"const": "pass"}}},
+    "then": {"properties": {
+      "detached_instances": {"maxItems": 0},
+      "forbidden_overrides": {"maxItems": 0},
+      "broken_variant_connections": {"maxItems": 0},
+      "stale_values": {"maxItems": 0}
+    }}
+  }]
+}

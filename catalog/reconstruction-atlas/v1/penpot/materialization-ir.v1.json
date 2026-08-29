@@ -1,0 +1,2698 @@
+{
+  "schema_version": "reconstruction-atlas-materialization-ir.v1",
+  "generated_at": "2026-08-24T09:11:51.629Z",
+  "semantic_atlas_sha256": "fb52a915aee2a4214851b0c731bfcd73f62f56ca970014928287fbd10a008c17",
+  "global_archetype_sot_v1": {
+    "path": "catalog/global-archetype-sot-v1/manifest.v1.json",
+    "sha256": "765c18f3f4d7e29062673ee9507fd6e6f31653395e6cb9b65af40285b662e4df"
+  },
+  "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+  "checkpoint_revision": 2160,
+  "governance": {
+    "lifecycle": "candidate_noncanonical",
+    "redesign": false,
+    "promotion": false,
+    "production_mutation": false,
+    "merge": false,
+    "deploy": false,
+    "central_fix_policy": "One lowest-owning SoT/master fix triggers one dependency-closure batch. Frozen source-conformant components reopen only for owner defect, contract/new structural context, or failed regression."
+  },
+  "topology": {
+    "review_page_name": "63.00 — Atlas · Review route",
+    "review_page_stable_id": "reconstruction-atlas.v1/page/review-route",
+    "owner_page_count": 17,
+    "owner_page_prefix": "63.",
+    "bounded_owner_pages": true,
+    "review_grid_columns": 2,
+    "review_grid_uses": "linked state-index instances only"
+  },
+  "native_bindings": {
+    "shell.desktop-header": {
+      "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+      "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+      "main_name": "Shell v1 / Desktop / Desktop header"
+    },
+    "shell.mobile-header": {
+      "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+      "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+      "main_name": "Shell v1 / Mobile / Mobile header"
+    },
+    "shell.mobile-bottom-navigation": {
+      "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+      "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+      "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+    },
+    "shell.footer": {
+      "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+      "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+      "main_name": "Shell v1 / Desktop / Footer"
+    },
+    "event.card.large.desktop": {
+      "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+      "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+      "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+    },
+    "event.card.large.mobile": {
+      "component_id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+      "main_shape_id": "7f078c80-87b8-80f5-8008-85815043e9ce",
+      "main_name": "Event cards / Large / EventCard · Large · Mobile flow"
+    },
+    "listing.event-card.compact": {
+      "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+      "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+      "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+    },
+    "festival.card": {
+      "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+      "main_shape_id": "579a886e-56e8-80a3-8008-818783ed949f",
+      "main_name": "Event cards / Festival / FestivalCard"
+    },
+    "exhibition.row": {
+      "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
+      "main_shape_id": "45777396-2f2a-80c0-8008-818f98a70101",
+      "main_name": "Event rows / Exhibition / ExhibitionRow"
+    },
+    "social-proof.like": {
+      "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+      "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+      "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+    },
+    "core.breadcrumbs": {
+      "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+      "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+      "main_name": "core.breadcrumbs / core.breadcrumbs"
+    },
+    "core.field": {
+      "component_id": "e80bde32-fa47-80c8-8008-77a83ffff672",
+      "main_shape_id": "e80bde32-fa47-80c8-8008-77a83f730616",
+      "main_name": "core.field / core.field / default"
+    },
+    "core.button": {
+      "component_id": "e80bde32-fa47-80c8-8008-77a531a67180",
+      "main_shape_id": "e80bde32-fa47-80c8-8008-77a52ca736f1",
+      "main_name": "core.button / core.button / default"
+    },
+    "core.dialog": {
+      "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+      "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+      "main_name": "core.dialog / core.dialog / default"
+    },
+    "artifact.collection-card": {
+      "component_id": "45777396-2f2a-80c0-8008-819282196a54",
+      "main_shape_id": "45777396-2f2a-80c0-8008-81928168e7cd",
+      "main_name": "FocusArtifact"
+    }
+  },
+  "pages": [
+    {
+      "archetype_id": "archetype.home",
+      "title": "Home",
+      "page_name": "63.01 — Atlas · Home",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.home",
+      "representative_routes": [
+        "/"
+      ],
+      "anatomy": [
+        "home.hero-talk",
+        "home.quick-navigation",
+        "home.cold-start-feed"
+      ],
+      "states": [
+        "ready",
+        "cold-start",
+        "personalized-local",
+        "prelaunch-env-branch"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.card.large",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.page-pattern",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "home.cold-start-feed",
+        "home.hero-talk",
+        "home.quick-navigation"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "event.card.large.desktop",
+          "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+          "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+          "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+        },
+        {
+          "resource_id": "event.card.large.mobile",
+          "component_id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+          "main_shape_id": "7f078c80-87b8-80f5-8008-85815043e9ce",
+          "main_name": "Event cards / Large / EventCard · Large · Mobile flow"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.home/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Home / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.home/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.home/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Home / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.home/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.home/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Home / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.home/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.listing.date",
+      "title": "Date listing",
+      "page_name": "63.02 — Atlas · Date listing",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.listing.date",
+      "representative_routes": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-2026-07-25/"
+      ],
+      "anatomy": [
+        "listing.page-date-header",
+        "listing.discovery-rail",
+        "listing.controls",
+        "listing.time-navigation",
+        "listing.time-groups",
+        "listing.desktop-card-flow",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "today",
+        "tomorrow",
+        "specific-date",
+        "ready",
+        "sparse",
+        "empty",
+        "stress",
+        "completed",
+        "upcoming",
+        "now",
+        "untimed",
+        "loading",
+        "error"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing-foundations-candidate-v1",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        },
+        {
+          "resource_id": "listing.rail-row.track",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "listing.date-weather-context",
+        "listing.page-date-header",
+        "listing.time-groups",
+        "listing.time-navigation"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "listing.event-card.compact",
+          "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+          "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+          "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.listing.date/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Date listing / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.date/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.date/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Date listing / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.date/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.date/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Date listing / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.date/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.listing.weekend",
+      "title": "Weekend listing",
+      "page_name": "63.03 — Atlas · Weekend listing",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.listing.weekend",
+      "representative_routes": [
+        "/vyhodnye/",
+        "/vyhodnye/2026-07-25/"
+      ],
+      "anatomy": [
+        "listing.page-date-header",
+        "listing.weekend-range-navigation",
+        "listing.discovery-rail",
+        "listing.weekend-day-headers",
+        "listing.weekend-editorial-timeline",
+        "listing.mobile-rail",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "typical",
+        "sparse",
+        "empty",
+        "stress",
+        "current-range",
+        "historical-range",
+        "single-day-concentration",
+        "empty-opposite-day"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing-foundations-candidate-v1",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.page-pattern",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        },
+        {
+          "resource_id": "listing.rail-row.track",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "listing.weekend-day-header",
+        "listing.weekend-editorial-timeline",
+        "listing.weekend-range-navigation"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "listing.event-card.compact",
+          "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+          "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+          "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.listing.weekend/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Weekend listing / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.weekend/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.weekend/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Weekend listing / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.weekend/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.weekend/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Weekend listing / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.weekend/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.listing.popular",
+      "title": "Popular listing",
+      "page_name": "63.04 — Atlas · Popular listing",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.listing.popular",
+      "representative_routes": [
+        "/populyarnoe/"
+      ],
+      "anatomy": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "popular.grouping",
+        "popular.feed",
+        "listing.personal-slot"
+      ],
+      "states": [
+        "ready",
+        "sparse",
+        "empty",
+        "personalized",
+        "unpersonalized",
+        "dense"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing-foundations-candidate-v1",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.page-pattern",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        },
+        {
+          "resource_id": "listing.rail-row.track",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "popular.grouping",
+        "popular.trend-context"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "listing.event-card.compact",
+          "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+          "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+          "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.listing.popular/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Popular listing / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.popular/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.popular/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Popular listing / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.popular/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.popular/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Popular listing / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.popular/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.listing.unusual",
+      "title": "Unusual listing",
+      "page_name": "63.05 — Atlas · Unusual listing",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.listing.unusual",
+      "representative_routes": [
+        "/neobychnoe/"
+      ],
+      "anatomy": [
+        "listing.page-header",
+        "listing.discovery-rail",
+        "unusual.unread-context",
+        "unusual.feed"
+      ],
+      "states": [
+        "ready",
+        "empty",
+        "unread",
+        "read",
+        "stale",
+        "dense"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing-foundations-candidate-v1",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.page-pattern",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        }
+      ],
+      "new_or_delta_resources": [
+        "unusual.status-behavior",
+        "unusual.unread-context"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "listing.event-card.compact",
+          "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+          "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+          "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.listing.unusual/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Unusual listing / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.unusual/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.unusual/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Unusual listing / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.unusual/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.listing.unusual/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Unusual listing / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.listing.unusual/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.search",
+      "title": "Search",
+      "page_name": "63.06 — Atlas · Search",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.search",
+      "representative_routes": [
+        "/poisk/"
+      ],
+      "anatomy": [
+        "search.header",
+        "search.query-field",
+        "search.filters",
+        "search.results",
+        "search.collection-links",
+        "search.identity-gate"
+      ],
+      "states": [
+        "anonymous",
+        "authenticated",
+        "idle",
+        "loading",
+        "results",
+        "empty",
+        "error",
+        "retry",
+        "stale"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "core.field",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a83ffff672",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a83f730616",
+            "main_name": "core.field / core.field / default"
+          }
+        },
+        {
+          "resource_id": "core.button",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a531a67180",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a52ca736f1",
+            "main_name": "core.button / core.button / default"
+          }
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "authorization.static-site",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "search.collection-links",
+        "search.query-controller"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.field",
+          "component_id": "e80bde32-fa47-80c8-8008-77a83ffff672",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a83f730616",
+          "main_name": "core.field / core.field / default"
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+          "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+          "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.search/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Search / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.search/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.search/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Search / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.search/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.search/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Search / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.search/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.event-detail",
+      "title": "Event detail",
+      "page_name": "63.07 — Atlas · Event detail",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.event-detail",
+      "representative_routes": [
+        "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ],
+      "anatomy": [
+        "event.hero",
+        "event.media-frame",
+        "event.summary",
+        "event.admission-actions",
+        "event.facts",
+        "event.participants",
+        "event.venue",
+        "event.medallions",
+        "event.transport",
+        "event.related-events",
+        "event.question-cta"
+      ],
+      "states": [
+        "wide-image",
+        "portrait-image",
+        "ocr-protected",
+        "multi-image",
+        "no-image",
+        "archived",
+        "calendar-present",
+        "calendar-absent",
+        "admission-present",
+        "admission-absent",
+        "transport-present",
+        "transport-absent"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.card.large",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.media-frame",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.medallion",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "action.calendar",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "action.share",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "social-proof.like",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+            "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+          }
+        }
+      ],
+      "new_or_delta_resources": [
+        "event.detail.facts",
+        "event.detail.hero-composition",
+        "event.detail.related",
+        "event.detail.transport"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "event.card.large.desktop",
+          "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+          "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+          "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+        },
+        {
+          "resource_id": "event.card.large.mobile",
+          "component_id": "7f078c80-87b8-80f5-8008-85839e8975f6",
+          "main_shape_id": "7f078c80-87b8-80f5-8008-85815043e9ce",
+          "main_name": "Event cards / Large / EventCard · Large · Mobile flow"
+        },
+        {
+          "resource_id": "social-proof.like",
+          "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+          "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+          "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.event-detail/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Event detail / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.event-detail/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.event-detail/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Event detail / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.event-detail/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.event-detail/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Event detail / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.event-detail/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.collections",
+      "title": "Collections",
+      "page_name": "63.08 — Atlas · Collections",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.collections",
+      "representative_routes": [
+        "/podborki/",
+        "/podborki/besplatnye-sobytiya/",
+        "/podborki/dzhaz-na-vyhodnyh/",
+        "/podborki/gastronomiya/"
+      ],
+      "anatomy": [
+        "collection.index-header",
+        "collection.directory",
+        "collection.detail-header",
+        "collection.criteria",
+        "collection.results",
+        "collection.fallback-results",
+        "collection.gastronomy-surface"
+      ],
+      "states": [
+        "index",
+        "detail-populated",
+        "detail-empty",
+        "detail-fallback",
+        "free-collection",
+        "gastronomy-editorial"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "core.breadcrumbs",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+            "main_name": "core.breadcrumbs / core.breadcrumbs"
+          }
+        },
+        {
+          "resource_id": "event.card.large",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "collection.criteria",
+        "collection.directory",
+        "collection.gastronomy-surface"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.breadcrumbs",
+          "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+          "main_name": "core.breadcrumbs / core.breadcrumbs"
+        },
+        {
+          "resource_id": "event.card.large.desktop",
+          "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+          "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+          "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.collections/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Collections / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.collections/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.collections/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Collections / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.collections/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.collections/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Collections / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.collections/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.festivals",
+      "title": "Festivals",
+      "page_name": "63.09 — Atlas · Festivals",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.festivals",
+      "representative_routes": [
+        "/festivali/"
+      ],
+      "anatomy": [
+        "festival.header",
+        "festival.timeline",
+        "festival.card-flow",
+        "festival.category-chip"
+      ],
+      "states": [
+        "ready",
+        "empty-period",
+        "theme-values",
+        "past",
+        "upcoming",
+        "favorite-count"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "festival.card",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+            "main_shape_id": "579a886e-56e8-80a3-8008-818783ed949f",
+            "main_name": "Event cards / Festival / FestivalCard"
+          }
+        },
+        {
+          "resource_id": "social-proof.like",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+            "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+          }
+        },
+        {
+          "resource_id": "semantic.theme-chip",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "festival.header",
+        "festival.timeline"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "festival.card",
+          "component_id": "579a886e-56e8-80a3-8008-818784d1ffa9",
+          "main_shape_id": "579a886e-56e8-80a3-8008-818783ed949f",
+          "main_name": "Event cards / Festival / FestivalCard"
+        },
+        {
+          "resource_id": "social-proof.like",
+          "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+          "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+          "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.festivals/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Festivals / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.festivals/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.festivals/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Festivals / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.festivals/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.festivals/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Festivals / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.festivals/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.exhibitions",
+      "title": "Exhibitions",
+      "page_name": "63.10 — Atlas · Exhibitions",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.exhibitions",
+      "representative_routes": [
+        "/vystavki/"
+      ],
+      "anatomy": [
+        "exhibition.header",
+        "exhibition.personalization",
+        "exhibition.rows",
+        "exhibition.media-deck",
+        "exhibition.hide-undo"
+      ],
+      "states": [
+        "ready",
+        "personalized",
+        "unpersonalized",
+        "hidden",
+        "undo",
+        "empty",
+        "media-single",
+        "media-slider"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "exhibition.row",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
+            "main_shape_id": "45777396-2f2a-80c0-8008-818f98a70101",
+            "main_name": "Event rows / Exhibition / ExhibitionRow"
+          }
+        },
+        {
+          "resource_id": "event.medallion",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "social-proof.like",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+            "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+          }
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "exhibition.hide-undo",
+        "exhibition.media-deck",
+        "exhibition.personal-surface"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "exhibition.row",
+          "component_id": "45777396-2f2a-80c0-8008-818f9adc878e",
+          "main_shape_id": "45777396-2f2a-80c0-8008-818f98a70101",
+          "main_name": "Event rows / Exhibition / ExhibitionRow"
+        },
+        {
+          "resource_id": "social-proof.like",
+          "component_id": "a21f5e36-5d76-8065-8008-86cd5c19e772",
+          "main_shape_id": "a21f5e36-5d76-8065-8008-86cd5b96589f",
+          "main_name": "Event cards / Shared / Social proof / Like proof · compact36"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.exhibitions/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Exhibitions / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.exhibitions/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.exhibitions/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Exhibitions / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.exhibitions/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.exhibitions/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Exhibitions / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.exhibitions/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.interest-clubs",
+      "title": "Interest clubs",
+      "page_name": "63.11 — Atlas · Interest clubs",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.interest-clubs",
+      "representative_routes": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/game-vibes/"
+      ],
+      "anatomy": [
+        "club.catalog-header",
+        "club.catalog-grid",
+        "club.card",
+        "club.detail-hero",
+        "club.detail-facts",
+        "club.meeting-list",
+        "club.empty-meetings"
+      ],
+      "states": [
+        "catalog",
+        "detail-future-meetings",
+        "detail-no-future-meetings",
+        "cover-present",
+        "cover-absent"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "core.breadcrumbs",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+            "main_name": "core.breadcrumbs / core.breadcrumbs"
+          }
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "club.card",
+        "club.detail-facts",
+        "club.meeting-list"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.breadcrumbs",
+          "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+          "main_name": "core.breadcrumbs / core.breadcrumbs"
+        },
+        {
+          "resource_id": "core.dialog",
+          "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+          "main_name": "core.dialog / core.dialog / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.interest-clubs/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Interest clubs / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.interest-clubs/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.interest-clubs/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Interest clubs / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.interest-clubs/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.interest-clubs/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Interest clubs / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.interest-clubs/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.favorites",
+      "title": "Favorites",
+      "page_name": "63.12 — Atlas · Favorites",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.favorites",
+      "representative_routes": [
+        "/izbrannoe/"
+      ],
+      "anatomy": [
+        "favorites.header",
+        "favorites.identity-gate",
+        "favorites.saved-events",
+        "favorites.recovery"
+      ],
+      "states": [
+        "anonymous",
+        "authenticated",
+        "loading",
+        "empty",
+        "populated",
+        "error",
+        "retry",
+        "stale"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "authorization.static-site",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.card.large",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.event-card.compact",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "d87e18f1-dcb4-80a6-8008-877370383914",
+            "main_shape_id": "d87e18f1-dcb4-80a6-8008-87736fa07d4e",
+            "main_name": "Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop"
+          }
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "favorites.saved-events-controller"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "event.card.large.desktop",
+          "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+          "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+          "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+        },
+        {
+          "resource_id": "core.dialog",
+          "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+          "main_name": "core.dialog / core.dialog / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.favorites/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Favorites / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.favorites/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.favorites/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Favorites / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.favorites/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.favorites/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Favorites / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.favorites/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.personal-feed",
+      "title": "Personal feed",
+      "page_name": "63.13 — Atlas · Personal feed",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.personal-feed",
+      "representative_routes": [
+        "/dlya-menya/"
+      ],
+      "anatomy": [
+        "personal.header",
+        "personal.interest-profile",
+        "personal.filters",
+        "personal.feed",
+        "personal.feedback"
+      ],
+      "states": [
+        "cold-start",
+        "profile-ready",
+        "filtered",
+        "reranked",
+        "stale",
+        "loading",
+        "empty",
+        "failure"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "listing.personal-filter",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "event.card.large",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "focus.feedback",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "personal.interest-profile",
+        "personal.rerank-controller"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "event.card.large.desktop",
+          "component_id": "cab027cf-d52b-8091-8008-85f7db75ebe3",
+          "main_shape_id": "cab027cf-d52b-8091-8008-85f7a4a774c3",
+          "main_name": "Event cards / Large / EventCard · Large · Desktop · calendar absent"
+        },
+        {
+          "resource_id": "core.button",
+          "component_id": "e80bde32-fa47-80c8-8008-77a531a67180",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a52ca736f1",
+          "main_name": "core.button / core.button / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.personal-feed/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Personal feed / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.personal-feed/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.personal-feed/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Personal feed / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.personal-feed/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.personal-feed/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Personal feed / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.personal-feed/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.focus-group",
+      "title": "Focus group",
+      "page_name": "63.14 — Atlas · Focus group",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.focus-group",
+      "representative_routes": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "anatomy": [
+        "focus.program",
+        "focus.invitation-intake",
+        "focus.feedback",
+        "focus.connectivity-diagnostic",
+        "focus.collection",
+        "focus.completion"
+      ],
+      "states": [
+        "program",
+        "invitation-loading",
+        "invitation-valid",
+        "invitation-invalid",
+        "diagnostic-idle",
+        "diagnostic-running",
+        "diagnostic-success",
+        "diagnostic-failure",
+        "collection-locked",
+        "collection-open",
+        "completion"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "focus.lab-badge",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "focus.feedback",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "focus.thank-you",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "authorization.static-site",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "focus.completion",
+        "focus.connectivity-diagnostic",
+        "focus.invitation-intake"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.field",
+          "component_id": "e80bde32-fa47-80c8-8008-77a83ffff672",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a83f730616",
+          "main_name": "core.field / core.field / default"
+        },
+        {
+          "resource_id": "core.button",
+          "component_id": "e80bde32-fa47-80c8-8008-77a531a67180",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a52ca736f1",
+          "main_name": "core.button / core.button / default"
+        },
+        {
+          "resource_id": "core.dialog",
+          "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+          "main_name": "core.dialog / core.dialog / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.focus-group/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Focus group / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.focus-group/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.focus-group/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Focus group / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.focus-group/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.focus-group/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Focus group / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.focus-group/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.artifacts",
+      "title": "Artifacts",
+      "page_name": "63.15 — Atlas · Artifacts",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.artifacts",
+      "representative_routes": [
+        "/artefakty/"
+      ],
+      "anatomy": [
+        "artifact.collection-header",
+        "artifact.progress",
+        "artifact.cards",
+        "artifact.reserved-slots",
+        "artifact.dialog"
+      ],
+      "states": [
+        "empty",
+        "partial",
+        "complete",
+        "locked",
+        "unlocked",
+        "dialog-open"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "artifact.collection-card",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "45777396-2f2a-80c0-8008-819282196a54",
+            "main_shape_id": "45777396-2f2a-80c0-8008-81928168e7cd",
+            "main_name": "FocusArtifact"
+          }
+        },
+        {
+          "resource_id": "core.dialog",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+            "main_name": "core.dialog / core.dialog / default"
+          }
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "artifact.collection-progress",
+        "artifact.unlock-dialog"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "artifact.collection-card",
+          "component_id": "45777396-2f2a-80c0-8008-819282196a54",
+          "main_shape_id": "45777396-2f2a-80c0-8008-81928168e7cd",
+          "main_name": "FocusArtifact"
+        },
+        {
+          "resource_id": "core.dialog",
+          "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+          "main_name": "core.dialog / core.dialog / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.artifacts/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Artifacts / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.artifacts/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.artifacts/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Artifacts / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.artifacts/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.artifacts/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Artifacts / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.artifacts/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.information-pages",
+      "title": "Information pages",
+      "page_name": "63.16 — Atlas · Information pages",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.information-pages",
+      "representative_routes": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "anatomy": [
+        "information.page-header",
+        "information.long-form-content",
+        "partners.logo-grid",
+        "partnership.conditions",
+        "information.secondary-navigation"
+      ],
+      "states": [
+        "partners-index",
+        "partnership-content",
+        "legal-document",
+        "long-content"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "shell.event-layout",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.desktop-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86ae4bdf9963",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86ae49126e70",
+            "main_name": "Shell v1 / Desktop / Desktop header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-header",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aebfc67027",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebe51faca",
+            "main_name": "Shell v1 / Mobile / Mobile header"
+          }
+        },
+        {
+          "resource_id": "shell.mobile-menu",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "shell.mobile-bottom-navigation",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "main_name": "Shell v1 / Mobile / Mobile bottom navigation"
+          }
+        },
+        {
+          "resource_id": "shell.footer",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+            "main_shape_id": "a21f5e36-5d76-8065-8008-86af5be2357d",
+            "main_name": "Shell v1 / Desktop / Footer"
+          }
+        },
+        {
+          "resource_id": "system.toast-region",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "core.breadcrumbs",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": {
+            "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+            "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+            "main_name": "core.breadcrumbs / core.breadcrumbs"
+          }
+        },
+        {
+          "resource_id": "document.typography",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "partners.logo-grid",
+        "partnership.conditions"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.breadcrumbs",
+          "component_id": "e80bde32-fa47-80c8-8008-77a2c28fc952",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a2bda1f8a2",
+          "main_name": "core.breadcrumbs / core.breadcrumbs"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.information-pages/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Information pages / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.information-pages/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.information-pages/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Information pages / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.information-pages/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.information-pages/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Information pages / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.information-pages/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    },
+    {
+      "archetype_id": "archetype.special-state",
+      "title": "Special states",
+      "page_name": "63.17 — Atlas · Special states",
+      "stable_page_id": "reconstruction-atlas.v1/page/archetype.special-state",
+      "representative_routes": [
+        "/zakrytaya-afisha/"
+      ],
+      "anatomy": [
+        "special.prelaunch",
+        "special.membership-check",
+        "special.locked",
+        "special.closed-hub",
+        "special.unavailable"
+      ],
+      "states": [
+        "prelaunch-env",
+        "checking",
+        "locked",
+        "hub",
+        "unavailable",
+        "noscript"
+      ],
+      "reuse_resources": [
+        {
+          "resource_id": "brand.identity-and-pwa",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "focus.lab-badge",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "focus.feedback",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "authorization.static-site",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        },
+        {
+          "resource_id": "system.state-panel",
+          "disposition": "REUSE_FROZEN_OR_RECONCILE",
+          "native_binding": null
+        }
+      ],
+      "new_or_delta_resources": [
+        "special.closed-hub",
+        "special.membership-gate",
+        "special.prelaunch"
+      ],
+      "sample_native_resources": [
+        {
+          "resource_id": "core.dialog",
+          "component_id": "e80bde32-fa47-80c8-8008-77a80efcca11",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a80e6e1354",
+          "main_name": "core.dialog / core.dialog / default"
+        },
+        {
+          "resource_id": "core.button",
+          "component_id": "e80bde32-fa47-80c8-8008-77a531a67180",
+          "main_shape_id": "e80bde32-fa47-80c8-8008-77a52ca736f1",
+          "main_name": "core.button / core.button / default"
+        }
+      ],
+      "projections": [
+        {
+          "projection_id": "archetype.special-state/desktop/representative",
+          "viewport": "desktop-1280x720",
+          "master_name": "Atlas / Special states / viewport=desktop;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.special-state/desktop/representative",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.special-state/mobile/representative",
+          "viewport": "mobile-390x720",
+          "master_name": "Atlas / Special states / viewport=mobile;state=representative",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.special-state/mobile/representative",
+          "width": 390,
+          "height": 720
+        },
+        {
+          "projection_id": "archetype.special-state/states/unique",
+          "viewport": "state-index-640x180",
+          "master_name": "Atlas / Special states / states=source-index",
+          "stable_id": "reconstruction-atlas.v1/master/archetype.special-state/states/source-index",
+          "width": 640,
+          "height": 180
+        }
+      ],
+      "constraints": {
+        "masters_on_final_owner_page": true,
+        "nested_reuse": "LINKED_INSTANCE_ONLY",
+        "detached_forbidden": true,
+        "screenshot_master_forbidden": true,
+        "registered_overrides": [],
+        "dense_stress": "ASTRO_ONLY",
+        "max_top_level_shapes": 3,
+        "max_page_content_width": 1734,
+        "max_page_content_height": 980
+      }
+    }
+  ],
+  "acceptance": {
+    "archetype_coverage_percent": 100,
+    "required_projections_per_archetype": [
+      "desktop",
+      "mobile",
+      "unique-state-index"
+    ],
+    "detached_count": 0,
+    "unregistered_override_count": 0,
+    "validate": [],
+    "review_route_count": 1,
+    "gap_ledger_path": "catalog/reconstruction-atlas/v1/gap-ledger.v1.json"
+  }
+}

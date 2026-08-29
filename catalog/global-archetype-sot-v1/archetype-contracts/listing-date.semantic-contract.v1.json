@@ -1,0 +1,544 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "listing.page-date-header",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "listing.discovery-rail",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "listing.controls",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "listing.time-navigation",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "listing.time-groups",
+      "required": true
+    },
+    {
+      "order": 6,
+      "part_id": "listing.desktop-card-flow",
+      "required": true
+    },
+    {
+      "order": 7,
+      "part_id": "listing.mobile-rail",
+      "required": true
+    },
+    {
+      "order": 8,
+      "part_id": "listing.personal-slot",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.listing.date",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "listing-foundations-candidate-v1",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing-foundations-candidate-v1",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing-foundations-candidate-v1"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.date-weather-context",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.date-weather-context",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.date-weather-context"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.event-card.compact",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.event-card.compact",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.event-card.compact"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.page-date-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.page-date-header",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.page-date-header"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.rail-row.track",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.rail-row.track",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.rail-row.track"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.state-panel",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.state-panel"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.time-groups",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.time-groups",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.time-groups"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.time-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.time-navigation",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.time-navigation"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "runtime.listing.date",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.listing.date"
+      ],
+      "baseline_disposition": "runtime_only",
+      "source_identity_contract": [
+        {
+          "source_identity_id": "runtime-boundary:archetype.listing.date",
+          "source_refs": []
+        }
+      ],
+      "identity_gate": {
+        "status": "NOT_APPLICABLE",
+        "source_identity_count": 1,
+        "all_identities_have_exact_source_refs": false,
+        "reconciliation_proof_ref": null,
+        "reason": null
+      }
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.listing.date.global-sot-v1",
+  "disposition": "reuse_existing",
+  "dispositions_summary": {
+    "new_component": 4,
+    "reuse_existing": 11,
+    "runtime_only": 2,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.listing.date",
+    "title": "Date listing"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-2026-07-25/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "completed",
+        "empty",
+        "error",
+        "loading",
+        "sparse",
+        "stress"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    },
+    {
+      "content_type": "fixture-contract-reference",
+      "fixture_refs": [
+        "catalog/page-archetypes/date-listing-shell-v1/fixture-manifest.v1.json"
+      ],
+      "multiplicity": "one",
+      "required": true,
+      "slot_id": "existing-archetype-fixture-contract"
+    }
+  ],
+  "foundations_usage": [
+    {
+      "foundation_group": "color",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/semantic_colors",
+      "consumer_archetype": "archetype.listing.date"
+    },
+    {
+      "foundation_group": "typography",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/typography",
+      "consumer_archetype": "archetype.listing.date"
+    },
+    {
+      "foundation_group": "spacing",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/spacing_px",
+      "consumer_archetype": "archetype.listing.date"
+    },
+    {
+      "foundation_group": "radius",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/radius_roles_px",
+      "consumer_archetype": "archetype.listing.date"
+    },
+    {
+      "foundation_group": "breakpoint",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/breakpoints",
+      "consumer_archetype": "archetype.listing.date"
+    },
+    {
+      "foundation_group": "motion",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/cross_cutting_contracts/interaction",
+      "consumer_archetype": "archetype.listing.date"
+    }
+  ],
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "listing.page-date-header",
+      "required": true,
+      "semantic_role": "listing.page-date-header"
+    },
+    {
+      "order": 2,
+      "region_id": "listing.discovery-rail",
+      "required": true,
+      "semantic_role": "listing.discovery-rail"
+    },
+    {
+      "order": 3,
+      "region_id": "listing.controls",
+      "required": true,
+      "semantic_role": "listing.controls"
+    },
+    {
+      "order": 4,
+      "region_id": "listing.time-navigation",
+      "required": true,
+      "semantic_role": "listing.time-navigation"
+    },
+    {
+      "order": 5,
+      "region_id": "listing.time-groups",
+      "required": true,
+      "semantic_role": "listing.time-groups"
+    },
+    {
+      "order": 6,
+      "region_id": "listing.desktop-card-flow",
+      "required": true,
+      "semantic_role": "listing.desktop-card-flow"
+    },
+    {
+      "order": 7,
+      "region_id": "listing.mobile-rail",
+      "required": true,
+      "semantic_role": "listing.mobile-rail"
+    },
+    {
+      "order": 8,
+      "region_id": "listing.personal-slot",
+      "required": true,
+      "semantic_role": "listing.personal-slot"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop time-group grid/flow"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile full-width rail rows with pinned date accessory"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/segodnya/",
+      "/zavtra/",
+      "/date-2026-07-25/"
+    ],
+    "route_patterns": [
+      "/segodnya/",
+      "/zavtra/",
+      "/date-:date/"
+    ],
+    "source_pages": [
+      "site/src/pages/segodnya/index.astro",
+      "site/src/pages/zavtra/index.astro",
+      "site/src/pages/date-[date].astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.corrective.da16dde88122.7774004b48f1",
+  "states": [
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "completed"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "empty"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "error"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "loading"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "now"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "ready"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "sparse"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "specific-date"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "stress"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "today"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "tomorrow"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "untimed"
+    },
+    {
+      "category": "lifecycle",
+      "required": true,
+      "state_id": "upcoming"
+    }
+  ],
+  "title": "Листинг по дате: сегодня / завтра / произвольная дата"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "case_id", "contract_sha256", "message_id", "message_link", "image_sha256", "verdict_sha256", "content_hash", "sent_at", "read_back_at", "read_back_status", "supersedes_message_id"],
+  "properties": {
+    "schema_version": {"const": "event_card_large_current_v2_telegram_readback.v1"},
+    "case_id": {"type": "string"},
+    "contract_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "message_id": {"type": "integer", "minimum": 1},
+    "message_link": {"type": "string", "pattern": "^https://t.me/"},
+    "image_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "verdict_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "content_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "sent_at": {"type": "string", "format": "date-time"},
+    "read_back_at": {"type": "string", "format": "date-time"},
+    "read_back_status": {"const": "verified"},
+    "supersedes_message_id": {"type": "integer", "minimum": 1}
+  }
+}

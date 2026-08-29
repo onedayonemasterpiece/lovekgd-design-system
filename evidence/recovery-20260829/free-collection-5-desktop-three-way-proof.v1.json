@@ -1,0 +1,143 @@
+{
+  "schema_version": "free-collection-three-way-proof.v1",
+  "scenario_id": "free-collection-5-desktop-v1",
+  "status": "OWNER_STATE_STRUCTURAL_PASS_PENPOT_VISUAL_EXPORT_BLOCKED",
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "viewport": {
+      "width": 1280,
+      "height": 1200,
+      "dpr": 1
+    },
+    "production_data_replaced": false
+  },
+  "ui_sot": {
+    "registry": {
+      "path": "catalog/fixtures/design-system-reference/v1/registry.v1.json",
+      "sha256": "246fa7e31d82ab6c5c212a01de5962cf5869bdbcfb2fa55f674c7b7332a3ac3e"
+    },
+    "scenario": {
+      "path": "catalog/fixtures/design-system-reference/v1/scenarios/archetype.collections.free.desktop-ready.v1.json",
+      "sha256": "a388698e96d9a6b8180dbd73521fa464bd4844472dfa6815f9239f5bf44af6e7"
+    }
+  },
+  "astro": {
+    "evidence": {
+      "path": "evidence/recovery-20260829/astro/free-collection-5-desktop-evidence.v1.json",
+      "sha256": "39a3782ff1919978a17da4c3b878b5d9fc47cd9f38727ef7fefdee20f6c7bdc9"
+    },
+    "screenshots": [
+      {
+        "path": "evidence/recovery-20260829/astro/free-collection-5-desktop-top.png",
+        "sha256": "d9aabcda234589fba76083cbec138ecdddc224eb5061043a34b1b52175db5ecb"
+      },
+      {
+        "path": "evidence/recovery-20260829/astro/free-collection-5-desktop-full.png",
+        "sha256": "992877630d1a01d6f6c453a997cce50c9e5f610d36407223779a6c3677ef1de0"
+      },
+      {
+        "path": "evidence/recovery-20260829/astro/free-collection-5-desktop-scroll.png",
+        "sha256": "28fb2df09505e4444a153806985cf3ef0017620ee3a7222b4ce52e426f23b648"
+      }
+    ],
+    "assertions": {
+      "heading": "5 событий",
+      "render_order": [
+        7006,
+        6996,
+        6997,
+        7030,
+        6901
+      ],
+      "row_card_counts": [
+        3,
+        2
+      ],
+      "horizontal_overflow": 0,
+      "console_errors": 0,
+      "sticky_medallion_visible_after_scroll": true,
+      "secret_candidate_fixture_build_rejected": true,
+      "secret_candidate_rejection": "UI fixture scenarios are forbidden in production and secret-candidate builds"
+    },
+    "consumer_projection": {
+      "path": "evidence/recovery-20260829/astro/design-system-reference-fixtures.v2.json",
+      "sha256": "6c66ecdaedc93179270217c35fbe52c61daf53687f85a58ccb3a472afe1cf9cc"
+    }
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "page_id": "d87e18f1-dcb4-80a6-8008-880c4a36d153",
+    "owner_id": "d87e18f1-dcb4-80a6-8008-880c4a6d708e",
+    "structural_readback": {
+      "path": "evidence/recovery-20260829/penpot/free-collection-5-desktop-structural-readback.v1.json",
+      "sha256": "17f41a486ad4166b3e21f52a139835f317f01d2d4dbf5728567f7f10b056509e"
+    },
+    "assertions": {
+      "heading": "5 событий",
+      "render_order": [
+        7006,
+        6996,
+        6997,
+        7030,
+        6901
+      ],
+      "linked_canonical_event_card_component_id": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
+      "linked_roots": 5,
+      "detached_roots": 0,
+      "validation": [],
+      "base_viewport_state": "top",
+      "scrolled_viewport_component_id": "8f804431-c282-8075-8008-8e6128cb8d22",
+      "full_scroll_proof_component_id": "8f804431-c282-8075-8008-8e944a93d5a9",
+      "full_scroll_proof_height": 2820,
+      "desktop_footer_component_id": "a21f5e36-5d76-8065-8008-86af602ad62a",
+      "compact_medallion_size": 58
+    },
+    "visual_export": {
+      "status": "BLOCKED_HTTP_504",
+      "visual_acceptance_claimed": false,
+      "attempts": [
+        {
+          "shape": "desktop-owner",
+          "format": "png",
+          "result": "HTTP_504"
+        },
+        {
+          "shape": "results-board",
+          "format": "png",
+          "result": "HTTP_504"
+        },
+        {
+          "shape": "results-board",
+          "format": "svg",
+          "result": "HTTP_504_AFTER_OFFICIAL_DOC_RESEARCH"
+        }
+      ]
+    },
+    "owner_states_readback": {
+      "path": "evidence/recovery-20260829/penpot/free-collection-5-desktop-owner-states-readback.v1.json",
+      "sha256": "7dd03cfff94297641947fb300e9069d029368915b1a8593753b2856d566c777c"
+    }
+  },
+  "parity": {
+    "fixture_ids": "PASS",
+    "render_order": "PASS",
+    "row_topology": "PASS",
+    "card_geometry_tolerance_px": 0.02,
+    "component_ancestry": "PASS",
+    "visual_penpot_export": "BLOCKED_NOT_CLAIMED",
+    "owner_state_projection": "PASS",
+    "full_scroll_document_height": "PASS"
+  },
+  "known_out_of_scope_defect": {
+    "production_collection_declared_timed_events": 23,
+    "production_packer_observed_emitted_events": 18,
+    "status": "OPEN_NOT_HIDDEN",
+    "reason": "The bounded five-event proof renders all five; production count reconciliation is a separate defect."
+  },
+  "correction": {
+    "previous_gap": "The first receipt inspected the Page body component main but did not gate the rendered owner/state compositions.",
+    "owner_visible_symptom": "The 1200px top viewport clips the second row by definition; without an adjacent scrolled/full proof this looked like a truncated page.",
+    "remediation": "Added and read back explicit top viewport, hero-passed viewport with sticky medallion, and a 1280x2820 full-scroll proof with linked footer.",
+    "visual_acceptance_claimed": false
+  }
+}

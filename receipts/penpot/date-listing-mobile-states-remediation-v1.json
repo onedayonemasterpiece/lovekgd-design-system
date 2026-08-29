@@ -1,0 +1,93 @@
+{
+  "schema_version": "penpot-date-listing-mobile-states-remediation.v1",
+  "status": "WORKING_NOT_READY_FOR_OWNER_REVIEW",
+  "lifecycle": "candidate",
+  "canonical": false,
+  "promoted": false,
+  "production_deployed": false,
+  "case_id": "archetype.listing.date-shell-v1.loading-empty-error",
+  "run_id": "date-listing-mobile-states-linked-current-20260824-v1",
+  "git": {
+    "design_head_before_receipt": "6e1268dbb98e2ad8a00e5df3f5f6699f5b910232",
+    "astro_head": "982a1cd5259d58e3e9fb2c2277e90fa9cf4df615",
+    "production_mutated": false
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "revision": 1936,
+    "component_page_id": "a21f5e36-5d76-8065-8008-86ac7b368ff6",
+    "review_page_id": "a21f5e36-5d76-8065-8008-86baaa49f139",
+    "board_ids": {
+      "loading": "a21f5e36-5d76-8065-8008-86bad15d86e3",
+      "empty": "a21f5e36-5d76-8065-8008-86bad1a760a7",
+      "error": "a21f5e36-5d76-8065-8008-86bad20ef448"
+    },
+    "state_component_ids": {
+      "loading": "a21f5e36-5d76-8065-8008-86ada7c03c70",
+      "empty": "a21f5e36-5d76-8065-8008-86adcb9194ed",
+      "error": "a21f5e36-5d76-8065-8008-86adcd7481c0"
+    },
+    "state_action_component_id": "a21f5e36-5d76-8065-8008-86ada69598f2",
+    "validate_errors": [],
+    "detached": 0,
+    "unbound_duplicate_state_boards": 0,
+    "top_level_review_boards": 4
+  },
+  "systemic_fixes": [
+    "loading content edge 17px, skeleton width 326px, radius 14 and bounded static source gradient",
+    "empty/error title flow resolves to the same two lines as Astro",
+    "empty/error descriptions use 14px / 21px and exact vertical rhythm",
+    "choose-date and retry remain linked State action instances with exact resolved widths",
+    "all corrections live in native masters; review boards inherit without overlays"
+  ],
+  "evidence": {
+    "astro_png_sha256": {
+      "loading": "155686c4359f1e5e9ab8fa2239e37117b37e7fae76e896a330f3ec6ed70ea4e5",
+      "empty": "61dd0b7e05d90e627275f3724dae5cd73024c1a19c390c9a4451ae7f8d2d0777",
+      "error": "3299a2d35a7ec16daed6a99a72f3c78b365cfb372b82759ba79b343875b74de7"
+    },
+    "penpot_linked_png_sha256": {
+      "loading": "9788f464d8d15ded17c0e48ed4a0b4f6ed43e79bee5c12f5d0ebf9810b1dbb09",
+      "empty": "a5c7d9c58dca94b07c0fef3db67e3edc948dba46725a38e714b2b313455211b2",
+      "error": "3e36eb993a2b3cca73c06820209ce199a403c5b8a3e46bd0bc8fd525d6b24c31"
+    },
+    "penpot_generated_markup_sha256": {
+      "loading": "ea0b0e1262eae25bd0474ae1ee391e33a135105657770a13608497b935251b29",
+      "empty": "541e4f509b0b45b5d3833af4250d10c6b65c6f368f3d1b04fd7177888d52774d",
+      "error": "1b8a8c46af686e7ebfa470795f1c6ad8a2121b27c5069413f458195d3fb41a71"
+    },
+    "comparison_sha256": "e8ee0914e8ea78b2380f31f4036688a20afe03111593347699bd704fb99aecf6",
+    "pixel_metrics": {
+      "loading": {
+        "mae": 6.159313271604939,
+        "rms": 25.440095758904334,
+        "changed_pixel_ratio_gt8": 0.15479166666666666
+      },
+      "empty": {
+        "mae": 9.290636574074075,
+        "rms": 36.85384698791487,
+        "changed_pixel_ratio_gt8": 0.0931712962962963
+      },
+      "error": {
+        "mae": 9.270273919753086,
+        "rms": 37.56719242582894,
+        "changed_pixel_ratio_gt8": 0.09046296296296297
+      }
+    },
+    "mode": "linked-instance generatedMarkup diagnostic fallback; exact exporter HTTP 504"
+  },
+  "agent_verdict": "BLOCKED_EXPORTER",
+  "visual_diagnosis": "MINOR",
+  "owner_status": "NOT_REQUESTED",
+  "decision_refs": [
+    "DL-025",
+    "DL-026"
+  ],
+  "telegram": {
+    "message_id": 1125,
+    "message_link": "https://t.me/c/4337049383/1125",
+    "supersedes_message_id": 1092,
+    "read_back": "verified",
+    "image_sha256": "e8ee0914e8ea78b2380f31f4036688a20afe03111593347699bd704fb99aecf6"
+  }
+}

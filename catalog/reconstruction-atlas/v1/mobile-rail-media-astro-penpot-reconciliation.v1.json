@@ -1,0 +1,76 @@
+{
+  "schema_version": "mobile-rail-media-astro-penpot-reconciliation.v1",
+  "contract_id": "recovery.ov-02.mobile-rail-media-astro-penpot-reconciliation.v1",
+  "review_item": "OV-02",
+  "status": "READY_FOR_OWNER_REREVIEW",
+  "processed": false,
+  "authority": {
+    "astro_commit": "49c351873d40a2ea55f0a32837c7376e344d9c17",
+    "actual_runtime_owner": [
+      "site/src/components/listings/MobileListingRailSurface.astro",
+      "site/src/components/listings/MobileListingRailRow.astro",
+      "site/src/lib/mobileListingRailMedia.mjs"
+    ],
+    "real_data_fixture": "site/src/pages/lab/design-system/mobile-listing-rail-media/index.astro",
+    "runtime_routes": ["/segodnya/", "/zavtra/", "/date-[date]/", "/vyhodnye/", "/populyarnoe/"]
+  },
+  "runtime_rule": {
+    "cover": "Aggregate+asset visual_only event photos may use the 140×112 cover window when source review or safe crop policy explicitly allows it.",
+    "contain": "OCR, document, unknown, contradictory or crop-unsafe media preserve physical authored ratio in a content-sized wrapper at 112px height.",
+    "no_field_interpretation": "Protected media follows the physical source aspect ratio; rejected selector crop geometry does not redefine the authored ratio."
+  },
+  "certified_components": {
+    "cover": {
+      "component_id": "a21f0524-f565-8038-8008-787378260237",
+      "main_id": "a21f0524-f565-8038-8008-787377eb13b2",
+      "name": "EventMediaFrame / rail-5x4 / cover"
+    },
+    "authored_contain_1702x2553": {
+      "component_id": "8f804431-c282-8075-8008-8db194fb8344",
+      "main_id": "8f804431-c282-8075-8008-8db194acd552",
+      "stable_id": "ov02.event-media.authored-contain.1702x2553.v1",
+      "name": "EventMediaFrame / rail-authored / contain-1702x2553",
+      "geometry": [75, 112],
+      "validation": []
+    }
+  },
+  "corrected_cases": [
+    {
+      "event": "event.real.6936",
+      "source_size": [1702, 2553],
+      "runtime": {"fit": "contain", "width": 75, "height": 112, "reason": "protected_natural_geometry"},
+      "penpot": {
+        "row_id": "e57c842a-ea36-803b-8008-8b62b5004102",
+        "media_instance_id": "8f804431-c282-8075-8008-8db1f5b68ee0",
+        "component_id": "8f804431-c282-8075-8008-8db194fb8344",
+        "geometry": [75, 112]
+      },
+      "result": "MATCH"
+    },
+    {
+      "event": "event.real.6652",
+      "source_size": [1170, 1755],
+      "runtime": {"fit": "cover", "width": 140, "height": 112, "reason": "source_reviewed_safe_override"},
+      "penpot": {
+        "row_id": "e57c842a-ea36-803b-8008-8b62b6ab6988",
+        "media_instance_id": "6fd90e70-153b-804f-8008-8c6cc29d4699",
+        "component_id": "a21f0524-f565-8038-8008-787378260237",
+        "geometry": [140, 112],
+        "image_geometry": [167.6725, 112]
+      },
+      "result": "MATCH"
+    }
+  ],
+  "browser_readback": [
+    {"event": "event.real.5374", "result": "140×112 cover", "reason": "safe_visual"},
+    {"event": "event.real.6936", "result": "75×112 contain", "reason": "protected_natural_geometry"},
+    {"event": "event.real.6652", "result": "140×112 cover", "reason": "source_reviewed_safe_override"}
+  ],
+  "acceptance": {
+    "astro_tests": "21/21 PASS",
+    "astro_build": "471 pages PASS",
+    "penpot_validation": [],
+    "owner_status": "READY_FOR_OWNER_REREVIEW",
+    "processed": false
+  }
+}

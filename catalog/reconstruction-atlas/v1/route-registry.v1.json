@@ -1,0 +1,288 @@
+{
+  "schema_version": "reconstruction-atlas-route-registry.v1",
+  "source_repo": {
+    "path": "/home/dev/.codex/worktrees/events-bot-new/event-card-semantic-closure-int",
+    "expected_head": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00"
+  },
+  "checklist_archetype_count": 17,
+  "production_astro_page_count": 29,
+  "mapped_production_astro_page_count": 29,
+  "source_route_coverage_percent": 100,
+  "unmapped_production_pages": [],
+  "excluded_preprod_pages": [
+    "site/src/pages/[preview]/index.astro"
+  ],
+  "archetypes": [
+    {
+      "id": "archetype.home",
+      "checklist_label": "Главная",
+      "route_patterns": [
+        "/"
+      ],
+      "source_files": [
+        "site/src/pages/index.astro"
+      ],
+      "representative_routes": [
+        "/"
+      ]
+    },
+    {
+      "id": "archetype.listing.date",
+      "checklist_label": "Листинг по дате: сегодня / завтра / произвольная дата",
+      "route_patterns": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-:date/"
+      ],
+      "source_files": [
+        "site/src/pages/segodnya/index.astro",
+        "site/src/pages/zavtra/index.astro",
+        "site/src/pages/date-[date].astro"
+      ],
+      "representative_routes": [
+        "/segodnya/",
+        "/zavtra/",
+        "/date-2026-07-25/"
+      ]
+    },
+    {
+      "id": "archetype.listing.weekend",
+      "checklist_label": "Выходные",
+      "route_patterns": [
+        "/vyhodnye/",
+        "/vyhodnye/:start/"
+      ],
+      "source_files": [
+        "site/src/pages/vyhodnye/index.astro",
+        "site/src/pages/vyhodnye/[start].astro"
+      ],
+      "representative_routes": [
+        "/vyhodnye/",
+        "/vyhodnye/2026-07-25/"
+      ]
+    },
+    {
+      "id": "archetype.listing.popular",
+      "checklist_label": "Популярное",
+      "route_patterns": [
+        "/populyarnoe/"
+      ],
+      "source_files": [
+        "site/src/pages/populyarnoe/index.astro"
+      ],
+      "representative_routes": [
+        "/populyarnoe/"
+      ]
+    },
+    {
+      "id": "archetype.listing.unusual",
+      "checklist_label": "Необычное",
+      "route_patterns": [
+        "/neobychnoe/"
+      ],
+      "source_files": [
+        "site/src/pages/neobychnoe/index.astro"
+      ],
+      "representative_routes": [
+        "/neobychnoe/"
+      ]
+    },
+    {
+      "id": "archetype.search",
+      "checklist_label": "Поиск",
+      "route_patterns": [
+        "/poisk/"
+      ],
+      "source_files": [
+        "site/src/pages/poisk/index.astro"
+      ],
+      "representative_routes": [
+        "/poisk/"
+      ]
+    },
+    {
+      "id": "archetype.event-detail",
+      "checklist_label": "Страница события",
+      "route_patterns": [
+        "/sobytiya/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "representative_routes": [
+        "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
+        "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
+        "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+      ]
+    },
+    {
+      "id": "archetype.collections",
+      "checklist_label": "Подборки: индекс и detail",
+      "route_patterns": [
+        "/podborki/",
+        "/podborki/:slug/",
+        "/podborki/gastronomiya/"
+      ],
+      "source_files": [
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/pages/podborki/gastronomiya/index.astro"
+      ],
+      "representative_routes": [
+        "/podborki/",
+        "/podborki/besplatnye-sobytiya/",
+        "/podborki/dzhaz-na-vyhodnyh/",
+        "/podborki/gastronomiya/"
+      ]
+    },
+    {
+      "id": "archetype.festivals",
+      "checklist_label": "Фестивали",
+      "route_patterns": [
+        "/festivali/"
+      ],
+      "source_files": [
+        "site/src/pages/festivali/index.astro"
+      ],
+      "representative_routes": [
+        "/festivali/"
+      ]
+    },
+    {
+      "id": "archetype.exhibitions",
+      "checklist_label": "Выставки",
+      "route_patterns": [
+        "/vystavki/"
+      ],
+      "source_files": [
+        "site/src/pages/vystavki/index.astro"
+      ],
+      "representative_routes": [
+        "/vystavki/"
+      ]
+    },
+    {
+      "id": "archetype.interest-clubs",
+      "checklist_label": "Клубы по интересам: индекс и detail",
+      "route_patterns": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+      ],
+      "representative_routes": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/game-vibes/"
+      ]
+    },
+    {
+      "id": "archetype.favorites",
+      "checklist_label": "Избранное",
+      "route_patterns": [
+        "/izbrannoe/"
+      ],
+      "source_files": [
+        "site/src/pages/izbrannoe/index.astro"
+      ],
+      "representative_routes": [
+        "/izbrannoe/"
+      ]
+    },
+    {
+      "id": "archetype.personal-feed",
+      "checklist_label": "Для меня / personal feed",
+      "route_patterns": [
+        "/dlya-menya/"
+      ],
+      "source_files": [
+        "site/src/pages/dlya-menya/index.astro"
+      ],
+      "representative_routes": [
+        "/dlya-menya/"
+      ]
+    },
+    {
+      "id": "archetype.focus-group",
+      "checklist_label": "Фокус-группа",
+      "route_patterns": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "source_files": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+      ],
+      "representative_routes": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ]
+    },
+    {
+      "id": "archetype.artifacts",
+      "checklist_label": "Артефакты / коллекция",
+      "route_patterns": [
+        "/artefakty/"
+      ],
+      "source_files": [
+        "site/src/pages/artefakty/index.astro"
+      ],
+      "representative_routes": [
+        "/artefakty/"
+      ]
+    },
+    {
+      "id": "archetype.information-pages",
+      "checklist_label": "Информационные, партнёрские и legal pages",
+      "route_patterns": [
+        "/partners/",
+        "/partnerstvo/",
+        "/legal/:slug/"
+      ],
+      "source_files": [
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro"
+      ],
+      "representative_routes": [
+        "/partners/",
+        "/partnerstvo/"
+      ]
+    },
+    {
+      "id": "archetype.special-state",
+      "checklist_label": "Prelaunch, закрытая афиша и специальные недоступные состояния",
+      "route_patterns": [
+        "/:home-prelaunch-env/",
+        "/zakrytaya-afisha/",
+        "/:unavailable/"
+      ],
+      "source_files": [
+        "site/src/pages/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "representative_routes": [
+        "/zakrytaya-afisha/"
+      ]
+    }
+  ],
+  "excluded_product_gaps": [
+    {
+      "id": "route.registration",
+      "disposition": "EXCLUDED_PENDING_PRODUCT_CAPABILITY",
+      "reason": "The checklist explicitly forbids materializing registration until capability and source-route contract are accepted."
+    }
+  ]
+}

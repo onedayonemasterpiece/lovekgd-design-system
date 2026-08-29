@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+
+const read = path => JSON.parse(readFileSync(path, 'utf8'));
+const sha = path => createHash('sha256').update(readFileSync(path)).digest('hex');
+const path = 'evidence/round-trip-reconstruction/v1/baseline-closure-receipt.v1.json';
+const receipt = read(path);
+
+assert.equal(receipt.status, 'AS_IS_BASELINE_CLOSED_AUDIT_READY');
+assert.equal(receipt.generation, 'deterministic_from_hash_bound_inputs_no_wall_clock');
+for (const ref of Object.values(receipt.evidence)) assert.equal(sha(ref.path), ref.sha256, ref.path);
+assert.equal(sha(receipt.authority.checklist.path), receipt.authority.checklist.sha256);
+assert.equal(receipt.gates.route_to_archetype.status, 'PASS');
+assert.equal(receipt.gates.route_to_archetype.archetypes, 17);
+assert.equal(receipt.gates.route_to_archetype.cases, 34);
+assert.equal(receipt.gates.exact_case_identity.status, 'PASS');
+assert.equal(receipt.gates.native_penpot.status, 'PASS');
+assert.equal(receipt.gates.native_penpot.pages, 17);
+assert.equal(receipt.gates.native_penpot.boards, 34);
+assert.equal(receipt.gates.native_penpot.validation_errors, 0);
+assert.equal(receipt.gates.native_penpot.service_resources, 0);
+assert.equal(receipt.gates.native_penpot.detached_direct_children, 0);
+assert.equal(receipt.gates.native_penpot.unregistered_terminal_overrides, 0);
+assert.equal(receipt.gates.native_penpot.out_of_bounds_direct_children, 0);
+assert.equal(receipt.gates.astro_browser.status, 'PASS');
+assert.equal(receipt.gates.astro_browser.cases, 34);
+assert.deepEqual(receipt.gates.astro_browser.failed, []);
+assert.equal(receipt.gates.astro_generation_diff.status, 'PASS');
+assert.equal(receipt.gates.astro_generation_diff.production_changes, 0);
+assert.equal(receipt.gates.raster_evidence.compared, 34);
+assert.deepEqual(receipt.gates.raster_evidence.missing, []);
+assert.equal(receipt.gates.owner_review_links.reviewable, 34);
+assert.deepEqual(receipt.gates.owner_review_links.missing, []);
+assert.equal(receipt.gates.idempotent_replay.creates, 0);
+assert.equal(receipt.gates.idempotent_replay.validation_errors, 0);
+assert.equal(receipt.gates.penpot_stability.recurrence_after_guard, 0);
+assert.equal(receipt.next_gates.foundation.status, 'AUDIT_INPUT_READY_NOT_A_FOUNDATION_DECISION');
+assert.equal(receipt.next_gates.foundation.independent_audits_required, 2);
+assert.equal(receipt.next_gates.foundation.canonical_foundation_mutations, 0);
+assert.equal(receipt.next_gates.skeleton_loading_redesign.status, 'AWAITING_SKELETON_ARCHIVE');
+assert.equal(receipt.next_gates.product_atlas_git_sot.status, 'READY_FOR_PARALLEL_GIT_ONLY_PRODUCT_ATLAS_SOT');
+assert.equal(receipt.next_gates.product_atlas_git_sot.penpot_projection, 'NOT_STARTED');
+assert.equal(receipt.next_gates.unified_design_v1.status, 'READY_FOR_BOUNDED_WAVE_1_CANDIDATES');
+assert.ok(Object.values(receipt.prohibitions_preserved).every(value => value === 0));
+console.log(`BASELINE_CLOSURE_PASS ${sha(path)}`);

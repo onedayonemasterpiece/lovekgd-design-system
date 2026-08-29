@@ -1,0 +1,1149 @@
+{
+  "anatomy": [
+    {
+      "order": 1,
+      "part_id": "search.header",
+      "required": true
+    },
+    {
+      "order": 2,
+      "part_id": "search.query-field",
+      "required": true
+    },
+    {
+      "order": 3,
+      "part_id": "search.filters",
+      "required": true
+    },
+    {
+      "order": 4,
+      "part_id": "search.results",
+      "required": true
+    },
+    {
+      "order": 5,
+      "part_id": "search.collection-links",
+      "required": true
+    },
+    {
+      "order": 6,
+      "part_id": "search.identity-gate",
+      "required": true
+    }
+  ],
+  "archetype_id": "archetype.search",
+  "authority_mode": "reconstructed",
+  "canonical": false,
+  "component_dependencies": [
+    {
+      "component_id": "authorization.static-site",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#authorization.static-site",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "authorization.static-site"
+      ]
+    },
+    {
+      "component_id": "core.button",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#core.button",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "core.button"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "core.field",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#core.field",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "core.field"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "listing.event-card.compact",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#listing.event-card.compact",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "listing.event-card.compact"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "runtime.search",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Client/runtime state may change interaction and availability, but must not rewrite the generated semantic anatomy.",
+      "source_identity_ids": [
+        "runtime-boundary:archetype.search"
+      ],
+      "baseline_disposition": "runtime_only",
+      "source_identity_contract": [
+        {
+          "source_identity_id": "runtime-boundary:archetype.search",
+          "source_refs": []
+        }
+      ],
+      "identity_gate": {
+        "status": "NOT_APPLICABLE",
+        "source_identity_count": 1,
+        "all_identities_have_exact_source_refs": false,
+        "reconciliation_proof_ref": null,
+        "reason": null
+      }
+    },
+    {
+      "component_id": "search.collection-links",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#search.collection-links",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "search.collection-links"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "search.query-controller",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#search.query-controller",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "search.query-controller"
+      ],
+      "baseline_disposition": "new_component",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.desktop-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.desktop-header",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.desktop-header"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.event-layout",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.event-layout",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.event-layout"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.footer",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.footer",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.footer"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-bottom-navigation",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-bottom-navigation",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-bottom-navigation"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-header",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-header",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-header"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "shell.mobile-menu",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#shell.mobile-menu",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "shell.mobile-menu"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "system.state-panel",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.state-panel",
+      "dependency_type": "component",
+      "disposition": "unresolved",
+      "required": true,
+      "source_identity_ids": [
+        "system.state-panel"
+      ],
+      "baseline_disposition": "reuse_existing",
+      "source_identity_contract": [],
+      "identity_gate": {
+        "status": "UNRESOLVED",
+        "reason": "component_missing_from_component_graph"
+      }
+    },
+    {
+      "component_id": "system.toast-region",
+      "contract_ref": "catalog/reconstruction-atlas/v1/reuse-new-map.v1.json#system.toast-region",
+      "dependency_type": "runtime_boundary",
+      "disposition": "runtime_only",
+      "required": true,
+      "runtime_boundary": "Runtime-owned behavior; the generated semantic structure remains authoritative.",
+      "source_identity_ids": [
+        "system.toast-region"
+      ]
+    }
+  ],
+  "contract_id": "archetype.search.global-sot-v1",
+  "disposition": "new_component",
+  "dispositions_summary": {
+    "new_component": 3,
+    "reuse_existing": 10,
+    "runtime_only": 3,
+    "unresolved": 0
+  },
+  "final_owner_page": {
+    "key": "final-owner.search",
+    "title": "Search"
+  },
+  "fixture_slots": [
+    {
+      "content_type": "generated-route",
+      "fixture_refs": [
+        "/poisk/"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "generated-route-scenarios"
+    },
+    {
+      "content_type": "semantic-state",
+      "fixture_refs": [
+        "empty",
+        "error",
+        "loading",
+        "retry",
+        "stale"
+      ],
+      "multiplicity": "many",
+      "required": true,
+      "slot_id": "state-scenarios"
+    }
+  ],
+  "foundations_usage": [
+    {
+      "foundation_group": "color",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/semantic_colors",
+      "consumer_archetype": "archetype.search"
+    },
+    {
+      "foundation_group": "typography",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/typography",
+      "consumer_archetype": "archetype.search"
+    },
+    {
+      "foundation_group": "spacing",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/spacing_px",
+      "consumer_archetype": "archetype.search"
+    },
+    {
+      "foundation_group": "radius",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/radius_roles_px",
+      "consumer_archetype": "archetype.search"
+    },
+    {
+      "foundation_group": "breakpoint",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/breakpoints",
+      "consumer_archetype": "archetype.search"
+    },
+    {
+      "foundation_group": "motion",
+      "source_ref": "catalog/reconstruction-atlas/v1/foundations.v1.json#/cross_cutting_contracts/interaction",
+      "consumer_archetype": "archetype.search"
+    }
+  ],
+  "lifecycle": "candidate",
+  "production_deployed": false,
+  "promoted": false,
+  "regions": [
+    {
+      "order": 1,
+      "region_id": "search.header",
+      "required": true,
+      "semantic_role": "search.header"
+    },
+    {
+      "order": 2,
+      "region_id": "search.query-field",
+      "required": true,
+      "semantic_role": "search.query-field"
+    },
+    {
+      "order": 3,
+      "region_id": "search.filters",
+      "required": true,
+      "semantic_role": "search.filters"
+    },
+    {
+      "order": 4,
+      "region_id": "search.results",
+      "required": true,
+      "semantic_role": "search.results"
+    },
+    {
+      "order": 5,
+      "region_id": "search.collection-links",
+      "required": true,
+      "semantic_role": "search.collection-links"
+    },
+    {
+      "order": 6,
+      "region_id": "search.identity-gate",
+      "required": true,
+      "semantic_role": "search.identity-gate"
+    }
+  ],
+  "responsive_branches": [
+    {
+      "branch_id": "desktop",
+      "condition": "desktop breakpoint",
+      "structure": "desktop search controls and result grid"
+    },
+    {
+      "branch_id": "mobile",
+      "condition": "mobile breakpoint",
+      "structure": "mobile search controls and search-specific bottom navigation"
+    }
+  ],
+  "route_contract": {
+    "representative_generated_routes": [
+      "/poisk/"
+    ],
+    "route_patterns": [
+      "/poisk/"
+    ],
+    "source_pages": [
+      "site/src/pages/poisk/index.astro"
+    ]
+  },
+  "schema_version": "global-archetype-semantic-contract.v1",
+  "semantic_notes": [
+    "Runtime behavior may change availability and interaction state but must not alter the declared semantic anatomy.",
+    "A component identity is reused only when its exact source identity is stable; visual similarity alone is not a merge authority."
+  ],
+  "source_lock_id": "global-archetype-sot-v1.corrective.da16dde88122.7774004b48f1",
+  "states": [
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "anonymous"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "authenticated"
+    },
+    {
+      "category": "content",
+      "required": true,
+      "state_id": "empty"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "error"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "idle"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "loading"
+    },
+    {
+      "category": "semantic",
+      "required": true,
+      "state_id": "results"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "retry"
+    },
+    {
+      "category": "runtime",
+      "required": true,
+      "state_id": "stale"
+    }
+  ],
+  "title": "Поиск",
+  "state_evidence_version": "exact-astro-or-browser-computed.v1",
+  "evidence_bound_states": [
+    {
+      "state_id": "search.validation",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 157,
+          "line_end": 157,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "4251dbcfef6600d00d1c7dabf9ace811f40d1609d020ada6a5180ea5011ab8c3"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 246,
+          "line_end": 246,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "68a88260aed6102ffc6573942f6241a5c9f5de9d139b70b78ef46227c4e67279"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 247,
+          "line_end": 247,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "b7c7d077afd1b36d12daf3f57b17774845d065fcbb13318a9368b0cbd65865dc"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.progress",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 59,
+          "line_end": 59,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "084b06341f56f91efaf99b84f6efaa3611538bc0f41b76d808631d2dc0509e75"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 60,
+          "line_end": 60,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "97d77832b4e92766739a114be0f93b2d605854802b80667056b9d39bad63626b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 62,
+          "line_end": 62,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "37c7826e52ba1f981ac79b25b62b07761fecac4b33cc1aa96449c81a7b16c1e6"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.loading",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 507,
+          "line_end": 507,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "95850dd25426f00b6bdea1a62903d32561c1021fbdea5502f65ae8da506f146f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 508,
+          "line_end": 508,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "2fa160bedcc104337b592cfbd2c149c87866cca37c088a5658f4aadb3f485296"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 509,
+          "line_end": 509,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "996272d2b9d9a9141fc7cc5b41be587b8f3fac4cf6c7a10cd105b1b1803e611a"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.results",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 76,
+          "line_end": 76,
+          "evidence_id": "search:search.results",
+          "line_sha256": "f8926987ac6e9d36781e8a4b1e8bbc2acbbc3703fc811f3ccb03f73252916d5b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 106,
+          "line_end": 106,
+          "evidence_id": "search:search.results",
+          "line_sha256": "d2b7ad7496140a2df3c40f88c3bf2d3746b306ea1cdd4d62f87f59f6292d4a6e"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 387,
+          "line_end": 387,
+          "evidence_id": "search:search.results",
+          "line_sha256": "c17af396801dbe6d5a757ba1ae6a47b8bf188ab11d5be6cfa726e3bd42ee7a11"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.empty",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 157,
+          "line_end": 157,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "4251dbcfef6600d00d1c7dabf9ace811f40d1609d020ada6a5180ea5011ab8c3"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 655,
+          "line_end": 655,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "6c7703105fefdc14cd2b0d889001d4abf105376c48fbb396fb8d39114a7b78bd"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 656,
+          "line_end": 656,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "e7854d8ae676a30e599980fd30408f4ffa5365f21781a7a393f22bbd6e34df47"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.error",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 971,
+          "line_end": 971,
+          "evidence_id": "search:search.error",
+          "line_sha256": "e81d83c54f7e651dff5f03ea935df5b166c50fdccc735cc3ffa119abac137904"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1045,
+          "line_end": 1045,
+          "evidence_id": "search:search.error",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1076,
+          "line_end": 1076,
+          "evidence_id": "search:search.error",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.retry",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1073,
+          "line_end": 1073,
+          "evidence_id": "search:search.retry",
+          "line_sha256": "c71e818d2f7bd8718f217f010397c20cc08596ad8c7f23740d5125d21ef271ec"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.stale",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1045,
+          "line_end": 1045,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1076,
+          "line_end": 1076,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1099,
+          "line_end": 1099,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "aabe26c51a44e8f60dc04edb20f0ac32b774e4f11588a57880076b8c3fb1e3f9"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.load-more",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 77,
+          "line_end": 77,
+          "evidence_id": "search:search.load-more",
+          "line_sha256": "5afa584d7b2984643c20fc92fa7ee69e154f15be895e58f63be3af1caadbcac7"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 109,
+          "line_end": 109,
+          "evidence_id": "search:search.load-more",
+          "line_sha256": "42fe3de164fe01526a76506d62d3e2d3af9302392857d7176d563e73666d6605"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.timeout",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 128,
+          "line_end": 128,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "f71c0b047631c06d80dec8b747d8c87d886c24aea0377718b60d932fddfb0e5f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 129,
+          "line_end": 129,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "95b84b17aa318e0aad037c09115ab1fc93614af3fa394b8ce28243fdcc3a04f4"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 130,
+          "line_end": 130,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "6f33b78491d32d360cd1ef1a9c0486957943842a5159632bf64bc421966b9c2e"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.recovery",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1073,
+          "line_end": 1073,
+          "evidence_id": "search:search.recovery",
+          "line_sha256": "c71e818d2f7bd8718f217f010397c20cc08596ad8c7f23740d5125d21ef271ec"
+        }
+      ],
+      "browser_observation_refs": []
+    }
+  ],
+  "unresolved_state_ids": [],
+  "search_lifecycle_states": [
+    {
+      "state_id": "search.validation",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 157,
+          "line_end": 157,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "4251dbcfef6600d00d1c7dabf9ace811f40d1609d020ada6a5180ea5011ab8c3"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 246,
+          "line_end": 246,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "68a88260aed6102ffc6573942f6241a5c9f5de9d139b70b78ef46227c4e67279"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 247,
+          "line_end": 247,
+          "evidence_id": "search:search.validation",
+          "line_sha256": "b7c7d077afd1b36d12daf3f57b17774845d065fcbb13318a9368b0cbd65865dc"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.progress",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 59,
+          "line_end": 59,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "084b06341f56f91efaf99b84f6efaa3611538bc0f41b76d808631d2dc0509e75"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 60,
+          "line_end": 60,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "97d77832b4e92766739a114be0f93b2d605854802b80667056b9d39bad63626b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 62,
+          "line_end": 62,
+          "evidence_id": "search:search.progress",
+          "line_sha256": "37c7826e52ba1f981ac79b25b62b07761fecac4b33cc1aa96449c81a7b16c1e6"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.loading",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 507,
+          "line_end": 507,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "95850dd25426f00b6bdea1a62903d32561c1021fbdea5502f65ae8da506f146f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 508,
+          "line_end": 508,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "2fa160bedcc104337b592cfbd2c149c87866cca37c088a5658f4aadb3f485296"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 509,
+          "line_end": 509,
+          "evidence_id": "search:search.loading",
+          "line_sha256": "996272d2b9d9a9141fc7cc5b41be587b8f3fac4cf6c7a10cd105b1b1803e611a"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.results",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 76,
+          "line_end": 76,
+          "evidence_id": "search:search.results",
+          "line_sha256": "f8926987ac6e9d36781e8a4b1e8bbc2acbbc3703fc811f3ccb03f73252916d5b"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 106,
+          "line_end": 106,
+          "evidence_id": "search:search.results",
+          "line_sha256": "d2b7ad7496140a2df3c40f88c3bf2d3746b306ea1cdd4d62f87f59f6292d4a6e"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 387,
+          "line_end": 387,
+          "evidence_id": "search:search.results",
+          "line_sha256": "c17af396801dbe6d5a757ba1ae6a47b8bf188ab11d5be6cfa726e3bd42ee7a11"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.empty",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 157,
+          "line_end": 157,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "4251dbcfef6600d00d1c7dabf9ace811f40d1609d020ada6a5180ea5011ab8c3"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 655,
+          "line_end": 655,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "6c7703105fefdc14cd2b0d889001d4abf105376c48fbb396fb8d39114a7b78bd"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 656,
+          "line_end": 656,
+          "evidence_id": "search:search.empty",
+          "line_sha256": "e7854d8ae676a30e599980fd30408f4ffa5365f21781a7a393f22bbd6e34df47"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.error",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 971,
+          "line_end": 971,
+          "evidence_id": "search:search.error",
+          "line_sha256": "e81d83c54f7e651dff5f03ea935df5b166c50fdccc735cc3ffa119abac137904"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1045,
+          "line_end": 1045,
+          "evidence_id": "search:search.error",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1076,
+          "line_end": 1076,
+          "evidence_id": "search:search.error",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.retry",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1073,
+          "line_end": 1073,
+          "evidence_id": "search:search.retry",
+          "line_sha256": "c71e818d2f7bd8718f217f010397c20cc08596ad8c7f23740d5125d21ef271ec"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.stale",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1045,
+          "line_end": 1045,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1076,
+          "line_end": 1076,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "ccb1c6ef81792db114e2af3314eee2e7ec840d1a01d277cc8b6f35f266bd906f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1099,
+          "line_end": 1099,
+          "evidence_id": "search:search.stale",
+          "line_sha256": "aabe26c51a44e8f60dc04edb20f0ac32b774e4f11588a57880076b8c3fb1e3f9"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.load-more",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 77,
+          "line_end": 77,
+          "evidence_id": "search:search.load-more",
+          "line_sha256": "5afa584d7b2984643c20fc92fa7ee69e154f15be895e58f63be3af1caadbcac7"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 109,
+          "line_end": 109,
+          "evidence_id": "search:search.load-more",
+          "line_sha256": "42fe3de164fe01526a76506d62d3e2d3af9302392857d7176d563e73666d6605"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.timeout",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 128,
+          "line_end": 128,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "f71c0b047631c06d80dec8b747d8c87d886c24aea0377718b60d932fddfb0e5f"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 129,
+          "line_end": 129,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "95b84b17aa318e0aad037c09115ab1fc93614af3fa394b8ce28243fdcc3a04f4"
+        },
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 130,
+          "line_end": 130,
+          "evidence_id": "search:search.timeout",
+          "line_sha256": "6f33b78491d32d360cd1ef1a9c0486957943842a5159632bf64bc421966b9c2e"
+        }
+      ],
+      "browser_observation_refs": []
+    },
+    {
+      "state_id": "search.recovery",
+      "disposition": "observed",
+      "materialization_eligible": true,
+      "source_refs": [
+        {
+          "repository": "onedayonemasterpiece/events-bot-new",
+          "commit": "7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00",
+          "path": "site/src/components/AuthorizedEventSearch.astro",
+          "line_start": 1073,
+          "line_end": 1073,
+          "evidence_id": "search:search.recovery",
+          "line_sha256": "c71e818d2f7bd8718f217f010397c20cc08596ad8c7f23740d5125d21ef271ec"
+        }
+      ],
+      "browser_observation_refs": []
+    }
+  ]
+}

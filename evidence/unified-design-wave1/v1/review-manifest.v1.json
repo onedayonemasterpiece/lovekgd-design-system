@@ -1,0 +1,228 @@
+{
+  "schema_version": "unified-design-wave1.review-manifest.v1",
+  "status": "WAVE1_REVIEWABLE_NOT_ACCEPTED",
+  "authority": {
+    "baseline_receipt": {
+      "path": "evidence/round-trip-reconstruction/v1/baseline-closure-receipt.v1.json",
+      "sha256": "1de2dd5c0504abc3e1fb67502e22965a5c8a529c8791b5be9b537959fa4138c6"
+    },
+    "candidate_manifest": {
+      "path": "catalog/unified-design-wave1/v1/manifest.v1.json",
+      "sha256": "58a28f1b8faacbfa39105b6da20f0f54301f345392601a57b8afa88a3958781e"
+    },
+    "penpot_readback": {
+      "path": "evidence/unified-design-wave1/v1/penpot-readback.v1.json",
+      "sha256": "55ba6800b5be9d0598a036f6dc2458773cb876e7a78c8595cf40a0c12cd8ff02"
+    },
+    "penpot": {
+      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+      "revision": 2479,
+      "validation": []
+    }
+  },
+  "review_policy": {
+    "order": "listed_case_order",
+    "comparison_layout": "baseline_above_candidate_for_square_readability",
+    "exact_native_penpot_boards": true,
+    "astro_candidate_before_owner_acceptance": false,
+    "telegram_publication_required_for_this_gate": false
+  },
+  "coverage": {
+    "patterns": 3,
+    "pages": 3,
+    "cases": 6,
+    "desktop": 3,
+    "mobile": 3,
+    "missing": []
+  },
+  "cases": [
+    {
+      "case_id": "01.search-nav.desktop",
+      "pattern_id": "pattern.desktop-search-navigation.candidate-v1",
+      "viewport": "desktop",
+      "consumer": "archetype.search + shared shell",
+      "layout": "baseline_above_candidate",
+      "review_question": "Add a bounded desktop Search entry without replacing route navigation.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89bf021cf5fd",
+        "page_name": "64.01 — Unified v1 · Search + navigation",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89bf5cd003a3",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf021cf5fd&board-id=8e7accff-5c78-8007-8008-89bf5cd003a3",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89bf5c941649",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf021cf5fd&board-id=8e7accff-5c78-8007-8008-89bf5c941649",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.search-nav.desktop.baseline.png",
+          "sha256": "a123eca012f5f554b31bf9158dc46d876fb1132c2b2b72ca8d1161c30d0140db"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.search-nav.desktop.candidate.png",
+          "sha256": "95603e184f7cbf6d1818dfc42d67e1e40b5aa8312ec7cf5ad21f59115eb82d79"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/01.search-nav.desktop.baseline-above-candidate.png",
+        "sha256": "8bc9df477e4c2a28ff2d80aad9eb4c3521951b5c85dc210112271ba6147ed267"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    },
+    {
+      "case_id": "02.search-nav.mobile",
+      "pattern_id": "pattern.desktop-search-navigation.candidate-v1",
+      "viewport": "mobile",
+      "consumer": "archetype.search + shared shell",
+      "layout": "baseline_above_candidate",
+      "review_question": "Keep the existing mobile Search destination; do not invent a second navigation pattern.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89bf021cf5fd",
+        "page_name": "64.01 — Unified v1 · Search + navigation",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89bf5cf408ab",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf021cf5fd&board-id=8e7accff-5c78-8007-8008-89bf5cf408ab",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89bf5d24d35e",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf021cf5fd&board-id=8e7accff-5c78-8007-8008-89bf5d24d35e",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.search-nav.mobile.baseline.png",
+          "sha256": "e05a455c0d891f2d5c7ea9ce163113d45ae0d6c2d092fa8e872e924b90d2ebdd"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.search-nav.mobile.candidate.png",
+          "sha256": "1752516ba32aeeaa625716745b6ea88da91be2e0c4ad1471f27570eacd88e4de"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/02.search-nav.mobile.baseline-above-candidate.png",
+        "sha256": "e648667cf02d4f3304b5005ea6c76cede1c9be749187224cfeab86c500d8142e"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    },
+    {
+      "case_id": "03.selectors.desktop",
+      "pattern_id": "pattern.responsive-context-selector.candidate-v1",
+      "viewport": "desktop",
+      "consumer": "archetype.listing.date",
+      "layout": "baseline_above_candidate",
+      "review_question": "Unify date, place and ordering as explicit desktop context controls.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89bf7fa6b295",
+        "page_name": "64.02 — Unified v1 · Responsive selectors",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89bfed3fec6e",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf7fa6b295&board-id=8e7accff-5c78-8007-8008-89bfed3fec6e",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89bfec3c8ee0",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf7fa6b295&board-id=8e7accff-5c78-8007-8008-89bfec3c8ee0",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.selectors.desktop.baseline.png",
+          "sha256": "3e45258a3147b04b48f94d34c7b19c33ea945e3da954b08bf5c487fa5a2ad1dd"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.selectors.desktop.candidate.png",
+          "sha256": "883886cec48aa83b8e0c421a5813b77931b3f4cea3099a05f4a566ffe6dc2e4e"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/03.selectors.desktop.baseline-above-candidate.png",
+        "sha256": "908383c67d6960e64c142eac419cc15ca0fb881e789b29dc4ae431d86f3a8981"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    },
+    {
+      "case_id": "04.selectors.mobile",
+      "pattern_id": "pattern.responsive-context-selector.candidate-v1",
+      "viewport": "mobile",
+      "consumer": "archetype.listing.date",
+      "layout": "baseline_above_candidate",
+      "review_question": "Preserve the date rail and expose place/ordering as two mobile sheet triggers.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89bf7fa6b295",
+        "page_name": "64.02 — Unified v1 · Responsive selectors",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89bfed5e5489",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf7fa6b295&board-id=8e7accff-5c78-8007-8008-89bfed5e5489",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89bfece6f86a",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89bf7fa6b295&board-id=8e7accff-5c78-8007-8008-89bfece6f86a",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.selectors.mobile.baseline.png",
+          "sha256": "8b5c7ce7cdfb5cd46e35685ad212c7df1d37acda5341f933745300da605b1891"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.selectors.mobile.candidate.png",
+          "sha256": "f92d222cda656b1e6e6d8aff54591dd3bd1c66d3bbd381096e5340d4c3443827"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/04.selectors.mobile.baseline-above-candidate.png",
+        "sha256": "fa434382ccf5355eb0acedc13a92a2a2c026852b5f2379b7e9e03717bf7a38c2"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    },
+    {
+      "case_id": "05.floating.desktop",
+      "pattern_id": "pattern.floating-action-island.candidate-v1",
+      "viewport": "desktop",
+      "consumer": "archetype.event-detail",
+      "layout": "baseline_above_candidate",
+      "review_question": "Use one linked sticky-capable Event Detail action island.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89c00a062ffc",
+        "page_name": "64.03 — Unified v1 · Floating action island",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89c091bcde50",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89c00a062ffc&board-id=8e7accff-5c78-8007-8008-89c091bcde50",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89c0907d9643",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89c00a062ffc&board-id=8e7accff-5c78-8007-8008-89c0907d9643",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.floating.desktop.baseline.png",
+          "sha256": "e7c34952c07c3a54c61fa176fbbcfd650d901d990b5ca8b6cb539656fffb8aa8"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.floating.desktop.candidate.png",
+          "sha256": "cda9523e15c23463960bbaab9816aaf5727de5a805236a8f63a09bc413d2d4a0"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/05.floating.desktop.baseline-above-candidate.png",
+        "sha256": "0abd4ba9e1ffc3b8cbd16cf45226dc8abc4c1fb55d8f6dc1065f7fd22b8016c6"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    },
+    {
+      "case_id": "06.floating.mobile",
+      "pattern_id": "pattern.floating-action-island.candidate-v1",
+      "viewport": "mobile",
+      "consumer": "archetype.event-detail",
+      "layout": "baseline_above_candidate",
+      "review_question": "Use the same semantic actions in a bottom-safe mobile island without covering content.",
+      "penpot": {
+        "page_id": "8e7accff-5c78-8007-8008-89c00a062ffc",
+        "page_name": "64.03 — Unified v1 · Floating action island",
+        "baseline_board_id": "8e7accff-5c78-8007-8008-89c091fac511",
+        "baseline_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89c00a062ffc&board-id=8e7accff-5c78-8007-8008-89c091fac511",
+        "candidate_board_id": "8e7accff-5c78-8007-8008-89c09120e978",
+        "candidate_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=8e7accff-5c78-8007-8008-89c00a062ffc&board-id=8e7accff-5c78-8007-8008-89c09120e978",
+        "baseline_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.floating.mobile.baseline.png",
+          "sha256": "cfa6d4480f5f5a9688ecf9efd5d865c7db1d628f0ebbe43276db4574ff863170"
+        },
+        "candidate_export": {
+          "path": "evidence/unified-design-wave1/v1/penpot/wave1.floating.mobile.candidate.png",
+          "sha256": "47ac49c58dca6a4af9ba243e0e8a53738a36a5c1d50c027908c8ceb7dbc235f7"
+        }
+      },
+      "comparison": {
+        "path": "evidence/unified-design-wave1/v1/comparisons/06.floating.mobile.baseline-above-candidate.png",
+        "sha256": "ebe896947c4577c6f8431f1d413b36468c1efa2136eb9291266d5e84c34973f6"
+      },
+      "status": "AWAITING_OWNER_REVIEW"
+    }
+  ],
+  "explicit_non_applicability": {
+    "pattern.floating-action-island.candidate-v1": {
+      "archetype.listing.date": "not_applicable_actions_belong_to_cards",
+      "archetype.search": "not_applicable_no_persistent_primary_action"
+    }
+  },
+  "preserved_boundaries": {
+    "new_foundation_tokens": 0,
+    "canonical_foundation_mutations": 0,
+    "production_astro_changes": 0,
+    "product_atlas_penpot_dashboards": 0,
+    "service_boards": 0,
+    "full_page_screenshot_proxies": 0
+  }
+}
