@@ -2,7 +2,7 @@
   "schema_version": "collection-free-ov44-owner-exact.v1",
   "contract_id": "recovery.ov-44.collection.free.owner-exact.v1",
   "review_item": "OV-44",
-  "status": "CORRECTION_MATERIALIZED_FULL_VISUAL_QA_PASS_OWNER_REREVIEW_REQUIRED",
+  "status": "CORRECTION_MATERIALIZED_CANONICAL_CARDS_AND_SCROLL_STATES_STRUCTURAL_PASS_OWNER_REREVIEW_REQUIRED",
   "processed": false,
   "authority": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
@@ -11,18 +11,36 @@
   },
   "astro": {
     "repository": "onedayonemasterpiece/events-bot-new",
-    "commit": "49c351873d40a2ea55f0a32837c7376e344d9c17",
+    "commit": "52e220fc112d020b0a979de4ffa0101a3be6d76b",
     "route": "/podborki/besplatnye-sobytiya/",
     "route_source": "site/src/pages/podborki/[slug]/index.astro",
     "surface_source": "site/src/components/FreeCollectionSurface.astro",
     "fixture_source": "site/src/data/searchCollections.ts",
     "catalog_build_id": "preview-20260723-unified-corrections-r1",
     "catalog_current_date": "2026-07-23",
-    "browser_evidence": "evidence/recovery-20260828/astro/ov44-free-collection-browser-evidence.v1.json",
+    "browser_evidence": "evidence/recovery-20260829/astro/ov44-free-collection-centralized-card-scroll-evidence.v1.json",
     "tests": [
       "site/tests/free-collection-surface.test.mjs",
       "site/tests/search-learning.test.mjs",
       "site/scripts/check-production.mjs"
+    ],
+    "source_snapshots": [
+      {
+        "path": "site/src/pages/podborki/[slug]/index.astro",
+        "sha256": "374db59147e8001e24d364d1181114ff41eff4bb9e8653f40a9e5a06b7b0c055"
+      },
+      {
+        "path": "site/src/components/FreeCollectionSurface.astro",
+        "sha256": "8a89de1d80dfcc10dcdf67d27d73e597d535206356fdf7e1db445dbac7b30836"
+      },
+      {
+        "path": "site/src/components/OptimizedEventCardGrid.astro",
+        "sha256": "04fbf534c2aef5512b8919ed0657fb771dd42abca4bf057360c465a188985a33"
+      },
+      {
+        "path": "site/src/data/searchCollections.ts",
+        "sha256": "6a712f01d7b6dab7ac94d023c13b51e3ff4fdf04bcd687d0b2559dfb8b9cd495"
+      }
     ]
   },
   "collection": {
@@ -43,42 +61,30 @@
       "title": "Праздник непослушания",
       "href": "/sobytiya/prazdnik-neposlushaniya-kaliningrad-7030/",
       "image": "https://static.kenigevents.ru/p/image/v2/4c/4c067daf59dcdf244a89768e1d9e88168fd0c727e38732eb707fee4f29000960.webp",
-      "image_width": 2236,
-      "image_height": 1521,
-      "image_fit": "contain",
-      "image_position": "50% 50%",
       "event_type": "встреча",
       "occurrence": "23 июля 12:00",
       "price": "Бесплатно · вход свободный",
       "place": "Калининград · Научная библиотека"
     },
     {
-      "event_id": 6947,
-      "title": "Лекция Жизнь и боль Фриды Кало",
-      "href": "/sobytiya/lektsiya-zhizn-i-bol-fridy-kalo-gusev-6947/",
-      "image": "https://static.kenigevents.ru/p/image/v2/78/78a2911e04c3ce4c2d34de8081ebe0c481028b693d450cd10cf5f9ec35201614.webp",
-      "image_width": 1280,
-      "image_height": 1280,
-      "image_fit": "contain",
-      "image_position": "50% 50%",
-      "event_type": "лекция",
-      "occurrence": "23 июля 18:00",
-      "price": "Бесплатно · вход свободный",
-      "place": "Гусев · кафе «АРТеФАКТ39»"
-    },
-    {
       "event_id": 7006,
       "title": "Открытая лекция по Трансцендентальной Медитации",
       "href": "/sobytiya/otkrytaya-lektsiya-po-transtsendentalnoy-meditatsii-kaliningrad-7006/",
       "image": "https://static.kenigevents.ru/p/image/v2/af/af810be081f4302e13a70dedc4ddd988026db5113a569c3352a7eb2eac4da851.webp",
-      "image_width": 960,
-      "image_height": 1280,
-      "image_fit": "cover",
-      "image_position": "50% 60%",
       "event_type": "лекция",
       "occurrence": "23 июля 18:00",
       "price": "Бесплатно · регистрация",
       "place": "Калининград · ТЦ «Панорама»"
+    },
+    {
+      "event_id": 6901,
+      "title": "Презентация сборника «Поправка на дрейф»",
+      "href": "/sobytiya/prezentatsiya-sbornika-popravka-na-dreyf-kaliningrad-6901/",
+      "image": "https://static.kenigevents.ru/p/dh16/20/2061604150591030203300308030803345324933103126075a33180358010013.webp",
+      "event_type": "встреча",
+      "occurrence": "23 июля 18:30",
+      "price": "Бесплатно · вход свободный",
+      "place": "Калининград · Научная библиотека"
     }
   ],
   "responsive_contract": {
@@ -93,8 +99,8 @@
         "width": 1180,
         "height": 500.78125
       },
-      "card_columns": 2,
-      "representative_card_width": 533.796875,
+      "card_columns": 3,
+      "representative_card_width": 347.328125,
       "large_medallion_size": 294.390625
     },
     "mobile": {
@@ -121,8 +127,8 @@
     "page_name": "63.08 — Atlas · Collections",
     "desktop_owner_id": "d87e18f1-dcb4-80a6-8008-880c4a6d708e",
     "mobile_owner_id": "d87e18f1-dcb4-80a6-8008-880c4cb4c4e6",
-    "materialization_status": "DESKTOP_AND_MOBILE_NATIVE_READBACK_AND_VISUAL_QA_PASS",
-    "revision": 2703,
+    "materialization_status": "DESKTOP_AND_MOBILE_TOP_AND_SCROLLED_NATIVE_STRUCTURAL_READBACK_PASS",
+    "revision": 2889,
     "saved_version": {
       "label": "OV44 collections · real Free collection desktop mobile",
       "created_at": "2026-08-28T21:32:48.670Z"
@@ -139,14 +145,127 @@
         "viewport=mobile;scroll=hero-passed;identity=free"
       ],
       "source_asset": "https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/49c351873d40a2ea55f0a32837c7376e344d9c17/site/public/assets/badges/free-listing-medallion.svg",
-      "rule": "The top-of-page owner projection keeps the compact identity hidden; separate native scroll-crossed state components prove the persistent identity without falsely showing both large and compact medallions at once."
+      "rule": "The top-of-page owner projection keeps the compact identity hidden; separate native scroll-crossed state components prove the persistent identity without falsely showing both large and compact medallions at once.",
+      "owner_components": {
+        "desktop": {
+          "componentId": "8f804431-c282-8075-8008-8e6128cb8d22",
+          "mainId": "8f804431-c282-8075-8008-8e6126184298",
+          "stickyComponentId": "8f804431-c282-8075-8008-8dd2147e11d9",
+          "stickyInstanceId": "8f804431-c282-8075-8008-8e61285fc3b2",
+          "bodyOffsetY": -663,
+          "sticky": {
+            "x": 990,
+            "y": 57,
+            "width": 240,
+            "height": 96,
+            "medallion": 58
+          }
+        },
+        "mobile": {
+          "componentId": "8f804431-c282-8075-8008-8e613d7e5ba1",
+          "mainId": "8f804431-c282-8075-8008-8e6139fa8b0b",
+          "stickyComponentId": "8f804431-c282-8075-8008-8dd219a35813",
+          "stickyInstanceId": "8f804431-c282-8075-8008-8e613c5f2553",
+          "bodyOffsetY": -476,
+          "sticky": {
+            "x": 138,
+            "y": 64,
+            "width": 240,
+            "height": 96,
+            "medallion": 50
+          }
+        }
+      }
     },
     "fixture_adapter_rule": "Each representative card is a native exact-data adapter around a linked canonical EventCard large instance. Exact poster, title, occurrence, price and place are source-bound in the adapter; owner projections contain no detached card copies.",
     "detached_cards_allowed": 0,
     "visual_evidence": {
-      "desktop": {"path": "evidence/recovery-20260828/penpot/ov44-free-collection-desktop-source-exact.png", "dimensions": [320, 300], "sha256": "62cb21b74202dc8fd5438e2209a3fb23168aae3112c841287219bcfd405d3e15"},
-      "mobile": {"path": "evidence/recovery-20260828/penpot/ov44-free-collection-mobile-source-exact.png", "dimensions": [98, 300], "sha256": "5d406a06508bb6b6825c3077fb7001b6ecd4f4cd5150cf46196d660216e2d18d"},
-      "owner_acceptance": "NOT_CLAIMED"
+      "desktop": {
+        "path": "evidence/recovery-20260828/penpot/ov44-free-collection-desktop-source-exact.png",
+        "dimensions": [
+          320,
+          300
+        ],
+        "sha256": "62cb21b74202dc8fd5438e2209a3fb23168aae3112c841287219bcfd405d3e15"
+      },
+      "mobile": {
+        "path": "evidence/recovery-20260828/penpot/ov44-free-collection-mobile-source-exact.png",
+        "dimensions": [
+          98,
+          300
+        ],
+        "sha256": "5d406a06508bb6b6825c3077fb7001b6ecd4f4cd5150cf46196d660216e2d18d"
+      },
+      "owner_acceptance": "NOT_CLAIMED",
+      "current_revision_note": "Revision 2889 readback proves corrected media-first canonical card lineage, three desktop columns, one mobile column, and explicit linked desktop/mobile hero-passed owners. Penpot export service returned HTTP 504; no new visual acceptance is claimed.",
+      "previous_exports_status": "SUPERSEDED_BY_CANONICAL_CARD_REPAIR"
+    },
+    "current_structural_readback": {
+      "revision": 2889,
+      "desktop": {
+        "owner": "d87e18f1-dcb4-80a6-8008-880c4a6d708e",
+        "body": "8f804431-c282-8075-8008-8dd235c207c6",
+        "hero": "8f804431-c282-8075-8008-8dd235c207c8",
+        "medallion": "8f804431-c282-8075-8008-8dd235c24118",
+        "results": "8f804431-c282-8075-8008-8dd235c2411a",
+        "linked_event_cards": 3,
+        "card_columns": 3,
+        "representative_event_ids": [
+          7030,
+          7006,
+          6901
+        ]
+      },
+      "mobile": {
+        "owner": "d87e18f1-dcb4-80a6-8008-880c4cb4c4e6",
+        "body": "8f804431-c282-8075-8008-8dd244bb9dff",
+        "hero": "8f804431-c282-8075-8008-8dd244bb9e01",
+        "medallion": "8f804431-c282-8075-8008-8dd244bb9e08",
+        "results": "8f804431-c282-8075-8008-8dd244bbee80",
+        "linked_event_cards": 3,
+        "card_columns": 1,
+        "representative_event_ids": [
+          7030,
+          7006,
+          6901
+        ]
+      },
+      "scrolled_owners": {
+        "desktop": {
+          "componentId": "8f804431-c282-8075-8008-8e6128cb8d22",
+          "mainId": "8f804431-c282-8075-8008-8e6126184298",
+          "stickyComponentId": "8f804431-c282-8075-8008-8dd2147e11d9",
+          "stickyInstanceId": "8f804431-c282-8075-8008-8e61285fc3b2",
+          "bodyOffsetY": -663,
+          "sticky": {
+            "x": 990,
+            "y": 57,
+            "width": 240,
+            "height": 96,
+            "medallion": 58
+          }
+        },
+        "mobile": {
+          "componentId": "8f804431-c282-8075-8008-8e613d7e5ba1",
+          "mainId": "8f804431-c282-8075-8008-8e6139fa8b0b",
+          "stickyComponentId": "8f804431-c282-8075-8008-8dd219a35813",
+          "stickyInstanceId": "8f804431-c282-8075-8008-8e613c5f2553",
+          "bodyOffsetY": -476,
+          "sticky": {
+            "x": 138,
+            "y": 64,
+            "width": 240,
+            "height": 96,
+            "medallion": 50
+          }
+        }
+      },
+      "canonical_card_lineage": {
+        "desktop": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
+        "mobile": "7f078c80-87b8-80f5-8008-85839e8975f6",
+        "rejected_quarantined_dynamic_experiment": "b0fe69fd-ccaf-8025-8008-844b666fe76c"
+      },
+      "validation": []
     }
   }
 }

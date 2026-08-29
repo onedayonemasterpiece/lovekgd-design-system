@@ -22,6 +22,7 @@ const MOBILE_NAV_ID = 'a21f5e36-5d76-8065-8008-86aec0a54bb5';
 const FIXTURE_PATH = 'Collections / Free / EventCard fixture adapter';
 const BODY_PATH = 'Collections / Free / Page body';
 const STICKY_PATH = 'Collections / Free / Sticky identity';
+const SCROLLED_PATH = 'Archetype / Collections / Scrolled state';
 const MEDALLION_SOURCE_URL = 'https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/49c351873d40a2ea55f0a32837c7376e344d9c17/site/public/assets/badges/free-listing-medallion.svg';
 
 const EVENTS = {
@@ -33,12 +34,16 @@ const EVENTS = {
     place: 'Калининград · Научная библиотека',
     image: 'https://static.kenigevents.ru/p/image/v2/4c/4c067daf59dcdf244a89768e1d9e88168fd0c727e38732eb707fee4f29000960.webp',
     template: {
-      desktop: 'b0fe69fd-ccaf-8025-8008-844b666fe76c',
+      desktop: 'b0fe69fd-ccaf-8025-8008-846f0b7f12cd',
       mobile: '7f078c80-87b8-80f5-8008-85839e8975f6',
     },
     geometry: {
-      desktop: [533.796875, 746.765625],
-      mobile: [340, 462.734375],
+      desktop: [347.328125, 511.65625],
+      mobile: [340, 477.828125],
+    },
+    anatomy: {
+      desktop: { media: 235.890625, body: 156.015625, utility: 58, feedback: 56 },
+      mobile: { media: 230.90625, body: 127.171875, utility: 58, feedback: 56 },
     },
   },
   6947: {
@@ -49,12 +54,16 @@ const EVENTS = {
     place: 'Гусев · кафе «АРТеФАКТ39»',
     image: 'https://static.kenigevents.ru/p/image/v2/78/78a2911e04c3ce4c2d34de8081ebe0c481028b693d450cd10cf5f9ec35201614.webp',
     template: {
-      desktop: 'b0fe69fd-ccaf-8025-8008-844b666fe76c',
+      desktop: 'b0fe69fd-ccaf-8025-8008-846f0b7f12cd',
       mobile: '7f078c80-87b8-80f5-8008-85839e8975f6',
     },
     geometry: {
-      desktop: [533.8125, 746.765625],
-      mobile: [340, 588.625],
+      desktop: [347.328125, 511.65625],
+      mobile: [340, 495.625],
+    },
+    anatomy: {
+      desktop: { media: 235.890625, body: 156.015625, utility: 58, feedback: 56 },
+      mobile: { media: 230.90625, body: 144.96875, utility: 58, feedback: 56 },
     },
   },
   7006: {
@@ -65,15 +74,41 @@ const EVENTS = {
     place: 'Калининград · ТЦ «Панорама»',
     image: 'https://static.kenigevents.ru/p/image/v2/af/af810be081f4302e13a70dedc4ddd988026db5113a569c3352a7eb2eac4da851.webp',
     template: {
-      desktop: 'b0fe69fd-ccaf-8025-8008-844b666fe76c',
+      desktop: 'b0fe69fd-ccaf-8025-8008-846f0b7f12cd',
       mobile: '7f078c80-87b8-80f5-8008-85839e8975f6',
     },
     geometry: {
-      desktop: [533.796875, 663.703125],
-      mobile: [340, 521.015625],
+      desktop: [347.328125, 511.65625],
+      mobile: [340, 495.625],
+    },
+    anatomy: {
+      desktop: { media: 235.890625, body: 156.015625, utility: 58, feedback: 56 },
+      mobile: { media: 230.90625, body: 144.96875, utility: 58, feedback: 56 },
+    },
+  },
+  6901: {
+    title: 'Презентация сборника «Поправка на дрейф»',
+    type: 'встреча',
+    occurrence: '23 июля 18:30',
+    price: 'Бесплатно · вход свободный',
+    place: 'Калининград · Научная библиотека',
+    image: 'https://static.kenigevents.ru/p/dh16/20/2061604150591030203300308030803345324933103126075a33180358010013.webp',
+    template: {
+      desktop: 'b0fe69fd-ccaf-8025-8008-846f0b7f12cd',
+      mobile: '7f078c80-87b8-80f5-8008-85839e8975f6',
+    },
+    geometry: {
+      desktop: [347.34375, 511.65625],
+      mobile: [340, 495.625],
+    },
+    anatomy: {
+      desktop: { media: 235.90625, body: 156.015625, utility: 58, feedback: 56 },
+      mobile: { media: 230.90625, body: 144.96875, utility: 58, feedback: 56 },
     },
   },
 };
+
+const REPRESENTATIVE_EVENTS = [7030, 7006, 6901];
 
 const BODY_NAME = {
   desktop: 'viewport=desktop;collection=free;fixture=2026-07-23',
@@ -209,6 +244,113 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     }
   }
 
+  /**
+   * Repairs the OV-44 adapter in place after owner review proved that the old
+   * `844b666f` dynamic experiment had body-before-media anatomy. The adapter
+   * remains data-only: its one nested card root is a linked instance of the
+   * certified media-first EventCard family; only exact content, media and the
+   * surface-owned used geometry are overridden.
+   */
+  async function repairCardAdapter(eventId, viewport) {
+    assertContext();
+    const spec = EVENTS[eventId];
+    if (!spec || !['desktop', 'mobile'].includes(viewport)) throw new Error(`unknown OV-44 card ${eventId}/${viewport}`);
+    const adapter = componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport));
+    const template = componentById(spec.template[viewport]);
+    if (!adapter || !template) throw new Error(`missing adapter/template for ${eventId}/${viewport}`);
+    const uploaded = await penpot.uploadMediaUrl(`OV44 repaired event.real.${eventId}`, spec.image);
+    const wrapper = adapter.mainInstance();
+    const [width, height] = spec.geometry[viewport];
+    const anatomy = spec.anatomy[viewport];
+    const block = penpot.history.undoBlockBegin();
+    try {
+      for (const child of [...wrapper.children]) child.remove();
+      wrapper.resize(width, height);
+      wrapper.clipContent = false;
+      const card = template.instance();
+      card.name = `linked EventCard certified media-first / event.real.${eventId} / collection=free / ${viewport}`;
+      wrapper.appendChild(card);
+      place(card, 0, 0, width, height);
+
+      const cardShapes = walk(card);
+      const byName = (pattern) => cardShapes.find((shape) => pattern.test(shape.name));
+      const surface = byName(/^Card surface \/ dark/);
+      const media = byName(/^linked Event media frame/);
+      const artwork = byName(/^Content \/ media artwork override/);
+      const body = byName(/^Content \/ body/);
+      const title = byName(/^Content \/ Event title$/);
+      const meta = byName(/^Meta \/ wrap row$/);
+      const placeClip = byName(/^Content \/ Event place \/ one-line clip$/);
+      const placeText = byName(/^Content \/ Event place$/);
+      const primary = byName(/^Actions \/ primary row$/);
+      const feedback = byName(/^Actions \/ feedback row \/ transparent$/);
+      if (![surface, media, artwork, body, title, meta, placeClip, placeText, primary, feedback].every(Boolean)) {
+        throw new Error(`certified EventCard anatomy incomplete for ${eventId}/${viewport}`);
+      }
+
+      const surfaceHeight = anatomy.media + anatomy.body + anatomy.utility;
+      place(surface, 0, 0, width, surfaceHeight);
+      place(media, 0, 0, width, anatomy.media);
+      place(artwork, 0, 0, width, anatomy.media);
+      place(body, 0, anatomy.media, width, anatomy.body);
+      const inset = 13.6;
+      const titleHeight = eventId === 7030
+        ? (viewport === 'desktop' ? 37.484375 : 17.796875)
+        : (viewport === 'desktop' ? 46.625 : 35.59375);
+      const metaHeight = viewport === 'desktop' ? 28 : 51.390625;
+      place(title, inset, inset, width - inset * 2, titleHeight);
+      place(meta, inset, inset + titleHeight + 8, width - inset * 2, metaHeight);
+      place(placeClip, inset, inset + titleHeight + 8 + metaHeight + 8, width - inset * 2, 17.203125);
+      place(placeText, 0, 0, width - inset * 2, 17.203125);
+      place(primary, 0, anatomy.media + anatomy.body, width, anatomy.utility);
+      place(feedback, 0, height - anatomy.feedback, width, anatomy.feedback);
+
+      overrideExactText(card, /^Content \/ Event title$/, spec.title);
+      overrideExactText(card, /^Label \/ instance content$/, spec.type);
+      overrideExactText(card, /^(?:Content \/ Event occurrence|schedule)$/, spec.occurrence);
+      overrideExactText(card, /^Value \/ instance content$/, spec.price);
+      overrideExactText(card, /^Content \/ Event place$/, spec.place);
+      artwork.fills = artwork.fills.map((fill) => fill.fillImage
+        ? { ...fill, fillImage: uploaded, fillOpacity: 1 }
+        : fill);
+      return {
+        adapterId: adapter.id,
+        adapterMainId: wrapper.id,
+        linkedTemplateId: card.component()?.id,
+        linkedTemplateName: card.component()?.name,
+        mediaFirst: media.y <= body.y,
+        media: { width: media.width, height: media.height },
+        body: { y: body.y, width: body.width, height: body.height },
+        validation: await penpot.currentFile.validate(),
+      };
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
+  async function refreshCardConsumers() {
+    assertContext();
+    const block = penpot.history.undoBlockBegin();
+    try {
+      for (const viewport of ['desktop', 'mobile']) {
+        const bodyComponent = componentByIdentity(BODY_PATH, BODY_NAME[viewport]);
+        if (!bodyComponent) throw new Error(`missing ${viewport} Free body`);
+        for (const shape of walk(bodyComponent.mainInstance())) {
+          if (shape.isComponentCopyInstance?.() && shape.component?.()?.path === FIXTURE_PATH) shape.resetOverrides();
+        }
+      }
+      for (const ownerId of [DESKTOP_OWNER_ID, MOBILE_OWNER_ID]) {
+        const owner = penpot.currentPage.getShapeById(ownerId);
+        for (const shape of walk(owner)) {
+          if (shape.isComponentCopyInstance?.() && shape.component?.()?.path === BODY_PATH) shape.resetOverrides();
+        }
+      }
+      return { validation: await penpot.currentFile.validate() };
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
   function makeMedallion(parent, viewport, media) {
     const size = viewport === 'desktop' ? 294 : 96;
     const x = viewport === 'desktop' ? 830 : 252;
@@ -249,7 +391,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     const name = BODY_NAME[viewport];
     const existing = componentByIdentity(BODY_PATH, name);
     if (existing) return { existing: true, id: existing.id, main: existing.mainInstance().id, path: BODY_PATH, name };
-    const adapters = [7030, 6947, 7006].map((eventId) => componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport)));
+    const adapters = REPRESENTATIVE_EVENTS.map((eventId) => componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport)));
     if (adapters.some((component) => !component)) throw new Error(`create all three ${viewport} fixture adapters before the body`);
     const medallionMedia = await sourceMedallionMedia();
     const block = penpot.history.undoBlockBegin();
@@ -263,28 +405,79 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
       if (viewport === 'desktop') {
         const results = board(root, 'Free collection / Results / desktop', 0, 617, 1180, 1535, '#fffdf8', 26);
         makeText(results, 'Results heading / source exact', '23 событий', 49, 44, 520, 54, 40, 900, 1.1, '#221a14');
-        const positions = [[49, 109], [597.1875, 109], [49, 870]];
+        const positions = [[49, 109], [416.328125, 109], [783.65625, 109]];
         adapters.forEach((component, index) => {
           const card = component.instance();
-          card.name = `linked Free collection EventCard / event.real.${[7030, 6947, 7006][index]}`;
+          card.name = `linked Free collection EventCard / event.real.${REPRESENTATIVE_EVENTS[index]}`;
           results.appendChild(card);
-          const [w, h] = EVENTS[[7030, 6947, 7006][index]].geometry.desktop;
+          const [w, h] = EVENTS[REPRESENTATIVE_EVENTS[index]].geometry.desktop;
           place(card, positions[index][0], positions[index][1], w, h);
         });
       } else {
         const results = board(root, 'Free collection / Results / mobile', 0, 530, 366, 1715, '#fffdf8', 20);
         makeText(results, 'Results heading / source exact', '23 событий', 13, 28, 320, 42, 30, 900, 1.1, '#221a14');
-        const positions = [[13, 79], [13, 556.125], [13, 1159.140625]];
+        const positions = [[13, 79.546875], [13, 570.96875], [13, 1080.1875]];
         adapters.forEach((component, index) => {
           const card = component.instance();
-          card.name = `linked Free collection EventCard / event.real.${[7030, 6947, 7006][index]}`;
+          card.name = `linked Free collection EventCard / event.real.${REPRESENTATIVE_EVENTS[index]}`;
           results.appendChild(card);
-          const [w, h] = EVENTS[[7030, 6947, 7006][index]].geometry.mobile;
+          const [w, h] = EVENTS[REPRESENTATIVE_EVENTS[index]].geometry.mobile;
           place(card, positions[index][0], positions[index][1], w, h);
         });
       }
       const component = penpot.library.local.createComponent([root]);
       return { existing: false, id: component.id, main: component.mainInstance().id, path: component.path, name: component.name };
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
+  async function repairBodyCards(viewport) {
+    assertContext();
+    if (!['desktop', 'mobile'].includes(viewport)) throw new Error(`unknown OV-44 body viewport ${viewport}`);
+    const bodyComponent = componentByIdentity(BODY_PATH, BODY_NAME[viewport]);
+    if (!bodyComponent) throw new Error(`missing ${viewport} Free body`);
+    const adapters = REPRESENTATIVE_EVENTS.map((eventId) => componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport)));
+    if (adapters.some((component) => !component)) throw new Error(`missing representative ${viewport} adapters`);
+    const root = bodyComponent.mainInstance();
+    const results = walk(root).find((shape) => shape.name === `Free collection / Results / ${viewport}`);
+    if (!results) throw new Error(`missing ${viewport} results board`);
+    const positions = viewport === 'desktop'
+      ? [[49, 109], [416.328125, 109], [783.65625, 109]]
+      : [[13, 79.546875], [13, 570.96875], [13, 1080.1875]];
+    const block = penpot.history.undoBlockBegin();
+    try {
+      for (const child of [...results.children]) {
+        if (child.isComponentCopyInstance?.() && child.component?.()?.path === FIXTURE_PATH) child.remove();
+      }
+      adapters.forEach((component, index) => {
+        const eventId = REPRESENTATIVE_EVENTS[index];
+        const card = component.instance();
+        card.name = `linked Free collection EventCard / event.real.${eventId}`;
+        results.appendChild(card);
+        const [width, height] = EVENTS[eventId].geometry[viewport];
+        place(card, positions[index][0], positions[index][1], width, height);
+      });
+      for (const ownerId of [DESKTOP_OWNER_ID, MOBILE_OWNER_ID]) {
+        const owner = penpot.currentPage.getShapeById(ownerId);
+        for (const shape of walk(owner)) {
+          if (shape.isComponentCopyInstance?.() && shape.component?.()?.id === bodyComponent.id) shape.resetOverrides();
+        }
+      }
+      return {
+        viewport,
+        bodyId: bodyComponent.id,
+        eventIds: REPRESENTATIVE_EVENTS,
+        cards: [...results.children].filter((shape) => shape.isComponentCopyInstance?.()).map((shape) => ({
+          id: shape.id,
+          componentId: shape.component?.()?.id,
+          x: shape.x,
+          y: shape.y,
+          width: shape.width,
+          height: shape.height,
+        })),
+        validation: await penpot.currentFile.validate(),
+      };
     } finally {
       penpot.history.undoBlockFinish(block);
     }
@@ -352,6 +545,77 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     return { ...result, validation: await penpot.currentFile.validate() };
   }
 
+  async function ensureScrolledOwner(viewport) {
+    assertContext();
+    if (!['desktop', 'mobile'].includes(viewport)) throw new Error(`unknown OV-44 scrolled viewport ${viewport}`);
+    const name = `viewport=${viewport};state=free-collection;scroll=hero-passed`;
+    const existing = componentByIdentity(SCROLLED_PATH, name);
+    if (existing) {
+      const root = existing.mainInstance();
+      const desktopScrolled = componentByIdentity(SCROLLED_PATH, 'viewport=desktop;state=free-collection;scroll=hero-passed');
+      const x = viewport === 'desktop'
+        ? DESKTOP_OWNER_ID && penpot.currentPage.getShapeById(DESKTOP_OWNER_ID).x + 1280 + 140
+        : (desktopScrolled ? desktopScrolled.mainInstance().x + desktopScrolled.mainInstance().width + 140 : root.x);
+      penpotUtils.setParentXY(root, x, root.y);
+      return { existing: true, id: existing.id, main: root.id, path: SCROLLED_PATH, name, x: root.x, y: root.y };
+    }
+    const headerComponent = componentById(viewport === 'desktop' ? DESKTOP_HEADER_ID : MOBILE_HEADER_ID);
+    const bodyComponent = componentByIdentity(BODY_PATH, BODY_NAME[viewport]);
+    const stickyComponent = componentByIdentity(STICKY_PATH, stickyName(viewport));
+    const navComponent = viewport === 'mobile' ? componentById(MOBILE_NAV_ID) : null;
+    if (!headerComponent || !bodyComponent || !stickyComponent || (viewport === 'mobile' && !navComponent)) {
+      throw new Error(`missing linked prerequisites for ${viewport} scrolled owner`);
+    }
+    const baseOwner = penpot.currentPage.getShapeById(viewport === 'desktop' ? DESKTOP_OWNER_ID : MOBILE_OWNER_ID);
+    const width = viewport === 'desktop' ? 1280 : 390;
+    const height = 1200;
+    const block = penpot.history.undoBlockBegin();
+    try {
+      const desktopScrolled = componentByIdentity(SCROLLED_PATH, 'viewport=desktop;state=free-collection;scroll=hero-passed');
+      const x = viewport === 'desktop'
+        ? baseOwner.x + width + 140
+        : (desktopScrolled ? desktopScrolled.mainInstance().x + desktopScrolled.mainInstance().width + 140 : baseOwner.x + width + 140);
+      const root = board(null, `${SCROLLED_PATH} / ${name}`, x, baseOwner.y, width, height, '#f8f1e7');
+      root.clipContent = true;
+      const body = bodyComponent.instance();
+      body.name = `linked Collections / Free body / ${viewport};scroll=hero-passed`;
+      root.appendChild(body);
+      place(body, viewport === 'desktop' ? 50 : 12, viewport === 'desktop' ? -663 : -476, viewport === 'desktop' ? 1180 : 366, viewport === 'desktop' ? 2200 : 2260);
+      const header = headerComponent.instance();
+      header.name = `linked Shell / Header / ${viewport};scroll=hero-passed`;
+      root.appendChild(header);
+      place(header, 0, 0, width, viewport === 'desktop' ? 57 : 84);
+      const sticky = stickyComponent.instance();
+      sticky.name = `linked Free collection / Sticky identity / ${viewport}`;
+      root.appendChild(sticky);
+      place(sticky, viewport === 'desktop' ? 990 : 138, viewport === 'desktop' ? 57 : 64, 240, 96);
+      let nav = null;
+      if (navComponent) {
+        nav = navComponent.instance();
+        nav.name = 'linked Shell / Mobile bottom navigation / scroll=hero-passed';
+        root.appendChild(nav);
+        place(nav, 0, 1136, 390, 64);
+      }
+      const component = penpot.library.local.createComponent([root]);
+      return {
+        existing: false,
+        id: component.id,
+        main: component.mainInstance().id,
+        path: component.path,
+        name: component.name,
+        linked: {
+          header: header.component()?.id,
+          body: body.component()?.id,
+          sticky: sticky.component()?.id,
+          nav: nav?.component?.()?.id ?? null,
+        },
+        validation: await penpot.currentFile.validate(),
+      };
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
   async function readback() {
     assertContext();
     const summarize = (shape) => ({
@@ -368,7 +632,7 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
     const owners = [DESKTOP_OWNER_ID, MOBILE_OWNER_ID].map((id) => penpot.currentPage.getShapeById(id));
     return {
       owners: owners.map((owner) => ({ root: summarize(owner), direct: [...owner.children].map(summarize) })),
-      adapters: ['desktop', 'mobile'].flatMap((viewport) => [7030, 6947, 7006].map((eventId) => {
+      adapters: ['desktop', 'mobile'].flatMap((viewport) => REPRESENTATIVE_EVENTS.map((eventId) => {
         const component = componentByIdentity(FIXTURE_PATH, fixtureName(eventId, viewport));
         return component ? { viewport, eventId, id: component.id, main: component.mainInstance().id } : { viewport, eventId, missing: true };
       })),
@@ -380,17 +644,26 @@ function installOv44Materializer(penpot, penpotUtils, storage) {
         const component = componentByIdentity(STICKY_PATH, stickyName(viewport));
         return component ? { viewport, id: component.id, main: component.mainInstance().id } : { viewport, missing: true };
       }),
+      scrolledOwners: ['desktop', 'mobile'].map((viewport) => {
+        const name = `viewport=${viewport};state=free-collection;scroll=hero-passed`;
+        const component = componentByIdentity(SCROLLED_PATH, name);
+        return component ? { viewport, id: component.id, main: component.mainInstance().id } : { viewport, missing: true };
+      }),
       validation: await penpot.currentFile.validate(),
     };
   }
 
   storage.ov44FreeCollection = {
     ensureCardAdapter,
+    repairCardAdapter,
+    refreshCardConsumers,
     ensureBody,
+    repairBodyCards,
     ensureStickyIdentity,
     applyOwner,
+    ensureScrolledOwner,
     readback,
-    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, EVENTS, FIXTURE_PATH, BODY_PATH, STICKY_PATH, MEDALLION_SOURCE_URL, BODY_NAME },
+    constants: { FILE_ID, PAGE_ID, DESKTOP_OWNER_ID, MOBILE_OWNER_ID, EVENTS, REPRESENTATIVE_EVENTS, FIXTURE_PATH, BODY_PATH, STICKY_PATH, SCROLLED_PATH, MEDALLION_SOURCE_URL, BODY_NAME },
   };
   return { installed: true, methods: Object.keys(storage.ov44FreeCollection), eventIds: Object.keys(EVENTS) };
 }
@@ -406,6 +679,7 @@ if (typeof module !== 'undefined') module.exports = {
     FIXTURE_PATH,
     BODY_PATH,
     STICKY_PATH,
+    SCROLLED_PATH,
     MEDALLION_SOURCE_URL,
     BODY_NAME,
   },
