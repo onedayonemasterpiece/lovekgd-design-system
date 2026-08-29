@@ -1,7 +1,10 @@
 {
   "schema_version": "personal-feed-ov36-37-source-exact.v1",
   "contract_id": "recovery.ov-36-37.personal-feed.source-exact.v1",
-  "review_items": ["OV-36", "OV-37"],
+  "review_items": [
+    "OV-36",
+    "OV-37"
+  ],
   "status": "READY_FOR_OWNER_REREVIEW",
   "processed": false,
   "authority": {
@@ -11,12 +14,19 @@
     "page": "site/src/pages/dlya-menya/index.astro",
     "profile_surface": "site/src/components/InterestProfile.astro",
     "fixture_source": "site/src/data/preview-events.json",
-    "browser_evidence": "evidence/recovery-20260829/astro/ov36-37-personal-feed-browser-evidence.v1.json"
+    "browser_evidence": "evidence/recovery-20260829/astro/ov36-37-personal-feed-browser-evidence.v1.json",
+    "current_astro_commit": "812ffc279728221b547707474bcb521f27c4a73d"
   },
   "owner_requirements": {
     "feed_is_never_blank": true,
-    "profile_states": ["not-yet-configured", "configured"],
-    "authentication_choices": ["email", "yandex"],
+    "profile_states": [
+      "not-yet-configured",
+      "configured"
+    ],
+    "authentication_choices": [
+      "email",
+      "yandex"
+    ],
     "extra_personalization_consent": false,
     "recommendation_layout": {
       "desktop": "3-column",
@@ -25,7 +35,11 @@
   },
   "bounded_penpot_projection": {
     "rule": "Penpot shows the full source anatomy and the first three real recommendations; Astro remains the dense 9-card stress authority.",
-    "representative_interests": ["jazz", "exhibitions", "family"],
+    "representative_interests": [
+      "jazz",
+      "exhibitions",
+      "family"
+    ],
     "representative_events": [
       {
         "event_id": 5459,
@@ -58,23 +72,58 @@
     "source_projection_count": 0,
     "desktop": {
       "owner_main_id": "d87e18f1-dcb4-80a6-8008-880d8c05a466",
-      "owner_size": [1280, 3315],
+      "owner_size": [
+        1280,
+        3315
+      ],
       "workspace_component_id": "8f804431-c282-8075-8008-8e0b5a66375d",
       "workspace_main_id": "8f804431-c282-8075-8008-8e0b5a407cf6",
-      "workspace_size": [1180, 1620],
+      "workspace_size": [
+        1180,
+        1620
+      ],
       "recommendation_layout_component_id": "8f804431-c282-8075-8008-8dfda1f3c60f",
       "columns": 3
     },
     "mobile": {
       "owner_main_id": "d87e18f1-dcb4-80a6-8008-880d8db35320",
-      "owner_size": [390, 4612],
+      "owner_size": [
+        390,
+        4612
+      ],
       "workspace_component_id": "8f804431-c282-8075-8008-8e0c48b3cc23",
       "workspace_main_id": "8f804431-c282-8075-8008-8e0c4884520b",
-      "workspace_size": [366, 3430],
+      "workspace_size": [
+        366,
+        3430
+      ],
       "recommendation_layout_component_id": "8f804431-c282-8075-8008-8dfdd31db4ad",
       "columns": 1
     },
-    "validation": []
+    "validation": [],
+    "round_trip_revision": 2798,
+    "owner_names": {
+      "desktop": "Archetype / Personal feed / viewport=desktop;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact",
+      "mobile": "Archetype / Personal feed / viewport=mobile;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact"
+    },
+    "owner_direct_children": {
+      "desktop": [
+        "8f804431-c282-8075-8008-8e0cec3c48c6",
+        "8f804431-c282-8075-8008-8e0cec630cb5",
+        "8f804431-c282-8075-8008-8e0cecc43d46",
+        "8f804431-c282-8075-8008-8e0ced0de102",
+        "8f804431-c282-8075-8008-8e0ced4d2a2d",
+        "8f804431-c282-8075-8008-8e0cee075c4d"
+      ],
+      "mobile": [
+        "8f804431-c282-8075-8008-8e0cfa9a229c",
+        "8f804431-c282-8075-8008-8e0cfad9f2dd",
+        "8f804431-c282-8075-8008-8e0cfb4311a4",
+        "8f804431-c282-8075-8008-8e0cfb835f99",
+        "8f804431-c282-8075-8008-8e0cfbb3ae6c",
+        "8f804431-c282-8075-8008-8e0cfc362924"
+      ]
+    }
   },
   "acceptance": {
     "native_owner_projection": true,
@@ -83,5 +132,38 @@
     "bounded_visual_exports": "PASS",
     "owner_acceptance": "NOT_CLAIMED",
     "processed": false
+  },
+  "semantic_resolution": {
+    "applies_over": "catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json",
+    "overall_archetype_canonical": false,
+    "resolved_scope": [
+      "personal.header",
+      "personal.interest-profile",
+      "personal.filters",
+      "personal.feed",
+      "personal.feedback"
+    ],
+    "unresolved_scope": [
+      "loading",
+      "failure",
+      "stale",
+      "configured-profile",
+      "dense-9-in-penpot"
+    ],
+    "source_exact_state": {
+      "authentication_choices": [
+        "email",
+        "yandex"
+      ],
+      "extra_personalization_consent": false,
+      "feed_is_never_blank": true,
+      "penpot_projection": "profile-empty+recommendations-3-of-9",
+      "astro_dense_authority": "recommendations-9",
+      "fixture_order": [
+        "5459",
+        "6870",
+        "6941"
+      ]
+    }
   }
 }
