@@ -1,0 +1,101 @@
+{
+  "$schema": "https://example.invalid/lovekgd/evidence/free-collection-three-way-proof.v3.schema.json",
+  "generated_at": "2026-08-29T18:10:14Z",
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "scenario": "free-collection-september-desktop-v2",
+    "reference_date": "2026-09-01",
+    "systems": [
+      "Astro",
+      "SoT UI fixture registry",
+      "Penpot"
+    ]
+  },
+  "authority": {
+    "design_repo_head_before_current_changes": "653c30e3c704bfd546103928ec76f0f95464e218",
+    "astro_repo_implementation_commit": "c086b08eec32fc690944be65aeb6162426223728",
+    "golden_corpus": "ui-reference-events.v2",
+    "fixture_profile": "design-system-reference-v3"
+  },
+  "fixtures": {
+    "corpus_ids": [
+      2182,
+      6711,
+      7609,
+      8006,
+      8200,
+      7907,
+      6942,
+      7020
+    ],
+    "route_subset": [
+      2182,
+      6711,
+      7609,
+      8006,
+      8200
+    ],
+    "rendered_order": [
+      8006,
+      8200,
+      2182,
+      6711,
+      7609
+    ],
+    "rows": [
+      [
+        8006,
+        8200
+      ],
+      [
+        2182,
+        6711,
+        7609
+      ]
+    ]
+  },
+  "astro": {
+    "single_card_owner": "site/src/components/EventCard.astro",
+    "container_owner": "site/src/components/OptimizedEventCardGrid.astro",
+    "fixture_registry": "site/src/data/design-system-reference-fixtures.json",
+    "layout_inspection": {
+      "repo": "events-bot-new",
+      "path": "site/evidence/recovery-20260829/free-collection-september-v2/astro-layout-inspection.v1.json",
+      "sha256": "c8a91e4aca6a13458d25850fb4c480115860a1a358209057058116d8b7fe14f1",
+      "bytes": 173966
+    }
+  },
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "collection_page": {
+      "id": "d87e18f1-dcb4-80a6-8008-880c4a36d153",
+      "name": "63.08 — Atlas · Collections"
+    },
+    "central_event_card_page": {
+      "id": "8f804431-c282-8075-8008-8ee9d4ac86e0",
+      "name": "40.1b — EventCard · Unified Golden variants"
+    },
+    "central_variants_receipt": {
+      "path": "evidence/recovery-20260829/penpot/free-collection-september-v2/event-card-unified-golden-v2-readback.v1.json",
+      "sha256": "156f23b3c973b286272db0dee3d0aaeda1efd9dce071c0840921a6c4969f1352"
+    },
+    "collection_readback": {
+      "path": "evidence/recovery-20260829/penpot/free-collection-september-v2/final-drift-closure-readback.v3.json",
+      "sha256": "86238fef85c3559c5f71ecc6c388d7c747f30235a753949eb55af34058b5861f"
+    },
+    "slot_count": 10,
+    "linked_slot_count": 10,
+    "detached_slot_count": 0,
+    "validation_errors": []
+  },
+  "result": {
+    "structural_linkage": "PASS",
+    "golden_fixture_identity": "PASS",
+    "astro_geometry_inspection": "PASS",
+    "penpot_validation": "PASS",
+    "fresh_penpot_raster_export": "BLOCKED",
+    "fresh_automated_pixel_diff": "NOT_CLAIMED",
+    "product_approval": "NOT_REVIEWED"
+  },
+  "claim_limit": "All collection card roots now link to the four central Golden v2 EventCard variants and exact live geometry was read back. The failed Penpot PNG export prevents claiming a fresh automated pixel-diff pass."
+}

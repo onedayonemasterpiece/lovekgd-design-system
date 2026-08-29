@@ -84,9 +84,13 @@ each row owns its own dynamic column count and fills the available width.
 This scenario is a page-level subset of the immutable Golden Event Corpus v2.
 Component anatomy and appearance remain owned by the certified `EventCard ·
 Large` family and Penpot optimized-grid component
-`b0fe69fd-ccaf-8025-8008-847108143471`. A collection page must use linked
-instances of that owning family; a nearby hand-built card or a local adapter
-that redraws card anatomy is invalid.
+`b0fe69fd-ccaf-8025-8008-847108143471`. The four Golden v2 structural contexts
+are exposed together on Penpot page `40.1b — EventCard · Unified Golden
+variants`, under `Event cards / Large / Unified Golden v2`: desktop/mobile ×
+wide-with-calendar/packed-without-calendar. Every variant keeps a linked
+canonical desktop or mobile `EventCard` base. A collection page must use linked
+instances of these central masters; a nearby hand-built card or a page-local
+adapter that redraws card anatomy is invalid.
 
 Historical v1 selections (`7030, 7006, 6901, 6996, 6997` and the later
 `7016, 6982, 7018, 6996, 5259` attempt) are superseded. They are not admissible
@@ -99,20 +103,24 @@ fixture payloads have been inspected at native scale. Geometry, component
 ancestry, hashes and successful structural validation are necessary but cannot
 substitute for visual comparison. Export failure is a blocker, not a pass.
 
-The executable Penpot projection for this scenario is
+The executable central component projection is
+[`scripts/round-trip-reconstruction/penpot-materialize-event-card-unified-golden-v2.js`](../scripts/round-trip-reconstruction/penpot-materialize-event-card-unified-golden-v2.js).
+The executable Penpot page projection for this scenario is
 [`scripts/round-trip-reconstruction/penpot-materialize-free-collection-september-v2.js`](../scripts/round-trip-reconstruction/penpot-materialize-free-collection-september-v2.js).
-It is resumable and keeps fixture adapters data-only: every adapter owns one
-linked canonical desktop/mobile `EventCard`, while page body and owner states
-remain separate components. Its `repairAll` path is intentionally limited to
-these `NOT_REVIEWED` September-v2 candidates; it must not mutate an approved
-owner or redraw card anatomy locally.
+It is resumable and instantiates the four central masters directly. The page
+projection applies only fixture text, media and counters; it owns no EventCard
+structure. Its `repairAll` path is intentionally limited to these
+`NOT_REVIEWED` September-v2 candidates; it must not mutate an approved owner or
+redraw card anatomy locally.
 
-The current three-way receipt is
-[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v2.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v2.json).
-It records native Astro/Penpot captures, component ancestry, exact fixture
-order, hashes, idempotency and the final parity corrections. The technical
-result is `CORRECTIONS_VERIFIED`; product review remains
-`NOT_REVIEWED`, so this receipt cannot be cited as owner approval.
+The current drift-closure receipt is
+[`evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v3.json`](../evidence/recovery-20260829/free-collection-september-v2-three-way-proof.v3.json).
+It records the live central-component ancestry, all ten collection slots, exact
+fixture order, Astro inspection evidence, cleanup and the Penpot validation
+result. Product review remains `NOT_REVIEWED`. The Penpot PNG exporter returned
+HTTP 504 after the final centralization, so v3 deliberately reports structural
+and geometric closure but does not promote that failed export to a fresh
+pixel-diff pass.
 
 Page `63.08 — Atlas · Collections` was then cleaned in place. The cleanup
 receipt is
