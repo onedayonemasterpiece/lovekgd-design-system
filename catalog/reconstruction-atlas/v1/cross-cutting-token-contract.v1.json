@@ -1,6 +1,6 @@
 {
   "schema_version": "cross-cutting-token-contract.v1",
-  "status": "PENPOT_FOUNDATIONS_AND_BRANDING_COMPONENT_PILOT_MIGRATION_IN_PROGRESS",
+  "status": "PENPOT_FOUNDATIONS_AND_MULTI_FAMILY_COMPONENT_MIGRATION_IN_PROGRESS",
   "owner_item": "OV-54",
   "authority": {
     "foundation_values": "catalog/reconstruction-atlas/v1/foundations.v1.json",
@@ -80,12 +80,53 @@
         "validation_errors": [],
         "post_binding_export": "BLOCKED_EXTERNAL_EXPORTER_HTTP_504",
         "prior_same_geometry_visual_export": "PASS_IN_SESSION"
+      },
+      {
+        "batch": "navigation-discovery-social-proof-roots",
+        "families": [
+          {
+            "family": "Shell v1 / Mobile / Mobile bottom navigation",
+            "component_id": "a21f5e36-5d76-8065-8008-86aec0a54bb5",
+            "main_id": "a21f5e36-5d76-8065-8008-86aebffe176b",
+            "bindings": ["radius.20 × 4 corners"]
+          },
+          {
+            "family": "Shell v1 / Navigation / Shell navigation item",
+            "component_id": "a21f5e36-5d76-8065-8008-86ae48eca567",
+            "main_id": "a21f5e36-5d76-8065-8008-86ae4851c8cb",
+            "bindings": ["radius.12 × 4 corners"]
+          },
+          {
+            "family": "Event cards / Shared / Social proof / Like proof · inside",
+            "component_id": "a21f5e36-5d76-8065-8008-86cf695f752b",
+            "main_id": "a21f5e36-5d76-8065-8008-86cf68baaf5c",
+            "bindings": ["radius.999 × 4 corners"]
+          },
+          {
+            "family": "Listing / Shared / Discovery rail / ListingDiscoveryRail@6",
+            "component_id": "c0b867fa-32d2-8062-8008-8d679ca1da53",
+            "main_id": "c0b867fa-32d2-8062-8008-8d6799e9e61f",
+            "bindings": ["radius.999 × 4 corners", "shadow.2"]
+          }
+        ],
+        "persisted_token_properties": 17,
+        "saved_version": "OV54 foundations · navigation, discovery and social-proof root tokens",
+        "validation_errors": [],
+        "visual_export": "DEFERRED_AFTER_ACTIVE_EXTERNAL_EXPORTER_HTTP_504_INCIDENT"
       }
     ],
+    "plugin_api_limitation": {
+      "observed": "Color bindings and bindings on children of component mains did not persist even though visual values stayed unchanged.",
+      "source_research": [
+        "Penpot MCP initial instructions: token application is asynchronous and should be read back after propagation",
+        "penpot/penpot#8520: applyToken on children of a component main silently fails"
+      ],
+      "response": "The batch records only the 17 root radius/shadow properties that persisted after delayed readback; failed color/child requests are not counted."
+    },
     "saved_version": "Recovery 2026-08-28 · OV-54 cross-cutting foundations pilot · 94 tokens",
     "validation_errors": [],
     "visual_export": "BLOCKED_EXTERNAL_EXPORTER_HTTP_504",
-    "status": "FOUNDATIONS_PAGE_MATERIALIZED / BRANDING_COMPONENT_PILOT_BOUND / GLOBAL_MIGRATION_IN_PROGRESS"
+    "status": "FOUNDATIONS_PAGE_MATERIALIZED / FIVE_COMPONENT_FAMILIES_BOUND / GLOBAL_MIGRATION_IN_PROGRESS"
   },
   "processed": false
 }
