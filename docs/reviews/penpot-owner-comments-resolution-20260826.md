@@ -729,6 +729,41 @@ owner acceptance, so both observations remain `processed: NO`.
 Contract: `catalog/reconstruction-atlas/v1/personal-feed-ov36-37-source-exact.v1.json`.
 Receipt: `evidence/recovery-20260829/penpot/personal-feed-ov36-37-native-receipt.v1.json`.
 
+### 9.4h Floating Action Island responsive states (`OV-20`, `OV-21`, `OV-22`)
+
+Status: `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_BLOCKED`;
+`processed: NO`.
+
+The two competing visible `64.03` baselines were not a valid component
+contract. The owner-rejected Wave 1 desktop/mobile regions are now hidden and
+marked deprecated. The surviving desktop and mobile compositions use the same
+linked Calendar, Share and Like dependencies. The desktop secondary row starts
+at the same `22px` inset as the admission and primary CTA instead of drifting
+right.
+
+The clipped factual Like count was corrected at its canonical component owner,
+not patched on the page. Astro commit `4d660b079` replaces the mobile fixed
+`56px` width and hidden overflow with an auto/content-responsive width and a
+`56px` minimum. Its Penpot counterpart now measures `77×52` for fixture count
+`164`; the propagated desktop/mobile instances retain canonical component ID
+`8e7accff-5c78-8007-8008-895a8728e1f4`.
+
+The new native `1306×250` responsive matrix contains three explicit states:
+`calendar-label`, `share-label` and `icons-only`. All nine actions are linked
+instances of existing owners. This makes available-width behavior reviewable
+without presenting random label selection as a contract. Both rejected
+baseline boards remain hidden for traceability, and `currentFile.validate()=[]`.
+
+Named versions `OV20-22 Like action · counter-responsive canonical owner` and
+`OV20-22 Floating action island · one canonical responsive matrix` were saved.
+Two bounded exports returned Penpot HTTP 504; after each unknown outcome the
+plugin was allowed to settle and read back before continuing. Therefore this
+checkpoint claims structural correction only, not visual QA or owner
+acceptance.
+
+Contract: `catalog/reconstruction-atlas/v1/floating-action-island-ov20-22-source-exact.v1.json`.
+Receipt: `evidence/recovery-20260829/penpot/floating-action-island-ov20-22-native-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
