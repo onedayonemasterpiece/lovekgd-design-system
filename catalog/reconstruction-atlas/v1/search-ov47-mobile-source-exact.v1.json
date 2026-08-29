@@ -5,7 +5,7 @@
     "OV-47",
     "OV-48"
   ],
-  "status": "MOBILE_DESKTOP_LOADING_RESULTS_MATERIALIZED_LIFECYCLE_STATES_OPEN",
+  "status": "MOBILE_VISIBLE_LIFECYCLE_AND_DESKTOP_LOADING_RESULTS_MATERIALIZED_STALE_NONVISUAL",
   "processed": false,
   "authority": {
     "primary_visual_donor_commit": "008839b14598105d1fed5b4e386d6d6f29d93d1f",
@@ -147,7 +147,7 @@
     },
     "detached_instances_allowed": 0,
     "owner_review_status": "REREVIEW_REQUIRED",
-    "round_trip_revision": 2806,
+    "round_trip_revision": 2813,
     "desktop": {
       "loading_owner": {
         "component_id": "8f804431-c282-8075-8008-8e2924f63910",
@@ -185,6 +185,32 @@
       "detached_instances": 0,
       "owner_review_status": "REREVIEW_REQUIRED",
       "foundation_binding_revision": 2806
+    },
+    "mobile_authenticated_query_head": {
+      "revision": 2808,
+      "status": "CORRECTION_VERIFIED_BY_READBACK"
+    },
+    "mobile_lifecycle": {
+      "revision": 2813,
+      "named_version": "OV47 Search · mobile validation empty error retry load-more recovery · Astro exact",
+      "receipt": "evidence/recovery-20260829/penpot/search-ov47-mobile-lifecycle-receipt.v1.json",
+      "query_components": [
+        "8f804431-c282-8075-8008-8e3021982df5",
+        "8f804431-c282-8075-8008-8e303026053a",
+        "8f804431-c282-8075-8008-8e303e69dea1",
+        "8f804431-c282-8075-8008-8e3049f0a0e6",
+        "8f804431-c282-8075-8008-8e30561c0d29"
+      ],
+      "owner_components": [
+        "8f804431-c282-8075-8008-8e305c86a319",
+        "8f804431-c282-8075-8008-8e30636410cc",
+        "8f804431-c282-8075-8008-8e3069a985b3",
+        "8f804431-c282-8075-8008-8e3070fd8783",
+        "8f804431-c282-8075-8008-8e30792d160e",
+        "8f804431-c282-8075-8008-8e307fdc4960"
+      ],
+      "validation": [],
+      "idempotent": true
     }
   },
   "visual_evidence": {
@@ -200,26 +226,30 @@
       2521
     ],
     "results_sha256": "f27efa18208f6e50fd4958c84cae147676fef7b07676dae56ffbb5f589d5ceda",
-    "result": "MOBILE_VISUAL_PASS_DESKTOP_STRUCTURAL_VERIFIED_EXPORT_DEFERRED",
+    "result": "MOBILE_LOADING_RESULTS_VISUAL_PASS_LIFECYCLE_STRUCTURAL_VERIFIED_DESKTOP_STRUCTURAL_VERIFIED_EXPORT_DEFERRED",
     "owner_acceptance": "NOT_CLAIMED",
-    "desktop_export_status": "DEFERRED_EXISTING_EXPORTER_504_INCIDENT_NO_BLIND_RETRY"
+    "desktop_export_status": "DEFERRED_EXISTING_EXPORTER_504_INCIDENT_NO_BLIND_RETRY",
+    "mobile_lifecycle_browser_evidence": "evidence/recovery-20260829/astro/search-mobile-lifecycle/ov47-search-mobile-lifecycle-geometry.v1.json"
   },
   "coverage": {
     "mobile_integrated_states": [
       "loading",
-      "results"
+      "results",
+      "validation",
+      "empty",
+      "error-retry",
+      "load-more-ready",
+      "load-more-loading",
+      "recovery-after-error"
     ],
     "desktop_integrated_states": [
       "loading",
       "results"
     ],
-    "open_required_states": [
-      "mobile-validation",
-      "mobile-empty",
-      "mobile-error-retry",
-      "mobile-stale",
-      "mobile-load-more"
-    ]
+    "nonvisual_source_dispositions": {
+      "mobile-stale": "internal epoch guard; a stale response does not repaint the visible UI"
+    },
+    "open_required_states": []
   },
   "astro_desktop": {
     "viewport": [

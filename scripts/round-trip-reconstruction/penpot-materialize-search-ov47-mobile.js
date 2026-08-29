@@ -98,11 +98,11 @@ function installOv47SearchMobileMaterializer(penpot, penpotUtils, storage) {
     text(root, 'Eyebrow / source exact', 'УМНЫЙ ПОИСК', 0, 0, 250, 18, 13, 800, 1.15, '#9a3f20');
     text(root, 'Title / source exact', 'Найти событие', 0, 28, 366, 52, 40, 900, 1.02, '#241913');
     text(root, 'Description / source exact', 'Опишите желание обычной фразой —\nжанр, настроение, время или с кем\nхотите пойти.', 0, 86, 366, 64, 16, 500, 1.35, '#766b63');
-    const login = board(root, 'Yandex login / source exact', 0, 156.5, 366, 50, '#fffdf8', 25);
-    login.strokes = [{ strokeColor: '#e2d3c7', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 1, strokeAlignment: 'inner' }];
-    ellipse(login, 'Yandex icon surface', 100, 13, 24, 24, '#fc3f1d');
-    text(login, 'Yandex icon label', 'Я', 100, 17, 24, 16, 14, 900, 1, '#ffffff', 'center');
-    text(login, 'Yandex login label', 'Войти через Яндекс', 132, 15, 166, 20, 14, 800, 1.2, '#9a3f20');
+    const account = board(root, 'Account chip / authenticated / source exact', 173, 156.5, 193, 56, '#fffdf8', 28);
+    account.strokes = [{ strokeColor: '#e2d3c7', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 1, strokeAlignment: 'inner' }];
+    ellipse(account, 'Account avatar surface', 8, 8, 40, 40, '#e7ece8');
+    text(account, 'Account avatar initial', 'S', 8, 20, 40, 18, 16, 900, 1, '#a54420', 'center');
+    text(account, 'Account label', 'search-evidence@ex…', 56, 18, 125, 20, 14, 800, 1.2, '#a54420');
   }
 
   function addSharedQueryForm(root, buttonLabel) {
@@ -352,6 +352,44 @@ function installOv47SearchMobileMaterializer(penpot, penpotUtils, storage) {
     }
   }
 
+  function repairAuthenticatedQueryHeads() {
+    assertContext();
+    const targets = [QUERY_LOADING_NAME, QUERY_RESULTS_NAME].map((name) => componentByIdentity(QUERY_PATH, name));
+    if (targets.some((component) => !component)) throw new Error('materialize both mobile Search query states before auth-head repair');
+    const block = penpot.history.undoBlockBegin();
+    try {
+      return targets.map((component) => {
+        const root = component.mainInstance();
+        const chip = [...root.children].find((shape) => shape.name === 'Yandex login / source exact' || shape.name === 'Account chip / authenticated / source exact');
+        if (!chip) throw new Error(`query ${component.id} auth head missing`);
+        chip.name = 'Account chip / authenticated / source exact';
+        chip.fills = [{ fillColor: '#fffdf8', fillOpacity: 1 }];
+        chip.strokes = [{ strokeColor: '#e2d3c7', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 1, strokeAlignment: 'inner' }];
+        chip.borderRadius = 28;
+        place(chip, 173, 156.5, 193, 56);
+        const parts = [...chip.children];
+        const avatar = parts.find((shape) => shape.type === 'ellipse');
+        const avatarLabel = parts.find((shape) => shape.type === 'text' && shape.characters === 'Я');
+        const accountLabel = parts.find((shape) => shape.type === 'text' && shape !== avatarLabel);
+        if (!avatar || !avatarLabel || !accountLabel) throw new Error(`query ${component.id} auth head anatomy missing`);
+        avatar.name = 'Account avatar surface';
+        avatar.fills = [{ fillColor: '#e7ece8', fillOpacity: 1 }];
+        place(avatar, 8, 8, 40, 40);
+        avatarLabel.name = 'Account avatar initial';
+        avatarLabel.characters = 'S';
+        avatarLabel.fills = [{ fillColor: '#a54420', fillOpacity: 1 }];
+        place(avatarLabel, 8, 20, 40, 18);
+        accountLabel.name = 'Account label';
+        accountLabel.characters = 'search-evidence@ex…';
+        accountLabel.fills = [{ fillColor: '#a54420', fillOpacity: 1 }];
+        place(accountLabel, 56, 18, 125, 20);
+        return { component: component.id, main: root.id, chip: chip.id, size: [chip.width, chip.height] };
+      });
+    } finally {
+      penpot.history.undoBlockFinish(block);
+    }
+  }
+
   async function readback() {
     assertContext();
     const identities = [
@@ -400,6 +438,7 @@ function installOv47SearchMobileMaterializer(penpot, penpotUtils, storage) {
     ensureLoadingOwner,
     ensureResultsOwner,
     repairSourceExactOwners,
+    repairAuthenticatedQueryHeads,
     readback,
   };
   return { installed: true, methods: Object.keys(storage.ov47SearchMobile) };

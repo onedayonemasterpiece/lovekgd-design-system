@@ -25,3 +25,10 @@ test('OV-47 materializer encodes measured loading/results geometry and native an
   assert.doesNotMatch(source, /\.detach\s*\(/);
   assert.doesNotMatch(source, /screenshot[-_ ]fill/i);
 });
+
+test('OV-47 authenticated Search evidence uses the account chip, not the login CTA', () => {
+  assert.match(source, /Account chip \/ authenticated \/ source exact/);
+  assert.match(source, /search-evidence@ex…/);
+  assert.doesNotMatch(source, /const login = board\(root, 'Yandex login \/ source exact'/);
+  assert.doesNotMatch(source, /text\(login, 'Yandex login label', 'Войти через Яндекс'/);
+});
