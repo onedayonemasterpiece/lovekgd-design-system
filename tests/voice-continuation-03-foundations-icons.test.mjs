@@ -36,7 +36,7 @@ test('cross-cutting token audit records the real zero-binding gap', () => {
   assert.ok(tokens.required_groups.includes('spacing scale and semantic spacing roles'));
   assert.match(tokens.change_propagation_rule, /semantic tokens/u);
   assert.equal(tokens.processed, false);
-  assert.equal(tokens.penpot_projection.token_set.tokens, 96);
+  assert.equal(tokens.penpot_projection.token_set.tokens, 97);
   assert.equal(tokens.penpot_projection.page_token_bound_shapes, 70);
   assert.equal(tokens.penpot_projection.bound_property_counts.column_gap, 10);
   assert.equal(tokens.penpot_projection.component_migration_pilots[0].bindings.length, 4);
