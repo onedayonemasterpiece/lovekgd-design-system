@@ -1,6 +1,6 @@
 {
   "schema_version": "ov54-canonical-owner-root-token-census.v1",
-  "captured_at": "2026-08-29T05:29:17.317Z",
+  "captured_at": "2026-08-29T05:33:10.519Z",
   "revision": 2839,
   "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
   "denominator": "34 board IDs from catalog/round-trip-reconstruction/v1/bindings.v1.json",
@@ -9,9 +9,11 @@
     "found": 34,
     "uniform_nonzero_radius_roots": 24,
     "bound_uniform_nonzero_radius_roots": 23,
-    "unbound_uniform_nonzero_radius_roots": 1,
+    "unbound_uniform_nonzero_radius_roots": 0,
     "zero_radius_roots": 10,
-    "open_exception": "archetype.listing.unusual mobile remains unbound pending OV-49 explicit editorial source decision"
+    "open_exception": "archetype.listing.unusual mobile is excluded from token eligibility because OV-49 has no approved nonempty editorial fixture; binding its stale empty owner would misstate canonicality",
+    "token_eligible_uniform_nonzero_roots": 23,
+    "authority_blocked_nonzero_radius_roots": 1
   },
   "roots": [
     {
@@ -265,9 +267,11 @@
         20
       ],
       "tokens": {},
-      "applicable": true,
-      "expected_token": "radius.20",
-      "bound": false
+      "applicable": false,
+      "expected_token": null,
+      "bound": false,
+      "authority_status": "EXPLICIT_DECISION_REQUIRED",
+      "exclusion_reason": "OV-49 has no approved nonempty event manifest; this stale empty owner is not canonical-ready"
     },
     {
       "archetype": "archetype.search",
