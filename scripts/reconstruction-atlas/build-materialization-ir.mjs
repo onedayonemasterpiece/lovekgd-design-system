@@ -71,7 +71,7 @@ const nativeBindings = {
   'listing.event-card.compact': {
     component_id: 'd87e18f1-dcb4-80a6-8008-877370383914',
     main_shape_id: 'd87e18f1-dcb4-80a6-8008-87736fa07d4e',
-    main_name: 'Fixture adapters / Date typical desktop / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop',
+    main_name: 'Event cards / Compact variants / ListingEventCard · Compact · event.real.7888 · context=date-typical-desktop',
   },
   'festival.card': {
     component_id: '579a886e-56e8-80a3-8008-818784d1ffa9',

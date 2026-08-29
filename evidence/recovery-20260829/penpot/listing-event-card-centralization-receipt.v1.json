@@ -1,0 +1,50 @@
+{
+  "schema_version": "penpot-listing-event-card-centralization-receipt.v1",
+  "captured_at": "2026-08-29T07:58:17Z",
+  "status": "CORRECTION_VERIFIED",
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "named_version": {
+      "label": "ListingEventCard compact · centralized Date Weekend variants",
+      "revision": 2890
+    },
+    "readback_revision": 2891,
+    "canonical_path": "Event cards / Compact variants",
+    "canonical_component_count": 5,
+    "validation": []
+  },
+  "changes": {
+    "metadata_only": true,
+    "component_ids_preserved": true,
+    "main_ids_preserved": true,
+    "consumer_instance_ids_preserved": true,
+    "geometry_preserved": true,
+    "date_components": [
+      "d87e18f1-dcb4-80a6-8008-87733a67d4bb",
+      "d87e18f1-dcb4-80a6-8008-8773575484aa",
+      "d87e18f1-dcb4-80a6-8008-877370383914"
+    ],
+    "weekend_components": [
+      "d87e18f1-dcb4-80a6-8008-87b75354f2ed",
+      "d87e18f1-dcb4-80a6-8008-87becba472c7"
+    ]
+  },
+  "dependency_closure": {
+    "date_full_desktop_shell_component": "a21f5e36-5d76-8065-8008-86d4f634bcb2",
+    "weekend_timeline_component": "d87e18f1-dcb4-80a6-8008-87c0abebc2ea",
+    "weekend_full_shell_component": "d87e18f1-dcb4-80a6-8008-87cf1484a75c",
+    "all_observed_consumers_linked": true,
+    "detached_copy_count": 0
+  },
+  "idempotency": {
+    "second_run_actual_changes": 0,
+    "second_run_result": "IDEMPOTENT",
+    "second_run_expected_changes": 0,
+    "readback_script": "scripts/round-trip-reconstruction/penpot-reconcile-listing-event-card-centralization.js"
+  },
+  "visual_qa": {
+    "result": "NO_RASTER_CHANGE_EXPECTED_METADATA_ONLY",
+    "reason": "Only the native library ownership path changed; the exact component and consumer shape IDs were preserved.",
+    "owner_acceptance": "NOT_CLAIMED"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "favorites-event-card-runtime-parity-receipt.v1",
+  "captured_at": "2026-08-29T09:45:00Z",
+  "status": "VISUAL_DEFECT_CORRECTED / OWNER_REREVIEW_REQUIRED",
+  "authority": {
+    "astro_commit": "67197ef3e5141f2ad36e109a8300877d85626a79",
+    "route": "/izbrannoe/",
+    "penpot_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "penpot_page_id": "d87e18f1-dcb4-80a6-8008-880d209a7fcd",
+    "penpot_page_name": "63.12 — Atlas · Favorites"
+  },
+  "defect": {
+    "summary": "The populated Favorites state was structurally linked but visually wrong: narrow Free-collection adapters overflowed their 380/366 px slots and a second owner-local Calendar action duplicated the action already inside EventCard.",
+    "why_prior_evidence_was_insufficient": "The earlier readback proved native ancestry and zero detached instances; it did not compare rendered card geometry against the running Astro route.",
+    "supersedes": "catalog/reconstruction-atlas/v1/favorites-ov38-39-populated-source-exact.v1.json#visual_evidence.result"
+  },
+  "astro_runtime": {
+    "seed": {
+      "storage_key": "ke_personalization_profile",
+      "liked_event_ids": ["6947", "7006"]
+    },
+    "desktop": {
+      "viewport": [1280, 900],
+      "card_width": 380,
+      "observed_cards": [
+        {"event_id": "7006", "height": 765.65625, "media_height": 505, "body_height": 156, "actions_height": 54.90625},
+        {"event_id": "6947", "height": 765.65625, "media_height": 410.5, "body_height": 187.5, "actions_height": 86.40625}
+      ],
+      "screenshot": {
+        "path": "evidence/recovery-20260829/astro/favorites-runtime-1280.png",
+        "dimensions": [1280, 2288],
+        "sha256": "7113f2c47b410590255136ec68afd907fa906bf9dbde6ccb22b53e5bdb0b7d22"
+      }
+    },
+    "mobile": {
+      "viewport": [390, 844],
+      "card_width": 367.59375,
+      "observed_cards": [
+        {"event_id": "7006", "height": 738.078125, "media_height": 488.453125, "body_height": 144.96875, "actions_height": 54.90625},
+        {"event_id": "6947", "height": 598.421875, "media_height": 366.59375, "body_height": 127.171875, "actions_height": 54.90625}
+      ],
+      "screenshot": {
+        "path": "evidence/recovery-20260829/astro/favorites-runtime-390.png",
+        "dimensions": [390, 2267],
+        "sha256": "950c47d751d6441a372c1b777e73802e6c564f89dbcb889faf66b4b8deb12f45"
+      }
+    },
+    "current_catalog_note": "The observed runtime contains events 7006 and 6947. Penpot keeps 7030 as an explicit calendar-saved state fixture; this is state coverage, not a claim that 7030 is in the current runtime result."
+  },
+  "penpot_correction": {
+    "source_exact_masters": {
+      "desktop": "8f804431-c282-8075-8008-8ded941c9274",
+      "mobile": "8f804431-c282-8075-8008-8deda5f57712"
+    },
+    "canonical_components": {
+      "desktop": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
+      "mobile": "7f078c80-87b8-80f5-8008-85839e8975f6"
+    },
+    "corrected_cards": {
+      "desktop": [
+        {"event_id": "7030", "shape_id": "8f804431-c282-8075-8008-8e601b6aa948", "size": [380, 765.65625]},
+        {"event_id": "7006", "shape_id": "8f804431-c282-8075-8008-8e604295774e", "size": [380, 765.65625]},
+        {"event_id": "6947", "shape_id": "8f804431-c282-8075-8008-8e5c7cf32d89", "size": [380, 765.65625]}
+      ],
+      "mobile": [
+        {"event_id": "7030", "shape_id": "8f804431-c282-8075-8008-8e6089e35982", "size": [366, 481.515625]},
+        {"event_id": "7006", "shape_id": "8f804431-c282-8075-8008-8e60b83ee615", "size": [366, 738.078125]},
+        {"event_id": "6947", "shape_id": "8f804431-c282-8075-8008-8deda960f817", "size": [366, 598.421875]}
+      ]
+    },
+    "removed_duplicate_calendar_action_ids": [
+      "8f804431-c282-8075-8008-8ded94f6af27",
+      "8f804431-c282-8075-8008-8ded964b016b",
+      "8f804431-c282-8075-8008-8ded97e5dd9d",
+      "8f804431-c282-8075-8008-8deda6e94c81",
+      "8f804431-c282-8075-8008-8deda851834b",
+      "8f804431-c282-8075-8008-8deda9e03c78"
+    ],
+    "text_layout": {
+      "desktop_7006_title": "Открытая лекция по\nТрансцендентальной…",
+      "desktop_6947_title": "Лекция Жизнь и боль\nФриды Кало",
+      "meta_rows_wrap_admission_below_type_and_occurrence": true
+    },
+    "validation": []
+  },
+  "visual_readback": {
+    "desktop": {
+      "path": "evidence/recovery-20260829/penpot/favorites-event-card-runtime-parity-desktop.png",
+      "dimensions": [1180, 900],
+      "sha256": "e0a55b9a3c643d8c37fc65fb504ab4ddf4436b1601df88a393e2865e49114e27"
+    },
+    "mobile": {
+      "path": "evidence/recovery-20260829/penpot/favorites-event-card-runtime-parity-mobile.png",
+      "dimensions": [390, 1914],
+      "sha256": "accc729a1e0cfce24baeec1d98e6e25becd7eaad62ab9708338bedb2b5f17541"
+    },
+    "result": "OVERFLOW_AND_DUPLICATE_ACTION_FIXED / OWNER_REREVIEW_REQUIRED",
+    "owner_acceptance": "NOT_CLAIMED"
+  }
+}

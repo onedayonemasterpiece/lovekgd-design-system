@@ -91,12 +91,17 @@ def main() -> None:
     if focus["status"] != "lab-only-separate-from-amber" or len(focus["definitions"]) != 12 or {x["id"] for x in focus["definitions"]} != {f"FG-E{i:02d}" for i in range(1, 13)}:
         fail("ECA_FOCUS_SEPARATION", "/artifact/focus_lab_prototype", "exact separate FG-E01..FG-E12 lab prototype required")
     references = art["reference_inventory"]["items"]
-    if len(references) != 7 or len({x["concept"] for x in references}) != 6:
-        fail("ECA_REFERENCE_INVENTORY", "/artifact/reference_inventory", "7 source images / 6 concepts required")
-    if any(x["source_status"] != "local-source-reference-untracked-at-exact-baseline" for x in references):
-        fail("ECA_REFERENCE_AUTHORITY", "/artifact/reference_inventory/items", "untracked reference evidence must remain explicitly labelled")
-    if any("not-implemented" not in x["status"] for x in references if x["concept"] != "Amber Cosmonaut"):
-        fail("ECA_REFERENCE_PROMOTION", "/artifact/reference_inventory/items", "non-Amber concepts must remain not implemented")
+    correction = art["reference_inventory"].get("authority_correction", {})
+    if len(references) != 7 or len({x["concept"] for x in references}) != 7:
+        fail("ECA_REFERENCE_INVENTORY", "/artifact/reference_inventory", "7 source images / 7 owner-counted identities required")
+    if correction.get("cardinality") != 7 or correction.get("current_contract") != "catalog/reconstruction-atlas/v1/artifact-collection-1-owner-exact-seven.v1.json":
+        fail("ECA_REFERENCE_AUTHORITY", "/artifact/reference_inventory/authority_correction", "exact owner seven-artifact correction required")
+    if any(x["source_status"] != "owner-reference-exact-readback" for x in references):
+        fail("ECA_REFERENCE_AUTHORITY", "/artifact/reference_inventory/items", "owner-reference exact readback required")
+    if any(x["status"] != "owner-counted-artifact-materialized" for x in references):
+        fail("ECA_REFERENCE_PROMOTION", "/artifact/reference_inventory/items", "all seven owner-counted identities must be materialized")
+    if any(x["penpot_binding"].get("status") != "native-component-master-readback" or x["penpot_binding"].get("production_asset") is not False for x in references):
+        fail("ECA_REFERENCE_BINDING", "/artifact/reference_inventory/items", "native review masters must remain non-production assets")
     for index, item in enumerate(references):
         thumb = item.get("derived_review_thumbnail", {})
         thumb_path = root / thumb.get("repo_path", "")
@@ -107,8 +112,11 @@ def main() -> None:
 
     if args.require_penpot:
         collection = med["penpot_collection"]
-        if collection.get("status") != "materialized-readback" or not UUID.fullmatch(str(collection.get("page_id", ""))):
-            fail("ECA_MEDALLION_PENPOT", "/medallion/penpot_collection", "Page48 materialized readback required")
+        tier_readback = med["consumer_frame_contract"]["normalized_review_tiers_px"].get("penpot_readback", {})
+        if collection.get("status") != "materialized-readback-normalized-size-v2" or not UUID.fullmatch(str(collection.get("page_id", ""))):
+            fail("ECA_MEDALLION_PENPOT", "/medallion/penpot_collection", "Page48 normalized-size-v2 materialized readback required")
+        if tier_readback.get("status") != "owner-approved-v2-materialized-readback" or tier_readback.get("validation_error_count") != 0:
+            fail("ECA_MEDALLION_TIER_READBACK", "/medallion/consumer_frame_contract/normalized_review_tiers_px/penpot_readback", "owner-approved normalized tier readback required")
         if any(item["penpot_binding"].get("status") != "materialized-readback" or not UUID.fullmatch(str(item["penpot_binding"].get("component_id", ""))) for item in visuals):
             fail("ECA_MEDALLION_COMPONENTS", "/medallion/visuals", "all 42 native linked asset components required")
         frame = med["consumer_frame_contract"]["penpot_binding"]

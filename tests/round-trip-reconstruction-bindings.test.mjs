@@ -52,8 +52,8 @@ test('comparison tuples use the exact materialized route fixture', () => {
   const information = bindings.cases.filter(item => item.archetype_id === 'archetype.information-pages');
   assert.equal(information.length, 2);
   for (const item of information) {
-    assert.equal(item.astro.route, '/partnerstvo/');
-    assert.match(item.penpot.board_name, /route=partnerstvo/);
+    assert.equal(item.astro.route, '/partners/');
+    assert.match(item.penpot.board_name, /route=partners;fixtures=6/);
   }
 
   const detail = bindings.cases.filter(item => item.archetype_id === 'archetype.event-detail');

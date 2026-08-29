@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_CENTRALIZATION_VERIFIED_GLOBAL_LINEAGE_AND_FIXTURE_AUTHORITY_OPEN",
+  "authority": {
+    "owner_items": ["OV-08", "OV-30", "OV-58", "OV-59"],
+    "clarified_by": [
+      "REV-IDEAHUB-20260828-01",
+      "REV-IDEAHUB-20260829-14",
+      "REV-CHAT-20260829-01",
+      "voice-20260829-201612-4feb9e87"
+    ],
+    "central_system": "SoT UI",
+    "durable_implementation": "versioned Git contract/package data, tokens, behavior contracts, fixture authority, bindings and receipts in lovekgd-design-system",
+    "penpot_role": "native visual projection and review surface; not a central system or direct source for Astro",
+    "astro_role": "executable projection/consumer and pre-promotion AS-IS evidence",
+    "propagation": ["SoT UI -> Penpot", "SoT UI -> Astro"],
+    "forbidden_propagation": "Penpot -> Astro as direct or competing authority",
+    "astro_repository": "onedayonemasterpiece/events-bot-new",
+    "historical_verified_head": "4243401a4017a9efc9b43fb3482307675a60f0ec",
+    "active_candidate": "events-bot-new#596:fix/audio-audit-ui-20260828",
+    "active_design_system_contour": "lovekgd-design-system#53:fix/penpot-owner-comments-20260826",
+    "supersedes_candidate_decision": "catalog/normalization/families/event-preview-representations/event-card-taxonomy-candidate-v1.json#identity_decisions",
+    "supersession_scope": "Semantic family and Penpot lineage governance. Astro representation adapters remain valid where runtime anatomy and interaction materially differ."
+  },
+  "fixture_authority": {
+    "target": "one canonical SoT UI fixture authority with typed records and named scenarios/subsets",
+    "current_status": "SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN",
+    "component_event_ids": [3132, 4327, 6399, 6628, 7807, 7888, 7906, 8156],
+    "archetype_event_ids": [7030, 7006, 6901, 6996, 6997],
+    "sets_are_disjoint": true,
+    "single_cross_level_authority_proven": false,
+    "rule": "Exact bounded scenarios remain admissible, but component-to-group-to-archetype continuity must not be claimed until both event sets are registered under one SoT authority or one contour is explicitly superseded."
+  },
+  "canonical_family": {
+    "family_id": "event-card-family",
+    "penpot_rule": "Library masters and state catalogs stay on bounded component pages; archetypes consume linked instances. Page-local masters, detached terminal copies and visually similar unrelated roots are forbidden.",
+    "global_semantic_family_required": true,
+    "single_global_penpot_root_proven": false,
+    "visual_similarity_is_not_lineage": true,
+    "representations": [
+      {
+        "id": "large",
+        "astro_owner": "site/src/components/EventCard.astro",
+        "semantic_role": "general event preview with media, content and actions",
+        "layouts": ["split-actions", "overlay-controls-deprecated"]
+      },
+      {
+        "id": "listing-compact",
+        "astro_owner": "site/src/components/listings/ListingEventCard.astro",
+        "astro_version": 9,
+        "semantic_role": "compact desktop listing card",
+        "densities": ["regular", "weekend", "popular"]
+      },
+      {
+        "id": "mobile-rail-track",
+        "astro_owner": "site/src/components/listings/MobileListingRailRow.astro",
+        "semantic_role": "intrinsic horizontal swipe/track event representation",
+        "viewport_owner": "site/src/components/listings/MobileListingRailSurface.astro"
+      },
+      {
+        "id": "festival",
+        "astro_owner": "site/src/components/festivals/FestivalCard.astro",
+        "semantic_role": "festival-specific event representation in deterministic timeline rows"
+      }
+    ],
+    "shared_semantics": [
+      "event identity and href",
+      "title",
+      "schedule/occurrence",
+      "place",
+      "media framing decision",
+      "admission",
+      "social proof where source-present",
+      "actions where source-present"
+    ],
+    "allowed_representation_differences": [
+      "layout and density",
+      "desktop versus mobile interaction model",
+      "presence of actions",
+      "media frame geometry",
+      "social-proof placement",
+      "occurrence projection",
+      "festival-specific status and timeline semantics"
+    ],
+    "content_overrides_not_variants": [
+      "event id",
+      "title",
+      "date/time",
+      "venue",
+      "city",
+      "price",
+      "image",
+      "counts"
+    ]
+  },
+  "consumer_map": [
+    {
+      "atlas_page": "63.01 Home",
+      "route": "/",
+      "path": ["HomeColdStartFeed.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "layout=split-actions;mobileFlowMedia=true"
+    },
+    {
+      "atlas_page": "63.02 Date listing",
+      "route_family": ["/segodnya/", "/zavtra/", "/date-YYYY-MM-DD/"],
+      "path": ["DateListingSurface.astro", "ExactTimeTimeline.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=regular"
+    },
+    {
+      "atlas_page": "63.03 Weekend listing",
+      "route": "/vyhodnye/",
+      "path": ["WeekendListingSurface.astro", "WeekendEditorialTimeline.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=weekend"
+    },
+    {
+      "atlas_page": "63.03 Weekend listing mobile",
+      "route": "/vyhodnye/",
+      "path": ["WeekendListingSurface.astro", "MobileListingRailSurface.astro", "MobileListingRailRow.astro"],
+      "representation": "mobile-rail-track",
+      "state": "occurrenceMode=per-family"
+    },
+    {
+      "atlas_page": "63.04 Popular listing",
+      "route": "/populyarnoe/",
+      "path": ["PopularListingSurface.astro", "PopularBehaviorRows.astro", "ListingEventCard.astro"],
+      "representation": "listing-compact",
+      "state": "density=popular"
+    },
+    {
+      "atlas_page": "63.04 Popular listing mobile",
+      "route": "/populyarnoe/",
+      "path": ["PopularListingSurface.astro", "PopularMobileBehaviorRows.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "layout=split-actions"
+    },
+    {
+      "atlas_page": "63.05 Unusual listing",
+      "route": "/neobychnoe/",
+      "path": ["UnusualListingSurface.astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "mobileFlowMedia=true",
+      "authority_status": "BLOCKED_PENDING_APPROVED_NONEMPTY_MANIFEST"
+    },
+    {
+      "atlas_page": "63.06 Search final results",
+      "route": "/poisk/",
+      "path": ["AuthorizedEventSearch.astro", "window.KenigEventsRenderEventCard", "EventLayout.astro#createEventCardElement"],
+      "representation": "large",
+      "state": "layout=split-actions;mobile media contract",
+      "note": "Vector preview cards are provisional verification UI, not canonical final-result cards."
+    },
+    {
+      "atlas_page": "63.07 Event details related feed",
+      "route_family": ["/sobytiya/[slug]/"],
+      "path": ["[slug].astro", "EventCard.astro"],
+      "representation": "large",
+      "state": "source-selected feedCardVariant"
+    },
+    {
+      "atlas_page": "63.09 Festivals",
+      "route": "/festivali/",
+      "path": ["festivali/index.astro", "FestivalCard.astro"],
+      "representation": "festival",
+      "state": "source-derived 1/4/2 reference rows"
+    }
+  ],
+  "bounded_evidence": [
+    {
+      "scope": "Date and Weekend compact cards",
+      "receipt": "catalog/reconstruction-atlas/v1/listing-event-card-centralization-20260829.v1.json",
+      "status": "STRUCTURAL_CORRECTION_VERIFIED"
+    },
+    {
+      "scope": "Popular compact cards",
+      "receipt": "catalog/reconstruction-atlas/v1/popular-listing-event-card-centralization-20260829.v1.json",
+      "status": "STRUCTURAL_CORRECTION_VERIFIED_VISUAL_QA_PARTIAL"
+    },
+    {
+      "scope": "Festival cards",
+      "receipt": "catalog/reconstruction-atlas/v1/festival-card-centralization-20260829.v1.json",
+      "status": "BOUNDED_COMPONENTIZATION_VERIFIED_VISUAL_EXPORT_BLOCKED"
+    },
+    {
+      "scope": "Mobile listing Rail nested consumers",
+      "receipt": "docs/reviews/index.md#OV-01",
+      "status": "CANONICAL_ANCESTRY_READBACK_READY_FOR_OWNER_REREVIEW"
+    }
+  ],
+  "penpot_gate": {
+    "status": "PARTIAL_VERIFIED_OWNER_REREVIEW_REQUIRED",
+    "canonical_component_id": null,
+    "canonical_main_ids": [],
+    "why_null": "Bounded representation owners are proven, but a single global Penpot family root UUID and complete all-consumer zero-alternative census are not proven. IDs must not be fabricated.",
+    "required_for_global_closure": [
+      "one canonical SoT fixture authority or explicit supersession linkage",
+      "fresh exact-ID census of every claimed event-card representation and owner descendant",
+      "record semantic family registry and every representation owner/main ID",
+      "prove zero unauthorized page-local alternative masters in the bounded consumer set",
+      "prove zero detached terminal copies",
+      "bind exact source version and fixture scenario for every claimed consumer",
+      "complete focused visual parity for every required state and viewport",
+      "obtain explicit owner acceptance",
+      "perform per-family promotion and complete Astro consumer migration"
+    ],
+    "forbidden": [
+      "Penpot treated as the central system",
+      "direct Penpot to Astro authority",
+      "page-local event-card component main",
+      "static screenshot used as a card implementation",
+      "visually similar but unrelated root",
+      "invented consumer-only anatomy",
+      "global closure claim inferred from one component-main readback",
+      "cross-level Golden Corpus claim across the current disjoint event sets",
+      "global mutation before exact-ID readback"
+    ]
+  },
+  "acceptance": {
+    "bounded_structural_progress": "PROVEN",
+    "fixture_authority_unification": "OPEN",
+    "global_lineage_closure": "OPEN",
+    "owner_acceptance": "NOT_CLAIMED",
+    "family_promotion": "NOT_AUTHORIZED",
+    "production_migration": "NOT_AUTHORIZED"
+  }
+}

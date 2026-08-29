@@ -1,5 +1,20 @@
 # Complete Reconstruction Atlas v1
 
+## Recovery visual-authority override — 2026-08-28
+
+For the current owner recovery, the primary visual donor is the complete
+pre-presentation Astro tree
+`events-bot-new@008839b14598105d1fed5b4e386d6d6f29d93d1f`. Reconstruct the
+page composition from that tree first. Later commits override it only where a
+source-backed correction is proven (for example the exact seven-artifact owner
+decision or the later Search regression fixes). A later partial scaffold,
+empty fallback, service proof board or visually plausible invention never
+supersedes the donor merely because it is newer.
+
+This rule changes visual recovery precedence, not production promotion. Exact
+current runtime behavior, owner decisions and safety/fail-closed gates remain
+binding deltas and must be recorded rather than silently dropped.
+
 Текущая semantic phase построена из Astro head
 `7774004b48f1dd7ffe6eaa3a77d4bd4799d92c00` и generated browser output.
 

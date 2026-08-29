@@ -130,7 +130,8 @@ def main():
   if exact and not re.fullmatch(r'[0-9a-f]{40}',s['runtime_build_evidence'].get('commit','')): fail('ECT_EXACT_BUILD_UNPROVEN',path+'/runtime_build_evidence','exact claim requires 40-char commit')
   if a.require_penpot and include:
    pb=s['penpot_binding']; vals=[pb.get('page_id'),pb.get('component_id'),pb.get('variant_id')]
-   if pb.get('status')!='materialized-readback' or not all(isinstance(x,str) and re.fullmatch(r'[0-9a-f-]{36}',x) for x in vals) or not pb.get('instance_ids'): fail('ECT_PENPOT_BINDING_INCOMPLETE',path+'/penpot_binding','materialized UUIDs and instance readback required')
+   readback_statuses={'materialized-readback','rebound-to-active-composable-master'}
+   if pb.get('status') not in readback_statuses or not all(isinstance(x,str) and re.fullmatch(r'[0-9a-f-]{36}',x) for x in vals) or not pb.get('instance_ids'): fail('ECT_PENPOT_BINDING_INCOMPLETE',path+'/penpot_binding','materialized UUIDs and instance readback required')
  raw=(root/TAX).read_text()+(root/MAN).read_text(); forbidden=['production-v1','PROMOTED','SOURCE OF TRUTH','verified implementation']
  if any(x in raw for x in forbidden): fail('ECT_FORBIDDEN_CLAIM','/','forbidden promotion/implementation label')
  stale_ids=['10a29786-8dcf-802c-8008-739d91a640ed','66419e3c-4a3e-80f8-8008-80991f88c656']

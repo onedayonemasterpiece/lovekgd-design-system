@@ -1,0 +1,61 @@
+{
+  "schema_version": "svgrepo-candidate-intake.v1",
+  "status": "PENPOT_TAXONOMY_MATERIALIZED_VISUAL_EXPORT_BLOCKED",
+  "owner_item": "OV-53",
+  "discovery_source": {
+    "service": "svgrepo.org",
+    "skill": "/home/dev/.codex/skills/svgrepo-svg-finder/SKILL.md",
+    "authority": "candidate discovery only"
+  },
+  "lifecycle": ["discovered", "candidate", "accepted", "rejected", "superseded"],
+  "required_fields": [
+    "candidate_id",
+    "semantic_role",
+    "style_class",
+    "source_url",
+    "collection_or_author",
+    "license",
+    "license_url",
+    "svg_sha256",
+    "view_box",
+    "optical_size_px",
+    "accessibility_role",
+    "status"
+  ],
+  "style_classes": {
+    "outline_thin": {"description": "thin monoline outline", "stroke_band_px_at_24": [1, 1.5]},
+    "outline_regular": {"description": "regular monoline outline", "stroke_band_px_at_24": [1.75, 2.25]},
+    "bold_solid": {"description": "bold, filled or visually heavy glyph"},
+    "illustrative_drawn": {"description": "drawn or pictorial illustration rather than a utility glyph"},
+    "duotone": {"description": "two-tone icon with explicit layer semantics"},
+    "brand_specific": {"description": "brand/service mark; never substituted for a generic semantic icon"}
+  },
+  "invariants": [
+    "Discovery does not promote or replace a production icon.",
+    "Unknown or incompatible licenses fail closed.",
+    "Every accepted SVG keeps immutable source URL and SHA-256 provenance.",
+    "Semantic role and style class are separate fields.",
+    "Penpot candidates are grouped under Icon / Candidate / <style_class>.",
+    "Production consumers continue to use linked current components until an explicit promotion receipt exists."
+  ],
+  "existing_current_registry": {
+    "path": "catalog/normalization/iconography/event-card-icon-registry-candidate-v1.json",
+    "icons": 24,
+    "unclassified": 0,
+    "note": "This existing source-bound set is not retroactively treated as SVGRepo discovery candidates."
+  },
+  "penpot_projection": {
+    "page_id": "10a29786-8dcf-802c-8008-739d919b8bb2",
+    "page_name": "25 — Iconography",
+    "required_section": "SVGRepo candidates · grouped by visual class",
+    "root_id": "8f804431-c282-8075-8008-8da787ddc764",
+    "style_cards": 6,
+    "candidate_count": 0,
+    "token_bound_shapes": 24,
+    "saved_version": "Recovery 2026-08-28 · OV-53 SVGRepo candidate taxonomy · 0 arbitrary candidates",
+    "validation_errors": [],
+    "visual_export": "BLOCKED_EXTERNAL_EXPORTER_HTTP_504",
+    "status": "MATERIALIZED_EMPTY_BY_DESIGN"
+  },
+  "processed": false
+}
