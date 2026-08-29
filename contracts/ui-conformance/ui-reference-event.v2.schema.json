@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-reference-event.v2.schema.json",
+  "title": "Frozen public PreviewEvent fixture v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fixture_id", "event_id", "source_prod_id", "slug", "source_repository_sha", "source_static_build_id", "source_snapshot", "extracted_at", "preview_event_sha256", "payload_path", "coverage_tags", "preview_event"],
+  "properties": {
+    "schema_version": {"const": "ui-reference-event.v2"},
+    "fixture_id": {"type": "string", "pattern": "^event\\.real\\.[0-9]+$"},
+    "event_id": {"type": "integer", "minimum": 1},
+    "source_prod_id": {"type": "integer", "minimum": 1},
+    "slug": {"type": "string", "minLength": 1},
+    "source_repository_sha": {"$ref": "#/$defs/gitSha"},
+    "source_static_build_id": {"type": "string", "minLength": 1},
+    "source_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "sha256"],
+      "properties": {
+        "kind": {"const": "preview-export-catalog-revision"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "extracted_at": {"type": "string", "format": "date-time"},
+    "preview_event_sha256": {"$ref": "#/$defs/sha256"},
+    "payload_path": {"type": "string", "pattern": "^events/event\\.real\\.[0-9]+\\.json$"},
+    "coverage_tags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}},
+    "preview_event": {
+      "type": "object",
+      "required": ["id", "source_prod_id", "slug", "title", "start_date", "timezone", "ticket", "image_assets"]
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "gitSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+  }
+}

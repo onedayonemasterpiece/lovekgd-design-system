@@ -1,0 +1,93 @@
+{
+  "$schema": "../../../../../contracts/ui-conformance/design-system-scenario-projection.v1.schema.json",
+  "schema_version": "design-system-scenario-projection.v1",
+  "scenario_id": "free-collection-september-desktop-v2",
+  "registry_ref": "catalog/fixtures/design-system-reference/v2/registry.v2.json#events.free-collection-september.v1",
+  "route_ref": {
+    "registry": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json",
+    "archetype_id": "archetype.collections",
+    "route": "/podborki/besplatnye-sobytiya/"
+  },
+  "state": "ready",
+  "viewport": {
+    "width": 1280,
+    "height": 1200,
+    "dpr": 1
+  },
+  "fixture_input_order": [
+    "event.real.2182",
+    "event.real.6711",
+    "event.real.7609",
+    "event.real.8006",
+    "event.real.8200"
+  ],
+  "expected_render_order": [
+    "event.real.8006",
+    "event.real.8200",
+    "event.real.2182",
+    "event.real.6711",
+    "event.real.7609"
+  ],
+  "component_projection": {
+    "family": "event-card-family",
+    "representation": "large",
+    "astro_owner": "site/src/components/EventCard.astro",
+    "penpot_archetype_component_id": "b0fe69fd-ccaf-8025-8008-846f0b7f12cd",
+    "detached_instances_allowed": 0
+  },
+  "container_projection": {
+    "semantic_id": "event-card-equal-height-grid",
+    "astro_owner": "site/src/components/OptimizedEventCardGrid.astro",
+    "penpot_container_component_id": "b0fe69fd-ccaf-8025-8008-847108143471",
+    "layout_contract": "catalog/ui-components/event-card-container/packed-rows.v1.json",
+    "groups": [
+      {
+        "id": "events",
+        "fixture_ids": [
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "desktop_columns": 2,
+        "row_card_counts": [
+          2
+        ],
+        "row_ratio": "6x7"
+      },
+      {
+        "id": "exhibitions",
+        "fixture_ids": [
+          "event.real.2182",
+          "event.real.6711",
+          "event.real.7609"
+        ],
+        "desktop_columns": 3,
+        "row_card_counts": [
+          3
+        ],
+        "row_ratio": "1x1"
+      }
+    ],
+    "equal_height_within_each_row": true,
+    "preserve_all_source_cards": true,
+    "fill_available_width_per_row": true
+  },
+  "acceptance": {
+    "headings": [
+      "2 событий",
+      "Бесплатные выставки · 3"
+    ],
+    "exact_fixture_identity_required": true,
+    "astro_fixture_marker_required": true,
+    "penpot_linked_instances_required": 5,
+    "horizontal_overflow": 0,
+    "console_errors": 0,
+    "production_data_replacement": false,
+    "visual_comparison_required": true,
+    "structural_readback_cannot_substitute_visual_comparison": true,
+    "review_states": [
+      "top",
+      "hero-passed-sticky-medallion",
+      "full-page"
+    ]
+  }
+}

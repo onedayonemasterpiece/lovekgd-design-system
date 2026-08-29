@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/design-system-reference-fixture-registry.v2.schema.json",
+  "title": "Design-system reference fixture registry v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "registry_id", "reference_clock", "golden_corpus", "entity_sources", "fixtures", "pools", "projections"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "design-system-reference-fixture-registry.v2"},
+    "registry_id": {"const": "design-system-reference-v2"},
+    "reference_clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "timezone", "locale"],
+      "properties": {
+        "date": {"const": "2026-08-29"},
+        "timezone": {"const": "Europe/Kaliningrad"},
+        "locale": {"const": "ru-RU"}
+      }
+    },
+    "golden_corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corpus_id", "path", "sha256"],
+      "properties": {
+        "corpus_id": {"const": "ui-reference-events.v2"},
+        "path": {"const": "catalog/fixtures/ui-reference-events/v2/corpus.json"},
+        "sha256": {"pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "entity_sources": {"type": "object"},
+    "fixtures": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fixture_id", "entity_type", "source_id", "payload_sha256", "coverage", "asset"],
+        "properties": {
+          "fixture_id": {"pattern": "^event\\.real\\.[0-9]+$"},
+          "entity_type": {"const": "event"},
+          "source_id": {"type": "integer", "minimum": 1},
+          "payload_sha256": {"pattern": "^[a-f0-9]{64}$"},
+          "coverage": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+          "asset": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["url", "sha256"],
+            "properties": {
+              "url": {"type": "string", "format": "uri"},
+              "sha256": {"pattern": "^[a-f0-9]{64}$"}
+            }
+          }
+        }
+      }
+    },
+    "pools": {"type": "object"},
+    "projections": {"type": "object"}
+  }
+}
