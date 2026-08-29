@@ -30,6 +30,20 @@ production festivals. Its target representative profile is three rows with
 `1 / 4 / 2` factual festivals. Clubs already use the exact bounded three-item
 catalogue. Existing golden event fixtures remain the shared event pool.
 
+Later owner visual review exposed a second, independent typification defect in
+that bounded Festival projection: six cards per viewport were still native
+boards assembled next to the owner. The correction is now materialized at
+Penpot revision `2917`: all seven cards in each desktop/mobile owner are linked
+instances under `Event cards / Festival / Context`, with zero owner-local
+Festival card boards. Astro commit `67197ef3e` likewise delegates the repeated
+timeline markup to `site/src/components/festivals/FestivalCard.astro`. The
+executable contract and receipt are
+`catalog/reconstruction-atlas/v1/festival-card-centralization-20260829.v1.json`
+and
+`evidence/recovery-20260829/penpot/festival-card-centralization-receipt.v1.json`.
+The one bounded Penpot export attempt returned HTTP 504, so visual acceptance is
+not claimed.
+
 ## Excluded packets
 
 | Packet | Commit | Reason |

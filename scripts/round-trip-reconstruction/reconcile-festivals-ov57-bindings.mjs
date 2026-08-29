@@ -4,45 +4,76 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const BINDINGS = 'catalog/round-trip-reconstruction/v1/bindings.v1.json';
 const COMPACT = 'catalog/reconstruction-atlas/v1/penpot/bindings.v1.json';
-const CONTRACT = 'catalog/reconstruction-atlas/v1/design-system-reference-fixtures-ov57.v1.json';
-const RECEIPT = 'evidence/recovery-20260829/penpot/ov57-festivals-bounded-native-receipt.v1.json';
-const ASTRO = 'dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e';
+const OV57_CONTRACT = 'catalog/reconstruction-atlas/v1/design-system-reference-fixtures-ov57.v1.json';
+const OV57_RECEIPT = 'evidence/recovery-20260829/penpot/ov57-festivals-bounded-native-receipt.v1.json';
+const CARD_CONTRACT = 'catalog/reconstruction-atlas/v1/festival-card-centralization-20260829.v1.json';
+const CARD_RECEIPT = 'evidence/recovery-20260829/penpot/festival-card-centralization-receipt.v1.json';
+const ASTRO = '67197ef3e5141f2ad36e109a8300877d85626a79';
 const FILE = '3be9e5e1-190f-8090-8008-713c0fbe6260';
 const PAGE = 'd87e18f1-dcb4-80a6-8008-880c8e21990e';
 const TEAM = '81f57451-85cc-819d-8008-70ebaeab3fd6';
+const CARD_PATH = 'Event cards / Festival / Context';
 const read = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const write = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
 const hash = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 const component = (item) => ({ ...item, library_id: FILE });
 
-const receipt = read(RECEIPT);
-const revision = receipt.penpot.revision;
-const ownerByViewport = new Map(receipt.owners.map((owner) => [owner.viewport, owner]));
+const initial = read(OV57_RECEIPT);
+const central = read(CARD_RECEIPT);
+const cardContract = read(CARD_CONTRACT);
+const revision = cardContract.authority.penpot_readback_revision;
+const ownerByViewport = new Map(initial.owners.map((owner) => [owner.viewport, owner]));
+const cardsByViewport = new Map(central.native_readback.owners.map((owner) => [owner.viewport, owner.linked_cards]));
 const fixtureSlugs = ['city-jazz', 'sosedi', 'grozd', 'more-vnutri', 'bolshoy-kaup', 'v-edinstve', 'jazz-v-filarmonii'];
 
-const canonicalBoard = (previous, owner) => ({
-  ...previous,
-  astro: {
-    ...previous.astro,
-    commit: ASTRO,
-    capture: { full_page: true, mode: 'full-page', fixture_profile: 'design-system-reference-v1' },
+const cardChild = (card, index) => ({
+  shape_id: card.owner_instance_id,
+  parent_index: card.fixture === 'city-jazz' ? 22 : 31 + index,
+  name: card.fixture === 'city-jazz'
+    ? `linked FestivalCard / city-jazz / ${card.viewport === 'desktop' ? 'desktop-wide' : 'mobile-full'}`
+    : `linked FestivalCard / ${card.fixture} / ${card.viewport} / source-exact`,
+  type: 'board',
+  x: card.position[0],
+  y: card.position[1],
+  width: card.size[0],
+  height: card.size[1],
+  hidden: false,
+  is_component_copy: true,
+  is_component_main: false,
+  component: {
+    id: card.component_id,
+    name: card.component_name,
+    path: CARD_PATH,
+    library_id: FILE,
   },
-  height: owner.root.height,
-  penpot: {
-    ...previous.penpot,
-    board_component: component(owner.component),
-    board_id: owner.root.id,
-    board_name: owner.root.name,
-    direct_children: owner.direct_children.filter((child) => child.component).map((child) => ({
-      ...child,
-      component: component(child.component),
-    })),
-    direct_url: `https://design.penpot.app/#/workspace?team-id=${TEAM}&file-id=${FILE}&page-id=${PAGE}&board-id=${owner.root.id}`,
-    revision,
-  },
-  viewport: owner.viewport,
-  width: owner.root.width,
 });
+
+const canonicalBoard = (previous, owner) => {
+  const cards = cardsByViewport.get(owner.viewport);
+  const nonCards = owner.direct_children
+    .filter((child) => child.component && child.component.path !== CARD_PATH)
+    .map((child) => ({ ...child, component: component(child.component) }));
+  return {
+    ...previous,
+    astro: {
+      ...previous.astro,
+      commit: ASTRO,
+      capture: { full_page: true, mode: 'full-page', fixture_profile: 'design-system-reference-v1' },
+    },
+    height: owner.root.height,
+    penpot: {
+      ...previous.penpot,
+      board_component: component(owner.component),
+      board_id: owner.root.id,
+      board_name: owner.root.name,
+      direct_children: [...nonCards, ...cards.map(cardChild)].sort((left, right) => left.parent_index - right.parent_index),
+      direct_url: `https://design.penpot.app/#/workspace?team-id=${TEAM}&file-id=${FILE}&page-id=${PAGE}&board-id=${owner.root.id}`,
+      revision,
+    },
+    viewport: owner.viewport,
+    width: owner.root.width,
+  };
+};
 
 const bindings = read(BINDINGS);
 const archetype = bindings.archetypes.find((item) => item.archetype_id === 'archetype.festivals');
@@ -53,9 +84,9 @@ bindings.cases = bindings.cases.map((item) => item.archetype_id === archetype.ar
   : item);
 archetype.bounded_fixture_correction = {
   contract_id: 'recovery.ov-57.shared-bounded-fixture-pools.v1',
-  path: CONTRACT,
-  sha256: hash(CONTRACT),
-  status: 'ASTRO_AND_PENPOT_STRUCTURALLY_VERIFIED_VISUAL_EXPORT_BLOCKED',
+  path: OV57_CONTRACT,
+  sha256: hash(OV57_CONTRACT),
+  status: 'ASTRO_AND_PENPOT_STRUCTURALLY_VERIFIED_FESTIVAL_CARDS_COMPONENTIZED_VISUAL_EXPORT_BLOCKED',
 };
 archetype.fixture_profile = {
   id: 'design-system-reference-v1',
@@ -63,21 +94,49 @@ archetype.fixture_profile = {
   row_card_counts: [1, 4, 2],
   full_production_count: 21,
   dense_listing_validation: 'Astro only',
-  penpot_receipt: RECEIPT,
-  penpot_receipt_sha256: hash(RECEIPT),
+  initial_penpot_receipt: OV57_RECEIPT,
+  initial_penpot_receipt_sha256: hash(OV57_RECEIPT),
+  current_penpot_receipt: CARD_RECEIPT,
+  current_penpot_receipt_sha256: hash(CARD_RECEIPT),
 };
-archetype.source_exact_fixture_cards = receipt.owners.flatMap((owner) => [
-  ...owner.linked_city_jazz.map((card) => ({ viewport: owner.viewport, fixture: 'city-jazz', shape_id: card.id, component_id: card.component, linked: true })),
-  ...owner.fixture_cards.map((card) => ({ viewport: owner.viewport, fixture: card.name.split(' / ')[1], shape_id: card.id, linked: false, width: card.width, height: card.height, image_media_ids: card.image_fills.map((fill) => fill.media.id) })),
-]);
+archetype.source_exact_fixture_cards = cardContract.penpot.variants.map((card) => ({
+  viewport: card.viewport,
+  fixture: card.fixture,
+  shape_id: card.owner_instance_id,
+  component_id: card.component_id,
+  linked: true,
+  width: card.size[0],
+  height: card.size[1],
+}));
+archetype.festival_card_centralization = {
+  contract_id: cardContract.contract_id,
+  path: CARD_CONTRACT,
+  sha256: hash(CARD_CONTRACT),
+  receipt: CARD_RECEIPT,
+  receipt_sha256: hash(CARD_RECEIPT),
+  canonical_path: CARD_PATH,
+  component_ids: cardContract.penpot.variants.map((card) => card.component_id),
+  linked_cards_per_owner: 7,
+  owner_local_native_card_count: 0,
+  penpot_revision: revision,
+  astro_owner: cardContract.astro.owner,
+  astro_commit: ASTRO,
+};
+const dependency = archetype.dependencies.find((item) => item.component_id === 'festival.card');
+if (!dependency) throw new Error('Festival archetype has no festival.card dependency');
+const centralIds = new Set(archetype.festival_card_centralization.component_ids);
+dependency.penpot_candidates = [
+  ...cardContract.penpot.variants.map((card) => ({ id: card.component_id, library_id: FILE, name: card.component_name, path: CARD_PATH, score: 4 })),
+  ...dependency.penpot_candidates.filter((candidate) => !centralIds.has(candidate.id)),
+];
 for (const region of archetype.regions) {
   if (region.region_id === 'festival.header') {
-    region.source_exact_instances = receipt.owners.flatMap((owner) => owner.direct_children
+    region.source_exact_instances = initial.owners.flatMap((owner) => owner.direct_children
       .filter((child) => /linked Festival \/ Header/u.test(child.name))
       .map((child) => ({ viewport: owner.viewport, shape_id: child.shape_id, component: component(child.component), fixture_count: 7 })));
   }
   if (region.region_id === 'festival.timeline') {
-    region.source_exact_instances = receipt.owners.flatMap((owner) => owner.direct_children
+    region.source_exact_instances = initial.owners.flatMap((owner) => owner.direct_children
       .filter((child) => /^(Festival month filters|Festival guidance|Month \/)/u.test(child.name))
       .map((child) => ({ viewport: owner.viewport, shape_id: child.shape_id, name: child.name })));
   }
@@ -93,8 +152,8 @@ const overlay = {
   penpot_page_id: PAGE,
   penpot_revision: revision,
   review_items: ['OV-57'],
-  scope: 'shared-bounded-fixture-profile-seven-festivals-rows-1-4-2',
-  comparison_status: 'INVALIDATED_BY_OV57_NEW_OWNER_EXPORT_BLOCKED',
+  scope: 'shared-bounded-fixture-profile-seven-festivals-rows-1-4-2-centralized-card-family',
+  comparison_status: 'STRUCTURAL_PASS_VISUAL_EXPORT_BLOCKED',
 };
 const overlayIndex = bindings.correction_overlays.findIndex((item) => item.archetype_id === archetype.archetype_id);
 if (overlayIndex >= 0) bindings.correction_overlays[overlayIndex] = overlay;
@@ -114,4 +173,4 @@ for (const projection of compactArchetype.projections) {
   projection.height = owner.root.height;
 }
 write(COMPACT, compact);
-console.log(`${BINDINGS}: promoted OV-57 Festivals ${fixtureSlugs.length}-fixture owners at Penpot revision ${revision}`);
+console.log(`${BINDINGS}: promoted centralized FestivalCard family at Penpot revision ${revision}`);
