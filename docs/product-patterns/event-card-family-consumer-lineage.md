@@ -2,11 +2,11 @@
 
 Status: `BOUNDED_CENTRALIZATION_VERIFIED / GLOBAL_LINEAGE_OPEN / OWNER_REREVIEW_REQUIRED`
 
-`OV-08`, `OV-30` and the later owner voice
-`voice-20260829-201612-4feb9e87` require technical lineage, not a set of
-visually similar page-local roots. This record supersedes the earlier *candidate*
-choice to treat `event.card`, `listing.event-card` and `listing.rail-row` as
-unrelated visual systems.
+`OV-08`, `OV-30`, `OV-58` and the latest registered owner review
+`REV-IDEAHUB-20260829-14` require technical lineage, not a set of visually
+similar page-local roots. This record supersedes the earlier *candidate* choice
+to treat `event.card`, `listing.event-card` and `listing.rail-row` as unrelated
+visual systems.
 
 ## Target boundary
 
@@ -52,6 +52,23 @@ source-bound receipts on this branch prove bounded corrections:
 
 These receipts prove real progress; they do **not** prove one globally accepted
 technical ancestor across every event-card representation or every page.
+
+## Latest owner clarification
+
+`REV-IDEAHUB-20260829-14` / `OV-58` makes the operating boundary explicit:
+
+- Git contract/package data is the durable UI SoT;
+- pinned Astro/runtime is the executable AS-IS fact before promotion;
+- Penpot is native visual implementation/review, not an automatic release
+  authority;
+- exact parity uses one named versioned scenario/pool per bounded comparison;
+- the eight-event component corpus and five-event archetype pool are distinct;
+- component masters/state catalogs stay on library pages while archetypes use
+  linked instances;
+- visual similarity never proves lineage.
+
+Full disposition and source boundary:
+[`../reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md`](../reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md).
 
 ## Current open gate
 
