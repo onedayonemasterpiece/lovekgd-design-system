@@ -4,177 +4,202 @@ Status: `CURRENT_OPERATIONAL_ROUTER`
 
 Последняя фактическая сверка: `2026-08-29`.
 
-Latest registered owner review: `REV-IDEAHUB-20260829-14` / `OV-58`.
+Latest registered owner review: `REV-CHAT-20260829-01` / `OV-59`.
 
 Этот документ — первая точка входа для задач о статическом сайте KenigEvents,
-LoveKGD Design System, Astro ↔ Git UI SoT ↔ Penpot, компонентном наследовании,
-Golden/Reference fixtures и визуальном parity. Он отделяет **целевой контракт**
-от **уже доказанного текущего состояния**.
+LoveKGD Design System, Astro ↔ SoT UI ↔ Penpot, component lineage, reference
+fixtures и визуальном parity.
 
-## 1. Сначала определить слой власти
+## 1. Неподвижная граница власти
 
-Текущее состояние нельзя читать только из `main` одного репозитория.
+**SoT UI — главная система.**
 
-| Слой | Текущий источник | Что он доказывает | Чего он не доказывает |
-|---|---|---|---|
-| Опубликованный снимок дизайн-системы | `lovekgd-design-system/main@c6419a62af3d73f53e81d95a518fbe62a4a1c942` | исторический reconstruction baseline на 19 августа | актуальный owner-review delta, текущие Penpot-компоненты, продвижение семей |
-| AS-IS baseline | Draft PR `lovekgd-design-system#52@b86bab3e91511b3d4bd7d953b22bceb847f02a51` | 17 архетипов / 34 desktop+mobile cases, точные Astro fixtures, linked Penpot owners, round-trip validation | owner acceptance, merge, promotion, production change |
-| Активное исправление по owner review | Draft PR `lovekgd-design-system#53`, branch `fix/penpot-owner-comments-20260826` | текущие Git SoT contracts, Penpot mutations/readbacks, fixture registry, bounded parity evidence и per-item status | общий `READY_FOR_OWNER_REVIEW`, merge, production permission |
-| Компонентный Golden Event Corpus pilot | Draft PR `lovekgd-design-system#42@7a26772828a5d74a9683c08e7e6774ff15ac61a5` | 8 точных событий и identity gates для component conformance | визуальный PASS: pilot честно зафиксирован как FAIL; это не универсальный corpus всех сущностей |
-| Исполняемый сайт до promotion | `events-bot-new/main@8710e56fa3685f6c30a90cd062d532dce0348cce` | текущий опубликованный AS-IS source/runtime факт | принятый будущий дизайн или актуальный draft candidate |
-| Активный Astro/UI candidate | Draft PR `events-bot-new#596`, branch `fix/audio-audit-ui-20260828` | executable fixture bridge, bounded UI corrections и tests на изолированной ветке | merge, deploy, owner acceptance, production promotion |
-
-Перед работой агент обязан fresh-read текущие heads PR `#53` и `#596`. SHA из
-handoff или PR body — только исторический checkpoint, если API показывает более
-новый head.
-
-## 2. Что является Source of Truth
-
-Долговечный UI SoT — **версионированные Git-контракты, registry, fixtures,
-bindings и receipts в `lovekgd-design-system`**.
-
-Роли различаются по фазе:
+В текущей реализации его долговечная форма — versioned Git contracts,
+component/package identities, tokens, behavior contracts, fixture registry,
+bindings и receipts в `lovekgd-design-system`.
 
 ```text
-до promotion:
-прикреплённый events-bot-new Astro/runtime
-→ факт текущего AS-IS
-→ candidate Git UI SoT
-→ native Penpot projection
-→ owner review
-
-после bounded owner acceptance:
-accepted Git UI SoT/package
-→ isolated Astro candidate
-→ Penpot ↔ Astro ↔ generated route conformance
-→ browser/device approval
-→ promotion и production migration
+owner/product decision
+→ SoT UI
+  ├─→ native Penpot projection + review
+  └─→ Astro executable projection/consumer
+→ structural + visual parity evidence
+→ owner acceptance
+→ promotion and production migration
 ```
 
 Следствия:
 
-- Penpot — нативная визуальная реализация и поверхность review, но не
-  самостоятельный долговечный источник решений;
-- `.astro`-файл или page-local CSS не может стать параллельной нормой после
-  promotion;
-- изменения не «перетекают» автоматически из Penpot в Astro или обратно;
-- корректная синхронизация — это управляемая цепочка contract update →
-  materialization/integration → exact readback → tests → focused visual review;
-- логический SoT не обязан быть одним монолитным конфигурационным файлом.
+- Penpot не является центральной системой, параллельным SoT или release
+  authority;
+- Astro не является независимо редактируемым вторым SoT;
+- Penpot comments и визуальные правки являются входом review; принятая правка
+  сначала фиксируется в SoT UI и только затем повторно материализуется в Penpot
+  и интегрируется в Astro из одной версии;
+- целевое направление автоматизации — `SoT UI → Penpot` и `SoT UI → Astro`, а
+  не прямой `Penpot → Astro` и не двусторонняя конкурирующая власть;
+- до promotion pinned Astro/runtime остаётся executable evidence текущего
+  AS-IS, но не отменяет центральность SoT UI как целевой системы управления.
 
-Нормативный lifecycle: [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md).
+Нормативный lifecycle:
+[`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md).
 
-## 3. Как правильно понимать последнее owner voice
+## 2. Исправление чтения последнего голосового
 
-Source route:
-[`reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md`](reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md).
+Source packet:
+`idea-hub/inbox/voice/2026/08/voice-20260829-201612-4feb9e87.md`.
+
+Owner correction:
+[`reviews/owner-text-sot-ui-centrality-correction-20260829.md`](reviews/owner-text-sot-ui-centrality-correction-20260829.md).
+
+Полная расшифровка прямо говорит:
+
+> «Source of Truth — это центр, центральная точка… И Penpot — это инструмент,
+> который отображает… состояния… и архетипы страниц».
+
+Поэтому прежняя строка, приписывавшая голосовому тезис «Penpot — центральная
+точка», была ложной производной интерпретацией. Ошибка возникла в
+model-generated summary и последующем анализе, а не в позиции владельца.
+
+Корректное чтение:
 
 | Тезис | Фактическая интерпретация |
 |---|---|
-| «Penpot — центральная точка, изменение должно появляться на сайте» | Как пожелание к рабочему процессу — верно. Как описание текущей власти — неверно: центральный долговечный слой находится в Git UI SoT; Penpot инициирует review/решение, но не заменяет contract/receipt. |
-| «Один Golden Corpus для Penpot и Astro» | Для каждого сравнения обязателен один и тот же **именованный versioned scenario/pool** и точные fixture IDs. Не существует одного универсального набора только из событий для всех компонентов, фестивалей, клубов и артефактов. |
-| «Всё должно совпадать полностью» | Верно для одного bounded route/state/viewport/scenario после фиксации fonts, DPR, clock и runtime state. Допустимые responsive/contextual variants не обязаны быть пиксельно одинаковыми друг с другом; intentional deltas фиксируются. |
-| «Компоненты нельзя помещать вместе с архетипами» | Component **masters и каталоги состояний** живут на малых библиотечных страницах. Архетипы обязаны содержать эти компоненты как **linked instances**. Запрещены page-local masters, detached copies и визуальные подмены, а не присутствие экземпляров компонента внутри страницы. |
-| «Визуально похожие независимые реализации — генеральная ошибка» | Верно. Lineage доказывается component/main IDs, bindings и census/readback; screenshot или сходство не являются доказательством. |
+| SoT UI — центр компонентов, иерархии, отношений и отсутствия дублей | Подтверждено дословной расшифровкой и owner clarification. |
+| Astro формирует пользовательский сайт | Astro — executable projection/consumer; до promotion также AS-IS evidence. |
+| Penpot показывает компоненты, укрупнённые компоненты и архетипы | Penpot — visual projection и review surface, не authority. |
+| Изменение должно одинаково проявляться на сайте и в Penpot | Меняется SoT UI один раз; обе проекции обновляются из одной версии и проверяются. |
+| Визуально похожие технически разные реализации недопустимы | Lineage доказывается source/version, component/main IDs, bindings и actual-owner census/readback. |
+| Component masters должны быть отделены от archetype pages | Masters/state catalogs живут на bounded library pages; archetypes используют linked instances. |
 
-## 4. Фактическое состояние тезисов из серии голосовых
+`REV-IDEAHUB-20260829-14` / `OV-58` сохранён как исторический intake, но его
+ошибочная центральность Penpot superseded review `REV-CHAT-20260829-01` /
+`OV-59`.
 
-### Fixed reference data
+## 3. Текущие слои реализации
 
-Требование о малых, ограниченных и общих наборах уже материализовано:
+Текущее состояние нельзя читать только из `main` одного репозитория.
 
-- current registry: `catalog/fixtures/design-system-reference/v1/registry.v1.json`;
-- events archetype pool: 5 factual events;
-- component-conformance pool: 8 factual events в отдельном Golden Event Corpus;
-- festivals reference pool: 7 festivals;
-- clubs complete pool: 3 clubs;
-- artifacts complete pool: 7 artifacts;
-- executable consumer bridge: `events-bot-new#596` →
-  `site/src/data/design-system-reference-fixtures.json`.
+| Слой | Текущий источник | Что доказывает | Чего не доказывает |
+|---|---|---|---|
+| Опубликованный snapshot DS | `lovekgd-design-system/main@c6419a62af3d73f53e81d95a518fbe62a4a1c942` | historical reconstruction state на 19 августа | текущий owner-review delta, acceptance, promotion |
+| Source-proven AS-IS baseline | Draft PR `lovekgd-design-system#52@b86bab3e91511b3d4bd7d953b22bceb847f02a51` | 17 archetypes / 34 desktop+mobile cases и round-trip evidence | owner acceptance, merge, promotion, production change |
+| Активный owner-review contour | Draft PR `lovekgd-design-system#53`, branch `fix/penpot-owner-comments-20260826` | current SoT contracts, Penpot readbacks, fixture metadata и per-item status | общий `READY_FOR_OWNER_REVIEW`, production permission |
+| Golden Event Corpus pilot | Draft PR `lovekgd-design-system#42@7a26772828a5d74a9683c08e7e6774ff15ac61a5` | 8 exact-event identity gates | visual PASS: pilot зафиксирован как FAIL; единая fixture authority не доказана |
+| Опубликованный Astro AS-IS | `events-bot-new/main@8710e56fa3685f6c30a90cd062d532dce0348cce` | executable current fact before promotion | принятый будущий UI |
+| Активный Astro/UI candidate | Draft PR `events-bot-new#596`, branch `fix/audio-audit-ui-20260828` | executable bridge, bounded corrections, tests | merge, deploy, owner acceptance |
 
-Проверка считается валидной только при совпадении scenario ID, fixture IDs и
-закреплённых hashes. Dense/full production listings остаются Astro stress tests и
-не копируются целиком в Penpot без продуктовой необходимости.
+Перед работой fresh-read фактические heads PR `#53` и `#596`; SHA в документе
+является checkpoint.
 
-### Component lineage
+## 4. Golden Corpus и обнаруженный SoT gap
 
-Цель «одно семейство, никаких page-local lookalikes» корректна, но глобальное
-закрытие ещё не доказано.
+Целевой контракт после повторного анализа:
 
-Уже подтверждены bounded corrections:
+- SoT UI владеет **одной канонической fixture authority**;
+- внутри неё допустимы typed pools и named scenarios;
+- event component, group и archetype checks должны ссылаться на fixture records
+  из одной authority и сохранять одни payload/media hashes;
+- festivals, clubs и artifacts могут быть отдельными typed pools под той же
+  registry authority;
+- scenario subsets допустимы; параллельные несвязанные event authorities — нет.
 
-- Date/Weekend compact ListingEventCard centralization — structural PASS;
+Фактическое текущее состояние:
+
+- immutable component-certification corpus: 8 events —
+  `3132, 4327, 6399, 6628, 7807, 7888, 7906, 8156`;
+- archetype-core registry: 5 других events —
+  `7030, 7006, 6901, 6996, 6997`;
+- sets не являются subsets друг друга;
+- `docs/ui-reference-fixture-registry.md` прямо говорит, что новый registry не
+  заменяет immutable component corpus.
+
+Поэтому прежнее описание этого раздвоения как завершённой целевой архитектуры
+снято. Текущий статус:
+
+`SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
+
+Exact parity внутри одного named scenario остаётся валидным. Но сквозная
+непрерывность одного Golden Corpus между component → group → archetype пока не
+доказана. Требуется либо включить оба event sets в одну canonical registry с
+одними payload hashes, либо явно supersede один из контуров.
+
+Текущие non-event pools:
+
+- festivals: 7 factual slugs;
+- clubs: 3 factual slugs;
+- Artifact Collection 1: 7 factual artifacts.
+
+## 5. Component lineage: что доказано
+
+Bounded corrections подтверждены для:
+
+- Date/Weekend compact `ListingEventCard` — structural PASS;
 - Popular compact cards — structural PASS, visual QA partial;
-- Festival cards — централизованы на bounded fixture owners;
-- mobile Rail nested former-component copies — сведены к canonical ancestry;
-- отдельные Favorites/collections/archetype owners имеют source-bound receipts.
+- Festival cards — bounded owners componentized;
+- mobile Rail nested consumers — canonical Rail/media ancestry;
+- ряда Favorites, Collections и archetype owners — source-bound receipts.
 
-Остаётся неверным утверждать, что вся система уже имеет одну принятую lineage и
-нулевое число альтернативных roots во всех контурах. Owner acceptance и
-promotion не заявлены. Текущие доказательства находятся в
-`catalog/reconstruction-atlas/v1/*centralization*.json`, а старый
-`PARTIAL_SOT_PENPOT_PAUSED` документ нельзя читать как актуальный status router.
+Это не доказывает один глобально принятый технический root для всей системы.
+Открыты full lineage census, owner acceptance и per-family promotion.
+
+Текущая карта:
+[`product-patterns/event-card-family-consumer-lineage.md`](product-patterns/event-card-family-consumer-lineage.md).
+
+## 6. Другие тезисы серии голосовых
 
 ### Multi-card rows and crop
 
-`docs/product-patterns/event-card-container-packed-rows.md` сейчас имеет статус
-`CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_QA_PASS /
-OWNER_REREVIEW_REQUIRED`. Это не универсальный equal-grid: production packers
-сохраняют разные контракты related-event и festival rows, семантические safety
-gates и измеряемый crop loss.
+`product-patterns/event-card-container-packed-rows.md` фиксирует отдельные
+production packers, semantic media safety, equal-height rules по container
+contract и измеряемый crop loss. Статус: Astro projected, Penpot materialized,
+visual QA PASS, owner rereview required.
 
 ### Event Detail
 
-Замечания о portrait Hero image, parallax, keyboard navigation, transport и
-порядке `transport → related events → footer` были верны в момент ревью, но уже
-не являются текущим отсутствием. Они документированы и материализованы в
-`docs/normalization/event-detail-motion-keyboard-source-contract-v1.md` и
-соответствующих `OV-45`, `OV-46`, `OV-55`, `OV-56` receipts. Статус —
-`OWNER_REREVIEW_REQUIRED`, не owner-accepted.
+Portrait Hero image, parallax, keyboard navigation, transport и порядок
+`transport → related events → footer` уже source-bound и materialized в
+`normalization/event-detail-motion-keyboard-source-contract-v1.md` и receipts
+`OV-45`, `OV-46`, `OV-55`, `OV-56`. Owner acceptance не заявлен.
 
 ### Floating Island
 
-`ListingDiscoveryRail@6` и его `plane` / `floating-island` axis уже существуют
-как bounded Astro/Penpot candidate. Это не означает, что универсальная Floating
-Island navigation принята или внедрена во всех архетипах. Общесистемная
-promotion остаётся отдельным будущим решением.
+`ListingDiscoveryRail@6` существует как bounded candidate. Это не означает
+принятую универсальную Floating Island navigation для всех archetypes.
 
-## 5. Маршрут для человека и кодового агента
+## 7. Маршрут для человека и кодового агента
 
-1. Этот файл — фактическая карта текущих слоёв.
-2. [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md) —
-   нормативный lifecycle и parity gate.
-3. [`reviews/index.md`](reviews/index.md) — current review router; latest revision
-   `REV-IDEAHUB-20260829-14` / `OV-58`. Detailed ledger through `OV-57` is
-   preserved at `reviews/index-through-20260829-13.md`.
-4. `catalog/fixtures/design-system-reference/v1/registry.v1.json` и scenario
-   files — fixture authority.
-5. Затронутый family/archetype contract и самый новый receipt — точное состояние
-   конкретного компонента.
-6. В `events-bot-new` читать
-   `docs/features/static-site-pages/design-system/README.md`, затем executable
-   bridge/tests на текущем head PR `#596`.
+1. Этот current-state router.
+2. [`reviews/index.md`](reviews/index.md) — latest review и per-item routing.
+3. [`ui-source-of-truth-roundtrip.md`](ui-source-of-truth-roundtrip.md) —
+   lifecycle.
+4. [`ui-reference-fixture-registry.md`](ui-reference-fixture-registry.md) —
+   fixture authority и текущий unification gap.
+5. affected family/archetype contract и newest source-bound receipt.
+6. В `events-bot-new#596`:
+   `docs/features/static-site-pages/design-system/README.md` и
+   `reference-fixture-scenarios.md`.
 
-Если два документа расходятся, приоритет такой:
+При конфликте:
 
 ```text
-точное owner decision
-→ более новый source-bound contract/receipt на активном head
-→ этот current-state router
-→ нормативный lifecycle
-→ historical snapshot/main README
+exact owner decision
+→ current SoT contract/registry/receipt
+→ this current-state router
+→ normative lifecycle
+→ historical snapshots and derived summaries
 ```
 
-Исторический документ не удаляется, но должен быть явно помечен как
-historical/superseded и не использоваться как текущий status source.
+## 8. Запрещённые утверждения
 
-## 6. Запреты на утверждения
+Пока gates открыты, нельзя писать:
 
-Пока открыты Draft PR и owner-review gates, нельзя писать:
-
-- «Penpot автоматически синхронизирован с Astro»;
-- «дизайн-система полностью принята/промотирована»;
-- «все компоненты уже имеют единственного технического предка»;
-- «Golden Corpus визуально прошёл весь сайт»;
-- «candidate в PR #596 уже находится в production»;
-- «структурный PASS равен визуальному PASS или owner acceptance».
+- «Penpot — центральная система»;
+- «Penpot напрямую управляет Astro»;
+- «существует автоматическая bidirectional Penpot ↔ Astro authority»;
+- «8-event component corpus и 5-event archetype pool уже образуют единый
+  доказанный Golden Corpus»;
+- «дизайн-система полностью accepted/promoted»;
+- «все компоненты имеют одного доказанного технического предка»;
+- «Draft candidate находится в production»;
+- «structural PASS, green test или `validate()=[]` равны owner acceptance».
