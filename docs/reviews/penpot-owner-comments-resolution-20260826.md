@@ -764,6 +764,39 @@ acceptance.
 Contract: `catalog/reconstruction-atlas/v1/floating-action-island-ov20-22-source-exact.v1.json`.
 Receipt: `evidence/recovery-20260829/penpot/floating-action-island-ov20-22-native-receipt.v1.json`.
 
+### 9.4i Navigation Floating Island (`OV-23`, `OV-24`)
+
+Status: `STRUCTURAL_CORRECTION_VERIFIED / VISUAL_EXPORT_DEFERRED_AFTER_504`;
+`processed: NO`.
+
+Astro commit `53f7b2c2c` replaces the full-width, bottom-attached mobile bar
+with the requested floating geometry: `12px` side insets, `10px` bottom inset,
+`64px` height, `20px` radius on all sides, and an expanded shell padding budget
+that leaves the last content reachable. Page content remains visible to the
+left, right and below the island.
+
+The correction was applied at canonical Penpot owner
+`a21f5e36-5d76-8065-8008-86aec0a54bb5`, not only on `64.01`. Its main is now
+`366×64`; four linked tab items divide that width into `91.5px` cells. The
+Search review region keeps its `390×120` context while the linked island copy
+is positioned at offset `12×46`; the Search active pill is visible. The former
+full-width baseline is hidden and marked deprecated.
+
+`OV-24` is resolved as an analysis decision rather than a mechanical mobile
+port: desktop keeps its existing header navigation and separate Search entry.
+A second bottom navigation island would duplicate destinations and conflict
+with the desktop shell. This decision is written into the desktop component
+identity on `64.01`.
+
+Named versions `OV23 Mobile bottom navigation · canonical floating island` and
+`OV23-24 Navigation · mobile floating island + desktop no-duplicate decision`
+were saved; `currentFile.validate()=[]`. Visual export was not attempted after
+the same external Penpot exporter had already returned two HTTP 504 responses
+in the active session. No visual-pass or owner-acceptance claim is made.
+
+Contract: `catalog/reconstruction-atlas/v1/navigation-floating-island-ov23-24-source-exact.v1.json`.
+Receipt: `evidence/recovery-20260829/penpot/navigation-floating-island-ov23-24-native-receipt.v1.json`.
+
 ### 9.2b Mobile rail media correction (`OV-02`)
 
 Status: `READY_FOR_OWNER_REREVIEW`; `processed: NO`. This correction supersedes
