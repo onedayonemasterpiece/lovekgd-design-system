@@ -1,127 +1,74 @@
-# LoveKGD Design System — карта документации
+# LoveKGD Design System — documentation map
 
-## Оперативное состояние
+## Current route
 
-- [`design-system-progress-checklist.md`](design-system-progress-checklist.md) — GitHub-only чек-лист фактической готовности foundations, компонентов, shell, архетипов и сквозного SoT → Penpot → Astro цикла.
-- [`design-system-execution-sequence.md`](design-system-execution-sequence.md) — обязательная практическая очерёдность AS-IS reconstruction, acceptance, migration и promotion по волнам.
-- [`design-system-planned-patterns-checklist.md`](design-system-planned-patterns-checklist.md) — принятые в roadmap направления редизайна, которые проектируются только после AS-IS archetypes и exact `Astro == Git SoT == Penpot`; первым зарегистрирован `pattern.detached-chrome-control-islands`.
-- [`design-system-post-baseline-audits-and-product-atlas-checklist.md`](design-system-post-baseline-audits-and-product-atlas-checklist.md) — обязательные независимые color/typography audits, ingest фактических skeleton states, structured design audit и ранний Git-only Product Atlas linkage до его отдельной Penpot projection.
+1. [`static-site-design-system-current-state.md`](static-site-design-system-current-state.md)
+   — cross-branch factual router.
+2. Active PR `#53` current-state, review register and exact affected contract.
+3. `events-bot-new#596` local Astro bridge and executable fixture scenario.
 
-## Нормативные документы
+Latest owner correction: `REV-CHAT-20260829-01` / `OV-59`.
 
-| Документ | Владеет | Текущий статус |
-|---|---|---|
-| [`resource-graph-004.md`](resource-graph-004.md) | роль Resource Graph, страницы, lifecycle, MCP/plugin/Actions, promotion | canonical operating contract |
-| [`page-archetype-requirements.md`](page-archetype-requirements.md) | исходные требования, verified routes и Penpot overlays страницы 60 | accepted source-mapping contract |
-| [`component-contract-authority.md`](component-contract-authority.md) | единый component authority, versioning, Penpot/Astro/runtime conformance | accepted target architecture |
-| [`source-first-component-decoder.md`](source-first-component-decoder.md) | декодирование текущего Astro UI до candidate contracts и append-only behavioral evidence | reviewed immutable v1 complete; sibling v1.1 closure complete; candidates not accepted |
-| [`normalization/project-normalization-synthesis-v1.md`](normalization/project-normalization-synthesis-v1.md) | historical v1 synthesis and candidate registry | superseded by red-team remediation; not current readiness authority |
-| [`normalization/project-normalization-synthesis-v1-1.md`](normalization/project-normalization-synthesis-v1-1.md) | exact-once evidence, typed analytical groups, positive readiness, dossiers and observe-mode value gate | v1.1.1 proof definitions materialized; 0 strict-ready; exact-head attestation and independent delta re-audit pending |
-| [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md) | normative 11-state code → Penpot → archetype → visual audit → promotion lifecycle | accepted contract; current state AS_IS_RECONSTRUCTED |
-| [`normalization/event-media-boundary-and-contract-decision-v1.md`](normalization/event-media-boundary-and-contract-decision-v1.md) | exact Event Media census, semantic/boundary model, candidate contracts, blockers and delivery gate | boundary complete; not ready with exact blockers; Draft PR only |
-| [`audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md) | byte-preserved independent v1.1 re-audit (61,775 bytes; SHA-bound) | controlling verdict for audited head; delta re-audit required for reconciled head |
-| [`audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md) | six-finding v1.1.1 correction/evidence ledger | implementation evidence only; no merge authorization |
-| [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
-| [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
-| [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
-| [`research/first-party-action-map-2026-08/README.md`](research/first-party-action-map-2026-08/README.md) | semantic signals for component-level action observability | research input; not an acceptance decision |
+## Authority
 
-## Машиночитаемые контракты и receipts
-
-| Файл | Назначение |
-|---|---|
-| [`../contracts/resource-graph-scaffold.v1.json`](../contracts/resource-graph-scaffold.v1.json) | точные 23 страницы, порядок, stable IDs, зоны и layout rules |
-| [`../contracts/ui-exploration-target.v1.json`](../contracts/ui-exploration-target.v1.json) | canonical team/file/page identity и authority boundary отдельного UI Exploration file | canonical target; project UUID не раскрыт Plugin API |
-| [`../contracts/page-archetype-requirements.v1.json`](../contracts/page-archetype-requirements.v1.json) | source requirements, verified current routes, historical paths и gaps для зон страницы 60 |
-| [`../receipts/penpot/resource-graph-to-be-structure-v1.json`](../receipts/penpot/resource-graph-to-be-structure-v1.json) | фактический PASS read-back Resource Graph revision 30 |
-| [`../receipts/penpot/event-media-visual-exploration-v1.json`](../receipts/penpot/event-media-visual-exploration-v1.json) | 7 pages, 3 native candidate groups, 9 options, 13 fixtures и 3 open owner comment threads | exploration ready; no option accepted |
-| `../receipts/penpot/page-archetype-requirements-v1.json` | read-back публикации requirements overlays; создаётся только после Penpot validation |
-| [`../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/) | reviewed compact AS-IS decoder snapshot; 107 components, 12 candidate contracts, 6 capsules, 157/157 rasters inspected |
-| [`../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/`](../catalog/component-decoder/behavioral-supplement-v1.1-snapshot-20260808T124842-4786ac53bc/) | final reviewed sibling behavioral/action/media evidence; 293 terminal probes, zero readiness blockers, 134/134 raster reviews |
-| [`../contracts/project-normalization-charter.v1.json`](../contracts/project-normalization-charter.v1.json) | project-specific candidate charter and R-01…R-07 disposition ledger | candidate; not accepted implementation authority |
-| [`../contracts/normalization/family-lifecycle.v1.json`](../contracts/normalization/family-lifecycle.v1.json) | exact 11 ordered states, 10 adjacent gates, authority and evidence rules | normative lifecycle; current state AS_IS_RECONSTRUCTED |
-| [`../contracts/normalization/family-lifecycle.v1.schema.json`](../contracts/normalization/family-lifecycle.v1.schema.json) | fail-closed machine schema for the lifecycle contract | accepted schema |
-| [`../contracts/normalization/analytical-entity-kinds.v1.schema.json`](../contracts/normalization/analytical-entity-kinds.v1.schema.json) | distinguishes component identities from catalogs, compositions, surfaces, workflows, runtime and evidence groups | audit-remediated candidate schema |
-| [`../contracts/normalization/semantic-readiness.v1.schema.json`](../contracts/normalization/semantic-readiness.v1.schema.json) | positive 23-dimension readiness evidence for every analytical group | 47 assessed; 0 ready |
-| [`../contracts/product-value-evidence-binding.v1.schema.json`](../contracts/product-value-evidence-binding.v1.schema.json) | foreign-key-only product-value binding for every component application | gate mode `observe`; authoritative product registry pending |
-| [`../catalog/normalization/family-registry.jsonl`](../catalog/normalization/family-registry.jsonl) | 47 primary families covering all 107 logical component paths | candidate family model; all decisions unaccepted |
-| [`../receipts/normalization/project-normalization-synthesis-v1.json`](../receipts/normalization/project-normalization-synthesis-v1.json) | historical v1 receipt | retained; readiness proof superseded |
-| [`../receipts/normalization/project-normalization-synthesis-v1-1.json`](../receipts/normalization/project-normalization-synthesis-v1-1.json) | v1.1.1 content/definition manifest, reconciliation lineage, STOP constraints and external attestation contract | execution attestation and independent delta re-audit required; merge forbidden |
-
-## Authority routing
+**SoT UI is the central system.** Penpot is a native visual projection/review
+surface; Astro is the executable projection/consumer. Accepted Penpot feedback
+returns to SoT UI before either projection changes.
 
 ```text
-Product meaning and UI-gap identity
-→ events-bot-new product model + Product Atlas
-
-Original page requirements and current route evidence
-→ events-bot-new source map at an exact SHA
-→ page-archetype-requirements contract in this repository
-
-Visual exploration
-→ canonical [LoveKGD — UI Exploration](https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=81f57451-85cc-819d-8008-76829a28696b&page-id=81f57451-85cc-819d-8008-76829a28696c)
-→ exploration-only native candidates; owner comments; no promotion authority
-
-Mature design-system graph and evidence
-→ Resource Graph Penpot file + this repository
-
-Current executable UI before promotion
-→ events-bot-new Astro source
-
-Promoted component identity/API/states and Astro presentation
-→ future versioned component package in this repository
-
-Production conformance
-→ events-bot-new runtime + GitHub Actions evidence
+SoT UI → Penpot
+SoT UI → Astro
 ```
 
-## Текущая последовательность
+Do not infer `Penpot → Astro` authority.
 
-```text
-1. TO-BE Resource Graph scaffold                    PASS
-2. Documentation and contracts consolidation        PASS
-3. Page-archetype source requirements mapping       IN PUBLICATION
-4. Source-first decoder                             PASS · IMMUTABLE REVIEWED V1
-5. Behavioral decoder supplement                    PASS · TERMINAL EVIDENCE COMPLETE
-6. Candidate AS-IS Component Contracts              12 CREATED · NOT ACCEPTED
-7. Project normalization synthesis v1.1.1 proof definitions materialized · exact-head attestation and independent delta re-audit pending
-8. First exploration-only native Penpot candidates EVENT MEDIA READY · AWAITING OWNER COMMENTS
-   Lifecycle PENPOT_COMPONENT_CANDIDATE             NOT STARTED
-9. Three-way conformance pilot                      NOT STARTED
-10. Per-family promotion to design-system-led       0 families
-```
+## Active cross-branch links
 
-The detailed sequence above is now governed by the machine contract and cannot be shortened:
+- [Detailed current-state router on PR #53](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/static-site-design-system-current-state.md)
+- [Owner-review register on PR #53](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/index.md)
+- [Owner correction OV-59](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/reviews/owner-text-sot-ui-centrality-correction-20260829.md)
+- [Normative round trip](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-source-of-truth-roundtrip.md)
+- [Fixture authority and unification gap](https://github.com/onedayonemasterpiece/lovekgd-design-system/blob/fix/penpot-owner-comments-20260826/docs/ui-reference-fixture-registry.md)
 
-```text
-AS_IS_RECONSTRUCTED
-→ FAMILY_HYPOTHESIS_REVIEWED
-→ CANDIDATE_CONTRACT_ACCEPTED
-→ CANONICAL_CODE_CANDIDATE
-→ PENPOT_COMPONENT_CANDIDATE
-→ COMPONENT_THREE_WAY_CONFORMANCE
-→ PAGE_ARCHETYPE_CANDIDATE
-→ PRODUCT_REPRESENTATIONS
-→ GEMINI_MCP_VISUAL_AUDIT
-→ REVIEWED_CORRECTIONS
-→ FAMILY_AND_ARCHETYPE_PROMOTION
-```
+## This branch: operational planning
 
-The v1.1 remediation does not authorize the first transition and does not prove
-`FAMILY_HYPOTHESIS_REVIEWED`; its positive gate currently selects zero groups.
+- [`design-system-progress-checklist.md`](design-system-progress-checklist.md)
+  — readiness checklist.
+- [`design-system-execution-sequence.md`](design-system-execution-sequence.md)
+  — ordered AS-IS reconstruction, acceptance, migration and promotion.
+- [`design-system-planned-patterns-checklist.md`](design-system-planned-patterns-checklist.md)
+  — future redesign patterns after the AS-IS/parity gate.
+- [`design-system-post-baseline-audits-and-product-atlas-checklist.md`](design-system-post-baseline-audits-and-product-atlas-checklist.md)
+  — post-baseline audits and Product Atlas linkage.
+- [`product-atlas-parallel-recovery-gate-20260828.md`](product-atlas-parallel-recovery-gate-20260828.md)
+  — layered product/UI authority for parallel Product Atlas work.
 
-## Запреты текущей фазы
+## Normative documents available in this branch
 
-Несмотря на завершённые evidence и synthesis, до отдельных family decision receipts нельзя:
+- [`resource-graph-004.md`](resource-graph-004.md)
+- [`component-contract-authority.md`](component-contract-authority.md)
+- [`source-first-component-decoder.md`](source-first-component-decoder.md)
+- [`normalization/design-system-family-lifecycle.md`](normalization/design-system-family-lifecycle.md)
+- [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md)
+- [`legacy-experiments.md`](legacy-experiments.md)
 
-- восстанавливать старые Penpot components;
-- использовать старые Penpot object IDs;
-- объявлять component family или visual archetype accepted;
-- считать requirements overlay компонентом, архетипом или production evidence;
-- включать visual baseline gate;
-- автоматически выводить component identity только по визуальному сходству;
-- импортировать весь runtime corpus как набор archetypes;
-- повышать всю систему в `design-system-led` одним переключателем.
-- считать controlled exact-source runtime production observation;
-- выбирать winner для CTA/transport experiments без отдельного decision receipt;
-- начинать merge/split/delete, normalization, tokenization или Penpot materialization.
+Historical synthesis, audits and decoder snapshots remain evidence for their
+exact heads. They do not override newer source-bound contracts and owner
+corrections on active PR `#53`.
+
+## Current fixture warning
+
+The 8-event component-certification corpus and disjoint 5-event archetype-core
+registry are not yet one proven SoT fixture authority. Exact bounded scenarios
+remain useful; cross-level Golden Corpus continuity is open.
+
+Status: `SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
+
+## Forbidden claims
+
+- Penpot is central or directly controls Astro;
+- automatic competing Penpot ↔ Astro authority;
+- split event sets already form one proven Golden Corpus;
+- full owner acceptance or promotion;
+- Draft candidate is production;
+- structural PASS equals visual PASS or owner acceptance.
