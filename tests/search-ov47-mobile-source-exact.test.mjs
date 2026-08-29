@@ -37,6 +37,7 @@ test('OV-47 Penpot exports and receipt are durable and do not overclaim acceptan
   assert.equal(sha256(resultsPng), contract.visual_evidence.results_sha256);
   assert.deepEqual(receipt.structural_readback.page_validation, []);
   assert.equal(receipt.source_phrase_chain.count, 9);
-  assert.equal(receipt.visual_qa.result, 'MOBILE_PASS_DESKTOP_OPEN');
+  assert.equal(receipt.visual_qa.result, 'MOBILE_PASS_DESKTOP_STRUCTURAL_VERIFIED_LIFECYCLE_OPEN');
+  assert.equal(contract.visual_evidence.desktop_export_status, 'DEFERRED_EXISTING_EXPORTER_504_INCIDENT_NO_BLIND_RETRY');
   assert.equal(receipt.visual_qa.owner_acceptance, 'NOT_CLAIMED');
 });
