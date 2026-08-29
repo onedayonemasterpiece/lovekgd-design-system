@@ -61,6 +61,13 @@ source evidence to make a later decision look pre-existing.
 - Archetype owner pages contain the actual Astro AS-IS reconstruction, not a
   scaffold or proxy. Dense/stress/full-list behavior is tested in generated
   Astro; Penpot carries only real visual states required for review.
+- Every archetype visual acceptance must name a versioned scenario from
+  `catalog/fixtures/design-system-reference/`, and must prove exact fixture-ID
+  parity across the Astro DOM/screenshot receipt, Git UI SoT projection and
+  Penpot linked-instance readback. Page-local fixture ID arrays are forbidden
+  except explicitly labelled legacy characterization. Card and container
+  identities are separate; never collapse every row/grid into one generic
+  `PackedCardRow`.
 
 ## Repository boundary
 

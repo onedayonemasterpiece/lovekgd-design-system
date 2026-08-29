@@ -10,9 +10,12 @@ const source = await readFile(new URL(modulePath, import.meta.url), 'utf8');
 
 test('OV-44 materializer targets the exact Collections owner page and source fixtures', () => {
   assert.equal(materializer.constants.PAGE_ID, 'd87e18f1-dcb4-80a6-8008-880c4a36d153');
-  assert.deepEqual(Object.keys(materializer.EVENTS).map(Number), [6901, 6947, 7006, 7030]);
+  assert.deepEqual(Object.keys(materializer.EVENTS).map(Number), [6901, 6996, 6997, 7006, 7030]);
+  assert.equal(materializer.constants.SCENARIO_ID, 'free-collection-5-desktop-v1');
+  assert.deepEqual(materializer.constants.SCENARIO_EVENTS, [7006, 6996, 6997, 7030, 6901]);
   assert.equal(materializer.EVENTS[7030].title, 'Праздник непослушания');
-  assert.equal(materializer.EVENTS[6947].title, 'Лекция Жизнь и боль Фриды Кало');
+  assert.equal(materializer.EVENTS[6996].image, null);
+  assert.equal(materializer.EVENTS[6997].type, 'спектакль');
   assert.equal(materializer.EVENTS[7006].price, 'Бесплатно · регистрация');
   assert.equal(
     materializer.constants.MEDALLION_SOURCE_URL,
@@ -32,13 +35,17 @@ test('OV-44 materializer preserves linked native component ancestry', () => {
   assert.match(source, /Content \\\/ Event occurrence\|schedule/);
   assert.match(source, /ensureStickyIdentity/);
   assert.match(source, /Compact identity \/ exact Astro source SVG/);
+  assert.match(source, /reconcileDesktopScenarioSlot/);
+  assert.match(source, /readbackDesktopScenario/);
+  assert.match(source, /Content \/ media fallback \/ event\.real\.6996/);
   assert.doesNotMatch(source, /, (?:750|850),/);
   assert.doesNotMatch(source, /\.detach\s*\(/);
 });
 
 test('OV-44 owner boards remain source viewport proofs while dense stress stays in Astro', () => {
   assert.match(source, /owner\.resize\(viewport === 'desktop' \? 1280 : 390, 1200\)/);
-  assert.match(source, /Dense 23 \+ 14 listing stress remains\n \* Astro-owned/);
-  assert.match(source, /23 событий/);
+  assert.match(source, /Production 23 \+ 14 listing stress\n \* remains Astro-owned/);
+  assert.match(source, /5 событий/);
+  assert.match(source, /\[49, 837\.421875\]/);
   assert.match(source, /scroll=hero-passed/);
 });

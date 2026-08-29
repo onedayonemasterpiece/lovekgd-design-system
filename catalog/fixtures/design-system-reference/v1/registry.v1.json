@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../../contracts/ui-conformance/design-system-reference-fixture-registry.v1.schema.json",
+  "schema_version": "design-system-reference-fixture-registry.v1",
+  "registry_id": "design-system-reference-v1",
+  "reference_clock": { "date": "2026-07-23", "timezone": "Europe/Kaliningrad", "locale": "ru-RU" },
+  "entity_sources": {
+    "event_payloads": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "path": "site/src/data/preview-events.json",
+      "file_sha256": "b9ff7eb0357ad603b9621391810355319e299500ac76f9c9d967a72b26a79d85",
+      "selection_bridge": "site/src/data/design-system-reference-fixtures.json",
+      "rule": "Payloads remain factual source records. Consumer bridges may select IDs but must not copy or edit payload fields."
+    }
+  },
+  "fixtures": [
+    {
+      "fixture_id": "event.real.7030", "entity_type": "event", "source_id": 7030,
+      "payload_sha256": "ff9c82847f2569b0a47fe6ebd91cb0c7c1241384eb8f7cb1c1e68b519341ce5b",
+      "coverage": ["ocr-poster", "short-title", "free-entry"],
+      "asset": { "url": "https://static.kenigevents.ru/p/image/v2/4c/4c067daf59dcdf244a89768e1d9e88168fd0c727e38732eb707fee4f29000960.webp", "sha256": "4c067daf59dcdf244a89768e1d9e88168fd0c727e38732eb707fee4f29000960" }
+    },
+    {
+      "fixture_id": "event.real.7006", "entity_type": "event", "source_id": 7006,
+      "payload_sha256": "6b4989e205b7d686042ed5687c841bfe61dd5700cbe701e00460f9df263cc282",
+      "coverage": ["visual-media", "long-title", "registration"],
+      "asset": { "url": "https://static.kenigevents.ru/p/image/v2/af/af810be081f4302e13a70dedc4ddd988026db5113a569c3352a7eb2eac4da851.webp", "sha256": "af810be081f4302e13a70dedc4ddd988026db5113a569c3352a7eb2eac4da851" }
+    },
+    {
+      "fixture_id": "event.real.6901", "entity_type": "event", "source_id": 6901,
+      "payload_sha256": "90213a6c02d1d936369598641023b2d0523e9293da9267b270de7278faa3e6f3",
+      "coverage": ["ocr-poster", "long-title", "free-entry"],
+      "asset": { "url": "https://static.kenigevents.ru/p/dh16/20/2061604150591030203300308030803345324933103126075a33180358010013.webp", "sha256": "0bef4d3c20851a22499cb9beba9ad8c0fa8488ce3666006285e15e5cbcca05c2" }
+    },
+    {
+      "fixture_id": "event.real.6996", "entity_type": "event", "source_id": 6996,
+      "payload_sha256": "1dab836979d9aa94a33bcb7ec5a52f6757404efec32289b01e94a93830046033",
+      "coverage": ["missing-media-fallback", "registration"], "asset": null
+    },
+    {
+      "fixture_id": "event.real.6997", "entity_type": "event", "source_id": 6997,
+      "payload_sha256": "f2b74df9842b4eb07e4a2a983e7ecda04916bee3d14da7925408fa702518b0ea",
+      "coverage": ["portrait-ocr-poster", "long-title", "age-label"],
+      "asset": { "url": "https://static.kenigevents.ru/p/image/v2/24/24c70b7d589d2383e3d09f81c4bbcae93a99aef8ee733985d1358aadaaa78701.webp", "sha256": "24c70b7d589d2383e3d09f81c4bbcae93a99aef8ee733985d1358aadaaa78701" }
+    }
+  ],
+  "pools": {
+    "events.archetype-core.v1": ["event.real.7030", "event.real.7006", "event.real.6901", "event.real.6996", "event.real.6997"],
+    "festivals.reference.v1": ["festival.city-jazz", "festival.sosedi", "festival.grozd", "festival.more-vnutri", "festival.bolshoy-kaup", "festival.v-edinstve", "festival.jazz-v-filarmonii"],
+    "clubs.complete.v1": ["club.game-vibes", "club.neural-researchers", "club.technology-researchers"],
+    "artifacts.complete.v1": ["artifact.amber-01", "artifact.amber-02", "artifact.amber-03", "artifact.amber-04", "artifact.amber-05", "artifact.amber-06", "artifact.amber-07"]
+  }
+}
