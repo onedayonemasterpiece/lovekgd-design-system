@@ -88,6 +88,17 @@ unchanged source values with `validate()=[]`. This advances the task from a
 specimen-only pilot to bounded component migration, but it does not claim
 global coverage.
 
+Continuation through Penpot revision `2815` expands that bounded migration to
+seven recorded batches without changing source geometry. The active set now
+contains `97` tokens. In addition to Announcements, persisted readback covers
+shared navigation/social-proof/discovery roots, both exact-seven Artifact
+collection roots, the responsive Interest Club card, desktop/mobile Personal
+Feed owners, both desktop Search query roots and all eight mobile Search
+lifecycle owner roots. The newest Search-mobile batch persisted `32/32`
+`radius.20` properties after an initial HTTP `504` unknown outcome and delayed
+readback; no blind retry was performed and `validate()=[]`. Global migration
+and a stable post-binding visual export remain open, so `processed` stays `NO`.
+
 ## Active route
 
 1. source-lock the SVGRepo candidate lifecycle/style vocabulary and the
