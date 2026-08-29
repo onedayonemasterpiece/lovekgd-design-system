@@ -27,6 +27,14 @@ const UNIFIED_CARD_NAMES = {
 };
 const SCENARIO_ID = 'free-collection-september-desktop-v2';
 const MEDALLION_URL = 'https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/49c351873d40a2ea55f0a32837c7376e344d9c17/site/public/assets/badges/free-listing-medallion.svg';
+const ASTRO_CAPTURE_COMMIT = '6faddb367d200f50dee0e5ac9fe7be47f657d0ae';
+const ASTRO_CAPTURE_BASE = `https://raw.githubusercontent.com/onedayonemasterpiece/events-bot-new/${ASTRO_CAPTURE_COMMIT}/site/evidence/recovery-20260829/free-collection-september-v2/`;
+const REVIEW_IDS = {
+  start:'8f804431-c282-8075-8008-8ebd9996f4ee', desktopPenpotLabel:'8f804431-c282-8075-8008-8edf13ba14db', desktopAstroLabel:'8f804431-c282-8075-8008-8eddc0bd9beb',
+  mobilePenpotLabel:'8f804431-c282-8075-8008-8edf14aeb8ee', mobileAstroLabel:'8f804431-c282-8075-8008-8eddc135e80d', desktopPenpot:'8f804431-c282-8075-8008-8edee54844c7',
+  desktopAstro:'8f804431-c282-8075-8008-8edd7c3fa9e9', mobilePenpot:'8f804431-c282-8075-8008-8edefc9d5adb', mobileAstro:'8f804431-c282-8075-8008-8edd9aa2dd3e',
+  serviceLabel:'8f804431-c282-8075-8008-8ebd9a03b406', indexLabel:'8f804431-c282-8075-8008-8ebd9a771456', looseStateLabel:'8f804431-c282-8075-8008-8dd1e403c2c6',
+};
 
 const EVENTS = {
   8006: { title:'Донорская акция «Стань донором крови»', type:'встреча', occurrence:'2 сентября 09:00', price:'Бесплатно · регистрация', place:'Гурьевск · Центр культуры и досуга', image:'https://static.kenigevents.ru/p/image/v2/dd/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp', shares:1, likes:9, group:'events' },
@@ -268,8 +276,40 @@ function installFreeSeptemberV2(penpot, penpotUtils, storage) {
     return receipts;
   }
 
+  function organizeReviewCanvas() {
+    assertContext();
+    const shape=(id)=>penpot.currentPage.getShapeById(id),xy=(id,x,y)=>{const s=shape(id);if(s)penpotUtils.setParentXY(s,x,y);return s;};
+    const debris=shape(REVIEW_IDS.looseStateLabel);if(debris)debris.remove();
+    const start=xy(REVIEW_IDS.start,0,-70);if(start){start.characters='START HERE — Бесплатные события · Penpot ↔ Astro · Golden Corpus v2';start.resize(2640,34);}
+    const labels=[
+      [REVIEW_IDS.desktopPenpotLabel,'01 · DESKTOP — PENPOT NATIVE',0,0,600],
+      [REVIEW_IDS.desktopAstroLabel,'01 · DESKTOP — ASTRO REAL · 5/5 IMAGES DECODED',1360,0,900],
+      [REVIEW_IDS.mobilePenpotLabel,'02 · MOBILE — PENPOT NATIVE',0,3450,420],
+      [REVIEW_IDS.mobileAstroLabel,'02 · MOBILE — ASTRO REAL · 5/5 IMAGES DECODED',470,3450,720],
+    ];
+    for(const [id,value,x,y,w] of labels){const s=xy(id,x,y);if(s){s.characters=value;s.resize(w,22);}}
+    for(const [id,x,y] of [[REVIEW_IDS.desktopPenpot,0,40],[REVIEW_IDS.desktopAstro,1360,40],[REVIEW_IDS.mobilePenpot,0,3490],[REVIEW_IDS.mobileAstro,470,3490]])xy(id,x,y);
+    const service=xy(REVIEW_IDS.serviceLabel,0,7930);if(service){service.characters='SERVICE ZONE — component masters · not for visual comparison';service.resize(3500,34);}
+    const index=xy(REVIEW_IDS.indexLabel,3800,7930);if(index){index.characters='COLLECTION INDEX COMPONENTS';index.resize(1600,34);}
+    const servicePositions=[
+      ['8f804431-c282-8075-8008-8eb283abd71d',0,8000],['8f804431-c282-8075-8008-8eb29f91944e',1360,8000],['8f804431-c282-8075-8008-8eb2b700335b',1830,8000],['8f804431-c282-8075-8008-8eb2d06b7731',3190,8000],
+      ['8f804431-c282-8075-8008-8eb21ceebbd5',0,12400],['8f804431-c282-8075-8008-8eb2541bc1cd',1240,12400],['8f804431-c282-8075-8008-8ed76045a127',0,16750],['8f804431-c282-8075-8008-8ed777e913cc',1240,16750],['8f804431-c282-8075-8008-8eb744466930',0,16900],
+      ['d87e18f1-dcb4-80a6-8008-8861ec69432f',3800,8000],['d87e18f1-dcb4-80a6-8008-8861edd339c0',3800,8285],['d87e18f1-dcb4-80a6-8008-8861ee7d5d3f',4204,8285],['d87e18f1-dcb4-80a6-8008-8861ef5e2569',4608,8285],['d87e18f1-dcb4-80a6-8008-8861ed24373c',3800,8475],['d87e18f1-dcb4-80a6-8008-8861f027cb06',3800,8749],['d87e18f1-dcb4-80a6-8008-8861f0f35f01',4186,8749],['d87e18f1-dcb4-80a6-8008-8861f1b38272',4572,8749],['d87e18f1-dcb4-80a6-8008-886280aa46b0',3800,8950],
+    ];
+    for(const item of servicePositions)xy(...item);
+    return {desktopPair:[REVIEW_IDS.desktopPenpot,REVIEW_IDS.desktopAstro],mobilePair:[REVIEW_IDS.mobilePenpot,REVIEW_IDS.mobileAstro],serviceStartY:7930};
+  }
+
+  async function refreshComparisonScreenshots() {
+    assertContext();const desktop=penpot.currentPage.getShapeById(REVIEW_IDS.desktopAstro),mobile=penpot.currentPage.getShapeById(REVIEW_IDS.mobileAstro);if(!desktop||!mobile)throw new Error('comparison screenshot boards missing');
+    const [desktopMedia,mobileMedia]=await Promise.all([penpot.uploadMediaUrl(`Astro free collection desktop · decoded 5 of 5 · ${ASTRO_CAPTURE_COMMIT.slice(0,9)}`,`${ASTRO_CAPTURE_BASE}astro-desktop-full.png`),penpot.uploadMediaUrl(`Astro free collection mobile · decoded 5 of 5 · ${ASTRO_CAPTURE_COMMIT.slice(0,9)}`,`${ASTRO_CAPTURE_BASE}astro-mobile-full.png`)]);
+    desktop.fills=[{fillImage:desktopMedia,fillOpacity:1}];mobile.fills=[{fillImage:mobileMedia,fillOpacity:1}];
+    for(const s of [desktop,mobile]){s.setPluginData('astro-source-commit',ASTRO_CAPTURE_COMMIT);s.setPluginData('all-card-images-decoded','true');}
+    return {desktop:{shapeId:desktop.id,mediaId:desktopMedia.id,width:desktopMedia.width,height:desktopMedia.height},mobile:{shapeId:mobile.id,mediaId:mobileMedia.id,width:mobileMedia.width,height:mobileMedia.height}};
+  }
+
   async function repairExactParity() {
-    assertContext();const block=penpot.history.undoBlockBegin();try{const hero=['desktop','mobile'].map(repairHeroExact);const sections=['desktop','mobile'].map(repairSectionsExact);const cards=bindBodyCardsToUnified();const footerShare=repairFooterShareExact();const owners=repairOwnersExact();return {hero,sections,cards,footerShare,owners,validation:await penpot.currentFile.validate()};}finally{penpot.history.undoBlockFinish(block);}
+    assertContext();const block=penpot.history.undoBlockBegin();try{const hero=['desktop','mobile'].map(repairHeroExact);const sections=['desktop','mobile'].map(repairSectionsExact);const cards=bindBodyCardsToUnified();const footerShare=repairFooterShareExact();const owners=repairOwnersExact();const reviewCanvas=organizeReviewCanvas();return {hero,sections,cards,footerShare,owners,reviewCanvas,validation:await penpot.currentFile.validate()};}finally{penpot.history.undoBlockFinish(block);}
   }
 
   async function repairAll() { const bodies=['desktop','mobile'].map(repairBody);const owners=['desktop','mobile'].flatMap((v)=>['full','scrolled'].map((s)=>repairOwner(v,s)));return {bodies,owners,footerShare:ensureFooterShare().id,validation:await penpot.currentFile.validate()}; }
@@ -278,7 +318,7 @@ function installFreeSeptemberV2(penpot, penpotUtils, storage) {
     assertContext();const cards=['desktop','mobile'].flatMap((viewport)=>ORDER.map((id)=>{const body=componentByIdentity(BODY_PATH,`viewport=${viewport};fixture=2026-09-01;scenario=${SCENARIO_ID}`),slot=body?byName(body.mainInstance(),new RegExp(`^linked EventCard / event\\.real\\.${id} /`)):null;return {id,viewport,componentId:slot?.component?.()?.id||null,slotId:slot?.id||null,fixture:slot?.getPluginData?.('fixture-id')||null};}));const owners=['desktop','mobile'].flatMap((viewport)=>['full','scrolled'].map((state)=>{const c=componentByIdentity(OWNER_PATH,`viewport=${viewport};state=${state};scenario=${SCENARIO_ID}`);return {viewport,state,componentId:c?.id||null,mainId:c?.mainInstance()?.id||null};}));return {scenario:SCENARIO_ID,order:ORDER,cards,owners,validation:await penpot.currentFile.validate()};
   }
 
-  storage.freeSeptemberV2={ensureBody,ensureOwner,repairBody,repairOwner,repairAll,repairHeroExact,repairSectionsExact,bindBodyCardToUnified,bindBodyCardsToUnified,repairFooterShareExact,repairOwnersExact,repairExactParity,readback,constants:{FILE_ID,PAGE_ID,BODY_PATH,OWNER_PATH,UNIFIED_CARD_PATH,UNIFIED_CARD_NAMES,SCENARIO_ID,ORDER}};
+  storage.freeSeptemberV2={ensureBody,ensureOwner,repairBody,repairOwner,repairAll,repairHeroExact,repairSectionsExact,bindBodyCardToUnified,bindBodyCardsToUnified,repairFooterShareExact,repairOwnersExact,organizeReviewCanvas,refreshComparisonScreenshots,repairExactParity,readback,constants:{FILE_ID,PAGE_ID,BODY_PATH,OWNER_PATH,UNIFIED_CARD_PATH,UNIFIED_CARD_NAMES,SCENARIO_ID,ORDER,ASTRO_CAPTURE_COMMIT,REVIEW_IDS}};
   return {installed:true,methods:Object.keys(storage.freeSeptemberV2),scenario:SCENARIO_ID,order:ORDER};
 }
 
