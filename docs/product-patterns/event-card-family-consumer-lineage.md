@@ -2,38 +2,54 @@
 
 Status: `BOUNDED_CENTRALIZATION_VERIFIED / GLOBAL_LINEAGE_OPEN / OWNER_REREVIEW_REQUIRED`
 
-`OV-08`, `OV-30`, `OV-58` and the latest registered owner review
-`REV-IDEAHUB-20260829-14` require technical lineage, not a set of visually
-similar page-local roots. This record supersedes the earlier *candidate* choice
-to treat `event.card`, `listing.event-card` and `listing.rail-row` as unrelated
-visual systems.
+`OV-08`, `OV-30`, `OV-58` and current owner correction `OV-59` require
+technical lineage, not visually similar page-local roots.
 
-## Target boundary
+## Authority
 
-Astro may retain separate implementation adapters where runtime anatomy and
-interaction really differ:
+**SoT UI is the central system.** It owns semantic family identity,
+representation contracts, shared primitives, versioning, fixture authority and
+propagation rules.
 
-1. `EventCard.astro` — general large preview;
+- Penpot materializes library masters and linked instances for review.
+- Astro implements executable representation adapters.
+- Neither Penpot nor Astro may create an independent competing family identity.
+- An accepted Penpot change returns to SoT UI before both projections update.
+
+Current correction:
+[`../reviews/owner-text-sot-ui-centrality-correction-20260829.md`](../reviews/owner-text-sot-ui-centrality-correction-20260829.md).
+
+## Target family boundary
+
+Astro may retain separate adapters where runtime anatomy and interaction differ:
+
+1. `EventCard.astro` — general large event preview;
 2. `ListingEventCard.astro@9` — compact desktop listing representation;
 3. `MobileListingRailRow.astro` inside `MobileListingRailSurface.astro` —
    intrinsic horizontal track;
 4. `FestivalCard.astro` — festival-specific semantic renderer.
 
-They must still be navigable members of one semantic event-card family, share
-source-backed primitives where the contract says they do, expose exact
-representation/version IDs and avoid route-local visual forks. Event content is
-an instance override, not a component identity axis.
+These are representations of one navigable semantic event-card system, not
+permission for route-local visual forks. They must expose exact identity/version
+and share SoT-backed primitives wherever the contract says they do.
 
-In Penpot, library masters/state catalogs belong on bounded component pages and
-archetypes consume linked instances. The prohibition is against page-local
-masters, detached terminal copies, screenshots-as-components and lookalikes
-without lineage — not against placing linked component instances inside an
-archetype.
+Event content is fixture/state override, not component identity.
+
+## Penpot placement rule
+
+- masters and state catalogs live on bounded library pages;
+- archetypes contain linked instances;
+- page-local masters beside an archetype are forbidden;
+- detached terminal copies and screenshots-as-components are forbidden;
+- visual similarity never proves lineage.
+
+The owner voice's instruction to separate component types from archetypes means
+separating **masters/catalogs**, not removing linked component instances from
+real page compositions.
 
 ## What is already proven
 
-The old status `PARTIAL_SOT / PENPOT_PAUSED` is no longer current. Later
-source-bound receipts on this branch prove bounded corrections:
+Later source-bound receipts prove bounded corrections:
 
 - Date and Weekend compact cards:
   `catalog/reconstruction-atlas/v1/listing-event-card-centralization-20260829.v1.json`
@@ -45,55 +61,48 @@ source-bound receipts on this branch prove bounded corrections:
   `catalog/reconstruction-atlas/v1/festival-card-centralization-20260829.v1.json`
   — bounded owners componentized and linked;
 - mobile listing Rail:
-  nested former-component copies were migrated to canonical Rail/media ancestry;
+  nested former-component copies migrated to canonical Rail/media ancestry;
 - related/collection/archetype consumers:
-  source-bound contracts and receipts exist in `catalog/reconstruction-atlas/v1/`
-  and are routed per item through `docs/reviews/index.md`.
+  source-bound contracts and receipts routed through `docs/reviews/index.md`.
 
-These receipts prove real progress; they do **not** prove one globally accepted
-technical ancestor across every event-card representation or every page.
+These are real bounded proofs. They do not establish one globally accepted
+technical ancestor across every representation and page.
 
-## Latest owner clarification
+## Fixture dependency
 
-`REV-IDEAHUB-20260829-14` / `OV-58` makes the operating boundary explicit:
+Lineage evidence must reference SoT-governed fixture records. The current
+8-event component corpus and disjoint 5-event archetype pool are an open
+fixture-authority unification gap. A card can have correct Penpot ancestry while
+a cross-level parity claim is still invalid because fixture authority differs.
 
-- Git contract/package data is the durable UI SoT;
-- pinned Astro/runtime is the executable AS-IS fact before promotion;
-- Penpot is native visual implementation/review, not an automatic release
-  authority;
-- exact parity uses one named versioned scenario/pool per bounded comparison;
-- the eight-event component corpus and five-event archetype pool are distinct;
-- component masters/state catalogs stay on library pages while archetypes use
-  linked instances;
-- visual similarity never proves lineage.
+Status: `SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
 
-Full disposition and source boundary:
-[`../reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md`](../reviews/idea-hub-owner-voice-intake-20260829-continuation-14.md).
+## Current global closure gate
 
-## Current open gate
+Global closure requires:
 
-Global closure still requires a fresh exact-ID census over the complete bounded
-consumer set, with:
-
-- one recorded semantic family registry and explicit representation owners;
+- one semantic family registry with explicit representation owners;
+- one canonical SoT fixture authority or explicit supersession links;
 - zero unauthorized page-local alternative masters;
 - zero detached terminal copies;
-- exact source/version/fixture bindings for every claimed consumer;
-- structural readback of actual owner descendants, not only component mains;
+- exact source/version/fixture bindings for every consumer;
+- actual owner-descendant readback, not component-main-only evidence;
 - focused visual parity for every required state/viewport;
-- explicit owner acceptance followed by per-family promotion.
+- explicit owner acceptance;
+- per-family promotion and complete Astro consumer migration.
 
-The current machine-readable map remains
-[`consumer-lineage.v1.json`](../../catalog/ui-components/event-card-family/consumer-lineage.v1.json),
-but its `canonical_component_id: null` is intentional: no global Penpot family
-root UUID is fabricated from the bounded receipts.
+The machine-readable map remains
+[`consumer-lineage.v1.json`](../../catalog/ui-components/event-card-family/consumer-lineage.v1.json).
+Its global Penpot root UUID remains null because no complete all-consumer proof
+exists; IDs must not be fabricated.
 
 ## Status semantics
 
-- bounded centralization: **verified for named scopes above**;
-- global lineage closure: **open**;
-- owner acceptance: **not claimed**;
-- family promotion / production migration: **not authorized**.
+- bounded centralization: verified for named scopes;
+- fixture authority across levels: open;
+- global lineage closure: open;
+- owner acceptance: not claimed;
+- family promotion / production migration: not authorized.
 
-Visual similarity, a green Astro test, one Penpot export or `validate()=[]` never
+A green Astro test, one Penpot export, visual similarity or `validate()=[]` never
 closes the lineage gate by itself.
