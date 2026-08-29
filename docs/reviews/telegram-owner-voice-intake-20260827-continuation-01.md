@@ -664,7 +664,7 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 - item ref: `itm_7rQrizexply2bDJvsNSNKrVyrxQitymS`
 - transcription ref: `atr_CqFmsZPI5dpRpkB5E-mXRCEsoqDVYjtMZKIhoa8eses`
 - transcription state: `COMPLETE`
-- status: `TRIAGED`
+- status: `READY_FOR_OWNER_REREVIEW`
 - processed: `NO`
 
 **Точная расшифровка**
@@ -674,6 +674,19 @@ Owner acceptance is not claimed; `processed: NO` until direct rereview.
 **Нормализованное требование**
 
 Заново сверить `63.14 · Atlas Focus Group` с работающим Astro и корректно материализовать страницу, включая OTP-flow/state, уже покрытый автотестами. Не принимать нынешнее пустое/неполное декодирование.
+
+**Verified source-exact correction (2026-08-29)**
+
+Page `63.14` is now bound to the actual standalone Astro route
+`/fokus-gruppa/priglashenie/`, not the previous generic programme boards. Four
+native editable owners cover source-exact install and email-OTP states at
+desktop/mobile sizes. Both OTP owners contain six native digit cells, the
+source auto-submit status and the real safe `focus-agent-e2e@kenigevents.ru`
+test fixture proven by `focus-group-reliable-feedback.test.mjs`. Nine obsolete
+programme/stage components are hidden and marked deprecated. Full browser and
+Penpot exports pass focused visual QA. Contract:
+`catalog/reconstruction-atlas/v1/focus-group-ov35-source-exact.v1.json`.
+Owner acceptance is not claimed; `processed: NO` until direct rereview.
 
 ---
 
