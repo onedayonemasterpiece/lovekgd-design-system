@@ -2,105 +2,141 @@
 
 Review ID: `REV-IDEAHUB-20260829-14`
 
-Status: `READY_FOR_OWNER_REREVIEW`
+Status: `INTERPRETATION_SUPERSEDED_BY_REV-CHAT-20260829-01`
 
 Processed: `NO`
 
+## Supersession notice
+
+Owner clarification `REV-CHAT-20260829-01` / `OV-59` corrects this intake's
+published interpretation. The earlier audit falsely created a thesis that
+“Penpot is the central point”. That thesis is not present in the full
+transcript.
+
+The full transcript explicitly states:
+
+> «Source of Truth — это центр, центральная точка… И Penpot — это инструмент,
+> который отображает… состояния… и архетипы страниц».
+
+The model-generated summary and subsequent analysis over-weighted later wording
+about changes observed in Penpot and converted a review expectation into an
+authority claim. This file now preserves that mistake as superseded history and
+routes the corrected decision to
+[`owner-text-sot-ui-centrality-correction-20260829.md`](owner-text-sot-ui-centrality-correction-20260829.md).
+
 ## Source boundary
 
-This is a targeted, owner-requested intake of the exact latest relevant packet,
-not a claim that every later IdeaHub commit belongs to the design-system contour.
-
 - source repository: `onedayonemasterpiece/idea-hub`;
-- source commit containing the packet: `2628707e2fe33a947e124d722572ff09c052199f`;
+- source packet commit: `2628707e2fe33a947e124d722572ff09c052199f`;
 - source packet: `inbox/voice/2026/08/voice-20260829-201612-4feb9e87.md`;
 - capture interval: `2026-08-29T20:16:12+02:00` — `2026-08-29T20:23:47+02:00`;
-- topic: Astro ↔ Git UI SoT ↔ Penpot authority, exact fixtures, parity layers and component lineage;
-- durable IdeaHub route: `ideas/product.kenigevents/idea-20260829-lovekgd-design-system-operating-contract.md`;
-- IdeaHub session route: `registry/sessions/2026/08/voice-20260829-201612-4feb9e87.md`.
+- original topic: SoT UI, Astro/Penpot parity, Golden Corpus and component
+  lineage;
+- correction source: owner text review in the active ChatGPT project
+  conversation on `2026-08-29`.
 
 ## Dedup and owner-item routing
 
-The packet does not reopen every visual defect as a new item.
-
-| Route | Disposition |
+| Route | Current disposition |
 |---|---|
-| `OV-08` | existing global component-lineage gate: visual similarity is not technical ancestry; page-local masters, detached copies and unrelated roots remain forbidden |
-| `OV-57` | existing bounded shared-fixture gate: Astro and Penpot must use the same named versioned pool/scenario inside one comparison; full production listings remain Astro stress evidence |
-| `OV-58` | new cross-cutting documentation/agent-routing item: state the actual authority model, parity boundary and current implementation status without presenting target architecture as already automatic or globally complete |
+| `OV-08` | global component-lineage gate remains open; visual similarity is not technical ancestry |
+| `OV-57` | bounded fixture-density/materialization evidence remains valid |
+| `OV-58` | original documentation routing item; its Penpot-central interpretation is superseded |
+| `OV-59` | corrected central authority and fixture-authority reanalysis; current owner review |
 
-## Factual audit of the voice
+## Corrected factual audit of the voice
 
-| Voice thesis | Factual disposition after fresh read |
+| Voice thesis | Correct disposition |
 |---|---|
-| Astro is the final user-facing site | `CONFIRMED`: before a family is promoted, pinned `events-bot-new` Astro/runtime remains the executable AS-IS fact |
-| one central Source of Truth is required | `CONFIRMED_WITH_CORRECTION`: the durable center is versioned Git UI contracts, registries, fixtures, bindings and receipts in `lovekgd-design-system`; Penpot and Astro are governed projections/consumers |
-| Penpot is the central point from which a change should appear in Astro | `TARGET_WORKFLOW_ONLY`: Penpot can initiate owner feedback, but no automatic bidirectional sync exists; the actual loop is decision/contract → materialization or integration → exact readback → tests → focused visual review |
-| one Golden Corpus must be shared | `CONFIRMED_PER_BOUNDED_COMPARISON`: one exact named scenario/pool and the same fixture IDs/hashes are required for one comparison; there is no universal event-only payload list for every component, festival, club and artifact |
-| full parity is required at component, group and archetype levels | `CONFIRMED_WITH_SCOPE`: parity is exact only for the same route/state/viewport/scenario after clock, locale, fonts, DPR and runtime state are fixed; contract-declared responsive/contextual variants may differ |
-| components must not be placed together with archetypes | `TERMINOLOGY_CORRECTED`: masters and state catalogs stay on bounded library pages; archetypes must contain linked component instances. The prohibited state is a page-local master, detached copy, screenshot substitute or unrelated lookalike |
-| visually similar but independent implementations are the general error | `CONFIRMED`: lineage requires source/version bindings, component/main IDs and actual-owner census/readback, not screenshot similarity |
-| the system has already converged globally | `NOT_CONFIRMED`: bounded corrections exist, but global lineage closure, owner acceptance, per-family promotion and production migration remain open |
+| SoT UI is the center for component configuration, hierarchy, relations and duplicate prevention | `EXACTLY_CONFIRMED`: this is stated directly in the full transcript |
+| Astro is the user-facing generated site | `CONFIRMED`: Astro is the executable projection/consumer and, before promotion, AS-IS evidence |
+| Penpot displays component, composed-component and archetype states | `CONFIRMED`: Penpot is a native visual projection and review surface |
+| Penpot itself is the central system | `FALSE_DERIVED_THESIS`: not stated by the owner; superseded by `OV-59` |
+| A change reviewed in Penpot must appear equivalently in Astro | `CONFIRMED_WITH_AUTHORITY_RULE`: the accepted decision returns to SoT UI first; both Penpot and Astro are then updated from one SoT version |
+| direct Penpot → Astro propagation is the intended architecture | `REJECTED`: target flow is SoT UI → Penpot and SoT UI → Astro |
+| Golden Corpus prevents fixture substitution across component, group and archetype checks | `CONFIRMED`; current split event authorities require reanalysis rather than normalization as final |
+| full parity is required at component, group and archetype levels | `CONFIRMED`: compare the same SoT version, fixtures, state, viewport, clock and environment |
+| component types belong on dedicated library pages | `CONFIRMED`: archetypes consume linked instances; page-local masters and detached lookalikes are forbidden |
+| visually similar independent implementations are a general failure | `CONFIRMED`: lineage needs source/version bindings and exact owner-instance readback |
 
-## Current evidence read during this intake
+## Fixture authority reanalysis
 
-- published design-system `main@c6419a62af3d73f53e81d95a518fbe62a4a1c942` is a historical snapshot, not the current owner-review state;
-- source-proven AS-IS baseline is Draft PR `#52@b86bab3e91511b3d4bd7d953b22bceb847f02a51`;
-- active owner-review delta is Draft PR `#53`, branch `fix/penpot-owner-comments-20260826`;
-- component Golden Event Corpus pilot is Draft PR `#42@7a26772828a5d74a9683c08e7e6774ff15ac61a5`: identity gates passed, visual conformance failed;
-- published Astro AS-IS is `events-bot-new/main@8710e56fa3685f6c30a90cd062d532dce0348cce`;
-- active Astro/UI candidate is Draft PR `events-bot-new#596`, branch `fix/audio-audit-ui-20260828`;
-- the Festival renderer is the real `site/src/components/festivals/FestivalCard.astro`, consumed by `site/src/pages/festivali/index.astro`; the source-bound centralization receipt records Astro build PASS, Penpot structural/validation PASS, visual export blocked by one HTTP 504 and no owner acceptance.
+The previous intake described the `8`-event component corpus and disjoint
+`5`-event archetype pool as an acceptable final separation. That conclusion was
+too permissive.
 
-## `OV-58` materialization evidence
+The full voice connects Golden Corpus to tests at all levels: component,
+composed group and complete archetype. Correct target:
 
-### LoveKGD Design System, active PR `#53`
+```text
+one SoT UI fixture authority
+→ typed fixture records
+→ named scenarios/subsets
+→ exact same fixture IDs and hashes in Astro and Penpot for each case
+```
 
-- `docs/static-site-design-system-current-state.md` — current layered authority and factual audit of the voice;
-- `AGENTS.md` — mandatory agent start route;
-- `docs/index.md` — current documentation map and explicit current-state sequence;
-- `docs/product-patterns/event-card-family-consumer-lineage.md` — bounded centralization versus global lineage gate;
-- `catalog/ui-components/event-card-family/consumer-lineage.v1.json` — machine-readable lineage status and forbidden claims;
-- this intake plus `docs/reviews/index.md` — canonical review registration.
+Different scenario subsets are allowed. Different entity types may use separate
+typed pools. But two unlinked event authorities must not be presented as a
+finished Golden Corpus.
 
-### Static-site consumer, active PR `events-bot-new#596`
+Current factual state:
 
-- `docs/features/static-site-pages/design-system/README.md` — local Astro bridge and authority correction;
-- `docs/features/static-site-pages/design-system/reference-fixture-scenarios.md` — exact named-pool/scenario rule and distinct current pools;
-- `docs/features/static-site-pages/design-system/AGENTS.md` — subtree-level routing for code agents.
+- component certification: 8 factual events from Draft PR `#42`;
+- archetype core: 5 different factual events in the later reference registry;
+- current documentation explicitly says the later registry does not replace the
+  component corpus;
+- cross-level single-registry continuity is not proven.
 
-### IdeaHub `main`
+Status: `SOT_FIXTURE_AUTHORITY_UNIFICATION_OPEN`.
 
-- `ideas/product.kenigevents/idea-20260829-lovekgd-design-system-operating-contract.md` — durable owner-facing operating contract and cross-repository routes;
-- `registry/sessions/2026/08/voice-20260829-201612-4feb9e87.md` — source session marked `processed` for intake/routing, without claiming design-system owner acceptance.
+Exact evidence inside an individual named scenario remains valid. The open gate
+is to register both event sets under one canonical SoT authority or explicitly
+supersede one contour.
 
-## Current exact fixture scopes
+## Valid evidence retained from the original intake
 
-| Purpose | Current bounded pool |
-|---|---|
-| component conformance | 8 factual events: `3132, 4327, 6399, 6628, 7807, 7888, 7906, 8156` |
-| archetype core | 5 factual events: `7030, 7006, 6901, 6996, 6997` |
-| festival reference rows | 7 factual festival slugs |
-| clubs | 3 factual clubs |
-| Artifact Collection 1 | 7 factual artifacts |
+- `lovekgd-design-system/main@c6419a62af3d73f53e81d95a518fbe62a4a1c942`
+  is historical, not the current owner-review state;
+- source-proven AS-IS baseline remains Draft PR `#52`;
+- active owner-review contour remains Draft PR `#53`;
+- active Astro/UI candidate remains Draft PR `events-bot-new#596`;
+- Golden Event Corpus pilot identity gates passed while visual conformance
+  failed;
+- bounded FestivalCard, ListingEventCard and Mobile Rail centralization receipts
+  remain valid for their named scopes;
+- global lineage, owner acceptance, promotion and production migration remain
+  open.
 
-A valid parity claim must name the exact pool/scenario, fixture IDs and hashes.
-The eight-event component corpus and five-event archetype pool must not be mixed
-under one exact-comparison claim.
+## Corrected materialization route
 
-## Acceptance and open gates
+### LoveKGD Design System
 
-`OV-58` is ready for owner rereview as a documentation/routing correction. It
-does not require a new Penpot mutation by itself and does not close the visual
-items to which it routes.
+- `docs/static-site-design-system-current-state.md` — primary current router;
+- `docs/ui-source-of-truth-roundtrip.md` — lifecycle;
+- `docs/ui-reference-fixture-registry.md` — canonical fixture target and current
+  unification gap;
+- `docs/reviews/owner-text-sot-ui-centrality-correction-20260829.md` — exact
+  owner correction;
+- `docs/reviews/index.md` — current review routing;
+- affected family/archetype contracts and receipts.
 
-Still open:
+### Static-site consumer
 
-- explicit owner acceptance of the corrected authority/parity formulation;
-- global non-card and complete event-card lineage census where not already proven;
-- visual exports currently blocked by Penpot HTTP 504;
-- explicit editorial authority for `/neobychnoe/`;
-- per-family promotion and complete Astro consumer migration;
-- production release approval and post-deploy conformance.
+- `events-bot-new#596/docs/features/static-site-pages/design-system/README.md`;
+- `events-bot-new#596/docs/features/static-site-pages/design-system/reference-fixture-scenarios.md`;
+- subtree `AGENTS.md`.
 
-No merge, promotion, deployment or global `READY_FOR_OWNER_REVIEW` is claimed.
+### IdeaHub
+
+- `ideas/product.kenigevents/idea-20260829-lovekgd-design-system-operating-contract.md`;
+- `registry/sessions/2026/08/voice-20260829-201612-4feb9e87.md`.
+
+## Acceptance boundary
+
+`REV-IDEAHUB-20260829-14` is not the current interpretation authority. It is
+retained as a superseded intake record. Current correction is
+`REV-CHAT-20260829-01` / `OV-59`, status `READY_FOR_OWNER_REREVIEW`,
+`processed: NO`.
+
+No Penpot mutation, merge, promotion, deployment or global
+`READY_FOR_OWNER_REVIEW` is claimed by this documentation correction.
