@@ -1,0 +1,43 @@
+{
+  "schema_version": "ov57-festival-fixture-profile-receipt.v1",
+  "review_item": "OV-57",
+  "observed_at": "2026-08-29T05:38:33Z",
+  "astro": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "branch": "fix/audio-audit-ui-20260828",
+    "commit": "dec0d11b3b310a226a1b8bf6be9ed71cdf045b8e",
+    "profile_source": "site/src/data/design-system-reference-fixtures.json",
+    "route_source": "site/src/pages/festivali/index.astro",
+    "test_source": "site/tests/festival-design-fixture-profile.test.mjs"
+  },
+  "build": {
+    "command": "PUBLIC_DESIGN_FIXTURE_PROFILE=design-system-reference-v1 PUBLIC_SITE_MODE=preview PUBLIC_STATIC_SITE_CURRENT_DATE=2026-07-23 PUBLIC_STATIC_SITE_REFERENCE_ISO=2026-07-23T10:00:00.000Z npm run build",
+    "result": "PASS",
+    "page_count": 471,
+    "generated_route": "site/dist/festivali/index.html",
+    "generated_route_sha256": "e208efa746cbf76f91fb9727be2d1831e6ca78d91965ec5efac62f65b0a38eca"
+  },
+  "readback": {
+    "data_design_fixture_profile": "design-system-reference-v1",
+    "data_festival_count": 7,
+    "festival_card_count": 7,
+    "festival_row_count": 3,
+    "month_groups": ["july", "august", "november"],
+    "row_card_counts": [1, 4, 2],
+    "festival_slugs": [
+      "city-jazz",
+      "sosedi",
+      "grozd",
+      "more-vnutri",
+      "bolshoy-kaup",
+      "v-edinstve",
+      "jazz-v-filarmonii"
+    ]
+  },
+  "tests": {
+    "command": "node --test tests/festival-design-fixture-profile.test.mjs",
+    "passed": 2,
+    "failed": 0
+  },
+  "scope_note": "The explicit fixture profile emits the bounded seven-festival 1/4/2 reference composition. The default production route remains unfiltered and retains the full factual timeline."
+}
