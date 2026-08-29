@@ -21,8 +21,14 @@
     {
       "id": "listing.weekend-range-navigation",
       "source": "WeekendRangeNav.astro",
-      "states": ["default", "selected-current", "wrapped-compact-desktop"],
-      "dependencies": ["icon.product.long-arrow-right"],
+      "states": [
+        "default",
+        "selected-current",
+        "wrapped-compact-desktop"
+      ],
+      "dependencies": [
+        "icon.product.long-arrow-right"
+      ],
       "materialization_rule": "one semantic range-navigation parent owns linked range items and the continuation icon; per-page text overlays are forbidden",
       "penpot_component_ids": {
         "selected_item": "d87e18f1-dcb4-80a6-8008-87b0434d1594",
@@ -40,8 +46,17 @@
     {
       "id": "listing.weekend-day-header",
       "source": "WeekendListingSurface.astro#.ke-weekend-day__head",
-      "states": ["saturday", "sunday", "empty-day"],
-      "overridable": ["weekday", "date", "count", "weather-state"],
+      "states": [
+        "saturday",
+        "sunday",
+        "empty-day"
+      ],
+      "overridable": [
+        "weekday",
+        "date",
+        "count",
+        "weather-state"
+      ],
       "penpot_component_ids": {
         "weekday_chip": "d87e18f1-dcb4-80a6-8008-87b3258ff2a5",
         "saturday": "d87e18f1-dcb4-80a6-8008-87b33c13bbbb",
@@ -58,7 +73,11 @@
     {
       "id": "listing.weekend-time-marker",
       "source": "ListingTimeMarker.astro",
-      "states": ["timed", "untimed", "day-counts"],
+      "states": [
+        "timed",
+        "untimed",
+        "day-counts"
+      ],
       "reuse": "shared listing time-marker semantics and foundation typography with weekend day-count presentation",
       "penpot_component_ids": {
         "day_count_chip": "d87e18f1-dcb4-80a6-8008-87b47b471bcd",
@@ -74,13 +93,27 @@
     {
       "id": "listing.weekend-editorial-timeline",
       "source": "WeekendEditorialTimeline.astro",
-      "states": ["two-day", "single-day-concentration", "empty-opposite-day", "compact-desktop"],
-      "dependencies": ["listing.weekend-time-marker", "listing.event-card.compact"]
+      "states": [
+        "two-day",
+        "single-day-concentration",
+        "empty-opposite-day",
+        "compact-desktop"
+      ],
+      "dependencies": [
+        "listing.weekend-time-marker",
+        "listing.event-card.compact"
+      ]
     },
     {
       "id": "archetype.listing.weekend",
       "source": "WeekendListingCandidateSurface.astro",
-      "states": ["typical-desktop", "typical-mobile", "sparse", "empty", "stress"],
+      "states": [
+        "typical-desktop",
+        "typical-mobile",
+        "sparse",
+        "empty",
+        "stress"
+      ],
       "dependencies": [
         "listing.weekend-range-navigation",
         "listing.weekend-day-header",
@@ -107,5 +140,19 @@
     "fabricated stress events",
     "exhibition-like event.real.7888 in the primary Weekend fixture projection",
     "promotion, merge, deployment or production-route mutation"
-  ]
+  ],
+  "centralized_compact_variants": {
+    "resource_path": "Event cards / Compact variants",
+    "component_ids": [
+      "d87e18f1-dcb4-80a6-8008-87b75354f2ed",
+      "d87e18f1-dcb4-80a6-8008-87becba472c7"
+    ],
+    "fixtures": [
+      "event.real.7807",
+      "event.real.7906"
+    ],
+    "state": "past",
+    "density": "weekend",
+    "adoption": "Weekend timeline and full-shell consumers remain linked to the same component IDs after central ownership correction."
+  }
 }
