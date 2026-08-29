@@ -6953,39 +6953,42 @@
         {
           "content_type": "generated-route",
           "fixture_refs": [
-            "/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
-            "/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
-            "/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
+            "/sobytiya/predmetnye-strasti-natyurmort-xx-veka-kaliningrad-5459/",
+            "/sobytiya/sobache-serdtse-kaliningrad-5757/",
+            "/sobytiya/rok-opera-orfey-i-evridika-kaliningrad-5511/"
           ],
           "multiplicity": "many",
           "required": true,
-          "slot_id": "generated-route-scenarios"
+          "slot_id": "source-exact-owner-routes"
+        },
+        {
+          "content_type": "event",
+          "fixture_refs": [
+            "event.real.5459",
+            "event.real.5757",
+            "event.real.5511",
+            "event.real.4783",
+            "event.real.4671"
+          ],
+          "multiplicity": "many",
+          "required": true,
+          "slot_id": "source-exact-events"
         },
         {
           "content_type": "semantic-state",
           "fixture_refs": [
-            "admission-absent",
-            "admission-present",
-            "calendar-absent",
-            "calendar-present",
-            "no-image",
-            "transport-absent",
-            "transport-present"
+            "desktop-overlap-240",
+            "mobile-first-screen-overlap",
+            "top-medallion",
+            "occurrence-family",
+            "portrait-hero-image",
+            "viewer",
+            "transport",
+            "related-before-footer"
           ],
           "multiplicity": "many",
           "required": true,
-          "slot_id": "state-scenarios"
-        },
-        {
-          "content_type": "event-detail-scenario",
-          "fixture_refs": [
-            "wide-image:/sobytiya/drevnie-voiny-yantarnogo-kraya-kaliningrad-698/",
-            "portrait-image:/sobytiya/vystavka-donbass-proshloe-i-nastoyaschee-kaliningrad-2601/",
-            "no-image:/sobytiya/nauka-vsegda-kstati-progulka-s-uchenym-kaliningrad-6996/"
-          ],
-          "multiplicity": "many",
-          "required": true,
-          "slot_id": "event-media-scenarios"
+          "slot_id": "source-exact-states"
         }
       ],
       "penpot": {
@@ -10352,7 +10355,9 @@
           "content_type": "generated-route",
           "fixture_refs": [
             "/kluby-po-interesam/",
-            "/kluby-po-interesam/game-vibes/"
+            "/kluby-po-interesam/game-vibes/",
+            "/kluby-po-interesam/neural-researchers/",
+            "/kluby-po-interesam/technology-researchers/"
           ],
           "multiplicity": "many",
           "required": true,
@@ -10361,6 +10366,7 @@
         {
           "content_type": "semantic-state",
           "fixture_refs": [
+            "catalog-ready",
             "cover-absent",
             "cover-present",
             "detail-no-future-meetings"
@@ -10379,14 +10385,14 @@
             "case_id": "archetype.interest-clubs.desktop.current-v1",
             "viewport": "desktop",
             "board_id": "d87e18f1-dcb4-80a6-8008-880cfe39384c",
-            "board_name": "Archetype / Interest clubs / viewport=desktop;state=empty · Astro AS-IS",
+            "board_name": "Archetype / Interest clubs / viewport=desktop;state=ready · owner-corrected",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880cfe1ec779&board-id=d87e18f1-dcb4-80a6-8008-880cfe39384c"
           },
           {
             "case_id": "archetype.interest-clubs.mobile.current-v1",
             "viewport": "mobile",
             "board_id": "d87e18f1-dcb4-80a6-8008-880cff1a1193",
-            "board_name": "Archetype / Interest clubs / viewport=mobile;state=empty · Astro AS-IS",
+            "board_name": "Archetype / Interest clubs / viewport=mobile;state=ready · owner-corrected",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880cfe1ec779&board-id=d87e18f1-dcb4-80a6-8008-880cff1a1193"
           }
         ]
@@ -11218,8 +11224,21 @@
           "slot_id": "generated-route-scenarios"
         },
         {
+          "content_type": "event",
+          "fixture_refs": [
+            "event.real.7030",
+            "event.real.7006",
+            "event.real.6947"
+          ],
+          "multiplicity": "many",
+          "required": true,
+          "slot_id": "populated-events"
+        },
+        {
           "content_type": "semantic-state",
           "fixture_refs": [
+            "local-only-with-items",
+            "authenticated",
             "empty",
             "error",
             "loading",
@@ -11240,14 +11259,14 @@
             "case_id": "archetype.favorites.desktop.current-v1",
             "viewport": "desktop",
             "board_id": "d87e18f1-dcb4-80a6-8008-880d20bc67e8",
-            "board_name": "Archetype / Favorites / viewport=desktop;state=anonymous-empty · Astro AS-IS",
+            "board_name": "Archetype / Favorites / viewport=desktop;state=local-only-with-items · Astro source exact",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880d209a7fcd&board-id=d87e18f1-dcb4-80a6-8008-880d20bc67e8"
           },
           {
             "case_id": "archetype.favorites.mobile.current-v1",
             "viewport": "mobile",
             "board_id": "d87e18f1-dcb4-80a6-8008-880d230a2b8b",
-            "board_name": "Archetype / Favorites / viewport=mobile;state=anonymous-empty · Astro AS-IS",
+            "board_name": "Archetype / Favorites / viewport=mobile;state=local-only-with-items · Astro source exact",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880d209a7fcd&board-id=d87e18f1-dcb4-80a6-8008-880d230a2b8b"
           }
         ]
@@ -12391,15 +12410,30 @@
           "slot_id": "generated-route-scenarios"
         },
         {
-          "content_type": "semantic-state",
+          "content_type": "event",
           "fixture_refs": [
-            "empty",
-            "loading",
-            "stale"
+            "event.real.5459",
+            "event.real.6870",
+            "event.real.6941"
           ],
           "multiplicity": "many",
           "required": true,
-          "slot_id": "state-scenarios"
+          "slot_id": "bounded-recommendations"
+        },
+        {
+          "content_type": "semantic-state",
+          "fixture_refs": [
+            "not-yet-configured",
+            "configured",
+            "profile-empty",
+            "recommendations-3-of-9",
+            "auth-email",
+            "auth-yandex",
+            "local-no-extra-consent"
+          ],
+          "multiplicity": "many",
+          "required": true,
+          "slot_id": "source-exact-states"
         }
       ],
       "penpot": {
@@ -12411,14 +12445,14 @@
             "case_id": "archetype.personal-feed.desktop.current-v1",
             "viewport": "desktop",
             "board_id": "d87e18f1-dcb4-80a6-8008-880d8c05a466",
-            "board_name": "Archetype / Personal feed / viewport=desktop;state=anonymous-consent-undecided · Astro AS-IS",
+            "board_name": "Archetype / Personal feed / viewport=desktop;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880d8bcc2d0b&board-id=d87e18f1-dcb4-80a6-8008-880d8c05a466"
           },
           {
             "case_id": "archetype.personal-feed.mobile.current-v1",
             "viewport": "mobile",
             "board_id": "d87e18f1-dcb4-80a6-8008-880d8db35320",
-            "board_name": "Archetype / Personal feed / viewport=mobile;state=anonymous-consent-undecided · Astro AS-IS",
+            "board_name": "Archetype / Personal feed / viewport=mobile;state=profile-empty+recommendations-3-of-9;auth=email+yandex · native Astro source exact",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880d8bcc2d0b&board-id=d87e18f1-dcb4-80a6-8008-880d8db35320"
           }
         ]
@@ -13832,13 +13866,28 @@
           "slot_id": "generated-route-scenarios"
         },
         {
+          "content_type": "artifact",
+          "fixture_refs": [
+            "amber_cosmonaut",
+            "baltic_light",
+            "luise_queen_bridge",
+            "marzipan_heart",
+            "sedov_bell",
+            "cosmonaut",
+            "old_brick"
+          ],
+          "multiplicity": "many",
+          "required": true,
+          "slot_id": "collection-1-exact-seven"
+        },
+        {
           "content_type": "semantic-state",
           "fixture_refs": [
-            "complete",
-            "empty",
-            "locked",
-            "partial",
-            "unlocked"
+            "none-found",
+            "subset-found-3-of-7",
+            "all-found-7-of-7",
+            "hover-and-keyboard-focus",
+            "selected-detail"
           ],
           "multiplicity": "many",
           "required": true,
@@ -13854,14 +13903,14 @@
             "case_id": "archetype.artifacts.desktop.current-v1",
             "viewport": "desktop",
             "board_id": "d87e18f1-dcb4-80a6-8008-880f9aaea84e",
-            "board_name": "Archetype / Artifacts / viewport=desktop;state=unavailable · Astro AS-IS",
+            "board_name": "Archetype / Artifacts / viewport=desktop;state=all-found-7-of-7 · native donor reconstruction",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880f9a822a76&board-id=d87e18f1-dcb4-80a6-8008-880f9aaea84e"
           },
           {
             "case_id": "archetype.artifacts.mobile.current-v1",
             "viewport": "mobile",
             "board_id": "d87e18f1-dcb4-80a6-8008-880f9c4c81c4",
-            "board_name": "Archetype / Artifacts / viewport=mobile;state=unavailable · Astro AS-IS",
+            "board_name": "Archetype / Artifacts / viewport=mobile;state=all-found-7-of-7 · native donor reconstruction",
             "direct_url": "https://design.penpot.app/#/workspace?team-id=81f57451-85cc-819d-8008-70ebaeab3fd6&file-id=3be9e5e1-190f-8090-8008-713c0fbe6260&page-id=d87e18f1-dcb4-80a6-8008-880f9a822a76&board-id=d87e18f1-dcb4-80a6-8008-880f9c4c81c4"
           }
         ]
