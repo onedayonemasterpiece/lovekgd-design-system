@@ -1,0 +1,580 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.personal-feed",
+  "display_name": "Personal feed",
+  "fixture_refs": [
+    "fixture.personal-feed.cold-start",
+    "fixture.personal-feed.personalized",
+    "fixture.personal-feed.stale-refresh",
+    "fixture.personal-feed.empty",
+    "fixture.personal-feed.error"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "cold-start"
+      },
+      "fixture_id": "fixture.personal-feed.cold-start",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "state": "cold-start"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "personalized"
+      },
+      "fixture_id": "fixture.personal-feed.personalized",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "state": "personalized"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "stale-refresh"
+      },
+      "fixture_id": "fixture.personal-feed.stale-refresh",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "state": "stale-refresh"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.personal-feed.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "error"
+      },
+      "fixture_id": "fixture.personal-feed.error",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.a6e5eade1c908bf6"
+      ],
+      "state": "error"
+    }
+  ],
+  "gap_refs": [
+    "gap.personal-feed.01"
+  ],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.personal-feed.001",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.002"
+      },
+      {
+        "from_node_id": "node.personal-feed.001",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.003"
+      },
+      {
+        "from_node_id": "node.personal-feed.003",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.004"
+      },
+      {
+        "from_node_id": "node.personal-feed.003",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.005"
+      },
+      {
+        "from_node_id": "node.personal-feed.003",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.006"
+      },
+      {
+        "from_node_id": "node.personal-feed.003",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.007"
+      },
+      {
+        "from_node_id": "node.personal-feed.007",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.008"
+      },
+      {
+        "from_node_id": "node.personal-feed.003",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.personal-feed.009"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "entity_ref": "personal-feed.slot",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.001",
+        "node_kind": "pattern_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.002",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.003",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.004",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.005",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.006",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.007",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.008",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.personal-feed.009",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.personal-feed.cold-start",
+          "fixture.personal-feed.personalized",
+          "fixture.personal-feed.stale-refresh",
+          "fixture.personal-feed.empty",
+          "fixture.personal-feed.error"
+        ],
+        "gap": {
+          "gap_id": "gap.personal-feed.01",
+          "reason": "personalization.filter is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#personalization.filter",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: personalization.filter"
+        },
+        "local_overrides": [],
+        "node_id": "node.personal-feed.010",
+        "node_kind": "gap_placeholder",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.personal-feed.001",
+      "node.personal-feed.010"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/dlya-menya/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "personal-feed.slot"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.a6e5eade1c908bf6",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.for-me",
+      "route_family_id": "page-family.for-me",
+      "route_template": "/dlya-menya/",
+      "source_id": "source.current_root_prelaunch.a6e5eade1c908bf6",
+      "source_path": "site/src/pages/dlya-menya/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.cold-start",
+      "matrix_id": "matrix.personal-feed.mobile.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.personalized",
+      "matrix_id": "matrix.personal-feed.mobile.personalized",
+      "state": "personalized",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.stale-refresh",
+      "matrix_id": "matrix.personal-feed.mobile.stale-refresh",
+      "state": "stale-refresh",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.empty",
+      "matrix_id": "matrix.personal-feed.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.error",
+      "matrix_id": "matrix.personal-feed.mobile.error",
+      "state": "error",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.cold-start",
+      "matrix_id": "matrix.personal-feed.desktop.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.personalized",
+      "matrix_id": "matrix.personal-feed.desktop.personalized",
+      "state": "personalized",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.stale-refresh",
+      "matrix_id": "matrix.personal-feed.desktop.stale-refresh",
+      "state": "stale-refresh",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.empty",
+      "matrix_id": "matrix.personal-feed.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.personal-feed.001",
+        "node.personal-feed.002",
+        "node.personal-feed.003",
+        "node.personal-feed.004",
+        "node.personal-feed.005",
+        "node.personal-feed.006",
+        "node.personal-feed.007",
+        "node.personal-feed.008",
+        "node.personal-feed.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.personal-feed.010"
+      ],
+      "fixture_ref": "fixture.personal-feed.error",
+      "matrix_id": "matrix.personal-feed.desktop.error",
+      "state": "error",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

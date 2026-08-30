@@ -1,0 +1,101 @@
+mode: worktree_worker_then_serial_integrator
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: c59a3576c7361c1953b31ad9b98ed096640e92c7
+base_branch: main
+integration_branch: normalization/apply-component-synthesis-v0-1
+global_constraints:
+  - events-bot-new read-only
+  - canonical=false accepted=false promotion_ready=false
+  - experiments NOT_MERGED
+  - no taxonomy redesign or broad decoder
+  - no PR merge
+verification_owner: L0-integrator
+stop_conditions:
+  - immutable package hash mismatch
+  - production repository mutation
+  - Penpot target mismatch before live write
+lanes:
+  - id: L0-integration-penpot
+    role: merge_reviewer
+    effort: high
+    requirement_ids: [R00, R05, R07, R08]
+    target: package provenance, integration, live Penpot, receipts, Draft PR
+    depends_on: [L1, L2, L3, L4]
+    execution_mode: serial_after_dependency
+    branch: normalization/apply-component-synthesis-v0-1
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/apply-component-synthesis-v0-1
+    writable_files: [manifest.json, README.md, .codex/integration/**, receipts/**, Penpot live files]
+    forbidden_files: [events-bot-new/**]
+    expected_output: integrated branch, Penpot read-back, Draft PR
+    verification_scope: full_local_and_ci
+    status: committed_with_external_penpot_blocker
+  - id: L1-source-reconciliation
+    role: worker
+    effort: high
+    requirement_ids: [R01, R03]
+    target: exact source census and six terminal reconciliations
+    depends_on: [R00]
+    execution_mode: parallel
+    branch: agent/apply-component-synthesis-v0-1/source-reconciliation
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/apply-synthesis-source-reconciliation
+    writable_files: [catalog/normalization/component-synthesis-v0.1/source-drift-ledger.jsonl, catalog/normalization/component-synthesis-v0.1/technical-reconciliation-results.jsonl, catalog/normalization/component-synthesis-v0.1/media-policy-matrix.jsonl, .codex/lanes/apply-synthesis-source-reconciliation/RESULTS.md]
+    forbidden_files: [contracts/**, scripts/**, tests/**, receipts/**]
+    expected_output: exact SHA/path/edge evidence and 6/6 terminal results
+    verification_scope: targeted
+    status: committed
+  - id: L2-contracts-fixtures
+    role: worker
+    effort: high
+    requirement_ids: [R04]
+    target: W1-W4 candidate contracts and fixtures
+    depends_on: [R00]
+    execution_mode: parallel_read_only_until_L1_then_finalize
+    branch: agent/apply-component-synthesis-v0-1/contracts-fixtures
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/apply-synthesis-contracts-fixtures
+    writable_files: [catalog/normalization/component-synthesis-v0.1/contracts/**, catalog/normalization/component-synthesis-v0.1/fixtures/**, contracts/normalization/component-synthesis-contract.v0.1.schema.json, .codex/lanes/apply-synthesis-contracts-fixtures/RESULTS.md]
+    forbidden_files: [scripts/**, tests/**, receipts/**]
+    expected_output: complete materializable entity contract/fixture corpus
+    verification_scope: targeted
+    status: committed
+  - id: L3-archetype-ir
+    role: worker
+    effort: high
+    requirement_ids: [R06]
+    target: all 18 archetype instance graphs and explicit gaps
+    depends_on: [R00]
+    execution_mode: parallel
+    branch: agent/apply-component-synthesis-v0-1/archetype-ir
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/apply-synthesis-archetypes
+    writable_files: [catalog/normalization/component-synthesis-v0.1/archetypes/**, contracts/normalization/component-synthesis-archetype.v0.1.schema.json, .codex/lanes/apply-synthesis-archetypes/RESULTS.md]
+    forbidden_files: [scripts/**, tests/**, receipts/**]
+    expected_output: 18 deterministic archetype graphs with gap placeholders
+    verification_scope: targeted
+    status: committed
+  - id: L4-validation-delivery
+    role: worker
+    effort: high
+    requirement_ids: [R02]
+    target: fail-closed registry/mapping/materialization validators and tests
+    depends_on: [R00]
+    execution_mode: parallel_read_only_inputs
+    branch: agent/apply-component-synthesis-v0-1/validation
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/apply-synthesis-validation
+    writable_files: [contracts/normalization/component-synthesis-registry.v0.1.schema.json, scripts/component-synthesis-v0.1/**, scripts/validate-apply-component-synthesis-v0.1.mjs, tests/apply-component-synthesis-v0.1-negative.mjs, .codex/lanes/apply-synthesis-validation/RESULTS.md]
+    forbidden_files: [catalog/normalization/component-synthesis-v0.1/**, receipts/**]
+    expected_output: deterministic positive validator and semantic mutation suite
+    verification_scope: full_local
+    status: committed
+  - id: L5-final-audit
+    role: reviewer
+    effort: high
+    requirement_ids: [R08]
+    target: independent final requirement/diff/read-back audit
+    depends_on: [L0-integration-penpot]
+    execution_mode: serial_after_dependency
+    branch: read-only
+    worktree: read-only integration head
+    writable_files: []
+    forbidden_files: ['**']
+    expected_output: requirement closure table and exact blockers
+    verification_scope: inspection_only
+    status: completed_local_pending_ci

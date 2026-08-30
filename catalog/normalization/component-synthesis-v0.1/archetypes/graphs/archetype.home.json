@@ -1,0 +1,318 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.home",
+  "display_name": "Home",
+  "fixture_refs": [
+    "fixture.home.cold-start",
+    "fixture.home.reranked",
+    "fixture.home.static-fallback",
+    "fixture.home.empty-error-safe"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "cold-start"
+      },
+      "fixture_id": "fixture.home.cold-start",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "cold-start"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "reranked"
+      },
+      "fixture_id": "fixture.home.reranked",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "reranked"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "static-fallback"
+      },
+      "fixture_id": "fixture.home.static-fallback",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "static-fallback"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty/error-safe"
+      },
+      "fixture_id": "fixture.home.empty-error-safe",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.95d291e9ce4c8739"
+      ],
+      "state": "empty/error-safe"
+    }
+  ],
+  "gap_refs": [
+    "gap.home.01"
+  ],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.home.003",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.home.004"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "gap": {
+          "gap_id": "gap.home.01",
+          "reason": "home.cold-start-feed is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#home.cold-start-feed",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: home.cold-start-feed"
+        },
+        "local_overrides": [],
+        "node_id": "node.home.001",
+        "node_kind": "gap_placeholder",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "talk.message",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.002",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "home.quick-navigation",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.003",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.icon",
+        "fixture_refs": [
+          "fixture.home.cold-start",
+          "fixture.home.reranked",
+          "fixture.home.static-fallback",
+          "fixture.home.empty-error-safe"
+        ],
+        "local_overrides": [],
+        "node_id": "node.home.004",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.home.001",
+      "node.home.002",
+      "node.home.003"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "home.cold-start-feed"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.home",
+      "route_family_id": "page-family.home",
+      "route_template": "/",
+      "source_id": "source.current_root_prelaunch.95d291e9ce4c8739",
+      "source_path": "site/src/pages/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.cold-start",
+      "matrix_id": "matrix.home.mobile.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.reranked",
+      "matrix_id": "matrix.home.mobile.reranked",
+      "state": "reranked",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.static-fallback",
+      "matrix_id": "matrix.home.mobile.static-fallback",
+      "state": "static-fallback",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.empty-error-safe",
+      "matrix_id": "matrix.home.mobile.empty-error-safe",
+      "state": "empty/error-safe",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.cold-start",
+      "matrix_id": "matrix.home.desktop.cold-start",
+      "state": "cold-start",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.reranked",
+      "matrix_id": "matrix.home.desktop.reranked",
+      "state": "reranked",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.static-fallback",
+      "matrix_id": "matrix.home.desktop.static-fallback",
+      "state": "static-fallback",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.home.002",
+        "node.home.003",
+        "node.home.004"
+      ],
+      "expected_gap_node_ids": [
+        "node.home.001"
+      ],
+      "fixture_ref": "fixture.home.empty-error-safe",
+      "matrix_id": "matrix.home.desktop.empty-error-safe",
+      "state": "empty/error-safe",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "$schema": "https://lovekgd.example/contracts/normalization/component-synthesis-contract.v0.1.schema.json",
+  "accessibility_requirements": [
+    "Preserve native semantics; verify focus, name, state and target size."
+  ],
+  "allowed_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "declared-axis-values",
+      "rule": "Only registry-declared axis values may be combined; each rendered specimen binds an explicit fixture."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "native-nesting",
+      "rule": "Every declared nested component is represented by a native instance when present."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-content-preserved",
+      "rule": "Static resolved HTML remains useful and is never replaced by an initial skeleton."
+    }
+  ],
+  "anatomy": [
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "page/section context",
+      "part_id": "page-section-context",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "event collection",
+      "part_id": "event-collection",
+      "required": true
+    },
+    {
+      "evidence_source": "entity_registry.anatomy",
+      "label": "empty/error states",
+      "part_id": "empty-error-states",
+      "required": true
+    }
+  ],
+  "candidate_disposition": "candidate_component",
+  "consumers": {
+    "archetype_refs": [
+      "archetype.favorites"
+    ],
+    "entity_refs": []
+  },
+  "content_constraints": {
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "numeric_tokens_added": false,
+    "policy": "Exercise short, long, multiline, numeric-heavy and absent optional Russian content without changing the source-backed boundary.",
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ]
+  },
+  "contract_version": "0.1.0-candidate",
+  "display_name": "Favorites surface",
+  "entity_kind": "product_pattern",
+  "evidence": {
+    "confidence": "medium",
+    "hierarchy_refs": [
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=favorites.surface;child=event.card",
+      "catalog/normalization/component-synthesis-v0.1/component-hierarchy.json#parent=favorites.surface;child=core.state-panel"
+    ],
+    "level": "live_tree_and_product_docs",
+    "notes": [],
+    "registry_ref": "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#favorites.surface"
+  },
+  "fixture_plan": {
+    "binding_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/entity-fixture-bindings.json#fixture-binding.favorites.surface",
+    "catalog_ref": "catalog/normalization/component-synthesis-v0.1/fixtures/fixture-catalog.json",
+    "count_fixture_ids": [
+      "fixture.count.0",
+      "fixture.count.1",
+      "fixture.count.many",
+      "fixture.count.overflow"
+    ],
+    "media_fixture_ids": [
+      "fixture.photo-landscape-3x2-focal-safe-cover",
+      "fixture.photo-portrait-4x5-derived-cover",
+      "fixture.photo-reviewed-5x4-cover",
+      "fixture.photo-2x3-container-contain",
+      "fixture.poster-ocr-square-1x1-contain",
+      "fixture.poster-ocr-intrinsic-contain",
+      "fixture.unknown-text-contain",
+      "fixture.mixed-primary-previews",
+      "fixture.poster-companion",
+      "fixture.state-missing",
+      "fixture.state-broken",
+      "fixture.state-tiny"
+    ],
+    "runtime_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.empty",
+      "fixture.runtime.error",
+      "fixture.runtime.retrying",
+      "fixture.runtime.offline",
+      "fixture.runtime.success"
+    ],
+    "text_fixture_ids": [
+      "fixture.text.short-ru",
+      "fixture.text.long-ru",
+      "fixture.text.multiline",
+      "fixture.text.numeric-heavy",
+      "fixture.text.missing-optional"
+    ],
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "invalid_combinations": [
+    {
+      "axis_selections": {},
+      "combination_id": "undeclared-axis-value",
+      "rule": "Any value outside the registry-declared variant or state axes is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "detached-nested-copy",
+      "rule": "A detached copy cannot satisfy a nested component reference."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "static-html-skeleton",
+      "rule": "Artificial skeleton replacement of useful static Astro HTML is invalid."
+    },
+    {
+      "axis_selections": {},
+      "combination_id": "accepted-canonical-promoted",
+      "rule": "canonical=true, accepted=true or promotion_ready=true is invalid for synthesis v0.1."
+    }
+  ],
+  "loading_recovery": {
+    "client_wait_skeleton": "not_applicable_without_proven_client_wait",
+    "recovery_states": [
+      "static_resolved",
+      "partial",
+      "empty",
+      "error",
+      "offline",
+      "success"
+    ],
+    "runtime_state_fixture_ids": [
+      "fixture.runtime.static-resolved",
+      "fixture.runtime.initial-loading",
+      "fixture.runtime.partial",
+      "fixture.runtime.empty",
+      "fixture.runtime.error",
+      "fixture.runtime.retrying",
+      "fixture.runtime.offline",
+      "fixture.runtime.success"
+    ],
+    "source_policy": "static_resolved unless a consumer proves a runtime wait",
+    "static_html_skeleton": "forbidden"
+  },
+  "media": {
+    "consumer_requirement_refs": [
+      "event-media.application.favorites-runtime-event-cards",
+      "event-media.application.favorites-skeleton-media"
+    ],
+    "consumer_scoped": true,
+    "fit_candidates": [
+      "cover",
+      "contain",
+      "source-preserving"
+    ],
+    "focal_point": "Resolve from the bound consumer requirement; do not promote a global focal rule.",
+    "global_fit_selected": false,
+    "global_ratio_selected": false,
+    "layout_reservation": "Preserve the consumer-owned final geometry for loading, missing, broken and tiny-source states.",
+    "loading_applicability": "Image decode/loading is distinct from a client-data skeleton; skeleton applies only in an explicitly bound waiting region.",
+    "mode": "delegated",
+    "ratio_candidates": [
+      "4:5",
+      "5:4",
+      "3:2",
+      "2:3",
+      "1:1",
+      "intrinsic/source",
+      "consumer-defined"
+    ],
+    "safe_area": "Resolve from the bound consumer requirement and current source provenance; fail closed for protected text.",
+    "semantic_modes": [
+      "photography",
+      "portrait-poster",
+      "artwork-with-text",
+      "ocr-document",
+      "unknown-text",
+      "fallback"
+    ],
+    "source_behavior": "not_applicable",
+    "upscale": "Resolve per consumer and source quality; no universal upscale policy is selected."
+  },
+  "nested_components": [
+    {
+      "entity_ref": "event.card",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_event-card"
+    },
+    {
+      "entity_ref": "core.state-panel",
+      "instance_required": true,
+      "relation": "contains_instance",
+      "required": false,
+      "slot_id": "component_core-state-panel"
+    }
+  ],
+  "penpot_binding": {
+    "binding_status": "placeholder",
+    "component_id": null,
+    "detached_copy_allowed": false,
+    "fixture_binding_ids": [
+      "fixture-binding.favorites.surface"
+    ],
+    "main_component_id": null,
+    "materialization_status": "planned",
+    "resource_graph_file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "screenshot_master_allowed": false,
+    "stable_plugin_data_id": "component-synthesis.v0.1.favorites.surface",
+    "target_page": "50 — Product patterns",
+    "variant_container_id": null
+  },
+  "props": [
+    {
+      "allowed_values": [],
+      "default": null,
+      "evidence_source": "penpot_materialization_plan.fixture_requirements",
+      "kind": "materialization_binding",
+      "prop_id": "fixture_id",
+      "required": true,
+      "type": "fixture_ref"
+    },
+    {
+      "allowed_values": [
+        "mobile",
+        "desktop"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.variant_axes",
+      "kind": "variant_axis",
+      "prop_id": "viewport",
+      "required": false,
+      "type": "enum"
+    },
+    {
+      "allowed_values": [
+        "loading",
+        "empty",
+        "populated",
+        "partial",
+        "error",
+        "offline"
+      ],
+      "default": null,
+      "evidence_source": "entity_registry.state_axes",
+      "kind": "state_axis",
+      "prop_id": "data",
+      "required": false,
+      "type": "enum"
+    }
+  ],
+  "responsive_container_behavior": {
+    "evidence_source": "entity_registry.responsive_behavior",
+    "numeric_tokens_added": false,
+    "policy": "Требует проверки на фактических mobile/desktop consumers.",
+    "viewport_fixture_ids": [
+      "fixture.viewport.mobile-390x844",
+      "fixture.viewport.mobile-430x932",
+      "fixture.viewport.tablet-768x1024",
+      "fixture.viewport.desktop-1280x800",
+      "fixture.viewport.desktop-1728x900"
+    ]
+  },
+  "schema_version": "lovekgd_component_synthesis_contract_v0_1",
+  "semantic_purpose": "Stateful collection of saved events with static/runtime recovery.",
+  "slots": [
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "page/section context",
+      "slot_id": "content_page-section-context"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "event collection",
+      "slot_id": "content_event-collection"
+    },
+    {
+      "accepts_entity_refs": [],
+      "content_constraints": [
+        "Use only bound fixture content or source-derived content.",
+        "Do not introduce numeric design tokens in this candidate contract."
+      ],
+      "detached_copy_allowed": false,
+      "required": true,
+      "role": "empty/error states",
+      "slot_id": "content_empty-error-states"
+    },
+    {
+      "accepts_entity_refs": [
+        "event.card"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of event.card",
+      "slot_id": "component_event-card"
+    },
+    {
+      "accepts_entity_refs": [
+        "core.state-panel"
+      ],
+      "content_constraints": [
+        "Use a native component instance; detached copies are forbidden."
+      ],
+      "detached_copy_allowed": false,
+      "required": false,
+      "role": "Native instance of core.state-panel",
+      "slot_id": "component_core-state-panel"
+    }
+  ],
+  "source": {
+    "mapping_refs": [
+      "catalog/normalization/component-synthesis-v0.1/current-to-candidate-mapping.jsonl#source_path=site/src/components/FavoritesSurface.astro"
+    ],
+    "source_implementations": [
+      "site/src/components/FavoritesSurface.astro"
+    ]
+  },
+  "stable_component_id": "favorites.surface",
+  "state_axes": [
+    {
+      "axis_id": "data",
+      "evidence_source": "entity_registry.state_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "loading",
+        "empty",
+        "populated",
+        "partial",
+        "error",
+        "offline"
+      ]
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "product_value_status": "pending_product_model",
+    "promotion_ready": false
+  },
+  "variant_axes": [
+    {
+      "axis_id": "viewport",
+      "evidence_source": "entity_registry.variant_axes",
+      "materialization_mode": "native_variant",
+      "values": [
+        "mobile",
+        "desktop"
+      ]
+    }
+  ],
+  "wave_id": "W4-domain-product-specific"
+}

@@ -1,0 +1,478 @@
+{
+  "$schema": "https://lovekgd.design/contracts/normalization/component-synthesis-archetype.v0.1.schema.json",
+  "applicability": {
+    "viewport_modes": [
+      "mobile",
+      "desktop"
+    ]
+  },
+  "archetype_id": "archetype.exhibitions",
+  "display_name": "Exhibitions personal surface",
+  "fixture_refs": [
+    "fixture.exhibitions.static",
+    "fixture.exhibitions.personalized",
+    "fixture.exhibitions.empty",
+    "fixture.exhibitions.error"
+  ],
+  "fixtures": [
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "static"
+      },
+      "fixture_id": "fixture.exhibitions.static",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.26343675bbd2e910"
+      ],
+      "state": "static"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "personalized"
+      },
+      "fixture_id": "fixture.exhibitions.personalized",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.26343675bbd2e910"
+      ],
+      "state": "personalized"
+    },
+    {
+      "content_profile": {
+        "cardinality": "zero",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "empty"
+      },
+      "fixture_id": "fixture.exhibitions.empty",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.26343675bbd2e910"
+      ],
+      "state": "empty"
+    },
+    {
+      "content_profile": {
+        "cardinality": "not_applicable",
+        "content_length": "standard",
+        "locale": "ru-RU",
+        "media_condition": "representative",
+        "runtime_condition": "error"
+      },
+      "fixture_id": "fixture.exhibitions.error",
+      "source_consumer_ref_ids": [
+        "source.current_root_prelaunch.26343675bbd2e910"
+      ],
+      "state": "error"
+    }
+  ],
+  "gap_refs": [
+    "gap.exhibitions.01"
+  ],
+  "instance_graph": {
+    "edges": [
+      {
+        "from_node_id": "node.exhibitions.002",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.003"
+      },
+      {
+        "from_node_id": "node.exhibitions.002",
+        "order": 1,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.004"
+      },
+      {
+        "from_node_id": "node.exhibitions.002",
+        "order": 2,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.005"
+      },
+      {
+        "from_node_id": "node.exhibitions.002",
+        "order": 3,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.006"
+      },
+      {
+        "from_node_id": "node.exhibitions.006",
+        "order": 0,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.007"
+      },
+      {
+        "from_node_id": "node.exhibitions.002",
+        "order": 4,
+        "relation": "contains_instance",
+        "to_node_id": "node.exhibitions.008"
+      }
+    ],
+    "nodes": [
+      {
+        "detached": false,
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "gap": {
+          "gap_id": "gap.exhibitions.01",
+          "reason": "exhibitions.personal-surface is outside the final W1–W4 native materialization set and cannot be emitted as an archetype instance.",
+          "source_evidence_refs": [
+            "catalog/normalization/component-synthesis-v0.1/entity-registry.jsonl#exhibitions.personal-surface",
+            "catalog/normalization/component-synthesis-v0.1/penpot-materialization-plan.json#W1-W4"
+          ],
+          "uncovered_region": "Unmaterialized archetype region: exhibitions.personal-surface"
+        },
+        "local_overrides": [],
+        "node_id": "node.exhibitions.001",
+        "node_kind": "gap_placeholder",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.card",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.002",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.badge",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.003",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.favorite-action",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.004",
+        "node_kind": "component_instance",
+        "order": 1,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.share-action",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.005",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.media-frame",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.006",
+        "node_kind": "component_instance",
+        "order": 3,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.fallback-art",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.007",
+        "node_kind": "component_instance",
+        "order": 0,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "event.occurrence-label",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.008",
+        "node_kind": "component_instance",
+        "order": 4,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      },
+      {
+        "detached": false,
+        "entity_ref": "core.state-panel",
+        "fixture_refs": [
+          "fixture.exhibitions.static",
+          "fixture.exhibitions.personalized",
+          "fixture.exhibitions.empty",
+          "fixture.exhibitions.error"
+        ],
+        "local_overrides": [],
+        "node_id": "node.exhibitions.009",
+        "node_kind": "component_instance",
+        "order": 2,
+        "viewport_modes": [
+          "mobile",
+          "desktop"
+        ]
+      }
+    ],
+    "root_node_ids": [
+      "node.exhibitions.001",
+      "node.exhibitions.002",
+      "node.exhibitions.009"
+    ]
+  },
+  "materialization_policy": {
+    "detached_copies_allowed": false,
+    "instances_only": true,
+    "local_overrides_allowed": false,
+    "promotion_claimed": false
+  },
+  "registry_source_status": "candidate_from_current_components",
+  "route_family": "/vystavki/",
+  "schema_version": "lovekgd_component_synthesis_archetype_v0_1",
+  "source_composition_refs": [
+    "exhibitions.personal-surface"
+  ],
+  "source_consumer_refs": [
+    {
+      "consumer_ref_id": "source.current_root_prelaunch.26343675bbd2e910",
+      "evidence_ref": "catalog/component-decoder/decoder-v1-snapshot-20260808T124842-4786ac53bc/route-families.jsonl#page-family.exhibitions",
+      "route_family_id": "page-family.exhibitions",
+      "route_template": "/vystavki/",
+      "source_id": "source.current_root_prelaunch.26343675bbd2e910",
+      "source_path": "site/src/pages/vystavki/index.astro"
+    }
+  ],
+  "state_matrix": [
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.static",
+      "matrix_id": "matrix.exhibitions.mobile.static",
+      "state": "static",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.personalized",
+      "matrix_id": "matrix.exhibitions.mobile.personalized",
+      "state": "personalized",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.empty",
+      "matrix_id": "matrix.exhibitions.mobile.empty",
+      "state": "empty",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.error",
+      "matrix_id": "matrix.exhibitions.mobile.error",
+      "state": "error",
+      "viewport_mode": "mobile"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.static",
+      "matrix_id": "matrix.exhibitions.desktop.static",
+      "state": "static",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.personalized",
+      "matrix_id": "matrix.exhibitions.desktop.personalized",
+      "state": "personalized",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.empty",
+      "matrix_id": "matrix.exhibitions.desktop.empty",
+      "state": "empty",
+      "viewport_mode": "desktop"
+    },
+    {
+      "active_node_ids": [
+        "node.exhibitions.002",
+        "node.exhibitions.003",
+        "node.exhibitions.004",
+        "node.exhibitions.005",
+        "node.exhibitions.006",
+        "node.exhibitions.007",
+        "node.exhibitions.008",
+        "node.exhibitions.009"
+      ],
+      "expected_gap_node_ids": [
+        "node.exhibitions.001"
+      ],
+      "fixture_ref": "fixture.exhibitions.error",
+      "matrix_id": "matrix.exhibitions.desktop.error",
+      "state": "error",
+      "viewport_mode": "desktop"
+    }
+  ],
+  "status": {
+    "accepted": false,
+    "authority_mode": "reconstructed",
+    "canonical": false,
+    "contract_decision_status": "draft",
+    "promotion_ready": false
+  }
+}

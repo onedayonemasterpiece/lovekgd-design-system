@@ -1,0 +1,959 @@
+{
+  "$defs": {
+    "consumer_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "application_refs": {
+          "items": {
+            "pattern": "^event-media\\.application\\.",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "consumer_entity_ref": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "crop_policy": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "pattern": "^(events|design)@[0-9a-f]{40}:.+",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "fit_policy": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lifecycle": {
+          "enum": [
+            "ACTIVE_PRODUCTION",
+            "OUTPUT_ONLY",
+            "EVIDENCE_ONLY",
+            "CONFLICT_OPEN"
+          ]
+        },
+        "object_position_policy": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profile_id": {
+          "pattern": "^profile\\.[a-z0-9.-]+$",
+          "type": "string"
+        },
+        "rule_refs": {
+          "items": {
+            "pattern": "^EMR-",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "rule_status": {
+          "enum": [
+            "SOURCE_CONFORMANT",
+            "CONSUMER_LOCAL",
+            "CANDIDATE_REPLACEMENT_REQUIRED",
+            "BLOCKED_EVIDENCE",
+            "EVIDENCE_ONLY"
+          ]
+        },
+        "runtime_policy": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "event_media_consumer_profile_v0_1"
+        },
+        "semantic_gate": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "slot": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted": {
+              "const": false
+            },
+            "authority_mode": {
+              "const": "reconstructed"
+            },
+            "canonical": {
+              "const": false
+            },
+            "promotion_ready": {
+              "const": false
+            }
+          },
+          "required": [
+            "authority_mode",
+            "canonical",
+            "accepted",
+            "promotion_ready"
+          ],
+          "type": "object"
+        },
+        "target_geometry": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "upscale_policy": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "profile_id",
+        "consumer_entity_ref",
+        "source_path",
+        "slot",
+        "lifecycle",
+        "target_geometry",
+        "semantic_gate",
+        "fit_policy",
+        "crop_policy",
+        "object_position_policy",
+        "upscale_policy",
+        "runtime_policy",
+        "rule_status",
+        "rule_refs",
+        "application_refs",
+        "evidence_refs",
+        "status"
+      ],
+      "type": "object"
+    },
+    "fixture_case": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "pattern": "^case\\.",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "pattern": "^(events|design)@[0-9a-f]{40}:.+",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "expected_crop_permission": {
+          "enum": [
+            "allowed",
+            "forbidden",
+            "not_applicable",
+            "conflict-open"
+          ]
+        },
+        "expected_crop_window": {
+          "enum": [
+            "computed-protected-window",
+            "none",
+            "profile-local",
+            "conflict-open"
+          ]
+        },
+        "expected_fit": {
+          "enum": [
+            "cover",
+            "contain",
+            "source-preserving",
+            "none",
+            "conflict-open"
+          ]
+        },
+        "expected_object_position": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "expected_presence": {
+          "enum": [
+            "frame_present",
+            "frame_absent",
+            "profile_defined"
+          ]
+        },
+        "expected_recovery": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "expected_upscale_action": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fixture_ref": {
+          "pattern": "^fixture\\.",
+          "type": "string"
+        },
+        "production_state_claimed": {
+          "const": false
+        },
+        "profile_ref": {
+          "pattern": "^profile\\.",
+          "type": "string"
+        },
+        "rule_status": {
+          "enum": [
+            "SOURCE_CONFORMANT",
+            "CONSUMER_LOCAL",
+            "CANDIDATE_REPLACEMENT_REQUIRED",
+            "BLOCKED_EVIDENCE"
+          ]
+        },
+        "runtime_state": {
+          "enum": [
+            "loading",
+            "loaded",
+            "missing",
+            "broken",
+            "tiny"
+          ]
+        },
+        "schema_version": {
+          "const": "event_media_state_fixture_case_v0_1"
+        },
+        "status": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted": {
+              "const": false
+            },
+            "authority_mode": {
+              "const": "reconstructed"
+            },
+            "canonical": {
+              "const": false
+            },
+            "promotion_ready": {
+              "const": false
+            }
+          },
+          "required": [
+            "authority_mode",
+            "canonical",
+            "accepted",
+            "promotion_ready"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "case_id",
+        "profile_ref",
+        "fixture_ref",
+        "runtime_state",
+        "expected_presence",
+        "expected_fit",
+        "expected_crop_permission",
+        "expected_crop_window",
+        "expected_object_position",
+        "expected_upscale_action",
+        "expected_recovery",
+        "rule_status",
+        "production_state_claimed",
+        "evidence_refs",
+        "status"
+      ],
+      "type": "object"
+    },
+    "penpot_proof": {
+      "additionalProperties": false,
+      "properties": {
+        "crop_atlas": {
+          "additionalProperties": false,
+          "properties": {
+            "direct_url": {
+              "pattern": "page-id=a21f0524-f565-8038-8008-7895787cbfc5",
+              "type": "string"
+            },
+            "duplicate_profile_refs": {
+              "const": []
+            },
+            "logical_non_lab_profile_count": {
+              "const": 15
+            },
+            "page_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "page_name": {
+              "const": "44 — Crop profiles · Visual atlas"
+            },
+            "same_source_across_variants": {
+              "const": true
+            },
+            "source_asset_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "validation_errors": {
+              "const": []
+            },
+            "variant_axis": {
+              "const": [
+                "profile"
+              ]
+            },
+            "variant_container_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "variant_count": {
+              "const": 19
+            },
+            "variants": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "accepted": {
+                    "const": false
+                  },
+                  "canonical": {
+                    "const": false
+                  },
+                  "component_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "crop_window_or_no_crop_overlay": {
+                    "const": true
+                  },
+                  "fit_projection": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "main_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "profile_ref": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "promotion_ready": {
+                    "const": false
+                  },
+                  "result_preview": {
+                    "const": true
+                  },
+                  "source_preview": {
+                    "const": true
+                  },
+                  "stable_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "target_geometry_projection": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "profile_ref",
+                  "stable_id",
+                  "main_id",
+                  "component_id",
+                  "fit_projection",
+                  "target_geometry_projection",
+                  "source_preview",
+                  "crop_window_or_no_crop_overlay",
+                  "result_preview",
+                  "canonical",
+                  "accepted",
+                  "promotion_ready"
+                ],
+                "type": "object"
+              },
+              "maxItems": 19,
+              "minItems": 19,
+              "type": "array"
+            }
+          },
+          "required": [
+            "page_id",
+            "page_name",
+            "direct_url",
+            "variant_container_id",
+            "variant_axis",
+            "variant_count",
+            "logical_non_lab_profile_count",
+            "source_asset_id",
+            "same_source_across_variants",
+            "variants",
+            "duplicate_profile_refs",
+            "validation_errors"
+          ],
+          "type": "object"
+        },
+        "detached_copies": {
+          "const": []
+        },
+        "duplicate_stable_ids": {
+          "const": []
+        },
+        "export_evidence": {
+          "additionalProperties": false,
+          "properties": {
+            "attempts": {
+              "const": 2
+            },
+            "error": {
+              "pattern": "HTTP 504",
+              "type": "string"
+            },
+            "semantic_readback_substitute": {
+              "const": true
+            },
+            "status": {
+              "const": "BLOCKED_EXPORTER_HTTP_504"
+            }
+          },
+          "required": [
+            "status",
+            "attempts",
+            "error",
+            "semantic_readback_substitute"
+          ],
+          "type": "object"
+        },
+        "file_id": {
+          "const": "3be9e5e1-190f-8090-8008-713c0fbe6260"
+        },
+        "idempotency": {
+          "additionalProperties": false,
+          "properties": {
+            "created": {
+              "const": 0
+            },
+            "missing": {
+              "const": []
+            },
+            "result": {
+              "const": "PASS"
+            },
+            "second_run_executed": {
+              "const": true
+            },
+            "stable_ids_unchanged": {
+              "const": true
+            },
+            "updated": {
+              "const": 0
+            }
+          },
+          "required": [
+            "second_run_executed",
+            "created",
+            "updated",
+            "missing",
+            "stable_ids_unchanged",
+            "result"
+          ],
+          "type": "object"
+        },
+        "page_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "page_name": {
+          "const": "43 — Media policy · EventMediaFrame"
+        },
+        "rail_proof": {
+          "additionalProperties": false,
+          "properties": {
+            "cardinality_case": {
+              "const": "default-four"
+            },
+            "component_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "main_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "nested_instances": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "case": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "detached": {
+                    "const": false
+                  },
+                  "id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "linked": {
+                    "const": true
+                  },
+                  "profile_ref": {
+                    "const": "profile.mobile-listing-rail-row"
+                  },
+                  "stable_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "stable_id",
+                  "case",
+                  "profile_ref",
+                  "linked",
+                  "detached"
+                ],
+                "type": "object"
+              },
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array"
+            },
+            "profile_ref": {
+              "const": "profile.mobile-listing-rail-row"
+            }
+          },
+          "required": [
+            "component_id",
+            "main_id",
+            "profile_ref",
+            "cardinality_case",
+            "nested_instances"
+          ],
+          "type": "object"
+        },
+        "revision": {
+          "minimum": 108,
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "event_media_penpot_proof_readback_v0_1"
+        },
+        "status": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted": {
+              "const": false
+            },
+            "authority_mode": {
+              "const": "reconstructed"
+            },
+            "canonical": {
+              "const": false
+            },
+            "promotion_ready": {
+              "const": false
+            }
+          },
+          "required": [
+            "authority_mode",
+            "canonical",
+            "accepted",
+            "promotion_ready"
+          ],
+          "type": "object"
+        },
+        "validation_errors": {
+          "const": []
+        },
+        "variant_axis": {
+          "const": [
+            "case"
+          ]
+        },
+        "variant_cases": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "case": {
+                "enum": [
+                  "loaded-safe-cover",
+                  "loaded-protected-contain",
+                  "loading-reserved",
+                  "broken-fallback",
+                  "tiny-bounded"
+                ]
+              },
+              "child_names": {
+                "items": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "minItems": 2,
+                "type": "array"
+              },
+              "component_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "main_id": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "case",
+              "component_id",
+              "main_id",
+              "child_names"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "minItems": 5,
+          "type": "array"
+        },
+        "variant_container_id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "file_id",
+        "page_id",
+        "page_name",
+        "revision",
+        "variant_container_id",
+        "variant_axis",
+        "variant_cases",
+        "rail_proof",
+        "duplicate_stable_ids",
+        "detached_copies",
+        "validation_errors",
+        "idempotency",
+        "export_evidence",
+        "status",
+        "crop_atlas"
+      ],
+      "type": "object"
+    },
+    "resolver": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_order": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 4,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "conflicts": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "contract_version": {
+          "const": "0.1.0-candidate"
+        },
+        "core_invariants": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 8,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "events_source_sha": {
+          "const": "f66330f8af81d4b898d137d83356e77914dce90a"
+        },
+        "global_defaults": {
+          "additionalProperties": false,
+          "properties": {
+            "crop": {
+              "type": "null"
+            },
+            "fit": {
+              "type": "null"
+            },
+            "object_position": {
+              "type": "null"
+            },
+            "ratio": {
+              "type": "null"
+            },
+            "upscale": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "ratio",
+            "fit",
+            "crop",
+            "object_position",
+            "upscale"
+          ],
+          "type": "object"
+        },
+        "inputs": {
+          "additionalProperties": false,
+          "properties": {
+            "asset_semantics": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 5,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "consumer_target": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 4,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "geometry_evidence": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 8,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "runtime_state": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 3,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "source_quality": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 4,
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "asset_semantics",
+            "geometry_evidence",
+            "consumer_target",
+            "source_quality",
+            "runtime_state"
+          ],
+          "type": "object"
+        },
+        "outputs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 8,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "pipeline": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "decision": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "fail_closed_result": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "stage": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "stage",
+              "decision",
+              "fail_closed_result"
+            ],
+            "type": "object"
+          },
+          "minItems": 7,
+          "type": "array"
+        },
+        "resolver_id": {
+          "const": "foundation.event-media-decision"
+        },
+        "schema_version": {
+          "const": "event_media_policy_resolver_v0_1"
+        },
+        "status": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted": {
+              "const": false
+            },
+            "authority_mode": {
+              "const": "reconstructed"
+            },
+            "canonical": {
+              "const": false
+            },
+            "promotion_ready": {
+              "const": false
+            }
+          },
+          "required": [
+            "authority_mode",
+            "canonical",
+            "accepted",
+            "promotion_ready"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "resolver_id",
+        "contract_version",
+        "events_source_sha",
+        "authority_order",
+        "inputs",
+        "pipeline",
+        "outputs",
+        "core_invariants",
+        "global_defaults",
+        "conflicts",
+        "status"
+      ],
+      "type": "object"
+    },
+    "rule_disposition": {
+      "additionalProperties": false,
+      "properties": {
+        "current_behavior": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disposition": {
+          "enum": [
+            "KEEP_CORE",
+            "KEEP_CONSUMER_PROFILE",
+            "REPLACE",
+            "REMOVE_AS_STALE",
+            "BLOCKED_EVIDENCE"
+          ]
+        },
+        "evidence_refs": {
+          "items": {
+            "pattern": "^(events|design)@[0-9a-f]{40}:.+",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "resolved_contract": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rule_id": {
+          "pattern": "^EMR-[A-Z0-9-]+$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "event_media_rule_disposition_v0_1"
+        },
+        "scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted": {
+              "const": false
+            },
+            "authority_mode": {
+              "const": "reconstructed"
+            },
+            "canonical": {
+              "const": false
+            },
+            "promotion_ready": {
+              "const": false
+            }
+          },
+          "required": [
+            "authority_mode",
+            "canonical",
+            "accepted",
+            "promotion_ready"
+          ],
+          "type": "object"
+        },
+        "truth_status": {
+          "enum": [
+            "SOURCE_CONFORMANT",
+            "CONSUMER_LOCAL",
+            "FALSE_OR_UNREACHABLE",
+            "CONTRADICTED",
+            "LAB_EVIDENCE_ONLY",
+            "OWNER_OR_RUNTIME_EVIDENCE_REQUIRED"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "rule_id",
+        "scope",
+        "disposition",
+        "truth_status",
+        "current_behavior",
+        "resolved_contract",
+        "evidence_refs",
+        "reason",
+        "status"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://lovekgd.example/contracts/normalization/component-synthesis-event-media-policy.v0.1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LoveKGD Event Media policy defragmentation v0.1",
+  "type": "object"
+}

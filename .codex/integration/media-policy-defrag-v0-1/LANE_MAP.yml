@@ -1,0 +1,70 @@
+mode: serial_integrator_after_read_only_parallel
+repo: onedayonemasterpiece/lovekgd-design-system
+base_ref: 59c9eba2309586a0ec2a0fb1c7169722313c412c
+base_branch: normalization/apply-component-synthesis-v0-1
+integration_branch: agent/component-synthesis-v0-1/media-policy-defrag
+global_constraints:
+  - events-bot-new exact origin/main f66330f8af81d4b898d137d83356e77914dce90a is read-only
+  - canonical=false
+  - accepted=false
+  - promotion_ready=false
+  - no global media ratio or global cover policy
+  - no detached Penpot copies or screenshot masters
+verification_owner: /root
+stop_conditions:
+  - unresolved product decision not derivable from current accepted requirement/source evidence
+  - Penpot 504 unknown write outcome until read-back
+lanes:
+  - id: crop-runtime-census
+    role: planner
+    requirement_ids: [R01]
+    target: current source/docs/tests rule inventory
+    depends_on: []
+    execution_mode: parallel_read_only
+    writable_files: []
+    expected_output: exact consumer-slot decision table
+    verification_scope: inspection_only
+    status: completed
+  - id: crop-truth-audit
+    role: reviewer
+    requirement_ids: [R02]
+    target: stale/false/duplicate/contradictory rule disposition
+    depends_on: []
+    execution_mode: parallel_read_only
+    writable_files: []
+    expected_output: terminal rule disposition ledger proposal
+    verification_scope: inspection_only
+    status: completed
+  - id: crop-contract-map
+    role: planner
+    requirement_ids: [R03, R04, R05]
+    target: existing synthesis contracts, hierarchy, fixtures, materializer and validators
+    depends_on: []
+    execution_mode: parallel_read_only
+    writable_files: []
+    expected_output: exact integration delta and verification plan
+    verification_scope: inspection_only
+    status: completed
+  - id: media-policy-integrator
+    role: worker
+    requirement_ids: [R03, R04, R05]
+    target: defragmented contracts, profiles, fixtures, validators and Penpot read-back
+    depends_on: [crop-runtime-census, crop-truth-audit, crop-contract-map]
+    execution_mode: serial_after_dependency
+    branch: agent/component-synthesis-v0-1/media-policy-defrag
+    worktree: /home/dev/.codex/worktrees/lovekgd-design-system/media-policy-defrag-v0-1
+    writable_files:
+      - catalog/normalization/component-synthesis-v0.1/**
+      - contracts/normalization/**
+      - scripts/**
+      - tests/**
+      - receipts/**
+      - docs/normalization/**
+      - .codex/integration/media-policy-defrag-v0-1/**
+    forbidden_files:
+      - prototypes/penpot-resource-graph-004*/**
+      - catalog/component-decoder/**
+      - catalog/component-decoder/behavioral-supplement-v1.1*/**
+    expected_output: source-backed reusable media decision and frame system
+    verification_scope: full_local_and_live_penpot
+    status: completed_with_exporter_blocker
