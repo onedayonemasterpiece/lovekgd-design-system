@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.penpot-execution-capsule-manifest.v1",
+  "type": "object",
+  "required": ["schema", "generation", "adapter", "supported_case_ids", "entries", "content_sha256"],
+  "properties": {
+    "schema": {"const": "kenigevents.penpot-execution-capsule-manifest.v1"},
+    "generation": {"const": 9},
+    "adapter": {"type": "object", "required": ["id", "version"]},
+    "supported_case_ids": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true},
+    "entries": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "sha256", "bytes", "role"]}},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

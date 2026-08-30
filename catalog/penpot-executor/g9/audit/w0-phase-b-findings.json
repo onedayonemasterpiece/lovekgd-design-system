@@ -1,0 +1,42 @@
+{
+  "schema": "kenigevents.phase-b-w0-audit-reproduction.v1",
+  "audited_base": "78a84576740cb650b2efbe2900377f371faf49a1",
+  "findings": [
+    {
+      "id": "ENTRYPOINT_RUNCLI_WRAPPER",
+      "result": "CONFIRMED_ON_BASE",
+      "owner": "scripts/round-trip-reconstruction/penpot-materialize-event-card-unified-golden-v2.js",
+      "base_lines": "3-11",
+      "evidence": "main delegates to runCli and the exported function only adds bundlePath"
+    },
+    {
+      "id": "PRODUCTION_REQUIRES_PROMOTABLE",
+      "result": "CONFIRMED_WITH_NUANCE_ON_BASE",
+      "owner": "scripts/round-trip-reconstruction/materialization-execution-kernel.js",
+      "base_lines": "112-114,269-278",
+      "evidence": "generic load accepts READY_FOR_W0_PROMOTION, but production preflight at line 277 accepts only PROMOTABLE; the accepted bundle remains READY_FOR_W0_PROMOTION"
+    },
+    {
+      "id": "PRODUCTION_RUNTIME_BINDINGS_REQUIRED",
+      "result": "CONFIRMED_ON_BASE",
+      "owner": "scripts/round-trip-reconstruction/materialization-execution-kernel.js",
+      "base_lines": "308-313",
+      "evidence": "production requires adapter.lookup/write, leaseStore.acquire/release and cancellationProvider.read"
+    },
+    {
+      "id": "RUNCLI_RUNTIME_BINDINGS_ABSENT",
+      "result": "CONFIRMED_ON_BASE",
+      "owner": "scripts/round-trip-reconstruction/materialization-execution-kernel.js",
+      "base_lines": "378-389",
+      "evidence": "runCli supplies paths, mode and run ID but no adapter, leaseStore or cancellationProvider"
+    },
+    {
+      "id": "TESTS_USE_IN_MEMORY_FAKE_ONLY",
+      "result": "CONFIRMED_ON_BASE",
+      "owner": "tests/materialization-execution-kernel.test.mjs",
+      "base_lines": "52-63",
+      "evidence": "production tests construct MemoryLeaseStore, a Map-backed createAdapter and synthetic cancellationProvider"
+    }
+  ],
+  "implementation_disposition": "PATCH_EXISTING_KERNEL_AND_ENTRYPOINT_ADD_NATIVE_ADAPTER_AND_SELF_CONTAINED_CAPSULE"
+}
