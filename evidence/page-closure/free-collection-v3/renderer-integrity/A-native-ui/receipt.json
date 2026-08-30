@@ -1,0 +1,26 @@
+{
+  "schema_version": "penpot.renderer-integrity-path.v1",
+  "path": "A-native-ui-instance-probe",
+  "status": "NOT_EXECUTABLE_IN_AGENT_ENV",
+  "reason": "No attachable authenticated Penpot UI / Assets-panel browser was available. playwright-cli reported no sessions; the saved browser profile could not create a session in this deployment.",
+  "attempts": [
+    {
+      "executor": "playwright-cli",
+      "result": "no browser sessions / no attachable Chromium or CDP target"
+    },
+    {
+      "executor": "browser-bridge",
+      "profile": "max",
+      "headed": true,
+      "result": "UNSUPPORTED: configured display required"
+    },
+    {
+      "executor": "browser-bridge",
+      "profile": "max",
+      "headed": false,
+      "result": "INTERNAL_ERROR: Failed to create browser session"
+    }
+  ],
+  "terminal": false,
+  "continued_to": "B"
+}

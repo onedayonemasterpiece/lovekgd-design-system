@@ -1,0 +1,29 @@
+{
+  "schema_version": "ui-sot-page-closure.renderer-integrity-matrix.v1",
+  "status": "BLOCKED_PENPOT_RENDERER_INTEGRITY_MATRIX_EXHAUSTED",
+  "route": "/podborki/besplatnye-sobytiya/",
+  "scenario": "free-collection-september-mobile-v3",
+  "fixture_id": "event.real.8006",
+  "viewport": "390x844 mobile scrolled",
+  "reference_iso": "2026-08-29T14:00:00+02:00",
+  "corpus_id": "ui-reference-events.v2",
+  "corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+  "astro_sha": "d447b6c1514784b8c75ad1cb6cbe9d0ff2986790",
+  "sot_base_sha": "61a1a006d79b8f56b13de524c40a0f1bb2d14b9f",
+  "penpot": {
+    "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+    "component_page_id": "8f804431-c282-8075-8008-8ee9d4ac86e0",
+    "diagnostic_page_id": "fb44de8f-cd63-8060-8008-8f839b2fe1df",
+    "revision": 3110,
+    "named_version": "Free collection renderer integrity A-B-C blocked · 2026-08-30",
+    "validation": []
+  },
+  "paths": {
+    "A": "A-native-ui/receipt.json",
+    "B": "B-content-slot/final-8006-parent/receipt.json",
+    "C": "C-projection/final-8006-parent/receipt.json"
+  },
+  "terminal_reason": "A is not executable in this environment; B removes the stale-title export but cannot produce a pixel-conformant native PNG with exact source bytes/geometry; C is materially worse and drops feedback/count geometry. No allowed renderer-correct linked path exists for fixture 8006, so scaling to five fixtures or claiming READY_FOR_OWNER_REVIEW is forbidden.",
+  "upstream_issue": "https://github.com/penpot/penpot/issues/8826",
+  "minimal_reproduction": "scripts/round-trip-reconstruction/penpot-free-collection-renderer-matrix-repro.js"
+}

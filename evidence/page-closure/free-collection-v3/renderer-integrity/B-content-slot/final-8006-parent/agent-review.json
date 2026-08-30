@@ -1,0 +1,17 @@
+{
+  "verdict": "FAIL",
+  "owner_status": "AWAITING_REVIEW",
+  "inspected": [
+    "astro.png",
+    "penpot.png",
+    "side-by-side.png",
+    "overlay-50.png",
+    "diff.png"
+  ],
+  "findings": [
+    "Exact title/content/count values render and the stale PNG SHA changes.",
+    "Source media bytes and cover crop geometry are identical, but native Penpot image resampling remains visibly different.",
+    "Text and action glyph baselines/antialiasing remain visibly offset across the card; the amplified diff covers the whole content region."
+  ],
+  "reason": "The closure contract explicitly forbids promoting a renderer-only residual to PASS."
+}
