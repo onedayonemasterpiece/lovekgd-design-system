@@ -1,0 +1,37 @@
+{
+  "schema": "kenigevents.bundle-readiness-prerequisite-separation.v1",
+  "control_generation": 4,
+  "promotion_state": "READY_FOR_W0_PROMOTION",
+  "bundle_paths": [
+    "catalog/materialization-bundles/eventcard-free-slice.g4.ready-v1.json",
+    "catalog/materialization-bundles/free-collection-page.g4.ready-v1.json"
+  ],
+  "static_non_promotable_reasons": [],
+  "execution_time_prerequisites": [
+    {
+      "gate": "active_execution_control",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "w0_penpot_write_lease",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "clean_penpot_baseline_receipt",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "validated_target_manifest_and_reuse_map",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "per-write_cancellation_recheck",
+      "required_at": "immediately-before-every-write"
+    },
+    {
+      "gate": "complete_provenance_receipt",
+      "required_at": "terminal-state"
+    }
+  ],
+  "penpot_mutation_performed": false
+}
