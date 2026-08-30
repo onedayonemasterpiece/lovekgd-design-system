@@ -1,0 +1,401 @@
+{
+  "document_kind": "design-system-development-control",
+  "schema_id": "lovekgd.design-system-development-control.v0.1",
+  "version": "0.1.0",
+  "status": "candidate-for-owner-review",
+  "canonical": false,
+  "authority_effect": "none",
+  "lifecycle_effect": "none",
+  "penpot_mutation_authorized": false,
+  "implementation_authorized": false,
+  "observed_at": "2026-08-19",
+  "research_ref": "docs/research/design-system-benchmark-2026-08/README.md",
+  "direct_figma_research_ref": "docs/research/design-system-benchmark-2026-08/07-direct-figma-readback-t2d2-rosatom.md",
+  "historical_rosatom_research_ref": "docs/research/design-system-benchmark-2026-08/08-rosatom-style-guide-2022.md",
+  "task_operating_prompt_ref": "docs/design-system-task-operating-prompt.md",
+  "governing_doc_ref": "docs/roadmaps/design-system-development-control-v0.1.md",
+  "preserves": [
+    "docs/component-contract-authority.md",
+    "docs/resource-graph-004.md",
+    "docs/normalization/design-system-family-lifecycle.md",
+    "docs/page-archetype-requirements.md"
+  ],
+  "target_resource_hierarchy": [
+    "foundation",
+    "primitive",
+    "component",
+    "pattern",
+    "page_archetype",
+    "product_representation",
+    "runtime_route"
+  ],
+  "source_of_truth_roles": {
+    "product_meaning": [
+      "Product Atlas",
+      "accepted product contracts"
+    ],
+    "current_as_is_behavior_before_promotion": [
+      "exact product source",
+      "runtime evidence"
+    ],
+    "identity_version_lifecycle": [
+      "Git contract registry",
+      "versioned package metadata"
+    ],
+    "native_visual_candidate_and_review": [
+      "Penpot Resource Graph at exact revision"
+    ],
+    "executable_candidate": [
+      "versioned package implementation at exact SHA"
+    ],
+    "production_conformance": [
+      "runtime release",
+      "CI evidence"
+    ],
+    "documentation": [
+      "rendered/validated views of contract and evidence graph"
+    ],
+    "external_references": [
+      "research evidence only with explicit availability state and observed timestamp"
+    ]
+  },
+  "external_reference_states": [
+    "LIVE_CHECKPOINT_READBACK",
+    "LIVE_NODE_API_READBACK",
+    "LIVE_METADATA_ONLY",
+    "HISTORICAL_DOCUMENT_READBACK",
+    "HISTORICAL_INDEX_ONLY",
+    "UNPUBLISHED_OR_INACCESSIBLE"
+  ],
+  "external_reference_required_fields": [
+    "reference_state",
+    "source_url_or_id",
+    "observed_at",
+    "source_version_if_known",
+    "current_url_status",
+    "response_or_checkpoint_sha256_if_available",
+    "limitations"
+  ],
+  "foundation_domains": [
+    "communication_and_content",
+    "editorial_and_terminology",
+    "brand_assets",
+    "color_and_modes",
+    "typography",
+    "iconography",
+    "media",
+    "responsive_breakpoints",
+    "container_and_grid",
+    "spacing",
+    "radius",
+    "opacity",
+    "elevation_and_shadow",
+    "motion",
+    "accessibility"
+  ],
+  "foundation_required_fields": [
+    "foundation_id",
+    "foundation_domain",
+    "version",
+    "content_hash",
+    "owner",
+    "status",
+    "source_refs",
+    "semantic_roles",
+    "primitive_values_or_rules",
+    "modes",
+    "consumer_refs",
+    "compatibility",
+    "validation_rules",
+    "evidence_refs",
+    "migration_or_replacement_ref"
+  ],
+  "external_foundation_value_policy": {
+    "reference_values_are_hypotheses": true,
+    "wholesale_copying_allowed": false,
+    "required_before_adoption": [
+      "current_lovekgd_consumer_census",
+      "product_owner_decision",
+      "accessibility_or_content_validation_as_applicable",
+      "responsive_and_fixture_evidence_as_applicable",
+      "migration_and_rollback"
+    ]
+  },
+  "identity_tuples": {
+    "component": [
+      "component_id",
+      "contract_version",
+      "contract_sha256",
+      "state_key",
+      "fixture_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ],
+    "pattern": [
+      "pattern_id",
+      "pattern_version",
+      "pattern_sha256",
+      "composition_key",
+      "fixture_id",
+      "viewport_id",
+      "dependency_graph_sha256",
+      "candidate_package_sha"
+    ],
+    "page_archetype": [
+      "archetype_id",
+      "archetype_version",
+      "archetype_sha256",
+      "composition_key",
+      "page_state_key",
+      "fixture_set_id",
+      "viewport_id",
+      "candidate_package_sha"
+    ]
+  },
+  "variant_rules": {
+    "contract_or_package_version_as_variant_axis": "forbidden",
+    "resource_kind_as_variant_axis": "forbidden",
+    "canonical_axis_identity_source": "Component Contract",
+    "display_labels_may_differ_from_canonical_names": true,
+    "valid_and_invalid_combinations_required": true,
+    "case_and_spelling_normalization_required": true
+  },
+  "token_layers": [
+    {
+      "id": "primitive",
+      "public_component_api_allowed": false
+    },
+    {
+      "id": "semantic_foundation",
+      "required_for_component_refs": true
+    },
+    {
+      "id": "component",
+      "owner": "component_contract"
+    },
+    {
+      "id": "pattern_or_archetype",
+      "creation_rule": "only_for_proven_repeated_composition_invariant"
+    },
+    {
+      "id": "theme_or_product_alias",
+      "may_change_semantics": false
+    }
+  ],
+  "token_dependency_requirements": [
+    "stable_collection_id",
+    "owner",
+    "source_library_or_package_version",
+    "source_hash_or_revision",
+    "modes",
+    "consumer_refs",
+    "compatibility_status",
+    "replacement_or_supersession_ref",
+    "drift_status"
+  ],
+  "task_output_contract": [
+    "task_classification_and_authority_boundary",
+    "exact_sources_and_evidence_states",
+    "current_truth_and_as_is_census",
+    "gaps_contradictions_unknowns",
+    "resource_kind_and_boundary_decision",
+    "proposed_contract_delta",
+    "foundation_content_token_responsive_dependencies",
+    "files_and_surfaces_to_update",
+    "penpot_plan_or_not_authorized",
+    "code_docs_tests_fixtures_plan",
+    "validation_results_and_evidence_refs",
+    "migration_compatibility_rollback",
+    "owner_decisions",
+    "current_and_next_adjacent_lifecycle_gate",
+    "receipts_and_manifests"
+  ],
+  "workstreams": [
+    {
+      "id": "W0",
+      "name": "Governance and evidence",
+      "gate": "GOVERNANCE_REVIEWED",
+      "authority_change": false,
+      "deliverables": [
+        "source/evidence register",
+        "external-reference availability ledger",
+        "resource-kind definitions",
+        "decision record template",
+        "owner/reviewer roles",
+        "review severity and closure protocol",
+        "compatibility and supersession policy"
+      ]
+    },
+    {
+      "id": "W1",
+      "name": "SoT registry and machine schemas",
+      "gate": "REGISTRY_SCHEMA_ACCEPTED",
+      "authority_change": false,
+      "deliverables": [
+        "component/pattern/archetype metadata schemas",
+        "stable binding tuples",
+        "external-reference evidence schema",
+        "foundation-domain contract schema",
+        "token registry and dependency schema",
+        "content and terminology registry schema",
+        "brand/media/responsive registries",
+        "fixture and viewport registries",
+        "binding registry",
+        "canonical naming and display-alias schema",
+        "variant-version prohibition validation",
+        "valid-combination validation",
+        "catalog rendering contract"
+      ]
+    },
+    {
+      "id": "W2",
+      "name": "Foundations and tokens",
+      "gate": "PILOT_FOUNDATIONS_READY",
+      "authority_change": false,
+      "scope_rule": "pilot-consumed foundations only",
+      "deliverables": [
+        "pilot-consumed foundation-domain inventory",
+        "content and terminology registry",
+        "brand-asset registry",
+        "semantic color and mode model",
+        "typography and iconography contracts",
+        "media policy registry",
+        "responsive breakpoint/container/grid registry",
+        "spacing/radius/opacity/elevation/motion foundations",
+        "accessibility foundation requirements",
+        "consumer mappings and exact foundation-version bindings",
+        "Penpot/code exports and drift validation"
+      ]
+    },
+    {
+      "id": "W3",
+      "name": "Component dossier pilot",
+      "gate": "COMPONENT_OWNER_REVIEW_COMPLETE",
+      "authority_change": false,
+      "pilot_selection_rule": "highest exact evidence/readiness score, not visual simplicity"
+    },
+    {
+      "id": "W4",
+      "name": "Pattern/block layer",
+      "gate": "PATTERN_BOUNDARY_REVIEWED",
+      "authority_change": false
+    },
+    {
+      "id": "W5",
+      "name": "Page archetype candidate",
+      "gate": "ARCHETYPE_OWNER_REVIEW_COMPLETE",
+      "authority_change": false
+    },
+    {
+      "id": "W6",
+      "name": "Penpot owner-review operations",
+      "gate": "REVIEW_WORKFLOW_VALIDATED",
+      "authority_change": false
+    },
+    {
+      "id": "W7",
+      "name": "Conformance, release and migration",
+      "gate": "NORMATIVE_PROMOTION_GATE",
+      "authority_change": "only_through_existing_FAMILY_AND_ARCHETYPE_PROMOTION"
+    }
+  ],
+  "phases": [
+    {
+      "order": 0,
+      "id": "owner_operating_model_decision",
+      "implementation_allowed": false
+    },
+    {
+      "order": 1,
+      "id": "machine_contracts",
+      "implementation_scope": "schemas_and_validators_only"
+    },
+    {
+      "order": 2,
+      "id": "bounded_pilot_foundations",
+      "global_tokenization_allowed": false
+    },
+    {
+      "order": 3,
+      "id": "one_component_dossier"
+    },
+    {
+      "order": 4,
+      "id": "one_pattern"
+    },
+    {
+      "order": 5,
+      "id": "one_page_archetype"
+    },
+    {
+      "order": 6,
+      "id": "pilot_release_and_conformance"
+    },
+    {
+      "order": 7,
+      "id": "scale_wave_after_retrospective"
+    }
+  ],
+  "owner_decisions": [
+    "D-01_sot_roles",
+    "D-02_resource_hierarchy",
+    "D-03_penpot_review_protocol",
+    "D-04_page_archetype_definition",
+    "D-05_pilot_selection",
+    "D-06_external_reference_and_version_axis_policy",
+    "D-07_foundation_domains_and_task_prompt"
+  ],
+  "review_display_states": [
+    "DRAFT_MATERIALIZATION",
+    "READY_FOR_OWNER_REVIEW",
+    "OWNER_REVIEW_IN_PROGRESS",
+    "CHANGES_REQUESTED",
+    "OWNER_REVIEWED_CANDIDATE",
+    "CONFORMANCE_PENDING",
+    "PROMOTION_REVIEW",
+    "PROMOTED_REFERENCE",
+    "SUPERSEDED_REFERENCE"
+  ],
+  "stop_conditions": [
+    "ambiguous_source_or_contract_identity",
+    "disputed_resource_kind",
+    "unbound_design_and_code_versions",
+    "external_reference_availability_unknown",
+    "historical_reference_used_as_current_truth",
+    "contract_or_package_version_encoded_as_variant_axis",
+    "canonical_axis_names_not_normalized",
+    "imported_token_dependency_owner_or_version_unknown",
+    "foundation_version_or_consumer_binding_unresolved",
+    "content_or_terminology_policy_missing_for_content_bearing_ui",
+    "brand_or_media_provenance_unknown",
+    "external_foundation_values_copied_without_product_validation",
+    "missing_fixture_provenance",
+    "unknown_valid_combinations",
+    "penpot_readback_unavailable",
+    "unresolved_blocker_comments",
+    "incomplete_owner_review_packet",
+    "uncontrolled_product_overrides_required",
+    "archetype_has_only_one_ideal_representation",
+    "rollback_missing",
+    "normative_lifecycle_preconditions_not_met"
+  ],
+  "forbidden_shortcuts": [
+    "penpot_as_sole_source_of_truth",
+    "detached_accepted_instances",
+    "screenshot_as_contract",
+    "documentation_completeness_as_promotion",
+    "automatic_lifecycle_transition_after_materialization",
+    "global_normalization_before_bounded_pilot",
+    "visual_similarity_as_identity_evidence",
+    "free_block_constructor_as_page_archetype",
+    "contract_version_as_component_variant",
+    "display_label_as_canonical_axis_identity",
+    "historical_cover_as_current_design_source",
+    "silent_imported_token_dependency",
+    "static_style_guide_as_executable_authority",
+    "opaque_mnemonic_as_canonical_id",
+    "external_breakpoints_or_tokens_copied_without_product_evidence",
+    "component_showroom_as_dossier_readiness",
+    "silent_deprecation"
+  ]
+}
