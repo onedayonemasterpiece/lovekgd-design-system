@@ -1,0 +1,152 @@
+{
+  "schema": "kenigevents.penpot-visual-executor-manifest.g12.v1",
+  "semantic_identity": "kenigevents.free-collection.ordinary-penpot-visual-executor",
+  "revision": "g12-current-a-batched-v1",
+  "run_agnostic": true,
+  "executor": {
+    "path": "catalog/penpot-executor/g12/capsule/penpot-visual-executor.g12.js",
+    "raw_sha256": "ed20261e2db0f180b76f13519cdf3ca93c3d3ca73b6178b9d4099f7d45ad3f79",
+    "content_sha256": "ed20261e2db0f180b76f13519cdf3ca93c3d3ca73b6178b9d4099f7d45ad3f79"
+  },
+  "payload_sha256": "5fd6e74f58a8328afe3f4fe75ab4c8fa039497da1ea5cd6b2eea10722d7bae87",
+  "astro_evidence": {
+    "schema": "kenigevents.astro-current-a-evidence-binding.g12.v1",
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "branch": "w2-free-collection-visual-evidence-g12",
+    "head": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+    "base": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+    "artifacts": [
+      {
+        "path": "site/evidence/free-collection-g12/evidence-index.json",
+        "git_blob_sha1": "05f8ee4dc06ac8fd765fcf9894156871095a7ade",
+        "sha256": "fc1d936fb7424f708229793106fdc691b5105caa20e6eecd42857d5ecf72ec9b",
+        "bytes": 4566
+      },
+      {
+        "path": "site/evidence/free-collection-g12/fixture-input.json",
+        "git_blob_sha1": "4ffe763db4d1feab67ba41fc1f9638009a0e130c",
+        "sha256": "af3b93c815f544aec6b25c0c00b6b85418d61c8c560bea2fc6f83608c8e8ee2c",
+        "bytes": 53466
+      },
+      {
+        "path": "site/evidence/free-collection-g12/regions.json",
+        "git_blob_sha1": "31c2bce0c0d025a7b27cc3f13d698c2c6710b386",
+        "sha256": "ce4bff02b0de75aca895507e17bbee27d44c5728dd800baece3ab4e098a77ecf",
+        "bytes": 2015848
+      },
+      {
+        "path": "site/evidence/free-collection-g12/runtime-font-manifest.json",
+        "git_blob_sha1": "861d217a15889aa4b666d0b27c7a0ffd1aee03d1",
+        "sha256": "f5d0148efec15bfadb15482a64dfe29e146b8b927a18047f72ac86076de510d3",
+        "bytes": 2156
+      },
+      {
+        "path": "site/evidence/free-collection-g12/captures-manifest.json",
+        "git_blob_sha1": "909a7afd67ff6129c13f20bfa8232e1152f1c1e7",
+        "sha256": "801bb68e519768c00d621203d75c408d0429bbd31878928da56772a19255df59",
+        "bytes": 3304
+      },
+      {
+        "path": "site/evidence/free-collection-g12/export-readback-map.json",
+        "git_blob_sha1": "b3a403a961d8ac2e6f1b1696820aa1be72cb8452",
+        "sha256": "a7ecbbf6a4e6f46185261d074a33af770d6d4a206bcfec03bd4712d4ffdcdb6e",
+        "bytes": 3593
+      },
+      {
+        "path": "site/evidence/free-collection-g12/root-receipt-contract.json",
+        "git_blob_sha1": "790d071ddf50df87cd9dc895931e9a01509c3555",
+        "sha256": "899dc389dc864849227dc849505bde5966b1c5466417c253909f2c4586be08c0",
+        "bytes": 1065
+      }
+    ],
+    "binding_path": "catalog/penpot-executor/g12/astro-evidence-binding.json",
+    "binding_sha256": "7334a602497f172168a03c4c62b4c6548f7bff0c45b0777c350cc1919ee69645"
+  },
+  "expectations": {
+    "path": "catalog/penpot-executor/g12/independent-expectations.json",
+    "sha256": "a83fd71ea3acb78624342e81f7dc1647b668f6735fa35b07ab0b5d698c74dcc1",
+    "independent_generator": "scripts/round-trip-reconstruction/build-penpot-visual-executor-g12-expectations.mjs"
+  },
+  "supported": {
+    "levels": [
+      "L0_ASSETS",
+      "L1_LEAVES",
+      "L2_EVENTCARD",
+      "L3_ROWS_AND_GROUPS"
+    ],
+    "cases": [
+      "eventcard.desktop-wide-calendar.8006",
+      "eventcard.desktop-packed-calendar-absent.2182",
+      "eventcard.mobile-wide-calendar.8006",
+      "eventcard.mobile-packed-calendar-absent.2182"
+    ],
+    "groups": [
+      "row.desktop.events",
+      "row.desktop.exhibitions",
+      "group.mobile.events",
+      "group.mobile.exhibitions"
+    ],
+    "fixtures": [
+      "event.real.8006",
+      "event.real.8200",
+      "event.real.2182",
+      "event.real.6711",
+      "event.real.7609"
+    ]
+  },
+  "component_model": {
+    "semantic_identity": "component.event-card.free-collection",
+    "master_count": 1,
+    "variant_container": true,
+    "variant_axis": "structural_context",
+    "variants": [
+      "desktop-wide-calendar",
+      "desktop-packed-calendar-absent",
+      "mobile-wide-calendar",
+      "mobile-packed-calendar-absent"
+    ]
+  },
+  "batch_model": {
+    "ids": [
+      "B00_ROOT",
+      "B10_L0_ASSETS",
+      "B20_L1_LEAVES",
+      "B30_EVENTCARD_MASTER_VARIANTS",
+      "B40_L2_CASES",
+      "B50_L3_ROW_DESKTOP_EVENTS",
+      "B51_L3_ROW_DESKTOP_EXHIBITIONS",
+      "B52_L3_GROUP_MOBILE_EVENTS",
+      "B53_L3_GROUP_MOBILE_EXHIBITIONS"
+    ],
+    "checkpoint_between_batches": true,
+    "all_tickets_upfront": false
+  },
+  "image_policy": {
+    "primitive": "penpot.createShapeFromSvgWithImages",
+    "geometry": "explicit SVG viewBox plus clipPath plus exact object-fit preserveAspectRatio",
+    "future_reversible_canary_required": true
+  },
+  "required_primitives": {
+    "penpot": [
+      "createBoard",
+      "createRectangle",
+      "createText",
+      "createShapeFromSvg",
+      "createShapeFromSvgWithImages",
+      "library.local.createComponent"
+    ],
+    "penpotUtils": [
+      "findShape",
+      "setParentXY"
+    ]
+  },
+  "historical_penpot_readback_authority": false,
+  "supersedes": {
+    "generation": 11,
+    "commit": "1dd61d4a955a6fcb40c262a70b4569a723d92740",
+    "artifact_sha256": "76543b976e9e0931fd4c31fc771f1938e3e09e785844da13ec9a7ad19f93ebf3"
+  },
+  "deterministic": true,
+  "penpot_mutation_performed": false
+}
