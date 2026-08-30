@@ -6,6 +6,7 @@
   "properties": {
     "schema": {"const": "kenigevents.penpot-execution-capsule-manifest.v1"},
     "generation": {"const": 9},
+    "generator": {"type": "object", "required": ["path", "content_sha256"]},
     "adapter": {"type": "object", "required": ["id", "version"]},
     "supported_case_ids": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true},
     "entries": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "sha256", "bytes", "role"]}},
