@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"kenigevents.font-source-binding.g14.v1",
+  "type":"object",
+  "required":["schema","family","required_weights","sources","frozen_astro_evidence","font_binaries_in_git","normalization","content_sha256"],
+  "properties":{
+    "schema":{"const":"kenigevents.font-source-binding.g14.v1"},
+    "family":{"const":"DejaVu Sans"},
+    "required_weights":{"const":[400,700]},
+    "sources":{"type":"object","required":["regular","bold"],"properties":{"regular":{"$ref":"#/$defs/source400"},"bold":{"$ref":"#/$defs/source700"}},"additionalProperties":false},
+    "frozen_astro_evidence":{"type":"object","required":["repository","branch","head","tree","runtime_font_manifest_path","runtime_font_manifest_git_blob_sha1","runtime_font_manifest_sha256"],"additionalProperties":true},
+    "font_binaries_in_git":{"const":false},
+    "normalization":{"const":"UTF8_LF_STABLE_JSON_SORTED_KEYS_EXCLUDING_CONTENT_SHA256"},
+    "content_sha256":{"$ref":"#/$defs/sha256"}
+  },
+  "$defs":{"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"base":{"type":"object","required":["source_path","byte_size","sha256","weight"],"properties":{"source_path":{"type":"string","pattern":"^/usr/share/fonts/"},"byte_size":{"type":"integer","minimum":1},"sha256":{"$ref":"#/$defs/sha256"},"weight":{"type":"integer"}},"additionalProperties":false},"source400":{"allOf":[{"$ref":"#/$defs/base"},{"properties":{"weight":{"const":400}}}]},"source700":{"allOf":[{"$ref":"#/$defs/base"},{"properties":{"weight":{"const":700}}}]}}
+}
