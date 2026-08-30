@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.free-collection-evidence-plan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "marker", "status", "control_generation", "levels", "cases", "material_nodes"],
+  "properties": {
+    "schema": {"const": "kenigevents.free-collection-evidence-plan.v1"},
+    "marker": {"const": "ASP_FREE_COLLECTION_EVIDENCE_PLAN_V1"},
+    "status": {"enum": ["DRAFT", "READY"]},
+    "control_generation": {"const": 3},
+    "route": {"const": "/podborki/besplatnye-sobytiya/"},
+    "allowed_proof_modes": {"const": ["DIRECT_CASE", "REGION_PROOF_FROM_PARENT_CASE", "NONVISUAL_PROOF", "NOT_APPLICABLE"]},
+    "levels": {
+      "const": ["L0_ASSETS", "L1_LEAVES", "L2_EVENTCARD", "L3_ROWS_AND_GROUPS", "L4_SHELL", "L5_FULL_PAGE"]
+    },
+    "cases": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["case_id", "case_path", "resolved_case_path"]}},
+    "resolved_case_index": {"type": "object", "required": ["path", "content_sha256"]},
+    "geometry_proof": {"type": "object", "required": ["path", "content_sha256", "file_sha256"]},
+    "material_nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "level", "proof"],
+        "properties": {
+          "node_id": {"type": "string", "minLength": 1},
+          "level": {"enum": ["L0_ASSETS", "L1_LEAVES", "L2_EVENTCARD", "L3_ROWS_AND_GROUPS", "L4_SHELL", "L5_FULL_PAGE"]},
+          "proof": {
+            "oneOf": [
+              {"type": "object", "additionalProperties": false, "required": ["mode", "case_id"], "properties": {"mode": {"const": "DIRECT_CASE"}, "case_id": {"type": "string"}}},
+              {"type": "object", "additionalProperties": false, "required": ["mode", "parent_case_id", "region_selector", "geometry_contract_ref", "evidence_artifact_ref", "source_candidate_tuple"], "properties": {"mode": {"const": "REGION_PROOF_FROM_PARENT_CASE"}, "parent_case_id": {"type": "string"}, "region_selector": {"type": "string"}, "geometry_contract_ref": {"type": "string"}, "evidence_artifact_ref": {"type": "string"}, "source_candidate_tuple": {"type": "string"}}},
+              {"type": "object", "additionalProperties": false, "required": ["mode", "proof_id", "artifact_ref"], "properties": {"mode": {"const": "NONVISUAL_PROOF"}, "proof_id": {"type": "string"}, "artifact_ref": {"type": "string"}}},
+              {"type": "object", "additionalProperties": false, "required": ["mode", "reason_code", "reason"], "properties": {"mode": {"const": "NOT_APPLICABLE"}, "reason_code": {"type": "string"}, "reason": {"type": "string", "minLength": 1}}}
+            ]
+          }
+        }
+      }
+    }
+  }
+}

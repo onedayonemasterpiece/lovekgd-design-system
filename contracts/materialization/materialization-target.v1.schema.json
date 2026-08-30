@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.materialization-target.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "file_scope", "page_scope", "bindings", "replacement_scopes", "expected_source_hashes"],
+  "properties": {
+    "schema": {"const": "kenigevents.materialization-target.v1"},
+    "file_scope": {"$ref": "#/$defs/scope"},
+    "page_scope": {"$ref": "#/$defs/scope"},
+    "bindings": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "minLength": 1}},
+    "replacement_scopes": {"type": "array", "items": {"$ref": "#/$defs/scope"}},
+    "expected_source_hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+  },
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_id", "locator"],
+      "properties": {
+        "semantic_id": {"type": "string", "minLength": 1},
+        "locator": {"type": "string", "minLength": 1, "not": {"pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"}}
+      }
+    }
+  }
+}

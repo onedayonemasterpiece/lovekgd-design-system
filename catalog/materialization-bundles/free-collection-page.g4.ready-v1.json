@@ -1,0 +1,154 @@
+{
+  "schema": "kenigevents.immutable-materialization-bundle.v1",
+  "bundle_kind": "free-collection-page",
+  "bundle_id": "free-collection-page.g4.ready-v1",
+  "revision": "ready-v1",
+  "control_generation": 4,
+  "promotion_state": "READY_FOR_W0_PROMOTION",
+  "execution_time_prerequisites": [
+    {
+      "gate": "active_execution_control",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "w0_penpot_write_lease",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "clean_penpot_baseline_receipt",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "validated_target_manifest_and_reuse_map",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "per-write_cancellation_recheck",
+      "required_at": "immediately-before-every-write"
+    },
+    {
+      "gate": "complete_provenance_receipt",
+      "required_at": "terminal-state"
+    }
+  ],
+  "source_bindings": [
+    {
+      "role": "resolved_case_index",
+      "path": "catalog/ui-conformance/free-collection/g4/resolved/resolved-cases.index.json",
+      "format": "json",
+      "sha256": "263a25d878c8b2f8c47be2de4d20f82db3088107d326275016c1e7203b05cf34",
+      "required_json_pointers": [
+        "/schema",
+        "/cases",
+        "/content_sha256"
+      ]
+    },
+    {
+      "role": "component_contract",
+      "path": "catalog/ui-components/event-card-large/component-contract.v2.json",
+      "format": "json",
+      "sha256": "72385737a289f43090dd8d388497f755141e78f56a14576e4221fb817ab526fb",
+      "required_json_pointers": [
+        "/component_id",
+        "/semantic_children"
+      ]
+    },
+    {
+      "role": "asset_registry",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "format": "yaml",
+      "sha256": "d2360d5ab3581fdfdb3c10aa5d995d4d652e127a1da111f8da2e4e4907c1ac48",
+      "required_tokens": [
+        "kenigevents.ui-assets.v1",
+        "ACTIVE_BOUNDED_BINDINGS_RESOLVED"
+      ]
+    },
+    {
+      "role": "page_profile",
+      "path": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+      "format": "yaml",
+      "sha256": "4ed73c4203a32fc775bdaf82bd65d32ad82040e81038afe8e50a7d5eb2c4017b",
+      "required_tokens": [
+        "free-collection.owner-review.v1",
+        "BLOCKED_OWNER_REJECTED",
+        "READY_FOR_W0_PROMOTION"
+      ]
+    },
+    {
+      "role": "page_composition",
+      "path": "contracts/page-archetype-requirements.v1.json",
+      "format": "json",
+      "sha256": "fb42e37ec00c5cbc6d988064e519ff8297d9602290e02541f1f2f078f3fd77b9",
+      "required_json_pointers": [
+        "/schema_version"
+      ]
+    }
+  ],
+  "resolved_case_index_ref": "catalog/ui-conformance/free-collection/g4/resolved/resolved-cases.index.json",
+  "required_case_ids": [
+    "free-collection.desktop.top",
+    "free-collection.desktop.scrolled",
+    "free-collection.desktop.full",
+    "free-collection.mobile.top",
+    "free-collection.mobile.scrolled",
+    "free-collection.mobile.full"
+  ],
+  "dependencies": [
+    {
+      "bundle_kind": "eventcard-free-slice",
+      "bundle_ref": "eventcard-free-slice.g4.ready-v1"
+    }
+  ],
+  "materialization_scopes": [
+    {
+      "semantic_id": "page.free-collection/free-collection.desktop.top",
+      "source_ref": "resolved-case:free-collection.desktop.top",
+      "target_binding": "page.free-collection"
+    },
+    {
+      "semantic_id": "page.free-collection/free-collection.desktop.scrolled",
+      "source_ref": "resolved-case:free-collection.desktop.scrolled",
+      "target_binding": "page.free-collection"
+    },
+    {
+      "semantic_id": "page.free-collection/free-collection.desktop.full",
+      "source_ref": "resolved-case:free-collection.desktop.full",
+      "target_binding": "page.free-collection"
+    },
+    {
+      "semantic_id": "page.free-collection/free-collection.mobile.top",
+      "source_ref": "resolved-case:free-collection.mobile.top",
+      "target_binding": "page.free-collection"
+    },
+    {
+      "semantic_id": "page.free-collection/free-collection.mobile.scrolled",
+      "source_ref": "resolved-case:free-collection.mobile.scrolled",
+      "target_binding": "page.free-collection"
+    },
+    {
+      "semantic_id": "page.free-collection/free-collection.mobile.full",
+      "source_ref": "resolved-case:free-collection.mobile.full",
+      "target_binding": "page.free-collection"
+    }
+  ],
+  "required_target_bindings": [
+    "page.free-collection",
+    "event.card",
+    "shell.header",
+    "shell.footer",
+    "shell.mobile-navigation"
+  ],
+  "required_reuse_bindings": [
+    "page.free-collection",
+    "event.card",
+    "shell.header",
+    "shell.footer",
+    "shell.mobile-navigation"
+  ],
+  "target_manifest_ref": "external:kenigevents.materialization-target.v1",
+  "negative_test_refs": [
+    "tests/resolved-render-case.test.mjs",
+    "tests/materialization-execution-kernel.test.mjs",
+    "tests/free-collection-g4-closure.test.mjs"
+  ]
+}

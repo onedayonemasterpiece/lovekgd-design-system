@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.materialization-run-receipt.v1",
+  "type": "object",
+  "required": [
+    "schema", "version", "control_generation", "source", "materializer_sha256", "source_hashes",
+    "input_hashes", "bundles", "target_manifest_sha256", "run", "preflight", "ordered_write_operations",
+    "cancellation_checks", "outputs", "cleanup_scope", "idempotence_keys", "execution", "timestamps",
+    "terminal_state", "receipt_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "kenigevents.materialization-run-receipt.v1"},
+    "version": {"const": 1},
+    "source": {"type": "object", "required": ["repository", "ref", "sha"]},
+    "source_hashes": {"type": "object", "required": ["contract", "profile", "asset_registry", "geometry_registry"]},
+    "input_hashes": {"type": "object", "required": ["bundle_manifest", "target_manifest", "control", "reuse_map"]},
+    "run": {"type": "object", "required": ["id", "lease_key", "lease_identity", "acquired", "released"]},
+    "preflight": {"type": "object", "required": ["passed", "code", "message"]},
+    "outputs": {"type": "object", "required": ["created", "reused", "replaced"]},
+    "execution": {"type": "object", "required": ["mode", "test", "dry_run"]},
+    "timestamps": {"type": "object", "required": ["started_at", "finished_at"]},
+    "terminal_state": {"enum": ["FAILED_PREFLIGHT", "VALIDATION_COMPLETE", "PLAN_READY", "DRY_RUN_COMPLETE", "SKIPPED_LEASE_HELD", "CANCELLED", "FAILED_WRITE", "FAILED_LEASE_RELEASE", "SUCCEEDED"]},
+    "receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
