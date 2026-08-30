@@ -1,0 +1,77 @@
+{
+  "schema": "kenigevents.immutable-materialization-bundle.v1",
+  "bundle_kind": "eventcard-free-slice",
+  "bundle_id": "eventcard-free-slice.UNRESOLVED_CONTROL_GENERATION.draft-v1",
+  "revision": "draft-v1",
+  "control_generation": "UNRESOLVED_CONTROL_GENERATION",
+  "promotion_state": "BLOCKED_UNRESOLVED_LIVE_INPUTS",
+  "non_promotable_reasons": [
+    "KENIGEVENTS_ASP_EXECUTION_CONTROL_V2 absent",
+    "ASP_OLD_PENPOT_REUSE_MAP_V1 absent",
+    "live registry hashes unresolved"
+  ],
+  "source_bindings": [
+    {
+      "role": "component_contract",
+      "path": "catalog/ui-components/event-card-large/component-contract.v2.json",
+      "format": "json",
+      "sha256": "72385737a289f43090dd8d388497f755141e78f56a14576e4221fb817ab526fb",
+      "required_json_pointers": ["/component_id", "/content_slots", "/semantic_children", "/penpot_materialization_ir_ref"]
+    },
+    {
+      "role": "fixture_corpus",
+      "path": "catalog/fixtures/ui-reference-events/v2/corpus.json",
+      "format": "json",
+      "sha256": "7578b63fcd8995b2ae957a047fd5e88ecdf40cba0b92b160f4145d43717096d5",
+      "required_json_pointers": ["/corpus_id", "/fixtures", "/assets_manifest_path"]
+    },
+    {
+      "role": "fixture_projection",
+      "path": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json",
+      "format": "json",
+      "sha256": "3170f8b1101a71924ba519ea6ce5bb86a2a454631bfee42e877a01a5e95c92ef",
+      "required_json_pointers": ["/expected_groups/events", "/expected_groups/exhibitions"]
+    },
+    {
+      "role": "fixture_assets",
+      "path": "catalog/fixtures/ui-reference-events/v2/assets-manifest.json",
+      "format": "json",
+      "sha256": "3346a24aa37e72d7bdbb16858ae222d10a2b58011e8e6fb6624aff8009cce9da",
+      "required_json_pointers": ["/assets", "/assets_manifest_sha256"]
+    },
+    {
+      "role": "geometry_registry",
+      "path": "catalog/ui-components/event-card-large/archetype-context-v1/penpot-materialization-ir.v2.json",
+      "format": "json",
+      "sha256": "UNRESOLVED_CONTROL_GENERATION",
+      "required_json_pointers": ["/component_id", "/contexts"]
+    },
+    {
+      "role": "asset_registry",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "format": "yaml",
+      "sha256": "UNRESOLVED_CONTROL_GENERATION",
+      "required_tokens": ["event.action.share", "event.action.like", "event.action.not-interested", "event.action.calendar"]
+    }
+  ],
+  "fixture_authority": {
+    "canary_ref": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json#/expected_groups/events/0",
+    "expected_fixture_identity": "event.real.8006"
+  },
+  "structural_contexts": [
+    {"semantic_id": "event.card/context.desktop-wide-calendar", "fixture_ref": "#/expected_groups/events/0", "geometry_ref": "#/contexts/desktop-wide-calendar"},
+    {"semantic_id": "event.card/context.desktop-packed-no-calendar", "fixture_ref": "#/expected_groups/exhibitions/0", "geometry_ref": "#/contexts/desktop-packed-no-calendar"},
+    {"semantic_id": "event.card/context.mobile-wide-calendar", "fixture_ref": "#/expected_groups/events/0", "geometry_ref": "#/contexts/mobile-wide-calendar"},
+    {"semantic_id": "event.card/context.mobile-packed-no-calendar", "fixture_ref": "#/expected_groups/exhibitions/0", "geometry_ref": "#/contexts/mobile-packed-no-calendar"}
+  ],
+  "materialization_scopes": [
+    {"semantic_id": "event.card/context.desktop-wide-calendar", "source_ref": "#/structural_contexts/0", "target_binding": "event.card"},
+    {"semantic_id": "event.card/context.desktop-packed-no-calendar", "source_ref": "#/structural_contexts/1", "target_binding": "event.card"},
+    {"semantic_id": "event.card/context.mobile-wide-calendar", "source_ref": "#/structural_contexts/2", "target_binding": "event.card"},
+    {"semantic_id": "event.card/context.mobile-packed-no-calendar", "source_ref": "#/structural_contexts/3", "target_binding": "event.card"}
+  ],
+  "required_target_bindings": ["event.card", "event.media-frame", "event.action.share", "event.action.like", "event.action.not-interested", "event.action.calendar"],
+  "required_reuse_bindings": ["event.card", "event.media-frame"],
+  "target_manifest_ref": "external:kenigevents.materialization-target.v1",
+  "negative_test_refs": ["tests/materialization-execution-kernel.test.mjs"]
+}

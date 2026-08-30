@@ -1,43 +1,26 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
+import { createRequire } from 'node:module';
 
-const source = await readFile(new URL('../scripts/round-trip-reconstruction/penpot-materialize-event-card-unified-golden-v2.js', import.meta.url), 'utf8');
+const require = createRequire(import.meta.url);
+const { materializeEventCardUnifiedGoldenV2 } = require('../scripts/round-trip-reconstruction/penpot-materialize-event-card-unified-golden-v2.js');
+const root = path.resolve(import.meta.dirname, '..');
 
-test('EventCard Large has one central Penpot page and four source-owned structural variants', () => {
-  assert.match(source, /40\.1b — EventCard · Unified Golden variants/u);
-  assert.match(source, /Event cards \/ Large \/ Unified Golden v2/u);
-  for (const key of ['desktop-wide-calendar', 'desktop-packed-no-calendar', 'mobile-wide-calendar', 'mobile-packed-no-calendar']) {
-    assert.match(source, new RegExp(`'${key}'`, 'u'));
-  }
-  assert.match(source, /component-family','event-card-large'/u);
-  assert.match(source, /fixture-corpus',CORPUS_ID/u);
-});
-
-test('central variants retain a linked canonical base and exact Astro card geometry', () => {
-  assert.match(source, /const card=base\.instance\(\)/u);
-  assert.match(source, /baseComponentId:card\.component\(\)\?\.id/u);
-  assert.match(source, /place\(media,1,1,v\.width-2,v\.media\)/u);
-  assert.match(source, /place\(feedback,1\.59375,v\.height-56,v\.width-3\.1875,56\)/u);
-  assert.match(source, /desktop\?145\.125:142\.25/u);
-  assert.match(source, /desktop\?147\.4375:185\.875/u);
-  assert.match(source, /function applyNestedAstroGeometry\(card,key\)/u);
-  assert.match(source, /meta\.flex\.alignContent='start'/u);
-  assert.match(source, /admission\.flex\.horizontalSizing='fix'/u);
-  assert.match(source, /const admissionInline=desktop&&event/u);
-  assert.match(source, /place\(admission,admissionX,admissionInline\?0:23\.390625,admissionWidth,28\)/u);
-  assert.match(source, /shareLabel\.resize\(desktop\?92\.59375:90\.328125/u);
-  assert.match(source, /like\.layoutChild\.minWidth=desktop\?33\.04:33\.04/u);
-  assert.match(source, /feedback\.flex\.justifyContent='end'/u);
-  assert.match(source, /if\(!feedback\.flex\)feedback\.addFlexLayout\(\)/u);
-  assert.match(source, /feedback\.flex\.columnGap=desktop\?4\.8:5\.44/u);
-  assert.match(source, /function repairVariant\(key\)/u);
-  assert.doesNotMatch(source, /\.detach\(/u);
-});
-
-test('Golden fixture values are data overrides, not page-local visual reconstruction', () => {
-  for (const id of [8006, 8200, 2182, 6711, 7609]) assert.match(source, new RegExp(String(id), 'u'));
-  assert.match(source, /applyFixture\(card,id\)/u);
-  assert.match(source, /lineage\.some\(n=>\/Share\//u);
-  assert.match(source, /storage\.freeSepV2Media/u);
+test('draft EventCard bundle is non-promotable and never writes', async () => {
+  const input = path.join(os.tmpdir(), `w2-empty-event-${process.pid}.json`);
+  fs.writeFileSync(input, '{}\n');
+  let writes = 0;
+  const receipt = await materializeEventCardUnifiedGoldenV2({
+    root,
+    mode: 'production',
+    targetManifestPath: input,
+    controlPath: input,
+    reuseMapPath: input,
+    adapter: { lookup: async () => null, write: async () => { writes += 1; } },
+  });
+  assert.equal(receipt.preflight.code, 'BUNDLE_NOT_PROMOTABLE');
+  assert.equal(writes, 0);
 });

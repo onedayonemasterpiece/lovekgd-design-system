@@ -1,0 +1,86 @@
+{
+  "schema": "kenigevents.immutable-materialization-bundle.v1",
+  "bundle_kind": "free-collection-page",
+  "bundle_id": "free-collection-page.UNRESOLVED_CONTROL_GENERATION.draft-v1",
+  "revision": "draft-v1",
+  "control_generation": "UNRESOLVED_CONTROL_GENERATION",
+  "promotion_state": "BLOCKED_UNRESOLVED_LIVE_INPUTS",
+  "non_promotable_reasons": [
+    "KENIGEVENTS_ASP_EXECUTION_CONTROL_V2 absent",
+    "ASP_OLD_PENPOT_REUSE_MAP_V1 absent",
+    "live registry hashes unresolved"
+  ],
+  "source_bindings": [
+    {
+      "role": "fixture_corpus",
+      "path": "catalog/fixtures/ui-reference-events/v2/corpus.json",
+      "format": "json",
+      "sha256": "7578b63fcd8995b2ae957a047fd5e88ecdf40cba0b92b160f4145d43717096d5",
+      "required_json_pointers": ["/corpus_id", "/fixtures"]
+    },
+    {
+      "role": "fixture_projection",
+      "path": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json",
+      "format": "json",
+      "sha256": "3170f8b1101a71924ba519ea6ce5bb86a2a454631bfee42e877a01a5e95c92ef",
+      "required_json_pointers": ["/expected_groups/events", "/expected_groups/exhibitions"]
+    },
+    {
+      "role": "fixture_assets",
+      "path": "catalog/fixtures/ui-reference-events/v2/assets-manifest.json",
+      "format": "json",
+      "sha256": "3346a24aa37e72d7bdbb16858ae222d10a2b58011e8e6fb6624aff8009cce9da",
+      "required_json_pointers": ["/assets", "/assets_manifest_sha256"]
+    },
+    {
+      "role": "page_composition",
+      "path": "contracts/page-archetype-requirements.v1.json",
+      "format": "json",
+      "sha256": "fb42e37ec00c5cbc6d988064e519ff8297d9602290e02541f1f2f078f3fd77b9",
+      "required_json_pointers": ["/schema_id", "/entries"]
+    },
+    {
+      "role": "page_profile",
+      "path": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+      "format": "yaml",
+      "sha256": "UNRESOLVED_CONTROL_GENERATION",
+      "required_tokens": ["free-collection.owner-review.v1", "BLOCKED_OWNER_REJECTED"]
+    },
+    {
+      "role": "geometry_registry",
+      "path": "catalog/ui-components/event-card-large/archetype-context-v1/penpot-materialization-ir.v2.json",
+      "format": "json",
+      "sha256": "UNRESOLVED_CONTROL_GENERATION",
+      "required_json_pointers": ["/component_id", "/contexts"]
+    },
+    {
+      "role": "asset_registry",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "format": "yaml",
+      "sha256": "UNRESOLVED_CONTROL_GENERATION",
+      "required_tokens": ["kenigevents.ui-assets.v1"]
+    }
+  ],
+  "fixture_authority": {
+    "groups_ref": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json#/expected_groups",
+    "render_order_derivation": {"operation": "concatenate-groups", "group_order": ["events", "exhibitions"]},
+    "required_fixture_count": 5
+  },
+  "dependencies": [
+    {"bundle_kind": "eventcard-free-slice", "bundle_ref": "eventcard-free-slice.${CONTROL_GENERATION}.${REVISION}"}
+  ],
+  "shell_composition_refs": ["contracts/page-archetype-requirements.v1.json", "contracts/page-profiles/free-collection.owner-review.v1.yaml"],
+  "states": {"desktop": ["top", "scrolled", "full"], "mobile": ["top", "scrolled", "full"]},
+  "materialization_scopes": [
+    {"semantic_id": "page.free-collection/desktop.top", "source_ref": "#/states/desktop/0", "target_binding": "page.free-collection"},
+    {"semantic_id": "page.free-collection/desktop.scrolled", "source_ref": "#/states/desktop/1", "target_binding": "page.free-collection"},
+    {"semantic_id": "page.free-collection/desktop.full", "source_ref": "#/states/desktop/2", "target_binding": "page.free-collection"},
+    {"semantic_id": "page.free-collection/mobile.top", "source_ref": "#/states/mobile/0", "target_binding": "page.free-collection"},
+    {"semantic_id": "page.free-collection/mobile.scrolled", "source_ref": "#/states/mobile/1", "target_binding": "page.free-collection"},
+    {"semantic_id": "page.free-collection/mobile.full", "source_ref": "#/states/mobile/2", "target_binding": "page.free-collection"}
+  ],
+  "required_target_bindings": ["page.free-collection", "event.card", "shell.header", "shell.footer", "shell.mobile-navigation"],
+  "required_reuse_bindings": ["page.free-collection", "event.card", "shell.header", "shell.footer", "shell.mobile-navigation"],
+  "target_manifest_ref": "external:kenigevents.materialization-target.v1",
+  "negative_test_refs": ["tests/materialization-execution-kernel.test.mjs"]
+}
