@@ -5,10 +5,10 @@
   "run_agnostic": true,
   "executor": {
     "path": "catalog/penpot-executor/g12/capsule/penpot-visual-executor.g12.js",
-    "raw_sha256": "ed20261e2db0f180b76f13519cdf3ca93c3d3ca73b6178b9d4099f7d45ad3f79",
-    "content_sha256": "ed20261e2db0f180b76f13519cdf3ca93c3d3ca73b6178b9d4099f7d45ad3f79"
+    "raw_sha256": "cd5a255c5b21ae14cf63d464ea01fef8de18f0857f3010eb46d317a25ac0091c",
+    "content_sha256": "cd5a255c5b21ae14cf63d464ea01fef8de18f0857f3010eb46d317a25ac0091c"
   },
-  "payload_sha256": "5fd6e74f58a8328afe3f4fe75ab4c8fa039497da1ea5cd6b2eea10722d7bae87",
+  "payload_sha256": "a3f617114875712092f4d3ae89f6a5ef5d6ee70c179d3fd23dbced4667821449",
   "astro_evidence": {
     "schema": "kenigevents.astro-current-a-evidence-binding.g12.v1",
     "repository": "onedayonemasterpiece/events-bot-new",
@@ -65,7 +65,7 @@
   },
   "expectations": {
     "path": "catalog/penpot-executor/g12/independent-expectations.json",
-    "sha256": "a83fd71ea3acb78624342e81f7dc1647b668f6735fa35b07ab0b5d698c74dcc1",
+    "sha256": "1bbfe62b0dfc8e0d0ddd78a1b2b2b84586fc3e7047b5268b5bc207190e40b4e1",
     "independent_generator": "scripts/round-trip-reconstruction/build-penpot-visual-executor-g12-expectations.mjs"
   },
   "supported": {
@@ -142,10 +142,25 @@
     ]
   },
   "historical_penpot_readback_authority": false,
+  "generation_13_correction": {
+    "control_comment_id": 5469332804,
+    "review_comment_id": 5471739359,
+    "rejected_candidate_comment_id": 5471593038,
+    "correction_base": "150de4ddcfcae6965a7960174e6b084ce265bcc3",
+    "blockers": [
+      "ASYNC_IMAGE_OVERRIDE_NOT_AWAITED",
+      "FONTS_CONTEXT_READBACK_INVALID",
+      "UNDOCUMENTED_RADII_PROPERTY",
+      "OCCURRENCE_SOURCE_IS_NULL_FIXTURE_FIELD",
+      "GOVERNED_VARIANT_MASTER_ACTION_VISIBILITY",
+      "STRICT_NATIVE_FAKE_PROMISE_AND_PROPERTY_SURFACE",
+      "DIRECT_AND_GROUP_EXACT_OCCURRENCE_FONT_RADII_MEDIA_ASSERTIONS"
+    ]
+  },
   "supersedes": {
-    "generation": 11,
-    "commit": "1dd61d4a955a6fcb40c262a70b4569a723d92740",
-    "artifact_sha256": "76543b976e9e0931fd4c31fc771f1938e3e09e785844da13ec9a7ad19f93ebf3"
+    "generation": 12,
+    "commit": "150de4ddcfcae6965a7960174e6b084ce265bcc3",
+    "candidate_comment_id": 5471593038
   },
   "deterministic": true,
   "penpot_mutation_performed": false
