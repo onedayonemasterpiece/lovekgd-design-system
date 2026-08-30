@@ -1,24 +1,35 @@
 schema_version: kenigevents.asp-page-profile.v1
 profile_id: free-collection.owner-review.v1
-profile_version: 1.0.0
-status: ACTIVE
+profile_version: 1.1.0
+status: BLOCKED_OWNER_REJECTED
 
 requirements_contract:
   id: kenigevents.asp-conformance
-  version: 1.0.0
+  version: 1.1.0
   status: ACTIVE
   repository: onedayonemasterpiece/lovekgd-design-system
   path: docs/product-governance/astro-sot-penpot-conformance.md
-  commit: 7607143afc240b9f96abd51270ab82735aabf9bc
-  git_blob_sha1: 1facf0b2ae80b114d9c8b028b5c22769982e3fb7
-  sha256: 75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289
+  commit: f134001382f547cebe8b025da24065128b174ffb
+  git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
+  sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
+
+asset_registry:
+  id: kenigevents.ui-assets.v1
+  version: 1.0.0
+  status: ACTIVE_FAIL_CLOSED
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: contracts/assets/ui-asset-registry.v1.yaml
+  commit: a0d66b832e97689536329fad4f0684cfe1001ca1
+  git_blob_sha1: cef9ec2ae159027267e8ec1e8e6a20686f995ff9
+  sha256: 03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc
 
 authority_mode: ASTRO_AS_IS_REFERENCE
 
 product:
   route: /podborki/besplatnye-sobytiya/
   surface_name: Подборка бесплатных событий
-  owner_review_outcome: READY_FOR_OWNER_REVIEW
+  intended_terminal_outcome: READY_FOR_OWNER_REVIEW
+  current_outcome: BLOCKED_BEFORE_OWNER_REVIEW
   user_jobs:
     - Понять, какие события действительно бесплатны.
     - Быстро увидеть, что, где и когда происходит.
@@ -79,6 +90,170 @@ local_acceptance:
     - share
     - like_or_interest
     - mobile_navigation
+  immutable_asset_identity_required: true
+  exact_geometry_proof_required: true
+  fallback_icons_allowed: false
+  approximate_geometry_allowed: false
+  cancelled_or_unreceipted_run_allowed: false
+
+asset_bindings:
+  status: BLOCKED_UNRESOLVED_ASSET_IDENTITY
+  required_slots:
+    - asset_id: icon.action.not_interested
+      semantic_slot: card.utility.not_interested
+      registry_status: UNRESOLVED_BLOCKING
+    - asset_id: icon.action.calendar_add
+      semantic_slot: card.primary_action.calendar_add
+      registry_status: UNRESOLVED_BLOCKING
+    - asset_id: icon.action.share
+      semantic_slot: card.social.share
+      registry_status: UNRESOLVED_BLOCKING
+    - asset_id: icon.action.favorite
+      semantic_slot: card.social.favorite
+      registry_status: UNRESOLVED_BLOCKING
+  acceptance:
+    exact_source_path_required: true
+    immutable_commit_required: true
+    git_blob_sha1_or_sha256_required: true
+    svg_view_box_required: true
+    nominal_icon_box_required: true
+    fill_stroke_contract_required: true
+    astro_consumer_binding_required: true
+    penpot_consumer_binding_required: true
+    owner_disposition_required: true
+
+geometry_proof:
+  status: BLOCKED_UNRESOLVED_GEOMETRY
+  authority: pinned_astro_computed_style_and_source
+  critical_regions:
+    - event_card_outer_surface
+    - event_card_media_mask
+    - admission_pill
+    - calendar_primary_action
+    - not_interested_action
+    - social_action_row
+    - share_control
+    - favorite_control
+  required_context:
+    - astro_repository
+    - astro_commit
+    - source_component_path
+    - selector_or_state_identity
+    - scenario_id
+    - viewport
+    - dpr
+    - font_set
+    - locale
+    - fixture_id
+    - reference_clock
+  required_properties:
+    - width
+    - height
+    - border_radius_top_left
+    - border_radius_top_right
+    - border_radius_bottom_right
+    - border_radius_bottom_left
+    - border_width
+    - border_style
+    - overflow
+    - clipping_or_mask
+    - padding
+    - gap
+    - alignment
+    - aspect_ratio
+    - icon_box
+    - icon_text_gap
+    - resolved_token_name_and_value
+  proof_status:
+    event_card_outer_surface: unresolved
+    event_card_media_mask: unresolved
+    admission_pill: unresolved
+    calendar_primary_action: unresolved
+    not_interested_action: unresolved
+    social_action_row: unresolved
+    share_control: unresolved
+    favorite_control: unresolved
+
+materialization:
+  status: BLOCKED
+  allowed_to_mutate_penpot: false
+  blockers:
+    - asset-bindings-not-content-addressed
+    - geometry-not-proven-from-pinned-astro-computed-style
+    - materialization-provenance-receipt-missing
+    - stop-cancel-semantics-not-proven
+    - owner-rejected-current-frame
+  resume_condition:
+    - resolve all required asset identities
+    - record exact geometry proof for every critical region
+    - start a new explicitly identified materialization run
+    - prove active lease and cancellation checks
+    - emit a complete provenance receipt
+
+provenance_receipt_requirements:
+  required: true
+  fields:
+    - run_id
+    - actor_type
+    - actor_id
+    - triggered_by
+    - astro_repository
+    - astro_commit
+    - route
+    - scenario
+    - viewport
+    - ui_sot_repository
+    - ui_sot_commit
+    - requirements_contract_hash
+    - page_profile_hash
+    - asset_registry_hash
+    - materializer_name
+    - materializer_version
+    - materializer_commit
+    - started_at
+    - completed_at
+    - final_state
+    - penpot_file_id
+    - penpot_page_id
+    - penpot_frame_ids
+    - mutation_count
+    - mutated_object_ids
+    - asset_binding_digest
+    - geometry_proof_digest
+    - validation_result
+    - owner_review_state
+  missing_receipt_result: NON_ACCEPTED_EVIDENCE
+
+run_control:
+  states: [ACTIVE, CANCEL_REQUESTED, CANCELLED, COMPLETED, FAILED, STALE]
+  owner_stop_prevents_later_mutations: true
+  queued_writes_recheck_active_run_lease: true
+  post_cancel_mutation_is_invalid: true
+  stale_run_may_promote_frame: false
+  continued_mutation_proves_executor_identity: false
+
+owner_review_incident:
+  incident_id: free-collection-penpot-visual-drift-2026-08-30
+  date: '2026-08-30'
+  owner_decision: REJECTED
+  observed:
+    - Иконки не соответствуют Astro и ранее согласованному визуальному языку дизайн-системы.
+    - Использованы визуально общие или подменённые символы без доказанной asset identity.
+    - Скругления, pill-формы и геометрия карточки заметно расходятся с референсом.
+    - После owner stop наблюдались дальнейшие изменения Penpot.
+  diagnosis:
+    - The previous profile named semantic interactions but did not bind exact graphical asset bytes.
+    - The previous profile did not require per-region computed-style geometry proof before mutation.
+    - Executor identity and cancellation state were not proven by a materialization receipt.
+  attribution:
+    codex_or_other_executor_proven: false
+    note: >
+      Continued mutations are evidence of missing provenance/run control, not
+      proof that Codex or any named actor performed them.
+  consequence:
+    current_penpot_snapshot_approved: false
+    current_penpot_snapshot_may_be_used_as_visual_truth: false
+    owner_review_may_resume: false
 
 known_baseline:
   normative: false
@@ -88,7 +263,10 @@ known_baseline:
   diagnostic_page_id: fb44de8f-cd63-8060-8008-8f839b2fe1df
   last_observed_penpot_revision: 3111
   evidence_root: evidence/page-closure/free-collection-v3/renderer-integrity
+  owner_review_state: REJECTED_2026_08_30
 
 notes:
   - known_baseline is descriptive and may advance without changing this profile.
   - This profile specializes the canonical contract and does not restate or override global policy.
+  - A UI SoT may reference bytes stored elsewhere, but it must centrally own immutable content-addressed bindings.
+  - No Penpot materialization is authorized until asset and geometry blockers are resolved.
