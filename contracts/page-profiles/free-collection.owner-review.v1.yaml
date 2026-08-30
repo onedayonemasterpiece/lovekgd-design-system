@@ -1,0 +1,94 @@
+schema_version: kenigevents.asp-page-profile.v1
+profile_id: free-collection.owner-review.v1
+profile_version: 1.0.0
+status: ACTIVE
+
+requirements_contract:
+  id: kenigevents.asp-conformance
+  version: 1.0.0
+  status: ACTIVE
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: docs/product-governance/astro-sot-penpot-conformance.md
+  commit: 7607143afc240b9f96abd51270ab82735aabf9bc
+  git_blob_sha1: 1facf0b2ae80b114d9c8b028b5c22769982e3fb7
+  sha256: 75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289
+
+authority_mode: ASTRO_AS_IS_REFERENCE
+
+product:
+  route: /podborki/besplatnye-sobytiya/
+  surface_name: Подборка бесплатных событий
+  owner_review_outcome: READY_FOR_OWNER_REVIEW
+  user_jobs:
+    - Понять, какие события действительно бесплатны.
+    - Быстро увидеть, что, где и когда происходит.
+    - Выбрать интересное событие.
+    - Сохранить событие в календарь.
+    - Дать обратную связь, поделиться или отметить интерес.
+    - Продолжить навигацию по мобильному сайту.
+
+reference_case:
+  scenario_mobile: free-collection-september-mobile-v3
+  fixture_corpus: ui-reference-events.v2
+  fixture_order:
+    - event.real.8006
+    - event.real.8200
+    - event.real.2182
+    - event.real.6711
+    - event.real.7609
+  reference_iso: 2026-08-29T14:00:00+02:00
+  timezone: Europe/Kaliningrad
+  locale: ru-RU
+
+required_review_surfaces:
+  desktop:
+    viewport: 1280xauto
+    states: [top, scrolled, full]
+  mobile:
+    viewport: 390x844
+    states: [top, scrolled, full]
+
+local_acceptance:
+  inherited_global_contract_gates: true
+  factual_exactness:
+    expected_event_count: 5
+    all_events_free_in_reference_case: true
+    exact_fields:
+      - fixture_id
+      - order
+      - grouping
+      - content
+      - date
+      - time
+      - admission
+      - place
+      - counts
+      - image
+      - crop_and_focal_intent
+    stale_or_cross_fixture_data_allowed: false
+  visual_regions:
+    - media_crop
+    - title_and_text_wrapping
+    - metadata
+    - calendar_and_utility_actions
+    - feedback_and_social_proof
+    - shell_and_mobile_navigation
+  interaction_semantics:
+    - calendar
+    - not_interested
+    - share
+    - like_or_interest
+    - mobile_navigation
+
+known_baseline:
+  normative: false
+  astro_head: d447b6c1514784b8c75ad1cb6cbe9d0ff2986790
+  ui_sot_head: 4d663d2d67d624c0eb86070c73213ca9e2971a49
+  penpot_file_id: 3be9e5e1-190f-8090-8008-713c0fbe6260
+  diagnostic_page_id: fb44de8f-cd63-8060-8008-8f839b2fe1df
+  last_observed_penpot_revision: 3111
+  evidence_root: evidence/page-closure/free-collection-v3/renderer-integrity
+
+notes:
+  - known_baseline is descriptive and may advance without changing this profile.
+  - This profile specializes the canonical contract and does not restate or override global policy.
