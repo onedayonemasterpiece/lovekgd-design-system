@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.example/contracts/design-system-scenario-projection.v1.schema.json",
+  "title": "Design-system archetype scenario projection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "scenario_id", "registry_ref", "route_ref", "state", "viewport", "fixture_input_order", "expected_render_order", "component_projection", "container_projection", "acceptance"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schema_version": { "const": "design-system-scenario-projection.v1" },
+    "scenario_id": { "type": "string" },
+    "registry_ref": { "type": "string" },
+    "route_ref": {
+      "type": "object",
+      "required": ["registry", "archetype_id", "route"],
+      "properties": {
+        "registry": { "const": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json" },
+        "archetype_id": { "type": "string" },
+        "route": { "type": "string" }
+      }
+    },
+    "state": { "type": "string" },
+    "reference_clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_iso", "current_date", "timezone", "locale", "authority", "override_kind"],
+      "properties": {
+        "reference_iso": { "type": "string", "format": "date-time" },
+        "current_date": { "type": "string", "format": "date" },
+        "timezone": { "const": "Europe/Kaliningrad" },
+        "locale": { "const": "ru-RU" },
+        "authority": { "const": "catalog/fixtures/ui-reference-events/v2/corpus.json#reference_clock" },
+        "override_kind": { "const": "source-bound-scenario-clock" }
+      }
+    },
+    "viewport": {
+      "type": "object",
+      "required": ["width", "height", "dpr"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "dpr": { "type": "number", "minimum": 1 }
+      }
+    },
+    "fixture_input_order": { "type": "array", "minItems": 1, "items": { "type": "string" }, "uniqueItems": true },
+    "expected_render_order": { "type": "array", "minItems": 1, "items": { "type": "string" }, "uniqueItems": true },
+    "component_projection": { "type": "object" },
+    "container_projection": { "type": "object" },
+    "acceptance": { "type": "object" }
+  }
+}

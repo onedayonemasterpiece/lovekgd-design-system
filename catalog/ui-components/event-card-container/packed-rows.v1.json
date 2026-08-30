@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "status": "CURRENT_COMPLETE / ASTRO_PROJECTED / PENPOT_MATERIALIZED / VISUAL_QA_PASS / OWNER_REREVIEW_REQUIRED",
+  "authority": {
+    "owner_voice_packets": [
+      "voice-20260828-184659-08d36dc1",
+      "voice-20260828-185334-57cb865a"
+    ],
+    "owner_voice_head": "669cd14d692e6fd9eee061aee7b63d15bbf0a6e8",
+    "mapped_items": [
+      "OV-02",
+      "OV-08",
+      "OV-30",
+      "OV-41",
+      "OV-42"
+    ],
+    "astro_revision_observed": "c33652ed01f6fb16945af67a53d5e27acece3cef",
+    "astro_owners": [
+      {
+        "surface": "event-detail-related",
+        "packer": "site/src/lib/relatedCardLayout.mjs#packRelatedCardRows",
+        "renderer": "site/src/components/EventCard.astro",
+        "packer_sha256": "846aefba235d16df25eec6b99e7a1dbe7b1cf9a5e3441f2fa1aedbe9dbaec6e4",
+        "renderer_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee"
+      },
+      {
+        "surface": "festival-timeline",
+        "packer": "site/src/lib/festivalTimelineLayout.ts#packFestivalTimeline",
+        "renderer": "site/src/pages/festivali/index.astro",
+        "packer_sha256": "8cfc3c8cd1faea6aac9bf884f077bf5a0c235c79cd20356f764f1b6f105d1b72",
+        "renderer_sha256": "df702bc98d0ba65d08de639df2b83cbd02958232fd8869308084532f560bded1"
+      }
+    ]
+  },
+  "semantic_boundary": {
+    "pattern_role": "container-level composition of canonical event-card family instances",
+    "does_not_create_new_card_root": true,
+    "single_penpot_family_root_required": true,
+    "page_local_visually_similar_roots_forbidden": true,
+    "consumer_specific_renderers_may_remain_adapters": true
+  },
+  "row_contract": {
+    "full_row_width_fraction": 1,
+    "completed_rows_fill_available_width": true,
+    "supported_item_counts": [
+      2,
+      3,
+      4
+    ],
+    "column_allocation": "equal or unequal deterministic weights derived from source media geometry, semantic crop permission and bounded copy pressure",
+    "shared_row_height": true,
+    "source_order": "preserve by default; bounded deterministic reordering is allowed only when it reduces row count/height or makes semantic crop constraints feasible",
+    "final_remainder": "only a true singleton may remain intentionally compact; every row with two or more events fills the full available width"
+  },
+  "ecological_crop": {
+    "metric_name": "discarded_source_area_fraction",
+    "formula": "max(0, 1 - min(source_ratio / target_ratio, target_ratio / source_ratio))",
+    "unit": "fraction_of_source_area",
+    "optimization": "minimize aggregate crop loss after semantic media safety gates, then minimize normalized height/row count and rank displacement according to the owning production packer",
+    "blind_cover_forbidden": true,
+    "unknown_or_error_media": "fail closed to contain/no numeric crop claim",
+    "document_crop_cap": 0.2,
+    "protected_regions_required_for_cover": true,
+    "stretching_forbidden": true,
+    "letterbox_is_not_fixed_by_stretching": true
+  },
+  "production_algorithms": {
+    "related_rows": {
+      "row_size_default": 3,
+      "visual_target_ratio": 1.25,
+      "primary_order": [
+        "normalized_full_card_height",
+        "row_count",
+        "aggregate_visual_crop",
+        "rank_displacement",
+        "stable_signature"
+      ],
+      "document_policy": "ordinary OCR stays intrinsic; only unusually tall classified documents may spend up to 20% crop to make a feasible shared row"
+    },
+    "festival_rows": {
+      "max_row_items": 4,
+      "normalized_gap": 0.014,
+      "primary_order": [
+        "layout_score",
+        "row_count",
+        "aggregate_crop",
+        "permutation_score"
+      ],
+      "score_terms": [
+        "normalized_height",
+        "semantic_crop_loss",
+        "low_resolution_penalty",
+        "dense_copy_pressure",
+        "formation_penalty",
+        "permutation_penalty"
+      ],
+      "full_nonfinal_rows": true,
+      "compact_final_remainders": [
+        1
+      ]
+    }
+  },
+  "required_projections": {
+    "astro_fixture": {
+      "route": "/lab/design-system/event-card-container/",
+      "must_call_production_packers": true,
+      "required_rows": [
+        "related-3",
+        "festival-2",
+        "festival-3",
+        "festival-4"
+      ],
+      "required_annotations": [
+        "source_ratio",
+        "target_ratio",
+        "column_weight",
+        "crop_fraction",
+        "row_width_fraction",
+        "row_height_or_cost"
+      ],
+      "status": "MATERIALIZED",
+      "source_sha256": "4fd5e1afcb5d12ab2a8f5b721e0609721fd4563d883f58a35dab83f824c7f627",
+      "desktop_export_sha256": "f424ce02828ce0c0bc2b171c2e76bfa4ed52f44994499df7e4b36634101b2971",
+      "mobile_export_sha256": "acaab0886f0ee96b9e29bab74a6e56abfad080a479cc67bd393dba3ef65ccbe4"
+    },
+    "penpot_page": {
+      "name": "40.7 — Event card container · Packed rows",
+      "native_cards_required": true,
+      "linked_card_lineage_required": true,
+      "required_rows": [
+        "related-3",
+        "festival-2",
+        "festival-3",
+        "festival-4"
+      ],
+      "required_annotations": [
+        "full width",
+        "shared height",
+        "column weights",
+        "crop loss percent",
+        "semantic crop disposition"
+      ],
+      "status": "MATERIALIZED_STRUCTURAL_AND_VISUAL_QA_COMPLETE_OWNER_REREVIEW_REQUIRED",
+      "file_id": "3be9e5e1-190f-8090-8008-713c0fbe6260",
+      "page_id": "8f804431-c282-8075-8008-8d9c992fa627",
+      "root_id": "8f804431-c282-8075-8008-8d9d13fc5522",
+      "revision": 2643,
+      "saved_version": "Recovery 2026-08-28 · OV-42 packed rows · Astro c33652ed0",
+      "linked_instances": 12,
+      "detached_instances": 0,
+      "validation_errors": [],
+      "export_status": "PASS via native shape.export at scale 0.125; external exporter HTTP 504 was not blindly retried",
+      "export_path": "evidence/recovery-20260828/penpot/ov42-event-card-container-packed-rows-full.png",
+      "export_sha256": "51f3d49a79cfeab8f9659537035927cd3f8932facae33c2b1c4759a814bcc0f2"
+    }
+  },
+  "closure": {
+    "processed": false,
+    "owner_rereview_required": true,
+    "remaining": [
+      "owner re-review"
+    ]
+  }
+}
