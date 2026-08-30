@@ -1,0 +1,29 @@
+{
+  "schema": "kenigevents.penpot-font-target-probe-receipt-contract.g14.v1",
+  "receipt_schema": "kenigevents.penpot-font-target-probe-receipt.g14.v1",
+  "receipt_schema_path": "contracts/penpot-executor/penpot-font-target-probe-receipt.g14.schema.json",
+  "status": "REQUIRES_LIVE_W3_ZERO_MUTATION_PROBE_AFTER_TEAM_FONT_UPLOAD",
+  "generation_minimum": 14,
+  "family": "DejaVu Sans",
+  "required_variants": [
+    {
+      "role": "regular",
+      "fontWeight": 400,
+      "required_native_fields": ["name", "fontId", "fontFamily", "fontWeight", "fontVariantId"]
+    },
+    {
+      "role": "bold",
+      "fontWeight": 700,
+      "required_native_fields": ["name", "fontId", "fontFamily", "fontWeight", "fontVariantId"]
+    }
+  ],
+  "binding_rules": [
+    "receipt generation file_id and page_id must equal the W0-issued batch capsule",
+    "receipt font_source_binding_sha256 must equal the immutable source binding",
+    "receipt fontId and fontVariantId must match the live ordinary-Penpot font context",
+    "the Font owning the accepted variant must expose applyToText",
+    "missing stale substituted or mismatched bindings fail before mutation"
+  ],
+  "live_font_ids_embedded": false,
+  "penpot_mutation_performed": false
+}

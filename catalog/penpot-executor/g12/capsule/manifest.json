@@ -1,14 +1,14 @@
 {
   "schema": "kenigevents.penpot-visual-executor-manifest.g12.v1",
   "semantic_identity": "kenigevents.free-collection.ordinary-penpot-visual-executor",
-  "revision": "g12-current-a-batched-v1",
+  "revision": "g14-exact-native-font-binding-v1",
   "run_agnostic": true,
   "executor": {
     "path": "catalog/penpot-executor/g12/capsule/penpot-visual-executor.g12.js",
-    "raw_sha256": "cd5a255c5b21ae14cf63d464ea01fef8de18f0857f3010eb46d317a25ac0091c",
-    "content_sha256": "cd5a255c5b21ae14cf63d464ea01fef8de18f0857f3010eb46d317a25ac0091c"
+    "raw_sha256": "4ba08c112b2be15fc6799d91cae17b6ff33cd8f1594d5f2ca838d22669bae4a2",
+    "content_sha256": "4ba08c112b2be15fc6799d91cae17b6ff33cd8f1594d5f2ca838d22669bae4a2"
   },
-  "payload_sha256": "a3f617114875712092f4d3ae89f6a5ef5d6ee70c179d3fd23dbced4667821449",
+  "payload_sha256": "4e07e1ccc60f803006b5b3afaea6a6d23cef3483e955cea62091bdb4045141d7",
   "astro_evidence": {
     "schema": "kenigevents.astro-current-a-evidence-binding.g12.v1",
     "repository": "onedayonemasterpiece/events-bot-new",
@@ -65,7 +65,7 @@
   },
   "expectations": {
     "path": "catalog/penpot-executor/g12/independent-expectations.json",
-    "sha256": "1bbfe62b0dfc8e0d0ddd78a1b2b2b84586fc3e7047b5268b5bc207190e40b4e1",
+    "sha256": "0665e55fd069375306cf13a8bbe18ce6bdb80c5303d7ef069fc264671960980d",
     "independent_generator": "scripts/round-trip-reconstruction/build-penpot-visual-executor-g12-expectations.mjs"
   },
   "supported": {
@@ -106,6 +106,18 @@
       "mobile-wide-calendar",
       "mobile-packed-calendar-absent"
     ]
+  },
+  "font_binding": {
+    "source_path": "catalog/penpot-executor/g14/font-source-binding.json",
+    "source_content_sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226",
+    "family": "DejaVu Sans",
+    "required_weights": [
+      400,
+      700
+    ],
+    "probe_receipt_schema": "kenigevents.penpot-font-target-probe-receipt.g14.v1",
+    "application": "Font.applyToText(text,variant)",
+    "family_only_fallback": false
   },
   "batch_model": {
     "ids": [
@@ -158,9 +170,10 @@
     ]
   },
   "supersedes": {
-    "generation": 12,
-    "commit": "150de4ddcfcae6965a7960174e6b084ce265bcc3",
-    "candidate_comment_id": 5471593038
+    "generation": 13,
+    "commit": "6b98dae79af6302c5c86b19f44b9f2bfff8e6897",
+    "candidate_comment_id": 5471823464,
+    "review_comment_id": 5471857463
   },
   "deterministic": true,
   "penpot_mutation_performed": false

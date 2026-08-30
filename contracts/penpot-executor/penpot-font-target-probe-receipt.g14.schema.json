@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"kenigevents.penpot-font-target-probe-receipt.g14.v1",
+  "type":"object",
+  "required":["schema","status","generation","file_id","page_id","observation_sha256","w0_acceptance_sha256","font_source_binding_sha256","font_binding"],
+  "properties":{
+    "schema":{"const":"kenigevents.penpot-font-target-probe-receipt.g14.v1"},
+    "status":{"const":"COMPATIBLE_API_FONT_TARGET"},
+    "generation":{"type":"integer","minimum":14},
+    "file_id":{"type":"string","minLength":1},"page_id":{"type":"string","minLength":1},
+    "observation_sha256":{"$ref":"#/$defs/sha256"},"w0_acceptance_sha256":{"$ref":"#/$defs/sha256"},"font_source_binding_sha256":{"$ref":"#/$defs/sha256"},
+    "font_binding":{"type":"object","required":["family","regular","bold"],"properties":{"family":{"const":"DejaVu Sans"},"regular":{"$ref":"#/$defs/regular"},"bold":{"$ref":"#/$defs/bold"}},"additionalProperties":false}
+  },
+  "additionalProperties":false,
+  "$defs":{"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"variant":{"type":"object","required":["fontId","fontVariantId","fontFamily","fontWeight","native_name"],"properties":{"fontId":{"type":"string","minLength":1},"fontVariantId":{"type":"string","minLength":1},"fontFamily":{"const":"DejaVu Sans"},"fontWeight":{"type":"integer"},"native_name":{"type":"string","minLength":1}},"additionalProperties":false},"regular":{"allOf":[{"$ref":"#/$defs/variant"},{"properties":{"fontWeight":{"const":400}}}]},"bold":{"allOf":[{"$ref":"#/$defs/variant"},{"properties":{"fontWeight":{"const":700}}}]}}
+}
