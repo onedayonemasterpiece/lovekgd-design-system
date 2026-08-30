@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.w0-penpot-batch-mutation-ticket.g12.v1","type":"object","additionalProperties":false,
+  "required":["schema","owner","generation","run_id","file_id","page_id","batch_id","operation","nonce","expires_at","cancelled","body_sha256","w0_attestation"],
+  "properties":{"schema":{"const":"kenigevents.w0-penpot-batch-mutation-ticket.g12.v1"},"owner":{"const":"W3"},"generation":{"type":"integer","minimum":13},"run_id":{"type":"string"},"file_id":{"type":"string"},"page_id":{"type":"string"},"batch_id":{"type":"string"},"operation":{"type":"string"},"nonce":{"type":"string","minLength":8},"expires_at":{"type":"string","format":"date-time"},"cancelled":{"const":false},"body_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"w0_attestation":{"type":"string","pattern":"^W0-ATTESTED:"}}
+}

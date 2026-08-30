@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.penpot-batch-checkpoint-receipt.g12.v1","type":"object",
+  "required":["schema","executor_payload_sha256","batch_id","run","input_hashes","pre_write_checks","consumed_tickets","created","reused","lineage","completed_mutations","rolled_back","unreverted","terminal_state"],
+  "properties":{"schema":{"const":"kenigevents.penpot-batch-checkpoint-receipt.g12.v1"},"executor_payload_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"batch_id":{"type":"string"},"run":{"type":"object"},"input_hashes":{"type":"array"},"pre_write_checks":{"type":"array"},"consumed_tickets":{"type":"array"},"created":{"type":"array"},"reused":{"type":"array"},"lineage":{"type":"array"},"completed_mutations":{"type":"array"},"rolled_back":{"type":"array"},"unreverted":{"type":"array"},"terminal_state":{"enum":["SUCCEEDED","SUCCEEDED_IDEMPOTENT_REUSE","FAILED_ROLLED_BACK","FAILED_PARTIAL_STATE"]},"checkpoint":{"type":"object"},"failure":{"type":"object"}},"additionalProperties":false
+}

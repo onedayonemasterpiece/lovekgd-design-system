@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.penpot-reversible-image-canary-receipt.g12.v1","type":"object","additionalProperties":false,
+  "required":["schema","status","generation","run_id","file_id","page_id","primitive","created_id","readback","rollback","w0_acceptance_sha256"],
+  "properties":{"schema":{"const":"kenigevents.penpot-reversible-image-canary-receipt.g12.v1"},"status":{"enum":["PASS","FAIL","FAILED_PARTIAL_STATE"]},"generation":{"type":"integer","minimum":13},"run_id":{"type":"string"},"file_id":{"type":"string"},"page_id":{"type":"string"},"primitive":{"const":"penpot.createShapeFromSvgWithImages"},"created_id":{"type":"string"},"readback":{"type":"object"},"rollback":{"type":"object"},"w0_acceptance_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}}
+}
