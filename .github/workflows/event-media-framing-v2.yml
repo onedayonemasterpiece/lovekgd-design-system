@@ -1,0 +1,24 @@
+name: Validate Event Media Framing v2
+on:
+  pull_request:
+    paths:
+      - 'catalog/normalization/event-media/framing-v2.json'
+      - 'contracts/normalization/event-media-framing-v2.schema.json'
+      - 'scripts/validate-event-media-framing-v2.py'
+      - 'tests/event-media-framing-v2-negative.py'
+      - '.github/workflows/event-media-framing-v2.yml'
+  push:
+    paths:
+      - 'catalog/normalization/event-media/framing-v2.json'
+      - 'contracts/normalization/event-media-framing-v2.schema.json'
+      - 'scripts/validate-event-media-framing-v2.py'
+      - 'tests/event-media-framing-v2-negative.py'
+      - '.github/workflows/event-media-framing-v2.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install jsonschema
+      - run: python3 scripts/validate-event-media-framing-v2.py --root .
+      - run: python3 tests/event-media-framing-v2-negative.py
