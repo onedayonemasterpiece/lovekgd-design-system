@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.penpot-visual-executor-manifest.g10.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "generation", "artifact", "supported", "primitive_surface", "forbidden_runtime_surface", "inputs", "embedded_media", "control", "accepted_bundle", "supersedes", "manifest_content_sha256"],
+  "properties": {
+    "schema": { "const": "kenigevents.penpot-visual-executor-manifest.v1" },
+    "generation": { "const": 10 },
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "raw_sha256", "content_sha256", "bytes"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "raw_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "content_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "bytes": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "supported": { "type": "object", "required": ["levels", "case_ids", "group_ids", "fixture_ids"] },
+    "primitive_surface": { "type": "object", "required": ["penpot", "penpotUtils"] },
+    "forbidden_runtime_surface": { "type": "array", "minItems": 1 },
+    "inputs": { "type": "array", "minItems": 1 },
+    "embedded_media": { "type": "array", "minItems": 5 },
+    "control": { "type": "object", "required": ["comment_id", "body_sha256", "review_comment_id", "review_body_sha256"] },
+    "accepted_bundle": { "type": "object", "required": ["id", "source_state", "authorization", "bundle_sha256"] },
+    "supersedes": { "type": "object", "required": ["g9_commit", "g9_tree", "marker_comment_id"] },
+    "manifest_content_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.ordinary-penpot-runtime-binding.g10.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "generation", "state", "body_sha256", "branch", "run_id", "lease", "cancellation", "accepted_bundles", "target"],
+  "properties": {
+    "schema": { "const": "KENIGEVENTS_ASP_EXECUTION_CONTROL_V2" },
+    "generation": { "const": 10 },
+    "state": { "const": "ACTIVE" },
+    "body_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "branch": { "const": "w2-penpot-visual-executor-g10" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "lease": {
+      "type": "object", "additionalProperties": true,
+      "required": ["owner", "scope", "binding_id"],
+      "properties": {
+        "owner": { "const": "W2" },
+        "scope": { "const": "ordinary-penpot-visual-phase-b-executor-g10" },
+        "binding_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "cancellation": { "type": "object", "required": ["cancelled"], "properties": { "cancelled": { "const": false } } },
+    "accepted_bundles": { "type": "object", "required": ["eventcard-free-slice.g4.ready-v1"] },
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["file_id", "page_id"],
+      "properties": { "file_id": { "type": "string", "format": "uuid" }, "page_id": { "type": "string", "format": "uuid" } }
+    }
+  }
+}

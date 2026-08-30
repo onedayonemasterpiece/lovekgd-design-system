@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.penpot-visual-executor-receipt.g10.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "generation", "run_id", "lease_identity", "capsule", "control", "accepted_bundle", "input_hashes", "adapter", "pre_write_checks", "operations", "created", "reused", "replaced", "case_roots", "group_roots", "component_lineage", "completed_mutations", "rolled_back_mutations", "unreverted_mutations", "terminal_state"],
+  "properties": {
+    "schema": { "const": "kenigevents.penpot-visual-executor-receipt.v1" },
+    "generation": { "const": 10 },
+    "run_id": { "type": ["string", "null"] },
+    "terminal_state": { "enum": ["PREFLIGHT", "COMPLETED", "FAILED_ROLLED_BACK", "FAILED_PARTIAL_STATE"] },
+    "pre_write_checks": { "type": "array", "items": { "type": "object", "required": ["operation", "generation", "cancelled", "lease_run_id", "sequence"] } },
+    "component_lineage": { "type": "array", "items": { "type": "object", "required": ["instance_id", "component_id", "semantic_key", "linked"] } },
+    "unreverted_mutations": { "type": "array" }
+  }
+}
