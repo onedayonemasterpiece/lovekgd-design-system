@@ -1,0 +1,156 @@
+schema_version: kenigevents.ui-asset-registry.v1
+registry_id: kenigevents.ui-assets.v1
+registry_version: 1.0.0
+status: ACTIVE_FAIL_CLOSED
+updated_at: '2026-08-30'
+
+requirements_contract:
+  id: kenigevents.asp-conformance
+  version: 1.1.0
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: docs/product-governance/astro-sot-penpot-conformance.md
+  commit: f134001382f547cebe8b025da24065128b174ffb
+  git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
+  sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
+
+ownership:
+  normative_registry_repository: onedayonemasterpiece/lovekgd-design-system
+  physical_asset_bytes_may_be_external: true
+  external_bytes_must_be_content_addressed: true
+  approved_binding_required_for_every_visible_graphical_slot: true
+
+binding_contract:
+  required_fields:
+    - asset_id
+    - semantic_slot
+    - authoritative_repository
+    - source_commit
+    - source_path
+    - git_blob_sha1
+    - sha256
+    - media_type
+    - view_box_or_intrinsic_size
+    - nominal_box
+    - fill_stroke_contract
+    - astro_consumer
+    - penpot_consumer
+    - provenance
+    - licence_or_reuse_status
+    - owner_disposition
+  exact_bytes_or_deterministic_conversion_required: true
+  fallback_policy: forbidden
+  forbidden_substitutions:
+    - emoji
+    - unicode_glyph
+    - penpot_builtin_icon
+    - generic_icon_library
+    - manually_redrawn_similar_icon
+    - placeholder_svg
+    - semantic_search_candidate_without_approval
+  unresolved_binding_result: BLOCKED_UNRESOLVED_ASSET_IDENTITY
+  mutate_accepted_penpot_frame_when_unresolved: false
+
+coverage:
+  current_bounded_profile: free-collection.owner-review.v1
+  incident_date: '2026-08-30'
+  required_slots:
+    - icon.action.not_interested
+    - icon.action.calendar_add
+    - icon.action.share
+    - icon.action.favorite
+  coverage_status: unresolved-blocking
+  note: >
+    The registry intentionally does not guess paths or hashes. Exact assets
+    actually consumed by the pinned Astro scenario must be read back before
+    Penpot materialization resumes.
+
+assets:
+  icon.action.not_interested:
+    asset_id: icon.action.not_interested
+    semantic_slot: card.utility.not_interested
+    status: UNRESOLVED_BLOCKING
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
+    source_path: null
+    git_blob_sha1: null
+    sha256: null
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: null
+    nominal_box: null
+    fill_stroke_contract: null
+    astro_consumer: null
+    penpot_consumer: free-collection.event-card.not_interested
+    provenance: unresolved-needs-astro-source-readback
+    licence_or_reuse_status: unresolved
+    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+
+  icon.action.calendar_add:
+    asset_id: icon.action.calendar_add
+    semantic_slot: card.primary_action.calendar_add
+    status: UNRESOLVED_BLOCKING
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
+    source_path: null
+    git_blob_sha1: null
+    sha256: null
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: null
+    nominal_box: null
+    fill_stroke_contract: null
+    astro_consumer: null
+    penpot_consumer: free-collection.event-card.calendar_add
+    provenance: unresolved-needs-astro-source-readback
+    licence_or_reuse_status: unresolved
+    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+
+  icon.action.share:
+    asset_id: icon.action.share
+    semantic_slot: card.social.share
+    status: UNRESOLVED_BLOCKING
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
+    source_path: null
+    git_blob_sha1: null
+    sha256: null
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: null
+    nominal_box: null
+    fill_stroke_contract: null
+    astro_consumer: null
+    penpot_consumer: free-collection.event-card.share
+    provenance: unresolved-needs-astro-source-readback
+    licence_or_reuse_status: unresolved
+    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+
+  icon.action.favorite:
+    asset_id: icon.action.favorite
+    semantic_slot: card.social.favorite
+    status: UNRESOLVED_BLOCKING
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
+    source_path: null
+    git_blob_sha1: null
+    sha256: null
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: null
+    nominal_box: null
+    fill_stroke_contract: null
+    astro_consumer: null
+    penpot_consumer: free-collection.event-card.favorite
+    provenance: unresolved-needs-astro-source-readback
+    licence_or_reuse_status: unresolved
+    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+
+incident:
+  id: free-collection-penpot-visual-drift-2026-08-30
+  owner_review_state: REJECTED
+  observed:
+    - generic_or_wrong_icons
+    - icon_language_differs_from_astro_and_prior_design_system
+    - graphical_asset_identity_not_proven
+  attribution:
+    executor_identity_known: false
+    rule: Do not attribute continued mutations to Codex or another actor without a provenance receipt.
+  consequence:
+    materialization_allowed: false
+    current_penpot_frame_reviewable: false
