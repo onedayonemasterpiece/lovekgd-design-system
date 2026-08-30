@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lovekgd.dev/schemas/ui-reference-event-corpus.v1.schema.json",
+  "title": "Immutable UI reference event corpus v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corpus_id", "version", "immutable", "reference_clock", "source", "fixtures", "assets_manifest_path", "surface_expectations_path", "corpus_sha256"],
+  "properties": {
+    "schema_version": {"const": "ui-reference-event-corpus.v1"},
+    "corpus_id": {"pattern": "^ui-reference-events\\.v[0-9]+$"},
+    "version": {"pattern": "^v[0-9]+$"},
+    "immutable": {"const": true},
+    "reference_clock": {
+      "type": "object", "additionalProperties": false,
+      "required": ["current_date", "reference_iso", "timezone"],
+      "properties": {
+        "current_date": {"type": "string", "format": "date"},
+        "reference_iso": {"type": "string", "format": "date-time"},
+        "timezone": {"const": "Europe/Kaliningrad"}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "repository_sha", "static_build_id", "database_snapshot_fingerprint", "preview_export_sha256", "preview_contract"],
+      "properties": {
+        "repository": {"const": "onedayonemasterpiece/events-bot-new"},
+        "repository_sha": {"$ref": "#/$defs/gitSha"},
+        "static_build_id": {"type": "string", "minLength": 1},
+        "database_snapshot_fingerprint": {"$ref": "#/$defs/sha256"},
+        "preview_export_sha256": {"$ref": "#/$defs/sha256"},
+        "preview_contract": {"const": "PreviewEvent"}
+      }
+    },
+    "fixtures": {
+      "type": "array", "minItems": 8, "maxItems": 12, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["schema_version", "fixture_id", "event_id", "source_prod_id", "slug", "source_repository_sha", "source_static_build_id", "source_database_snapshot_fingerprint", "extracted_at", "preview_event_sha256", "payload_path", "coverage_tags"],
+        "properties": {
+          "schema_version": {"const": "ui-reference-event.v1"},
+          "fixture_id": {"pattern": "^event\\.real\\.[0-9]+$"},
+          "event_id": {"type": "integer", "minimum": 1},
+          "preview_event_sha256": {"$ref": "#/$defs/sha256"},
+          "source_repository_sha": {"$ref": "#/$defs/gitSha"},
+          "source_database_snapshot_fingerprint": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "assets_manifest_path": {"const": "assets-manifest.json"},
+    "surface_expectations_path": {"const": "surface-expectations.json"},
+    "corpus_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "gitSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+  }
+}
