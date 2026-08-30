@@ -21,6 +21,6 @@ test('generation-4 page candidate requires a validated target and never writes w
     reuseMapPath: input,
     adapter: { lookup: async () => null, write: async () => { writes += 1; } },
   });
-  assert.equal(receipt.preflight.code, 'BUNDLE_CONTROL_MISMATCH');
+  assert.equal(receipt.preflight.code, 'TARGET_MANIFEST_MISSING');
   assert.equal(writes, 0);
 });

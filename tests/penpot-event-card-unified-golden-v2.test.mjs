@@ -21,6 +21,6 @@ test('generation-4 EventCard candidate requires a validated target and never wri
     reuseMapPath: input,
     adapter: { lookup: async () => null, write: async () => { writes += 1; } },
   });
-  assert.equal(receipt.preflight.code, 'BUNDLE_CONTROL_MISMATCH');
+  assert.equal(receipt.preflight.code, 'TARGET_MANIFEST_MISSING');
   assert.equal(writes, 0);
 });
