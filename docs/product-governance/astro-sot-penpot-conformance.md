@@ -2,7 +2,7 @@
 
 **Contract ID:** `kenigevents.asp-conformance`
 
-**Version:** `1.0.0`
+**Version:** `1.1.0`
 
 **Status:** `ACTIVE`
 
@@ -38,7 +38,7 @@ handoffs, receipts, agent plans, or individual Penpot pages.
 The equality is a conformance relation, not an instruction to make unrelated
 rendering engines produce byte-identical rasterization.
 
-A case conforms only when all four layers below pass.
+A case conforms only when all layers below pass.
 
 ### 2.1 Factual equality — zero tolerance
 
@@ -86,7 +86,7 @@ Astro and Penpot:
 - media frame, crop, and focal result;
 - text, line breaks, hierarchy, and legibility;
 - spacing, sizing, alignment, radii, borders, and surfaces;
-- action geometry and state;
+- exact icon language and action geometry;
 - social-proof values;
 - shell and responsive navigation.
 
@@ -97,6 +97,99 @@ replace visual inspection or factual/semantic/component gates.
 Renderer antialiasing alone is not a product defect when source content,
 line breaks, geometry, crop, and native-scale appearance conform. Conversely,
 a low global error score cannot excuse a visible product defect.
+
+### 2.5 Asset identity — fail closed
+
+UI SoT MUST own the immutable identity and exact consumer binding for every
+visible icon, logo, illustration, image treatment, and other graphical asset.
+
+Physical bytes MAY live in the normative design-system repository or in a
+declared authoritative consumer repository. Co-location is optional;
+content-addressed ownership is mandatory.
+
+Every accepted asset binding MUST contain:
+
+- stable `asset_id` and semantic slot;
+- authoritative repository and repository-relative path;
+- immutable Git commit plus `git_blob_sha1` and/or content `sha256`;
+- media type;
+- SVG `viewBox` or raster intrinsic dimensions;
+- nominal icon box and alignment rules;
+- fill/stroke/`currentColor` behaviour;
+- permitted states and variants;
+- Astro component or selector that consumes it;
+- Penpot component/property that consumes the same identity;
+- provenance, licence/reuse status, and owner review disposition.
+
+Penpot materialization MUST consume the exact bytes or a deterministic vector
+conversion of those exact bytes. It MUST NOT substitute:
+
+- emoji or Unicode glyphs;
+- built-in Penpot icons;
+- generic icon-library equivalents;
+- a manually redrawn “similar” icon;
+- placeholder SVG;
+- an asset found by semantic search without an approved immutable binding;
+- any fallback when a required binding is absent or its hash differs.
+
+A missing, unresolved, stale, or hash-mismatched asset binding MUST abort the
+affected materialization before any accepted Penpot frame is mutated. The
+required status is `BLOCKED_UNRESOLVED_ASSET_IDENTITY`, never a visual fallback.
+
+### 2.6 Geometry identity — fail closed
+
+UI SoT MUST own exact geometry for each resolved component/state, not only
+token names or qualitative descriptions.
+
+For every review-critical region the profile or referenced geometry contract
+MUST bind the validated Astro source and record:
+
+- component/source path and immutable commit;
+- selector or stable component/state identity;
+- viewport, DPR, font set, locale, fixture, and clock;
+- computed width and height;
+- all four corner radii;
+- border width/style, clipping, overflow, and masks;
+- padding, gap, alignment, inset, and icon box;
+- aspect ratio, crop/focal mode, pill/circle rules, and action-row geometry;
+- semantic token name when one exists, plus its resolved numeric value.
+
+Tokens are acceptable only when they deterministically resolve to the measured
+value at the pinned source commit. “Looks close”, inherited defaults,
+freehand reconstruction, and geometry copied from memory are prohibited.
+
+An unresolved or mismatched critical geometry field MUST block materialization
+with `BLOCKED_UNRESOLVED_GEOMETRY`. A frame with generic radii, wrong pill
+shapes, wrong clipping, or approximate action geometry is not reviewable.
+
+### 2.7 Materialization provenance and run control — fail closed
+
+Every Penpot mutation run MUST emit a machine-readable receipt containing:
+
+- `run_id`, `actor_type`, `actor_id`, and `triggered_by`;
+- Astro repository, commit, route, scenario, viewport, and capture identity;
+- UI SoT repository, commit, contract/profile/asset-registry paths and hashes;
+- materializer name, version, and commit;
+- `started_at`, `completed_at`, and final run state;
+- Penpot file/page/frame IDs;
+- mutation count and mutated object IDs;
+- asset-binding digest and geometry-proof digest;
+- validation result, errors, and owner-review state.
+
+Without this receipt the resulting frame is non-accepted evidence.
+
+Run states are `ACTIVE`, `CANCEL_REQUESTED`, `CANCELLED`, `COMPLETED`,
+`FAILED`, or `STALE`.
+
+An owner stop/cancel MUST prevent every later mutation from that run. Queued
+writes MUST re-check the active `run_id` lease immediately before mutation.
+Any mutation after cancellation is invalid, MUST be recorded as an incident,
+and MUST NOT be promoted or presented for owner review. Continuing work
+requires a new explicit run and a new receipt.
+
+The identity of the executor or agent MUST come from the receipt. Continued
+mutation alone is not evidence that a particular agent, Codex task, or user
+performed it.
 
 ## 3. Authority mode
 
@@ -135,7 +228,9 @@ The following are not terminal product results:
 - tool session unavailable;
 - old agent task could not be resumed;
 - evidence or receipts created while the page remains unreviewable;
-- `PASS_WITH_*` for a known product-visible defect.
+- `PASS_WITH_*` for a known product-visible defect;
+- a frame containing unresolved/fallback assets or approximate geometry;
+- a frame produced by an unreceipted, cancelled, or stale run.
 
 Tool failures are routing problems. They become product blockers only after
 reasonable alternative execution paths have been tested and the remaining
@@ -152,14 +247,19 @@ All applicable gates MUST pass:
 5. `screenshot_visual_roots = 0`.
 6. `route_local_visual_masters = 0`.
 7. No stale nested fixture/scenario/component lineage exists in accepted roots.
-8. `penpot.validate() = []`.
-9. Fresh native Penpot export exists.
-10. Fresh deterministic Astro capture exists.
-11. Side-by-side, overlay, diff, and region inspection are complete.
-12. Required tests pass.
-13. Changes are committed, pushed, and verified by remote readback.
-14. Receipt pins the contract version and SHA used for acceptance.
-15. No known product-visible blocker remains.
+8. Every visible graphical slot resolves to an approved immutable asset binding.
+9. Every critical geometry field has pinned Astro computed-style/source proof.
+10. No fallback icon, substitute glyph, generic radius, or freehand geometry exists.
+11. The mutation run is receipted, current, and not cancelled or stale.
+12. `penpot.validate() = []`.
+13. Fresh native Penpot export exists.
+14. Fresh deterministic Astro capture exists.
+15. Side-by-side, overlay, diff, and region inspection are complete.
+16. Required tests pass.
+17. Changes are committed, pushed, and verified by remote readback.
+18. Receipt pins the contract version and SHA used for acceptance.
+19. No known product-visible blocker remains.
+20. Owner has not rejected the current frame.
 
 ## 6. Freedom of implementation
 
@@ -264,7 +364,7 @@ SHOULD carry the same lock:
 ```yaml
 requirements_contract:
   id: kenigevents.asp-conformance
-  version: 1.0.0
+  version: 1.1.0
   repository: onedayonemasterpiece/lovekgd-design-system
   path: docs/product-governance/astro-sot-penpot-conformance.md
   commit: required_full_git_commit_sha
@@ -290,6 +390,8 @@ Its canonical supporting artifacts are:
 
 - `contracts/page-profiles/free-collection.owner-review.v1.yaml` — the first
   bounded page profile;
+- `contracts/assets/ui-asset-registry.v1.yaml` — centralized content-addressed
+  graphical-asset identities and consumer bindings;
 - `docs/product-governance/requirements-drift-retrospective-20260830.md` — the
   decision record and retrospective;
 - repository-local routing pointers and immutable locks — references only, not
@@ -301,6 +403,18 @@ plugin data and future closure receipts MUST pin this active contract before
 acceptance of the affected surface.
 
 ## 12. Changelog
+
+### 1.1.0 — 2026-08-30
+
+- Owner review exposed generic/substituted icons and geometry drift on the
+  mobile free-events frame.
+- Makes graphical asset identity content-addressed and fail-closed.
+- Makes computed geometry, including all corner radii and icon boxes, an
+  explicit fail-closed SoT responsibility.
+- Requires materialization provenance receipts and enforceable stop/cancel
+  semantics.
+- Rejects fallback icons, approximate geometry, and unreceipted or post-cancel
+  mutations as owner-review evidence.
 
 ### 1.0.0 — 2026-08-30
 
