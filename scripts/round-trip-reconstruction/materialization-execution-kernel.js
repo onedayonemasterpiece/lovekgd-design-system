@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const { loadResolvedCaseIndex } = require('./resolved-case-loader.js');
 
 const SCHEMAS = {
   bundle: 'kenigevents.immutable-materialization-bundle.v1',
@@ -109,12 +110,16 @@ function loadCanonicalInputs(options) {
   const reuseMap = reuseFile.value;
 
   assertPreflight(bundle.schema === SCHEMAS.bundle, 'BUNDLE_SCHEMA_INVALID', 'bundle schema');
-  assertPreflight(bundle.promotion_state === 'PROMOTABLE', 'BUNDLE_NOT_PROMOTABLE', 'draft bundle is non-promotable');
+  assertPreflight(['PROMOTABLE', 'CANDIDATE_NON_PROMOTED'].includes(bundle.promotion_state), 'BUNDLE_NOT_PROMOTABLE', 'bundle state is invalid');
   assertPreflight(bundle.control_generation !== UNRESOLVED && bundle.control_generation === control.generation, 'BUNDLE_CONTROL_MISMATCH', 'control generation');
   assertPreflight(!UUID_RE.test(JSON.stringify(bundle)), 'BUNDLE_UUID_FORBIDDEN', 'bundle UUID identity');
   assertPreflight(Array.isArray(bundle.materialization_scopes) && bundle.materialization_scopes.length > 0, 'MATERIALIZATION_SCOPES_MISSING', 'scopes');
   const semanticIds = bundle.materialization_scopes.map((scope) => scope.semantic_id);
   assertPreflight(new Set(semanticIds).size === semanticIds.length, 'DUPLICATE_SEMANTIC_SCOPE', 'duplicate scope');
+  for (const scope of bundle.materialization_scopes) {
+    const caseId = String(scope.source_ref || '').replace(/^resolved-case:/u, '');
+    assertPreflight(scope.source_ref?.startsWith('resolved-case:') && bundle.required_case_ids?.includes(caseId), 'MATERIALIZATION_SCOPE_NOT_RESOLVED_CASE', scope.semantic_id);
+  }
 
   assertPreflight(target.schema === SCHEMAS.target, 'TARGET_MANIFEST_MISSING', 'target schema');
   assertPreflight(target.file_scope?.semantic_id && target.file_scope?.locator, 'TARGET_FILE_SCOPE_MISSING', 'file scope');
@@ -141,16 +146,26 @@ function loadCanonicalInputs(options) {
 
   const sources = bundle.source_bindings.map((binding) => validateSource(root, binding, target.expected_source_hashes || {}));
   const byRole = Object.fromEntries(sources.map((source) => [source.role, source]));
-  const groups = byRole.fixture_projection?.document?.expected_groups;
-  assertPreflight(groups && Array.isArray(groups.events) && Array.isArray(groups.exhibitions), 'FIXTURE_GROUPS_INVALID', 'groups');
-  const order = [...groups.events, ...groups.exhibitions];
+  const indexBinding = bundle.source_bindings.find((binding) => binding.role === 'resolved_case_index');
+  assertPreflight(indexBinding && Array.isArray(bundle.required_case_ids), 'RESOLVED_CASE_BINDING_MISSING', 'resolved case index');
+  let resolvedCases;
+  try {
+    resolvedCases = loadResolvedCaseIndex(root, indexBinding.path, indexBinding.sha256, bundle.required_case_ids);
+  } catch (error) {
+    throw new PreflightError(error.code || 'RESOLVED_CASE_INVALID', error.message);
+  }
+  const pageAuthority = resolvedCases.index.cases.find((item) => item.case_id === 'free-collection.desktop.full');
+  assertPreflight(pageAuthority, 'FIXTURE_ORDER_AUTHORITY_MISSING', 'free-collection.desktop.full');
+  const pageCase = loadResolvedCaseIndex(root, indexBinding.path, indexBinding.sha256, [pageAuthority.case_id]).cases[pageAuthority.case_id];
+  const order = pageCase.payload.fixture_order;
   assertPreflight(order.length === 5 && new Set(order).size === 5, 'FIXTURE_ORDER_INVALID', 'five fixtures');
   if (bundle.bundle_kind === 'eventcard-free-slice') {
     assertPreflight(order[0] === 'event.real.8006', 'CANARY_FIXTURE_MISMATCH', '8006');
-    assertPreflight(bundle.structural_contexts?.length === 4, 'STRUCTURAL_CONTEXTS_INVALID', 'four contexts');
+    assertPreflight(bundle.required_case_ids.length === 4, 'STRUCTURAL_CONTEXTS_INVALID', 'four contexts');
   }
   if (bundle.bundle_kind === 'free-collection-page') {
-    assertPreflight(bundle.states?.desktop?.join() === 'top,scrolled,full' && bundle.states?.mobile?.join() === 'top,scrolled,full', 'PAGE_STATES_INVALID', 'states');
+    const expectedCases = ['free-collection.desktop.top', 'free-collection.desktop.scrolled', 'free-collection.desktop.full', 'free-collection.mobile.top', 'free-collection.mobile.scrolled', 'free-collection.mobile.full'];
+    assertPreflight(bundle.required_case_ids.join() === expectedCases.join(), 'PAGE_STATES_INVALID', 'resolved cases');
     assertPreflight(bundle.dependencies?.some((dependency) => dependency.bundle_kind === 'eventcard-free-slice'), 'BUNDLE_DEPENDENCY_MISSING', 'eventcard');
   }
 
@@ -169,7 +184,9 @@ function loadCanonicalInputs(options) {
       target_manifest: targetFile.sha256,
       control: controlFile.sha256,
       reuse_map: reuseFile.sha256,
+      resolved_case_index: indexBinding.sha256,
     },
+    resolvedCases,
   };
 }
 
@@ -257,6 +274,7 @@ async function executeMaterialization(rawOptions) {
   let plan;
   try {
     loaded = loadCanonicalInputs(options);
+    assertPreflight(options.mode !== 'production' || loaded.bundle.promotion_state === 'PROMOTABLE', 'BUNDLE_NOT_PROMOTABLE', 'candidate is not mutation-authorized');
     assertPreflight(options.mode !== 'production' || SHA256_RE.test(options.materializerSha256 || ''), 'MATERIALIZER_HASH_MISSING', 'materializer hash');
     plan = buildPlan(loaded);
     Object.assign(receipt, {

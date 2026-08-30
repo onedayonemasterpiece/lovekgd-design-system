@@ -1,77 +1,103 @@
 {
   "schema": "kenigevents.immutable-materialization-bundle.v1",
   "bundle_kind": "eventcard-free-slice",
-  "bundle_id": "eventcard-free-slice.UNRESOLVED_CONTROL_GENERATION.draft-v1",
-  "revision": "draft-v1",
-  "control_generation": "UNRESOLVED_CONTROL_GENERATION",
-  "promotion_state": "BLOCKED_UNRESOLVED_LIVE_INPUTS",
+  "bundle_id": "eventcard-free-slice.g3.candidate-v1",
+  "revision": "candidate-v1",
+  "control_generation": 3,
+  "promotion_state": "CANDIDATE_NON_PROMOTED",
   "non_promotable_reasons": [
-    "KENIGEVENTS_ASP_EXECUTION_CONTROL_V2 absent",
-    "ASP_OLD_PENPOT_REUSE_MAP_V1 absent",
-    "live registry hashes unresolved"
+    "page-profile-blocked-owner-rejected",
+    "asset-registry-active-fail-closed",
+    "no-Penpot-lease",
+    "W0-bundle-acceptance-pending"
   ],
   "source_bindings": [
+    {
+      "role": "resolved_case_index",
+      "path": "catalog/ui-conformance/free-collection/g3/resolved/resolved-cases.index.json",
+      "format": "json",
+      "sha256": "eed954647e584d762d6284b2067f8b5d881c8e2ff26f73ddbbbe469a6b90cfa7",
+      "required_json_pointers": [
+        "/schema",
+        "/cases",
+        "/content_sha256"
+      ]
+    },
     {
       "role": "component_contract",
       "path": "catalog/ui-components/event-card-large/component-contract.v2.json",
       "format": "json",
       "sha256": "72385737a289f43090dd8d388497f755141e78f56a14576e4221fb817ab526fb",
-      "required_json_pointers": ["/component_id", "/content_slots", "/semantic_children", "/penpot_materialization_ir_ref"]
-    },
-    {
-      "role": "fixture_corpus",
-      "path": "catalog/fixtures/ui-reference-events/v2/corpus.json",
-      "format": "json",
-      "sha256": "7578b63fcd8995b2ae957a047fd5e88ecdf40cba0b92b160f4145d43717096d5",
-      "required_json_pointers": ["/corpus_id", "/fixtures", "/assets_manifest_path"]
-    },
-    {
-      "role": "fixture_projection",
-      "path": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json",
-      "format": "json",
-      "sha256": "3170f8b1101a71924ba519ea6ce5bb86a2a454631bfee42e877a01a5e95c92ef",
-      "required_json_pointers": ["/expected_groups/events", "/expected_groups/exhibitions"]
-    },
-    {
-      "role": "fixture_assets",
-      "path": "catalog/fixtures/ui-reference-events/v2/assets-manifest.json",
-      "format": "json",
-      "sha256": "3346a24aa37e72d7bdbb16858ae222d10a2b58011e8e6fb6624aff8009cce9da",
-      "required_json_pointers": ["/assets", "/assets_manifest_sha256"]
-    },
-    {
-      "role": "geometry_registry",
-      "path": "catalog/ui-components/event-card-large/archetype-context-v1/penpot-materialization-ir.v2.json",
-      "format": "json",
-      "sha256": "UNRESOLVED_CONTROL_GENERATION",
-      "required_json_pointers": ["/component_id", "/contexts"]
+      "required_json_pointers": [
+        "/component_id",
+        "/semantic_children"
+      ]
     },
     {
       "role": "asset_registry",
       "path": "contracts/assets/ui-asset-registry.v1.yaml",
       "format": "yaml",
-      "sha256": "UNRESOLVED_CONTROL_GENERATION",
-      "required_tokens": ["event.action.share", "event.action.like", "event.action.not-interested", "event.action.calendar"]
+      "sha256": "03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc",
+      "required_tokens": [
+        "kenigevents.ui-assets.v1",
+        "ACTIVE_FAIL_CLOSED"
+      ]
+    },
+    {
+      "role": "page_profile",
+      "path": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+      "format": "yaml",
+      "sha256": "2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3",
+      "required_tokens": [
+        "free-collection.owner-review.v1",
+        "BLOCKED_OWNER_REJECTED"
+      ]
     }
   ],
-  "fixture_authority": {
-    "canary_ref": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json#/expected_groups/events/0",
-    "expected_fixture_identity": "event.real.8006"
-  },
-  "structural_contexts": [
-    {"semantic_id": "event.card/context.desktop-wide-calendar", "fixture_ref": "#/expected_groups/events/0", "geometry_ref": "#/contexts/desktop-wide-calendar"},
-    {"semantic_id": "event.card/context.desktop-packed-no-calendar", "fixture_ref": "#/expected_groups/exhibitions/0", "geometry_ref": "#/contexts/desktop-packed-no-calendar"},
-    {"semantic_id": "event.card/context.mobile-wide-calendar", "fixture_ref": "#/expected_groups/events/0", "geometry_ref": "#/contexts/mobile-wide-calendar"},
-    {"semantic_id": "event.card/context.mobile-packed-no-calendar", "fixture_ref": "#/expected_groups/exhibitions/0", "geometry_ref": "#/contexts/mobile-packed-no-calendar"}
+  "resolved_case_index_ref": "catalog/ui-conformance/free-collection/g3/resolved/resolved-cases.index.json",
+  "required_case_ids": [
+    "eventcard.desktop-wide-calendar.8006",
+    "eventcard.desktop-packed-calendar-absent.2182",
+    "eventcard.mobile-wide-calendar.8006",
+    "eventcard.mobile-packed-calendar-absent.2182"
   ],
   "materialization_scopes": [
-    {"semantic_id": "event.card/context.desktop-wide-calendar", "source_ref": "#/structural_contexts/0", "target_binding": "event.card"},
-    {"semantic_id": "event.card/context.desktop-packed-no-calendar", "source_ref": "#/structural_contexts/1", "target_binding": "event.card"},
-    {"semantic_id": "event.card/context.mobile-wide-calendar", "source_ref": "#/structural_contexts/2", "target_binding": "event.card"},
-    {"semantic_id": "event.card/context.mobile-packed-no-calendar", "source_ref": "#/structural_contexts/3", "target_binding": "event.card"}
+    {
+      "semantic_id": "event.card/eventcard.desktop-wide-calendar.8006",
+      "source_ref": "resolved-case:eventcard.desktop-wide-calendar.8006",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.desktop-packed-calendar-absent.2182",
+      "source_ref": "resolved-case:eventcard.desktop-packed-calendar-absent.2182",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.mobile-wide-calendar.8006",
+      "source_ref": "resolved-case:eventcard.mobile-wide-calendar.8006",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.mobile-packed-calendar-absent.2182",
+      "source_ref": "resolved-case:eventcard.mobile-packed-calendar-absent.2182",
+      "target_binding": "event.card"
+    }
   ],
-  "required_target_bindings": ["event.card", "event.media-frame", "event.action.share", "event.action.like", "event.action.not-interested", "event.action.calendar"],
-  "required_reuse_bindings": ["event.card", "event.media-frame"],
+  "required_target_bindings": [
+    "event.card",
+    "event.media-frame",
+    "event.action.share",
+    "event.action.like",
+    "event.action.not-interested",
+    "event.action.calendar"
+  ],
+  "required_reuse_bindings": [
+    "event.card",
+    "event.media-frame"
+  ],
   "target_manifest_ref": "external:kenigevents.materialization-target.v1",
-  "negative_test_refs": ["tests/materialization-execution-kernel.test.mjs"]
+  "negative_test_refs": [
+    "tests/resolved-render-case.test.mjs",
+    "tests/materialization-execution-kernel.test.mjs"
+  ]
 }
