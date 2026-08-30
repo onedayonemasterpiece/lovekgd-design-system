@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.penpot-visual-executor-receipt.v2",
+  "type":"object","required":["schema","executor","run","input_hashes","operations","pre_write_checks","consumed_tickets","created","reused","component_lineage","completed_mutations","rolled_back_mutations","unreverted_mutations","terminal_state"],
+  "properties":{"schema":{"const":"kenigevents.penpot-visual-executor-receipt.v2"},"terminal_state":{"enum":["PREFLIGHT","SUCCEEDED","SUCCEEDED_IDEMPOTENT_REUSE","FAILED_ROLLED_BACK","FAILED_PARTIAL_STATE"]},"operations":{"type":"array"},"pre_write_checks":{"type":"array"},"consumed_tickets":{"type":"array"},"created":{"type":"array"},"reused":{"type":"array"},"component_lineage":{"type":"array"},"completed_mutations":{"type":"array"},"rolled_back_mutations":{"type":"array"},"unreverted_mutations":{"type":"array"}}
+}

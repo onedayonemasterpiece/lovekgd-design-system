@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.penpot-native-compatibility-probe-receipt.v1",
+  "type":"object","additionalProperties":false,"required":["schema","status","file_id","page_id","strategy","observed","limitations","probed_at","w0_binding"],
+  "properties":{"schema":{"const":"kenigevents.penpot-native-compatibility-probe-receipt.v1"},"status":{"enum":["COMPATIBLE","INCOMPATIBLE"]},"file_id":{"type":"string","format":"uuid"},"page_id":{"type":"string","format":"uuid"},"strategy":{"const":"clipped-native-image-shape-v1"},"observed":{"type":"object","required":["fill_image_data_callable","board_clip_content","shape_resize","parent_xy"],"properties":{"fill_image_data_callable":{"const":true},"board_clip_content":{"const":true},"shape_resize":{"const":true},"parent_xy":{"const":true}}},"limitations":{"type":"array","items":{"type":"string"}},"probed_at":{"type":"string","format":"date-time"},"w0_binding":{"type":"object","required":["key_id","body_sha256","signature"],"properties":{"key_id":{"type":"string"},"body_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"signature":{"type":"string","pattern":"^W0:.+"}}}}
+}

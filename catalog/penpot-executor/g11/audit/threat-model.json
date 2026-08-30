@@ -1,0 +1,8 @@
+{
+  "schema":"kenigevents.penpot-offline-ticket-threat-model.v1",
+  "trust_boundary":"ordinary Penpot code window receiving a W0-issued W3 capsule and bounded tickets out of band",
+  "guarantees":["owner/run/generation/file/page/executor tuple binding","ticket order and operation binding","short expiry","cancelled-ticket refusal","nonce replay refusal within a run","fresh ticket validation immediately before every write","separate rollback tickets and partial-state receipt"],
+  "limitations":["An offline Penpot-only window cannot observe a cancellation issued after the last ticket was minted.","The embedded SHA-256 binding detects stale or corrupted inputs but is not a substitute for a trusted W0 signature verifier against a malicious operator.","W0 must stop issuing tickets on cancellation, use short expiry, and verify the capsule/ticket signatures before delivery."],
+  "forbidden_claim":"A seeded local value is not treated as live cancellation authority.",
+  "penpot_mutation_performed":false
+}

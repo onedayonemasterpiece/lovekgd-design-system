@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"kenigevents.w0-penpot-mutation-ticket.v1",
+  "type":"object","additionalProperties":false,"required":["schema","owner","run_id","generation","file_id","page_id","sequence","operation","nonce","issued_at","expires_at","cancelled","body_sha256","w0_signature"],
+  "properties":{"schema":{"const":"kenigevents.w0-penpot-mutation-ticket.v1"},"owner":{"const":"W3"},"run_id":{"type":"string","minLength":1},"generation":{"type":"integer","minimum":1},"file_id":{"type":"string","format":"uuid"},"page_id":{"type":"string","format":"uuid"},"sequence":{"type":"integer","minimum":0},"operation":{"type":"string","minLength":1},"nonce":{"type":"string","minLength":16},"issued_at":{"type":"string","format":"date-time"},"expires_at":{"type":"string","format":"date-time"},"cancelled":{"type":"boolean"},"body_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"w0_signature":{"type":"string","pattern":"^W0:.+"}}
+}

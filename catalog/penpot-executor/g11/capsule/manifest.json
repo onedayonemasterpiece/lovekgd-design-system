@@ -1,0 +1,81 @@
+{
+  "schema": "kenigevents.penpot-visual-executor-manifest.v2",
+  "semantic_identity": "kenigevents.free-collection.ordinary-penpot-visual-executor",
+  "revision": "run-agnostic-v2",
+  "run_agnostic": true,
+  "executor": {
+    "path": "catalog/penpot-executor/g11/capsule/penpot-visual-executor.g11.js",
+    "raw_sha256": "76543b976e9e0931fd4c31fc771f1938e3e09e785844da13ec9a7ad19f93ebf3",
+    "content_sha256": "76543b976e9e0931fd4c31fc771f1938e3e09e785844da13ec9a7ad19f93ebf3"
+  },
+  "payload_sha256": "c689ac9a08472ab7cc912f202f81ba97e1eda35f0e3135e275a4a525e2e33572",
+  "expectations": {
+    "path": "catalog/penpot-executor/g11/exact-expectations.json",
+    "sha256": "fd315ccdfe33bf00f36f7a2557da6861dbd9118fe96095708e6ae525affb7e6e"
+  },
+  "supported_scope": {
+    "levels": [
+      "L0_ASSETS",
+      "L1_LEAVES",
+      "L2_EVENTCARD",
+      "L3_ROWS_AND_GROUPS"
+    ],
+    "case_ids": [
+      "eventcard.desktop-wide-calendar.8006",
+      "eventcard.desktop-packed-calendar-absent.2182",
+      "eventcard.mobile-wide-calendar.8006",
+      "eventcard.mobile-packed-calendar-absent.2182"
+    ],
+    "group_ids": [
+      "row.desktop.events",
+      "row.desktop.exhibitions",
+      "group.mobile.events",
+      "group.mobile.exhibitions"
+    ],
+    "asset_ids": [
+      "action-share",
+      "action-favorite-outline",
+      "action-not-interested",
+      "action-calendar-add",
+      "nav-afisha",
+      "nav-dates",
+      "nav-search",
+      "nav-personal",
+      "free-listing-medallion"
+    ],
+    "media_fixture_ids": [
+      "event.real.8006",
+      "event.real.8200",
+      "event.real.2182",
+      "event.real.6711",
+      "event.real.7609"
+    ]
+  },
+  "required_primitives": {
+    "penpot": [
+      "createBoard",
+      "createRectangle",
+      "createText",
+      "createShapeFromSvg",
+      "uploadMediaData",
+      "library.local.createComponent"
+    ],
+    "penpotUtils": [
+      "findShape",
+      "setParentXY"
+    ]
+  },
+  "authorization": {
+    "embedded_runtime_authority": false,
+    "required_capsule_schema": "contracts/penpot-executor/w0-issued-w3-run-capsule.v1.schema.json",
+    "required_ticket_schema": "contracts/penpot-executor/w0-penpot-mutation-ticket.v1.schema.json",
+    "required_probe_receipt_schema": "contracts/penpot-executor/penpot-native-compatibility-probe-receipt.v1.schema.json"
+  },
+  "supersedes": {
+    "generation": 10,
+    "commit": "fed36b2839336f38bfc459ce3ed1e681a46ad9e8",
+    "artifact_raw_sha256": "b5065b857b3218625897cf02adecb29a9bded4c214a0191f32fd9a6aed384ea7"
+  },
+  "deterministic": true,
+  "penpot_mutation_performed": false
+}
