@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.penpot-runtime-target-capsule.v1",
+  "type": "object",
+  "required": ["schema", "file_scope", "page_scope", "bindings", "replacement_scopes", "expected_source_hashes", "runtime_native_target"],
+  "properties": {
+    "schema": {"const": "kenigevents.materialization-target.v1"},
+    "file_scope": {"type": "object", "required": ["semantic_id", "locator"]},
+    "page_scope": {"type": "object", "required": ["semantic_id", "locator"]},
+    "bindings": {"type": "object"},
+    "replacement_scopes": {"type": "array"},
+    "expected_source_hashes": {"type": "object"},
+    "runtime_native_target": {
+      "type": "object",
+      "required": ["run_specific", "file_id", "page_id", "page_name"],
+      "properties": {
+        "run_specific": {"const": true},
+        "file_id": {"type": "string", "format": "uuid"},
+        "page_id": {"const": "c16498cb-b51d-8030-8008-904bd8fc9c53"},
+        "page_name": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

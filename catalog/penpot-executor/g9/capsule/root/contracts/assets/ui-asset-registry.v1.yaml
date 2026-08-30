@@ -1,0 +1,161 @@
+schema_version: kenigevents.ui-asset-registry.v1
+registry_id: kenigevents.ui-assets.v1
+registry_version: 1.1.0
+status: ACTIVE_BOUNDED_BINDINGS_RESOLVED
+updated_at: '2026-08-30'
+integrity:
+  normalization: lf-utf8-replace-integrity-sha256-with-64-zeroes
+  sha256: 14d2a429c83f5c079158336f3865c5eacda3e4503c43f1c7f708b656a636a6f9
+requirements_contract:
+  id: kenigevents.asp-conformance
+  version: 1.1.0
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: docs/product-governance/astro-sot-penpot-conformance.md
+  commit: f134001382f547cebe8b025da24065128b174ffb
+  git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
+  sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
+ownership:
+  normative_registry_repository: onedayonemasterpiece/lovekgd-design-system
+  physical_asset_bytes_may_be_external: true
+  external_bytes_must_be_content_addressed: true
+  approved_binding_required_for_every_visible_graphical_slot: true
+binding_contract:
+  exact_bytes_or_deterministic_conversion_required: true
+  fallback_policy: forbidden
+  forbidden_substitutions: [emoji, unicode_glyph, penpot_builtin_icon, generic_icon_library, manually_redrawn_similar_icon, placeholder_svg]
+  unresolved_binding_result: BLOCKED_UNRESOLVED_ASSET_IDENTITY
+  mutate_accepted_penpot_frame_when_unresolved: false
+coverage:
+  current_bounded_profile: free-collection.owner-review.v1
+  required_slots: [icon.action.not_interested, icon.action.calendar_add, icon.action.share, icon.action.favorite]
+  resolved_slots: [icon.action.not_interested, icon.action.calendar_add, icon.action.share, icon.action.favorite]
+  coverage_status: exact-bounded-bindings-resolved
+  scope_note: Other graphical slots are not asserted by this bounded registry revision.
+assets:
+  icon.action.not_interested:
+    asset_id: icon.action.not_interested
+    canonical_name: action-not-interested
+    semantic_slot: card.utility.not_interested
+    status: RESOLVED_EXACT
+    authoritative_repository: onedayonemasterpiece/lovekgd-design-system
+    source_commit: b15330085a57620cfca5813c182b7ffd1652870b
+    source_path: catalog/ui-assets/v1/icons/action-not-interested.svg
+    git_blob_sha1: 4c405436eae520e326e979c165ff92856750a7cc
+    raw_sha256: d8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6
+    content_sha256: d8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6
+    normalization: raw-bytes
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: '0 0 512 512'
+    intrinsic_size: null
+    nominal_box: '16px x 16px'
+    fill_stroke_contract: 'consumer .icon sets fill: currentColor; no stroke'
+    astro_consumer:
+      repository: onedayonemasterpiece/events-bot-new
+      commit: 64f75d10f7aff33fa616cee212878bd9d03673b1
+      component_path: site/src/components/EventCard.astro
+      icon_component_path: site/src/components/Icon.astro
+      binding: '<Icon name="dislike" />'
+      dom_selector: '[data-feedback-action="not_interested"]'
+    materializer_binding: 'resolved-case:assets.ui[icon.action.not_interested] -> event.action.not-interested'
+    provenance: 'exact Astro path bytes extracted into canonical UI asset catalog; donor commit and blob retained'
+    licence_or_reuse_status: repository-owned-existing-ui
+    owner_disposition: exact-byte-binding-closed; historical generic substitute remains rejected
+  icon.action.calendar_add:
+    asset_id: icon.action.calendar_add
+    canonical_name: action-calendar-add
+    semantic_slot: card.primary_action.calendar_add
+    status: RESOLVED_EXACT
+    authoritative_repository: onedayonemasterpiece/lovekgd-design-system
+    source_commit: b15330085a57620cfca5813c182b7ffd1652870b
+    source_path: catalog/ui-assets/v1/icons/action-calendar-add.svg
+    git_blob_sha1: 67b66c0cea4b9b7126548122760895e7e5d669bc
+    raw_sha256: f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633
+    content_sha256: f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633
+    normalization: raw-bytes
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: '0 0 32 32'
+    intrinsic_size: null
+    nominal_box: '20px x 20px'
+    fill_stroke_contract: 'consumer .icon sets fill: currentColor; no stroke'
+    astro_consumer:
+      repository: onedayonemasterpiece/events-bot-new
+      commit: 64f75d10f7aff33fa616cee212878bd9d03673b1
+      component_path: site/src/components/EventCard.astro
+      icon_component_path: site/src/components/Icon.astro
+      binding: '<Icon name="calendar" />'
+      dom_selector: '[data-calendar-action]'
+    materializer_binding: 'resolved-case:assets.ui[icon.action.calendar_add] -> event.action.calendar'
+    provenance: 'exact Astro path bytes extracted into canonical UI asset catalog; donor commit and blob retained'
+    licence_or_reuse_status: repository-owned-existing-ui
+    owner_disposition: exact-byte-binding-closed; historical generic substitute remains rejected
+  icon.action.share:
+    asset_id: icon.action.share
+    canonical_name: action-share
+    semantic_slot: card.social.share
+    status: RESOLVED_EXACT
+    authoritative_repository: onedayonemasterpiece/lovekgd-design-system
+    source_commit: b15330085a57620cfca5813c182b7ffd1652870b
+    source_path: catalog/ui-assets/v1/icons/action-share.svg
+    git_blob_sha1: c6c3f3d20c744c66c0257e534c90a1742fb651c1
+    raw_sha256: 99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9
+    content_sha256: 99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9
+    normalization: raw-bytes
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: '0 0 24 24'
+    intrinsic_size: null
+    nominal_box: '20.48px x 20.48px desktop; 18.88px x 18.88px mobile'
+    fill_stroke_contract: 'path fill=currentColor; consumer .icon sets fill: currentColor; stroke: none'
+    astro_consumer:
+      repository: onedayonemasterpiece/events-bot-new
+      commit: 64f75d10f7aff33fa616cee212878bd9d03673b1
+      component_path: site/src/components/EventCard.astro
+      icon_component_path: site/src/components/Icon.astro
+      binding: '<Icon name="share" />'
+      dom_selector: '[data-native-share]'
+    materializer_binding: 'resolved-case:assets.ui[icon.action.share] -> event.action.share'
+    provenance: 'exact Astro path bytes extracted into canonical UI asset catalog; donor commit and blob retained'
+    licence_or_reuse_status: repository-owned-existing-ui
+    owner_disposition: exact-byte-binding-closed; historical generic substitute remains rejected
+  icon.action.favorite:
+    asset_id: icon.action.favorite
+    canonical_name: action-favorite
+    semantic_slot: card.social.favorite
+    status: RESOLVED_EXACT
+    authoritative_repository: onedayonemasterpiece/lovekgd-design-system
+    source_commit: b15330085a57620cfca5813c182b7ffd1652870b
+    source_path: catalog/ui-assets/v1/icons/action-favorite-outline.svg
+    git_blob_sha1: 7b7a3b5c1875cc0f1c4197862bf665364e7b6eb1
+    raw_sha256: e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58
+    content_sha256: e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58
+    normalization: raw-bytes
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size: '0 0 24 24'
+    intrinsic_size: null
+    nominal_box: '20px x 20px'
+    fill_stroke_contract: 'consumer .icon sets fill: currentColor; no stroke; selected state swaps exact solid path'
+    state_assets:
+      selected:
+        source_path: catalog/ui-assets/v1/icons/action-favorite-solid.svg
+        git_blob_sha1: 61af1637d87d6edc18a11a7044a85df0f018e601
+        raw_sha256: 08f8199950bf12bbe987b41d18a2d8f17376d8cd434a0ced7d882b4668491d48
+        content_sha256: 08f8199950bf12bbe987b41d18a2d8f17376d8cd434a0ced7d882b4668491d48
+        normalization: raw-bytes
+    astro_consumer:
+      repository: onedayonemasterpiece/events-bot-new
+      commit: 64f75d10f7aff33fa616cee212878bd9d03673b1
+      component_path: site/src/components/EventCard.astro
+      icon_component_path: site/src/components/Icon.astro
+      binding: '<Icon name="heart" />; .icon-heart-solid toggled for selected state'
+      dom_selector: '[data-feedback-action="like"]'
+    materializer_binding: 'resolved-case:assets.ui[icon.action.favorite] -> event.action.like'
+    provenance: 'exact Astro outline/solid path bytes extracted into canonical UI asset catalog; donor blobs retained'
+    licence_or_reuse_status: repository-owned-existing-ui
+    owner_disposition: exact-byte-binding-closed; historical generic substitute remains rejected
+incident:
+  id: free-collection-penpot-visual-drift-2026-08-30
+  owner_review_state: REJECTED
+  historical_evidence_retained: true
+  owner_acceptance_present: false
+  consequence:
+    current_penpot_frame_reviewable: false
+    materialization_requires_execution_time_gates: true

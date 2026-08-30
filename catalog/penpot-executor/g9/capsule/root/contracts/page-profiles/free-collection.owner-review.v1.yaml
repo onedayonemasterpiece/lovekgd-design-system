@@ -1,0 +1,110 @@
+schema_version: kenigevents.asp-page-profile.v1
+profile_id: free-collection.owner-review.v1
+profile_version: 1.2.0
+status: BLOCKED_OWNER_REJECTED
+integrity:
+  normalization: lf-utf8-replace-integrity-sha256-with-64-zeroes
+  sha256: 326beb6453c4c3acb2134f00d3a6d9c387edc23cf87b12779ca6f729fe866f6e
+requirements_contract:
+  id: kenigevents.asp-conformance
+  version: 1.1.0
+  status: ACTIVE
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: docs/product-governance/astro-sot-penpot-conformance.md
+  commit: f134001382f547cebe8b025da24065128b174ffb
+  git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
+  sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
+asset_registry:
+  id: kenigevents.ui-assets.v1
+  version: 1.1.0
+  status: ACTIVE_BOUNDED_BINDINGS_RESOLVED
+  repository: onedayonemasterpiece/lovekgd-design-system
+  path: contracts/assets/ui-asset-registry.v1.yaml
+  content_sha256: d2360d5ab3581fdfdb3c10aa5d995d4d652e127a1da111f8da2e4e4907c1ac48
+authority_mode: ASTRO_AS_IS_REFERENCE
+product:
+  route: /podborki/besplatnye-sobytiya/
+  surface_name: Подборка бесплатных событий
+  intended_terminal_outcome: READY_FOR_OWNER_REVIEW
+  current_outcome: GIT_CANDIDATE_READY_FOR_W0_PROMOTION_DECISION_OWNER_REVIEW_NOT_STARTED
+reference_case:
+  scenario_desktop: free-collection-september-desktop-v3
+  scenario_mobile: free-collection-september-mobile-v3
+  fixture_corpus: ui-reference-events.v2
+  fixture_order: [event.real.8006, event.real.8200, event.real.2182, event.real.6711, event.real.7609]
+  reference_iso: 2026-08-29T14:00:00+02:00
+  timezone: Europe/Kaliningrad
+  locale: ru-RU
+required_review_surfaces:
+  desktop:
+    viewport: 1280xauto
+    states: [top, scrolled, full]
+  mobile:
+    viewport: 390x844
+    states: [top, scrolled, full]
+asset_bindings:
+  status: RESOLVED_EXACT_BOUNDED_G4
+  required_slots:
+    - {asset_id: icon.action.not_interested, registry_status: RESOLVED_EXACT}
+    - {asset_id: icon.action.calendar_add, registry_status: RESOLVED_EXACT}
+    - {asset_id: icon.action.share, registry_status: RESOLVED_EXACT}
+    - {asset_id: icon.action.favorite, registry_status: RESOLVED_EXACT}
+  acceptance:
+    exact_source_path_required: true
+    immutable_commit_required: true
+    git_blob_sha1_and_sha256_required: true
+    svg_view_box_required: true
+    nominal_icon_box_required: true
+    fill_stroke_contract_required: true
+    astro_consumer_binding_required: true
+    materializer_consumer_binding_required: true
+geometry_proof:
+  status: RESOLVED_SOURCE_BOUND_GIT_CANDIDATE
+  authority: pinned_astro_source_and_resolved_case_geometry_proof
+  artifact_path: catalog/ui-conformance/free-collection/g4/resolved/geometry-proof.json
+  critical_regions: [event_card_outer_surface, event_card_media_mask, admission_pill, calendar_primary_action, not_interested_action, social_action_row, share_control, favorite_control]
+  proof_status:
+    event_card_outer_surface: resolved
+    event_card_media_mask: resolved
+    admission_pill: resolved
+    calendar_primary_action: resolved
+    not_interested_action: resolved
+    social_action_row: resolved
+    share_control: resolved
+    favorite_control: resolved
+materialization:
+  git_candidate_promotion_state: READY_FOR_W0_PROMOTION
+  allowed_to_mutate_penpot: false
+  static_canonical_blockers: []
+  execution_time_prerequisites:
+    - sole ACTIVE compatible execution control at mutation time
+    - dedicated W0 Penpot write lease matching target and scope
+    - clean Penpot baseline receipt
+    - validated target manifest and reuse map
+    - cancellation recheck immediately before every write
+    - complete immutable provenance receipt
+  note: Runtime prerequisites do not make the immutable Git bundle non-promotable.
+owner_review_incident:
+  incident_id: free-collection-penpot-visual-drift-2026-08-30
+  date: '2026-08-30'
+  owner_decision: REJECTED
+  historical_rejection_evidence_retained: true
+  owner_acceptance_present: false
+  observed:
+    - generic_or_wrong_icons
+    - incorrect_radii_and_geometry
+    - unreceipted_mutation_after_owner_stop
+  attribution:
+    codex_or_other_executor_proven: false
+  consequence:
+    current_penpot_snapshot_approved: false
+    current_penpot_snapshot_may_be_used_as_visual_truth: false
+    owner_review_may_resume: false
+known_baseline:
+  normative: false
+  historical_owner_review_state: REJECTED_2026_08_30
+  historical_penpot_identifiers_are_evidence_only: true
+notes:
+  - Owner rejection is retained and no owner acceptance is claimed.
+  - Asset and geometry Git evidence blockers are closed only for this bounded free-collection candidate.
+  - Penpot access and mutation remain outside this candidate build.

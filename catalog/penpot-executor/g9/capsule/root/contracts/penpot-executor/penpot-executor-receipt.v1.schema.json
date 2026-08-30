@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kenigevents.penpot-executor-receipt.v1",
+  "type": "object",
+  "required": ["schema", "control_generation", "adapter", "bundles", "ordered_write_operations", "pre_write_checks", "outputs", "mutations", "terminal_state", "receipt_sha256"],
+  "properties": {
+    "schema": {"const": "kenigevents.materialization-run-receipt.v1"},
+    "control_generation": {"const": 9},
+    "adapter": {"type": "object", "required": ["id", "version", "plugin_namespace"]},
+    "bundles": {"type": "array", "minItems": 1},
+    "ordered_write_operations": {"type": "array"},
+    "pre_write_checks": {"type": "array"},
+    "outputs": {"type": "object", "required": ["created", "reused", "replaced"]},
+    "mutations": {"type": "object", "required": ["completed", "rolled_back", "unreverted"]},
+    "terminal_state": {"enum": ["SUCCEEDED", "CANCELLED", "FAILED_ROLLED_BACK", "FAILED_PARTIAL_STATE", "FAILED_PREFLIGHT", "SKIPPED_LEASE_HELD", "FAILED_LEASE_RELEASE"]},
+    "receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
