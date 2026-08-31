@@ -6,21 +6,8 @@
   "owner": "F0",
   "priority": "P1_FALLBACK_VISIBLE",
   "status": "READY_FOR_D0_INTEGRATE",
-  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_PASS_AND_O0_RELEASE",
+  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_PASS_AND_D0_PUBLISH_CLAIM",
   "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
-  "publish_hold": {
-    "reason": "O0_P30_SINGLE_MICRO_FIX_ACTIVE",
-    "directive_comment": 5481166038,
-    "allowed_while_held": [
-      "Git-only D0/INTEGRATE validation",
-      "adapter compilation and read-only planning"
-    ],
-    "forbidden_while_held": [
-      "Penpot mutation",
-      "queue reordering ahead of the P30 glyph micro-fix"
-    ],
-    "release_condition": "clean V0 PASS of the P30 glyph micro-delta or a newer O0 directive"
-  },
   "branch": "chatgpt/f0-medallions-brand-candidate-20260831",
   "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
   "paths": [
@@ -38,27 +25,25 @@
   "immutable_identity": {
     "candidate_branch": "chatgpt/f0-medallions-brand-candidate-20260831",
     "package_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json",
-    "binding_rule": "issue marker and D0 integration bind frozen branch HEAD, package Git blob, source-v2 blob, both active registry blobs, base runner, brand helper, schema-exact resolver, implementation, canonical entry and tests; branch MUST NOT advance after publication"
+    "binding_rule": "bind frozen branch HEAD plus exact package/source/registry/runner/helper/resolver/entry/test Git blobs; branch MUST NOT advance after issue publication"
   },
   "supersedes": {
     "revision": 2,
     "source_commit": "05bdb49aa8941c1a6cccaf138d62827e65c16f69",
     "source_package_git_blob_sha1": "67a1202c14f55b8f803930f62745c9e48a767de0",
-    "reason": [
-      "revision 2 targeted stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
-      "revision 2 left registry and runner identities as null or COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
-      "the generic resolver did not consume event-medallion-candidate.v1 visuals[*].primary_asset.repo_path",
-      "revision 2 predated the candidate-versus-promotion lifecycle split"
-    ],
-    "revision_2_must_not_be_executed": true
+    "revision_2_must_not_be_executed": true,
+    "reasons": [
+      "stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
+      "unbound registry/runner identities",
+      "generic resolver did not consume visuals[*].primary_asset.repo_path",
+      "no candidate-versus-promotion boundary"
+    ]
   },
   "source_package_v2": {
     "path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v2.json",
     "git_blob_sha1": "67a1202c14f55b8f803930f62745c9e48a767de0",
-    "bytes": 19946,
-    "classification": "REUSE_CANONICAL_DATA_AND_SPECIMEN_STRUCTURE_AFTER_TARGET_AND_RESOLVER_REPAIR",
-    "old_target_ignored": true,
-    "generic_resolver_ignored": true
+    "bytes": 12943,
+    "classification": "REUSE_CANONICAL_DATA_AND_SPECIMEN_STRUCTURE_AFTER_TARGET_AND_RESOLVER_REPAIR"
   },
   "base_runner": {
     "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py",
@@ -79,14 +64,6 @@
     "bytes": 6940,
     "factory": "resolve_medallion_manifest_v3:build_resolver",
     "schema": "event-medallion-candidate.v1",
-    "source_fields": [
-      "visuals[*].stable_id",
-      "visuals[*].primary_asset.repo_path",
-      "visuals[*].primary_asset.sha256",
-      "visuals[*].primary_asset.byte_length",
-      "visuals[*].binding_ids",
-      "bindings[*]"
-    ],
     "fallback_assets_used": 0,
     "old_penpot_bindings_used": 0
   },
@@ -94,11 +71,9 @@
     "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py",
     "git_blob_sha1": "c815ef11730c94859fb9df613cf897102553360d",
     "sha256": "f360473bde4304a8c0856c591b023f9a742b3988fccd3842e006504e728f156e",
-    "bytes": 17573,
-    "classification": "REUSE_BOUNDED_MUTATION_LOGIC_WITH_CURRENT_TARGET_AND_PROTECTED_SURFACE_WRAPPER"
+    "bytes": 17573
   },
   "materialization_entry_point": {
-    "kind": "schema-exact-current-file-candidate-entry",
     "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py",
     "git_blob_sha1": "7d809286b5ebe8f3a80f5a8bd868d689ff8a6d1e",
     "bytes": 4881,
@@ -115,17 +90,11 @@
     "git_blob_sha1": "d1711616c4204fb628940228a7182f38dbcf6bbd",
     "bytes": 4283,
     "command": "python3 tests/asp-production-conveyor-v3/f0/test_medallions_brand_candidate_v3.py",
-    "expected": "Ran 4 tests / OK",
-    "coverage": [
-      "current Penpot file and protected surface",
-      "schema-exact 39/43/42 inventory closure plus three brand assets",
-      "generic v2 resolver rejection for the donor schema",
-      "candidate plan does not claim promotion or fallback assets"
-    ]
+    "expected": "Ran 4 tests / OK"
   },
   "source_authority": {
     "mode": "ASTRO_AS_IS_REFERENCE",
-    "requirements_contract": {
+    "contract": {
       "id": "kenigevents.asp-conformance",
       "version": "1.1.0",
       "commit": "f134001382f547cebe8b025da24065128b174ffb",
@@ -135,47 +104,28 @@
     },
     "asset_repository": {
       "repository": "onedayonemasterpiece/events-bot-new",
-      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
-      "exact_checkout_required_before_any_asset_mutation": true
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028"
     },
     "donor_manifest": {
       "repository": "onedayonemasterpiece/lovekgd-design-system",
       "commit": "04afe27f208596c33e0b6ce9f78d0561108ff93c",
       "path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
       "git_blob_sha1": "07ee49bd079a5e9bdc609f8ae492499d73d6cba8",
-      "sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
-      "expected_records": 39,
-      "expected_consumer_bindings": 43,
-      "expected_unique_visuals": 42,
-      "known_deduplication": {
-        "stable_id": "medallion.identity.kaup",
-        "bindings": [
-          "organizer:kaup",
-          "festival:kaup"
-        ]
-      }
+      "sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b"
     }
   },
   "registries": {
     "medallion": {
       "path": "contracts/assets/ui-medallion-asset-registry.v1.json",
       "git_blob_sha1": "8e67c42c5e91d03fa59685dc6b120ee759f786df",
-      "bytes": 4179,
-      "registry_id": "kenigevents.ui-assets.medallions.v1"
+      "bytes": 4179
     },
     "brand": {
       "path": "contracts/assets/ui-brand-asset-registry.v1.json",
       "git_blob_sha1": "1be770e76bb3bc1776da60c1575af7358e8b7688",
-      "bytes": 6161,
-      "registry_id": "kenigevents.ui-assets.brand.v1"
+      "bytes": 6161
     }
   },
-  "foundation_or_component_ids": [
-    "foundation.asset.medallion",
-    "foundation.asset.brand",
-    "component.event-card.medallion",
-    "component.brand-lockup"
-  ],
   "resolved_inventory": {
     "source_registry_records": 39,
     "consumer_bindings": 43,
@@ -184,8 +134,6 @@
     "total_components": 45,
     "total_instances": 135,
     "consumer_size_tiers_px": [44, 60, 88],
-    "transparent_medallion_surface": true,
-    "square_backing": false,
     "fallback_assets": 0,
     "old_penpot_uuid_lineage": 0
   },
@@ -196,14 +144,13 @@
     "exact_name": "04 · Assets · Medallions & brand · Candidate",
     "create_if_missing": true,
     "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
-    "accepted_or_rejected_consumer_root_mutation": false,
+    "accepted_consumer_root_mutation": false,
     "old_penpot_id_reuse_allowed": false
   },
   "candidate_root": {
     "exact_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-MEDALLIONS-BRAND-ASSETS",
     "owner_review_state": "NOT_ACCEPTED",
-    "promotion_allowed": false,
-    "export_required": true
+    "promotion_allowed": false
   },
   "protected_surface": {
     "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
@@ -214,61 +161,49 @@
       "313fb1ed-0d5c-8095-8008-912c45090653"
     ],
     "rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "legacy_base_runner_field_name_only": true,
+    "current_role_of_legacy_field_root": "desktop-wide-calendar card root at revision 73; protected from this independent package",
     "mutation_allowed": false,
     "pre_and_post_digest_required": true
   },
   "expected_roots": 1,
   "expected_components": 45,
   "expected_instances": 135,
+  "publish_queue_gate": {
+    "current_critical_lane": "D0/MAT R9 EventCard lineHeight unit repair",
+    "source_comment": 5481256264,
+    "git_only_integrate_allowed": true,
+    "penpot_publish_rule": "only after an explicit D0/PUBLISH claim at a stable review boundary or fallback transition; do not interrupt the active R9 write",
+    "queue_owner": "O0"
+  },
   "validation": {
-    "d0_integrate_required": [
-      "remote-read frozen branch HEAD and every immutable path",
-      "verify source-v2, base-runner, brand-helper, resolver, implementation, canonical entry, tests and both registry Git blobs",
-      "run four committed tests and require OK",
-      "run canonical entry plan against the frozen donor checkout and require F0_MEDALLIONS_BRAND_CANDIDATE_PLAN_PASS",
-      "verify resolver counts 39 records, 43 consumer bindings and 42 unique visuals",
-      "verify all 42 primary assets plus all three brand assets against events-bot-new@f2d658e8be057f3b75431f6b77e4887af4536028 before the first mutation",
+    "integrate": [
+      "remote-read all immutable blobs",
+      "run four tests and require OK",
+      "run plan and require F0_MEDALLIONS_BRAND_CANDIDATE_PLAN_PASS",
+      "verify 39 records, 43 bindings, 42 unique visuals and three brand assets",
+      "verify all 45 exact asset bytes against events-bot-new before any mutation",
       "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
     ],
-    "publisher_required_after_o0_release": [
-      "one candidate page and one CANDIDATE_BUILD_NOT_ACCEPTED root",
-      "components=45 and instances=135",
-      "detached_instances=0 and screenshot_shapes=0",
-      "transparent medallion surfaces and no square backing",
-      "validate=[] and non-empty native export",
-      "protected free-collection readback digest unchanged",
-      "ASP_PENPOT_VISUAL_DELTA_V3 then direct V0 review"
+    "publish": [
+      "one candidate root, 45 components and 135 instances",
+      "detached_instances=0, screenshot_shapes=0, validate=[]",
+      "transparent medallion surface, no square backing, non-empty export",
+      "protected free-page digest unchanged",
+      "ASP_PENPOT_VISUAL_DELTA_V3 and V0 review"
     ]
   },
-  "astro_evidence_cases": [
-    {
-      "case": "all current medallion primary assets",
-      "records": 39,
-      "bindings": 43,
-      "unique_visuals": 42
-    },
-    {
-      "case": "Kaup organizer/festival deduplication",
-      "stable_id": "medallion.identity.kaup",
-      "bindings": ["organizer:kaup", "festival:kaup"]
-    },
-    {
-      "case": "current brand lockup assets",
-      "assets": 3
-    }
-  ],
   "known_nonblocking_differences": [
-    "the standalone candidate board does not prove EventCard media/poster geometry",
-    "the open P0-ASSET-POSTER-OCCLUDED consumer defect remains assigned to D0/MAT + U0 after asset identity closure",
-    "candidate labels and asset metadata are documentation, not product copy"
+    "standalone asset candidate does not close EventCard poster/text geometry",
+    "candidate metadata labels are documentation, not product copy"
   ],
   "forbidden": [
-    "execute revision 2 or its generic resolver",
-    "write to stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
-    "mutate Penpot while O0 P30 micro-fix hold is active",
-    "fallback raster, guessed path, semantic-search asset, screenshot, square backing or old Penpot UUID lineage",
-    "mutation of the current free-collection page or its accepted/rejected roots",
-    "promotion or A=S=P PASS without native export and V0 verdict"
+    "execute revision 2 or generic resolver",
+    "write to stale Penpot file",
+    "mutate Penpot without D0/PUBLISH claim or while the critical EventCard R9 write is active",
+    "fallback, guessed asset, screenshot, square backing or old Penpot UUID lineage",
+    "mutate current free-collection roots",
+    "claim promotion or A=S=P PASS before V0"
   ],
   "penpot_mutations_by_f0": 0
 }
