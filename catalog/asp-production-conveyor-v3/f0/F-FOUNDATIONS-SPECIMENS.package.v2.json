@@ -1,0 +1,303 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-FOUNDATIONS-SPECIMENS",
+  "revision": 2,
+  "owner": "F0",
+  "priority": "P1_SHARED_FOUNDATION",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "branch": "chatgpt/f0-foundation-specimens-ready-v2-20260831",
+  "sha": "ISSUE_BOUND_IMMUTABLE_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v2.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-foundation-specimens-ready-v2-20260831",
+    "bundle_anchor_commit": "1f0a59e8df466691fc9fff52fd9238915fb0b40d",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package Git blob, source-package Git blob and runner path; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 1,
+    "commit": "af1a62aaa820bee2aefabaad578a4e926c713784",
+    "issue_comment": 5479577842,
+    "reason": "v1 remains a source inventory; v2 adds immutable executable, exact target, run control and independent readback"
+  },
+  "source_package": {
+    "commit": "af1a62aaa820bee2aefabaad578a4e926c713784",
+    "path": "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v1.json",
+    "git_blob_sha1": "815d1788b656fd3c5dd053fe4c4eb234d3393f66",
+    "bytes": 6985,
+    "classification": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+      "sections": ["2.6", "2.7"]
+    },
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+      "continuity": "25 commits ahead; zero changed site/** paths"
+    },
+    "runtime_files": [
+      {"path": "site/src/styles/design-system.css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+      {"path": "site/src/layouts/EventLayout.astro", "sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"},
+      {"path": "site/src/data/design-system-production-surface-contract.v1.json", "sha256": "0f0dcbd7069364b51deb7e56bc2b0b1132effd6a5c779aeb825a383eba33656a"}
+    ],
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "theme_promotion": false,
+      "visual_delta_allowed": false
+    }
+  },
+  "asset_registry_applicability": {
+    "section": "2.5",
+    "external_asset_slots": 0,
+    "visible_content": "generated Penpot vector primitives and editable labels bound to literal current values",
+    "result": "NO_EXTERNAL_GRAPHICAL_ASSET_REGISTRY_ENTRIES_REQUIRED",
+    "fallback_assets": 0,
+    "screenshots": 0
+  },
+  "foundation_or_component_ids": [
+    "foundation.colors-and-modes",
+    "foundation.status",
+    "foundation.spacing",
+    "foundation.sizing-density",
+    "foundation.radius-border",
+    "foundation.elevation",
+    "foundation.motion",
+    "foundation.accessibility"
+  ],
+  "specimen_components": [
+    {"id": "foundation.colors-and-modes", "penpot_name": "Foundation/Specimen/ColorsAndModes", "value_domain": "colors", "render_contract": "equal measured swatches with token name and literal hex"},
+    {"id": "foundation.status", "penpot_name": "Foundation/Specimen/StatusPairs", "value_domain": "status_pairs", "render_contract": "surface/content pair shown together with text and shape"},
+    {"id": "foundation.spacing", "penpot_name": "Foundation/Specimen/SpacingScale", "value_domain": "spacing", "render_contract": "measured bars at literal 4px-root values"},
+    {"id": "foundation.sizing-density", "penpot_name": "Foundation/Specimen/SizingDensity", "value_domain": "sizing", "render_contract": "literal target/container/media formulas as editable labels and measured examples"},
+    {"id": "foundation.radius-border", "penpot_name": "Foundation/Specimen/Radii", "value_domain": "radii", "render_contract": "equal surfaces; only radius changes"},
+    {"id": "foundation.elevation", "penpot_name": "Foundation/Specimen/Elevation", "value_domain": "shadows", "render_contract": "identical current surfaces; only exact shadow changes"},
+    {"id": "foundation.motion", "penpot_name": "Foundation/Specimen/Motion", "value_domain": "motion", "render_contract": "labelled timelines and static reduced-motion state; no autoplay export"},
+    {"id": "foundation.accessibility", "penpot_name": "Foundation/Specimen/Accessibility", "value_domain": "accessibility", "render_contract": "focus/state/safe-area examples using text or shape plus color"}
+  ],
+  "specimens": {
+    "colors": {
+      "brand-600": "#a54821",
+      "brand-700": "#98401f",
+      "brand-800": "#793014",
+      "brand-900": "#5f250f",
+      "accent-600": "#0f766e",
+      "accent-700": "#0f5d57",
+      "canvas": "#fbf7ef",
+      "canvas-soft": "#f2e7d7",
+      "surface": "#fffdf8",
+      "surface-strong": "#ffffff",
+      "ink": "#221a14",
+      "copy": "#44362d",
+      "muted": "#6d6259",
+      "line": "#e1d3c2",
+      "focus": "#0f766e",
+      "inverse-surface": "#24211f",
+      "inverse-surface-raised": "#292521",
+      "header": "#fffaf2"
+    },
+    "status_pairs": {
+      "success": {"surface": "#e6f6e9", "content": "#0f6c3d"},
+      "warning": {"surface": "#fff8db", "content": "#5a3b06"},
+      "danger": {"surface": "#fff0f0", "content": "#a92d2d"},
+      "info": {"surface": "#e7f2f7", "content": "#1f658d"}
+    },
+    "spacing": {
+      "1": "0.25rem",
+      "2": "0.5rem",
+      "3": "0.75rem",
+      "4": "1rem",
+      "5": "1.25rem",
+      "6": "1.5rem",
+      "8": "2rem",
+      "10": "2.5rem",
+      "12": "3rem",
+      "16": "4rem"
+    },
+    "sizing": {
+      "control_min": "44px",
+      "content_max": "1180px",
+      "content_wide_max": "1440px",
+      "listing_media_height": "clamp(221px, min(13vw, 24svh), 244px)"
+    },
+    "radii": {
+      "sm": "0.5rem",
+      "md": "0.875rem",
+      "lg": "1.25rem",
+      "xl": "1.75rem",
+      "pill": "999px"
+    },
+    "shadows": {
+      "1": "0 8px 22px rgba(72,45,25,0.08)",
+      "2": "0 18px 45px rgba(72,45,25,0.12)",
+      "3": "0 24px 64px rgba(72,45,25,0.18)"
+    },
+    "motion": {
+      "duration_fast": "160ms",
+      "duration_base": "220ms",
+      "ease_standard": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+      "reduced_motion": "mandatory-no-op"
+    },
+    "accessibility": {
+      "focus_visible": "distinct outline independent from border",
+      "aria_current": "semantic current state plus visible state",
+      "aria_disabled": "semantic disabled state plus visible state",
+      "safe_area": "env(safe-area-inset-bottom)",
+      "status_not_color_only": "status shape or text accompanies color"
+    }
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-0493-81e4-8007-37c4238ecc5f",
+    "exact_name": "03 · Foundations · Current reconstructed specimens",
+    "create_if_missing": true,
+    "consumer_evidence_page_id": "c16498cb-3535-808b-8008-46a313b4a64a",
+    "consumer_evidence_rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "rejected_root_mutation_allowed": false,
+    "old_penpot_id_reuse_allowed": false
+  },
+  "expected_roots": 1,
+  "expected_components": 8,
+  "expected_instances": 57,
+  "materialization_entry_point": {
+    "kind": "bounded-executable-adapter-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v2.py",
+    "source_commit": "1f0a59e8df466691fc9fff52fd9238915fb0b40d",
+    "identity": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v2.py plan --candidate-commit <FROZEN_HEAD>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v2.py execute --candidate-commit <FROZEN_HEAD> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v2.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT_JSON>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "specimen": {
+      "name": "F-FOUNDATIONS-SPECIMENS/current-reconstructed",
+      "placements": [
+        {"id": "color/brand-600", "component_id": "foundation.colors-and-modes", "value": "brand-600"},
+        {"id": "color/brand-700", "component_id": "foundation.colors-and-modes", "value": "brand-700"},
+        {"id": "color/brand-800", "component_id": "foundation.colors-and-modes", "value": "brand-800"},
+        {"id": "color/brand-900", "component_id": "foundation.colors-and-modes", "value": "brand-900"},
+        {"id": "color/accent-600", "component_id": "foundation.colors-and-modes", "value": "accent-600"},
+        {"id": "color/accent-700", "component_id": "foundation.colors-and-modes", "value": "accent-700"},
+        {"id": "color/canvas", "component_id": "foundation.colors-and-modes", "value": "canvas"},
+        {"id": "color/canvas-soft", "component_id": "foundation.colors-and-modes", "value": "canvas-soft"},
+        {"id": "color/surface", "component_id": "foundation.colors-and-modes", "value": "surface"},
+        {"id": "color/surface-strong", "component_id": "foundation.colors-and-modes", "value": "surface-strong"},
+        {"id": "color/ink", "component_id": "foundation.colors-and-modes", "value": "ink"},
+        {"id": "color/copy", "component_id": "foundation.colors-and-modes", "value": "copy"},
+        {"id": "color/muted", "component_id": "foundation.colors-and-modes", "value": "muted"},
+        {"id": "color/line", "component_id": "foundation.colors-and-modes", "value": "line"},
+        {"id": "color/focus", "component_id": "foundation.colors-and-modes", "value": "focus"},
+        {"id": "color/inverse-surface", "component_id": "foundation.colors-and-modes", "value": "inverse-surface"},
+        {"id": "color/inverse-surface-raised", "component_id": "foundation.colors-and-modes", "value": "inverse-surface-raised"},
+        {"id": "color/header", "component_id": "foundation.colors-and-modes", "value": "header"},
+        {"id": "status/success-surface", "component_id": "foundation.status", "value": "success.surface"},
+        {"id": "status/success-content", "component_id": "foundation.status", "value": "success.content"},
+        {"id": "status/warning-surface", "component_id": "foundation.status", "value": "warning.surface"},
+        {"id": "status/warning-content", "component_id": "foundation.status", "value": "warning.content"},
+        {"id": "status/danger-surface", "component_id": "foundation.status", "value": "danger.surface"},
+        {"id": "status/danger-content", "component_id": "foundation.status", "value": "danger.content"},
+        {"id": "status/info-surface", "component_id": "foundation.status", "value": "info.surface"},
+        {"id": "status/info-content", "component_id": "foundation.status", "value": "info.content"},
+        {"id": "spacing/1", "component_id": "foundation.spacing", "value": "1"},
+        {"id": "spacing/2", "component_id": "foundation.spacing", "value": "2"},
+        {"id": "spacing/3", "component_id": "foundation.spacing", "value": "3"},
+        {"id": "spacing/4", "component_id": "foundation.spacing", "value": "4"},
+        {"id": "spacing/5", "component_id": "foundation.spacing", "value": "5"},
+        {"id": "spacing/6", "component_id": "foundation.spacing", "value": "6"},
+        {"id": "spacing/8", "component_id": "foundation.spacing", "value": "8"},
+        {"id": "spacing/10", "component_id": "foundation.spacing", "value": "10"},
+        {"id": "spacing/12", "component_id": "foundation.spacing", "value": "12"},
+        {"id": "spacing/16", "component_id": "foundation.spacing", "value": "16"},
+        {"id": "radius/sm", "component_id": "foundation.radius-border", "value": "sm"},
+        {"id": "radius/md", "component_id": "foundation.radius-border", "value": "md"},
+        {"id": "radius/lg", "component_id": "foundation.radius-border", "value": "lg"},
+        {"id": "radius/xl", "component_id": "foundation.radius-border", "value": "xl"},
+        {"id": "radius/pill", "component_id": "foundation.radius-border", "value": "pill"},
+        {"id": "shadow/1", "component_id": "foundation.elevation", "value": "1"},
+        {"id": "shadow/2", "component_id": "foundation.elevation", "value": "2"},
+        {"id": "shadow/3", "component_id": "foundation.elevation", "value": "3"},
+        {"id": "sizing/control-min", "component_id": "foundation.sizing-density", "value": "control_min"},
+        {"id": "sizing/content-max", "component_id": "foundation.sizing-density", "value": "content_max"},
+        {"id": "sizing/content-wide-max", "component_id": "foundation.sizing-density", "value": "content_wide_max"},
+        {"id": "sizing/listing-media-height", "component_id": "foundation.sizing-density", "value": "listing_media_height"},
+        {"id": "motion/duration-fast", "component_id": "foundation.motion", "value": "duration_fast"},
+        {"id": "motion/duration-base", "component_id": "foundation.motion", "value": "duration_base"},
+        {"id": "motion/ease-standard", "component_id": "foundation.motion", "value": "ease_standard"},
+        {"id": "motion/reduced", "component_id": "foundation.motion", "value": "reduced_motion"},
+        {"id": "a11y/focus-visible", "component_id": "foundation.accessibility", "value": "focus_visible"},
+        {"id": "a11y/aria-current", "component_id": "foundation.accessibility", "value": "aria_current"},
+        {"id": "a11y/aria-disabled", "component_id": "foundation.accessibility", "value": "aria_disabled"},
+        {"id": "a11y/safe-area", "component_id": "foundation.accessibility", "value": "safe_area"},
+        {"id": "a11y/status-not-color-only", "component_id": "foundation.accessibility", "value": "status_not_color_only"}
+      ]
+    },
+    "receipt_marker": "ASP_BUILD_RESULT_V2",
+    "readback_success_marker": "F0_FOUNDATION_SPECIMENS_READBACK_PASS"
+  },
+  "validation": {
+    "pre_integrate": [
+      "source v1 package Git blob and byte count match",
+      "18 colors, four status pairs, ten spacing values, four sizing values, five radii, three shadows, four motion facts and five accessibility facts",
+      "eight linked components and exactly 57 placements",
+      "zero external graphical asset slots under §2.5",
+      "no invented palette, dark mode, normalized value or old Penpot UUID",
+      "runner enforces D0/PUBLISH and per-write ACTIVE lease/cancel guard",
+      "standalone board only; rejected consumer root immutable"
+    ],
+    "d0_integrate_required": [
+      "remote-read frozen branch HEAD and package Git blob",
+      "compute and record runner Git blob/SHA-256/byte count",
+      "run plan command and obtain F0_FOUNDATION_SPECIMENS_PLAN_PASS",
+      "bind actual native Penpot adapter",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
+    ],
+    "publisher_required": [
+      "new ACTIVE run and per-write cancel checks",
+      "roots=1",
+      "components=8",
+      "instances=57",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validate=[]",
+      "nonempty export",
+      "§2.7 provenance receipt",
+      "rejected root mutation=false"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "free collection current foundations", "domains": ["colors", "spacing", "sizing", "radii", "elevation", "focus"]},
+    {"case": "EventCard current foundations", "domains": ["status", "44px controls", "radius", "shadow"]},
+    {"case": "motion and reduced motion", "domains": ["160ms", "220ms", "standard easing", "mandatory no-op"]}
+  ],
+  "known_nonblocking_differences": [
+    "specimen labels are documentation, not product copy",
+    "component-local geometry outside declared values remains consumer-owned",
+    "no dark-mode palette is inferred from inverse surfaces",
+    "this standalone board does not prove or mutate consumer geometry"
+  ],
+  "forbidden": [
+    "new palette",
+    "value rounding or normalization",
+    "invented dark mode",
+    "direct consumer geometry claim",
+    "old Penpot UUID reuse",
+    "screenshot implementation",
+    "owner-rejected root mutation",
+    "Penpot mutation before D0/INTEGRATE PASS"
+  ]
+}
