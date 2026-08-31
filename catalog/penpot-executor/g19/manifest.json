@@ -1,5 +1,6 @@
 {
-  "schema": "kenigevents.penpot.g19.eventcard-8006.manifest.v1",
+  "schema": "kenigevents.penpot.g19.eventcard-four-case.manifest.v3",
+  "readiness_marker": "ASP_G19_P2_PAYLOAD_READY_V3",
   "generation": 19,
   "lease_id": "G19-P2-P4-ACTUAL-MATERIALIZATION-R1",
   "sole_penpot_writer": "E0_CHATGPT_PRO",
@@ -7,7 +8,14 @@
   "target": {
     "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
     "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
-    "expected_baseline_revision": 40
+    "expected_baseline_revision": 41,
+    "accepted_board_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "accepted_board_name": "KenigEvents · G12 bounded L0-L3",
+    "expected_page_direct_roots": 1,
+    "expected_initial_board_children": 0,
+    "expected_initial_board_descendants": 0,
+    "expected_initial_local_components": 0,
+    "expected_initial_validation": []
   },
   "accepted_tuple": {
     "promoted_ui_sot": "78a84576740cb650b2efbe2900377f371faf49a1",
@@ -44,10 +52,15 @@
       }
     }
   },
-  "payload_sha256": "305ba1647c2773f86e350e44869bc77d977cad9d79819df375d820411878f0b6",
+  "payload_sha256": "c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219",
+  "payload_transport_sha256": "82db0a8db5d4bb2ea6bb10a581d349afa44452dd5aaf3da94a2e83154b1e9862",
+  "executable_set_sha256": "e5d1dded182bef14326befe43edc57769d08ddb04af773fd6a63cfa0aaf46952",
+  "executable_set_identity_format": "UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order",
   "expected_card_components": [
     "eventcard.desktop-wide-calendar.8006",
-    "eventcard.mobile-wide-calendar.8006"
+    "eventcard.desktop-packed-calendar-absent.2182",
+    "eventcard.mobile-wide-calendar.8006",
+    "eventcard.mobile-packed-calendar-absent.2182"
   ],
   "expected_leaf_components": [
     "event.media-frame.desktop.8006",
@@ -67,16 +80,60 @@
   ],
   "materialization_profile": {
     "owner_override": "G19-P2-P4-ACTUAL-MATERIALIZATION-R1",
-    "accepted_card_encoding": "two exact fixture-bound structural-context root components explicitly required by the owner override",
+    "accepted_card_encoding": "four exact fixture-bound structural-context root components under the immutable accepted G12 board",
     "common_semantic_identity": "component.event-card.free-collection",
     "leaf_encoding": "seven semantic identities per structural context; duplicate detection key is semantic_identity plus structural_context",
     "accepted_g12_one_master_variant_container": "preserved as upstream model; not rewritten by this bounded first-material payload"
   },
+  "expected_success": {
+    "page_direct_roots": 1,
+    "board_children": 18,
+    "local_components": 18,
+    "accepted_card_components": 4,
+    "detached_roots": 0,
+    "screenshot_roots": 0,
+    "route_local_duplicate_masters": 0,
+    "validation": []
+  },
+  "case_lineage": [
+    {
+      "case_id": "eventcard.desktop-wide-calendar.8006",
+      "fixture_id": "event.real.8006",
+      "variant": "desktop-wide-calendar",
+      "viewport": "desktop",
+      "source": "catalog/penpot-executor/g12/independent-expectations.json#eventcard.desktop-wide-calendar.8006"
+    },
+    {
+      "case_id": "eventcard.desktop-packed-calendar-absent.2182",
+      "fixture_id": "event.real.2182",
+      "variant": "desktop-packed-calendar-absent",
+      "viewport": "desktop",
+      "source": "catalog/penpot-executor/g12/independent-expectations.json#eventcard.desktop-packed-calendar-absent.2182"
+    },
+    {
+      "case_id": "eventcard.mobile-wide-calendar.8006",
+      "fixture_id": "event.real.8006",
+      "variant": "mobile-wide-calendar",
+      "viewport": "mobile",
+      "source": "catalog/penpot-executor/g12/independent-expectations.json#eventcard.mobile-wide-calendar.8006"
+    },
+    {
+      "case_id": "eventcard.mobile-packed-calendar-absent.2182",
+      "fixture_id": "event.real.2182",
+      "variant": "mobile-packed-calendar-absent",
+      "viewport": "mobile",
+      "source": "catalog/penpot-executor/g12/independent-expectations.json#eventcard.mobile-packed-calendar-absent.2182"
+    }
+  ],
   "native_fonts": {
     "family": "DejaVu Sans",
-    "regular_400_id": "bc4c12f7-f47c-802d-8006-6df32533516b",
-    "bold_700_id": "bc4c12f7-f47c-802d-8006-6df347cf14f9",
-    "source_binding_sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226"
+    "resolution": "native family plus exact style=normal, weight and variant id normal-{weight}; resolved runtime font id and variant id are receipt fields",
+    "regular_400_variant": "normal-400",
+    "bold_700_variant": "normal-700",
+    "regular_400_source_sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+    "bold_700_source_sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895",
+    "source_binding_sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226",
+    "transient_runtime_ids_pinned": false
   },
   "inputs": [
     {
@@ -96,8 +153,8 @@
     },
     {
       "path": "catalog/penpot-executor/g19/frozen-eventcard-8006-descendants.json",
-      "sha256": "24407e3287eaf689cf8e2e505c690c542133f89e855ee21c61d08bcdeb92a240",
-      "bytes": 3035
+      "sha256": "8d2954d235c6dde7e2297ede6737a818db290fce16bbf2f599943e85eceb1a8d",
+      "bytes": 5534
     },
     {
       "path": "catalog/penpot-executor/g12/frozen-evidence/regions.json",
@@ -108,6 +165,11 @@
       "path": "catalog/penpot-executor/g10/input-media/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp",
       "sha256": "dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b",
       "bytes": 111072
+    },
+    {
+      "path": "catalog/fixtures/ui-reference-events/v2/assets/99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e.webp",
+      "sha256": "99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e",
+      "bytes": 229072
     },
     {
       "path": "catalog/ui-assets/v1/icons/action-not-interested.svg",
@@ -145,31 +207,212 @@
       "bytes": 24102
     },
     {
+      "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.desktop-packed-calendar-absent.2182.resolved-render-case.json",
+      "sha256": "1627bf9234042f70af04c8be4a027899434487c6080872c5e646b885c720254d",
+      "bytes": 23333
+    },
+    {
+      "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.mobile-packed-calendar-absent.2182.resolved-render-case.json",
+      "sha256": "339b8e84b62668c3e61edd1916de3c55d1c71a3c4664a521d53b62255ddad7cc",
+      "bytes": 23324
+    },
+    {
+      "path": "catalog/ui-conformance/free-collection/g4/resolved/resolved-cases.index.json",
+      "sha256": "263a25d878c8b2f8c47be2de4d20f82db3088107d326275016c1e7203b05cf34",
+      "bytes": 5749
+    },
+    {
+      "path": "catalog/materialization-bundles/eventcard-free-slice.g4.ready-v1.json",
+      "sha256": "600362047b24df707712598c6ccf2b79047aad62a143afbfdb41daa103a5351d",
+      "bytes": 4061
+    },
+    {
       "path": "catalog/fixtures/ui-reference-events/v2/events/event.real.8006.json",
       "sha256": "be2bf3ddb51c8b09afd80e3039776c03807c5f41fc4d0ad769980c65b51ee57b",
       "bytes": 7428
+    },
+    {
+      "path": "catalog/fixtures/ui-reference-events/v2/events/event.real.2182.json",
+      "sha256": "b3131d93e4430c6abc6ab2da3b113b1480d5117d2c23ed8f7843fe517319308d",
+      "bytes": 6631
     }
   ],
   "outputs": [
     {
-      "path": "catalog/penpot-executor/g19/run-materialization.js",
-      "sha256": "6db378e6562e32077d70acadd2b870f695cc1b082c0e96f83647ff85561db5bd",
-      "bytes": 214176
+      "path": "catalog/penpot-executor/g19/phase-00-bootstrap.js",
+      "sha256": "e7e69e79a5f212c1d2737fd6c9ffa53f4f1a3c4baff78b5cedd0e2950e11d877",
+      "bytes": 1320
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-001.js",
+      "sha256": "855a2bb4346fbb07cc1f56b3db6fbda462e948c43286fb4f984956ac5e06214e",
+      "bytes": 48542
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-002.js",
+      "sha256": "6c1c6163a0e15e6809b3c3322e12be721aa15b05168c1cc0654a07c28424f4a2",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-003.js",
+      "sha256": "5c4d71b0e4af98b3cb269ac74aa12f1c1732e4c3231f5a87a9234bf90a88aa5a",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-004.js",
+      "sha256": "5851a087885755aa91102bf65265a05cf5cb5af4c76d60c3e80221359297fa31",
+      "bytes": 48203
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-005.js",
+      "sha256": "e49adbe29dfb8959b0d7a698fe5a4813132e0f6e9534f60b5bb34303fe7bdbb7",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-006.js",
+      "sha256": "5048b39caed1cf932740a423cf125020767bd028a95fa91982b1358eba8762d0",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-007.js",
+      "sha256": "f940a6398a9d402dc0c6faac4ef7493f26149fbb254e3e73ac154045719a7a09",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-008.js",
+      "sha256": "05fc1a02f4a1543c9978cd9a5765a7b8c1e4557495561576aec2413395ac465a",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-009.js",
+      "sha256": "443b802618bdf8eb6a7de8c3dd76deb89581b7529de391a0bbc9b2f1882f4fb2",
+      "bytes": 48185
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-010.js",
+      "sha256": "f9039f992dafed50dc7be9a4040159a10c57210a5ac53d82471d37138203cd3c",
+      "bytes": 51605
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-01-payload-011.js",
+      "sha256": "f98fe5f387df01a97975f9bc708ec8a7f86ae3d8f8e44256829b21f1debe9f18",
+      "bytes": 11278
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-02-install-runtime.js",
+      "sha256": "3295c71e5d73b8ec10b148c12d384b86b4fa6e8127018a62b86f89b206d96db9",
+      "bytes": 63596
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js",
+      "sha256": "c5974029ccbf76b64d21049128664de025da3beabcc798ab76d7d1f87748601f",
+      "bytes": 212
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p11-desktop-leaves-b.js",
+      "sha256": "4a70c2dc49f0fbb56d38b67ea8adee479b0a8c8a900d259a69c7c4528815dd97",
+      "bytes": 212
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p20-mobile-leaves-a.js",
+      "sha256": "ed2f2622241d27be8e5a909b5cc0e648a31e236c7b2a07becfc5907bdce28231",
+      "bytes": 210
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p21-mobile-leaves-b.js",
+      "sha256": "02595f1b517c66c6d5fb738a578d944ff657faca4baaf4e080f8eb3341d3c4a0",
+      "bytes": 210
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js",
+      "sha256": "bc4fa72c74b150c9f7b6105299eafe1d6e3c489dbfbdc5421b29ceba8ccd9a39",
+      "bytes": 216
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p31-desktop-wide-final.js",
+      "sha256": "b8467166f94fceba38b68017f80edf410954b4fd743825759836cbe52eece2df",
+      "bytes": 216
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p40-desktop-packed-shell.js",
+      "sha256": "6bbc5c13e3e0a1d43b33d2a02b74f7653f9ff8498c8ee38e5ff1b3454f0371f4",
+      "bytes": 220
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p41-desktop-packed-final.js",
+      "sha256": "ec43392611dc626c0fbaac33ee4521a2c2d21e89a32e9791c1a1011f26ab8eca",
+      "bytes": 220
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p50-mobile-wide-shell.js",
+      "sha256": "602c21dbc4e28d311a4b520b219feb5c8bce1dd39372844d569093a099e4d2fc",
+      "bytes": 214
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p51-mobile-wide-final.js",
+      "sha256": "a992099caff1207b71556411ec8372c409eb2b34f07b92370f0ef480f7dce790",
+      "bytes": 214
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p60-mobile-packed-shell.js",
+      "sha256": "e7d8eb6ab9ecca58ea68bc5156030e2b0f9b33e8272001db48d2e2ac78c5ced3",
+      "bytes": 218
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p61-mobile-packed-final.js",
+      "sha256": "f0d07d205ad89abe87291b53a17eebecf9643ca1c81dc606939164c087df8192",
+      "bytes": 218
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-p90-finalize.js",
+      "sha256": "6d211a602dabf23b2789a63b5effc49bf4e480f76b03de6f364d23e13e131a75",
+      "bytes": 196
     },
     {
       "path": "catalog/penpot-executor/g19/readback.js",
-      "sha256": "812ceaef8f7dab84e8cfa730a422fb434970cbfd9d7164310c1af3e62e57384c",
-      "bytes": 206
+      "sha256": "57f132aa41a67f017a8990beb05c564f17f2610af39537b531272028190bd490",
+      "bytes": 172
     },
     {
       "path": "catalog/penpot-executor/g19/export-roots.js",
-      "sha256": "df5e3884cbac8cfa6b529a2c0210577597e08df0b3e8c559148bcb2c9c60ddc8",
-      "bytes": 220
+      "sha256": "7fbe785982042dbbf5ea96ac3732072f7df1015d960d7b02e42605e110896fdc",
+      "bytes": 211
     }
   ],
   "execution": {
-    "materialize": "Pass the exact UTF-8 contents of run-materialization.js to Penpot.execute_code.",
-    "readback_validate": "Pass readback.js after materialization in the same plugin session.",
-    "export_png": "Pass export-roots.js after materialization in the same plugin session."
+    "same_plugin_session_required": true,
+    "setup_order": [
+      "phase-00-bootstrap.js",
+      "phase-01-payload-001.js",
+      "phase-01-payload-002.js",
+      "phase-01-payload-003.js",
+      "phase-01-payload-004.js",
+      "phase-01-payload-005.js",
+      "phase-01-payload-006.js",
+      "phase-01-payload-007.js",
+      "phase-01-payload-008.js",
+      "phase-01-payload-009.js",
+      "phase-01-payload-010.js",
+      "phase-01-payload-011.js",
+      "phase-02-install-runtime.js"
+    ],
+    "mutator_order": [
+      "phase-p10-desktop-leaves-a.js",
+      "phase-p11-desktop-leaves-b.js",
+      "phase-p20-mobile-leaves-a.js",
+      "phase-p21-mobile-leaves-b.js",
+      "phase-p30-desktop-wide-shell.js",
+      "phase-p31-desktop-wide-final.js",
+      "phase-p40-desktop-packed-shell.js",
+      "phase-p41-desktop-packed-final.js",
+      "phase-p50-mobile-wide-shell.js",
+      "phase-p51-mobile-wide-final.js",
+      "phase-p60-mobile-packed-shell.js",
+      "phase-p61-mobile-packed-final.js",
+      "phase-p90-finalize.js"
+    ],
+    "checkpoint_after_every_mutator": "Pass readback.js; each phase receipt already embeds the same census plus validate().",
+    "export_png": "Pass export-roots.js after P90_FINALIZE.",
+    "maximum_generated_script_bytes": 63596
   }
 }

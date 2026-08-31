@@ -1,20 +1,35 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
-const RUN = new URL('../catalog/penpot-executor/g19/run-materialization.js', import.meta.url);
-const READBACK = new URL('../catalog/penpot-executor/g19/readback.js', import.meta.url);
-const EXPORT = new URL('../catalog/penpot-executor/g19/export-roots.js', import.meta.url);
+const ROOT = new URL('../', import.meta.url);
+const MANIFEST_URL = new URL('catalog/penpot-executor/g19/manifest.json', ROOT);
+const BOARD_ID = '313fb1ed-0d5c-8095-8008-9108df52b2ce';
+const BOARD_NAME = 'KenigEvents · G12 bounded L0-L3';
+const RUNTIME_FONT_ID = 'custom-08d5cf0d-784d-80b0-8008-908353a24ee6';
+const EXPECTED_CASES = [
+  'eventcard.desktop-wide-calendar.8006',
+  'eventcard.desktop-packed-calendar-absent.2182',
+  'eventcard.mobile-wide-calendar.8006',
+  'eventcard.mobile-packed-calendar-absent.2182',
+];
+
+const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const readRelative = (path) => readFile(new URL(path, ROOT), 'utf8');
+const manifest = JSON.parse(await readFile(MANIFEST_URL, 'utf8'));
 
 let nextId = 1;
 class Shape {
-  constructor(type, text = '') {
-    this.id = `shape-${nextId++}`;
+  constructor(type, text = '', id = null) {
+    this.id = id || `shape-${nextId++}`;
     this.type = type;
     this.name = '';
     this.characters = text;
     this.children = [];
     this.parent = null;
+    this.parentX = 0;
+    this.parentY = 0;
     this.width = 0;
     this.height = 0;
     this.x = 0;
@@ -27,14 +42,16 @@ class Shape {
     this._isCopy = false;
   }
   appendChild(child) {
+    if (child.parent?.id === this.id && this._isCopy) throw new Error('Cannot change structure of component copy');
     if (child.parent) child.parent.children = child.parent.children.filter((candidate) => candidate !== child);
     child.parent = this;
     this.children.push(child);
+    refreshAbsolute(child);
   }
   resize(width, height) { this.width = Number(width); this.height = Number(height); }
   setPluginData(key, value) { this.pluginData.set(key, String(value)); }
   getPluginData(key) { return this.pluginData.get(key) || ''; }
-  isComponentCopyInstance() { return this._isCopy; }
+  isComponentCopyInstance() { return this._isCopy && Boolean(this._component); }
   component() { return this._component; }
   async export({ type }) {
     assert.equal(type, 'png');
@@ -42,63 +59,95 @@ class Shape {
   }
 }
 
-function cloneShape(source, component) {
+function refreshAbsolute(shape) {
+  shape.x = Number(shape.parent?.x || 0) + Number(shape.parentX || 0);
+  shape.y = Number(shape.parent?.y || 0) + Number(shape.parentY || 0);
+  for (const child of shape.children) refreshAbsolute(child);
+}
+
+function cloneShape(source, component = null) {
   const copy = new Shape(source.type, source.characters);
-  for (const key of ['name', 'width', 'height', 'x', 'y', 'fills', 'strokes', 'clipContent', 'borderRadiusTopLeft', 'borderRadiusTopRight', 'borderRadiusBottomRight', 'borderRadiusBottomLeft', 'fontSize', 'lineHeight', 'letterSpacing']) copy[key] = structuredClone(source[key]);
+  for (const key of ['name', 'width', 'height', 'parentX', 'parentY', 'fills', 'strokes', 'clipContent', 'hidden', 'borderRadiusTopLeft', 'borderRadiusTopRight', 'borderRadiusBottomRight', 'borderRadiusBottomLeft', 'fontSize', 'lineHeight', 'letterSpacing']) copy[key] = structuredClone(source[key]);
   copy.pluginData = new Map(source.pluginData);
   copy._isCopy = true;
   copy._component = component;
-  for (const child of source.children) copy.appendChild(cloneShape(child, child._component));
+  for (const child of source.children) copy.appendChild(cloneShape(child));
+  refreshAbsolute(copy);
   return copy;
 }
 
-function fakeSurface({ failMediaOnce = false } = {}) {
+function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = false, variants = ['normal-400', 'normal-700'], failCardPathOnce = false } = {}) {
   nextId = 1;
-  const root = new Shape('root');
+  const pageRoot = new Shape('root', '', 'page-root');
+  const board = new Shape('board', '', BOARD_ID);
+  board.name = boardName;
+  pageRoot.appendChild(board);
+  if (secondPageRoot) pageRoot.appendChild(new Shape('board'));
   const components = [];
+  const versions = [];
   let validateCalls = 0;
   let saveVersionCalls = 0;
   let undoBeginCalls = 0;
   let undoFinishCalls = 0;
-  const versions = [];
-  let mediaAttempts = 0;
-  const variants = {
-    400: { id: 'bc4c12f7-f47c-802d-8006-6df32533516b', fontVariantId: 'bc4c12f7-f47c-802d-8006-6df32533516b', fontWeight: 400, fontFamily: 'DejaVu Sans' },
-    700: { id: 'bc4c12f7-f47c-802d-8006-6df347cf14f9', fontVariantId: 'bc4c12f7-f47c-802d-8006-6df347cf14f9', fontWeight: 700, fontFamily: 'DejaVu Sans' },
-  };
-  const font = {
-    id: 'dejavu-sans',
+  const fontVariants = variants.map((id) => ({
+    id,
+    fontVariantId: id,
+    fontWeight: Number(id.split('-').at(-1)),
+    fontStyle: id.startsWith('normal-') ? 'normal' : 'italic',
     fontFamily: 'DejaVu Sans',
-    variants: [variants[400], variants[700]],
+  }));
+  const font = {
+    id: RUNTIME_FONT_ID,
+    fontId: RUNTIME_FONT_ID,
+    fontFamily: 'DejaVu Sans',
+    variants: fontVariants,
     applyToText(shape, variant) { shape.appliedFontVariantId = variant.fontVariantId; },
   };
   const penpot = {
     currentFile: {
       id: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
-      revn: 40,
+      revn: revision,
       validate() { validateCalls += 1; return []; },
       async findVersions() { return versions; },
-      async saveVersion(label) { saveVersionCalls += 1; this.revn += 1; const version = { id: `version-${saveVersionCalls}`, label }; versions.push(version); return version; },
+      async saveVersion(label) {
+        saveVersionCalls += 1;
+        this.revn += 1;
+        const version = { id: `version-${saveVersionCalls}`, label };
+        versions.push(version);
+        return version;
+      },
     },
-    currentPage: { id: 'c16498cb-b51d-8030-8008-904bd8fc9c53', root },
+    currentPage: { id: 'c16498cb-b51d-8030-8008-904bd8fc9c53', root: pageRoot },
     createBoard: () => new Shape('board'),
     createRectangle: () => new Shape('rectangle'),
     createText: (text) => new Shape('text', text),
     createShapeFromSvg: () => new Shape('svg'),
-    createShapeFromSvgWithImages: async () => { mediaAttempts += 1; if (failMediaOnce && mediaAttempts === 1) throw new Error('synthetic media upload interruption'); return new Shape('svg-image'); },
-    fonts: { findByName: () => font, findAllByName: () => [font] },
+    createShapeFromSvgWithImages: async () => new Shape('svg-image'),
+    fonts: { findByName: (name) => name === 'DejaVu Sans' ? font : null, findAllByName: (name) => name === 'DejaVu Sans' ? [font] : [] },
     library: { local: {
       components,
       createComponent(shapes) {
         assert.equal(shapes.length, 1);
         const main = shapes[0];
+        assert.equal(main.parent?.id, BOARD_ID, 'every main must remain under the accepted board');
+        let componentPath = '';
         const component = {
           id: `component-${nextId++}`,
-          path: '',
           name: '',
           mainInstance: () => main,
           instance() { return cloneShape(main, component); },
         };
+        Object.defineProperty(component, 'path', {
+          get() { return componentPath; },
+          set(value) {
+            if (failCardPathOnce && main.getPluginData('kenigevents-role') === 'accepted-card-master') {
+              failCardPathOnce = false;
+              throw new Error('synthetic card registration interruption');
+            }
+            componentPath = value;
+          },
+          enumerable: true,
+        });
         main._component = component;
         components.push(component);
         return component;
@@ -109,8 +158,24 @@ function fakeSurface({ failMediaOnce = false } = {}) {
       undoBlockFinish(blockId) { assert.equal(typeof blockId, 'symbol'); undoFinishCalls += 1; },
     },
   };
-  const penpotUtils = { setParentXY(shape, x, y) { shape.x = Number(x); shape.y = Number(y); } };
-  return { penpot, penpotUtils, storage: {}, root, components, validateCalls: () => validateCalls, saveVersionCalls: () => saveVersionCalls, undoCalls: () => ({ begin: undoBeginCalls, finish: undoFinishCalls }) };
+  const penpotUtils = {
+    setParentXY(shape, x, y) {
+      shape.parentX = Number(x);
+      shape.parentY = Number(y);
+      refreshAbsolute(shape);
+    },
+  };
+  return {
+    penpot,
+    penpotUtils,
+    storage: {},
+    pageRoot,
+    board,
+    components,
+    validateCalls: () => validateCalls,
+    saveVersionCalls: () => saveVersionCalls,
+    undoCalls: () => ({ begin: undoBeginCalls, finish: undoFinishCalls }),
+  };
 }
 
 async function execute(source, surface) {
@@ -126,169 +191,180 @@ async function execute(source, surface) {
   }
 }
 
-const near = (actual, expected) => assert.ok(Math.abs(actual - expected) < 0.021, `${actual} != ${expected}`);
-const walk = (root) => [root, ...root.children.flatMap(walk)];
+async function executePath(path, surface) {
+  return execute(await readRelative(path), surface);
+}
 
-test('G19 payload creates exact linked desktop/mobile EventCard components idempotently', async () => {
-  const source = await readFile(RUN, 'utf8');
-  assert.doesNotMatch(source, /\.remove\s*\(/);
-  assert.doesNotMatch(source, /\.detach\s*\(/);
-  assert.doesNotMatch(source, /createImageFromData|screenshot-as-design/i);
-  assert.doesNotMatch(source, /\b(?:require|import)\s*\(/);
+async function installRuntime(surface) {
+  let receipt = null;
+  for (const path of manifest.execution.setup_order) receipt = await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  return receipt;
+}
 
-  const surface = fakeSurface();
-  const first = await execute(source, surface);
-  assert.equal(first.terminalState, 'SUCCEEDED');
-  assert.equal(first.mutations, 16);
-  assert.equal(first.readback.acceptedCardRootCount, 2);
-  assert.equal(first.readback.managedComponentCount, 16);
-  assert.equal(first.readback.detachedRootCount, 0);
-  assert.equal(first.readback.screenshotRootCount, 0);
-  assert.equal(first.readback.routeLocalDuplicateMasterCount, 0);
-  assert.deepEqual(first.readback.validation, []);
-  assert.equal(first.savedVersion.id, 'version-1');
-  assert.equal(first.savedVersion.created, true);
-  assert.equal(surface.saveVersionCalls(), 1);
-  assert.deepEqual(surface.undoCalls(), { begin: 16, finish: 16 });
-  assert.equal(surface.validateCalls(), 3);
+async function runAllPhases(surface) {
+  const receipts = [];
+  for (const path of manifest.execution.mutator_order) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  return receipts;
+}
 
-  const desktop = surface.components.find((component) => component.name === 'eventcard.desktop-wide-calendar.8006');
-  const mobile = surface.components.find((component) => component.name === 'eventcard.mobile-wide-calendar.8006');
-  assert.ok(desktop && mobile);
-  near(desktop.mainInstance().width, 533.797);
-  near(desktop.mainInstance().height, 947.328);
-  near(mobile.mainInstance().width, 340);
-  near(mobile.mainInstance().height, 701.281);
-  assert.equal(desktop.mainInstance().children.filter((shape) => shape.isComponentCopyInstance()).length, 7);
-  assert.equal(mobile.mainInstance().children.filter((shape) => shape.isComponentCopyInstance()).length, 7);
-  assert.equal(desktop.mainInstance().borderRadiusTopLeft, 24);
-  assert.equal(desktop.mainInstance().borderRadiusBottomRight, 24);
-  const desktopUtility = desktop.mainInstance().children.find((shape) => shape.name === 'surface.utility-row');
-  assert.equal(desktopUtility.clipContent, true);
-  assert.equal(desktopUtility.borderRadiusBottomLeft, 24);
-  assert.equal(desktopUtility.borderRadiusBottomRight, 24);
-  assert.equal(desktopUtility.children.length, 3);
+const walk = (shape) => [shape, ...shape.children.flatMap(walk)];
 
-  const desktopSlots = Object.fromEntries(desktop.mainInstance().children.map((shape) => [shape.name, shape]));
-  near(desktopSlots.title.x, 14.594); near(desktopSlots.title.y, 723.656); near(desktopSlots.title.width, 504.609); near(desktopSlots.title.height, 46.625);
-  near(desktopSlots['action.calendar'].x, 145.125); near(desktopSlots['action.calendar'].y, 842.672); near(desktopSlots['action.calendar'].width, 147.438); near(desktopSlots['action.calendar'].height, 44);
-  const mobileSlots = Object.fromEntries(mobile.mainInstance().children.map((shape) => [shape.name, shape]));
-  near(mobileSlots.title.x, 14.594); near(mobileSlots.title.y, 465.25); near(mobileSlots.title.width, 310.813); near(mobileSlots.title.height, 35.594);
-  near(mobileSlots['action.share'].x, 141.703); near(mobileSlots['action.share'].y, 657.282); near(mobileSlots['action.share'].width, 142.703); near(mobileSlots['action.share'].height, 44);
+test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, and runtime-ID agnostic', async () => {
+  assert.equal(manifest.readiness_marker, 'ASP_G19_P2_PAYLOAD_READY_V3');
+  assert.equal(manifest.target.expected_baseline_revision, 41);
+  assert.equal(manifest.target.accepted_board_id, BOARD_ID);
+  assert.equal(manifest.target.accepted_board_name, BOARD_NAME);
+  assert.equal(manifest.target.expected_initial_board_descendants, 0);
+  assert.equal(manifest.expected_success.board_children, 18);
+  assert.equal(manifest.expected_success.local_components, 18);
+  assert.deepEqual(manifest.expected_card_components, EXPECTED_CASES);
+  assert.equal(manifest.expected_leaf_components.length, 14);
+  assert.equal(manifest.native_fonts.regular_400_variant, 'normal-400');
+  assert.equal(manifest.native_fonts.bold_700_variant, 'normal-700');
+  assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
+  assert.equal(manifest.execution.mutator_order.length, 13);
+  assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
 
-  const desktopMedia = surface.components.find((component) => component.name === 'event.media-frame.desktop.8006').mainInstance();
-  assert.equal(desktopMedia.clipContent, true);
-  near(desktopMedia.children[0].x, 1); near(desktopMedia.children[0].y, 1); near(desktopMedia.children[0].width, 531.797); near(desktopMedia.children[0].height, 709.063);
-  assert.equal(desktopMedia.children[0].getPluginData('kenigevents-media-fit'), 'contain');
-  assert.equal(desktopMedia.children[0].getPluginData('kenigevents-media-position'), '50% 50%');
-  const desktopCalendar = surface.components.find((component) => component.name === 'event.action.calendar.desktop.8006').mainInstance();
-  const calendarIcon = desktopCalendar.children.find((shape) => shape.name === 'icon');
-  near(calendarIcon.x, 11.875); near(calendarIcon.y, 12); near(calendarIcon.width, 20); near(calendarIcon.height, 20);
-  const desktopShare = surface.components.find((component) => component.name === 'event.action.share.desktop.8006').mainInstance();
-  const shareIcon = desktopShare.children.find((shape) => shape.name === 'icon');
-  near(shareIcon.x, 5.469); near(shareIcon.y, 11.766); near(shareIcon.width, 20.469); near(shareIcon.height, 20.469);
-  const eventType = surface.components.find((component) => component.name === 'event.meta.event-type.desktop.8006').mainInstance().children[0];
-  near(eventType.x, 7.031); near(eventType.y, 1.234); near(eventType.width, 53.328); near(eventType.height, 14);
-  const admission = surface.components.find((component) => component.name === 'event.meta.admission.desktop.8006').mainInstance().children[0];
-  near(admission.x, 9.797); near(admission.y, 6.094); near(admission.width, 173.156); near(admission.height, 14);
-
-  const textValues = walk(desktop.mainInstance()).filter((shape) => shape.type === 'text').map((shape) => shape.characters);
-  for (const value of ['Донорская акция «Стань донором крови»', 'встреча', '2 сентября 09:00', 'Бесплатно · регистрация', 'Гурьевск · Центр культуры и досуга', 'Не интересно', 'В календарь', 'Поделиться', '1', '9']) assert.ok(textValues.includes(value), value);
-  const textShapes = surface.root.children.flatMap(walk).filter((shape) => shape.type === 'text');
-  assert.ok(textShapes.length > 0);
-  assert.ok(textShapes.every((shape) => shape.getPluginData('kenigevents-font-id') === 'bc4c12f7-f47c-802d-8006-6df347cf14f9'));
-
-  const second = await execute(source, surface);
-  assert.equal(second.terminalState, 'SUCCEEDED_IDEMPOTENT_REUSE');
-  assert.equal(second.mutations, 0);
-  assert.equal(second.savedVersion.created, false);
-  assert.equal(surface.components.length, 16);
-  assert.equal(surface.root.children.length, 16);
-  assert.equal(surface.saveVersionCalls(), 1);
-  assert.deepEqual(surface.undoCalls(), { begin: 16, finish: 16 });
-  assert.equal(surface.validateCalls(), 6);
+  let combined = '';
+  let executableIdentity = '';
+  for (const output of manifest.outputs) {
+    const bytes = await readFile(new URL(output.path, ROOT));
+    assert.equal(bytes.length, output.bytes, output.path);
+    assert.equal(sha256(bytes), output.sha256, output.path);
+    combined += bytes.toString('utf8');
+    executableIdentity += `${output.path}\0${output.sha256}\n`;
+  }
+  assert.equal(sha256(Buffer.from(executableIdentity)), manifest.executable_set_sha256);
+  assert.doesNotMatch(combined, /bc4c12f7-f47c-802d-8006-6df3/);
+  assert.doesNotMatch(combined, /crypto\.subtle/);
+  assert.doesNotMatch(combined, /globalThis\.penpot/);
+  assert.doesNotMatch(combined, /\.remove\s*\(|\.detach\s*\(|createImageFromData|screenshot-as-design/i);
+  assert.doesNotMatch(combined, /\b(?:require|import)\s*\(/);
+  assert.match(combined, /normal-\$\{weight\}/);
 });
 
-test('readback validates and export returns directly decodable PNG payloads', async () => {
-  const [runSource, readbackSource, exportSource] = await Promise.all([readFile(RUN, 'utf8'), readFile(READBACK, 'utf8'), readFile(EXPORT, 'utf8')]);
+test('read-only setup accepts the exact revision-41 empty scaffold and resolves current native font variants', async () => {
   const surface = fakeSurface();
-  await execute(runSource, surface);
-  const readback = await execute(readbackSource, surface);
-  assert.equal(readback.fileId, surface.penpot.currentFile.id);
-  assert.equal(readback.pageId, surface.penpot.currentPage.id);
-  assert.deepEqual(readback.validation, []);
-  assert.equal(surface.validateCalls(), 4);
-  const exported = await execute(exportSource, surface);
-  assert.equal(exported.exports.length, 2);
-  for (const item of exported.exports) {
-    assert.equal(item.mime_type, 'image/png');
-    assert.equal(item.base64, 'iVBORw0KGgo=');
-    assert.equal(item.data_url, 'data:image/png;base64,iVBORw0KGgo=');
-    assert.equal(item.byte_length, 8);
+  const installed = await installRuntime(surface);
+  assert.equal(installed.installed, true);
+  assert.equal(installed.preflight.mode, 'ACCEPTED_BOARD_EMPTY_REVISION_41');
+  assert.equal(installed.preflight.boardId, BOARD_ID);
+  assert.equal(installed.preflight.boardChildren, 0);
+  assert.equal(installed.preflight.boardDescendants, 0);
+  assert.equal(installed.preflight.localComponents, 0);
+  assert.deepEqual(installed.preflight.validation, []);
+  assert.equal(installed.fontBinding.regular.runtimeFontId, RUNTIME_FONT_ID);
+  assert.equal(installed.fontBinding.regular.variantId, 'normal-400');
+  assert.equal(installed.fontBinding.bold.runtimeFontId, RUNTIME_FONT_ID);
+  assert.equal(installed.fontBinding.bold.variantId, 'normal-700');
+  assert.equal(surface.pageRoot.children.length, 1);
+  assert.equal(surface.pageRoot.children[0], surface.board);
+  assert.equal(surface.board.children.length, 0);
+  assert.equal(surface.components.length, 0);
+  assert.equal(surface.saveVersionCalls(), 0);
+  assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 });
+});
+
+test('bounded phases build 14 linked leaves and all four exact accepted EventCards under only the existing board', async () => {
+  const surface = fakeSurface();
+  await installRuntime(surface);
+  const receipts = await runAllPhases(surface);
+  for (const [index, receipt] of receipts.entries()) {
+    assert.deepEqual(receipt.readback.validation, [], manifest.execution.mutator_order[index]);
+    assert.equal(receipt.readback.pageDirectRootCount, 1);
+    assert.equal(receipt.readback.board.id, BOARD_ID);
+    assert.ok(receipt.readback.board.childCount > 0);
+    assert.ok(receipt.readback.totalLocalComponentCount > 0);
+    assert.equal(receipt.readback.screenshotRootCount, 0);
+    assert.equal(receipt.readback.detachedRootCount, 0);
+  }
+
+  const final = receipts.at(-1).readback;
+  assert.equal(final.board.childCount, 18);
+  assert.ok(final.board.descendantCount > final.board.childCount);
+  assert.equal(final.managedComponentCount, 18);
+  assert.equal(final.totalLocalComponentCount, 18);
+  assert.equal(final.acceptedCardRootCount, 4);
+  assert.equal(final.inProgressRootCount, 0);
+  assert.equal(final.routeLocalDuplicateMasterCount, 0);
+  assert.deepEqual(final.validation, []);
+  assert.deepEqual(final.cards.map((card) => card.name), EXPECTED_CASES);
+  assert.deepEqual(final.cards.map((card) => card.fixtureId), ['event.real.8006', 'event.real.2182', 'event.real.8006', 'event.real.2182']);
+  assert.deepEqual(final.cards.map((card) => card.structuralContext), ['desktop-wide-calendar', 'desktop-packed-calendar-absent', 'mobile-wide-calendar', 'mobile-packed-calendar-absent']);
+  assert.deepEqual(final.cards.map((card) => card.linkedLeafCount), [7, 6, 7, 6]);
+  assert.ok(final.cards.every((card) => card.componentId && card.rootId));
+  assert.ok(final.cards.flatMap((card) => card.linkedInstances).every((item) => item.instanceId && item.componentId));
+  assert.ok(final.cards.filter((card) => card.name.includes('calendar-absent')).every((card) => !card.linkedInstances.some((item) => item.slot === 'action.calendar')));
+  assert.equal(surface.pageRoot.children.length, 1);
+  assert.equal(surface.pageRoot.children[0].id, BOARD_ID);
+  assert.ok(surface.components.every((component) => component.mainInstance().parent?.id === BOARD_ID));
+
+  const textShapes = surface.board.children.flatMap(walk).filter((shape) => shape.type === 'text' && !shape.hidden);
+  assert.ok(textShapes.length > 0);
+  assert.ok(textShapes.every((shape) => shape.getPluginData('kenigevents-font-runtime-id') === RUNTIME_FONT_ID));
+  assert.ok(textShapes.every((shape) => shape.getPluginData('kenigevents-font-variant-id') === 'normal-700'));
+
+  const exported = await executePath('catalog/penpot-executor/g19/export-roots.js', surface);
+  assert.equal(exported.exports.length, 4);
+  assert.deepEqual(exported.exports.map((item) => item.name), EXPECTED_CASES);
+  assert.ok(exported.exports.every((item) => item.mime_type === 'image/png' && item.base64 === 'iVBORw0KGgo=' && item.data_url === 'data:image/png;base64,iVBORw0KGgo='));
+
+  const identity = final.components.map(({ name, componentId, rootId }) => ({ name, componentId, rootId }));
+  const versionsBefore = surface.saveVersionCalls();
+  const second = await runAllPhases(surface);
+  assert.ok(second.every((receipt) => receipt.terminalState === 'SUCCEEDED_IDEMPOTENT_REUSE' && receipt.mutations === 0));
+  assert.equal(surface.saveVersionCalls(), versionsBefore);
+  assert.deepEqual(second.at(-1).readback.components.map(({ name, componentId, rootId }) => ({ name, componentId, rootId })), identity);
+  assert.equal(surface.board.children.length, 18);
+  assert.equal(surface.pageRoot.children.length, 1);
+  assert.equal(surface.undoCalls().begin, surface.undoCalls().finish);
+});
+
+test('preflight fails closed on revision, scaffold topology, board identity, or exact font-variant drift', async () => {
+  const cases = [
+    [fakeSurface({ revision: 40 }), /PENPOT_BASELINE_REVISION_MISMATCH/],
+    [fakeSurface({ boardName: 'KenigEvents · G12 bounded L0–L3' }), /PENPOT_ACCEPTED_BOARD_MISMATCH/],
+    [fakeSurface({ secondPageRoot: true }), /PENPOT_ACCEPTED_BOARD_MISMATCH/],
+    [fakeSurface({ variants: ['normal-400'] }), /EXACT_NATIVE_FONT_VARIANT_MISSING/],
+    [fakeSurface({ variants: ['legacy-400', 'legacy-700'] }), /EXACT_NATIVE_FONT_VARIANT_MISSING/],
+  ];
+  for (const [surface, expected] of cases) {
+    await assert.rejects(installRuntime(surface), expected);
+    assert.equal(surface.board.children.length, 0);
+    assert.equal(surface.components.length, 0);
+    assert.equal(surface.saveVersionCalls(), 0);
+    assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 });
   }
 });
 
-test('preflight rejects wrong target and missing exact native font before writes', async () => {
-  const source = await readFile(RUN, 'utf8');
-  const wrongTarget = fakeSurface();
-  wrongTarget.penpot.currentPage.id = 'wrong';
-  await assert.rejects(execute(source, wrongTarget), /PENPOT_TARGET_MISMATCH/);
-  assert.equal(wrongTarget.root.children.length, 0);
-  const missingFont = fakeSurface();
-  missingFont.penpot.fonts.findByName = () => null;
-  missingFont.penpot.fonts.findAllByName = () => [];
-  await assert.rejects(execute(source, missingFont), /EXACT_NATIVE_FONT_VARIANT_MISSING/);
-  assert.equal(missingFont.root.children.length, 0);
-  const unreadableRevision = fakeSurface();
-  delete unreadableRevision.penpot.currentFile.revn;
-  await assert.rejects(execute(source, unreadableRevision), /PENPOT_REVISION_UNREADABLE/);
-  assert.equal(unreadableRevision.root.children.length, 0);
-});
-
-test('an interrupted async media unit is undo-bounded and resumable without cleanup', async () => {
-  const source = await readFile(RUN, 'utf8');
-  const surface = fakeSurface({ failMediaOnce: true });
-  await assert.rejects(execute(source, surface), /synthetic media upload interruption/);
-  assert.equal(surface.root.children.length, 1);
-  assert.equal(surface.components.length, 0);
-  assert.deepEqual(surface.undoCalls(), { begin: 1, finish: 1 });
-  const resumed = await execute(source, surface);
-  assert.equal(resumed.terminalState, 'SUCCEEDED');
-  assert.equal(resumed.mutations, 16);
-  assert.equal(resumed.readback.auditIssues.length, 0);
-  assert.equal(surface.root.children.length, 16);
-  assert.equal(surface.components.length, 16);
-  assert.deepEqual(surface.undoCalls(), { begin: 17, finish: 17 });
-});
-
-test('idempotent reuse fails closed on payload-owned content drift', async () => {
-  const source = await readFile(RUN, 'utf8');
+test('phase reuse audits exact payload-owned content and performs no blind repair', async () => {
   const surface = fakeSurface();
-  await execute(source, surface);
-  const admission = surface.components.find((component) => component.name === 'event.meta.admission.desktop.8006').mainInstance().children[0];
-  admission.characters = 'drift';
+  await installRuntime(surface);
+  await executePath('catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js', surface);
+  const admission = surface.components.find((component) => component.name === 'event.meta.admission.desktop.8006').mainInstance();
+  admission.children[0].characters = 'drift';
   const undoBefore = surface.undoCalls();
-  await assert.rejects(execute(source, surface), /MANAGED_TEXT_CONTENT_OR_FONT_DRIFT/);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js', surface), /MANAGED_TEXT_CONTENT_OR_FONT_DRIFT/);
   assert.deepEqual(surface.undoCalls(), undoBefore);
-  assert.equal(surface.components.length, 16);
+  assert.equal(surface.board.children.length, 4);
+  assert.equal(surface.components.length, 4);
 });
 
-test('reuse audits exact surfaces and actual linked component lineage without repairs', async () => {
-  const source = await readFile(RUN, 'utf8');
-  const missingSurface = fakeSurface();
-  await execute(source, missingSurface);
-  const card = missingSurface.components.find((component) => component.name === 'eventcard.desktop-wide-calendar.8006').mainInstance();
-  const surfaceBody = card.children.find((shape) => shape.name === 'surface.body');
-  card.children = card.children.filter((shape) => shape !== surfaceBody);
-  const unexpected = new Shape('rectangle'); unexpected.name = 'unexpected'; card.appendChild(unexpected);
-  const undoBefore = missingSurface.undoCalls();
-  await assert.rejects(execute(source, missingSurface), /MANAGED_RECT_MISSING/);
-  assert.deepEqual(missingSurface.undoCalls(), undoBefore);
-
-  const swapped = fakeSurface();
-  await execute(source, swapped);
-  const swappedCard = swapped.components.find((component) => component.name === 'eventcard.desktop-wide-calendar.8006').mainInstance();
-  const linkedLeaf = swappedCard.children.find((shape) => shape.isComponentCopyInstance());
-  linkedLeaf._component = { id: 'wrong-component' };
-  await assert.rejects(execute(source, swapped), /LINKED_INSTANCE_LINEAGE_DRIFT/);
+test('an interrupted card-component registration resumes the exact marked shell without cleanup', async () => {
+  const surface = fakeSurface({ failCardPathOnce: true });
+  await installRuntime(surface);
+  const throughShell = manifest.execution.mutator_order.slice(0, manifest.execution.mutator_order.indexOf('phase-p31-desktop-wide-final.js'));
+  for (const path of throughShell) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p31-desktop-wide-final.js', surface), /synthetic card registration interruption/);
+  const partialComponents = surface.components.filter((component) => component.mainInstance().getPluginData('kenigevents-role') === 'accepted-card-master');
+  assert.equal(partialComponents.length, 1);
+  assert.equal(partialComponents[0].path, '');
+  assert.equal(partialComponents[0].mainInstance().getPluginData('kenigevents-build-state'), 'SHELL_COMPLETE');
+  const resumed = await executePath('catalog/penpot-executor/g19/phase-p31-desktop-wide-final.js', surface);
+  assert.equal(resumed.terminalState, 'SUCCEEDED');
+  assert.equal(resumed.created[0].componentId, partialComponents[0].id);
+  assert.equal(partialComponents[0].path, 'KenigEvents / G19 / EventCard 8006 / Accepted');
+  assert.equal(partialComponents[0].name, 'eventcard.desktop-wide-calendar.8006');
+  assert.equal(partialComponents[0].mainInstance().getPluginData('kenigevents-build-state'), 'COMPLETE');
+  assert.equal(surface.pageRoot.children.length, 1);
 });

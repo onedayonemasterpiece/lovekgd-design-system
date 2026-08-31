@@ -1,0 +1,126 @@
+{
+  "schema": "kenigevents.immutable-materialization-bundle.v1",
+  "bundle_kind": "eventcard-free-slice",
+  "bundle_id": "eventcard-free-slice.g4.ready-v1",
+  "revision": "ready-v1",
+  "control_generation": 4,
+  "promotion_state": "READY_FOR_W0_PROMOTION",
+  "execution_time_prerequisites": [
+    {
+      "gate": "active_execution_control",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "w0_penpot_write_lease",
+      "required_at": "immediately-before-mutation"
+    },
+    {
+      "gate": "clean_penpot_baseline_receipt",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "validated_target_manifest_and_reuse_map",
+      "required_at": "preflight"
+    },
+    {
+      "gate": "per-write_cancellation_recheck",
+      "required_at": "immediately-before-every-write"
+    },
+    {
+      "gate": "complete_provenance_receipt",
+      "required_at": "terminal-state"
+    }
+  ],
+  "source_bindings": [
+    {
+      "role": "resolved_case_index",
+      "path": "catalog/ui-conformance/free-collection/g4/resolved/resolved-cases.index.json",
+      "format": "json",
+      "sha256": "263a25d878c8b2f8c47be2de4d20f82db3088107d326275016c1e7203b05cf34",
+      "required_json_pointers": [
+        "/schema",
+        "/cases",
+        "/content_sha256"
+      ]
+    },
+    {
+      "role": "component_contract",
+      "path": "catalog/ui-components/event-card-large/component-contract.v2.json",
+      "format": "json",
+      "sha256": "72385737a289f43090dd8d388497f755141e78f56a14576e4221fb817ab526fb",
+      "required_json_pointers": [
+        "/component_id",
+        "/semantic_children"
+      ]
+    },
+    {
+      "role": "asset_registry",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "format": "yaml",
+      "sha256": "d2360d5ab3581fdfdb3c10aa5d995d4d652e127a1da111f8da2e4e4907c1ac48",
+      "required_tokens": [
+        "kenigevents.ui-assets.v1",
+        "ACTIVE_BOUNDED_BINDINGS_RESOLVED"
+      ]
+    },
+    {
+      "role": "page_profile",
+      "path": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+      "format": "yaml",
+      "sha256": "4ed73c4203a32fc775bdaf82bd65d32ad82040e81038afe8e50a7d5eb2c4017b",
+      "required_tokens": [
+        "free-collection.owner-review.v1",
+        "BLOCKED_OWNER_REJECTED",
+        "READY_FOR_W0_PROMOTION"
+      ]
+    }
+  ],
+  "resolved_case_index_ref": "catalog/ui-conformance/free-collection/g4/resolved/resolved-cases.index.json",
+  "required_case_ids": [
+    "eventcard.desktop-wide-calendar.8006",
+    "eventcard.desktop-packed-calendar-absent.2182",
+    "eventcard.mobile-wide-calendar.8006",
+    "eventcard.mobile-packed-calendar-absent.2182"
+  ],
+  "dependencies": [],
+  "materialization_scopes": [
+    {
+      "semantic_id": "event.card/eventcard.desktop-wide-calendar.8006",
+      "source_ref": "resolved-case:eventcard.desktop-wide-calendar.8006",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.desktop-packed-calendar-absent.2182",
+      "source_ref": "resolved-case:eventcard.desktop-packed-calendar-absent.2182",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.mobile-wide-calendar.8006",
+      "source_ref": "resolved-case:eventcard.mobile-wide-calendar.8006",
+      "target_binding": "event.card"
+    },
+    {
+      "semantic_id": "event.card/eventcard.mobile-packed-calendar-absent.2182",
+      "source_ref": "resolved-case:eventcard.mobile-packed-calendar-absent.2182",
+      "target_binding": "event.card"
+    }
+  ],
+  "required_target_bindings": [
+    "event.card",
+    "event.media-frame",
+    "event.action.share",
+    "event.action.like",
+    "event.action.not-interested",
+    "event.action.calendar"
+  ],
+  "required_reuse_bindings": [
+    "event.card",
+    "event.media-frame"
+  ],
+  "target_manifest_ref": "external:kenigevents.materialization-target.v1",
+  "negative_test_refs": [
+    "tests/resolved-render-case.test.mjs",
+    "tests/materialization-execution-kernel.test.mjs",
+    "tests/free-collection-g4-closure.test.mjs"
+  ]
+}

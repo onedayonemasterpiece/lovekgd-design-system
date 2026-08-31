@@ -1,64 +1,77 @@
-# G19 EventCard 8006 native materialization
+# G19 EventCard four-case native materialization V3
 
-This is the bounded Git delivery for owner lease
-`G19-P2-P4-ACTUAL-MATERIALIZATION-R1`. It does not grant Codex authority to
-write Penpot: `E0_CHATGPT_PRO` remains the sole Penpot writer.
+This bounded Git delivery implements owner lease
+`G19-P2-P4-ACTUAL-MATERIALIZATION-R1`. Penpot mutations by Codex are `0`;
+`E0_CHATGPT_PRO` executes the generated phase scripts.
 
-## Exact execution target
+## Exact first-run target
 
 - file: `40e06342-8830-80d6-8008-8fc8a3a4cd4f`
 - page: `c16498cb-b51d-8030-8008-904bd8fc9c53`
-- expected first-run revision: `40`
-- fixture: `event.real.8006`
-- accepted card components:
-  - `eventcard.desktop-wide-calendar.8006`
-  - `eventcard.mobile-wide-calendar.8006`
+- expected revision: `41`
+- sole page-level root: existing board
+  `313fb1ed-0d5c-8095-8008-9108df52b2ce`,
+  `KenigEvents · G12 bounded L0-L3`
+- expected board census: zero children/descendants, zero local components,
+  validation `[]`
 
-The payload is generated from hash-locked accepted inputs. The full binding is
-recorded in [`../catalog/penpot-executor/g19/manifest.json`](../catalog/penpot-executor/g19/manifest.json).
+The runtime never creates, deletes, or replaces a page-level root. All leaf
+masters, assets, linked instances, and accepted EventCard masters are appended
+under that existing board.
 
-## Commands
+## Accepted four-case slice
 
-Regenerate and verify the self-contained payload:
+- `eventcard.desktop-wide-calendar.8006` — `event.real.8006`
+- `eventcard.mobile-wide-calendar.8006` — `event.real.8006`
+- `eventcard.desktop-packed-calendar-absent.2182` — `event.real.2182`
+- `eventcard.mobile-packed-calendar-absent.2182` — `event.real.2182`
+
+The payload also creates fourteen persistent leaf components: seven exact
+semantic leaves for each desktop/mobile structural context. Artwork and SVG
+icons are embedded from hash-locked accepted inputs; no runtime filesystem,
+import, network, or screenshot-as-design dependency exists.
+
+## Generate and verify
 
 ```bash
 node scripts/round-trip-reconstruction/generate-g19-eventcard-8006-materializer.mjs
 node --test tests/penpot-g19-eventcard-8006-materializer.test.mjs
+node --test tests/*.test.mjs
 ```
 
-E0 passes the exact UTF-8 contents of
-[`run-materialization.js`](../catalog/penpot-executor/g19/run-materialization.js)
-to `Penpot.execute_code`. It contains the poster bytes and SVG icons; Penpot
-does not need filesystem, imports, or network access.
+The authoritative output identities, execution order, input provenance, and
+four-case lineage are in
+[`manifest.json`](../catalog/penpot-executor/g19/manifest.json), marker
+`ASP_G19_P2_PAYLOAD_READY_V3`.
 
-After the mutator returns, E0 runs, in the same plugin session:
+## Bounded execution
 
-1. [`readback.js`](../catalog/penpot-executor/g19/readback.js) — repeats the
-   file/page census, returns IDs/names/counts, and invokes
-   `penpot.currentFile.validate()`.
-2. [`export-roots.js`](../catalog/penpot-executor/g19/export-roots.js) — exports
-   both accepted roots as PNG and returns `base64` plus `data_url`.
+In one Penpot plugin session, pass each file in `manifest.execution.setup_order`
+to `Penpot.execute_code`. Setup is read-only: it uploads the payload in bounded
+chunks, verifies its SHA-256 with a self-contained implementation, resolves the
+exact target, and installs `storage.g19EventCard8006`.
 
-## Fail-closed and idempotency contract
+Then execute each file in `manifest.execution.mutator_order`. After every
+mutator, execute [`readback.js`](../catalog/penpot-executor/g19/readback.js).
+Each phase is dependency-ordered and idempotent by exact V3 object marker and
+payload hash; partial `BUILDING`, `READY_FOR_COMPONENT`, and `SHELL_COMPLETE`
+objects are resumed without blind cleanup.
 
-- Exact DejaVu Sans Regular 400 and Bold 700 IDs are resolved before the first
-  write; family fallback is forbidden.
-- A target or initial revision mismatch fails before writes.
-- Existing matching masters are reused; a same-name component with a different
-  G19 marker fails closed.
-- Every component is a separate `undoBlockBegin()` / `undoBlockFinish(blockId)`
-  recovery unit. An interrupted `BUILDING` root is resumed by its child markers;
-  it is never deleted or duplicated.
-- The payload never calls remove/detach and never cleans accepted roots.
-- Every card child that owns media, content, metadata, or an action is a linked
-  local component instance.
-- Success requires two accepted roots, 16 managed local components (14
-  structural-context leaf masters plus the two accepted card masters), zero
-  detached roots, zero screenshot roots, zero route-local duplicate masters,
-  and validation `[]`.
-- A successful write saves the named version
-  `G19 EventCard event.real.8006 · <payload-prefix>`; retries reuse that exact
-  version label instead of creating duplicates.
+After `P90_FINALIZE`,
+[`export-roots.js`](../catalog/penpot-executor/g19/export-roots.js) exports all
+four accepted roots and returns PNG `base64` and `data_url` fields.
 
-This delivery is not a screenshot-as-design shortcut and does not change the
-repository-wide promotion lifecycle.
+## Fail-closed contract
+
+- First setup accepts only revision `41` with the exact empty accepted scaffold.
+- Resume accepts only payload-owned board children and component mains under the
+  exact board; unmanaged content, marker/hash drift, or validation errors fail.
+- DejaVu Sans is resolved natively by family and exact variants `normal-400`
+  and `normal-700`. Runtime font IDs are receipt data, never pinned inputs;
+  immutable font source hashes remain provenance metadata.
+- Component-copy descendants are resized/repositioned without structural
+  re-append operations.
+- Every write unit uses the exact undo-block token and saves a phase-specific
+  named version.
+- Final success requires 18 board children, 18 local components, four accepted
+  card roots, zero detached/screenshot/duplicate roots, and validation `[]`.
