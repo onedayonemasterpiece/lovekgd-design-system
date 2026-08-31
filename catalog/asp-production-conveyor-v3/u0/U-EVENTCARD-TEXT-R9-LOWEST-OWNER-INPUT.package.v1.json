@@ -1,0 +1,302 @@
+{
+  "schema_version": "kenigevents.asp-u0-eventcard-text-r9-input.v1",
+  "package_id": "U-EVENTCARD-TEXT-R9-LOWEST-OWNER-INPUT",
+  "owner": "U0",
+  "priority": "P0",
+  "status": "READY_FOR_D0_MAT_AND_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T16:38:00Z",
+  "purpose": "Lowest component-owner input for the bounded text-only R9 repair descended from the EventCard P30 lane. It specifies source-owned text roles and acceptance invariants; D0/MAT owns native Penpot construction and D0/PUBLISH remains the sole writer.",
+  "lifecycle": {
+    "ready_for_d0_mat": true,
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "visual_pass": false,
+    "owner_decision_required": false,
+    "penpot_mutations_by_u0": 0,
+    "astro_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "next_artifact": "immutable MAT R9 executable plus committed-byte QA and D0/INTEGRATE PASS"
+  },
+  "source_package": {
+    "branch": "u0/eventcard-four-cases-v3",
+    "commit": "101e5a0b76084da0811be244fe0e7281910c1452",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+    "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+    "bytes": 20051,
+    "semantic_identity": "component.event-card.free-collection",
+    "disposition": "REUSE_CANONICAL_DATA_AND_CURRENT_FOUR_CASE_STRUCTURE"
+  },
+  "requirements_contract": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "commit": "f134001382f547cebe8b025da24065128b174ffb",
+    "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+    "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "source_a": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+    "component_path": "site/src/components/EventCard.astro",
+    "component_git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c",
+    "reference_clock": "2026-08-30T12:00:00+02:00",
+    "timezone": "Europe/Kaliningrad",
+    "locale": "ru-RU",
+    "authority_mode": "ASTRO_AS_IS_REFERENCE",
+    "tuple_changed": false
+  },
+  "terminal_structural_input": {
+    "mat_branch": "task/d0-mat-20260831",
+    "mat_commit": "d5abff951bdf5532744ff32960f805c17edd4969",
+    "mat_tree": "544c73427fe206965abe861bcb2e9c741abcf47b",
+    "manifest_sha256": "7a7c4ca881f0153eb4327a5ff3412f9112088dc7bae72367b273cee8c13c4268",
+    "executable_set_sha256": "6530f46af5185fdf537a30bba41975810e23497fe0af65a00402a2ae9a3024b0",
+    "integration_pass_comment": 5481124677,
+    "qa_pass_comment": 5481126447,
+    "visual_delta_comment": 5481226456,
+    "structural_completion_comment": 5481227585,
+    "penpot_revision": 73,
+    "structural_status": "COMPLETE",
+    "visual_status": "REPAIR"
+  },
+  "persistent_identity": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "collection_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "collection_children": 18,
+    "collection_descendants": 248,
+    "local_components": 18,
+    "page_direct_roots": 1,
+    "validation": [],
+    "full_roots": [
+      {
+        "case_id": "eventcard.desktop-wide-calendar.8006",
+        "root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+        "component_id": "313fb1ed-0d5c-8095-8008-912d51452f89",
+        "text_shapes": 10
+      },
+      {
+        "case_id": "eventcard.desktop-packed-calendar-absent.2182",
+        "root_id": "313fb1ed-0d5c-8095-8008-914c76615924",
+        "component_id": "313fb1ed-0d5c-8095-8008-916b0b931d1f",
+        "text_shapes": 9
+      },
+      {
+        "case_id": "eventcard.mobile-wide-calendar.8006",
+        "root_id": "313fb1ed-0d5c-8095-8008-916b340de148",
+        "component_id": "313fb1ed-0d5c-8095-8008-916bb0cb7843",
+        "text_shapes": 10
+      },
+      {
+        "case_id": "eventcard.mobile-packed-calendar-absent.2182",
+        "root_id": "313fb1ed-0d5c-8095-8008-916bd0ab6c98",
+        "component_id": "313fb1ed-0d5c-8095-8008-916be7e9352d",
+        "text_shapes": 9
+      }
+    ]
+  },
+  "defect_evidence": {
+    "bounded_v0_directive_comment": 5481341474,
+    "authoritative_terminal_visual_review_comment": 5481337267,
+    "qa_glyph_diagnosis_comment": 5481256264,
+    "penpot_text_contract_comment": 5481266952,
+    "earlier_native_probe_directive_comment": 5481062313,
+    "defect_ids": [
+      "V0-1-G19-TEXT-BOUNDS-DISJOINT-016",
+      "V0-1-G19-LEAF-TEXT-MATRIX-013"
+    ],
+    "text_shapes_total": 52,
+    "visible_nonempty": 48,
+    "intentionally_hidden_zero_counts": 4,
+    "bounds_text_bounds_vertically_disjoint": 52,
+    "positive_vertical_intersection": 0,
+    "root_cause": "PIXEL_LIKE_LINE_HEIGHT_WRITTEN_AS_UNITLESS_MULTIPLIER"
+  },
+  "text_role_contract": {
+    "line_height_api_unit": "UNITLESS_FONT_SIZE_MULTIPLIER",
+    "normalization_formula": "String(line_height_px / font_size_px)",
+    "roles": {
+      "title": {
+        "observed_invalid_line_height": "23.328",
+        "font_size": "21.6",
+        "target_multiplier": "1.08"
+      },
+      "occurrence": {
+        "observed_invalid_line_height": "16.4",
+        "font_size": "13.12",
+        "target_multiplier": "1.25"
+      },
+      "place": {
+        "observed_invalid_line_height": "17.2",
+        "font_size": "13.76",
+        "target_multiplier": "1.25"
+      },
+      "event_type": {
+        "observed_invalid_line_height": "13.824",
+        "font_size": "11.52",
+        "target_multiplier": "1.2"
+      },
+      "admission": {
+        "observed_invalid_line_height": "13.8",
+        "font_size": "12",
+        "target_multiplier": "1.15"
+      },
+      "not_interested": {
+        "observed_invalid_line_height": "18.944",
+        "font_size": "11.84",
+        "target_multiplier": "1.6"
+      },
+      "calendar_share": {
+        "observed_invalid_line_height": "20.992",
+        "font_size": "13.12",
+        "target_multiplier": "1.6"
+      },
+      "like_count": {
+        "observed_invalid_line_height": "25.088",
+        "font_size": "15.68",
+        "target_multiplier": "1.6"
+      }
+    },
+    "raw_pixel_like_values_forbidden": [
+      "23.328",
+      "16.4",
+      "17.2",
+      "13.824",
+      "13.8",
+      "18.944",
+      "20.992",
+      "25.088"
+    ],
+    "managed_text_only": true,
+    "factual_strings_mutable": false,
+    "font_binding_mutable": false,
+    "text_frame_geometry_mutable": false
+  },
+  "required_mat_r9_behavior": {
+    "scope": "TEXT_LINE_HEIGHT_ONLY",
+    "writes": [
+      "set each managed Text.lineHeight to the exact target multiplier",
+      "update only deterministic R9 receipts and tests required for that text mutation"
+    ],
+    "settlement": {
+      "await_native_text_layout": true,
+      "readback_property": "Text.textBounds",
+      "ordinary_shape_bounds_as_substitute": false
+    },
+    "text_bounds_gate": {
+      "finite": true,
+      "positive_width_and_height": true,
+      "vertical_intersection_with_allocated_frame_px": ">0",
+      "contained_in_semantic_slot": true,
+      "contained_in_full_card_root": true,
+      "visible_nonempty_required_count": 48,
+      "post_repair_disjoint_count": 0
+    },
+    "native_exports": {
+      "individual_text_shapes": [
+        "title",
+        "occurrence",
+        "place",
+        "event_type",
+        "admission",
+        "not_interested",
+        "calendar_share",
+        "like_count"
+      ],
+      "all_four_full_roots": true,
+      "exact_glyph_ink_required": true
+    }
+  },
+  "must_preserve": {
+    "collection_root_id": true,
+    "all_four_full_root_ids": true,
+    "all_eighteen_component_ids": true,
+    "one_page_direct_root": true,
+    "collection_children_18": true,
+    "local_components_18": true,
+    "factual_strings": true,
+    "event_2182_calendar_absence": true,
+    "event_2182_hidden_zero_counts": true,
+    "root_geometry": true,
+    "action_geometry": true,
+    "raster_shapes_and_fills": true,
+    "current_media_construction": true,
+    "native_component_paths": true,
+    "validation_empty": true
+  },
+  "forbidden_in_r9": [
+    "rebuild any card or component",
+    "create a second root",
+    "delete or replace a persistent root",
+    "move logical text frames to chase corrupted textBounds",
+    "change font size, characters, fills, letter spacing, x, y, width or height",
+    "outline or rasterize text",
+    "substitute screenshots or detached surrogates",
+    "change media transforms, raster shapes or image fills",
+    "repair native component paths in the text-only mutation",
+    "claim complete EventCard visual PASS from text repair alone"
+  ],
+  "separate_open_lanes": {
+    "media": {
+      "defect_id": "V0-1-G19-MEDIA-IMAGE-FILL-017",
+      "directive_comment": 5481094733,
+      "state": "P0_OPEN_SEPARATE_FROM_R9",
+      "lowest_owner_input": "full factual raster coverage with source contain/cover semantics",
+      "implementation_owner": "D0/MAT",
+      "must_not_be_bundled_into_r9": true
+    },
+    "native_component_paths": {
+      "defect_ids": [
+        "V0-1-G19-LEAF-PATH-ACCEPTANCE-015",
+        "V0-1-G19-ACCEPTED-COMPONENT-PATH-018"
+      ],
+      "state": "OPEN_SEPARATE_FROM_R9",
+      "expected_nonempty_paths": 18,
+      "observed_nonempty_paths": 3,
+      "implementation_owner": "D0/MAT",
+      "must_not_be_bundled_into_r9": true
+    },
+    "p90_visual_gate": {
+      "defect_id": "V0-1-G19-P90-VISUAL-BLIND-GATE-019",
+      "state": "OPEN",
+      "owners": [
+        "D0/MAT",
+        "D0/QA",
+        "D0/INTEGRATE"
+      ],
+      "u0_input": "structural COMPLETE and visual PASS are separate fields"
+    }
+  },
+  "acceptance_before_publish": {
+    "immutable_mat_r9_head": true,
+    "remote_exact_head": true,
+    "committed_byte_qa_pass": true,
+    "d0_integrate_same_tuple_pass": true,
+    "new_active_run_marker_for_existing_writer": true,
+    "expected_revision": 73,
+    "one_bounded_native_mutation": true,
+    "immediate_native_readback": true,
+    "v0_independent_review": true
+  },
+  "negative_regressions_required": [
+    "reject any raw-pixel-like Text.lineHeight value for a managed role",
+    "reject zero or negative textBounds width or height",
+    "reject zero vertical intersection between visible textBounds and allocated frame",
+    "reject changed persistent root or component ID",
+    "reject changed factual string or 2182 visibility semantics",
+    "reject changed media shape or fill in R9",
+    "reject second root, screenshot, outline or detached text surrogate",
+    "idempotent rerun must preserve IDs, one root, 18/18 census and validation=[]"
+  ],
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_eventcard_text_r9_input.py",
+    "consumer": "D0/MAT",
+    "output_schema": "kenigevents.u0-eventcard-text-r9-mat-input.v1",
+    "penpot_adapter_included": false
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_eventcard_text_r9_input.py --repo . --check-repository-inputs --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_eventcard_text_r9_input.py"
+  }
+}
