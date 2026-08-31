@@ -1,412 +1,351 @@
-# ASP Production Conveyor v1
+# ASP Production Conveyor — corrected one-day execution topology
 
 Status: **active operating model**  
 Date: 2026-08-31  
 Coordination surface: issue #57  
-Critical execution surface: PR #55
+Critical free-page surface: PR #55
 
-This document is subordinate to the active `kenigevents.asp-conformance` requirements contract. It does not redefine A=S=P, product semantics or visual authority. It replaces only fragmented orchestration habits that serialized unrelated work, turned the owner into the event loop and repeatedly restarted from analysis instead of converting existing assets into visible Penpot output.
+This document is subordinate to the active `kenigevents.asp-conformance` contract. It does not redefine A=S=P, product semantics, visual authority or owner-review criteria. It replaces only fragmented execution habits that serialized unrelated work, repeatedly restarted analysis and made the owner transfer internal state between windows.
 
-## 1. Product result
+## 1. Critical topology correction
+
+The strategy conversation is not operational and is not counted in the execution-window limit. It performs no queue polling, routine Git/Penpot operations or task scheduling.
+
+The operational system has exactly:
+
+- five long-lived ChatGPT Pro windows;
+- one direct Codex `/goal` coordinator;
+- six Codex child agents controlled by that goal;
+- one sole Penpot writer among those children.
+
+Total execution actors: twelve. The separate strategy conversation is consulted only for systemic incidents and real product or architecture decisions.
+
+## 2. Product result
 
 The first mandatory result is:
 
-1. EventCard free slice visually proven A=S=P;
+1. EventCard free slice visually proven A=S=P across four exact cases;
 2. `/podborki/besplatnye-sobytiya/` desktop/mobile visually proven A=S=P;
-3. page ready for owner review in the new Penpot design-system file.
+3. the page ready for owner review in the new Penpot design-system file.
 
-The same-day broad result is a visibly populated design system:
+The same-day broad result is a visibly populated design system containing:
 
 - current-reconstructed foundations;
-- canonical SVG/iconography and brand assets;
-- primitives and controls;
-- card families;
-- shell patterns;
-- visible desktop/mobile boards for every current route archetype;
-- actual visual status on every board: `PASS`, `VISIBLE_WITH_DIFF`, `BLOCKED_CORPUS_GAP` or `BLOCKED_PRODUCT_DECISION`.
+- typography, headings, spacing, layout, grid, shape and elevation;
+- canonical SVG/iconography, logos, medallions and brand assets;
+- controls and shared primitives;
+- card families and shared patterns;
+- header, footer, navigation, shelves and floating island;
+- desktop/mobile owner boards for every current route archetype;
+- compact review index;
+- actual visual status for every board: `PASS`, `VISIBLE_WITH_DIFF`, `BLOCKED_CORPUS_GAP` or `BLOCKED_PRODUCT_DECISION`.
 
-A report, marker, plan, test pass, component count or hidden structure is not the product result. The product result is native visible Penpot UI plus direct Astro↔Penpot visual evidence.
+A report, marker, hidden component count, empty board, test pass or temporary canary is not product progress.
 
-## 2. Retrospective decisions from 8–31 August
+## 3. Five operational ChatGPT windows
 
-### 2.1 Existing work is migration capital
+### O0 — Product orchestrator
 
-The following are not restart inputs; they are reusable capital:
+Owns:
 
-- Current UI Decoder and behavioral evidence;
-- Component Synthesis IR and dependency graphs;
-- PR #37 card families, icons, medallions, artifacts and bounded review topology;
-- PR #42 Golden Event Corpus and known EventCard drift;
-- PR #43 Date Listing + Shell vertical slice;
-- PR #50/#52 17-archetype contracts, materialization plan and 34 desktop/mobile cases;
-- PR #53 owner corrections and safe bounded-mutation lessons;
-- current promoted free-collection SoT, resolved cases, Astro evidence and current materializer;
-- old Penpot archive as a source of exact bytes and healthy structural data.
+- product priority;
+- cross-lane queue;
+- incident response;
+- direct-Codex and DevCoveer task routing;
+- writer handoff;
+- product dashboard;
+- adoption of lane receipts;
+- routine reversible technical decisions.
 
-`candidate`, `noncanonical` or `owner-review-pending` does not mean `discard`. Reuse is decided item by item:
+O0 does not become the visual-design author or a substitute Penpot publisher.
 
-- exact bytes/assets: reuse by hash;
-- semantic identities: reuse after current-consumer validation;
-- anatomy/variants/layout patterns: reconstruct with new IDs;
-- old Penpot UUIDs, shapeRefs, detached copies and stale PASS labels: never reuse;
-- screenshots: evidence only, never implementation.
+### V0 — Visual QA laboratory
 
-### 2.2 One Penpot writer does not mean one working lane
+Owns:
 
-Only mutations to the shared Penpot file are serialized. All of these remain parallel:
+- direct `my-browser-bridge` operation;
+- exact Astro browser sessions;
+- DOM, bounds, viewport, state and screenshot capture;
+- Penpot read/export windows;
+- direct visual inspection of Astro and Penpot PNGs;
+- overlay/diff/geometry evidence interpretation;
+- exact defect routing to the lowest owner;
+- repeated component, pattern and archetype review throughout the day.
 
-- Git SoT production;
-- donor recovery;
-- corpus and state-packet work;
-- browser evidence;
-- visual comparison;
-- materializer repair;
-- tests and package compilation;
-- next-batch preparation.
+V0 never accepts visuals from a Codex summary without inspecting the actual images.
 
-### 2.3 The publisher must not develop every package
+### F0 — Foundations, brand and assets
 
-The Penpot publisher consumes immutable `READY_TO_PUBLISH` packages. It may perform narrow materializer repairs, but it must not repeatedly conduct the full research, architecture, corpus, packaging and validation cycle before every visible batch.
-
-### 2.4 Visual truth precedes process truth
-
-Structural and hash gates protect identity, but PASS requires actual image review. The visual reviewer must obtain Astro from a real browser session and Penpot from native export, inspect both, and issue a bounded defect or PASS.
-
-### 2.5 The owner is not the event loop
-
-Workers communicate through issue #57 and PR #55. The owner may resume long ChatGPT turns every 40–60 minutes and answer real product decisions. The owner must not copy micro-prompts, transfer receipts between windows or grant routine technical transitions.
-
-## 3. Maximum-five ChatGPT topology
-
-The maximum includes the strategist context.
-
-### STRAT — strategist
-
-The current conversation remains strategic and incident-oriented. It does not run the live queue and does not become the daily dispatcher. The owner returns here for architecture changes, systemic incidents and product decisions.
-
-### O0 — live product orchestrator
-
-A new ChatGPT Pro window.
-
-Tools:
-
-- GitHub;
-- Codex DevCoveer;
-- Penpot for readback only unless a documented emergency fallback is explicitly authorized;
-- no routine browser work.
-
-Responsibilities:
-
-- adopt issue #57 without stopping current work;
-- maintain the queue and priorities;
-- reconcile active DevCoveer/direct-Codex tasks;
-- keep one Penpot writer;
-- keep publisher supplied with at least two ready packages;
-- detect five-minute visual stalls;
-- route defects to the lowest owner;
-- keep independent lanes active;
-- make reversible technical decisions;
-- publish checkpoints so the window can be resumed after 40–60 minutes.
-
-O0 does not perform deep visual acceptance itself when V0 is available.
-
-### V0 — visual QA and evidence owner
-
-A new ChatGPT Pro window.
-
-Tools:
-
-- GitHub;
-- my-browser-bridge;
-- Penpot READ_EXPORT.
-
-Responsibilities:
-
-- directly open exact Astro builds through browser bridge;
-- inspect DOM, semantic nodes, bounds, responsive state and screenshots;
-- directly export matching Penpot roots;
-- inspect images itself, not via a Codex summary;
-- compare content, wrapping, typography, geometry, color, crop, icons and parent context;
-- create concise defect directives;
-- review at component, pattern and page levels;
-- keep a continuous review backlog rather than closing after one card.
-
-V0 never writes target UI in Penpot and never hides a Git defect with manual polish.
-
-### G0 — foundations, assets and shared-system producer
-
-A new ChatGPT Pro window.
-
-Tools:
-
-- GitHub;
-- optional Codex DevCoveer only for bounded implementation/tests under G0 supervision.
-
-Long-lived scope:
+Owns:
 
 - current-reconstructed colors and modes;
 - typography and heading roles;
-- spacing, grid, containers, density and responsive mappings;
-- radii, borders, elevation, opacity and layering;
-- canonical SVG/icon registry;
-- logo, medallions and brand assets;
-- brandbook baseline;
-- controls, chips, pills, form primitives and shared actions;
-- Penpot materialization packages for these domains.
+- spacing, sizing, grid, responsive, density and layout;
+- radius, border, opacity, elevation and layering;
+- canonical SVG/iconography;
+- logos, medallions and brand assets;
+- current brandbook baseline;
+- publishable foundation and asset packages.
 
-G0 does not choose a future palette or redesign current Astro. It continuously produces publishable batches, reviews defects routed from V0 and prepares the next package.
+F0 does not choose a future palette or redesign current Astro during baseline reconstruction.
 
-### A0 — recovery, corpus and archetype producer
+### U0 — Shared UI, components and shell
 
-A new ChatGPT Pro window.
+Owns:
 
-Tools:
+- controls, actions, chips, pills and forms;
+- EventCard-related shared structure after the current critical slice;
+- other card families;
+- rows, rails, shelves and grouping patterns;
+- header, footer, navigation and floating island;
+- medallion placement and shell composition;
+- publishable component and shell packages;
+- corrections assigned by V0.
 
-- GitHub;
-- File Library when old archive access is needed;
-- optional Codex DevCoveer for bounded extraction/build/test work.
+The currently running E0 window becomes U0 after a safe publisher handoff so its context is reused rather than discarded.
 
-Long-lived scope:
+### A0 — Archetypes, recovery and corpora
 
-- selective migration from PR #37/#43/#50/#52/#53 and the old archive;
-- Golden Corpus architecture and source fidelity;
-- route-specific projections and deterministic state packets;
-- current route/archetype census;
+Owns:
+
+- migration reuse from historical PRs and the old archive;
+- Golden Corpus fidelity;
+- route projections;
+- deterministic auth/query/personalization state packets;
 - desktop/mobile/tablet scenarios;
-- package production for shell and archetypes;
-- corpus-gap and product-decision classification;
-- ordering archetypes by maximum reuse.
+- factual route/archetype readiness;
+- publishable archetype packages;
+- corpus and product-semantic blockers.
 
-A0 does not create one corpus per page and does not use random production events as acceptance fixtures.
+Each window has a substantial all-day backlog and continues after its first package.
 
-Only O0, V0, G0 and A0 are new task windows. Together with STRAT, this is five ChatGPT contexts.
+## 4. Direct Codex `/goal` D0
 
-## 4. Codex topology
+D0 is a long-lived implementation coordinator, not product owner or visual acceptance authority.
 
-### P0 — direct Codex `/goal` publisher
+It controls six child agents:
 
-P0 is a long-lived direct Codex task and the sole Penpot writer. It may manage bounded child agents:
+1. `PUBLISH` — sole Penpot writer; consumes immutable ready packages and publishes persistent visual micro-batches.
+2. `MAT` — materializer compiler and runtime repair.
+3. `INTEGRATE` — package integration, path ownership, queue readiness and remote readback.
+4. `CORPUS` — corpus/projection/state/schema/test implementation requested by A0.
+5. `RECOVERY` — extraction of exact reusable assets and healthy structures from historical PRs/archive without old Penpot UUID lineage.
+6. `QA` — independent technical validation, receipts, hashes, lineage and evidence automation; never self-accepts product visuals.
 
-- `PUBLISH`: one writer that performs native Penpot mutation/readback/export;
-- `MATERIALIZER_REPAIR`: Git-only materializer/executor fixes;
-- `PACKAGE_COMPILE`: validates and compiles incoming packages;
-- `READ_ONLY_CHECK`: verifies package identity and post-write state.
+Several children may run concurrently. Only `PUBLISH` may call Penpot mutators.
 
-P0 does not decide product semantics, accept visible drift, change the A=S=P contract or redesign components.
+## 5. Reuse-first authority
 
-O0 may also launch bounded DevCoveer tasks where useful, but they must have distinct ownership and may not become a second Penpot writer.
+The following are migration capital, not restart prompts:
 
-## 5. Communication and resumability
+- Current UI Decoder and behavioral evidence;
+- Component Synthesis IR;
+- PR #37 card families, icons, medallions, artifacts and bounded review topology;
+- PR #42 Golden Event Corpus and known visual drift;
+- PR #43 Date Listing + Shell;
+- PR #50/#52 17-archetype contracts and 34 desktop/mobile cases;
+- PR #53 owner corrections and bounded-mutation lessons;
+- current promoted free-page SoT, resolved cases, Astro evidence and current materializer;
+- the old Penpot archive for exact bytes and healthy structural data.
 
-Issue #57 is the cross-lane queue and checkpoint surface. PR #55 remains the free-collection execution/evidence surface. Issue #56 remains the foundations-detail surface.
+`candidate`, `noncanonical` and `owner-review-pending` do not mean discard.
 
-Workers use concise markers:
+Reuse decisions:
 
-- `ASP_CONVEYOR_CHECKPOINT_V1`;
-- `ASP_PACKAGE_READY_V1`;
-- `ASP_PENPOT_VISUAL_DELTA_V1`;
-- `ASP_VISUAL_REVIEW_V1`;
-- `ASP_DEFECT_DIRECTIVE_V1`;
-- `ASP_CONVEYOR_INCIDENT_V1`;
-- `ASP_CONVEYOR_TERMINAL_V1`.
+- exact asset bytes: reuse by hash;
+- semantic identities: reuse after current-consumer validation;
+- anatomy, variants and layout patterns: reconstruct with new Penpot IDs;
+- materialization logic and evidence structure: reuse after current input validation;
+- old Penpot UUIDs/component IDs/shapeRefs: never reuse;
+- detached copies and hidden roots: never reuse;
+- screenshots: evidence only;
+- stale PASS/READY labels: never reuse as current acceptance.
 
-A ChatGPT window should keep working while its turn remains active. Before the platform ends the turn, it publishes a checkpoint containing exact branch/SHAs, active items, waiting items, latest directive and next machine action. The owner resumes the same window or opens a replacement using that checkpoint. No handoff should require copying another worker’s result manually.
+## 6. Communication and queue
 
-## 6. Queue model
+Issue #57 is the shared mailbox. Every operational ChatGPT window and D0 reads and writes it directly. The owner does not carry task IDs, receipts or prompts between windows.
 
-Lifecycle:
+Queue lifecycle:
 
-`DISCOVERED → PREPARING → READY_TO_PUBLISH → PUBLISHING → VISIBLE → VISUAL_REVIEW → PASS | REPAIR | BLOCKED_PRODUCT_DECISION | BLOCKED_CORPUS_GAP`
+`DISCOVERED → PREPARING → READY_TO_PUBLISH → PUBLISHING → VISIBLE → VISUAL_REVIEW → PASS | REPAIR | BLOCKED_CORPUS_GAP | BLOCKED_PRODUCT_DECISION`
 
-Every queue item contains:
+Markers:
 
-```yaml
-package_id:
-priority:
-ownership_role:
-branch:
-sha:
-paths:
-depends_on:
-target_penpot_page:
-target_root:
-expected_components:
-expected_instances:
-astro_cases:
-state:
-claimed_by:
-claimed_at:
-last_visual_delta_at:
-next_owner:
-```
+- `ASP_CONVEYOR_CHECKPOINT_V2`
+- `ASP_PACKAGE_READY_V2`
+- `ASP_BUILD_REQUEST_V1`
+- `ASP_PENPOT_VISUAL_DELTA_V2`
+- `ASP_VISUAL_REVIEW_V2`
+- `ASP_DEFECT_DIRECTIVE_V2`
+- `ASP_CONVEYOR_INCIDENT_V2`
+- `ASP_CONVEYOR_TERMINAL_V2`
 
-A producer result is useful only when it reaches:
+Every package contains:
 
-- `READY_TO_PUBLISH`;
-- `READY_TO_REPAIR`;
-- `BLOCKED_PRODUCT_DECISION`;
-- `BLOCKED_CORPUS_GAP`.
+- package ID and priority;
+- owning ChatGPT role;
+- source branch and exact SHA;
+- exact owning paths;
+- source/donor authority;
+- assets and hashes;
+- component/pattern/archetype identities;
+- resolved fixtures/state packets;
+- target Penpot page/root;
+- expected root/component/instance counts;
+- materialization entry point;
+- validation;
+- exact Astro evidence cases;
+- remaining blockers.
 
-`ANALYSIS_COMPLETE`, `REGISTERED`, `PREPARED` and `TASK_RUNNING` are not terminal product outputs.
+`ANALYSIS_COMPLETE`, `REGISTERED` and `PREPARED` are not terminal product states. Producer success is `READY_TO_PUBLISH`, `READY_TO_REPAIR`, `BLOCKED_CORPUS_GAP` or `BLOCKED_PRODUCT_DECISION`.
 
-## 7. Five-minute visual throughput contract
+## 7. Owner interaction boundary
 
-The five-minute rule applies whenever at least one package is `READY_TO_PUBLISH`.
+The owner is not the event loop.
 
-- P0 claims a package and performs the first persistent visual mutation within five minutes.
-- Further meaningful visual micro-batches appear no more than five minutes apart.
-- A micro-batch must be a real component, component group, asset library slice or archetype region from an immutable package. Placeholders and demo rectangles do not count.
-- Each delta records Penpot revision, created IDs, component/instance count and validation.
-- A focused export follows every materially complete component/board.
-- V0 begins review within ten minutes after `VISIBLE`.
+Normal intervention is at most once every 40–60 minutes to resume a ChatGPT turn that the platform ended, using the same message:
 
-If the critical package is blocked for more than five minutes, P0 switches to the next independent ready package while the owning repair proceeds in parallel. The critical lane retains priority and resumes immediately when repaired.
+`Продолжи по последнему ASP_CONVEYOR_CHECKPOINT_V2 в issue #57. Не повторяй завершённую работу.`
 
-A five-minute miss creates `PUBLISHER_STALL_INCIDENT`, not a new global generation. O0 diagnoses one of:
+No copying of IDs, SHA values, receipts or directives between windows.
 
-- no ready package;
-- publisher not polling;
-- mutator stalled;
-- package compile failed;
-- Penpot readback failed;
-- writer ownership conflict.
+Routine reversible technical transitions require no owner approval. Owner input is reserved for:
 
-O0 then reassigns, switches package or launches a bounded repair without asking the owner for a routine transition.
+- contract changes;
+- product semantics;
+- intentional visible redesign;
+- future palette, typography or brand direction;
+- irreversible action;
+- genuinely ambiguous corpus membership.
 
-## 8. Initial priority and fallback queue
+## 8. Five-minute visual-output contract
 
-### Priority 0 — first page
+When at least one package is `READY_TO_PUBLISH`:
 
-1. EventCard desktop wide `event.real.8006`;
-2. EventCard mobile wide `event.real.8006`;
-3. packed desktop/mobile `event.real.2182`;
-4. two-card and three-card rows;
-5. header, hero, medallion, footer/share and mobile navigation;
-6. free-collection desktop/mobile top, scrolled and full page.
+- the sole publisher claims immediately;
+- first persistent real Penpot mutation occurs within five minutes;
+- further meaningful visual micro-batches occur no more than five minutes apart;
+- each micro-batch is a real component, linked group, asset-library slice, review region or desktop/mobile archetype board;
+- placeholders, empty boards, surrogate UI and temporary canaries do not count;
+- each delta records revision, created IDs, component/instance counts, page/root and validation;
+- V0 starts review within ten minutes of `VISIBLE`.
 
-### Priority 1 — always-ready visible batches
+Five minutes without a visual delta is `PUBLISHER_STALL_INCIDENT`.
 
-- exact source-bound action and navigation icons from historical card work;
-- medallion library and exact assets;
-- foundations specimen pages;
-- common controls/primitives;
-- remaining historical card families;
-- Date Listing + Shell replay.
+Incident response:
 
-### Priority 2 — broad archetype boards
+1. classify the exact cause;
+2. route materializer/package repair;
+3. if critical item remains blocked, publish the highest-priority independent fallback package;
+4. return immediately when critical repair is ready;
+5. do not stop the whole conveyor or ask the owner for a routine transition.
 
-- home/date/today/tomorrow;
-- weekend/popular/unusual;
-- collections/exhibitions;
-- search/favorites/personal feed;
-- festivals/clubs;
-- artifacts/event detail/focus;
-- volunteer route after factual contract confirmation.
+## 9. Blocker policy
 
-The new Penpot file should grow broadly even when one critical repair is pending.
+Blockers are lane-local by default. A broken package moves to `REPAIR`; independent packages continue.
 
-## 9. Penpot page topology
+Global stop is allowed only for:
 
-Do not reproduce the old 115-page weight. Reuse the proven bounded review approach with new IDs:
+- duplicate Penpot writers;
+- shared Penpot corruption;
+- immutable tuple conflict;
+- genuine owner product decision.
 
-- `00 · Review index`;
-- `10 · Brand assets`;
-- `20.1 · Colors and modes`;
-- `20.2 · Typography`;
-- `20.3 · Spacing, grid and density`;
-- `20.4 · Shape and elevation`;
-- `25 · Iconography`;
-- `30 · Controls and primitives`;
-- `40.* · Card families`;
-- `48 · Medallions`;
-- `49 · Artifacts`;
-- `50.* · Shell and patterns`;
-- `60–63.* · Archetypes`.
+No new generation for normal success, visual review, package handoff or ordinary repair. No repeated preflight after a capability has already been proved.
 
-The current free-collection build board may remain, but owner review uses bounded readable boards and a compact index.
+## 10. Queue depth and fallback publication
 
-## 10. Visual review protocol
+- target `READY_TO_PUBLISH` depth: 3;
+- minimum sustainable depth: 2;
+- while PUBLISH handles N, producers prepare N+2 and V0 reviews N−1;
+- a critical repair may not leave the writer idle when independent ready packages exist.
 
-V0 freezes Astro evidence once per immutable tuple. It does not recapture A after every Penpot repair unless source SHA, corpus/projection, viewport, font environment or state changes.
+Fallback visual packages:
 
-For each component/pattern/page:
+- exact action/navigation SVGs;
+- medallions and brand/media assets;
+- foundation specimens;
+- controls/primitives;
+- recovered card families;
+- Date Listing + Shell replay;
+- other archetype owner boards.
 
-1. browser bridge opens exact Astro case;
-2. V0 records DOM/semantic nodes/bounds and captures PNG;
-3. V0 obtains native Penpot export of the matching root;
-4. V0 visibly inspects both;
-5. geometry/diff tooling supports diagnosis but does not replace visual judgment;
-6. V0 publishes PASS or a defect with:
-   - affected case/region;
-   - observed visual mismatch;
-   - expected Astro evidence;
-   - lowest owning layer;
-   - exact acceptance condition;
-   - required re-export scope.
+## 11. Current priority order
 
-Renderer-only antialiasing is not a product defect when hard geometry, line breaks, crop, assets and native-scale appearance match.
+Critical free-page order:
 
-## 11. Blocker policy
+1. four EventCard cases;
+2. rows 2+3;
+3. header, hero, medallion, footer and mobile navigation;
+4. desktop/mobile top, scrolled and full-page cases;
+5. final free-page visual review and owner-ready state.
 
-Blockers are lane-local unless one of these occurs:
+Broad parallel order:
 
-- two actors write the same Penpot file;
-- Penpot file corruption or validation failure cannot be bounded;
-- immutable source tuple conflict;
-- irreversible operation;
-- product/brand/visual direction decision by the owner.
+1. canonical icons/actions;
+2. medallions and brand assets;
+3. foundation specimens;
+4. controls/primitives;
+5. recovered card families;
+6. shell patterns;
+7. Date Listing + Shell;
+8. all remaining archetype boards.
 
-Normal technical defects do not stop the conveyor. A blocked item moves aside and the next ready package is published.
+## 12. One-day milestone plan
 
-No new generation is created for a successful probe, routine repair, package switch or visual review. Generations are reserved for invalidated identity/ownership or true incidents.
+### T+0–30 minutes
 
-## 12. Today’s execution sequence
+- O0, V0, F0, A0 and D0 registered;
+- current E0 continues safely and prepares U0 handoff;
+- six Codex child agents active;
+- queue depth at least 2;
+- V0 has exact Astro captures;
+- first real Penpot visual delta appears.
 
-### First 30 minutes
+### T+30–120 minutes
 
-- O0 adopts issue #57 at the next safe checkpoint;
-- P0 continues the current EventCard writer, not restarted;
-- V0 captures and freezes the first Astro EventCard case;
-- G0 produces at least one icon/asset or foundations package;
-- A0 produces at least one recovery/archetype package;
-- queue depth reaches two.
+- EventCard four-case slice materialized;
+- V0 performs direct Astro/Penpot review;
+- systemic defects routed and repaired;
+- icon/asset, foundations and shell packages enter queue;
+- Penpot receives persistent visual micro-batches every several minutes.
 
-### 30–90 minutes
+### T+2–4 hours
 
-- four EventCard cases become visible;
-- V0 issues first real visual review;
-- P0 repairs the systemic owner and republishes affected cases;
-- icons/medallions/foundations begin appearing in separate Penpot pages;
-- rows and free-page shell packages are ready.
+- EventCard A=S=P;
+- free rows and shell materialized;
+- full desktop/mobile free page reviewed;
+- free page becomes `READY_FOR_OWNER_REVIEW`.
 
-### 90–180 minutes
+### T+4–8 hours
 
-- EventCard free slice PASS;
-- free page desktop/mobile visible and under bounded visual repair;
-- shared component pages populated;
-- Date Listing + Shell replay ready or publishing;
-- first broad archetype boards visible.
+- foundations, iconography, controls, card families and shell pages visibly populated;
+- first half of current archetypes materialized and reviewed;
+- Date Listing, Weekend and Exhibitions exact closure begins.
 
-### Remaining day
+### T+8–16 hours
 
-- free page reaches READY_FOR_OWNER_REVIEW;
-- all known archetypes have visible boards and honest visual states;
-- Date/Weekend/Exhibitions receive the next strongest A=S=P closure;
-- common master fixes propagate and are re-exported.
+- every current archetype board physically exists in Penpot;
+- corpus/state gaps resolved or isolated;
+- V0 mass comparison and systemic propagation repairs.
 
-## 13. Forbidden work today
+### T+16–24 hours
 
-- a new decoder or global audit;
-- a new requirements/governance framework;
-- redesigning the current palette;
-- rebuilding EventCard from first principles while healthy donor packages exist;
-- importing the entire old Penpot file;
-- publishing screenshots as UI;
-- producing reports without a publishable package;
-- waiting idle on one critical defect when fallback packages are ready;
-- asking the owner for routine micro-approvals;
-- declaring PASS without actual Astro and Penpot images.
+- remaining differences repaired;
+- compact owner index complete;
+- every board has an actual visual status;
+- final same-day owner-review package published.
 
-## 14. Success condition
+## 13. Acceptance
 
-The conveyor succeeds when the owner can keep the Penpot file open and see a steady stream of real, reusable components and boards; V0 continuously compares them to Astro; defects return to the correct producer/materializer; and the free-events page reaches visually proven A=S=P first without freezing the rest of the design system.
+The day succeeds only if:
+
+- EventCard and the free page are visually proven rather than structurally asserted;
+- Penpot visibly grows throughout the day;
+- all five ChatGPT windows carry substantial continuous workload;
+- D0 and its children keep implementation parallel;
+- the owner is not used as message bus or micro-scheduler;
+- historical work is reused rather than re-audited from zero;
+- every current archetype is physically represented and visually classified.
+
+Current running work is adopted non-destructively at its next safe checkpoint. No active Penpot mutator is interrupted merely to change orchestration topology.
