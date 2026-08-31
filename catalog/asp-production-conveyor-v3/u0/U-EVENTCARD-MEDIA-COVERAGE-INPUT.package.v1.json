@@ -1,0 +1,161 @@
+{
+  "schema_version": "kenigevents.asp-u0-eventcard-media-coverage-input.v1",
+  "package_id": "U-EVENTCARD-MEDIA-COVERAGE-INPUT",
+  "owner": "U0",
+  "priority": "P0_AFTER_TEXT_R9",
+  "status": "READY_FOR_D0_NATIVE_PROBE",
+  "prepared_at_utc": "2026-08-31T16:48:00Z",
+  "purpose": "Source-owned fit/crop and full-raster coverage input for the separate V0 half-painted-poster defect. D0/MAT must prove a native construction before mutating the four persistent EventCard roots.",
+  "lifecycle": {
+    "ready_for_d0_native_probe": true,
+    "ready_for_consumer_mutation": false,
+    "ready_to_publish": false,
+    "visual_pass": false,
+    "penpot_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "probe_must_not_touch_accepted_roots": true
+  },
+  "parent_text_package": {
+    "branch": "u0/eventcard-text-r9-v1",
+    "commit": "d93382e210adc73e3b29940f22e7b63c8e7b4a5d",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-TEXT-R9-LOWEST-OWNER-INPUT.package.v1.json",
+    "git_blob_sha1": "ef690e4b4557c985bc84bad485e7d6e646396343",
+    "bytes": 11176,
+    "relationship": "SEPARATE_LANE_NOT_BUNDLED_INTO_TEXT_R9"
+  },
+  "source_a": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+    "component_path": "site/src/components/EventCard.astro",
+    "component_git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c",
+    "authority_mode": "ASTRO_AS_IS_REFERENCE"
+  },
+  "geometry_authority": {
+    "branch": "task/d0-corpus-20260831",
+    "commit": "bf7a4c9aa20978d297bd8f53058042e0436f8554",
+    "path": "catalog/corpus-d0/free-collection-eventcard-geometry-proof.v1.json",
+    "raw_sha256": "f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b",
+    "proof_payload_sha256": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
+    "cases_sha256": "ce3fa01252359233371a7286bb10f7ee9aa2eb8ef47a04646736208279415377"
+  },
+  "terminal_identity": {
+    "penpot_revision": 73,
+    "collection_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "collection_children": 18,
+    "local_components": 18,
+    "full_root_ids": [
+      "313fb1ed-0d5c-8095-8008-912c45090653",
+      "313fb1ed-0d5c-8095-8008-914c76615924",
+      "313fb1ed-0d5c-8095-8008-916b340de148",
+      "313fb1ed-0d5c-8095-8008-916bd0ab6c98"
+    ],
+    "validation": []
+  },
+  "defect": {
+    "id": "V0-1-G19-MEDIA-IMAGE-FILL-017",
+    "directive_comment": 5481094733,
+    "terminal_review_comment": 5481337267,
+    "severity": "P0",
+    "affected_full_roots": 4,
+    "observed": "raw fill exports complete factual raster; rectangle/group/full-root shape exports paint approximately the right half only",
+    "excluded_causes": [
+      "corrupt or partial raster bytes",
+      "half-width image rectangle",
+      "translated or rotated rectangle",
+      "parent group geometry",
+      "intentional contain letterbox",
+      "intentional cover crop"
+    ],
+    "mismatch_class": "IMPORTED_IMAGE_FILL_PAINTS_ONLY_PART_OF_FULL_SIZE_RECTANGLE"
+  },
+  "factual_media": {
+    "event.real.8006": {
+      "asset_path": "catalog/penpot-executor/g10/input-media/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp",
+      "sha256": "dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b",
+      "bytes": 111072,
+      "intrinsic_width": 1440,
+      "intrinsic_height": 1920,
+      "intrinsic_aspect": "0.75",
+      "fit": "contain",
+      "focal_position": "50% 50%",
+      "desktop_box": {
+        "width": 531.797,
+        "height": 709.063,
+        "aspect": "0.75"
+      },
+      "acceptance": "entire image fills the exact box with zero crop, zero letterbox and zero dark leak"
+    },
+    "event.real.2182": {
+      "asset_path": "catalog/fixtures/ui-reference-events/v2/assets/99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e.webp",
+      "sha256": "99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e",
+      "bytes": 229072,
+      "intrinsic_width": 1280,
+      "intrinsic_height": 853,
+      "intrinsic_aspect": "1.500586",
+      "fit": "cover",
+      "focal_position": "50% 50%",
+      "desktop_box": {
+        "width": 531.797,
+        "height": 425.438,
+        "aspect": "1.25"
+      },
+      "acceptance": "full exact box coverage with centered horizontal crop and zero dark leak"
+    }
+  },
+  "required_native_probe": {
+    "target": "isolated disposable candidate root outside accepted consumer roots",
+    "exact_rasters": [
+      "event.real.8006",
+      "event.real.2182"
+    ],
+    "exact_boxes": "use geometry_authority and rev73 current native boxes without approximation",
+    "variants": {
+      "A_current": "createShapeFromSvgWithImages current SVG then common resize/place",
+      "B_no_post_import_resize": "import SVG at final dimensions, append and position without second resize",
+      "C_direct_native_fill": "uploadMediaData then createRectangle with fills=[{fillOpacity:1, fillImage:imageData}]",
+      "D_optional_minimal_import": "single-href minimal SVG image import only if needed to isolate importer behavior"
+    },
+    "readback_per_variant": [
+      "group and image-rectangle bounds",
+      "parentX and parentY",
+      "fills and ImageData metadata",
+      "transform, rotation and flip",
+      "raw-fill export",
+      "image-rectangle export",
+      "complete media-group export"
+    ],
+    "pass_rule": {
+      "event.real.8006": "complete 531.797x709.063 factual poster with zero dark leak",
+      "event.real.2182": "complete 531.797x425.438 cover surface with correct centered crop and zero dark leak",
+      "both": "raw-fill and shape exports show the same complete raster content"
+    }
+  },
+  "production_repair_after_probe": {
+    "construction": "smallest native construction proven by isolated comparison",
+    "apply_to_four_existing_roots": true,
+    "preserve_root_and_component_ids": true,
+    "preserve_media_box_geometry": true,
+    "preserve_source_fit_and_focal_semantics": true,
+    "preserve_text_r9_result": true,
+    "idempotent_replay_required": true,
+    "new_root_allowed": false,
+    "visual_review_owner": "V0"
+  },
+  "forbidden": [
+    "accepted-root mutation during diagnosis",
+    "screenshot or detached raster substitution",
+    "visually hiding the dark half with another layer",
+    "changing contain to cover or cover to contain",
+    "changing factual raster bytes",
+    "approximating mobile geometry",
+    "deleting or rebuilding persistent EventCard roots",
+    "claiming visual PASS before four full-root exports and V0 review"
+  ],
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_eventcard_v0_next_inputs.py",
+    "mode": "media",
+    "consumer": "D0/MAT",
+    "penpot_adapter_included": false
+  }
+}
