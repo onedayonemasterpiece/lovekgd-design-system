@@ -32,6 +32,25 @@ jobs:
       - name: Reconstruct and compile bounded A0 repair and independent adapters
         run: |
           cat tools/.a0_v6_chunks/*.b64 > tools/a0_compile_work_stealing_v6.py
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          path = Path('tools/a0_compile_work_stealing_v6.py')
+          data = path.read_bytes()
+          replacements = [
+              (b')archetype_id] for x in CONTRACT_FILES]', b')["archetype_id"] for x in CONTRACT_FILES]'),
+              (b'REUSE_CANNICAL_DATA', b'REUSE_CANONICAL_DATA'),
+              (b'adapter_record_sha2556', b'adapter_record_sha256'),
+              (b"),'focus page omission')\n    (lambda", b"),'focus page omission'),\n    (lambda"),
+          ]
+          for old, new in replacements:
+              if old not in data:
+                  raise SystemExit(f'missing expected transient corruption: {old!r}')
+              data = data.replace(old, new, 1)
+          path.write_bytes(data)
+          print({'patched_sha256': hashlib.sha256(data).hexdigest()})
+          PY
+          python -m py_compile tools/a0_compile_work_stealing_v6.py
           python tools/a0_compile_work_stealing_v6.py
       - name: Re-run repository-relevant A0 tests
         run: |
