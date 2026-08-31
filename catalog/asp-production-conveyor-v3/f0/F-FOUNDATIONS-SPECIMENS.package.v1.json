@@ -1,0 +1,144 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_READY_V3",
+  "package_id": "F-FOUNDATIONS-SPECIMENS",
+  "owner": "F0",
+  "priority": "P0_FALLBACK_VISIBLE",
+  "status": "READY_TO_PUBLISH",
+  "branch": "chatgpt/f0-foundations-assets-20260831",
+  "sha": "CONTAINING_COMMIT",
+  "paths": ["catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v1.json"],
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "continuity_proof": {"foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1", "site_path_changes": 0},
+    "files": [
+      {"path": "site/src/styles/design-system.css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+      {"path": "site/src/layouts/EventLayout.astro", "sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"},
+      {"path": "site/src/data/design-system-production-surface-contract.v1.json", "sha256": "0f0dcbd7069364b51deb7e56bc2b0b1132effd6a5c779aeb825a383eba33656a"}
+    ],
+    "foundation_receipt": "1acc60e0b33aeb5a83aceba94ee607cfe2bdbeb8:contracts/foundations/current-reconstructed.v1.json"
+  },
+  "assets_and_hashes": [
+    {"id": "foundation.source.design-system-css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+    {"id": "foundation.source.event-layout", "sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"},
+    {"id": "foundation.source.production-surface-contract", "sha256": "0f0dcbd7069364b51deb7e56bc2b0b1132effd6a5c779aeb825a383eba33656a"}
+  ],
+  "foundation_or_component_ids": [
+    "foundation.colors-and-modes",
+    "foundation.spacing-sizing-density",
+    "foundation.radius-border-opacity-elevation",
+    "foundation.motion",
+    "foundation.accessibility",
+    "specimen.foundation.colors",
+    "specimen.foundation.spacing",
+    "specimen.foundation.radius",
+    "specimen.foundation.elevation",
+    "specimen.foundation.status",
+    "specimen.foundation.focus",
+    "specimen.foundation.motion",
+    "specimen.foundation.accessibility"
+  ],
+  "specimens": {
+    "colors": {
+      "brand-600": "#a54821",
+      "brand-700": "#98401f",
+      "brand-800": "#793014",
+      "brand-900": "#5f250f",
+      "accent-600": "#0f766e",
+      "accent-700": "#0f5d57",
+      "canvas": "#fbf7ef",
+      "canvas-soft": "#f2e7d7",
+      "surface": "#fffdf8",
+      "surface-strong": "#ffffff",
+      "ink": "#221a14",
+      "copy": "#44362d",
+      "muted": "#6d6259",
+      "line": "#e1d3c2",
+      "focus": "#0f766e",
+      "inverse-surface": "#24211f",
+      "inverse-surface-raised": "#292521",
+      "header": "#fffaf2"
+    },
+    "status_pairs": {
+      "success": {"surface": "#e6f6e9", "content": "#0f6c3d"},
+      "warning": {"surface": "#fff8db", "content": "#5a3b06"},
+      "danger": {"surface": "#fff0f0", "content": "#a92d2d"},
+      "info": {"surface": "#e7f2f7", "content": "#1f658d"}
+    },
+    "spacing": {"base_px": 4, "scale": {"1": "0.25rem", "2": "0.5rem", "3": "0.75rem", "4": "1rem", "5": "1.25rem", "6": "1.5rem", "8": "2rem", "10": "2.5rem", "12": "3rem", "16": "4rem"}},
+    "sizing": {"control_min": "44px", "content_max": "1180px", "content_wide_max": "1440px", "listing_media_height": "clamp(221px, min(13vw, 24svh), 244px)"},
+    "radii": {"sm": "0.5rem", "md": "0.875rem", "lg": "1.25rem", "xl": "1.75rem", "pill": "999px"},
+    "border": {"default": "1px solid #e1d3c2", "focus_rule": "focus outline remains distinct from border"},
+    "shadows": {
+      "1": "0 8px 22px rgba(72,45,25,0.08)",
+      "2": "0 18px 45px rgba(72,45,25,0.12)",
+      "3": "0 24px 64px rgba(72,45,25,0.18)"
+    },
+    "motion": {
+      "duration_fast": "160ms",
+      "duration_base": "220ms",
+      "ease_standard": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+      "observed_keyframes": ["ke-spin", "ke-shimmer", "authorized-search-progress-indeterminate", "search-skeleton-shimmer", "heart-fly", "gallery-pan-forward", "gallery-pan-backward"],
+      "reduced_motion": "mandatory no-op binding"
+    },
+    "accessibility": [
+      "focus-visible outlines",
+      "visually-hidden helper",
+      "semantic aria-current",
+      "aria-disabled",
+      "prefers-reduced-motion",
+      "safe-area insets",
+      "tabular numbers for time/counts",
+      "status shape or text accompanies color"
+    ]
+  },
+  "target_penpot_page": {"name": "03 · Foundations · Current reconstructed specimens", "create_if_missing": true, "accepted_old_penpot_ids": false},
+  "expected_roots": 1,
+  "expected_components": 8,
+  "expected_instances": 57,
+  "materialization_entry_point": {
+    "kind": "declarative-penpot-build-plan",
+    "operations": [
+      "create one labelled current-reconstructed root using vertical auto-layout",
+      "create linked specimen components for colors, spacing, radius, elevation, status, focus, motion and accessibility",
+      "render every literal color with token name and hex value; status pairs show surface/content together",
+      "render spacing as measured bars from 4px through 64px and include 44px minimum-control target",
+      "render radii on equal-size surfaces and shadows on identical current surface",
+      "render motion durations/easing as labelled timelines plus a reduced-motion static state; do not autoplay export",
+      "render focus-visible and semantic-state examples using both shape/text and color",
+      "attach package/source/hash metadata; validate and export the complete root"
+    ],
+    "input_pointer": "#/specimens"
+  },
+  "validation": {
+    "pre_publish": [
+      "18 literal base/surface/content colors plus four status pairs",
+      "10-step spacing scale",
+      "five radii and three exact shadows",
+      "exact 160ms/220ms timing and easing",
+      "no normalized or invented values",
+      "no old Penpot UUIDs"
+    ],
+    "publisher_required": [
+      "created_or_reused_components=8",
+      "specimen_instance_count=57",
+      "all_literal_values_read_back",
+      "detached_instances=0",
+      "validate=[]",
+      "root_export_png_nonempty"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "free collection page", "surfaces": ["canvas", "surface", "brand action", "line", "focus"]},
+    {"case": "EventCard desktop/mobile", "surfaces": ["radius", "shadow", "status", "44px controls"]},
+    {"case": "motion/reduced motion", "media": ["default", "prefers-reduced-motion: reduce"]}
+  ],
+  "known_nonblocking_differences": [
+    "Specimen labels are documentation text, not new product copy.",
+    "Component-local geometry outside the declared foundation scale remains a consumer fact and is not normalized.",
+    "No dark-mode palette is invented; inverse surfaces are shown only as current observed values."
+  ],
+  "forbidden": ["new palette", "token rounding", "merging local component geometry into global tokens", "new dark mode", "screenshot implementation", "old Penpot UUID reuse"]
+}
