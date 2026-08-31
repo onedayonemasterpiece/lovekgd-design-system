@@ -1,0 +1,196 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-COPY-CHECK-ASSETS",
+  "revision": 1,
+  "owner": "F0",
+  "priority": "P0_UNBLOCK_U0_COPY_ACTION",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_REGISTRY_PASS",
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
+  "branch": "chatgpt/f0-copy-check-assets-20260831",
+  "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-COPY-CHECK-ASSETS.package.v1.json",
+    "contracts/assets/ui-copy-check-asset-registry.extension.v1.json",
+    "catalog/asp-production-conveyor-v3/f0/assets/controls/copy.svg",
+    "catalog/asp-production-conveyor-v3/f0/assets/controls/check.svg",
+    "scripts/asp-production-conveyor-v3/f0/validate_copy_check_assets.py"
+  ],
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "icon_source": {
+        "path": "site/src/components/Icon.astro",
+        "git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487",
+        "symbols": [
+          "copy",
+          "check"
+        ]
+      },
+      "consumer": {
+        "path": "site/src/components/design-system/CopyAction.astro",
+        "git_blob_sha1": "7f01708518e034c86ceb576f1dfdee849ea787be",
+        "render_box_css": "1.35rem x 1.35rem",
+        "control_min_css": "max(44px, var(--ke-control-min, 44px))"
+      }
+    },
+    "active_asset_registry": {
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+      "git_blob_sha1": "271a622633f399bb52cfe322c259a8dc4162bf7e",
+      "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+      "status": "ACTIVE"
+    }
+  },
+  "assets_and_hashes": [
+    {
+      "asset_id": "icon.action.copy",
+      "variant": "default",
+      "component_name": "Icon/Action/Copy",
+      "semantic_slot": "control.copy.default",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/copy.svg",
+      "git_blob_sha1": "39a1affb019ba0e9d55348be6d9be6314c2f4f91",
+      "sha256": "48710ac3735ed6a66aa775294d266f68800c140641dee0ed1029a85cb48cd049",
+      "bytes": 405,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "css": "1.35rem",
+        "px_at_16px_root": 21.6
+      },
+      "fill_stroke_contract": {
+        "shape_fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 1.8
+      },
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "busy",
+        "error"
+      ],
+      "consumer_selector": ".ke-copy-action__icon--copy .icon--copy"
+    },
+    {
+      "asset_id": "icon.status.check",
+      "variant": "success",
+      "component_name": "Icon/Status/Check",
+      "semantic_slot": "control.copy.success",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/check.svg",
+      "git_blob_sha1": "b227ceaaf956194bcb7e4e33fb2d8c5bd91645ca",
+      "sha256": "3baf2a43953c61ce4d654002042c682ef9ecca73baff7d527359d170a6a40558",
+      "bytes": 230,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "css": "1.35rem",
+        "px_at_16px_root": 21.6
+      },
+      "fill_stroke_contract": {
+        "shape_fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 2.2,
+        "linecap": "round",
+        "linejoin": "round"
+      },
+      "states": [
+        "success",
+        "success-focus-visible",
+        "success-pressed"
+      ],
+      "consumer_selector": ".ke-copy-action__icon--success .icon--check"
+    }
+  ],
+  "foundation_or_component_ids": [
+    "foundation.asset.icon-action.copy",
+    "foundation.asset.icon-status.check",
+    "control.copy-action"
+  ],
+  "target_penpot_page": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "exact_name": "KenigEvents · Controls & primitives · Candidate",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_INTEGRATE",
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "accepted_consumer_root_mutation": false
+  },
+  "expected_roots": 1,
+  "expected_components": 2,
+  "expected_instances": 4,
+  "materialization_entry_point": {
+    "owner": "D0/MAT_THEN_D0_PUBLISH",
+    "mode": "BOUNDED_NATIVE_CANDIDATE",
+    "input_registry_extension": {
+      "path": "contracts/assets/ui-copy-check-asset-registry.extension.v1.json",
+      "git_blob_sha1": "7108aef4856c2851c1eadbcfe8597ae8cb7d9a26",
+      "sha256": "cfb48c0cf8bbff9bf744beb951f86653db8ac57520ca9665aefaa470939080fb",
+      "bytes": 7409
+    },
+    "operations": [
+      "pre-read exact file revision and candidate page",
+      "assert ACTIVE sole-writer lease immediately before every mutation",
+      "ensure exact candidate page without touching accepted consumer roots",
+      "upsert Icon/Action/Copy from exact copy.svg bytes",
+      "upsert Icon/Status/Check from exact check.svg bytes",
+      "create one CANDIDATE_BUILD_NOT_ACCEPTED specimen root",
+      "place copy/default, copy/error, copy/busy and check/success linked instances",
+      "validate, export non-empty PNG and native readback",
+      "emit ASP_PENPOT_VISUAL_DELTA_V3 with receipt; request V0 review"
+    ],
+    "forbidden": [
+      "emoji or Unicode glyph",
+      "generic or built-in icon",
+      "redraw or geometry normalization",
+      "old Penpot UUID lineage",
+      "screenshot implementation",
+      "mutation of rejected or accepted free-page consumer roots"
+    ]
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/f0/validate_copy_check_assets.py --repo . --emit /tmp/f0-copy-check-validation.json",
+    "expected_marker": "F0_COPY_CHECK_ASSET_VALIDATION_PASS",
+    "validator": {
+      "path": "scripts/asp-production-conveyor-v3/f0/validate_copy_check_assets.py",
+      "git_blob_sha1": "d08268c6b29a85f8259809c1ed77da491e345990",
+      "sha256": "f3632f81994fa43d598aaea070b1b49e77af43d08d7899718324355a32cc5eb1",
+      "bytes": 4657
+    },
+    "d0_additional_checks": [
+      "remote-read frozen branch head and all five package paths",
+      "verify exact source Icon.astro and CopyAction.astro blobs",
+      "merge two stable IDs into current active registry without dropping existing entries",
+      "bind actual candidate page ID",
+      "execute only through sole D0/PUBLISH writer with pre/post readback"
+    ]
+  },
+  "astro_evidence_cases": [
+    {
+      "component": "CopyAction",
+      "state": "default",
+      "asset_id": "icon.action.copy",
+      "visible": true
+    },
+    {
+      "component": "CopyAction",
+      "state": "success",
+      "asset_id": "icon.status.check",
+      "visible": true
+    },
+    {
+      "component": "CopyAction",
+      "state": "error",
+      "asset_id": "icon.action.copy",
+      "visible": true
+    }
+  ],
+  "known_nonblocking_differences": [
+    "Penpot hover/pressed interaction playback is represented as explicit linked specimen states rather than runtime event execution"
+  ],
+  "defects_unlocked": [
+    "U-COPY-ACTION-STATES",
+    "control.button.icon-only asset-bearing specimens"
+  ],
+  "penpot_mutations_by_f0": 0
+}
