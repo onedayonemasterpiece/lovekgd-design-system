@@ -1,0 +1,111 @@
+{
+  "schema_version": "kenigevents.ui-brand-asset-registry.v1",
+  "registry_id": "kenigevents.ui-assets.brand.v1",
+  "status": "CANDIDATE_RESOLUTION_RECIPE_PENDING_D0_INTEGRATE",
+  "authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "asset_repository": "onedayonemasterpiece/events-bot-new",
+    "asset_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "immutable_inventory_repository": "onedayonemasterpiece/lovekgd-design-system",
+    "immutable_inventory_commit": "ccf9bd00bb62d3dec3c158be15bb187bdf34e25e",
+    "immutable_inventory_path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "immutable_inventory_git_blob_sha1": "10228a7390e8f75821d64063c141c1c0cca7e234",
+    "immutable_inventory_bytes": 8040
+  },
+  "resolution_contract": {
+    "algorithm": "recursive immutable-inventory record lookup by ordered JSON-key candidates",
+    "required_record_fields": ["path", "sha256", "git_blob_sha1"],
+    "resolved_output_fields": [
+      "asset_id",
+      "semantic_slot",
+      "authoritative_repository",
+      "source_commit",
+      "source_path",
+      "git_blob_sha1",
+      "sha256",
+      "bytes",
+      "media_type",
+      "view_box_or_intrinsic_size",
+      "nominal_box",
+      "fill_stroke_contract",
+      "astro_consumer",
+      "penpot_consumer",
+      "provenance",
+      "licence_or_reuse_status",
+      "owner_disposition"
+    ],
+    "ambiguous_or_missing_result": "BLOCKED_UNRESOLVED_ASSET_IDENTITY",
+    "fallback": "forbidden",
+    "exact_asset_checkout_required_before_publish": true
+  },
+  "assets": [
+    {
+      "asset_id": "brand.asset.primary-mark",
+      "semantic_slot": "brand.identity.primary-mark",
+      "inventory_json_key_candidates": ["primary_mark", "primary-mark", "brand_mark", "brand-mark"],
+      "media_type": "image/svg+xml",
+      "nominal_box": {"alignment": "center", "preserve_aspect_ratio": "xMidYMid meet", "distortion": "forbidden"},
+      "fill_stroke_contract": {"mode": "exact source bytes", "recoloring": "forbidden unless source currentColor contract says otherwise"},
+      "astro_consumer": ["site/src/components/brand/AnnouncementsLockup.astro", "site/src/components/Header.astro"],
+      "penpot_consumer": {"component_id": "brand.primary-mark", "asset_component_name": "Brand/Asset/PrimaryMark"},
+      "provenance": {"classification": "REUSE_CANONICAL_DATA", "origin": "immutable current-Astro brand inventory", "transformation": "none"},
+      "licence_or_reuse_status": {"status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED", "scope": "Kenigevents Astro/UI-SoT/Penpot"},
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+    },
+    {
+      "asset_id": "brand.asset.announcements-wordmark",
+      "semantic_slot": "brand.identity.announcements-wordmark",
+      "inventory_json_key_candidates": ["announcements_wordmark", "announcements-wordmark", "wordmark"],
+      "media_type": "image/svg+xml",
+      "nominal_box": {"alignment": "center-left", "preserve_aspect_ratio": "xMidYMid meet", "distortion": "forbidden", "retyping": "forbidden"},
+      "fill_stroke_contract": {"mode": "exact source bytes", "recoloring": "forbidden unless source currentColor contract says otherwise"},
+      "astro_consumer": ["site/src/components/brand/AnnouncementsLockup.astro", "site/src/components/Header.astro"],
+      "penpot_consumer": {"component_id": "brand.announcements-wordmark", "asset_component_name": "Brand/Asset/AnnouncementsWordmark"},
+      "provenance": {"classification": "REUSE_CANONICAL_DATA", "origin": "immutable current-Astro brand inventory", "transformation": "none"},
+      "licence_or_reuse_status": {"status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED", "scope": "Kenigevents Astro/UI-SoT/Penpot"},
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+    },
+    {
+      "asset_id": "brand.asset.favicon-tag",
+      "semantic_slot": "brand.identity.favicon-tag",
+      "inventory_json_key_candidates": ["favicon_tag", "favicon-tag", "favicon"],
+      "media_type": "image/svg+xml",
+      "nominal_box": {"alignment": "center", "preserve_aspect_ratio": "xMidYMid meet", "distortion": "forbidden"},
+      "fill_stroke_contract": {"mode": "exact source bytes", "recoloring": "forbidden"},
+      "astro_consumer": ["site/src/layouts/EventLayout.astro", "site/public/manifest.webmanifest"],
+      "penpot_consumer": {"component_id": "brand.favicon-tag", "asset_component_name": "Brand/Asset/FaviconTag"},
+      "provenance": {"classification": "REUSE_CANONICAL_DATA", "origin": "immutable current-Astro brand inventory", "transformation": "none"},
+      "licence_or_reuse_status": {"status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED", "scope": "Kenigevents Astro/UI-SoT/Penpot"},
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+    }
+  ],
+  "lockups": [
+    {
+      "component_id": "brand.lockup.desktop",
+      "asset_ids": ["brand.asset.primary-mark", "brand.asset.announcements-wordmark"],
+      "source_component": "site/src/components/brand/AnnouncementsLockup.astro",
+      "mode": "linked exact-asset instances plus editable semantic endorsement text",
+      "detached_assets": "forbidden"
+    },
+    {
+      "component_id": "brand.lockup.mobile",
+      "asset_ids": ["brand.asset.primary-mark", "brand.asset.announcements-wordmark"],
+      "source_component": "site/src/components/brand/AnnouncementsLockup.astro",
+      "mode": "linked exact-asset instances plus editable semantic endorsement text",
+      "detached_assets": "forbidden"
+    }
+  ],
+  "integration_gate": {
+    "owner": "D0/INTEGRATE",
+    "required": [
+      "resolve exactly one immutable inventory record per asset",
+      "record exact source path, SHA-256, Git blob and byte count",
+      "verify the events-bot-new checkout is at the exact authority commit",
+      "verify source bytes before any Penpot mutation",
+      "publish resolved registry identity in D0_INTEGRATION_RESULT_V2"
+    ],
+    "penpot_mutations": 0,
+    "success": "BRAND_ASSET_REGISTRY_RESOLVED_CONTRACT_CURRENT",
+    "failure": "BLOCKED_UNRESOLVED_ASSET_IDENTITY"
+  }
+}
