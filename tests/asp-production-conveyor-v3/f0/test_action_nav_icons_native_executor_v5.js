@@ -1,0 +1,46 @@
+const assert=require('assert');
+const crypto=require('crypto');
+const fs=require('fs');
+const path=require('path');
+const A=require('../../../scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js');
+const C=A.ACTION_NAV_R5_CONFIG;
+const packageV5=JSON.parse(fs.readFileSync(path.join(__dirname,'../../../catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json'),'utf8'));
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const blob=b=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`),b])).digest('hex');
+assert.equal(C.source.commit,'62deac3e1276e5a92b79ab4b6512e4489202719b');
+assert.equal(packageV5.revision,5);assert.equal(packageV5.native_executor.external_module_factory_required,false);assert.equal(packageV5.native_executor.sha256,sha(fs.readFileSync(path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js'))));assert.equal(packageV5.page_wave.family_count,3);assert.equal(packageV5.page_wave.actual_managed_nodes,27);assert.ok(packageV5.page_wave.actual_managed_nodes<=packageV5.page_wave.hard_managed_node_max);
+assert.equal(C.source.tree,'db061866fa18efd27db7c32815ed5736113d56d5');
+assert.equal(C.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
+assert.equal(C.pageName,'01 · Foundations · Icons and actions · Candidate');
+assert.equal(C.rootName,'CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-reconstructed');
+assert.equal(C.writer,'/root/publish_r2');
+assert.equal(C.maxCreatesPerCall,3);
+assert.deepEqual(C.pageWave,{families:['action','navigation','specimen'],typicalMax:24,hardMax:30,managedNodes:27});
+assert.equal(C.assets.length,9);assert.equal(new Set(C.assets.map(a=>a.componentName)).size,8);assert.equal(C.states.length,18);
+for(const asset of C.assets){const bytes=fs.readFileSync(path.join(__dirname,'../../..',asset.path));assert.equal(bytes.length,asset.bytes,asset.path);assert.equal(sha(bytes),asset.sha256,asset.path);assert.equal(blob(bytes),asset.gitBlobSha1,asset.path);assert.equal(asset.svg,bytes.toString('utf8'),asset.path);}
+class Shape{
+  constructor(type='shape',id=`shape-${Shape.next++}`){this.id=id;this.type=type;this.name='';this.children=[];this.parent=null;this.x=0;this.y=0;this.width=0;this.height=0;this.fills=[];this.shared=new Map();this._component=null;this._copy=false;this.hidden=false;this.visible=true;}
+  appendChild(child){if(child.parent)child.parent.children=child.parent.children.filter(x=>x!==child);child.parent=this;this.children.push(child);}
+  resize(w,h){this.width=Number(w);this.height=Number(h);}
+  setSharedPluginData(ns,key,value){this.shared.set(`${ns}\0${key}`,String(value));}
+  getSharedPluginData(ns,key){return this.shared.get(`${ns}\0${key}`)||'';}
+  component(){return this._component;}
+  isComponentCopyInstance(){return this._copy&&!!this._component;}
+  async export(){return new Uint8Array([137,80,78,71,13,10,26,10,1]);}
+}
+Shape.next=1;
+class Page extends Shape{
+  constructor(name,id=`page-${Shape.next++}`){super('page',id);this.name=name;this.root=new Shape('root',`${id}-root`);}
+}
+function cloneShape(src,component){const s=new Shape(src.type);for(const k of ['name','x','y','width','height','fills','hidden','visible'])s[k]=structuredClone(src[k]);s.shared=new Map(src.shared);s._component=component;s._copy=true;for(const c of src.children)s.appendChild(cloneShape(c,component));return s;}
+function surface(){Shape.next=1;const shared=new Map();const free=new Page('00 · Components · Free collection',C.protectedPageId),board=new Shape('board',C.protectedRootIds[0]),card=new Shape('board',C.protectedRootIds[1]);board.name='protected-board';card.name='protected-card';free.root.appendChild(board);free.root.appendChild(card);const f0=new Page('03 · Foundations · Current reconstructed specimens · Candidate',C.f0PageId),f0root=new Shape('board','f0-root');f0root.name='preserved-f0';f0.root.appendChild(f0root);const components=[],versions=[];let undoBegin=0,undoFinish=0,saveCount=0;const penpot={currentPage:free,currentFile:{id:C.fileId,revn:120,pages:[free,f0],getSharedPluginData:(ns,key)=>shared.get(`${ns}\0${key}`)||'',setSharedPluginData:(ns,key,v)=>shared.set(`${ns}\0${key}`,String(v)),validate:()=>[],async saveVersion(label){saveCount++;this.revn++;const v={id:`version-${saveCount}`,label};versions.push(v);return v;},async findVersions(){return versions;}},history:{undoBlockBegin(){undoBegin++;return Symbol('u')},undoBlockFinish(id){assert.equal(typeof id,'symbol');undoFinish++;}},library:{local:{components,createComponent([main]){const c={id:`component-${components.length+1}`,name:'',path:'',mainInstance:()=>main,instance:()=>cloneShape(main,c)};main._component=c;components.push(c);return c;}}},createPage(){const p=new Page('');this.currentFile.pages.push(p);return p;},async openPage(p){this.currentPage=p;},createBoard:()=>new Shape('board'),createShapeFromSvg(svg){const s=new Shape('svg');s.rawSvg=svg;return s;}};shared.set('kenigevents\0asp-active-run-v1',JSON.stringify({schema:C.runControl.schema,run_id:C.runControl.runId,writer_id:C.runControl.writerId,state:'ACTIVE',cancelled:false,contract_sha256:C.runControl.contractSha256,page_profile_sha256:C.runControl.pageProfileSha256,asset_registry_sha256:C.runControl.assetRegistrySha256,geometry_proof_sha256:C.runControl.geometryProofSha256}));return{penpot,storage:{},free,f0,components,shared,versions,counts:()=>({undoBegin,undoFinish,saveCount})};}
+(async()=>{
+  assert.equal(await A.a5Sha256('Кёнигсберг · Icons'),sha(Buffer.from('Кёнигсберг · Icons')));
+  const canceled=surface();const marker=JSON.parse(canceled.shared.get('kenigevents\0asp-active-run-v1'));canceled.shared.set('kenigevents\0asp-active-run-v1',JSON.stringify({...marker,state:'CANCEL_REQUESTED'}));await assert.rejects(A.runActionNavIconsV5(canceled),/ACTION_NAV_ACTIVE_RUN_MISMATCH/);assert.equal(canceled.penpot.currentFile.pages.length,2);assert.equal(canceled.counts().undoBegin,0);
+  const drift=surface();const probe=await A.runActionNavIconsV5(drift);assert.equal(probe.terminalState,'PROTECTED_BASELINE_BOUND_RERUN_REQUIRED');drift.free.root.children[0].name='foreign-drift';await assert.rejects(A.runActionNavIconsV5(drift),/ACTION_NAV_PROTECTED_BASELINE_MISMATCH/);assert.equal(drift.counts().undoBegin,0);
+  const s=surface();const first=await A.runActionNavIconsV5(s);assert.equal(first.created,0);assert.equal(first.terminalState,'PROTECTED_BASELINE_BOUND_RERUN_REQUIRED');const originalOtherPageIds=s.penpot.currentFile.pages.map(p=>p.id),originalProtectedIds=[s.free.root.children[0].id,s.free.root.children[1].id,s.f0.root.children[0].id];const receipts=[];let terminal;for(let i=0;i<20;i++){const r=await A.runActionNavIconsV5(s);receipts.push(r);if(r.terminalState==='CANDIDATE_READBACK_VERIFIED_PENDING_V0'){terminal=r;break;}assert.equal(r.terminalState,'RESUME_REQUIRED_UNKNOWN_OUTCOME_SAFE');assert.ok(r.created>0&&r.created<=3);const candidate=s.penpot.currentFile.pages.find(p=>p.name===C.pageName);assert.ok(candidate&&candidate.root.children.length>0,'candidate page must never be setup-only');}
+  assert.ok(terminal,'terminal receipt');assert.deepEqual(terminal.counts,{roots:1,components:8,instances:18,detached:0,screenshots:0});assert.equal(terminal.ownerReviewState,'NOT_ACCEPTED');assert.equal(terminal.promotionAllowed,false);assert.equal(terminal.pageWave.managedNodes,27);assert.deepEqual(terminal.pageWave.families,['action','navigation','specimen']);assert.equal(terminal.protected.before,terminal.protected.after);assert.equal(terminal.protected.mutated,false);assert.equal(terminal.export.nonempty,true);assert.equal(terminal.provenance.assetTuples.length,9);assert.equal(terminal.provenance.redrawOrSubstitution,false);assert.equal(new Set(terminal.stableIds.componentIds).size,8);assert.equal(new Set(terminal.stableIds.instanceIds).size,18);assert.deepEqual(s.penpot.currentFile.pages.filter(p=>p.name!==C.pageName).map(p=>p.id),originalOtherPageIds);assert.deepEqual([s.free.root.children[0].id,s.free.root.children[1].id,s.f0.root.children[0].id],originalProtectedIds);assert.equal(s.components.length,8);assert.equal(s.counts().undoBegin,s.counts().undoFinish);
+  const versionsBefore=s.versions.length,idsBefore=structuredClone(terminal.stableIds);const second=await A.runActionNavIconsV5(s);assert.equal(second.terminalState,'CANDIDATE_READBACK_VERIFIED_PENDING_V0');assert.equal(second.created,0);assert.equal(second.secondRunCreated,0);assert.deepEqual(second.stableIds,idsBefore);assert.equal(s.versions.length,versionsBefore);assert.equal(s.components.length,8);
+  const source=fs.readFileSync(path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js'),'utf8');for(const needle of ['maxCreatesPerCall":3','undoBlockFinish(block)','PROTECTED_BASELINE_BOUND_RERUN_REQUIRED','RESUME_REQUIRED_UNKNOWN_OUTCOME_SAFE','CANDIDATE_READBACK_VERIFIED_PENDING_V0','root.export({type:\'png\',scale:1})','secondRunCreated:0','managedNodes===27'])assert(source.includes(needle),needle);assert(!source.includes('module:factory'));assert(!/\.detach\s*\(/.test(source));assert(!/createImage|screenshot-as-design/i.test(source));
+  console.log('F0_ACTION_NAV_NATIVE_EXECUTOR_V5_TEST_PASS');
+})().catch(e=>{console.error(e);process.exitCode=1});
