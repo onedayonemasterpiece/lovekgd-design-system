@@ -1,0 +1,131 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_READY_V3",
+  "package_id": "F-BRANDBOOK-BASELINE",
+  "owner": "F0",
+  "priority": "P1_SHARED_FOUNDATION",
+  "status": "READY_TO_PUBLISH",
+  "branch": "chatgpt/f0-foundations-assets-20260831",
+  "sha": "CONTAINING_COMMIT",
+  "paths": ["catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json"],
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "status": "CURRENT_RECONSTRUCTED_NO_OP",
+    "runtime": {"repository": "onedayonemasterpiece/events-bot-new", "commit": "f2d658e8be057f3b75431f6b77e4887af4536028"},
+    "continuity_proof": {"foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1", "site_path_changes": 0},
+    "source_paths": [
+      "site/src/components/brand/AnnouncementsLockup.astro",
+      "site/src/components/brand/AnnouncementsWordmark.astro",
+      "site/public/brand-mark.svg",
+      "site/public/brand/announcements-wordmark-ui.svg",
+      "site/public/favicon.svg",
+      "site/public/brand/favicon-tag-wide-o.svg",
+      "site/public/assets/pwa/**"
+    ],
+    "foundation_receipt": "1acc60e0b33aeb5a83aceba94ee607cfe2bdbeb8:catalog/foundations/current-reconstructed/brand-baseline.v1.json"
+  },
+  "assets_and_hashes": [
+    {"id": "brand.asset.primary-mark", "path": "site/public/brand-mark.svg", "sha256": "6c7983ca7bb296ba3414f4ad5c8715eca4cf05a89d44232d18f74636b9a26f32", "git_blob_sha1": "5833776a1f94cf7f02e9b95c1b98eb7fc29c4b23", "bytes": 2539, "viewBox": "160 230 970 820", "role": "img", "accessible_title": "Полюбить Калининград Анонсы — знак"},
+    {"id": "brand.asset.announcements-wordmark", "path": "site/public/brand/announcements-wordmark-ui.svg", "sha256": "2e08393273700b0669951f2de217b4a0841b2a7e00d05539051f81e656af3a51", "git_blob_sha1": "7fa5023eefc8514dcf735516633e68eadb532c9b", "bytes": 1413, "viewBox": "0 0 7819 1514", "paint": "currentColor", "accessible_title": "Анонсы"},
+    {"id": "brand.asset.favicon-tag", "paths": ["site/public/favicon.svg", "site/public/brand/favicon-tag-wide-o.svg"], "sha256": "2a85ce2a393720738437a9def56eac4ef4d7abc4b0d02bf436ca11e46247295d", "git_blob_sha1": "d2b3d15fd027a75839c056fbf387c4bd2ba630f5", "bytes": 781, "viewBox": "0 0 64 64", "accessible_title": "Полюбить Калининград Анонсы"},
+    {"id": "brand.component.lockup", "path": "site/src/components/brand/AnnouncementsLockup.astro", "git_blob_sha1": "8e493372e75d52cec258e97ffc5ae6f5af554a64"},
+    {"id": "brand.component.wordmark", "path": "site/src/components/brand/AnnouncementsWordmark.astro", "git_blob_sha1": "bfc27e397d42650ab6bc7f386b71bbc66b9c9489"}
+  ],
+  "foundation_or_component_ids": [
+    "foundation.brand-assets-media-terminology",
+    "brand.asset.primary-mark",
+    "brand.asset.announcements-wordmark",
+    "brand.asset.favicon-tag",
+    "brand.lockup.desktop",
+    "brand.lockup.mobile",
+    "brand.guidance.asset-usage",
+    "brand.guidance.language"
+  ],
+  "baseline": {
+    "canonical_product_name": "Полюбить Калининград Анонсы",
+    "architecture": {
+      "endorsement": "Полюбить Калининград",
+      "product_wordmark": "Анонсы",
+      "desktop_lockup": {"endorsement_lines": ["Полюбить Калининград"], "wordmark_asset": "brand.asset.announcements-wordmark"},
+      "mobile_lockup": {"endorsement_lines": ["Полюбить", "Калининград"], "wordmark_asset": "brand.asset.announcements-wordmark"}
+    },
+    "embedded_asset_colors": {
+      "primary_mark_ink": "#2d3035",
+      "primary_mark_brand": "#af481f",
+      "favicon_tag": "#98401f",
+      "favicon_glyph": "#ffffff",
+      "policy": "embedded asset colors are exact bytes and are not remapped to the semantic palette"
+    },
+    "wordmark_color_contract": "currentColor inherited from the consumer",
+    "canonical_product_terms": ["событие", "афиша", "сегодня", "завтра", "выходные", "подборка", "избранное", "поделиться", "календарь"],
+    "aliases_not_primary_visible_name": ["Kenigevents", "LoveKGD"],
+    "placement_contexts": ["header", "footer", "PWA", "social"],
+    "asset_rules": [
+      "use exact current bytes; do not redraw, simplify, stretch or letterbox",
+      "preserve each SVG viewBox and aspect ratio",
+      "primary mark and favicon-tag retain embedded colors",
+      "announcements wordmark may inherit currentColor exactly as the runtime asset does",
+      "desktop endorsement stays on one line; mobile endorsement stays as the two source spans",
+      "brand artwork keeps its contextual accessible name; decorative linked wordmark inside an already named lockup remains aria-hidden",
+      "PWA raster files are output artifacts, not sources for rebuilding available SVG marks",
+      "no clear-space, minimum-size or co-branding rule is invented by this baseline"
+    ],
+    "anti_patterns": [
+      "retyping the Анонсы wordmark with a font",
+      "changing the wide-o geometry",
+      "recoloring the primary mark to a nearby semantic token",
+      "placing the medallion or mark on an added white square",
+      "using Kenigevents or LoveKGD as the primary visible product name",
+      "outlining endorsement copy"
+    ]
+  },
+  "target_penpot_page": {"name": "05 · Brandbook · Current baseline", "create_if_missing": true, "accepted_old_penpot_ids": false},
+  "expected_roots": 1,
+  "expected_components": 7,
+  "expected_instances": 20,
+  "materialization_entry_point": {
+    "kind": "declarative-penpot-build-plan",
+    "operations": [
+      "create one brandbook root with Source, Lockups, Marks, Product language, Usage and Do-not sections",
+      "import the three exact brand SVG byte streams and verify sha256 before component creation",
+      "create linked primary-mark, wordmark and favicon-tag components at intrinsic aspect ratio",
+      "create desktop and mobile lockup components using exact source line structure and a linked wordmark instance",
+      "render embedded asset colors as labelled evidence swatches but do not convert them to semantic color aliases",
+      "render canonical terms and aliases as editable text using the accepted typography binding",
+      "render rules and anti-patterns with vector/text specimens only; do not create fake logo variants",
+      "attach package/source/hash metadata; validate and export the full brandbook root plus both lockups"
+    ],
+    "input_pointer": "#/baseline"
+  },
+  "validation": {
+    "pre_publish": [
+      "three exact SVG assets hash-pinned",
+      "desktop and mobile source lockup structures captured",
+      "four embedded asset colors recorded without normalization",
+      "nine canonical terms and two aliases classified",
+      "no invented clear-space/minimum-size rules",
+      "no old Penpot UUIDs"
+    ],
+    "publisher_required": [
+      "asset_sha256_readback=PASS",
+      "desktop_lockup_line_count=1",
+      "mobile_lockup_line_count=2",
+      "wordmark_is_linked_asset_not_retyped",
+      "created_or_reused_components=7",
+      "detached_instances=0",
+      "validate=[]",
+      "brandbook_and_lockup_exports_nonempty"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "desktop header", "selector": "[data-announcements-lockup=desktop]"},
+    {"case": "mobile header", "selector": "[data-announcements-lockup=mobile]"},
+    {"case": "favicon and install surfaces", "assets": ["/favicon.svg", "/assets/pwa/"]}
+  ],
+  "known_nonblocking_differences": [
+    "The brandbook page adds explanatory labels and anti-pattern captions that are not product UI.",
+    "No speculative co-branding, clear-space or minimum-size system is included.",
+    "PWA assets are presented as exact output references and may be visually larger than their on-device render size."
+  ],
+  "forbidden": ["logo redraw", "wordmark retyping", "wide-o modification", "asset stretching", "new palette", "invented brand rules", "old Penpot UUID reuse", "outlined endorsement text"]
+}
