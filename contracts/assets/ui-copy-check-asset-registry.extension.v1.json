@@ -1,0 +1,185 @@
+{
+  "schema_version": "kenigevents.ui-copy-check-asset-registry-extension.v1",
+  "registry_id": "kenigevents.ui-assets.copy-check.v1",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "source_path": "site/src/components/Icon.astro",
+    "source_git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487",
+    "consumer_path": "site/src/components/design-system/CopyAction.astro",
+    "consumer_git_blob_sha1": "7f01708518e034c86ceb576f1dfdee849ea787be",
+    "deterministic_extraction": "astro-icon-fragment-to-standalone-svg.v1"
+  },
+  "central_registry_target": {
+    "path": "contracts/assets/ui-asset-registry.v1.yaml",
+    "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+    "git_blob_sha1": "271a622633f399bb52cfe322c259a8dc4162bf7e",
+    "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+    "status": "ACTIVE"
+  },
+  "conversion_contract": {
+    "viewBox": "0 0 24 24",
+    "rules": [
+      "select only the exact Icon.astro conditional branch for the named source_symbol",
+      "preserve element order and all geometry, fill, stroke, width, linecap and linejoin attributes",
+      "wrap with xmlns and fill=currentColor",
+      "serialize UTF-8 with LF and exactly one final newline",
+      "do not simplify, redraw, normalize coordinates, convert stroke to fill or substitute an icon"
+    ],
+    "fallback": "FORBIDDEN"
+  },
+  "assets": [
+    {
+      "asset_id": "icon.action.copy",
+      "semantic_slot": "control.copy.default",
+      "status": "RESOLVED_CANDIDATE_PENDING_D0_INTEGRATE",
+      "source_symbol": "copy",
+      "source_path": "site/src/components/Icon.astro",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487",
+      "materialization": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "introducing_commit": "19eb67a4252d60cd3a4342725040740e2862882a",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/copy.svg",
+        "git_blob_sha1": "39a1affb019ba0e9d55348be6d9be6314c2f4f91",
+        "sha256": "48710ac3735ed6a66aa775294d266f68800c140641dee0ed1029a85cb48cd049",
+        "bytes": 405
+      },
+      "media_type": "image/svg+xml",
+      "view_box_or_intrinsic_size": {
+        "viewBox": "0 0 24 24",
+        "intrinsic_vector_box": "24x24"
+      },
+      "nominal_box": {
+        "consumer_css": "1.35rem x 1.35rem",
+        "reference_px_at_16px_root": [
+          21.6,
+          21.6
+        ],
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "outer_fill": "currentColor",
+        "shape_fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 1.8,
+        "linecap": "round where declared",
+        "linejoin": "round where declared"
+      },
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "busy",
+        "error"
+      ],
+      "astro_consumer": {
+        "component": "site/src/components/design-system/CopyAction.astro",
+        "git_blob_sha1": "7f01708518e034c86ceb576f1dfdee849ea787be",
+        "selector": ".ke-copy-action__icon--copy .icon--copy",
+        "state_binding": "visible unless [data-copy-state=\"success\"]"
+      },
+      "penpot_consumer": {
+        "component_id": "control.copy-action",
+        "property": "icon.default",
+        "asset_component_name": "Icon/Action/Copy",
+        "variant_property": "state"
+      },
+      "provenance": {
+        "classification": "REUSE_CANONICAL_DATA",
+        "origin": "exact current production Icon.astro geometry",
+        "extraction": "astro-icon-fragment-to-standalone-svg.v1",
+        "external_origin_asserted": false
+      },
+      "licence_or_reuse_status": {
+        "status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED",
+        "scope": "Kenigevents Astro/UI-SoT/Penpot"
+      },
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+    },
+    {
+      "asset_id": "icon.status.check",
+      "semantic_slot": "control.copy.success",
+      "status": "RESOLVED_CANDIDATE_PENDING_D0_INTEGRATE",
+      "source_symbol": "check",
+      "source_path": "site/src/components/Icon.astro",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487",
+      "materialization": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "introducing_commit": "2efb14523ecc9f6a210dc3337a322e51ff4a3477",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/check.svg",
+        "git_blob_sha1": "b227ceaaf956194bcb7e4e33fb2d8c5bd91645ca",
+        "sha256": "3baf2a43953c61ce4d654002042c682ef9ecca73baff7d527359d170a6a40558",
+        "bytes": 230
+      },
+      "media_type": "image/svg+xml",
+      "view_box_or_intrinsic_size": {
+        "viewBox": "0 0 24 24",
+        "intrinsic_vector_box": "24x24"
+      },
+      "nominal_box": {
+        "consumer_css": "1.35rem x 1.35rem",
+        "reference_px_at_16px_root": [
+          21.6,
+          21.6
+        ],
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "outer_fill": "currentColor",
+        "shape_fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 2.2,
+        "linecap": "round",
+        "linejoin": "round"
+      },
+      "states": [
+        "success",
+        "success-focus-visible",
+        "success-pressed"
+      ],
+      "astro_consumer": {
+        "component": "site/src/components/design-system/CopyAction.astro",
+        "git_blob_sha1": "7f01708518e034c86ceb576f1dfdee849ea787be",
+        "selector": ".ke-copy-action__icon--success .icon--check",
+        "state_binding": "visible only when [data-copy-state=\"success\"]"
+      },
+      "penpot_consumer": {
+        "component_id": "control.copy-action",
+        "property": "icon.success",
+        "asset_component_name": "Icon/Status/Check",
+        "variant_property": "state"
+      },
+      "provenance": {
+        "classification": "REUSE_CANONICAL_DATA",
+        "origin": "exact current production Icon.astro geometry",
+        "extraction": "astro-icon-fragment-to-standalone-svg.v1",
+        "external_origin_asserted": false
+      },
+      "licence_or_reuse_status": {
+        "status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED",
+        "scope": "Kenigevents Astro/UI-SoT/Penpot"
+      },
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+    }
+  ],
+  "integration_gate": {
+    "owner": "D0/INTEGRATE",
+    "required_checks": [
+      "verify active central registry tuple has not drifted",
+      "verify source Icon.astro and CopyAction.astro Git blobs",
+      "verify both physical SVG Git blobs, SHA-256 values and byte counts",
+      "merge exactly one entry per stable asset_id into the active central registry",
+      "reject generic substitutes, Unicode glyphs, old Penpot UUIDs and placeholder SVG",
+      "bind actual candidate controls page before any Penpot mutation"
+    ],
+    "success": "COPY_CHECK_ASSETS_ACTIVE_AND_READY_TO_MATERIALIZE_CANDIDATE",
+    "failure": "REPAIR"
+  }
+}
