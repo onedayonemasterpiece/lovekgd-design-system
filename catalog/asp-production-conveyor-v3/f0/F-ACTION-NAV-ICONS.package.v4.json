@@ -1,0 +1,436 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-ACTION-NAV-ICONS",
+  "revision": 4,
+  "owner": "F0",
+  "priority": "P1_FALLBACK_VISIBLE",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_INTEGRATE_PASS_AND_D0_PUBLISH_CLAIM",
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
+  "branch": "chatgpt/f0-action-nav-current-target-v4-20260831",
+  "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v4.json",
+    "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v3.json",
+    "contracts/assets/ui-asset-registry.v1.yaml",
+    "catalog/asp-production-conveyor-v3/f0/assets/free-collection/*.svg",
+    "catalog/asp-production-conveyor-v3/f0/assets/navigation/*.svg",
+    "scripts/asp-production-conveyor-v3/f0/f0_action_nav_contract_v4.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py",
+    "tests/asp-production-conveyor-v3/f0/test_action_nav_icons_candidate_v4.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-action-nav-current-target-v4-20260831",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v4.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package blob, source v3, central registry, exact nine SVG blobs, helper, runner and tests; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 3,
+    "path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v3.json",
+    "git_blob_sha1": "2bdca5adead3966e71a3ff83c944eaa27e85f5e0",
+    "bytes": 19166,
+    "executable": false,
+    "reasons": [
+      "stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
+      "no candidate-versus-promotion lifecycle boundary",
+      "no protected current free-collection pre/post digest"
+    ],
+    "exact_svg_bytes_reused_unchanged": true
+  },
+  "source_package_v3": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v3.json",
+    "git_blob_sha1": "2bdca5adead3966e71a3ff83c944eaa27e85f5e0",
+    "bytes": 19166
+  },
+  "asset_registry": {
+    "path": "contracts/assets/ui-asset-registry.v1.yaml",
+    "git_blob_sha1": "ed2bb37e21fb119746f1bcbe3a08125495742dc2",
+    "bytes": 26185,
+    "registry_id": "kenigevents.ui-assets.v1",
+    "registry_version": "1.2.0-candidate.1"
+  },
+  "helper": {
+    "path": "scripts/asp-production-conveyor-v3/f0/f0_action_nav_contract_v4.py",
+    "git_blob_sha1": "d8c90dbf59a82fa600c62fd4c8df3b6df002d573",
+    "sha256": "1f405213452a0dcf92ce7e4b22c2f2ffede5ddc8941204948b5a549db6f32c0d",
+    "bytes": 5918
+  },
+  "runner": {
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py",
+    "git_blob_sha1": "9341b785abd77615f02f47efd4407b91a6e622b4",
+    "sha256": "8c169e1a7a0a741f691c36037721e24cb0f966fbab192d65f625887e46a06961",
+    "bytes": 16970
+  },
+  "tests": {
+    "path": "tests/asp-production-conveyor-v3/f0/test_action_nav_icons_candidate_v4.py",
+    "git_blob_sha1": "9ebf24af72d9cf5e98691292f391f6033ad11107",
+    "sha256": "1d23a556873ddeead3cc863f42a59e2ada6ad23d7fdfeb6bc1570f822957a874",
+    "bytes": 8573,
+    "command": "python3 tests/asp-production-conveyor-v3/f0/test_action_nav_icons_candidate_v4.py",
+    "expected": "Ran 5 tests / OK"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+    },
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "action_source": [
+        "site/src/components/Icon.astro",
+        "68252498848a5fbc93dab20b5797504aeb6eb487"
+      ],
+      "navigation_source": [
+        "site/src/components/MobileBottomNav.astro",
+        "54fe6d86372e531a1d0320cd52afbdbbb5e10448"
+      ]
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "penpot_publication_authorized": false
+    }
+  },
+  "assets_and_hashes": [
+    {
+      "asset_id": "icon.action.not_interested",
+      "variant": "default",
+      "component_name": "Icon/Action/NotInterested",
+      "semantic_slot": "card.utility.not_interested",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/Icon.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+      "git_blob_sha1": "2cd0ebf989d63176a8e5f240c681316fab2e0670",
+      "sha256": "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98",
+      "bytes": 912,
+      "viewBox": "0 0 512 512",
+      "nominal_box": {
+        "width_px": 24,
+        "height_px": 24,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.action.calendar_add",
+      "variant": "default",
+      "component_name": "Icon/Action/CalendarAdd",
+      "semantic_slot": "card.primary_action.calendar_add",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/Icon.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+      "git_blob_sha1": "539baa5a7ab4f8794c2af3dae63a732cb00d1408",
+      "sha256": "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7",
+      "bytes": 374,
+      "viewBox": "0 0 32 32",
+      "nominal_box": {
+        "width_px": 24,
+        "height_px": 24,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.action.share",
+      "variant": "default",
+      "component_name": "Icon/Action/Share",
+      "semantic_slot": "card.social.share",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/Icon.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+      "git_blob_sha1": "3b6a82536becf79040c1201b327c93123080b557",
+      "sha256": "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb",
+      "bytes": 719,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 24,
+        "height_px": 24,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none",
+        "fill_rule": "evenodd",
+        "clip_rule": "evenodd"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.action.favorite",
+      "variant": "outline",
+      "component_name": "Icon/Action/Favorite",
+      "semantic_slot": "card.social.favorite",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/Icon.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+      "git_blob_sha1": "e7b836f1f102ab787364077f1cc84fb2863b87ca",
+      "sha256": "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7",
+      "bytes": 459,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 24,
+        "height_px": 24,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.action.favorite",
+      "variant": "solid",
+      "component_name": "Icon/Action/Favorite",
+      "semantic_slot": "card.social.favorite.selected",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/Icon.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg",
+      "git_blob_sha1": "bcf4370e13e32ef35f7b43b1964bc06a2ae86dd3",
+      "sha256": "ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517",
+      "bytes": 275,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 24,
+        "height_px": 24,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.navigation.afisha",
+      "variant": "default",
+      "component_name": "Icon/Navigation/Afisha",
+      "semantic_slot": "navigation.primary.afisha",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/MobileBottomNav.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-afisha.svg",
+      "git_blob_sha1": "eed94353b9fff23efe3e92042556f540436b6c19",
+      "sha256": "1d9bc10d1eed8b02a07279b7e3b1da401d1898435c6d0ee3278f8fce1e86f75e",
+      "bytes": 380,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 21,
+        "height_px": 21,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.navigation.dates",
+      "variant": "default",
+      "component_name": "Icon/Navigation/Dates",
+      "semantic_slot": "navigation.primary.dates",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/MobileBottomNav.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-dates.svg",
+      "git_blob_sha1": "5c1a530da97a9146f590d1746e8a9425893d6e16",
+      "sha256": "70d2f170ce4bdf8bd765fdabd37419783dac0cf04a64754a6651ce70a1ec3f83",
+      "bytes": 375,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 21,
+        "height_px": 21,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.navigation.search",
+      "variant": "default",
+      "component_name": "Icon/Navigation/Search",
+      "semantic_slot": "navigation.primary.search",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/MobileBottomNav.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-search.svg",
+      "git_blob_sha1": "4a20c0224c75be42e0222b11c387fb9f8a258480",
+      "sha256": "249f57004a3e0c7403c1bdd9349bfba65fac6f2a0bee9e82c6e552aaa055f8bf",
+      "bytes": 282,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 21,
+        "height_px": 21,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    },
+    {
+      "asset_id": "icon.navigation.personal",
+      "variant": "default",
+      "component_name": "Icon/Navigation/Personal",
+      "semantic_slot": "navigation.primary.personal",
+      "source_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "source_path": "site/src/components/MobileBottomNav.astro",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-personal.svg",
+      "git_blob_sha1": "825278c40ff92746c9f50890a8b17d4e9ccc7770",
+      "sha256": "76509e65aec09172d0be39d683b64e2eddcdb08a57e04c372bbcf5a2c90cd4a1",
+      "bytes": 477,
+      "viewBox": "0 0 24 24",
+      "nominal_box": {
+        "width_px": 21,
+        "height_px": 21,
+        "alignment": "center",
+        "preserve_aspect_ratio": "xMidYMid meet"
+      },
+      "fill_stroke_contract": {
+        "fill": "currentColor",
+        "stroke": "none"
+      },
+      "reuse": "EXACT_V3_BYTES_UNCHANGED"
+    }
+  ],
+  "component_ids": [
+    "icon.action.calendar_add",
+    "icon.action.favorite",
+    "icon.action.not_interested",
+    "icon.action.share",
+    "icon.navigation.afisha",
+    "icon.navigation.dates",
+    "icon.navigation.personal",
+    "icon.navigation.search"
+  ],
+  "adapter_contract": {
+    "method_surface": [
+      "read_document",
+      "assert_active_lease",
+      "ensure_page",
+      "upsert_svg_component",
+      "upsert_specimen",
+      "validate",
+      "export_png",
+      "readback"
+    ],
+    "preserved_from_v3": true
+  },
+  "specimen": {
+    "name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-reconstructed",
+    "consumer": "EventCard actions + MobileBottomNav",
+    "states": [
+      "not-interested/default",
+      "not-interested/focus-visible",
+      "calendar-add/default",
+      "calendar-add/focus-visible",
+      "share/default",
+      "share/focus-visible",
+      "favorite/outline/default",
+      "favorite/outline/focus-visible",
+      "favorite/solid/selected",
+      "favorite/solid/selected-focus-visible",
+      "afisha/default",
+      "afisha/current",
+      "dates/default",
+      "dates/current",
+      "search/default",
+      "search/current",
+      "personal/default",
+      "personal/current"
+    ]
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "file_name": "LoveKGD design system",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_PUBLISH",
+    "exact_name": "01 · Foundations · Icons and actions · Candidate",
+    "create_if_missing": true,
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "old_penpot_id_reuse_allowed": false
+  },
+  "candidate_root": {
+    "exact_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-reconstructed",
+    "owner_review_state": "NOT_ACCEPTED",
+    "promotion_allowed": false
+  },
+  "protected_surface": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "page_name": "00 · Components · Free collection",
+    "root_ids": [
+      "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+      "313fb1ed-0d5c-8095-8008-912c45090653"
+    ],
+    "mutation_allowed": false,
+    "pre_and_post_digest_required": true
+  },
+  "expected_roots": 1,
+  "expected_components": 8,
+  "expected_instances": 18,
+  "materialization_entry_point": {
+    "kind": "current-target-exact-v3-byte-reuse-candidate-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py plan --candidate-commit <FROZEN_HEAD>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py execute --candidate-commit <FROZEN_HEAD> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v4.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "protected_surface_digest_before_and_after": true
+  },
+  "validation": {
+    "integrate": [
+      "remote-read frozen head and all blobs",
+      "run five committed tests",
+      "verify central registry and all nine exact SVG byte/SHA/blob tuples",
+      "verify current adapter method surface is unchanged from v3",
+      "run plan and require F0_ACTION_NAV_V4_PLAN_PASS",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with penpot_mutations=0"
+    ],
+    "publish": [
+      "roots=1",
+      "components=8",
+      "instances=18",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validation=[]",
+      "nonempty export",
+      "protected digest unchanged"
+    ]
+  },
+  "forbidden": [
+    "redraw, simplification, stroke conversion or substitute icon",
+    "execute stale v3 target",
+    "old Penpot UUID lineage",
+    "screenshot or placeholder implementation",
+    "mutate current free-collection roots",
+    "claim promotion before V0"
+  ],
+  "penpot_mutations_by_f0": 0
+}
