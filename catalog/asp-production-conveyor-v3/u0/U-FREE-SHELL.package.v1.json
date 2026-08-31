@@ -1,0 +1,491 @@
+{
+  "schema_version": "kenigevents.asp-u0-free-shell-package.v1",
+  "package_id": "U-FREE-SHELL",
+  "owner": "U0",
+  "priority": "P0",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T15:46:00Z",
+  "lifecycle": {
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "candidate_materialization_allowed_after_integrate": true,
+    "penpot_mutations_by_u0": 0,
+    "visual_acceptance_owner": "V0",
+    "sole_penpot_writer": "/root/publish_r2",
+    "blocking_asset_gate": "F0_FREE_MEDALLION_AND_NAV_ASSET_REGISTRY",
+    "blocking_component_gate": "U_FREE_ROWS_PLUS_EVENTCARD_R6"
+  },
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "route_identity": "free.collection.route",
+    "archetype": "archetype.collections",
+    "product_change": "none",
+    "architecture_change": "none",
+    "includes": [
+      "desktop and mobile EventLayout chrome",
+      "breadcrumbs or parent-link responsive representation",
+      "free collection hero",
+      "hero and sticky medallion states",
+      "events and exhibitions section containers",
+      "site footer",
+      "mobile bottom navigation",
+      "top, scrolled and full-page scenarios"
+    ],
+    "excludes": [
+      "EventCard internal anatomy",
+      "factual row discovery",
+      "dynamic auth or personalization behavior",
+      "cookie and toast runtime implementation",
+      "Penpot write",
+      "visual PASS",
+      "old Penpot UUID lineage"
+    ]
+  },
+  "requirements_contract": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "current_astro_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "source_files": [
+      {
+        "role": "route",
+        "path": "site/src/pages/podborki/[slug]/index.astro",
+        "git_blob_sha1": "3d4333ef611efccf7e3dec5c16e5bcf0d6f14654"
+      },
+      {
+        "role": "free-surface",
+        "path": "site/src/components/FreeCollectionSurface.astro",
+        "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+      },
+      {
+        "role": "event-layout",
+        "path": "site/src/layouts/EventLayout.astro",
+        "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+      },
+      {
+        "role": "search-collection-data",
+        "path": "site/src/data/searchCollections.ts",
+        "git_blob_sha1": "b9b8a80fbeaa26fa8185d67a06e55714dcf140c1"
+      },
+      {
+        "role": "breadcrumbs",
+        "path": "site/src/components/Breadcrumbs.astro",
+        "git_blob_sha1": "a38066c8ffe75bf0cb41a224578fc0d7ae268667"
+      },
+      {
+        "role": "mobile-bottom-nav",
+        "path": "site/src/components/MobileBottomNav.astro",
+        "git_blob_sha1": "54fe6d86372e531a1d0320cd52afbdbbb5e10448"
+      },
+      {
+        "role": "site-footer",
+        "path": "site/src/components/SiteFooter.astro",
+        "git_blob_sha1": "3c74525a41be0dfb88fa882a62404941ac95b572"
+      },
+      {
+        "role": "brand-lockup",
+        "path": "site/src/components/brand/AnnouncementsLockup.astro",
+        "git_blob_sha1": "8e493372e75d52cec258e97ffc5ae6f5af554a64"
+      },
+      {
+        "role": "global-foundations",
+        "path": "site/src/styles/design-system.css",
+        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+      }
+    ]
+  },
+  "route_content": {
+    "slug": "besplatnye-sobytiya",
+    "title": "Бесплатные события",
+    "description": "Все актуальные события с подтверждённым бесплатным входом, включая продолжающиеся выставки.",
+    "criteria": "Событие активно, ещё не закончилось, а в выгрузке афиши вход подтверждён как бесплатный.",
+    "eyebrow": "Готовая подборка",
+    "noindex": true,
+    "breadcrumb_parent": "Афиша",
+    "breadcrumb_current": "Бесплатные события",
+    "mobile_section_literal_from_route": "home",
+    "mobile_section_domain_from_component": [
+      "afisha",
+      "dates",
+      "search",
+      "personal",
+      null
+    ],
+    "mobile_nav_current_match_count": 0,
+    "mobile_nav_current_rule": "item.key === current; current is the literal `home`, which is outside the item-key domain",
+    "source_contract_mismatch": "MOBILE_SECTION_HOME_OUTSIDE_DECLARED_DOMAIN",
+    "package_policy": "preserve current visible no-selected-item state; do not silently map home to afisha"
+  },
+  "anatomy": [
+    {
+      "id": "shell.desktop-header",
+      "source": "EventLayout.astro .site-header",
+      "visibility": "desktop",
+      "position": "sticky top 0",
+      "height_px": 57,
+      "z_index": 60,
+      "children": [
+        "brand-tag",
+        "desktop-lockup",
+        "primary-site-navigation"
+      ]
+    },
+    {
+      "id": "shell.mobile-header",
+      "source": "EventLayout.astro mobile shell",
+      "visibility": "max-width:759px",
+      "height_px": 64,
+      "children": [
+        "mobile-lockup",
+        "Reference4MobileMenu"
+      ]
+    },
+    {
+      "id": "shell.breadcrumbs",
+      "source": "Breadcrumbs.astro",
+      "desktop": "product-breadcrumbs responsive",
+      "mobile": "product-parent-link responsive",
+      "aria_labels": [
+        "Хлебные крошки",
+        "К родительскому разделу"
+      ],
+      "interactive_min_height_px": 44
+    },
+    {
+      "id": "shell.free-hero",
+      "source": "FreeCollectionSurface.astro .free-collection__hero",
+      "desktop": {
+        "min_height": "clamp(280px,34vw,430px)",
+        "columns": "minmax(0,1fr) clamp(180px,23vw,300px)",
+        "padding": "clamp(2rem,5vw,5rem)",
+        "radius_px": 32
+      },
+      "mobile": {
+        "media": "max-width:759px",
+        "min_height_px": 268,
+        "columns": "minmax(0,1fr) 96px",
+        "gap_px": 6,
+        "padding": "26px 18px 24px",
+        "radius_px": 24
+      },
+      "children": [
+        "eyebrow",
+        "title",
+        "description",
+        "criteria",
+        "updated/reference note",
+        "hero medallion"
+      ]
+    },
+    {
+      "id": "shell.free-medallion.hero",
+      "source": "data-free-collection-medallion=large",
+      "desktop_size": "clamp(180px,23vw,300px)",
+      "mobile_size_px": 96,
+      "mobile_margin_top_px": 44,
+      "asset_id": "asset.badge.free-listing-medallion"
+    },
+    {
+      "id": "shell.free-medallion.sticky",
+      "source": "data-free-collection-sticky-identity",
+      "desktop": {
+        "top_px": 57,
+        "size_px": 58,
+        "z_index": 48
+      },
+      "mobile": {
+        "top_px": 64,
+        "size_px": 50,
+        "z_index": 35
+      },
+      "activation": "hero.getBoundingClientRect().bottom <= top + 16",
+      "hidden_state": "opacity:0; translateY(-10px) scale(.82)",
+      "visible_state": "opacity:1; transform:none",
+      "transition": "opacity .18s ease, transform .22s ease",
+      "reduced_motion": "transition:none"
+    },
+    {
+      "id": "shell.section.events",
+      "source": "data-free-collection-event-group=events",
+      "heading": "2 событий",
+      "child_package": "U-FREE-ROWS-2-PLUS-3#free.events.row"
+    },
+    {
+      "id": "shell.section.exhibitions",
+      "source": "data-free-collection-event-group=exhibitions",
+      "eyebrow": "Можно посетить в течение дня",
+      "heading": "Бесплатные выставки · 3",
+      "child_package": "U-FREE-ROWS-2-PLUS-3#free.exhibitions.row"
+    },
+    {
+      "id": "shell.site-footer",
+      "source": "SiteFooter.astro data-site-footer=service-v1",
+      "children": [
+        "share prompt",
+        "brand lockup and project statement",
+        "Афиша navigation",
+        "О проекте navigation",
+        "Документы disabled-future states",
+        "PWA install action",
+        "social links"
+      ]
+    },
+    {
+      "id": "shell.mobile-bottom-nav",
+      "source": "MobileBottomNav.astro data-mobile-bottom-nav",
+      "visibility": "max-width:759px",
+      "position": "fixed bottom",
+      "columns": 4,
+      "height": "64px + env(safe-area-inset-bottom)",
+      "z_index": 40,
+      "items": [
+        [
+          "afisha",
+          "Афиша",
+          "icon.navigation.ticket"
+        ],
+        [
+          "dates",
+          "Даты",
+          "icon.navigation.calendar"
+        ],
+        [
+          "search",
+          "Поиск",
+          "icon.navigation.search"
+        ],
+        [
+          "personal",
+          "Для меня",
+          "icon.navigation.personal"
+        ]
+      ],
+      "current_item": null,
+      "current_item_reason": "exact route literal `home` matches none of the four source keys"
+    }
+  ],
+  "state_authority": {
+    "owner": "A0",
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "branch": "a0/asp-production-conveyor-20260831",
+    "commit": "d85b38c7883d53f43b628d885513c5851c164b25",
+    "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json",
+    "git_blob_sha1": "7165c7055040aeac87340e8773378f1cd50430b5",
+    "state_packet_sha256": "afeda31dfc19de3d98d35d4574cda757b01b8d5144c6227eaa60c3595a4e86f2",
+    "projection_record_sha256": "e645fb8e023c2271ee05b109bcc828e0e95959162ef3008653d0b2be08b4c471",
+    "scenarios": [
+      {
+        "scenario_id": "a0.free.desktop.top.v1",
+        "viewport": [
+          1280,
+          800
+        ],
+        "scroll_state": "top",
+        "header": "default",
+        "hero": "visible",
+        "medallion": "normal"
+      },
+      {
+        "scenario_id": "a0.free.desktop.scrolled.v1",
+        "viewport": [
+          1280,
+          800
+        ],
+        "scroll_state": "scrolled",
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      {
+        "scenario_id": "a0.free.desktop.full.v1",
+        "viewport": [
+          1280,
+          800
+        ],
+        "scroll_state": "full",
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      {
+        "scenario_id": "a0.free.mobile.top.v1",
+        "viewport": [
+          390,
+          844
+        ],
+        "scroll_state": "top",
+        "header": "default",
+        "hero": "visible",
+        "medallion": "normal"
+      },
+      {
+        "scenario_id": "a0.free.mobile.scrolled.v1",
+        "viewport": [
+          390,
+          844
+        ],
+        "scroll_state": "scrolled",
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      {
+        "scenario_id": "a0.free.mobile.full.v1",
+        "viewport": [
+          390,
+          844
+        ],
+        "scroll_state": "full",
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      }
+    ],
+    "runtime": {
+      "auth": "anonymous",
+      "clock": "2026-09-01T12:00:00+02:00",
+      "personalization": "off",
+      "randomness": "forbidden"
+    }
+  },
+  "asset_bindings": {
+    "free_medallion": {
+      "asset_id": "asset.badge.free-listing-medallion",
+      "source_repository": "onedayonemasterpiece/events-bot-new",
+      "source_commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+      "source_path": "site/public/assets/badges/free-listing-medallion.svg",
+      "git_blob_sha1": "3f6f7aadf0dc818112ab310875d8ad270c563b45",
+      "sha256": "27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31",
+      "bytes": 754,
+      "viewBox": "0 0 512 512",
+      "central_registry_status": "MISSING_PENDING_F0",
+      "fallback": false
+    },
+    "mobile_navigation": {
+      "source_path": "site/src/components/MobileBottomNav.astro",
+      "source_git_blob_sha1": "54fe6d86372e531a1d0320cd52afbdbbb5e10448",
+      "required_asset_ids": [
+        "icon.navigation.ticket",
+        "icon.navigation.calendar",
+        "icon.navigation.search",
+        "icon.navigation.personal"
+      ],
+      "central_registry_status": "MISSING_PENDING_F0",
+      "deterministic_extraction_required": true,
+      "fallback": false
+    },
+    "brand_and_footer": {
+      "required_packages": [
+        "F-MEDALLIONS-BRAND-ASSETS",
+        "F-BRANDBOOK-BASELINE"
+      ],
+      "central_registry_or_integrate_pass_required": true,
+      "fallback": false
+    }
+  },
+  "row_dependency": {
+    "branch": "u0/free-rows-shell-v3",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-FREE-ROWS-2-PLUS-3.package.v1.json",
+    "package_id": "U-FREE-ROWS-2-PLUS-3",
+    "required_instances": 5
+  },
+  "donor_reuse": {
+    "pr": 43,
+    "branch": "agent/e0-overnight/date-listing-shell",
+    "commit": "da16dde8812220125a806bd5a03d5015357d4c07",
+    "classification": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION",
+    "inputs": [
+      [
+        "catalog/page-archetypes/date-listing-shell-v1/component-contract.v1.json",
+        "92993b4243cea081226cd0a49e7a4470012bfd00",
+        70033
+      ],
+      [
+        "catalog/page-archetypes/date-listing-shell-v1/fixture-manifest.v1.json",
+        "1fc89087a39e81c731e3371fa736aae60e48f199",
+        8203
+      ],
+      [
+        "catalog/page-archetypes/date-listing-shell-v1/foundations.v1.json",
+        "696f18176f2c2803c33b1ed63452719528666e68",
+        6351
+      ],
+      [
+        "catalog/page-archetypes/date-listing-shell-v1/dependency-lock.v1.json",
+        "f5142b762603e41b34e8d8f87bf6aa00f870b60f",
+        8746
+      ]
+    ],
+    "reusable": [
+      "semantic shell decomposition",
+      "desktop/mobile scenario taxonomy",
+      "dependency naming"
+    ],
+    "forbidden": [
+      "old Penpot UUIDs",
+      "old component or board lineage",
+      "screenshots as implementation",
+      "stale PASS or reviewable labels",
+      "donor coordinates that conflict with current Source A"
+    ]
+  },
+  "target_candidate": {
+    "preferred_page_name": "01 · Pages · Free collection shell",
+    "exact_page_id": null,
+    "resolution_owner": "D0/INTEGRATE",
+    "active_page_profile_required": true,
+    "scenario_roots": 6,
+    "root_ids": [
+      "free.desktop.top",
+      "free.desktop.scrolled",
+      "free.desktop.full",
+      "free.mobile.top",
+      "free.mobile.scrolled",
+      "free.mobile.full"
+    ],
+    "clearly_marked_candidate": true,
+    "screenshots": 0,
+    "old_penpot_uuids": 0,
+    "validation": []
+  },
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_free_rows_shell.py",
+    "mode": "compile-free-shell",
+    "consumer": "D0/MAT",
+    "penpot_adapter_included": false,
+    "required_before_write": [
+      "D0/INTEGRATE exact remote-byte PASS",
+      "ACTIVE page profile with exact page ID",
+      "F0 active free medallion and navigation asset bindings",
+      "U-FREE-ROWS-2-PLUS-3 exact compiled input",
+      "ACTIVE run marker for /root/publish_r2"
+    ]
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_free_rows_shell.py --repo . --shell --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_free_rows_shell_packages.py",
+    "required_checks": [
+      "exact route title, description and criteria",
+      "exact current Astro source blobs",
+      "ten shell anatomy regions",
+      "six deterministic A0 scenarios",
+      "exact medallion bytes and no fallback",
+      "four exact mobile navigation semantic slots and no fallback",
+      "source-literal no-selected mobile nav state",
+      "one candidate page profile resolved by D0",
+      "zero screenshots and old UUIDs",
+      "zero Penpot mutation by U0"
+    ]
+  },
+  "known_nonblocking_differences": [
+    "The route passes `home` to a MobileSection type and item-key set that do not contain `home`; current source therefore yields no selected bottom-navigation item. This package preserves rather than silently repairs that behavior.",
+    "Interactive auth, personalization, menus, cookie consent, toasts and PWA actions remain runtime contracts; the Penpot candidate represents their visible shells and static states only.",
+    "The free medallion contains live SVG text with an Arial fallback stack. F0 must preserve exact source bytes or explicitly approve a deterministic Penpot text strategy; U0 does not outline or substitute it.",
+    "Full-page publication remains blocked on EventCard R6 native readback and V0 visual PASS."
+  ]
+}
