@@ -1,8 +1,8 @@
 schema_version: kenigevents.ui-asset-registry.v1
 registry_id: kenigevents.ui-assets.v1
-registry_version: 1.0.0
-status: ACTIVE_FAIL_CLOSED
-updated_at: '2026-08-30'
+registry_version: 1.1.0
+status: ACTIVE
+updated_at: '2026-08-31'
 
 requirements_contract:
   id: kenigevents.asp-conformance
@@ -13,11 +13,34 @@ requirements_contract:
   git_blob_sha1: 24e02d3048f2feba912cb990f8226b23006e8c2c
   sha256: 54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72
 
+authority:
+  mode: ASTRO_AS_IS_REFERENCE
+  astro_repository: onedayonemasterpiece/events-bot-new
+  astro_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+  source_component_path: site/src/components/Icon.astro
+  source_component_git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+  consumer_component_path: site/src/components/EventCard.astro
+  consumer_component_git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+  continuity:
+    prior_foundation_pin: 64f75d10f7aff33fa616cee212878bd9d03673b1
+    current_astro_main: f2d658e8be057f3b75431f6b77e4887af4536028
+    commits_ahead: 25
+    changed_site_paths: 0
+
 ownership:
   normative_registry_repository: onedayonemasterpiece/lovekgd-design-system
+  integrated_from:
+    branch: chatgpt/f0-foundations-assets-20260831
+    commit: 1d9d2cd32b09b84e648ed79171db75b8140195d9
+    git_blob_sha1: f2cbf23b4391189e0512332bde58d31aefdce60e
+    sha256: 9528f05d47113c16bd1c930afc3a70b10b3a8a2bd98d60d07c5aa98bb4eb9baa
   physical_asset_bytes_may_be_external: true
   external_bytes_must_be_content_addressed: true
   approved_binding_required_for_every_visible_graphical_slot: true
+  current_candidate_asset_bytes:
+    repository: onedayonemasterpiece/lovekgd-design-system
+    commit: be313816ce22a7c63faed682e4014854e6e7369b
+    root: catalog/asp-production-conveyor-v3/f0/assets/free-collection
 
 binding_contract:
   required_fields:
@@ -38,7 +61,18 @@ binding_contract:
     - licence_or_reuse_status
     - owner_disposition
   exact_bytes_or_deterministic_conversion_required: true
+  deterministic_conversion:
+    id: astro-icon-fragment-to-standalone-svg.v1
+    rules:
+      - select only the Icon.astro conditional branch named by source_symbol
+      - preserve path and polygon order and all d/points/fill-rule/clip-rule data byte-for-byte
+      - use the exact runtime viewBox selected by Icon.astro
+      - wrap with xmlns and fill=currentColor
+      - do not simplify, redraw, normalize coordinates, convert fill to stroke, or substitute a library icon
+      - serialize UTF-8 with LF and one final newline
   fallback_policy: forbidden
+  unresolved_binding_result: BLOCKED_UNRESOLVED_ASSET_IDENTITY
+  mutate_accepted_penpot_frame_when_unresolved: false
   forbidden_substitutions:
     - emoji
     - unicode_glyph
@@ -47,110 +81,294 @@ binding_contract:
     - manually_redrawn_similar_icon
     - placeholder_svg
     - semantic_search_candidate_without_approval
-  unresolved_binding_result: BLOCKED_UNRESOLVED_ASSET_IDENTITY
-  mutate_accepted_penpot_frame_when_unresolved: false
 
 coverage:
   current_bounded_profile: free-collection.owner-review.v1
-  incident_date: '2026-08-30'
   required_slots:
     - icon.action.not_interested
     - icon.action.calendar_add
     - icon.action.share
     - icon.action.favorite
-  coverage_status: unresolved-blocking
-  note: >
-    The registry intentionally does not guess paths or hashes. Exact assets
-    actually consumed by the pinned Astro scenario must be read back before
-    Penpot materialization resumes.
+  required_slots_total: 4
+  resolved_slots: 4
+  unresolved_slots: 0
+  coverage_status: resolved-active
+  registry_gate: PASS
+  note: >-
+    D0/INTEGRATE verified the four immutable F0 action bindings against their
+    authoritative Astro source and physical materialization bytes. Penpot
+    publication remains independently gated by the active page profile,
+    geometry proof, materializer, run control, and provenance receipt.
 
 assets:
   icon.action.not_interested:
     asset_id: icon.action.not_interested
     semantic_slot: card.utility.not_interested
-    status: UNRESOLVED_BLOCKING
+    status: RESOLVED_ACTIVE
     authoritative_repository: onedayonemasterpiece/events-bot-new
-    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
-    source_path: null
-    git_blob_sha1: null
-    sha256: null
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/Icon.astro
+    source_symbol: dislike
+    git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+    sha256: 2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98
     media_type: image/svg+xml
-    view_box_or_intrinsic_size: null
-    nominal_box: null
-    fill_stroke_contract: null
-    astro_consumer: null
-    penpot_consumer: free-collection.event-card.not_interested
-    provenance: unresolved-needs-astro-source-readback
-    licence_or_reuse_status: unresolved
-    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 512 512
+      intrinsic_vector_box: 512x512
+    nominal_box:
+      width_px: 24
+      height_px: 24
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve source geometry without coordinate normalization
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing feedback-button
+    states: [default, hover, focus-visible, pressed, disabled]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/EventCard.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+      selector: '[data-feedback-action="not_interested"] > .icon--dislike'
+      variants: [overlay-controls, split-actions]
+    penpot_consumer:
+      component_id: free-collection.event-card.action.not-interested
+      property: icon
+      asset_component_name: Icon/Action/NotInterested
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg
+      git_blob_sha1: 2cd0ebf989d63176a8e5f240c681316fab2e0670
+      sha256: 2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98
+      bytes: 912
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production Icon.astro geometry
+      extraction: astro-icon-fragment-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
 
   icon.action.calendar_add:
     asset_id: icon.action.calendar_add
     semantic_slot: card.primary_action.calendar_add
-    status: UNRESOLVED_BLOCKING
+    status: RESOLVED_ACTIVE
     authoritative_repository: onedayonemasterpiece/events-bot-new
-    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
-    source_path: null
-    git_blob_sha1: null
-    sha256: null
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/Icon.astro
+    source_symbol: calendar
+    git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+    sha256: 0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7
     media_type: image/svg+xml
-    view_box_or_intrinsic_size: null
-    nominal_box: null
-    fill_stroke_contract: null
-    astro_consumer: null
-    penpot_consumer: free-collection.event-card.calendar_add
-    provenance: unresolved-needs-astro-source-readback
-    licence_or_reuse_status: unresolved
-    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 32 32
+      intrinsic_vector_box: 32x32
+    nominal_box:
+      width_px: 24
+      height_px: 24
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve source geometry; render inside current 24px icon box
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing feedback-button--calendar
+    states: [default, hover, focus-visible, pressed, disabled]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/EventCard.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+      selector: '[data-calendar-action] > .icon--calendar'
+      variants: [split-actions]
+    penpot_consumer:
+      component_id: free-collection.event-card.action.calendar-add
+      property: icon
+      asset_component_name: Icon/Action/CalendarAdd
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg
+      git_blob_sha1: 539baa5a7ab4f8794c2af3dae63a732cb00d1408
+      sha256: 0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7
+      bytes: 374
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production Icon.astro geometry
+      extraction: astro-icon-fragment-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
 
   icon.action.share:
     asset_id: icon.action.share
     semantic_slot: card.social.share
-    status: UNRESOLVED_BLOCKING
+    status: RESOLVED_ACTIVE
     authoritative_repository: onedayonemasterpiece/events-bot-new
-    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
-    source_path: null
-    git_blob_sha1: null
-    sha256: null
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/Icon.astro
+    source_symbol: share
+    git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+    sha256: c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb
     media_type: image/svg+xml
-    view_box_or_intrinsic_size: null
-    nominal_box: null
-    fill_stroke_contract: null
-    astro_consumer: null
-    penpot_consumer: free-collection.event-card.share
-    provenance: unresolved-needs-astro-source-readback
-    licence_or_reuse_status: unresolved
-    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 24
+      height_px: 24
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve source geometry
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      fill_rule: evenodd
+      clip_rule: evenodd
+      inherited_from: enclosing feedback-button--share
+    states: [default, hover, focus-visible, pressed, disabled]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/EventCard.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+      selector: '[data-native-share] > .icon--share'
+      variants: [overlay-controls, split-actions]
+    penpot_consumer:
+      component_id: free-collection.event-card.action.share
+      property: icon
+      asset_component_name: Icon/Action/Share
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg
+      git_blob_sha1: 3b6a82536becf79040c1201b327c93123080b557
+      sha256: c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb
+      bytes: 719
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production Icon.astro geometry
+      extraction: astro-icon-fragment-to-standalone-svg.v1
+      upstream_note: adapted from @vkontakte/icons Icon24ShareOutline
+    licence_or_reuse_status:
+      status: MIT_ATTRIBUTION_RETAINED_IN_ASTRO_SOURCE
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      upstream: '@vkontakte/icons Icon24ShareOutline'
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
 
   icon.action.favorite:
     asset_id: icon.action.favorite
     semantic_slot: card.social.favorite
-    status: UNRESOLVED_BLOCKING
+    status: RESOLVED_ACTIVE
     authoritative_repository: onedayonemasterpiece/events-bot-new
-    source_commit: e4aa53cef0190c37d13d9aacde1a641be238b21f
-    source_path: null
-    git_blob_sha1: null
-    sha256: null
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/Icon.astro
+    source_symbol: heart
+    git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+    sha256: 8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7
     media_type: image/svg+xml
-    view_box_or_intrinsic_size: null
-    nominal_box: null
-    fill_stroke_contract: null
-    astro_consumer: null
-    penpot_consumer: free-collection.event-card.favorite
-    provenance: unresolved-needs-astro-source-readback
-    licence_or_reuse_status: unresolved
-    owner_disposition: rejected-generic-penpot-substitute-2026-08-30
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 24
+      height_px: 24
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve both source-state geometries
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing feedback-button--like
+    states:
+      default: outline
+      selected: solid
+      interaction: [hover, focus-visible, pressed, disabled]
+    variants:
+      outline:
+        sha256: 8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7
+        path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg
+        git_blob_sha1: e7b836f1f102ab787364077f1cc84fb2863b87ca
+        bytes: 459
+      solid:
+        sha256: ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517
+        path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg
+        git_blob_sha1: bcf4370e13e32ef35f7b43b1964bc06a2ae86dd3
+        bytes: 275
+    astro_consumer:
+      component: site/src/components/EventCard.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+      selector: '[data-feedback-action="like"] > .icon--heart'
+      state_binding: 'aria-pressed=false -> outline; aria-pressed=true -> solid'
+      variants: [overlay-controls, split-actions]
+    penpot_consumer:
+      component_id: free-collection.event-card.action.favorite
+      property: icon
+      asset_component_name: Icon/Action/Favorite
+      variant_property: selected
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      primary_path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg
+      selected_path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg
+      primary_sha256: 8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7
+      selected_sha256: ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production Icon.astro outline and solid geometries
+      extraction: astro-icon-fragment-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
+
+integration_gate:
+  owner: D0/INTEGRATE
+  required_checks:
+    - all four required asset IDs present exactly once
+    - all required binding fields non-null
+    - authoritative source commit and source git blob resolve remotely
+    - all five materialization paths resolve at be313816ce22a7c63faed682e4014854e6e7369b
+    - every materialization git blob SHA1 and SHA256 matches
+    - all source path geometry matches deterministic extraction
+    - no fallback or substitute asset
+    - profile required_slots map one-to-one to registry assets
+  current_state: PENDING
+  success_transition: CONTRACT_CURRENT_READY_TO_PUBLISH
+  failure_transition: REPAIR
 
 incident:
   id: free-collection-penpot-visual-drift-2026-08-30
   owner_review_state: REJECTED
-  observed:
-    - generic_or_wrong_icons
-    - icon_language_differs_from_astro_and_prior_design_system
-    - graphical_asset_identity_not_proven
-  attribution:
-    executor_identity_known: false
-    rule: Do not attribute continued mutations to Codex or another actor without a provenance receipt.
+  resolved_by_this_candidate:
+    - exact-current-Astro-action-icon-identities
+    - content-addressed-materialization-bytes
+    - Astro-and-Penpot-consumer-bindings
+    - provenance-and-reuse-disposition
+  still_external_to_F0:
+    - geometry-proof
+    - materialization-provenance-receipt
+    - stop-cancel-runtime-proof
+    - owner-rejected-frame-replacement
   consequence:
-    materialization_allowed: false
+    materialization_allowed_before_integrate_pass: false
     current_penpot_frame_reviewable: false
