@@ -56,6 +56,7 @@ class Shape {
   resize(width, height) { this.width = Number(width); this.height = Number(height); }
   get textBounds() {
     if (this.type !== 'text') return null;
+    if (this._textBoundsOverride) return { ...this._textBoundsOverride };
     const fontSize = Number(this.fontSize || 0), lineHeight = Number(this.lineHeight || 1);
     return { x: this.x, y: this.y, width: Math.min(this.width, Math.max(1, this.characters.length * fontSize * 0.55)), height: fontSize * lineHeight };
   }
@@ -265,7 +266,7 @@ async function installRuntime(surface, { synthesizeObservedBaseline = false } = 
 
 async function runAllPhases(surface) {
   const receipts = [];
-  for (const path of manifest.execution.mutator_order.filter((path) => path !== 'phase-p91-text-metrics.js')) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  for (const path of manifest.execution.mutator_order.filter((path) => !path.startsWith('phase-p9'))) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
   return receipts;
 }
 
@@ -355,7 +356,7 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.equal(manifest.native_fonts.regular_400_variant, 'normal-400');
   assert.equal(manifest.native_fonts.bold_700_variant, 'normal-700');
   assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
-  assert.equal(manifest.execution.mutator_order.length, 14);
+  assert.equal(manifest.execution.mutator_order.length, 15);
   assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
   assert.equal(manifest.run_control.expected_writer_id, '/root/publish_r2');
   assert.match(manifest.run_control.geometry_proof_sha256, /^[0-9a-f]{64}$/);
@@ -446,7 +447,7 @@ test('bounded phases build 14 linked leaves and all four exact accepted EventCar
   inheritedIcons[0].setPluginData('kenigevents-instance-case-id', 'foreign-case');
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'LINKED_ACTION_OVERRIDE_STATE_DRIFT');
   inheritedIcons[0].pluginData.delete('kenigevents-instance-case-id');
-  for (const path of manifest.execution.mutator_order.slice(4).filter((path) => path !== 'phase-p91-text-metrics.js')) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  for (const path of manifest.execution.mutator_order.slice(4).filter((path) => !path.startsWith('phase-p9'))) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
   assert.ok(inheritedIcons.every((icon) => icon.getPluginData('kenigevents-instance-case-id') === 'eventcard.desktop-wide-calendar.8006'));
   for (const [index, receipt] of receipts.entries()) {
     assert.deepEqual(receipt.readback.validation, [], manifest.execution.mutator_order[index]);
@@ -598,6 +599,16 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   const surface = await observedCurrentSurface();
   const interruptedRoot = surface.board.children.find((shape) => shape.name === 'eventcard.desktop-packed-calendar-absent.2182');
   assert.equal(interruptedRoot.id, PRESERVED_PARTIAL_ROOT_ID);
+  const p92Parent = walk(interruptedRoot).find((shape) => shape.getPluginData('kenigevents-instance-slot') === 'event-type');
+  const p92Canary = p92Parent && walk(p92Parent).find((shape) => shape.getPluginData('kenigevents-g19-child-marker').includes('event.meta.event-type.desktop.8006') && shape.characters === 'выставка');
+  assert.ok(p92Parent && p92Canary && p92Parent.component());
+  const p92Component = p92Parent.component(), p92Main = p92Component.mainInstance();
+  const nativeIds = ['313fb1ed-0d5c-8095-8008-914c79b02bd3', '313fb1ed-0d5c-8095-8008-914c79b02bd2', '313fb1ed-0d5c-8095-8008-912ba15885f1', '313fb1ed-0d5c-8095-8008-912ba088700e'];
+  assert.ok(nativeIds.every((id) => !walk(surface.pageRoot).some((shape) => shape.id === id)));
+  [p92Canary.id, p92Parent.id, p92Component.id, p92Main.id] = nativeIds;
+  p92Main.setPluginData('kenigevents-component-id', p92Component.id);
+  for (const shape of walk(surface.pageRoot).filter((shape) => shape.component?.()?.id === p92Component.id)) shape.setPluginData('kenigevents-linked-component-id', p92Component.id);
+  assert.equal(new Set([...walk(surface.pageRoot).map((shape) => shape.id), ...surface.components.map((component) => component.id)]).size, walk(surface.pageRoot).length + surface.components.length);
   assert.equal(surface.board.children.length, 16);
   assert.equal(surface.components.length, 15);
   const preserved = new Map(surface.components.map((component) => [component.name, { componentId: component.id, rootId: component.mainInstance().id }]));
@@ -672,6 +683,45 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   const postCancelReuse = await executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface);
   assert.equal(postCancelReuse.mutations, 0);
   assert.equal(surface.saveVersionCalls(), savesBeforeCancelledSettle);
+  for (const shape of managedText.slice(0, 24)) {
+    const bounds = shape.textBounds;
+    shape._textBoundsOverride = { ...bounds, height: shape.height * 2 + 4 };
+  }
+  Object.assign(p92Canary, { x: 721.6249811202288, y: 566.172, width: 62.78099872350822, height: 14.000000178813934 });
+  p92Canary._textBoundsOverride = { x: 721.6849975585938, y: 566.552001953125, width: 54.8800048828125, height: 27.40997314453125 };
+  assert.equal(managedText.filter((shape) => shape.textBounds.height <= shape.height + 2).length, 14);
+  surface.penpot.currentFile.revn = 74;
+  const undoBeforeP92Negatives = surface.undoCalls();
+  const correctCanaryId = p92Canary.id;
+  p92Canary.id = 'wrong-canary-id';
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p92-text-layout-canary.js', surface), /P92_CANARY_TARGET_DRIFT/);
+  assert.deepEqual(surface.undoCalls(), undoBeforeP92Negatives);
+  p92Canary.id = correctCanaryId;
+  p92Canary.setPluginData('kenigevents-payload-sha256', '0'.repeat(64));
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p92-text-layout-canary.js', surface), /P92_CANARY_TEXT_IDENTITY_DRIFT/);
+  assert.deepEqual(surface.undoCalls(), undoBeforeP92Negatives);
+  p92Canary.setPluginData('kenigevents-payload-sha256', manifest.payload_sha256);
+  replaceRunControl(surface, { state: 'CANCEL_REQUESTED' });
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p92-text-layout-canary.js', surface), /MATERIALIZATION_RUN_NOT_ACTIVE/);
+  assert.deepEqual(surface.undoCalls(), undoBeforeP92Negatives);
+  replaceRunControl(surface, { state: 'ACTIVE' });
+  const p92UndoBefore = surface.undoCalls(), savesBeforeP92 = surface.saveVersionCalls();
+  const p92 = await executePath('catalog/penpot-executor/g19/phase-p92-text-layout-canary.js', surface);
+  assert.equal(p92.terminalState, 'SUCCEEDED_CANARY_PENDING_READBACK');
+  assert.deepEqual(p92.mutatedObjectIds, [p92Canary.id]);
+  assert.equal(p92Canary.growType, 'auto-width');
+  assert.deepEqual(surface.undoCalls(), { begin: p92UndoBefore.begin + 1, finish: p92UndoBefore.finish + 1 });
+  assert.equal(surface.saveVersionCalls(), savesBeforeP92);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/readback-p92-text-layout-canary.js', surface), /P92_CANARY_NOT_IMPROVED/);
+  delete p92Canary._textBoundsOverride; // model Penpot's documented later-execution layout settle
+  const settledP92Readback = await executePath('catalog/penpot-executor/g19/readback-p92-text-layout-canary.js', surface);
+  assert.equal(settledP92Readback.improved, true);
+  assert.equal(settledP92Readback.withinRoot, true);
+  const p92Reuse = await executePath('catalog/penpot-executor/g19/phase-p92-text-layout-canary.js', surface);
+  assert.equal(p92Reuse.mutations, 0);
+  assert.equal(p92Reuse.terminalState, 'CANARY_ALREADY_APPLIED_PENDING_READBACK');
+  assert.equal(surface.storage.g19EventCard8006P92Canary, undefined);
+  assert.equal(surface.saveVersionCalls(), savesBeforeP92);
   assert.ok(surface.board.children.every((root) => root.getPluginData('kenigevents-g19-marker').endsWith(':v3')));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-payload-sha256')).every((shape) => shape.getPluginData('kenigevents-payload-sha256') === manifest.payload_sha256));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-g19-child-marker')).every((shape) => shape.getPluginData('kenigevents-g19-child-marker').includes(':v3:')));
@@ -680,6 +730,6 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
     assert.deepEqual({ componentId: component.id, rootId: component.mainInstance().id }, ids, name);
   }
   const migratedText = surface.board.children.flatMap(walk).filter((shape) => shape.type === 'text' && !shape.hidden);
-  assert.ok(migratedText.every((shape) => shape.growType === 'fixed' && typeof shape.fontSize === 'string' && typeof shape.lineHeight === 'string' && typeof shape.letterSpacing === 'string'));
+  assert.ok(migratedText.every((shape) => (shape.id === p92Canary.id ? shape.growType === 'auto-width' : shape.growType === 'fixed') && typeof shape.fontSize === 'string' && typeof shape.lineHeight === 'string' && typeof shape.letterSpacing === 'string'));
   assert.ok(surface.components.filter((component) => component.name.startsWith('event.media-frame.')).every((component) => component.mainInstance().fills.length === 0));
 });

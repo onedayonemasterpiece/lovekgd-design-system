@@ -64,7 +64,7 @@
   },
   "payload_sha256": "9ada6460e93ab362012b5e8164ed340054fd352983d1706873402b4e1e356d33",
   "payload_transport_sha256": "f4b21bf9ab6aaaacd074a2e31ad24bef964445754874caffb56e5459ec745e23",
-  "executable_set_sha256": "7b03bee81d855e02dd53d9a971b8cb7751c306124559874f1d8668d39fc663ac",
+  "executable_set_sha256": "b4a1eadd9a30c90697c497ab645c9be007bb90b0d09ad3ebe801242aff04393f",
   "executable_set_identity_format": "UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order",
   "expected_card_components": [
     "eventcard.desktop-wide-calendar.8006",
@@ -499,6 +499,16 @@
       "bytes": 5008
     },
     {
+      "path": "catalog/penpot-executor/g19/phase-p92-text-layout-canary.js",
+      "sha256": "5df6e30967980bdfad29a267d8dd83d5d3d15d98d010f2abc0c714063cb3a88c",
+      "bytes": 6816
+    },
+    {
+      "path": "catalog/penpot-executor/g19/readback-p92-text-layout-canary.js",
+      "sha256": "560ab19d75f06f4cb728fd09c770fa9ecd8d8af01d2af845fc665c4a69e8d0f1",
+      "bytes": 4022
+    },
+    {
       "path": "catalog/penpot-executor/g19/readback.js",
       "sha256": "57f132aa41a67f017a8990beb05c564f17f2610af39537b531272028190bd490",
       "bytes": 172
@@ -541,7 +551,8 @@
       "phase-p60-mobile-packed-shell.js",
       "phase-p61-mobile-packed-final.js",
       "phase-p90-finalize.js",
-      "phase-p91-text-metrics.js"
+      "phase-p91-text-metrics.js",
+      "phase-p92-text-layout-canary.js"
     ],
     "checkpoint_after_every_mutator": "Pass readback.js; each phase receipt already embeds the same census plus validate().",
     "export_png": "Pass export-roots.js after P90_FINALIZE.",
