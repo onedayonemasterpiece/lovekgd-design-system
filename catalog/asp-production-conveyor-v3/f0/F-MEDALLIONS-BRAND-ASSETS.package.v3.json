@@ -31,12 +31,14 @@
     "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py",
     "scripts/asp-production-conveyor-v3/f0/resolve_medallion_manifest_v3.py",
     "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py",
-    "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py"
+    "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py",
+    "tests/asp-production-conveyor-v3/f0/test_medallions_brand_candidate_v3.py"
   ],
   "immutable_identity": {
     "candidate_branch": "chatgpt/f0-medallions-brand-candidate-20260831",
     "package_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json",
-    "binding_rule": "issue marker and D0 integration bind frozen branch HEAD, package Git blob, source-v2 blob, both active registry blobs, exact resolver and wrapper runner; branch MUST NOT advance after publication"
+    "binding_rule": "issue marker and D0 integration bind frozen branch HEAD, package Git blob, source-v2 blob, both active registry blobs, base runner, brand helper, schema-exact resolver, implementation, canonical entry and tests; branch MUST NOT advance after publication"
   },
   "supersedes": {
     "revision": 2,
@@ -72,9 +74,9 @@
   },
   "resolver": {
     "path": "scripts/asp-production-conveyor-v3/f0/resolve_medallion_manifest_v3.py",
-    "git_blob_sha1": "c18223c42b2e34dbbc0ccffa222161150faf6038",
-    "sha256": "20ba2de98211d452984592a9b14d7c0fbe4b372ec48861541cd255460547a72d",
-    "bytes": 7516,
+    "git_blob_sha1": "665932ae8c315260d03b4c13466d300e31502eac",
+    "sha256": "0c99569d2f59c3e08aec229c65a61f67addba64f9e29b256bbdd8bd0303e22d1",
+    "bytes": 6940,
     "factory": "resolve_medallion_manifest_v3:build_resolver",
     "schema": "event-medallion-candidate.v1",
     "source_fields": [
@@ -88,17 +90,38 @@
     "fallback_assets_used": 0,
     "old_penpot_bindings_used": 0
   },
-  "wrapper_runner": {
+  "implementation_runner": {
     "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py",
-    "git_blob_sha1": "bad804263601c76eed2c0e76154c441857972799",
-    "sha256": "c7f3225fada1966734c4855940953dfd999228140153ee4b3837a05f3a69208c",
-    "bytes": 17345,
-    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py plan --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT>",
-    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py execute --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
-    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3.py verify --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT> --receipt <RECEIPT_JSON>",
+    "git_blob_sha1": "c815ef11730c94859fb9df613cf897102553360d",
+    "sha256": "f360473bde4304a8c0856c591b023f9a742b3988fccd3842e006504e728f156e",
+    "bytes": 17573,
+    "classification": "REUSE_BOUNDED_MUTATION_LOGIC_WITH_CURRENT_TARGET_AND_PROTECTED_SURFACE_WRAPPER"
+  },
+  "materialization_entry_point": {
+    "kind": "schema-exact-current-file-candidate-entry",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py",
+    "git_blob_sha1": "7d809286b5ebe8f3a80f5a8bd868d689ff8a6d1e",
+    "bytes": 4881,
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py plan --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py execute --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v3_entry.py verify --candidate-commit <FROZEN_HEAD> --donor-repo <FROZEN_DESIGN_SYSTEM_CHECKOUT> --receipt <RECEIPT_JSON>",
     "penpot_write_authority": "D0/PUBLISH_ONLY",
     "guard_before_every_mutation": true,
-    "protected_surface_digest_before_and_after": true
+    "protected_surface_digest_before_and_after": true,
+    "brand_helper_identity_in_receipt": true
+  },
+  "tests": {
+    "path": "tests/asp-production-conveyor-v3/f0/test_medallions_brand_candidate_v3.py",
+    "git_blob_sha1": "d1711616c4204fb628940228a7182f38dbcf6bbd",
+    "bytes": 4283,
+    "command": "python3 tests/asp-production-conveyor-v3/f0/test_medallions_brand_candidate_v3.py",
+    "expected": "Ran 4 tests / OK",
+    "coverage": [
+      "current Penpot file and protected surface",
+      "schema-exact 39/43/42 inventory closure plus three brand assets",
+      "generic v2 resolver rejection for the donor schema",
+      "candidate plan does not claim promotion or fallback assets"
+    ]
   },
   "source_authority": {
     "mode": "ASTRO_AS_IS_REFERENCE",
@@ -160,11 +183,7 @@
     "brand_assets": 3,
     "total_components": 45,
     "total_instances": 135,
-    "consumer_size_tiers_px": [
-      44,
-      60,
-      88
-    ],
+    "consumer_size_tiers_px": [44, 60, 88],
     "transparent_medallion_surface": true,
     "square_backing": false,
     "fallback_assets": 0,
@@ -204,8 +223,9 @@
   "validation": {
     "d0_integrate_required": [
       "remote-read frozen branch HEAD and every immutable path",
-      "verify source-v2, base-runner, brand-helper, resolver, wrapper and both registry Git blobs",
-      "run wrapper plan against the frozen donor checkout and require F0_MEDALLIONS_BRAND_CANDIDATE_PLAN_PASS",
+      "verify source-v2, base-runner, brand-helper, resolver, implementation, canonical entry, tests and both registry Git blobs",
+      "run four committed tests and require OK",
+      "run canonical entry plan against the frozen donor checkout and require F0_MEDALLIONS_BRAND_CANDIDATE_PLAN_PASS",
       "verify resolver counts 39 records, 43 consumer bindings and 42 unique visuals",
       "verify all 42 primary assets plus all three brand assets against events-bot-new@f2d658e8be057f3b75431f6b77e4887af4536028 before the first mutation",
       "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
@@ -230,10 +250,7 @@
     {
       "case": "Kaup organizer/festival deduplication",
       "stable_id": "medallion.identity.kaup",
-      "bindings": [
-        "organizer:kaup",
-        "festival:kaup"
-      ]
+      "bindings": ["organizer:kaup", "festival:kaup"]
     },
     {
       "case": "current brand lockup assets",
