@@ -1,0 +1,386 @@
+{
+  "candidate_materialization_state": "READY_AFTER_D0_INTEGRATE_PASS_AND_D0_PUBLISH_CLAIM",
+  "components": [
+    {
+      "id": "icon.action.not_interested",
+      "mode": "create",
+      "name": "Icon/Action/NotInterested",
+      "source_ids": [
+        "not-interested"
+      ]
+    },
+    {
+      "id": "icon.action.calendar_add",
+      "mode": "create",
+      "name": "Icon/Action/CalendarAdd",
+      "source_ids": [
+        "calendar-add"
+      ]
+    },
+    {
+      "id": "icon.action.share",
+      "mode": "create",
+      "name": "Icon/Action/Share",
+      "source_ids": [
+        "share"
+      ]
+    },
+    {
+      "id": "icon.action.favorite",
+      "mode": "create",
+      "name": "Icon/Action/Favorite",
+      "source_ids": [
+        "favorite-outline",
+        "favorite-solid"
+      ]
+    },
+    {
+      "id": "icon.navigation.afisha",
+      "mode": "create",
+      "name": "Icon/Navigation/Afisha",
+      "source_ids": [
+        "nav-afisha"
+      ]
+    },
+    {
+      "id": "icon.navigation.dates",
+      "mode": "create",
+      "name": "Icon/Navigation/Dates",
+      "source_ids": [
+        "nav-dates"
+      ]
+    },
+    {
+      "id": "icon.navigation.search",
+      "mode": "create",
+      "name": "Icon/Navigation/Search",
+      "source_ids": [
+        "nav-search"
+      ]
+    },
+    {
+      "id": "icon.navigation.personal",
+      "mode": "create",
+      "name": "Icon/Navigation/Personal",
+      "source_ids": [
+        "nav-personal"
+      ]
+    }
+  ],
+  "dependencies": [],
+  "expected": {
+    "components": 8,
+    "detached_instances": 0,
+    "instances": 18,
+    "linked_instances": 18,
+    "nonempty_native_export": true,
+    "roots": 1,
+    "screenshot_shapes": 0,
+    "second_run_created": 0,
+    "validation": []
+  },
+  "forbidden": [
+    "Penpot write by F0",
+    "execute before separate D0_INTEGRATION_RESULT_V2 PASS and fresh D0/PUBLISH ACTIVE claim",
+    "old Penpot UUID/component/shapeRef lineage",
+    "surrogate UI, placeholder, screenshot or rasterized implementation",
+    "merge, deploy, main promotion or visual PASS claim",
+    "blind retry after unknown mutation outcome"
+  ],
+  "immutable_files": [
+    {
+      "bytes": 18729,
+      "git_blob_sha1": "95abb663970f2620bb4248851a929300448ba500",
+      "path": "scripts/asp-production-conveyor-v3/f0/f0_small_page_runtime_v1.py",
+      "role": "helper",
+      "sha256": "36d6f7c004dab92da50a13fbdcd04976e04274f3179f5e0748cf4297f0f7d614"
+    },
+    {
+      "bytes": 405,
+      "git_blob_sha1": "f703dc20ee2ba635fb3c3f053a78f7c124d899b8",
+      "path": "scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v6.py",
+      "role": "runner",
+      "sha256": "7d1509607eaeb3fe246e2f87a035981b6f04092b75dfb4d5f1b1eb6ece2fb21d"
+    },
+    {
+      "bytes": 7218,
+      "git_blob_sha1": "6b0ecee7c97c43ca416a2968d9af881944377e02",
+      "path": "tests/asp-production-conveyor-v3/f0/test_action_nav_icons_package_v6.py",
+      "role": "tests",
+      "sha256": "099839dac7a615fc8886b15a3eacae739191e80252cf491f362b109113bea265"
+    }
+  ],
+  "lifecycle": {
+    "candidate_only": true,
+    "promotion_requires_native_delta": true,
+    "promotion_requires_v0_review": true,
+    "ready_to_promote": false
+  },
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "materialization_entry_point": {
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v6.py execute --source-root <repo=/exact/checkout> --external-source <id=/exact/file> --adapter <D0_NATIVE_ADAPTER.py:factory> --output /tmp/receipt.json",
+    "full_adapter_surface_preflight_before_any_adapter_call": true,
+    "helper_path": "scripts/asp-production-conveyor-v3/f0/f0_small_page_runtime_v1.py",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v6.py plan --source-root <repo=/exact/checkout> --external-source <id=/exact/file> --output /tmp/plan.json",
+    "requires_separate_d0_integrate_pass": true,
+    "runner_path": "scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v6.py",
+    "source_byte_preflight_before_any_adapter_call": true,
+    "tests_path": "tests/asp-production-conveyor-v3/f0/test_action_nav_icons_package_v6.py",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_action_nav_icons_v6.py verify --receipt /tmp/receipt.json"
+  },
+  "notes": {
+    "native_execution_order": [
+      "action_nav_icons_setup_v5.js",
+      "action_nav_icons_native_executor_v5.js"
+    ],
+    "redraw_or_substitution": false,
+    "same_exact_svg_bytes_as_r5": true
+  },
+  "owner": "F0",
+  "package_id": "F-ACTION-NAV-ICONS",
+  "page_budget": {
+    "family_count": 3,
+    "hard_managed_node_max": 30,
+    "managed_nodes": 27,
+    "max_native_creates_per_call": 3,
+    "no_mega_page": true,
+    "no_setup_only_page": true
+  },
+  "penpot_mutations_by_f0": 0,
+  "placements": [
+    {
+      "component_id": "icon.action.not_interested",
+      "id": "icon.action.not_interested/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.action.not_interested",
+      "id": "icon.action.not_interested/focus-visible",
+      "state": "focus-visible"
+    },
+    {
+      "component_id": "icon.action.calendar_add",
+      "id": "icon.action.calendar_add/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.action.calendar_add",
+      "id": "icon.action.calendar_add/focus-visible",
+      "state": "focus-visible"
+    },
+    {
+      "component_id": "icon.action.share",
+      "id": "icon.action.share/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.action.share",
+      "id": "icon.action.share/focus-visible",
+      "state": "focus-visible"
+    },
+    {
+      "component_id": "icon.action.favorite",
+      "id": "icon.action.favorite/outline-default",
+      "state": "outline/default"
+    },
+    {
+      "component_id": "icon.action.favorite",
+      "id": "icon.action.favorite/outline-focus-visible",
+      "state": "outline/focus-visible"
+    },
+    {
+      "component_id": "icon.action.favorite",
+      "id": "icon.action.favorite/solid-selected",
+      "state": "solid/selected"
+    },
+    {
+      "component_id": "icon.action.favorite",
+      "id": "icon.action.favorite/solid-selected-focus-visible",
+      "state": "solid/selected-focus-visible"
+    },
+    {
+      "component_id": "icon.navigation.afisha",
+      "id": "icon.navigation.afisha/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.navigation.afisha",
+      "id": "icon.navigation.afisha/current",
+      "state": "current"
+    },
+    {
+      "component_id": "icon.navigation.dates",
+      "id": "icon.navigation.dates/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.navigation.dates",
+      "id": "icon.navigation.dates/current",
+      "state": "current"
+    },
+    {
+      "component_id": "icon.navigation.search",
+      "id": "icon.navigation.search/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.navigation.search",
+      "id": "icon.navigation.search/current",
+      "state": "current"
+    },
+    {
+      "component_id": "icon.navigation.personal",
+      "id": "icon.navigation.personal/default",
+      "state": "default"
+    },
+    {
+      "component_id": "icon.navigation.personal",
+      "id": "icon.navigation.personal/current",
+      "state": "current"
+    }
+  ],
+  "priority": "P1_FALLBACK_VISIBLE",
+  "producer_inputs": [
+    {
+      "branch": "agent/f-action-nav-icons-r5/mat",
+      "head": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "package_blob": "a1bf74f09079ee4d48973ecadf0b1a6822574cd0",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json",
+      "role": "D0_MAT_REPAIRED_EXECUTOR"
+    },
+    {
+      "bytes": 32905,
+      "git_blob_sha1": "059c02126fad6f3723d48d75191d71b7ef434f7b",
+      "path": "scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js",
+      "role": "native_executor"
+    },
+    {
+      "bytes": 1997,
+      "git_blob_sha1": "6f26789e5e4b16046c447c74f72820607aa649d6",
+      "path": "scripts/asp-production-conveyor-v3/f0/action_nav_icons_setup_v5.js",
+      "role": "setup"
+    },
+    {
+      "bytes": 14395,
+      "git_blob_sha1": "5555bf016beaa326704953dd735d99da5db8e81f",
+      "path": "tests/asp-production-conveyor-v3/f0/test_action_nav_icons_native_executor_v5.js",
+      "role": "native_tests"
+    }
+  ],
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_DELTA_AND_V0_REVIEW",
+  "protected_surface": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "mutation_allowed": false,
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "pre_post_and_post_version_digest_equal": true,
+    "root_ids": [
+      "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+      "313fb1ed-0d5c-8095-8008-912c45090653"
+    ],
+    "sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"
+  },
+  "revision": 6,
+  "schema_version": "kenigevents.asp-package-integration-candidate.v3",
+  "sources": [
+    {
+      "bytes": 912,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "2cd0ebf989d63176a8e5f240c681316fab2e0670",
+      "id": "not-interested",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98"
+    },
+    {
+      "bytes": 374,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "539baa5a7ab4f8794c2af3dae63a732cb00d1408",
+      "id": "calendar-add",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7"
+    },
+    {
+      "bytes": 719,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "3b6a82536becf79040c1201b327c93123080b557",
+      "id": "share",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb"
+    },
+    {
+      "bytes": 459,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "e7b836f1f102ab787364077f1cc84fb2863b87ca",
+      "id": "favorite-outline",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7"
+    },
+    {
+      "bytes": 275,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "bcf4370e13e32ef35f7b43b1964bc06a2ae86dd3",
+      "id": "favorite-solid",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517"
+    },
+    {
+      "bytes": 380,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "eed94353b9fff23efe3e92042556f540436b6c19",
+      "id": "nav-afisha",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-afisha.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "1d9bc10d1eed8b02a07279b7e3b1da401d1898435c6d0ee3278f8fce1e86f75e"
+    },
+    {
+      "bytes": 375,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "5c1a530da97a9146f590d1746e8a9425893d6e16",
+      "id": "nav-dates",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-dates.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "70d2f170ce4bdf8bd765fdabd37419783dac0cf04a64754a6651ce70a1ec3f83"
+    },
+    {
+      "bytes": 282,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "4a20c0224c75be42e0222b11c387fb9f8a258480",
+      "id": "nav-search",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-search.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "249f57004a3e0c7403c1bdd9349bfba65fac6f2a0bee9e82c6e552aaa055f8bf"
+    },
+    {
+      "bytes": 477,
+      "commit": "645b9716e7b4dc197133b08c601b187e79d32daa",
+      "git_blob_sha1": "825278c40ff92746c9f50890a8b17d4e9ccc7770",
+      "id": "nav-personal",
+      "kind": "git_file",
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-personal.svg",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "76509e65aec09172d0be39d683b64e2eddcdb08a57e04c372bbcf5a2c90cd4a1"
+    }
+  ],
+  "state": "READY_FOR_D0_INTEGRATE",
+  "target": {
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "old_penpot_uuid_lineage": 0,
+    "owner_review_state": "NOT_ACCEPTED",
+    "page_name": "01 · Foundations · Icons and actions · Candidate",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-reconstructed"
+  }
+}
