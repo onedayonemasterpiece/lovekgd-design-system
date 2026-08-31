@@ -4,7 +4,7 @@
  */
 const F0_CONFIG = Object.freeze({
   schema: "kenigevents.f0-foundation-native-adapter.v3",
-  adapterRevision: "R3.3",
+  adapterRevision: "R3.4",
   fileId: "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
   pageName: "03 · Foundations · Current reconstructed specimens · Candidate",
   pageId: "313fb1ed-0d5c-8095-8008-9183322ab3a9",
@@ -87,8 +87,8 @@ function f0IdEnds(shape,suffix){return typeof shape?.id==="string"&&shape.id.end
 function f0Near(actual,expected,epsilon=0.001){return Number.isFinite(actual)&&Math.abs(actual-expected)<=epsilon;}
 function f0Rev79Partial(page) {
   const exact=F0_CONFIG.rev79Partial,direct=Array.from(page.root.children||[]),boards=f0FindStable(page,`component/${exact.componentId}`);f0Assert(page.id===F0_CONFIG.pageId,"rev79 candidate page id drift");f0Assert(direct.length===2,"rev79 candidate page has nonexact extra shapes");f0Assert(boards.length===1&&f0IdEnds(boards[0],exact.boardIdSuffix),"rev79 partial board missing or drifted");
-  const board=boards[0],children=Array.from(board.children||[]),visuals=children.filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="visual");f0Assert(board.parent===page.root&&board.name===exact.boardName&&f0Near(board.width,416,exact.geometryEpsilon)&&f0Near(board.height,128,exact.geometryEpsilon)&&f0Near(board.x,1560,exact.geometryEpsilon)&&f0Near(board.y,0,exact.geometryEpsilon)&&board.getSharedPluginData(F0_CONFIG.namespace,"candidate-label")===F0_CONFIG.candidateLabel,"rev79 partial board contract drift");f0Assert(children.length===1&&visuals.length===1&&f0IdEnds(visuals[0],exact.visualIdSuffix)&&f0Near(visuals[0].width,80,exact.geometryEpsilon)&&f0Near(visuals[0].height,64,exact.geometryEpsilon)&&f0Near(visuals[0].x,1580,exact.geometryEpsilon)&&f0Near(visuals[0].y,44,exact.geometryEpsilon),"rev79 partial visual contract drift");
-  const orphans=direct.filter(s=>f0IdEnds(s,exact.labelIdSuffix));f0Assert(orphans.length===1,"rev79 exact orphan missing or duplicated");const label=orphans[0];f0Assert(label.parent===page.root&&label.name==="Value label"&&label.characters==="brand-600  ·  #a54821"&&String(label.fontWeight)==="400"&&!label.getSharedPluginData(F0_CONFIG.namespace,"role")&&!label.getSharedPluginData(F0_CONFIG.namespace,"stable-id"),"rev79 exact orphan contract drift");return {board,visual:visuals[0],label};
+  const board=boards[0],children=Array.from(board.children||[]),visuals=children.filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="visual");f0Assert(board.parent?.id===page.root.id&&board.name===exact.boardName&&f0Near(board.width,416,exact.geometryEpsilon)&&f0Near(board.height,128,exact.geometryEpsilon)&&f0Near(board.x,1560,exact.geometryEpsilon)&&f0Near(board.y,0,exact.geometryEpsilon)&&board.getSharedPluginData(F0_CONFIG.namespace,"candidate-label")===F0_CONFIG.candidateLabel,"rev79 partial board contract drift");f0Assert(children.length===1&&visuals.length===1&&f0IdEnds(visuals[0],exact.visualIdSuffix)&&visuals[0].parent?.id===board.id&&f0Near(visuals[0].width,80,exact.geometryEpsilon)&&f0Near(visuals[0].height,64,exact.geometryEpsilon)&&f0Near(visuals[0].x,1580,exact.geometryEpsilon)&&f0Near(visuals[0].y,44,exact.geometryEpsilon),"rev79 partial visual contract drift");
+  const orphans=direct.filter(s=>f0IdEnds(s,exact.labelIdSuffix));f0Assert(orphans.length===1,"rev79 exact orphan missing or duplicated");const label=orphans[0];f0Assert(label.parent?.id===page.root.id&&label.name==="Value label"&&label.characters==="brand-600  ·  #a54821"&&String(label.fontWeight)==="400"&&!label.getSharedPluginData(F0_CONFIG.namespace,"role")&&!label.getSharedPluginData(F0_CONFIG.namespace,"stable-id"),"rev79 exact orphan contract drift");return {board,visual:visuals[0],label};
 }
 function f0Guard(penpot, storage, operation) {
   const lock=storage.f0FoundationActiveWriter;
