@@ -13,7 +13,7 @@ assert.equal(adapter.F0_CONFIG.placements.length,57);
 assert.equal(new Set(adapter.F0_CONFIG.placements.map(x=>x.id)).size,57);
 assert.equal(adapter.F0_CONFIG.writer,'/root/publish_r2');
 assert.equal(adapter.F0_CONFIG.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
-assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.1');
+assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.2');
 assert.equal(adapter.F0_CONFIG.pageId,'313fb1ed-0d5c-8095-8008-9183322ab3a9');
 assert.notEqual(adapter.F0_CONFIG.pageName,'00 · Components · Free collection');
 assert.equal(adapter.F0_CONFIG.protectedProjectionMode,'SAME_RUN_PROBE_THEN_EXECUTE');
@@ -65,7 +65,7 @@ assert.throws(()=>adapter.f0RequireProtectedDigest(projection,{}),/missing or st
 assert.throws(()=>adapter.f0RequireProtectedDigest({...projection,sha256:'stale'},protectedBinding),/protected projection changed after same-run probe/);
 
 const stableShape=(stableId)=>({width:416,height:128,getSharedPluginData:(_ns,key)=>key==='stable-id'?stableId:''});
-const components=Object.fromEntries(ids.map((stableId,i)=>[stableId,{id:`c${i}`,name:adapter.F0_CONFIG.domains[stableId].name,mainInstance:()=>stableShape(`component/${stableId}`)}]));
+const components=Object.fromEntries(ids.map((stableId,i)=>{const name=adapter.f0NativeName(adapter.F0_CONFIG.domains[stableId].name),main=stableShape(`component/${stableId}`);main.name=name;return [stableId,{id:`c${i}`,name,mainInstance:()=>main}]}));
 const rootHeight=112+ids.reduce((sum,id)=>sum+48+Math.ceil(adapter.F0_CONFIG.placements.filter(p=>p.componentId===id).length/3)*152+28,0);
 const root={id:'root',name:adapter.F0_CONFIG.rootName,width:1440,height:rootHeight,x:0,y:0};
 const instanceFor=(placement,i)=>{
@@ -88,13 +88,14 @@ assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],
 
 const sharedShape=(props={},shared={})=>Object.assign({children:[],getSharedPluginData:(_ns,key)=>shared[key]||'',setSharedPluginData:(_ns,key,value)=>{shared[key]=value}},props);
 const partialRoot=sharedShape({id:'page-root',children:[]});
-const partialBoard=sharedShape({id:'313fb1ed-0d5c-8095-8008-918348f8d9c1',name:adapter.F0_CONFIG.domains['foundation.colors-and-modes'].name,width:416,height:128,x:1560,y:0,parent:partialRoot},{'stable-id':'component/foundation.colors-and-modes','candidate-label':'CANDIDATE_BUILD_NOT_ACCEPTED'});
-const partialVisual=sharedShape({id:'313fb1ed-0d5c-8095-8008-91834928ee42',name:'Value visual',width:80,height:64,parent:partialBoard,fills:[]},{role:'visual'});partialBoard.children=[partialVisual];
+const partialBoard=sharedShape({id:'313fb1ed-0d5c-8095-8008-918348f8d9c1',name:'Foundation / Specimen / ColorsAndModes',width:415.99998474121094,height:127.99999713897705,x:1560,y:0,parent:partialRoot},{'stable-id':'component/foundation.colors-and-modes','candidate-label':'CANDIDATE_BUILD_NOT_ACCEPTED'});
+const partialVisual=sharedShape({id:'313fb1ed-0d5c-8095-8008-91834928ee42',name:'Value visual',width:80.0000011920929,height:63.999998569488525,x:1580,y:44,parent:partialBoard,fills:[]},{role:'visual'});partialBoard.children=[partialVisual];
 const partialLabel=sharedShape({id:'313fb1ed-0d5c-8095-8008-9183493eed4f',name:'Value label',characters:'brand-600  ·  #a54821',fontWeight:'400',parent:partialRoot});
 partialRoot.children=[partialBoard,partialLabel];
 const partialPage={id:adapter.F0_CONFIG.pageId,root:partialRoot};
 assert.deepEqual(adapter.f0Rev79Partial(partialPage),{board:partialBoard,visual:partialVisual,label:partialLabel});
 const exactPartialLabelId=partialLabel.id;partialLabel.id='unknown-orphan';assert.throws(()=>adapter.f0Rev79Partial(partialPage),/rev79 exact orphan missing or duplicated/);partialLabel.id=exactPartialLabelId;
+const exactBoardWidth=partialBoard.width;partialBoard.width=416.01;assert.throws(()=>adapter.f0Rev79Partial(partialPage),/partial board contract drift/);partialBoard.width=exactBoardWidth;
 const unexpected=sharedShape({id:'unexpected',parent:partialRoot});partialRoot.children.push(unexpected);assert.throws(()=>adapter.f0Rev79Partial(partialPage),/nonexact extra shapes/);partialRoot.children.pop();
 partialBoard.appendChild=(shape)=>{partialRoot.children=partialRoot.children.filter(x=>x!==shape);shape.parent=partialBoard;if(!partialBoard.children.includes(shape))partialBoard.children.push(shape)};
 const supportedWeights=new Set(['200','300','400','600','700','900']);let newTextIndex=0;const newNativeText=(characters)=>{const shape=sharedShape({id:`new-text-${++newTextIndex}`,characters,parent:partialRoot,fills:[]});let weight='400';Object.defineProperty(shape,'fontWeight',{get:()=>weight,set:value=>{if(!supportedWeights.has(String(value)))throw new Error(`Font weight '${value}' not supported`);weight=String(value)}});return shape};const partialPenpot={createText:newNativeText,library:{local:{createComponent:([board])=>({id:'recovered-component',name:'',mainInstance:()=>board})}}};
@@ -119,7 +120,7 @@ const out=path.join(os.tmpdir(),`f0-native-${process.pid}.js`);
 const generatedReceipt=JSON.parse(cp.execFileSync('python3',[path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/generate_foundation_specimens_native_executor_v3.py'),'--output',out],{encoding:'utf8'}));
 const generated=fs.readFileSync(out,'utf8'); fs.unlinkSync(out);
 assert.equal(generatedReceipt.status,'EXECUTOR_READY');
-assert.equal(generatedReceipt.adapter_revision,'R3.1');
+assert.equal(generatedReceipt.adapter_revision,'R3.2');
 assert.equal(generatedReceipt.run_id,adapter.F0_CONFIG.runId);
 assert.equal(generatedReceipt.protected_projection_mode,'SAME_RUN_PROBE_THEN_EXECUTE');
 assert.equal(generatedReceipt.protected_baseline_revision,79);
