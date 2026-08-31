@@ -251,6 +251,58 @@ function deriveDescendantCases(regions) {
   return result;
 }
 
+async function repairTextMetricsPhase(P) {
+  const boardId = '313fb1ed-0d5c-8095-8008-9108df52b2ce', payload = P.payloadSha256, allowed = [1.08, 1.15, 1.2, 1.25, 1.6];
+  const active = () => {
+    let c;
+    try { c = JSON.parse(penpot.currentFile?.getSharedPluginData?.('kenigevents', 'asp-active-run-v1') || 'null'); } catch { throw new Error('MATERIALIZATION_RUN_NOT_ACTIVE'); }
+    const e = P.runControl;
+    if (c?.schema !== 'kenigevents.asp-run-control.v1' || c.run_id !== e.runId || c.writer_id !== e.writerId || c.state !== 'ACTIVE' || c.contract_sha256 !== e.contractSha256 || c.page_profile_sha256 !== e.pageProfileSha256 || c.asset_registry_sha256 !== e.assetRegistrySha256 || c.geometry_proof_sha256 !== e.geometryProofSha256) throw new Error('MATERIALIZATION_RUN_NOT_ACTIVE');
+    return c;
+  };
+  const children = (s) => Array.from(s?.children || []), walk = (s) => [s, ...children(s).flatMap(walk)], board = children(penpot.currentPage?.root).find((s) => s.id === boardId);
+  active();
+  if (!board || penpot.currentFile?.id !== P.fileId || penpot.currentPage?.id !== P.pageId) throw new Error('P91_TARGET_DRIFT');
+  const roots = children(board), components = Array.from(penpot.library?.local?.components || []), cards = roots.filter((r) => r.getPluginData?.('kenigevents-role') === 'accepted-card-master' && r.getPluginData?.('kenigevents-payload-sha256') === payload && r.getPluginData?.('kenigevents-build-state') === 'COMPLETE');
+  const texts = cards.flatMap((r) => walk(r).filter((s) => s.type === 'text' && s.characters));
+  const stableIds = { roots: roots.map((r) => r.id), components: components.map((c) => c.id), texts: texts.map((s) => s.id) };
+  const census = { roots: roots.length, descendants: walk(board).length - 1, components: components.length, cards: cards.length, texts: texts.length };
+  if (census.roots !== 18 || census.descendants !== 248 || census.components !== 18 || census.cards !== 4 || census.texts !== 38) throw new Error(`P91_TEXT_CENSUS_DRIFT: ${JSON.stringify(census)}`);
+  if (roots.some((r) => r.getPluginData?.('kenigevents-payload-sha256') !== payload || r.getPluginData?.('kenigevents-build-state') !== 'COMPLETE' || !r.getPluginData?.('kenigevents-g19-marker')?.endsWith(':v3')) || components.some((c) => !stableIds.roots.includes(c.mainInstance?.()?.id))) throw new Error('P91_MANAGED_ROOT_IDENTITY_DRIFT');
+  const preValidation = penpot.currentFile.validate();
+  if (Array.isArray(preValidation) ? preValidation.length : preValidation != null) throw new Error('P91_VALIDATION_FAILED');
+  const rows = texts.map((s) => {
+    const fs = Number(s.fontSize), lh = Number(s.lineHeight), ratio = lh > 2 ? Number((lh / fs).toFixed(6)) : lh;
+    if (s.getPluginData?.('kenigevents-payload-sha256') !== payload || s.getPluginData?.('kenigevents-font-family') !== 'DejaVu Sans' || s.getPluginData?.('kenigevents-font-weight') !== '700' || s.getPluginData?.('kenigevents-font-style') !== 'normal' || !s.getPluginData?.('kenigevents-font-runtime-id') || !s.getPluginData?.('kenigevents-font-variant-id') || s.getPluginData?.('kenigevents-font-source-sha256') !== P.fontSources[700] || !Number.isFinite(fs) || !Number.isFinite(lh) || !allowed.some((v) => Math.abs(v - ratio) < 1e-6)) throw new Error('P91_TEXT_METRIC_DRIFT');
+    return { s, lh, ratio };
+  });
+  const changed = [];
+  const block = rows.some((row) => row.lh > 2) ? (active(), penpot.history.undoBlockBegin()) : null;
+  try {
+    for (const row of rows) if (row.lh > 2) { active(); row.s.lineHeight = String(row.ratio); changed.push(row.s.id); }
+  } finally {
+    if (block) penpot.history.undoBlockFinish(block);
+  }
+  active();
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  active();
+  for (const s of texts) {
+    const b = s.textBounds, t = 2; let root = s;
+    while (root.parent && root.parent.id !== boardId) root = root.parent;
+    if (!b || ![b.x, b.y, b.width, b.height].every(Number.isFinite) || b.width <= 0 || b.height <= 0 || b.x < s.x - t || b.y < s.y - t || b.x + b.width > s.x + s.width + t || b.y + b.height > s.y + s.height + t || b.x < root.x - t || b.y < root.y - t || b.x + b.width > root.x + root.width + t || b.y + b.height > root.y + root.height + t) throw new Error('P91_TEXT_BOUNDS_NOT_CONTAINED');
+  }
+  const validation = penpot.currentFile.validate();
+  if (Array.isArray(validation) ? validation.length : validation != null) throw new Error('P91_VALIDATION_FAILED');
+  if (JSON.stringify(stableIds) !== JSON.stringify({ roots: children(board).map((r) => r.id), components: Array.from(penpot.library?.local?.components || []).map((c) => c.id), texts: cards.flatMap((r) => walk(r).filter((s) => s.type === 'text' && s.characters)).map((s) => s.id) })) throw new Error('P91_STABLE_ID_DRIFT');
+  const label = `G19 P2 V3 P91_TEXT_METRICS · ${payload.slice(0, 12)}`;
+  active();
+  const versions = Array.from(await penpot.currentFile.findVersions());
+  active();
+  let version = versions.find((v) => (v.label || v.name) === label) || null;
+  if (changed.length) { active(); version = await penpot.currentFile.saveVersion(label); active(); }
+  return { schema: 'kenigevents.penpot.g19.text-metrics-receipt.v1', phaseId: 'P91_TEXT_METRICS', terminalState: changed.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: changed.length, mutatedObjectIds: changed, textCount: texts.length, stableIds, validation: Array.isArray(validation) ? validation : [], version: { id: version?.id || null, label } };
+}
+
 async function installProductionRuntime(P) {
   const FILE_ID = '40e06342-8830-80d6-8008-8fc8a3a4cd4f';
   const PAGE_ID = 'c16498cb-b51d-8030-8008-904bd8fc9c53';
@@ -269,6 +321,7 @@ async function installProductionRuntime(P) {
   const V2SHA = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
   const SHA = P.payloadSha256;
   const KP = 'kenigevents-payload-sha256', KM = 'kenigevents-g19-marker', KC = 'kenigevents-g19-child-marker', KI = 'kenigevents-instance-case-id';
+  const KF='kenigevents-font-family',KW='kenigevents-font-weight',KS='kenigevents-font-style',KFS='kenigevents-font-source-sha256',KFR='kenigevents-font-runtime-id',KFV='kenigevents-font-variant-id';
   const V3SHA = 'c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219';
   const LEGACY_V2_ICON_SHA256 = { icon: { not_interested: 'd8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6', calendar: 'f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633', share: '99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9', like: 'e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58' } };
   const marker = (key) => `kenigevents:g19:p2:${key}:v3`;
@@ -432,24 +485,23 @@ async function installProductionRuntime(P) {
     plugin(shape, 'kenigevents-accepted-roots-cleanup', 'forbidden');
   }
 
+  const lineRatio = (style) => String(Number((Number(style.lineHeight) / Number(style.fontSize)).toFixed(6)));
   function applyText(textShape, style, fontRows) {
     const weight = 700;
     const row = fontRows[weight];
     write(() => row.font.applyToText(textShape, row.variant));
-    // Penpot's Text API requires strings. Numeric lineHeight is interpreted as
-    // a unitless multiplier (for example 23.328 * 21.6px), which displaced and
-    // clipped every glyph run in the first live G19 publication.
+    // Penpot stores lineHeight as a unitless font-size multiplier, not CSS px.
     write(() => { textShape.growType = 'fixed'; });
     write(() => { textShape.fontSize = String(style.fontSize); });
-    write(() => { textShape.lineHeight = String(style.lineHeight); });
+    write(() => { textShape.lineHeight = lineRatio(style); });
     write(() => { textShape.letterSpacing = String(style.letterSpacing || 0); });
     write(() => { textShape.fills = [{ fillColor: style.color, fillOpacity: style.colorOpacity }]; });
-    plugin(textShape, 'kenigevents-font-family', FAMILY);
-    plugin(textShape, 'kenigevents-font-weight', weight);
-    plugin(textShape, 'kenigevents-font-style', 'normal');
-    plugin(textShape, 'kenigevents-font-runtime-id', row.runtimeFontId);
-    plugin(textShape, 'kenigevents-font-variant-id', row.variantId);
-    plugin(textShape, 'kenigevents-font-source-sha256', FONT_SOURCES[weight]);
+    plugin(textShape, KF, FAMILY);
+    plugin(textShape, KW, weight);
+    plugin(textShape, KS, 'normal');
+    plugin(textShape, KFR, row.runtimeFontId);
+    plugin(textShape, KFV, row.variantId);
+    plugin(textShape, KFS, FONT_SOURCES[weight]);
   }
 
   function makeText(parent, name, value, box, style, fontRows) {
@@ -551,7 +603,7 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_TEXT_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (shape.characters !== value || shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId || shape.getPluginData?.('kenigevents-font-family') !== FAMILY || shape.getPluginData?.('kenigevents-font-weight') !== '700' || shape.getPluginData?.('kenigevents-font-style') !== 'normal' || shape.getPluginData?.('kenigevents-font-source-sha256') !== FONT_SOURCES[700] || shape.getPluginData?.(KP) !== identity.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, style.lineHeight) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
+    if (shape.characters !== value || shape.getPluginData?.(KFR) !== fontRows[700].runtimeFontId || shape.getPluginData?.(KFV) !== fontRows[700].variantId || shape.getPluginData?.(KF) !== FAMILY || shape.getPluginData?.(KW) !== '700' || shape.getPluginData?.(KS) !== 'normal' || shape.getPluginData?.(KFS) !== FONT_SOURCES[700] || shape.getPluginData?.(KP) !== identity.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, identity === V2I ? style.lineHeight : lineRatio(style)) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
     return shape;
   }
   function ensureIconChild(parent, rootKey, childKey, source, color, box, assetSha256, allow = true, identity = V3I) {
@@ -837,7 +889,7 @@ async function installProductionRuntime(P) {
       const box = { x: fragment.x - slot.box.x, y: fragment.y - slot.box.y, width: fragment.width, height: fragment.height };
       if (!auditOnly) { write(() => { label.characters = slot.text; }); place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, KI, spec.caseId); }
       auditBox(label, box, 'LINKED_TEXT_OVERRIDE_GEOMETRY_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
-      if (label.characters !== slot.text || label.getPluginData?.(KI) !== spec.caseId || label.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || label.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId) fail('LINKED_TEXT_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
+      if (label.characters !== slot.text || label.getPluginData?.(KI) !== spec.caseId || label.getPluginData?.(KFR) !== fontRows[700].runtimeFontId || label.getPluginData?.(KFV) !== fontRows[700].variantId) fail('LINKED_TEXT_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
       return;
     }
     const action = binding.slotName.replace('action.', ''), geometry = P.descendants[spec.caseId]?.[action];
@@ -1087,7 +1139,7 @@ async function installProductionRuntime(P) {
       if (main && (!eq(main.width, spec.box.width) || !eq(main.height, spec.box.height))) issues.push({ code: 'LEAF_ROOT_GEOMETRY', name: spec.name });
       const childN = spec.kind === 'media' ? 3 : spec.kind === 'text-pill' ? 1 : spec.inner.label && spec.inner.count ? 3 : 2;
       if (main && children(main).length !== childN) issues.push({ code: 'LEAF_CHILD_CARDINALITY', name: spec.name, expected: childN, actual: children(main).length });
-      if (main && walk(main).filter((shape) => shape.type === 'text').some((shape) => shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId)) issues.push({ code: 'LEAF_TEXT_FONT', name: spec.name });
+      if (main && walk(main).filter((shape) => shape.type === 'text').some((shape) => shape.getPluginData?.(KFR) !== fontRows[700].runtimeFontId || shape.getPluginData?.(KFV) !== fontRows[700].variantId)) issues.push({ code: 'LEAF_TEXT_FONT', name: spec.name });
     }
     const cards = cardSpecsAll.map((spec) => {
       const component = findComp(CARD_PATH, spec.name), main = mainOf(component);
@@ -1102,7 +1154,7 @@ async function installProductionRuntime(P) {
       }
       const fixture = P.fixtures[spec.fixtureId], requiredText = [fixture.title, fixture.type, fixture.occurrence, fixture.admission, fixture.place, 'Не интересно', 'Поделиться', ...(spec.slots['action.calendar'] ? ['В календарь'] : [])];
       if (main) for (const value of requiredText) if (!text.includes(value)) issues.push({ code: 'CARD_TEXT_MISSING', name: spec.name, value });
-      if (main && textShapes.filter((shape) => !shape.hidden).some((shape) => shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId)) issues.push({ code: 'CARD_TEXT_FONT', name: spec.name });
+      if (main && textShapes.filter((shape) => !shape.hidden).some((shape) => shape.getPluginData?.(KFR) !== fontRows[700].runtimeFontId || shape.getPluginData?.(KFV) !== fontRows[700].variantId)) issues.push({ code: 'CARD_TEXT_FONT', name: spec.name });
       return { name: spec.name, fixtureId: spec.fixtureId, semanticRoot: main?.getPluginData?.('kenigevents-semantic-root') || null, structuralContext: main?.getPluginData?.('kenigevents-structural-context') || null, componentId: component?.id || null, rootId: main?.id || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, linkedLeafCount: links.length, linkedInstances: links.map((instance) => ({ instanceId: instance.id, slot: instance.getPluginData?.('kenigevents-instance-slot') || instance.name, componentId: instance.component?.()?.id || null })), text };
     });
     const roots = managedRoots(), rootMarkers = roots.map((root) => root.getPluginData(KM));
@@ -1230,6 +1282,7 @@ async function installProductionRuntime(P) {
     return [spec.key, { component, main, created: false }];
   }));
 
+
   async function saveVersion(phaseId, changed) {
     const label = `G19 P2 V3 ${phaseId} · ${SHA.slice(0, 12)}`;
     const versions = array(await penpot.currentFile.findVersions());
@@ -1283,7 +1336,8 @@ async function installProductionRuntime(P) {
     const afterMigration = gate(result);
     if (result.validation.length || !afterMigration.accepted) fail('POST_PHASE_SAVE_ACCEPTANCE_FAILED', { phaseId, migration: afterMigration, readback: result });
     const terminalLease = activeRun();
-    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v3', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, runControl: { run_id: runLease.run_id, writer_id: runLease.writer_id, state: terminalLease.state, contract_sha256: runLease.contract_sha256, page_profile_sha256: runLease.page_profile_sha256, asset_registry_sha256: runLease.asset_registry_sha256, geometry_proof_sha256: runLease.geometry_proof_sha256 }, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
+    const mutatedObjectIds = created.flatMap((row) => row.mutatedObjectIds || []);
+    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v3', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: mutatedObjectIds.length || created.length, mutatedObjectIds, runControl: { run_id: runLease.run_id, writer_id: runLease.writer_id, state: terminalLease.state, contract_sha256: runLease.contract_sha256, page_profile_sha256: runLease.page_profile_sha256, asset_registry_sha256: runLease.asset_registry_sha256, geometry_proof_sha256: runLease.geometry_proof_sha256 }, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
   }
 
   const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, ER, EBC, EBD, ELC, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
@@ -1401,11 +1455,12 @@ async function main() {
   const installSource = `const P=storage.g19EventCard8006Payload;if(!P||P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_NOT_VERIFIED');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
   const mutationPhases = ['P10_DESKTOP_LEAVES_A','P11_DESKTOP_LEAVES_B','P20_MOBILE_LEAVES_A','P21_MOBILE_LEAVES_B','P30_DESKTOP_WIDE_SHELL','P31_DESKTOP_WIDE_FINAL','P40_DESKTOP_PACKED_SHELL','P41_DESKTOP_PACKED_FINAL','P50_MOBILE_WIDE_SHELL','P51_MOBILE_WIDE_FINAL','P60_MOBILE_PACKED_SHELL','P61_MOBILE_PACKED_FINAL','P90_FINALIZE'];
   const phaseOutputs = Object.fromEntries(mutationPhases.map((phaseId) => [`phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`, `/** G19 P2 V3 bounded idempotent mutator ${phaseId}. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.runPhase(${JSON.stringify(phaseId)});\n`]));
+  phaseOutputs['phase-p91-text-metrics.js'] = `const P=storage.g19EventCard8006Payload;if(!P||P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_NOT_VERIFIED');return await (${compactGeneratedFunction(repairTextMetricsPhase)})(P);\n`;
   const readbackSource = `/** G19 P2 V3 readback + validate; read-only. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return storage.g19EventCard8006.readback(false);\n`;
   const exportSource = `/** Export all four accepted EventCard roots as directly decodable PNG payloads. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.exportRoots();\n`;
   const outputs = { 'phase-00-bootstrap.js': bootstrapSource, ...chunkOutputs, 'phase-02-verify-payload.js': verifySource, 'phase-03-install-runtime.js': installSource, ...phaseOutputs, 'readback.js': readbackSource, 'export-roots.js': exportSource };
   const setupOrder = ['phase-00-bootstrap.js', ...Object.keys(chunkOutputs), 'phase-02-verify-payload.js', 'phase-03-install-runtime.js'];
-  const mutatorOrder = mutationPhases.map((phaseId) => `phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`);
+  const mutatorOrder = [...mutationPhases.map((phaseId) => `phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`), 'phase-p91-text-metrics.js'];
   const outputRows = Object.entries(outputs).map(([file, source]) => ({ path: `catalog/penpot-executor/g19/${file}`, sha256: sha256(Buffer.from(source)), bytes: Buffer.byteLength(source) }));
   const executableSetSha256 = sha256(Buffer.from(outputRows.map((row) => `${row.path}\0${row.sha256}\n`).join('')));
   const manifest = {

@@ -54,6 +54,11 @@ class Shape {
     refreshAbsolute(child);
   }
   resize(width, height) { this.width = Number(width); this.height = Number(height); }
+  get textBounds() {
+    if (this.type !== 'text') return null;
+    const fontSize = Number(this.fontSize || 0), lineHeight = Number(this.lineHeight || 1);
+    return { x: this.x, y: this.y, width: Math.min(this.width, Math.max(1, this.characters.length * fontSize * 0.55)), height: fontSize * lineHeight };
+  }
   remove() {
     if (this.parent) this.parent.children = this.parent.children.filter((candidate) => candidate !== this);
     this.parent = null;
@@ -260,7 +265,7 @@ async function installRuntime(surface, { synthesizeObservedBaseline = false } = 
 
 async function runAllPhases(surface) {
   const receipts = [];
-  for (const path of manifest.execution.mutator_order) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  for (const path of manifest.execution.mutator_order.filter((path) => path !== 'phase-p91-text-metrics.js')) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
   return receipts;
 }
 
@@ -282,7 +287,7 @@ function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
       if (shape.getPluginData('kenigevents-g19-marker').includes('event.media-frame.')) shape.fills = [{ fillColor: '#15110f', fillOpacity: 1 }];
       if (shape.type === 'text') {
         shape.fontSize = Number(shape.fontSize);
-        shape.lineHeight = Number(shape.lineHeight);
+        shape.lineHeight = Number((Number(shape.fontSize) * Number(shape.lineHeight)).toFixed(6));
         shape.letterSpacing = Number(shape.letterSpacing);
       }
     }
@@ -350,7 +355,7 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.equal(manifest.native_fonts.regular_400_variant, 'normal-400');
   assert.equal(manifest.native_fonts.bold_700_variant, 'normal-700');
   assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
-  assert.equal(manifest.execution.mutator_order.length, 13);
+  assert.equal(manifest.execution.mutator_order.length, 14);
   assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
   assert.equal(manifest.run_control.expected_writer_id, '/root/publish_r2');
   assert.match(manifest.run_control.geometry_proof_sha256, /^[0-9a-f]{64}$/);
@@ -441,7 +446,7 @@ test('bounded phases build 14 linked leaves and all four exact accepted EventCar
   inheritedIcons[0].setPluginData('kenigevents-instance-case-id', 'foreign-case');
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'LINKED_ACTION_OVERRIDE_STATE_DRIFT');
   inheritedIcons[0].pluginData.delete('kenigevents-instance-case-id');
-  for (const path of manifest.execution.mutator_order.slice(4)) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  for (const path of manifest.execution.mutator_order.slice(4).filter((path) => path !== 'phase-p91-text-metrics.js')) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
   assert.ok(inheritedIcons.every((icon) => icon.getPluginData('kenigevents-instance-case-id') === 'eventcard.desktop-wide-calendar.8006'));
   for (const [index, receipt] of receipts.entries()) {
     assert.deepEqual(receipt.readback.validation, [], manifest.execution.mutator_order[index]);
@@ -629,6 +634,44 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(surface.board.children.find((shape) => shape.name === interruptedRoot.name).id, PRESERVED_PARTIAL_ROOT_ID);
   assert.deepEqual(final.auditIssues, []);
   assert.deepEqual(final.validation, []);
+  const stableIds = surface.board.children.map((root) => root.id);
+  assert.ok(walk(surface.board).length - 1 <= 248);
+  while (walk(surface.board).length - 1 < 248) surface.board.children.at(-1).appendChild(new Shape('vector'));
+  assert.equal(walk(surface.board).length - 1, 248);
+  const managedText = surface.board.children.filter((root) => root.getPluginData('kenigevents-role') === 'accepted-card-master').flatMap(walk).filter((shape) => shape.type === 'text' && shape.characters);
+  assert.equal(managedText.length, 38);
+  for (const shape of managedText) shape.lineHeight = String(Number((Number(shape.fontSize) * Number(shape.lineHeight)).toFixed(6)));
+  assert.ok(managedText.some((shape) => shape.textBounds.height > shape.height + 1));
+  const lastRaw = managedText.at(-1).lineHeight;
+  managedText.at(-1).lineHeight = String(Number(managedText.at(-1).fontSize) * 1.3);
+  const rejectedMetrics = managedText.map((shape) => shape.lineHeight);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface), /P91_TEXT_METRIC_DRIFT/);
+  assert.deepEqual(managedText.map((shape) => shape.lineHeight), rejectedMetrics);
+  managedText.at(-1).lineHeight = lastRaw;
+  const undoBeforeRepair = surface.undoCalls();
+  const textRepair = await executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface);
+  assert.equal(textRepair.mutations, managedText.length);
+  assert.deepEqual(textRepair.mutatedObjectIds, managedText.map((shape) => shape.id));
+  assert.deepEqual(surface.undoCalls(), { begin: undoBeforeRepair.begin + 1, finish: undoBeforeRepair.finish + 1 });
+  assert.deepEqual(surface.board.children.map((root) => root.id), stableIds);
+  assert.ok(managedText.every((shape) => Number(shape.lineHeight) > 0 && Number(shape.lineHeight) < 3 && shape.textBounds.x >= shape.x - 1 && shape.textBounds.y >= shape.y - 1 && shape.textBounds.x + shape.textBounds.width <= shape.x + shape.width + 1 && shape.textBounds.y + shape.textBounds.height <= shape.y + shape.height + 1));
+  const savesAfterRepair = surface.saveVersionCalls();
+  const textReuse = await executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface);
+  assert.equal(textReuse.mutations, 0);
+  assert.equal(surface.saveVersionCalls(), savesAfterRepair);
+  for (const shape of managedText) shape.lineHeight = String(Number((Number(shape.fontSize) * Number(shape.lineHeight)).toFixed(6)));
+  const savesBeforeCancelledSettle = surface.saveVersionCalls();
+  const undoBeforeCancelledSettle = surface.undoCalls();
+  const cancelTimer = setTimeout(() => replaceRunControl(surface, { state: 'CANCEL_REQUESTED' }), 10);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface), /MATERIALIZATION_RUN_NOT_ACTIVE/);
+  clearTimeout(cancelTimer);
+  assert.equal(surface.saveVersionCalls(), savesBeforeCancelledSettle);
+  assert.deepEqual(surface.undoCalls(), { begin: undoBeforeCancelledSettle.begin + 1, finish: undoBeforeCancelledSettle.finish + 1 });
+  assert.ok(managedText.every((shape) => Number(shape.lineHeight) < 3));
+  replaceRunControl(surface, { state: 'ACTIVE' });
+  const postCancelReuse = await executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface);
+  assert.equal(postCancelReuse.mutations, 0);
+  assert.equal(surface.saveVersionCalls(), savesBeforeCancelledSettle);
   assert.ok(surface.board.children.every((root) => root.getPluginData('kenigevents-g19-marker').endsWith(':v3')));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-payload-sha256')).every((shape) => shape.getPluginData('kenigevents-payload-sha256') === manifest.payload_sha256));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-g19-child-marker')).every((shape) => shape.getPluginData('kenigevents-g19-child-marker').includes(':v3:')));
