@@ -17,6 +17,7 @@ const EXPECTED_CASES = [
 ];
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const gitBlobSha1 = (bytes) => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const readRelative = (path) => readFile(new URL(path, ROOT), 'utf8');
 const manifest = JSON.parse(await readFile(MANIFEST_URL, 'utf8'));
 
@@ -90,6 +91,8 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
   let saveVersionCalls = 0;
   let undoBeginCalls = 0;
   let undoFinishCalls = 0;
+  let cancelDuringNextMediaCreate = false;
+  const mediaShapes = [];
   const sharedPluginData = new Map([['kenigevents\0asp-active-run-v1', JSON.stringify({
     schema: manifest.run_control.schema,
     run_id: manifest.run_control.expected_run_id,
@@ -98,7 +101,7 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     contract_sha256: manifest.run_control.contract_sha256,
     page_profile_sha256: manifest.run_control.page_profile_sha256,
     asset_registry_sha256: manifest.run_control.asset_registry_sha256,
-    geometry_proof_sha256: 'a'.repeat(64),
+    geometry_proof_sha256: manifest.run_control.geometry_proof_sha256,
   })]]);
   const fontVariants = variants.map((id) => ({
     id,
@@ -135,7 +138,17 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     createRectangle: () => new Shape('rectangle'),
     createText: (text) => new Shape('text', text),
     createShapeFromSvg: () => new Shape('svg'),
-    createShapeFromSvgWithImages: async () => new Shape('svg-image'),
+    createShapeFromSvgWithImages: async () => {
+      const shape = new Shape('svg-image');
+      mediaShapes.push(shape);
+      if (cancelDuringNextMediaCreate) {
+        cancelDuringNextMediaCreate = false;
+        const key = 'kenigevents\0asp-active-run-v1';
+        const control = JSON.parse(sharedPluginData.get(key));
+        sharedPluginData.set(key, JSON.stringify({ ...control, state: 'CANCEL_REQUESTED' }));
+      }
+      return shape;
+    },
     fonts: { findByName: (name) => name === 'DejaVu Sans' ? font : null, findAllByName: (name) => name === 'DejaVu Sans' ? [font] : [] },
     library: { local: {
       components,
@@ -189,7 +202,15 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     saveVersionCalls: () => saveVersionCalls,
     undoCalls: () => ({ begin: undoBeginCalls, finish: undoFinishCalls }),
     sharedPluginData,
+    mediaShapes,
+    cancelDuringNextMediaCreate: () => { cancelDuringNextMediaCreate = true; },
   };
+}
+
+function replaceRunControl(surface, changes) {
+  const key = 'kenigevents\0asp-active-run-v1';
+  const current = JSON.parse(surface.sharedPluginData.get(key));
+  surface.sharedPluginData.set(key, JSON.stringify({ ...current, ...changes }));
 }
 
 async function execute(source, surface) {
@@ -256,6 +277,27 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
   assert.equal(manifest.execution.mutator_order.length, 13);
   assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
+  assert.equal(manifest.run_control.expected_writer_id, '/root/publish_r2');
+  assert.match(manifest.run_control.geometry_proof_sha256, /^[0-9a-f]{64}$/);
+  assert.equal(manifest.provenance_receipt_template.geometry_proof_digest, manifest.run_control.geometry_proof_sha256);
+  assert.equal(manifest.provenance_receipt_template.requirements_contract_hash, manifest.run_control.contract_sha256);
+  assert.equal(manifest.provenance_receipt_template.page_profile_hash, manifest.run_control.page_profile_sha256);
+  assert.equal(manifest.provenance_receipt_template.asset_registry_hash, manifest.run_control.asset_registry_sha256);
+  assert.equal(manifest.provenance_receipt_template.actor_id, manifest.run_control.expected_writer_id);
+  assert.ok(manifest.execution.setup_order.includes('phase-02-verify-payload.js'));
+  assert.ok(manifest.execution.setup_order.includes('phase-03-install-runtime.js'));
+  for (const field of ['run_id','actor_type','actor_id','triggered_by','astro_repository','astro_commit','route','scenario','viewport','ui_sot_repository','ui_sot_commit','requirements_contract_hash','page_profile_hash','asset_registry_hash','materializer_name','materializer_version','materializer_commit','started_at','completed_at','final_state','penpot_file_id','penpot_page_id','penpot_frame_ids','mutation_count','mutated_object_ids','asset_binding_digest','geometry_proof_digest','validation_result','owner_review_state']) assert.ok(Object.hasOwn(manifest.provenance_receipt_template, field), field);
+  assert.equal(manifest.asset_bindings.registry.sha256, manifest.run_control.asset_registry_sha256);
+  for (const binding of Object.values(manifest.asset_bindings.actions)) {
+    const bytes = await readFile(new URL(binding.path, ROOT));
+    assert.equal(bytes.length, binding.bytes, binding.assetId);
+    assert.equal(sha256(bytes), binding.sha256, binding.assetId);
+    assert.equal(gitBlobSha1(bytes), binding.gitBlobSha1, binding.assetId);
+    const input = manifest.inputs.find((row) => row.path === binding.path);
+    assert.deepEqual(input && { sha256: input.sha256, bytes: input.bytes }, { sha256: binding.sha256, bytes: binding.bytes }, binding.assetId);
+  }
+  assert.equal(manifest.geometry_proof.proofPayloadSha256, manifest.run_control.geometry_proof_sha256);
+  assert.match(manifest.geometry_proof.rawSha256, /^[0-9a-f]{64}$/);
 
   let combined = '';
   let executableIdentity = '';
@@ -380,6 +422,44 @@ test('preflight fails closed on revision, scaffold topology, board identity, or 
     assert.equal(surface.saveVersionCalls(), 0);
     assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 });
   }
+});
+
+test('run control rejects cancellation, stale identity, and every pinned hash before the first mutation', async () => {
+  const firstMutator = `catalog/penpot-executor/g19/${manifest.execution.mutator_order[0]}`;
+  const cases = [
+    null,
+    { state: 'CANCEL_REQUESTED' },
+    { run_id: 'stale-run' },
+    { writer_id: '/root/not-the-publisher' },
+    { contract_sha256: '0'.repeat(64) },
+    { page_profile_sha256: '1'.repeat(64) },
+    { asset_registry_sha256: '2'.repeat(64) },
+    { geometry_proof_sha256: '3'.repeat(64) },
+  ];
+  for (const changes of cases) {
+    const surface = fakeSurface();
+    await installRuntime(surface);
+    if (changes) replaceRunControl(surface, changes);
+    else surface.sharedPluginData.delete('kenigevents\0asp-active-run-v1');
+    await assert.rejects(executePath(firstMutator, surface), (error) => error?.code === 'MATERIALIZATION_RUN_NOT_ACTIVE');
+    assert.equal(surface.board.children.length, 0, JSON.stringify(changes));
+    assert.equal(surface.components.length, 0, JSON.stringify(changes));
+    assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 }, JSON.stringify(changes));
+  }
+});
+
+test('cancellation while native media creation is awaited blocks every subsequent write', async () => {
+  const surface = fakeSurface();
+  await installRuntime(surface);
+  for (const path of manifest.execution.mutator_order.slice(0, 4)) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  surface.cancelDuringNextMediaCreate();
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'MATERIALIZATION_RUN_NOT_ACTIVE');
+  assert.equal(surface.mediaShapes.length, 1);
+  const inFlightResult = surface.mediaShapes[0];
+  assert.equal(inFlightResult.name, '');
+  assert.equal(inFlightResult.parent, null);
+  assert.equal(inFlightResult.pluginData.size, 0);
+  assert.equal(surface.board.children.some((root) => root.children.includes(inFlightResult)), false);
 });
 
 test('phase reuse audits exact payload-owned content and performs no blind repair', async () => {

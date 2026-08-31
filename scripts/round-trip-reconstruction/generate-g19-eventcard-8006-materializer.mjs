@@ -22,6 +22,12 @@ const DESCENDANTS = 'catalog/penpot-executor/g19/frozen-eventcard-8006-descendan
 const REGIONS = 'catalog/penpot-executor/g12/frozen-evidence/regions.json';
 const MEDIA_8006 = 'catalog/penpot-executor/g10/input-media/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp';
 const MEDIA_2182 = 'catalog/fixtures/ui-reference-events/v2/assets/99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e.webp';
+const ACTION_ASSETS = {
+  notInterested: 'catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg',
+  calendar: 'catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg',
+  share: 'catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg',
+  like: 'catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg',
+};
 const INPUTS = [
   EXPECTATIONS,
   FONT_BINDING,
@@ -30,10 +36,7 @@ const INPUTS = [
   REGIONS,
   MEDIA_8006,
   MEDIA_2182,
-  'catalog/ui-assets/v1/icons/action-not-interested.svg',
-  'catalog/ui-assets/v1/icons/action-calendar-add.svg',
-  'catalog/ui-assets/v1/icons/action-share.svg',
-  'catalog/ui-assets/v1/icons/action-favorite-outline.svg',
+  ...Object.values(ACTION_ASSETS),
   'catalog/ui-components/event-card-large/component-contract.v2.json',
   'catalog/ui-conformance/free-collection/g4/resolved/eventcard.desktop-wide-calendar.8006.resolved-render-case.json',
   'catalog/ui-conformance/free-collection/g4/resolved/eventcard.mobile-wide-calendar.8006.resolved-render-case.json',
@@ -52,10 +55,10 @@ const ACCEPTED_HASHES = {
   [REGIONS]: 'ce4bff02b0de75aca895507e17bbee27d44c5728dd800baece3ab4e098a77ecf',
   [MEDIA_8006]: 'dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b',
   [MEDIA_2182]: '99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e',
-  'catalog/ui-assets/v1/icons/action-not-interested.svg': 'd8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6',
-  'catalog/ui-assets/v1/icons/action-calendar-add.svg': 'f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633',
-  'catalog/ui-assets/v1/icons/action-share.svg': '99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9',
-  'catalog/ui-assets/v1/icons/action-favorite-outline.svg': 'e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58',
+  [ACTION_ASSETS.notInterested]: '2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98',
+  [ACTION_ASSETS.calendar]: '0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7',
+  [ACTION_ASSETS.share]: 'c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb',
+  [ACTION_ASSETS.like]: '8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7',
   'catalog/ui-components/event-card-large/component-contract.v2.json': '72385737a289f43090dd8d388497f755141e78f56a14576e4221fb817ab526fb',
   'catalog/ui-conformance/free-collection/g4/resolved/eventcard.desktop-wide-calendar.8006.resolved-render-case.json': '876abb966fb9ae49f5196f02367e54103bcb3ed1eceb2f9e818f500a5b77d855',
   'catalog/ui-conformance/free-collection/g4/resolved/eventcard.mobile-wide-calendar.8006.resolved-render-case.json': '4a388f64cea110cb9d5a3ac2b3ee6400fa68e7f9d0c33df3c467372a670ece82',
@@ -281,14 +284,17 @@ async function installProductionRuntime(P) {
       && control.contract_sha256 === expected.contractSha256
       && control.page_profile_sha256 === expected.pageProfileSha256
       && control.asset_registry_sha256 === expected.assetRegistrySha256
-      && /^[0-9a-f]{64}$/.test(String(control.geometry_proof_sha256 || ''));
-    if (!exact) fail('MATERIALIZATION_RUN_NOT_ACTIVE', { expected: { run_id: expected.runId, writer_id: expected.writerId, state: 'ACTIVE', contract_sha256: expected.contractSha256, page_profile_sha256: expected.pageProfileSha256, asset_registry_sha256: expected.assetRegistrySha256, geometry_proof_sha256: 'required sha256' }, actual: control });
+      && /^[0-9a-f]{64}$/.test(String(expected.geometryProofSha256 || ''))
+      && control.geometry_proof_sha256 === expected.geometryProofSha256;
+    if (!exact) fail('MATERIALIZATION_RUN_NOT_ACTIVE', { expected: { run_id: expected.runId, writer_id: expected.writerId, state: 'ACTIVE', contract_sha256: expected.contractSha256, page_profile_sha256: expected.pageProfileSha256, asset_registry_sha256: expected.assetRegistrySha256, geometry_proof_sha256: expected.geometryProofSha256 }, actual: control });
     return control;
   }
+  const write = (operation) => { requireActiveRun(); return operation(); };
+  const writeAsync = async (operation) => { requireActiveRun(); const result = await operation(); requireActiveRun(); return result; };
   const array = (value) => Array.from(value || []);
   const round = (value) => Math.round(Number(value) * 1000) / 1000;
   const eq = (a, b) => Math.abs(Number(a) - Number(b)) <= 0.02;
-  const plugin = (shape, key, value) => { requireActiveRun(); shape.setPluginData(key, String(value)); };
+  const plugin = (shape, key, value) => write(() => shape.setPluginData(key, String(value)));
   const children = (shape) => array(shape?.children);
   const walk = (root) => {
     const out = [], queue = root ? [root] : [];
@@ -304,28 +310,24 @@ async function installProductionRuntime(P) {
   const place = (shape, parent, box) => {
     // Component-copy descendants already belong to their copy. Re-appending
     // them is a forbidden structural mutation in native Penpot components-v2.
-    requireActiveRun();
-    if (parent && (!shape.parent || shape.parent.id !== parent.id)) parent.appendChild(shape);
-    if (shape.layoutChild) shape.layoutChild.absolute = true;
-    shape.resize(box.width, box.height);
-    penpotUtils.setParentXY(shape, box.x || 0, box.y || 0);
+    if (parent && (!shape.parent || shape.parent.id !== parent.id)) write(() => parent.appendChild(shape));
+    if (shape.layoutChild) write(() => { shape.layoutChild.absolute = true; });
+    write(() => shape.resize(box.width, box.height));
+    write(() => penpotUtils.setParentXY(shape, box.x || 0, box.y || 0));
     return shape;
   };
   const setRadii = (shape, style = {}) => {
-    requireActiveRun();
-    shape.borderRadiusTopLeft = style.radiusTL || 0;
-    shape.borderRadiusTopRight = style.radiusTR || 0;
-    shape.borderRadiusBottomRight = style.radiusBR || 0;
-    shape.borderRadiusBottomLeft = style.radiusBL || 0;
+    write(() => { shape.borderRadiusTopLeft = style.radiusTL || 0; });
+    write(() => { shape.borderRadiusTopRight = style.radiusTR || 0; });
+    write(() => { shape.borderRadiusBottomRight = style.radiusBR || 0; });
+    write(() => { shape.borderRadiusBottomLeft = style.radiusBL || 0; });
   };
   const setFill = (shape, color, fillOpacity = 1) => {
-    requireActiveRun();
-    shape.fills = fillOpacity > 0 ? [{ fillColor: color, fillOpacity }] : [];
-    shape.strokes = [];
+    write(() => { shape.fills = fillOpacity > 0 ? [{ fillColor: color, fillOpacity }] : []; });
+    write(() => { shape.strokes = []; });
   };
   const setStroke = (shape, style = {}) => {
-    requireActiveRun();
-    shape.strokes = style.strokeWidth > 0 && style.strokeOpacity > 0 ? [{ strokeColor: style.strokeColor, strokeOpacity: style.strokeOpacity, strokeStyle: 'solid', strokeWidth: style.strokeWidth, strokeAlignment: 'inner' }] : [];
+    write(() => { shape.strokes = style.strokeWidth > 0 && style.strokeOpacity > 0 ? [{ strokeColor: style.strokeColor, strokeOpacity: style.strokeOpacity, strokeStyle: 'solid', strokeWidth: style.strokeWidth, strokeAlignment: 'inner' }] : []; });
   };
   const auditRadii = (shape, style = {}, code = 'RADIUS_DRIFT', detail = {}) => {
     if (!eq(shape.borderRadiusTopLeft || 0, style.radiusTL || 0) || !eq(shape.borderRadiusTopRight || 0, style.radiusTR || 0) || !eq(shape.borderRadiusBottomRight || 0, style.radiusBR || 0) || !eq(shape.borderRadiusBottomLeft || 0, style.radiusBL || 0)) fail(code, detail);
@@ -411,7 +413,7 @@ async function installProductionRuntime(P) {
   }
 
   function stamp(shape, key, role) {
-    shape.name = key;
+    write(() => { shape.name = key; });
     plugin(shape, 'kenigevents-g19-marker', marker(key));
     plugin(shape, 'kenigevents-generation', GENERATION);
     plugin(shape, 'kenigevents-fixture-id', FIXTURE);
@@ -422,17 +424,16 @@ async function installProductionRuntime(P) {
 
   function applyText(textShape, style, fontRows) {
     const weight = 700;
-    requireActiveRun();
     const row = fontRows[weight];
-    row.font.applyToText(textShape, row.variant);
+    write(() => row.font.applyToText(textShape, row.variant));
     // Penpot's Text API requires strings. Numeric lineHeight is interpreted as
     // a unitless multiplier (for example 23.328 * 21.6px), which displaced and
     // clipped every glyph run in the first live G19 publication.
-    textShape.growType = 'fixed';
-    textShape.fontSize = String(style.fontSize);
-    textShape.lineHeight = String(style.lineHeight);
-    textShape.letterSpacing = String(style.letterSpacing || 0);
-    textShape.fills = [{ fillColor: style.color, fillOpacity: style.colorOpacity }];
+    write(() => { textShape.growType = 'fixed'; });
+    write(() => { textShape.fontSize = String(style.fontSize); });
+    write(() => { textShape.lineHeight = String(style.lineHeight); });
+    write(() => { textShape.letterSpacing = String(style.letterSpacing || 0); });
+    write(() => { textShape.fills = [{ fillColor: style.color, fillOpacity: style.colorOpacity }]; });
     plugin(textShape, 'kenigevents-font-family', FAMILY);
     plugin(textShape, 'kenigevents-font-weight', weight);
     plugin(textShape, 'kenigevents-font-style', 'normal');
@@ -442,29 +443,30 @@ async function installProductionRuntime(P) {
   }
 
   function makeText(parent, name, value, box, style, fontRows) {
-    const text = penpot.createText(value);
-    text.name = name;
-    text.characters = value;
+    const text = write(() => penpot.createText(value));
+    write(() => { text.name = name; });
+    write(() => { text.characters = value; });
     place(text, parent, box);
     applyText(text, style, fontRows);
     return text;
   }
 
   function tintedSvg(source, color) {
-    return source.replace('<svg ', `<svg fill="${color}" color="${color}" `).replaceAll('currentColor', color);
+    if (!source.includes('currentColor')) fail('ACTION_SVG_CURRENT_COLOR_CONTRACT_MISSING');
+    return source.replaceAll('currentColor', color);
   }
 
   function icon(parent, svg, color, x, y, width, height, name) {
-    const shape = penpot.createShapeFromSvg(tintedSvg(svg, color));
-    shape.name = name;
+    const shape = write(() => penpot.createShapeFromSvg(tintedSvg(svg, color)));
+    write(() => { shape.name = name; });
     place(shape, parent, { x, y, width, height });
     return shape;
   }
 
   function createLeafRoot(spec) {
-    const root = penpot.createBoard();
+    const root = write(() => penpot.createBoard());
     stamp(root, spec.key, 'leaf-master');
-    root.clipContent = Boolean(spec.clip);
+    write(() => { root.clipContent = Boolean(spec.clip); });
     setFill(root, spec.fill || '#000000', spec.fillOpacity ?? 0);
     setRadii(root, spec.style || {});
     if (spec.kind !== 'media') setStroke(root, spec.style || {});
@@ -492,9 +494,9 @@ async function installProductionRuntime(P) {
     let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_RECT_MISSING', { rootKey, childKey });
-      shape = penpot.createRectangle();
+      shape = write(() => penpot.createRectangle());
       if (!shape) fail('CREATE_RECTANGLE_FAILED', { rootKey, childKey });
-      shape.name = childKey;
+      write(() => { shape.name = childKey; });
       stampChild(shape, rootKey, childKey);
       setFill(shape, color, fillOpacity);
       if (style) setRadii(shape, style);
@@ -510,10 +512,10 @@ async function installProductionRuntime(P) {
     let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_BOARD_MISSING', { rootKey, childKey });
-      shape = penpot.createBoard();
+      shape = write(() => penpot.createBoard());
       if (!shape) fail('CREATE_BOARD_FAILED', { rootKey, childKey });
-      shape.name = childKey;
-      shape.clipContent = true;
+      write(() => { shape.name = childKey; });
+      write(() => { shape.clipContent = true; });
       stampChild(shape, rootKey, childKey);
       setFill(shape, color, fillOpacity);
       setRadii(shape, style);
@@ -533,7 +535,7 @@ async function installProductionRuntime(P) {
       if (!shape) fail('CREATE_TEXT_FAILED', { rootKey, childKey });
       stampChild(shape, rootKey, childKey);
     } else if (createAllowed) {
-      shape.characters = value;
+      write(() => { shape.characters = value; });
       place(shape, parent, box);
       applyText(shape, style, fontRows);
     }
@@ -546,9 +548,9 @@ async function installProductionRuntime(P) {
     let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_ICON_MISSING', { rootKey, childKey });
-      shape = penpot.createShapeFromSvg(tintedSvg(source, color));
+      shape = write(() => penpot.createShapeFromSvg(tintedSvg(source, color)));
       if (!shape) fail('CREATE_SVG_FAILED', { rootKey, childKey });
-      shape.name = childKey;
+      write(() => { shape.name = childKey; });
       stampChild(shape, rootKey, childKey);
       plugin(shape, 'kenigevents-svg-sha256', assetSha256);
       plugin(shape, 'kenigevents-icon-color', color);
@@ -559,9 +561,9 @@ async function installProductionRuntime(P) {
     return shape;
   }
   async function withUndo(fn) {
-    const blockId = penpot.history.undoBlockBegin();
+    const blockId = write(() => penpot.history.undoBlockBegin());
     try { return await fn(); }
-    finally { penpot.history.undoBlockFinish(blockId); }
+    finally { write(() => penpot.history.undoBlockFinish(blockId)); }
   }
 
   const isLegacyV2Root = (root, key) => root?.getPluginData?.('kenigevents-g19-marker') === legacyV2Marker(key)
@@ -605,8 +607,8 @@ async function installProductionRuntime(P) {
       if ((component.path !== spec.path || component.name !== spec.name) && main.getPluginData('kenigevents-build-state') === 'READY_FOR_COMPONENT' && !component.path && !component.name) {
         return await withUndo(async () => {
           await build(main, true);
-          component.path = spec.path;
-          component.name = spec.name;
+          write(() => { component.path = spec.path; });
+          write(() => { component.name = spec.name; });
           plugin(main, 'kenigevents-component-name', spec.name);
           plugin(main, 'kenigevents-component-id', component.id);
           plugin(main, 'kenigevents-build-state', 'COMPLETE');
@@ -625,10 +627,10 @@ async function installProductionRuntime(P) {
       if (root.getPluginData('kenigevents-payload-sha256') !== P.payloadSha256) fail('MANAGED_ROOT_PAYLOAD_DRIFT', { key: spec.key, rootId: root.id });
       await build(root, false);
       plugin(root, 'kenigevents-build-state', 'READY_FOR_COMPONENT');
-      component = penpot.library.local.createComponent([root]);
+      component = write(() => penpot.library.local.createComponent([root]));
       if (!component) fail('CREATE_COMPONENT_FAILED', { key: spec.key });
-      component.path = spec.path;
-      component.name = spec.name;
+      write(() => { component.path = spec.path; });
+      write(() => { component.name = spec.name; });
       plugin(root, 'kenigevents-component-name', spec.name);
       plugin(root, 'kenigevents-component-id', component.id);
       plugin(root, 'kenigevents-build-state', 'COMPLETE');
@@ -722,9 +724,9 @@ async function installProductionRuntime(P) {
   }
 
   function createCardRoot(spec) {
-    const root = penpot.createBoard();
+    const root = write(() => penpot.createBoard());
     stamp(root, spec.key, 'accepted-card-master');
-    root.clipContent = false;
+    write(() => { root.clipContent = false; });
     setFill(root, '#000000', 0);
     setRadii(root, { radiusTL: 24, radiusTR: 24, radiusBR: 24, radiusBL: 24 });
     place(root, targetBoard(), { ...spec.box, x: spec.position.x, y: spec.position.y });
@@ -740,9 +742,9 @@ async function installProductionRuntime(P) {
     let instance = findChild(parent, rootKey, binding.slotName, identity);
     if (!instance) {
       if (!createAllowed) fail('LINKED_INSTANCE_MISSING', { rootKey, slotName: binding.slotName });
-      instance = leaf.component.instance();
+      instance = write(() => leaf.component.instance());
       if (!instance) fail('CREATE_COMPONENT_INSTANCE_FAILED', { rootKey, leafKey: binding.leafKey });
-      instance.name = binding.slotName;
+      write(() => { instance.name = binding.slotName; });
       stampChild(instance, rootKey, binding.slotName);
       plugin(instance, 'kenigevents-linked-leaf-key', binding.leafKey);
       plugin(instance, 'kenigevents-linked-component-id', leaf.component.id);
@@ -804,7 +806,7 @@ async function installProductionRuntime(P) {
       const label = nestedManagedChild(instance, leafKey, 'label', identity), fragment = slot.lineFragments[0];
       if (!label || !fragment) fail('LINKED_TEXT_OVERRIDE_TARGET_MISSING', { caseId: spec.caseId, slot: binding.slotName });
       const box = { x: fragment.x - slot.box.x, y: fragment.y - slot.box.y, width: fragment.width, height: fragment.height };
-      if (!auditOnly) { label.characters = slot.text; place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, 'kenigevents-instance-case-id', spec.caseId); }
+      if (!auditOnly) { write(() => { label.characters = slot.text; }); place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, 'kenigevents-instance-case-id', spec.caseId); }
       auditBox(label, box, 'LINKED_TEXT_OVERRIDE_GEOMETRY_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
       if (label.characters !== slot.text || label.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId || label.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || label.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId) fail('LINKED_TEXT_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
       return;
@@ -819,10 +821,10 @@ async function installProductionRuntime(P) {
       if (!child) fail('LINKED_ACTION_OVERRIDE_TARGET_MISSING', { caseId: spec.caseId, action, part });
       const expected = geometry[part], hidden = Boolean(expected.hidden);
       if (!auditOnly) {
-        child.hidden = hidden;
+        write(() => { child.hidden = hidden; });
         plugin(child, 'kenigevents-instance-case-id', spec.caseId);
         if (!hidden) place(child, instance, expected);
-        if (part !== 'icon') { child.characters = values[part]; applyText(child, slot.style, fontRows); }
+        if (part !== 'icon') { write(() => { child.characters = values[part]; }); applyText(child, slot.style, fontRows); }
       }
       if (Boolean(child.hidden) !== hidden || child.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId) fail('LINKED_ACTION_OVERRIDE_STATE_DRIFT', { caseId: spec.caseId, action, part });
       if (!hidden) auditBox(child, expected, 'LINKED_ACTION_OVERRIDE_GEOMETRY_DRIFT', { caseId: spec.caseId, action, part });
@@ -838,9 +840,9 @@ async function installProductionRuntime(P) {
       if (auditOnly) fail('CASE_MEDIA_SHAPE_MISSING', { caseId: spec.caseId });
       const aspect = media.fit === 'cover' ? 'xMidYMid slice' : 'xMidYMid meet';
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${box.width}" height="${box.height}" viewBox="0 0 ${box.width} ${box.height}"><defs><clipPath id="clip"><rect width="${box.width}" height="${box.height}"/></clipPath></defs><rect width="${box.width}" height="${box.height}" fill="#15110f"/><image clip-path="url(#clip)" x="0" y="0" width="${box.width}" height="${box.height}" preserveAspectRatio="${aspect}" href="data:image/webp;base64,${media.base64}" xlink:href="data:image/webp;base64,${media.base64}"/></svg>`;
-      shape = await penpot.createShapeFromSvgWithImages(svg);
+      shape = await writeAsync(() => penpot.createShapeFromSvgWithImages(svg));
       if (!shape) fail('CREATE_CASE_MEDIA_SVG_FAILED', { caseId: spec.caseId });
-      shape.name = `${spec.fixtureId}.poster.${media.fit}.50-50`;
+      write(() => { shape.name = `${spec.fixtureId}.poster.${media.fit}.50-50`; });
       stampChild(shape, spec.key, childKey);
       plugin(shape, 'kenigevents-media-sha256', media.sha256);
       plugin(shape, 'kenigevents-media-fit', media.fit);
@@ -949,8 +951,8 @@ async function installProductionRuntime(P) {
         && ['', spec.name].includes(existing.name);
       if (resumableRegistration) return await withUndo(async () => {
         await auditCompleteCard(spec, main, leaves, fontRows);
-        existing.path = CARD_PATH;
-        existing.name = spec.name;
+        write(() => { existing.path = CARD_PATH; });
+        write(() => { existing.name = spec.name; });
         plugin(main, 'kenigevents-component-name', spec.name);
         plugin(main, 'kenigevents-component-id', existing.id);
         plugin(main, 'kenigevents-build-state', 'COMPLETE');
@@ -966,10 +968,10 @@ async function installProductionRuntime(P) {
       await buildCardStatic(spec, root, fontRows, true);
       buildCardBindings(spec, root, leaves, fontRows, true, 'shell');
       buildCardBindings(spec, root, leaves, fontRows, false, 'actions');
-      const component = penpot.library.local.createComponent([root]);
+      const component = write(() => penpot.library.local.createComponent([root]));
       if (!component) fail('CREATE_CARD_COMPONENT_FAILED', { key: spec.key });
-      component.path = CARD_PATH;
-      component.name = spec.name;
+      write(() => { component.path = CARD_PATH; });
+      write(() => { component.name = spec.name; });
       plugin(root, 'kenigevents-component-name', spec.name);
       plugin(root, 'kenigevents-component-id', component.id);
       plugin(root, 'kenigevents-build-state', 'COMPLETE');
@@ -1185,7 +1187,7 @@ async function installProductionRuntime(P) {
     const versions = array(await penpot.currentFile.findVersions());
     let version = versions.find((candidate) => (candidate?.label || candidate?.name) === label) || null;
     const created = Boolean(changed || !version);
-    if (created) version = await penpot.currentFile.saveVersion(label);
+    if (created) version = await writeAsync(() => penpot.currentFile.saveVersion(label));
     return { id: version?.id || null, label: version?.label || version?.name || label, created };
   }
 
@@ -1203,6 +1205,7 @@ async function installProductionRuntime(P) {
   async function runPhase(phaseId) {
     if (!PHASE_ORDER.includes(phaseId)) fail('UNKNOWN_MATERIALIZATION_PHASE', { phaseId, allowed: PHASE_ORDER });
     assertPrimitives();
+    const runLease = requireActiveRun();
     const preflight = assertBaselineCensus();
     const fontRows = resolveFonts(); // Exact family + normal-{400,700}; runtime ids are receipt data, never pinned inputs.
     const dependency = previousPhase(phaseId);
@@ -1231,7 +1234,8 @@ async function installProductionRuntime(P) {
     const result = readback(strict);
     const afterMigration = migrationAcceptance(result);
     if (result.validation.length || !afterMigration.accepted) fail('POST_PHASE_SAVE_ACCEPTANCE_FAILED', { phaseId, migration: afterMigration, readback: result });
-    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v2', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
+    const terminalLease = requireActiveRun();
+    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v3', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, runControl: { run_id: runLease.run_id, writer_id: runLease.writer_id, state: terminalLease.state, contract_sha256: runLease.contract_sha256, page_profile_sha256: runLease.page_profile_sha256, asset_registry_sha256: runLease.asset_registry_sha256, geometry_proof_sha256: runLease.geometry_proof_sha256 }, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
   }
 
   const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, EXPECTED_BASELINE_REVISION, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
@@ -1280,10 +1284,20 @@ async function main() {
     solePenpotWriter: 'D0/PUBLISH',
     runControl: {
       runId: '01a05819-82c8-7e70-a088-ed262f425ec6',
-      writerId: '/root/publish',
+      writerId: '/root/publish_r2',
       contractSha256: '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72',
       pageProfileSha256: '2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3',
-      assetRegistrySha256: '03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc',
+      assetRegistrySha256: 'bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4',
+      geometryProofSha256: '5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307',
+    },
+    geometryProof: {
+      repository: 'onedayonemasterpiece/lovekgd-design-system',
+      branch: 'task/d0-corpus-20260831',
+      commit: 'bf7a4c9aa20978d297bd8f53058042e0436f8554',
+      path: 'catalog/corpus-d0/free-collection-eventcard-geometry-proof.v1.json',
+      rawSha256: 'f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b',
+      proofPayloadSha256: '5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307',
+      harnessReceiptComment: 5480171331,
     },
     fileId: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
     pageId: 'c16498cb-b51d-8030-8008-904bd8fc9c53',
@@ -1303,16 +1317,26 @@ async function main() {
       'event.real.2182': { sha256: ACCEPTED_HASHES[MEDIA_2182], fit: 'cover', position: '50% 50%', base64: bytesByPath[MEDIA_2182].toString('base64') },
     },
     icons: {
-      notInterested: bytesByPath['catalog/ui-assets/v1/icons/action-not-interested.svg'].toString('utf8'),
-      calendar: bytesByPath['catalog/ui-assets/v1/icons/action-calendar-add.svg'].toString('utf8'),
-      share: bytesByPath['catalog/ui-assets/v1/icons/action-share.svg'].toString('utf8'),
-      like: bytesByPath['catalog/ui-assets/v1/icons/action-favorite-outline.svg'].toString('utf8'),
+      notInterested: bytesByPath[ACTION_ASSETS.notInterested].toString('utf8'),
+      calendar: bytesByPath[ACTION_ASSETS.calendar].toString('utf8'),
+      share: bytesByPath[ACTION_ASSETS.share].toString('utf8'),
+      like: bytesByPath[ACTION_ASSETS.like].toString('utf8'),
     },
     iconSha256: {
-      notInterested: ACCEPTED_HASHES['catalog/ui-assets/v1/icons/action-not-interested.svg'],
-      calendar: ACCEPTED_HASHES['catalog/ui-assets/v1/icons/action-calendar-add.svg'],
-      share: ACCEPTED_HASHES['catalog/ui-assets/v1/icons/action-share.svg'],
-      like: ACCEPTED_HASHES['catalog/ui-assets/v1/icons/action-favorite-outline.svg'],
+      notInterested: ACCEPTED_HASHES[ACTION_ASSETS.notInterested],
+      calendar: ACCEPTED_HASHES[ACTION_ASSETS.calendar],
+      share: ACCEPTED_HASHES[ACTION_ASSETS.share],
+      like: ACCEPTED_HASHES[ACTION_ASSETS.like],
+    },
+    assetBindings: {
+      registry: { repository: 'onedayonemasterpiece/lovekgd-design-system', commit: '0eb4c0a505e0aea522da2138cb1fb40f97d45edf', path: 'contracts/assets/ui-asset-registry.v1.yaml', sha256: 'bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4' },
+      materializationCommit: 'be313816ce22a7c63faed682e4014854e6e7369b',
+      actions: {
+        notInterested: { assetId: 'icon.action.not_interested', path: ACTION_ASSETS.notInterested, gitBlobSha1: '2cd0ebf989d63176a8e5f240c681316fab2e0670', sha256: ACCEPTED_HASHES[ACTION_ASSETS.notInterested], bytes: 912 },
+        calendar: { assetId: 'icon.action.calendar_add', path: ACTION_ASSETS.calendar, gitBlobSha1: '539baa5a7ab4f8794c2af3dae63a732cb00d1408', sha256: ACCEPTED_HASHES[ACTION_ASSETS.calendar], bytes: 374 },
+        share: { assetId: 'icon.action.share', path: ACTION_ASSETS.share, gitBlobSha1: '3b6a82536becf79040c1201b327c93123080b557', sha256: ACCEPTED_HASHES[ACTION_ASSETS.share], bytes: 719 },
+        like: { assetId: 'icon.action.favorite', path: ACTION_ASSETS.like, gitBlobSha1: 'e7b836f1f102ab787364077f1cc84fb2863b87ca', sha256: ACCEPTED_HASHES[ACTION_ASSETS.like], bytes: 459 },
+      },
     },
     descendants: descendants.cases,
     cases,
@@ -1323,13 +1347,14 @@ async function main() {
   const payloadText = JSON.stringify(payload), payloadTransportSha256 = sha256(Buffer.from(payloadText)), payloadChunks = payloadText.match(/[\s\S]{1,48000}/g) || [];
   const bootstrapSource = `/** G19 P2 V3 read-only bounded payload uploader bootstrap. */\nreturn (()=>{const session=${JSON.stringify(payloadTransportSha256)};const state={session,total:null,chunks:[],append(index,total,chunk){if(this.session!==session)throw new Error('G19_UPLOAD_SESSION_DRIFT');if(!Number.isInteger(index)||index<0||index>=total)throw new Error('G19_UPLOAD_INDEX_INVALID');if(this.total!=null&&this.total!==total)throw new Error('G19_UPLOAD_TOTAL_DRIFT');this.total=total;if(this.chunks[index]!=null){if(this.chunks[index]!==chunk)throw new Error('G19_UPLOAD_CHUNK_DRIFT');return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:true,received:this.chunks.filter(v=>v!=null).length,total};}this.chunks[index]=chunk;return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:false,received:this.chunks.filter(v=>v!=null).length,total};},seal(total,chars){if(this.total!==total||this.chunks.length!==total||this.chunks.some(v=>typeof v!=='string'))throw new Error('G19_UPLOAD_INCOMPLETE');const text=this.chunks.join('');if(text.length!==chars)throw new Error('G19_UPLOAD_LENGTH_MISMATCH');return text;}};storage.g19EventCard8006Upload=state;delete storage.g19EventCard8006;return {schema:'kenigevents.penpot.g19.upload-ready.v3',session,total:${payloadChunks.length},chars:${payloadText.length},mutations:0};})();\n`;
   const chunkOutputs = Object.fromEntries(payloadChunks.map((chunk, index) => [`phase-01-payload-${String(index + 1).padStart(3, '0')}.js`, `/** G19 P2 V3 payload chunk ${index + 1}/${payloadChunks.length}; read-only. */\nif(!storage.g19EventCard8006Upload)throw new Error('G19_UPLOAD_NOT_BOOTSTRAPPED');return storage.g19EventCard8006Upload.append(${index},${payloadChunks.length},${JSON.stringify(chunk)});\n`]));
-  const installSource = `/** G19 P2 V3 seal payload, verify SHA-256 without WebCrypto, install runtime, and preflight without mutation. */\nconst text=storage.g19EventCard8006Upload?.seal(${payloadChunks.length},${payloadText.length});const digest=(${compactGeneratedFunction(sha256Utf8Text)})(text);if(digest!==${JSON.stringify(payloadTransportSha256)})throw new Error('G19_PAYLOAD_SHA256_MISMATCH');const P=JSON.parse(text);if(P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_CORE_IDENTITY_MISMATCH');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
+  const verifySource = `/** G19 P2 V3 seal and verify payload without mutation. */\nconst text=storage.g19EventCard8006Upload?.seal(${payloadChunks.length},${payloadText.length});const digest=(${compactGeneratedFunction(sha256Utf8Text)})(text);if(digest!==${JSON.stringify(payloadTransportSha256)})throw new Error('G19_PAYLOAD_SHA256_MISMATCH');const P=JSON.parse(text);if(P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_CORE_IDENTITY_MISMATCH');storage.g19EventCard8006Payload=P;return {schema:'kenigevents.penpot.g19.payload-verified.v3',payloadSha256:P.payloadSha256,mutations:0};\n`;
+  const installSource = `/** G19 P2 V3 install runtime and preflight without mutation. */\nconst P=storage.g19EventCard8006Payload;if(!P||P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_NOT_VERIFIED');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
   const mutationPhases = ['P10_DESKTOP_LEAVES_A','P11_DESKTOP_LEAVES_B','P20_MOBILE_LEAVES_A','P21_MOBILE_LEAVES_B','P30_DESKTOP_WIDE_SHELL','P31_DESKTOP_WIDE_FINAL','P40_DESKTOP_PACKED_SHELL','P41_DESKTOP_PACKED_FINAL','P50_MOBILE_WIDE_SHELL','P51_MOBILE_WIDE_FINAL','P60_MOBILE_PACKED_SHELL','P61_MOBILE_PACKED_FINAL','P90_FINALIZE'];
   const phaseOutputs = Object.fromEntries(mutationPhases.map((phaseId) => [`phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`, `/** G19 P2 V3 bounded idempotent mutator ${phaseId}. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.runPhase(${JSON.stringify(phaseId)});\n`]));
   const readbackSource = `/** G19 P2 V3 readback + validate; read-only. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return storage.g19EventCard8006.readback(false);\n`;
   const exportSource = `/** Export all four accepted EventCard roots as directly decodable PNG payloads. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.exportRoots();\n`;
-  const outputs = { 'phase-00-bootstrap.js': bootstrapSource, ...chunkOutputs, 'phase-02-install-runtime.js': installSource, ...phaseOutputs, 'readback.js': readbackSource, 'export-roots.js': exportSource };
-  const setupOrder = ['phase-00-bootstrap.js', ...Object.keys(chunkOutputs), 'phase-02-install-runtime.js'];
+  const outputs = { 'phase-00-bootstrap.js': bootstrapSource, ...chunkOutputs, 'phase-02-verify-payload.js': verifySource, 'phase-03-install-runtime.js': installSource, ...phaseOutputs, 'readback.js': readbackSource, 'export-roots.js': exportSource };
+  const setupOrder = ['phase-00-bootstrap.js', ...Object.keys(chunkOutputs), 'phase-02-verify-payload.js', 'phase-03-install-runtime.js'];
   const mutatorOrder = mutationPhases.map((phaseId) => `phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`);
   const outputRows = Object.entries(outputs).map(([file, source]) => ({ path: `catalog/penpot-executor/g19/${file}`, sha256: sha256(Buffer.from(source)), bytes: Buffer.byteLength(source) }));
   const executableSetSha256 = sha256(Buffer.from(outputRows.map((row) => `${row.path}\0${row.sha256}\n`).join('')));
@@ -1359,7 +1384,42 @@ async function main() {
     executable_set_identity_format: 'UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order',
     expected_card_components: wanted,
     expected_leaf_components: expectedLeafComponents,
-    run_control: { namespace: 'kenigevents', key: 'asp-active-run-v1', schema: 'kenigevents.asp-run-control.v1', expected_run_id: payload.runControl.runId, expected_writer_id: payload.runControl.writerId, allowed_state: 'ACTIVE', recheck: 'before every write and after every awaited operation before the next write', bootstrap_included: false, contract_sha256: payload.runControl.contractSha256, page_profile_sha256: payload.runControl.pageProfileSha256, asset_registry_sha256: payload.runControl.assetRegistrySha256, geometry_proof_sha256: null },
+    asset_bindings: payload.assetBindings,
+    geometry_proof: payload.geometryProof,
+    run_control: { namespace: 'kenigevents', key: 'asp-active-run-v1', schema: 'kenigevents.asp-run-control.v1', expected_run_id: payload.runControl.runId, expected_writer_id: payload.runControl.writerId, allowed_state: 'ACTIVE', recheck: 'before every write and after every awaited operation before the next write', bootstrap_included: false, contract_sha256: payload.runControl.contractSha256, page_profile_sha256: payload.runControl.pageProfileSha256, asset_registry_sha256: payload.runControl.assetRegistrySha256, geometry_proof_sha256: payload.runControl.geometryProofSha256 },
+    provenance_receipt_template: {
+      schema: 'kenigevents.asp-materialization-receipt.v1',
+      run_id: payload.runControl.runId,
+      actor_type: 'codex-child-agent',
+      actor_id: payload.runControl.writerId,
+      triggered_by: 'D0 persistent goal / issue 57',
+      astro_repository: 'onedayonemasterpiece/events-bot-new',
+      astro_commit: payload.frozenAstroEvidence,
+      route: '/podborki/besplatnye-sobytiya/',
+      scenario: 'free-collection-september-mobile-v3',
+      viewport: null,
+      ui_sot_repository: 'onedayonemasterpiece/lovekgd-design-system',
+      ui_sot_commit: payload.promotedUiSot,
+      requirements_contract_hash: payload.runControl.contractSha256,
+      page_profile_hash: payload.runControl.pageProfileSha256,
+      asset_registry_hash: payload.runControl.assetRegistrySha256,
+      materializer_name: 'g19-eventcard-8006',
+      materializer_version: 'v3',
+      materializer_commit: null,
+      started_at: null,
+      completed_at: null,
+      final_state: null,
+      penpot_file_id: payload.fileId,
+      penpot_page_id: payload.pageId,
+      penpot_frame_ids: [],
+      mutation_count: 0,
+      mutated_object_ids: [],
+      asset_binding_digest: payload.runControl.assetRegistrySha256,
+      geometry_proof_digest: payload.runControl.geometryProofSha256,
+      validation_result: null,
+      owner_review_state: 'NOT_REVIEWED',
+      completion_rule: 'PUBLISH fills every null/runtime field from native receipts; nulls are never an accepted final receipt',
+    },
     materialization_profile: {
       owner_override: 'G19-P2-P4-ACTUAL-MATERIALIZATION-R1',
       accepted_card_encoding: 'four exact fixture-bound structural-context root components under the immutable accepted G12 board',
@@ -1375,7 +1435,7 @@ async function main() {
     execution: { same_plugin_session_required: true, setup_order: setupOrder, mutator_order: mutatorOrder, checkpoint_after_every_mutator: 'Pass readback.js; each phase receipt already embeds the same census plus validate().', export_png: 'Pass export-roots.js after P90_FINALIZE.', maximum_generated_script_bytes: Math.max(...Object.values(outputs).map((source) => Buffer.byteLength(source))) },
   };
   await mkdir(OUT, { recursive: true });
-  for (const file of await readdir(OUT)) if ((file === 'run-materialization.js' || file.startsWith('phase-01-payload-')) && !Object.hasOwn(outputs, file)) await rm(path.join(OUT, file));
+  for (const file of await readdir(OUT)) if ((file === 'run-materialization.js' || file.startsWith('phase-') || file === 'readback.js' || file === 'export-roots.js') && !Object.hasOwn(outputs, file)) await rm(path.join(OUT, file));
   for (const [file, source] of Object.entries(outputs)) await writeFile(path.join(OUT, file), source);
   await writeFile(path.join(OUT, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   process.stdout.write(`${JSON.stringify({ payloadSha256, outputs: manifest.outputs }, null, 2)}\n`);

@@ -52,9 +52,9 @@
       }
     }
   },
-  "payload_sha256": "fcffab444831551a9fd37152dddc142d74df6bba8fb9164a4aaae6b108f9decd",
-  "payload_transport_sha256": "a28c1710d4e86a5c4c5550171d2ec5884c3dbb21ff53d68c78f31496f2f3d875",
-  "executable_set_sha256": "70a3cef4e8bbdb7b8b30bba11b3d47ad86a1fcacb52ea10dfae40d495915ff50",
+  "payload_sha256": "f4fb7aeb369809eca049cb42aa548d62436d4a1d5ea6e4ffbe722e0d67a7c0d4",
+  "payload_transport_sha256": "1eb4d68d7cb02bb717a9c7cc6d8464517f5380e796819985c1e78859f6d55e6a",
+  "executable_set_sha256": "0ff50879f4ce82f3a7d2f2254e179f16cb1fac59494a5deaca4d225ed829ab2b",
   "executable_set_identity_format": "UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order",
   "expected_card_components": [
     "eventcard.desktop-wide-calendar.8006",
@@ -78,19 +78,100 @@
     "event.action.share.mobile.8006",
     "event.action.like.mobile.8006"
   ],
+  "asset_bindings": {
+    "registry": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4"
+    },
+    "materializationCommit": "be313816ce22a7c63faed682e4014854e6e7369b",
+    "actions": {
+      "notInterested": {
+        "assetId": "icon.action.not_interested",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+        "gitBlobSha1": "2cd0ebf989d63176a8e5f240c681316fab2e0670",
+        "sha256": "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98",
+        "bytes": 912
+      },
+      "calendar": {
+        "assetId": "icon.action.calendar_add",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+        "gitBlobSha1": "539baa5a7ab4f8794c2af3dae63a732cb00d1408",
+        "sha256": "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7",
+        "bytes": 374
+      },
+      "share": {
+        "assetId": "icon.action.share",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+        "gitBlobSha1": "3b6a82536becf79040c1201b327c93123080b557",
+        "sha256": "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb",
+        "bytes": 719
+      },
+      "like": {
+        "assetId": "icon.action.favorite",
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+        "gitBlobSha1": "e7b836f1f102ab787364077f1cc84fb2863b87ca",
+        "sha256": "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7",
+        "bytes": 459
+      }
+    }
+  },
+  "geometry_proof": {
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "branch": "task/d0-corpus-20260831",
+    "commit": "bf7a4c9aa20978d297bd8f53058042e0436f8554",
+    "path": "catalog/corpus-d0/free-collection-eventcard-geometry-proof.v1.json",
+    "rawSha256": "f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b",
+    "proofPayloadSha256": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
+    "harnessReceiptComment": 5480171331
+  },
   "run_control": {
     "namespace": "kenigevents",
     "key": "asp-active-run-v1",
     "schema": "kenigevents.asp-run-control.v1",
     "expected_run_id": "01a05819-82c8-7e70-a088-ed262f425ec6",
-    "expected_writer_id": "/root/publish",
+    "expected_writer_id": "/root/publish_r2",
     "allowed_state": "ACTIVE",
     "recheck": "before every write and after every awaited operation before the next write",
     "bootstrap_included": false,
     "contract_sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
     "page_profile_sha256": "2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3",
-    "asset_registry_sha256": "03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc",
-    "geometry_proof_sha256": null
+    "asset_registry_sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+    "geometry_proof_sha256": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307"
+  },
+  "provenance_receipt_template": {
+    "schema": "kenigevents.asp-materialization-receipt.v1",
+    "run_id": "01a05819-82c8-7e70-a088-ed262f425ec6",
+    "actor_type": "codex-child-agent",
+    "actor_id": "/root/publish_r2",
+    "triggered_by": "D0 persistent goal / issue 57",
+    "astro_repository": "onedayonemasterpiece/events-bot-new",
+    "astro_commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "route": "/podborki/besplatnye-sobytiya/",
+    "scenario": "free-collection-september-mobile-v3",
+    "viewport": null,
+    "ui_sot_repository": "onedayonemasterpiece/lovekgd-design-system",
+    "ui_sot_commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+    "requirements_contract_hash": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+    "page_profile_hash": "2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3",
+    "asset_registry_hash": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+    "materializer_name": "g19-eventcard-8006",
+    "materializer_version": "v3",
+    "materializer_commit": null,
+    "started_at": null,
+    "completed_at": null,
+    "final_state": null,
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "penpot_page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "penpot_frame_ids": [],
+    "mutation_count": 0,
+    "mutated_object_ids": [],
+    "asset_binding_digest": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+    "geometry_proof_digest": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
+    "validation_result": null,
+    "owner_review_state": "NOT_REVIEWED",
+    "completion_rule": "PUBLISH fills every null/runtime field from native receipts; nulls are never an accepted final receipt"
   },
   "materialization_profile": {
     "owner_override": "G19-P2-P4-ACTUAL-MATERIALIZATION-R1",
@@ -186,24 +267,24 @@
       "bytes": 229072
     },
     {
-      "path": "catalog/ui-assets/v1/icons/action-not-interested.svg",
-      "sha256": "d8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6",
-      "bytes": 892
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+      "sha256": "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98",
+      "bytes": 912
     },
     {
-      "path": "catalog/ui-assets/v1/icons/action-calendar-add.svg",
-      "sha256": "f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633",
-      "bytes": 354
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+      "sha256": "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7",
+      "bytes": 374
     },
     {
-      "path": "catalog/ui-assets/v1/icons/action-share.svg",
-      "sha256": "99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9",
-      "bytes": 699
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+      "sha256": "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb",
+      "bytes": 719
     },
     {
-      "path": "catalog/ui-assets/v1/icons/action-favorite-outline.svg",
-      "sha256": "e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58",
-      "bytes": 439
+      "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+      "sha256": "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7",
+      "bytes": 459
     },
     {
       "path": "catalog/ui-components/event-card-large/component-contract.v2.json",
@@ -254,68 +335,73 @@
   "outputs": [
     {
       "path": "catalog/penpot-executor/g19/phase-00-bootstrap.js",
-      "sha256": "2768b25ee587c382e87f711f8a21dc29426867b54c65653f1017b811240e9ab0",
+      "sha256": "0611a5eb7c0dc5d07f3095e254129fb622f9e3944dcc68d8a34db12b3c59c358",
       "bytes": 1320
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-001.js",
-      "sha256": "56c57ca022b6e2088ef4219cc43d7e648a274b4c4ac1ce5e1f7d4198ae6c2ad2",
-      "bytes": 48564
+      "sha256": "7da66468db99db2ec7918c60360371c9eca0e344fbda30fd5767b40798ce4c06",
+      "bytes": 48596
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-002.js",
-      "sha256": "0878a568263ed677a36ff43da902d2ef3a27f8182cb3a1c1fd16765440e30948",
+      "sha256": "157b40c8ef93ddc2a1806b64f2cd61158044c8ad8bbd62b36b98ddc47616979f",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-003.js",
-      "sha256": "656fac5c38a7abeccd81ffafe841ada33bedf3ea48482fb73ae98c95d2793343",
+      "sha256": "32d070df9d2dae87783c91c4521c3131eb19e519c2e96ec16e69def992552589",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-004.js",
-      "sha256": "ae1595bffcbb0e3d6ab487d011e0053b8312012a0d0607b2fded33f26f395a08",
+      "sha256": "cfd9f93a46160a3bd5154da855d893bfed8cb8c460feccd633921b5ad329d5e6",
       "bytes": 48203
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-005.js",
-      "sha256": "cf76468874ed26aadbfada817a3ccc3ad23d3a64cc9b4bde8af065a83b23a098",
+      "sha256": "d5cc71034b13241adeaf9a19f0badc8c09acdbc282f252d2a360c0dc9063088d",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-006.js",
-      "sha256": "411545b543dcfcd94ea3fc0c2601ae124a0d52fd6e2e3b4e22d739bda14d7a66",
+      "sha256": "ac7a6fef5f46b9bf51c7bbd5a0a3736bea47d3be494f8799bb335a5929e252ff",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-007.js",
-      "sha256": "d9aa916a1e71561014fa50ca902651fd8f94676ac0a6426676cef6beeeae7900",
+      "sha256": "1f82155da9e327839d29f1ba1d5af21ae2bb09a935d9d2228ec8187fd2760a16",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-008.js",
-      "sha256": "49d8f3df38e1c7940d5b97b5312b61de6cba2981664568b91e49942d7ac1e704",
+      "sha256": "fbc620744dd510ecc2d1c3bd7dfed49b86f4160ac9d3f20a115e5e737e968329",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-009.js",
-      "sha256": "e9481a1bdb42948fbb2a61a3eff3dcbb82ccf533e7cc5d0243932f19fba2d352",
+      "sha256": "a2bc7c55141ffedd2f80d5af557717ba04d84dc2469881ee114ab63d04ebd5db",
       "bytes": 48185
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-010.js",
-      "sha256": "2ea45e090ba626a9ef12d5de348359eb50367c37c10aa56a2869c07c0fd27648",
-      "bytes": 51558
+      "sha256": "c2838f8368073127d11909bae6d742769201085578e0d2f9c92ae773174a4b82",
+      "bytes": 51401
     },
     {
       "path": "catalog/penpot-executor/g19/phase-01-payload-011.js",
-      "sha256": "2522e5cd8491b6613e4f3ff4389e1e5a924e8894c986c9021328a3cb3dc9c80f",
-      "bytes": 11670
+      "sha256": "1c4698a696f61ef60028b2f82ea826c1169eaec3e363d6265c33a2cdfe619561",
+      "bytes": 14142
     },
     {
-      "path": "catalog/penpot-executor/g19/phase-02-install-runtime.js",
-      "sha256": "d440de8a79a5d5b08a59cdf926b2be2ba1b91a28c230e7bce5e342e8c72b4f37",
-      "bytes": 64392
+      "path": "catalog/penpot-executor/g19/phase-02-verify-payload.js",
+      "sha256": "45c5eb2a7776fc2aa7d11a8ea1907ccaff6ccc1a7cf6b83b7dab1b2cae311208",
+      "bytes": 3202
+    },
+    {
+      "path": "catalog/penpot-executor/g19/phase-03-install-runtime.js",
+      "sha256": "42e1f4f5f7004f4574a8cf729ea36b525b8978a5fb0611235a7dc27bc88a29ea",
+      "bytes": 62781
     },
     {
       "path": "catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js",
@@ -408,7 +494,8 @@
       "phase-01-payload-009.js",
       "phase-01-payload-010.js",
       "phase-01-payload-011.js",
-      "phase-02-install-runtime.js"
+      "phase-02-verify-payload.js",
+      "phase-03-install-runtime.js"
     ],
     "mutator_order": [
       "phase-p10-desktop-leaves-a.js",
@@ -427,6 +514,6 @@
     ],
     "checkpoint_after_every_mutator": "Pass readback.js; each phase receipt already embeds the same census plus validate().",
     "export_png": "Pass export-roots.js after P90_FINALIZE.",
-    "maximum_generated_script_bytes": 64392
+    "maximum_generated_script_bytes": 62781
   }
 }
