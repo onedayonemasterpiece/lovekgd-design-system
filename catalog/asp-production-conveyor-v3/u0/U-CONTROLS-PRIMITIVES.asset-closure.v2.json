@@ -1,0 +1,293 @@
+{
+  "schema_version": "kenigevents.asp-u0-controls-primitives-asset-closure.v2",
+  "package_id": "U-CONTROLS-PRIMITIVES",
+  "package_revision": 2,
+  "owner": "U0",
+  "priority": "P1_FALLBACK_VISIBLE",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T16:40:00Z",
+  "purpose": "Complete the existing controls/primitives candidate with exact copy and check assets after F0 lowest-owner closure, without modifying the accepted EventCard page.",
+  "lifecycle": {
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "candidate_only": true,
+    "visual_pass": false,
+    "penpot_mutations_by_u0": 0,
+    "astro_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "requires_native_readback": true,
+    "requires_v0_review": true
+  },
+  "base_candidate": {
+    "branch": "u0/controls-primitives-v3",
+    "commit": "0f6d98fe8c4798b1be630f5fc635252c0ac5ace9",
+    "package": {
+      "path": "catalog/asp-production-conveyor-v3/u0/U-CONTROLS-PRIMITIVES.package.v1.json",
+      "git_blob_sha1": "ffe05f3fc99529448eeadc30108f965ecce2ba7f",
+      "bytes": 12159
+    },
+    "compiler": {
+      "path": "scripts/asp-production-conveyor-v3/u0/compile_controls_primitives.py",
+      "git_blob_sha1": "3efd2cb3e4ee5614ee21148193a3fdda3f891293",
+      "bytes": 12479
+    },
+    "tests": {
+      "path": "tests/asp-production-conveyor-v3/u0/test_controls_primitives_package.py",
+      "git_blob_sha1": "037308873d5b67bbec613380557d2ac48089729f",
+      "bytes": 3160
+    },
+    "families": 5,
+    "specimens": 38,
+    "deferred_families_now_closed": [
+      "control.copy-action",
+      "control.button.icon-only"
+    ]
+  },
+  "requirements_contract": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "source_a": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "tree": "a274f07297d46cc105f4cea7841a4b8563e2f72c",
+    "authority_mode": "ASTRO_AS_IS_REFERENCE",
+    "files": {
+      "copy_action": {
+        "path": "site/src/components/design-system/CopyAction.astro",
+        "git_blob_sha1": "7f01708518e034c86ceb576f1dfdee849ea787be"
+      },
+      "button": {
+        "path": "site/src/components/design-system/Button.astro",
+        "git_blob_sha1": "26c04968463fe826f699bfc0bc848c96adeebcf3"
+      },
+      "icons": {
+        "path": "site/src/components/Icon.astro",
+        "git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487"
+      },
+      "styles": {
+        "path": "site/src/styles/design-system.css",
+        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+      }
+    }
+  },
+  "f0_asset_closure": {
+    "branch": "chatgpt/f0-copy-check-assets-20260831",
+    "commit": "b780d299b2403ddea8d0d6c5185db2c5e29c223a",
+    "package": {
+      "path": "catalog/asp-production-conveyor-v3/f0/F-COPY-CHECK-ASSETS.package.v1.json",
+      "git_blob_sha1": "74dcb1fd12381495a239944839670988b615f0ff",
+      "sha256": "97b42867d554285283a60752bc8e9f122d524570867b6d12d99230fc23373a7c",
+      "status": "READY_FOR_D0_INTEGRATE"
+    },
+    "registry_extension": {
+      "path": "contracts/assets/ui-copy-check-asset-registry.extension.v1.json",
+      "git_blob_sha1": "7108aef4856c2851c1eadbcfe8597ae8cb7d9a26",
+      "sha256": "cfb48c0cf8bbff9bf744beb951f86653db8ac57520ca9665aefaa470939080fb",
+      "bytes": 7409
+    },
+    "assets": {
+      "icon.action.copy": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/copy.svg",
+        "git_blob_sha1": "39a1affb019ba0e9d55348be6d9be6314c2f4f91",
+        "sha256": "48710ac3735ed6a66aa775294d266f68800c140641dee0ed1029a85cb48cd049",
+        "bytes": 405,
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 1.8
+      },
+      "icon.status.check": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/controls/check.svg",
+        "git_blob_sha1": "b227ceaaf956194bcb7e4e33fb2d8c5bd91645ca",
+        "sha256": "3baf2a43953c61ce4d654002042c682ef9ecca73baff7d527359d170a6a40558",
+        "bytes": 230,
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke_width": 2.2
+      }
+    },
+    "fallback": false
+  },
+  "new_families": {
+    "control.copy-action": {
+      "source_component": "CopyAction.astro",
+      "variants": [
+        "secondary",
+        "inverse"
+      ],
+      "states": [
+        "default",
+        "busy",
+        "success",
+        "error",
+        "focus-visible",
+        "pressed"
+      ],
+      "minimum_box_px": 44,
+      "radius": "var(--ke-radius-control, 12px)",
+      "default_asset": "icon.action.copy",
+      "success_asset": "icon.status.check",
+      "reset_delay_default_ms": 2200,
+      "a11y": [
+        "aria-label-required",
+        "aria-busy-during-operation",
+        "polite-atomic-status",
+        "focus-visible-3px-plus-3px-offset",
+        "success-and-error-label-replacement"
+      ],
+      "reduced_motion": "icon transition only when prefers-reduced-motion:no-preference"
+    },
+    "control.button.icon-only": {
+      "source_component": "Button.astro iconOnly=true",
+      "variants": [
+        "secondary",
+        "inverse"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled",
+        "success"
+      ],
+      "minimum_box_px": 44,
+      "large_box_px": 52,
+      "aria_label_required": true,
+      "allowed_assets": [
+        "icon.action.copy",
+        "icon.status.check"
+      ],
+      "fallback": false
+    }
+  },
+  "new_specimens": {
+    "control.copy-action": [
+      {
+        "id": "copy-action.secondary.default",
+        "variant": "secondary",
+        "state": "default",
+        "visible_asset": "icon.action.copy"
+      },
+      {
+        "id": "copy-action.secondary.busy",
+        "variant": "secondary",
+        "state": "busy",
+        "visible_asset": "icon.action.copy"
+      },
+      {
+        "id": "copy-action.secondary.success",
+        "variant": "secondary",
+        "state": "success",
+        "visible_asset": "icon.status.check"
+      },
+      {
+        "id": "copy-action.secondary.error",
+        "variant": "secondary",
+        "state": "error",
+        "visible_asset": "icon.action.copy"
+      },
+      {
+        "id": "copy-action.inverse.default",
+        "variant": "inverse",
+        "state": "default",
+        "visible_asset": "icon.action.copy"
+      },
+      {
+        "id": "copy-action.inverse.success",
+        "variant": "inverse",
+        "state": "success",
+        "visible_asset": "icon.status.check"
+      }
+    ],
+    "control.button.icon-only": [
+      {
+        "id": "button.icon-only.secondary.copy.default",
+        "variant": "secondary",
+        "state": "default",
+        "asset": "icon.action.copy"
+      },
+      {
+        "id": "button.icon-only.secondary.copy.hover",
+        "variant": "secondary",
+        "state": "hover",
+        "asset": "icon.action.copy"
+      },
+      {
+        "id": "button.icon-only.secondary.copy.focus",
+        "variant": "secondary",
+        "state": "focus",
+        "asset": "icon.action.copy"
+      },
+      {
+        "id": "button.icon-only.secondary.copy.pressed",
+        "variant": "secondary",
+        "state": "pressed",
+        "asset": "icon.action.copy"
+      },
+      {
+        "id": "button.icon-only.secondary.copy.disabled",
+        "variant": "secondary",
+        "state": "disabled",
+        "asset": "icon.action.copy"
+      },
+      {
+        "id": "button.icon-only.inverse.check.success",
+        "variant": "inverse",
+        "state": "success",
+        "asset": "icon.status.check"
+      }
+    ]
+  },
+  "resulting_candidate": {
+    "families": 7,
+    "specimens": 50,
+    "base_families": 5,
+    "base_specimens": 38,
+    "new_families": 2,
+    "new_specimens": 12,
+    "unresolved_asset_identities": 0,
+    "generic_or_unicode_fallbacks": 0
+  },
+  "target": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "preferred_page_name": "KenigEvents · Controls & primitives · Candidate",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_INTEGRATE",
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "one_candidate_root": true,
+    "accepted_eventcard_page_mutation": false,
+    "screenshots": 0,
+    "old_penpot_uuids": 0
+  },
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_controls_primitives_asset_closure.py",
+    "consumer": "D0/MAT",
+    "output_schema": "kenigevents.u0-controls-primitives-candidate.v2",
+    "penpot_adapter_included": false,
+    "required_operations": [
+      "compile the existing 38-specimen base candidate",
+      "remote-verify F0 package, registry extension and physical asset bytes",
+      "append exactly twelve new specimens",
+      "resolve or create only the candidate controls page",
+      "protect the accepted EventCard page by pre/post digest",
+      "materialize one clearly non-accepted candidate root",
+      "native readback, non-empty PNG export and V0 review"
+    ]
+  },
+  "forbidden": [
+    "emoji or Unicode glyph",
+    "generic or Penpot built-in icon",
+    "manual redraw or geometry normalization",
+    "placeholder or screenshot implementation",
+    "old Penpot UUID lineage",
+    "mutation of accepted EventCard roots",
+    "promotion or visual PASS without V0"
+  ],
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_controls_primitives_asset_closure.py --repo . --check-repository-inputs --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_controls_primitives_asset_closure.py"
+  }
+}
