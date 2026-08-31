@@ -5,7 +5,7 @@ on:
     branches:
       - a0/asp-production-conveyor-20260831
     paths:
-      - tools/.a0_v6_chunks/**
+      - tools/.a0_v6_payload/**
       - .github/workflows/a0-work-stealing-v6.yml
 
 permissions:
@@ -29,27 +29,9 @@ jobs:
           python-version: '3.12'
       - name: Install focused validator dependency
         run: python -m pip install --disable-pip-version-check jsonschema
-      - name: Reconstruct and compile bounded A0 repair and independent adapters
+      - name: Reconstruct exact bounded generator
         run: |
-          cat tools/.a0_v6_chunks/*.b64 > tools/a0_compile_work_stealing_v6.py
-          python - <<'PY'
-          from pathlib import Path
-          import hashlib
-          path = Path('tools/a0_compile_work_stealing_v6.py')
-          data = path.read_bytes()
-          replacements = [
-              (b')archetype_id] for x in CONTRACT_FILES]', b')["archetype_id"] for x in CONTRACT_FILES]'),
-              (b'REUSE_CANNICAL_DATA', b'REUSE_CANONICAL_DATA'),
-              (b'adapter_record_sha2556', b'adapter_record_sha256'),
-              (b"),'focus page omission')\n    (lambda", b"),'focus page omission'),\n    (lambda"),
-          ]
-          for old, new in replacements:
-              if old not in data:
-                  raise SystemExit(f'missing expected transient corruption: {old!r}')
-              data = data.replace(old, new, 1)
-          path.write_bytes(data)
-          print({'patched_sha256': hashlib.sha256(data).hexdigest()})
-          PY
+          gzip -dc tools/.a0_v6_payload/a0_compile_work_stealing_v6.py.gz > tools/a0_compile_work_stealing_v6.py
           python -m py_compile tools/a0_compile_work_stealing_v6.py
           python tools/a0_compile_work_stealing_v6.py
       - name: Re-run repository-relevant A0 tests
@@ -62,7 +44,7 @@ jobs:
           git diff --check
       - name: Commit persistent result and remove transient runner
         run: |
-          rm -rf tools/a0_compile_work_stealing_v6.py tools/.a0_v6_chunks .github/workflows/a0-work-stealing-v6.yml
+          rm -rf tools/a0_compile_work_stealing_v6.py tools/.a0_v6_payload tools/.a0_v6_chunks .github/workflows/a0-work-stealing-v6.yml
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -A
