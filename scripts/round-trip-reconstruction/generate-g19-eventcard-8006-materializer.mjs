@@ -1215,13 +1215,13 @@ async function installProductionRuntime(P) {
     return { id: version?.id || null, label: version?.label || version?.name || label, created };
   }
 
-  function migrationAcceptance(readbackResult) {
+  function migrationGate(readbackResult) {
     const legacyRoots = managedRoots().filter((root) => {
       const value = root.getPluginData?.('kenigevents-g19-marker') || '';
       return value.endsWith(':v2') && root.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
     });
     if (!legacyRoots.length) return { active: false, accepted: readbackResult.routeLocalDuplicateMasterCount === 0 && readbackResult.auditIssues.length === 0, legacyRootNames: [] };
-    const names = new Set(legacyRoots.map((root) => root.name));
+    const names = new Set(legacyRoots.map((root) => root.getPluginData('kenigevents-component-name')));
     const allowed = readbackResult.auditIssues.every((issue) => names.has(issue.name) && ['COMPONENT_STATE_PAYLOAD_OR_PARENT', 'CARD_SLOT_GEOMETRY'].includes(issue.code));
     return { active: true, accepted: allowed && readbackResult.routeLocalDuplicateMasterCount === legacyRoots.length, legacyRootNames: [...names] };
   }
@@ -1252,11 +1252,11 @@ async function installProductionRuntime(P) {
     }
     const strict = phaseId === 'P90_FINALIZE';
     const beforeSave = readback(strict);
-    const beforeMigration = migrationAcceptance(beforeSave);
+    const beforeMigration = migrationGate(beforeSave);
     if (beforeSave.screenshotRootCount !== 0 || beforeSave.validation.length !== 0 || !beforeMigration.accepted || (strict && (beforeMigration.active || beforeSave.detachedRootCount !== 0 || beforeSave.acceptedCardRootCount !== 4 || beforeSave.managedComponentCount !== 18 || beforeSave.managedBoardChildCount !== 18 || beforeSave.totalLocalComponentCount !== 18))) fail('POST_PHASE_ACCEPTANCE_FAILED', { phaseId, migration: beforeMigration, readback: beforeSave });
     const savedVersion = await savePhaseVersion(phaseId, created.length > 0);
     const result = readback(strict);
-    const afterMigration = migrationAcceptance(result);
+    const afterMigration = migrationGate(result);
     if (result.validation.length || !afterMigration.accepted) fail('POST_PHASE_SAVE_ACCEPTANCE_FAILED', { phaseId, migration: afterMigration, readback: result });
     const terminalLease = requireActiveRun();
     return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v3', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, runControl: { run_id: runLease.run_id, writer_id: runLease.writer_id, state: terminalLease.state, contract_sha256: runLease.contract_sha256, page_profile_sha256: runLease.page_profile_sha256, asset_registry_sha256: runLease.asset_registry_sha256, geometry_proof_sha256: runLease.geometry_proof_sha256 }, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };

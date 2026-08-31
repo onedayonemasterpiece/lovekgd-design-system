@@ -284,6 +284,7 @@ function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
         shape.letterSpacing = Number(shape.letterSpacing);
       }
     }
+    root.name = `KenigEvents / G19 / Native component main / ${root.name}`;
   }
 }
 
@@ -316,7 +317,7 @@ async function observedCurrentSurface() {
   }
   // Model Penpot's native SVG vector descendants, which the compact fake does not create.
   const nativeVectorHost = surface.board.children
-    .find((shape) => shape.name === 'event.media-frame.desktop.8006')
+    .find((shape) => shape.getPluginData('kenigevents-g19-marker').includes('event.media-frame.desktop.8006'))
     ?.children[0];
   assert.ok(nativeVectorHost);
   for (let index = 0; index < 40; index += 1) nativeVectorHost.appendChild(new Shape('vector'));
@@ -573,9 +574,19 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(surface.board.children.length, 16);
   assert.equal(surface.components.length, 15);
   const preserved = new Map(surface.components.map((component) => [component.name, { componentId: component.id, rootId: component.mainInstance().id }]));
+  assert.ok(surface.board.children.some((root) => root.name.startsWith('KenigEvents / G19 / Native component main /')));
 
   await installRuntime(surface);
+  const firstP10 = await executePath('catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js', surface);
+  assert.equal(firstP10.migration.accepted, true);
+  assert.ok(firstP10.migration.legacyRootNames.every((name) => !name.includes('/')));
+  const postFailureIds = surface.board.children.map((root) => root.id);
+  surface.penpot.currentFile.revn = 58;
+  surface.storage = {};
+  await installRuntime(surface);
   const receipts = await runAllPhases(surface);
+  assert.equal(receipts[0].terminalState, 'SUCCEEDED_IDEMPOTENT_REUSE');
+  assert.deepEqual(surface.board.children.slice(0, 16).map((root) => root.id), postFailureIds);
   const final = receipts.at(-1).readback;
   assert.equal(final.board.childCount, 18);
   assert.equal(final.managedComponentCount, 18);
