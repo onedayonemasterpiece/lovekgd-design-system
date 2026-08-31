@@ -32,9 +32,9 @@
   },
   "native_executor": {
     "path": "scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js",
-    "git_blob_sha1": "059c02126fad6f3723d48d75191d71b7ef434f7b",
-    "sha256": "a78a263d83edce7127f96e36a1db4f5d03d732f17a58dae0aec5338a53a154e1",
-    "bytes": 32905,
+    "git_blob_sha1": "f19a55d8faf6526f977e88424676a8564c9d5dba",
+    "sha256": "429cb2b8cf948bcd553f4e16af994b04af5ded33290022b0d336a4c77a665bca",
+    "bytes": 33722,
     "kind": "self-contained-penpot-plugin-executor",
     "entry_call": "return await runActionNavIconsV5({penpot,storage});",
     "external_module_factory_required": false,
@@ -44,9 +44,9 @@
   },
   "target": {
     "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
-    "page_name": "01 · Foundations · Icons and actions · Candidate",
+    "page_name": "01 · Foundations · Action & navigation icons · Candidate",
     "page_create_if_missing": true,
-    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-reconstructed",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-ACTION-NAV-ICONS · current-target",
     "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
     "owner_review_state": "NOT_ACCEPTED",
     "promotion_allowed": false
@@ -100,9 +100,15 @@
     "f0_source_root": {
       "root_id": "313fb1ed-0d5c-8095-8008-918a0c1473af",
       "linked_instances": 37,
-      "chars": 43734,
-      "utf8_bytes": 43744,
-      "sha256": "523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1"
+      "chars": 43736,
+      "utf8_bytes": 43746,
+      "sha256": "1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa",
+      "scalar_projection_negative": {
+        "chars": 43734,
+        "utf8_bytes": 43744,
+        "sha256": "523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1",
+        "accepted": false
+      }
     }
   },
   "run_control": {
@@ -366,7 +372,7 @@
     "source_commit": "62deac3e1276e5a92b79ab4b6512e4489202719b",
     "source_tree": "db061866fa18efd27db7c32815ed5736113d56d5",
     "source_package_sha256": "d2cef6f2ce865a692b06042487f0f41ea32fb879a90abfab0c2b1244b5352d9b",
-    "native_executor_sha256": "a78a263d83edce7127f96e36a1db4f5d03d732f17a58dae0aec5338a53a154e1",
+    "native_executor_sha256": "429cb2b8cf948bcd553f4e16af994b04af5ded33290022b0d336a4c77a665bca",
     "writer_id": "/root/publish_r2",
     "owner_review_state": "NOT_ACCEPTED",
     "required_runtime_fields": [
@@ -396,7 +402,10 @@
       "all non-target page and shape IDs preserved",
       "nonempty native export receipt",
       "stable-ID idempotent second run creates zero and saves no new version"
-    ]
+    ],
+    "git_blob_sha1": "5984081d8290b8a5a92a42aec9d445929707bd49",
+    "sha256": "ace0fa7d14c01d7ec30f3703754246442a2d81cb330dd4908d70b0638b8f9f4b",
+    "bytes": 15285
   },
   "forbidden": [
     "Penpot write by MAT or INTEGRATE",
@@ -409,7 +418,7 @@
   ],
   "component_naming": {
     "library_component_name": "leaf only",
-    "library_component_path": "Foundations / Icons and actions / Candidate / Icon / <Action|Navigation>",
+    "library_component_path": "Foundations / Action & navigation icons / Candidate / Icon / <Action|Navigation>",
     "main_instance_name": "exact path plus leaf once",
     "slash_duplication_forbidden": true,
     "identity_comparison": "persisted UUID equality, never JS proxy identity"
@@ -426,10 +435,12 @@
       "final R5 package SHA-256",
       "final native executor SHA-256"
     ],
-    "entry_call": "return setupActionNavIconsV5({penpot,storage});"
+    "entry_call": "return setupActionNavIconsV5({penpot,storage});",
+    "adapter_revision": "R5.2"
   },
   "execution_order": [
     "action_nav_icons_setup_v5.js",
     "action_nav_icons_native_executor_v5.js"
-  ]
+  ],
+  "adapter_revision": "R5.2"
 }
