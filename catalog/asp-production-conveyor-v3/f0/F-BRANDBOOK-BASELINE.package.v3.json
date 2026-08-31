@@ -1,0 +1,343 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-BRANDBOOK-BASELINE",
+  "revision": 3,
+  "owner": "F0",
+  "priority": "P1_FALLBACK_VISIBLE",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_INTEGRATE_PASS_AND_D0_PUBLISH_CLAIM",
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
+  "branch": "chatgpt/f0-brandbook-current-target-v3-20260831",
+  "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v3.json",
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "contracts/assets/ui-brand-asset-registry.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/f0_brandbook_contract_v3.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py",
+    "tests/asp-production-conveyor-v3/f0/test_brandbook_baseline_candidate_v3.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-brandbook-current-target-v3-20260831",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v3.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, actual package blob, source packages, exact registry, helper, runner and tests; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 2,
+    "path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v2.json",
+    "git_blob_sha1": "8bf71f0efa8286c95e8dc555fa8d9cf368d25e91",
+    "bytes": 11641,
+    "executable": false,
+    "reasons": [
+      "stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
+      "registry tuple unresolved in v2",
+      "generic recursive asset resolver is replaced by three explicit exact asset records",
+      "no current protected-surface digest or candidate lifecycle boundary"
+    ]
+  },
+  "source_package_v2": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v2.json",
+    "git_blob_sha1": "8bf71f0efa8286c95e8dc555fa8d9cf368d25e91",
+    "bytes": 11641
+  },
+  "source_package_v1": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "git_blob_sha1": "10228a7390e8f75821d64063c141c1c0cca7e234",
+    "bytes": 8040
+  },
+  "asset_registry": {
+    "path": "contracts/assets/ui-brand-asset-registry.v1.json",
+    "git_blob_sha1": "1be770e76bb3bc1776da60c1575af7358e8b7688",
+    "bytes": 6161,
+    "registry_id": "kenigevents.ui-assets.brand.v1"
+  },
+  "helper": {
+    "path": "scripts/asp-production-conveyor-v3/f0/f0_brandbook_contract_v3.py",
+    "git_blob_sha1": "4b370b97a026136aed5689982127413744973b05",
+    "sha256": "8ebc36886727e4b3705cd02431ca19bdccde045f9a6e8c00e641911b296aada1",
+    "bytes": 5388
+  },
+  "runner": {
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py",
+    "git_blob_sha1": "c77166f7b42bb6923ea7f93a84b442989e970ebe",
+    "sha256": "f9f284a2140b52b9c0d7160aaae7df5d7a55fafa31ac9e6a679de1455d1c142f",
+    "bytes": 17623
+  },
+  "tests": {
+    "path": "tests/asp-production-conveyor-v3/f0/test_brandbook_baseline_candidate_v3.py",
+    "git_blob_sha1": "c7d8584cc33eda3880f11cbf5ede542bc7bc83b4",
+    "sha256": "3aebc1afe737fdbc551078968c2b1155724593aba88967d9a2e3687a762b44c6",
+    "bytes": 9325,
+    "command": "python3 tests/asp-production-conveyor-v3/f0/test_brandbook_baseline_candidate_v3.py",
+    "expected": "Ran 5 tests / OK"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+    },
+    "asset_repository": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "exact_checkout_required": true
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "brand_redesign_allowed": false,
+      "penpot_publication_authorized": false
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "brand.asset.primary-mark",
+      "component_name": "Brand/Asset/PrimaryMark",
+      "semantic_slot": "brand.identity.primary-mark",
+      "source_path": "site/public/brand-mark.svg",
+      "git_blob_sha1": "5833776a1f94cf7f02e9b95c1b98eb7fc29c4b23",
+      "sha256": "6c7983ca7bb296ba3414f4ad5c8715eca4cf05a89d44232d18f74636b9a26f32",
+      "bytes": 2539,
+      "viewBox": "160 230 970 820",
+      "paint_contract": "embedded exact colors #2d3035 and #af481f",
+      "transformation": "NONE",
+      "distortion": "FORBIDDEN"
+    },
+    {
+      "asset_id": "brand.asset.announcements-wordmark",
+      "component_name": "Brand/Asset/AnnouncementsWordmark",
+      "semantic_slot": "brand.identity.announcements-wordmark",
+      "source_path": "site/public/brand/announcements-wordmark-ui.svg",
+      "git_blob_sha1": "7fa5023eefc8514dcf735516633e68eadb532c9b",
+      "sha256": "2e08393273700b0669951f2de217b4a0841b2a7e00d05539051f81e656af3a51",
+      "bytes": 1413,
+      "viewBox": "0 0 7819 1514",
+      "paint_contract": "currentColor inherited exactly from consumer",
+      "transformation": "NONE",
+      "retyping": "FORBIDDEN"
+    },
+    {
+      "asset_id": "brand.asset.favicon-tag",
+      "component_name": "Brand/Asset/FaviconTag",
+      "semantic_slot": "brand.identity.favicon-tag",
+      "source_path": "site/public/favicon.svg",
+      "known_equivalent_consumer_path": "site/public/brand/favicon-tag-wide-o.svg",
+      "git_blob_sha1": "d2b3d15fd027a75839c056fbf387c4bd2ba630f5",
+      "sha256": "2a85ce2a393720738437a9def56eac4ef4d7abc4b0d02bf436ca11e46247295d",
+      "bytes": 781,
+      "viewBox": "0 0 64 64",
+      "paint_contract": "embedded exact #98401f and #ffffff",
+      "transformation": "NONE",
+      "distortion": "FORBIDDEN"
+    }
+  ],
+  "source_components": {
+    "announcements_lockup": {
+      "path": "site/src/components/brand/AnnouncementsLockup.astro",
+      "git_blob_sha1": "8e493372e75d52cec258e97ffc5ae6f5af554a64"
+    },
+    "announcements_wordmark": {
+      "path": "site/src/components/brand/AnnouncementsWordmark.astro",
+      "git_blob_sha1": "bfc27e397d42650ab6bc7f386b71bbc66b9c9489"
+    }
+  },
+  "brand_components": [
+    {
+      "id": "brand.asset.primary-mark",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/PrimaryMark"
+    },
+    {
+      "id": "brand.asset.announcements-wordmark",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/AnnouncementsWordmark"
+    },
+    {
+      "id": "brand.asset.favicon-tag",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/FaviconTag"
+    },
+    {
+      "id": "brand.lockup.desktop",
+      "kind": "lockup",
+      "penpot_name": "Brand/Lockup/Desktop",
+      "asset_ids": [
+        "brand.asset.primary-mark",
+        "brand.asset.announcements-wordmark"
+      ],
+      "endorsement_lines": [
+        "Полюбить Калининград"
+      ],
+      "detached_assets": false,
+      "layout_contract": "exact current desktop source arrangement"
+    },
+    {
+      "id": "brand.lockup.mobile",
+      "kind": "lockup",
+      "penpot_name": "Brand/Lockup/Mobile",
+      "asset_ids": [
+        "brand.asset.primary-mark",
+        "brand.asset.announcements-wordmark"
+      ],
+      "endorsement_lines": [
+        "Полюбить",
+        "Калининград"
+      ],
+      "detached_assets": false,
+      "layout_contract": "exact current mobile source arrangement"
+    }
+  ],
+  "misuse_rules": [
+    "do not redraw, simplify or retype brand artwork",
+    "do not stretch or non-uniformly scale",
+    "do not add square backing",
+    "do not recolor embedded-color assets",
+    "wordmark currentColor may inherit exactly",
+    "do not detach asset instances inside lockups",
+    "do not invent clear-space, minimum-size, co-branding or dark-mode variants",
+    "do not use screenshots or rasterized SVG replacements"
+  ],
+  "specimen": {
+    "name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-BRANDBOOK-BASELINE · current-reconstructed",
+    "placements": [
+      {
+        "id": "mark/light",
+        "component_id": "brand.asset.primary-mark",
+        "state": "light-surface"
+      },
+      {
+        "id": "mark/inverse",
+        "component_id": "brand.asset.primary-mark",
+        "state": "inverse-surface"
+      },
+      {
+        "id": "mark/intrinsic",
+        "component_id": "brand.asset.primary-mark",
+        "state": "intrinsic-aspect"
+      },
+      {
+        "id": "wordmark/light",
+        "component_id": "brand.asset.announcements-wordmark",
+        "state": "light-currentColor"
+      },
+      {
+        "id": "wordmark/inverse",
+        "component_id": "brand.asset.announcements-wordmark",
+        "state": "inverse-currentColor"
+      },
+      {
+        "id": "wordmark/intrinsic",
+        "component_id": "brand.asset.announcements-wordmark",
+        "state": "intrinsic-aspect"
+      },
+      {
+        "id": "favicon/16",
+        "component_id": "brand.asset.favicon-tag",
+        "state": "16px"
+      },
+      {
+        "id": "favicon/32",
+        "component_id": "brand.asset.favicon-tag",
+        "state": "32px"
+      },
+      {
+        "id": "favicon/64",
+        "component_id": "brand.asset.favicon-tag",
+        "state": "64px"
+      },
+      {
+        "id": "lockup/desktop-light",
+        "component_id": "brand.lockup.desktop",
+        "state": "light-surface"
+      },
+      {
+        "id": "lockup/desktop-inverse",
+        "component_id": "brand.lockup.desktop",
+        "state": "inverse-surface"
+      },
+      {
+        "id": "lockup/mobile-light",
+        "component_id": "brand.lockup.mobile",
+        "state": "light-surface"
+      },
+      {
+        "id": "lockup/mobile-inverse",
+        "component_id": "brand.lockup.mobile",
+        "state": "inverse-surface"
+      },
+      {
+        "id": "guidance/misuse",
+        "component_id": "brand.lockup.desktop",
+        "state": "documentation-only"
+      }
+    ]
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "file_name": "LoveKGD design system",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_PUBLISH",
+    "exact_name": "05 · Brandbook · Current baseline · Candidate",
+    "create_if_missing": true,
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "old_penpot_id_reuse_allowed": false
+  },
+  "candidate_root": {
+    "exact_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-BRANDBOOK-BASELINE · current-reconstructed",
+    "owner_review_state": "NOT_ACCEPTED",
+    "promotion_allowed": false
+  },
+  "protected_surface": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "page_name": "00 · Components · Free collection",
+    "root_ids": [
+      "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+      "313fb1ed-0d5c-8095-8008-912c45090653"
+    ],
+    "mutation_allowed": false,
+    "pre_and_post_digest_required": true
+  },
+  "expected_roots": 1,
+  "expected_components": 5,
+  "expected_instances": 14,
+  "expected_linked_asset_instances": 4,
+  "materialization_entry_point": {
+    "kind": "current-target-exact-asset-linked-lockup-candidate-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py plan --candidate-commit <FROZEN_HEAD> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py execute --candidate-commit <FROZEN_HEAD> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v3.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "protected_surface_digest_before_and_after": true
+  },
+  "validation": {
+    "integrate": [
+      "remote-read frozen head and all blobs",
+      "run five committed tests",
+      "verify exact events-bot-new checkout",
+      "verify all three asset byte/SHA/blob tuples before adapter load",
+      "run plan and require F0_BRANDBOOK_V3_PLAN_PASS",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with penpot_mutations=0"
+    ],
+    "publish": [
+      "roots=1",
+      "components=5",
+      "instances=14",
+      "linked_asset_instances=4",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validation=[]",
+      "nonempty export",
+      "protected digest unchanged"
+    ]
+  },
+  "penpot_mutations_by_f0": 0
+}
