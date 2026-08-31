@@ -81,6 +81,14 @@ is not independently provenance-closed at the producer head:
   D0/PUBLISH writer claim, but a terminal run receipt must reconcile actor and
   run-control identity instead of copying the obsolete metadata.
 
+The resolved-case tuple's authoritative source is
+`w2-free-collection-sot-g4-clean@78a84576740cb650b2efbe2900377f371faf49a1`.
+The relevant G19 output bytes are hash-identical, but the G19 producer tree is
+not a self-contained source snapshot: validation of the index reports 15
+missing-reference assertions across the two v3 scenarios, packed-row input,
+indexed generator/input/geometry proof and four case specifications. This is a
+provenance-closure gap, not permission to infer or recreate those inputs.
+
 O0's explicit `ASP_PACKAGE_READY_V3` adoption in issue #57 is therefore the
 publisher queue record; the legacy bundle alone is not the current queue
 authority. No replacement bundle was created by INTEGRATE because one would
@@ -97,3 +105,62 @@ incident readback recorded revision `56`, root children `16`, local components
 `15`, and validation `[]`. Blind retry is forbidden. MAT must produce a bounded
 V2-to-V3 resume repair; INTEGRATE must revalidate its exact remote SHA, output
 hashes, target and mutator order before PUBLISH resumes.
+
+## Canonical remote-main check
+
+Fresh remote readback confirms `origin/main` remains
+`b3567cb72d81a7aad4b47a68e220325f055697a2`. Its controlling file hashes are:
+
+- active contract: `54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72`;
+- blocked page profile: `2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3`;
+- unresolved asset registry: `03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc`;
+- requirements lock: `e3fb97fe7e77cd8302f8ed65ed6c6b1c27ef43622d4e060c4310f0ccdc049c58`.
+
+The profile still says `BLOCKED_OWNER_REJECTED`,
+`materialization.status: BLOCKED`, and `allowed_to_mutate_penpot: false`.
+
+## Source-A browser-server recovery pointer
+
+The exact frozen source is `onedayonemasterpiece/events-bot-new` branch
+`w2-free-collection-visual-evidence-g12` at
+`c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1` (tree
+`3c7b231d10e93866899cede299c3523c8b996711`). PR #55 comment `5476927675`
+records this persistent server command, run from its `site` directory:
+
+```bash
+env PUBLIC_STATIC_SITE_CURRENT_DATE=2026-08-30 TZ=Europe/Kaliningrad \
+  ./node_modules/.bin/astro dev \
+  --root /home/dev/.codex/worktrees/events-bot-new/g19-browser-evidence-source-a/site/evidence/free-collection-g12/harness \
+  --host 127.0.0.1 --port 4339
+```
+
+The repository capture script's port `4329` is ephemeral, not the persistent
+V0 review server. A new receipt must record the new PID/run identity, detached
+clean SHA, loopback HTTP 200 and zero tracked mutation.
+
+## F-ACTION-NAV-ICONS preflight
+
+Issue #57 comment `5479544692` points to
+`ffb0ad990400f239a28ba23825033b5bea408a99`, but the named remote branch has
+already advanced to `af1a62aaa820bee2aefabaad578a4e926c713784`. The immutable
+package remains readable. Its JSON is 15,447 bytes with SHA-256
+`43d77199de192ec190c7cb6df6874a740d5888739593c9a83e27baa14fa6c0ef`.
+
+Terminal preflight is `REPAIR`, not publisher-consumable:
+
+- it contains only JSON with prose `declarative-penpot-build-plan`
+  operations; it has no executable Penpot materializer;
+- there is no repository schema implementing `asp.foundation-package.v3`;
+- each of the nine declared byte sizes and SHA-256 values matches the JSON
+  `svg` string only after appending an undocumented LF; the literal embedded
+  strings match `0/9` declared hashes;
+- issue #56 still leaves the foundation baseline
+  `IMPLEMENTED_PENDING_INDEPENDENT_REVIEW` and explicitly grants no Penpot
+  authorization;
+- the package does not close the canonical active asset registry or supply all
+  required binding/run-control/provenance fields.
+
+The source commits and paths exist and their geometry can remain recovery
+capital. F0 must repair the exact-byte convention, complete the foundation and
+active-profile gates, and ship a bounded executable plus readback before
+PUBLISH can consume this package.
