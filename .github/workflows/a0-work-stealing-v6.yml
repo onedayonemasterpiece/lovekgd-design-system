@@ -31,7 +31,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check jsonschema
       - name: Reconstruct and compile bounded A0 repair and independent adapters
         run: |
-          cat tools/.a0_v6_chunks/*.b64 | base64 -d > tools/a0_compile_work_stealing_v6.py
+          cat tools/.a0_v6_chunks/*.b64 > tools/a0_compile_work_stealing_v6.py
           python tools/a0_compile_work_stealing_v6.py
       - name: Re-run repository-relevant A0 tests
         run: |
