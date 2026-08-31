@@ -1,6 +1,6 @@
 schema_version: kenigevents.ui-asset-registry.v1
 registry_id: kenigevents.ui-assets.v1
-registry_version: 1.1.0-candidate.1
+registry_version: 1.2.0-candidate.1
 status: CANDIDATE_RESOLVED_PENDING_D0_INTEGRATE
 updated_at: '2026-08-31'
 
@@ -17,10 +17,12 @@ authority:
   mode: ASTRO_AS_IS_REFERENCE
   astro_repository: onedayonemasterpiece/events-bot-new
   astro_commit: f2d658e8be057f3b75431f6b77e4887af4536028
-  source_component_path: site/src/components/Icon.astro
-  source_component_git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
-  consumer_component_path: site/src/components/EventCard.astro
-  consumer_component_git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+  action_source_path: site/src/components/Icon.astro
+  action_source_git_blob_sha1: 68252498848a5fbc93dab20b5797504aeb6eb487
+  action_consumer_path: site/src/components/EventCard.astro
+  action_consumer_git_blob_sha1: e7b299660572dda731ca15bd5052b3bf5714cd7c
+  navigation_source_and_consumer_path: site/src/components/MobileBottomNav.astro
+  navigation_source_and_consumer_git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
   continuity:
     prior_foundation_pin: 64f75d10f7aff33fa616cee212878bd9d03673b1
     current_astro_main: f2d658e8be057f3b75431f6b77e4887af4536028
@@ -35,8 +37,9 @@ ownership:
   approved_binding_required_for_every_visible_graphical_slot: true
   current_candidate_asset_bytes:
     repository: onedayonemasterpiece/lovekgd-design-system
-    commit: be313816ce22a7c63faed682e4014854e6e7369b
-    root: catalog/asp-production-conveyor-v3/f0/assets/free-collection
+    commit: c7c22f763eda40feb855e822228637a9cdfe699d
+    action_root: catalog/asp-production-conveyor-v3/f0/assets/free-collection
+    navigation_root: catalog/asp-production-conveyor-v3/f0/assets/navigation
 
 binding_contract:
   required_fields:
@@ -57,12 +60,18 @@ binding_contract:
     - licence_or_reuse_status
     - owner_disposition
   exact_bytes_or_deterministic_conversion_required: true
-  deterministic_conversion:
-    id: astro-icon-fragment-to-standalone-svg.v1
-    rules:
+  deterministic_conversions:
+    astro-icon-fragment-to-standalone-svg.v1:
       - select only the Icon.astro conditional branch named by source_symbol
-      - preserve path and polygon order and all d/points/fill-rule/clip-rule data byte-for-byte
+      - preserve path and polygon order and all geometry attributes byte-for-byte
       - use the exact runtime viewBox selected by Icon.astro
+      - wrap with xmlns and fill=currentColor
+      - do not simplify, redraw, normalize coordinates, convert fill to stroke, or substitute a library icon
+      - serialize UTF-8 with LF and one final newline
+    mobile-bottom-nav-inline-svg-to-standalone-svg.v1:
+      - select only the inline SVG child for the exact data-mobile-nav-section
+      - preserve path order and all geometry/fill-rule/clip-rule attributes
+      - preserve viewBox 0 0 24 24 and render within the current 21px consumer box
       - wrap with xmlns and fill=currentColor
       - do not simplify, redraw, normalize coordinates, convert fill to stroke, or substitute a library icon
       - serialize UTF-8 with LF and one final newline
@@ -79,21 +88,27 @@ binding_contract:
     - semantic_search_candidate_without_approval
 
 coverage:
-  current_bounded_profile: free-collection.owner-review.v1
+  bounded_profiles:
+    - free-collection.owner-review.v1
+    - mobile-bottom-navigation.current-runtime
   required_slots:
     - icon.action.not_interested
     - icon.action.calendar_add
     - icon.action.share
     - icon.action.favorite
-  required_slots_total: 4
-  resolved_candidate_slots: 4
+    - icon.navigation.afisha
+    - icon.navigation.dates
+    - icon.navigation.search
+    - icon.navigation.personal
+  required_slots_total: 8
+  resolved_candidate_slots: 8
   unresolved_candidate_slots: 0
   coverage_status: resolved-candidate-pending-d0-integrate
   penpot_ready: false
   note: >-
-    F0 has resolved immutable identity and exact current-Astro consumer binding.
-    D0/INTEGRATE must verify this candidate and publish the contract-current
-    READY_TO_PUBLISH verdict before any Penpot mutation.
+    F0 resolved immutable identity and exact current-Astro consumer binding for
+    all bounded action and primary-navigation slots. D0/INTEGRATE must verify
+    this immutable registry and publish PASS before any Penpot mutation.
 
 assets:
   icon.action.not_interested:
@@ -136,7 +151,7 @@ assets:
       variant_property: state
     materialization_bytes:
       repository: onedayonemasterpiece/lovekgd-design-system
-      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
       path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg
       git_blob_sha1: 2cd0ebf989d63176a8e5f240c681316fab2e0670
       sha256: 2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98
@@ -171,7 +186,7 @@ assets:
       height_px: 24
       alignment: center
       preserve_aspect_ratio: xMidYMid meet
-      optical_rule: preserve source geometry; render inside current 24px icon box
+      optical_rule: preserve source geometry inside the current 24px box
     fill_stroke_contract:
       fill: currentColor
       stroke: none
@@ -192,7 +207,7 @@ assets:
       variant_property: state
     materialization_bytes:
       repository: onedayonemasterpiece/lovekgd-design-system
-      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
       path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg
       git_blob_sha1: 539baa5a7ab4f8794c2af3dae63a732cb00d1408
       sha256: 0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7
@@ -250,7 +265,7 @@ assets:
       variant_property: state
     materialization_bytes:
       repository: onedayonemasterpiece/lovekgd-design-system
-      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
       path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg
       git_blob_sha1: 3b6a82536becf79040c1201b327c93123080b557
       sha256: c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb
@@ -320,7 +335,7 @@ assets:
       variant_property: selected
     materialization_bytes:
       repository: onedayonemasterpiece/lovekgd-design-system
-      commit: be313816ce22a7c63faed682e4014854e6e7369b
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
       primary_path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg
       selected_path: catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg
       primary_sha256: 8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7
@@ -336,17 +351,240 @@ assets:
       note: no upstream licence claim is inferred beyond the current project source
     owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
 
+  icon.navigation.afisha:
+    asset_id: icon.navigation.afisha
+    semantic_slot: navigation.primary.afisha
+    status: RESOLVED_CANDIDATE_PENDING_INTEGRATE
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/MobileBottomNav.astro
+    source_symbol: afisha
+    git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+    sha256: 1d9bc10d1eed8b02a07279b7e3b1da401d1898435c6d0ee3278f8fce1e86f75e
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 21
+      height_px: 21
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve current inline geometry in the current 21px box
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing mobile-bottom-nav link
+    states: [default, current, focus-visible, pressed]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/MobileBottomNav.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+      selector: '[data-mobile-nav-section="afisha"]'
+      render_box_px: 21x21
+    penpot_consumer:
+      component_id: mobile-bottom-nav.afisha
+      property: icon
+      asset_component_name: Icon/Navigation/Afisha
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
+      path: catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-afisha.svg
+      git_blob_sha1: eed94353b9fff23efe3e92042556f540436b6c19
+      sha256: 1d9bc10d1eed8b02a07279b7e3b1da401d1898435c6d0ee3278f8fce1e86f75e
+      bytes: 380
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production inline SVG geometry
+      extraction: mobile-bottom-nav-inline-svg-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
+
+  icon.navigation.dates:
+    asset_id: icon.navigation.dates
+    semantic_slot: navigation.primary.dates
+    status: RESOLVED_CANDIDATE_PENDING_INTEGRATE
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/MobileBottomNav.astro
+    source_symbol: dates
+    git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+    sha256: 70d2f170ce4bdf8bd765fdabd37419783dac0cf04a64754a6651ce70a1ec3f83
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 21
+      height_px: 21
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve current inline geometry in the current 21px box
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing mobile-bottom-nav link
+    states: [default, current, focus-visible, pressed]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/MobileBottomNav.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+      selector: '[data-mobile-nav-section="dates"]'
+      render_box_px: 21x21
+    penpot_consumer:
+      component_id: mobile-bottom-nav.dates
+      property: icon
+      asset_component_name: Icon/Navigation/Dates
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
+      path: catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-dates.svg
+      git_blob_sha1: 5c1a530da97a9146f590d1746e8a9425893d6e16
+      sha256: 70d2f170ce4bdf8bd765fdabd37419783dac0cf04a64754a6651ce70a1ec3f83
+      bytes: 375
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production inline SVG geometry
+      extraction: mobile-bottom-nav-inline-svg-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
+
+  icon.navigation.search:
+    asset_id: icon.navigation.search
+    semantic_slot: navigation.primary.search
+    status: RESOLVED_CANDIDATE_PENDING_INTEGRATE
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/MobileBottomNav.astro
+    source_symbol: search
+    git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+    sha256: 249f57004a3e0c7403c1bdd9349bfba65fac6f2a0bee9e82c6e552aaa055f8bf
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 21
+      height_px: 21
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve current inline geometry in the current 21px box
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing mobile-bottom-nav link
+    states: [default, current, focus-visible, pressed]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/MobileBottomNav.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+      selector: '[data-mobile-nav-section="search"]'
+      render_box_px: 21x21
+    penpot_consumer:
+      component_id: mobile-bottom-nav.search
+      property: icon
+      asset_component_name: Icon/Navigation/Search
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
+      path: catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-search.svg
+      git_blob_sha1: 4a20c0224c75be42e0222b11c387fb9f8a258480
+      sha256: 249f57004a3e0c7403c1bdd9349bfba65fac6f2a0bee9e82c6e552aaa055f8bf
+      bytes: 282
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production inline SVG geometry
+      extraction: mobile-bottom-nav-inline-svg-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
+
+  icon.navigation.personal:
+    asset_id: icon.navigation.personal
+    semantic_slot: navigation.primary.personal
+    status: RESOLVED_CANDIDATE_PENDING_INTEGRATE
+    authoritative_repository: onedayonemasterpiece/events-bot-new
+    source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+    source_path: site/src/components/MobileBottomNav.astro
+    source_symbol: personal
+    git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+    sha256: 76509e65aec09172d0be39d683b64e2eddcdb08a57e04c372bbcf5a2c90cd4a1
+    media_type: image/svg+xml
+    view_box_or_intrinsic_size:
+      viewBox: 0 0 24 24
+      intrinsic_vector_box: 24x24
+    nominal_box:
+      width_px: 21
+      height_px: 21
+      alignment: center
+      preserve_aspect_ratio: xMidYMid meet
+      optical_rule: preserve current inline geometry in the current 21px box
+    fill_stroke_contract:
+      fill: currentColor
+      stroke: none
+      currentColor: required
+      inherited_from: enclosing mobile-bottom-nav link
+    states: [default, current, focus-visible, pressed]
+    variants: [default]
+    astro_consumer:
+      component: site/src/components/MobileBottomNav.astro
+      source_commit: f2d658e8be057f3b75431f6b77e4887af4536028
+      git_blob_sha1: 54fe6d86372e531a1d0320cd52afbdbbb5e10448
+      selector: '[data-mobile-nav-section="personal"]'
+      render_box_px: 21x21
+    penpot_consumer:
+      component_id: mobile-bottom-nav.personal
+      property: icon
+      asset_component_name: Icon/Navigation/Personal
+      variant_property: state
+    materialization_bytes:
+      repository: onedayonemasterpiece/lovekgd-design-system
+      commit: c7c22f763eda40feb855e822228637a9cdfe699d
+      path: catalog/asp-production-conveyor-v3/f0/assets/navigation/nav-personal.svg
+      git_blob_sha1: 825278c40ff92746c9f50890a8b17d4e9ccc7770
+      sha256: 76509e65aec09172d0be39d683b64e2eddcdb08a57e04c372bbcf5a2c90cd4a1
+      bytes: 477
+    provenance:
+      classification: REUSE_CANONICAL_DATA
+      origin: exact current production inline SVG geometry
+      extraction: mobile-bottom-nav-inline-svg-to-standalone-svg.v1
+      external_origin_asserted: false
+    licence_or_reuse_status:
+      status: PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED
+      scope: Kenigevents Astro/UI-SoT/Penpot
+      note: no upstream licence claim is inferred beyond the current project source
+    owner_disposition: APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31
+
 integration_gate:
   owner: D0/INTEGRATE
   required_checks:
-    - all four required asset IDs present exactly once
+    - all eight required asset IDs present exactly once
     - all required binding fields non-null
-    - authoritative source commit and source git blob resolve remotely
-    - all five materialization paths resolve at be313816ce22a7c63faed682e4014854e6e7369b
-    - every materialization git blob SHA1 and SHA256 matches
-    - all source path geometry matches deterministic extraction
-    - no fallback or substitute asset
-    - profile required_slots map one-to-one to registry assets
+    - authoritative source commits and Git blobs resolve remotely
+    - all nine materialization paths resolve and match Git blob/SHA-256/byte count
+    - source geometry matches its declared deterministic extraction
+    - no fallback, generic substitute, old Penpot UUID, rasterized glyph or screenshot
+    - bounded consumer slots map one-to-one to registry assets
   current_state: PENDING
   success_transition: CONTRACT_CURRENT_READY_TO_PUBLISH
   failure_transition: REPAIR
@@ -356,6 +594,7 @@ incident:
   owner_review_state: REJECTED
   resolved_by_this_candidate:
     - exact-current-Astro-action-icon-identities
+    - exact-current-Astro-primary-navigation-identities
     - content-addressed-materialization-bytes
     - Astro-and-Penpot-consumer-bindings
     - provenance-and-reuse-disposition
@@ -364,6 +603,8 @@ incident:
     - materialization-provenance-receipt
     - stop-cancel-runtime-proof
     - owner-rejected-frame-replacement
+    - poster-occlusion-repair
+    - text-lineheight-clipping-repair
   consequence:
     materialization_allowed_before_integrate_pass: false
     current_penpot_frame_reviewable: false
