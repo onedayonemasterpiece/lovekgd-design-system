@@ -3,10 +3,10 @@
  * return await runF0FoundationReviewPagesV1({penpot,storage});
  */
 const B2_CONFIG=Object.freeze({
-  schema:"kenigevents.f0-foundation-review-pages.v1",adapterRevision:"R1.1",packageId:"F-FOUNDATIONS-PAGE-SPLIT-B2",fileId:F0_CONFIG.fileId,
+  schema:"kenigevents.f0-foundation-review-pages.v1",adapterRevision:"R1.2",packageId:"F-FOUNDATIONS-PAGE-SPLIT-B2",fileId:F0_CONFIG.fileId,
   writer:F0_CONFIG.writer,runId:F0_CONFIG.runId,namespace:"kenigevents-f0-page-split-b2",maxCreatesPerCall:3,
   sourceAdapterCommit:"dd2981880e2c34c19e3834b36f4f766e2c82a559",contract:{id:"kenigevents.asp-conformance",version:"1.1.0",sha256:"54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"},
-  source:{pageId:F0_CONFIG.pageId,rootIdSuffix:F0_CONFIG.rev106RootIdSuffix,placementCount:37,projection:{revision:113,chars:43734,utf8Bytes:43744,sha256:"523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1"}},
+  source:{pageId:F0_CONFIG.pageId,rootIdSuffix:F0_CONFIG.rev106RootIdSuffix,placementCount:37,projectionMode:"ARRAY_WRAPPED_SINGLE_ROOT",projection:{revision:113,chars:43736,utf8Bytes:43746,sha256:"1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa"},scalarProjectionEvidence:{revision:113,chars:43734,utf8Bytes:43744,sha256:"523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1"}},
   protectedProjection:{revision:113,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
   pages:[
     {key:"colors-status",name:"03.1 · Foundations · Colors & status · Candidate",families:["foundation.colors-and-modes","foundation.status"],count:26},
