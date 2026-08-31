@@ -1,0 +1,374 @@
+{
+  "schema_version": "kenigevents.asp-u0-eventcard-text-r10-layout-input.v1",
+  "package_id": "U-EVENTCARD-TEXT-R10-LAYOUT-INVALIDATION",
+  "owner": "U0",
+  "priority": "P0",
+  "status": "READY_FOR_D0_CANARY_AND_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T17:05:00Z",
+  "purpose": "Lowest component-owner input for a canary-first native text-layout invalidation repair after R9 persisted the correct line-height multipliers but failed its textBounds containment gate.",
+  "lifecycle": {
+    "ready_for_d0_canary": true,
+    "ready_for_d0_integrate": true,
+    "ready_for_consumer_mutation": false,
+    "ready_to_publish": false,
+    "visual_pass": false,
+    "owner_decision_required": false,
+    "penpot_mutations_by_u0": 0,
+    "astro_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "production_write_requires_canary_pass": true
+  },
+  "u0_r9_lineage": {
+    "branch": "u0/eventcard-text-r9-v1",
+    "commit": "d93382e210adc73e3b29940f22e7b63c8e7b4a5d",
+    "tree": "0f0c4f154ec5acc5915d172774f07f03cec93bdf",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-TEXT-R9-LOWEST-OWNER-INPUT.package.v1.json",
+    "git_blob_sha1": "ef690e4b4557c985bc84bad485e7d6e646396343",
+    "bytes": 11176,
+    "request_comment": 5481550515,
+    "reuse": "PRESERVE_EXACT_NORMALIZED_ROLE_RATIOS_AND_ALL_IDENTITY_INVARIANTS"
+  },
+  "d0_r9_execution": {
+    "branch": "task/d0-mat-20260831",
+    "commit": "722be36fb8d90bd8cb6eab2761675605c8d65053",
+    "tree": "6138e9f08827afc60c28bed242801a62a6b3970a",
+    "parent_commit": "d5abff951bdf5532744ff32960f805c17edd4969",
+    "manifest": {
+      "path": "catalog/penpot-executor/g19/manifest.json",
+      "git_blob_sha1": "ff1332117b6f8265e327df5b4ffe976cb56a8dd4",
+      "payload_sha256": "9ada6460e93ab362012b5e8164ed340054fd352983d1706873402b4e1e356d33",
+      "executable_set_sha256": "7b03bee81d855e02dd53d9a971b8cb7751c306124559874f1d8668d39fc663ac"
+    },
+    "phase_p91": {
+      "path": "catalog/penpot-executor/g19/phase-p91-text-metrics.js",
+      "git_blob_sha1": "ebb63137c67ff3179435c10b9b68cd17db7462e9",
+      "sha256": "6d8ec06dd6c10142a77adeea12aa54413c2a3f39bb0d9b494a70bc204c1d9923",
+      "bytes": 5008,
+      "terminal_error": "P91_TEXT_BOUNDS_NOT_CONTAINED"
+    },
+    "integration_pass_revoked_comment": 5481593090,
+    "native_counterexample_comment": 5481613882,
+    "penpot_revision_after_partial_outcome": 74,
+    "version_saved": false,
+    "full_root_exports_created": false,
+    "retry_allowed": false
+  },
+  "requirements_contract": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "commit": "f134001382f547cebe8b025da24065128b174ffb",
+    "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+    "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "official_penpot_api": {
+    "repository": "penpot/penpot",
+    "commit": "5b3a1d93603cb14ce0f584cb462050895a6c5c3a",
+    "tree": "4d732d2a46f29fc7ee4ac73ddf7c45dc03f27d5e",
+    "plugin_types": {
+      "path": "plugins/libs/plugin-types/index.d.ts",
+      "git_blob_sha1": "83a0c9ec660fe05e863d0cb06abadd7311b9ca9b",
+      "bytes": 153836,
+      "required_declarations": [
+        "Penpot.waitForLayoutUpdate(timeout?: number): Promise<void>",
+        "Shape.waitForLayoutUpdate(timeout?: number): Promise<void>"
+      ]
+    },
+    "wait_layout_tests": {
+      "path": "plugins/apps/plugin-api-test-suite/src/tests/wait-layout.test.ts",
+      "git_blob_sha1": "c2b67a4d5b9ea69f2ad91804cf7dc901817bc824",
+      "bytes": 27138,
+      "proven_behaviors": [
+        "context wait resolves only after pending reflow is applied",
+        "shape-level wait observes its own pending layout work",
+        "text characters mutation followed by wait updates measured geometry",
+        "text fontSize mutation followed by wait updates measured geometry",
+        "cascaded text and parent layout work is covered by the context wait"
+      ]
+    },
+    "runtime_capability_required": true,
+    "unsupported_runtime_result": "BLOCKED_NATIVE_API_NO_ACCEPTED_ROOT_MUTATION"
+  },
+  "current_native_state": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "collection_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "penpot_revision": 74,
+    "page_direct_roots": 1,
+    "board_children": 18,
+    "board_descendants": 248,
+    "local_components": 18,
+    "accepted_cards": 4,
+    "managed_text_count": 38,
+    "normalized_line_height_count": 38,
+    "validation": [],
+    "active_lease": "EXACT_ACTIVE_AT_COUNTEREXAMPLE",
+    "full_root_ids": [
+      "313fb1ed-0d5c-8095-8008-912c45090653",
+      "313fb1ed-0d5c-8095-8008-914c76615924",
+      "313fb1ed-0d5c-8095-8008-916b340de148",
+      "313fb1ed-0d5c-8095-8008-916bd0ab6c98"
+    ]
+  },
+  "r9_partial_outcome": {
+    "line_height_values_are_now_correct": true,
+    "allowed_normalized_multipliers": [
+      "1.08",
+      "1.15",
+      "1.2",
+      "1.25",
+      "1.6"
+    ],
+    "contained_in_own_frame_with_tolerance_2": 14,
+    "contained_in_card_root_with_tolerance_2": 34,
+    "own_frame_offenders": 24,
+    "card_root_offenders": 4,
+    "all_offenders_fail_own_frame_containment": true,
+    "layout_cache_invalidated": false,
+    "repeating_line_height_write_is_a_valid_repair": false
+  },
+  "target_selection": {
+    "collection_root": "exact current_native_state.collection_root_id",
+    "accepted_card_filter": {
+      "type": "direct child root",
+      "plugin_data_role": "accepted-card-master",
+      "plugin_data_payload_sha256": "9ada6460e93ab362012b5e8164ed340054fd352983d1706873402b4e1e356d33",
+      "plugin_data_build_state": "COMPLETE",
+      "expected_count": 4
+    },
+    "managed_text_filter": {
+      "descendant_type": "text",
+      "characters": "non-empty",
+      "expected_count": 38,
+      "line_height_must_already_be_normalized": true
+    },
+    "preflight_snapshot_fields": [
+      "id",
+      "parent chain",
+      "characters",
+      "fontId",
+      "fontFamily",
+      "fontStyle",
+      "fontWeight",
+      "fontSize",
+      "lineHeight",
+      "letterSpacing",
+      "growType",
+      "x",
+      "y",
+      "width",
+      "height",
+      "textBounds",
+      "plugin data"
+    ],
+    "snapshot_digest_required_before_any_canary_or_production_write": true
+  },
+  "canary_protocol": {
+    "phase": "ISOLATED_BEFORE_ACCEPTED_ROOT_MUTATION",
+    "target_page": "D0_INTEGRATE_RESOLVES_DEDICATED_CANDIDATE_PAGE",
+    "accepted_eventcard_page_pre_post_digest_required": true,
+    "accepted_eventcard_page_mutation_during_canary": false,
+    "representative_roles": [
+      "occurrence",
+      "event_type",
+      "share_root_fail"
+    ],
+    "canary_count": 3,
+    "construct_from_read_only_snapshot": true,
+    "runtime_capability_probe": [
+      "typeof penpot.waitForLayoutUpdate === 'function'",
+      "typeof canaryText.waitForLayoutUpdate === 'function'"
+    ],
+    "diagnostic_wait_only": {
+      "operation": "await canaryText.waitForLayoutUpdate(timeout), then await penpot.waitForLayoutUpdate(timeout)",
+      "selectable_as_production_repair": false,
+      "purpose": "distinguish pending work from missing invalidation"
+    },
+    "single_final_state_candidates": [
+      {
+        "id": "C1_CHARACTERS_SAME_VALUE",
+        "operation": "canaryText.characters = exactOriginalCharacters",
+        "await": [
+          "canaryText.waitForLayoutUpdate(timeout)",
+          "penpot.waitForLayoutUpdate(timeout)"
+        ]
+      },
+      {
+        "id": "C2_FONT_SIZE_SAME_VALUE",
+        "operation": "canaryText.fontSize = exactOriginalFontSize",
+        "await": [
+          "canaryText.waitForLayoutUpdate(timeout)",
+          "penpot.waitForLayoutUpdate(timeout)"
+        ]
+      },
+      {
+        "id": "C3_GROW_TYPE_SAME_VALUE",
+        "operation": "canaryText.growType = exactOriginalGrowType",
+        "await": [
+          "canaryText.waitForLayoutUpdate(timeout)",
+          "penpot.waitForLayoutUpdate(timeout)"
+        ]
+      },
+      {
+        "id": "C4_RESIZE_EXACT_CURRENT_SIZE",
+        "operation": "canaryText.resize(exactOriginalWidth, exactOriginalHeight)",
+        "await": [
+          "canaryText.waitForLayoutUpdate(timeout)",
+          "penpot.waitForLayoutUpdate(timeout)"
+        ]
+      }
+    ],
+    "reversible_diagnostic_candidates": [
+      {
+        "id": "D1_CHARACTERS_ROUND_TRIP_CANARY_ONLY",
+        "production_allowed": false
+      },
+      {
+        "id": "D2_GROW_TYPE_ROUND_TRIP_CANARY_ONLY",
+        "production_allowed": false
+      }
+    ],
+    "per_candidate_final_state_gate": {
+      "characters_unchanged": true,
+      "font_binding_unchanged": true,
+      "font_size_unchanged": true,
+      "line_height_unchanged": true,
+      "letter_spacing_unchanged": true,
+      "grow_type_unchanged": true,
+      "x_y_width_height_unchanged": true,
+      "text_bounds_finite_positive": true,
+      "text_bounds_contained_in_allocated_frame_with_tolerance_2": true
+    },
+    "selection_rule": "Select the first documented single-final-state candidate that passes all three canaries and an immediate idempotent canary replay; diagnostic round trips may explain the defect but do not authorize production use.",
+    "no_single_final_state_candidate_passes": "BLOCKED_NATIVE_API_NO_ACCEPTED_ROOT_MUTATION"
+  },
+  "production_protocol": {
+    "precondition": "one canary-selected single-final-state candidate and exact committed-byte D0/QA plus D0/INTEGRATE PASS",
+    "expected_revision": 74,
+    "new_active_run_marker_required": true,
+    "selected_operation_must_equal_canary_operation": true,
+    "prevalidate_all_38_before_first_write": true,
+    "active_lease_checks": [
+      "before every property or resize write",
+      "before and after every shape-level wait",
+      "before and after every context-level wait",
+      "before native readback, validation, version and export"
+    ],
+    "per_text_sequence": [
+      "resolve exact preflight-snapshotted Text by persistent ID",
+      "assert exact unchanged final-state properties and normalized lineHeight",
+      "apply exactly one canary-selected final-state-preserving operation",
+      "await Text.waitForLayoutUpdate(timeout)",
+      "await penpot.waitForLayoutUpdate(timeout)",
+      "read fresh Text.textBounds",
+      "assert finite positive own-frame and full-root containment"
+    ],
+    "arbitrary_sleep_or_timer_as_settlement": false,
+    "direct_text_bounds_write": false,
+    "line_height_rewrite": false,
+    "writes_outside_38_target_texts": false,
+    "one_undo_block": true,
+    "save_version_only_after_all_38_pass": true,
+    "four_root_exports_only_after_all_38_pass": true,
+    "second_run_mutations": 0
+  },
+  "acceptance": {
+    "managed_texts": 38,
+    "normalized_line_height_values_preserved": 38,
+    "own_frame_contained_with_tolerance_2": 38,
+    "card_root_contained_with_tolerance_2": 38,
+    "own_frame_offenders": 0,
+    "card_root_offenders": 0,
+    "fresh_text_bounds_after_shape_and_context_wait": 38,
+    "characters_changes": 0,
+    "font_binding_changes": 0,
+    "font_size_changes": 0,
+    "line_height_changes": 0,
+    "letter_spacing_changes": 0,
+    "grow_type_final_changes": 0,
+    "x_y_width_height_changes": 0,
+    "root_or_component_id_changes": 0,
+    "new_or_deleted_roots": 0,
+    "new_or_deleted_components": 0,
+    "page_direct_roots": 1,
+    "board_children": 18,
+    "board_descendants": 248,
+    "local_components": 18,
+    "validation": [],
+    "saved_versions": 1,
+    "nonempty_full_root_exports": 4,
+    "v0_independent_visual_review_required": true
+  },
+  "must_preserve": {
+    "all_four_full_root_ids": true,
+    "all_eighteen_component_ids": true,
+    "all_thirty_eight_text_ids": true,
+    "all_factual_strings": true,
+    "font_binding_and_source_provenance": true,
+    "normalized_r9_line_height_ratios": true,
+    "text_frame_geometry": true,
+    "card_and_action_geometry": true,
+    "event_2182_calendar_absence_and_hidden_counts": true,
+    "media_shapes_fills_fit_and_focal_semantics": true,
+    "native_component_paths": true,
+    "one_collection_root_and_18_18_census": true
+  },
+  "separate_open_lanes": {
+    "media": {
+      "package": "U-EVENTCARD-MEDIA-COVERAGE-INPUT",
+      "branch": "u0/eventcard-v0-next-defects-v1",
+      "commit": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "must_not_be_bundled_into_r10": true
+    },
+    "native_component_paths": {
+      "package": "U-EVENTCARD-NATIVE-COMPONENT-PATHS",
+      "branch": "u0/eventcard-v0-next-defects-v1",
+      "commit": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "must_not_be_bundled_into_r10": true
+    },
+    "controls_candidate": {
+      "package": "U-CONTROLS-PRIMITIVES",
+      "branch": "u0/controls-primitives-v3-r2",
+      "commit": "294a02609d5c0322f9afcca36b773b67df148d13",
+      "independent_candidate": true
+    }
+  },
+  "forbidden": [
+    "blind rerun of P91 or any lineHeight rewrite",
+    "arbitrary setTimeout or sleep as the sole settlement mechanism",
+    "direct mutation of Text.textBounds",
+    "accepted-root mutation before canary and committed-byte PASS",
+    "characters, font, lineHeight, letterSpacing, growType or frame-geometry final-state drift",
+    "production use of a reversible canary-only round trip",
+    "moving or resizing allocated text frames to conceal stale textBounds",
+    "outlining or rasterizing text",
+    "rebuilding cards, components or roots",
+    "bundling media or native component-path repair",
+    "saveVersion or export before 38/38 containment",
+    "visual PASS without V0"
+  ],
+  "negative_regressions_required": [
+    "reject stale expected revision 73; R10 begins at exact rev74",
+    "reject any loss of the 38 normalized R9 multipliers",
+    "reject target cardinality other than four cards and 38 texts",
+    "reject runtime without both shape and context waitForLayoutUpdate",
+    "reject production write before all canaries pass",
+    "reject timer-only settlement, direct textBounds write or lineHeight rewrite",
+    "reject any selected operation not proven by all three canaries and idempotent replay",
+    "reject any final-state text, font, growType or frame-geometry change",
+    "reject fewer than 38/38 own-frame and full-root containment or any offender",
+    "reject identity/census/validation drift",
+    "reject saveVersion or export before complete native gate",
+    "reject media/path/controls scope contamination"
+  ],
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_eventcard_text_r10_input.py",
+    "consumer": "D0/MAT",
+    "output_schema": "kenigevents.u0-eventcard-text-r10-mat-input.v1",
+    "penpot_adapter_included": false
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_eventcard_text_r10_input.py --repo . --check-repository-inputs --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_eventcard_text_r10_input.py"
+  }
+}
