@@ -8,6 +8,7 @@ const MANIFEST_URL = new URL('catalog/penpot-executor/g19/manifest.json', ROOT);
 const BOARD_ID = '313fb1ed-0d5c-8095-8008-9108df52b2ce';
 const BOARD_NAME = 'KenigEvents · G12 bounded L0-L3';
 const RUNTIME_FONT_ID = 'custom-08d5cf0d-784d-80b0-8008-908353a24ee6';
+const LEGACY_V2_PAYLOAD_SHA256 = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
 const EXPECTED_CASES = [
   'eventcard.desktop-wide-calendar.8006',
   'eventcard.desktop-packed-calendar-absent.2182',
@@ -89,6 +90,16 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
   let saveVersionCalls = 0;
   let undoBeginCalls = 0;
   let undoFinishCalls = 0;
+  const sharedPluginData = new Map([['kenigevents\0asp-active-run-v1', JSON.stringify({
+    schema: manifest.run_control.schema,
+    run_id: manifest.run_control.expected_run_id,
+    writer_id: manifest.run_control.expected_writer_id,
+    state: manifest.run_control.allowed_state,
+    contract_sha256: manifest.run_control.contract_sha256,
+    page_profile_sha256: manifest.run_control.page_profile_sha256,
+    asset_registry_sha256: manifest.run_control.asset_registry_sha256,
+    geometry_proof_sha256: 'a'.repeat(64),
+  })]]);
   const fontVariants = variants.map((id) => ({
     id,
     fontVariantId: id,
@@ -107,6 +118,8 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     currentFile: {
       id: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
       revn: revision,
+      getSharedPluginData(namespace, key) { return sharedPluginData.get(`${namespace}\0${key}`) || ''; },
+      setSharedPluginData(namespace, key, value) { sharedPluginData.set(`${namespace}\0${key}`, String(value)); },
       validate() { validateCalls += 1; return []; },
       async findVersions() { return versions; },
       async saveVersion(label) {
@@ -175,6 +188,7 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     validateCalls: () => validateCalls,
     saveVersionCalls: () => saveVersionCalls,
     undoCalls: () => ({ begin: undoBeginCalls, finish: undoFinishCalls }),
+    sharedPluginData,
   };
 }
 
@@ -208,6 +222,24 @@ async function runAllPhases(surface) {
 }
 
 const walk = (shape) => [shape, ...shape.children.flatMap(walk)];
+
+function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
+  for (const root of surface.board.children.filter(predicate)) {
+    const marker = root.getPluginData('kenigevents-g19-marker');
+    if (marker.endsWith(':v3')) root.setPluginData('kenigevents-g19-marker', marker.replace(/:v3$/, ':v2'));
+    for (const shape of walk(root)) {
+      const childMarker = shape.getPluginData('kenigevents-g19-child-marker');
+      if (childMarker.includes(':v3:')) shape.setPluginData('kenigevents-g19-child-marker', childMarker.replace(':v3:', ':v2:'));
+      if (shape.getPluginData('kenigevents-payload-sha256')) shape.setPluginData('kenigevents-payload-sha256', LEGACY_V2_PAYLOAD_SHA256);
+      if (shape.getPluginData('kenigevents-g19-marker').includes('event.media-frame.')) shape.fills = [{ fillColor: '#15110f', fillOpacity: 1 }];
+      if (shape.type === 'text') {
+        shape.fontSize = Number(shape.fontSize);
+        shape.lineHeight = Number(shape.lineHeight);
+        shape.letterSpacing = Number(shape.letterSpacing);
+      }
+    }
+  }
+}
 
 test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, and runtime-ID agnostic', async () => {
   assert.equal(manifest.readiness_marker, 'ASP_G19_P2_PAYLOAD_READY_V3');
@@ -303,6 +335,19 @@ test('bounded phases build 14 linked leaves and all four exact accepted EventCar
   assert.ok(textShapes.length > 0);
   assert.ok(textShapes.every((shape) => shape.getPluginData('kenigevents-font-runtime-id') === RUNTIME_FONT_ID));
   assert.ok(textShapes.every((shape) => shape.getPluginData('kenigevents-font-variant-id') === 'normal-700'));
+  assert.ok(textShapes.every((shape) => shape.growType === 'fixed'));
+  assert.ok(textShapes.every((shape) => ['fontSize', 'lineHeight', 'letterSpacing'].every((key) => typeof shape[key] === 'string')));
+  const mediaLeaves = surface.components.filter((component) => component.name.startsWith('event.media-frame.')).map((component) => component.mainInstance());
+  assert.equal(mediaLeaves.length, 2);
+  assert.ok(mediaLeaves.every((shape) => shape.fills.length === 0));
+  for (const card of final.cards) {
+    const root = surface.components.find((component) => component.id === card.componentId).mainInstance();
+    const mediaInstance = root.children.find((shape) => shape.getPluginData('kenigevents-instance-slot') === 'media-link');
+    const poster = root.children.find((shape) => shape.getPluginData('kenigevents-g19-child-marker').endsWith(':content.media-artwork'));
+    assert.ok(mediaInstance && poster);
+    assert.equal(mediaInstance.fills.length, 0);
+    assert.ok(root.children.indexOf(poster) < root.children.indexOf(mediaInstance));
+  }
 
   const exported = await executePath('catalog/penpot-executor/g19/export-roots.js', surface);
   assert.equal(exported.exports.length, 4);
@@ -367,4 +412,43 @@ test('an interrupted card-component registration resumes the exact marked shell 
   assert.equal(partialComponents[0].name, 'eventcard.desktop-wide-calendar.8006');
   assert.equal(partialComponents[0].mainInstance().getPluginData('kenigevents-build-state'), 'COMPLETE');
   assert.equal(surface.pageRoot.children.length, 1);
+});
+
+test('observed V2 leaves/card and a failed V3 packed shell migrate in place before bounded resume', async () => {
+  const surface = fakeSurface();
+  await installRuntime(surface);
+  const throughDesktopWide = manifest.execution.mutator_order.slice(0, manifest.execution.mutator_order.indexOf('phase-p40-desktop-packed-shell.js'));
+  for (const path of throughDesktopWide) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  assert.equal(surface.components.length, 15);
+  downgradeCompletedV3ToObservedV2(surface, (root) => root.getPluginData('kenigevents-role') === 'leaf-master');
+
+  await executePath('catalog/penpot-executor/g19/phase-p40-desktop-packed-shell.js', surface);
+  downgradeCompletedV3ToObservedV2(surface, (root) => root.name === 'eventcard.desktop-wide-calendar.8006');
+  const interruptedRoot = surface.board.children.find((shape) => shape.name === 'eventcard.desktop-packed-calendar-absent.2182');
+  assert.ok(interruptedRoot);
+  interruptedRoot.setPluginData('kenigevents-build-state', 'BUILDING');
+  assert.equal(surface.board.children.length, 16);
+  assert.equal(surface.components.length, 15);
+  const preserved = new Map(surface.components.map((component) => [component.name, { componentId: component.id, rootId: component.mainInstance().id }]));
+
+  await installRuntime(surface);
+  const receipts = await runAllPhases(surface);
+  const final = receipts.at(-1).readback;
+  assert.equal(final.board.childCount, 18);
+  assert.equal(final.managedComponentCount, 18);
+  assert.equal(final.acceptedCardRootCount, 4);
+  assert.equal(final.inProgressRootCount, 0);
+  assert.equal(final.routeLocalDuplicateMasterCount, 0);
+  assert.deepEqual(final.auditIssues, []);
+  assert.deepEqual(final.validation, []);
+  assert.ok(surface.board.children.every((root) => root.getPluginData('kenigevents-g19-marker').endsWith(':v3')));
+  assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-payload-sha256')).every((shape) => shape.getPluginData('kenigevents-payload-sha256') === manifest.payload_sha256));
+  assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-g19-child-marker')).every((shape) => shape.getPluginData('kenigevents-g19-child-marker').includes(':v3:')));
+  for (const [name, ids] of preserved) {
+    const component = surface.components.find((candidate) => candidate.name === name);
+    assert.deepEqual({ componentId: component.id, rootId: component.mainInstance().id }, ids, name);
+  }
+  const migratedText = surface.board.children.flatMap(walk).filter((shape) => shape.type === 'text' && !shape.hidden);
+  assert.ok(migratedText.every((shape) => shape.growType === 'fixed' && typeof shape.fontSize === 'string' && typeof shape.lineHeight === 'string' && typeof shape.letterSpacing === 'string'));
+  assert.ok(surface.components.filter((component) => component.name.startsWith('event.media-frame.')).every((component) => component.mainInstance().fills.length === 0));
 });

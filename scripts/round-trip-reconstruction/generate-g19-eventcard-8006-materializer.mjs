@@ -128,6 +128,61 @@ function sha256Utf8Text(text) {
   return state.map((value) => value.toString(16).padStart(8, '0')).join('');
 }
 
+// `Penpot.execute_code` has a bounded source envelope. Keep the owning source
+// readable, then remove only lexically irrelevant comments/whitespace from the
+// serialized function. Quoted strings and template literals are copied byte
+// for byte; identifier and ++/-- token boundaries retain one space.
+function compactGeneratedFunction(fn) {
+  const source = fn.toString();
+  const isWord = (character) => /[A-Za-z0-9_$]/.test(character || '');
+  let output = '', index = 0, quote = null, pendingSpace = false;
+  while (index < source.length) {
+    const character = source[index], next = source[index + 1];
+    if (quote) {
+      output += character;
+      if (character === '\\') {
+        if (index + 1 < source.length) output += source[++index];
+      } else if (character === quote) quote = null;
+      index += 1;
+      continue;
+    }
+    if (character === "'" || character === '"' || character === '`') {
+      if (pendingSpace && isWord(output.at(-1)) && isWord(character)) output += ' ';
+      pendingSpace = false;
+      quote = character;
+      output += character;
+      index += 1;
+      continue;
+    }
+    if (character === '/' && next === '/') {
+      index += 2;
+      while (index < source.length && source[index] !== '\n') index += 1;
+      pendingSpace = true;
+      continue;
+    }
+    if (character === '/' && next === '*') {
+      index += 2;
+      while (index < source.length && !(source[index] === '*' && source[index + 1] === '/')) index += 1;
+      index += 2;
+      pendingSpace = true;
+      continue;
+    }
+    if (/\s/.test(character)) {
+      pendingSpace = true;
+      index += 1;
+      continue;
+    }
+    if (pendingSpace) {
+      const previous = output.at(-1);
+      if ((isWord(previous) && isWord(character)) || (previous === '+' && character === '+') || (previous === '-' && character === '-')) output += ' ';
+      pendingSpace = false;
+    }
+    output += character;
+    index += 1;
+  }
+  return output;
+}
+
 const cssNumber = (value) => Number.parseFloat(String(value ?? '0')) || 0;
 const rgbToHex = (value) => {
   const match = String(value ?? '').match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
@@ -205,17 +260,35 @@ async function installProductionRuntime(P) {
   const CARD_PATH = 'KenigEvents / G19 / EventCard 8006 / Accepted';
   const GENERATION = 19;
   const FIXTURE = 'event.real.8006+event.real.2182';
+  const LEGACY_V2_PAYLOAD_SHA256 = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
   const marker = (key) => `kenigevents:g19:p2:${key}:v3`;
+  const legacyV2Marker = (key) => `kenigevents:g19:p2:${key}:v2`;
   const fail = (code, detail = {}) => {
     const error = new Error(`${code}: ${JSON.stringify(detail)}`);
     error.code = code;
     error.detail = detail;
     throw error;
   };
+  function requireActiveRun() {
+    let control;
+    try { control = JSON.parse(penpot.currentFile?.getSharedPluginData?.('kenigevents', 'asp-active-run-v1') || 'null'); }
+    catch (error) { fail('MATERIALIZATION_RUN_NOT_ACTIVE', { reason: 'INVALID_JSON', message: String(error?.message || error) }); }
+    const expected = P.runControl;
+    const exact = control?.schema === 'kenigevents.asp-run-control.v1'
+      && control.run_id === expected.runId
+      && control.writer_id === expected.writerId
+      && control.state === 'ACTIVE'
+      && control.contract_sha256 === expected.contractSha256
+      && control.page_profile_sha256 === expected.pageProfileSha256
+      && control.asset_registry_sha256 === expected.assetRegistrySha256
+      && /^[0-9a-f]{64}$/.test(String(control.geometry_proof_sha256 || ''));
+    if (!exact) fail('MATERIALIZATION_RUN_NOT_ACTIVE', { expected: { run_id: expected.runId, writer_id: expected.writerId, state: 'ACTIVE', contract_sha256: expected.contractSha256, page_profile_sha256: expected.pageProfileSha256, asset_registry_sha256: expected.assetRegistrySha256, geometry_proof_sha256: 'required sha256' }, actual: control });
+    return control;
+  }
   const array = (value) => Array.from(value || []);
   const round = (value) => Math.round(Number(value) * 1000) / 1000;
   const eq = (a, b) => Math.abs(Number(a) - Number(b)) <= 0.02;
-  const plugin = (shape, key, value) => shape.setPluginData(key, String(value));
+  const plugin = (shape, key, value) => { requireActiveRun(); shape.setPluginData(key, String(value)); };
   const children = (shape) => array(shape?.children);
   const walk = (root) => {
     const out = [], queue = root ? [root] : [];
@@ -231,6 +304,7 @@ async function installProductionRuntime(P) {
   const place = (shape, parent, box) => {
     // Component-copy descendants already belong to their copy. Re-appending
     // them is a forbidden structural mutation in native Penpot components-v2.
+    requireActiveRun();
     if (parent && (!shape.parent || shape.parent.id !== parent.id)) parent.appendChild(shape);
     if (shape.layoutChild) shape.layoutChild.absolute = true;
     shape.resize(box.width, box.height);
@@ -238,16 +312,19 @@ async function installProductionRuntime(P) {
     return shape;
   };
   const setRadii = (shape, style = {}) => {
+    requireActiveRun();
     shape.borderRadiusTopLeft = style.radiusTL || 0;
     shape.borderRadiusTopRight = style.radiusTR || 0;
     shape.borderRadiusBottomRight = style.radiusBR || 0;
     shape.borderRadiusBottomLeft = style.radiusBL || 0;
   };
   const setFill = (shape, color, fillOpacity = 1) => {
+    requireActiveRun();
     shape.fills = fillOpacity > 0 ? [{ fillColor: color, fillOpacity }] : [];
     shape.strokes = [];
   };
   const setStroke = (shape, style = {}) => {
+    requireActiveRun();
     shape.strokes = style.strokeWidth > 0 && style.strokeOpacity > 0 ? [{ strokeColor: style.strokeColor, strokeOpacity: style.strokeOpacity, strokeStyle: 'solid', strokeWidth: style.strokeWidth, strokeAlignment: 'inner' }] : [];
   };
   const auditRadii = (shape, style = {}, code = 'RADIUS_DRIFT', detail = {}) => {
@@ -345,11 +422,16 @@ async function installProductionRuntime(P) {
 
   function applyText(textShape, style, fontRows) {
     const weight = 700;
+    requireActiveRun();
     const row = fontRows[weight];
     row.font.applyToText(textShape, row.variant);
-    textShape.fontSize = style.fontSize;
-    textShape.lineHeight = style.lineHeight;
-    textShape.letterSpacing = style.letterSpacing || 0;
+    // Penpot's Text API requires strings. Numeric lineHeight is interpreted as
+    // a unitless multiplier (for example 23.328 * 21.6px), which displaced and
+    // clipped every glyph run in the first live G19 publication.
+    textShape.growType = 'fixed';
+    textShape.fontSize = String(style.fontSize);
+    textShape.lineHeight = String(style.lineHeight);
+    textShape.letterSpacing = String(style.letterSpacing || 0);
     textShape.fills = [{ fillColor: style.color, fillOpacity: style.colorOpacity }];
     plugin(textShape, 'kenigevents-font-family', FAMILY);
     plugin(textShape, 'kenigevents-font-weight', weight);
@@ -391,9 +473,11 @@ async function installProductionRuntime(P) {
     return root;
   }
 
-  const childMarker = (rootKey, childKey) => `${marker(rootKey)}:${childKey}`;
-  const findChild = (parent, rootKey, childKey) => {
-    const matches = children(parent).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === childMarker(rootKey, childKey));
+  const V3_IDENTITY = { payloadSha256: P.payloadSha256, marker, childMarker: (rootKey, childKey) => `${marker(rootKey)}:${childKey}` };
+  const V2_IDENTITY = { payloadSha256: LEGACY_V2_PAYLOAD_SHA256, marker: legacyV2Marker, childMarker: (rootKey, childKey) => `${legacyV2Marker(rootKey)}:${childKey}` };
+  const childMarker = V3_IDENTITY.childMarker;
+  const findChild = (parent, rootKey, childKey, identity = V3_IDENTITY) => {
+    const matches = children(parent).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === identity.childMarker(rootKey, childKey));
     if (matches.length > 1) fail('DUPLICATE_MANAGED_CHILD', { rootKey, childKey, ids: matches.map((shape) => shape.id) });
     return matches[0] || null;
   };
@@ -404,8 +488,8 @@ async function installProductionRuntime(P) {
     plugin(shape, 'kenigevents-g19-child-marker', childMarker(rootKey, childKey));
     plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
   }
-  function ensureRectChild(parent, rootKey, childKey, box, color, fillOpacity = 1, style = null, createAllowed = true) {
-    let shape = findChild(parent, rootKey, childKey);
+  function ensureRectChild(parent, rootKey, childKey, box, color, fillOpacity = 1, style = null, createAllowed = true, identity = V3_IDENTITY) {
+    let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_RECT_MISSING', { rootKey, childKey });
       shape = penpot.createRectangle();
@@ -418,12 +502,12 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_RECT_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256) fail('MANAGED_RECT_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
+    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_RECT_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
     if (style) auditRadii(shape, style, 'MANAGED_RECT_RADIUS_DRIFT', { rootKey, childKey });
     return shape;
   }
-  function ensureBoardChild(parent, rootKey, childKey, box, color, fillOpacity, style, createAllowed = true) {
-    let shape = findChild(parent, rootKey, childKey);
+  function ensureBoardChild(parent, rootKey, childKey, box, color, fillOpacity, style, createAllowed = true, identity = V3_IDENTITY) {
+    let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_BOARD_MISSING', { rootKey, childKey });
       shape = penpot.createBoard();
@@ -437,25 +521,29 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_BOARD_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.clipContent !== true || shape.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256) fail('MANAGED_BOARD_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
+    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.clipContent !== true || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_BOARD_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
     auditRadii(shape, style, 'MANAGED_BOARD_RADIUS_DRIFT', { rootKey, childKey });
     return shape;
   }
-  function ensureTextChild(parent, rootKey, childKey, value, box, style, fontRows, createAllowed = true) {
-    let shape = findChild(parent, rootKey, childKey);
+  function ensureTextChild(parent, rootKey, childKey, value, box, style, fontRows, createAllowed = true, identity = V3_IDENTITY) {
+    let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_TEXT_MISSING', { rootKey, childKey });
       shape = makeText(parent, childKey, value, box, style, fontRows);
       if (!shape) fail('CREATE_TEXT_FAILED', { rootKey, childKey });
       stampChild(shape, rootKey, childKey);
+    } else if (createAllowed) {
+      shape.characters = value;
+      place(shape, parent, box);
+      applyText(shape, style, fontRows);
     }
     auditBox(shape, box, 'MANAGED_TEXT_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (shape.characters !== value || shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId || shape.getPluginData?.('kenigevents-font-family') !== FAMILY || shape.getPluginData?.('kenigevents-font-weight') !== '700' || shape.getPluginData?.('kenigevents-font-style') !== 'normal' || shape.getPluginData?.('kenigevents-font-source-sha256') !== FONT_SOURCES[700] || shape.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, style.lineHeight) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
+    if (shape.characters !== value || shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId || shape.getPluginData?.('kenigevents-font-family') !== FAMILY || shape.getPluginData?.('kenigevents-font-weight') !== '700' || shape.getPluginData?.('kenigevents-font-style') !== 'normal' || shape.getPluginData?.('kenigevents-font-source-sha256') !== FONT_SOURCES[700] || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, style.lineHeight) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
     return shape;
   }
-  function ensureIconChild(parent, rootKey, childKey, source, color, box, assetSha256, createAllowed = true) {
-    let shape = findChild(parent, rootKey, childKey);
+  function ensureIconChild(parent, rootKey, childKey, source, color, box, assetSha256, createAllowed = true, identity = V3_IDENTITY) {
+    let shape = findChild(parent, rootKey, childKey, identity);
     if (!shape) {
       if (!createAllowed) fail('MANAGED_ICON_MISSING', { rootKey, childKey });
       shape = penpot.createShapeFromSvg(tintedSvg(source, color));
@@ -467,7 +555,7 @@ async function installProductionRuntime(P) {
       place(shape, parent, box);
     }
     auditBox(shape, box, 'MANAGED_ICON_GEOMETRY_DRIFT', { rootKey, childKey });
-    if (shape.getPluginData?.('kenigevents-svg-sha256') !== assetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
+    if (shape.getPluginData?.('kenigevents-svg-sha256') !== assetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
     return shape;
   }
   async function withUndo(fn) {
@@ -476,10 +564,43 @@ async function installProductionRuntime(P) {
     finally { penpot.history.undoBlockFinish(blockId); }
   }
 
-  async function ensureComponent(spec, build) {
+  const isLegacyV2Root = (root, key) => root?.getPluginData?.('kenigevents-g19-marker') === legacyV2Marker(key)
+    && root.getPluginData?.('kenigevents-payload-sha256') === LEGACY_V2_PAYLOAD_SHA256;
+
+  function migrateLegacyV2TreeIdentity(root, rootKey, role) {
+    if (!isLegacyV2Root(root, rootKey) || root.getPluginData?.('kenigevents-build-state') !== 'COMPLETE') fail('LEGACY_V2_ROOT_NOT_MIGRATABLE', { rootKey, rootId: root?.id || null });
+    const oldPrefix = `${legacyV2Marker(rootKey)}:`, newPrefix = `${marker(rootKey)}:`;
+    for (const shape of walk(root).slice(1)) {
+      const managedChildMarker = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
+      const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
+      if (managedChildMarker) {
+        if (!managedChildMarker.startsWith(oldPrefix) || payload !== LEGACY_V2_PAYLOAD_SHA256) fail('LEGACY_V2_CHILD_NOT_MIGRATABLE', { rootKey, shapeId: shape.id, managedChildMarker, payload });
+        plugin(shape, 'kenigevents-g19-child-marker', `${newPrefix}${managedChildMarker.slice(oldPrefix.length)}`);
+        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+      } else if (payload) {
+        fail('LEGACY_V2_UNMARKED_PAYLOAD_DESCENDANT', { rootKey, shapeId: shape.id, payload });
+      }
+    }
+    stamp(root, rootKey, role);
+    plugin(root, 'kenigevents-build-state', 'COMPLETE');
+  }
+
+  async function ensureComponent(spec, build, auditLegacyV2) {
     let component = findComponent(spec.path, spec.name) || allComponents().find((candidate) => componentMain(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
     if (component) {
       const main = componentMain(component);
+      if (isLegacyV2Root(main, spec.key)) {
+        if (typeof auditLegacyV2 !== 'function' || component.path !== spec.path || component.name !== spec.name || main.parent?.id !== BOARD_ID) fail('LEGACY_V2_COMPONENT_IDENTITY_COLLISION', { key: spec.key, componentId: component.id });
+        return await withUndo(async () => {
+          await auditLegacyV2(main);
+          const expectedChildren = spec.kind === 'media' ? 3 : spec.kind === 'text-pill' ? 1 : spec.inner.label && spec.inner.count ? 3 : 2;
+          if (children(main).length !== expectedChildren) fail('LEGACY_V2_LEAF_CHILD_CARDINALITY', { key: spec.key, expected: expectedChildren, actual: children(main).length });
+          migrateLegacyV2TreeIdentity(main, spec.key, 'leaf-master');
+          await build(main, false);
+          await build(main, true);
+          return { component, main, created: true, migratedFrom: 'G19_V2', preservedIds: true };
+        });
+      }
       if (!main || main.getPluginData?.('kenigevents-g19-marker') !== marker(spec.key)) fail('COMPONENT_IDENTITY_COLLISION', { key: spec.key, name: spec.name });
       if ((component.path !== spec.path || component.name !== spec.name) && main.getPluginData('kenigevents-build-state') === 'READY_FOR_COMPONENT' && !component.path && !component.name) {
         return await withUndo(async () => {
@@ -525,7 +646,7 @@ async function installProductionRuntime(P) {
       const slot = slots[slotName], key = `${identity}.${viewport}.8006`;
       specs.push({ key, name: key, semanticIdentity: identity, path: LEAF_PATH, viewport, slotName, kind, box: { x: 0, y: 0, width: slot.box.width, height: slot.box.height }, gallery: next(slot.box.height), slot, ...extra });
     };
-    add('event.media-frame', 'media-link', 'media', { clip: true, fill: '#15110f', fillOpacity: 1, style: slots['media-link'].style, mediaSlot: slots.image });
+    add('event.media-frame', 'media-link', 'media', { clip: true, fill: '#15110f', fillOpacity: 0, style: slots['media-link'].style, mediaSlot: slots.image });
     add('event.meta.event-type', 'event-type', 'text-pill');
     add('event.meta.admission', 'admission', 'text-pill');
     add('event.action.not-interested', 'action.not_interested', 'action', { action: 'not_interested', inner: inner.not_interested });
@@ -541,7 +662,7 @@ async function installProductionRuntime(P) {
     return masters.flatMap((caseSpec, index) => leafSpecs(caseSpec, index));
   }
 
-  async function buildLeaf(spec, root, fontRows, auditOnly) {
+  async function buildLeaf(spec, root, fontRows, auditOnly, identity = V3_IDENTITY) {
     if (auditOnly) {
       if (root.getPluginData('kenigevents-semantic-identity') !== spec.semanticIdentity || root.getPluginData('kenigevents-structural-context') !== spec.viewport) fail('LEAF_SEMANTIC_BINDING_DRIFT', { key: spec.key });
     } else {
@@ -550,7 +671,7 @@ async function installProductionRuntime(P) {
     }
     const slot = spec.slot;
     const auditLeafRootStyle = () => {
-      const fills = array(root.fills), expectedFillOpacity = spec.fillOpacity ?? slot.style.backgroundOpacity ?? 0;
+      const fills = array(root.fills), expectedFillOpacity = identity === V2_IDENTITY && spec.kind === 'media' ? 1 : spec.fillOpacity ?? slot.style.backgroundOpacity ?? 0;
       const expectedFillColor = spec.fill || slot.style.backgroundColor;
       if (expectedFillOpacity > 0 && (!fills[0] || fills[0].fillColor !== expectedFillColor || !eq(fills[0].fillOpacity, expectedFillOpacity))) fail('LEAF_ROOT_FILL_DRIFT', { key: spec.key });
       if (expectedFillOpacity === 0 && fills.length) fail('LEAF_ROOT_FILL_DRIFT', { key: spec.key });
@@ -559,15 +680,16 @@ async function installProductionRuntime(P) {
       const strokes = array(root.strokes);
       if (expectedStroke && (!strokes[0] || strokes[0].strokeColor !== slot.style.strokeColor || !eq(strokes[0].strokeOpacity, slot.style.strokeOpacity) || !eq(strokes[0].strokeWidth, slot.style.strokeWidth))) fail('LEAF_ROOT_STROKE_DRIFT', { key: spec.key });
       if (!expectedStroke && strokes.length) fail('LEAF_ROOT_STROKE_DRIFT', { key: spec.key });
-      if (root.getPluginData('kenigevents-payload-sha256') !== P.payloadSha256) fail('LEAF_ROOT_PAYLOAD_DRIFT', { key: spec.key });
+      if (root.getPluginData('kenigevents-g19-marker') !== identity.marker(spec.key) || root.getPluginData('kenigevents-payload-sha256') !== identity.payloadSha256) fail('LEAF_ROOT_PAYLOAD_DRIFT', { key: spec.key });
     };
     if (spec.kind === 'media') {
       // The linked leaf owns the reusable frame. Exact fixture artwork remains
       // a card content-slot sibling so both 8006/contain and 2182/cover share
       // exactly fourteen persistent leaf masters without detaching instances.
-      ensureRectChild(root, spec.key, 'border.top', { x: 0, y: 0, width: slot.box.width, height: 1 }, '#793014', 0.13, null, !auditOnly);
-      ensureRectChild(root, spec.key, 'border.left', { x: 0, y: 0, width: 1, height: slot.box.height }, '#793014', 0.13, null, !auditOnly);
-      ensureRectChild(root, spec.key, 'border.right', { x: slot.box.width - 1, y: 0, width: 1, height: slot.box.height }, '#793014', 0.13, null, !auditOnly);
+      if (!auditOnly) setFill(root, '#000000', 0);
+      ensureRectChild(root, spec.key, 'border.top', { x: 0, y: 0, width: slot.box.width, height: 1 }, '#793014', 0.13, null, !auditOnly, identity);
+      ensureRectChild(root, spec.key, 'border.left', { x: 0, y: 0, width: 1, height: slot.box.height }, '#793014', 0.13, null, !auditOnly, identity);
+      ensureRectChild(root, spec.key, 'border.right', { x: slot.box.width - 1, y: 0, width: 1, height: slot.box.height }, '#793014', 0.13, null, !auditOnly, identity);
       auditLeafRootStyle();
       return;
     }
@@ -580,7 +702,7 @@ async function installProductionRuntime(P) {
         setRadii(root, slot.style);
         setStroke(root, slot.style);
       }
-      ensureTextChild(root, spec.key, 'label', slot.text, box, slot.style, fontRows, !auditOnly);
+      ensureTextChild(root, spec.key, 'label', slot.text, box, slot.style, fontRows, !auditOnly, identity);
       auditLeafRootStyle();
       return;
     }
@@ -593,9 +715,9 @@ async function installProductionRuntime(P) {
     const iconSource = { not_interested: P.icons.notInterested, calendar: P.icons.calendar, share: P.icons.share, like: P.icons.like }[spec.action];
     const iconSha256 = { not_interested: P.iconSha256.notInterested, calendar: P.iconSha256.calendar, share: P.iconSha256.share, like: P.iconSha256.like }[spec.action];
     const labels = { not_interested: 'Не интересно', calendar: 'В календарь', share: 'Поделиться' };
-    ensureIconChild(root, spec.key, 'icon', iconSource, colors, geometry.icon, iconSha256, !auditOnly);
-    if (geometry.label) ensureTextChild(root, spec.key, 'label', labels[spec.action], geometry.label, slot.style, fontRows, !auditOnly);
-    if (geometry.count) ensureTextChild(root, spec.key, 'count', spec.action === 'share' ? '1' : '9', geometry.count, slot.style, fontRows, !auditOnly);
+    ensureIconChild(root, spec.key, 'icon', iconSource, colors, geometry.icon, iconSha256, !auditOnly, identity);
+    if (geometry.label) ensureTextChild(root, spec.key, 'label', labels[spec.action], geometry.label, slot.style, fontRows, !auditOnly, identity);
+    if (geometry.count) ensureTextChild(root, spec.key, 'count', spec.action === 'share' ? '1' : '9', geometry.count, slot.style, fontRows, !auditOnly, identity);
     auditLeafRootStyle();
   }
 
@@ -614,8 +736,8 @@ async function installProductionRuntime(P) {
     return root;
   }
 
-  function ensureLinkedInstance(parent, rootKey, binding, leaf, createAllowed = true) {
-    let instance = findChild(parent, rootKey, binding.slotName);
+  function ensureLinkedInstance(parent, rootKey, binding, leaf, createAllowed = true, identity = V3_IDENTITY) {
+    let instance = findChild(parent, rootKey, binding.slotName, identity);
     if (!instance) {
       if (!createAllowed) fail('LINKED_INSTANCE_MISSING', { rootKey, slotName: binding.slotName });
       instance = leaf.component.instance();
@@ -633,22 +755,53 @@ async function installProductionRuntime(P) {
     return instance;
   }
 
-  const nestedManagedChild = (instance, leafKey, childKey) => walk(instance).slice(1).find((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === childMarker(leafKey, childKey)) || null;
+  const nestedManagedChild = (instance, leafKey, childKey, identity = V3_IDENTITY) => walk(instance).slice(1).find((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === identity.childMarker(leafKey, childKey)) || null;
 
-  function configureLinkedInstance(instance, spec, binding, fontRows, auditOnly) {
+  function migrateLegacyV2LinkedCopyIdentity(instance, leafKey) {
+    const rootMarker = instance.getPluginData?.('kenigevents-g19-marker') || '';
+    const rootPayload = instance.getPluginData?.('kenigevents-payload-sha256') || '';
+    const descendants = walk(instance).slice(1).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker'));
+    const hasLegacyDescendants = descendants.some((shape) => shape.getPluginData('kenigevents-g19-child-marker').startsWith(`${legacyV2Marker(leafKey)}:`));
+    if (rootMarker === marker(leafKey) && rootPayload === P.payloadSha256 && !hasLegacyDescendants) return false;
+    if (![marker(leafKey), legacyV2Marker(leafKey)].includes(rootMarker) || ![P.payloadSha256, LEGACY_V2_PAYLOAD_SHA256].includes(rootPayload)) fail('LINKED_COPY_ROOT_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, rootMarker, rootPayload });
+    for (const shape of descendants) {
+      const value = shape.getPluginData('kenigevents-g19-child-marker');
+      const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
+      if (value.startsWith(`${legacyV2Marker(leafKey)}:`)) {
+        if (payload !== LEGACY_V2_PAYLOAD_SHA256) fail('LINKED_COPY_CHILD_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
+        plugin(shape, 'kenigevents-g19-child-marker', `${marker(leafKey)}:${value.slice(`${legacyV2Marker(leafKey)}:`.length)}`);
+        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+      } else if (!value.startsWith(`${marker(leafKey)}:`) || payload !== P.payloadSha256) {
+        fail('LINKED_COPY_CHILD_IDENTITY_DRIFT', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
+      }
+    }
+    plugin(instance, 'kenigevents-g19-marker', marker(leafKey));
+    plugin(instance, 'kenigevents-payload-sha256', P.payloadSha256);
+    return true;
+  }
+
+  function configureLinkedInstance(instance, spec, binding, fontRows, auditOnly, identity = V3_IDENTITY) {
     const slot = spec.slots[binding.slotName];
     const leafKey = binding.leafKey;
+    if (!auditOnly && identity === V3_IDENTITY) migrateLegacyV2LinkedCopyIdentity(instance, leafKey);
     if (!auditOnly) {
       plugin(instance, 'kenigevents-instance-case-id', spec.caseId);
       plugin(instance, 'kenigevents-instance-slot', binding.slotName);
-      if (slot.style.backgroundOpacity > 0) setFill(instance, slot.style.backgroundColor, slot.style.backgroundOpacity); else setFill(instance, '#000000', 0);
+      if (binding.slotName === 'media-link') setFill(instance, '#000000', 0);
+      else if (slot.style.backgroundOpacity > 0) setFill(instance, slot.style.backgroundColor, slot.style.backgroundOpacity);
+      else setFill(instance, '#000000', 0);
       setRadii(instance, slot.style);
       setStroke(instance, slot.style);
     }
     if (instance.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId || instance.getPluginData?.('kenigevents-instance-slot') !== binding.slotName) fail('LINKED_INSTANCE_CASE_BINDING_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
-    if (binding.slotName === 'media-link') return;
+    if (binding.slotName === 'media-link') {
+      const expectedOpaqueLegacyFill = identity === V2_IDENTITY;
+      const fills = array(instance.fills);
+      if (expectedOpaqueLegacyFill ? (!fills[0] || fills[0].fillColor !== '#15110f' || !eq(fills[0].fillOpacity, 1)) : fills.length !== 0) fail('LINKED_MEDIA_FRAME_FILL_DRIFT', { caseId: spec.caseId, fills });
+      return;
+    }
     if (binding.slotName === 'event-type' || binding.slotName === 'admission') {
-      const label = nestedManagedChild(instance, leafKey, 'label'), fragment = slot.lineFragments[0];
+      const label = nestedManagedChild(instance, leafKey, 'label', identity), fragment = slot.lineFragments[0];
       if (!label || !fragment) fail('LINKED_TEXT_OVERRIDE_TARGET_MISSING', { caseId: spec.caseId, slot: binding.slotName });
       const box = { x: fragment.x - slot.box.x, y: fragment.y - slot.box.y, width: fragment.width, height: fragment.height };
       if (!auditOnly) { label.characters = slot.text; place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, 'kenigevents-instance-case-id', spec.caseId); }
@@ -662,7 +815,7 @@ async function installProductionRuntime(P) {
     const values = { label: { not_interested: 'Не интересно', calendar: 'В календарь', share: 'Поделиться' }[action], count: action === 'share' ? String(fixture.shares) : String(fixture.likes) };
     for (const part of ['icon', 'label', 'count']) {
       if (!(part in geometry)) continue;
-      const child = nestedManagedChild(instance, leafKey, part);
+      const child = nestedManagedChild(instance, leafKey, part, identity);
       if (!child) fail('LINKED_ACTION_OVERRIDE_TARGET_MISSING', { caseId: spec.caseId, action, part });
       const expected = geometry[part], hidden = Boolean(expected.hidden);
       if (!auditOnly) {
@@ -677,10 +830,10 @@ async function installProductionRuntime(P) {
     }
   }
 
-  async function ensureCaseMedia(root, spec, auditOnly) {
+  async function ensureCaseMedia(root, spec, auditOnly, identity = V3_IDENTITY) {
     const childKey = 'content.media-artwork', box = spec.slots.image.box, media = P.media[spec.fixtureId];
     if (!media) fail('CASE_MEDIA_PAYLOAD_MISSING', { caseId: spec.caseId, fixtureId: spec.fixtureId });
-    let shape = findChild(root, spec.key, childKey);
+    let shape = findChild(root, spec.key, childKey, identity);
     if (!shape) {
       if (auditOnly) fail('CASE_MEDIA_SHAPE_MISSING', { caseId: spec.caseId });
       const aspect = media.fit === 'cover' ? 'xMidYMid slice' : 'xMidYMid meet';
@@ -696,48 +849,79 @@ async function installProductionRuntime(P) {
       place(shape, root, box);
     }
     auditBox(shape, box, 'CASE_MEDIA_GEOMETRY_DRIFT', { caseId: spec.caseId });
-    if (shape.getPluginData?.('kenigevents-media-sha256') !== media.sha256 || shape.getPluginData?.('kenigevents-media-fit') !== media.fit || shape.getPluginData?.('kenigevents-media-position') !== '50% 50%' || shape.getPluginData?.('kenigevents-fixture-id') !== spec.fixtureId) fail('CASE_MEDIA_BINDING_DRIFT', { caseId: spec.caseId });
+    if (shape.getPluginData?.('kenigevents-media-sha256') !== media.sha256 || shape.getPluginData?.('kenigevents-media-fit') !== media.fit || shape.getPluginData?.('kenigevents-media-position') !== '50% 50%' || shape.getPluginData?.('kenigevents-fixture-id') !== spec.fixtureId || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('CASE_MEDIA_BINDING_DRIFT', { caseId: spec.caseId });
     return shape;
   }
 
-  async function buildCardStatic(spec, root, fontRows, auditOnly) {
+  async function buildCardStatic(spec, root, fontRows, auditOnly, identity = V3_IDENTITY) {
     auditRadii(root, { radiusTL: 24, radiusTR: 24, radiusBR: 24, radiusBL: 24 }, 'CARD_ROOT_RADIUS_DRIFT', { key: spec.key });
-    if (array(root.fills).length || array(root.strokes).length || root.clipContent !== false || root.getPluginData('kenigevents-payload-sha256') !== P.payloadSha256) fail('CARD_ROOT_STYLE_OR_PAYLOAD_DRIFT', { key: spec.key });
-    ensureRectChild(root, spec.key, 'surface.body', spec.slots.body.box, '#15110f', 1, null, !auditOnly);
+    if (array(root.fills).length || array(root.strokes).length || root.clipContent !== false || root.getPluginData('kenigevents-g19-marker') !== identity.marker(spec.key) || root.getPluginData('kenigevents-payload-sha256') !== identity.payloadSha256) fail('CARD_ROOT_STYLE_OR_PAYLOAD_DRIFT', { key: spec.key });
+    ensureRectChild(root, spec.key, 'surface.body', spec.slots.body.box, '#15110f', 1, null, !auditOnly, identity);
     const u = spec.slots['utility-row'].box;
-    const utility = ensureBoardChild(root, spec.key, 'surface.utility-row', u, '#15110f', 1, spec.slots['utility-row'].style, !auditOnly);
-    ensureRectChild(root, spec.key, 'body.border.left', { x: spec.slots.body.box.x, y: spec.slots.body.box.y, width: 1, height: spec.slots.body.box.height }, '#793014', 0.13, null, !auditOnly);
-    ensureRectChild(root, spec.key, 'body.border.right', { x: spec.slots.body.box.width - 1, y: spec.slots.body.box.y, width: 1, height: spec.slots.body.box.height }, '#793014', 0.13, null, !auditOnly);
-    ensureRectChild(utility, spec.key, 'utility.border.left', { x: 0, y: 0, width: 1, height: u.height }, '#793014', 0.13, null, !auditOnly);
-    ensureRectChild(utility, spec.key, 'utility.border.right', { x: u.width - 1, y: 0, width: 1, height: u.height }, '#793014', 0.13, null, !auditOnly);
-    ensureRectChild(utility, spec.key, 'utility.border.bottom', { x: 0, y: u.height - 1, width: u.width, height: 1 }, '#793014', 0.13, null, !auditOnly);
+    const utility = ensureBoardChild(root, spec.key, 'surface.utility-row', u, '#15110f', 1, spec.slots['utility-row'].style, !auditOnly, identity);
+    ensureRectChild(root, spec.key, 'body.border.left', { x: spec.slots.body.box.x, y: spec.slots.body.box.y, width: 1, height: spec.slots.body.box.height }, '#793014', 0.13, null, !auditOnly, identity);
+    ensureRectChild(root, spec.key, 'body.border.right', { x: spec.slots.body.box.width - 1, y: spec.slots.body.box.y, width: 1, height: spec.slots.body.box.height }, '#793014', 0.13, null, !auditOnly, identity);
+    ensureRectChild(utility, spec.key, 'utility.border.left', { x: 0, y: 0, width: 1, height: u.height }, '#793014', 0.13, null, !auditOnly, identity);
+    ensureRectChild(utility, spec.key, 'utility.border.right', { x: u.width - 1, y: 0, width: 1, height: u.height }, '#793014', 0.13, null, !auditOnly, identity);
+    ensureRectChild(utility, spec.key, 'utility.border.bottom', { x: 0, y: u.height - 1, width: u.width, height: 1 }, '#793014', 0.13, null, !auditOnly, identity);
     for (const slotName of ['title', 'occurrence', 'place']) {
       const slot = spec.slots[slotName];
-      ensureTextChild(root, spec.key, slotName, slot.text, slot.box, slot.style, fontRows, !auditOnly);
+      ensureTextChild(root, spec.key, slotName, slot.text, slot.box, slot.style, fontRows, !auditOnly, identity);
     }
-    await ensureCaseMedia(root, spec, auditOnly);
+    await ensureCaseMedia(root, spec, auditOnly, identity);
   }
 
-  function buildCardBindings(spec, root, leaves, fontRows, auditOnly, role) {
+  function buildCardBindings(spec, root, leaves, fontRows, auditOnly, role, identity = V3_IDENTITY) {
     const selected = spec.bindings.filter((binding) => role === 'shell' ? ['media-link', 'event-type', 'admission'].includes(binding.slotName) : !['media-link', 'event-type', 'admission'].includes(binding.slotName));
     for (const binding of selected) {
       const leaf = leaves[binding.leafKey];
       if (!leaf) fail('LEAF_COMPONENT_MISSING', { leafKey: binding.leafKey });
-      const instance = ensureLinkedInstance(root, spec.key, binding, leaf, !auditOnly);
-      configureLinkedInstance(instance, spec, binding, fontRows, auditOnly);
+      const instance = ensureLinkedInstance(root, spec.key, binding, leaf, !auditOnly, identity);
+      configureLinkedInstance(instance, spec, binding, fontRows, auditOnly, identity);
     }
   }
 
-  async function auditCompleteCard(spec, root, leaves, fontRows) {
-    await buildCardStatic(spec, root, fontRows, true);
-    buildCardBindings(spec, root, leaves, fontRows, true, 'shell');
-    buildCardBindings(spec, root, leaves, fontRows, true, 'actions');
+  async function auditCompleteCard(spec, root, leaves, fontRows, identity = V3_IDENTITY) {
+    await buildCardStatic(spec, root, fontRows, true, identity);
+    buildCardBindings(spec, root, leaves, fontRows, true, 'shell', identity);
+    buildCardBindings(spec, root, leaves, fontRows, true, 'actions', identity);
+  }
+
+  async function migrateLegacyV2Card(component, spec, root, leaves, fontRows) {
+    if (!isLegacyV2Root(root, spec.key) || component.path !== CARD_PATH || component.name !== spec.name || root.parent?.id !== BOARD_ID || root.getPluginData?.('kenigevents-build-state') !== 'COMPLETE') fail('LEGACY_V2_CARD_NOT_MIGRATABLE', { key: spec.key, componentId: component.id, rootId: root.id });
+    if (root.getPluginData?.('kenigevents-semantic-root') !== spec.semanticRoot || root.getPluginData?.('kenigevents-semantic-identity') !== 'component.event-card.free-collection' || root.getPluginData?.('kenigevents-structural-context') !== spec.structuralContext || root.getPluginData?.('kenigevents-case-id') !== spec.caseId) fail('LEGACY_V2_CARD_SEMANTIC_DRIFT', { key: spec.key });
+    await auditCompleteCard(spec, root, leaves, fontRows, V2_IDENTITY);
+    const expectedDirectChildren = 8 + spec.bindings.length;
+    if (children(root).length !== expectedDirectChildren) fail('LEGACY_V2_CARD_CHILD_CARDINALITY', { key: spec.key, expected: expectedDirectChildren, actual: children(root).length });
+    return await withUndo(async () => {
+      const oldCardPrefix = `${legacyV2Marker(spec.key)}:`, newCardPrefix = `${marker(spec.key)}:`;
+      for (const shape of walk(root).slice(1)) {
+        const value = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
+        if (!value.startsWith(oldCardPrefix)) continue;
+        if (shape.getPluginData?.('kenigevents-payload-sha256') !== LEGACY_V2_PAYLOAD_SHA256) fail('LEGACY_V2_CARD_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, value });
+        plugin(shape, 'kenigevents-g19-child-marker', `${newCardPrefix}${value.slice(oldCardPrefix.length)}`);
+        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+      }
+      stamp(root, spec.key, 'accepted-card-master');
+      plugin(root, 'kenigevents-build-state', 'COMPLETE');
+      for (const binding of spec.bindings) {
+        const instance = findChild(root, spec.key, binding.slotName);
+        if (!instance) fail('MIGRATED_CARD_LINKED_INSTANCE_MISSING', { key: spec.key, slot: binding.slotName });
+        migrateLegacyV2LinkedCopyIdentity(instance, binding.leafKey);
+        place(instance, root, binding.box);
+        configureLinkedInstance(instance, spec, binding, fontRows, false);
+      }
+      await buildCardStatic(spec, root, fontRows, false);
+      await auditCompleteCard(spec, root, leaves, fontRows);
+      return { component, main: root, created: true, state: 'COMPLETE', migratedFrom: 'G19_V2', preservedIds: true };
+    });
   }
 
   async function ensureCardShell(spec, leaves, fontRows) {
     let component = findComponent(CARD_PATH, spec.name) || allComponents().find((candidate) => componentMain(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
     if (component) {
       const main = componentMain(component);
+      if (isLegacyV2Root(main, spec.key)) return migrateLegacyV2Card(component, spec, main, leaves, fontRows);
       if (!main || component.path !== CARD_PATH || component.name !== spec.name || main.getPluginData('kenigevents-build-state') !== 'COMPLETE') fail('CARD_COMPONENT_IDENTITY_COLLISION', { key: spec.key });
       auditBox(main, { x: relativeX(main), y: relativeY(main), width: spec.box.width, height: spec.box.height }, 'CARD_ROOT_GEOMETRY_DRIFT', { key: spec.key });
       await auditCompleteCard(spec, main, leaves, fontRows);
@@ -977,11 +1161,15 @@ async function installProductionRuntime(P) {
   };
   const phaseComplete = (phaseId) => {
     const leafRows = phaseLeafSpecs(phaseId);
-    if (leafRows) return leafRows.every((spec) => Boolean(findComponent(LEAF_PATH, spec.name)));
+    if (leafRows) return leafRows.every((spec) => {
+      const component = findComponent(LEAF_PATH, spec.name), root = componentMain(component);
+      return Boolean(component && root?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key) && root.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256 && root.getPluginData?.('kenigevents-build-state') === 'COMPLETE');
+    });
     const card = phaseCardSpec(phaseId);
     if (card) {
       const component = findComponent(CARD_PATH, card.name), root = componentMain(component) || findManagedRoot(card.key);
-      return phaseId.endsWith('_FINAL') ? Boolean(component && root?.getPluginData?.('kenigevents-build-state') === 'COMPLETE') : Boolean(root && ['SHELL_COMPLETE', 'COMPLETE'].includes(root.getPluginData?.('kenigevents-build-state')));
+      const current = root?.getPluginData?.('kenigevents-g19-marker') === marker(card.key) && root.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256;
+      return phaseId.endsWith('_FINAL') ? Boolean(component && current && root?.getPluginData?.('kenigevents-build-state') === 'COMPLETE') : Boolean(current && ['SHELL_COMPLETE', 'COMPLETE'].includes(root.getPluginData?.('kenigevents-build-state')));
     }
     if (phaseId === 'P90_FINALIZE') return allComponents().length === 18 && managedRoots().length === 18;
     return false;
@@ -1001,6 +1189,17 @@ async function installProductionRuntime(P) {
     return { id: version?.id || null, label: version?.label || version?.name || label, created };
   }
 
+  function migrationAcceptance(readbackResult) {
+    const legacyRoots = managedRoots().filter((root) => {
+      const value = root.getPluginData?.('kenigevents-g19-marker') || '';
+      return value.endsWith(':v2') && root.getPluginData?.('kenigevents-payload-sha256') === LEGACY_V2_PAYLOAD_SHA256;
+    });
+    if (!legacyRoots.length) return { active: false, accepted: readbackResult.routeLocalDuplicateMasterCount === 0 && readbackResult.auditIssues.length === 0, legacyRootNames: [] };
+    const names = new Set(legacyRoots.map((root) => root.name));
+    const allowed = readbackResult.auditIssues.every((issue) => names.has(issue.name) && ['COMPONENT_STATE_PAYLOAD_OR_PARENT', 'CARD_SLOT_GEOMETRY'].includes(issue.code));
+    return { active: true, accepted: allowed && readbackResult.routeLocalDuplicateMasterCount === legacyRoots.length, legacyRootNames: [...names] };
+  }
+
   async function runPhase(phaseId) {
     if (!PHASE_ORDER.includes(phaseId)) fail('UNKNOWN_MATERIALIZATION_PHASE', { phaseId, allowed: PHASE_ORDER });
     assertPrimitives();
@@ -1012,7 +1211,11 @@ async function installProductionRuntime(P) {
     const leafRows = phaseLeafSpecs(phaseId);
     if (leafRows) {
       for (const spec of leafRows) {
-        const result = await ensureComponent(spec, (root, auditOnly) => buildLeaf(spec, root, fontRows, auditOnly));
+        const result = await ensureComponent(
+          spec,
+          (root, auditOnly) => buildLeaf(spec, root, fontRows, auditOnly),
+          (root) => buildLeaf(spec, root, fontRows, true, V2_IDENTITY),
+        );
         (result.created ? created : reused).push({ role: 'leaf', name: spec.name, componentId: result.component.id, rootId: result.main.id });
       }
     } else if (phaseId !== 'P90_FINALIZE') {
@@ -1022,11 +1225,13 @@ async function installProductionRuntime(P) {
     }
     const strict = phaseId === 'P90_FINALIZE';
     const beforeSave = readback(strict);
-    if (beforeSave.screenshotRootCount !== 0 || beforeSave.routeLocalDuplicateMasterCount !== 0 || beforeSave.validation.length !== 0 || beforeSave.auditIssues.length !== 0 || (strict && (beforeSave.detachedRootCount !== 0 || beforeSave.acceptedCardRootCount !== 4 || beforeSave.managedComponentCount !== 18 || beforeSave.managedBoardChildCount !== 18 || beforeSave.totalLocalComponentCount !== 18))) fail('POST_PHASE_ACCEPTANCE_FAILED', { phaseId, readback: beforeSave });
+    const beforeMigration = migrationAcceptance(beforeSave);
+    if (beforeSave.screenshotRootCount !== 0 || beforeSave.validation.length !== 0 || !beforeMigration.accepted || (strict && (beforeMigration.active || beforeSave.detachedRootCount !== 0 || beforeSave.acceptedCardRootCount !== 4 || beforeSave.managedComponentCount !== 18 || beforeSave.managedBoardChildCount !== 18 || beforeSave.totalLocalComponentCount !== 18))) fail('POST_PHASE_ACCEPTANCE_FAILED', { phaseId, migration: beforeMigration, readback: beforeSave });
     const savedVersion = await savePhaseVersion(phaseId, created.length > 0);
     const result = readback(strict);
-    if (result.validation.length || result.auditIssues.length) fail('POST_PHASE_SAVE_ACCEPTANCE_FAILED', { phaseId, readback: result });
-    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v2', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, preflight, created, reused, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
+    const afterMigration = migrationAcceptance(result);
+    if (result.validation.length || !afterMigration.accepted) fail('POST_PHASE_SAVE_ACCEPTANCE_FAILED', { phaseId, migration: afterMigration, readback: result });
+    return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v2', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
   }
 
   const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, EXPECTED_BASELINE_REVISION, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
@@ -1072,7 +1277,14 @@ async function main() {
     schema: 'kenigevents.penpot.g19.eventcard-8006.payload.v1',
     controlGeneration: 19,
     leaseId: 'G19-P2-P4-ACTUAL-MATERIALIZATION-R1',
-    solePenpotWriter: 'E0_CHATGPT_PRO',
+    solePenpotWriter: 'D0/PUBLISH',
+    runControl: {
+      runId: '01a05819-82c8-7e70-a088-ed262f425ec6',
+      writerId: '/root/publish',
+      contractSha256: '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72',
+      pageProfileSha256: '2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3',
+      assetRegistrySha256: '03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc',
+    },
     fileId: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
     pageId: 'c16498cb-b51d-8030-8008-904bd8fc9c53',
     boardId: '313fb1ed-0d5c-8095-8008-9108df52b2ce',
@@ -1111,7 +1323,7 @@ async function main() {
   const payloadText = JSON.stringify(payload), payloadTransportSha256 = sha256(Buffer.from(payloadText)), payloadChunks = payloadText.match(/[\s\S]{1,48000}/g) || [];
   const bootstrapSource = `/** G19 P2 V3 read-only bounded payload uploader bootstrap. */\nreturn (()=>{const session=${JSON.stringify(payloadTransportSha256)};const state={session,total:null,chunks:[],append(index,total,chunk){if(this.session!==session)throw new Error('G19_UPLOAD_SESSION_DRIFT');if(!Number.isInteger(index)||index<0||index>=total)throw new Error('G19_UPLOAD_INDEX_INVALID');if(this.total!=null&&this.total!==total)throw new Error('G19_UPLOAD_TOTAL_DRIFT');this.total=total;if(this.chunks[index]!=null){if(this.chunks[index]!==chunk)throw new Error('G19_UPLOAD_CHUNK_DRIFT');return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:true,received:this.chunks.filter(v=>v!=null).length,total};}this.chunks[index]=chunk;return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:false,received:this.chunks.filter(v=>v!=null).length,total};},seal(total,chars){if(this.total!==total||this.chunks.length!==total||this.chunks.some(v=>typeof v!=='string'))throw new Error('G19_UPLOAD_INCOMPLETE');const text=this.chunks.join('');if(text.length!==chars)throw new Error('G19_UPLOAD_LENGTH_MISMATCH');return text;}};storage.g19EventCard8006Upload=state;delete storage.g19EventCard8006;return {schema:'kenigevents.penpot.g19.upload-ready.v3',session,total:${payloadChunks.length},chars:${payloadText.length},mutations:0};})();\n`;
   const chunkOutputs = Object.fromEntries(payloadChunks.map((chunk, index) => [`phase-01-payload-${String(index + 1).padStart(3, '0')}.js`, `/** G19 P2 V3 payload chunk ${index + 1}/${payloadChunks.length}; read-only. */\nif(!storage.g19EventCard8006Upload)throw new Error('G19_UPLOAD_NOT_BOOTSTRAPPED');return storage.g19EventCard8006Upload.append(${index},${payloadChunks.length},${JSON.stringify(chunk)});\n`]));
-  const installSource = `/** G19 P2 V3 seal payload, verify SHA-256 without WebCrypto, install runtime, and preflight without mutation. */\nconst text=storage.g19EventCard8006Upload?.seal(${payloadChunks.length},${payloadText.length});const digest=(${sha256Utf8Text.toString()})(text);if(digest!==${JSON.stringify(payloadTransportSha256)})throw new Error('G19_PAYLOAD_SHA256_MISMATCH');const P=JSON.parse(text);if(P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_CORE_IDENTITY_MISMATCH');return await (${installProductionRuntime.toString()})(P);\n`;
+  const installSource = `/** G19 P2 V3 seal payload, verify SHA-256 without WebCrypto, install runtime, and preflight without mutation. */\nconst text=storage.g19EventCard8006Upload?.seal(${payloadChunks.length},${payloadText.length});const digest=(${compactGeneratedFunction(sha256Utf8Text)})(text);if(digest!==${JSON.stringify(payloadTransportSha256)})throw new Error('G19_PAYLOAD_SHA256_MISMATCH');const P=JSON.parse(text);if(P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_CORE_IDENTITY_MISMATCH');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
   const mutationPhases = ['P10_DESKTOP_LEAVES_A','P11_DESKTOP_LEAVES_B','P20_MOBILE_LEAVES_A','P21_MOBILE_LEAVES_B','P30_DESKTOP_WIDE_SHELL','P31_DESKTOP_WIDE_FINAL','P40_DESKTOP_PACKED_SHELL','P41_DESKTOP_PACKED_FINAL','P50_MOBILE_WIDE_SHELL','P51_MOBILE_WIDE_FINAL','P60_MOBILE_PACKED_SHELL','P61_MOBILE_PACKED_FINAL','P90_FINALIZE'];
   const phaseOutputs = Object.fromEntries(mutationPhases.map((phaseId) => [`phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`, `/** G19 P2 V3 bounded idempotent mutator ${phaseId}. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.runPhase(${JSON.stringify(phaseId)});\n`]));
   const readbackSource = `/** G19 P2 V3 readback + validate; read-only. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return storage.g19EventCard8006.readback(false);\n`;
@@ -1147,6 +1359,7 @@ async function main() {
     executable_set_identity_format: 'UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order',
     expected_card_components: wanted,
     expected_leaf_components: expectedLeafComponents,
+    run_control: { namespace: 'kenigevents', key: 'asp-active-run-v1', schema: 'kenigevents.asp-run-control.v1', expected_run_id: payload.runControl.runId, expected_writer_id: payload.runControl.writerId, allowed_state: 'ACTIVE', recheck: 'before every write and after every awaited operation before the next write', bootstrap_included: false, contract_sha256: payload.runControl.contractSha256, page_profile_sha256: payload.runControl.pageProfileSha256, asset_registry_sha256: payload.runControl.assetRegistrySha256, geometry_proof_sha256: null },
     materialization_profile: {
       owner_override: 'G19-P2-P4-ACTUAL-MATERIALIZATION-R1',
       accepted_card_encoding: 'four exact fixture-bound structural-context root components under the immutable accepted G12 board',
