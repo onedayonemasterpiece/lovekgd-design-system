@@ -25,7 +25,7 @@ R5.1 immutable repair ready
 `62deac3e1276e5a92b79ab4b6512e4489202719b`
 
 ## Head SHA
-R5.1 implementation commit: `PENDING_THIS_COMMIT`
+R5.1 implementation commit: `390594f`
 
 ## Files changed
 - `catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json`
