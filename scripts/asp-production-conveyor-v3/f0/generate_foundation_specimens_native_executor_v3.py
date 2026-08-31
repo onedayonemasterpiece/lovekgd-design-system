@@ -12,5 +12,5 @@ def main()->int:
  source=ADAPTER.read_text(encoding="utf-8")
  body=source+"\nreturn await runF0FoundationSpecimensV3({penpot,storage});\n"
  Path(a.output).write_text(body,encoding="utf-8")
- print(json.dumps({"status":"EXECUTOR_READY","output":a.output,"bytes":len(body.encode()),"sha256":hashlib.sha256(body.encode()).hexdigest(),"run_id":"974e8f09-353c-49ca-b19d-982b973e939c","protected_projection_mode":"SAME_RUN_PROBE_THEN_EXECUTE","protected_baseline_revision":76,"requires_authoritative_native_run":True,"requires_preinstalled_lease_receipt":True},sort_keys=True)); return 0
+ print(json.dumps({"status":"EXECUTOR_READY","adapter_revision":"R3.1","output":a.output,"bytes":len(body.encode()),"sha256":hashlib.sha256(body.encode()).hexdigest(),"run_id":"974e8f09-353c-49ca-b19d-982b973e939c","protected_projection_mode":"SAME_RUN_PROBE_THEN_EXECUTE","protected_baseline_revision":79,"requires_authoritative_native_run":True,"requires_preinstalled_lease_receipt":True},sort_keys=True)); return 0
 if __name__=="__main__": raise SystemExit(main())

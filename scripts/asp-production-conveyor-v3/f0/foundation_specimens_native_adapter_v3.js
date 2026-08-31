@@ -4,8 +4,10 @@
  */
 const F0_CONFIG = Object.freeze({
   schema: "kenigevents.f0-foundation-native-adapter.v3",
+  adapterRevision: "R3.1",
   fileId: "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
   pageName: "03 · Foundations · Current reconstructed specimens · Candidate",
+  pageId: "313fb1ed-0d5c-8095-8008-9183322ab3a9",
   rootName: "CANDIDATE_BUILD_NOT_ACCEPTED · F-FOUNDATIONS-SPECIMENS · current-reconstructed",
   candidateLabel: "CANDIDATE_BUILD_NOT_ACCEPTED",
   packageCommit: "b749050203cb3d5d62cce118b50784086ff92f38",
@@ -21,7 +23,8 @@ const F0_CONFIG = Object.freeze({
   assetRegistrySha256: "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
   geometryProofSha256: "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
   protectedProjectionMode: "SAME_RUN_PROBE_THEN_EXECUTE",
-  protectedProbeBaseline: {revision:76,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
+  protectedProbeBaseline: {revision:79,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
+  rev79Partial: {componentId:"foundation.colors-and-modes",boardIdSuffix:"918348f8d9c1",visualIdSuffix:"91834928ee42",labelIdSuffix:"9183493eed4f"},
   namespace: "kenigevents-f0-r3",
   maxCreatesPerCall: 3,
   domains: {
@@ -79,6 +82,12 @@ function f0FindStable(page, key) { return f0Walk(page.root).filter(s=>s.getShare
 function f0ComponentStable(component) { const marker=component.mainInstance?.()?.getSharedPluginData(F0_CONFIG.namespace,"stable-id")||""; return marker.startsWith("component/")?marker.slice(10):null; }
 function ancestorIsCopy(shape) { for(let p=shape.parent;p;p=p.parent) if(p.isComponentCopyInstance?.()) return true; return false; }
 function f0SetStable(shape, stableId) { shape.setSharedPluginData(F0_CONFIG.namespace,"stable-id",stableId); }
+function f0IdEnds(shape,suffix){return typeof shape?.id==="string"&&shape.id.endsWith(suffix);}
+function f0Rev79Partial(page) {
+  const exact=F0_CONFIG.rev79Partial,direct=Array.from(page.root.children||[]),boards=f0FindStable(page,`component/${exact.componentId}`);f0Assert(page.id===F0_CONFIG.pageId,"rev79 candidate page id drift");f0Assert(direct.length===2,"rev79 candidate page has nonexact extra shapes");f0Assert(boards.length===1&&f0IdEnds(boards[0],exact.boardIdSuffix),"rev79 partial board missing or drifted");
+  const board=boards[0],children=Array.from(board.children||[]),visuals=children.filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="visual");f0Assert(board.parent===page.root&&board.name===F0_CONFIG.domains[exact.componentId].name&&board.width===416&&board.height===128&&board.x===1560&&board.y===0&&board.getSharedPluginData(F0_CONFIG.namespace,"candidate-label")===F0_CONFIG.candidateLabel,"rev79 partial board contract drift");f0Assert(children.length===1&&visuals.length===1&&f0IdEnds(visuals[0],exact.visualIdSuffix)&&visuals[0].width===80&&visuals[0].height===64,"rev79 partial visual contract drift");
+  const orphans=direct.filter(s=>f0IdEnds(s,exact.labelIdSuffix));f0Assert(orphans.length===1,"rev79 exact orphan missing or duplicated");const label=orphans[0];f0Assert(label.parent===page.root&&label.name==="Value label"&&label.characters==="brand-600  ·  #a54821"&&String(label.fontWeight)==="400"&&!label.getSharedPluginData(F0_CONFIG.namespace,"role")&&!label.getSharedPluginData(F0_CONFIG.namespace,"stable-id"),"rev79 exact orphan contract drift");return {board,visual:visuals[0],label};
+}
 function f0Guard(penpot, storage, operation) {
   const lock=storage.f0FoundationActiveWriter;
   f0Assert(!lock || (lock.runId===F0_CONFIG.runId && lock.writer===F0_CONFIG.writer), `sole writer conflict before ${operation}`);
@@ -120,7 +129,7 @@ function f0VerifyCensus({components, roots, instances, screenshots, validation})
 }
 function f0SetParentXY(shape,x,y) { const parent=shape.parent; shape.x=(parent?.x || 0)+x; shape.y=(parent?.y || 0)+y; }
 function f0Text(penpot,parent,name,chars,x,y,size=14,color="#44362D") {
-  const t=penpot.createText(chars); f0Assert(t,`text creation failed: ${name}`); t.name=name; t.fontSize=String(size); t.fontWeight=size>=18?"700":"500"; t.fills=[{fillColor:color,fillOpacity:1}]; t.growType="auto-width"; parent.appendChild(t); f0SetParentXY(t,x,y); return t;
+  const t=penpot.createText(chars); f0Assert(t,`text creation failed: ${name}`); t.name=name; t.fontSize=String(size); t.fontWeight=size>=18?"700":"400"; t.fills=[{fillColor:color,fillOpacity:1}]; t.growType="auto-width"; parent.appendChild(t); f0SetParentXY(t,x,y); return t;
 }
 function f0Rect(penpot,parent,name,x,y,w,h,color,r=8) {
   const s=penpot.createRectangle(); s.name=name; s.resize(w,h); s.fills=[{fillColor:color.toUpperCase(),fillOpacity:1}]; s.borderRadius=r; parent.appendChild(s); f0SetParentXY(s,x,y); return s;
@@ -145,6 +154,9 @@ function f0CreateMaster(penpot,page,componentId,index) {
   const label=f0Text(penpot,b,"Value label",`${first[0]}  ·  ${typeof first[1]==="object"?f0Canonical(first[1]):first[1]}`,120,56,14); label.setSharedPluginData(F0_CONFIG.namespace,"role","label");
   f0Text(penpot,b,"Domain label",componentId,20,16,12,"#6D6259"); f0ApplyValue(penpot,b,componentId,first[0],first[1]);
   const component=penpot.library.local.createComponent([b]); component.name=spec.name; return {shape:b,component};
+}
+function f0ResumeRev79Partial(penpot,page) {
+  const {board,label}=f0Rev79Partial(page),componentId=F0_CONFIG.rev79Partial.componentId,first=Object.entries(F0_CONFIG.domains[componentId].values)[0];board.appendChild(label);f0SetParentXY(label,120,56);label.setSharedPluginData(F0_CONFIG.namespace,"role","label");f0Text(penpot,board,"Domain label",componentId,20,16,12,"#6D6259");f0ApplyValue(penpot,board,componentId,first[0],first[1]);const component=penpot.library.local.createComponent([board]);component.name=F0_CONFIG.domains[componentId].name;return {shape:board,component};
 }
 function f0RootHeight() {
   let h=112; for(const id of Object.keys(F0_CONFIG.domains)){ const n=F0_CONFIG.placements.filter(p=>p.componentId===id).length; h+=48+Math.ceil(n/3)*152+28; } return h;
@@ -173,13 +185,13 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
   const protectedBefore=await f0ProtectedProjection(protectedShapes);const probeValidation=penpot.currentFile.validate();f0Assert(probeValidation.length===0,`protected probe validation failed: ${f0Canonical(probeValidation)}`);f0Guard(penpot,storage,"post-protected-preflight");
   if(!storage.f0FoundationProtectedProjectionV1){f0RequireProtectedProbeBaseline(protectedBefore);storage.f0FoundationProtectedProjectionV1={schema:"kenigevents.f0-protected-projection.v1",run_id:F0_CONFIG.runId,file_id:F0_CONFIG.fileId,page_id:F0_CONFIG.protectedPageId,root_ids:[...F0_CONFIG.protectedRootIds],chars:protectedBefore.chars,utf8_bytes:protectedBefore.utf8Bytes,sha256:protectedBefore.sha256};return {schema:F0_CONFIG.schema,status:"PROTECTED_PROBE_BOUND_RERUN_REQUIRED",created:0,secondRunCreated:0,runId:F0_CONFIG.runId,writer:F0_CONFIG.writer,protectedProjection:protectedBefore,validation:probeValidation};}
   f0RequireProtectedDigest(protectedBefore,storage);f0Guard(penpot,storage,"post-protected-binding-check");
-  const candidatePages=penpot.currentFile.pages.filter(p=>p.name===F0_CONFIG.pageName);f0Assert(candidatePages.length<=1,"duplicate exact candidate page");let page=candidatePages[0],created=0;
+  const candidatePages=penpot.currentFile.pages.filter(p=>p.name===F0_CONFIG.pageName);f0Assert(candidatePages.length<=1,"duplicate exact candidate page");let page=candidatePages[0],created=0;if(page)f0Assert(page.id===F0_CONFIG.pageId,"candidate page id drift");
   if(!page){page=f0Write(penpot,storage,"create-page",()=>{const value=penpot.createPage();value.name=F0_CONFIG.pageName;value.setSharedPluginData(F0_CONFIG.namespace,"candidate-label",F0_CONFIG.candidateLabel);created++;return value});return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"open-page",created,pageId:page.id});}
   if(penpot.currentPage?.id!==page.id)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"open-page",created:0,pageId:page.id});
   const localComponents=()=>Array.from(penpot.library.local.components||[]),components={};
   for(const [i,id] of Object.keys(F0_CONFIG.domains).entries()){
     const matches=localComponents().filter(c=>f0ComponentStable(c)===id);f0Assert(matches.length<=1,`duplicate component stable id: ${id}`);
-    if(matches.length)components[id]=matches[0];else{if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"components",created,pageId:page.id});components[id]=f0Write(penpot,storage,`component:${id}`,()=>{created++;return f0CreateMaster(penpot,page,id,i).component});}
+    if(matches.length)components[id]=matches[0];else{if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"components",created,pageId:page.id});const partials=f0FindStable(page,`component/${id}`);f0Assert(partials.length<=1,`duplicate partial component board: ${id}`);if(partials.length){f0Assert(id===F0_CONFIG.rev79Partial.componentId,"unrecognized partial component state");components[id]=f0Write(penpot,storage,`reconcile-rev79:${id}`,()=>{created++;return f0ResumeRev79Partial(penpot,page).component});}else components[id]=f0Write(penpot,storage,`component:${id}`,()=>{created++;return f0CreateMaster(penpot,page,id,i).component});}
   }
   let roots=f0FindStable(page,"root");f0Assert(roots.length<=1,"duplicate managed root");let root=roots[0];
   if(!root){if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"root",created,pageId:page.id});root=f0Write(penpot,storage,"root",()=>{created++;return f0CreateRoot(penpot,page)});}
@@ -193,4 +205,4 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
   return {schema:F0_CONFIG.schema,status:"CANDIDATE_READBACK_VERIFIED",candidateLabel:F0_CONFIG.candidateLabel,ownerReviewState:"NOT_ACCEPTED",fileId:F0_CONFIG.fileId,pageId:page.id,rootId:root.id,counts:{components:managedComponents.length,roots:roots.length,instances:instances.length,detached:0,screenshots:screenshots.length},stableIds:census,created:0,secondRunCreated:0,protectedDigestBefore:protectedBefore.sha256,protectedDigestAfter:protectedAfter.sha256,validation:finalValidation,export:exportReceipt,finalVersionReceipt,runId:F0_CONFIG.runId,writer:F0_CONFIG.writer};
 }
 
-if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};
+if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0Rev79Partial,f0ResumeRev79Partial,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};

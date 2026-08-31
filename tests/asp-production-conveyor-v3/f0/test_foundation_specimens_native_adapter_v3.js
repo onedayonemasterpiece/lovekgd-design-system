@@ -13,9 +13,11 @@ assert.equal(adapter.F0_CONFIG.placements.length,57);
 assert.equal(new Set(adapter.F0_CONFIG.placements.map(x=>x.id)).size,57);
 assert.equal(adapter.F0_CONFIG.writer,'/root/publish_r2');
 assert.equal(adapter.F0_CONFIG.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
+assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.1');
+assert.equal(adapter.F0_CONFIG.pageId,'313fb1ed-0d5c-8095-8008-9183322ab3a9');
 assert.notEqual(adapter.F0_CONFIG.pageName,'00 · Components · Free collection');
 assert.equal(adapter.F0_CONFIG.protectedProjectionMode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:76,chars:84033,utf8Bytes:84034,sha256:DIGEST});
+assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:79,chars:84033,utf8Bytes:84034,sha256:DIGEST});
 assert.deepEqual(adapter.f0PlacementXY(adapter.F0_CONFIG.placements[0]),{x:48,y:160,sectionY:112});
 
 const sourcePackage=JSON.parse(fs.readFileSync(path.join(__dirname,'../../../catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json')));
@@ -57,7 +59,7 @@ assert.throws(()=>adapter.f0Guard(native({geometry_proof_sha256:'stale'}),struct
 const projection={chars:84033,utf8Bytes:84034,sha256:DIGEST};
 const protectedBinding={f0FoundationProtectedProjectionV1:{schema:'kenigevents.f0-protected-projection.v1',run_id:adapter.F0_CONFIG.runId,file_id:adapter.F0_CONFIG.fileId,page_id:adapter.F0_CONFIG.protectedPageId,root_ids:[...adapter.F0_CONFIG.protectedRootIds],chars:84033,utf8_bytes:84034,sha256:DIGEST}};
 assert.doesNotThrow(()=>adapter.f0RequireProtectedProbeBaseline(projection));
-assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev76/);
+assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev79/);
 assert.doesNotThrow(()=>adapter.f0RequireProtectedDigest(projection,protectedBinding));
 assert.throws(()=>adapter.f0RequireProtectedDigest(projection,{}),/missing or stale same-run protected probe binding/);
 assert.throws(()=>adapter.f0RequireProtectedDigest({...projection,sha256:'stale'},protectedBinding),/protected projection changed after same-run probe/);
@@ -84,7 +86,24 @@ assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances,screenshots:[{}],validation:[]}),/screenshot shape found/);
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances,screenshots:[],validation:[{code:'missing-slot'}]}),/Penpot validation failed/);
 
+const sharedShape=(props={},shared={})=>Object.assign({children:[],getSharedPluginData:(_ns,key)=>shared[key]||'',setSharedPluginData:(_ns,key,value)=>{shared[key]=value}},props);
+const partialRoot=sharedShape({id:'page-root',children:[]});
+const partialBoard=sharedShape({id:'313fb1ed-0d5c-8095-8008-918348f8d9c1',name:adapter.F0_CONFIG.domains['foundation.colors-and-modes'].name,width:416,height:128,x:1560,y:0,parent:partialRoot},{'stable-id':'component/foundation.colors-and-modes','candidate-label':'CANDIDATE_BUILD_NOT_ACCEPTED'});
+const partialVisual=sharedShape({id:'313fb1ed-0d5c-8095-8008-91834928ee42',name:'Value visual',width:80,height:64,parent:partialBoard,fills:[]},{role:'visual'});partialBoard.children=[partialVisual];
+const partialLabel=sharedShape({id:'313fb1ed-0d5c-8095-8008-9183493eed4f',name:'Value label',characters:'brand-600  ·  #a54821',fontWeight:'400',parent:partialRoot});
+partialRoot.children=[partialBoard,partialLabel];
+const partialPage={id:adapter.F0_CONFIG.pageId,root:partialRoot};
+assert.deepEqual(adapter.f0Rev79Partial(partialPage),{board:partialBoard,visual:partialVisual,label:partialLabel});
+const exactPartialLabelId=partialLabel.id;partialLabel.id='unknown-orphan';assert.throws(()=>adapter.f0Rev79Partial(partialPage),/rev79 exact orphan missing or duplicated/);partialLabel.id=exactPartialLabelId;
+const unexpected=sharedShape({id:'unexpected',parent:partialRoot});partialRoot.children.push(unexpected);assert.throws(()=>adapter.f0Rev79Partial(partialPage),/nonexact extra shapes/);partialRoot.children.pop();
+partialBoard.appendChild=(shape)=>{partialRoot.children=partialRoot.children.filter(x=>x!==shape);shape.parent=partialBoard;if(!partialBoard.children.includes(shape))partialBoard.children.push(shape)};
+const supportedWeights=new Set(['200','300','400','600','700','900']);let newTextIndex=0;const newNativeText=(characters)=>{const shape=sharedShape({id:`new-text-${++newTextIndex}`,characters,parent:partialRoot,fills:[]});let weight='400';Object.defineProperty(shape,'fontWeight',{get:()=>weight,set:value=>{if(!supportedWeights.has(String(value)))throw new Error(`Font weight '${value}' not supported`);weight=String(value)}});return shape};const partialPenpot={createText:newNativeText,library:{local:{createComponent:([board])=>({id:'recovered-component',name:'',mainInstance:()=>board})}}};
+const unsupportedText=newNativeText('negative');assert.throws(()=>{unsupportedText.fontWeight='500'},/not supported/);
+const resumed=adapter.f0ResumeRev79Partial(partialPenpot,partialPage);
+assert.equal(resumed.shape.id,partialBoard.id);assert.equal(resumed.component.id,'recovered-component');assert.equal(partialLabel.parent,partialBoard);assert.equal(partialLabel.getSharedPluginData(adapter.F0_CONFIG.namespace,'role'),'label');assert(!partialRoot.children.includes(partialLabel));assert(partialBoard.children.some(s=>s.name==='Domain label'));
+
 const src=fs.readFileSync(path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/foundation_specimens_native_adapter_v3.js'),'utf8');
+assert(!src.includes('fontWeight=size>=18?"700":"500"'));assert(src.includes('fontWeight=size>=18?"700":"400"'));
 for(const needle of [
   'f0Write(penpot,storage,`component:${id}`',
   'f0Write(penpot,storage,`placement:${placement.id}`',
@@ -100,9 +119,10 @@ const out=path.join(os.tmpdir(),`f0-native-${process.pid}.js`);
 const generatedReceipt=JSON.parse(cp.execFileSync('python3',[path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/generate_foundation_specimens_native_executor_v3.py'),'--output',out],{encoding:'utf8'}));
 const generated=fs.readFileSync(out,'utf8'); fs.unlinkSync(out);
 assert.equal(generatedReceipt.status,'EXECUTOR_READY');
+assert.equal(generatedReceipt.adapter_revision,'R3.1');
 assert.equal(generatedReceipt.run_id,adapter.F0_CONFIG.runId);
 assert.equal(generatedReceipt.protected_projection_mode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.equal(generatedReceipt.protected_baseline_revision,76);
+assert.equal(generatedReceipt.protected_baseline_revision,79);
 assert.equal(generatedReceipt.requires_authoritative_native_run,true);
 assert.equal(generatedReceipt.requires_preinstalled_lease_receipt,true);
 assert(generated.startsWith(src));
