@@ -8,15 +8,15 @@
   "files": [
     {
       "path": "catalog/asp-production-conveyor-v3/a0/date-listing-shell-candidate-adapter.v1.json",
-      "file_sha256": "bbfc0808d9aa977875b905ebd023268433cfb0566b635617a47e62fb0a89e4dc"
+      "file_sha256": "5b463f30dd931bdbaba8cb3000d1b2c654aea4d6197640a57eb1ad835b3fdc56"
     },
     {
       "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-1-candidate-adapter.v1.json",
-      "file_sha256": "7891aa89daa1f20122fab2a5d52ff846620c8f6d65c055f441244330eb5eed5b"
+      "file_sha256": "5aa2f6e1eb33be739b5bb4649d17d5c2b0ecbc1e54e6789ab1269ffb01d55004"
     },
     {
       "path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json",
-      "file_sha256": "447d5806107b227fbf2219dcb81176ed11aea7ef9832676bdd513456b703686f"
+      "file_sha256": "ace167b4a2bba3484971ed98342b05aaefa9fb2275a043f20bb363613b7709a7"
     },
     {
       "path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
@@ -32,13 +32,13 @@
     }
   ],
   "record_hashes": {
-    "date_adapter_record_sha256": "153057bc52146b3e4a91e68cd4cf363b8d91326c3f7fa0206031bdff0fd7d3a8",
-    "date_package_record_sha256": "5b526cfb330526fab7766147edd3e2867c380378bfa000b3453218d151c72c61",
+    "date_adapter_record_sha256": "72e2aaea9817352ac5a570bdc7ccdfe25dc70a706073f2ad137098678538e788",
+    "date_package_record_sha256": "2ac73a2448ee479d515986f0f8894b472546532f647ecb14f65b631cabece92c",
     "date_idempotency_sha256": "45bc4c601acc9b8bf1bc8be784fbe20e2d1436af89a72915fdc2040e7c5b9155",
-    "wave1_adapter_record_sha256": "c8000c2912ae79101b970b9fd2817b22c1fb121e7156112fde87a533c39c3796",
-    "wave1_package_record_sha256": "9726b828a0525d08d9273a633be5a091cddefff3133131432051efc229543228",
+    "wave1_adapter_record_sha256": "6ac27dbc703b723e0ec8789f8dcf2b080f135d54ad5f382b28b3628fdce9d2e4",
+    "wave1_package_record_sha256": "a06cfdd9e7f632ed44449be7d5bdb5dde432e358dff8965b340456b318a28d01",
     "wave1_idempotency_sha256": "5dd9bf341860d828da6002deda31d95ed8f4a9d672002c2b81eeee0c9623771e",
-    "queue_record_sha256": "9f7900fad9b027b86086195f56fa86c2762d9ca388f06f2481cc1edac7948b86"
+    "queue_record_sha256": "93f03d7c1fbd036a6e2fc4d38e2a2e3827047e2d2c4d682b3cefeef83024820e"
   },
   "source_tuple": {
     "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
@@ -49,5 +49,38 @@
     "pr52_case_structure_file_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285"
   },
   "penpot_mutations": 0,
-  "receipt_record_sha256": "30fd31460f31a2a67a2feb527baab1eb0ecb7da6f4229356d9507062b8ca1497"
+  "receipt_record_sha256": "17f7fdeb9424c504b41eb077a68153bb2ba75753feb47eef4e7dac8acf47442c",
+  "validation": {
+    "validated_payload_commits": [
+      "a02a4cfb5a9d76b81b071804a0bc25c37d523803",
+      "cb306958c9288d89b0e8d12f7028a10c77ad6252"
+    ],
+    "commands": [
+      {
+        "command": "python3 tests/asp_production_conveyor_v3_a0_bundle_test.py",
+        "checks_passed": 24,
+        "checks_failed": 0
+      },
+      {
+        "command": "python3 tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+        "checks_passed": 59,
+        "checks_failed": 0
+      },
+      {
+        "command": "python3 tests/asp_production_conveyor_v3_a0_phase2_test.py",
+        "checks_passed": 26,
+        "checks_failed": 0
+      },
+      {
+        "command": "python3 -m py_compile tests/asp_production_conveyor_v3_a0_*_test.py",
+        "process_exit_code": 0
+      },
+      {
+        "command": "git diff 2586a77858ba41a8107d1c74b2d2d8f9db1941c8..HEAD --check",
+        "process_exit_code": 0
+      }
+    ],
+    "schema_and_semantic_checks_passed": 109,
+    "schema_and_semantic_checks_failed": 0
+  }
 }
