@@ -1,0 +1,533 @@
+{
+  "schema_version": "kenigevents.asp-u0-controls-primitives-package.v1",
+  "package_id": "U-CONTROLS-PRIMITIVES",
+  "owner": "U0",
+  "priority": "P1_FALLBACK_VISIBLE",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T15:36:00Z",
+  "lifecycle": {
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "penpot_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "remaining": [
+      "D0_INTEGRATE_PASS",
+      "ACTIVE_CONTROLS_PAGE_PROFILE",
+      "D0_MAT_ADAPTER",
+      "NATIVE_READBACK",
+      "V0_PASS"
+    ]
+  },
+  "source": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "tree": "a274f07297d46cc105f4cea7841a4b8563e2f72c",
+    "files": [
+      [
+        "styles",
+        "site/src/styles/design-system.css",
+        "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1",
+        87733
+      ],
+      [
+        "button",
+        "site/src/components/design-system/Button.astro",
+        "26c04968463fe826f699bfc0bc848c96adeebcf3",
+        1613
+      ],
+      [
+        "badge",
+        "site/src/components/design-system/Badge.astro",
+        "b9c9d845fdad793631ee1b93af33c9d998605427",
+        335
+      ],
+      [
+        "field",
+        "site/src/components/design-system/Field.astro",
+        "d4f29e1b83791355b16e3f2e44bd81cd655439dd",
+        975
+      ],
+      [
+        "state-panel",
+        "site/src/components/design-system/StatePanel.astro",
+        "57cf167e72a14554cc99702d088a4df580e9c388",
+        771
+      ],
+      [
+        "event-actions",
+        "site/src/components/EventCard.astro",
+        "e7b299660572dda731ca15bd5052b3bf5714cd7c",
+        15799
+      ],
+      [
+        "gallery",
+        "site/src/pages/lab/design-system/index.astro",
+        "257c0e9c76597f1d6502f5effb15d478698bf9b8",
+        63233
+      ]
+    ]
+  },
+  "requirements": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "tokens": {
+    "interactive_min_px": 44,
+    "field_min_height_px": 48,
+    "large_button_min_height_px": 52,
+    "badge_min_height_px": 28,
+    "focus_ring_px": 3,
+    "focus_offset_px": 3,
+    "duration_fast_ms": 160,
+    "duration_base_ms": 220,
+    "spinner_ms": 700,
+    "reduced_motion_spinner_ms": 1400,
+    "radius_button": "999px",
+    "brand": "#a54821",
+    "brand_hover": "#98401f",
+    "focus": "#0f766e"
+  },
+  "terminology": {
+    "pill": "geometry_only",
+    "capsule": "geometry_only",
+    "badge": "read_only_status_or_category",
+    "chip": "compact_filter_selection_suggestion_or_input_only",
+    "generic_chip": false
+  },
+  "families": {
+    "control.button": {
+      "source_role": "button",
+      "variants": [
+        "primary",
+        "secondary",
+        "quiet",
+        "inverse",
+        "danger"
+      ],
+      "sizes": [
+        "compact",
+        "default",
+        "large"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "loading",
+        "disabled"
+      ],
+      "render_modes": [
+        "button",
+        "link"
+      ],
+      "a11y": [
+        "min44",
+        "focus-visible",
+        "aria-busy",
+        "aria-pressed",
+        "disabled-link-tabindex-minus-one"
+      ],
+      "core_excludes": [
+        "icon-only",
+        "link-specimen"
+      ]
+    },
+    "status.badge": {
+      "source_role": "badge",
+      "tones": [
+        "neutral",
+        "brand",
+        "accent",
+        "success",
+        "warning",
+        "danger"
+      ],
+      "interactive": false,
+      "chip_alias": false
+    },
+    "control.field": {
+      "source_role": "field",
+      "types": [
+        "text",
+        "search",
+        "email"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "error",
+        "disabled"
+      ],
+      "a11y": [
+        "label-binding",
+        "aria-invalid-on-error",
+        "aria-describedby",
+        "min48"
+      ]
+    },
+    "feedback.state-panel": {
+      "source_role": "state-panel",
+      "tones": [
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "danger",
+        "loading"
+      ],
+      "a11y": {
+        "danger_live": "assertive",
+        "loading_live": "polite",
+        "loading_busy": true
+      },
+      "mark": "source_text_not_icon_substitution"
+    },
+    "control.event-feedback-action": {
+      "source_role": "event-actions",
+      "actions": [
+        "not_interested",
+        "calendar_add",
+        "share",
+        "favorite"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "selected"
+      ],
+      "favorite": "aria-pressed=false:outline;aria-pressed=true:solid",
+      "calendar": "conditional",
+      "asset_fallback": false
+    }
+  },
+  "asset_registry": {
+    "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+    "path": "contracts/assets/ui-asset-registry.v1.yaml",
+    "git_blob_sha1": "271a622633f399bb52cfe322c259a8dc4162bf7e",
+    "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+    "status": "ACTIVE",
+    "assets": {
+      "icon.action.not_interested": [
+        "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+        "2cd0ebf989d63176a8e5f240c681316fab2e0670",
+        "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98",
+        912,
+        "0 0 512 512"
+      ],
+      "icon.action.calendar_add": [
+        "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+        "539baa5a7ab4f8794c2af3dae63a732cb00d1408",
+        "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7",
+        374,
+        "0 0 32 32"
+      ],
+      "icon.action.share": [
+        "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+        "3b6a82536becf79040c1201b327c93123080b557",
+        "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb",
+        719,
+        "0 0 24 24"
+      ],
+      "icon.action.favorite.outline": [
+        "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+        "e7b836f1f102ab787364077f1cc84fb2863b87ca",
+        "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7",
+        459,
+        "0 0 24 24"
+      ],
+      "icon.action.favorite.solid": [
+        "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg",
+        "bcf4370e13e32ef35f7b43b1964bc06a2ae86dd3",
+        "ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517",
+        275,
+        "0 0 24 24"
+      ]
+    },
+    "fallback": false
+  },
+  "deferred_asset_wave": {
+    "families": [
+      "control.copy-action",
+      "control.button.icon-only"
+    ],
+    "required": [
+      [
+        "icon.action.copy",
+        "site/src/components/Icon.astro",
+        "copy"
+      ],
+      [
+        "icon.status.check",
+        "site/src/components/Icon.astro",
+        "check"
+      ]
+    ],
+    "owner": "F0",
+    "fallback": false
+  },
+  "specimens": {
+    "control.button": [
+      [
+        "button.primary.default.default",
+        "primary",
+        "default",
+        "default",
+        null
+      ],
+      [
+        "button.primary.default.hover",
+        "primary",
+        "default",
+        "hover",
+        null
+      ],
+      [
+        "button.primary.default.focus",
+        "primary",
+        "default",
+        "focus",
+        null
+      ],
+      [
+        "button.primary.default.pressed",
+        "primary",
+        "default",
+        "pressed",
+        null
+      ],
+      [
+        "button.primary.default.loading",
+        "primary",
+        "default",
+        "loading",
+        null
+      ],
+      [
+        "button.primary.default.disabled",
+        "primary",
+        "default",
+        "disabled",
+        null
+      ],
+      [
+        "button.secondary.default.default",
+        "secondary",
+        "default",
+        "default",
+        null
+      ],
+      [
+        "button.quiet.default.default",
+        "quiet",
+        "default",
+        "default",
+        null
+      ],
+      [
+        "button.inverse.default.default",
+        "inverse",
+        "default",
+        "default",
+        null
+      ],
+      [
+        "button.danger.default.default",
+        "danger",
+        "default",
+        "default",
+        null
+      ],
+      [
+        "button.primary.compact.default",
+        "primary",
+        "compact",
+        "default",
+        null
+      ],
+      [
+        "button.secondary.large.default",
+        "secondary",
+        "large",
+        "default",
+        null
+      ],
+      [
+        "button.secondary.toggle.unselected",
+        "secondary",
+        "default",
+        "default",
+        false
+      ],
+      [
+        "button.secondary.toggle.selected",
+        "secondary",
+        "default",
+        "default",
+        true
+      ]
+    ],
+    "status.badge": [
+      [
+        "badge.neutral",
+        "neutral"
+      ],
+      [
+        "badge.brand",
+        "brand"
+      ],
+      [
+        "badge.accent",
+        "accent"
+      ],
+      [
+        "badge.success",
+        "success"
+      ],
+      [
+        "badge.warning",
+        "warning"
+      ],
+      [
+        "badge.danger",
+        "danger"
+      ]
+    ],
+    "control.field": [
+      [
+        "field.text.default",
+        "text",
+        "default",
+        false
+      ],
+      [
+        "field.text.hover",
+        "text",
+        "hover",
+        false
+      ],
+      [
+        "field.text.focus",
+        "text",
+        "focus",
+        false
+      ],
+      [
+        "field.text.error",
+        "text",
+        "error",
+        true
+      ],
+      [
+        "field.text.disabled",
+        "text",
+        "disabled",
+        false
+      ],
+      [
+        "field.search.default",
+        "search",
+        "default",
+        false
+      ],
+      [
+        "field.email.default",
+        "email",
+        "default",
+        false
+      ]
+    ],
+    "feedback.state-panel": [
+      [
+        "state-panel.neutral",
+        "neutral"
+      ],
+      [
+        "state-panel.info",
+        "info"
+      ],
+      [
+        "state-panel.success",
+        "success"
+      ],
+      [
+        "state-panel.warning",
+        "warning"
+      ],
+      [
+        "state-panel.danger",
+        "danger"
+      ],
+      [
+        "state-panel.loading",
+        "loading"
+      ]
+    ],
+    "control.event-feedback-action": [
+      [
+        "event-action.not-interested.default",
+        "not_interested",
+        "icon.action.not_interested",
+        false
+      ],
+      [
+        "event-action.share.default",
+        "share",
+        "icon.action.share",
+        false
+      ],
+      [
+        "event-action.favorite.outline",
+        "favorite",
+        "icon.action.favorite.outline",
+        false
+      ],
+      [
+        "event-action.favorite.selected",
+        "favorite",
+        "icon.action.favorite.solid",
+        true
+      ],
+      [
+        "event-action.calendar-add.default",
+        "calendar_add",
+        "icon.action.calendar_add",
+        false
+      ]
+    ]
+  },
+  "counts": {
+    "families": 5,
+    "specimens": 38,
+    "button": 14,
+    "badge": 6,
+    "field": 7,
+    "state_panel": 6,
+    "event_action": 5
+  },
+  "target_page": {
+    "preferred_name": "02 · Components · Controls and states",
+    "exact_page_id": null,
+    "resolve_by": "D0/INTEGRATE",
+    "active_profile_required": true,
+    "one_root": true,
+    "screenshots": 0,
+    "old_penpot_uuids": 0
+  },
+  "materialization": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_controls_primitives.py",
+    "consumer": "D0/MAT",
+    "penpot_adapter_included": false,
+    "output_schema": "kenigevents.u0-controls-primitives-mat-input.v1"
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_controls_primitives.py --repo . --check-repository-inputs --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_controls_primitives_package.py"
+  }
+}
