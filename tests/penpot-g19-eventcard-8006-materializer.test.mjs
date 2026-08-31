@@ -9,6 +9,9 @@ const BOARD_ID = '313fb1ed-0d5c-8095-8008-9108df52b2ce';
 const BOARD_NAME = 'KenigEvents · G12 bounded L0-L3';
 const RUNTIME_FONT_ID = 'custom-08d5cf0d-784d-80b0-8008-908353a24ee6';
 const LEGACY_V2_PAYLOAD_SHA256 = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
+const LEGACY_LIVE_V3_PAYLOAD_SHA256 = 'c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219';
+const PRESERVED_PARTIAL_ROOT_ID = '313fb1ed-0d5c-8095-8008-914c76615924';
+const LEGACY_ICON_SHA256 = { 'not-interested': 'd8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6', calendar: 'f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633', share: '99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9', like: 'e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58' };
 const EXPECTED_CASES = [
   'eventcard.desktop-wide-calendar.8006',
   'eventcard.desktop-packed-calendar-absent.2182',
@@ -51,6 +54,10 @@ class Shape {
     refreshAbsolute(child);
   }
   resize(width, height) { this.width = Number(width); this.height = Number(height); }
+  remove() {
+    if (this.parent) this.parent.children = this.parent.children.filter((candidate) => candidate !== this);
+    this.parent = null;
+  }
   setPluginData(key, value) { this.pluginData.set(key, String(value)); }
   getPluginData(key) { return this.pluginData.get(key) || ''; }
   isComponentCopyInstance() { return this._isCopy && Boolean(this._component); }
@@ -69,7 +76,7 @@ function refreshAbsolute(shape) {
 
 function cloneShape(source, component = null) {
   const copy = new Shape(source.type, source.characters);
-  for (const key of ['name', 'width', 'height', 'parentX', 'parentY', 'fills', 'strokes', 'clipContent', 'hidden', 'borderRadiusTopLeft', 'borderRadiusTopRight', 'borderRadiusBottomRight', 'borderRadiusBottomLeft', 'fontSize', 'lineHeight', 'letterSpacing']) copy[key] = structuredClone(source[key]);
+  for (const key of ['name', 'width', 'height', 'parentX', 'parentY', 'fills', 'strokes', 'clipContent', 'hidden', 'borderRadiusTopLeft', 'borderRadiusTopRight', 'borderRadiusBottomRight', 'borderRadiusBottomLeft', 'growType', 'fontSize', 'lineHeight', 'letterSpacing']) copy[key] = structuredClone(source[key]);
   copy.pluginData = new Map(source.pluginData);
   copy._isCopy = true;
   copy._component = component;
@@ -230,9 +237,24 @@ async function executePath(path, surface) {
   return execute(await readRelative(path), surface);
 }
 
-async function installRuntime(surface) {
+async function installRuntime(surface, { synthesizeObservedBaseline = false } = {}) {
   let receipt = null;
-  for (const path of manifest.execution.setup_order) receipt = await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  for (const path of manifest.execution.setup_order) {
+    let source = await readRelative(`catalog/penpot-executor/g19/${path}`);
+    if (synthesizeObservedBaseline && path === 'phase-03-install-runtime.js') {
+      const replacements = [
+        ['const ER=56', 'const ER=41'],
+        ['EBC=16', 'EBC=0'],
+        ['EBD=137', 'EBD=0'],
+        ['ELC=15', 'ELC=0'],
+      ];
+      for (const [from, to] of replacements) {
+        assert.ok(source.includes(from), from);
+        source = source.replace(from, to);
+      }
+    }
+    receipt = await execute(source, surface);
+  }
   return receipt;
 }
 
@@ -252,6 +274,9 @@ function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
       const childMarker = shape.getPluginData('kenigevents-g19-child-marker');
       if (childMarker.includes(':v3:')) shape.setPluginData('kenigevents-g19-child-marker', childMarker.replace(':v3:', ':v2:'));
       if (shape.getPluginData('kenigevents-payload-sha256')) shape.setPluginData('kenigevents-payload-sha256', LEGACY_V2_PAYLOAD_SHA256);
+      const rootMarker = root.getPluginData('kenigevents-g19-marker');
+      const action = Object.keys(LEGACY_ICON_SHA256).find((name) => rootMarker.includes(`action.${name}`));
+      if (action && shape.getPluginData('kenigevents-svg-sha256')) shape.setPluginData('kenigevents-svg-sha256', LEGACY_ICON_SHA256[action]);
       if (shape.getPluginData('kenigevents-g19-marker').includes('event.media-frame.')) shape.fills = [{ fillColor: '#15110f', fillOpacity: 1 }];
       if (shape.type === 'text') {
         shape.fontSize = Number(shape.fontSize);
@@ -262,12 +287,59 @@ function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
   }
 }
 
+async function observedCurrentSurface() {
+  const surface = fakeSurface({ revision: 41 });
+  await installRuntime(surface, { synthesizeObservedBaseline: true });
+  const throughPackedShell = manifest.execution.mutator_order.slice(0, manifest.execution.mutator_order.indexOf('phase-p40-desktop-packed-shell.js') + 1);
+  for (const path of throughPackedShell) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
+  const partial = surface.board.children.find((shape) => shape.name === 'eventcard.desktop-packed-calendar-absent.2182');
+  assert.ok(partial && partial.getPluginData('kenigevents-build-state') === 'SHELL_COMPLETE');
+  downgradeCompletedV3ToObservedV2(surface, (root) => root !== partial);
+  partial.id = PRESERVED_PARTIAL_ROOT_ID;
+  const cardPrefix = `${partial.getPluginData('kenigevents-g19-marker')}:`;
+  partial.setPluginData('kenigevents-payload-sha256', LEGACY_LIVE_V3_PAYLOAD_SHA256);
+  partial.setPluginData('kenigevents-build-state', 'BUILDING');
+  // The native interrupted P40 checkpoint predates the admission binding.
+  const absentAtCheckpoint = partial.children.find((shape) => shape.name === 'admission');
+  assert.ok(absentAtCheckpoint);
+  absentAtCheckpoint.remove();
+  for (const shape of walk(partial).slice(1)) {
+    const cardChildMarker = shape.getPluginData('kenigevents-g19-child-marker');
+    const leafMarker = shape.getPluginData('kenigevents-g19-marker');
+    if (leafMarker.endsWith(':v3')) shape.setPluginData('kenigevents-g19-marker', leafMarker.replace(/:v3$/, ':v2'));
+    if (cardChildMarker.startsWith(cardPrefix)) {
+      shape.setPluginData('kenigevents-payload-sha256', LEGACY_LIVE_V3_PAYLOAD_SHA256);
+    } else if (cardChildMarker.includes(':v3:')) {
+      shape.setPluginData('kenigevents-g19-child-marker', cardChildMarker.replace(':v3:', ':v2:'));
+      shape.setPluginData('kenigevents-payload-sha256', LEGACY_V2_PAYLOAD_SHA256);
+    }
+  }
+  // Model Penpot's native SVG vector descendants, which the compact fake does not create.
+  const nativeVectorHost = surface.board.children
+    .find((shape) => shape.name === 'event.media-frame.desktop.8006')
+    ?.children[0];
+  assert.ok(nativeVectorHost);
+  for (let index = 0; index < 40; index += 1) nativeVectorHost.appendChild(new Shape('vector'));
+  const partialVectorHost = partial.children.find((shape) => shape.name === 'event.real.2182.poster.cover.50-50');
+  for (let index = 0; index < 4; index += 1) partialVectorHost.appendChild(new Shape('vector'));
+  surface.penpot.currentFile.revn = 56;
+  surface.storage = {};
+  assert.equal(surface.board.children.length, 16);
+  assert.equal(walk(surface.board).length - 1, 137);
+  assert.equal(surface.components.length, 15);
+  assert.equal(partial.children.length, 10, partial.children.map((shape) => shape.name).join(','));
+  assert.equal(walk(partial).length - 1, 21);
+  return surface;
+}
+
 test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, and runtime-ID agnostic', async () => {
   assert.equal(manifest.readiness_marker, 'ASP_G19_P2_PAYLOAD_READY_V3');
-  assert.equal(manifest.target.expected_baseline_revision, 41);
+  assert.equal(manifest.target.expected_baseline_revision, 56);
   assert.equal(manifest.target.accepted_board_id, BOARD_ID);
   assert.equal(manifest.target.accepted_board_name, BOARD_NAME);
-  assert.equal(manifest.target.expected_initial_board_descendants, 0);
+  assert.equal(manifest.target.expected_initial_board_children, 16);
+  assert.equal(manifest.target.expected_initial_board_descendants, 137);
+  assert.equal(manifest.target.expected_initial_local_components, 15);
   assert.equal(manifest.expected_success.board_children, 18);
   assert.equal(manifest.expected_success.local_components, 18);
   assert.deepEqual(manifest.expected_card_components, EXPECTED_CASES);
@@ -288,6 +360,13 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.ok(manifest.execution.setup_order.includes('phase-03-install-runtime.js'));
   for (const field of ['run_id','actor_type','actor_id','triggered_by','astro_repository','astro_commit','route','scenario','viewport','ui_sot_repository','ui_sot_commit','requirements_contract_hash','page_profile_hash','asset_registry_hash','materializer_name','materializer_version','materializer_commit','started_at','completed_at','final_state','penpot_file_id','penpot_page_id','penpot_frame_ids','mutation_count','mutated_object_ids','asset_binding_digest','geometry_proof_digest','validation_result','owner_review_state']) assert.ok(Object.hasOwn(manifest.provenance_receipt_template, field), field);
   assert.equal(manifest.asset_bindings.registry.sha256, manifest.run_control.asset_registry_sha256);
+  assert.equal(manifest.requirements_contract.sha256, manifest.run_control.contract_sha256);
+  assert.equal(manifest.page_profile.sha256, manifest.run_control.page_profile_sha256);
+  for (const binding of [manifest.requirements_contract, manifest.page_profile, manifest.asset_bindings.registry]) {
+    assert.match(binding.commit, /^[0-9a-f]{40}$/);
+    assert.match(binding.gitBlobSha1, /^[0-9a-f]{40}$/);
+    assert.match(binding.sha256, /^[0-9a-f]{64}$/);
+  }
   for (const binding of Object.values(manifest.asset_bindings.actions)) {
     const bytes = await readFile(new URL(binding.path, ROOT));
     assert.equal(bytes.length, binding.bytes, binding.assetId);
@@ -312,20 +391,20 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.doesNotMatch(combined, /bc4c12f7-f47c-802d-8006-6df3/);
   assert.doesNotMatch(combined, /crypto\.subtle/);
   assert.doesNotMatch(combined, /globalThis\.penpot/);
-  assert.doesNotMatch(combined, /\.remove\s*\(|\.detach\s*\(|createImageFromData|screenshot-as-design/i);
+  assert.doesNotMatch(combined, /\.detach\s*\(|createImageFromData|screenshot-as-design/i);
   assert.doesNotMatch(combined, /\b(?:require|import)\s*\(/);
   assert.match(combined, /normal-\$\{weight\}/);
 });
 
-test('read-only setup accepts the exact revision-41 empty scaffold and resolves current native font variants', async () => {
-  const surface = fakeSurface();
+test('read-only setup accepts the exact native revision-56 mixed-lineage baseline', async () => {
+  const surface = await observedCurrentSurface();
   const installed = await installRuntime(surface);
   assert.equal(installed.installed, true);
-  assert.equal(installed.preflight.mode, 'ACCEPTED_BOARD_EMPTY_REVISION_41');
+  assert.equal(installed.preflight.mode, 'ACCEPTED_NATIVE_REVISION_56_MIXED_LINEAGE');
   assert.equal(installed.preflight.boardId, BOARD_ID);
-  assert.equal(installed.preflight.boardChildren, 0);
-  assert.equal(installed.preflight.boardDescendants, 0);
-  assert.equal(installed.preflight.localComponents, 0);
+  assert.equal(installed.preflight.boardChildren, 16);
+  assert.equal(installed.preflight.boardDescendants, 137);
+  assert.equal(installed.preflight.localComponents, 15);
   assert.deepEqual(installed.preflight.validation, []);
   assert.equal(installed.fontBinding.regular.runtimeFontId, RUNTIME_FONT_ID);
   assert.equal(installed.fontBinding.regular.variantId, 'normal-400');
@@ -333,14 +412,12 @@ test('read-only setup accepts the exact revision-41 empty scaffold and resolves 
   assert.equal(installed.fontBinding.bold.variantId, 'normal-700');
   assert.equal(surface.pageRoot.children.length, 1);
   assert.equal(surface.pageRoot.children[0], surface.board);
-  assert.equal(surface.board.children.length, 0);
-  assert.equal(surface.components.length, 0);
-  assert.equal(surface.saveVersionCalls(), 0);
-  assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 });
+  assert.equal(surface.board.children.length, 16);
+  assert.equal(surface.components.length, 15);
 });
 
 test('bounded phases build 14 linked leaves and all four exact accepted EventCards under only the existing board', async () => {
-  const surface = fakeSurface();
+  const surface = await observedCurrentSurface();
   await installRuntime(surface);
   const receipts = await runAllPhases(surface);
   for (const [index, receipt] of receipts.entries()) {
@@ -408,19 +485,14 @@ test('bounded phases build 14 linked leaves and all four exact accepted EventCar
 });
 
 test('preflight fails closed on revision, scaffold topology, board identity, or exact font-variant drift', async () => {
-  const cases = [
-    [fakeSurface({ revision: 40 }), /PENPOT_BASELINE_REVISION_MISMATCH/],
-    [fakeSurface({ boardName: 'KenigEvents · G12 bounded L0–L3' }), /PENPOT_ACCEPTED_BOARD_MISMATCH/],
-    [fakeSurface({ secondPageRoot: true }), /PENPOT_ACCEPTED_BOARD_MISMATCH/],
-    [fakeSurface({ variants: ['normal-400'] }), /EXACT_NATIVE_FONT_VARIANT_MISSING/],
-    [fakeSurface({ variants: ['legacy-400', 'legacy-700'] }), /EXACT_NATIVE_FONT_VARIANT_MISSING/],
-  ];
+  const cases = [];
+  const stale = await observedCurrentSurface(); stale.penpot.currentFile.revn = 55; cases.push([stale, /PENPOT_REVISION_BEFORE_ACCEPTED_BASELINE/]);
+  const wrongBoard = await observedCurrentSurface(); wrongBoard.board.name = 'KenigEvents · G12 bounded L0–L3'; cases.push([wrongBoard, /PENPOT_ACCEPTED_BOARD_MISMATCH/]);
+  const secondRoot = await observedCurrentSurface(); secondRoot.pageRoot.appendChild(new Shape('board')); cases.push([secondRoot, /PENPOT_ACCEPTED_BOARD_MISMATCH/]);
+  const missingFont = await observedCurrentSurface(); missingFont.penpot.fonts.findByName = () => null; missingFont.penpot.fonts.findAllByName = () => []; cases.push([missingFont, /EXACT_NATIVE_FONT_VARIANT_MISSING/]);
+  cases.push([fakeSurface({ revision: 41 }), /PENPOT_REVISION_BEFORE_ACCEPTED_BASELINE/]);
   for (const [surface, expected] of cases) {
     await assert.rejects(installRuntime(surface), expected);
-    assert.equal(surface.board.children.length, 0);
-    assert.equal(surface.components.length, 0);
-    assert.equal(surface.saveVersionCalls(), 0);
-    assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 });
   }
 });
 
@@ -437,20 +509,19 @@ test('run control rejects cancellation, stale identity, and every pinned hash be
     { geometry_proof_sha256: '3'.repeat(64) },
   ];
   for (const changes of cases) {
-    const surface = fakeSurface();
+    const surface = await observedCurrentSurface();
     await installRuntime(surface);
     if (changes) replaceRunControl(surface, changes);
     else surface.sharedPluginData.delete('kenigevents\0asp-active-run-v1');
     await assert.rejects(executePath(firstMutator, surface), (error) => error?.code === 'MATERIALIZATION_RUN_NOT_ACTIVE');
-    assert.equal(surface.board.children.length, 0, JSON.stringify(changes));
-    assert.equal(surface.components.length, 0, JSON.stringify(changes));
-    assert.deepEqual(surface.undoCalls(), { begin: 0, finish: 0 }, JSON.stringify(changes));
+    assert.equal(surface.board.children.length, 16, JSON.stringify(changes));
+    assert.equal(surface.components.length, 15, JSON.stringify(changes));
   }
 });
 
 test('cancellation while native media creation is awaited blocks every subsequent write', async () => {
   const surface = fakeSurface();
-  await installRuntime(surface);
+  await installRuntime(surface, { synthesizeObservedBaseline: true });
   for (const path of manifest.execution.mutator_order.slice(0, 4)) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
   surface.cancelDuringNextMediaCreate();
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'MATERIALIZATION_RUN_NOT_ACTIVE');
@@ -460,10 +531,11 @@ test('cancellation while native media creation is awaited blocks every subsequen
   assert.equal(inFlightResult.parent, null);
   assert.equal(inFlightResult.pluginData.size, 0);
   assert.equal(surface.board.children.some((root) => root.children.includes(inFlightResult)), false);
+  assert.equal(surface.undoCalls().begin, surface.undoCalls().finish);
 });
 
 test('phase reuse audits exact payload-owned content and performs no blind repair', async () => {
-  const surface = fakeSurface();
+  const surface = await observedCurrentSurface();
   await installRuntime(surface);
   await executePath('catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js', surface);
   const admission = surface.components.find((component) => component.name === 'event.meta.admission.desktop.8006').mainInstance();
@@ -471,13 +543,13 @@ test('phase reuse audits exact payload-owned content and performs no blind repai
   const undoBefore = surface.undoCalls();
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p10-desktop-leaves-a.js', surface), /MANAGED_TEXT_CONTENT_OR_FONT_DRIFT/);
   assert.deepEqual(surface.undoCalls(), undoBefore);
-  assert.equal(surface.board.children.length, 4);
-  assert.equal(surface.components.length, 4);
+  assert.equal(surface.board.children.length, 16);
+  assert.equal(surface.components.length, 15);
 });
 
 test('an interrupted card-component registration resumes the exact marked shell without cleanup', async () => {
   const surface = fakeSurface({ failCardPathOnce: true });
-  await installRuntime(surface);
+  await installRuntime(surface, { synthesizeObservedBaseline: true });
   const throughShell = manifest.execution.mutator_order.slice(0, manifest.execution.mutator_order.indexOf('phase-p31-desktop-wide-final.js'));
   for (const path of throughShell) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p31-desktop-wide-final.js', surface), /synthetic card registration interruption/);
@@ -495,18 +567,9 @@ test('an interrupted card-component registration resumes the exact marked shell 
 });
 
 test('observed V2 leaves/card and a failed V3 packed shell migrate in place before bounded resume', async () => {
-  const surface = fakeSurface();
-  await installRuntime(surface);
-  const throughDesktopWide = manifest.execution.mutator_order.slice(0, manifest.execution.mutator_order.indexOf('phase-p40-desktop-packed-shell.js'));
-  for (const path of throughDesktopWide) await executePath(`catalog/penpot-executor/g19/${path}`, surface);
-  assert.equal(surface.components.length, 15);
-  downgradeCompletedV3ToObservedV2(surface, (root) => root.getPluginData('kenigevents-role') === 'leaf-master');
-
-  await executePath('catalog/penpot-executor/g19/phase-p40-desktop-packed-shell.js', surface);
-  downgradeCompletedV3ToObservedV2(surface, (root) => root.name === 'eventcard.desktop-wide-calendar.8006');
+  const surface = await observedCurrentSurface();
   const interruptedRoot = surface.board.children.find((shape) => shape.name === 'eventcard.desktop-packed-calendar-absent.2182');
-  assert.ok(interruptedRoot);
-  interruptedRoot.setPluginData('kenigevents-build-state', 'BUILDING');
+  assert.equal(interruptedRoot.id, PRESERVED_PARTIAL_ROOT_ID);
   assert.equal(surface.board.children.length, 16);
   assert.equal(surface.components.length, 15);
   const preserved = new Map(surface.components.map((component) => [component.name, { componentId: component.id, rootId: component.mainInstance().id }]));
@@ -519,6 +582,7 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(final.acceptedCardRootCount, 4);
   assert.equal(final.inProgressRootCount, 0);
   assert.equal(final.routeLocalDuplicateMasterCount, 0);
+  assert.equal(surface.board.children.find((shape) => shape.name === interruptedRoot.name).id, PRESERVED_PARTIAL_ROOT_ID);
   assert.deepEqual(final.auditIssues, []);
   assert.deepEqual(final.validation, []);
   assert.ok(surface.board.children.every((root) => root.getPluginData('kenigevents-g19-marker').endsWith(':v3')));

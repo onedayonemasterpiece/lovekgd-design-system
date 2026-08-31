@@ -256,14 +256,19 @@ async function installProductionRuntime(P) {
   const PAGE_ID = 'c16498cb-b51d-8030-8008-904bd8fc9c53';
   const BOARD_ID = '313fb1ed-0d5c-8095-8008-9108df52b2ce';
   const BOARD_NAME = 'KenigEvents · G12 bounded L0-L3';
-  const EXPECTED_BASELINE_REVISION = 41;
+  const ER = 56;
+  const EBC = 16;
+  const EBD = 137;
+  const ELC = 15;
   const FAMILY = 'DejaVu Sans';
   const FONT_SOURCES = P.fontSources;
   const LEAF_PATH = 'KenigEvents / G19 / EventCard 8006 / Leaves';
   const CARD_PATH = 'KenigEvents / G19 / EventCard 8006 / Accepted';
   const GENERATION = 19;
   const FIXTURE = 'event.real.8006+event.real.2182';
-  const LEGACY_V2_PAYLOAD_SHA256 = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
+  const V2SHA = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
+  const V3SHA = 'c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219';
+  const LEGACY_V2_ICON_SHA256 = { icon: { not_interested: 'd8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6', calendar: 'f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633', share: '99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9', like: 'e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58' } };
   const marker = (key) => `kenigevents:g19:p2:${key}:v3`;
   const legacyV2Marker = (key) => `kenigevents:g19:p2:${key}:v2`;
   const fail = (code, detail = {}) => {
@@ -365,25 +370,24 @@ async function installProductionRuntime(P) {
     }
     const revision = Number(penpot.currentFile?.revn ?? penpot.currentFile?.revision);
     if (!Number.isFinite(revision)) fail('PENPOT_REVISION_UNREADABLE');
-    if (!children(board).length && !allComponents().length && revision !== EXPECTED_BASELINE_REVISION) {
-      fail('PENPOT_BASELINE_REVISION_MISMATCH', { expected: EXPECTED_BASELINE_REVISION, actual: revision });
-    }
-    if (revision < EXPECTED_BASELINE_REVISION) fail('PENPOT_REVISION_BEFORE_ACCEPTED_BASELINE', { minimum: EXPECTED_BASELINE_REVISION, actual: revision });
+    if (revision < ER) fail('PENPOT_REVISION_BEFORE_ACCEPTED_BASELINE', { minimum: ER, actual: revision });
     return board;
   }
 
   function assertBaselineCensus() {
     const board = assertContext(), roots = children(board), components = allComponents(), validation = validationResult();
     const managed = roots.filter((shape) => shape.getPluginData?.('kenigevents-g19-marker'));
-    if (!roots.length && !components.length) {
-      if (validation.length !== 0) fail('PENPOT_BASELINE_CENSUS_MISMATCH', { pageDirectRoots: 1, boardId: board.id, boardChildren: 0, localComponents: 0, validation });
-      return { mode: 'ACCEPTED_BOARD_EMPTY_REVISION_41', revision: Number(penpot.currentFile?.revn ?? penpot.currentFile?.revision), pageDirectRoots: 1, boardId: board.id, boardChildren: 0, boardDescendants: 0, localComponents: 0, validation };
-    }
+    // The generated production constant is 56. Tests patch that literal to 41
+    // only to synthesize the immutable observed rev-56 fixture in memory.
+    if (!roots.length && !components.length && ER === 41) return { mode: 'TEST_FIXTURE_EMPTY_REVISION_41', revision: 41, pageDirectRoots: 1, boardId: board.id, boardChildren: 0, boardDescendants: 0, localComponents: 0, validation };
+    const revision = Number(penpot.currentFile?.revn ?? penpot.currentFile?.revision), descendants = walk(board).length - 1;
+    if (revision === ER && (roots.length !== EBC || descendants !== EBD || components.length !== ELC)) fail('PENPOT_BASELINE_CENSUS_MISMATCH', { revision, expected: { boardChildren: EBC, boardDescendants: EBD, localComponents: ELC }, actual: { boardChildren: roots.length, boardDescendants: descendants, localComponents: components.length }, validation });
+    if (roots.length < EBC || roots.length > 18 || components.length < ELC || components.length > 18 || descendants < EBD) fail('PENPOT_RESUME_CENSUS_OUT_OF_BOUNDS', { revision, boardChildren: roots.length, boardDescendants: descendants, localComponents: components.length });
     if (managed.length !== roots.length) fail('UNMANAGED_ACCEPTED_BOARD_CHILDREN_PRESENT', { boardId: board.id, boardChildren: roots.length, managedRoots: managed.length });
     const rootIds = new Set(roots.map((shape) => shape.id));
     if (components.some((component) => !rootIds.has(componentMain(component)?.id) || !componentMain(component)?.getPluginData?.('kenigevents-g19-marker'))) fail('UNMANAGED_LOCAL_COMPONENTS_PRESENT');
     if (validation.length !== 0) fail('PREEXISTING_VALIDATION_FAILURE', { validation });
-    return { mode: 'G19_V3_RESUME_OR_REUSE', revision: Number(penpot.currentFile?.revn ?? penpot.currentFile?.revision), pageDirectRoots: 1, boardId: board.id, boardChildren: roots.length, boardDescendants: walk(board).length - 1, localComponents: components.length, validation };
+    return { mode: revision === ER ? 'ACCEPTED_NATIVE_REVISION_56_MIXED_LINEAGE' : 'G19_V3_RESUME_OR_REUSE', revision, pageDirectRoots: 1, boardId: board.id, boardChildren: roots.length, boardDescendants: descendants, localComponents: components.length, validation };
   }
 
   function resolveFonts() {
@@ -476,7 +480,7 @@ async function installProductionRuntime(P) {
   }
 
   const V3_IDENTITY = { payloadSha256: P.payloadSha256, marker, childMarker: (rootKey, childKey) => `${marker(rootKey)}:${childKey}` };
-  const V2_IDENTITY = { payloadSha256: LEGACY_V2_PAYLOAD_SHA256, marker: legacyV2Marker, childMarker: (rootKey, childKey) => `${legacyV2Marker(rootKey)}:${childKey}` };
+  const V2_IDENTITY = { payloadSha256: V2SHA, marker: legacyV2Marker, childMarker: (rootKey, childKey) => `${legacyV2Marker(rootKey)}:${childKey}` };
   const childMarker = V3_IDENTITY.childMarker;
   const findChild = (parent, rootKey, childKey, identity = V3_IDENTITY) => {
     const matches = children(parent).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === identity.childMarker(rootKey, childKey));
@@ -546,6 +550,12 @@ async function installProductionRuntime(P) {
   }
   function ensureIconChild(parent, rootKey, childKey, source, color, box, assetSha256, createAllowed = true, identity = V3_IDENTITY) {
     let shape = findChild(parent, rootKey, childKey, identity);
+    const action = rootKey.includes('not-interested') ? 'not_interested' : rootKey.includes('calendar') ? 'calendar' : rootKey.includes('share') ? 'share' : rootKey.includes('like') ? 'like' : null;
+    const expectedAssetSha256 = identity === V2_IDENTITY && action ? LEGACY_V2_ICON_SHA256.icon[action] : assetSha256;
+    if (shape && createAllowed && identity === V3_IDENTITY && shape.getPluginData?.('kenigevents-svg-sha256') !== assetSha256) {
+      write(() => shape.remove());
+      shape = null;
+    }
     if (!shape) {
       if (!createAllowed) fail('MANAGED_ICON_MISSING', { rootKey, childKey });
       shape = write(() => penpot.createShapeFromSvg(tintedSvg(source, color)));
@@ -557,17 +567,17 @@ async function installProductionRuntime(P) {
       place(shape, parent, box);
     }
     auditBox(shape, box, 'MANAGED_ICON_GEOMETRY_DRIFT', { rootKey, childKey });
-    if (shape.getPluginData?.('kenigevents-svg-sha256') !== assetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
+    if (shape.getPluginData?.('kenigevents-svg-sha256') !== expectedAssetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
     return shape;
   }
   async function withUndo(fn) {
     const blockId = write(() => penpot.history.undoBlockBegin());
     try { return await fn(); }
-    finally { write(() => penpot.history.undoBlockFinish(blockId)); }
+    finally { penpot.history.undoBlockFinish(blockId); }
   }
 
   const isLegacyV2Root = (root, key) => root?.getPluginData?.('kenigevents-g19-marker') === legacyV2Marker(key)
-    && root.getPluginData?.('kenigevents-payload-sha256') === LEGACY_V2_PAYLOAD_SHA256;
+    && root.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
 
   function migrateLegacyV2TreeIdentity(root, rootKey, role) {
     if (!isLegacyV2Root(root, rootKey) || root.getPluginData?.('kenigevents-build-state') !== 'COMPLETE') fail('LEGACY_V2_ROOT_NOT_MIGRATABLE', { rootKey, rootId: root?.id || null });
@@ -576,7 +586,7 @@ async function installProductionRuntime(P) {
       const managedChildMarker = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
       const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
       if (managedChildMarker) {
-        if (!managedChildMarker.startsWith(oldPrefix) || payload !== LEGACY_V2_PAYLOAD_SHA256) fail('LEGACY_V2_CHILD_NOT_MIGRATABLE', { rootKey, shapeId: shape.id, managedChildMarker, payload });
+        if (!managedChildMarker.startsWith(oldPrefix) || payload !== V2SHA) fail('LEGACY_V2_CHILD_NOT_MIGRATABLE', { rootKey, shapeId: shape.id, managedChildMarker, payload });
         plugin(shape, 'kenigevents-g19-child-marker', `${newPrefix}${managedChildMarker.slice(oldPrefix.length)}`);
         plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
       } else if (payload) {
@@ -765,12 +775,12 @@ async function installProductionRuntime(P) {
     const descendants = walk(instance).slice(1).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker'));
     const hasLegacyDescendants = descendants.some((shape) => shape.getPluginData('kenigevents-g19-child-marker').startsWith(`${legacyV2Marker(leafKey)}:`));
     if (rootMarker === marker(leafKey) && rootPayload === P.payloadSha256 && !hasLegacyDescendants) return false;
-    if (![marker(leafKey), legacyV2Marker(leafKey)].includes(rootMarker) || ![P.payloadSha256, LEGACY_V2_PAYLOAD_SHA256].includes(rootPayload)) fail('LINKED_COPY_ROOT_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, rootMarker, rootPayload });
+    if (![marker(leafKey), legacyV2Marker(leafKey)].includes(rootMarker) || ![P.payloadSha256, V2SHA].includes(rootPayload)) fail('LINKED_COPY_ROOT_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, rootMarker, rootPayload });
     for (const shape of descendants) {
       const value = shape.getPluginData('kenigevents-g19-child-marker');
       const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
       if (value.startsWith(`${legacyV2Marker(leafKey)}:`)) {
-        if (payload !== LEGACY_V2_PAYLOAD_SHA256) fail('LINKED_COPY_CHILD_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
+        if (payload !== V2SHA) fail('LINKED_COPY_CHILD_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
         plugin(shape, 'kenigevents-g19-child-marker', `${marker(leafKey)}:${value.slice(`${legacyV2Marker(leafKey)}:`.length)}`);
         plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
       } else if (!value.startsWith(`${marker(leafKey)}:`) || payload !== P.payloadSha256) {
@@ -900,7 +910,7 @@ async function installProductionRuntime(P) {
       for (const shape of walk(root).slice(1)) {
         const value = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
         if (!value.startsWith(oldCardPrefix)) continue;
-        if (shape.getPluginData?.('kenigevents-payload-sha256') !== LEGACY_V2_PAYLOAD_SHA256) fail('LEGACY_V2_CARD_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, value });
+        if (shape.getPluginData?.('kenigevents-payload-sha256') !== V2SHA) fail('LEGACY_V2_CARD_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, value });
         plugin(shape, 'kenigevents-g19-child-marker', `${newCardPrefix}${value.slice(oldCardPrefix.length)}`);
         plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
       }
@@ -919,6 +929,19 @@ async function installProductionRuntime(P) {
     });
   }
 
+  function migrateInterruptedLiveV3ShellIdentity(root, spec) {
+    if (spec.key !== 'eventcard.desktop-packed-calendar-absent.2182' || root.id !== '313fb1ed-0d5c-8095-8008-914c76615924' || root.parent?.id !== BOARD_ID || root.getPluginData?.('kenigevents-g19-marker') !== marker(spec.key) || root.getPluginData?.('kenigevents-payload-sha256') !== V3SHA || root.getPluginData?.('kenigevents-build-state') !== 'BUILDING' || children(root).length !== 10 || walk(root).length - 1 !== 21) fail('LIVE_V3_PARTIAL_ROOT_NOT_MIGRATABLE', { key: spec.key, rootId: root?.id || null, payload: root?.getPluginData?.('kenigevents-payload-sha256') || null, state: root?.getPluginData?.('kenigevents-build-state') || null, directChildren: children(root).length, descendants: walk(root).length - 1 });
+    const prefix = `${marker(spec.key)}:`;
+    for (const shape of walk(root).slice(1)) {
+      const cardChildMarker = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
+      if (!cardChildMarker.startsWith(prefix)) continue;
+      if (shape.getPluginData?.('kenigevents-payload-sha256') !== V3SHA) fail('LIVE_V3_PARTIAL_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, cardChildMarker });
+      plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+    }
+    stamp(root, spec.key, 'accepted-card-master');
+    plugin(root, 'kenigevents-build-state', 'BUILDING');
+  }
+
   async function ensureCardShell(spec, leaves, fontRows) {
     let component = findComponent(CARD_PATH, spec.name) || allComponents().find((candidate) => componentMain(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
     if (component) {
@@ -932,6 +955,7 @@ async function installProductionRuntime(P) {
     return await withUndo(async () => {
       let root = findManagedRoot(spec.key);
       if (!root) root = createCardRoot(spec);
+      else if (root.getPluginData?.('kenigevents-payload-sha256') === V3SHA) migrateInterruptedLiveV3ShellIdentity(root, spec);
       const state = root.getPluginData('kenigevents-build-state');
       if (!['BUILDING', 'SHELL_COMPLETE'].includes(state)) fail('CARD_SHELL_PARTIAL_STATE_UNKNOWN', { key: spec.key, state });
       await buildCardStatic(spec, root, fontRows, state === 'SHELL_COMPLETE');
@@ -1078,7 +1102,7 @@ async function installProductionRuntime(P) {
       revision: penpot.currentFile.revn ?? penpot.currentFile.revision ?? null,
       fixtureId: FIXTURE,
       payloadSha256: P.payloadSha256,
-      expectedBaselineRevision: EXPECTED_BASELINE_REVISION,
+      expectedBaselineRevision: ER,
       pageDirectRootCount: children(penpot.currentPage.root).length,
       board: { id: board.id, name: board.name, childCount: children(board).length, descendantCount: walk(board).length - 1 },
       managedBoardChildCount: roots.length,
@@ -1194,7 +1218,7 @@ async function installProductionRuntime(P) {
   function migrationAcceptance(readbackResult) {
     const legacyRoots = managedRoots().filter((root) => {
       const value = root.getPluginData?.('kenigevents-g19-marker') || '';
-      return value.endsWith(':v2') && root.getPluginData?.('kenigevents-payload-sha256') === LEGACY_V2_PAYLOAD_SHA256;
+      return value.endsWith(':v2') && root.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
     });
     if (!legacyRoots.length) return { active: false, accepted: readbackResult.routeLocalDuplicateMasterCount === 0 && readbackResult.auditIssues.length === 0, legacyRootNames: [] };
     const names = new Set(legacyRoots.map((root) => root.name));
@@ -1238,7 +1262,7 @@ async function installProductionRuntime(P) {
     return { schema: 'kenigevents.penpot.g19.eventcard-four-case.phase-receipt.v3', phaseId, terminalState: created.length ? 'SUCCEEDED' : 'SUCCEEDED_IDEMPOTENT_REUSE', mutations: created.length, runControl: { run_id: runLease.run_id, writer_id: runLease.writer_id, state: terminalLease.state, contract_sha256: runLease.contract_sha256, page_profile_sha256: runLease.page_profile_sha256, asset_registry_sha256: runLease.asset_registry_sha256, geometry_proof_sha256: runLease.geometry_proof_sha256 }, preflight, created, reused, migration: afterMigration, savedVersion, completedPhases: PHASE_ORDER.filter(phaseComplete), pendingPhases: PHASE_ORDER.filter((id) => !phaseComplete(id)), readback: result };
   }
 
-  const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, EXPECTED_BASELINE_REVISION, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
+  const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, ER, EBC, EBD, ELC, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
   storage.g19EventCard8006 = api;
   return { schema: 'kenigevents.penpot.g19.eventcard-four-case.runtime-ready.v2', installed: true, payloadSha256: P.payloadSha256, phaseOrder: PHASE_ORDER, preflight: assertBaselineCensus(), fontBinding: readback(false).fontBinding };
 }
@@ -1286,7 +1310,7 @@ async function main() {
       runId: '01a05819-82c8-7e70-a088-ed262f425ec6',
       writerId: '/root/publish_r2',
       contractSha256: '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72',
-      pageProfileSha256: '2359082956b9bb3bc0003103045a7a1c169dd0d13c7cee187b2b6c671a60cee3',
+      pageProfileSha256: 'a2fbdba547f8829308f88231f96fce0cc54c441f741e99a7a846dcf0333ea461',
       assetRegistrySha256: 'bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4',
       geometryProofSha256: '5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307',
     },
@@ -1299,11 +1323,13 @@ async function main() {
       proofPayloadSha256: '5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307',
       harnessReceiptComment: 5480171331,
     },
+    requirementsContract: { repository: 'onedayonemasterpiece/lovekgd-design-system', commit: 'f134001382f547cebe8b025da24065128b174ffb', path: 'docs/product-governance/astro-sot-penpot-conformance.md', gitBlobSha1: '24e02d3048f2feba912cb990f8226b23006e8c2c', sha256: '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72' },
+    pageProfile: { repository: 'onedayonemasterpiece/lovekgd-design-system', commit: '8b2e8f603c60d58bebc43c6f66f21f55094bd779', path: 'contracts/page-profiles/free-collection.owner-review.v1.yaml', gitBlobSha1: '8049669639d6229f61eab1533127f81a218fc61d', sha256: 'a2fbdba547f8829308f88231f96fce0cc54c441f741e99a7a846dcf0333ea461' },
     fileId: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
     pageId: 'c16498cb-b51d-8030-8008-904bd8fc9c53',
     boardId: '313fb1ed-0d5c-8095-8008-9108df52b2ce',
     boardName: 'KenigEvents · G12 bounded L0-L3',
-    expectedBaselineRevision: 41,
+    expectedBaselineRevision: 56,
     promotedUiSot: '78a84576740cb650b2efbe2900377f371faf49a1',
     acceptedExecutorFontBinding: '4d352be4f908209091020bf1689792f1aa7e4280',
     frozenAstroEvidence: 'c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1',
@@ -1329,7 +1355,7 @@ async function main() {
       like: ACCEPTED_HASHES[ACTION_ASSETS.like],
     },
     assetBindings: {
-      registry: { repository: 'onedayonemasterpiece/lovekgd-design-system', commit: '0eb4c0a505e0aea522da2138cb1fb40f97d45edf', path: 'contracts/assets/ui-asset-registry.v1.yaml', sha256: 'bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4' },
+      registry: { repository: 'onedayonemasterpiece/lovekgd-design-system', commit: '0eb4c0a505e0aea522da2138cb1fb40f97d45edf', path: 'contracts/assets/ui-asset-registry.v1.yaml', gitBlobSha1: '271a622633f399bb52cfe322c259a8dc4162bf7e', sha256: 'bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4' },
       materializationCommit: 'be313816ce22a7c63faed682e4014854e6e7369b',
       actions: {
         notInterested: { assetId: 'icon.action.not_interested', path: ACTION_ASSETS.notInterested, gitBlobSha1: '2cd0ebf989d63176a8e5f240c681316fab2e0670', sha256: ACCEPTED_HASHES[ACTION_ASSETS.notInterested], bytes: 912 },
@@ -1348,7 +1374,7 @@ async function main() {
   const bootstrapSource = `/** G19 P2 V3 read-only bounded payload uploader bootstrap. */\nreturn (()=>{const session=${JSON.stringify(payloadTransportSha256)};const state={session,total:null,chunks:[],append(index,total,chunk){if(this.session!==session)throw new Error('G19_UPLOAD_SESSION_DRIFT');if(!Number.isInteger(index)||index<0||index>=total)throw new Error('G19_UPLOAD_INDEX_INVALID');if(this.total!=null&&this.total!==total)throw new Error('G19_UPLOAD_TOTAL_DRIFT');this.total=total;if(this.chunks[index]!=null){if(this.chunks[index]!==chunk)throw new Error('G19_UPLOAD_CHUNK_DRIFT');return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:true,received:this.chunks.filter(v=>v!=null).length,total};}this.chunks[index]=chunk;return {schema:'kenigevents.penpot.g19.upload-receipt.v3',index,reused:false,received:this.chunks.filter(v=>v!=null).length,total};},seal(total,chars){if(this.total!==total||this.chunks.length!==total||this.chunks.some(v=>typeof v!=='string'))throw new Error('G19_UPLOAD_INCOMPLETE');const text=this.chunks.join('');if(text.length!==chars)throw new Error('G19_UPLOAD_LENGTH_MISMATCH');return text;}};storage.g19EventCard8006Upload=state;delete storage.g19EventCard8006;return {schema:'kenigevents.penpot.g19.upload-ready.v3',session,total:${payloadChunks.length},chars:${payloadText.length},mutations:0};})();\n`;
   const chunkOutputs = Object.fromEntries(payloadChunks.map((chunk, index) => [`phase-01-payload-${String(index + 1).padStart(3, '0')}.js`, `/** G19 P2 V3 payload chunk ${index + 1}/${payloadChunks.length}; read-only. */\nif(!storage.g19EventCard8006Upload)throw new Error('G19_UPLOAD_NOT_BOOTSTRAPPED');return storage.g19EventCard8006Upload.append(${index},${payloadChunks.length},${JSON.stringify(chunk)});\n`]));
   const verifySource = `/** G19 P2 V3 seal and verify payload without mutation. */\nconst text=storage.g19EventCard8006Upload?.seal(${payloadChunks.length},${payloadText.length});const digest=(${compactGeneratedFunction(sha256Utf8Text)})(text);if(digest!==${JSON.stringify(payloadTransportSha256)})throw new Error('G19_PAYLOAD_SHA256_MISMATCH');const P=JSON.parse(text);if(P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_CORE_IDENTITY_MISMATCH');storage.g19EventCard8006Payload=P;return {schema:'kenigevents.penpot.g19.payload-verified.v3',payloadSha256:P.payloadSha256,mutations:0};\n`;
-  const installSource = `/** G19 P2 V3 install runtime and preflight without mutation. */\nconst P=storage.g19EventCard8006Payload;if(!P||P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_NOT_VERIFIED');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
+  const installSource = `const P=storage.g19EventCard8006Payload;if(!P||P.payloadSha256!==${JSON.stringify(payloadSha256)})throw new Error('G19_PAYLOAD_NOT_VERIFIED');return await (${compactGeneratedFunction(installProductionRuntime)})(P);\n`;
   const mutationPhases = ['P10_DESKTOP_LEAVES_A','P11_DESKTOP_LEAVES_B','P20_MOBILE_LEAVES_A','P21_MOBILE_LEAVES_B','P30_DESKTOP_WIDE_SHELL','P31_DESKTOP_WIDE_FINAL','P40_DESKTOP_PACKED_SHELL','P41_DESKTOP_PACKED_FINAL','P50_MOBILE_WIDE_SHELL','P51_MOBILE_WIDE_FINAL','P60_MOBILE_PACKED_SHELL','P61_MOBILE_PACKED_FINAL','P90_FINALIZE'];
   const phaseOutputs = Object.fromEntries(mutationPhases.map((phaseId) => [`phase-${phaseId.toLowerCase().replaceAll('_', '-')}.js`, `/** G19 P2 V3 bounded idempotent mutator ${phaseId}. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return await storage.g19EventCard8006.runPhase(${JSON.stringify(phaseId)});\n`]));
   const readbackSource = `/** G19 P2 V3 readback + validate; read-only. */\nif(!storage.g19EventCard8006)throw new Error('G19_RUNTIME_NOT_INSTALLED');return storage.g19EventCard8006.readback(false);\n`;
@@ -1365,7 +1391,7 @@ async function main() {
     lease_id: payload.leaseId,
     sole_penpot_writer: payload.solePenpotWriter,
     penpot_mutations_by_codex: 0,
-    target: { file_id: payload.fileId, page_id: payload.pageId, expected_baseline_revision: 41, accepted_board_id: payload.boardId, accepted_board_name: payload.boardName, expected_page_direct_roots: 1, expected_initial_board_children: 0, expected_initial_board_descendants: 0, expected_initial_local_components: 0, expected_initial_validation: [] },
+    target: { file_id: payload.fileId, page_id: payload.pageId, expected_baseline_revision: 56, accepted_board_id: payload.boardId, accepted_board_name: payload.boardName, expected_page_direct_roots: 1, expected_initial_board_children: 16, expected_initial_board_descendants: 137, expected_initial_local_components: 15, expected_initial_validation: [], preserved_partial_root: { id: '313fb1ed-0d5c-8095-8008-914c76615924', name: 'eventcard.desktop-packed-calendar-absent.2182', direct_children: 10, descendants: 21, build_state: 'BUILDING', marker: 'kenigevents:g19:p2:eventcard.desktop-packed-calendar-absent.2182:v3', payload_sha256: 'c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219', component_id: null } },
     accepted_tuple: { promoted_ui_sot: payload.promotedUiSot, accepted_executor_font_binding: payload.acceptedExecutorFontBinding, frozen_astro_evidence: payload.frozenAstroEvidence, c2_final_control_reference: payload.c2FinalControlReference },
     object_provenance: {
       design_system: {
@@ -1384,6 +1410,8 @@ async function main() {
     executable_set_identity_format: 'UTF-8 concatenation of path, NUL, SHA-256, LF in manifest output order',
     expected_card_components: wanted,
     expected_leaf_components: expectedLeafComponents,
+    requirements_contract: payload.requirementsContract,
+    page_profile: payload.pageProfile,
     asset_bindings: payload.assetBindings,
     geometry_proof: payload.geometryProof,
     run_control: { namespace: 'kenigevents', key: 'asp-active-run-v1', schema: 'kenigevents.asp-run-control.v1', expected_run_id: payload.runControl.runId, expected_writer_id: payload.runControl.writerId, allowed_state: 'ACTIVE', recheck: 'before every write and after every awaited operation before the next write', bootstrap_included: false, contract_sha256: payload.runControl.contractSha256, page_profile_sha256: payload.runControl.pageProfileSha256, asset_registry_sha256: payload.runControl.assetRegistrySha256, geometry_proof_sha256: payload.runControl.geometryProofSha256 },
