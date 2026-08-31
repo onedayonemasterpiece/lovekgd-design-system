@@ -1,0 +1,65 @@
+{
+  "schema_version": "kenigevents.asp-conveyor.a0.candidate-adapter-queue.v1",
+  "ready": [
+    {
+      "package_id": "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER",
+      "adapter_path": "catalog/asp-production-conveyor-v3/a0/date-listing-shell-candidate-adapter.v1.json",
+      "adapter_record_sha256": "153057bc52146b3e4a91e68cd4cf363b8d91326c3f7fa0206031bdff0fd7d3a8",
+      "package_record_sha256": "5b526cfb330526fab7766147edd3e2867c380378bfa000b3453218d151c72c61",
+      "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+      "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+      "visual_acceptance": "PENDING_V0",
+      "promotion_authorized": false
+    },
+    {
+      "package_id": "A-ARCHETYPE-WAVE-1-CANDIDATE-ADAPTER",
+      "adapter_path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-1-candidate-adapter.v1.json",
+      "adapter_record_sha256": "c8000c2912ae79101b970b9fd2817b22c1fb121e7156112fde87a533c39c3796",
+      "package_record_sha256": "9726b828a0525d08d9273a633be5a091cddefff3133131432051efc229543228",
+      "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+      "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+      "visual_acceptance": "PENDING_V0",
+      "promotion_authorized": false
+    }
+  ],
+  "preparing": [
+    {
+      "package_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER",
+      "status": "PREPARING",
+      "factual_inputs": {
+        "source_path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v1.json",
+        "source_file_sha256": "d520623dc27f4e542dd62ceb70492a5fb83078b0d68f146b68b74d94697b4965",
+        "source_record_sha256": "c1a562f5821141d5e11e0a1cd0a1942628e9667a3879eb764849762263661e96",
+        "archetypes": 10,
+        "desktop_mobile_cases": 20,
+        "route_registry_sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d",
+        "case_structure_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285"
+      },
+      "remaining_mechanical_work": [
+        "compile ten current archetype contracts into twenty ordered semantic cases",
+        "bind each case to exact required states, regions, component refs and viewport tuples",
+        "generate adapter/idempotency/cross-file receipts and execute the same schema/negative suite"
+      ],
+      "product_semantic_decision_required": false
+    }
+  ],
+  "existing_ready_packages_immutable": [
+    "A-GOLDEN-CORPUS-CORRECTIONS",
+    "A-PROJECTIONS-STATE-PACKETS",
+    "A-FREE-ROWS-DATA",
+    "A-FREE-FULL-PAGE",
+    "A-DATE-LISTING-SHELL-REPLAY",
+    "A-ARCHETYPE-WAVE-1",
+    "A-ARCHETYPE-WAVE-2",
+    "A-OWNER-REVIEW-INDEX"
+  ],
+  "rules": {
+    "preparing_must_not_be_empty": true,
+    "legacy_penpot_lineage": "FORBIDDEN",
+    "visual_status_inheritance": "FORBIDDEN",
+    "candidate_is_promotion": false,
+    "penpot_mutations": 0
+  },
+  "receipt_ref": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+  "queue_record_sha256": "9f7900fad9b027b86086195f56fa86c2762d9ca388f06f2481cc1edac7948b86"
+}
