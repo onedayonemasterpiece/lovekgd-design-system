@@ -1,0 +1,203 @@
+{
+  "schema_version": "kenigevents.asp-u0-free-rows-package.v1",
+  "package_id": "U-FREE-ROWS-2-PLUS-3",
+  "owner": "U0",
+  "priority": "P0",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T15:44:00Z",
+  "lifecycle": {
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "penpot_mutations_by_u0": 0,
+    "visual_acceptance_owner": "V0",
+    "sole_penpot_writer": "/root/publish_r2",
+    "eventcard_runtime_gate": "D0_R6_NATIVE_READBACK_AND_V0_PASS_REQUIRED"
+  },
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "component_identity": "free.collection.rows.2-plus-3",
+    "rows": 2,
+    "eventcard_instances": 5,
+    "product_change": "none",
+    "excluded": [
+      "fixture discovery",
+      "fixture reorder",
+      "invented filler cards",
+      "shell/header/footer",
+      "Penpot mutation",
+      "visual PASS"
+    ]
+  },
+  "requirements_contract": {
+    "id": "kenigevents.asp-conformance",
+    "version": "1.1.0",
+    "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+  },
+  "factual_authority": {
+    "owner": "A0",
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "branch": "a0/asp-production-conveyor-20260831",
+    "commit": "d85b38c7883d53f43b628d885513c5851c164b25",
+    "tree": "d7778f5c674a414617124600629310f9a8c0fdd0",
+    "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json",
+    "git_blob_sha1": "7165c7055040aeac87340e8773378f1cd50430b5",
+    "bytes": 14039,
+    "projection_record_sha256": "e645fb8e023c2271ee05b109bcc828e0e95959162ef3008653d0b2be08b4c471",
+    "canonical_projection_sha256": "c1cf986815f1e217c9bf482151252b729109f7cb932aff9b153b265ebe411c12",
+    "corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+    "reuse_classification": "REUSE_CANONICAL_DATA"
+  },
+  "current_astro_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+    "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+    "surface_path": "site/src/components/FreeCollectionSurface.astro",
+    "surface_git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696",
+    "route_path": "site/src/pages/podborki/[slug]/index.astro",
+    "route_git_blob_sha1": "3d4333ef611efccf7e3dec5c16e5bcf0d6f14654",
+    "search_collections_path": "site/src/data/searchCollections.ts",
+    "search_collections_git_blob_sha1": "b9b8a80fbeaa26fa8185d67a06e55714dcf140c1"
+  },
+  "eventcard_dependency": {
+    "owner": "U0",
+    "branch": "u0/eventcard-four-cases-v3",
+    "commit": "101e5a0b76084da0811be244fe0e7281910c1452",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+    "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+    "semantic_identity": "component.event-card.free-collection",
+    "runtime_state_at_package_time": "R6_REPAIR_ACTIVE_AFTER_REVISION_58_VISIBLE_WITH_DIFF",
+    "row_publication_requires_eventcard_v0_pass": true
+  },
+  "row_matrix": [
+    {
+      "row_id": "free.events.row",
+      "source_group": "events",
+      "data_attribute": "data-free-collection-event-group=events",
+      "result_selector": "[data-search-collection-results]",
+      "count": 2,
+      "fixture_order": [
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "visible_heading": "2 событий",
+      "heading_rule": "regularEvents.length ? `${regularEvents.length} событий` : source empty-state text",
+      "eyebrow": null,
+      "group_note": null,
+      "calendar_contract": "per exact EventCard fixture data; no row-level override"
+    },
+    {
+      "row_id": "free.exhibitions.row",
+      "source_group": "exhibitions",
+      "data_attribute": "data-free-collection-event-group=exhibitions",
+      "result_selector": "[data-search-collection-exhibitions]",
+      "count": 3,
+      "fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609"
+      ],
+      "visible_heading": "Бесплатные выставки · 3",
+      "heading_rule": "`Бесплатные выставки · ${exhibitionEvents.length}`",
+      "eyebrow": "Можно посетить в течение дня",
+      "group_note": "Продолжающиеся выставки отделены от событий с конкретным временем, чтобы их было проще просматривать.",
+      "calendar_contract": "absent for exhibition cases unless exact factual authority proves otherwise; no synthetic date or calendar action"
+    }
+  ],
+  "composition_contract": {
+    "row_component": "free.collection.result-row",
+    "child_component": "component.event-card.free-collection",
+    "source_grid_class": "cards-grid",
+    "source_grid_geometry": "resolve exactly from site/src/styles/design-system.css at frozen Source A; U0 does not approximate the global grid",
+    "mobile_override": {
+      "media": "max-width:759px",
+      "grid_template_columns": "minmax(0,1fr)"
+    },
+    "order_policy": "exact factual-authority order; DOM order equals visual order",
+    "wrapping_policy": "source CSS only",
+    "empty_state_policy": "source text only; not part of the populated 2+3 package",
+    "row_labels_are_not_badges": true,
+    "duplicate_eventcard_masters": false
+  },
+  "instance_contract": [
+    {
+      "instance_id": "free.events.row.event.real.8006",
+      "row_id": "free.events.row",
+      "fixture_id": "event.real.8006",
+      "position": 0,
+      "eventcard_case_hint": "wide/calendar-present where supported by the exact viewport proof"
+    },
+    {
+      "instance_id": "free.events.row.event.real.8200",
+      "row_id": "free.events.row",
+      "fixture_id": "event.real.8200",
+      "position": 1,
+      "eventcard_case_hint": "derive from exact A0 factual projection and Source-A geometry; no clone of event.real.8006 content"
+    },
+    {
+      "instance_id": "free.exhibitions.row.event.real.2182",
+      "row_id": "free.exhibitions.row",
+      "fixture_id": "event.real.2182",
+      "position": 0,
+      "eventcard_case_hint": "packed/calendar-absent"
+    },
+    {
+      "instance_id": "free.exhibitions.row.event.real.6711",
+      "row_id": "free.exhibitions.row",
+      "fixture_id": "event.real.6711",
+      "position": 1,
+      "eventcard_case_hint": "derive from exact A0 factual projection and Source-A geometry; calendar not invented"
+    },
+    {
+      "instance_id": "free.exhibitions.row.event.real.7609",
+      "row_id": "free.exhibitions.row",
+      "fixture_id": "event.real.7609",
+      "position": 2,
+      "eventcard_case_hint": "derive from exact A0 factual projection and Source-A geometry; calendar not invented"
+    }
+  ],
+  "expected_candidate_materialization": {
+    "target_page_id": null,
+    "target_page_resolution_owner": "D0/INTEGRATE",
+    "roots": 2,
+    "root_ids": [
+      "free.events.row",
+      "free.exhibitions.row"
+    ],
+    "eventcard_instances": 5,
+    "new_eventcard_component_masters": 0,
+    "screenshots": 0,
+    "old_penpot_uuids": 0,
+    "validation": []
+  },
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_free_rows_shell.py",
+    "mode": "compile-free-rows",
+    "consumer": "D0/MAT",
+    "penpot_adapter_included": false,
+    "required_inputs": [
+      "A0 production bundle exact bytes",
+      "U0 EventCard package exact bytes",
+      "Source-A FreeCollectionSurface and global CSS exact bytes",
+      "ACTIVE target-page profile and run marker"
+    ]
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_free_rows_shell.py --repo . --rows --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_free_rows_shell_packages.py",
+    "required_checks": [
+      "exact two rows",
+      "exact 2+3 count",
+      "exact fixture order",
+      "exact populated source headings and notes",
+      "no row-level EventCard content or calendar invention",
+      "single-column mobile override",
+      "zero duplicate EventCard masters",
+      "zero Penpot mutation by U0"
+    ]
+  },
+  "known_nonblocking_differences": [
+    "A0 names the data sections `События` and `Выставки`; current Astro visible headings are generated by FreeCollectionSurface and are bound here separately.",
+    "Only event.real.8006 and event.real.2182 are in the current four-case exact EventCard review set; the other three row fixtures require exact source-derived instance content, not cloned case content.",
+    "The row package is compositional and cannot be visually accepted before EventCard R6 and V0 PASS."
+  ]
+}
