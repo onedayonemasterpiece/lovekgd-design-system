@@ -1,0 +1,314 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-TYPOGRAPHY-LAYOUT",
+  "revision": 2,
+  "owner": "F0",
+  "priority": "P0_VISUAL_DEFECT_SUPPORT",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "branch": "chatgpt/f0-typography-layout-ready-v2-20260831",
+  "sha": "ISSUE_BOUND_IMMUTABLE_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v2.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-typography-layout-ready-v2-20260831",
+    "bundle_anchor_commit": "CURRENT_RUNNER_WRAPPER_COMMIT",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v2.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package Git blob, source-package Git blob, base runner and resolving wrapper; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 1,
+    "commit": "3f8eb49e4e90927366e1cf426e15fb33ad5342b4",
+    "issue_comment": 5479591453,
+    "reason": "v1 remains a source inventory; v2 adds byte-verified fonts, executable materialization, exact target, run control and independent readback"
+  },
+  "source_package": {
+    "commit": "3f8eb49e4e90927366e1cf426e15fb33ad5342b4",
+    "path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+    "git_blob_sha1": "f4dae95779867d3bdab2537df58c9cfc184f488c",
+    "bytes": 7795,
+    "classification": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+      "sections": ["2.6", "2.7"]
+    },
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+      "continuity": "25 commits ahead; zero changed site/** paths"
+    },
+    "runtime_files": [
+      {"path": "site/src/styles/design-system.css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+      {"path": "site/src/layouts/EventLayout.astro", "sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"},
+      {"path": "site/src/components/Header.astro", "sha256": "b1546856ce591f5797495676459139524957dcbd0e81f0de62033b9e0aad7b2b"}
+    ],
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "visual_delta_allowed": false,
+      "font_substitution_allowed": false
+    }
+  },
+  "font_binding": {
+    "manifest_sha256": "RESOLVE_FROM_IMMUTABLE_SOURCE_PACKAGE",
+    "manifest_resolution": {
+      "source_package_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+      "source_json_path": "source_authority.generation_19_font_binding.manifest_content_sha256",
+      "resolved_by": "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py",
+      "recorded_in_plan_and_receipt": true
+    },
+    "semantic_css_family": "Inter-first system stack",
+    "resolved_family": "DejaVu Sans",
+    "regular": {
+      "path": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+      "weight": 400,
+      "bytes": 759720,
+      "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280"
+    },
+    "bold": {
+      "path": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+      "weight": 700,
+      "bytes": 708920,
+      "sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895"
+    },
+    "verification_order": "both font files must pass byte count and SHA-256 before first text mutation",
+    "silent_fallback": "forbidden",
+    "outlined_product_text": "forbidden"
+  },
+  "typography": {
+    "css_family_contract": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    "frozen_A_resolved_family": "DejaVu Sans",
+    "sizes": {
+      "caption": "0.75rem",
+      "body": "1rem",
+      "meta": "1.0625rem",
+      "heading-500": "1.5rem",
+      "heading-600": "clamp(1.75rem, 2.4vw, 2.5rem)",
+      "display-700": "clamp(2.2rem, 6vw, 4.6rem)",
+      "display-800": "clamp(2.6rem, 7vw, 5.8rem)"
+    },
+    "line_heights": {"tight": 1.08, "body": 1.6},
+    "weights": {"regular": 400, "semibold": 600, "bold": 700},
+    "cyrillic_probe": "Кёнигсберг · Калининград · афиша · экскурсия · выставка · фестиваль"
+  },
+  "layout": {
+    "containers": {"content_max": "1180px", "content_wide_max": "1440px"},
+    "control_min": "44px",
+    "breakpoints": [
+      {"id": "mobile-xs", "query": "max-width: 479px"},
+      {"id": "mobile-sm", "query": "max-width: 600px"},
+      {"id": "mobile", "query": "max-width: 759px"},
+      {"id": "tablet-max", "query": "max-width: 899px"},
+      {"id": "desktop", "query": "min-width: 760px"},
+      {"id": "desktop-md", "query": "min-width: 900px"},
+      {"id": "desktop-lg", "query": "min-width: 1100px"},
+      {"id": "desktop-xl", "query": "min-width: 1400px"}
+    ],
+    "sticky_stack": {
+      "header_height": "57px",
+      "header_tag_height": "88px",
+      "time_nav_height": "56px",
+      "mobile_bottom_stack_height": "var(--mobile-bottom-stack-h)"
+    },
+    "layering": {
+      "base": 0,
+      "content": 10,
+      "cards": 20,
+      "floating": 30,
+      "navigation": 40,
+      "overlays": 50,
+      "header": 60,
+      "modal_focus": 80
+    },
+    "safe_area": "env(safe-area-inset-bottom)",
+    "listing_media_height": "clamp(221px, min(13vw, 24svh), 244px)"
+  },
+  "asset_registry_applicability": {
+    "external_graphical_asset_slots": 0,
+    "font_resources": 2,
+    "font_resources_content_addressed": true,
+    "result": "NO_GRAPHICAL_ASSET_REGISTRY_ENTRIES_REQUIRED; FONT_PROVENANCE_REQUIRED",
+    "screenshots": 0
+  },
+  "foundation_or_component_ids": [
+    "foundation.typography-scale",
+    "foundation.typography-line-height",
+    "foundation.typography-font-binding",
+    "foundation.layout-containers",
+    "foundation.layout-breakpoints",
+    "foundation.layout-sticky-stack",
+    "foundation.layout-layering",
+    "foundation.layout-safe-area",
+    "foundation.layout-media-sizing"
+  ],
+  "specimen_components": [
+    {"id": "foundation.typography-scale", "penpot_name": "Foundation/Typography/Scale", "render_contract": "editable Cyrillic text at exact current sizes and weights"},
+    {"id": "foundation.typography-line-height", "penpot_name": "Foundation/Typography/LineHeight", "render_contract": "multi-line editable text with visible measured text-frame bounds"},
+    {"id": "foundation.typography-font-binding", "penpot_name": "Foundation/Typography/FontBinding", "render_contract": "semantic CSS stack and actual frozen-A resolved family both labelled; exact font hashes in metadata"},
+    {"id": "foundation.layout-containers", "penpot_name": "Foundation/Layout/Containers", "render_contract": "measured 1180px and 1440px diagrams"},
+    {"id": "foundation.layout-breakpoints", "penpot_name": "Foundation/Layout/Breakpoints", "render_contract": "eight exact media queries as labelled ranges"},
+    {"id": "foundation.layout-sticky-stack", "penpot_name": "Foundation/Layout/StickyStack", "render_contract": "header/time-nav/mobile-bottom stack measurements without product-page geometry claim"},
+    {"id": "foundation.layout-layering", "penpot_name": "Foundation/Layout/Layering", "render_contract": "eight labelled z-index bands"},
+    {"id": "foundation.layout-safe-area", "penpot_name": "Foundation/Layout/SafeArea", "render_contract": "mobile safe-area inset diagram"},
+    {"id": "foundation.layout-media-sizing", "penpot_name": "Foundation/Layout/MediaSizing", "render_contract": "literal clamp formula plus min/intermediate/max examples"}
+  ],
+  "target_penpot_page": {
+    "file_id": "40e06342-0493-81e4-8007-37c4238ecc5f",
+    "exact_name": "04 · Foundations · Typography and layout",
+    "create_if_missing": true,
+    "consumer_evidence_page_id": "c16498cb-3535-808b-8008-46a313b4a64a",
+    "consumer_evidence_rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "rejected_root_mutation_allowed": false,
+    "old_penpot_id_reuse_allowed": false
+  },
+  "expected_roots": 1,
+  "expected_components": 9,
+  "expected_instances": 39,
+  "materialization_entry_point": {
+    "kind": "font-resolving-bounded-executable-adapter-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py",
+    "base_path": "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v2.py",
+    "identity": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py plan --candidate-commit <FROZEN_HEAD>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py execute --candidate-commit <FROZEN_HEAD> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_resolved_v2.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT_JSON>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "specimen": {
+      "name": "F-TYPOGRAPHY-LAYOUT/current-reconstructed",
+      "placements": [
+        {"id": "type/caption", "component_id": "foundation.typography-scale", "state": "caption"},
+        {"id": "type/body", "component_id": "foundation.typography-scale", "state": "body"},
+        {"id": "type/meta", "component_id": "foundation.typography-scale", "state": "meta"},
+        {"id": "type/heading-500", "component_id": "foundation.typography-scale", "state": "heading-500"},
+        {"id": "type/heading-600", "component_id": "foundation.typography-scale", "state": "heading-600"},
+        {"id": "type/display-700", "component_id": "foundation.typography-scale", "state": "display-700"},
+        {"id": "type/display-800", "component_id": "foundation.typography-scale", "state": "display-800"},
+        {"id": "line-height/tight", "component_id": "foundation.typography-line-height", "state": "tight-1.08"},
+        {"id": "line-height/body", "component_id": "foundation.typography-line-height", "state": "body-1.6"},
+        {"id": "font/regular", "component_id": "foundation.typography-font-binding", "state": "DejaVu-Sans-400"},
+        {"id": "font/bold", "component_id": "foundation.typography-font-binding", "state": "DejaVu-Sans-700"},
+        {"id": "font/cyrillic-probe", "component_id": "foundation.typography-font-binding", "state": "editable-Cyrillic-wrap-probe"},
+        {"id": "container/content", "component_id": "foundation.layout-containers", "state": "1180px"},
+        {"id": "container/content-wide", "component_id": "foundation.layout-containers", "state": "1440px"},
+        {"id": "breakpoint/mobile-xs", "component_id": "foundation.layout-breakpoints", "state": "max-479"},
+        {"id": "breakpoint/mobile-sm", "component_id": "foundation.layout-breakpoints", "state": "max-600"},
+        {"id": "breakpoint/mobile", "component_id": "foundation.layout-breakpoints", "state": "max-759"},
+        {"id": "breakpoint/tablet-max", "component_id": "foundation.layout-breakpoints", "state": "max-899"},
+        {"id": "breakpoint/desktop", "component_id": "foundation.layout-breakpoints", "state": "min-760"},
+        {"id": "breakpoint/desktop-md", "component_id": "foundation.layout-breakpoints", "state": "min-900"},
+        {"id": "breakpoint/desktop-lg", "component_id": "foundation.layout-breakpoints", "state": "min-1100"},
+        {"id": "breakpoint/desktop-xl", "component_id": "foundation.layout-breakpoints", "state": "min-1400"},
+        {"id": "sticky/header", "component_id": "foundation.layout-sticky-stack", "state": "57px"},
+        {"id": "sticky/header-tag", "component_id": "foundation.layout-sticky-stack", "state": "88px"},
+        {"id": "sticky/time-nav", "component_id": "foundation.layout-sticky-stack", "state": "56px"},
+        {"id": "sticky/mobile-bottom", "component_id": "foundation.layout-sticky-stack", "state": "mobile-bottom-stack"},
+        {"id": "layer/base", "component_id": "foundation.layout-layering", "state": "0"},
+        {"id": "layer/content", "component_id": "foundation.layout-layering", "state": "10"},
+        {"id": "layer/cards", "component_id": "foundation.layout-layering", "state": "20"},
+        {"id": "layer/floating", "component_id": "foundation.layout-layering", "state": "30"},
+        {"id": "layer/navigation", "component_id": "foundation.layout-layering", "state": "40"},
+        {"id": "layer/overlays", "component_id": "foundation.layout-layering", "state": "50"},
+        {"id": "layer/header", "component_id": "foundation.layout-layering", "state": "60"},
+        {"id": "layer/modal-focus", "component_id": "foundation.layout-layering", "state": "80"},
+        {"id": "safe-area/bottom", "component_id": "foundation.layout-safe-area", "state": "env-safe-area-inset-bottom"},
+        {"id": "media/formula", "component_id": "foundation.layout-media-sizing", "state": "clamp-formula"},
+        {"id": "media/min", "component_id": "foundation.layout-media-sizing", "state": "221px"},
+        {"id": "media/intermediate", "component_id": "foundation.layout-media-sizing", "state": "13vw-or-24svh"},
+        {"id": "media/max", "component_id": "foundation.layout-media-sizing", "state": "244px"}
+      ]
+    },
+    "receipt_marker": "ASP_BUILD_RESULT_V2",
+    "readback_success_marker": "F0_TYPOGRAPHY_LAYOUT_READBACK_PASS"
+  },
+  "visual_defect_coverage": {
+    "P0-TEXT-LINEHEIGHT-CLIPPING": {
+      "directive_comment": 5479702814,
+      "routing_comment": 5479702819,
+      "status": "EXTERNAL_GEOMETRY_REPAIR_REQUIRED_BEFORE_CONSUMER_ACCEPTANCE",
+      "closed": false,
+      "owners": ["D0/MAT", "U0", "A0"],
+      "f0_contribution": [
+        "font bytes verified before first text mutation",
+        "semantic CSS stack and actual frozen-A family both preserved",
+        "line-height 1.08 and 1.6 represented with visible text-frame bounds",
+        "Cyrillic wrap probe remains editable text",
+        "silent fallback and outlined product text forbidden"
+      ],
+      "acceptance_dependency": "new consumer root must show complete unclipped lines at exact Astro DOM bounds"
+    }
+  },
+  "validation": {
+    "pre_integrate": [
+      "source v1 package Git blob and byte count match",
+      "full manifest SHA-256 resolves from immutable source package",
+      "regular/bold exact byte counts and SHA-256 are pinned",
+      "seven type sizes, two line heights, eight breakpoints, eight z-index bands",
+      "nine linked components and exactly 39 placements",
+      "runner verifies both fonts before first text mutation",
+      "runner enforces D0/PUBLISH and per-write ACTIVE lease/cancel guard",
+      "standalone board only; rejected consumer root immutable",
+      "P0 text-clipping defect remains externally open"
+    ],
+    "d0_integrate_required": [
+      "remote-read frozen branch HEAD and package Git blob",
+      "compute and record base/wrapper runner Git blobs, SHA-256 and byte counts",
+      "run plan command and obtain F0_TYPOGRAPHY_LAYOUT_PLAN_PASS",
+      "record resolved font-manifest SHA-256",
+      "bind actual native Penpot adapter with font verification",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
+    ],
+    "publisher_required": [
+      "new ACTIVE run and per-write cancel checks",
+      "both fonts verified before text mutation",
+      "roots=1",
+      "components=9",
+      "instances=39",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validate=[]",
+      "nonempty export",
+      "§2.7 provenance receipt",
+      "consumer text-clipping defect closed=false",
+      "rejected root mutation=false"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "Cyrillic type scale", "text": "Кёнигсберг · Калининград · афиша · экскурсия · выставка · фестиваль"},
+    {"case": "multi-line line-height", "states": ["tight-1.08", "body-1.6"]},
+    {"case": "desktop/mobile layout", "states": ["max-759", "min-760", "1180px", "1440px", "safe-area"]}
+  ],
+  "known_nonblocking_differences": [
+    "Inter remains the CSS semantic contract while frozen-A Penpot uses byte-pinned DejaVu Sans",
+    "specimen labels and measurement annotations are documentation, not product copy",
+    "standalone board does not prove or mutate consumer text-frame geometry",
+    "consumer clipping remains blocked until U0/A0/D0/MAT repair and V0 PASS"
+  ],
+  "forbidden": [
+    "silent font fallback",
+    "outlined product text",
+    "hand-copied or truncated manifest hash",
+    "type scale normalization",
+    "breakpoint rounding",
+    "old Penpot UUID reuse",
+    "screenshot implementation",
+    "owner-rejected root mutation",
+    "claiming P0-TEXT-LINEHEIGHT-CLIPPING closed",
+    "Penpot mutation before D0/INTEGRATE PASS"
+  ]
+}
