@@ -1,0 +1,154 @@
+{
+  "schema_version": "kenigevents.asp-u0-eventcard-native-component-paths.v1",
+  "package_id": "U-EVENTCARD-NATIVE-COMPONENT-PATHS",
+  "owner": "U0",
+  "priority": "P0_AFTER_TEXT_R9",
+  "status": "READY_FOR_D0_MAT_AND_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T16:49:00Z",
+  "purpose": "Generation-neutral native LibraryComponent.path contract for the eighteen persistent EventCard components. Plugin metadata is not accepted as a substitute for native component organization.",
+  "lifecycle": {
+    "ready_for_d0_mat": true,
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "visual_pass": false,
+    "penpot_mutations_by_u0": 0,
+    "sole_penpot_writer": "/root/publish_r2",
+    "serialize_after_text_r9": true
+  },
+  "parent_text_package": {
+    "branch": "u0/eventcard-text-r9-v1",
+    "commit": "d93382e210adc73e3b29940f22e7b63c8e7b4a5d",
+    "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-TEXT-R9-LOWEST-OWNER-INPUT.package.v1.json",
+    "git_blob_sha1": "ef690e4b4557c985bc84bad485e7d6e646396343",
+    "bytes": 11176,
+    "relationship": "SEPARATE_SERIAL_PATH_ONLY_LANE"
+  },
+  "terminal_identity": {
+    "penpot_revision": 73,
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "collection_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "collection_children": 18,
+    "local_components": 18,
+    "validation": [],
+    "expected_component_ids_preserved": 18
+  },
+  "defect": {
+    "terminal_review_comment": 5481337267,
+    "defect_ids": [
+      "V0-1-G19-LEAF-PATH-ACCEPTANCE-015",
+      "V0-1-G19-ACCEPTED-COMPONENT-PATH-018",
+      "V0-1-G19-P90-VISUAL-BLIND-GATE-019"
+    ],
+    "observed_native_paths": {
+      "nonempty": 3,
+      "empty": 15,
+      "expected_nonempty": 18
+    },
+    "observed_legacy_nonempty_path": "KenigEvents / G19 / EventCard 8006 / Accepted",
+    "problem": "generation-specific path is reused by unrelated cases while fifteen native paths are empty"
+  },
+  "path_policy": {
+    "native_property": "LibraryComponent.path",
+    "path_required": true,
+    "plugin_metadata_as_substitute": false,
+    "generation_or_run_id_in_path": false,
+    "case_fixture_in_leaf_path": false,
+    "semantic_grouping": "stable family / role / viewport hierarchy",
+    "component_name_mutation": false
+  },
+  "expected_paths": {
+    "event.media-frame.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.meta.event-type.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.meta.admission.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.action.not-interested.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.action.calendar.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.action.share.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.action.like.desktop.8006": "KenigEvents / EventCard / Leaves / Desktop",
+    "event.media-frame.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.meta.event-type.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.meta.admission.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.action.not-interested.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.action.calendar.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.action.share.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "event.action.like.mobile.8006": "KenigEvents / EventCard / Leaves / Mobile",
+    "eventcard.desktop-wide-calendar.8006": "KenigEvents / EventCard / Cases / Desktop",
+    "eventcard.desktop-packed-calendar-absent.2182": "KenigEvents / EventCard / Cases / Desktop",
+    "eventcard.mobile-wide-calendar.8006": "KenigEvents / EventCard / Cases / Mobile",
+    "eventcard.mobile-packed-calendar-absent.2182": "KenigEvents / EventCard / Cases / Mobile"
+  },
+  "semantic_groups": {
+    "desktop_leaves": {
+      "path": "KenigEvents / EventCard / Leaves / Desktop",
+      "count": 7
+    },
+    "mobile_leaves": {
+      "path": "KenigEvents / EventCard / Leaves / Mobile",
+      "count": 7
+    },
+    "desktop_cases": {
+      "path": "KenigEvents / EventCard / Cases / Desktop",
+      "count": 2
+    },
+    "mobile_cases": {
+      "path": "KenigEvents / EventCard / Cases / Mobile",
+      "count": 2
+    }
+  },
+  "required_path_only_repair": {
+    "resolve_existing_components_by": [
+      "persistent component ID receipt when present",
+      "exact semantic component identity",
+      "existing linked main shape"
+    ],
+    "set_exact_native_path": true,
+    "change_component_name": false,
+    "change_main_shape_or_instances": false,
+    "change_plugin_metadata": false,
+    "change_geometry_or_content": false,
+    "new_component_allowed": false,
+    "delete_component_allowed": false,
+    "new_root_allowed": false,
+    "post_write_native_path_readback": "18/18 exact",
+    "idempotent_replay": "0 mutations and identical path map"
+  },
+  "must_preserve": {
+    "all_eighteen_component_ids": true,
+    "all_four_full_root_ids": true,
+    "fourteen_leaf_main_shape_ids": true,
+    "linked_instance_graph": true,
+    "one_collection_root": true,
+    "18_children_and_18_components": true,
+    "validation_empty": true,
+    "text_r9_result": true,
+    "media_shapes_and_fills": true,
+    "factual_content_and_visibility": true
+  },
+  "acceptance": {
+    "native_paths_nonempty": 18,
+    "native_paths_exact_match": 18,
+    "plugin_metadata_only_matches_accepted": 0,
+    "generation_specific_paths": 0,
+    "component_id_changes": 0,
+    "component_name_changes": 0,
+    "new_or_deleted_components": 0,
+    "new_roots": 0,
+    "validation": [],
+    "v0_owner_visible_library_review_required": true
+  },
+  "forbidden": [
+    "accepting empty native path when plugin metadata matches",
+    "retaining G19 or run IDs in canonical paths",
+    "creating replacement components to obtain paths",
+    "changing component names or semantic identities",
+    "detaching linked instances",
+    "changing text, media, geometry or visibility",
+    "claiming visual PASS from path readback alone"
+  ],
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_eventcard_v0_next_inputs.py",
+    "mode": "paths",
+    "consumer": "D0/MAT",
+    "penpot_adapter_included": false
+  }
+}
