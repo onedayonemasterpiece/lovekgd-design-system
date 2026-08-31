@@ -1,0 +1,238 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-BRANDBOOK-BASELINE",
+  "revision": 2,
+  "owner": "F0",
+  "priority": "P1_BRAND_FOUNDATION",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "branch": "chatgpt/f0-brandbook-baseline-ready-v2-20260831",
+  "sha": "ISSUE_BOUND_IMMUTABLE_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "contracts/assets/ui-brand-asset-registry.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-brandbook-baseline-ready-v2-20260831",
+    "bundle_anchor_commit": "CURRENT_BRANDBOOK_RUNNER_COMMIT",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v2.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package Git blob, v1 inventory Git blob, brand registry Git blob and runner; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 1,
+    "commit": "ccf9bd00bb62d3dec3c158be15bb187bdf34e25e",
+    "issue_comment": 5479603129,
+    "reason": "v1 remains immutable inventory; v2 resolves §2.5 asset identities and adds executable materialization, exact target, run control and readback"
+  },
+  "source_package": {
+    "commit": "ccf9bd00bb62d3dec3c158be15bb187bdf34e25e",
+    "path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "git_blob_sha1": "10228a7390e8f75821d64063c141c1c0cca7e234",
+    "bytes": 8040,
+    "classification": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+      "sections": ["2.5", "2.7"]
+    },
+    "asset_repository": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "checkout_required_for_publish": true
+    },
+    "astro": {
+      "foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+      "current_main": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "continuity": "25 commits ahead; zero changed site/** paths",
+      "brand_consumers": [
+        "site/src/components/brand/AnnouncementsLockup.astro",
+        "site/src/components/Header.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/public/manifest.webmanifest"
+      ]
+    },
+    "asset_registry": {
+      "path": "contracts/assets/ui-brand-asset-registry.v1.json",
+      "commit": "FROZEN_BRANCH_RESOLVES_EXACT_COMMIT",
+      "git_blob_sha1": null,
+      "sha256": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+      "registry_id": "kenigevents.ui-assets.brand.v1",
+      "asset_slots": 3,
+      "status": "CANDIDATE_RESOLUTION_RECIPE_PENDING_D0_INTEGRATE"
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "visual_delta_allowed": false,
+      "brand_redesign_allowed": false
+    }
+  },
+  "foundation_or_component_ids": [
+    "brand.asset.primary-mark",
+    "brand.asset.announcements-wordmark",
+    "brand.asset.favicon-tag",
+    "brand.lockup.desktop",
+    "brand.lockup.mobile"
+  ],
+  "brand_components": [
+    {
+      "id": "brand.asset.primary-mark",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/PrimaryMark",
+      "registry_asset_id": "brand.asset.primary-mark"
+    },
+    {
+      "id": "brand.asset.announcements-wordmark",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/AnnouncementsWordmark",
+      "registry_asset_id": "brand.asset.announcements-wordmark"
+    },
+    {
+      "id": "brand.asset.favicon-tag",
+      "kind": "asset",
+      "penpot_name": "Brand/Asset/FaviconTag",
+      "registry_asset_id": "brand.asset.favicon-tag"
+    },
+    {
+      "id": "brand.lockup.desktop",
+      "kind": "lockup",
+      "penpot_name": "Brand/Lockup/Desktop",
+      "asset_ids": ["brand.asset.primary-mark", "brand.asset.announcements-wordmark"],
+      "source_component": "site/src/components/brand/AnnouncementsLockup.astro",
+      "layout_contract": "exact current desktop arrangement; linked assets; editable semantic endorsement text",
+      "detached_assets": false
+    },
+    {
+      "id": "brand.lockup.mobile",
+      "kind": "lockup",
+      "penpot_name": "Brand/Lockup/Mobile",
+      "asset_ids": ["brand.asset.primary-mark", "brand.asset.announcements-wordmark"],
+      "source_component": "site/src/components/brand/AnnouncementsLockup.astro",
+      "layout_contract": "exact current mobile arrangement; linked assets; editable semantic endorsement text",
+      "detached_assets": false
+    }
+  ],
+  "misuse_rules": [
+    "do not retype the announcements wordmark",
+    "do not stretch or non-uniformly scale any brand asset",
+    "do not add a square backing behind transparent source art",
+    "do not recolor an asset unless its exact source contract uses currentColor",
+    "do not detach asset instances inside lockups",
+    "do not invent an alternate logo, badge, endorsement or dark-mode lockup",
+    "do not use screenshots or rasterized SVG replacements"
+  ],
+  "target_penpot_page": {
+    "file_id": "40e06342-0493-81e4-8007-37c4238ecc5f",
+    "exact_name": "05 · Brandbook · Current baseline",
+    "create_if_missing": true,
+    "consumer_evidence_page_id": "c16498cb-3535-808b-8008-46a313b4a64a",
+    "consumer_evidence_rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "rejected_root_mutation_allowed": false,
+    "old_penpot_id_reuse_allowed": false
+  },
+  "expected_roots": 1,
+  "expected_components": 5,
+  "expected_instances": 14,
+  "materialization_entry_point": {
+    "kind": "inventory-resolving-bounded-executable-adapter-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py",
+    "identity": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py plan --candidate-commit <FROZEN_HEAD>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py execute --candidate-commit <FROZEN_HEAD> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT_JSON>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "exact_asset_checkout_required": true,
+    "specimen": {
+      "name": "F-BRANDBOOK-BASELINE/current-reconstructed",
+      "placements": [
+        {"id": "mark/light", "component_id": "brand.asset.primary-mark", "state": "light-surface"},
+        {"id": "mark/dark", "component_id": "brand.asset.primary-mark", "state": "inverse-surface"},
+        {"id": "mark/minimum", "component_id": "brand.asset.primary-mark", "state": "minimum-current-consumer-size"},
+        {"id": "wordmark/light", "component_id": "brand.asset.announcements-wordmark", "state": "light-surface"},
+        {"id": "wordmark/dark", "component_id": "brand.asset.announcements-wordmark", "state": "inverse-surface"},
+        {"id": "wordmark/minimum", "component_id": "brand.asset.announcements-wordmark", "state": "minimum-current-consumer-size"},
+        {"id": "favicon/16", "component_id": "brand.asset.favicon-tag", "state": "16px"},
+        {"id": "favicon/32", "component_id": "brand.asset.favicon-tag", "state": "32px"},
+        {"id": "favicon/64", "component_id": "brand.asset.favicon-tag", "state": "64px"},
+        {"id": "lockup/desktop-light", "component_id": "brand.lockup.desktop", "state": "light-surface"},
+        {"id": "lockup/desktop-dark", "component_id": "brand.lockup.desktop", "state": "inverse-surface"},
+        {"id": "lockup/mobile-light", "component_id": "brand.lockup.mobile", "state": "light-surface"},
+        {"id": "lockup/mobile-dark", "component_id": "brand.lockup.mobile", "state": "inverse-surface"},
+        {"id": "misuse/rules", "component_id": "brand.lockup.desktop", "state": "documentation-only-no-product-variant"}
+      ]
+    },
+    "receipt_marker": "ASP_BUILD_RESULT_V2",
+    "readback_success_marker": "F0_BRANDBOOK_READBACK_PASS"
+  },
+  "validation": {
+    "pre_integrate": [
+      "source v1 package Git blob and byte count match",
+      "brand registry resolves exactly three immutable inventory records",
+      "each resolved asset has exact source path, SHA-256 and Git blob",
+      "five linked components and exactly 14 placements",
+      "lockups contain linked asset instances and editable semantic text",
+      "no retyping, redraw, non-uniform scaling, generic substitute, screenshot or old Penpot UUID",
+      "runner requires exact events-bot-new checkout and verifies bytes before first asset mutation",
+      "runner enforces D0/PUBLISH and per-write ACTIVE lease/cancel guard",
+      "standalone board only; rejected consumer root immutable"
+    ],
+    "d0_integrate_required": [
+      "remote-read frozen branch HEAD and package Git blob",
+      "compute and record registry and runner Git blobs/SHA-256/byte counts",
+      "run plan command and obtain F0_BRANDBOOK_PLAN_PASS",
+      "record all three resolved source paths/hash tuples",
+      "bind actual native Penpot adapter",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
+    ],
+    "publisher_required": [
+      "exact events-bot-new checkout at f2d658e8be057f3b75431f6b77e4887af4536028",
+      "all three asset bytes verified before mutation",
+      "new ACTIVE run and per-write cancel checks",
+      "roots=1",
+      "components=5",
+      "instances=14",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validate=[]",
+      "nonempty export",
+      "§2.7 provenance receipt",
+      "rejected root mutation=false"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "desktop lockup", "consumer": "site/src/components/brand/AnnouncementsLockup.astro"},
+    {"case": "mobile lockup", "consumer": "site/src/components/brand/AnnouncementsLockup.astro"},
+    {"case": "header brand", "consumer": "site/src/components/Header.astro"},
+    {"case": "favicon/PWA", "consumers": ["site/src/layouts/EventLayout.astro", "site/public/manifest.webmanifest"]}
+  ],
+  "known_nonblocking_differences": [
+    "misuse labels are documentation, not product UI",
+    "light/inverse specimen backgrounds do not authorize recoloring exact source bytes",
+    "minimum-size examples use current consumer sizes rather than inventing a new brand policy",
+    "standalone brandbook board does not prove or mutate consumer geometry"
+  ],
+  "forbidden": [
+    "retyped wordmark",
+    "redrawn or substituted mark",
+    "non-uniform scaling",
+    "square backing behind transparent art",
+    "unapproved recoloring",
+    "detached asset instances",
+    "old Penpot UUID reuse",
+    "screenshot implementation",
+    "owner-rejected root mutation",
+    "Penpot mutation before D0/INTEGRATE PASS"
+  ]
+}
