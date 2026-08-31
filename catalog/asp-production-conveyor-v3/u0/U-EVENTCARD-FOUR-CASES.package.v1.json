@@ -1,0 +1,478 @@
+{
+  "schema_version": "kenigevents.asp-u0-eventcard-four-cases-package.v1",
+  "package_id": "U-EVENTCARD-FOUR-CASES",
+  "owner": "U0",
+  "priority": "P0",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "prepared_at_utc": "2026-08-31T15:22:45Z",
+  "lifecycle_truth": {
+    "ready_for_d0_integrate": true,
+    "ready_to_publish": false,
+    "not_ready_reason": "D0/MAT R4 must consume this component input and pass 9/9 focused, 28/28 full, D0/QA exact-byte PASS and D0/INTEGRATE same-tuple PASS before any Penpot write.",
+    "penpot_mutations_by_u0": 0,
+    "visual_acceptance_owner": "V0",
+    "sole_penpot_writer": "/root/publish_r2"
+  },
+  "scope": {
+    "route": "/podborki/besplatnye-sobytiya/",
+    "surface": "Подборка бесплатных событий",
+    "product_change": "none",
+    "architecture_change": "none",
+    "purpose": "Contract-current source-owned EventCard anatomy, variants, media, text and action bindings for the four exact owner-review cases.",
+    "excluded": [
+      "Penpot mutation",
+      "visual PASS",
+      "raw asset-byte ownership",
+      "corpus fact ownership",
+      "rows, shell or full-page authorization",
+      "future redesign"
+    ]
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+      "tree": "3c7b231d10e93866899cede299c3523c8b996711",
+      "component_path": "site/src/components/EventCard.astro",
+      "component_git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c",
+      "component_sha256": "92b2ec6e7d07d31d0e5e6e02a233e450e5961acf946e04231885ee86633693ee",
+      "reference_clock": "2026-08-30T12:00:00+02:00",
+      "timezone": "Europe/Kaliningrad",
+      "locale": "ru-RU"
+    },
+    "promoted_ui_sot": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+      "component_contract_path": "catalog/ui-components/event-card-large/component-contract.v2.json",
+      "component_contract_git_blob_sha1": "85efb74c4beb9eb9c64a4a06f1d456785cd3ed73",
+      "component_contract_internal_sha256": "10b5469869585ba738ce193b3763982bdfeffc0d68e3303ae1172c2e756333ae",
+      "reuse_classification": "REUSE_CANONICAL_DATA_FOR_SEMANTIC_ANATOMY_ONLY",
+      "current_geometry_authority": "current_contract.geometry_proof"
+    },
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+    }
+  },
+  "current_contract": {
+    "integration_authorization": {
+      "branch": "task/d0-free-eventcard-contract-integration-20260831",
+      "commit": "8b2e8f603c60d58bebc43c6f66f21f55094bd779"
+    },
+    "page_profile": {
+      "path": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+      "git_blob_sha1": "8049669639d6229f61eab1533127f81a218fc61d",
+      "sha256": "a2fbdba547f8829308f88231f96fce0cc54c441f741e99a7a846dcf0333ea461",
+      "profile_version": "1.1.1",
+      "status": "ACTIVE_BOUNDED_EVENTCARD_REPAIR"
+    },
+    "asset_registry": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "git_blob_sha1": "271a622633f399bb52cfe322c259a8dc4162bf7e",
+      "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
+      "version": "1.1.0",
+      "status": "ACTIVE",
+      "required_slots": 4,
+      "resolved_slots": 4
+    },
+    "geometry_proof": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "branch": "task/d0-corpus-20260831",
+      "commit": "bf7a4c9aa20978d297bd8f53058042e0436f8554",
+      "source_path": "catalog/corpus-d0/free-collection-eventcard-geometry-proof.v1.json",
+      "bundle_copy_path": "catalog/materialization-bundles/d0-contract-current/eventcard-r1/inputs/free-collection-eventcard-geometry-proof.v1.json",
+      "bundle_copy_git_blob_sha1": "fe09d326ee1068f4880b6135594b17cff6fa5b54",
+      "bytes": 113323,
+      "raw_sha256": "f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b",
+      "proof_payload_sha256": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
+      "cases_sha256": "ce3fa01252359233371a7286bb10f7ee9aa2eb8ef47a04646736208279415377",
+      "coverage": {
+        "cases": 4,
+        "required_regions_per_case": 8
+      }
+    }
+  },
+  "migration_capital": {
+    "source": {
+      "branch": "task/g19-p2-materialize-actual",
+      "commit": "2d05f359af9b3f58cae0449edb879f21b432032c",
+      "manifest_path": "catalog/penpot-executor/g19/manifest.json",
+      "payload_sha256": "c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219",
+      "executable_set_sha256": "e5d1dded182bef14326befe43edc57769d08ddb04af773fd6a63cfa0aaf46952"
+    },
+    "classification": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION",
+    "reusable": [
+      "four case identities",
+      "phase ordering",
+      "existing accepted root and partial-root resume concept",
+      "expected semantic leaf linkage"
+    ],
+    "superseded_and_forbidden": [
+      "E0 writer identity",
+      "revision-41 empty baseline",
+      "old G19 action SVG bytes",
+      "stale page-profile hash",
+      "blind retry",
+      "second root",
+      "old Penpot UUID lineage as a new implementation"
+    ]
+  },
+  "component_contract": {
+    "semantic_identity": "component.event-card.free-collection",
+    "component_id": "event.card",
+    "architecture": "one shared source-owned EventCard family with four exact fixture-bound review cases",
+    "content_slots": [
+      "title",
+      "occurrence",
+      "resolved-place",
+      "event-type-label",
+      "admission-label",
+      "share-count",
+      "like-count",
+      "calendar-label",
+      "media-asset",
+      "media-focal-point"
+    ],
+    "required_linked_leaf_semantic_ids": [
+      "event.media-frame",
+      "event.meta.event-type",
+      "event.meta.admission",
+      "event.action.not-interested",
+      "event.action.calendar",
+      "event.action.share",
+      "event.action.like"
+    ],
+    "required_override_targets_before_mutation": [
+      "title",
+      "occurrence",
+      "resolved-place",
+      "event-type-label",
+      "admission-label",
+      "share-count",
+      "like-count",
+      "media-asset",
+      "media-focal-point"
+    ],
+    "calendar_override_target_policy": "required only when calendar=present; the calendar component and label are absent, not hidden, when calendar=absent",
+    "event_type_override_target_policy": "required and resolvable in all four structural contexts, including packed/no-calendar cases",
+    "forbidden_instance_overrides": [
+      "typography",
+      "colors",
+      "padding",
+      "gaps",
+      "radii",
+      "icon-geometry",
+      "media-treatment",
+      "region-order",
+      "component-anatomy",
+      "visibility-rule"
+    ],
+    "variant_axes": {
+      "viewport": ["desktop", "mobile"],
+      "composition": ["wide", "packed"],
+      "calendar": ["present", "absent"],
+      "fixture": ["event.real.8006", "event.real.2182"]
+    }
+  },
+  "variant_matrix": [
+    {
+      "case_id": "eventcard.desktop-wide-calendar.8006",
+      "component_id": "eventcard.desktop-wide-calendar.8006",
+      "fixture_id": "event.real.8006",
+      "viewport": "desktop",
+      "composition": "wide",
+      "calendar": "present",
+      "resolved_case": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+        "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.desktop-wide-calendar.8006.resolved-render-case.json",
+        "sha256": "876abb966fb9ae49f5196f02367e54103bcb3ed1eceb2f9e818f500a5b77d855"
+      },
+      "geometry_proof_case_id": "eventcard.desktop-wide-calendar.8006"
+    },
+    {
+      "case_id": "eventcard.mobile-wide-calendar.8006",
+      "component_id": "eventcard.mobile-wide-calendar.8006",
+      "fixture_id": "event.real.8006",
+      "viewport": "mobile",
+      "composition": "wide",
+      "calendar": "present",
+      "resolved_case": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+        "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.mobile-wide-calendar.8006.resolved-render-case.json",
+        "sha256": "4a388f64cea110cb9d5a3ac2b3ee6400fa68e7f9d0c33df3c467372a670ece82"
+      },
+      "geometry_proof_case_id": "eventcard.mobile-wide-calendar.8006"
+    },
+    {
+      "case_id": "eventcard.desktop-packed-calendar-absent.2182",
+      "component_id": "eventcard.desktop-packed-calendar-absent.2182",
+      "fixture_id": "event.real.2182",
+      "viewport": "desktop",
+      "composition": "packed",
+      "calendar": "absent",
+      "resolved_case": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+        "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.desktop-packed-calendar-absent.2182.resolved-render-case.json",
+        "sha256": "1627bf9234042f70af04c8be4a027899434487c6080872c5e646b885c720254d"
+      },
+      "geometry_proof_case_id": "eventcard.desktop-packed-calendar-absent.2182"
+    },
+    {
+      "case_id": "eventcard.mobile-packed-calendar-absent.2182",
+      "component_id": "eventcard.mobile-packed-calendar-absent.2182",
+      "fixture_id": "event.real.2182",
+      "viewport": "mobile",
+      "composition": "packed",
+      "calendar": "absent",
+      "resolved_case": {
+        "repository": "onedayonemasterpiece/lovekgd-design-system",
+        "commit": "78a84576740cb650b2efbe2900377f371faf49a1",
+        "path": "catalog/ui-conformance/free-collection/g4/resolved/eventcard.mobile-packed-calendar-absent.2182.resolved-render-case.json",
+        "sha256": "339b8e84b62668c3e61edd1916de3c55d1c71a3c4664a521d53b62255ddad7cc"
+      },
+      "geometry_proof_case_id": "eventcard.mobile-packed-calendar-absent.2182"
+    }
+  ],
+  "asset_binding_contract": {
+    "registry": {
+      "commit": "0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "git_blob_sha1": "271a622633f399bb52cfe322c259a8dc4162bf7e",
+      "sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4"
+    },
+    "physical_assets": {
+      "icon.action.not_interested": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/not-interested.svg",
+        "git_blob_sha1": "2cd0ebf989d63176a8e5f240c681316fab2e0670",
+        "sha256": "2716788d41848f0332bf0cd7f4f16c2b9f58b2dd73a05345eae7ae788d2ade98",
+        "bytes": 912,
+        "viewBox": "0 0 512 512"
+      },
+      "icon.action.calendar_add": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/calendar-add.svg",
+        "git_blob_sha1": "539baa5a7ab4f8794c2af3dae63a732cb00d1408",
+        "sha256": "0089a7c95e9366540feca517c143b6f70b994d2077272f6a064e40c7d5131ae7",
+        "bytes": 374,
+        "viewBox": "0 0 32 32"
+      },
+      "icon.action.share": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/share.svg",
+        "git_blob_sha1": "3b6a82536becf79040c1201b327c93123080b557",
+        "sha256": "c8fe389bb046818566e92900418ca74cb986369e9539c3a561878250fde819cb",
+        "bytes": 719,
+        "viewBox": "0 0 24 24"
+      },
+      "icon.action.favorite.outline": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-outline.svg",
+        "git_blob_sha1": "e7b836f1f102ab787364077f1cc84fb2863b87ca",
+        "sha256": "8f94e7f1e1e8abdf27cb207b300699ef1dff5090c34fafd7331326ae11214df7",
+        "bytes": 459,
+        "viewBox": "0 0 24 24"
+      },
+      "icon.action.favorite.solid": {
+        "path": "catalog/asp-production-conveyor-v3/f0/assets/free-collection/favorite-solid.svg",
+        "git_blob_sha1": "bcf4370e13e32ef35f7b43b1964bc06a2ae86dd3",
+        "sha256": "ede237bb37e7aed328f663364b6c2b0952f1483e19e764994e86cf18de211517",
+        "bytes": 275,
+        "viewBox": "0 0 24 24"
+      }
+    },
+    "required_core_binding_semantics_per_case": [
+      "card.utility.not_interested",
+      "card.social.share",
+      "card.social.favorite"
+    ],
+    "required_core_binding_count": 12,
+    "conditional_calendar_cases": [
+      "eventcard.desktop-wide-calendar.8006",
+      "eventcard.mobile-wide-calendar.8006"
+    ],
+    "conditional_calendar_binding_count": 2,
+    "calendar_forbidden_in_cases": [
+      "eventcard.desktop-packed-calendar-absent.2182",
+      "eventcard.mobile-packed-calendar-absent.2182"
+    ],
+    "favorite_state_contract": {
+      "aria_pressed_false": "icon.action.favorite.outline",
+      "aria_pressed_true": "icon.action.favorite.solid",
+      "geometry_substitution": "forbidden"
+    },
+    "fallback_asset_policy": "forbidden"
+  },
+  "media_stack_contract": {
+    "authority": "per-case exact Source-A DOM and computed-style geometry proof",
+    "back_to_front_semantics": [
+      "event-card-surface",
+      "media-image-content",
+      "source-defined-mask-or-overlay-only",
+      "transparent-content-flow",
+      "transparent-action-layer"
+    ],
+    "linked_media_wrapper_fill": "transparent",
+    "content_wrapper_fill": "transparent",
+    "action_wrapper_fill": "transparent",
+    "opaque_non_source_overlay_above_media": false,
+    "poster_pixel_visibility_required": true,
+    "object_fit": "EXACT_PER_CASE_FROM_GEOMETRY_PROOF",
+    "object_position": "EXACT_PER_CASE_FROM_GEOMETRY_PROOF",
+    "overflow_and_clip": "EXACT_PER_CASE_FROM_GEOMETRY_PROOF",
+    "source_defined_overlay_rule": "Reproduce only an overlay proven by Source A; never synthesize a white or background frame over the poster.",
+    "repair_coverage": "P0-ASSET-POSTER-OCCLUDED"
+  },
+  "text_metrics_contract": {
+    "authority_raw_sha256": "f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b",
+    "affected_text_shape_count_from_v0_defect": 28,
+    "required_per_text_fields": [
+      "bounds",
+      "font-family",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing",
+      "padding",
+      "wrapping",
+      "overflow"
+    ],
+    "frame_sizing": "exact source-computed glyph and frame geometry plus exact source padding; no fixed compensating Y offset",
+    "clip_policy": "forbidden",
+    "text_outline_substitution": "forbidden",
+    "font_fallback_substitution": "forbidden",
+    "event_type_target_required_in_all_cases": true,
+    "verify_zero_clipped_text_shapes": true,
+    "repair_coverage": "P0-TEXT-LINEHEIGHT-CLIPPING"
+  },
+  "target_and_resume_contract": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "accepted_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "accepted_root_name": "KenigEvents · G12 bounded L0-L3",
+    "expected_native_revision": 56,
+    "baseline": {
+      "page_direct_roots": 1,
+      "accepted_root_direct_children": 16,
+      "accepted_root_descendants": 137,
+      "local_components": 15,
+      "validation": []
+    },
+    "partial_root": {
+      "id": "313fb1ed-0d5c-8095-8008-914c76615924",
+      "state": "BUILDING",
+      "payload_sha256": "c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219",
+      "direct_children": 10,
+      "descendants": 21,
+      "preserve": true,
+      "resume_in_place": true
+    },
+    "second_top_level_root_allowed": false,
+    "blind_retry_allowed": false,
+    "delete_partial_root_before_reconciled_readback": false,
+    "sole_writer": "/root/publish_r2"
+  },
+  "expected_terminal": {
+    "page_direct_roots": 1,
+    "accepted_root_direct_children": 18,
+    "local_components": 18,
+    "accepted_card_components": 4,
+    "review_case_instances": 4,
+    "new_card_component_delta_from_revision_56": 3,
+    "new_review_case_instance_delta_from_revision_56": 3,
+    "detached_roots": 0,
+    "screenshot_roots": 0,
+    "route_local_duplicate_masters": 0,
+    "descendant_count": "NATIVE_READBACK_REQUIRED_NO_PRECLAIM",
+    "validation": []
+  },
+  "materialization_entry_point": {
+    "compiler": "scripts/asp-production-conveyor-v3/u0/compile_eventcard_four_cases.py",
+    "mode": "compile-and-validate",
+    "consumer": "D0/MAT R4",
+    "penpot_adapter_included": false,
+    "mat_must_bind": [
+      "requirements contract tuple",
+      "page profile tuple",
+      "asset registry tuple and exact physical bytes",
+      "geometry proof tuple",
+      "revision-56 resume census and partial-root identity",
+      "ACTIVE run-control tuple for /root/publish_r2"
+    ],
+    "mat_must_not_do": [
+      "discover source facts",
+      "invent component anatomy",
+      "substitute asset bytes",
+      "hardcode text offsets",
+      "create a second root",
+      "mutate Penpot before QA and INTEGRATE PASS"
+    ]
+  },
+  "validation": {
+    "command": "python3 scripts/asp-production-conveyor-v3/u0/compile_eventcard_four_cases.py --repo . --check-repository-inputs --emit -",
+    "tests": "python3 -m unittest tests/asp-production-conveyor-v3/u0/test_eventcard_four_cases_package.py",
+    "required_checks": [
+      "exact four-case matrix",
+      "exact anatomy and required event-type target",
+      "12 core action bindings plus two conditional calendar bindings",
+      "zero calendar bindings in both event.real.2182 cases",
+      "exact active registry physical asset hashes",
+      "transparent media, content and action wrappers and no opaque overlay",
+      "exact geometry proof and page-profile tuples",
+      "revision-56 in-place partial-root resume",
+      "deterministic compiled output"
+    ],
+    "d0_acceptance_before_penpot": {
+      "focused_suite": "9/9_PASS",
+      "full_suite": "28/28_PASS",
+      "qa_exact_byte_verdict": "PASS",
+      "integrate_same_tuple_verdict": "PASS",
+      "active_run_marker": "REQUIRED"
+    }
+  },
+  "defect_coverage": {
+    "source_directive_comment": 5479702814,
+    "asset_registry_mismatch_comment": 5480238118,
+    "mat_r3_rejection_comment": 5480378825,
+    "covered_by_u0_input": [
+      "event-type override target exists in every case",
+      "poster and media wrappers cannot introduce an opaque fill",
+      "all text metrics are proof-bound and clipping is forbidden",
+      "four action assets resolve to the active central registry",
+      "calendar absence is structural for event.real.2182"
+    ],
+    "still_owned_outside_u0": [
+      "D0/MAT executable run-control and undo cleanup",
+      "D0/INTEGRATE exact tuple acceptance",
+      "D0/PUBLISH native mutation and readback",
+      "V0 visual verdict"
+    ]
+  },
+  "dependencies": {
+    "satisfied": [
+      "contract-current EventCard authorization at 8b2e8f603c60d58bebc43c6f66f21f55094bd779",
+      "active asset registry at 0eb4c0a505e0aea522da2138cb1fb40f97d45edf",
+      "exact four-case geometry proof at bf7a4c9aa20978d297bd8f53058042e0436f8554",
+      "four promoted resolved cases at 78a84576740cb650b2efbe2900377f371faf49a1"
+    ],
+    "outstanding": [
+      "D0/MAT R4 exact executable head",
+      "9/9 focused and 28/28 full tests",
+      "D0/QA exact-byte PASS",
+      "D0/INTEGRATE same-tuple PASS",
+      "ACTIVE run marker and one bounded native readback"
+    ]
+  },
+  "known_nonblocking_differences": [
+    "The promoted v2 component contract is reused only for semantic anatomy; current visual geometry comes exclusively from the contract-current browser proof.",
+    "Total descendant and linked-leaf instance counts are not preclaimed; D0/PUBLISH must report the native terminal census.",
+    "This package does not authorize rows, shell or full-page publication."
+  ]
+}
