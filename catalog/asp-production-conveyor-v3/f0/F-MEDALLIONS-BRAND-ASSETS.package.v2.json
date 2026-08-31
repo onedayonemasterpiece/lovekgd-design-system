@@ -1,0 +1,256 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+  "revision": 2,
+  "owner": "F0",
+  "priority": "P0_VISUAL_DEFECT_SUPPORT",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "branch": "chatgpt/f0-medallions-brand-assets-ready-v2-20260831",
+  "sha": "ISSUE_BOUND_IMMUTABLE_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v1.json",
+    "contracts/assets/ui-medallion-asset-registry.v1.json",
+    "contracts/assets/ui-brand-asset-registry.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-medallions-brand-assets-ready-v2-20260831",
+    "bundle_anchor_commit": "CURRENT_MEDALLION_RUNNER_COMMIT",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v2.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package Git blob, v1 inventory, donor manifest, both registry blobs and runners; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 1,
+    "commit": "d4dba6a243e4944947b9eb18b040bbeb1469316f",
+    "issue_comment": 5479562776,
+    "reason": "v1 remains immutable inventory; v2 resolves §2.5 manifests, verifies exact external bytes and adds executable materialization/run-control/readback"
+  },
+  "source_package": {
+    "commit": "d4dba6a243e4944947b9eb18b040bbeb1469316f",
+    "path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v1.json",
+    "git_blob_sha1": "6cd19d1cf5cf69601620b20c376b58ffd97d4b24",
+    "bytes": 8171,
+    "classification": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+      "sections": ["2.5", "2.7"]
+    },
+    "asset_repository": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "checkout_required_for_publish": true
+    },
+    "donor_manifest": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "04afe27f208596c33e0b6ce9f78d0561108ff93c",
+      "path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
+      "sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
+      "expected_records": 39,
+      "expected_consumer_bindings": 43,
+      "expected_unique_visuals": 42,
+      "known_deduplication": "kaup"
+    },
+    "medallion_registry": {
+      "path": "contracts/assets/ui-medallion-asset-registry.v1.json",
+      "commit": "FROZEN_BRANCH_RESOLVES_EXACT_COMMIT",
+      "git_blob_sha1": null,
+      "sha256": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+      "registry_id": "kenigevents.ui-assets.medallions.v1",
+      "status": "CANDIDATE_MANIFEST_REGISTRY_PENDING_D0_INTEGRATE"
+    },
+    "brand_registry": {
+      "path": "contracts/assets/ui-brand-asset-registry.v1.json",
+      "commit": "FROZEN_BRANCH_RESOLVES_EXACT_COMMIT",
+      "git_blob_sha1": null,
+      "sha256": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+      "registry_id": "kenigevents.ui-assets.brand.v1",
+      "status": "CANDIDATE_RESOLUTION_RECIPE_PENDING_D0_INTEGRATE"
+    },
+    "medallion_registry_family": {
+      "semantic_slot": "event-card.organizer-or-festival-medallion",
+      "provenance": "immutable normalized donor manifest plus current Astro registries",
+      "licence_or_reuse_status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED; retain per-record external licence when present",
+      "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31",
+      "transparent_surface": true,
+      "square_backing": false,
+      "crop_or_redraw": false
+    },
+    "astro": {
+      "foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+      "current_main": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "continuity": "25 commits ahead; zero changed site/** paths",
+      "consumers": [
+        "site/src/components/EventCard.astro",
+        "site/src/components/EventMedallion.astro",
+        "site/src/data/organizer-medallions.*",
+        "site/src/data/festival-medallions.*",
+        "site/src/components/brand/AnnouncementsLockup.astro",
+        "site/src/components/Header.astro"
+      ]
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "visual_delta_allowed": false,
+      "asset_redraw_allowed": false
+    }
+  },
+  "foundation_or_component_ids": [
+    "medallion.asset.*",
+    "brand.asset.primary-mark",
+    "brand.asset.announcements-wordmark",
+    "brand.asset.favicon-tag"
+  ],
+  "consumer_size_tiers_px": [44, 60, 88],
+  "inventory_contract": {
+    "records": 39,
+    "consumer_bindings": 43,
+    "unique_medallion_components": 42,
+    "brand_asset_components": 3,
+    "total_components": 45,
+    "medallion_instances": 129,
+    "brand_instances": 6,
+    "total_instances": 135,
+    "known_deduplication": {
+      "id": "kaup",
+      "rule": "one exact visual component may have multiple consumer bindings"
+    },
+    "transparent_surface_required": true,
+    "square_backing_forbidden": true,
+    "fallback_forbidden": true
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-0493-81e4-8007-37c4238ecc5f",
+    "exact_name": "02 · Foundations · Brand assets and medallions",
+    "create_if_missing": true,
+    "consumer_evidence_page_id": "c16498cb-3535-808b-8008-46a313b4a64a",
+    "consumer_evidence_rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "rejected_root_mutation_allowed": false,
+    "old_penpot_id_reuse_allowed": false
+  },
+  "expected_roots": 1,
+  "expected_components": 45,
+  "expected_instances": 135,
+  "materialization_entry_point": {
+    "kind": "manifest-and-inventory-resolving-bounded-executable-adapter-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py",
+    "brand_helper_path": "scripts/asp-production-conveyor-v3/f0/materialize_brandbook_baseline_v2.py",
+    "identity": "COMPUTED_AND_BOUND_BY_D0_INTEGRATE",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py plan --candidate-commit <FROZEN_HEAD> --donor-repo <DESIGN_SYSTEM_DONOR_CHECKOUT> [--resolver <D0_MEDALLION_MANIFEST_RESOLVER>]",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py execute --candidate-commit <FROZEN_HEAD> --donor-repo <DESIGN_SYSTEM_DONOR_CHECKOUT> --asset-repo <EVENTS_BOT_NEW_EXACT_CHECKOUT> [--resolver <D0_MEDALLION_MANIFEST_RESOLVER>] --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_medallions_brand_assets_v2.py verify --candidate-commit <FROZEN_HEAD> --donor-repo <DESIGN_SYSTEM_DONOR_CHECKOUT> [--resolver <D0_MEDALLION_MANIFEST_RESOLVER>] --receipt <RECEIPT_JSON>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "exact_asset_checkout_required": true,
+    "default_resolver": "generic-content-addressed-manifest-v1",
+    "resolver_override_allowed_only_at_integrate": true,
+    "specimen": {
+      "name": "F-MEDALLIONS-BRAND-ASSETS/current-reconstructed",
+      "medallion_placement_rule": "each of 43 consumer bindings at 44px, 60px and 88px as linked instances of 42 unique visual components",
+      "brand_placements": [
+        {"id": "brand/mark-light", "component_id": "brand.asset.primary-mark", "state": "light-surface"},
+        {"id": "brand/mark-inverse", "component_id": "brand.asset.primary-mark", "state": "inverse-surface"},
+        {"id": "brand/wordmark-light", "component_id": "brand.asset.announcements-wordmark", "state": "light-surface"},
+        {"id": "brand/wordmark-inverse", "component_id": "brand.asset.announcements-wordmark", "state": "inverse-surface"},
+        {"id": "brand/favicon-32", "component_id": "brand.asset.favicon-tag", "state": "32px"},
+        {"id": "brand/favicon-64", "component_id": "brand.asset.favicon-tag", "state": "64px"}
+      ]
+    },
+    "receipt_marker": "ASP_BUILD_RESULT_V2",
+    "readback_success_marker": "F0_MEDALLIONS_BRAND_ASSETS_READBACK_PASS"
+  },
+  "visual_defect_coverage": {
+    "P0-ASSET-POSTER-OCCLUDED": {
+      "directive_comment": 5479702814,
+      "routing_comment": 5479702819,
+      "status": "EXTERNAL_GEOMETRY_REPAIR_REQUIRED_BEFORE_CONSUMER_ACCEPTANCE",
+      "closed": false,
+      "owners": ["D0/MAT", "U0"],
+      "f0_contribution": [
+        "42 exact visual components resolved from immutable manifest",
+        "43 consumer bindings remain linked to exact components",
+        "44/60/88px tiers use transparent asset bounds",
+        "square backing, crop, redraw and generic substitutes forbidden",
+        "standalone library board never overlays poster media"
+      ],
+      "acceptance_dependency": "new consumer root must show all poster slots visible and unoccluded at exact Astro bounds"
+    }
+  },
+  "validation": {
+    "pre_integrate": [
+      "source v1 package Git blob and byte count match",
+      "donor manifest bytes match SHA-256",
+      "resolver yields exactly 39 records, 43 consumer bindings and 42 unique visual hashes",
+      "known Kaup duplicate remains one component with multiple bindings",
+      "brand registry resolves exactly three assets",
+      "45 linked components and exactly 135 instances",
+      "all medallion instances use transparent surfaces; no square backing, crop or redraw",
+      "runner requires exact events-bot-new checkout and verifies bytes before first asset mutation",
+      "runner enforces D0/PUBLISH and per-write ACTIVE lease/cancel guard",
+      "standalone board only; rejected consumer root immutable",
+      "P0 poster-occlusion defect remains externally open"
+    ],
+    "d0_integrate_required": [
+      "remote-read frozen branch HEAD and package Git blob",
+      "compute and record both registry blobs/SHA-256/byte counts and runner identities",
+      "run plan command and obtain F0_MEDALLIONS_BRAND_ASSETS_PLAN_PASS",
+      "bind a schema-exact resolver when the default resolver cannot produce 39/43/42",
+      "record all 42 visual hash/path identities, 43 bindings and three brand identities",
+      "bind actual native Penpot adapter",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
+    ],
+    "publisher_required": [
+      "exact events-bot-new checkout at f2d658e8be057f3b75431f6b77e4887af4536028",
+      "42 medallion and three brand asset bytes verified before mutation",
+      "new ACTIVE run and per-write cancel checks",
+      "roots=1",
+      "components=45",
+      "instances=135",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validate=[]",
+      "nonempty export",
+      "§2.7 provenance receipt",
+      "consumer poster-occlusion defect closed=false",
+      "rejected root mutation=false"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "organizer medallions", "tiers_px": [44, 60, 88], "consumer": "EventCard"},
+    {"case": "festival medallions", "tiers_px": [44, 60, 88], "consumer": "EventCard"},
+    {"case": "known Kaup deduplication", "expected_unique_visuals": 1, "expected_multiple_bindings": true},
+    {"case": "brand assets", "assets": ["primary mark", "announcements wordmark", "favicon tag"]}
+  ],
+  "known_nonblocking_differences": [
+    "size-tier specimens are documentation instances, not new product variants",
+    "one exact Kaup visual intentionally serves more than one binding",
+    "external licence text is retained from donor records when present and is not reinterpreted",
+    "standalone asset board does not prove or mutate consumer poster geometry"
+  ],
+  "forbidden": [
+    "generic or semantically similar medallion",
+    "emoji or Unicode glyph",
+    "crop, redraw or path simplification",
+    "square backing behind transparent art",
+    "unverified remote bytes",
+    "detached asset instances",
+    "old Penpot UUID reuse",
+    "screenshot implementation",
+    "owner-rejected root mutation",
+    "claiming P0-ASSET-POSTER-OCCLUDED closed",
+    "Penpot mutation before D0/INTEGRATE PASS"
+  ]
+}
