@@ -42,6 +42,7 @@ class Shape {
     this.fills = [];
     this.strokes = [];
     this.pluginData = new Map();
+    this.sharedPluginData = new Map();
     this.layoutChild = { absolute: false };
     this._component = null;
     this._isCopy = false;
@@ -66,6 +67,8 @@ class Shape {
   }
   setPluginData(key, value) { this.pluginData.set(key, String(value)); }
   getPluginData(key) { return this.pluginData.get(key) || ''; }
+  setSharedPluginData(namespace, key, value) { this.sharedPluginData.set(`${namespace}\0${key}`, String(value)); }
+  getSharedPluginData(namespace, key) { return this.sharedPluginData.get(`${namespace}\0${key}`) || ''; }
   isComponentCopyInstance() { return this._isCopy && Boolean(this._component); }
   component() { return this._component; }
   async export({ type }) {
@@ -98,6 +101,19 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
   board.name = boardName;
   pageRoot.appendChild(board);
   if (secondPageRoot) pageRoot.appendChild(new Shape('board'));
+  const currentPage = { id: 'c16498cb-b51d-8030-8008-904bd8fc9c53', root: pageRoot };
+  const f0Root = new Shape('root', '', 'f0-page-root');
+  const f0Board = new Shape('board', '', '313fb1ed-0d5c-8095-8008-918348f8d9c1');
+  f0Board.setSharedPluginData('kenigevents-f0-r3', 'stable-id', 'component/foundation.colors-and-modes');
+  f0Board.setSharedPluginData('kenigevents-f0-r3', 'candidate-label', 'CANDIDATE_BUILD_NOT_ACCEPTED');
+  const f0Visual = new Shape('rectangle', '', '313fb1ed-0d5c-8095-8008-91834928ee42');
+  f0Visual.setSharedPluginData('kenigevents-f0-r3', 'role', 'visual');
+  f0Board.appendChild(f0Visual);
+  f0Root.appendChild(f0Board);
+  const f0Orphan = new Shape('text', 'brand-600  ·  #a54821', '313fb1ed-0d5c-8095-8008-9183493eed4f');
+  Object.assign(f0Orphan, { name: 'Value label', fontFamily: 'sourcesanspro', fontId: 'sourcesanspro', fontVariantId: 'regular', fontWeight: '400', fontStyle: 'normal', growType: 'auto-width' });
+  f0Root.appendChild(f0Orphan);
+  const f0Page = { id: '313fb1ed-0d5c-8095-8008-9183322ab3a9', root: f0Root };
   const components = [];
   const versions = [];
   let validateCalls = 0;
@@ -138,6 +154,7 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
       setSharedPluginData(namespace, key, value) { sharedPluginData.set(`${namespace}\0${key}`, String(value)); },
       validate() { validateCalls += 1; return []; },
       async findVersions() { return versions; },
+      pages: [currentPage, f0Page],
       async saveVersion(label) {
         saveVersionCalls += 1;
         this.revn += 1;
@@ -146,7 +163,7 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
         return version;
       },
     },
-    currentPage: { id: 'c16498cb-b51d-8030-8008-904bd8fc9c53', root: pageRoot },
+    currentPage,
     createBoard: () => new Shape('board'),
     createRectangle: () => new Shape('rectangle'),
     createText: (text) => new Shape('text', text),
@@ -210,6 +227,7 @@ function fakeSurface({ revision = 41, boardName = BOARD_NAME, secondPageRoot = f
     storage: {},
     pageRoot,
     board,
+    f0: { page: f0Page, board: f0Board, visual: f0Visual, orphan: f0Orphan },
     components,
     validateCalls: () => validateCalls,
     saveVersionCalls: () => saveVersionCalls,
@@ -357,6 +375,12 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.equal(manifest.native_fonts.bold_700_variant, 'normal-700');
   assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
   assert.equal(manifest.execution.mutator_order.length, 17);
+  assert.equal(manifest.live_rebase.expected_revision, 79);
+  assert.equal(manifest.live_rebase.current_page_id, 'c16498cb-b51d-8030-8008-904bd8fc9c53');
+  assert.deepEqual(manifest.live_rebase.eventcard_census, { roots: 18, descendants: 248, components: 18, cards: 4, texts: 38, contained: 18, offenders: 20 });
+  assert.equal(manifest.live_rebase.preserved_f0_partial.page_id, '313fb1ed-0d5c-8095-8008-9183322ab3a9');
+  assert.equal(manifest.live_rebase.preserved_f0_partial.orphan_text, 'brand-600  ·  #a54821');
+  assert.equal(manifest.live_rebase.writes_allowed_only_to.length, 4);
   assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
   assert.equal(manifest.run_control.expected_writer_id, '/root/publish_r2');
   assert.match(manifest.run_control.geometry_proof_sha256, /^[0-9a-f]{64}$/);
@@ -810,11 +834,15 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(p93Reuse.terminalState, 'PEERS_ALREADY_APPLIED_PENDING_READBACK');
   assert.equal(p93Reuse.mutations, 0);
   assert.equal(surface.saveVersionCalls(), savesBeforeP93);
-  surface.penpot.currentFile.revn = 75;
+  surface.penpot.currentFile.revn = 78;
   const p94UndoBeforeNegatives = surface.undoCalls();
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_REVISION_DRIFT/);
   assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
-  surface.penpot.currentFile.revn = 76;
+  surface.penpot.currentFile.revn = 79;
+  surface.f0.orphan.characters = 'drift';
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /P94_F0_PARTIAL_DRIFT/);
+  assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
+  surface.f0.orphan.characters = 'brand-600  ·  #a54821';
   p94Fixtures.at(-1).label.setPluginData('kenigevents-payload-sha256', '0'.repeat(64));
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_TARGET_DRIFT/);
   assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
@@ -827,6 +855,7 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   const p94 = await executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface);
   assert.equal(p94.terminalState, 'SUCCEEDED_PEERS_PENDING_READBACK');
   assert.deepEqual(p94.mutatedObjectIds, p94Fixtures.map((fixture) => fixture.label.id));
+  assert.deepEqual(p94.f0Partial, { page: surface.f0.page.id, board: surface.f0.board.id, visual: surface.f0.visual.id, orphan: surface.f0.orphan.id, stable: 'component/foundation.colors-and-modes', candidate: 'CANDIDATE_BUILD_NOT_ACCEPTED', visualRole: 'visual', orphanText: 'brand-600  ·  #a54821', orphanFont: ['sourcesanspro', 'sourcesanspro', 'regular', '400', 'normal', 'auto-width'], components: 0 });
   assert.deepEqual(surface.undoCalls(), { begin: p94UndoBefore.begin + 1, finish: p94UndoBefore.finish + 1 });
   assert.equal(surface.saveVersionCalls(), savesBeforeP94);
   await assert.rejects(executePath('catalog/penpot-executor/g19/readback-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_NOT_IMPROVED/);
@@ -835,6 +864,7 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(p94Readback.terminalState, 'OCCURRENCE_PEERS_MEASUREMENT_PASS');
   assert.equal(p94Readback.contained, 22);
   assert.equal(p94Readback.offenders.length, 16);
+  assert.deepEqual(p94Readback.f0Partial, p94.f0Partial);
   assert.equal(new Set(p94Readback.requiredExports).size, 4);
   assert.ok(p94Readback.rows.every((row) => row.withinRoot && row.changed && row.after.contained));
   const p94Reuse = await executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface);
