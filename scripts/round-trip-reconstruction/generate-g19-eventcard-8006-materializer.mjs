@@ -1060,7 +1060,7 @@ async function installProductionRuntime(P) {
       const component = matches[0], main = mainOf(component);
       if (matches.length > 1 || (strict && matches.length !== 1)) auditIssues.push({ code: 'COMPONENT_CARDINALITY', name, count: matches.length });
       if (main && (main.getPluginData?.('kenigevents-build-state') !== 'COMPLETE' || main.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256 || main.parent?.id !== BOARD_ID)) auditIssues.push({ code: 'COMPONENT_STATE_PAYLOAD_OR_PARENT', name, parentId: main.parent?.id || null });
-      return { name, path: pathValue, componentId: component?.id || null, rootId: main?.id || null, marker: main?.getPluginData?.('kenigevents-g19-marker') || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, directChildCount: main ? children(main).length : null };
+      return { name, nativePath: component?.path ?? null, expectedPath: pathValue, componentId: component?.id || null, rootId: main?.id || null, marker: main?.getPluginData?.('kenigevents-g19-marker') || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, directChildCount: main ? children(main).length : null };
     });
     for (const spec of leafSpecsRows) {
       const component = findComponent(LEAF_PATH, spec.name), main = mainOf(component);

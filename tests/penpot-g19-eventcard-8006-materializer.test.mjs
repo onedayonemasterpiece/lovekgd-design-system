@@ -593,6 +593,10 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(receipts[0].terminalState, 'SUCCEEDED_IDEMPOTENT_REUSE');
   assert.equal(receipts[0].mutations, 0);
   assert.deepEqual(receipts[0].readback.validation, []);
+  const retriedNames = new Set(firstP10.created.map((row) => row.name));
+  const retriedRows = receipts[0].readback.components.filter((row) => retriedNames.has(row.name));
+  assert.equal(retriedRows.length, 4);
+  assert.ok(retriedRows.every((row) => row.nativePath === '' && row.expectedPath === 'KenigEvents / G19 / EventCard 8006 / Leaves'));
   assert.deepEqual(surface.board.children.slice(0, 16).map((root) => root.id), postFailureIds);
   const final = receipts.at(-1).readback;
   assert.equal(final.board.childCount, 18);
