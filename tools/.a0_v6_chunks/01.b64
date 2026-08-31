@@ -1,0 +1,109 @@
+catalog/global-archetype-sot-v1/archetype-contracts/{filename}"
+        contract = load_git_json(PR50_COMMIT, contract_path)
+        archetype_id = contract["archetype_id"]
+        source = source_by_id[archetype_id]
+        regions, components, all_states = contract_parts(contract)
+        excluded = EXCLUDED_STATES.get(archetype_id, [])
+        supported = [x for x in all_states if x not in excluded]
+        active = ACTIVE_STATES[archetype_id]
+        if active not in supported:
+            raise AssertionError(f"active state {active} not supported for {archetype_id}")
+        expected_components.update(components)
+        contract_receipts.append({
+            "archetype_id": archetype_id,
+            "path": contract_path,
+            "git_commit": PR50_COMMIT,
+            "git_blob_sha1": CONTRACT_BLOBS[archetype_id],
+            "route_patterns": source["route_patterns"],
+            "source_pages": source["source_pages"],
+            "contract_states": all_states,
+            "materialization_states": supported,
+            "excluded_unmaterialized_states": excluded,
+        })
+        slug = archetype_id.removeprefix("archetype.")
+        for viewport in ("desktop", "mobile"):
+            root = f"a0.candidate.root.archetype.{slug}.{viewport}.v1"
+            scenario = f"a0.review.archetype.{slug}.{viewport}.v1"
+            evidence = f"v0.{scenario}"
+            step: dict[str, Any] = {
+                "order": len(steps) + 1,
+                "semantic_root_key": root,
+                "scenario_id": scenario,
+                "evidence_key": evidence,
+                "archetype_id": archetype_id,
+                "route_patterns": source["route_patterns"],
+                "source_pages": source["source_pages"],
+                "viewport": {
+                    "id": viewport,
+                    "width": 1280 if viewport == "desktop" else 390,
+                    "height": 800 if viewport == "desktop" else 844,
+                },
+                "projection_ref": f"catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/{index}",
+                "projection_sha256": wave2["record_sha256"],
+                "fixture_ids": source["specimen_fixture_ids"],
+                "fixture_semantics": source["fixture_semantics"],
+                "contract_states": all_states,
+                "required_states": supported,
+                "excluded_unmaterialized_states": excluded,
+                "active_candidate_state": active,
+                "shell_ref": f"pr50.contract.{archetype_id}",
+                "shell_semantic_slots": regions,
+                "component_semantic_refs": components,
+                "archetype_contract_ref": {
+                    "path": contract_path,
+                    "git_commit": PR50_COMMIT,
+                    "git_blob_sha1": CONTRACT_BLOBS[archetype_id],
+                },
+                "expected_instances": {
+                    "semantic_roots": 1,
+                    "semantic_region_slots": len(regions),
+                    "specimen_record_bindings": len(source["specimen_fixture_ids"]),
+                    "required_component_bindings": len(components),
+                    "required_state_bindings": len(supported),
+                    "excluded_state_receipts": len(excluded),
+                },
+                "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+            }
+            if archetype_id in STEP_GAPS:
+                step["explicit_gaps"] = STEP_GAPS[archetype_id]
+            steps.append(step)
+            root_order.append(root)
+            evidence_keys.append(evidence)
+
+    package = {
+        "package_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER",
+        "owner": "A0",
+        "priority": "P1",
+        "status": "READY_TO_PUBLISH",
+        "branch": "a0/asp-production-conveyor-20260831",
+        "sha": BASE_HEAD,
+        "paths": [
+            "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+            "catalog/asp-production-conveyor-v3/a0/archetype-wave-2-candidate-adapter.v1.json",
+            "catalog/asp-production-conveyor-v3/a0/ready-manifests-phase2-repair.v4.json",
+            "catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json",
+            "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
+            "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+            "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+            "tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py",
+        ],
+        "source_and_donor_lineage": [
+            {"source": "A-ARCHETYPE-WAVE-2", "disposition": "REUSE_CANONICAL_DATA", "scope": "ten current archetypes and twenty desktop/mobile cases after bounded focus-route source-fidelity repair"},
+            {"policy": "ASP_NONBLOCKING_WORK_STEALING_V6", "comment": V6_COMMENT, "disposition": "LOWEST_OWNER_REPAIR", "scope": "restore two exact focus-group routes and source pages before compiling the adapter"},
+            {"pr": 50, "commit": PR50_COMMIT, "disposition": "REUSE_CANNICAL_DATA", "scope": "route/archetype identities, exact regions, state contracts, component refs and viewport tuples"},
+            {"pr": 52, "commit": PR52_COMMIT, "disposition": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION", "scope": "desktop/mobile case ordering only; all Penpot IDs, URLs, screenshots and statuses dropped"},
+        ],
+        "corpus_projection_state_tuple": {
+            "source_head": BASE_HEAD,
+            "canonical_corpus_sha256": CANONICAL_CORPUS_SHA,
+            "a0_correction_payload_sha": A0_CORRECTION_SHA,
+            "wave2_record_sha256": wave2["record_sha256"],
+            "wave2_file_sha256": file_sha(BASE / "archetype-wave-2.v2.json"),
+            "route_registry_sha256": ROUTE_REGISTRY_SHA,
+            "pr52_case_structure_file_sha256": CASE_STRUCTURE_SHA,
+            "focus_group_contract_git_blob_sha1": CONTRACT_BLOBS["archetype.focus-group"],
+        },
+        "archetype_or_route_ids": [load_git_json(PR50_COMMIT, f"catalog/global-archetype-sot-v1/archetype-contracts/{x}")archetype_id] for x in CONTRACT_FILES],
+        "dependencies": [
+            "A-ARCHETYPE-WAVE-2", "U-SHARED-PATTERNS", "U-EVENTCARD-FOUR-CASES",
+            "U-RECOVERED-CARD-FAMILIES", "U

@@ -1,0 +1,94 @@
+us_routes=['/fokus-gruppa/','/fokus-gruppa/priglashenie/','/fokus-gruppa/diagnostika/','/fokus-gruppa/diagnostika-ustoychivost/','/fokus-gruppa/kollektsiya/','/fokus-gruppa/zavershenie/']
+focus_pages=['site/src/pages/fokus-gruppa/index.astro','site/src/pages/fokus-gruppa/priglashenie/index.astro','site/src/pages/fokus-gruppa/diagnostika/index.astro','site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro','site/src/pages/fokus-gruppa/kollektsiya/index.astro','site/src/pages/fokus-gruppa/zavershenie/index.astro']
+check(all(x['route_patterns']==focus_routes for x in focus),'focus routes')
+check(all(x['source_pages']==focus_pages for x in focus),'focus pages')
+info=next(x for x in w2 if x['archetype_id']=='archetype.information-pages')
+special=next(x for x in w2 if x['archetype_id']=='archetype.special-state')
+check(info['excluded_unmaterialized_states']==['legal-document'],'info exclusion')
+check(special['excluded_unmaterialized_states']==['prelaunch-env','unavailable'],'special exclusions')
+check(source2['volunteer']['status']=='EXCLUDED_NO_FACTUAL_CURRENT_ROUTE_CONTRACT','volunteer boundary')
+# Independent compact owner-review index adapter.
+os=owner['build_contract']['steps']
+check(len(os)==2 and [x['viewport']['id'] for x in os]==['desktop','mobile'],'index cases')
+check(owner['index_contract']['review_keys']==[x[1] for x in index['rows']],'index key order')
+check(owner['index_contract']['review_keys_sha256']==sha([x[1] for x in index['rows']]),'index keys hash')
+check(owner['index_contract']['row_count']==45,'index row count')
+check(all(x['active_candidate_state']=='pending' for x in os),'index pending')
+# Queue and receipt remain content addressed, with real independent PREPARING work.
+validate(queue,'queue'); check(True,'queue schema')
+check(sha({k:v for k,v in queue.items() if k!='queue_record_sha256'})==queue['queue_record_sha256'],'queue hash')
+check([x['package_id'] for x in queue['ready']]==['A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER','A-ARCHETYPE-WAVE-1-CANDIDATE-ADAPTER','A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER','A-OWNER-REVIEW-INDEX-CANDIDATE-ADAPTER'],'queue ready')
+check([x['package_id'] for x in queue['preparing']]==['A-SELECTIVE-DONOR-RECOVERY-ARCHETYPE-STRUCTURES-R1'],'queue preparing')
+check(queue['repair'][0]['status']=='REPAIRED','repair state')
+check(len(queue['existing_ready_packages_immutable'])==8,'immutable baseline')
+validate(receipt,'receipt'); check(True,'receipt schema')
+check(sha({k:v for k,v in receipt.items() if k!='receipt_record_sha256'})==receipt['receipt_record_sha256'],'receipt hash')
+for f in receipt['files']: check(file_sha(f['path'])==f['file_sha256'],f['path'])
+check(receipt['record_hashes']['wave2_adapter_record_sha256']==wave2['receipts']['adapter_record_sha2556'],'wave2 receipt')
+check(receipt['record_hashes']['owner_index_adapter_record_sha256']==owner['receipts']['adapter_record_sha256'],'owner receipt')
+check(receipt['record_hashes']['queue_record_sha256']==queue['queue_record_sha256'],'queue receipt')
+# Required negative cases.
+for mutate,label in [
+    (lambda b:b.update(promotion_authorized=True),"promotion"),
+    (lambda b:b.update(visual_acceptance='PASS'),'visual pass'),
+    (lambda b:b['build_contract']['steps'][14].update(route_patterns=['/fokus-gruppa/']),'focus route omission'),
+    (lambda b:b['build_contract']['steps'][14].update(source_pages=['site/src/pages/fokus-gruppa/index.astro']),'focus page omission')
+    (lambda b:b['build_contract']['steps'][0].update(required_states=[]),'state omission'),
+    (lambda b:b['target'].update(semantic_root_order=list(reversed(b['target']['semantic_root_order']))),'root order'),
+]:
+    bad=copy.deepcopy(wave2); mutate(bad)
+    try: verify_adapter(bad)
+    except (AssertionError,ValidationError): check(True,label)
+    else: raise AssertionError(label+' accepted')
+bad=copy.deepcopy(owner); bad['index_contract']['review_keys'].pop()
+try: verify_adapter(bad)
+except (AssertionError,ValidationError): check(True,'owner key omission')
+else: raise AssertionError('owner key omission accepted')
+bad=copy.deepcopy(wave2); bad['target']['legacy']='d87e18f1-dcb4-80a6-8008-8806c5b98101'
+try: forbid(bad)
+except AssertionError: check(True,'UUID')
+else: raise AssertionError('UUID accepted')
+bad=copy.deepcopy(queue); bad['preparing']=[]; invalid(bad,'queue'); check(True,'empty preparing')
+bad=copy.deepcopy(receipt); bad['files'][0]['file_sha256']='0'*64
+try: check(sha({k:v for k,v in bad.items() if k!='receipt_record_sha256'})==bad['receipt_record_sha256'],'bad receipt')
+except AssertionError: n+=1
+else: raise AssertionError('receipt mismatch accepted')
+print(json.dumps({'status':'PASS','checks_passed':n,'checks_failed':0},separators=(',',':')))
+'''
+
+FIDELITY_TEST = r'''#!/usr/bin/env python3
+from pathlib import Path
+import copy, hashlib, json, re, subprocess
+ROOT=Path(__file__).resolve().parents[1]
+BASE=ROOT/'catalog/asp-production-conveyor-v3/a0'
+def load(path): return json.loads(path.read_text(encoding='utf-8'))
+def canon(o): return json.dumps(o,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()
+def sha(o): return hashlib.sha256(canon(o)).hexdigest()
+old=load(BASE/'archetype-wave-2.v1.json')
+new=load(BASE/'archetype-wave-2.v2.json')
+focus=json.loads(subprocess.check_output(['git','show','9b8043f3bdb86fab4eee00bf94b0f10d4f029c50:catalog/global-archetype-sot-v1/archetype-contracts/focus-group.semantic-contract.v1.json'],cwd=ROOT).decode('utf-8'))
+manifest=load(BASE/'ready-manifests-phase2-repair.v4.json')
+n=0
+def check(v,label):
+    global n
+    assert v,label
+    n+=1
+old_focus=next(x for x in old['archetypes'] if x['archetype_id']=='archetype.focus-group')
+new_focus=next(x for x in new['archetypes'] if x['archetype_id']=='archetype.focus-group')
+check('/fokus-gruppa/priglashenie/' not in old_focus['route_patterns'],'old invitation omitted')
+check('/fokus-gruppa/zavershenie/' not in old_focus['route_patterns'],'old completion omitted')
+check(new_focus['route_patterns']==focus['route_contract']['route_patterns'],'exact route repair')
+check(new_focus['source_pages']==focus['route_contract']['source_pages'],'exact source-page repair')
+check(new['count']==old['count']==10 and new['case_count']==old['case_count']==20,'counts stable')
+check(new['supersedes']['record_sha256']==old['record_sha256'],'supersedes receipt')
+check(new['repair_lineage']['policy_comment']==5481580183,'V6 policy')
+check(new['repair_lineage']['restored_route_patterns']==['/fokus-gruppa/priglashenie/','/fokus-gruppa/zavershenie/'],'restored routes')
+check(new['repair_lineage']['restored_source_pages']==['site/src/pages/fokus-gruppa/priglashenie/index.astro','site/src/pages/fokus-gruppa/zavershenie/index.astro'],'restored pages')
+check(sha({k:v for k,v in new.items() if k!='record_sha256'})==new['record_sha256'],'source record hash')
+check(sha({k:v for k,v in manifest.items() if k!='record_sha256'})==manifest['record_sha256'],'manifest record hash')
+check(manifest['repair']['replacement_source_record_sha256']==new['record_sha256'],'manifest source receipt')
+check(manifest['repair']['case_count_unchanged']==20 and manifest['repair']['product_semantics_changed'] is False,'bounded repair')
+check(manifest['repair']['penpot_lineage_reused'] is False and manifest['repair']['old_visual_status_inherited'] is False,'lineage boundary')
+check(new['volunteer']['status']=='EXCLUDED_NO_FACTUAL_CURRENT_ROUTE_CONTRACT','volunteer unchanged')
+text=json.dumps(new,ensure_ascii=False)
+check('design.penpot.app' not i

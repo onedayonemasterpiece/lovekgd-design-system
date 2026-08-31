@@ -1,0 +1,115 @@
+MAT or D0/INTEGRATE consumes build_contract.steps in strict order, binds U0/F0 dependencies by semantic ref, and D0/PUBLISH assigns every new Penpot identity.",
+        "validation": {
+            "schema": "candidate-adapter.schema.json#/$defs/candidate_adapter",
+            "positive_and_negative_tests": [
+                "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+                "tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py",
+            ],
+            "visual_acceptance": "PENDING_V0",
+            "promotion_authorized": False,
+            "specimen_data_is_route_membership": False,
+            "focus_group_routes_repaired": True,
+        },
+        "astro_evidence_cases": evidence_keys,
+        "explicit_gaps": [
+            "Specimen fixture bindings never assert production route membership.",
+            "Interest-club detail historical observation failed; V0 must re-observe the current candidate.",
+            "Event-detail tablet remains outside the exact twenty desktop/mobile Wave 2 cases.",
+            "/legal/:slug/ remains excluded because no current production source page is present.",
+            "Prelaunch-env and unavailable special states remain receipt-only and are not materialized.",
+            "Volunteer remains excluded because no factual current canonical route contract exists.",
+            "U0/F0 own component and acceptance geometry; V0 visual acceptance remains pending.",
+        ],
+    }
+    package["package_record_sha256"] = record_sha(package, "package_record_sha256")
+    adapter: dict[str, Any] = {
+        "schema_version": "kenigevents.asp-conveyor.a0.candidate-adapter.v1",
+        "adapter_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER.v1",
+        "package_manifest": package,
+        "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+        "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+        "visual_acceptance": "PENDING_V0",
+        "promotion_authorized": False,
+        "penpot_mutations": 0,
+        "canonicalization": {
+            "algorithm": "RFC8785-compatible project subset: UTF-8 JSON, recursively sorted object keys, arrays preserved, no insignificant whitespace, ensure_ascii=false",
+            "record_hash_scope": "entire adapter object excluding receipts",
+            "idempotency_hash_scope": "canonical idempotency.material object",
+            "file_receipt_scope": "exact committed file bytes",
+        },
+        "source_inputs": [
+            {"path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json", "git_commit": BASE_HEAD, "file_sha256": file_sha(BASE / "archetype-wave-2.v2.json"), "record_sha256": wave2["record_sha256"], "usage": "REPAIRED_CURRENT_WAVE2_SOURCE"},
+            {"path": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json", "git_commit": BASE_HEAD, "file_sha256": file_sha(BASE / "owner-review-index.v1.json"), "record_sha256": owner_index["record_sha256"], "usage": "EXACT_TWENTY_CASE_ORDER"},
+            {"path": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json", "git_commit": PR50_COMMIT, "file_sha256": ROUTE_REGISTRY_SHA, "usage": "CANONICAL_ROUTE_ARCHETYPE_DATA"},
+            {"path": "catalog/round-trip-reconstruction/v1/owner-review-manifest.v1.json", "git_commit": PR52_COMMIT, "file_sha256": CASE_STRUCTURE_SHA, "usage": "DESKTOP_MOBILE_CASE_ORDER_STRUCTURE_ONLY_AFTER_RECONSTRUCTION"},
+        ],
+        "contract_receipts": contract_receipts,
+        "dependency_refs": [
+            {"package_id": x, "owner": owner, "required_at": "MATERIALIZATION", "a0_readiness_assertion": "NONE"}
+            for x, owner in [
+                ("U-SHARED-PATTERNS", "U0"), ("U-EVENTCARD-FOUR-CASES", "U0"),
+                ("U-RECOVERED-CARD-FAMILIES", "U0"), ("U-CONTROLS-PRIMITIVES", "U0"),
+                ("F-SHARED-FOUNDATION-BINDINGS", "F0"), ("F-TYPOGRAPHY-LAYOUT", "F0"),
+                ("F-ACTION-NAV-ICONS", "F0"), ("F-MEDALLIONS-BRAND-ASSETS", "F0"),
+            ]
+        ],
+        "target": {
+            "semantic_page_key": "a0.candidate.page.archetype-wave-2.v1",
+            "semantic_page_name": "A0 Candidate · Archetype Wave 2",
+            "semantic_root_order": root_order,
+            "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES",
+        },
+        "bounded_mutation_scope": {
+            "allowed_paths": ["a0.candidate.page.archetype-wave-2.v1", *root_order],
+            "max_semantic_pages": 1,
+            "max_semantic_roots": 20,
+            "existing_non_candidate_pages": "NO_MUTATION",
+            "acceptance_geometry": "NOT_OWNED_BY_A0",
+            "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST",
+        },
+        "build_contract": {"ordering": "STRICT_ASCENDING_ORDER", "active_state_selection": "EXACT_SEMANTIC_BASELINE_FROM_PR50_CONTRACT", "steps": steps},
+        "readback_contract": {
+            "pre": [
+                "one exact D0/PUBLISH writer",
+                "target semantic page absent or tagged with exact idempotency digest",
+                "all source, route, contract and dependency receipts match",
+                "focus-group repaired route/source-page tuple matches the PR50 donor exactly",
+                "all semantic region/component refs resolve without legacy identity reuse",
+            ],
+            "post": [
+                "one semantic page with exact idempotency digest",
+                "twenty roots match target.semantic_root_order byte-for-byte and in order",
+                "each root reports archetype, route/source-page tuple, viewport, fixtures, supported/excluded states and semantic bindings",
+                "all persisted IDs are newly assigned by D0 and absent from this adapter",
+                "validation is empty before V0 handoff",
+            ],
+        },
+        "abort_conditions": [
+            "SOURCE_FILE_OR_RECORD_HASH_MISMATCH", "ROUTE_REGISTRY_OR_CONTRACT_RECEIPT_MISMATCH",
+            "FOCUS_GROUP_ROUTE_OR_SOURCE_PAGE_OMITTED_CHANGED_OR_REORDERED",
+            "CASE_OR_SEMANTIC_ROOT_ORDER_MISMATCH", "FIXTURE_ID_OR_ORDER_MISMATCH",
+            "REQUIRED_STATE_OMITTED_OR_CHANGED", "EXCLUDED_STATE_MATERIALIZED_WITHOUT_SOURCE_AUTHORITY",
+            "SPECIMEN_FIXTURE_ASSERTED_AS_ROUTE_MEMBERSHIP", "U0_COMPONENT_DEPENDENCY_MISSING_OR_STALE",
+            "F0_ASSET_FOUNDATION_OR_GEOMETRY_DEPENDENCY_MISSING_OR_STALE", "MULTIPLE_PENPOT_WRITERS",
+            "EXISTING_ROOT_IDEMPOTENCY_DIGEST_MISMATCH", "OLD_PENPOT_UUID_OR_DIRECT_URL_PRESENT",
+            "STALE_VISUAL_PASS_OR_ACCEPTANCE_CLAIM", "PROMOTION_REQUESTED_FROM_CANDIDATE_ADAPTER",
+        ],
+    }
+    material = {
+        "adapter_id": adapter["adapter_id"],
+        "source_tuple": package["corpus_projection_state_tuple"],
+        "contract_receipts_sha256": hashlib.sha256(canon(contract_receipts)).hexdigest(),
+        "target": adapter["target"],
+        "build_steps_sha256": hashlib.sha256(canon(steps)).hexdigest(),
+        "bounded_mutation_scope": adapter["bounded_mutation_scope"],
+    }
+    digest = hashlib.sha256(canon(material)).hexdigest()
+    adapter["idempotency"] = {"key": f"a0.archetype-wave-2-candidate.v1:{digest}", "sha256": digest, "material": material}
+    adapter["receipts"] = {
+        "receipt_path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+        "adapter_record_sha256": hashlib.sha256(canon(adapter)).hexdigest(),
+    }
+    return adapter
+
+
+def build_owner_adapter(owner_index
