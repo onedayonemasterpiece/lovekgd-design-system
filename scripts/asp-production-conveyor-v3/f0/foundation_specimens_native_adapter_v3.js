@@ -4,7 +4,7 @@
  */
 const F0_CONFIG = Object.freeze({
   schema: "kenigevents.f0-foundation-native-adapter.v3",
-  adapterRevision: "R3.4",
+  adapterRevision: "R3.5",
   fileId: "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
   pageName: "03 · Foundations · Current reconstructed specimens · Candidate",
   pageId: "313fb1ed-0d5c-8095-8008-9183322ab3a9",
@@ -23,7 +23,21 @@ const F0_CONFIG = Object.freeze({
   assetRegistrySha256: "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
   geometryProofSha256: "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
   protectedProjectionMode: "SAME_RUN_PROBE_THEN_EXECUTE",
-  protectedProbeBaseline: {revision:79,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
+  protectedProbeBaseline: {revision:106,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
+  componentPath: "Foundation / Specimen",
+  duplicatedComponentPath: "Foundation / Specimen / Foundation / Specimen",
+  rev106RootIdSuffix: "918a0c1473af",
+  rev106PlacementCount: 37,
+  rev106Components: {
+    "foundation.colors-and-modes": {componentIdSuffix:"9189b21c5ddc",mainIdSuffix:"918348f8d9c1"},
+    "foundation.status": {componentIdSuffix:"9189b288bc37",mainIdSuffix:"9189b22d2137"},
+    "foundation.spacing": {componentIdSuffix:"9189b3279453",mainIdSuffix:"9189b2963057"},
+    "foundation.sizing-density": {componentIdSuffix:"9189edddf556",mainIdSuffix:"9189ed7fc58a"},
+    "foundation.radius-border": {componentIdSuffix:"9189ee509b1c",mainIdSuffix:"9189edf1e0c3"},
+    "foundation.elevation": {componentIdSuffix:"9189eec84026",mainIdSuffix:"9189ee631c20"},
+    "foundation.motion": {componentIdSuffix:"918a0b0761c7",mainIdSuffix:"918a0a9d8d42"},
+    "foundation.accessibility": {componentIdSuffix:"918a0bc69dde",mainIdSuffix:"918a0b2d92ae"}
+  },
   rev79Partial: {componentId:"foundation.colors-and-modes",boardName:"Foundation / Specimen / ColorsAndModes",boardIdSuffix:"918348f8d9c1",visualIdSuffix:"91834928ee42",labelIdSuffix:"9183493eed4f",geometryEpsilon:0.001},
   namespace: "kenigevents-f0-r3",
   maxCreatesPerCall: 3,
@@ -61,6 +75,7 @@ function f0Canonical(value) {
   return JSON.stringify(value);
 }
 function f0NativeName(value){return String(value).split("/").join(" / ");}
+function f0ComponentNames(componentId){const full=f0NativeName(F0_CONFIG.domains[componentId].name),parts=full.split(" / ");return {leaf:parts[parts.length-1],path:F0_CONFIG.componentPath,full};}
 function f0Utf8(value) {
   const out=[]; for(const ch of value){const cp=ch.codePointAt(0); if(cp<0x80)out.push(cp);else if(cp<0x800)out.push(0xc0|(cp>>6),0x80|(cp&63));else if(cp<0x10000)out.push(0xe0|(cp>>12),0x80|((cp>>6)&63),0x80|(cp&63));else out.push(0xf0|(cp>>18),0x80|((cp>>12)&63),0x80|((cp>>6)&63),0x80|(cp&63));} return out;
 }
@@ -85,6 +100,13 @@ function ancestorIsCopy(shape) { for(let p=shape.parent;p;p=p.parent) if(p.isCom
 function f0SetStable(shape, stableId) { shape.setSharedPluginData(F0_CONFIG.namespace,"stable-id",stableId); }
 function f0IdEnds(shape,suffix){return typeof shape?.id==="string"&&shape.id.endsWith(suffix);}
 function f0Near(actual,expected,epsilon=0.001){return Number.isFinite(actual)&&Math.abs(actual-expected)<=epsilon;}
+function f0ComponentNamingState(component,componentId){
+  const ids=F0_CONFIG.rev106Components[componentId],names=f0ComponentNames(componentId),main=component.mainInstance?.();f0Assert(ids&&f0IdEnds(component,ids.componentIdSuffix)&&main&&f0IdEnds(main,ids.mainIdSuffix)&&f0ComponentStable(component)===componentId,`rev106 component identity drift: ${componentId}`);const canonical=component.name===names.leaf&&component.path===names.path&&main.name===names.full,duplicated=component.name===names.leaf&&component.path===F0_CONFIG.duplicatedComponentPath&&main.name===`${F0_CONFIG.duplicatedComponentPath} / ${names.leaf}`;return {componentId,component,main,names,canonical,duplicated};
+}
+function f0PlacementSnapshot(page,requireRev106=false){const roots=f0FindStable(page,"root");f0Assert(roots.length===1&&f0IdEnds(roots[0],F0_CONFIG.rev106RootIdSuffix),"rev106 root identity drift");const instances=Array.from(roots[0].children||[]).filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"placement-id")),shapeIds=instances.map(s=>s.id).sort(),semanticIds=instances.map(s=>s.getSharedPluginData(F0_CONFIG.namespace,"placement-id")).sort();f0Assert(new Set(shapeIds).size===instances.length&&new Set(semanticIds).size===instances.length&&instances.every(s=>s.isComponentCopyInstance?.()&&s.component?.()),"rev106 placements detached or duplicated");if(requireRev106)f0Assert(instances.length===F0_CONFIG.rev106PlacementCount,"rev106 placement count drift");return {rootId:roots[0].id,count:instances.length,shapeIds,semanticIds};}
+function f0SamePlacementSnapshot(left,right){return f0Canonical(left)===f0Canonical(right);}
+function f0CanaryRecoveryState(states,canaryId){return states.length===8&&states.find(s=>s.componentId===canaryId)?.canonical===true&&states.filter(s=>s.componentId!==canaryId).every(s=>s.duplicated);}
+function f0RepairComponentNaming(component,componentId){const before=f0ComponentNamingState(component,componentId),componentNativeId=component.id,mainNativeId=before.main.id;f0Assert(before.duplicated,"component naming is neither canonical nor exact rev106 duplicate");component.path=before.names.path;component.name=before.names.leaf;before.main.name=before.names.full;f0Assert(component.id===componentNativeId&&before.main.id===mainNativeId,`component identity changed during naming repair: ${componentId}`);return {componentId,componentNativeId,mainNativeId,expected:before.names};}
 function f0Rev79Partial(page) {
   const exact=F0_CONFIG.rev79Partial,direct=Array.from(page.root.children||[]),boards=f0FindStable(page,`component/${exact.componentId}`);f0Assert(page.id===F0_CONFIG.pageId,"rev79 candidate page id drift");f0Assert(direct.length===2,"rev79 candidate page has nonexact extra shapes");f0Assert(boards.length===1&&f0IdEnds(boards[0],exact.boardIdSuffix),"rev79 partial board missing or drifted");
   const board=boards[0],children=Array.from(board.children||[]),visuals=children.filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="visual");f0Assert(board.parent?.id===page.root.id&&board.name===exact.boardName&&f0Near(board.width,416,exact.geometryEpsilon)&&f0Near(board.height,128,exact.geometryEpsilon)&&f0Near(board.x,1560,exact.geometryEpsilon)&&f0Near(board.y,0,exact.geometryEpsilon)&&board.getSharedPluginData(F0_CONFIG.namespace,"candidate-label")===F0_CONFIG.candidateLabel,"rev79 partial board contract drift");f0Assert(children.length===1&&visuals.length===1&&f0IdEnds(visuals[0],exact.visualIdSuffix)&&visuals[0].parent?.id===board.id&&f0Near(visuals[0].width,80,exact.geometryEpsilon)&&f0Near(visuals[0].height,64,exact.geometryEpsilon)&&f0Near(visuals[0].x,1580,exact.geometryEpsilon)&&f0Near(visuals[0].y,44,exact.geometryEpsilon),"rev79 partial visual contract drift");
@@ -119,7 +141,7 @@ function f0RequireProtectedProbeBaseline(projection) {
 function f0VerifyCensus({components, roots, instances, screenshots, validation}) {
   const componentIds=components.map(c=>c.id), componentStableIds=components.map(f0ComponentStable), rootIds=roots.map(s=>s.id), placementIds=instances.map(s=>s.getSharedPluginData(F0_CONFIG.namespace,"placement-id"));
   f0Assert(components.length===8 && new Set(componentIds).size===8 && f0Canonical([...componentStableIds].sort())===f0Canonical(Object.keys(F0_CONFIG.domains).sort()),"component census mismatch");
-  for(const component of components){const stableId=f0ComponentStable(component),main=component.mainInstance?.(),expectedName=f0NativeName(F0_CONFIG.domains[stableId].name);f0Assert(main && component.name===expectedName && main.name===expectedName && f0Near(main.width,416) && f0Near(main.height,128),`component master readback mismatch: ${stableId}`);}
+  for(const component of components){const stableId=f0ComponentStable(component),state=f0ComponentNamingState(component,stableId);f0Assert(state.canonical && f0Near(state.main.width,416) && f0Near(state.main.height,128),`component master readback mismatch: ${stableId}`);}
   f0Assert(roots.length===1 && new Set(rootIds).size===1,"root census mismatch");
   f0Assert(roots[0].name===F0_CONFIG.rootName && f0Near(roots[0].width,1440) && f0Near(roots[0].height,f0RootHeight()),"root geometry mismatch");
   f0Assert(instances.length===57 && new Set(placementIds).size===57 && f0Canonical([...placementIds].sort())===f0Canonical(F0_CONFIG.placements.map(p=>p.id).sort()),"instance census mismatch");
@@ -150,15 +172,15 @@ function f0ApplyValue(penpot,instance,componentId,key,value) {
 }
 function f0CreateMaster(penpot,page,componentId,index) {
   const spec=F0_CONFIG.domains[componentId], first=Object.entries(spec.values)[0];
-  const nativeName=f0NativeName(spec.name),b=penpot.createBoard(); b.name=nativeName; b.resize(416,128); b.fills=[{fillColor:"#FFFDF8",fillOpacity:1}]; b.strokes=[{strokeColor:"#E1D3C2",strokeWidth:1,strokeStyle:"solid"}]; b.borderRadius=14; b.clipContent=false; b.x=1560; b.y=index*164;
+  const names=f0ComponentNames(componentId),b=penpot.createBoard(); b.name=names.full; b.resize(416,128); b.fills=[{fillColor:"#FFFDF8",fillOpacity:1}]; b.strokes=[{strokeColor:"#E1D3C2",strokeWidth:1,strokeStyle:"solid"}]; b.borderRadius=14; b.clipContent=false; b.x=1560; b.y=index*164;
   page.root.appendChild(b); f0SetStable(b,`component/${componentId}`); b.setSharedPluginData(F0_CONFIG.namespace,"candidate-label",F0_CONFIG.candidateLabel);
   const visual=f0Rect(penpot,b,"Value visual",20,44,80,64,"#F2E7D7",8); visual.setSharedPluginData(F0_CONFIG.namespace,"role","visual");
   const label=f0Text(penpot,b,"Value label",`${first[0]}  ·  ${typeof first[1]==="object"?f0Canonical(first[1]):first[1]}`,120,56,14); label.setSharedPluginData(F0_CONFIG.namespace,"role","label");
   f0Text(penpot,b,"Domain label",componentId,20,16,12,"#6D6259"); f0ApplyValue(penpot,b,componentId,first[0],first[1]);
-  const component=penpot.library.local.createComponent([b]); component.name=nativeName; return {shape:b,component};
+  const component=penpot.library.local.createComponent([b]);if(component.path!==names.path)component.path=names.path;if(component.name!==names.leaf)component.name=names.leaf;b.name=names.full;return {shape:b,component};
 }
 function f0ResumeRev79Partial(penpot,page) {
-  const {board,label}=f0Rev79Partial(page),componentId=F0_CONFIG.rev79Partial.componentId,first=Object.entries(F0_CONFIG.domains[componentId].values)[0];board.appendChild(label);f0SetParentXY(label,120,56);label.setSharedPluginData(F0_CONFIG.namespace,"role","label");f0Text(penpot,board,"Domain label",componentId,20,16,12,"#6D6259");f0ApplyValue(penpot,board,componentId,first[0],first[1]);const component=penpot.library.local.createComponent([board]);component.name=F0_CONFIG.rev79Partial.boardName;return {shape:board,component};
+  const {board,label}=f0Rev79Partial(page),componentId=F0_CONFIG.rev79Partial.componentId,names=f0ComponentNames(componentId),first=Object.entries(F0_CONFIG.domains[componentId].values)[0];board.appendChild(label);f0SetParentXY(label,120,56);label.setSharedPluginData(F0_CONFIG.namespace,"role","label");f0Text(penpot,board,"Domain label",componentId,20,16,12,"#6D6259");f0ApplyValue(penpot,board,componentId,first[0],first[1]);const component=penpot.library.local.createComponent([board]);if(component.path!==names.path)component.path=names.path;if(component.name!==names.leaf)component.name=names.leaf;board.name=names.full;return {shape:board,component};
 }
 function f0RootHeight() {
   let h=112; for(const id of Object.keys(F0_CONFIG.domains)){ const n=F0_CONFIG.placements.filter(p=>p.componentId===id).length; h+=48+Math.ceil(n/3)*152+28; } return h;
@@ -195,6 +217,14 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
     const matches=localComponents().filter(c=>f0ComponentStable(c)===id);f0Assert(matches.length<=1,`duplicate component stable id: ${id}`);
     if(matches.length)components[id]=matches[0];else{if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"components",created,pageId:page.id});const partials=f0FindStable(page,`component/${id}`);f0Assert(partials.length<=1,`duplicate partial component board: ${id}`);if(partials.length){f0Assert(id===F0_CONFIG.rev79Partial.componentId,"unrecognized partial component state");components[id]=f0Write(penpot,storage,`reconcile-rev79:${id}`,()=>{created++;return f0ResumeRev79Partial(penpot,page).component});}else components[id]=f0Write(penpot,storage,`component:${id}`,()=>{created++;return f0CreateMaster(penpot,page,id,i).component});}
   }
+  const componentOrder=Object.keys(F0_CONFIG.domains),namingStates=()=>componentOrder.map(id=>f0ComponentNamingState(components[id],id)),initialNaming=namingStates();f0Assert(initialNaming.every(s=>s.canonical||s.duplicated),"unrecognized component naming state");let namingCanary=storage.f0FoundationNamingCanaryV1;
+  if(initialNaming.some(s=>!s.canonical)){
+    const canaryId=F0_CONFIG.rev79Partial.componentId;
+    if(!namingCanary){const before=f0PlacementSnapshot(page,true),canary=components[canaryId],componentNativeId=canary.id,mainNativeId=canary.mainInstance().id;if(f0CanaryRecoveryState(initialNaming,canaryId)){namingCanary={schema:"kenigevents.f0-component-naming-canary.v1",run_id:F0_CONFIG.runId,state:"VERIFIED_LATER_READBACK",component_id:canaryId,component_native_id:componentNativeId,main_native_id:mainNativeId,placements:before,recovered_from_exact_native_state:true};storage.f0FoundationNamingCanaryV1=namingCanary;}else{f0Assert(initialNaming.length===8&&initialNaming.every(s=>s.duplicated),"naming canary requires exact rev106 duplicate or recoverable one-canary state");f0Write(penpot,storage,`component-naming-canary:${canaryId}`,()=>{f0RepairComponentNaming(canary,canaryId);created++});const after=f0PlacementSnapshot(page,true);f0Assert(f0SamePlacementSnapshot(before,after),"naming canary changed linked placements");namingCanary={schema:"kenigevents.f0-component-naming-canary.v1",run_id:F0_CONFIG.runId,state:"PENDING_LATER_READBACK",component_id:canaryId,component_native_id:componentNativeId,main_native_id:mainNativeId,placements:before};storage.f0FoundationNamingCanaryV1=namingCanary;const batch=await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"component-naming-canary",created,pageId:page.id,extra:{namingCanary}});return {...batch,status:"COMPONENT_NAMING_CANARY_LATER_READBACK_REQUIRED"};}}
+    f0Assert(namingCanary.schema==="kenigevents.f0-component-naming-canary.v1"&&namingCanary.run_id===F0_CONFIG.runId&&namingCanary.component_id===canaryId,"naming canary receipt mismatch");if(namingCanary.state==="PENDING_LATER_READBACK"){const canaryState=f0ComponentNamingState(components[canaryId],canaryId),later=f0PlacementSnapshot(page,true);f0Assert(canaryState.canonical&&canaryState.component.id===namingCanary.component_native_id&&canaryState.main.id===namingCanary.main_native_id,"naming canary later readback failed");f0Assert(f0SamePlacementSnapshot(namingCanary.placements,later),"naming canary later readback changed linked placements");namingCanary={...namingCanary,state:"VERIFIED_LATER_READBACK"};storage.f0FoundationNamingCanaryV1=namingCanary;}f0Assert(namingCanary.state==="VERIFIED_LATER_READBACK","bulk naming repair blocked before canary proof");
+    const attempted=storage.f0FoundationNamingAttemptsV1||[];
+    for(const state of namingStates().filter(s=>!s.canonical)){f0Assert(state.componentId!==canaryId,"verified naming canary regressed");f0Assert(!attempted.includes(state.componentId),`naming repair previously attempted without canonical later readback: ${state.componentId}`);if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"component-naming-bulk",created,pageId:page.id,extra:{namingCanary}});const before=f0PlacementSnapshot(page,false);f0Write(penpot,storage,`component-naming:${state.componentId}`,()=>{f0RepairComponentNaming(state.component,state.componentId);created++});const after=f0PlacementSnapshot(page,false);f0Assert(f0SamePlacementSnapshot(before,after),`component naming changed linked placements: ${state.componentId}`);attempted.push(state.componentId);storage.f0FoundationNamingAttemptsV1=[...attempted];}
+  }
   let roots=f0FindStable(page,"root");f0Assert(roots.length<=1,"duplicate managed root");let root=roots[0];
   if(!root){if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"root",created,pageId:page.id});root=f0Write(penpot,storage,"root",()=>{created++;return f0CreateRoot(penpot,page)});}
   for(const id of Object.keys(F0_CONFIG.domains)){const xy=f0PlacementXY(F0_CONFIG.placements.find(p=>p.componentId===id)),matches=Array.from(root.children||[]).filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"section")===id);f0Assert(matches.length<=1,`duplicate section: ${id}`);if(!matches.length){if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"sections",created,pageId:page.id});f0Write(penpot,storage,`section:${id}`,()=>{const t=f0Text(penpot,root,`Section · ${id}`,id,48,xy.sectionY+12,18,"#221A14");t.setSharedPluginData(F0_CONFIG.namespace,"section",id);created++});}}
@@ -207,4 +237,4 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
   return {schema:F0_CONFIG.schema,status:"CANDIDATE_READBACK_VERIFIED",candidateLabel:F0_CONFIG.candidateLabel,ownerReviewState:"NOT_ACCEPTED",fileId:F0_CONFIG.fileId,pageId:page.id,rootId:root.id,counts:{components:managedComponents.length,roots:roots.length,instances:instances.length,detached:0,screenshots:screenshots.length},stableIds:census,created:0,secondRunCreated:0,protectedDigestBefore:protectedBefore.sha256,protectedDigestAfter:protectedAfter.sha256,validation:finalValidation,export:exportReceipt,finalVersionReceipt,runId:F0_CONFIG.runId,writer:F0_CONFIG.writer};
 }
 
-if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0NativeName,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0Near,f0Rev79Partial,f0ResumeRev79Partial,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};
+if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0NativeName,f0ComponentNames,f0ComponentNamingState,f0PlacementSnapshot,f0SamePlacementSnapshot,f0CanaryRecoveryState,f0RepairComponentNaming,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0Near,f0Rev79Partial,f0ResumeRev79Partial,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};

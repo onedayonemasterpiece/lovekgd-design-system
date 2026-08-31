@@ -13,11 +13,11 @@ assert.equal(adapter.F0_CONFIG.placements.length,57);
 assert.equal(new Set(adapter.F0_CONFIG.placements.map(x=>x.id)).size,57);
 assert.equal(adapter.F0_CONFIG.writer,'/root/publish_r2');
 assert.equal(adapter.F0_CONFIG.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
-assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.4');
+assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.5');
 assert.equal(adapter.F0_CONFIG.pageId,'313fb1ed-0d5c-8095-8008-9183322ab3a9');
 assert.notEqual(adapter.F0_CONFIG.pageName,'00 · Components · Free collection');
 assert.equal(adapter.F0_CONFIG.protectedProjectionMode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:79,chars:84033,utf8Bytes:84034,sha256:DIGEST});
+assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:106,chars:84033,utf8Bytes:84034,sha256:DIGEST});
 assert.deepEqual(adapter.f0PlacementXY(adapter.F0_CONFIG.placements[0]),{x:48,y:160,sectionY:112});
 
 const sourcePackage=JSON.parse(fs.readFileSync(path.join(__dirname,'../../../catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json')));
@@ -59,13 +59,14 @@ assert.throws(()=>adapter.f0Guard(native({geometry_proof_sha256:'stale'}),struct
 const projection={chars:84033,utf8Bytes:84034,sha256:DIGEST};
 const protectedBinding={f0FoundationProtectedProjectionV1:{schema:'kenigevents.f0-protected-projection.v1',run_id:adapter.F0_CONFIG.runId,file_id:adapter.F0_CONFIG.fileId,page_id:adapter.F0_CONFIG.protectedPageId,root_ids:[...adapter.F0_CONFIG.protectedRootIds],chars:84033,utf8_bytes:84034,sha256:DIGEST}};
 assert.doesNotThrow(()=>adapter.f0RequireProtectedProbeBaseline(projection));
-assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev79/);
+assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev106/);
 assert.doesNotThrow(()=>adapter.f0RequireProtectedDigest(projection,protectedBinding));
 assert.throws(()=>adapter.f0RequireProtectedDigest(projection,{}),/missing or stale same-run protected probe binding/);
 assert.throws(()=>adapter.f0RequireProtectedDigest({...projection,sha256:'stale'},protectedBinding),/protected projection changed after same-run probe/);
 
+const sharedShape=(props={},shared={})=>Object.assign({children:[],getSharedPluginData:(_ns,key)=>shared[key]||'',setSharedPluginData:(_ns,key,value)=>{shared[key]=value}},props);
 const stableShape=(stableId)=>({width:416,height:128,getSharedPluginData:(_ns,key)=>key==='stable-id'?stableId:''});
-const components=Object.fromEntries(ids.map((stableId,i)=>{const name=adapter.f0NativeName(adapter.F0_CONFIG.domains[stableId].name),main=stableShape(`component/${stableId}`);main.name=name;return [stableId,{id:`c${i}`,name,mainInstance:()=>main}]}));
+const components=Object.fromEntries(ids.map((stableId)=>{const names=adapter.f0ComponentNames(stableId),tuple=adapter.F0_CONFIG.rev106Components[stableId],main=stableShape(`component/${stableId}`);main.id=`313fb1ed-0d5c-8095-8008-${tuple.mainIdSuffix}`;main.name=names.full;return [stableId,{id:`313fb1ed-0d5c-8095-8008-${tuple.componentIdSuffix}`,name:names.leaf,path:names.path,mainInstance:()=>main}]}));
 const rootHeight=112+ids.reduce((sum,id)=>sum+48+Math.ceil(adapter.F0_CONFIG.placements.filter(p=>p.componentId===id).length/3)*152+28,0);
 const root={id:'root',name:adapter.F0_CONFIG.rootName,width:1439.99998,height:rootHeight-0.00002,x:0,y:0};
 const instanceFor=(placement,i)=>{
@@ -87,8 +88,12 @@ assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances:[{...instances[0],isComponentCopyInstance:()=>false},...instances.slice(1)],screenshots:[],validation:[]}),/detached instance found/);
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances,screenshots:[{}],validation:[]}),/screenshot shape found/);
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances,screenshots:[],validation:[{code:'missing-slot'}]}),/Penpot validation failed/);
+const duplicateComponents=Object.fromEntries(ids.map(componentId=>{const tuple=adapter.F0_CONFIG.rev106Components[componentId],names=adapter.f0ComponentNames(componentId),main=stableShape(`component/${componentId}`);main.id=`313fb1ed-0d5c-8095-8008-${tuple.mainIdSuffix}`;main.name=`${adapter.F0_CONFIG.duplicatedComponentPath} / ${names.leaf}`;return [componentId,{id:`313fb1ed-0d5c-8095-8008-${tuple.componentIdSuffix}`,name:names.leaf,path:adapter.F0_CONFIG.duplicatedComponentPath,mainInstance:()=>main}]}));
+assert(ids.every(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id).duplicated));const colorId='foundation.colors-and-modes',duplicateComponent=duplicateComponents[colorId],duplicateMain=duplicateComponent.mainInstance(),preservedIds=[duplicateComponent.id,duplicateMain.id];adapter.f0RepairComponentNaming(duplicateComponent,colorId);assert.equal(adapter.f0ComponentNamingState(duplicateComponent,colorId).canonical,true);assert.deepEqual([duplicateComponent.id,duplicateMain.id],preservedIds);assert(ids.slice(1).every(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id).duplicated));const recoveryStates=ids.map(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id));assert.equal(adapter.f0CanaryRecoveryState(recoveryStates,colorId),true);adapter.f0RepairComponentNaming(duplicateComponents[ids[1]],ids[1]);assert.equal(adapter.f0CanaryRecoveryState(ids.map(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id)),colorId),false);
+const snapshotRoot=sharedShape({id:`313fb1ed-0d5c-8095-8008-${adapter.F0_CONFIG.rev106RootIdSuffix}`,children:instances.slice(0,37)} ,{'stable-id':'root'});const snapshotPage={root:sharedShape({id:'snapshot-page-root',children:[snapshotRoot]})};const snapshot=adapter.f0PlacementSnapshot(snapshotPage,true);assert.equal(snapshot.count,37);assert.equal(new Set(snapshot.shapeIds).size,37);assert.equal(new Set(snapshot.semanticIds).size,37);
+const exactDuplicatePath=duplicateComponents[ids[2]].path;duplicateComponents[ids[2]].path='Foundation / Wrong';assert.throws(()=>adapter.f0RepairComponentNaming(duplicateComponents[ids[2]],ids[2]),/neither canonical nor exact rev106 duplicate/);duplicateComponents[ids[2]].path=exactDuplicatePath;
+const exactPlacementId=instances[1].id;instances[1].id=instances[0].id;assert.throws(()=>adapter.f0PlacementSnapshot(snapshotPage,true),/detached or duplicated/);instances[1].id=exactPlacementId;
 
-const sharedShape=(props={},shared={})=>Object.assign({children:[],getSharedPluginData:(_ns,key)=>shared[key]||'',setSharedPluginData:(_ns,key,value)=>{shared[key]=value}},props);
 const partialRoot=sharedShape({id:'page-root',children:[]});
 const boardParentProxy=sharedShape({id:'page-root'}),labelParentProxy=sharedShape({id:'page-root'});assert.notEqual(boardParentProxy,partialRoot);assert.notEqual(labelParentProxy,partialRoot);
 const partialBoard=sharedShape({id:'313fb1ed-0d5c-8095-8008-918348f8d9c1',name:'Foundation / Specimen / ColorsAndModes',width:415.99998474121094,height:127.99999713897705,x:1560,y:0,parent:boardParentProxy},{'stable-id':'component/foundation.colors-and-modes','candidate-label':'CANDIDATE_BUILD_NOT_ACCEPTED'});
@@ -118,16 +123,19 @@ for(const needle of [
   'saveVersion',
   'maxCreatesPerCall: 3',
   'secondRunCreated:0',
+  'COMPONENT_NAMING_CANARY_LATER_READBACK_REQUIRED',
+  'PENDING_LATER_READBACK',
+  'VERIFIED_LATER_READBACK',
 ]) assert(src.includes(needle),needle);
 
 const out=path.join(os.tmpdir(),`f0-native-${process.pid}.js`);
 const generatedReceipt=JSON.parse(cp.execFileSync('python3',[path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/generate_foundation_specimens_native_executor_v3.py'),'--output',out],{encoding:'utf8'}));
 const generated=fs.readFileSync(out,'utf8'); fs.unlinkSync(out);
 assert.equal(generatedReceipt.status,'EXECUTOR_READY');
-assert.equal(generatedReceipt.adapter_revision,'R3.4');
+assert.equal(generatedReceipt.adapter_revision,'R3.5');
 assert.equal(generatedReceipt.run_id,adapter.F0_CONFIG.runId);
 assert.equal(generatedReceipt.protected_projection_mode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.equal(generatedReceipt.protected_baseline_revision,79);
+assert.equal(generatedReceipt.protected_baseline_revision,106);
 assert.equal(generatedReceipt.requires_authoritative_native_run,true);
 assert.equal(generatedReceipt.requires_preinstalled_lease_receipt,true);
 assert(generated.startsWith(src));
