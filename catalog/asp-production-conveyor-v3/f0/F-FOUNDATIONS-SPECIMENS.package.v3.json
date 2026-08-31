@@ -12,7 +12,8 @@
   "paths": [
     "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v3.json",
     "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json",
-    "scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v3.py"
+    "scripts/asp-production-conveyor-v3/f0/materialize_foundation_specimens_v3.py",
+    "tests/asp-production-conveyor-v3/f0/test_foundation_specimens_candidate_v3.py"
   ],
   "immutable_identity": {
     "candidate_branch": "chatgpt/f0-foundation-specimens-candidate-20260831",
@@ -112,7 +113,21 @@
     "penpot_write_authority": "D0/PUBLISH_ONLY",
     "guard_before_every_mutation": true,
     "protected_surface_digest_before_and_after": true,
-    "candidate_is_not_promotion": true
+    "candidate_is_not_promotion": true,
+    "tests": {
+      "path": "tests/asp-production-conveyor-v3/f0/test_foundation_specimens_candidate_v3.py",
+      "git_blob_sha1": "cd7e32e153382c759211ee2df98a527b9ed41a30",
+      "sha256": "5c22006ca97359fcc8f5cc877841702c4a0af67cf969bb42841a8b53e709c0df",
+      "bytes": 11026,
+      "command": "python3 tests/asp-production-conveyor-v3/f0/test_foundation_specimens_candidate_v3.py",
+      "expected": "Ran 4 tests / OK",
+      "coverage": [
+        "direct ten-entry spacing map is accepted",
+        "stale Penpot file is rejected",
+        "candidate execute+verify preserves protected surface",
+        "cancelled lease blocks the first mutation"
+      ]
+    }
   },
   "validation": {
     "pre_integrate": [
@@ -126,6 +141,7 @@
     ],
     "d0_integrate_required": [
       "remote-read frozen branch HEAD, package v3, source v2 and runner blobs",
+      "run four committed regression tests and require OK",
       "run plan command and obtain F0_FOUNDATION_SPECIMENS_CANDIDATE_PLAN_PASS",
       "bind actual D0 native Penpot adapter",
       "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
