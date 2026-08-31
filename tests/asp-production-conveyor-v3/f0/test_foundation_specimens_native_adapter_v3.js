@@ -13,7 +13,7 @@ assert.equal(adapter.F0_CONFIG.placements.length,57);
 assert.equal(new Set(adapter.F0_CONFIG.placements.map(x=>x.id)).size,57);
 assert.equal(adapter.F0_CONFIG.writer,'/root/publish_r2');
 assert.equal(adapter.F0_CONFIG.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
-assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.2');
+assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.3');
 assert.equal(adapter.F0_CONFIG.pageId,'313fb1ed-0d5c-8095-8008-9183322ab3a9');
 assert.notEqual(adapter.F0_CONFIG.pageName,'00 · Components · Free collection');
 assert.equal(adapter.F0_CONFIG.protectedProjectionMode,'SAME_RUN_PROBE_THEN_EXECUTE');
@@ -67,10 +67,10 @@ assert.throws(()=>adapter.f0RequireProtectedDigest({...projection,sha256:'stale'
 const stableShape=(stableId)=>({width:416,height:128,getSharedPluginData:(_ns,key)=>key==='stable-id'?stableId:''});
 const components=Object.fromEntries(ids.map((stableId,i)=>{const name=adapter.f0NativeName(adapter.F0_CONFIG.domains[stableId].name),main=stableShape(`component/${stableId}`);main.name=name;return [stableId,{id:`c${i}`,name,mainInstance:()=>main}]}));
 const rootHeight=112+ids.reduce((sum,id)=>sum+48+Math.ceil(adapter.F0_CONFIG.placements.filter(p=>p.componentId===id).length/3)*152+28,0);
-const root={id:'root',name:adapter.F0_CONFIG.rootName,width:1440,height:rootHeight,x:0,y:0};
+const root={id:'root',name:adapter.F0_CONFIG.rootName,width:1439.99998,height:rootHeight-0.00002,x:0,y:0};
 const instanceFor=(placement,i)=>{
   const xy=adapter.f0PlacementXY(placement);
-  return {id:`i${i}`,x:xy.x,y:xy.y,width:416,height:128,
+  return {id:`i${i}`,x:xy.x+0.00002,y:xy.y-0.00002,width:415.99998474121094,height:127.99999713897705,
     getSharedPluginData:(_ns,key)=>key==='placement-id'?placement.id:'',
     isComponentCopyInstance:()=>true,component:()=>components[placement.componentId],
     children:[{characters:`${placement.value}  ·  ${adapter.F0_CONFIG.domains[placement.componentId].values[placement.value]}`,getSharedPluginData:(_ns,key)=>key==='role'?'label':''}],
@@ -80,6 +80,8 @@ const componentList=ids.map(id=>components[id]);
 const instances=adapter.F0_CONFIG.placements.map(instanceFor);
 const census=adapter.f0VerifyCensus({components:componentList,roots:[root],instances,screenshots:[],validation:[]});
 assert.equal(census.placementIds.length,57);
+assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[{...root,width:1440.01}],instances,screenshots:[],validation:[]}),/root geometry mismatch/);
+assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances:[{...instances[0],width:416.01},...instances.slice(1)],screenshots:[],validation:[]}),/instance geometry mismatch/);
 assert.throws(()=>adapter.f0VerifyCensus({components:[...componentList.slice(0,7),componentList[0]],roots:[root],instances,screenshots:[],validation:[]}),/component census mismatch/);
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances:instances.slice(0,56),screenshots:[],validation:[]}),/instance census mismatch/);
 assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],instances:[{...instances[0],isComponentCopyInstance:()=>false},...instances.slice(1)],screenshots:[],validation:[]}),/detached instance found/);
@@ -120,7 +122,7 @@ const out=path.join(os.tmpdir(),`f0-native-${process.pid}.js`);
 const generatedReceipt=JSON.parse(cp.execFileSync('python3',[path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/generate_foundation_specimens_native_executor_v3.py'),'--output',out],{encoding:'utf8'}));
 const generated=fs.readFileSync(out,'utf8'); fs.unlinkSync(out);
 assert.equal(generatedReceipt.status,'EXECUTOR_READY');
-assert.equal(generatedReceipt.adapter_revision,'R3.2');
+assert.equal(generatedReceipt.adapter_revision,'R3.3');
 assert.equal(generatedReceipt.run_id,adapter.F0_CONFIG.runId);
 assert.equal(generatedReceipt.protected_projection_mode,'SAME_RUN_PROBE_THEN_EXECUTE');
 assert.equal(generatedReceipt.protected_baseline_revision,79);

@@ -4,7 +4,7 @@
  */
 const F0_CONFIG = Object.freeze({
   schema: "kenigevents.f0-foundation-native-adapter.v3",
-  adapterRevision: "R3.2",
+  adapterRevision: "R3.3",
   fileId: "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
   pageName: "03 · Foundations · Current reconstructed specimens · Candidate",
   pageId: "313fb1ed-0d5c-8095-8008-9183322ab3a9",
@@ -121,10 +121,10 @@ function f0VerifyCensus({components, roots, instances, screenshots, validation})
   f0Assert(components.length===8 && new Set(componentIds).size===8 && f0Canonical([...componentStableIds].sort())===f0Canonical(Object.keys(F0_CONFIG.domains).sort()),"component census mismatch");
   for(const component of components){const stableId=f0ComponentStable(component),main=component.mainInstance?.(),expectedName=f0NativeName(F0_CONFIG.domains[stableId].name);f0Assert(main && component.name===expectedName && main.name===expectedName && f0Near(main.width,416) && f0Near(main.height,128),`component master readback mismatch: ${stableId}`);}
   f0Assert(roots.length===1 && new Set(rootIds).size===1,"root census mismatch");
-  f0Assert(roots[0].name===F0_CONFIG.rootName && roots[0].width===1440 && roots[0].height===f0RootHeight(),"root geometry mismatch");
+  f0Assert(roots[0].name===F0_CONFIG.rootName && f0Near(roots[0].width,1440) && f0Near(roots[0].height,f0RootHeight()),"root geometry mismatch");
   f0Assert(instances.length===57 && new Set(placementIds).size===57 && f0Canonical([...placementIds].sort())===f0Canonical(F0_CONFIG.placements.map(p=>p.id).sort()),"instance census mismatch");
   f0Assert(instances.every(s=>s.isComponentCopyInstance?.() && s.component?.()),"detached instance found");
-  for(const instance of instances){const placement=F0_CONFIG.placements.find(p=>p.id===instance.getSharedPluginData(F0_CONFIG.namespace,"placement-id")),xy=f0PlacementXY(placement);f0Assert(f0ComponentStable(instance.component())===placement.componentId,"instance component lineage mismatch");f0Assert(instance.x===roots[0].x+xy.x && instance.y===roots[0].y+xy.y && instance.width===416 && instance.height===128,"instance geometry mismatch");const label=Array.from(instance.children||[]).find(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="label");f0Assert(label?.characters===`${placement.value}  ·  ${F0_CONFIG.domains[placement.componentId].values[placement.value]}`,"instance value readback mismatch");}
+  for(const instance of instances){const placement=F0_CONFIG.placements.find(p=>p.id===instance.getSharedPluginData(F0_CONFIG.namespace,"placement-id")),xy=f0PlacementXY(placement);f0Assert(f0ComponentStable(instance.component())===placement.componentId,"instance component lineage mismatch");f0Assert(f0Near(instance.x,roots[0].x+xy.x) && f0Near(instance.y,roots[0].y+xy.y) && f0Near(instance.width,416) && f0Near(instance.height,128),"instance geometry mismatch");const label=Array.from(instance.children||[]).find(s=>s.getSharedPluginData(F0_CONFIG.namespace,"role")==="label");f0Assert(label?.characters===`${placement.value}  ·  ${F0_CONFIG.domains[placement.componentId].values[placement.value]}`,"instance value readback mismatch");}
   f0Assert(screenshots.length===0,"screenshot shape found");
   f0Assert(validation.length===0,`Penpot validation failed: ${f0Canonical(validation)}`);
   return {componentIds,componentStableIds,rootIds,placementIds};
