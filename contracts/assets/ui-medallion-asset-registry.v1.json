@@ -1,0 +1,94 @@
+{
+  "schema_version": "kenigevents.ui-medallion-asset-registry.v1",
+  "registry_id": "kenigevents.ui-assets.medallions.v1",
+  "status": "CANDIDATE_MANIFEST_REGISTRY_PENDING_D0_INTEGRATE",
+  "authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "asset_repository": "onedayonemasterpiece/events-bot-new",
+    "asset_commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+    "donor_repository": "onedayonemasterpiece/lovekgd-design-system",
+    "donor_commit": "04afe27f208596c33e0b6ce9f78d0561108ff93c",
+    "manifest_path": "catalog/normalization/families/event-preview-representations/event-medallion-candidate-v1.json",
+    "manifest_sha256": "9f58e05030ca092c4edf089bc52baa8f38842dfc864b977075ed0371d042920b",
+    "source_package_commit": "d4dba6a243e4944947b9eb18b040bbeb1469316f",
+    "source_package_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v1.json",
+    "source_package_git_blob_sha1": "6cd19d1cf5cf69601620b20c376b58ffd97d4b24",
+    "source_package_bytes": 8171
+  },
+  "expected_inventory": {
+    "records": 39,
+    "consumer_bindings": 43,
+    "unique_visuals": 42,
+    "deduplicated_visuals": 1,
+    "known_deduplication": "kaup",
+    "consumer_size_tiers_px": [44, 60, 88]
+  },
+  "resolution_contract": {
+    "algorithm": "resolve content-addressed visual records and consumer bindings from the immutable donor manifest",
+    "asset_path_fields": ["path", "source_path", "asset_path", "normalized_path", "materialized_path", "image_path", "local_path"],
+    "sha256_fields": ["sha256", "content_sha256", "asset_sha256", "normalized_sha256"],
+    "git_blob_fields": ["git_blob_sha1", "blob_sha1", "git_blob"],
+    "binding_identity_fields": ["binding_id", "consumer_id", "organizer_id", "festival_id", "slug", "id"],
+    "required_resolved_fields": [
+      "asset_id",
+      "source_path",
+      "sha256",
+      "bytes",
+      "media_type",
+      "intrinsic_size",
+      "consumer_bindings",
+      "consumer_size_tiers_px",
+      "provenance",
+      "licence_or_reuse_status",
+      "owner_disposition"
+    ],
+    "ambiguous_or_missing_result": "BLOCKED_UNRESOLVED_ASSET_IDENTITY",
+    "fallback": "forbidden",
+    "exact_asset_checkout_required_before_publish": true,
+    "transparent_surface_required": true,
+    "square_backing": "forbidden",
+    "crop_or_redraw": "forbidden"
+  },
+  "family_binding": {
+    "semantic_slot": "event-card.organizer-or-festival-medallion",
+    "component_name_pattern": "Medallion/Asset/{stable_asset_id}",
+    "astro_consumers": [
+      "site/src/components/EventCard.astro",
+      "site/src/components/EventMedallion.astro",
+      "site/src/data/organizer-medallions.*",
+      "site/src/data/festival-medallions.*"
+    ],
+    "penpot_consumer": {
+      "component_id": "event-card.medallion",
+      "property": "asset",
+      "size_property": "tier",
+      "tiers": ["44", "60", "88"]
+    },
+    "provenance": {
+      "classification": "REUSE_CANONICAL_DATA",
+      "origin": "immutable normalized donor manifest plus current Astro registries",
+      "transformation": "none after donor normalization"
+    },
+    "licence_or_reuse_status": {
+      "status": "PROJECT_INTERNAL_CURRENT_SOURCE_REUSE_APPROVED",
+      "scope": "Kenigevents Astro/UI-SoT/Penpot",
+      "per-record_external_licence": "retain donor-manifest value when present"
+    },
+    "owner_disposition": "APPROVED_CURRENT_ASTRO_AS_IS_REFERENCE_BY_F0_2026-08-31"
+  },
+  "integration_gate": {
+    "owner": "D0/INTEGRATE",
+    "required": [
+      "manifest bytes match SHA-256",
+      "39 records resolve to 43 consumer bindings and 42 unique visuals",
+      "each visual has one exact content hash and source path or immutable remote origin",
+      "the known Kaup duplicate remains one visual with multiple bindings",
+      "all 44/60/88px specimen instances are linked to unique visual components",
+      "exact current Astro registry identities are recorded from the immutable source package",
+      "resolved registry tuple is published in D0_INTEGRATION_RESULT_V2"
+    ],
+    "penpot_mutations": 0,
+    "success": "MEDALLION_ASSET_REGISTRY_RESOLVED_CONTRACT_CURRENT",
+    "failure": "BLOCKED_UNRESOLVED_ASSET_IDENTITY"
+  }
+}
