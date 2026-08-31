@@ -273,6 +273,8 @@ function downgradeCompletedV3ToObservedV2(surface, predicate = () => true) {
     for (const shape of walk(root)) {
       const childMarker = shape.getPluginData('kenigevents-g19-child-marker');
       if (childMarker.includes(':v3:')) shape.setPluginData('kenigevents-g19-child-marker', childMarker.replace(':v3:', ':v2:'));
+      const linkedMarker = shape.getPluginData('kenigevents-g19-marker');
+      if (shape !== root && linkedMarker.endsWith(':v3')) shape.setPluginData('kenigevents-g19-marker', linkedMarker.replace(/:v3$/, ':v2'));
       if (shape.getPluginData('kenigevents-payload-sha256')) shape.setPluginData('kenigevents-payload-sha256', LEGACY_V2_PAYLOAD_SHA256);
       const rootMarker = root.getPluginData('kenigevents-g19-marker');
       const action = Object.keys(LEGACY_ICON_SHA256).find((name) => rootMarker.includes(`action.${name}`));
@@ -420,7 +422,20 @@ test('read-only setup accepts the exact native revision-56 mixed-lineage baselin
 test('bounded phases build 14 linked leaves and all four exact accepted EventCards under only the existing board', async () => {
   const surface = await observedCurrentSurface();
   await installRuntime(surface);
-  const receipts = await runAllPhases(surface);
+  const receipts = [];
+  for (const path of manifest.execution.mutator_order.slice(0, 4)) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  surface.penpot.currentFile.revn = 63;
+  const legacyCard = surface.board.children.find((root) => root.getPluginData('kenigevents-g19-marker').startsWith('kenigevents:g19:p2:eventcard.desktop-wide-calendar.8006:v2'));
+  const inheritedMedia = legacyCard.children.find((shape) => shape.name === 'media-link');
+  for (const action of legacyCard.children.filter((shape) => shape.name.startsWith('action.'))) {
+    const icon = walk(action).find((shape) => shape.getPluginData('kenigevents-g19-child-marker').endsWith(':icon'));
+    icon.setPluginData('kenigevents-g19-child-marker', icon.getPluginData('kenigevents-g19-child-marker').replace(':v2:', ':v3:'));
+    icon.setPluginData('kenigevents-payload-sha256', manifest.payload_sha256);
+  }
+  inheritedMedia.fills = [{ fillColor: '#ffffff', fillOpacity: 1 }];
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'LINKED_MEDIA_FRAME_FILL_DRIFT');
+  inheritedMedia.fills = [];
+  for (const path of manifest.execution.mutator_order.slice(4)) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
   for (const [index, receipt] of receipts.entries()) {
     assert.deepEqual(receipt.readback.validation, [], manifest.execution.mutator_order[index]);
     assert.equal(receipt.readback.pageDirectRootCount, 1);
