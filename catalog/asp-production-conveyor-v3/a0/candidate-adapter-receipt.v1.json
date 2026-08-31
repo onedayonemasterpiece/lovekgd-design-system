@@ -15,8 +15,16 @@
       "file_sha256": "5aa2f6e1eb33be739b5bb4649d17d5c2b0ecbc1e54e6789ab1269ffb01d55004"
     },
     {
+      "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2-candidate-adapter.v1.json",
+      "file_sha256": "2cee06d94f4183df76e4aa3ba014a9b8907795e817ab541b7148cee098954596"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/owner-review-index-candidate-adapter.v1.json",
+      "file_sha256": "7ed2b995eb75900951f333105936528ab40a7d10500076b4a3166aa8c57abb34"
+    },
+    {
       "path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json",
-      "file_sha256": "ace167b4a2bba3484971ed98342b05aaefa9fb2275a043f20bb363613b7709a7"
+      "file_sha256": "6881a026658aa863120ac1854bf2a7fbbceeb7e8524cd5eb0cca5a60ffeea0f5"
     },
     {
       "path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
@@ -29,6 +37,26 @@
     {
       "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v1.json",
       "file_sha256": "d520623dc27f4e542dd62ceb70492a5fb83078b0d68f146b68b74d94697b4965"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+      "file_sha256": "8146bb75b385b5048d75f41177db083e9a3bcb9651e5dba7cae7a27078c83897"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+      "file_sha256": "184ba75bcfb6952b8d8c4e5cde01a633918dada127930cfaecdaec75acb44c77"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/ready-manifests-phase2-repair.v4.json",
+      "file_sha256": "c71f769aadf82791dfafebc608cdf086966edc4d814d7607f4ec83dff6324f0d"
+    },
+    {
+      "path": "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+      "file_sha256": "6de19f7b945ed2363356ee10131e09b3e6853784b70760740c85fa33498a0093"
+    },
+    {
+      "path": "tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py",
+      "file_sha256": "6b861ca8fd7c409b94fa4f54c6a76e9c1f21f452a7b514b670c085fc5b68656b"
     }
   ],
   "record_hashes": {
@@ -38,37 +66,57 @@
     "wave1_adapter_record_sha256": "6ac27dbc703b723e0ec8789f8dcf2b080f135d54ad5f382b28b3628fdce9d2e4",
     "wave1_package_record_sha256": "a06cfdd9e7f632ed44449be7d5bdb5dde432e358dff8965b340456b318a28d01",
     "wave1_idempotency_sha256": "5dd9bf341860d828da6002deda31d95ed8f4a9d672002c2b81eeee0c9623771e",
-    "queue_record_sha256": "93f03d7c1fbd036a6e2fc4d38e2a2e3827047e2d2c4d682b3cefeef83024820e"
+    "wave2_adapter_record_sha256": "bd0437408a661a29cd7ff3ba325e165b24606b34e0c5521bc21a67cc6985d0a0",
+    "wave2_package_record_sha256": "d4f1f3194385697d7d70b59c5e41070511b17182be4a65e79426e589c6248e1c",
+    "wave2_idempotency_sha256": "6c82d6f7a9eba1faa34371824c5c5d468457afc2c1fc2c131c61e0ea9258f74b",
+    "owner_index_adapter_record_sha256": "f16e5a11070f7f7c36eea6d237d12830c1e1054a3bd4a59d626a55f7aba71f1e",
+    "owner_index_package_record_sha256": "d0d87e032f01f8525b927849f16ed5ac51bcecb193fae4a78722f50c2df552a8",
+    "owner_index_idempotency_sha256": "f9fbb23b35a06ca9290105b85c4a739827756fa782366066a7fba64d38fe9cd9",
+    "queue_record_sha256": "43fe9a789dc11c803aee68de3f6eb7047a5a585fcabd6c18a2a1cd3eb77a49de"
   },
   "source_tuple": {
     "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
     "date_replay_record_sha256": "75ef44c4b460c8c7f5632feaad667e4f5a80f01063874286da0001ceeda96023",
     "wave1_record_sha256": "3611f05c5f52792179a5f29577e9ac136d823222fedb4095b03f79ea9fa86cde",
-    "wave2_record_sha256": "c1a562f5821141d5e11e0a1cd0a1942628e9667a3879eb764849762263661e96",
+    "wave2_v1_record_sha256": "c1a562f5821141d5e11e0a1cd0a1942628e9667a3879eb764849762263661e96",
+    "wave2_v2_record_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+    "owner_review_index_record_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
     "route_registry_sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d",
     "pr52_case_structure_file_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285"
   },
-  "penpot_mutations": 0,
-  "receipt_record_sha256": "17f7fdeb9424c504b41eb077a68153bb2ba75753feb47eef4e7dac8acf47442c",
-  "validation": {
-    "validated_payload_commits": [
-      "a02a4cfb5a9d76b81b071804a0bc25c37d523803",
-      "cb306958c9288d89b0e8d12f7028a10c77ad6252"
+  "repair_receipt": {
+    "defect_id": "A0-WAVE2-FOCUS-ROUTE-FIDELITY-001",
+    "policy_comment": 5481580183,
+    "old_source_preserved": true,
+    "replacement_source": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+    "restored_route_patterns": [
+      "/fokus-gruppa/priglashenie/",
+      "/fokus-gruppa/zavershenie/"
     ],
+    "old_penpot_lineage_reused": false
+  },
+  "penpot_mutations": 0,
+  "validation": {
+    "validated_payload_base": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
     "commands": [
       {
-        "command": "python3 tests/asp_production_conveyor_v3_a0_bundle_test.py",
+        "command": "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python tests/asp_production_conveyor_v3_a0_bundle_test.py",
         "checks_passed": 24,
         "checks_failed": 0
       },
       {
-        "command": "python3 tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
-        "checks_passed": 59,
+        "command": "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+        "checks_passed": 115,
         "checks_failed": 0
       },
       {
-        "command": "python3 tests/asp_production_conveyor_v3_a0_phase2_test.py",
+        "command": "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python tests/asp_production_conveyor_v3_a0_phase2_test.py",
         "checks_passed": 26,
+        "checks_failed": 0
+      },
+      {
+        "command": "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py",
+        "checks_passed": 19,
         "checks_failed": 0
       },
       {
@@ -76,11 +124,15 @@
         "process_exit_code": 0
       },
       {
-        "command": "git diff 2586a77858ba41a8107d1c74b2d2d8f9db1941c8..HEAD --check",
+        "command": "git diff --check",
         "process_exit_code": 0
       }
     ],
-    "schema_and_semantic_checks_passed": 109,
-    "schema_and_semantic_checks_failed": 0
-  }
+    "schema_and_semantic_checks_passed": 184,
+    "schema_and_semantic_checks_failed": 0,
+    "work_stealing_policy": "ASP_NONBLOCKING_WORK_STEALING_V6",
+    "focus_route_repair": "PASS",
+    "independent_owner_index_adapter": "PASS"
+  },
+  "receipt_record_sha256": "daf05d88987c24c3bbfa2c71ca01eef1275b2856c67bc076578dc3911e965ac7"
 }
