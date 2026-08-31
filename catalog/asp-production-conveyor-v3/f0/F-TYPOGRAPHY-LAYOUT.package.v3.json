@@ -1,0 +1,630 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-TYPOGRAPHY-LAYOUT",
+  "revision": 3,
+  "owner": "F0",
+  "priority": "P1_FALLBACK_VISIBLE",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "candidate_materialization_state": "READY_TO_MATERIALIZE_CANDIDATE_AFTER_D0_INTEGRATE_PASS_AND_D0_PUBLISH_CLAIM",
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
+  "branch": "chatgpt/f0-typography-layout-current-target-v3-20260831",
+  "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v3.json",
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+    "scripts/asp-production-conveyor-v3/f0/f0_typography_contract_v3.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py",
+    "tests/asp-production-conveyor-v3/f0/test_typography_layout_candidate_v3.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-typography-layout-current-target-v3-20260831",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v3.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, actual package Git blob, source v2/v1 blobs, helper, runner and tests; branch MUST NOT advance after publication"
+  },
+  "supersedes": {
+    "revision": 2,
+    "path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v2.json",
+    "git_blob_sha1": "d1848e1a8a808495f52f8301d2608f9fc29618fe",
+    "bytes": 17784,
+    "executable": false,
+    "reasons": [
+      "stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
+      "only two line-height specimens; current role matrix requires 1.08, 1.25, 1.2, 1.15 and 1.6",
+      "no candidate-versus-promotion lifecycle boundary",
+      "no fail-closed pre/post digest of the current free-collection surface"
+    ]
+  },
+  "source_package_v2": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v2.json",
+    "git_blob_sha1": "d1848e1a8a808495f52f8301d2608f9fc29618fe",
+    "bytes": 17784
+  },
+  "source_package_v1": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+    "git_blob_sha1": "f4dae95779867d3bdab2537df58c9cfc184f488c",
+    "bytes": 7795
+  },
+  "helper": {
+    "path": "scripts/asp-production-conveyor-v3/f0/f0_typography_contract_v3.py",
+    "git_blob_sha1": "fae159e781275ce6e4503c93ab1e19235198c7eb",
+    "sha256": "e1f76a525eed4c1f90dbf9503cc87293f0b477651fba38227147636ebe880723",
+    "bytes": 7065
+  },
+  "runner": {
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py",
+    "git_blob_sha1": "1d0802e6fa1bd3ceeca7e15476f2abdad5317040",
+    "sha256": "93280362bdf222bd9751521ced1090d621d84365424a449cee5c99b0a73d00c5",
+    "bytes": 17882
+  },
+  "tests": {
+    "path": "tests/asp-production-conveyor-v3/f0/test_typography_layout_candidate_v3.py",
+    "git_blob_sha1": "13e139a9e34708cc5b5a25d7d06d2b83fb6689c7",
+    "sha256": "9ecbd8c24826fabaddb1697cd3af76729b3724a76d9c2d243d0218758f451128",
+    "bytes": 10444,
+    "command": "python3 tests/asp-production-conveyor-v3/f0/test_typography_layout_candidate_v3.py",
+    "expected": "Ran 5 tests / OK"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+    },
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028"
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "penpot_publication_authorized": false
+    }
+  },
+  "font_binding": {
+    "semantic_contract": "Inter-first CSS stack is authoritative for CSS semantics; frozen-A DejaVu Sans is a separate evidence/runtime resolution fact",
+    "manifest_sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226",
+    "binaries_committed": false,
+    "regular": {
+      "family": "DejaVu Sans",
+      "weight": 400,
+      "bytes": 759720,
+      "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+      "locator_hint": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    },
+    "bold": {
+      "family": "DejaVu Sans",
+      "weight": 700,
+      "bytes": 708920,
+      "sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895",
+      "locator_hint": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    },
+    "preflight_rule": "D0 must pass explicit regular/bold file paths; both byte count and SHA-256 must match before ensure_page or any text mutation",
+    "silent_fallback": "FORBIDDEN",
+    "outlined_product_text": "FORBIDDEN"
+  },
+  "typography": {
+    "semantic_css_family": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    "frozen_A_resolved_family": "DejaVu Sans",
+    "sizes": {
+      "caption": "0.75rem",
+      "body": "1rem",
+      "meta": "1.0625rem",
+      "heading-500": "1.5rem",
+      "heading-600": "clamp(1.75rem, 2.4vw, 2.5rem)",
+      "display-700": "clamp(2.2rem, 6vw, 4.6rem)",
+      "display-800": "clamp(2.6rem, 7vw, 5.8rem)"
+    },
+    "weights": {
+      "regular": 400,
+      "semibold_consumer_local": 600,
+      "bold": 700
+    },
+    "line_height_unit": "UNITLESS_RATIO_ONLY",
+    "line_height_roles": {
+      "title": 1.08,
+      "occurrence": 1.25,
+      "place": 1.25,
+      "event_type": 1.2,
+      "admission": 1.15,
+      "not_interested": 1.6,
+      "calendar_share": 1.6,
+      "like_count": 1.6
+    },
+    "editable_cyrillic_wrap_specimens": [
+      {
+        "id": "wrap/title",
+        "text": "Кёнигсберг и Калининград: город, память и современность",
+        "frame_width_px": 220,
+        "line_height_role": "title",
+        "editable": true
+      },
+      {
+        "id": "wrap/occurrence",
+        "text": "31 августа, понедельник, 18:30 · повтор 2 сентября",
+        "frame_width_px": 190,
+        "line_height_role": "occurrence",
+        "editable": true
+      },
+      {
+        "id": "wrap/place",
+        "text": "Калининградский музей изобразительных искусств",
+        "frame_width_px": 175,
+        "line_height_role": "place",
+        "editable": true
+      },
+      {
+        "id": "wrap/event-type",
+        "text": "лекция · выставка · фестиваль",
+        "frame_width_px": 150,
+        "line_height_role": "event_type",
+        "editable": true
+      },
+      {
+        "id": "wrap/admission",
+        "text": "Бесплатно · необходима предварительная регистрация",
+        "frame_width_px": 185,
+        "line_height_role": "admission",
+        "editable": true
+      },
+      {
+        "id": "wrap/actions",
+        "text": "Не интересно · В календарь · Поделиться",
+        "frame_width_px": 210,
+        "line_height_role": "calendar_share",
+        "editable": true
+      }
+    ]
+  },
+  "layout": {
+    "containers": {
+      "content_max": "1180px",
+      "content_wide_max": "1440px"
+    },
+    "control_min": "44px",
+    "breakpoints": [
+      {
+        "id": "mobile-xs",
+        "query": "max-width: 479px"
+      },
+      {
+        "id": "mobile-sm",
+        "query": "max-width: 600px"
+      },
+      {
+        "id": "mobile",
+        "query": "max-width: 759px"
+      },
+      {
+        "id": "tablet-max",
+        "query": "max-width: 899px"
+      },
+      {
+        "id": "desktop",
+        "query": "min-width: 760px"
+      },
+      {
+        "id": "desktop-md",
+        "query": "min-width: 900px"
+      },
+      {
+        "id": "desktop-lg",
+        "query": "min-width: 1100px"
+      },
+      {
+        "id": "desktop-xl",
+        "query": "min-width: 1400px"
+      }
+    ],
+    "sticky_stack": {
+      "header_height": "57px",
+      "header_tag_height": "88px",
+      "time_nav_height": "56px",
+      "mobile_bottom_stack_height": "var(--mobile-bottom-stack-h)"
+    },
+    "layering": {
+      "base": 0,
+      "content": 10,
+      "cards": 20,
+      "floating": 30,
+      "navigation": 40,
+      "overlays": 50,
+      "header": 60,
+      "modal_focus": 80
+    },
+    "safe_area": "env(safe-area-inset-bottom)",
+    "listing_media_height": "clamp(221px, min(13vw, 24svh), 244px)"
+  },
+  "specimen_components": [
+    {
+      "id": "foundation.typography-scale",
+      "penpot_name": "Foundation/Typography/Scale",
+      "render_contract": "editable Cyrillic text at exact current sizes and weights"
+    },
+    {
+      "id": "foundation.typography-line-height",
+      "penpot_name": "Foundation/Typography/LineHeightRoles",
+      "render_contract": "unitless ratios with visible frames and editable multi-line text"
+    },
+    {
+      "id": "foundation.typography-font-binding",
+      "penpot_name": "Foundation/Typography/FontBinding",
+      "render_contract": "semantic Inter-first CSS stack and frozen-A DejaVu Sans shown as separate labelled facts"
+    },
+    {
+      "id": "foundation.typography-cyrillic-wrap",
+      "penpot_name": "Foundation/Typography/CyrillicWrap",
+      "render_contract": "editable Cyrillic wrapping in bounded frames; no outlining or raster text"
+    },
+    {
+      "id": "foundation.layout-containers",
+      "penpot_name": "Foundation/Layout/Containers",
+      "render_contract": "measured 1180px and 1440px diagrams"
+    },
+    {
+      "id": "foundation.layout-breakpoints",
+      "penpot_name": "Foundation/Layout/Breakpoints",
+      "render_contract": "eight exact media queries as labelled ranges"
+    },
+    {
+      "id": "foundation.layout-sticky-stack",
+      "penpot_name": "Foundation/Layout/StickyStack",
+      "render_contract": "current sticky/fixed stack values without page-geometry claim"
+    },
+    {
+      "id": "foundation.layout-layering",
+      "penpot_name": "Foundation/Layout/Layering",
+      "render_contract": "eight labelled z-index bands"
+    },
+    {
+      "id": "foundation.layout-safe-area",
+      "penpot_name": "Foundation/Layout/SafeArea",
+      "render_contract": "safe-area inset specimen"
+    },
+    {
+      "id": "foundation.layout-media-sizing",
+      "penpot_name": "Foundation/Layout/MediaSizing",
+      "render_contract": "literal clamp formula and min/intermediate/max states"
+    }
+  ],
+  "specimen": {
+    "name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-TYPOGRAPHY-LAYOUT · current-reconstructed",
+    "placements": [
+      {
+        "id": "type/caption-12",
+        "component_id": "foundation.typography-scale",
+        "state": "caption-12"
+      },
+      {
+        "id": "type/body-16",
+        "component_id": "foundation.typography-scale",
+        "state": "body-16"
+      },
+      {
+        "id": "type/meta-17",
+        "component_id": "foundation.typography-scale",
+        "state": "meta-17"
+      },
+      {
+        "id": "type/heading-24",
+        "component_id": "foundation.typography-scale",
+        "state": "heading-24"
+      },
+      {
+        "id": "type/heading-clamp-28-40",
+        "component_id": "foundation.typography-scale",
+        "state": "heading-clamp-28-40"
+      },
+      {
+        "id": "type/display-clamp-35.2-73.6",
+        "component_id": "foundation.typography-scale",
+        "state": "display-clamp-35.2-73.6"
+      },
+      {
+        "id": "type/display-clamp-41.6-92.8",
+        "component_id": "foundation.typography-scale",
+        "state": "display-clamp-41.6-92.8"
+      },
+      {
+        "id": "line-height/title",
+        "component_id": "foundation.typography-line-height",
+        "state": "title-1.08"
+      },
+      {
+        "id": "line-height/occurrence",
+        "component_id": "foundation.typography-line-height",
+        "state": "occurrence-1.25"
+      },
+      {
+        "id": "line-height/place",
+        "component_id": "foundation.typography-line-height",
+        "state": "place-1.25"
+      },
+      {
+        "id": "line-height/event_type",
+        "component_id": "foundation.typography-line-height",
+        "state": "event_type-1.2"
+      },
+      {
+        "id": "line-height/admission",
+        "component_id": "foundation.typography-line-height",
+        "state": "admission-1.15"
+      },
+      {
+        "id": "line-height/not_interested",
+        "component_id": "foundation.typography-line-height",
+        "state": "not_interested-1.6"
+      },
+      {
+        "id": "line-height/calendar_share",
+        "component_id": "foundation.typography-line-height",
+        "state": "calendar_share-1.6"
+      },
+      {
+        "id": "line-height/like_count",
+        "component_id": "foundation.typography-line-height",
+        "state": "like_count-1.6"
+      },
+      {
+        "id": "font/semantic-inter-first",
+        "component_id": "foundation.typography-font-binding",
+        "state": "semantic-inter-first"
+      },
+      {
+        "id": "font/frozen-A-dejavu-regular",
+        "component_id": "foundation.typography-font-binding",
+        "state": "frozen-A-dejavu-regular"
+      },
+      {
+        "id": "font/frozen-A-dejavu-bold",
+        "component_id": "foundation.typography-font-binding",
+        "state": "frozen-A-dejavu-bold"
+      },
+      {
+        "id": "wrap/title",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "title"
+      },
+      {
+        "id": "wrap/occurrence",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "occurrence"
+      },
+      {
+        "id": "wrap/place",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "place"
+      },
+      {
+        "id": "wrap/event-type",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "event_type"
+      },
+      {
+        "id": "wrap/admission",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "admission"
+      },
+      {
+        "id": "wrap/actions",
+        "component_id": "foundation.typography-cyrillic-wrap",
+        "state": "calendar_share"
+      },
+      {
+        "id": "container/1180px",
+        "component_id": "foundation.layout-containers",
+        "state": "1180px"
+      },
+      {
+        "id": "container/1440px",
+        "component_id": "foundation.layout-containers",
+        "state": "1440px"
+      },
+      {
+        "id": "breakpoint/max-479",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "max-479"
+      },
+      {
+        "id": "breakpoint/max-600",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "max-600"
+      },
+      {
+        "id": "breakpoint/max-759",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "max-759"
+      },
+      {
+        "id": "breakpoint/max-899",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "max-899"
+      },
+      {
+        "id": "breakpoint/min-760",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "min-760"
+      },
+      {
+        "id": "breakpoint/min-900",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "min-900"
+      },
+      {
+        "id": "breakpoint/min-1100",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "min-1100"
+      },
+      {
+        "id": "breakpoint/min-1400",
+        "component_id": "foundation.layout-breakpoints",
+        "state": "min-1400"
+      },
+      {
+        "id": "sticky/header-57",
+        "component_id": "foundation.layout-sticky-stack",
+        "state": "header-57"
+      },
+      {
+        "id": "sticky/header-tag-88",
+        "component_id": "foundation.layout-sticky-stack",
+        "state": "header-tag-88"
+      },
+      {
+        "id": "sticky/time-nav-56",
+        "component_id": "foundation.layout-sticky-stack",
+        "state": "time-nav-56"
+      },
+      {
+        "id": "sticky/mobile-bottom-stack",
+        "component_id": "foundation.layout-sticky-stack",
+        "state": "mobile-bottom-stack"
+      },
+      {
+        "id": "layer/base-0",
+        "component_id": "foundation.layout-layering",
+        "state": "base-0"
+      },
+      {
+        "id": "layer/content-10",
+        "component_id": "foundation.layout-layering",
+        "state": "content-10"
+      },
+      {
+        "id": "layer/cards-20",
+        "component_id": "foundation.layout-layering",
+        "state": "cards-20"
+      },
+      {
+        "id": "layer/floating-30",
+        "component_id": "foundation.layout-layering",
+        "state": "floating-30"
+      },
+      {
+        "id": "layer/navigation-40",
+        "component_id": "foundation.layout-layering",
+        "state": "navigation-40"
+      },
+      {
+        "id": "layer/overlays-50",
+        "component_id": "foundation.layout-layering",
+        "state": "overlays-50"
+      },
+      {
+        "id": "layer/header-60",
+        "component_id": "foundation.layout-layering",
+        "state": "header-60"
+      },
+      {
+        "id": "layer/modal-focus-80",
+        "component_id": "foundation.layout-layering",
+        "state": "modal-focus-80"
+      },
+      {
+        "id": "safe-area/bottom",
+        "component_id": "foundation.layout-safe-area",
+        "state": "env-safe-area-inset-bottom"
+      },
+      {
+        "id": "media/clamp-formula",
+        "component_id": "foundation.layout-media-sizing",
+        "state": "clamp-formula"
+      },
+      {
+        "id": "media/min-221",
+        "component_id": "foundation.layout-media-sizing",
+        "state": "min-221"
+      },
+      {
+        "id": "media/intermediate-13vw-24svh",
+        "component_id": "foundation.layout-media-sizing",
+        "state": "intermediate-13vw-24svh"
+      },
+      {
+        "id": "media/max-244",
+        "component_id": "foundation.layout-media-sizing",
+        "state": "max-244"
+      }
+    ]
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "file_name": "LoveKGD design system",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_PUBLISH",
+    "exact_name": "04 · Foundations · Typography and layout · Candidate",
+    "create_if_missing": true,
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "old_penpot_id_reuse_allowed": false
+  },
+  "candidate_root": {
+    "exact_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-TYPOGRAPHY-LAYOUT · current-reconstructed",
+    "owner_review_state": "NOT_ACCEPTED",
+    "promotion_allowed": false
+  },
+  "protected_surface": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "page_name": "00 · Components · Free collection",
+    "root_ids": [
+      "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+      "313fb1ed-0d5c-8095-8008-912c45090653"
+    ],
+    "mutation_allowed": false,
+    "pre_and_post_digest_required": true
+  },
+  "expected_roots": 1,
+  "expected_components": 10,
+  "expected_instances": 51,
+  "eventcard_consumer_boundary": {
+    "scope": "foundation specimen and contract only",
+    "owner": [
+      "D0/MAT",
+      "U0"
+    ],
+    "r9_boundary_comment": 5481341474,
+    "r9_execution_revoked_comment": 5481593090,
+    "active_tip_comment": 5481593090,
+    "current_lane": "R10_NATIVE_TEXT_LAYOUT_CACHE_INVALIDATION_REPAIR",
+    "closed_by_this_package": false,
+    "forbidden_claim": "This package does not repair, invalidate or visually accept EventCard textBounds"
+  },
+  "materialization_entry_point": {
+    "kind": "current-target-font-preflight-candidate-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py plan --candidate-commit <FROZEN_HEAD> --regular-font-file <EXACT_REGULAR_TTF> --bold-font-file <EXACT_BOLD_TTF>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py execute --candidate-commit <FROZEN_HEAD> --regular-font-file <EXACT_REGULAR_TTF> --bold-font-file <EXACT_BOLD_TTF> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_typography_layout_v3.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "protected_surface_digest_before_and_after": true
+  },
+  "validation": {
+    "integrate": [
+      "remote-read frozen head and all blobs",
+      "run five committed tests",
+      "provide exact regular/bold font files and require byte+SHA preflight",
+      "run plan and require F0_TYPOGRAPHY_LAYOUT_V3_PLAN_PASS",
+      "bind current adapter method surface",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with penpot_mutations=0"
+    ],
+    "publish": [
+      "roots=1",
+      "components=10",
+      "instances=51",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validation=[]",
+      "nonempty export",
+      "protected digest unchanged",
+      "editable Cyrillic text retained",
+      "no EventCard R10 closure claim"
+    ]
+  },
+  "penpot_mutations_by_f0": 0
+}
