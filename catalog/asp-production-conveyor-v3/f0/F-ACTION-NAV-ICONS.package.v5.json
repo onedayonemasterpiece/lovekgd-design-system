@@ -32,9 +32,9 @@
   },
   "native_executor": {
     "path": "scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js",
-    "git_blob_sha1": "b9641902f0bdbc5eabc6aba656010c4968ace3f8",
-    "sha256": "c4ac8eeb23d683cf10c354091acb0cc8d112b1a906fd296923b2cde1f8360469",
-    "bytes": 29479,
+    "git_blob_sha1": "059c02126fad6f3723d48d75191d71b7ef434f7b",
+    "sha256": "a78a263d83edce7127f96e36a1db4f5d03d732f17a58dae0aec5338a53a154e1",
+    "bytes": 32905,
     "kind": "self-contained-penpot-plugin-executor",
     "entry_call": "return await runActionNavIconsV5({penpot,storage});",
     "external_module_factory_required": false,
@@ -75,7 +75,8 @@
     "max_native_creates_per_call": 3,
     "no_mega_page": true,
     "no_setup_only_page": true,
-    "orientation": "bounded 6x3 state grid with component masters adjacent"
+    "orientation": "bounded 6x3 state grid with component masters adjacent",
+    "contract_receipt": "https://github.com/onedayonemasterpiece/lovekgd-design-system/issues/57#issuecomment-5483175166"
   },
   "protected_surfaces": {
     "mode": "same-active-run-read-only-probe-then-execute",
@@ -89,20 +90,34 @@
     "all_non_target_pages_and_nonmanaged_components_in_projection": true,
     "pre_post_and_post_version_digest_equal": true,
     "existing_page_and_shape_ids_preserved": true,
-    "mutation_allowed": false
+    "mutation_allowed": false,
+    "baseline_revision": 113,
+    "free_projection": {
+      "chars": 84033,
+      "utf8_bytes": 84034,
+      "sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"
+    },
+    "f0_source_root": {
+      "root_id": "313fb1ed-0d5c-8095-8008-918a0c1473af",
+      "linked_instances": 37,
+      "chars": 43734,
+      "utf8_bytes": 43744,
+      "sha256": "523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1"
+    }
   },
   "run_control": {
     "namespace": "kenigevents",
     "key": "asp-active-run-v1",
     "schema": "kenigevents.asp-run-control.v1",
-    "expected_run_id": "01a05819-82c8-7e70-a088-ed262f425ec6",
+    "expected_run_id": "1e60c0b6-da80-4ce1-8cb7-50f519d84eeb",
     "expected_writer_id": "/root/publish_r2",
+    "expected_package_id": "F-ACTION-NAV-ICONS",
     "allowed_state": "ACTIVE",
-    "cancelled_must_not_be_true": true,
+    "cancelled": false,
+    "lease_token": "66257bded246b3de513ba7a02e4a2181333191c325213f38f503ffc15797226f",
+    "cancel_token": "983efd09707bf496e085f392220778cf26b9fbd241086e1b611717ad9971e4fc",
     "contract_sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
-    "page_profile_sha256": "a2fbdba547f8829308f88231f96fce0cc54c441f741e99a7a846dcf0333ea461",
-    "asset_registry_sha256": "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
-    "geometry_proof_sha256": "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
+    "asset_registry_sha256": "b078e6688e75c0822b875d476833ccf68617effbd0bd4bcf02ebe82a83d73041",
     "recheck": "before every native write and immediately before/after every await"
   },
   "resumability": {
@@ -351,7 +366,7 @@
     "source_commit": "62deac3e1276e5a92b79ab4b6512e4489202719b",
     "source_tree": "db061866fa18efd27db7c32815ed5736113d56d5",
     "source_package_sha256": "d2cef6f2ce865a692b06042487f0f41ea32fb879a90abfab0c2b1244b5352d9b",
-    "native_executor_sha256": "c4ac8eeb23d683cf10c354091acb0cc8d112b1a906fd296923b2cde1f8360469",
+    "native_executor_sha256": "a78a263d83edce7127f96e36a1db4f5d03d732f17a58dae0aec5338a53a154e1",
     "writer_id": "/root/publish_r2",
     "owner_review_state": "NOT_ACCEPTED",
     "required_runtime_fields": [
@@ -391,5 +406,30 @@
     "create more than three native objects in one call",
     "create a setup-only or mega page",
     "redraw, substitute, detach, rasterize or screenshot any exact SVG"
+  ],
+  "component_naming": {
+    "library_component_name": "leaf only",
+    "library_component_path": "Foundations / Icons and actions / Candidate / Icon / <Action|Navigation>",
+    "main_instance_name": "exact path plus leaf once",
+    "slash_duplication_forbidden": true,
+    "identity_comparison": "persisted UUID equality, never JS proxy identity"
+  },
+  "setup": {
+    "path": "scripts/asp-production-conveyor-v3/f0/action_nav_icons_setup_v5.js",
+    "read_only": true,
+    "penpot_mutations": 0,
+    "required_before_executor": true,
+    "binds": [
+      "exact ACTIVE run/package/writer",
+      "exact lease/cancel tokens",
+      "source R4 commit/tree",
+      "final R5 package SHA-256",
+      "final native executor SHA-256"
+    ],
+    "entry_call": "return setupActionNavIconsV5({penpot,storage});"
+  },
+  "execution_order": [
+    "action_nav_icons_setup_v5.js",
+    "action_nav_icons_native_executor_v5.js"
   ]
 }

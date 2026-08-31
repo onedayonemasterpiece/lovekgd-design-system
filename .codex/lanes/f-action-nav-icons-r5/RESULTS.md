@@ -1,7 +1,7 @@
 # Lane f-action-nav-icons-r5 Results
 
 ## Status
-committed
+R5.1 immutable repair ready
 
 ## Requirement IDs
 - R01 exact source tuple
@@ -25,11 +25,12 @@ committed
 `62deac3e1276e5a92b79ab4b6512e4489202719b`
 
 ## Head SHA
-Implementation commit: `f1a4bbcc9e5e86dc520bcea69adcc3c1e2f253cd`
+R5.1 implementation commit: `PENDING_THIS_COMMIT`
 
 ## Files changed
 - `catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json`
 - `scripts/asp-production-conveyor-v3/f0/action_nav_icons_native_executor_v5.js`
+- `scripts/asp-production-conveyor-v3/f0/action_nav_icons_setup_v5.js`
 - `tests/asp-production-conveyor-v3/f0/test_action_nav_icons_native_executor_v5.js`
 - `.codex/lanes/f-action-nav-icons-r5/RESULTS.md`
 
@@ -49,6 +50,9 @@ Implementation commit: `f1a4bbcc9e5e86dc520bcea69adcc3c1e2f253cd`
 - Repository Node suite: 22/22 PASS.
 - Syntax and whitespace checks: PASS.
 - Exact nine disk SVG byte/SHA-256/Git-blob/length tuples equal embedded executor bytes.
+- R5.1 compares persisted Penpot proxies by stable IDs, accepts distinct same-ID proxies, and rejects wrong component IDs.
+- Exact ActionNav ACTIVE run/package/writer/lease/cancel tuple and rev113 Free/F0 frozen projections are pinned; setup is read-only and binds final package/executor SHA-256.
+- Component library names are leaf-only with one explicit canonical path; main shape names contain the full path exactly once.
 - Cancellation blocks before first write; protected drift blocks with zero writes.
 - Every mutating receipt creates at most three managed units; exact stable-ID resume reaches 8 components and 18 linked instances.
 - Terminal and second-run receipts preserve stable IDs; second run creates zero and adds no version.
