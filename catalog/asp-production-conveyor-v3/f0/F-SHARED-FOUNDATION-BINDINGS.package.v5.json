@@ -1,0 +1,507 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-SHARED-FOUNDATION-BINDINGS",
+  "revision": 5,
+  "owner": "F0",
+  "priority": "P1_SHARED_FOUNDATION",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "dependency_state": "AWAITING_SIX_D0_INTEGRATE_PASS",
+  "ready_to_publish": false,
+  "ready_to_promote": false,
+  "candidate_materialization_state": "BLOCKED_UNTIL_SIX_EXACT_D0_INTEGRATE_PASS_RECEIPTS_AND_D0_PUBLISH_CLAIM",
+  "promotion_state": "BLOCKED_UNTIL_NATIVE_READBACK_AND_V0_REVIEW",
+  "branch": "chatgpt/f0-shared-bindings-current-wave-v5-20260831",
+  "sha": "ISSUE_BOUND_FROZEN_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v5.json",
+    "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v4.json",
+    "scripts/asp-production-conveyor-v3/f0/f0_shared_bindings_contract_v5.py",
+    "scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py",
+    "tests/asp-production-conveyor-v3/f0/test_shared_foundation_bindings_v5.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-shared-bindings-current-wave-v5-20260831",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v5.json",
+    "binding_rule": "issue marker and D0 request bind frozen branch HEAD, package blob, source v4, helper, runner, tests and six external producer package tuples; branch MUST NOT advance"
+  },
+  "supersedes": {
+    "revision": 4,
+    "path": "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v4.json",
+    "git_blob_sha1": "888dbcbf93c87ee776598cc3c775f57ee3da45bb",
+    "bytes": 23730,
+    "executable": false,
+    "reasons": [
+      "stale Penpot file 40e06342-0493-81e4-8007-37c4238ecc5f",
+      "producer tuple set points to stale action v3, medallions v2, foundations v2, typography v2 and brandbook v2",
+      "copy/check producer absent",
+      "conditional producer readiness could be mistaken for publish authority",
+      "no six-receipt gate before adapter load"
+    ]
+  },
+  "source_package_v4": {
+    "path": "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v4.json",
+    "git_blob_sha1": "888dbcbf93c87ee776598cc3c775f57ee3da45bb",
+    "bytes": 23730
+  },
+  "helper": {
+    "path": "scripts/asp-production-conveyor-v3/f0/f0_shared_bindings_contract_v5.py",
+    "git_blob_sha1": "66263193bbb1564703989ce3aa0cf1ffd867740c",
+    "sha256": "b46a6d62b8f6cdc38e4976656a9d9629e572b91abe0df49eab73fc8d46e23087",
+    "bytes": 10735
+  },
+  "runner": {
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py",
+    "git_blob_sha1": "98db64eb973e3991296ce359055d5f390bdc02db",
+    "sha256": "c78fa7ce1a9a0888d80585e21091743e651687cb767d338cbdbb9e0f4f4c0d12",
+    "bytes": 16561
+  },
+  "tests": {
+    "path": "tests/asp-production-conveyor-v3/f0/test_shared_foundation_bindings_v5.py",
+    "git_blob_sha1": "af61e2414901c4dc58841b399b7a95ee204b1ea8",
+    "sha256": "6c837d99fd6fb8d97cc487ae24a8c238664b9eb2ba77058d71e33f85c2012bdc",
+    "bytes": 13121,
+    "command": "python3 tests/asp-production-conveyor-v3/f0/test_shared_foundation_bindings_v5.py",
+    "expected": "Ran 6 tests / OK"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"
+    },
+    "foundation_review": {
+      "issue": 56,
+      "comment": 5479993771,
+      "status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "penpot_publication_authorized": false
+    }
+  },
+  "producer_packages": [
+    {
+      "package_id": "F-COPY-CHECK-ASSETS",
+      "revision": 1,
+      "branch": "chatgpt/f0-copy-check-assets-20260831",
+      "head": "b780d299b2403ddea8d0d6c5185db2c5e29c223a",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-COPY-CHECK-ASSETS.package.v1.json",
+      "package_git_blob_sha1": "74dcb1fd12381495a239944839670988b615f0ff",
+      "package_bytes": 7252,
+      "integration_request_id": "F0-COPY-CHECK-ASSETS-INTEGRATE-20260831-R1",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS"
+    },
+    {
+      "package_id": "F-FOUNDATIONS-SPECIMENS",
+      "revision": 3,
+      "branch": "chatgpt/f0-foundation-specimens-candidate-20260831",
+      "head": "b749050203cb3d5d62cce118b50784086ff92f38",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v3.json",
+      "package_git_blob_sha1": "074908c50eb24cb733d0f42df1443f4efa053d90",
+      "package_bytes": 8730,
+      "integration_request_id": "F0-FOUNDATION-SPECIMENS-CANDIDATE-20260831-R3",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS"
+    },
+    {
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "revision": 3,
+      "branch": "chatgpt/f0-medallions-brand-candidate-20260831",
+      "head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json",
+      "package_git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+      "package_bytes": 10096,
+      "integration_request_id": "F0-MEDALLIONS-BRAND-INTEGRATE-20260831-R3",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS",
+      "tuple_erratum_comment": 5481918059
+    },
+    {
+      "package_id": "F-TYPOGRAPHY-LAYOUT",
+      "revision": 3,
+      "branch": "chatgpt/f0-typography-layout-current-target-v3-20260831",
+      "head": "eb388db611fb997283ba63c452b6642ff3508678",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v3.json",
+      "package_git_blob_sha1": "501c307799bf412bc658dc89a04245f8a5cabc61",
+      "package_bytes": 21620,
+      "integration_request_id": "F0-TYPOGRAPHY-LAYOUT-INTEGRATE-20260831-R3",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS"
+    },
+    {
+      "package_id": "F-BRANDBOOK-BASELINE",
+      "revision": 3,
+      "branch": "chatgpt/f0-brandbook-current-target-v3-20260831",
+      "head": "41f6f34cd02391b42b53e85f4b7139b2a4a18a6a",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v3.json",
+      "package_git_blob_sha1": "f8616973e069a0ee86298aa0fbb5c0102fa69d3a",
+      "package_bytes": 13150,
+      "integration_request_id": "F0-BRANDBOOK-INTEGRATE-20260831-R3",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS"
+    },
+    {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "revision": 4,
+      "branch": "chatgpt/f0-action-nav-current-target-v4-20260831",
+      "head": "62deac3e1276e5a92b79ab4b6512e4489202719b",
+      "package_path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v4.json",
+      "package_git_blob_sha1": "7f6e438223a3f63f8c67a9820853d558b778bfc8",
+      "package_bytes": 16897,
+      "integration_request_id": "F0-ACTION-NAV-INTEGRATE-20260831-R4",
+      "declared_state_at_freeze": "AWAITING_D0_INTEGRATE_PASS"
+    }
+  ],
+  "dependency_receipt_contract": {
+    "required_count": 6,
+    "marker": "D0_INTEGRATION_RESULT_V2",
+    "verdict": "PASS",
+    "penpot_mutations": 0,
+    "exact_package_tuple_fields": [
+      "branch",
+      "head",
+      "path",
+      "git_blob_sha1",
+      "bytes"
+    ],
+    "validation_must_complete_before_adapter_load": true,
+    "conditional_old_passes_inherited": false
+  },
+  "binding_components": [
+    {
+      "id": "foundation.binding.color",
+      "penpot_name": "Foundation/Binding/Color",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding_contract": "exact current reconstructed color/status values"
+    },
+    {
+      "id": "foundation.binding.typography",
+      "penpot_name": "Foundation/Binding/Typography",
+      "source_package": "F-TYPOGRAPHY-LAYOUT",
+      "binding_contract": "semantic Inter-first plus frozen-A DejaVu evidence and unitless ratios"
+    },
+    {
+      "id": "foundation.binding.spacing",
+      "penpot_name": "Foundation/Binding/Spacing",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding_contract": "exact direct spacing map"
+    },
+    {
+      "id": "foundation.binding.radius",
+      "penpot_name": "Foundation/Binding/Radius",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding_contract": "exact current radius values"
+    },
+    {
+      "id": "foundation.binding.layout",
+      "penpot_name": "Foundation/Binding/Layout",
+      "source_package": "F-TYPOGRAPHY-LAYOUT",
+      "binding_contract": "containers, breakpoints, sticky stack, layering and media sizing"
+    },
+    {
+      "id": "foundation.binding.motion",
+      "penpot_name": "Foundation/Binding/Motion",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding_contract": "durations, easing and reduced-motion no-op"
+    },
+    {
+      "id": "foundation.binding.action-navigation-assets",
+      "penpot_name": "Foundation/Binding/ActionNavigationAssets",
+      "source_package": "F-ACTION-NAV-ICONS",
+      "binding_contract": "nine exact SVG variants across eight linked asset components"
+    },
+    {
+      "id": "foundation.binding.copy-check-assets",
+      "penpot_name": "Foundation/Binding/CopyCheckAssets",
+      "source_package": "F-COPY-CHECK-ASSETS",
+      "binding_contract": "copy/default and check/success exact SVG identities"
+    },
+    {
+      "id": "foundation.binding.medallion-assets",
+      "penpot_name": "Foundation/Binding/MedallionAssets",
+      "source_package": "F-MEDALLIONS-BRAND-ASSETS",
+      "binding_contract": "42 exact medallion visuals across 43 consumer bindings"
+    },
+    {
+      "id": "foundation.binding.brand-assets",
+      "penpot_name": "Foundation/Binding/BrandAssets",
+      "source_package": "F-BRANDBOOK-BASELINE",
+      "binding_contract": "three exact brand assets plus two linked lockups"
+    }
+  ],
+  "specimen": {
+    "name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-SHARED-FOUNDATION-BINDINGS · current-wave-v5",
+    "placements": [
+      {
+        "id": "color/brand-600",
+        "component_id": "foundation.binding.color",
+        "state": "brand-600"
+      },
+      {
+        "id": "color/accent-600",
+        "component_id": "foundation.binding.color",
+        "state": "accent-600"
+      },
+      {
+        "id": "color/canvas",
+        "component_id": "foundation.binding.color",
+        "state": "canvas"
+      },
+      {
+        "id": "color/surface",
+        "component_id": "foundation.binding.color",
+        "state": "surface"
+      },
+      {
+        "id": "color/ink",
+        "component_id": "foundation.binding.color",
+        "state": "ink"
+      },
+      {
+        "id": "color/status-success",
+        "component_id": "foundation.binding.color",
+        "state": "status-success"
+      },
+      {
+        "id": "type/semantic-inter-first",
+        "component_id": "foundation.binding.typography",
+        "state": "semantic-inter-first"
+      },
+      {
+        "id": "type/frozen-a-dejavu-regular",
+        "component_id": "foundation.binding.typography",
+        "state": "frozen-a-dejavu-regular"
+      },
+      {
+        "id": "type/frozen-a-dejavu-bold",
+        "component_id": "foundation.binding.typography",
+        "state": "frozen-a-dejavu-bold"
+      },
+      {
+        "id": "type/unitless-line-heights",
+        "component_id": "foundation.binding.typography",
+        "state": "1.08-1.25-1.2-1.15-1.6"
+      },
+      {
+        "id": "spacing/1",
+        "component_id": "foundation.binding.spacing",
+        "state": "1"
+      },
+      {
+        "id": "spacing/2",
+        "component_id": "foundation.binding.spacing",
+        "state": "2"
+      },
+      {
+        "id": "spacing/4",
+        "component_id": "foundation.binding.spacing",
+        "state": "4"
+      },
+      {
+        "id": "spacing/8",
+        "component_id": "foundation.binding.spacing",
+        "state": "8"
+      },
+      {
+        "id": "radius/sm",
+        "component_id": "foundation.binding.radius",
+        "state": "sm"
+      },
+      {
+        "id": "radius/lg",
+        "component_id": "foundation.binding.radius",
+        "state": "lg"
+      },
+      {
+        "id": "radius/pill",
+        "component_id": "foundation.binding.radius",
+        "state": "pill"
+      },
+      {
+        "id": "layout/content-1180",
+        "component_id": "foundation.binding.layout",
+        "state": "content-1180"
+      },
+      {
+        "id": "layout/content-wide-1440",
+        "component_id": "foundation.binding.layout",
+        "state": "content-wide-1440"
+      },
+      {
+        "id": "layout/mobile-759",
+        "component_id": "foundation.binding.layout",
+        "state": "mobile-759"
+      },
+      {
+        "id": "layout/desktop-760",
+        "component_id": "foundation.binding.layout",
+        "state": "desktop-760"
+      },
+      {
+        "id": "motion/fast-160",
+        "component_id": "foundation.binding.motion",
+        "state": "fast-160"
+      },
+      {
+        "id": "motion/base-220",
+        "component_id": "foundation.binding.motion",
+        "state": "base-220"
+      },
+      {
+        "id": "asset/action-calendar",
+        "component_id": "foundation.binding.action-navigation-assets",
+        "state": "calendar-add"
+      },
+      {
+        "id": "asset/action-share",
+        "component_id": "foundation.binding.action-navigation-assets",
+        "state": "share"
+      },
+      {
+        "id": "asset/nav-afisha",
+        "component_id": "foundation.binding.action-navigation-assets",
+        "state": "afisha"
+      },
+      {
+        "id": "asset/nav-personal",
+        "component_id": "foundation.binding.action-navigation-assets",
+        "state": "personal"
+      },
+      {
+        "id": "asset/copy",
+        "component_id": "foundation.binding.copy-check-assets",
+        "state": "copy"
+      },
+      {
+        "id": "asset/check",
+        "component_id": "foundation.binding.copy-check-assets",
+        "state": "check-success"
+      },
+      {
+        "id": "asset/medallion-44",
+        "component_id": "foundation.binding.medallion-assets",
+        "state": "44px"
+      },
+      {
+        "id": "asset/medallion-60",
+        "component_id": "foundation.binding.medallion-assets",
+        "state": "60px"
+      },
+      {
+        "id": "asset/medallion-88",
+        "component_id": "foundation.binding.medallion-assets",
+        "state": "88px"
+      },
+      {
+        "id": "asset/brand-lockup-desktop",
+        "component_id": "foundation.binding.brand-assets",
+        "state": "desktop"
+      },
+      {
+        "id": "asset/brand-lockup-mobile",
+        "component_id": "foundation.binding.brand-assets",
+        "state": "mobile"
+      }
+    ]
+  },
+  "adapter_contract": {
+    "method_surface": [
+      "read_document",
+      "assert_active_lease",
+      "ensure_page",
+      "upsert_foundation_binding_component",
+      "upsert_binding_specimen",
+      "validate",
+      "export_png",
+      "readback"
+    ],
+    "preserved_from_v4": true
+  },
+  "target_penpot_page": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "file_name": "LoveKGD design system",
+    "page_id": "RESOLVE_OR_CREATE_BY_D0_PUBLISH",
+    "exact_name": "06 · Foundations · Shared bindings · Candidate",
+    "create_if_missing": true,
+    "candidate_label": "CANDIDATE_BUILD_NOT_ACCEPTED",
+    "old_penpot_id_reuse_allowed": false
+  },
+  "candidate_root": {
+    "exact_name": "CANDIDATE_BUILD_NOT_ACCEPTED · F-SHARED-FOUNDATION-BINDINGS · current-wave-v5",
+    "owner_review_state": "NOT_ACCEPTED",
+    "promotion_allowed": false
+  },
+  "protected_surface": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "page_name": "00 · Components · Free collection",
+    "root_ids": [
+      "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+      "313fb1ed-0d5c-8095-8008-912c45090653"
+    ],
+    "mutation_allowed": false,
+    "pre_and_post_digest_required": true
+  },
+  "consumer_defect_boundaries": {
+    "eventcard_text": {
+      "active_lane": "R10_NATIVE_TEXT_LAYOUT_CACHE_INVALIDATION_REPAIR",
+      "tip_comment": 5481593090,
+      "owner": [
+        "D0/MAT",
+        "U0"
+      ],
+      "closed_by_this_package": false
+    },
+    "eventcard_poster": {
+      "defect": "P0-ASSET-POSTER-OCCLUDED",
+      "owner": [
+        "D0/MAT",
+        "U0"
+      ],
+      "closed_by_this_package": false
+    }
+  },
+  "expected_roots": 1,
+  "expected_components": 10,
+  "expected_instances": 34,
+  "materialization_entry_point": {
+    "kind": "six-exact-producer-receipt-gated-current-target-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py",
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py plan --candidate-commit <FROZEN_HEAD> --producer-checkout F-COPY-CHECK-ASSETS=<CHECKOUT> --producer-checkout F-FOUNDATIONS-SPECIMENS=<CHECKOUT> --producer-checkout F-MEDALLIONS-BRAND-ASSETS=<CHECKOUT> --producer-checkout F-TYPOGRAPHY-LAYOUT=<CHECKOUT> --producer-checkout F-BRANDBOOK-BASELINE=<CHECKOUT> --producer-checkout F-ACTION-NAV-ICONS=<CHECKOUT>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py execute --candidate-commit <FROZEN_HEAD> <SIX_PRODUCER_CHECKOUT_ARGS> --dependency-receipts-dir <SIX_PASS_RECEIPTS> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v5.py verify --candidate-commit <FROZEN_HEAD> <SIX_PRODUCER_CHECKOUT_ARGS> --receipt <RECEIPT>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "dependency_receipts_before_adapter_load": true,
+    "protected_surface_digest_before_and_after": true
+  },
+  "validation": {
+    "integrate": [
+      "remote-read frozen shared head and all shared blobs",
+      "run six committed tests",
+      "remote-read six producer checkouts at exact heads and package blobs",
+      "run plan and require F0_SHARED_BINDINGS_V5_PLAN_PASS",
+      "preserve dependency state as awaiting six separate D0 PASS receipts",
+      "publish D0_INTEGRATION_RESULT_V2 for the shared package with penpot_mutations=0"
+    ],
+    "publish": [
+      "provide six exact producer D0_INTEGRATION_RESULT_V2 PASS receipts before adapter load",
+      "roots=1",
+      "components=10",
+      "instances=34",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validation=[]",
+      "nonempty export",
+      "protected digest unchanged"
+    ]
+  },
+  "forbidden": [
+    "inherit conditional PASS from source v4 or any stale producer revision",
+    "classify READY_TO_PUBLISH or READY_TO_PROMOTE before all six exact D0 PASS receipts",
+    "execute against stale Penpot file",
+    "old Penpot UUID lineage, screenshot, placeholder or surrogate UI",
+    "mutate current free-collection roots",
+    "close EventCard R10 or poster defects",
+    "claim visual PASS before V0"
+  ],
+  "penpot_mutations_by_f0": 0
+}
