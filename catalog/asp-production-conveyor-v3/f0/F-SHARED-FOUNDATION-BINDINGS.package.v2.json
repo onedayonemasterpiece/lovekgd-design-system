@@ -1,0 +1,482 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_INTEGRATION_CANDIDATE_V3",
+  "package_id": "F-SHARED-FOUNDATION-BINDINGS",
+  "revision": 2,
+  "owner": "F0",
+  "priority": "P0_CONTRACT_REPAIR",
+  "status": "READY_FOR_D0_INTEGRATE",
+  "branch": "chatgpt/f0-shared-foundation-bindings-ready-20260831",
+  "sha": "ISSUE_BOUND_IMMUTABLE_BRANCH_HEAD",
+  "paths": [
+    "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v2.json",
+    "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v1.json",
+    "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v1.json",
+    "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+    "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+    "contracts/assets/ui-asset-registry.v1.yaml",
+    "scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v2.py"
+  ],
+  "immutable_identity": {
+    "candidate_branch": "chatgpt/f0-shared-foundation-bindings-ready-20260831",
+    "bundle_anchor_commit": "bf9d445f3f3fef933616b294809e990d1454b1a8",
+    "package_path": "catalog/asp-production-conveyor-v3/f0/F-SHARED-FOUNDATION-BINDINGS.package.v2.json",
+    "binding_rule": "issue marker and D0 request bind the frozen branch HEAD, package Git blob and bundle anchor; branch MUST NOT advance"
+  },
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "requirements_contract": {
+      "id": "kenigevents.asp-conformance",
+      "version": "1.1.0",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "f134001382f547cebe8b025da24065128b174ffb",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "git_blob_sha1": "24e02d3048f2feba912cb990f8226b23006e8c2c",
+      "sha256": "54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72",
+      "sections": ["2.5", "2.6", "2.7"]
+    },
+    "astro": {
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "commit": "f2d658e8be057f3b75431f6b77e4887af4536028",
+      "foundation_pin": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+      "continuity": "25 commits ahead; zero changed site/** paths",
+      "sources": [
+        {"path": "site/src/styles/design-system.css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+        {"path": "site/src/components/Icon.astro", "git_blob_sha1": "68252498848a5fbc93dab20b5797504aeb6eb487"},
+        {"path": "site/src/components/EventCard.astro", "git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c"},
+        {"path": "site/src/components/MobileBottomNav.astro", "git_blob_sha1": "54fe6d86372e531a1d0320cd52afbdbbb5e10448"}
+      ]
+    },
+    "foundation_baseline": {
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "commit": "1acc60e0b33aeb5a83aceba94ee607cfe2bdbeb8",
+      "review_comment": 5479993771,
+      "review_status": "F0_ACCEPTED_CURRENT_RECONSTRUCTED_GIT_BASELINE",
+      "visual_delta_allowed": false,
+      "old_penpot_uuid_reuse": false
+    },
+    "asset_registry": {
+      "path": "contracts/assets/ui-asset-registry.v1.yaml",
+      "commit": "1d9d2cd32b09b84e648ed79171db75b8140195d9",
+      "git_blob_sha1": "f2cbf23b4391189e0512332bde58d31aefdce60e",
+      "sha256": "9528f05d47113c16bd1c930afc3a70b10b3a8a2bd98d60d07c5aa98bb4eb9baa",
+      "status": "CANDIDATE_RESOLVED_PENDING_D0_INTEGRATE",
+      "bounded_action_slots": 4
+    }
+  },
+  "producer_packages": [
+    {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "revision": 2,
+      "source_commit": "4e6cf948e45a1f2aa0b5d9eb9e700e2a85a99c5d",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v2.json",
+      "git_blob_sha1": "d9257b14dba5cbe9f222d161c9a322c18d783dca",
+      "bytes": 22880,
+      "lifecycle": "READY_FOR_D0_INTEGRATE",
+      "integration_request": 5480049869
+    },
+    {
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "revision": 1,
+      "source_commit": "d4dba6a243e4944947b9eb18b040bbeb1469316f",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v1.json",
+      "git_blob_sha1": "6cd19d1cf5cf69601620b20c376b58ffd97d4b24",
+      "bytes": 8171,
+      "lifecycle": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+    },
+    {
+      "package_id": "F-FOUNDATIONS-SPECIMENS",
+      "revision": 1,
+      "source_commit": "af1a62aaa820bee2aefabaad578a4e926c713784",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v1.json",
+      "git_blob_sha1": "815d1788b656fd3c5dd053fe4c4eb234d3393f66",
+      "bytes": 6985,
+      "lifecycle": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+    },
+    {
+      "package_id": "F-TYPOGRAPHY-LAYOUT",
+      "revision": 1,
+      "source_commit": "3f8eb49e4e90927366e1cf426e15fb33ad5342b4",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json",
+      "git_blob_sha1": "f4dae95779867d3bdab2537df58c9cfc184f488c",
+      "bytes": 7795,
+      "lifecycle": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+    },
+    {
+      "package_id": "F-BRANDBOOK-BASELINE",
+      "revision": 1,
+      "source_commit": "ccf9bd00bb62d3dec3c158be15bb187bdf34e25e",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v1.json",
+      "git_blob_sha1": "10228a7390e8f75821d64063c141c1c0cca7e234",
+      "bytes": 8040,
+      "lifecycle": "SOURCE_PACKAGE_READY_NOT_PENPOT_READY"
+    }
+  ],
+  "foundation_or_component_ids": [
+    "foundation.color.roles",
+    "foundation.typography",
+    "foundation.spacing-sizing-density",
+    "foundation.radius-border-elevation",
+    "foundation.layout-responsive-layering",
+    "foundation.motion-accessibility",
+    "foundation.asset.icon-action",
+    "foundation.asset.medallion",
+    "foundation.asset.brand",
+    "component.event-card",
+    "component.mobile-bottom-nav",
+    "component.brand-lockup",
+    "pattern.free-collection-page",
+    "pattern.date-listing-shell",
+    "archetype.collection",
+    "archetype.date-listing"
+  ],
+  "binding_components": [
+    {
+      "id": "foundation.color.roles",
+      "penpot_name": "Foundation/Binding/ColorRoles",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding": {
+        "page": "#fbf7ef",
+        "surface": "#fffdf8",
+        "surface_strong": "#ffffff",
+        "ink": "#221a14",
+        "muted": "#6d6259",
+        "line": "#e1d3c2",
+        "brand": "#a54821",
+        "brand_strong": "#98401f",
+        "focus": "#0f766e"
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "component.brand-lockup", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_VALUE_PRESERVING"
+    },
+    {
+      "id": "foundation.typography",
+      "penpot_name": "Foundation/Binding/Typography",
+      "source_package": "F-TYPOGRAPHY-LAYOUT",
+      "binding": {
+        "css_stack": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+        "frozen_A_resolved_family": "DejaVu Sans",
+        "regular_sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+        "bold_sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895",
+        "body_size": "1rem",
+        "body_line_height": 1.6,
+        "tight_line_height": 1.08
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "component.brand-lockup", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_BYTE_PINNED_CURRENT_RESOLUTION"
+    },
+    {
+      "id": "foundation.spacing-sizing-density",
+      "penpot_name": "Foundation/Binding/SpacingSizingDensity",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding": {
+        "base_px": 4,
+        "scale_px": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64],
+        "control_min_px": 44,
+        "content_max_px": 1180,
+        "content_wide_max_px": 1440
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_VALUE_PRESERVING"
+    },
+    {
+      "id": "foundation.radius-border-elevation",
+      "penpot_name": "Foundation/Binding/RadiusBorderElevation",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding": {
+        "radius_sm": "0.5rem",
+        "radius_md": "0.875rem",
+        "radius_lg": "1.25rem",
+        "radius_xl": "1.75rem",
+        "radius_pill": "999px",
+        "border": "1px solid #e1d3c2",
+        "shadow_1": "0 8px 22px rgba(72,45,25,0.08)",
+        "shadow_2": "0 18px 45px rgba(72,45,25,0.12)",
+        "shadow_3": "0 24px 64px rgba(72,45,25,0.18)"
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "pattern.free-collection-page"],
+      "migration": "NO_OP_VALUE_PRESERVING"
+    },
+    {
+      "id": "foundation.layout-responsive-layering",
+      "penpot_name": "Foundation/Binding/LayoutResponsiveLayering",
+      "source_package": "F-TYPOGRAPHY-LAYOUT",
+      "binding": {
+        "content_max": "1180px",
+        "content_wide_max": "1440px",
+        "mobile_breakpoint": "max-width: 759px",
+        "desktop_breakpoint": "min-width: 760px",
+        "control_min": "44px",
+        "safe_area": "env(safe-area-inset-bottom)",
+        "header_z": 60,
+        "mobile_bottom_nav_z": 40,
+        "modal_focus_z": 80
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_VALUE_PRESERVING"
+    },
+    {
+      "id": "foundation.motion-accessibility",
+      "penpot_name": "Foundation/Binding/MotionAccessibility",
+      "source_package": "F-FOUNDATIONS-SPECIMENS",
+      "binding": {
+        "duration_fast": "160ms",
+        "duration_base": "220ms",
+        "ease_standard": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "reduced_motion": "mandatory-no-op",
+        "focus_visible": true,
+        "semantic_aria_current": true,
+        "safe_area_insets": true,
+        "status_not_color_only": true
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_BEHAVIOR_PRESERVING"
+    },
+    {
+      "id": "foundation.asset.icon-action",
+      "penpot_name": "Foundation/Binding/ActionAndNavigationAssets",
+      "source_package": "F-ACTION-NAV-ICONS",
+      "binding": {
+        "action_ids": ["icon.action.not_interested", "icon.action.calendar_add", "icon.action.share", "icon.action.favorite"],
+        "navigation_ids": ["icon.navigation.afisha", "icon.navigation.dates", "icon.navigation.search", "icon.navigation.personal"],
+        "exact_bytes_required": true,
+        "fallback": "forbidden"
+      },
+      "consumers": ["component.event-card", "component.mobile-bottom-nav"],
+      "migration": "NO_OP_EXACT_ASSET_BYTES"
+    },
+    {
+      "id": "foundation.asset.medallion",
+      "penpot_name": "Foundation/Binding/MedallionAssets",
+      "source_package": "F-MEDALLIONS-BRAND-ASSETS",
+      "binding": {
+        "unique_visuals": 42,
+        "bindings": 43,
+        "consumer_tiers_px": [44, 60, 88],
+        "transparent_surface": true,
+        "square_backing": "forbidden"
+      },
+      "consumers": ["component.event-card", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_EXACT_ASSET_BYTES"
+    },
+    {
+      "id": "foundation.asset.brand",
+      "penpot_name": "Foundation/Binding/BrandAssets",
+      "source_package": "F-BRANDBOOK-BASELINE",
+      "binding": {
+        "primary_mark": "brand.asset.primary-mark",
+        "wordmark": "brand.asset.announcements-wordmark",
+        "favicon_tag": "brand.asset.favicon-tag",
+        "desktop_lockup": "brand.lockup.desktop",
+        "mobile_lockup": "brand.lockup.mobile",
+        "wordmark_retyping": "forbidden"
+      },
+      "consumers": ["component.brand-lockup", "pattern.free-collection-page", "pattern.date-listing-shell"],
+      "migration": "NO_OP_EXACT_ASSET_BYTES"
+    }
+  ],
+  "binding_graph": {
+    "invariant": "primitive -> semantic -> component -> pattern -> archetype; asset -> component; semantic/asset -> specimen",
+    "nodes": [
+      {"id": "primitive.current-values", "kind": "primitive"},
+      {"id": "semantic.foundation-roles", "kind": "semantic"},
+      {"id": "asset.exact-action-nav", "kind": "asset"},
+      {"id": "asset.exact-medallion", "kind": "asset"},
+      {"id": "asset.exact-brand", "kind": "asset"},
+      {"id": "component.event-card", "kind": "component"},
+      {"id": "component.mobile-bottom-nav", "kind": "component"},
+      {"id": "component.brand-lockup", "kind": "component"},
+      {"id": "pattern.free-collection-page", "kind": "pattern"},
+      {"id": "pattern.date-listing-shell", "kind": "pattern"},
+      {"id": "archetype.collection", "kind": "archetype"},
+      {"id": "archetype.date-listing", "kind": "archetype"},
+      {"id": "specimen.shared-bindings", "kind": "specimen"}
+    ],
+    "edges": [
+      {"from": "primitive.current-values", "to": "semantic.foundation-roles"},
+      {"from": "semantic.foundation-roles", "to": "component.event-card"},
+      {"from": "semantic.foundation-roles", "to": "component.mobile-bottom-nav"},
+      {"from": "semantic.foundation-roles", "to": "component.brand-lockup"},
+      {"from": "asset.exact-action-nav", "to": "component.event-card"},
+      {"from": "asset.exact-action-nav", "to": "component.mobile-bottom-nav"},
+      {"from": "asset.exact-medallion", "to": "component.event-card"},
+      {"from": "asset.exact-brand", "to": "component.brand-lockup"},
+      {"from": "component.event-card", "to": "pattern.free-collection-page"},
+      {"from": "component.event-card", "to": "pattern.date-listing-shell"},
+      {"from": "component.mobile-bottom-nav", "to": "pattern.free-collection-page"},
+      {"from": "component.brand-lockup", "to": "pattern.free-collection-page"},
+      {"from": "component.brand-lockup", "to": "pattern.date-listing-shell"},
+      {"from": "pattern.free-collection-page", "to": "archetype.collection"},
+      {"from": "pattern.date-listing-shell", "to": "archetype.date-listing"},
+      {"from": "semantic.foundation-roles", "to": "specimen.shared-bindings"},
+      {"from": "asset.exact-action-nav", "to": "specimen.shared-bindings"},
+      {"from": "asset.exact-medallion", "to": "specimen.shared-bindings"},
+      {"from": "asset.exact-brand", "to": "specimen.shared-bindings"}
+    ]
+  },
+  "consumer_bindings": [
+    {"consumer_id": "consumer.event-card", "owner": "U0", "source": "events-bot-new/site/src/components/EventCard.astro", "foundation_components": ["foundation.color.roles", "foundation.typography", "foundation.spacing-sizing-density", "foundation.radius-border-elevation", "foundation.layout-responsive-layering", "foundation.motion-accessibility", "foundation.asset.icon-action", "foundation.asset.medallion"], "migration": "NO_OP_BIND_BY_STABLE_ID"},
+    {"consumer_id": "consumer.mobile-bottom-nav", "owner": "U0", "source": "events-bot-new/site/src/components/MobileBottomNav.astro", "foundation_components": ["foundation.color.roles", "foundation.typography", "foundation.spacing-sizing-density", "foundation.layout-responsive-layering", "foundation.motion-accessibility", "foundation.asset.icon-action"], "migration": "NO_OP_BIND_BY_STABLE_ID"},
+    {"consumer_id": "consumer.brand-lockup", "owner": "F0", "source": "events-bot-new/site/src/components/brand/AnnouncementsLockup.astro", "foundation_components": ["foundation.color.roles", "foundation.typography", "foundation.asset.brand"], "migration": "NO_OP_EXACT_ASSET_BYTES"},
+    {"consumer_id": "consumer.free-collection", "owner": "A0+U0", "source": "contracts/page-profiles/free-collection.owner-review.v1.yaml", "foundation_components": ["all shared components"], "migration": "NO_OP_ONLY_AFTER_GEOMETRY_AND_PROVENANCE_PASS"},
+    {"consumer_id": "consumer.date-listing-shell", "owner": "A0+U0", "source": "donor PR #43 plus current Astro reconciliation", "foundation_components": ["all shared components"], "migration": "NO_OP_ONLY_AFTER_CURRENT_SOURCE_AND_CORPUS_PASS"}
+  ],
+  "compatibility_aliases": [
+    {"from": "--bg", "to": "--ke-color-canvas", "resolved_value": "#fbf7ef", "migration": "NO_OP_VALUE_PRESERVING"},
+    {"from": "--surface", "to": "--ke-color-surface", "resolved_value": "#fffdf8", "migration": "NO_OP_VALUE_PRESERVING"},
+    {"from": "--text", "to": "--ke-color-ink", "resolved_value": "#221a14", "migration": "NO_OP_VALUE_PRESERVING"},
+    {"from": "--primary", "to": "--ke-color-brand-600", "resolved_value": "#a54821", "migration": "NO_OP_VALUE_PRESERVING"},
+    {"from": "--accent", "to": "--ke-color-accent-600", "resolved_value": "#0f766e", "migration": "NO_OP_VALUE_PRESERVING"}
+  ],
+  "target_penpot_page": {
+    "file_id": "40e06342-0493-81e4-8007-37c4238ecc5f",
+    "exact_name": "06 · Foundations · Shared bindings",
+    "create_if_missing": true,
+    "consumer_evidence_page_id": "c16498cb-3535-808b-8008-46a313b4a64a",
+    "consumer_evidence_rejected_root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+    "rejected_root_mutation_allowed": false,
+    "old_penpot_id_reuse_allowed": false
+  },
+  "expected_roots": 1,
+  "expected_components": 9,
+  "expected_instances": 32,
+  "materialization_entry_point": {
+    "kind": "bounded-executable-adapter-runner",
+    "path": "scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v2.py",
+    "source_commit": "bf9d445f3f3fef933616b294809e990d1454b1a8",
+    "git_blob_sha1": "60e3a5193b0c3599612240d07627f58ee31c9675",
+    "sha256": "9945a6fa57eff76b9c13bae9858b353569226e1254746e0ae745449cce3d0ff1",
+    "bytes": 13605,
+    "plan_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v2.py plan --candidate-commit <FROZEN_HEAD>",
+    "execute_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v2.py execute --candidate-commit <FROZEN_HEAD> --adapter <D0_NATIVE_ADAPTER_FACTORY> --run-id <ACTIVE_RUN> --lease-token <LEASE> --cancel-token <CANCEL> --output <RECEIPT_JSON>",
+    "verify_command": "python3 scripts/asp-production-conveyor-v3/f0/materialize_shared_foundation_bindings_v2.py verify --candidate-commit <FROZEN_HEAD> --receipt <RECEIPT_JSON>",
+    "penpot_write_authority": "D0/PUBLISH_ONLY",
+    "requires_d0_integrate_pass": true,
+    "guard_before_every_mutation": true,
+    "specimen": {
+      "name": "F-SHARED-FOUNDATION-BINDINGS/current-reconstructed",
+      "placements": [
+        {"id": "color/page", "component_id": "foundation.color.roles", "state": "page-canvas", "consumer": "pattern.free-collection-page"},
+        {"id": "color/card", "component_id": "foundation.color.roles", "state": "card-surface", "consumer": "component.event-card"},
+        {"id": "color/action", "component_id": "foundation.color.roles", "state": "primary-action", "consumer": "component.event-card"},
+        {"id": "color/focus", "component_id": "foundation.color.roles", "state": "focus-visible", "consumer": "component.mobile-bottom-nav"},
+        {"id": "type/body", "component_id": "foundation.typography", "state": "body-16-1.6", "consumer": "component.event-card"},
+        {"id": "type/heading-500", "component_id": "foundation.typography", "state": "heading-24", "consumer": "pattern.free-collection-page"},
+        {"id": "type/heading-600", "component_id": "foundation.typography", "state": "heading-clamp-28-40", "consumer": "pattern.free-collection-page"},
+        {"id": "type/display-700", "component_id": "foundation.typography", "state": "display-clamp-35.2-73.6", "consumer": "pattern.free-collection-page"},
+        {"id": "space/base", "component_id": "foundation.spacing-sizing-density", "state": "4px", "consumer": "all"},
+        {"id": "space/control", "component_id": "foundation.spacing-sizing-density", "state": "44px-target", "consumer": "component.event-card"},
+        {"id": "space/card-gap", "component_id": "foundation.spacing-sizing-density", "state": "16px", "consumer": "component.event-card"},
+        {"id": "space/section", "component_id": "foundation.spacing-sizing-density", "state": "32px", "consumer": "pattern.free-collection-page"},
+        {"id": "shape/radius-sm", "component_id": "foundation.radius-border-elevation", "state": "radius-sm", "consumer": "component.mobile-bottom-nav"},
+        {"id": "shape/radius-lg", "component_id": "foundation.radius-border-elevation", "state": "radius-lg", "consumer": "component.event-card"},
+        {"id": "shape/shadow-1", "component_id": "foundation.radius-border-elevation", "state": "shadow-1", "consumer": "component.event-card"},
+        {"id": "layout/content", "component_id": "foundation.layout-responsive-layering", "state": "1180px", "consumer": "pattern.free-collection-page"},
+        {"id": "layout/wide", "component_id": "foundation.layout-responsive-layering", "state": "1440px", "consumer": "pattern.free-collection-page"},
+        {"id": "layout/mobile", "component_id": "foundation.layout-responsive-layering", "state": "max-759px", "consumer": "component.mobile-bottom-nav"},
+        {"id": "layout/safe-area", "component_id": "foundation.layout-responsive-layering", "state": "fixed-stack-safe-area", "consumer": "component.mobile-bottom-nav"},
+        {"id": "motion/fast", "component_id": "foundation.motion-accessibility", "state": "160ms", "consumer": "component.event-card"},
+        {"id": "motion/base", "component_id": "foundation.motion-accessibility", "state": "220ms", "consumer": "pattern.free-collection-page"},
+        {"id": "motion/reduced", "component_id": "foundation.motion-accessibility", "state": "prefers-reduced-motion", "consumer": "all"},
+        {"id": "icon/not-interested", "component_id": "foundation.asset.icon-action", "state": "not-interested-default-focus", "consumer": "component.event-card"},
+        {"id": "icon/calendar-add", "component_id": "foundation.asset.icon-action", "state": "calendar-add-default-focus", "consumer": "component.event-card"},
+        {"id": "icon/share", "component_id": "foundation.asset.icon-action", "state": "share-default-focus", "consumer": "component.event-card"},
+        {"id": "icon/favorite", "component_id": "foundation.asset.icon-action", "state": "favorite-outline-solid", "consumer": "component.event-card"},
+        {"id": "medallion/44", "component_id": "foundation.asset.medallion", "state": "44px-transparent", "consumer": "component.event-card"},
+        {"id": "medallion/60", "component_id": "foundation.asset.medallion", "state": "60px-transparent", "consumer": "component.event-card"},
+        {"id": "medallion/88", "component_id": "foundation.asset.medallion", "state": "88px-transparent", "consumer": "pattern.free-collection-page"},
+        {"id": "brand/primary-mark", "component_id": "foundation.asset.brand", "state": "intrinsic-aspect", "consumer": "component.brand-lockup"},
+        {"id": "brand/desktop", "component_id": "foundation.asset.brand", "state": "desktop-lockup", "consumer": "component.brand-lockup"},
+        {"id": "brand/mobile", "component_id": "foundation.asset.brand", "state": "mobile-lockup", "consumer": "component.brand-lockup"}
+      ]
+    },
+    "receipt_marker": "ASP_BUILD_RESULT_V2",
+    "readback_success_marker": "F0_SHARED_BINDINGS_READBACK_PASS"
+  },
+  "visual_defect_coverage": {
+    "P0-ASSET-POSTER-OCCLUDED": {
+      "directive_comment": 5479702814,
+      "routing_comment": 5479702819,
+      "status": "EXTERNAL_GEOMETRY_REPAIR_REQUIRED_BEFORE_CONSUMER_ACCEPTANCE",
+      "owners": ["D0/MAT", "U0"],
+      "f0_contribution": [
+        "exact action/nav asset identities and transparent medallion policy",
+        "square backing and generic substitute forbidden",
+        "standalone foundation board does not overlay poster media",
+        "consumer root remains read-only rejected evidence"
+      ],
+      "acceptance_dependency": "all poster slots must be visible and unoccluded in a new consumer root with exact Astro evidence"
+    },
+    "P0-TEXT-LINEHEIGHT-CLIPPING": {
+      "directive_comment": 5479702814,
+      "routing_comment": 5479702819,
+      "status": "EXTERNAL_GEOMETRY_REPAIR_REQUIRED_BEFORE_CONSUMER_ACCEPTANCE",
+      "owners": ["D0/MAT", "U0", "A0"],
+      "f0_contribution": [
+        "regular and bold font bytes pinned by SHA-256",
+        "body line-height 1.6 and tight line-height 1.08 preserved",
+        "silent fallback and outlined product text forbidden",
+        "shared binding specimen exposes wrap/line-height values without claiming page geometry"
+      ],
+      "acceptance_dependency": "all typography in the new consumer root must show complete unclipped lines at exact Astro bounds"
+    }
+  },
+  "validation": {
+    "pre_integrate": [
+      "five producer package blobs resolve exactly",
+      "action producer revision 2 has nine exact asset variants",
+      "central registry hash resolves",
+      "nine binding components and 32 placements",
+      "primitive-to-semantic-to-component-to-pattern-to-archetype direction only",
+      "no direct primitive coupling",
+      "both current V0 P0 directives routed without false closure",
+      "standalone board only; rejected consumer root immutable",
+      "runner enforces D0/PUBLISH and per-write lease/cancel guard"
+    ],
+    "d0_integrate_required": [
+      "remote-read frozen branch HEAD and package Git blob",
+      "run plan command and obtain F0_SHARED_BINDINGS_PLAN_PASS",
+      "accept or reject each producer package identity",
+      "verify action registry/integrated navigation registry tuple",
+      "bind actual native Penpot adapter for nine component and one specimen operation families",
+      "publish D0_INTEGRATION_RESULT_V2 PASS or exact REPAIR with zero Penpot mutations"
+    ],
+    "publisher_required": [
+      "new ACTIVE run and per-write cancel checks",
+      "roots=1",
+      "components=9",
+      "instances=32",
+      "detached_instances=0",
+      "screenshot_shapes=0",
+      "validate=[]",
+      "nonempty export",
+      "§2.7 provenance receipt",
+      "consumer defects remain externally open",
+      "rejected root mutation=false"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "EventCard foundation consumers", "surfaces": ["actions", "typography", "spacing", "radius", "medallion"]},
+    {"case": "MobileBottomNav foundation consumers", "surfaces": ["navigation assets", "type", "density", "safe-area", "layering"]},
+    {"case": "desktop/mobile brand lockup", "surfaces": ["wordmark", "endorsement", "currentColor"]},
+    {"case": "free collection and Date Listing", "status": "read-only evidence until external geometry/provenance repair"}
+  ],
+  "known_nonblocking_differences": [
+    "binding arrows and labels are documentation, not product UI",
+    "non-native CSS variables remain exact metadata where Penpot has no native variable type",
+    "standalone board does not prove free-page geometry or close poster/text defects",
+    "historical producer v1 markers remain source packages unless D0/INTEGRATE explicitly promotes them"
+  ],
+  "forbidden": [
+    "direct primitive coupling",
+    "theme-to-primitive mutation",
+    "fallback or substitute asset",
+    "old Penpot UUID reuse",
+    "detached or screenshot implementation",
+    "silent visual change",
+    "owner-rejected root mutation",
+    "Penpot mutation before D0/INTEGRATE PASS",
+    "claiming either current V0 P0 consumer defect closed"
+  ]
+}
