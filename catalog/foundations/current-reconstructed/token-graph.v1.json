@@ -1,0 +1,22 @@
+{
+  "schema_version": "kenigevents.foundation-token-graph.v1",
+  "marker": "ASP_FOUNDATION_TOKEN_GRAPH_V1",
+  "source_commit": "64f75d10f7aff33fa616cee212878bd9d03673b1",
+  "theme_alias": "current-reconstructed",
+  "edges": [
+    ["primitive.color.brand.600", "semantic.action.primary", "--ke-color-brand-600"],
+    ["primitive.color.canvas", "semantic.surface.canvas", "--ke-color-canvas"],
+    ["primitive.color.ink", "semantic.content.primary", "--ke-color-ink"],
+    ["primitive.color.focus", "semantic.focus.ring", "--ke-color-focus"],
+    ["primitive.font.sans", "semantic.typography.default", "--ke-font-sans"],
+    ["primitive.space.1..16", "semantic.spacing.scale", "--ke-space-*"],
+    ["primitive.radius.sm..pill", "semantic.shape.control", "--ke-radius-*"],
+    ["semantic.action.primary", "component.button.primary", ".ke-button--primary"],
+    ["semantic.surface.canvas", "component.listing-shell", ".ke-listing-shell"],
+    ["semantic.navigation.sticky", "component.listing-time-nav", ".ke-time-nav"],
+    ["component.listing-time-nav", "pattern.date-listing", "/segodnya/, /zavtra/, /vyhodnye/"],
+    ["component.button.primary", "theme.current-reconstructed", "no-op alias"]
+  ],
+  "compatibility_aliases": {"--bg": "--ke-color-canvas", "--surface": "--ke-color-surface", "--text": "--ke-color-ink", "--primary": "--ke-color-brand-600", "--accent": "--ke-color-accent-600"},
+  "validation": "all edges are declarative census links; this file does not authorize CSS or component mutation"
+}
