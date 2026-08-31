@@ -1,7 +1,7 @@
 schema_version: kenigevents.asp-page-profile.v1
 profile_id: free-collection.owner-review.v1
-profile_version: 1.1.0
-status: BLOCKED_OWNER_REJECTED
+profile_version: 1.1.1
+status: ACTIVE_BOUNDED_EVENTCARD_REPAIR
 
 requirements_contract:
   id: kenigevents.asp-conformance
@@ -15,13 +15,13 @@ requirements_contract:
 
 asset_registry:
   id: kenigevents.ui-assets.v1
-  version: 1.0.0
-  status: ACTIVE_FAIL_CLOSED
+  version: 1.1.0
+  status: ACTIVE
   repository: onedayonemasterpiece/lovekgd-design-system
   path: contracts/assets/ui-asset-registry.v1.yaml
-  commit: a0d66b832e97689536329fad4f0684cfe1001ca1
-  git_blob_sha1: cef9ec2ae159027267e8ec1e8e6a20686f995ff9
-  sha256: 03e0209794b58c59dcb04edba8593d25866a9d701df1b8671861c0cc79ebb7bc
+  commit: 0eb4c0a505e0aea522da2138cb1fb40f97d45edf
+  git_blob_sha1: 271a622633f399bb52cfe322c259a8dc4162bf7e
+  sha256: bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4
 
 authority_mode: ASTRO_AS_IS_REFERENCE
 
@@ -47,7 +47,7 @@ reference_case:
     - event.real.2182
     - event.real.6711
     - event.real.7609
-  reference_iso: 2026-08-29T14:00:00+02:00
+  reference_iso: 2026-08-30T12:00:00+02:00
   timezone: Europe/Kaliningrad
   locale: ru-RU
 
@@ -97,20 +97,20 @@ local_acceptance:
   cancelled_or_unreceipted_run_allowed: false
 
 asset_bindings:
-  status: BLOCKED_UNRESOLVED_ASSET_IDENTITY
+  status: RESOLVED_ACTIVE
   required_slots:
     - asset_id: icon.action.not_interested
       semantic_slot: card.utility.not_interested
-      registry_status: UNRESOLVED_BLOCKING
+      registry_status: RESOLVED_ACTIVE
     - asset_id: icon.action.calendar_add
       semantic_slot: card.primary_action.calendar_add
-      registry_status: UNRESOLVED_BLOCKING
+      registry_status: RESOLVED_ACTIVE
     - asset_id: icon.action.share
       semantic_slot: card.social.share
-      registry_status: UNRESOLVED_BLOCKING
+      registry_status: RESOLVED_ACTIVE
     - asset_id: icon.action.favorite
       semantic_slot: card.social.favorite
-      registry_status: UNRESOLVED_BLOCKING
+      registry_status: RESOLVED_ACTIVE
   acceptance:
     exact_source_path_required: true
     immutable_commit_required: true
@@ -123,8 +123,20 @@ asset_bindings:
     owner_disposition_required: true
 
 geometry_proof:
-  status: BLOCKED_UNRESOLVED_GEOMETRY
-  authority: pinned_astro_computed_style_and_source
+  status: RESOLVED_EXACT_SOURCE_BOUND_GEOMETRY
+  authority: contract-current Source-A c7c3e236 exact G12 browser evidence
+  repository: onedayonemasterpiece/lovekgd-design-system
+  branch: task/d0-corpus-20260831
+  commit: bf7a4c9aa20978d297bd8f53058042e0436f8554
+  path: catalog/corpus-d0/free-collection-eventcard-geometry-proof.v1.json
+  raw_sha256: f176e96786b7f0e56cd292e122fb3ce006c2983d3c6fac8686fcf36d9862442b
+  proof_payload_sha256: 5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307
+  proposed_update_sha256: 59bddd1ae4c07c2de19792c2aeec18058681f91bfd30e7e6e27fd7608d3e7438
+  required_cases:
+    - eventcard.desktop-wide-calendar.8006
+    - eventcard.desktop-packed-calendar-absent.2182
+    - eventcard.mobile-wide-calendar.8006
+    - eventcard.mobile-packed-calendar-absent.2182
   critical_regions:
     - event_card_outer_surface
     - event_card_media_mask
@@ -165,30 +177,40 @@ geometry_proof:
     - icon_text_gap
     - resolved_token_name_and_value
   proof_status:
-    event_card_outer_surface: unresolved
-    event_card_media_mask: unresolved
-    admission_pill: unresolved
-    calendar_primary_action: unresolved
-    not_interested_action: unresolved
-    social_action_row: unresolved
-    share_control: unresolved
-    favorite_control: unresolved
+    event_card_outer_surface: resolved_exact_all_present_cases
+    event_card_media_mask: resolved_exact_all_present_cases
+    admission_pill: resolved_exact_all_present_cases
+    calendar_primary_action: resolved_exact_present_8006_and_absent_expected_2182
+    not_interested_action: resolved_exact_all_present_cases
+    social_action_row: resolved_exact_all_present_cases
+    share_control: resolved_exact_all_present_cases
+    favorite_control: resolved_exact_all_present_cases
 
 materialization:
-  status: BLOCKED
-  allowed_to_mutate_penpot: false
-  blockers:
-    - asset-bindings-not-content-addressed
-    - geometry-not-proven-from-pinned-astro-computed-style
-    - materialization-provenance-receipt-missing
-    - stop-cancel-semantics-not-proven
-    - owner-rejected-current-frame
+  status: READY_FOR_EXACT_BOUNDED_EVENTCARD_REPAIR
+  allowed_to_mutate_penpot: true
+  authorization_scope:
+    package_id: D0-FREE-EVENTCARD-CONTRACT-CURRENT-R1
+    file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
+    page_id: c16498cb-b51d-8030-8008-904bd8fc9c53
+    existing_root_id: 313fb1ed-0d5c-8095-8008-9108df52b2ce
+    sole_writer: /root/publish_r2
+    cases:
+      - eventcard.desktop-wide-calendar.8006
+      - eventcard.desktop-packed-calendar-absent.2182
+      - eventcard.mobile-wide-calendar.8006
+      - eventcard.mobile-packed-calendar-absent.2182
+    rows_shell_full_page_allowed: false
+    second_top_level_root_allowed: false
+  blockers: []
   resume_condition:
-    - resolve all required asset identities
-    - record exact geometry proof for every critical region
-    - start a new explicitly identified materialization run
-    - prove active lease and cancellation checks
-    - emit a complete provenance receipt
+    - exact publisher bundle binds this profile, registry, geometry and materializer hashes
+    - a new exact ACTIVE run is installed for /root/publish_r2
+    - the materializer proves active lease and cancellation checks before every mutation
+    - the run emits the complete provenance receipt required below
+  full_page_materialization:
+    status: BLOCKED_PENDING_U0_A0_F0_DEPENDENCIES
+    allowed_to_mutate_penpot: false
 
 provenance_receipt_requirements:
   required: true
