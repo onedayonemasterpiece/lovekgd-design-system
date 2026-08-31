@@ -1,0 +1,140 @@
+{
+  "schema_version": "asp.foundation-package.v3",
+  "marker": "ASP_PACKAGE_READY_V3",
+  "package_id": "F-TYPOGRAPHY-LAYOUT",
+  "owner": "F0",
+  "priority": "P0_FALLBACK_VISIBLE",
+  "status": "READY_TO_PUBLISH",
+  "branch": "chatgpt/f0-foundations-assets-20260831",
+  "sha": "CONTAINING_COMMIT",
+  "paths": ["catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v1.json"],
+  "source_authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "runtime": {"repository": "onedayonemasterpiece/events-bot-new", "commit": "f2d658e8be057f3b75431f6b77e4887af4536028"},
+    "runtime_files": [
+      {"path": "site/src/styles/design-system.css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+      {"path": "site/src/layouts/EventLayout.astro", "sha256": "4c54c9fbfe44ab7164dfa3504d9d44137b0a76b490ca7fa85326b4b6034cb483"},
+      {"path": "site/src/components/MobileBottomNav.astro", "git_blob_sha1": "54fe6d86372e531a1d0320cd52afbdbbb5e10448"}
+    ],
+    "generation_19_font_binding": {
+      "accepted_executor_head": "4d352be4f908209091020bf1689792f1aa7e4280",
+      "manifest_path": "catalog/penpot-executor/g14/font-source-binding.json",
+      "manifest_content_sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226",
+      "resolved_family_in_frozen_A": "DejaVu Sans",
+      "regular": {"path": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "weight": 400, "bytes": 759720, "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280"},
+      "bold": {"path": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", "weight": 700, "bytes": 708920, "sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895"},
+      "binaries_committed": false,
+      "scope": "actual resolved font for the accepted frozen Astro evidence and current Penpot executor; not a rewrite of the CSS family contract"
+    }
+  },
+  "assets_and_hashes": [
+    {"id": "foundation.source.design-system-css", "sha256": "a02093da61d7a12af2863f77825a58ccafdfbb5b16c89168ae45b77b42e51042"},
+    {"id": "foundation.font-source.regular", "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280", "bytes": 759720, "committed": false},
+    {"id": "foundation.font-source.bold", "sha256": "5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895", "bytes": 708920, "committed": false},
+    {"id": "foundation.font-source.manifest", "sha256": "7c7200f93156ee60a456f1b666b84d73a45b405ce23198150c89c87d092d1226"}
+  ],
+  "foundation_or_component_ids": [
+    "foundation.typography",
+    "foundation.layout-responsive-layering",
+    "specimen.typography.scale",
+    "specimen.typography.line-height",
+    "specimen.typography.font-binding",
+    "specimen.layout.containers",
+    "specimen.layout.breakpoints",
+    "specimen.layout.sticky-stack",
+    "specimen.layout.layering",
+    "specimen.layout.safe-area",
+    "specimen.layout.media-clamp"
+  ],
+  "typography": {
+    "css_family_contract": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    "frozen_A_resolved_family": "DejaVu Sans",
+    "root_px": 16,
+    "sizes": {
+      "100": {"css": "0.75rem", "px_at_root_16": 12},
+      "200": {"css": "0.875rem", "px_at_root_16": 14},
+      "300": {"css": "1rem", "px_at_root_16": 16},
+      "400": {"css": "1.125rem", "px_at_root_16": 18},
+      "500": {"css": "1.5rem", "px_at_root_16": 24},
+      "600": {"css": "clamp(1.75rem, 4vw, 2.5rem)", "min_px": 28, "max_px": 40},
+      "700": {"css": "clamp(2.2rem, 7vw, 4.6rem)", "min_px": 35.2, "max_px": 73.6}
+    },
+    "line_heights": {"tight": 1.08, "body": 1.6},
+    "weight_policy": "400 and 700 are byte-pinned for current Penpot parity; other observed numeric weights remain consumer-local facts and must not be synthesized into font files"
+  },
+  "layout": {
+    "breakpoints": [
+      "max-width: 720px",
+      "max-width: 759px",
+      "min-width: 760px",
+      "max-width: 980px",
+      "min-width: 1024px",
+      "max-width: 1120px",
+      "max-width: 1180px",
+      "min-width: 1760px"
+    ],
+    "containers": {"content_max": "1180px", "content_wide_max": "1440px"},
+    "fixed_and_sticky_heights": {"header_bar": "57px", "header_tag": "88px", "listing_time_nav": "56px", "mobile_bottom_nav_height": "var(--mobile-bottom-stack-h)", "mobile_nav_min_target": "var(--mobile-nav-h)", "safe_area": "env(safe-area-inset-bottom)"},
+    "layering": [
+      {"band": "page", "z": 1},
+      {"band": "weekend-heads", "z": 8},
+      {"band": "listing-time-nav", "z": [12, 50]},
+      {"band": "popover", "z": [32, 55]},
+      {"band": "mobile-bottom-nav", "z": 40},
+      {"band": "fixed-shell", "z": [48, 52]},
+      {"band": "header", "z": 60},
+      {"band": "modal-focus", "z": 80}
+    ],
+    "responsive_media_height": "clamp(221px, min(13vw, 24svh), 244px)",
+    "control_min": "44px"
+  },
+  "target_penpot_page": {"name": "04 · Foundations · Typography and layout", "create_if_missing": true, "accepted_old_penpot_ids": false},
+  "expected_roots": 1,
+  "expected_components": 9,
+  "expected_instances": 39,
+  "materialization_entry_point": {
+    "kind": "declarative-penpot-build-plan",
+    "operations": [
+      "verify the generation-19 regular and bold font bytes before any text node is created",
+      "bind text nodes to the exact current Penpot DejaVu Sans family/variant IDs discovered by the accepted executor",
+      "retain the complete CSS stack as semantic metadata and show the actual resolved family separately",
+      "create the seven-size responsive type scale with formula labels, Cyrillic specimens and tight/body line-height rows",
+      "create measured 1180px and 1440px container specimens scaled to the board with literal labels",
+      "create breakpoint, sticky-height, safe-area and z-index stack specimens without collapsing duplicate observed z values",
+      "show listing media clamp at min/intermediate/max labelled states and a 44px target",
+      "attach package/source/font hashes; validate; export typography and layout regions"
+    ],
+    "inputs": ["#/typography", "#/layout", "#/source_authority/generation_19_font_binding"]
+  },
+  "validation": {
+    "pre_publish": [
+      "seven exact type-size formulas",
+      "two exact line-height values",
+      "regular and bold font-byte hashes pinned",
+      "eight observed breakpoint expressions",
+      "two content widths, three fixed/sticky heights, eight layering bands",
+      "no font binary committed",
+      "no old Penpot UUIDs"
+    ],
+    "publisher_required": [
+      "font_byte_identity_regular=PASS",
+      "font_byte_identity_bold=PASS",
+      "all_text_nodes_use_observed_penpot_font_ids",
+      "created_or_reused_components=9",
+      "detached_instances=0",
+      "validate=[]",
+      "typography_and_layout_exports_nonempty"
+    ]
+  },
+  "astro_evidence_cases": [
+    {"case": "free page desktop", "widths": [1180, 1440], "type_tokens": [500, 600, 700]},
+    {"case": "free page mobile", "breakpoint": "max-width: 759px", "fixed": ["header", "mobile-bottom-nav", "safe-area"]},
+    {"case": "EventCard media", "height": "clamp(221px, min(13vw, 24svh), 244px)"}
+  ],
+  "known_nonblocking_differences": [
+    "The CSS semantic stack starts with Inter, while accepted frozen-A evidence resolves to byte-pinned DejaVu Sans; both facts are shown rather than conflated.",
+    "Responsive clamp formulas are documented at min/mid/max states; one static Penpot export cannot encode every viewport.",
+    "Numeric weights other than 400/700 remain consumer-local and are not mapped to unverified font binaries."
+  ],
+  "forbidden": ["unverified font substitution", "outlining product text", "committing font binaries", "breakpoint normalization", "z-index deduplication", "invented grid", "old Penpot UUID reuse"]
+}
