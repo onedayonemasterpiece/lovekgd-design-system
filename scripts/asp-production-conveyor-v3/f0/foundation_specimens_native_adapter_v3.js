@@ -4,7 +4,7 @@
  */
 const F0_CONFIG = Object.freeze({
   schema: "kenigevents.f0-foundation-native-adapter.v3",
-  adapterRevision: "R3.5",
+  adapterRevision: "R3.6",
   fileId: "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
   pageName: "03 · Foundations · Current reconstructed specimens · Candidate",
   pageId: "313fb1ed-0d5c-8095-8008-9183322ab3a9",
@@ -23,11 +23,12 @@ const F0_CONFIG = Object.freeze({
   assetRegistrySha256: "bbb07cc7d218d4ff69cc21ee002652b21c9e6c4efdbf65a23b9805f97eb7efb4",
   geometryProofSha256: "5395c56376847d36a6ebc8e5d4988a2b06c4cac9acd27426dd73276620031307",
   protectedProjectionMode: "SAME_RUN_PROBE_THEN_EXECUTE",
-  protectedProbeBaseline: {revision:106,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
+  protectedProbeBaseline: {revision:110,chars:84033,utf8Bytes:84034,sha256:"0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"},
   componentPath: "Foundation / Specimen",
   duplicatedComponentPath: "Foundation / Specimen / Foundation / Specimen",
   rev106RootIdSuffix: "918a0c1473af",
   rev106PlacementCount: 37,
+  rev110NamingState: {canonicalCount:7,duplicateComponentId:"foundation.accessibility",attemptedCount:6},
   rev106Components: {
     "foundation.colors-and-modes": {componentIdSuffix:"9189b21c5ddc",mainIdSuffix:"918348f8d9c1"},
     "foundation.status": {componentIdSuffix:"9189b288bc37",mainIdSuffix:"9189b22d2137"},
@@ -106,6 +107,7 @@ function f0ComponentNamingState(component,componentId){
 function f0PlacementSnapshot(page,requireRev106=false){const roots=f0FindStable(page,"root");f0Assert(roots.length===1&&f0IdEnds(roots[0],F0_CONFIG.rev106RootIdSuffix),"rev106 root identity drift");const instances=Array.from(roots[0].children||[]).filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"placement-id")),shapeIds=instances.map(s=>s.id).sort(),semanticIds=instances.map(s=>s.getSharedPluginData(F0_CONFIG.namespace,"placement-id")).sort();f0Assert(new Set(shapeIds).size===instances.length&&new Set(semanticIds).size===instances.length&&instances.every(s=>s.isComponentCopyInstance?.()&&s.component?.()),"rev106 placements detached or duplicated");if(requireRev106)f0Assert(instances.length===F0_CONFIG.rev106PlacementCount,"rev106 placement count drift");return {rootId:roots[0].id,count:instances.length,shapeIds,semanticIds};}
 function f0SamePlacementSnapshot(left,right){return f0Canonical(left)===f0Canonical(right);}
 function f0CanaryRecoveryState(states,canaryId){return states.length===8&&states.find(s=>s.componentId===canaryId)?.canonical===true&&states.filter(s=>s.componentId!==canaryId).every(s=>s.duplicated);}
+function f0NamingPhaseBoundary(created){return created>0;}
 function f0RepairComponentNaming(component,componentId){const before=f0ComponentNamingState(component,componentId),componentNativeId=component.id,mainNativeId=before.main.id;f0Assert(before.duplicated,"component naming is neither canonical nor exact rev106 duplicate");component.path=before.names.path;component.name=before.names.leaf;before.main.name=before.names.full;f0Assert(component.id===componentNativeId&&before.main.id===mainNativeId,`component identity changed during naming repair: ${componentId}`);return {componentId,componentNativeId,mainNativeId,expected:before.names};}
 function f0Rev79Partial(page) {
   const exact=F0_CONFIG.rev79Partial,direct=Array.from(page.root.children||[]),boards=f0FindStable(page,`component/${exact.componentId}`);f0Assert(page.id===F0_CONFIG.pageId,"rev79 candidate page id drift");f0Assert(direct.length===2,"rev79 candidate page has nonexact extra shapes");f0Assert(boards.length===1&&f0IdEnds(boards[0],exact.boardIdSuffix),"rev79 partial board missing or drifted");
@@ -225,6 +227,7 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
     const attempted=storage.f0FoundationNamingAttemptsV1||[];
     for(const state of namingStates().filter(s=>!s.canonical)){f0Assert(state.componentId!==canaryId,"verified naming canary regressed");f0Assert(!attempted.includes(state.componentId),`naming repair previously attempted without canonical later readback: ${state.componentId}`);if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"component-naming-bulk",created,pageId:page.id,extra:{namingCanary}});const before=f0PlacementSnapshot(page,false);f0Write(penpot,storage,`component-naming:${state.componentId}`,()=>{f0RepairComponentNaming(state.component,state.componentId);created++});const after=f0PlacementSnapshot(page,false);f0Assert(f0SamePlacementSnapshot(before,after),`component naming changed linked placements: ${state.componentId}`);attempted.push(state.componentId);storage.f0FoundationNamingAttemptsV1=[...attempted];}
   }
+  if(f0NamingPhaseBoundary(created))return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"component-naming-bulk",created,pageId:page.id,extra:{namingCanary}});
   let roots=f0FindStable(page,"root");f0Assert(roots.length<=1,"duplicate managed root");let root=roots[0];
   if(!root){if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"root",created,pageId:page.id});root=f0Write(penpot,storage,"root",()=>{created++;return f0CreateRoot(penpot,page)});}
   for(const id of Object.keys(F0_CONFIG.domains)){const xy=f0PlacementXY(F0_CONFIG.placements.find(p=>p.componentId===id)),matches=Array.from(root.children||[]).filter(s=>s.getSharedPluginData(F0_CONFIG.namespace,"section")===id);f0Assert(matches.length<=1,`duplicate section: ${id}`);if(!matches.length){if(created>=F0_CONFIG.maxCreatesPerCall)return await f0FinalizeBatch({penpot,storage,protectedShapes,protectedBefore,phase:"sections",created,pageId:page.id});f0Write(penpot,storage,`section:${id}`,()=>{const t=f0Text(penpot,root,`Section · ${id}`,id,48,xy.sectionY+12,18,"#221A14");t.setSharedPluginData(F0_CONFIG.namespace,"section",id);created++});}}
@@ -237,4 +240,4 @@ async function runF0FoundationSpecimensV3({penpot,storage}) {
   return {schema:F0_CONFIG.schema,status:"CANDIDATE_READBACK_VERIFIED",candidateLabel:F0_CONFIG.candidateLabel,ownerReviewState:"NOT_ACCEPTED",fileId:F0_CONFIG.fileId,pageId:page.id,rootId:root.id,counts:{components:managedComponents.length,roots:roots.length,instances:instances.length,detached:0,screenshots:screenshots.length},stableIds:census,created:0,secondRunCreated:0,protectedDigestBefore:protectedBefore.sha256,protectedDigestAfter:protectedAfter.sha256,validation:finalValidation,export:exportReceipt,finalVersionReceipt,runId:F0_CONFIG.runId,writer:F0_CONFIG.writer};
 }
 
-if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0NativeName,f0ComponentNames,f0ComponentNamingState,f0PlacementSnapshot,f0SamePlacementSnapshot,f0CanaryRecoveryState,f0RepairComponentNaming,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0Near,f0Rev79Partial,f0ResumeRev79Partial,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};
+if (typeof module !== "undefined" && module.exports) module.exports={F0_CONFIG,f0Canonical,f0NativeName,f0ComponentNames,f0ComponentNamingState,f0PlacementSnapshot,f0SamePlacementSnapshot,f0CanaryRecoveryState,f0NamingPhaseBoundary,f0RepairComponentNaming,f0Sha256,f0Guard,f0Write,f0RequireProtectedDigest,f0RequireProtectedProbeBaseline,f0Near,f0Rev79Partial,f0ResumeRev79Partial,f0VerifyCensus,f0PlacementXY,runF0FoundationSpecimensV3};

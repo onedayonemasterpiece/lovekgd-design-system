@@ -13,11 +13,12 @@ assert.equal(adapter.F0_CONFIG.placements.length,57);
 assert.equal(new Set(adapter.F0_CONFIG.placements.map(x=>x.id)).size,57);
 assert.equal(adapter.F0_CONFIG.writer,'/root/publish_r2');
 assert.equal(adapter.F0_CONFIG.fileId,'40e06342-8830-80d6-8008-8fc8a3a4cd4f');
-assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.5');
+assert.equal(adapter.F0_CONFIG.adapterRevision,'R3.6');
 assert.equal(adapter.F0_CONFIG.pageId,'313fb1ed-0d5c-8095-8008-9183322ab3a9');
 assert.notEqual(adapter.F0_CONFIG.pageName,'00 · Components · Free collection');
 assert.equal(adapter.F0_CONFIG.protectedProjectionMode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:106,chars:84033,utf8Bytes:84034,sha256:DIGEST});
+assert.deepEqual(adapter.F0_CONFIG.protectedProbeBaseline,{revision:110,chars:84033,utf8Bytes:84034,sha256:DIGEST});
+assert.deepEqual(adapter.F0_CONFIG.rev110NamingState,{canonicalCount:7,duplicateComponentId:'foundation.accessibility',attemptedCount:6});
 assert.deepEqual(adapter.f0PlacementXY(adapter.F0_CONFIG.placements[0]),{x:48,y:160,sectionY:112});
 
 const sourcePackage=JSON.parse(fs.readFileSync(path.join(__dirname,'../../../catalog/asp-production-conveyor-v3/f0/F-FOUNDATIONS-SPECIMENS.package.v2.json')));
@@ -59,7 +60,7 @@ assert.throws(()=>adapter.f0Guard(native({geometry_proof_sha256:'stale'}),struct
 const projection={chars:84033,utf8Bytes:84034,sha256:DIGEST};
 const protectedBinding={f0FoundationProtectedProjectionV1:{schema:'kenigevents.f0-protected-projection.v1',run_id:adapter.F0_CONFIG.runId,file_id:adapter.F0_CONFIG.fileId,page_id:adapter.F0_CONFIG.protectedPageId,root_ids:[...adapter.F0_CONFIG.protectedRootIds],chars:84033,utf8_bytes:84034,sha256:DIGEST}};
 assert.doesNotThrow(()=>adapter.f0RequireProtectedProbeBaseline(projection));
-assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev106/);
+assert.throws(()=>adapter.f0RequireProtectedProbeBaseline({...projection,sha256:'stale-rev75'}),/not independently frozen rev110/);
 assert.doesNotThrow(()=>adapter.f0RequireProtectedDigest(projection,protectedBinding));
 assert.throws(()=>adapter.f0RequireProtectedDigest(projection,{}),/missing or stale same-run protected probe binding/);
 assert.throws(()=>adapter.f0RequireProtectedDigest({...projection,sha256:'stale'},protectedBinding),/protected projection changed after same-run probe/);
@@ -91,8 +92,10 @@ assert.throws(()=>adapter.f0VerifyCensus({components:componentList,roots:[root],
 const duplicateComponents=Object.fromEntries(ids.map(componentId=>{const tuple=adapter.F0_CONFIG.rev106Components[componentId],names=adapter.f0ComponentNames(componentId),main=stableShape(`component/${componentId}`);main.id=`313fb1ed-0d5c-8095-8008-${tuple.mainIdSuffix}`;main.name=`${adapter.F0_CONFIG.duplicatedComponentPath} / ${names.leaf}`;return [componentId,{id:`313fb1ed-0d5c-8095-8008-${tuple.componentIdSuffix}`,name:names.leaf,path:adapter.F0_CONFIG.duplicatedComponentPath,mainInstance:()=>main}]}));
 assert(ids.every(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id).duplicated));const colorId='foundation.colors-and-modes',duplicateComponent=duplicateComponents[colorId],duplicateMain=duplicateComponent.mainInstance(),preservedIds=[duplicateComponent.id,duplicateMain.id];adapter.f0RepairComponentNaming(duplicateComponent,colorId);assert.equal(adapter.f0ComponentNamingState(duplicateComponent,colorId).canonical,true);assert.deepEqual([duplicateComponent.id,duplicateMain.id],preservedIds);assert(ids.slice(1).every(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id).duplicated));const recoveryStates=ids.map(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id));assert.equal(adapter.f0CanaryRecoveryState(recoveryStates,colorId),true);adapter.f0RepairComponentNaming(duplicateComponents[ids[1]],ids[1]);assert.equal(adapter.f0CanaryRecoveryState(ids.map(id=>adapter.f0ComponentNamingState(duplicateComponents[id],id)),colorId),false);
 const snapshotRoot=sharedShape({id:`313fb1ed-0d5c-8095-8008-${adapter.F0_CONFIG.rev106RootIdSuffix}`,children:instances.slice(0,37)} ,{'stable-id':'root'});const snapshotPage={root:sharedShape({id:'snapshot-page-root',children:[snapshotRoot]})};const snapshot=adapter.f0PlacementSnapshot(snapshotPage,true);assert.equal(snapshot.count,37);assert.equal(new Set(snapshot.shapeIds).size,37);assert.equal(new Set(snapshot.semanticIds).size,37);
+const accessibilityId=adapter.F0_CONFIG.rev110NamingState.duplicateComponentId,rev110Components={...components,[accessibilityId]:duplicateComponents[accessibilityId]},rev110States=ids.map(id=>adapter.f0ComponentNamingState(rev110Components[id],id));assert.equal(rev110States.filter(s=>s.canonical).length,7);assert.deepEqual(rev110States.filter(s=>s.duplicated).map(s=>s.componentId),[accessibilityId]);assert.equal(ids.filter(id=>id!==colorId&&id!==accessibilityId).length,adapter.F0_CONFIG.rev110NamingState.attemptedCount);const rev110Before=adapter.f0PlacementSnapshot(snapshotPage,true);let rev110Created=0;adapter.f0RepairComponentNaming(rev110Components[accessibilityId],accessibilityId);rev110Created++;const rev110After=adapter.f0PlacementSnapshot(snapshotPage,true);assert.equal(rev110Created,1);assert.equal(adapter.f0NamingPhaseBoundary(rev110Created),true);assert.deepEqual(rev110After,rev110Before);assert.equal(rev110After.count,37);
 const exactDuplicatePath=duplicateComponents[ids[2]].path;duplicateComponents[ids[2]].path='Foundation / Wrong';assert.throws(()=>adapter.f0RepairComponentNaming(duplicateComponents[ids[2]],ids[2]),/neither canonical nor exact rev106 duplicate/);duplicateComponents[ids[2]].path=exactDuplicatePath;
 const exactPlacementId=instances[1].id;instances[1].id=instances[0].id;assert.throws(()=>adapter.f0PlacementSnapshot(snapshotPage,true),/detached or duplicated/);instances[1].id=exactPlacementId;
+assert.equal(adapter.f0NamingPhaseBoundary(1),true);assert.equal(adapter.f0NamingPhaseBoundary(0),false);assert.deepEqual(adapter.f0PlacementSnapshot(snapshotPage,true),snapshot,'one-component naming phase preserves exact 37-placement snapshot');
 
 const partialRoot=sharedShape({id:'page-root',children:[]});
 const boardParentProxy=sharedShape({id:'page-root'}),labelParentProxy=sharedShape({id:'page-root'});assert.notEqual(boardParentProxy,partialRoot);assert.notEqual(labelParentProxy,partialRoot);
@@ -113,6 +116,7 @@ const resumed=adapter.f0ResumeRev79Partial(partialPenpot,partialPage);
 assert.equal(resumed.shape.id,partialBoard.id);assert.equal(resumed.component.id,'recovered-component');assert.equal(partialLabel.parent,partialBoard);assert.equal(partialLabel.getSharedPluginData(adapter.F0_CONFIG.namespace,'role'),'label');assert(!partialRoot.children.includes(partialLabel));assert(partialBoard.children.some(s=>s.name==='Domain label'));
 
 const src=fs.readFileSync(path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/foundation_specimens_native_adapter_v3.js'),'utf8');
+const boundaryNeedle='if(f0NamingPhaseBoundary(created))return await f0FinalizeBatch',placementNeedle='for(const placement of F0_CONFIG.placements)';assert(src.indexOf(boundaryNeedle)>0&&src.indexOf(boundaryNeedle)<src.indexOf(placementNeedle),'naming phase boundary must precede every placement write');
 assert(!src.includes('fontWeight=size>=18?"700":"500"'));assert(src.includes('fontWeight=size>=18?"700":"400"'));
 for(const needle of [
   'f0Write(penpot,storage,`component:${id}`',
@@ -132,10 +136,10 @@ const out=path.join(os.tmpdir(),`f0-native-${process.pid}.js`);
 const generatedReceipt=JSON.parse(cp.execFileSync('python3',[path.join(__dirname,'../../../scripts/asp-production-conveyor-v3/f0/generate_foundation_specimens_native_executor_v3.py'),'--output',out],{encoding:'utf8'}));
 const generated=fs.readFileSync(out,'utf8'); fs.unlinkSync(out);
 assert.equal(generatedReceipt.status,'EXECUTOR_READY');
-assert.equal(generatedReceipt.adapter_revision,'R3.5');
+assert.equal(generatedReceipt.adapter_revision,'R3.6');
 assert.equal(generatedReceipt.run_id,adapter.F0_CONFIG.runId);
 assert.equal(generatedReceipt.protected_projection_mode,'SAME_RUN_PROBE_THEN_EXECUTE');
-assert.equal(generatedReceipt.protected_baseline_revision,106);
+assert.equal(generatedReceipt.protected_baseline_revision,110);
 assert.equal(generatedReceipt.requires_authoritative_native_run,true);
 assert.equal(generatedReceipt.requires_preinstalled_lease_receipt,true);
 assert(generated.startsWith(src));
