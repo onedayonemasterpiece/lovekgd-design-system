@@ -427,15 +427,22 @@ test('bounded phases build 14 linked leaves and all four exact accepted EventCar
   surface.penpot.currentFile.revn = 63;
   const legacyCard = surface.board.children.find((root) => root.getPluginData('kenigevents-g19-marker').startsWith('kenigevents:g19:p2:eventcard.desktop-wide-calendar.8006:v2'));
   const inheritedMedia = legacyCard.children.find((shape) => shape.name === 'media-link');
+  const inheritedIcons = [];
   for (const action of legacyCard.children.filter((shape) => shape.name.startsWith('action.'))) {
     const icon = walk(action).find((shape) => shape.getPluginData('kenigevents-g19-child-marker').endsWith(':icon'));
     icon.setPluginData('kenigevents-g19-child-marker', icon.getPluginData('kenigevents-g19-child-marker').replace(':v2:', ':v3:'));
     icon.setPluginData('kenigevents-payload-sha256', manifest.payload_sha256);
+    icon.pluginData.delete('kenigevents-instance-case-id');
+    inheritedIcons.push(icon);
   }
   inheritedMedia.fills = [{ fillColor: '#ffffff', fillOpacity: 1 }];
   await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'LINKED_MEDIA_FRAME_FILL_DRIFT');
   inheritedMedia.fills = [];
+  inheritedIcons[0].setPluginData('kenigevents-instance-case-id', 'foreign-case');
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p30-desktop-wide-shell.js', surface), (error) => error?.code === 'LINKED_ACTION_OVERRIDE_STATE_DRIFT');
+  inheritedIcons[0].pluginData.delete('kenigevents-instance-case-id');
   for (const path of manifest.execution.mutator_order.slice(4)) receipts.push(await executePath(`catalog/penpot-executor/g19/${path}`, surface));
+  assert.ok(inheritedIcons.every((icon) => icon.getPluginData('kenigevents-instance-case-id') === 'eventcard.desktop-wide-calendar.8006'));
   for (const [index, receipt] of receipts.entries()) {
     assert.deepEqual(receipt.readback.validation, [], manifest.execution.mutator_order[index]);
     assert.equal(receipt.readback.pageDirectRootCount, 1);

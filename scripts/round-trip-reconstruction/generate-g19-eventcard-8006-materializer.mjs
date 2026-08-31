@@ -267,6 +267,8 @@ async function installProductionRuntime(P) {
   const GENERATION = 19;
   const FIXTURE = 'event.real.8006+event.real.2182';
   const V2SHA = 'b1e236cf6e1faf59ba7e9de1cd4f6c2571349cae884b3f96f5f9743681a51330';
+  const SHA = P.payloadSha256;
+  const KP = 'kenigevents-payload-sha256', KM = 'kenigevents-g19-marker', KC = 'kenigevents-g19-child-marker', KI = 'kenigevents-instance-case-id';
   const V3SHA = 'c6c35b6f39e3cd5bc68bfe183c1df0652475533d4eecbaea8bd7bca1b4b35219';
   const LEGACY_V2_ICON_SHA256 = { icon: { not_interested: 'd8d94023de0e563663c71a628657e3e4402ed5cb36fa836f784071e83edc8ae6', calendar: 'f5465db33659eb80685704961006aa1d5f970f337dd6b330d8056c3326360633', share: '99103f01c0cbd48d87ff639dc3e6c6291a7f8c2aa147c854667d1a8f7a677cf9', like: 'e5654867ef9431714cfc53a1890fb14fcaa52c64579388f5364a0fa01ce6ea58' } };
   const marker = (key) => `kenigevents:g19:p2:${key}:v3`;
@@ -341,13 +343,13 @@ async function installProductionRuntime(P) {
   const mainOf = (component) => typeof component?.mainInstance === 'function' ? component.mainInstance() : component?.mainInstance;
   const cm = (component, pathValue, name) => {
     const main = mainOf(component);
-    return component?.name === name && [pathValue, ''].includes(component.path) && (component.path === pathValue || (main?.getPluginData?.('kenigevents-g19-marker') === marker(name) && main.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256 && main.getPluginData?.('kenigevents-build-state') === 'COMPLETE' && main.getPluginData?.('kenigevents-component-name') === name && main.getPluginData?.('kenigevents-component-id') === component.id && main.parent?.id === BOARD_ID));
+    return component?.name === name && [pathValue, ''].includes(component.path) && (component.path === pathValue || (main?.getPluginData?.(KM) === marker(name) && main.getPluginData?.(KP) === SHA && main.getPluginData?.('kenigevents-build-state') === 'COMPLETE' && main.getPluginData?.('kenigevents-component-name') === name && main.getPluginData?.('kenigevents-component-id') === component.id && main.parent?.id === BOARD_ID));
   };
   const componentOf = (main) => allComps().find((component) => mainOf(component)?.id === main?.id) || null;
   const findComp = (pathValue, name) => allComps().find((component) => cm(component, pathValue, name)) || null;
   const targetBoard = () => children(penpot.currentPage?.root).find((shape) => shape.id === BOARD_ID) || null;
-  const managedRoots = () => children(targetBoard()).filter((shape) => shape.getPluginData?.('kenigevents-g19-marker'));
-  const findRoot = (key) => managedRoots().find((shape) => shape.getPluginData('kenigevents-g19-marker') === marker(key)) || null;
+  const managedRoots = () => children(targetBoard()).filter((shape) => shape.getPluginData?.(KM));
+  const findRoot = (key) => managedRoots().find((shape) => shape.getPluginData(KM) === marker(key)) || null;
 
   function assertPrimitives() {
     if (typeof penpot === 'undefined' || typeof penpotUtils === 'undefined' || typeof storage === 'undefined') fail('PENPOT_GLOBALS_MISSING');
@@ -380,7 +382,7 @@ async function installProductionRuntime(P) {
 
   function baseline() {
     const board = context(), roots = children(board), components = allComps(), validation = validationResult();
-    const managed = roots.filter((shape) => shape.getPluginData?.('kenigevents-g19-marker'));
+    const managed = roots.filter((shape) => shape.getPluginData?.(KM));
     // The generated production constant is 56. Tests patch that literal to 41
     // only to synthesize the immutable observed rev-56 fixture in memory.
     if (!roots.length && !components.length && ER === 41) return { mode: 'TEST_FIXTURE_EMPTY_REVISION_41', revision: 41, pageDirectRoots: 1, boardId: board.id, boardChildren: 0, boardDescendants: 0, localComponents: 0, validation };
@@ -389,7 +391,7 @@ async function installProductionRuntime(P) {
     if (roots.length < EBC || roots.length > 18 || components.length < ELC || components.length > 18 || descendants < EBD) fail('PENPOT_RESUME_CENSUS_OUT_OF_BOUNDS', { revision, boardChildren: roots.length, boardDescendants: descendants, localComponents: components.length });
     if (managed.length !== roots.length) fail('UNMANAGED_ACCEPTED_BOARD_CHILDREN_PRESENT', { boardId: board.id, boardChildren: roots.length, managedRoots: managed.length });
     const rootIds = new Set(roots.map((shape) => shape.id));
-    if (components.some((component) => !rootIds.has(mainOf(component)?.id) || !mainOf(component)?.getPluginData?.('kenigevents-g19-marker'))) fail('UNMANAGED_LOCAL_COMPONENTS_PRESENT');
+    if (components.some((component) => !rootIds.has(mainOf(component)?.id) || !mainOf(component)?.getPluginData?.(KM))) fail('UNMANAGED_LOCAL_COMPONENTS_PRESENT');
     if (validation.length !== 0) fail('PREEXISTING_VALIDATION_FAILURE', { validation });
     return { mode: revision === ER ? 'ACCEPTED_NATIVE_REVISION_56_MIXED_LINEAGE' : 'G19_V3_RESUME_OR_REUSE', revision, pageDirectRoots: 1, boardId: board.id, boardChildren: roots.length, boardDescendants: descendants, localComponents: components.length, validation };
   }
@@ -422,11 +424,11 @@ async function installProductionRuntime(P) {
 
   function stamp(shape, key, role) {
     write(() => { shape.name = key; });
-    plugin(shape, 'kenigevents-g19-marker', marker(key));
+    plugin(shape, KM, marker(key));
     plugin(shape, 'kenigevents-generation', GENERATION);
     plugin(shape, 'kenigevents-fixture-id', FIXTURE);
     plugin(shape, 'kenigevents-role', role);
-    plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+    plugin(shape, KP, SHA);
     plugin(shape, 'kenigevents-accepted-roots-cleanup', 'forbidden');
   }
 
@@ -483,11 +485,11 @@ async function installProductionRuntime(P) {
     return root;
   }
 
-  const V3I = { payloadSha256: P.payloadSha256, marker, childMarker: (rootKey, childKey) => `${marker(rootKey)}:${childKey}` };
+  const V3I = { payloadSha256: SHA, marker, childMarker: (rootKey, childKey) => `${marker(rootKey)}:${childKey}` };
   const V2I = { payloadSha256: V2SHA, marker: v2Marker, childMarker: (rootKey, childKey) => `${v2Marker(rootKey)}:${childKey}` };
   const childMarker = V3I.childMarker;
   const findChild = (parent, rootKey, childKey, identity = V3I) => {
-    const matches = children(parent).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === identity.childMarker(rootKey, childKey));
+    const matches = children(parent).filter((shape) => shape.getPluginData?.(KC) === identity.childMarker(rootKey, childKey));
     if (matches.length > 1) fail('DUPLICATE_MANAGED_CHILD', { rootKey, childKey, ids: matches.map((shape) => shape.id) });
     return matches[0] || null;
   };
@@ -495,8 +497,8 @@ async function installProductionRuntime(P) {
     if (!shape || !eq(relativeX(shape), box.x || 0) || !eq(relativeY(shape), box.y || 0) || !eq(shape.width, box.width) || !eq(shape.height, box.height)) fail(code, { ...detail, expected: box, actual: shape && { x: relativeX(shape), y: relativeY(shape), width: shape.width, height: shape.height } });
   };
   function stampChild(shape, rootKey, childKey) {
-    plugin(shape, 'kenigevents-g19-child-marker', childMarker(rootKey, childKey));
-    plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+    plugin(shape, KC, childMarker(rootKey, childKey));
+    plugin(shape, KP, SHA);
   }
   function rectChild(parent, rootKey, childKey, box, color, fillOpacity = 1, style = null, allow = true, identity = V3I) {
     let shape = findChild(parent, rootKey, childKey, identity);
@@ -512,7 +514,7 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_RECT_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_RECT_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
+    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.getPluginData?.(KP) !== identity.payloadSha256) fail('MANAGED_RECT_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
     if (style) auditRadii(shape, style, 'MANAGED_RECT_RADIUS_DRIFT', { rootKey, childKey });
     return shape;
   }
@@ -531,7 +533,7 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_BOARD_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.clipContent !== true || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_BOARD_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
+    if (!fill || fill.fillColor !== color || !eq(fill.fillOpacity, fillOpacity) || array(shape.strokes).length || shape.clipContent !== true || shape.getPluginData?.(KP) !== identity.payloadSha256) fail('MANAGED_BOARD_STYLE_OR_PAYLOAD_DRIFT', { rootKey, childKey });
     auditRadii(shape, style, 'MANAGED_BOARD_RADIUS_DRIFT', { rootKey, childKey });
     return shape;
   }
@@ -549,7 +551,7 @@ async function installProductionRuntime(P) {
     }
     auditBox(shape, box, 'MANAGED_TEXT_GEOMETRY_DRIFT', { rootKey, childKey });
     const fill = array(shape.fills)[0];
-    if (shape.characters !== value || shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId || shape.getPluginData?.('kenigevents-font-family') !== FAMILY || shape.getPluginData?.('kenigevents-font-weight') !== '700' || shape.getPluginData?.('kenigevents-font-style') !== 'normal' || shape.getPluginData?.('kenigevents-font-source-sha256') !== FONT_SOURCES[700] || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, style.lineHeight) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
+    if (shape.characters !== value || shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId || shape.getPluginData?.('kenigevents-font-family') !== FAMILY || shape.getPluginData?.('kenigevents-font-weight') !== '700' || shape.getPluginData?.('kenigevents-font-style') !== 'normal' || shape.getPluginData?.('kenigevents-font-source-sha256') !== FONT_SOURCES[700] || shape.getPluginData?.(KP) !== identity.payloadSha256 || !eq(shape.fontSize, style.fontSize) || !eq(shape.lineHeight, style.lineHeight) || !eq(shape.letterSpacing || 0, style.letterSpacing || 0) || !fill || fill.fillColor !== style.color || !eq(fill.fillOpacity, style.colorOpacity)) fail('MANAGED_TEXT_CONTENT_OR_FONT_DRIFT', { rootKey, childKey, value: shape.characters });
     return shape;
   }
   function ensureIconChild(parent, rootKey, childKey, source, color, box, assetSha256, allow = true, identity = V3I) {
@@ -571,7 +573,7 @@ async function installProductionRuntime(P) {
       place(shape, parent, box);
     }
     auditBox(shape, box, 'MANAGED_ICON_GEOMETRY_DRIFT', { rootKey, childKey });
-    if (shape.getPluginData?.('kenigevents-svg-sha256') !== expectedAssetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
+    if (shape.getPluginData?.('kenigevents-svg-sha256') !== expectedAssetSha256 || shape.getPluginData?.('kenigevents-icon-color') !== color || shape.getPluginData?.(KP) !== identity.payloadSha256) fail('MANAGED_ICON_ASSET_OR_COLOR_DRIFT', { rootKey, childKey });
     return shape;
   }
   async function withUndo(fn) {
@@ -580,19 +582,19 @@ async function installProductionRuntime(P) {
     finally { penpot.history.undoBlockFinish(blockId); }
   }
 
-  const isV2 = (root, key) => root?.getPluginData?.('kenigevents-g19-marker') === v2Marker(key)
-    && root.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
+  const isV2 = (root, key) => root?.getPluginData?.(KM) === v2Marker(key)
+    && root.getPluginData?.(KP) === V2SHA;
 
   function migrateTree(root, rootKey, role) {
     if (!isV2(root, rootKey) || root.getPluginData?.('kenigevents-build-state') !== 'COMPLETE') fail('LEGACY_V2_ROOT_NOT_MIGRATABLE', { rootKey, rootId: root?.id || null });
     const oldPrefix = `${v2Marker(rootKey)}:`, newPrefix = `${marker(rootKey)}:`;
     for (const shape of walk(root).slice(1)) {
-      const childId = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
-      const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
+      const childId = shape.getPluginData?.(KC) || '';
+      const payload = shape.getPluginData?.(KP) || '';
       if (childId) {
         if (!childId.startsWith(oldPrefix) || payload !== V2SHA) fail('LEGACY_V2_CHILD_NOT_MIGRATABLE', { rootKey, shapeId: shape.id, childId, payload });
-        plugin(shape, 'kenigevents-g19-child-marker', `${newPrefix}${childId.slice(oldPrefix.length)}`);
-        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+        plugin(shape, KC, `${newPrefix}${childId.slice(oldPrefix.length)}`);
+        plugin(shape, KP, SHA);
       } else if (payload) {
         fail('LEGACY_V2_UNMARKED_PAYLOAD_DESCENDANT', { rootKey, shapeId: shape.id, payload });
       }
@@ -602,7 +604,7 @@ async function installProductionRuntime(P) {
   }
 
   async function ensureComp(spec, build, auditLegacyV2) {
-    let component = findComp(spec.path, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
+    let component = findComp(spec.path, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.(KM) === marker(spec.key));
     if (component) {
       const main = mainOf(component);
       if (isV2(main, spec.key)) {
@@ -617,7 +619,7 @@ async function installProductionRuntime(P) {
           return { component, main, created: true, migratedFrom: 'G19_V2', preservedIds: true };
         });
       }
-      if (!main || main.getPluginData?.('kenigevents-g19-marker') !== marker(spec.key)) fail('COMPONENT_IDENTITY_COLLISION', { key: spec.key, name: spec.name });
+      if (!main || main.getPluginData?.(KM) !== marker(spec.key)) fail('COMPONENT_IDENTITY_COLLISION', { key: spec.key, name: spec.name });
       if ((component.path !== spec.path || component.name !== spec.name) && main.getPluginData('kenigevents-build-state') === 'READY_FOR_COMPONENT' && !component.path && !component.name) {
         return await withUndo(async () => {
           await build(main, true);
@@ -630,7 +632,7 @@ async function installProductionRuntime(P) {
         });
       }
       if (!cm(component, spec.path, spec.name)) fail('COMPONENT_REGISTRATION_INCOMPLETE', { key: spec.key, componentId: component.id, path: component.path, name: component.name });
-      if (main.getPluginData('kenigevents-build-state') !== 'COMPLETE' || main.getPluginData('kenigevents-payload-sha256') !== P.payloadSha256) fail('COMPONENT_BUILD_STATE_DRIFT', { key: spec.key });
+      if (main.getPluginData('kenigevents-build-state') !== 'COMPLETE' || main.getPluginData(KP) !== SHA) fail('COMPONENT_BUILD_STATE_DRIFT', { key: spec.key });
       auditBox(main, { x: relativeX(main), y: relativeY(main), width: spec.box.width, height: spec.box.height }, 'COMPONENT_GEOMETRY_DRIFT', { key: spec.key });
       await build(main, true);
       return { component, main, created: false };
@@ -638,7 +640,7 @@ async function installProductionRuntime(P) {
     return await withUndo(async () => {
       let root = findRoot(spec.key);
       if (!root) root = createLeafRoot(spec);
-      if (root.getPluginData('kenigevents-payload-sha256') !== P.payloadSha256) fail('MANAGED_ROOT_PAYLOAD_DRIFT', { key: spec.key, rootId: root.id });
+      if (root.getPluginData(KP) !== SHA) fail('MANAGED_ROOT_PAYLOAD_DRIFT', { key: spec.key, rootId: root.id });
       await build(root, false);
       plugin(root, 'kenigevents-build-state', 'READY_FOR_COMPONENT');
       component = write(() => penpot.library.local.createComponent([root]));
@@ -696,7 +698,7 @@ async function installProductionRuntime(P) {
       const strokes = array(root.strokes);
       if (expectedStroke && (!strokes[0] || strokes[0].strokeColor !== slot.style.strokeColor || !eq(strokes[0].strokeOpacity, slot.style.strokeOpacity) || !eq(strokes[0].strokeWidth, slot.style.strokeWidth))) fail('LEAF_ROOT_STROKE_DRIFT', { key: spec.key });
       if (!expectedStroke && strokes.length) fail('LEAF_ROOT_STROKE_DRIFT', { key: spec.key });
-      if (root.getPluginData('kenigevents-g19-marker') !== identity.marker(spec.key) || root.getPluginData('kenigevents-payload-sha256') !== identity.payloadSha256) fail('LEAF_ROOT_PAYLOAD_DRIFT', { key: spec.key });
+      if (root.getPluginData(KM) !== identity.marker(spec.key) || root.getPluginData(KP) !== identity.payloadSha256) fail('LEAF_ROOT_PAYLOAD_DRIFT', { key: spec.key });
     };
     if (spec.kind === 'media') {
       // The linked leaf owns the reusable frame. Exact fixture artwork remains
@@ -771,38 +773,38 @@ async function installProductionRuntime(P) {
     return instance;
   }
 
-  const nestedChild = (instance, leafKey, childKey, identity = V3I) => walk(instance).slice(1).find((shape) => shape.getPluginData?.('kenigevents-g19-child-marker') === identity.childMarker(leafKey, childKey)) || null;
+  const nestedChild = (instance, leafKey, childKey, identity = V3I) => walk(instance).slice(1).find((shape) => shape.getPluginData?.(KC) === identity.childMarker(leafKey, childKey)) || null;
   function currentMaster(instance, leafKey) {
     const c = instance.component?.(), m = mainOf(c);
-    return c?.id === instance.getPluginData?.('kenigevents-linked-component-id') && c.name === leafKey && [LEAF_PATH, ''].includes(c.path) && m?.getPluginData?.('kenigevents-g19-marker') === marker(leafKey) && m.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256 && m.getPluginData?.('kenigevents-build-state') === 'COMPLETE' && m.getPluginData?.('kenigevents-component-name') === leafKey && m.getPluginData?.('kenigevents-component-id') === c.id && m.parent?.id === BOARD_ID ? m : null;
+    return c?.id === instance.getPluginData?.('kenigevents-linked-component-id') && c.name === leafKey && [LEAF_PATH, ''].includes(c.path) && m?.getPluginData?.(KM) === marker(leafKey) && m.getPluginData?.(KP) === SHA && m.getPluginData?.('kenigevents-build-state') === 'COMPLETE' && m.getPluginData?.('kenigevents-component-name') === leafKey && m.getPluginData?.('kenigevents-component-id') === c.id && m.parent?.id === BOARD_ID ? m : null;
   }
   function copyChild(instance, leafKey, childKey, identity) {
     const v2 = nestedChild(instance, leafKey, childKey, V2I);
-    if (identity === V2I && v2?.getPluginData?.('kenigevents-payload-sha256') === V2SHA) return v2;
+    if (identity === V2I && v2?.getPluginData?.(KP) === V2SHA) return v2;
     const v3 = nestedChild(instance, leafKey, childKey);
-    return v3?.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256 && (identity === V3I || currentMaster(instance, leafKey)) ? v3 : null;
+    return v3?.getPluginData?.(KP) === SHA && (identity === V3I || currentMaster(instance, leafKey)) ? v3 : null;
   }
 
   function migrateCopy(instance, leafKey) {
-    const rootMarker = instance.getPluginData?.('kenigevents-g19-marker') || '';
-    const rootPayload = instance.getPluginData?.('kenigevents-payload-sha256') || '';
-    const descendants = walk(instance).slice(1).filter((shape) => shape.getPluginData?.('kenigevents-g19-child-marker'));
-    const hasLegacyDescendants = descendants.some((shape) => shape.getPluginData('kenigevents-g19-child-marker').startsWith(`${v2Marker(leafKey)}:`));
-    if (rootMarker === marker(leafKey) && rootPayload === P.payloadSha256 && !hasLegacyDescendants) return false;
-    if (![marker(leafKey), v2Marker(leafKey)].includes(rootMarker) || ![P.payloadSha256, V2SHA].includes(rootPayload)) fail('LINKED_COPY_ROOT_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, rootMarker, rootPayload });
+    const rootMarker = instance.getPluginData?.(KM) || '';
+    const rootPayload = instance.getPluginData?.(KP) || '';
+    const descendants = walk(instance).slice(1).filter((shape) => shape.getPluginData?.(KC));
+    const hasLegacyDescendants = descendants.some((shape) => shape.getPluginData(KC).startsWith(`${v2Marker(leafKey)}:`));
+    if (rootMarker === marker(leafKey) && rootPayload === SHA && !hasLegacyDescendants) return false;
+    if (![marker(leafKey), v2Marker(leafKey)].includes(rootMarker) || ![SHA, V2SHA].includes(rootPayload)) fail('LINKED_COPY_ROOT_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, rootMarker, rootPayload });
     for (const shape of descendants) {
-      const value = shape.getPluginData('kenigevents-g19-child-marker');
-      const payload = shape.getPluginData?.('kenigevents-payload-sha256') || '';
+      const value = shape.getPluginData(KC);
+      const payload = shape.getPluginData?.(KP) || '';
       if (value.startsWith(`${v2Marker(leafKey)}:`)) {
         if (payload !== V2SHA) fail('LINKED_COPY_CHILD_NOT_MIGRATABLE', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
-        plugin(shape, 'kenigevents-g19-child-marker', `${marker(leafKey)}:${value.slice(`${v2Marker(leafKey)}:`.length)}`);
-        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
-      } else if (!value.startsWith(`${marker(leafKey)}:`) || payload !== P.payloadSha256) {
+        plugin(shape, KC, `${marker(leafKey)}:${value.slice(`${v2Marker(leafKey)}:`.length)}`);
+        plugin(shape, KP, SHA);
+      } else if (!value.startsWith(`${marker(leafKey)}:`) || payload !== SHA) {
         fail('LINKED_COPY_CHILD_IDENTITY_DRIFT', { leafKey, instanceId: instance.id, shapeId: shape.id, value, payload });
       }
     }
-    plugin(instance, 'kenigevents-g19-marker', marker(leafKey));
-    plugin(instance, 'kenigevents-payload-sha256', P.payloadSha256);
+    plugin(instance, KM, marker(leafKey));
+    plugin(instance, KP, SHA);
     return true;
   }
 
@@ -811,7 +813,7 @@ async function installProductionRuntime(P) {
     const leafKey = binding.leafKey;
     if (!auditOnly && identity === V3I) migrateCopy(instance, leafKey);
     if (!auditOnly) {
-      plugin(instance, 'kenigevents-instance-case-id', spec.caseId);
+      plugin(instance, KI, spec.caseId);
       plugin(instance, 'kenigevents-instance-slot', binding.slotName);
       if (binding.slotName === 'media-link') setFill(instance, '#000000', 0);
       else if (slot.style.backgroundOpacity > 0) setFill(instance, slot.style.backgroundColor, slot.style.backgroundOpacity);
@@ -819,13 +821,13 @@ async function installProductionRuntime(P) {
       setRadii(instance, slot.style);
       setStroke(instance, slot.style);
     }
-    if (instance.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId || instance.getPluginData?.('kenigevents-instance-slot') !== binding.slotName) fail('LINKED_INSTANCE_CASE_BINDING_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
+    if (instance.getPluginData?.(KI) !== spec.caseId || instance.getPluginData?.('kenigevents-instance-slot') !== binding.slotName) fail('LINKED_INSTANCE_CASE_BINDING_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
     if (binding.slotName === 'media-link') {
       const fills = array(instance.fills);
       const m = currentMaster(instance, leafKey), opaque = fills.length === 1 && fills[0].fillColor === '#15110f' && eq(fills[0].fillOpacity, 1);
       const inherited = fills.length === 0 && m && array(m.fills).length === 0 && children(m).length === 3;
-      const ownV2 = instance.getPluginData?.('kenigevents-g19-marker') === v2Marker(leafKey) && instance.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
-      const ownV3 = instance.getPluginData?.('kenigevents-g19-marker') === marker(leafKey) && instance.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256;
+      const ownV2 = instance.getPluginData?.(KM) === v2Marker(leafKey) && instance.getPluginData?.(KP) === V2SHA;
+      const ownV3 = instance.getPluginData?.(KM) === marker(leafKey) && instance.getPluginData?.(KP) === SHA;
       if (identity === V2I ? !(ownV2 && (opaque || inherited)) : !(ownV3 && fills.length === 0)) fail('LINKED_MEDIA_FRAME_FILL_DRIFT', { caseId: spec.caseId, fills });
       return;
     }
@@ -833,9 +835,9 @@ async function installProductionRuntime(P) {
       const label = copyChild(instance, leafKey, 'label', identity), fragment = slot.lineFragments[0];
       if (!label || !fragment) fail('LINKED_TEXT_OVERRIDE_TARGET_MISSING', { caseId: spec.caseId, slot: binding.slotName });
       const box = { x: fragment.x - slot.box.x, y: fragment.y - slot.box.y, width: fragment.width, height: fragment.height };
-      if (!auditOnly) { write(() => { label.characters = slot.text; }); place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, 'kenigevents-instance-case-id', spec.caseId); }
+      if (!auditOnly) { write(() => { label.characters = slot.text; }); place(label, instance, box); applyText(label, slot.style, fontRows); plugin(label, KI, spec.caseId); }
       auditBox(label, box, 'LINKED_TEXT_OVERRIDE_GEOMETRY_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
-      if (label.characters !== slot.text || label.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId || label.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || label.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId) fail('LINKED_TEXT_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
+      if (label.characters !== slot.text || label.getPluginData?.(KI) !== spec.caseId || label.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || label.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId) fail('LINKED_TEXT_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, slot: binding.slotName });
       return;
     }
     const action = binding.slotName.replace('action.', ''), geometry = P.descendants[spec.caseId]?.[action];
@@ -849,11 +851,16 @@ async function installProductionRuntime(P) {
       const expected = geometry[part], hidden = Boolean(expected.hidden);
       if (!auditOnly) {
         write(() => { child.hidden = hidden; });
-        plugin(child, 'kenigevents-instance-case-id', spec.caseId);
+        plugin(child, KI, spec.caseId);
         if (!hidden) place(child, instance, expected);
         if (part !== 'icon') { write(() => { child.characters = values[part]; }); applyText(child, slot.style, fontRows); }
       }
-      if (Boolean(child.hidden) !== hidden || child.getPluginData?.('kenigevents-instance-case-id') !== spec.caseId) fail('LINKED_ACTION_OVERRIDE_STATE_DRIFT', { caseId: spec.caseId, action, part });
+      const caseId = child.getPluginData?.(KI) || '';
+      const m = part === 'icon' && identity === V2I ? currentMaster(instance, leafKey) : null;
+      const mi = m ? nestedChild(m, leafKey, 'icon') : null;
+      const iconSha = { not_interested: P.iconSha256.notInterested, calendar: P.iconSha256.calendar, share: P.iconSha256.share, like: P.iconSha256.like }[action];
+      const inherited = caseId === '' && child.getPluginData?.(KC) === childMarker(leafKey, 'icon') && child.getPluginData?.(KP) === SHA && child.getPluginData?.('kenigevents-svg-sha256') === iconSha && mi?.getPluginData?.('kenigevents-svg-sha256') === iconSha && (mi.getPluginData?.(KI) || '') === '';
+      if (Boolean(child.hidden) !== hidden || (caseId !== spec.caseId && !inherited)) fail('LINKED_ACTION_OVERRIDE_STATE_DRIFT', { caseId: spec.caseId, action, part });
       if (!hidden) auditBox(child, expected, 'LINKED_ACTION_OVERRIDE_GEOMETRY_DRIFT', { caseId: spec.caseId, action, part });
       if (!hidden && part !== 'icon' && child.characters !== values[part]) fail('LINKED_ACTION_OVERRIDE_CONTENT_DRIFT', { caseId: spec.caseId, action, part });
     }
@@ -878,13 +885,13 @@ async function installProductionRuntime(P) {
       place(shape, root, box);
     }
     auditBox(shape, box, 'CASE_MEDIA_GEOMETRY_DRIFT', { caseId: spec.caseId });
-    if (shape.getPluginData?.('kenigevents-media-sha256') !== media.sha256 || shape.getPluginData?.('kenigevents-media-fit') !== media.fit || shape.getPluginData?.('kenigevents-media-position') !== '50% 50%' || shape.getPluginData?.('kenigevents-fixture-id') !== spec.fixtureId || shape.getPluginData?.('kenigevents-payload-sha256') !== identity.payloadSha256) fail('CASE_MEDIA_BINDING_DRIFT', { caseId: spec.caseId });
+    if (shape.getPluginData?.('kenigevents-media-sha256') !== media.sha256 || shape.getPluginData?.('kenigevents-media-fit') !== media.fit || shape.getPluginData?.('kenigevents-media-position') !== '50% 50%' || shape.getPluginData?.('kenigevents-fixture-id') !== spec.fixtureId || shape.getPluginData?.(KP) !== identity.payloadSha256) fail('CASE_MEDIA_BINDING_DRIFT', { caseId: spec.caseId });
     return shape;
   }
 
   async function buildStatic(spec, root, fontRows, auditOnly, identity = V3I) {
     auditRadii(root, { radiusTL: 24, radiusTR: 24, radiusBR: 24, radiusBL: 24 }, 'CARD_ROOT_RADIUS_DRIFT', { key: spec.key });
-    if (array(root.fills).length || array(root.strokes).length || root.clipContent !== false || root.getPluginData('kenigevents-g19-marker') !== identity.marker(spec.key) || root.getPluginData('kenigevents-payload-sha256') !== identity.payloadSha256) fail('CARD_ROOT_STYLE_OR_PAYLOAD_DRIFT', { key: spec.key });
+    if (array(root.fills).length || array(root.strokes).length || root.clipContent !== false || root.getPluginData(KM) !== identity.marker(spec.key) || root.getPluginData(KP) !== identity.payloadSha256) fail('CARD_ROOT_STYLE_OR_PAYLOAD_DRIFT', { key: spec.key });
     rectChild(root, spec.key, 'surface.body', spec.slots.body.box, '#15110f', 1, null, !auditOnly, identity);
     const u = spec.slots['utility-row'].box;
     const utility = ensureBoardChild(root, spec.key, 'surface.utility-row', u, '#15110f', 1, spec.slots['utility-row'].style, !auditOnly, identity);
@@ -925,11 +932,11 @@ async function installProductionRuntime(P) {
     return await withUndo(async () => {
       const oldCardPrefix = `${v2Marker(spec.key)}:`, newCardPrefix = `${marker(spec.key)}:`;
       for (const shape of walk(root).slice(1)) {
-        const value = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
+        const value = shape.getPluginData?.(KC) || '';
         if (!value.startsWith(oldCardPrefix)) continue;
-        if (shape.getPluginData?.('kenigevents-payload-sha256') !== V2SHA) fail('LEGACY_V2_CARD_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, value });
-        plugin(shape, 'kenigevents-g19-child-marker', `${newCardPrefix}${value.slice(oldCardPrefix.length)}`);
-        plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+        if (shape.getPluginData?.(KP) !== V2SHA) fail('LEGACY_V2_CARD_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, value });
+        plugin(shape, KC, `${newCardPrefix}${value.slice(oldCardPrefix.length)}`);
+        plugin(shape, KP, SHA);
       }
       stamp(root, spec.key, 'accepted-card-master');
       plugin(root, 'kenigevents-build-state', 'COMPLETE');
@@ -947,20 +954,20 @@ async function installProductionRuntime(P) {
   }
 
   function migrateLiveShell(root, spec) {
-    if (spec.key !== 'eventcard.desktop-packed-calendar-absent.2182' || root.id !== '313fb1ed-0d5c-8095-8008-914c76615924' || root.parent?.id !== BOARD_ID || root.getPluginData?.('kenigevents-g19-marker') !== marker(spec.key) || root.getPluginData?.('kenigevents-payload-sha256') !== V3SHA || root.getPluginData?.('kenigevents-build-state') !== 'BUILDING' || children(root).length !== 10 || walk(root).length - 1 !== 21) fail('LIVE_V3_PARTIAL_ROOT_NOT_MIGRATABLE', { key: spec.key, rootId: root?.id || null, payload: root?.getPluginData?.('kenigevents-payload-sha256') || null, state: root?.getPluginData?.('kenigevents-build-state') || null, directChildren: children(root).length, descendants: walk(root).length - 1 });
+    if (spec.key !== 'eventcard.desktop-packed-calendar-absent.2182' || root.id !== '313fb1ed-0d5c-8095-8008-914c76615924' || root.parent?.id !== BOARD_ID || root.getPluginData?.(KM) !== marker(spec.key) || root.getPluginData?.(KP) !== V3SHA || root.getPluginData?.('kenigevents-build-state') !== 'BUILDING' || children(root).length !== 10 || walk(root).length - 1 !== 21) fail('LIVE_V3_PARTIAL_ROOT_NOT_MIGRATABLE', { key: spec.key, rootId: root?.id || null, payload: root?.getPluginData?.(KP) || null, state: root?.getPluginData?.('kenigevents-build-state') || null, directChildren: children(root).length, descendants: walk(root).length - 1 });
     const prefix = `${marker(spec.key)}:`;
     for (const shape of walk(root).slice(1)) {
-      const cardChildMarker = shape.getPluginData?.('kenigevents-g19-child-marker') || '';
+      const cardChildMarker = shape.getPluginData?.(KC) || '';
       if (!cardChildMarker.startsWith(prefix)) continue;
-      if (shape.getPluginData?.('kenigevents-payload-sha256') !== V3SHA) fail('LIVE_V3_PARTIAL_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, cardChildMarker });
-      plugin(shape, 'kenigevents-payload-sha256', P.payloadSha256);
+      if (shape.getPluginData?.(KP) !== V3SHA) fail('LIVE_V3_PARTIAL_CHILD_PAYLOAD_DRIFT', { key: spec.key, shapeId: shape.id, cardChildMarker });
+      plugin(shape, KP, SHA);
     }
     stamp(root, spec.key, 'accepted-card-master');
     plugin(root, 'kenigevents-build-state', 'BUILDING');
   }
 
   async function cardShell(spec, leaves, fontRows) {
-    let component = findComp(CARD_PATH, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
+    let component = findComp(CARD_PATH, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.(KM) === marker(spec.key));
     if (component) {
       const main = mainOf(component);
       if (isV2(main, spec.key)) return migrateLegacyV2Card(component, spec, main, leaves, fontRows);
@@ -972,7 +979,7 @@ async function installProductionRuntime(P) {
     return await withUndo(async () => {
       let root = findRoot(spec.key);
       if (!root) root = createCardRoot(spec);
-      else if (root.getPluginData?.('kenigevents-payload-sha256') === V3SHA) migrateLiveShell(root, spec);
+      else if (root.getPluginData?.(KP) === V3SHA) migrateLiveShell(root, spec);
       const state = root.getPluginData('kenigevents-build-state');
       if (!['BUILDING', 'SHELL_COMPLETE'].includes(state)) fail('CARD_SHELL_PARTIAL_STATE_UNKNOWN', { key: spec.key, state });
       await buildStatic(spec, root, fontRows, state === 'SHELL_COMPLETE');
@@ -983,11 +990,11 @@ async function installProductionRuntime(P) {
   }
 
   async function cardFinal(spec, leaves, fontRows) {
-    const existing = findComp(CARD_PATH, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key));
+    const existing = findComp(CARD_PATH, spec.name) || allComps().find((candidate) => mainOf(candidate)?.getPluginData?.(KM) === marker(spec.key));
     if (existing) {
       const main = mainOf(existing);
       const resumableRegistration = main?.getPluginData?.('kenigevents-build-state') === 'SHELL_COMPLETE'
-        && main.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256
+        && main.getPluginData?.(KP) === SHA
         && ['', CARD_PATH].includes(existing.path)
         && ['', spec.name].includes(existing.name);
       if (resumableRegistration) return await withUndo(async () => {
@@ -1072,8 +1079,8 @@ async function installProductionRuntime(P) {
       const matches = allComps().filter((component) => cm(component, pathValue, name));
       const component = matches[0], main = mainOf(component);
       if (matches.length > 1 || (strict && matches.length !== 1)) issues.push({ code: 'COMPONENT_CARDINALITY', name, count: matches.length });
-      if (main && (main.getPluginData?.('kenigevents-build-state') !== 'COMPLETE' || main.getPluginData?.('kenigevents-payload-sha256') !== P.payloadSha256 || main.parent?.id !== BOARD_ID)) issues.push({ code: 'COMPONENT_STATE_PAYLOAD_OR_PARENT', name, parentId: main.parent?.id || null });
-      return { name, nativePath: component?.path ?? null, expectedPath: pathValue, componentId: component?.id || null, rootId: main?.id || null, marker: main?.getPluginData?.('kenigevents-g19-marker') || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, directChildCount: main ? children(main).length : null };
+      if (main && (main.getPluginData?.('kenigevents-build-state') !== 'COMPLETE' || main.getPluginData?.(KP) !== SHA || main.parent?.id !== BOARD_ID)) issues.push({ code: 'COMPONENT_STATE_PAYLOAD_OR_PARENT', name, parentId: main.parent?.id || null });
+      return { name, nativePath: component?.path ?? null, expectedPath: pathValue, componentId: component?.id || null, rootId: main?.id || null, marker: main?.getPluginData?.(KM) || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, directChildCount: main ? children(main).length : null };
     });
     for (const spec of leafSpecsRows) {
       const component = findComp(LEAF_PATH, spec.name), main = mainOf(component);
@@ -1098,7 +1105,7 @@ async function installProductionRuntime(P) {
       if (main && textShapes.filter((shape) => !shape.hidden).some((shape) => shape.getPluginData?.('kenigevents-font-runtime-id') !== fontRows[700].runtimeFontId || shape.getPluginData?.('kenigevents-font-variant-id') !== fontRows[700].variantId)) issues.push({ code: 'CARD_TEXT_FONT', name: spec.name });
       return { name: spec.name, fixtureId: spec.fixtureId, semanticRoot: main?.getPluginData?.('kenigevents-semantic-root') || null, structuralContext: main?.getPluginData?.('kenigevents-structural-context') || null, componentId: component?.id || null, rootId: main?.id || null, width: main ? round(main.width) : null, height: main ? round(main.height) : null, linkedLeafCount: links.length, linkedInstances: links.map((instance) => ({ instanceId: instance.id, slot: instance.getPluginData?.('kenigevents-instance-slot') || instance.name, componentId: instance.component?.()?.id || null })), text };
     });
-    const roots = managedRoots(), rootMarkers = roots.map((root) => root.getPluginData('kenigevents-g19-marker'));
+    const roots = managedRoots(), rootMarkers = roots.map((root) => root.getPluginData(KM));
     const semanticTuples = roots.map((root) => `${root.getPluginData('kenigevents-semantic-identity')}|${root.getPluginData('kenigevents-structural-context')}`);
     const mainOfIds = new Set(allComps().map((component) => mainOf(component)?.id).filter(Boolean));
     const markerDuplicates = rootMarkers.length - new Set(rootMarkers).size;
@@ -1118,7 +1125,7 @@ async function installProductionRuntime(P) {
       pageId: penpot.currentPage.id,
       revision: penpot.currentFile.revn ?? penpot.currentFile.revision ?? null,
       fixtureId: FIXTURE,
-      payloadSha256: P.payloadSha256,
+      payloadSha256: SHA,
       expectedBaselineRevision: ER,
       pageDirectRootCount: children(penpot.currentPage.root).length,
       board: { id: board.id, name: board.name, childCount: children(board).length, descendantCount: walk(board).length - 1 },
@@ -1206,12 +1213,12 @@ async function installProductionRuntime(P) {
     const leafRows = phaseLeafSpecs(phaseId);
     if (leafRows) return leafRows.every((spec) => {
       const component = findComp(LEAF_PATH, spec.name), root = mainOf(component);
-      return Boolean(component && root?.getPluginData?.('kenigevents-g19-marker') === marker(spec.key) && root.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256 && root.getPluginData?.('kenigevents-build-state') === 'COMPLETE');
+      return Boolean(component && root?.getPluginData?.(KM) === marker(spec.key) && root.getPluginData?.(KP) === SHA && root.getPluginData?.('kenigevents-build-state') === 'COMPLETE');
     });
     const card = phaseCardSpec(phaseId);
     if (card) {
       const component = findComp(CARD_PATH, card.name), root = mainOf(component) || findRoot(card.key);
-      const current = root?.getPluginData?.('kenigevents-g19-marker') === marker(card.key) && root.getPluginData?.('kenigevents-payload-sha256') === P.payloadSha256;
+      const current = root?.getPluginData?.(KM) === marker(card.key) && root.getPluginData?.(KP) === SHA;
       return phaseId.endsWith('_FINAL') ? Boolean(component && current && root?.getPluginData?.('kenigevents-build-state') === 'COMPLETE') : Boolean(current && ['SHELL_COMPLETE', 'COMPLETE'].includes(root.getPluginData?.('kenigevents-build-state')));
     }
     if (phaseId === 'P90_FINALIZE') return allComps().length === 18 && managedRoots().length === 18;
@@ -1224,7 +1231,7 @@ async function installProductionRuntime(P) {
   }));
 
   async function saveVersion(phaseId, changed) {
-    const label = `G19 P2 V3 ${phaseId} · ${P.payloadSha256.slice(0, 12)}`;
+    const label = `G19 P2 V3 ${phaseId} · ${SHA.slice(0, 12)}`;
     const versions = array(await penpot.currentFile.findVersions());
     let version = versions.find((candidate) => (candidate?.label || candidate?.name) === label) || null;
     const created = Boolean(changed || !version);
@@ -1234,8 +1241,8 @@ async function installProductionRuntime(P) {
 
   function gate(rb) {
     const legacyRoots = managedRoots().filter((root) => {
-      const value = root.getPluginData?.('kenigevents-g19-marker') || '';
-      return value.endsWith(':v2') && root.getPluginData?.('kenigevents-payload-sha256') === V2SHA;
+      const value = root.getPluginData?.(KM) || '';
+      return value.endsWith(':v2') && root.getPluginData?.(KP) === V2SHA;
     });
     if (!legacyRoots.length) return { active: false, accepted: rb.routeLocalDuplicateMasterCount === 0 && rb.auditIssues.length === 0, legacyRootNames: [] };
     const names = new Set(legacyRoots.map((root) => root.getPluginData('kenigevents-component-name')));
@@ -1281,7 +1288,7 @@ async function installProductionRuntime(P) {
 
   const api = { runPhase, readback, exportRoots, constants: { FILE_ID, PAGE_ID, BOARD_ID, BOARD_NAME, ER, EBC, EBD, ELC, FAMILY, FONT_SOURCES, LEAF_PATH, CARD_PATH, FIXTURE, PHASE_ORDER } };
   storage.g19EventCard8006 = api;
-  return { schema: 'kenigevents.penpot.g19.eventcard-four-case.runtime-ready.v2', installed: true, payloadSha256: P.payloadSha256, phaseOrder: PHASE_ORDER, preflight: baseline(), fontBinding: readback(false).fontBinding };
+  return { schema: 'kenigevents.penpot.g19.eventcard-four-case.runtime-ready.v2', installed: true, payloadSha256: SHA, phaseOrder: PHASE_ORDER, preflight: baseline(), fontBinding: readback(false).fontBinding };
 }
 
 async function main() {
