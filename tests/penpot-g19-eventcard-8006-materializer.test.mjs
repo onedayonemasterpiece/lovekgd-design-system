@@ -356,7 +356,7 @@ test('V3 manifest and bounded scripts are hash-locked, filesystem-independent, a
   assert.equal(manifest.native_fonts.regular_400_variant, 'normal-400');
   assert.equal(manifest.native_fonts.bold_700_variant, 'normal-700');
   assert.equal(manifest.native_fonts.transient_runtime_ids_pinned, false);
-  assert.equal(manifest.execution.mutator_order.length, 16);
+  assert.equal(manifest.execution.mutator_order.length, 17);
   assert.ok(manifest.execution.maximum_generated_script_bytes < 65000);
   assert.equal(manifest.run_control.expected_writer_id, '/root/publish_r2');
   assert.match(manifest.run_control.geometry_proof_sha256, /^[0-9a-f]{64}$/);
@@ -668,6 +668,18 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
     parent.id = parentId;
     return { root, parent, label };
   });
+  const p94Fixtures = [
+    ['eventcard.desktop-wide-calendar.8006', '2 сентября 09:00', '313fb1ed-0d5c-8095-8008-912c46b9ecba'],
+    ['eventcard.desktop-packed-calendar-absent.2182', '11 января 14:00', '313fb1ed-0d5c-8095-8008-914c77b9c576'],
+    ['eventcard.mobile-wide-calendar.8006', '2 сентября 09:00', '313fb1ed-0d5c-8095-8008-916b3552cb12'],
+    ['eventcard.mobile-packed-calendar-absent.2182', '11 января 14:00', '313fb1ed-0d5c-8095-8008-916bd1ff0eb3'],
+  ].map(([rootName, text, textId]) => {
+    const root = surface.board.children.find((shape) => shape.name.endsWith(rootName));
+    const label = root.children.find((shape) => shape.name === 'occurrence' && shape.characters === text);
+    assert.ok(root && label && !walk(surface.pageRoot).some((shape) => shape.id === textId));
+    label.id = textId;
+    return { root, label };
+  });
   assert.equal(new Set([...walk(surface.pageRoot).map((shape) => shape.id), ...surface.components.map((component) => component.id)]).size, walk(surface.pageRoot).length + surface.components.length);
   const stableIds = surface.board.children.map((root) => root.id);
   assert.ok(walk(surface.board).length - 1 <= 248);
@@ -707,7 +719,7 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   const postCancelReuse = await executePath('catalog/penpot-executor/g19/phase-p91-text-metrics.js', surface);
   assert.equal(postCancelReuse.mutations, 0);
   assert.equal(surface.saveVersionCalls(), savesBeforeCancelledSettle);
-  const staleText = new Set([p92Canary, ...p93Fixtures.map((fixture) => fixture.label)]);
+  const staleText = new Set([p92Canary, ...p93Fixtures.map((fixture) => fixture.label), ...p94Fixtures.map((fixture) => fixture.label)]);
   for (const shape of managedText) if (staleText.size < 24) staleText.add(shape);
   for (const shape of staleText) {
     const bounds = shape.textBounds;
@@ -722,6 +734,17 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   ];
   for (const [index, fixture] of p93Fixtures.entries()) {
     const [frame, bounds] = p93Native[index];
+    Object.assign(fixture.label, { x: frame[0], y: frame[1], width: frame[2], height: frame[3] });
+    fixture.label._textBoundsOverride = { x: bounds[0], y: bounds[1], width: bounds[2], height: bounds[3] };
+  }
+  const p94Native = [
+    [[168.703, 864.078, 128.67199707031247, 16.405999660491943], [168.7030029296875, 864.2379760742188, 86.94000244140625, 31.280029296875]],
+    [[798.156, 565.875, 121.53099822998047, 16.405999660491943], [798.156005859375, 566.0349731445312, 79.78997802734375, 31.280029296875]],
+    [[168.703, 1629.782, 128.67199707031247, 16.405999660491943], [168.7030029296875, 1629.9420166015625, 86.94000244140625, 31.2799072265625]],
+    [[798.156, 1449.5149999999999, 121.53099822998047, 16.405999660491943], [798.156005859375, 1449.675048828125, 79.78997802734375, 31.2799072265625]],
+  ];
+  for (const [index, fixture] of p94Fixtures.entries()) {
+    const [frame, bounds] = p94Native[index];
     Object.assign(fixture.label, { x: frame[0], y: frame[1], width: frame[2], height: frame[3] });
     fixture.label._textBoundsOverride = { x: bounds[0], y: bounds[1], width: bounds[2], height: bounds[3] };
   }
@@ -787,6 +810,37 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
   assert.equal(p93Reuse.terminalState, 'PEERS_ALREADY_APPLIED_PENDING_READBACK');
   assert.equal(p93Reuse.mutations, 0);
   assert.equal(surface.saveVersionCalls(), savesBeforeP93);
+  surface.penpot.currentFile.revn = 75;
+  const p94UndoBeforeNegatives = surface.undoCalls();
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_REVISION_DRIFT/);
+  assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
+  surface.penpot.currentFile.revn = 76;
+  p94Fixtures.at(-1).label.setPluginData('kenigevents-payload-sha256', '0'.repeat(64));
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_TARGET_DRIFT/);
+  assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
+  p94Fixtures.at(-1).label.setPluginData('kenigevents-payload-sha256', manifest.payload_sha256);
+  replaceRunControl(surface, { state: 'CANCEL_REQUESTED' });
+  await assert.rejects(executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface), /MATERIALIZATION_RUN_NOT_ACTIVE/);
+  assert.deepEqual(surface.undoCalls(), p94UndoBeforeNegatives);
+  replaceRunControl(surface, { state: 'ACTIVE' });
+  const p94UndoBefore = surface.undoCalls(), savesBeforeP94 = surface.saveVersionCalls();
+  const p94 = await executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface);
+  assert.equal(p94.terminalState, 'SUCCEEDED_PEERS_PENDING_READBACK');
+  assert.deepEqual(p94.mutatedObjectIds, p94Fixtures.map((fixture) => fixture.label.id));
+  assert.deepEqual(surface.undoCalls(), { begin: p94UndoBefore.begin + 1, finish: p94UndoBefore.finish + 1 });
+  assert.equal(surface.saveVersionCalls(), savesBeforeP94);
+  await assert.rejects(executePath('catalog/penpot-executor/g19/readback-p94-occurrence-peers.js', surface), /P94_OCCURRENCE_NOT_IMPROVED/);
+  for (const fixture of p94Fixtures) delete fixture.label._textBoundsOverride;
+  const p94Readback = await executePath('catalog/penpot-executor/g19/readback-p94-occurrence-peers.js', surface);
+  assert.equal(p94Readback.terminalState, 'OCCURRENCE_PEERS_MEASUREMENT_PASS');
+  assert.equal(p94Readback.contained, 22);
+  assert.equal(p94Readback.offenders.length, 16);
+  assert.equal(new Set(p94Readback.requiredExports).size, 4);
+  assert.ok(p94Readback.rows.every((row) => row.withinRoot && row.changed && row.after.contained));
+  const p94Reuse = await executePath('catalog/penpot-executor/g19/phase-p94-occurrence-peers.js', surface);
+  assert.equal(p94Reuse.terminalState, 'PEERS_ALREADY_APPLIED_PENDING_READBACK');
+  assert.equal(p94Reuse.mutations, 0);
+  assert.equal(surface.saveVersionCalls(), savesBeforeP94);
   assert.ok(surface.board.children.every((root) => root.getPluginData('kenigevents-g19-marker').endsWith(':v3')));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-payload-sha256')).every((shape) => shape.getPluginData('kenigevents-payload-sha256') === manifest.payload_sha256));
   assert.ok(surface.board.children.flatMap(walk).filter((shape) => shape.getPluginData('kenigevents-g19-child-marker')).every((shape) => shape.getPluginData('kenigevents-g19-child-marker').includes(':v3:')));
@@ -795,7 +849,7 @@ test('observed V2 leaves/card and a failed V3 packed shell migrate in place befo
     assert.deepEqual({ componentId: component.id, rootId: component.mainInstance().id }, ids, name);
   }
   const migratedText = surface.board.children.flatMap(walk).filter((shape) => shape.type === 'text' && !shape.hidden);
-  const autoWidthTextIds = new Set([p92Canary.id, ...p93Fixtures.map((fixture) => fixture.label.id)]);
+  const autoWidthTextIds = new Set([p92Canary.id, ...p93Fixtures.map((fixture) => fixture.label.id), ...p94Fixtures.map((fixture) => fixture.label.id)]);
   assert.ok(migratedText.every((shape) => (autoWidthTextIds.has(shape.id) ? shape.growType === 'auto-width' : shape.growType === 'fixed') && typeof shape.fontSize === 'string' && typeof shape.lineHeight === 'string' && typeof shape.letterSpacing === 'string'));
   assert.ok(surface.components.filter((component) => component.name.startsWith('event.media-frame.')).every((component) => component.mainInstance().fills.length === 0));
 });
