@@ -110,7 +110,29 @@ def patched_load_context(
     }
 
 
+original_immutable_inputs = impl.immutable_inputs
+
+
+def patched_immutable_inputs(
+    package: dict[str, Any],
+    package_identity: dict[str, Any],
+    context_identity: dict[str, Any],
+    evidence: dict[str, Any],
+    candidate_commit: str,
+) -> dict[str, Any]:
+    result = original_immutable_inputs(
+        package,
+        package_identity,
+        context_identity,
+        evidence,
+        candidate_commit,
+    )
+    result["brand_helper_identity"] = context_identity["brand_helper_identity"]
+    return result
+
+
 impl.load_context = patched_load_context
+impl.immutable_inputs = patched_immutable_inputs
 
 
 if __name__ == "__main__":
