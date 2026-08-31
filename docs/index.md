@@ -23,6 +23,7 @@
 
 | Файл | Назначение |
 |---|---|
+| [`../catalog/penpot-executor/g19/manifest.json`](../catalog/penpot-executor/g19/manifest.json) | owner-scoped G19 `event.real.8006` native Penpot payload, readback/validate and PNG export contract; execution guide: [`penpot-executor-g19-eventcard-8006.md`](penpot-executor-g19-eventcard-8006.md) |
 | [`../contracts/resource-graph-scaffold.v1.json`](../contracts/resource-graph-scaffold.v1.json) | точные 23 страницы, порядок, stable IDs, зоны и layout rules |
 | [`../contracts/ui-exploration-target.v1.json`](../contracts/ui-exploration-target.v1.json) | canonical team/file/page identity и authority boundary отдельного UI Exploration file | canonical target; project UUID не раскрыт Plugin API |
 | [`../contracts/page-archetype-requirements.v1.json`](../contracts/page-archetype-requirements.v1.json) | source requirements, verified current routes, historical paths и gaps для зон страницы 60 |
