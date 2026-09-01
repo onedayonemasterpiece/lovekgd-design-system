@@ -1,0 +1,57 @@
+{
+  "$id": "kenigevents.a0.free-rows-data-r2.schema.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "fixture_order": {
+      "const": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ]
+    },
+    "package_id": {
+      "const": "A-FREE-ROWS-DATA-R2"
+    },
+    "promotion_authorized": {
+      "const": false
+    },
+    "record_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "runtime_fixture_discovery": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "kenigevents.a0.free-rows-data-r2.package.v1"
+    },
+    "state": {
+      "const": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED"
+    },
+    "visual_acceptance": {
+      "const": "PENDING_V0"
+    }
+  },
+  "required": [
+    "schema_version",
+    "package_id",
+    "state",
+    "source_tuple",
+    "fixture_order",
+    "rows",
+    "dependency_gates",
+    "atlas_binding",
+    "target",
+    "run_control",
+    "limits",
+    "artifacts",
+    "runtime_fixture_discovery",
+    "visual_acceptance",
+    "promotion_authorized",
+    "record_sha256"
+  ],
+  "type": "object"
+}
