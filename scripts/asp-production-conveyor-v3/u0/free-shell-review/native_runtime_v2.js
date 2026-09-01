@@ -8,6 +8,7 @@ const MANAGED_KEYS = [
   'layout', 'candidate-label', 'detached', 'screenshot', 'atlas-page-order-assigned',
   'scenario-state', 'source-style-evidence', 'asset-sha256', 'asset-bytes',
   'state-visibility', 'state-flags', 'state-layout',
+  'native-layout-owner',
 ];
 
 function canonical(value) {
@@ -98,9 +99,27 @@ function assertActiveLease(lease, boundary) {
 
 function projectedPluginData(node, namespace) {
   if (node?.pluginData instanceof Map) return [...node.pluginData.entries()].sort(([left], [right]) => left.localeCompare(right));
-  const namespaces = [namespace, 'kenigevents'];
-  const keys = [...MANAGED_KEYS, 'asp-active-run-v1'];
-  return namespaces.flatMap((ns) => keys.map((key) => [ns, key, get(node, ns, key)]).filter((item) => item[2] !== ''));
+  if (typeof node?.enumerateAllPluginData === 'function') {
+    const entries = node.enumerateAllPluginData();
+    demand(Array.isArray(entries) && entries.every((entry) => Array.isArray(entry) && entry.length === 2 && typeof entry[0] === 'string' && typeof entry[1] === 'string'), 'PLUGIN_DATA_ENUMERATION_INVALID');
+    return [...entries].sort(([left], [right]) => left.localeCompare(right));
+  }
+  demand(false, `PLUGIN_DATA_EXHAUSTIVE_ENUMERATION_REQUIRED:${node?.id || 'unknown'}`);
+}
+
+function projectedNativeLayout(node) {
+  const common = (layout) => layout ? {
+    alignItems: layout.alignItems ?? null, alignContent: layout.alignContent ?? null,
+    justifyItems: layout.justifyItems ?? null, justifyContent: layout.justifyContent ?? null,
+    rowGap: layout.rowGap, columnGap: layout.columnGap,
+    topPadding: layout.topPadding, rightPadding: layout.rightPadding,
+    bottomPadding: layout.bottomPadding, leftPadding: layout.leftPadding,
+    horizontalSizing: layout.horizontalSizing, verticalSizing: layout.verticalSizing,
+  } : null;
+  return {
+    flex: node.flex ? { ...common(node.flex), dir: node.flex.dir, wrap: node.flex.wrap } : null,
+    grid: node.grid ? { ...common(node.grid), dir: node.grid.dir, rows: node.grid.rows || [], columns: node.grid.columns || [] } : null,
+  };
 }
 
 function projectedShape(node, namespace) {
@@ -109,7 +128,16 @@ function projectedShape(node, namespace) {
     id: node.id, type: node.type || '', name: node.name || '', characters: node.characters || '',
     x: node.x || 0, y: node.y || 0, width: node.width || 0, height: node.height || 0,
     fills: node.fills || [], strokes: node.strokes || [], borderRadius: node.borderRadius || 0,
+    borderRadiusTopLeft: node.borderRadiusTopLeft ?? null, borderRadiusTopRight: node.borderRadiusTopRight ?? null,
+    borderRadiusBottomRight: node.borderRadiusBottomRight ?? null, borderRadiusBottomLeft: node.borderRadiusBottomLeft ?? null,
     opacity: node.opacity ?? 1, hidden: node.hidden === true, visible: node.visible !== false,
+    shadows: node.shadows || [], blur: node.blur ?? null, backgroundBlur: node.backgroundBlur ?? null,
+    blendMode: node.blendMode || '', rotation: node.rotation ?? 0, flipX: node.flipX === true, flipY: node.flipY === true,
+    blocked: node.blocked === true, proportionLock: node.proportionLock === true, fixedWhenScrolling: node.fixedWhenScrolling === true,
+    constraintsHorizontal: node.constraintsHorizontal || '', constraintsVertical: node.constraintsVertical || '',
+    horizontalSizing: node.horizontalSizing || '', verticalSizing: node.verticalSizing || '',
+    layoutChild: node.layoutChild || null, layoutCell: node.layoutCell || null,
+    showInViewMode: node.showInViewMode ?? null, exports: node.exports || [], tokens: node.tokens || {}, interactions: node.interactions || [],
     clipContent: node.clipContent === true, fontSize: node.fontSize || '', fontWeight: node.fontWeight || '',
     growType: node.growType || '', svg: node.svg || '', componentId: component?.id || null,
     componentCopy: node?.isComponentCopyInstance?.() === true,
@@ -117,6 +145,7 @@ function projectedShape(node, namespace) {
     layoutPadding: node.layoutPadding ?? null, layoutWrap: node.layoutWrap ?? null, layoutGridColumns: node.layoutGridColumns || '',
     layoutGridRows: node.layoutGridRows || '',
     pluginData: projectedPluginData(node, namespace), children: children(node).map((child) => projectedShape(child, namespace)),
+    nativeLayout: projectedNativeLayout(node),
   };
 }
 
@@ -252,6 +281,12 @@ function layOutAnatomy(items, direction, padding, gap) {
   }
 }
 
+function masterLayoutContract(component) {
+  if (component.component_id === 'U-SHELL-FOOTER') return { mode: 'grid', direction: 'row', gap: 16, padding: 32, wrap: true, columns: 'repeat(2,minmax(0,1fr))', rows: 'repeat(5,auto)' };
+  if (component.component_id === 'U-SHELL-MOBILE-BOTTOM-NAVIGATION') return { mode: 'grid', direction: 'row', gap: 0, padding: 0, wrap: false, columns: 'repeat(4,1fr)', rows: '1fr' };
+  return { mode: 'flex', direction: component.native_visual.direction, gap: component.native_visual.gap, padding: component.native_visual.padding, wrap: false };
+}
+
 function componentMain(componentRecord) {
   return typeof componentRecord.mainInstance === 'function' ? componentRecord.mainInstance() : componentRecord.main;
 }
@@ -278,10 +313,15 @@ async function createMaster({ penpot, root, pkg, unit, component, namespace, x, 
     put(master, namespace, 'source-bindings', canonical(sourceBindings(component, pkg)));
     demand(Array.isArray(visual.source_style_evidence) && visual.source_style_evidence.length > 0, `SOURCE_STYLE_EVIDENCE_REQUIRED:${component.component_id}`);
     put(master, namespace, 'source-style-evidence', canonical(visual.source_style_evidence));
+    demand(visual.native_layout_owner?.mode === masterLayoutContract(component).mode, `NATIVE_LAYOUT_OWNER_REQUIRED:${component.component_id}`);
+    put(master, namespace, 'native-layout-owner', canonical(visual.native_layout_owner));
     const items = visual.nodes.map((spec) => createLabeledVisual(
       penpot, master, spec, pkg, namespace, component.component_id, created,
     ));
     layOutAnatomy(items, visual.direction, visual.padding, visual.gap);
+    const nativeLayout = masterLayoutContract(component);
+    configureNativeLayout(master, nativeLayout);
+    put(master, namespace, 'state-layout', canonical(nativeLayout));
     append(root, master);
     const record = penpot.library.local.createComponent([master]);
     demand(record && typeof record.instance === 'function', `NATIVE_COMPONENT_CREATE_FAILED:${component.component_id}`);
@@ -304,8 +344,12 @@ function validateMaster(master, component, pkg, namespace) {
   demand(get(master, namespace, 'node-role') === 'component-master', `MASTER_ROLE_DRIFT:${component.component_id}`);
   demand(get(master, namespace, 'source-bindings') === canonical(sourceBindings(component, pkg)), `MASTER_SOURCE_DRIFT:${component.component_id}`);
   demand(get(master, namespace, 'source-style-evidence') === canonical(visual.source_style_evidence), `MASTER_STYLE_EVIDENCE_DRIFT:${component.component_id}`);
+  demand(get(master, namespace, 'native-layout-owner') === canonical(visual.native_layout_owner), `MASTER_LAYOUT_OWNER_DRIFT:${component.component_id}`);
   demand(master.width === visual.size[0] && master.height === visual.size[1], `MASTER_GEOMETRY_DRIFT:${component.component_id}`);
   assertExactSurface(master, visual.fill, visual.border, visual.radius, `MASTER_STYLE_DRIFT:${component.component_id}`);
+  const nativeLayout = masterLayoutContract(component);
+  demand(get(master, namespace, 'state-layout') === canonical(nativeLayout), `MASTER_LAYOUT_DATA_DRIFT:${component.component_id}`);
+  assertNativeLayout(master, nativeLayout, `MASTER_NATIVE_LAYOUT_DRIFT:${component.component_id}`);
   const anatomy = children(master);
   demand(anatomy.length === visual.nodes.length, `MASTER_ANATOMY_COUNT_DRIFT:${component.component_id}`);
   let cursor = visual.padding;
@@ -371,7 +415,53 @@ function baseAnatomyGeometry(component) {
   }));
 }
 
+function gridTrackCount(value, fallback = 1) {
+  if (!value) return fallback;
+  const repeat = /^repeat\((\d+),/u.exec(value);
+  if (repeat) return Number(repeat[1]);
+  return Math.max(1, value.trim().split(/\s+/u).length);
+}
+
 function configureNativeLayout(node, layout) {
+  demand(layout && ['flex', 'grid', 'none'].includes(layout.mode), `NATIVE_LAYOUT_MODE_INVALID:${node.id}`);
+  if (layout.mode === 'none') {
+    node.flex?.remove?.();
+    node.grid?.remove?.();
+  } else if (layout.mode === 'flex') {
+    node.grid?.remove?.();
+    demand(typeof node.addFlexLayout === 'function', `NATIVE_FLEX_API_REQUIRED:${node.id}`);
+    const flex = node.flex || node.addFlexLayout();
+    demand(flex && node.flex === flex, `NATIVE_FLEX_OBJECT_REQUIRED:${node.id}`);
+    flex.dir = layout.direction;
+    flex.wrap = layout.wrap ? 'wrap' : 'nowrap';
+    flex.rowGap = layout.direction === 'column' ? layout.gap : 0;
+    flex.columnGap = layout.direction === 'row' ? layout.gap : 0;
+    flex.topPadding = layout.padding; flex.rightPadding = layout.padding;
+    flex.bottomPadding = layout.padding; flex.leftPadding = layout.padding;
+    flex.alignItems = layout.alignItems || 'start';
+    flex.justifyContent = layout.justifyContent || 'start';
+    flex.horizontalSizing = 'fix'; flex.verticalSizing = 'fix';
+  } else {
+    node.flex?.remove?.();
+    demand(typeof node.addGridLayout === 'function', `NATIVE_GRID_API_REQUIRED:${node.id}`);
+    const grid = node.grid || node.addGridLayout();
+    demand(grid && node.grid === grid && typeof grid.addColumn === 'function' && typeof grid.addRow === 'function', `NATIVE_GRID_OBJECT_REQUIRED:${node.id}`);
+    while (grid.columns.length) grid.removeColumn(grid.columns.length - 1);
+    while (grid.rows.length) grid.removeRow(grid.rows.length - 1);
+    const columns = gridTrackCount(layout.columns, 1);
+    const rows = gridTrackCount(layout.rows, 1);
+    for (let index = 0; index < columns; index += 1) grid.addColumn('flex', 1);
+    for (let index = 0; index < rows; index += 1) grid.addRow('auto');
+    grid.dir = layout.direction === 'column' ? 'column' : 'row';
+    grid.rowGap = layout.gap; grid.columnGap = layout.gap;
+    grid.topPadding = layout.padding; grid.rightPadding = layout.padding;
+    grid.bottomPadding = layout.padding; grid.leftPadding = layout.padding;
+    grid.alignItems = layout.alignItems || 'start';
+    grid.justifyItems = layout.justifyItems || 'start';
+    grid.horizontalSizing = 'fix'; grid.verticalSizing = 'fix';
+  }
+  // Metadata mirrors the native object only for deterministic readback; it is
+  // never treated as the layout implementation.
   node.layout = layout.mode;
   node.layoutFlexDir = layout.direction;
   node.layoutGap = layout.gap;
@@ -379,6 +469,25 @@ function configureNativeLayout(node, layout) {
   node.layoutWrap = layout.wrap;
   node.layoutGridColumns = layout.columns || '';
   node.layoutGridRows = layout.rows || '';
+}
+
+function assertNativeLayout(node, layout, code) {
+  if (layout.mode === 'none') {
+    demand(!node.flex && !node.grid, code);
+    return;
+  }
+  if (layout.mode === 'flex') {
+    demand(node.flex && !node.grid, `${code}:FLEX_OBJECT`);
+    demand(node.flex.dir === layout.direction && node.flex.wrap === (layout.wrap ? 'wrap' : 'nowrap'), `${code}:FLEX_DIRECTION`);
+    demand(node.flex.rowGap === (layout.direction === 'column' ? layout.gap : 0) && node.flex.columnGap === (layout.direction === 'row' ? layout.gap : 0), `${code}:FLEX_GAP`);
+  } else {
+    demand(node.grid && !node.flex, `${code}:GRID_OBJECT`);
+    demand(node.grid.columns.length === gridTrackCount(layout.columns, 1) && node.grid.rows.length === gridTrackCount(layout.rows, 1), `${code}:GRID_TRACKS`);
+    demand(node.grid.rowGap === layout.gap && node.grid.columnGap === layout.gap, `${code}:GRID_GAP`);
+  }
+  const native = node.flex || node.grid;
+  demand(native.topPadding === layout.padding && native.rightPadding === layout.padding && native.bottomPadding === layout.padding && native.leftPadding === layout.padding, `${code}:PADDING`);
+  demand(native.horizontalSizing === 'fix' && native.verticalSizing === 'fix', `${code}:SIZING`);
 }
 
 function materializeStateAnatomy(instance, component, state, namespace, viewport) {
@@ -430,6 +539,7 @@ function validateStateAnatomy(instance, component, state, namespace, viewport, e
   demand(instance.layoutGap === contract.layout.gap && instance.layoutPadding === contract.layout.padding && instance.layoutWrap === contract.layout.wrap, `INSTANCE_LAYOUT_METRICS_DRIFT:${component.component_id}:${state}`);
   demand((instance.layoutGridColumns || '') === (contract.layout.columns || ''), `INSTANCE_GRID_DRIFT:${component.component_id}:${state}`);
   demand(get(instance, namespace, 'state-layout') === canonical(contract.layout), `INSTANCE_LAYOUT_DATA_DRIFT:${component.component_id}:${state}`);
+  assertNativeLayout(instance, contract.layout, `INSTANCE_NATIVE_LAYOUT_DRIFT:${component.component_id}:${state}`);
   demand(get(instance, namespace, 'state-flags') === canonical(contract.flags || {}), `INSTANCE_STATE_FLAGS_DRIFT:${component.component_id}:${state}`);
   const byRole = new Map(children(instance).map((node) => [get(node, namespace, 'anatomy-role'), node]));
   demand(byRole.size === component.native_visual.nodes.length, `INSTANCE_ANATOMY_COUNT_DRIFT:${component.component_id}:${state}`);
@@ -445,6 +555,7 @@ function validateStateAnatomy(instance, component, state, namespace, viewport, e
       ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: '1fr', rows: 'repeat(6,52px)' }
       : { mode: spec[1] === 'source-svg' ? 'none' : 'flex', direction: spec[1] === 'inline-svg' ? 'column' : 'row', gap: 0, padding: 0, wrap: false });
     demand(get(node, namespace, 'state-layout') === canonical(roleLayout) && node.layout === roleLayout.mode && node.layoutFlexDir === roleLayout.direction, `INSTANCE_ANATOMY_LAYOUT_DRIFT:${component.component_id}:${state}:${role}`);
+    assertNativeLayout(node, roleLayout, `INSTANCE_ANATOMY_NATIVE_LAYOUT_DRIFT:${component.component_id}:${state}:${role}`);
     if (spec[1] !== 'source-svg') {
       demand(node.fills?.[0]?.fillColor === expected.fill && node.strokes?.[0]?.strokeColor === expected.border, `INSTANCE_ANATOMY_STYLE_DRIFT:${component.component_id}:${state}:${role}`);
     }
@@ -513,6 +624,9 @@ async function createSpecimen({ penpot, root, pkg, unit, specimen, components, n
       cursor += instance.height + spec.gap;
       created.count += 1;
     }
+    const compositionLayout = { mode: 'flex', direction: 'column', gap: spec.gap, padding: spec.padding, wrap: false };
+    configureNativeLayout(board, compositionLayout);
+    put(board, namespace, 'state-layout', canonical(compositionLayout));
     append(root, board);
     return { board, height };
   });
@@ -529,7 +643,7 @@ function validateManagedIntegrity({ page, root, pkg, namespace }) {
   demand(detached.length === 0, `DETACHED_INSTANCE:${detached.map((node) => node.id).join(',')}`);
   const recursivelyDetached = nodes.filter((node) => node.isComponentCopyInstance?.() === true && !node.component?.());
   demand(recursivelyDetached.length === 0, `RECURSIVE_DETACHED_INSTANCE:${recursivelyDetached.map((node) => node.id).join(',')}`);
-  const screenshots = nodes.filter((node) => node.type === 'image' || get(node, namespace, 'screenshot') === 'true');
+  const screenshots = nodes.filter((node) => node.type === 'image' || Array.from(node.fills || []).some((fill) => fill.fillImage) || get(node, namespace, 'screenshot') === 'true');
   demand(screenshots.length === 0, `SCREENSHOT_NODE:${screenshots.map((node) => node.id).join(',')}`);
   const specimens = nodes.filter((node) => get(node, namespace, 'node-role') === 'visible-specimen');
   for (const specimen of specimens) {
@@ -551,6 +665,10 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   demand(packageDefinition.native_successor.execution_mode === 'concrete-native-page-component-master-linked-instance', 'NATIVE_SUCCESSOR_CONTRACT_REQUIRED');
   demand(packageDefinition.native_successor.atlas_page_order_assigned === false, 'ATLAS_PAGE_ORDER_FORBIDDEN');
   const namespace = packageDefinition.native_successor.plugin_data_namespace;
+  // Exhaustive enumeration must be available before the first mutation. The
+  // runtime never silently degrades to a finite list of guessed namespaces or
+  // keys.
+  projectedPluginData(penpot.currentFile, namespace);
   const receiptKey = `receipt:${packageDefinition.package_id}:R2`;
   const previousReceipt = typeof storage.get === 'function' ? await storage.get(receiptKey) : null;
   const beforeProtected = protectedProjection(penpot, namespace, packageDefinition.package_id);
@@ -642,6 +760,9 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
       specimenY += made.height + 48;
     } else {
       demand(get(board, namespace, 'scenario-state') === specimen.state, `SPECIMEN_STATE_DRIFT:${specimen.specimen_id}`);
+      const compositionLayout = { mode: 'flex', direction: 'column', gap: specimen.native_composition.gap, padding: specimen.native_composition.padding, wrap: false };
+      demand(get(board, namespace, 'state-layout') === canonical(compositionLayout), `SPECIMEN_LAYOUT_DATA_DRIFT:${specimen.specimen_id}`);
+      assertNativeLayout(board, compositionLayout, `SPECIMEN_NATIVE_LAYOUT_DRIFT:${specimen.specimen_id}`);
       const linkedNodes = walk(board).filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
       const linkedIds = linkedNodes.map((node) => get(node, namespace, 'component-id'));
       demand(canonical(linkedIds) === canonical(specimen.component_ids), `SPECIMEN_LINEAGE_DRIFT:${specimen.specimen_id}`);
@@ -703,6 +824,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     exact_managed_nodes: integrity.managed,
     unbound_state_fallbacks: 0,
     source_style_evidence_complete: true,
+    exhaustive_plugin_data_projection: true,
     atlas_page_order_assigned: false,
     atlas_extension_status: 'ATLAS_EXTENSION_PENDING',
     penpot_execution_authorized: false,

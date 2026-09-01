@@ -7,6 +7,7 @@
 - Verified subject tree SHA: `4982404ba9c66f0a4d2c2395df3e016267a204a2`
 - Stable subject-manifest SHA-256: `ae805fc5cd3b7558a950d5975a9e88b44d5a0c6d29e2702e51d6377d704abfef`
 - Branch: `agent/d0-executable-buffer-v2/u0-free-shell-native-r2`
+- Final content-manifest SHA-256: `afd032091c6daabf49cbf2f93861b53749183e3e96561a77e66b6da19cc14432`
 - Status: `ATLAS_EXTENSION_PENDING`
 
 The receipt/evidence commit is intentionally outside the verified subject
@@ -85,3 +86,12 @@ The lane changes are package-local under:
 - Recursive detach scanning catches untagged nested component copies.
 - Every declared family state has a frozen inner-anatomy contract; mobile menu rows, current bottom-nav item, responsive hero/sticky medallions, breadcrumbs, footer Grid and control Flex states are asserted.
 - Subject tests: v2 Node `8/8 PASS`, v2 Python `10/10 PASS`; integrated v1+v2 Node `13/13 PASS`, Python `17/17 PASS`.
+
+## Repair-3 closure (content-manifest bound)
+
+- Real native `addGridLayout()`/`addFlexLayout()` objects replace scalar-only layout evidence.
+- Footer Grid and Breadcrumbs Flex carry direct source role/path/blob layout-owner tuples.
+- Complete projection includes shadows/blur/backgroundBlur/blend/corners/layout child+cell/native tracks and sizing.
+- Exhaustive plugin enumeration is required before mutation; no finite fallback namespaces or keys remain.
+- Protected/managed shadow, extra-plugin and fill-image adversarial cases fail closed.
+- Final evidence uses the receipt's self-nonreferential content manifest; provider head/tree are read back after the single final commit.

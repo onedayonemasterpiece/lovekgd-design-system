@@ -52,3 +52,17 @@ layouts. Full managed replay projection includes every child geometry, text,
 fill, stroke, opacity, plugin datum, component identity and layout field.
 Adversarial opacity, linked-instance position, master-anatomy position and
 untagged nested-detach mutations now fail closed.
+
+## Native layout and exhaustive projection closure
+
+The successor now calls the real Penpot plugin layout APIs represented by the
+native-like double: `addGridLayout()` for the source-owned Footer and four-cell
+bottom navigation, and `addFlexLayout()` for Breadcrumbs, component anatomy and
+specimen stacks. Exact `grid`/`flex` objects, tracks, direction, gaps, padding
+and sizing are read back; scalar metadata is evidence only. Layout owners are
+frozen as direct role/path/blob tuples. Projection includes shadows, blur,
+background blur, blend mode, corner radii, layout child/cell, sizing,
+constraints, tokens, interactions and native layout objects. Plugin-data
+projection requires exhaustive enumeration before the first mutation and never
+falls back to guessed namespaces/keys. Protected/managed shadow, extra plugin
+entry and fill-image adversarial mutations fail closed.

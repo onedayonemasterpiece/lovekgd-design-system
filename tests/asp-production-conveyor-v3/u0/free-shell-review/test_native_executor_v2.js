@@ -17,6 +17,33 @@ class PluginDataNode {
   getSharedPluginData(namespace, key) { return this.pluginData.get(`${namespace}:${key}`) || ''; }
 }
 
+function commonLayout(owner) {
+  return {
+    alignItems: 'start', alignContent: 'start', justifyItems: 'start', justifyContent: 'start',
+    rowGap: 0, columnGap: 0, topPadding: 0, rightPadding: 0, bottomPadding: 0, leftPadding: 0,
+    horizontalSizing: 'fix', verticalSizing: 'fix',
+    remove() { if (owner.flex === this) owner.flex = undefined; if (owner.grid === this) owner.grid = undefined; },
+  };
+}
+
+function addFlexObject(owner) {
+  const layout = Object.assign(commonLayout(owner), { dir: 'row', wrap: 'nowrap', appendChild: (child) => owner.appendChild(child) });
+  owner.flex = layout;
+  return layout;
+}
+
+function addGridObject(owner) {
+  const layout = Object.assign(commonLayout(owner), {
+    dir: 'row', rows: [], columns: [],
+    addRow(type, value) { this.rows.push({ type, value: value ?? null }); },
+    addColumn(type, value) { this.columns.push({ type, value: value ?? null }); },
+    removeRow(index) { this.rows.splice(index, 1); }, removeColumn(index) { this.columns.splice(index, 1); },
+    appendChild(child, row, column) { owner.appendChild(child); child.layoutCell = { row, column }; },
+  });
+  owner.grid = layout;
+  return layout;
+}
+
 class Shape extends PluginDataNode {
   constructor(type = 'board', fixedId = null) {
     super();
@@ -42,6 +69,12 @@ class Shape extends PluginDataNode {
     this.layoutWrap = null;
     this.layoutGridColumns = '';
     this.layoutGridRows = '';
+    this.flex = undefined;
+    this.grid = undefined;
+    this.shadows = [];
+    this.blur = null;
+    this.backgroundBlur = null;
+    this.blendMode = 'normal';
     this.parent = null;
     this._component = null;
     this._copy = false;
@@ -52,6 +85,8 @@ class Shape extends PluginDataNode {
     this.children.push(child);
   }
   resize(width, height) { this.width = width; this.height = height; }
+  addFlexLayout() { assert.equal(this.grid, undefined); return this.flex || addFlexObject(this); }
+  addGridLayout() { assert.equal(this.flex, undefined); return this.grid || addGridObject(this); }
   component() { return this._component; }
   isComponentCopyInstance() { return this._copy; }
 }
@@ -77,12 +112,18 @@ function cloneShape(source) {
   clone.layoutWrap = source.layoutWrap;
   clone.layoutGridColumns = source.layoutGridColumns;
   clone.layoutGridRows = source.layoutGridRows;
+  clone.shadows = structuredClone(source.shadows);
+  clone.blur = structuredClone(source.blur);
+  clone.backgroundBlur = structuredClone(source.backgroundBlur);
+  clone.blendMode = source.blendMode;
   clone.fontSize = source.fontSize;
   clone.fontWeight = source.fontWeight;
   clone.growType = source.growType;
   clone.characters = source.characters;
   clone.pluginData = new Map(source.pluginData);
   for (const child of source.children) clone.appendChild(cloneShape(child));
+  if (source.flex) Object.assign(addFlexObject(clone), structuredClone(Object.fromEntries(Object.entries(source.flex).filter(([, value]) => typeof value !== 'function'))));
+  if (source.grid) Object.assign(addGridObject(clone), structuredClone(Object.fromEntries(Object.entries(source.grid).filter(([, value]) => typeof value !== 'function'))));
   return clone;
 }
 
@@ -182,9 +223,12 @@ function projection(penpot) {
     x: shape.x, y: shape.y, width: shape.width, height: shape.height,
     fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius, svg: shape.svg || '',
     opacity: shape.opacity, hidden: shape.hidden, visible: shape.visible,
+    shadows: shape.shadows, blur: shape.blur, backgroundBlur: shape.backgroundBlur, blendMode: shape.blendMode,
     layout: shape.layout, layoutFlexDir: shape.layoutFlexDir, layoutGap: shape.layoutGap,
     layoutPadding: shape.layoutPadding, layoutWrap: shape.layoutWrap, layoutGridColumns: shape.layoutGridColumns,
     layoutGridRows: shape.layoutGridRows,
+    flex: shape.flex ? { dir:shape.flex.dir,wrap:shape.flex.wrap,rowGap:shape.flex.rowGap,columnGap:shape.flex.columnGap,topPadding:shape.flex.topPadding,rightPadding:shape.flex.rightPadding,bottomPadding:shape.flex.bottomPadding,leftPadding:shape.flex.leftPadding,horizontalSizing:shape.flex.horizontalSizing,verticalSizing:shape.flex.verticalSizing } : null,
+    grid: shape.grid ? { dir:shape.grid.dir,rows:shape.grid.rows,columns:shape.grid.columns,rowGap:shape.grid.rowGap,columnGap:shape.grid.columnGap,topPadding:shape.grid.topPadding,rightPadding:shape.grid.rightPadding,bottomPadding:shape.grid.bottomPadding,leftPadding:shape.grid.leftPadding,horizontalSizing:shape.grid.horizontalSizing,verticalSizing:shape.grid.verticalSizing } : null,
     data: [...shape.pluginData].sort(), children: shape.children.map(node),
   });
   return canonical({
@@ -288,6 +332,15 @@ test('two actual native-like runs create concrete masters/linked specimens once 
   assert.ok(env.penpot.boardCreates > 0 && env.penpot.textCreates > 0 && env.penpot.svgCreates > 0);
   assert.equal(second.exact_managed_nodes, 40);
   assert.equal(second.unbound_state_fallbacks, 0);
+  assert.equal(second.exhaustive_plugin_data_projection, true);
+  const footerMaster = masters.find((master) => get(master, ns, 'component-id') === 'U-SHELL-FOOTER');
+  const breadcrumbMaster = masters.find((master) => get(master, ns, 'component-id') === 'U-SHELL-BREADCRUMBS');
+  assert.ok(footerMaster.grid && !footerMaster.flex);
+  assert.deepEqual([footerMaster.grid.columns.length, footerMaster.grid.rows.length], [2, 5]);
+  assert.ok(breadcrumbMaster.flex && !breadcrumbMaster.grid);
+  assert.equal(breadcrumbMaster.flex.dir, 'row');
+  assert.deepEqual(JSON.parse(get(footerMaster, ns, 'native-layout-owner')).direct_source_tuples.map((item) => item.role), ['SiteFooter', 'EventLayout']);
+  assert.deepEqual(JSON.parse(get(breadcrumbMaster, ns, 'native-layout-owner')).direct_source_tuples.map((item) => item.role), ['Breadcrumbs', 'FreeCollectionSurface', 'CollectionCatalog']);
   for (const specimen of packageDefinition.page_units[0].specimens) {
     const board = specimens.find((node) => get(node, ns, 'specimen-id') === specimen.specimen_id);
     const linked = walk(board).filter((node) => get(node, ns, 'node-role') === 'linked-visible-instance');
@@ -439,6 +492,54 @@ test('opacity, instance position, master anatomy position, and recursive untagge
     detached._component = null;
     instance.children[0].appendChild(detached);
     await assert.rejects(() => run(env), /RECURSIVE_DETACHED_INSTANCE/);
+  }
+});
+
+test('native layout objects, shadows, fill images, extra plugin data, and exhaustive enumeration fail closed', async () => {
+  {
+    const env = environment();
+    env.penpot.currentFile.pluginData = undefined;
+    const before = env.penpot.created;
+    await assert.rejects(() => run(env), /PLUGIN_DATA_EXHAUSTIVE_ENUMERATION_REQUIRED/);
+    assert.equal(env.penpot.created, before);
+  }
+  {
+    const env = environment();
+    const originalCreateBoard = env.penpot.createBoard.bind(env.penpot);
+    let changed = false;
+    env.penpot.createBoard = () => {
+      if (!changed) {
+        changed = true;
+        env.protectedPage.root.children[0].shadows = [{ style:'drop-shadow', color:'#00000080', offsetX:0, offsetY:8, blur:24, spread:0, hidden:false }];
+      }
+      return originalCreateBoard();
+    };
+    await assert.rejects(() => run(env), /PROTECTED_PROJECTION_CHANGED/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    const anatomy = walk(managedRoot(env)).find((node) => get(node, ns, 'anatomy-role'));
+    anatomy.shadows = [{ style:'drop-shadow', color:'#00000080', offsetX:1, offsetY:2, blur:3, spread:0, hidden:false }];
+    await assert.rejects(() => run(env), /MANAGED_REPLAY_PROJECTION_DRIFT/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    const instance = walk(managedRoot(env)).find((node) => get(node, ns, 'node-role') === 'linked-visible-instance');
+    instance.setSharedPluginData('unexpected-namespace', 'extra-key', 'extra-value');
+    await assert.rejects(() => run(env), /MANAGED_REPLAY_PROJECTION_DRIFT/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const specimen = walk(managedRoot(env)).find((node) => get(node, packageDefinition.native_successor.plugin_data_namespace, 'node-role') === 'visible-specimen');
+    const imageFill = new Shape('board');
+    imageFill.fills = [{ fillImage: { id:'forbidden' } }];
+    specimen.children[1].children[0].appendChild(imageFill);
+    await assert.rejects(() => run(env), /SCREENSHOT_NODE/);
   }
 });
 

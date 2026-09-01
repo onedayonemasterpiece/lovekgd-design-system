@@ -133,6 +133,20 @@ class FreeShellNativeSuccessorTests(unittest.TestCase):
         self.assertIn("PROTECTED_PROJECTION_CHANGED", runtime + node_test)
         self.assertIn("UNBOUND_SPECIMEN_COMPONENT_STATE", runtime + node_test)
 
+    def test_true_native_layout_style_projection_and_exhaustive_plugin_contract(self):
+        runtime = RUNTIME.read_text(encoding="utf-8")
+        node_test = NODE_TEST.read_text(encoding="utf-8")
+        components = {item["component_id"]: item for item in PACKAGE["page_units"][0]["components"]}
+        self.assertEqual(components["U-SHELL-FOOTER"]["native_visual"]["native_layout_owner"]["mode"], "grid")
+        self.assertEqual(components["U-SHELL-BREADCRUMBS"]["native_visual"]["native_layout_owner"]["mode"], "flex")
+        self.assertIn("node.addFlexLayout()", runtime)
+        self.assertIn("node.addGridLayout()", runtime)
+        self.assertIn("PLUGIN_DATA_EXHAUSTIVE_ENUMERATION_REQUIRED", runtime + node_test)
+        self.assertNotIn("const namespaces = [namespace", runtime)
+        for field in ("shadows", "blur", "backgroundBlur", "blendMode", "layoutChild", "layoutCell", "nativeLayout"):
+            self.assertIn(field, runtime)
+        self.assertIn("MANAGED_REPLAY_PROJECTION_DRIFT", node_test)
+
     def test_extension_request_is_byte_preserved_and_order_is_o0_only(self):
         self.assertEqual(git_blob_sha1(REQUEST), "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf")
         text = REQUEST.read_text(encoding="utf-8")

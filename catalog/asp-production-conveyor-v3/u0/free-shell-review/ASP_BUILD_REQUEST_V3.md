@@ -77,3 +77,12 @@ medallion sizes, footer Grid and control Flex layouts must change exact native
 children. Replay must compare the complete managed projection and recursively
 reject an untagged detached component copy. Protected projection includes
 opacity in addition to geometry/text/styles/plugin/component/layout data.
+
+### Repair-3 native API gate
+
+A scalar `layout` marker is not execution evidence. Footer and bottom-nav must
+own real `grid` objects created with `addGridLayout()`; Breadcrumbs and linear
+anatomy must own real `flex` objects created with `addFlexLayout()`. Readback
+must include native tracks/gaps/padding/sizing plus every supported style field,
+including shadows. If exhaustive plugin-data enumeration is unavailable, abort
+before the first mutation rather than projecting a finite guessed key list.
