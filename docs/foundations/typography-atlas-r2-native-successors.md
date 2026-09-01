@@ -19,15 +19,22 @@ state, not Penpot authorization or visual acceptance.
 
 ## Frozen jobs
 
-| Package | Target page | Existing source masters | Linked specimens | Rows | Root height |
+| Package | Target page | Native families | Linked specimens | Rows | Root height |
 |---|---|---:|---:|---:|---:|
-| `F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE` | `04.1 · Foundations · Typography scale · Candidate` | 4 | 24 | 12 | 4512 |
+| `F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE` | `04.1 · Foundations · Typography scale · Candidate` | 3 | 24 | 12 | 4512 |
 | `F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE` | `04.2 · Foundations · Layout rules · Candidate` | 6 | 27 | 14 | 5216 |
 
-The split retains only the ten component identities already present in the v3
-source package. It creates no new component family. Atlas hard-limit census
-metadata remains pinned in each package; it is not used to invent replacement
-product masters.
+The split retains only component identities already present in the v3 source
+package and creates no new component family. Type Scale preserves all four
+source roles but groups the six `foundation.typography-cyrillic-wrap`
+specimens under the existing `foundation.typography-font-binding` native
+master. It therefore materializes exactly three native families, satisfying
+the pinned Atlas hard limit of three without losing any of the 24 source-bound
+specimens. Layout Rules remains six native families under its limit of seven.
+
+The shared family runtime rejects a missing, invalid, or exceeded Atlas family
+limit before it looks up or creates the target page. Package tests include a
+four-family negative fixture and prove that it fails with no page mutation.
 
 Each package has its own immutable package JSON, executor entry point, test,
 receipt, and PASS/REPAIR boundary. The runtime is shared only inside this

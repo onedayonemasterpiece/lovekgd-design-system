@@ -15,8 +15,7 @@ const SOURCE_COMPONENTS = Object.freeze([
 const FAMILIES = Object.freeze([
   Object.freeze({ id: 'foundation.typography-scale', label: 'Typography scale' }),
   Object.freeze({ id: 'foundation.typography-line-height', label: 'Unitless line-height roles' }),
-  Object.freeze({ id: 'foundation.typography-font-binding', label: 'Exact font binding' }),
-  Object.freeze({ id: 'foundation.typography-cyrillic-wrap', label: 'Editable Cyrillic wrapping' }),
+  Object.freeze({ id: 'foundation.typography-font-binding', label: 'Exact font and Cyrillic binding' }),
 ]);
 
 const specimen = (id, componentId, state, text, fontSize, weight, lineHeight, frameWidth,
@@ -36,6 +35,9 @@ const specimen = (id, componentId, state, text, fontSize, weight, lineHeight, fr
   visualColor,
   visualRadius,
   visualOpacity,
+  sourceComponentId: id.startsWith('wrap/')
+    ? 'foundation.typography-cyrillic-wrap'
+    : componentId,
 });
 
 const SPECIMENS = Object.freeze([
@@ -75,17 +77,17 @@ const SPECIMENS = Object.freeze([
     'DejaVu Sans 400 · точные байты · Кириллица', '24', '400', '1.25', 688, 256),
   specimen('font/frozen-A-dejavu-bold', 'foundation.typography-font-binding', 'frozen-A-dejavu-bold',
     'DejaVu Sans 700 · точные байты · Кёнигсберг', '24', '700', '1.25', 688, 300),
-  specimen('wrap/title', 'foundation.typography-cyrillic-wrap', 'title',
+  specimen('wrap/title', 'foundation.typography-font-binding', 'title',
     'Кёнигсберг и Калининград: город, память и современность', '24', '700', '1.08', 220, 220),
-  specimen('wrap/occurrence', 'foundation.typography-cyrillic-wrap', 'occurrence',
+  specimen('wrap/occurrence', 'foundation.typography-font-binding', 'occurrence',
     '31 августа, понедельник, 18:30 · повтор 2 сентября', '17', '400', '1.25', 190, 190),
-  specimen('wrap/place', 'foundation.typography-cyrillic-wrap', 'place',
+  specimen('wrap/place', 'foundation.typography-font-binding', 'place',
     'Калининградский музей изобразительных искусств', '17', '400', '1.25', 175, 175),
-  specimen('wrap/event-type', 'foundation.typography-cyrillic-wrap', 'event_type',
+  specimen('wrap/event-type', 'foundation.typography-font-binding', 'event_type',
     'лекция · выставка · фестиваль', '16', '700', '1.2', 150, 150),
-  specimen('wrap/admission', 'foundation.typography-cyrillic-wrap', 'admission',
+  specimen('wrap/admission', 'foundation.typography-font-binding', 'admission',
     'Бесплатно · необходима предварительная регистрация', '16', '700', '1.15', 185, 185),
-  specimen('wrap/actions', 'foundation.typography-cyrillic-wrap', 'calendar_share',
+  specimen('wrap/actions', 'foundation.typography-font-binding', 'calendar_share',
     'Не интересно · В календарь · Поделиться', '14', '400', '1.6', 210, 210),
 ]);
 

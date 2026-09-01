@@ -25,6 +25,17 @@ test('package-local type-scale projection is the exact 24-specimen source split'
     'type/meta-17',
   ]);
   assert.equal(SPEC.specimens.at(-1).id, 'wrap/actions');
+  assert.equal(SPEC.families.length, 3);
+  assert.equal(SPEC.atlasHardLimitComponentFamilies, 3);
+  assert.deepEqual(new Set(SPEC.specimens.map((value) => value.componentId)), new Set([
+    'foundation.typography-scale',
+    'foundation.typography-line-height',
+    'foundation.typography-font-binding',
+  ]));
+  assert.equal(
+    SPEC.specimens.filter((value) => value.sourceComponentId === 'foundation.typography-cyrillic-wrap').length,
+    6,
+  );
   assert.equal(SPEC.atlasHead, '663be702d481972cb2e8863af500f1c35dda1d8c');
   assert.equal(SPEC.sourceBlob, '501c307799bf412bc658dc89a04245f8a5cabc61');
 });
@@ -36,6 +47,7 @@ test('actual native-like first run and second replay are idempotent', async () =
   assert.ok(first.created > 0);
   assert.equal(second.created, 0);
   assert.equal(second.counts.linkedSpecimens, 24);
+  assert.equal(second.counts.nativeComponentMasters, 3);
   assert.equal(second.counts.detached, 0);
   assert.equal(second.counts.screenshots, 0);
   assert.equal(second.counts.duplicates, 0);
@@ -44,6 +56,28 @@ test('actual native-like first run and second replay are idempotent', async () =
   assert.equal(second.protectedProjections.unchanged, true);
   assert.equal(first.protectedProjections.before, first.protectedProjections.after);
   assert.equal(second.protectedProjections.before, second.protectedProjections.after);
+});
+
+test('Atlas component-family hard limit fails closed before any page mutation', async () => {
+  const penpot = createNativeLikePenpot();
+  const originalPages = penpot.currentFile.pages.length;
+  const overLimitSpec = {
+    ...SPEC,
+    families: [...SPEC.families, {
+      id: 'foundation.typography-cyrillic-wrap',
+      label: 'Forbidden fourth native family',
+    }],
+  };
+  const runtime = require('../../../../scripts/asp-production-conveyor-v3/f0/typography-layout-r4/typography_atlas_r2_native_runtime.js');
+  await assert.rejects(
+    runtime.runTypographyAtlasR2Native({ penpot, fontBytes: FONTS }, overLimitSpec),
+    /ATLAS_COMPONENT_FAMILY_HARD_LIMIT_EXCEEDED/,
+  );
+  assert.equal(penpot.currentFile.pages.length, originalPages);
+  assert.equal(
+    penpot.currentFile.pages.some((page) => page.name === SPEC.pageName),
+    false,
+  );
 });
 
 test('WIDE formulas and linked Atlas header are native Flex/Grid, not empty wells', async () => {

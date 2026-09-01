@@ -69,3 +69,54 @@ The exact 14 implementation-head paths are enumerated in the remote-readback tab
 - No new component family or broad package was created. The executors retain only the ten pre-existing source component identities split 4/6 across the two package-local pages.
 - Exact DejaVu Sans font streams are fail-closed preflight inputs: regular 759720 bytes / `ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280`; bold 708920 bytes / `5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895`.
 - No live Penpot run was performed by design. The remaining Atlas evidence gate is therefore explicit and cannot be represented as Penpot authorization.
+
+## Type Scale Atlas census repair
+
+The initial Type Scale verdict recorded above was superseded when independent
+INTEGRATE found that four native families exceeded the pinned Atlas R2 census
+of three. Repair base/finding head was
+`619b3a2a1ba7c925eba6b82e9422cf415e0e2113` (tree
+`98541d2f6e2dc5f8cc40e652121bda7ef2edccd1`). The final repair identity is the
+ordinary pushed commit containing this section; no later evidence-only commit
+is permitted. Provider-backed exact head/tree readback is reported to the root
+integrator immediately after that push.
+
+Repair behavior:
+
+- Type Scale now has exactly three native component families, equal to its
+  pinned Atlas limit of three.
+- All four source roles and all 24 visible editable specimens remain present.
+  The six `foundation.typography-cyrillic-wrap` source-role specimens use the
+  existing `foundation.typography-font-binding` native master; source-role
+  plugin data remains explicit.
+- The shared runtime pins the known package limits (Type Scale 3, Layout Rules
+  7), rejects `families.length > hardLimit` before font/page work, validates
+  every specimen family/source-role binding, and rejects existing linked
+  instances with wrong component lineage.
+- A four-family negative test proves the hard-limit failure occurs with no
+  target page mutation.
+- Layout Rules executor/spec/test are byte-unchanged. Its package and receipt
+  change only because their exact frozen tuple includes the repaired shared
+  runtime blob.
+
+Pre-commit repair artifact identities (content identities are commit-independent):
+
+| Path | Git blob SHA-1 | Bytes | SHA-256 |
+|---|---|---:|---|
+| `CHANGELOG.md` | `84964e5e2743968b813925e1d80ef95ad10e7a47` | 722 | `fb60027d6dd963d45985352412282e6f474e3e156fe7e071e91dbd01c80ecc8b` |
+| `catalog/asp-production-conveyor-v3/f0/typography-layout-r4/F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE.package.r2.json` | `adb9e505acd478cda528b6cafc64d8d8fcd2401a` | 6690 | `0d2e7fb4dd86bd98414c51f37045662944139687ea4c85efcd8583ad22da83d6` |
+| `catalog/asp-production-conveyor-v3/f0/typography-layout-r4/F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE.package.r2.json` | `c22f50d4fadde35f8a61cf38fa5beaf03950ed74` | 7163 | `fc4270dfe4430ef1b7039cd6073c108ec1bd20a69ebca2921ecef9a8fdfee206` |
+| `docs/foundations/typography-atlas-r2-native-successors.md` | `e5e7f988e524e4f69fb2493e15fb3c763e80008d` | 4604 | `2955fadb6c512e609ed9a1b7d5e95ce395359eaaaf75ab4a2d2b43cd4218780b` |
+| `receipts/asp-production-conveyor-v3/f0/typography-layout-r4/F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE.receipt.r2.json` | `17a6746d3c09a18bc4a2b1b88d950466f9df21d8` | 2662 | `e8b3b34788a73b46246e423cf9f42c3bd4a57f4266ea30078d9f4846a3250f29` |
+| `receipts/asp-production-conveyor-v3/f0/typography-layout-r4/F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE.receipt.r2.json` | `2d40cbf813998bbeb3d3f60e6d06b00801c98e5d` | 2648 | `d62b82fc393a899a2bf4888a2e919c1c24bd08bb35fd23f60f73bda4372c9c2b` |
+| `scripts/asp-production-conveyor-v3/f0/typography-layout-r4/type_scale_small_page_atlas_r2.js` | `82fec811131e072d2946d66aa8304cdd7bc0a3dd` | 7211 | `bc1fe26f7f6c820417648d146ca35e3ee2088ab9fb51a70bbf990c974e007d0f` |
+| `scripts/asp-production-conveyor-v3/f0/typography-layout-r4/typography_atlas_r2_native_runtime.js` | `9f1c895d8c1a1bfcc6fa7013c48031fed3458a6b` | 26854 | `0ba612edff4123d64611d2fc41e7d8fc28f3757743cc259fa92768f71fe381bb` |
+| `tests/asp-production-conveyor-v3/f0/typography-layout-r4/test_typography_atlas_r2_package_contracts.py` | `fa39162b7f9561a264ef8bbcbf38f9b63e2adda1` | 7306 | `9ad9ba31134838fe5f6e1c8490105faf2d9b83c8932099da54fcfbcf3d7f817f` |
+| `tests/asp-production-conveyor-v3/f0/typography-layout-r4/type_scale_small_page_atlas_r2.test.js` | `fd070a5211d59131e473d52d4f78127902a2f510` | 7252 | `d542f1e708f53a9c7d2b8a4f3ba758ade005dff6fcff78a9f52b2f9c83cd4ddf` |
+
+Repair validation before commit: Type Scale 7/7, Layout Rules 6/6,
+combined native-like suite 13/13, independent Python INTEGRATE 6/6,
+predecessor regression 5/5, three syntax checks, and `git diff --check` all
+PASS. The second replay remains `created=0`; duplicates, detached instances,
+screenshots, and empty wells remain zero. Penpot reads/mutations, PUBLISH,
+Kaggle, and Atlas mutations remain zero.

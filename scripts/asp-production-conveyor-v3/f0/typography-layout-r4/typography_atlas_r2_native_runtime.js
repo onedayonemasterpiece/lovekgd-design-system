@@ -8,6 +8,10 @@ const ATLAS = Object.freeze({
   documentationNamespace: 'kenigevents-atlas-documentation-v2',
   documentationComponentId: 'component/ATLAS_PAGE_HEADER_V2',
   documentationInstanceId: 'instance/ATLAS_PAGE_HEADER_V2',
+  componentFamilyHardLimits: Object.freeze({
+    'F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE': 3,
+    'F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE': 7,
+  }),
 });
 
 const FONT = Object.freeze({
@@ -403,6 +407,7 @@ function applySpecimen(instance, specimen, namespace) {
   bar.opacity = specimen.visualOpacity;
   setData(instance, namespace, 'placement-id', specimen.id);
   setData(instance, namespace, 'component-id', specimen.componentId);
+  setData(instance, namespace, 'source-component-id', specimen.sourceComponentId || specimen.componentId);
   setData(instance, namespace, 'state', specimen.state);
   setData(instance, namespace, 'editable-cyrillic', 'true');
   setData(instance, namespace, 'font-family', FONT.family);
@@ -466,6 +471,9 @@ function ensureCell(penpot, gridBoard, grid, spec, specimen, components, index, 
     cell.appendChild(instance);
     created.count += 1;
   } else {
+    const component = components[specimen.componentId];
+    invariant(component && instance.component?.()?.id === component.id,
+      `SPECIMEN_COMPONENT_LINEAGE_DRIFT:${specimen.id}`);
     applySpecimen(instance, specimen, spec.namespace);
   }
   resize(instance, 688, 224);
@@ -520,6 +528,8 @@ function readback(penpot, page, root, spec, components, content, masterColumn, g
   invariant(screenshots(root).length === 0, 'SCREENSHOT_IMPLEMENTATION');
   const componentValues = Object.values(components);
   invariant(componentValues.length === spec.families.length, 'COMPONENT_CENSUS');
+  invariant(componentValues.length <= spec.atlasHardLimitComponentFamilies,
+    'ATLAS_COMPONENT_FAMILY_HARD_LIMIT_EXCEEDED');
   invariant(componentValues.every((component) => spec.allowedSourceComponentIds.includes(
     getData(component.mainInstance(), spec.namespace, 'component-id'),
   )), 'NEW_COMPONENT_FAMILY_FORBIDDEN');
@@ -527,7 +537,7 @@ function readback(penpot, page, root, spec, components, content, masterColumn, g
   invariant(validation.length === 0, 'VALIDATION_DRIFT');
   return Object.freeze({
     roots: 1,
-    sourceComponentMasters: componentValues.length,
+    nativeComponentMasters: componentValues.length,
     linkedSpecimens: cells.length,
     detached,
     screenshots: 0,
@@ -548,6 +558,20 @@ async function runTypographyAtlasR2Native({ penpot, fontBytes }, spec) {
   invariant(spec.sourceHead === SOURCE.head && spec.sourceBlob === SOURCE.packageBlob,
     'SOURCE_TUPLE_DRIFT');
   invariant(spec.doesNotRepairEventcardText === true, 'EVENTCARD_TEXT_BOUNDARY_REQUIRED');
+  const hardLimit = spec.atlasHardLimitComponentFamilies;
+  invariant(Number.isInteger(hardLimit) && hardLimit > 0, 'ATLAS_COMPONENT_FAMILY_HARD_LIMIT_REQUIRED');
+  invariant(hardLimit === ATLAS.componentFamilyHardLimits[spec.packageId],
+    'ATLAS_COMPONENT_FAMILY_HARD_LIMIT_PIN_DRIFT');
+  invariant(Array.isArray(spec.families) && spec.families.length <= hardLimit,
+    'ATLAS_COMPONENT_FAMILY_HARD_LIMIT_EXCEEDED');
+  invariant(new Set(spec.families.map((family) => family.id)).size === spec.families.length,
+    'DUPLICATE_COMPONENT_FAMILY_SPEC');
+  invariant(spec.specimens.every((specimen) => spec.families.some(
+    (family) => family.id === specimen.componentId,
+  )), 'SPECIMEN_COMPONENT_FAMILY_UNBOUND');
+  invariant(spec.specimens.every((specimen) => spec.allowedSourceComponentIds.includes(
+    specimen.sourceComponentId || specimen.componentId,
+  )), 'SPECIMEN_SOURCE_ROLE_UNBOUND');
   const verifiedFonts = await verifyFonts(fontBytes);
   const before = await protectedProjection(penpot, spec.pageName);
   const created = { count: 0 };

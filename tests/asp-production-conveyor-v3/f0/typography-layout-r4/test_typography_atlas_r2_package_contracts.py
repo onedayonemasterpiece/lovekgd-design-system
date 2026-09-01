@@ -119,6 +119,18 @@ class TypographyAtlasR2PackageContracts(unittest.TestCase):
             [type_scale["projection"]["root_height"], layout["projection"]["root_height"]],
             [4512, 5216],
         )
+        self.assertEqual(type_scale["projection"]["atlas_hard_limit_component_families"], 3)
+        self.assertEqual(type_scale["projection"]["native_component_master_count"], 3)
+        self.assertNotIn("source_component_master_count", type_scale["projection"])
+        self.assertLessEqual(
+            type_scale["projection"]["native_component_master_count"],
+            type_scale["projection"]["atlas_hard_limit_component_families"],
+        )
+        self.assertEqual(type_scale["projection"]["source_role_count"], 4)
+        self.assertEqual(
+            type_scale["projection"]["source_role_grouping"]["foundation.typography-cyrillic-wrap"],
+            "foundation.typography-font-binding",
+        )
         for package in self.packages.values():
             self.assertEqual(package["wide_layout"]["root_width"], 2176)
             self.assertEqual(package["wide_layout"]["review_grid"]["columns"], 2)
