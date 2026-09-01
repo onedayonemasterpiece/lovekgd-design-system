@@ -10,7 +10,7 @@ class T(unittest.TestCase):
   self.assertIn('setupBrandbookAtlasLayoutRepairV1',d['entry_point']['setup_call'])
   self.assertEqual(d['runtime_claim_contract']['adapter_sha256'],e['sha256'])
   self.assertEqual(d['atlas']['head'],'a32b9874e1eec367fd6b98bc3c601d0638408843');self.assertEqual(d['atlas']['tree'],'f527c628ed0dfc17eec9208b0ae15b8a29bbedb2')
-  self.assertEqual(d['layout']['header'],{'x':64,'y':64,'width':2048,'height':128});self.assertEqual(d['layout']['review_grid']['columns'],4);self.assertEqual(d['layout']['review_grid']['cell_width'],320)
+  self.assertEqual(d['layout']['header'],{'x':64,'y':64,'width':2048,'height':128});self.assertEqual(d['layout']['review_grid']['columns'],4);self.assertEqual(d['layout']['review_grid']['cell_width'],320);self.assertEqual(d['layout']['review_grid']['cell_height'],208);self.assertEqual(d['layout']['review_grid']['rows'],4);self.assertEqual(d['layout']['review_grid']['resolved_height'],928);g=d['layout']['review_grid'];self.assertEqual(g['resolved_height'],g['rows']*g['cell_height']+(g['rows']-1)*g['row_gap']);self.assertGreaterEqual(d['layout']['root']['resolved_height'],g['y']+g['resolved_height']+64);self.assertEqual(d['layout']['root']['resolved_height'],1248);self.assertEqual(d['expected']['visible_source_state_surfaces'],4)
   self.assertEqual(d['expected']['maximum_creations_per_invocation'],3);self.assertEqual(d['expected']['second_terminal_run_created'],0)
  def test_runtime_claim_is_bound_not_stale(self):
   d=json.loads(BIND.read_text());c=d['runtime_claim_contract'];self.assertEqual(c['current_publish_identity'],'RUNTIME_BOUND_NOT_HARDCODED');self.assertIn('run_id',c['required_fields']);self.assertIn('lease_token',c['required_fields']);self.assertIn('adapter_sha256',c['required_fields'])
