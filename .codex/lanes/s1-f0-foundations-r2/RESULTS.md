@@ -25,16 +25,18 @@ committed
 
 ## Head SHA
 
-Final fail-closed implementation snapshot: `5f63379159da6693ca580dda5268e5071c82f233`
-(tree `0bbff5968c37ff31705ad1fb4b4557c49773a480`).
+Final topology-safe implementation snapshot: `6da3404a07f7a236cb5d0cb7e22050d21953c6ef`
+(tree `f64851f188219b19ece9006d76b5997b00e32dbb`).
 
 Independent QA rejected prior head `8e4bc94156715b5b502a2be8225084ea01556921`
 for family-rounded Flex rows and incomplete protected projections. Re-QA then
 rejected `ece0d5cd981429fb83cbb75f722814f96680c1dc` for finite plugin-key
 projection, pages-only component coverage, and placement-tag-only detach scans.
 Third QA rejected `06e02b5ce61e49c6c7de77a901ebdf912a20cb8e` for a
-namespace-enumeration fallback and one-direction component-marker scan. This
-receipt records all bounded repairs and the subsequent same-head reruns.
+namespace-enumeration fallback and one-direction component-marker scan. A
+final QA rejected `324d76ddcf4e10600b7518372c8bdb614358f3db` for
+legacy direct-root labels and unclassified nested geometry. This receipt records
+all bounded repairs and the subsequent same-head reruns.
 
 The final branch head necessarily includes this receipt-only commit and is
 recorded by provider-backed remote readback in the terminal lane handoff. QA
@@ -64,12 +66,12 @@ same remote head.
   `663be702d481972cb2e8863af500f1c35dda1d8c`, tree
   `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`, bindings blob
   `23475806beebfbe21bd77759440c169c60627550`.
-- Shared family-local payload: 46,985 bytes, blob
-  `a8e080920d4cadce3e17fff880e314d1f7857224`, SHA-256
-  `66ed63cf867c7316d4e52eac72665cd833a1d2748efb73d4728f07272c118fa6`.
+- Shared family-local payload: 49,139 bytes, blob
+  `b7f9d2997f17fe1614fee9f2cfdc04d03bd3d901`, SHA-256
+  `de275c15d28cf7c7528c75c3f2d14e2c335d0c355e7e894bdc09df83745bd596`.
 - Shared family-local launcher: 6,196 bytes, blob
-  `19dc64ce81eb51e9eca6c3069007c8309cf90250`, SHA-256
-  `c4156c8976304d16e02ec5a55f3945e145278cf2730840a1da98f06384ae10f8`.
+  `9fed1a318424147ea7e9cc8bedfd45348191b646`, SHA-256
+  `e66266646148d101941774c669db0d5a9319a2f43ea4e98ac5d56a37991e0123`.
 - Every package has a distinct frozen execution tuple and adapter ID.
 - Native-like test double rejects non-string shared-plugin-data without any
   implicit `String(...)` coercion.
@@ -87,6 +89,10 @@ same remote head.
   unattached masters and component name/path/variant state. A recursive managed
   subtree scan rejects both copy-without-reference and reference-without-copy
   marker mismatches, plus missing/foreign components, before creation.
+- Each legacy page's two direct-root family labels are migrated away. Terminal
+  root topology is exactly three ordered typed slots; header/master/review/cell
+  direct-child censuses are exact, and unclassified visible geometry is rejected
+  recursively. Therefore `duplicates=0` is topology-backed rather than assumed.
 - Terminal readback returns `duplicates=0`, `detached=0`, `screenshots=0`, and
   unchanged Free/EventCard plus Foundation source/index projections.
 - Atlas R2 files were not changed. Penpot reads/mutations, PUBLISH, and Kaggle:
@@ -118,10 +124,9 @@ and mutation authorization remain pending the Atlas evidence gate.
 
 ## Tests / verification
 
-- Native-like QA: 17/17 PASS, including four separately named package replay
-  tests, exact Grid rows, a foreign fifth namespace with unavailable enumeration,
-  unattached component drift, and both component-reference/marker mismatch
-  directions.
+- Native-like QA: 18/18 PASS, including four package tests that begin with two
+  legacy direct-root labels and finish with exactly three ordered shell slots,
+  plus injected untagged nested visible-geometry rejection on replay.
 - Exact binding/bytes/formula INTEGRATE: 6/6 PASS.
 - Existing Foundation page-split adapter: PASS.
 - Existing Foundation candidate suite: 4/4 PASS.
