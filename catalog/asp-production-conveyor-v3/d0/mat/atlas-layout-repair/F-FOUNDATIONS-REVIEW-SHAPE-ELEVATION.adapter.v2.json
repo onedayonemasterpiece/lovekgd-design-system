@@ -1,0 +1,152 @@
+{
+  "schema_version": "kenigevents.asp-atlas-layout-repair-adapter.v2",
+  "package_id": "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION",
+  "execution_tuple_id": "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION",
+  "adapter_id": "D0-MAT-F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION-ATLAS-R2",
+  "classification": "ATLAS_LAYOUT_REPAIR",
+  "state": "ATLAS_R2_EXECUTABLE_CANDIDATE_NOT_LAUNCHED",
+  "terminal_status": "PUBLISHABLE_AFTER_ATLAS_EVIDENCE_GATE",
+  "atlas": {
+    "branch": "o0/penpot-atlas-layout-v2-20260901",
+    "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "page_map_blob": "80123caa78a5478032c58c6a21b9d37136acbe9a",
+    "page_unit_bindings_blob": "23475806beebfbe21bd77759440c169c60627550",
+    "template_registry_blob": "eafad460e864b03e94cf6936817fc79bbfd1aa7c",
+    "documentation_shell_blob": "f1529897607aca4d1f3ed863350b0e89ee90497d"
+  },
+  "atlas_page_id": "foundations-review-shape-elevation",
+  "page_order": "0070",
+  "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+  "target": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "page_name": "03.3 · Foundations · Shape, borders & elevation · Candidate"
+  },
+  "source_binding": {
+    "binding_kind": "git_blob",
+    "remote_branch": "agent/f0-foundation-page-split-r1",
+    "remote_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+    "remote_tree": "6ed4fca2d754c3270b066f536bd82a0492c64755",
+    "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js",
+    "git_blob_sha1": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+    "byte_count": 17146,
+    "sha256": "68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89"
+  },
+  "frozen_execution_tuple": {
+    "package_id": "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION",
+    "adapter_id": "D0-MAT-F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION-ATLAS-R2",
+    "source_blob": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+    "atlas_head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "atlas_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "atlas_bindings_blob": "23475806beebfbe21bd77759440c169c60627550",
+    "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+    "payload_sha256": "45e989872723bdd2a1e5f70df812c88a217ab07717ec12aa16b6b0f65215cc91"
+  },
+  "entry_point": {
+    "execution_context": "Penpot plugin context",
+    "load_order": [
+      "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_payload_v2.js",
+      "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_v2.js"
+    ],
+    "executor": {
+      "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_payload_v2.js",
+      "bytes": 41133,
+      "sha256": "45e989872723bdd2a1e5f70df812c88a217ab07717ec12aa16b6b0f65215cc91",
+      "git_blob_sha1": "942f656b0e9fc1162fea2fef7532dce39cf3b6bc"
+    },
+    "launcher": {
+      "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_v2.js",
+      "bytes": 6196,
+      "sha256": "7c0b8cecc86ecb579c035ce45f8deb9a6ea4366e281cef39cb1b5f9e89db2ae9",
+      "git_blob_sha1": "a4bef7450a9e5b4644972fe3300c68d8a0bb14a8"
+    },
+    "setup_call": "return setupFoundationReviewAtlasR2RelayoutV2({penpot,storage,claim},'F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION');",
+    "call": "return await runFoundationReviewAtlasR2RelayoutV2({penpot,storage,claim},'F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION');",
+    "penpot_mutations_by_this_git_wave": 0
+  },
+  "documentation_contract": {
+    "path": "catalog/asp-production-conveyor-v3/d0/mat/atlas-layout-repair/F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION.layout-contract.v2.json",
+    "component_id": "ATLAS_PAGE_HEADER_V2",
+    "linked_instance_required": true,
+    "shell_layout_engine": "NATIVE_FLEX",
+    "absolute_documentation_shell": "FORBIDDEN"
+  },
+  "semantic_slot_bindings": {
+    "header": "page_header",
+    "master_column": "package_owned_masters",
+    "review_grid": "linked_review_instances"
+  },
+  "expected": {
+    "component_families": 2,
+    "linked_instances": 8,
+    "candidate_roots": 1,
+    "duplicates": 0,
+    "detached_instances": 0,
+    "screenshots": 0,
+    "second_terminal_run_created": 0,
+    "validation": [],
+    "protected_projections_unchanged": true
+  },
+  "layout": {
+    "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+    "root": {
+      "width": 2176,
+      "height": 1344,
+      "width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "height_formula": "content_start_y + content_height + bottom_padding"
+    },
+    "header": [
+      64,
+      64,
+      2048,
+      128
+    ],
+    "master_column": {
+      "x": 64,
+      "y": 256,
+      "width": 448,
+      "height": 288,
+      "gap": 32
+    },
+    "review_grid": {
+      "x": 576,
+      "y": 256,
+      "width": 1376,
+      "height": 1024,
+      "columns": 4,
+      "column_gap": 32,
+      "row_gap": 32,
+      "cell_width": 320,
+      "cell_height": 256,
+      "cell_padding": 20,
+      "family_counts": {
+        "foundation.radius-border": 5,
+        "foundation.elevation": 3
+      },
+      "family_rows": {
+        "foundation.radius-border": 2,
+        "foundation.elevation": 1
+      },
+      "family_group_heights": {
+        "foundation.radius-border": 608,
+        "foundation.elevation": 320
+      },
+      "row_count_formula": "ceil(family_instance_count / columns)",
+      "review_height_formula": "sum(section_label_height + row_gap + row_count * cell_height + max(row_count - 1, 0) * row_gap) + (family_count - 1) * section_gap"
+    },
+    "content_start_y": 256,
+    "bottom_padding": 64,
+    "section_gap": 96
+  },
+  "repair_policy": {
+    "package_owned_product_components_preserved": true,
+    "linked_product_instances_preserved_or_created_from_central_masters": true,
+    "linked_atlas_page_header_v2": true,
+    "strict_string_only_shared_plugin_data": true,
+    "implicit_string_coercion_in_test_double": false,
+    "actual_second_native_like_replay_required": true,
+    "promotion_authorized": false,
+    "penpot_authorization": false,
+    "visual_acceptance": "PENDING_ATLAS_EVIDENCE_GATE"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "kenigevents.foundation-review-atlas-layout-contract.v2",
+  "package_id": "F-FOUNDATIONS-REVIEW-COLORS-STATUS",
+  "atlas_source": {
+    "branch": "o0/penpot-atlas-layout-v2-20260901",
+    "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "page_map_blob": "80123caa78a5478032c58c6a21b9d37136acbe9a",
+    "page_unit_bindings_blob": "23475806beebfbe21bd77759440c169c60627550",
+    "template_registry_blob": "eafad460e864b03e94cf6936817fc79bbfd1aa7c",
+    "documentation_shell_blob": "f1529897607aca4d1f3ed863350b0e89ee90497d"
+  },
+  "documentation_header": {
+    "component_id": "ATLAS_PAGE_HEADER_V2",
+    "component_namespace": "kenigevents-atlas-documentation-v2",
+    "component_stable_id": "component/ATLAS_PAGE_HEADER_V2",
+    "instance_stable_id": "instance/ATLAS_PAGE_HEADER_V2",
+    "lineage": "LINKED_DOCUMENTATION_PAGEHEADER_ONLY",
+    "layout_engine": "NATIVE_FLEX"
+  },
+  "migration": {
+    "r1_source_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+    "r1_source_blob": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+    "existing_page_root_and_product_instance_ids": "PRESERVE",
+    "package_owned_product_components": "PRESERVE",
+    "top_level_documentation_relayout": "ALLOWED",
+    "screenshots": "FORBIDDEN"
+  },
+  "template": {
+    "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+    "root": {
+      "width": 2176,
+      "height": 2496,
+      "width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "height_formula": "content_start_y + content_height + bottom_padding"
+    },
+    "header": [
+      64,
+      64,
+      2048,
+      128
+    ],
+    "master_column": {
+      "x": 64,
+      "y": 256,
+      "width": 448,
+      "height": 288,
+      "gap": 32
+    },
+    "review_grid": {
+      "x": 576,
+      "y": 256,
+      "width": 1376,
+      "height": 2176,
+      "columns": 4,
+      "column_gap": 32,
+      "row_gap": 32,
+      "cell_width": 320,
+      "cell_height": 256,
+      "cell_padding": 20,
+      "family_counts": {
+        "foundation.colors-and-modes": 18,
+        "foundation.status": 8
+      },
+      "family_rows": {
+        "foundation.colors-and-modes": 5,
+        "foundation.status": 2
+      },
+      "family_group_heights": {
+        "foundation.colors-and-modes": 1472,
+        "foundation.status": 608
+      },
+      "row_count_formula": "ceil(family_instance_count / columns)",
+      "review_height_formula": "sum(section_label_height + row_gap + row_count * cell_height + max(row_count - 1, 0) * row_gap) + (family_count - 1) * section_gap"
+    },
+    "content_start_y": 256,
+    "bottom_padding": 64,
+    "section_gap": 96
+  },
+  "protected_surfaces": [
+    "Free/EventCard",
+    "Foundations source/index"
+  ]
+}
