@@ -3,66 +3,76 @@
 - Lane ID: `S3-FREE-SHELL`
 - Requirement: `RD-U0-U-FREE-SHELL-REVIEW-PAGE-R1`
 - Base SHA: `e5ded37cd33f94db1033a9300b69fc91c203aa62`
-- Audited implementation head SHA: `509458d5daecd989e7848a77e31712adf8989b48`
-- Audited implementation tree SHA: `44d059c12c3ebb62d95b25523223e409d889ffc1`
+- Verified subject head SHA: `5c41cf138db896ec618e7cb76dfa57ecdc85b3fd`
+- Verified subject tree SHA: `38c7eb8c89bcf9f79a82b3cd63d0c11ec6246f28`
+- Stable subject-manifest SHA-256: `cba2488e67fb9e015624ef5ab2a69cd0e08b22eea2294096d85bb94d37b3261a`
 - Branch: `agent/d0-executable-buffer-v2/u0-free-shell-native-r2`
 - Status: `ATLAS_EXTENSION_PENDING`
 
+The receipt/evidence commit is intentionally outside the verified subject
+manifest, avoiding an impossible self-hash. QA and INTEGRATE independently
+verify the same exact eight-file subject manifest above. The final branch tip is
+re-tested after the receipt commit and provider-read back separately.
+
 ## Evidence
 
-- Concrete native successor uses `createPage`, `createBoard`, `createText`,
-  `library.local.createComponent`, and linked `component.instance()` calls; the
-  v2 executor/runtime contain no `penpot.ensure` route.
-- Seven preserved product masters expose contract anatomy as styled native
-  nodes; six scenario boards contain 25 real linked visible instances.
-- Every master binds exact source role/path/blob tuples; `CollectionCatalog` is
-  pinned to blob `1a3dc3e2fb6d1df644625d2f2578b3042b3406bb`.
-- Correct dependency trees: Brandbook
-  `29ad3ccf0628e448d0881007129981b9f766856f`; Medallions
+- The concrete executor uses native `createPage`, `createBoard`, `createText`,
+  `createShapeFromSvg`, `library.local.createComponent`, and linked
+  `component.instance()` operations; v2 contains no `penpot.ensure` execution.
+- Seven preserved product masters expose exact source-derived anatomy,
+  responsive geometry and style literals. Six scenario boards contain 25 real
+  linked visible instances and exactly 40 managed nodes.
+- Every scenario/component pair binds a real state declared by that family;
+  missing/unknown bindings abort and there is no generic state fallback.
+- All 24 materialized fill/border literals were found in the exact pinned Astro
+  source blobs. Bottom-nav icons use the source inline SVG paths. The medallion
+  uses exact blob `3f6f7aadf0dc818112ab310875d8ad270c563b45`, 754 bytes,
+  SHA-256 `27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31`.
+- `CollectionCatalog` is pinned to blob
+  `1a3dc3e2fb6d1df644625d2f2578b3042b3406bb`; corrected dependency trees are
+  Brandbook `29ad3ccf0628e448d0881007129981b9f766856f` and Medallions
   `95ab14cbd64697910c871ccb1a7ca7428cf618bd`.
-- Exact Atlas extension request stayed at blob
-  `2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf`; no Atlas page order was assigned.
-- Two actual native-like executor invocations: first created native objects,
-  second `created=0`, with identical whole-file projection.
-- Duplicate, detach, screenshot, foreign exact-name page, inactive lease, and
-  protected-surface gates fail closed.
-- Shared plugin-data double rejects non-strings and does not coerce values.
+- Two actual native-like executor invocations produce `second_run_created=0`
+  and identical complete file projection.
+- Complete protected projection covers text, fills, strokes, all plugin-data in
+  the strict double, and foreign native component-library entries.
+- Duplicate IDs, linked detach, tagged or untagged screenshots, untagged direct
+  specimen children, foreign exact-name pages, inactive leases, source drift,
+  style/geometry drift and protected mutation fail closed.
+- Exact Atlas extension request remains blob
+  `2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf`; no Atlas order was assigned.
 
-## Commands and tests
+## Independent checks on the same subject
 
-Independent QA on exact head `509458d5…`:
+QA on subject `5c41cf1…` / manifest `cba2488e…`:
 
-- `node --test tests/asp-production-conveyor-v3/u0/free-shell-review/test_native_executor_v2.js` — `6/6 PASS`
-- `python3 -m unittest tests/asp-production-conveyor-v3/u0/free-shell-review/test_repository_invariants_v2.py` — `7/7 PASS`
+- v2 Node native suite: `7/7 PASS`
+- v2 Python invariants: `10/10 PASS`
+- exact pinned-source style literal audit: `24/24 PASS`
 
-Independent INTEGRATE on the same exact head:
+INTEGRATE on the same subject/manifest:
 
-- `node --check` on runtime/executor/setup — `3/3 PASS`
-- Node native executor suite — `6/6 PASS`
-- Python repository invariants — `7/7 PASS`
-- semantic gate + exact extension blob check — `PASS`
+- v2 runtime/executor/setup syntax: `3/3 PASS`
+- v1 + v2 Node suites: `12/12 PASS`
+- v1 + v2 Python suites: `17/17 PASS`
+- exact extension blob, semantic gates, clean-tree check: `PASS`
 
-## Changed files at audited implementation head
+## Changed files
 
-- `catalog/asp-production-conveyor-v3/u0/free-shell-review/ASP_BUILD_REQUEST_V3.md`
-- `catalog/asp-production-conveyor-v3/u0/free-shell-review/RESULTS_R2.md`
-- `catalog/asp-production-conveyor-v3/u0/free-shell-review/U-FREE-SHELL-REVIEW-PAGE-R1.package.v2.json`
-- `scripts/asp-production-conveyor-v3/u0/free-shell-review/native_executor_v2.js`
-- `scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2.js`
-- `scripts/asp-production-conveyor-v3/u0/free-shell-review/setup_v2.js`
-- `tests/asp-production-conveyor-v3/u0/free-shell-review/test_native_executor_v2.js`
-- `tests/asp-production-conveyor-v3/u0/free-shell-review/test_repository_invariants_v2.py`
+Verified subject files and exact blob/byte/SHA-256 tuples are machine-recorded
+in `catalog/asp-production-conveyor-v3/u0/free-shell-review/local-qa-receipt.v2.json`.
+The lane changes are package-local under:
 
-This evidence/receipt follow-up adds only:
-
-- `catalog/asp-production-conveyor-v3/u0/free-shell-review/local-qa-receipt.v2.json`
+- `catalog/asp-production-conveyor-v3/u0/free-shell-review/`
+- `scripts/asp-production-conveyor-v3/u0/free-shell-review/`
+- `tests/asp-production-conveyor-v3/u0/free-shell-review/`
 - `.codex/lanes/s3-free-shell/RESULTS.md`
 
 ## Risks / gates
 
-- No Penpot service read or mutation was performed, so there is no Penpot
-  authorization or V0 evidence claim.
-- The exact O0 Atlas extension binding and dependency/V0 closure remain pending.
+- No Penpot read or mutation occurred, so no Penpot authorization or V0 claim
+  exists.
+- O0 Atlas extension binding plus dependency/V0 closure remain pending.
 - PUBLISH was not run; Atlas R2 was not changed; Kaggle was not used.
-- Repository has no root `CHANGELOG.md`; package-local `RESULTS_R2.md`, build
-  request, and machine receipt are the applicable canonical change record.
+- Repository has no root `CHANGELOG.md`; package-local result/build/receipt files
+  are the applicable canonical change record.

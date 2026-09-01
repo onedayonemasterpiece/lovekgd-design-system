@@ -3,20 +3,75 @@
   "package_id": "U-FREE-SHELL-REVIEW-PAGE-R1",
   "directive_id": "RD-U0-U-FREE-SHELL-REVIEW-PAGE-R1",
   "verification_mode": "strict-native-like-in-memory-double-no-penpot-service",
-  "audited_head": "509458d5daecd989e7848a77e31712adf8989b48",
-  "audited_tree": "44d059c12c3ebb62d95b25523223e409d889ffc1",
+  "verification_subject": {
+    "head": "5c41cf138db896ec618e7cb76dfa57ecdc85b3fd",
+    "tree": "38c7eb8c89bcf9f79a82b3cd63d0c11ec6246f28",
+    "manifest_sha256": "cba2488e67fb9e015624ef5ab2a69cd0e08b22eea2294096d85bb94d37b3261a",
+    "artifacts": [
+      {
+        "path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/U-FREE-SHELL-REVIEW-PAGE-R1.package.v2.json",
+        "git_blob_sha1": "26182effccecf6e783fae8253bc7f3571cf3b2d4",
+        "bytes": 43165,
+        "sha256": "f496782deb7a4478821184263071f60a4f08d3b9d44b1671dceef2fa0c640542"
+      },
+      {
+        "path": "scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2.js",
+        "git_blob_sha1": "86b7d5ff84d2f3dc5a7a40a023f740297b141eb2",
+        "bytes": 27795,
+        "sha256": "8d18d316183d06f70151c4a3bd9d22925cbc96ae467da100b86a6154fa348bdd"
+      },
+      {
+        "path": "scripts/asp-production-conveyor-v3/u0/free-shell-review/native_executor_v2.js",
+        "git_blob_sha1": "6a3ad5aab493261b052fe4411e6d357714bc3c86",
+        "bytes": 282,
+        "sha256": "6260024eb0cbbac1571290644a8859f743e173dc85db803abe9d26e1e2942ee2"
+      },
+      {
+        "path": "scripts/asp-production-conveyor-v3/u0/free-shell-review/setup_v2.js",
+        "git_blob_sha1": "640b032db5d4066a849a720b180b811058d19abc",
+        "bytes": 1160,
+        "sha256": "1fc1738573270225556f99e8b36cf97081bfd053a92bac1da2a8c629bf2ca1d9"
+      },
+      {
+        "path": "tests/asp-production-conveyor-v3/u0/free-shell-review/test_native_executor_v2.js",
+        "git_blob_sha1": "6f44b772118f7a4709c3788a6698f6c4648a91a6",
+        "bytes": 15175,
+        "sha256": "05781aa0ce487e9ebeb32ed60d9db6e6c786148fee6996cef7693bfdd410c265"
+      },
+      {
+        "path": "tests/asp-production-conveyor-v3/u0/free-shell-review/test_repository_invariants_v2.py",
+        "git_blob_sha1": "88a2f0807950d8fa7faf8a4c5a7a49f105fe88e5",
+        "bytes": 9854,
+        "sha256": "8f5838964bda3b88be1a18b17e00a3ab9e70c0b17cd89aeec90afd109f2586bc"
+      },
+      {
+        "path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/ASP_BUILD_REQUEST_V3.md",
+        "git_blob_sha1": "62f31a16ec740e18521e226c41871ae7e5b862ac",
+        "bytes": 2944,
+        "sha256": "b5e20f923cde65e3a66b59a404e26dba17949cfecf0e9dec3a94d078ab2ea65a"
+      },
+      {
+        "path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/RESULTS_R2.md",
+        "git_blob_sha1": "8520577988c8aa8f67eb644448a88cced2e186cb",
+        "bytes": 2123,
+        "sha256": "bd3fc1858259c98bddce1db27fdc32e34bcb68a4998b0d4435ac5c60f3625d02"
+      }
+    ],
+    "receipt_is_outside_subject": true
+  },
   "qa": {
-    "head": "509458d5daecd989e7848a77e31712adf8989b48",
-    "node": "6/6 PASS",
-    "python": "7/7 PASS",
+    "subject_manifest_sha256": "cba2488e67fb9e015624ef5ab2a69cd0e08b22eea2294096d85bb94d37b3261a",
+    "node": "7/7 PASS",
+    "python": "10/10 PASS",
+    "exact_source_style_literals": "24/24 PASS",
     "verdict": "PASS"
   },
   "integrate": {
-    "head": "509458d5daecd989e7848a77e31712adf8989b48",
+    "subject_manifest_sha256": "cba2488e67fb9e015624ef5ab2a69cd0e08b22eea2294096d85bb94d37b3261a",
     "node_syntax": "3/3 PASS",
-    "node": "6/6 PASS",
-    "python": "7/7 PASS",
-    "semantic_gate": "PASS",
+    "node_v1_v2": "12/12 PASS",
+    "python_v1_v2": "17/17 PASS",
+    "exact_extension_blob": "PASS",
     "verdict": "PASS"
   },
   "native_replay": {
@@ -28,7 +83,15 @@
     "detached": 0,
     "screenshots": 0,
     "protected_projections_unchanged": true,
-    "shared_plugin_data_string_only": true
+    "protected_projection_fields": [
+      "text",
+      "fills",
+      "strokes",
+      "all-double-plugin-data",
+      "foreign-component-library"
+    ],
+    "shared_plugin_data_string_only": true,
+    "unbound_state_fallbacks": 0
   },
   "native_surface": {
     "pages": 1,
@@ -36,47 +99,23 @@
     "component_masters": 7,
     "visible_specimens": 6,
     "linked_instances": 25,
+    "exact_managed_nodes": 40,
     "source_bound": true,
-    "placeholder_geometry": 0
+    "source_style_literals_verified": 24,
+    "placeholder_geometry": 0,
+    "exact_medallion_svg_bytes": 754
   },
   "dependency_corrections": {
     "brandbook_tree": "29ad3ccf0628e448d0881007129981b9f766856f",
     "medallions_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
     "collection_catalog_blob": "1a3dc3e2fb6d1df644625d2f2578b3042b3406bb"
   },
-  "exact_artifacts": [
-    {
-      "path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/U-FREE-SHELL-REVIEW-PAGE-R1.package.v2.json",
-      "git_blob_sha1": "85ebf84347ac00759e37bdd2973ec59d35cc4460",
-      "bytes": 31408,
-      "sha256": "bf0ec1a32de6d55425a00b432d92edcfae6476e70ad1acea4ab9aba20612f7aa"
-    },
-    {
-      "path": "scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2.js",
-      "git_blob_sha1": "3804bdd41ae36cf9baf2ef3bf02520b3d156f31b",
-      "bytes": 21283,
-      "sha256": "b4f44cfb2f27d6301eba0b340fb6fd3ee933cd20c4bf8bccfbbfb2e964c3e264"
-    },
-    {
-      "path": "scripts/asp-production-conveyor-v3/u0/free-shell-review/native_executor_v2.js",
-      "git_blob_sha1": "6a3ad5aab493261b052fe4411e6d357714bc3c86",
-      "bytes": 282,
-      "sha256": "6260024eb0cbbac1571290644a8859f743e173dc85db803abe9d26e1e2942ee2"
-    },
-    {
-      "path": "tests/asp-production-conveyor-v3/u0/free-shell-review/test_native_executor_v2.js",
-      "git_blob_sha1": "d60681d5521191cb1950bdad040a7ca87b11d46b",
-      "bytes": 12318,
-      "sha256": "b658446541fdb96bcc0af2af34e35ad677f75c856efd156acb83c3dbfd209c95"
-    },
-    {
-      "path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/ASP_ATLAS_EXTENSION_REQUEST_V1.md",
-      "git_blob_sha1": "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf",
-      "bytes": 842,
-      "sha256": "d4715b1242487dc3d6f69999b211267a04acacfb5668ca1e4d46f1d4187788f8",
-      "preserved": true
-    }
-  ],
+  "atlas_extension_request": {
+    "git_blob_sha1": "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf",
+    "bytes": 842,
+    "sha256": "d4715b1242487dc3d6f69999b211267a04acacfb5668ca1e4d46f1d4187788f8",
+    "preserved": true
+  },
   "atlas_page_order_assigned": false,
   "penpot_reads": 0,
   "penpot_mutations": 0,
