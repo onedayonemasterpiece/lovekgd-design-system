@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import subprocess
 import unittest
 from collections import Counter
@@ -19,6 +20,10 @@ A0_HEAD = "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb"
 A0_TREE = "3132550212222ec3dea716710821e732ad0d92bb"
 A0_BRANCH = "a0/asp-penpot-page-wave-v1-20260901"
 CHECKPOINT_COMMENT = 5489851638
+EXECUTOR_PATH = (
+    "scripts/asp-production-conveyor-v3/a0/page-wave-v1/"
+    "native-page-unit-executor.v1.js"
+)
 
 # package_id: (atlas page order, package lane, source package blob)
 EXPECTED = {
@@ -186,6 +191,81 @@ class A0Wave2AuxAtlasBindingTest(unittest.TestCase):
             elif package_id == "A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1":
                 self.assertEqual(unit["template_id"], "OWNER_INDEX_V1")
                 self.assertEqual(unit["hard_limit_census"]["product_component_masters"], 0)
+
+    def test_valid_bindings_still_classify_all_twelve_as_atlas_layout_repair(self):
+        """Binding integrity does not make the exact producer executor atlas-safe."""
+        executor = git_bytes(f"{A0_HEAD}:{EXECUTOR_PATH}").decode("utf-8")
+
+        # The exact shared executor creates both managed component mains directly
+        # below page.root. Only the two linked instances are children of the
+        # candidate root. This contradicts CANDIDATE_ROOT_ONLY for every unit.
+        component_main = re.search(r"function CM\(.*?\nfunction RG", executor, re.S)
+        linked_instance = re.search(r"function CI\(.*?\nfunction RB", executor, re.S)
+        self.assertIsNotNone(component_main)
+        self.assertIsNotNone(linked_instance)
+        self.assertIn("J(p,g.root,x)", component_main.group())
+        self.assertIn("J(p,r,x)", linked_instance.group())
+
+        # The executor has package-local coordinates and no atlas adapter input:
+        # root=1800, mains at x=2000/y=0|1000, instances at x=32|1350.
+        self.assertIn("x.resize(1800,", executor)
+        self.assertIn("V(p,x,'x',2000)", component_main.group())
+        self.assertIn("V(p,x,'y',v.id==='desktop'?0:1000)", component_main.group())
+        self.assertIn("V(p,x,'x',v.id==='desktop'?32:1350)", linked_instance.group())
+        self.assertNotIn("template_id", executor)
+        self.assertNotIn("semantic_slot_bindings", executor)
+
+        archetype_template = self.templates["ARCHETYPE_DESKTOP_MOBILE_V1"]
+        self.assertEqual(archetype_template["page_root_width"], 2624)
+        self.assertEqual(archetype_template["desktop"], [64, 256, 1440, "AUTO"])
+        self.assertEqual(archetype_template["mobile"], [1568, 256, 390, "AUTO"])
+        self.assertEqual(archetype_template["evidence"], [2048, 256, 512, "AUTO"])
+
+        repair_ids = set()
+        for unit in self.map_units:
+            package_id = unit["package_id"]
+            binding = unit["publication_dependency"]["remote_binding"]
+            package = json.loads(git_bytes(f'{A0_HEAD}:{binding["source_path"]}'))
+            variants = {variant["id"]: variant for variant in package["page_contract"]["variants"]}
+            census = unit["hard_limit_census"]
+
+            # Every exact package uses one component family and the shared
+            # readback contract returns two linked instances. The atlas records
+            # materially different zero/three/six instance-family censuses.
+            self.assertEqual(package["limits"]["component_families"], 1, package_id)
+            self.assertIn("components:2,linkedInstances:2", executor, package_id)
+
+            if package_id.startswith("A0-PAGE-WAVE2-"):
+                self.assertEqual(census["component_families"], 0, package_id)
+                self.assertEqual(census["instances"], 3, package_id)
+                self.assertEqual(variants["desktop"]["viewport"]["width"], 1280, package_id)
+                self.assertEqual(
+                    unit["semantic_slot_bindings"]["desktop"], "desktop_1440", package_id
+                )
+                self.assertEqual(
+                    set(self.templates[unit["template_id"]]["required_slots"]),
+                    {"header", "desktop", "mobile", "evidence"},
+                    package_id,
+                )
+            elif package_id == "A0-PAGE-AUX-DATE_LISTING_SHELL-R1":
+                self.assertEqual(census["component_families"], 0)
+                self.assertEqual(census["instances"], 6)
+                self.assertEqual(census["route_states"], 6)
+                self.assertEqual(package["subject"]["states"], ["ready"])
+                self.assertEqual(set(variants), {"desktop", "mobile"})
+                self.assertEqual(
+                    unit["semantic_slot_bindings"]["states"],
+                    ["top", "scrolled", "full", "loading", "empty", "error"],
+                )
+            elif package_id == "A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1":
+                self.assertEqual(census["component_families"], 0)
+                self.assertEqual(census["instances"], 0)
+                self.assertEqual(census["product_component_masters"], 0)
+                self.assertEqual(set(variants), {"desktop", "mobile"})
+
+            repair_ids.add(package_id)
+
+        self.assertEqual(repair_ids, set(EXPECTED))
 
 
 if __name__ == "__main__":
