@@ -118,3 +118,41 @@ test('package executor loads in a plugin-like browser global without CommonJS', 
     'function',
   );
 });
+
+test('self-contained SHA-256 matches the canonical abc vector without crypto or require', () => {
+  const context = { Uint8Array };
+  vm.createContext(context);
+  vm.runInContext(readFileSync(__dirname + '/runtime.v2.js', 'utf8'), context);
+  assert.equal(context.crypto, undefined);
+  assert.equal(context.require, undefined);
+  assert.equal(
+    context.KenigeventsTypographyAtlasR2NativeRuntime.sha256Portable(
+      new Uint8Array([0x61, 0x62, 0x63]),
+    ),
+    'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad',
+  );
+});
+
+test('full layout run and replay stay exact with global crypto unavailable', async () => {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  try {
+    Object.defineProperty(globalThis, 'crypto', { configurable: true, value: undefined });
+    const penpot = createNativeLikePenpot();
+    const first = await runLayoutRulesSmallPageAtlasR2Native({ penpot, fontBytes: FONTS });
+    const second = await runLayoutRulesSmallPageAtlasR2Native({ penpot, fontBytes: FONTS });
+    assert.ok(first.created > 0);
+    assert.equal(second.created, 0);
+    assert.deepEqual(second.fonts, {
+      regular: { bytes: 759720, sha256: 'ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280' },
+      bold: { bytes: 708920, sha256: '5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895' },
+    });
+    assert.equal(second.counts.linkedSpecimens, 27);
+    assert.equal(second.counts.duplicates, 0);
+    assert.equal(second.counts.detached, 0);
+    assert.equal(second.counts.screenshots, 0);
+    assert.equal(second.protectedProjections.unchanged, true);
+  } finally {
+    if (descriptor) Object.defineProperty(globalThis, 'crypto', descriptor);
+    else delete globalThis.crypto;
+  }
+});
