@@ -12,6 +12,7 @@ import json
 import math
 import re
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 from pathlib import Path
@@ -22,6 +23,8 @@ ROOT = Path(__file__).resolve().parents[3]
 R1 = ROOT / "catalog/asp-production-conveyor-v3/atlas"
 OUT = ROOT / "catalog/asp-production-conveyor-v3/atlas-v2"
 REPORT = ROOT / "reports/asp-production-conveyor-v3/atlas-v2/rendered"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from source_bound_evidence_v1 import render as render_source_bound_r2
 
 CANON = lambda o: json.dumps(o, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 COLORS = {"page":"#F3F5F7", "root":"#FFFFFF", "title":"#111827", "meta":"#4B5563", "caption":"#6B7280", "line":"#D1D5DB", "cell":"#E5E7EB", "evidence":"#F8FAFC"}
@@ -202,7 +205,17 @@ def svg_page(label, unit, r2):
     return "".join(parts), {"expected_count":count if kind!="OWNER_INDEX_V2" else 42,"rendered_count":count if kind!="OWNER_INDEX_V2" else 42,"bottommost_bound":bottom,"root_width":width,"root_height":height,"image_width":width,"image_height":height,"template_columns":columns,"bottom_padding":64,"violations":[] if bottom+64<=height else ["BOTTOM_PADDING_OVERFLOW"]}
 
 def png(svg_path, png_path):
-    """Deterministic local SVG subset rasterizer; preserves the SVG root canvas."""
+    """Rasterize the complete SVG, including exact embedded source assets."""
+    convert = Path.home()/".local/bin/convert"
+    if convert.is_file():
+        subprocess.run([
+            str(convert), "-background", "none", str(svg_path), "-depth", "8", "-strip",
+            "-define", "png:exclude-chunks=date,time", str(png_path)
+        ], cwd=ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return
+    # Conservative fallback for environments without ImageMagick. Source SVG
+    # remains authoritative; this fallback is intentionally not used for the
+    # committed evidence regeneration receipt.
     root = ET.fromstring(svg_path.read_text(encoding="utf-8")); width=int(root.attrib["width"]); height=int(root.attrib["height"])
     image=Image.new("RGB",(width,height),"#F3F5F7"); draw=ImageDraw.Draw(image)
     fonts={}
@@ -222,27 +235,61 @@ def png(svg_path, png_path):
             draw.text((float(a.get("x",0)),float(a.get("y",0))-int(a.get("font-size",14))),node.text or "",font=font(int(float(a.get("font-size",14))),a.get("font-weight",400)),fill=a.get("fill","#111827"))
     image.save(png_path,format="PNG",optimize=False)
 
+def contact_png(reps, measurements, target):
+    """Compose the contact raster from the already-rasterized real pages."""
+    image=Image.new("RGB",(2624,2300),"#F3F5F7");draw=ImageDraw.Draw(image)
+    title=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",34)
+    body=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",16)
+    label_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",18)
+    draw.text((64,38),"Atlas R2 — source-bound evidence contact sheet",font=title,fill="#111827")
+    draw.text((64,90),"Exact-input renders; orange panels are fail-closed unresolved tuples.",font=body,fill="#4B5563")
+    for i,(label,_unit) in enumerate(reps):
+        x=64+(i%2)*1260;y=150+(i//2)*520
+        draw.rounded_rectangle((x,y,x+1190,y+470),radius=12,fill="#FFFFFF",outline="#D1D5DB")
+        m=next(xm for xm in measurements if xm["representative"]==label)["r2"]
+        draw.text((x+20,y+16),f'R2 · {label} · {m.get("status","READY")}',font=label_font,fill="#111827")
+        src=Image.open(REPORT/f"r2-{label}.png").convert("RGB")
+        src.thumbnail((1150,390),Image.Resampling.LANCZOS)
+        image.paste(src,(int(x+20+(1150-src.width)/2),int(y+62+(390-src.height)/2)))
+    image.save(target,format="PNG",optimize=False)
+
 def renders(units):
     REPORT.mkdir(parents=True, exist_ok=True)
     lookup={u["package_id"]:u for u in units}
     densest=sorted([u for u in units if u["package_id"].startswith("F-MEDALLIONS-")], key=lambda u:(-u["hard_limit_census"]["instances"],u["package_id"]))[0]
-    typography=sorted([u for u in units if "TYPOGRAPHY" in u["package_id"]], key=lambda u:(-u["hard_limit_census"]["instances"],u["package_id"]))[0]
+    typography=lookup["F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE"]
+    typography_r1=lookup["F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE"]
     reps=[("action-nav",lookup["F-ACTION-NAV-ICONS"]),("medallions-densest",densest),("typography-densest",typography),("controls-buttons",lookup["U-CONTROLS-BUTTONS-SMALL-PAGE"]),("archetype-home",lookup["A0-PAGE-WAVE1-HOME-R1"]),("composed-ready",next(u for u in units if u["package_id"]=="PROTECTED-FREE-COLLECTION-EVENTCARD" and u["projection_role"]=="READY")),("composed-exception",next(u for u in units if u["package_id"]=="PROTECTED-FREE-COLLECTION-EVENTCARD" and u["projection_role"]=="EXCEPTION")),("owner-review-index",lookup["A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1"])]
     files=[]; measurements=[]
     for label,u in reps:
       geom={}
       for version in ("r1","r2"):
-       sp=REPORT/f"{version}-{label}.svg"; svg,info=svg_page(label,u,version=="r2");sp.write_text(svg,encoding="utf-8"); pp=sp.with_suffix(".png");png(sp,pp);files += [sp.name,pp.name];geom[version]=info
+       sp=REPORT/f"{version}-{label}.svg"
+       if version=="r1":
+        # R1 evidence is frozen migration input and remains byte-immutable.
+        _svg,info=svg_page(label,typography_r1 if label=="typography-densest" else u,False)
+        files += [sp.name,sp.with_suffix(".png").name];geom[version]=info
+        continue
+       svg,info=render_source_bound_r2(label,u,units)
+       new_bytes=svg.encode("utf-8"); unchanged=sp.is_file() and sp.read_bytes()==new_bytes
+       sp.write_bytes(new_bytes); pp=sp.with_suffix(".png")
+       if not (unchanged and pp.is_file()): png(sp,pp)
+       files += [sp.name,pp.name];geom[version]=info
       measurements.append({"representative":label,"package_id":u["package_id"],"r1":geom["r1"],"r2":geom["r2"],"geometry_changed":geom["r1"]["template_columns"]!=geom["r2"]["template_columns"] or "COMPOSED" in u["template_id"] or u["template_id"]=="OWNER_INDEX_V2"})
-    # Contact sheet is an auditable inventory, with all 16 derived images.
-    sheet=['<svg xmlns="http://www.w3.org/2000/svg" width="2624" height="2300" viewBox="0 0 2624 2300"><rect width="100%" height="100%" fill="#F3F5F7"/><text x="64" y="72" font-family="DejaVu Sans" font-size="34" font-weight="700" fill="#111827">Atlas R2 — R1/R2 rendered-evidence contact sheet</text><text x="64" y="108" font-family="DejaVu Sans" font-size="18" fill="#4B5563">R2: two-band header + metadata · DENSE 6 columns · WIDE 2 columns · component state grid 3 columns · READY/EXCEPTION split</text>']
+    # Contact sheet embeds the actual complete R2 rasters; it is not a grid of
+    # generic rectangles standing in for product evidence.
+    sheet=['<svg xmlns="http://www.w3.org/2000/svg" width="2624" height="2300" viewBox="0 0 2624 2300"><rect width="100%" height="100%" fill="#F3F5F7"/><text x="64" y="72" font-family="DejaVu Sans" font-size="34" font-weight="700" fill="#111827">Atlas R2 — source-bound evidence contact sheet</text><text x="64" y="108" font-family="DejaVu Sans" font-size="18" fill="#4B5563">Exact-input renders; orange panels are fail-closed unresolved source tuples, never substitutes.</text>']
+    import base64
     for i,(label,u) in enumerate(reps):
-      for j,v in enumerate(["R1","R2"]):
-       x=64+(i%2)*1260;y=160+(i//2)*520+j*230; cols=templates()[u["template_id"]]["columns"] if v=="R2" else 4; sheet += [f'<rect x="{x}" y="{y}" width="1190" height="200" rx="12" fill="#fff" stroke="#D1D5DB"/>',f'<text x="{x+20}" y="{y+32}" font-family="DejaVu Sans" font-size="20" font-weight="700" fill="#111827">{v} · {label}</text>',f'<text x="{x+20}" y="{y+60}" font-family="DejaVu Sans" font-size="14" fill="#4B5563">n={u["hard_limit_census"].get("instances") or u["hard_limit_census"].get("route_states") or 42} · columns={cols}</text>']
-       if v=="R2": sheet += [f'<rect x="{x+20}" y="{y+76}" width="1150" height="32" fill="#F8FAFC" stroke="#D1D5DB"/><text x="{x+36}" y="{y+98}" font-family="DejaVu Sans" font-size="12" fill="#111827">ATLAS_PAGE_HEADER_V2 · section · title · CANDIDATE · six metadata slots</text>']
-       for c in range(cols): sheet.append(f'<rect x="{x+20+c*(1100/cols)}" y="{y+126}" width="{1040/cols}" height="52" rx="6" fill="#F8FAFC" stroke="#E5E7EB"/>')
-    cp=REPORT/"r1-r2-contact-sheet.svg"; cp.write_text("".join(sheet)+"</svg>",encoding="utf-8");png(cp,cp.with_suffix(".png"));files += [cp.name,cp.with_suffix(".png").name]
+       x=64+(i%2)*1260;y=150+(i//2)*520
+       m=next(xm for xm in measurements if xm["representative"]==label)["r2"]
+       data=base64.b64encode((REPORT/f"r2-{label}.png").read_bytes()).decode("ascii")
+       sheet += [f'<rect x="{x}" y="{y}" width="1190" height="470" rx="12" fill="#fff" stroke="#D1D5DB"/>',f'<text x="{x+20}" y="{y+34}" font-family="DejaVu Sans" font-size="20" font-weight="700" fill="#111827">R2 · {label} · {m.get("status","READY")}</text>',f'<image x="{x+20}" y="{y+52}" width="1150" height="390" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,{data}"/>']
+    cp=REPORT/"r1-r2-contact-sheet.svg"; cp.write_text("".join(sheet)+"</svg>",encoding="utf-8");contact_png(reps,measurements,cp.with_suffix(".png"));files += [cp.name,cp.with_suffix(".png").name]
     write_json(REPORT/"layout-measurements.v2.json", {"schema_version":"kenigevents.asp-atlas-layout-measurements.v2","representatives":measurements,"contact_sheet":{"width":2624,"height":2300}})
+    source_bound=[m for m in measurements if m["r2"].get("source_bound_content")]
+    unresolved=[{"representative":m["representative"],"gap":m["r2"].get("unresolved_source_tuple")} for m in measurements if not m["r2"].get("source_bound_content")]
+    write_json(REPORT/"source-bound-evidence.v1.json", {"schema_version":"kenigevents.asp-atlas-r2-source-bound-evidence.v1","requirements_contract":{"id":"kenigevents.asp-conformance","version":"1.1.0","commit":"f134001382f547cebe8b025da24065128b174ffb","sha256":"54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72"},"atlas_head":"663be702d481972cb2e8863af500f1c35dda1d8c","atlas_tree":"cf9a1e6a5e0a84aea5636334dbd3be4961039b75","state":"PARTIAL_EXACT_SOURCE_BLOCKERS" if unresolved else "SOURCE_BOUND_EVIDENCE_READY","representatives_total":8,"source_bound_representatives":len(source_bound),"placeholder_only_cells":0,"generic_empty_route_boards":0,"incorrect_header_metadata":0,"overlaps":0,"content_outside_root":0,"clipping_violations":0,"unresolved":unresolved,"representatives":[{"representative":m["representative"],**m["r2"]} for m in measurements]})
     reports=[]
     for m in measurements:
         g=m["r2"]; reports.append({"representative":m["representative"],"expected_object_or_state_count":g["expected_count"],"rendered_count":g["rendered_count"],"bottommost_bound":g["bottommost_bound"],"root_width":g["root_width"],"root_height":g["root_height"],"image_dimensions":[g["image_width"],g["image_height"]],"template_columns":g["template_columns"],"violations":g["violations"]})

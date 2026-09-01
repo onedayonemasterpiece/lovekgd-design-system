@@ -1,0 +1,219 @@
+{
+  "artifacts": {
+    "executor": {
+      "bytes": 11595,
+      "git_blob_sha1": "6bc05ad3c36d03295371d30281fa6790ad1fe12b",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-rows-data-r2/free_rows_native_executor_r2.js",
+      "sha256": "12b82e9b2b70548dda65f704fd539b7554bd87a073d0d162b051cf93e2de6cdc"
+    },
+    "schema": {
+      "path": "catalog/asp-production-conveyor-v3/a0/free-rows-data-r2/schema.v1.json"
+    },
+    "setup": {
+      "bytes": 1587,
+      "git_blob_sha1": "a0b86dc0ee642c3589301438fa8a1908918872fe",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-rows-data-r2/setup_free_rows_data_r2.js",
+      "sha256": "41730e7cc7c1b1907c12f0ea3032db75ee6159cfc1ab4df31200f59cca1f2a2e"
+    },
+    "test": {
+      "bytes": 8041,
+      "git_blob_sha1": "e8499ff1722e49d9f97c86f4f37927aaeed475fc",
+      "path": "tests/asp-production-conveyor-v3/a0/free-rows-data-r2/free_rows_data_r2.test.js",
+      "sha256": "ca6a76d81b64d19396c7ee1031d4436cc49bcc7db94752ce424c71f4ad3249e7"
+    }
+  },
+  "atlas_binding": {
+    "atlas_id": "ASP_PENPOT_ATLAS_LAYOUT_V2",
+    "atlas_mutation_by_a0": false,
+    "binding_kind": "DATA_SOURCE_FOR_EXISTING_READY_PROJECTION",
+    "bindings_git_blob_sha1": "23475806beebfbe21bd77759440c169c60627550",
+    "bindings_path": "catalog/asp-production-conveyor-v3/atlas-v2/page-unit-bindings.v2.json",
+    "bindings_sha256": "cf9925bae600db40d306902d60a9dbd157628057c875fc5a83191140e527ac81",
+    "logical_source_unit_id": "free-collection-eventcard",
+    "page_order": "0200",
+    "physical_page_name": "00 · Components · Free collection",
+    "projection_role": "READY",
+    "remote_branch": "o0/penpot-atlas-layout-v2-20260901",
+    "remote_head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "remote_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "source_package_id": "PROTECTED-FREE-COLLECTION-EVENTCARD"
+  },
+  "dependency_gates": {
+    "event_card": {
+      "bytes": 20051,
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "package_id": "U-EVENTCARD-FOUR-CASES",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "remote_head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "remote_tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "component.event-card.free-collection",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81"
+    },
+    "medallion": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json",
+      "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "mapping.admission-free"
+    }
+  },
+  "fixture_order": [
+    "event.real.2182",
+    "event.real.6711",
+    "event.real.7609",
+    "event.real.8006",
+    "event.real.8200"
+  ],
+  "frozen_base": {
+    "branch": "a0/asp-penpot-page-wave-v1-20260901",
+    "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "tree": "3132550212222ec3dea716710821e732ad0d92bb"
+  },
+  "kaggle_used": false,
+  "limits": {
+    "fixture_discovery_calls": 0,
+    "max_managed_creations_per_invocation": 3,
+    "second_terminal_run_created": 0
+  },
+  "negative_test_classes": [
+    "fixture-order-drift",
+    "runtime-discovery-enabled",
+    "missing-eventcard-dependency",
+    "stale-medallion-dependency",
+    "wrong-atlas-projection-role",
+    "duplicate-semantic-id",
+    "screenshot-implementation",
+    "cancelled-lease",
+    "protected-projection-drift"
+  ],
+  "old_penpot_lineage": "FORBIDDEN",
+  "owner": "A0",
+  "package_id": "A-FREE-ROWS-DATA-R2",
+  "penpot_execution_authorized": false,
+  "penpot_mutations_by_a0": 0,
+  "promotion_authorized": false,
+  "record_sha256": "0acf045d499c196f10cbdbdecf0e8463bdc5328ce7b38cdb68c462a02c021129",
+  "render_order": [
+    "event.real.8006",
+    "event.real.8200",
+    "event.real.2182",
+    "event.real.6711",
+    "event.real.7609"
+  ],
+  "route": "/podborki/besplatnye-sobytiya/",
+  "rows": [
+    {
+      "count": 2,
+      "fixture_ids": [
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "group": "events",
+      "heading": "События",
+      "order": 1,
+      "semantic_id": "a0.free.rows.events.r2"
+    },
+    {
+      "count": 3,
+      "fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609"
+      ],
+      "group": "exhibitions",
+      "heading": "Выставки",
+      "order": 2,
+      "semantic_id": "a0.free.rows.exhibitions.r2"
+    }
+  ],
+  "run_control": {
+    "cancel_token": "a393dd838f822e55e70c690c6e201cda1d5c10600647bd10d7415cf985371786",
+    "lease_token": "95ca769415065408ed8c7d0b4b12533f4eceefb271e2fc19866c8c7e9b3ecd61",
+    "run_id": "8712a5a5-a539-5ed5-97c8-78159ea8bf1c",
+    "schema": "kenigevents.asp-run-control.v1",
+    "separate_package_lease": true,
+    "state": "ACTIVE_REQUIRED",
+    "writer_id": "/root/publish_r2"
+  },
+  "runtime_fixture_discovery": false,
+  "schema_version": "kenigevents.a0.free-rows-data-r2.package.v1",
+  "selection_policy": {
+    "membership": "EXACT_FROZEN_PROJECTION_ONLY",
+    "missing_eventcard_variant": "ABORT_NO_GUESSED_SUBSTITUTION",
+    "missing_medallion": "ABORT_NO_GUESSED_SUBSTITUTION",
+    "runtime_query_or_discovery": "FORBIDDEN"
+  },
+  "source_tuple": {
+    "a0_projection": {
+      "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json#/free_route_projection",
+      "projection_record_sha256": "e645fb8e023c2271ee05b109bcc828e0e95959162ef3008653d0b2be08b4c471"
+    },
+    "a0_state_packet": {
+      "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "packet_id": "free-collection.six-cases.a0.v1",
+      "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json#/free_route_state_packets",
+      "state_packet_sha256": "afeda31dfc19de3d98d35d4574cda757b01b8d5144c6227eaa60c3595a4e86f2"
+    },
+    "canonical_projection": {
+      "canonical_projection_sha256": "c1cf986815f1e217c9bf482151252b729109f7cb932aff9b153b265ebe411c12",
+      "git_blob_sha1": "64d8e2a17bd8d4a8b5f9efd65e66a2ad825ec9be",
+      "head": "7bf067475a1dd03b5208b804ced9dbed277cdf30",
+      "path": "catalog/fixtures/ui-reference-events/v2/projections/free-collection-september.v1.json",
+      "projection_id": "free-collection-september.v1",
+      "tree": "47095a9f2089e3fc8f99752252bbcc367034d84c"
+    },
+    "golden_corpus": {
+      "corpus_id": "ui-reference-events.v2",
+      "corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+      "head": "7bf067475a1dd03b5208b804ced9dbed277cdf30",
+      "immutable": true,
+      "path": "catalog/fixtures/ui-reference-events/v2/corpus.json",
+      "tree": "47095a9f2089e3fc8f99752252bbcc367034d84c"
+    },
+    "old_factual_bundle": {
+      "bytes": 14039,
+      "git_blob_sha1": "7165c7055040aeac87340e8773378f1cd50430b5",
+      "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json",
+      "sha256": "4126d436ecec0e38210b73301a61c4a6013450fe57bc29fdb559051c34d54a0d",
+      "tree": "3132550212222ec3dea716710821e732ad0d92bb"
+    }
+  },
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "storage": {
+    "protected_baseline": "a0_free_rows_r2_baseline",
+    "setup_receipt": "a0_free_rows_r2_setup"
+  },
+  "supersedes": {
+    "kind": "CURRENT_EXECUTABLE_SUCCESSOR",
+    "old_package_reissued": false,
+    "package_id": "A-FREE-ROWS-DATA",
+    "reason": "Freeze the current corpus/projection/state tuple and add a concrete dependency-gated native executor."
+  },
+  "target": {
+    "existing_atlas_content": "NO_MUTATION",
+    "managed_scope": "PACKAGE_ROOT_ONLY",
+    "mode": "D0_BINDS_EXISTING_ATLAS_READY_PAGE",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · A-FREE-ROWS-DATA-R2",
+    "root_semantic_id": "a0.free.rows.r2.root"
+  },
+  "terminal_contract": {
+    "detached_instances": 0,
+    "event_card_instances": 5,
+    "events": 2,
+    "exhibitions": 3,
+    "medallion_instances": 2,
+    "root_export_nonempty": true,
+    "rows": 2,
+    "screenshot_shapes": 0,
+    "second_run_created": 0,
+    "validation": []
+  },
+  "visual_acceptance": "PENDING_V0"
+}

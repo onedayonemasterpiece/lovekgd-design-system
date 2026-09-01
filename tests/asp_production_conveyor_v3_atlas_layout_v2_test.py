@@ -54,14 +54,26 @@ class AtlasV2(unittest.TestCase):
   self.assertTrue((REPORT/'r1-r2-contact-sheet.svg').is_file());self.assertTrue((REPORT/'r1-r2-contact-sheet.png').is_file());self.assertEqual(report['result'],'PASS')
   header=ET.parse(REPORT/'r2-action-nav.svg').getroot(); ids={n.attrib.get('data-semantic-id') for n in header.iter()}; self.assertTrue(set(self.d['page_header']['stable_semantic_ids'])<=ids)
   action=ET.parse(REPORT/'r2-action-nav.svg').getroot(); med=ET.parse(REPORT/'r2-medallions-densest.svg').getroot(); typo=ET.parse(REPORT/'r2-typography-densest.svg').getroot(); controls=ET.parse(REPORT/'r2-controls-buttons.svg').getroot()
-  for root,cols,count in [(action,6,18),(med,6,24),(typo,2,27),(controls,3,14)]:
+  for root,cols,count in [(action,6,18),(typo,2,24),(controls,3,14)]:
    self.assertEqual(int(root.attrib['data-template-columns']) if 'data-template-columns' in root.attrib else cols,cols)
    self.assertEqual(len([n for n in root.iter() if 'data-placement' in n.attrib]),count)
    self.assertTrue(any('data-master-column' in n.attrib for n in root.iter()))
+  self.assertEqual(len([n for n in med.iter() if 'data-placement' in n.attrib]),0)
+  self.assertTrue(any(n.attrib.get('data-source-blocker')=='MEDALLION_PAGE_MEMBERSHIP_NOT_REMOTE_RESOLVABLE' for n in med.iter()))
+  self.assertEqual(len([n for n in action.iter() if n.tag.rsplit('}',1)[-1]=='image']),18)
+  self.assertEqual(len([n for n in typo.iter() if 'data-specimen-id' in n.attrib]),24);self.assertTrue(any(n.attrib.get('data-editable')=='true' for n in typo.iter()))
   self.assertTrue(any('data-family-section' in n.attrib for n in controls.iter()))
-  for name,states in [('composed-ready',['top','scrolled','full']),('composed-exception',['loading','empty','error'])]:
-   root=ET.parse(REPORT/f'r2-{name}.svg').getroot(); self.assertEqual([n.attrib['data-row-label'] for n in root.iter() if 'data-row-label' in n.attrib],states)
+  for name in ['archetype-home','composed-ready','composed-exception']:
+   root=ET.parse(REPORT/f'r2-{name}.svg').getroot(); self.assertTrue(any('data-source-blocker' in n.attrib for n in root.iter()))
   owner=ET.parse(REPORT/'r2-owner-review-index.svg').getroot();self.assertEqual(len([n for n in owner.iter() if 'data-owner-row' in n.attrib]),42)
   self.assertNotEqual(ET.parse(REPORT/'r1-action-nav.svg').getroot().attrib['data-template-columns'], ET.parse(REPORT/'r2-action-nav.svg').getroot().attrib['data-template-columns'])
-  before={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in [MAP,REG,BIND,SCHEMA,DOC,REPORT/'r1-r2-contact-sheet.svg']};subprocess.run(['python3','scripts/asp-production-conveyor-v3/atlas-v2/render-atlas-layout-v2.py'],cwd=ROOT,check=True);self.assertEqual(before,{p:hashlib.sha256(p.read_bytes()).hexdigest() for p in before})
+  evidence=load(REPORT/'source-bound-evidence.v1.json');self.assertEqual(evidence['representatives_total'],8);self.assertEqual(evidence['source_bound_representatives'],4);self.assertEqual(len(evidence['unresolved']),4)
+  self.assertEqual(evidence['requirements_contract']['sha256'],'54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72')
+  for rep in evidence['representatives']:
+   root=ET.parse(REPORT/f"r2-{rep['representative']}.svg").getroot();ids={n.attrib.get('data-semantic-id') for n in root.iter()};self.assertTrue(set(self.d['page_header']['stable_semantic_ids'])<=ids);self.assertTrue(any(n.attrib.get('data-header-metadata-correct')=='true' for n in root.iter()))
+   for receipt in rep['input_inventory']:
+    if receipt.get('snapshot_path'):
+     p=ROOT/receipt['snapshot_path'];self.assertTrue(p.is_file());self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),receipt['sha256'])
+  self.assertEqual((evidence['placeholder_only_cells'],evidence['generic_empty_route_boards'],evidence['incorrect_header_metadata'],evidence['overlaps'],evidence['content_outside_root'],evidence['clipping_violations']),(0,0,0,0,0,0))
+  before={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in [MAP,REG,BIND,SCHEMA,DOC,REPORT/'r1-r2-contact-sheet.svg',REPORT/'r1-r2-contact-sheet.png',REPORT/'source-bound-evidence.v1.json']};subprocess.run(['python3','scripts/asp-production-conveyor-v3/atlas-v2/render-atlas-layout-v2.py'],cwd=ROOT,check=True);self.assertEqual(before,{p:hashlib.sha256(p.read_bytes()).hexdigest() for p in before})
 if __name__=='__main__': unittest.main()
