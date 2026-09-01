@@ -1,5 +1,43 @@
 # U-SHARED-PATTERNS — local bounded QA
 
+## Native successor v2 — RD-U0-U-SHARED-PATTERNS
+
+- Exact base: `9bde6ed4c3338cd3487f828c2aea27e22e274299` / tree `02d9d78b44182f3615e2e2e974683d84d8ce57c6`.
+- Successor: `U-SHARED-PATTERNS-NATIVE-R2`.
+- The v1 `penpot.ensure` metadata harness remains historical only; v2 calls
+  native-like `createPage`, `openPage`, `createBoard`, `createText`,
+  `library.local.createComponent`, and linked `component.instance()` paths.
+- Six existing product units are preserved: rails, shelves, headers,
+  search/control bars, content groupings, and row/group composition.
+- The seven existing component identities own concrete visible anatomy,
+  source-derived layout, editable text, surfaces, controls, responsive
+  reflow, and states from the frozen product contract.
+- Every master and linked specimen binds the exact ordered source-consumer
+  tuple (`role`, source path, Git blob) from the predecessor package.
+- Two actual native-like executor runs: first created `147`; second created
+  `0`; snapshots identical.
+- Native census: pages `6`, roots `6`, component masters `7`, linked visible
+  specimens `21`.
+- Integrity: duplicates `0`, detached `0`, screenshots `0`, protected
+  projection changes `0`, validation `[]`.
+- Shared plugin data is string-only in runtime and the test double; non-string
+  writes fail before the adapter and there is no implicit `String(...)`
+  coercion.
+- Preserved Atlas request: blob
+  `4eb5d0b9c87100c9811001bcb776d865efa61f00`, `1072` bytes,
+  SHA-256 `767e61efc68d98a42e522132bb288f2ef8647ab152c3048beb18d320fc61621d`.
+- No Atlas page order is assigned by U0.
+- Local QA: `PASS`. Local INTEGRATE: `PASS` against the same working tree.
+- Exact status: `ATLAS_EXTENSION_PENDING`.
+- Real execution fails closed until both the O0 Atlas-extension binding and
+  ActionNav/V0 evidence closure are `PASS`; only the native-like test mode is
+  enabled in this successor.
+- This is executable Git evidence, **not** Penpot authorization.
+- Boundaries: Penpot reads `0`, Penpot mutations `0`, PUBLISH runs `0`, Atlas
+  R2 mutations `0`, Kaggle calls `0`, new families `0`, broad packages `0`.
+
+### v1 predecessor evidence (preserved)
+
 - Source: `events-bot-new@8f46f068ba41dab4dca538806d11693c8c0d3042` / tree `a1739a4881262c2db9acd679e7b962a969ab5968`
 - Base: `e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21` / tree `848baf8b30a8bb6358a0159c0c20458fa7959dfc`
 - Atlas R2: read-only `663be702d481972cb2e8863af500f1c35dda1d8c` / tree `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`

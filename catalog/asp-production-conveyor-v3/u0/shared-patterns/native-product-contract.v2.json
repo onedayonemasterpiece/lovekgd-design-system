@@ -1,0 +1,1283 @@
+{
+  "schema_version": "kenigevents.u0-native-product-contract.v2",
+  "contract_id": "U-SHARED-PATTERNS-NATIVE-R2",
+  "package_id": "U-SHARED-PATTERNS",
+  "extends": "catalog/asp-production-conveyor-v3/u0/shared-patterns/product-contract.v1.json",
+  "authority": {
+    "mode": "ASTRO_AS_IS_REFERENCE",
+    "source_head": "8f46f068ba41dab4dca538806d11693c8c0d3042",
+    "source_tree": "a1739a4881262c2db9acd679e7b962a969ab5968"
+  },
+  "palette": {
+    "canvas": "#FBF7EF",
+    "surface": "#FFFDF8",
+    "surface_strong": "#FFFFFF",
+    "ink": "#221A14",
+    "copy": "#44362D",
+    "muted": "#6D6259",
+    "line": "#E1D3C2",
+    "brand": "#A54821",
+    "accent": "#0F766E",
+    "danger": "#A92D2D",
+    "info_surface": "#E7F2F7",
+    "warning_surface": "#FFF8DB"
+  },
+  "typography": {
+    "font_family": "Inter",
+    "editable_text": true,
+    "title": {
+      "font_size": "24",
+      "font_weight": "800",
+      "line_height": "1.15"
+    },
+    "body": {
+      "font_size": "13",
+      "font_weight": "500",
+      "line_height": "1.35"
+    }
+  },
+  "page_layout": {
+    "root_width": 1856,
+    "outer_margin": 48,
+    "header_height": 64,
+    "content_start_y": 144,
+    "master_column_x": 48,
+    "master_column_width": 560,
+    "review_grid_x": 656,
+    "review_grid_width": 1152,
+    "review_columns": 2,
+    "review_cell_width": 560,
+    "review_cell_height": 252,
+    "column_gap": 24,
+    "row_gap": 24,
+    "bottom_padding": 48,
+    "component_master_width": 520,
+    "component_master_height": 220,
+    "component_master_gap": 24,
+    "desktop_specimen_width": 520,
+    "mobile_specimen_width": 360,
+    "specimen_height": 220
+  },
+  "components": {
+    "U-PATTERN-LISTING-DISCOVERY-RAIL": {
+      "anatomy": [
+        "optional-date-context",
+        "listing-controls",
+        "optional-time-plane"
+      ],
+      "states": [
+        "cities-only",
+        "with-time",
+        "date-context",
+        "pinned-documented"
+      ],
+      "responsive_behavior": "Desktop rail may reveal date context only while source-pinned; mobile retains controls without inventing a separate route composition.",
+      "dependencies": [],
+      "source_consumers": [
+        "DateListingSurface",
+        "WeekendListingSurface",
+        "PopularListingSurface"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "optional-date-context",
+          "kind": "text",
+          "x": 20,
+          "y": 18,
+          "width": 480,
+          "height": 24,
+          "text": "Сегодня, 1 сентября",
+          "fill": null,
+          "radius": 0,
+          "font_size": "15",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "listing-controls",
+          "kind": "control",
+          "x": 20,
+          "y": 54,
+          "width": 480,
+          "height": 48,
+          "text": "Все города   Калининград   Светлогорск",
+          "fill": "#FFFDF8",
+          "radius": 24,
+          "font_size": "14",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "optional-time-plane",
+          "kind": "control",
+          "x": 20,
+          "y": 116,
+          "width": 300,
+          "height": 44,
+          "text": "Утро   День   Вечер",
+          "fill": "#E7F2F7",
+          "radius": 22,
+          "font_size": "13",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-CONTENT-SHELF": {
+      "anatomy": [
+        "optional-eyebrow",
+        "heading",
+        "count-or-category-inventory",
+        "supporting-note",
+        "content-plane"
+      ],
+      "states": [
+        "standard",
+        "counted",
+        "category-inventory",
+        "compact"
+      ],
+      "responsive_behavior": "Shelf heading and content plane remain together; count/category inventory wraps without changing semantic order.",
+      "dependencies": [],
+      "source_consumers": [
+        "FreeCollectionSurface",
+        "FestivalTimelinePage",
+        "PopularListingSurface"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "optional-eyebrow",
+          "kind": "text",
+          "x": 20,
+          "y": 16,
+          "width": 480,
+          "height": 20,
+          "text": "ПОДБОРКА",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "heading",
+          "kind": "text",
+          "x": 20,
+          "y": 44,
+          "width": 480,
+          "height": 34,
+          "text": "Бесплатные события",
+          "fill": null,
+          "radius": 0,
+          "font_size": "24",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "count-or-category-inventory",
+          "kind": "control",
+          "x": 20,
+          "y": 86,
+          "width": 250,
+          "height": 36,
+          "text": "24 события",
+          "fill": "#FFF8DB",
+          "radius": 18,
+          "font_size": "13",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "supporting-note",
+          "kind": "text",
+          "x": 284,
+          "y": 92,
+          "width": 216,
+          "height": 24,
+          "text": "Обновлено сегодня",
+          "fill": null,
+          "radius": 0,
+          "font_size": "13",
+          "font_weight": "500",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "content-plane",
+          "kind": "control",
+          "x": 20,
+          "y": 136,
+          "width": 480,
+          "height": 60,
+          "text": "Карточки событий · адаптивная сетка",
+          "fill": "#FFFFFF",
+          "radius": 14,
+          "font_size": "14",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-LISTING-SECTION-HEADER": {
+      "anatomy": [
+        "date-or-context-label",
+        "title",
+        "result-count",
+        "related-route-navigation"
+      ],
+      "states": [
+        "today",
+        "tomorrow",
+        "weekend",
+        "popular",
+        "date"
+      ],
+      "responsive_behavior": "Header navigation wraps while title/count identity remains stable across listing surfaces.",
+      "dependencies": [],
+      "source_consumers": [
+        "DateListingSurface",
+        "WeekendListingSurface",
+        "PopularListingSurface"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "date-or-context-label",
+          "kind": "text",
+          "x": 20,
+          "y": 18,
+          "width": 480,
+          "height": 22,
+          "text": "Сегодня",
+          "fill": null,
+          "radius": 0,
+          "font_size": "13",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "title",
+          "kind": "text",
+          "x": 20,
+          "y": 46,
+          "width": 360,
+          "height": 38,
+          "text": "События сегодня",
+          "fill": null,
+          "radius": 0,
+          "font_size": "28",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "result-count",
+          "kind": "control",
+          "x": 390,
+          "y": 50,
+          "width": 110,
+          "height": 30,
+          "text": "42 события",
+          "fill": "#E7F2F7",
+          "radius": 15,
+          "font_size": "12",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "related-route-navigation",
+          "kind": "control",
+          "x": 20,
+          "y": 112,
+          "width": 480,
+          "height": 46,
+          "text": "Завтра   Выходные   Популярное",
+          "fill": "#FFFDF8",
+          "radius": 23,
+          "font_size": "13",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-AUTHORIZED-SEARCH-BAR": {
+      "anatomy": [
+        "heading-copy",
+        "auth-state",
+        "query-input",
+        "submit-action",
+        "progress",
+        "status",
+        "results-boundary"
+      ],
+      "states": [
+        "disabled-prototype",
+        "signed-out-enabled",
+        "loading",
+        "success",
+        "empty",
+        "error",
+        "validation"
+      ],
+      "responsive_behavior": "Standalone textarea and embedded search input share the same authenticated lifecycle without merging result content into the bar.",
+      "dependencies": [
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "AuthorizedEventSearch",
+        "EventLayout"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "heading-copy",
+          "kind": "text",
+          "x": 20,
+          "y": 14,
+          "width": 480,
+          "height": 28,
+          "text": "Поиск событий",
+          "fill": null,
+          "radius": 0,
+          "font_size": "21",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "auth-state",
+          "kind": "text",
+          "x": 20,
+          "y": 44,
+          "width": 480,
+          "height": 20,
+          "text": "Вход не выполнен",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "query-input",
+          "kind": "control",
+          "x": 20,
+          "y": 72,
+          "width": 350,
+          "height": 44,
+          "text": "Лекции, выставки, спектакли…",
+          "fill": "#FFFFFF",
+          "radius": 12,
+          "font_size": "13",
+          "font_weight": "500",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "submit-action",
+          "kind": "control",
+          "x": 382,
+          "y": 72,
+          "width": 118,
+          "height": 44,
+          "text": "Найти",
+          "fill": "#A54821",
+          "radius": 22,
+          "font_size": "14",
+          "font_weight": "800",
+          "text_color": "#FFFFFF"
+        },
+        {
+          "key": "progress",
+          "kind": "control",
+          "x": 20,
+          "y": 128,
+          "width": 480,
+          "height": 8,
+          "text": "",
+          "fill": "#0F766E",
+          "radius": 4,
+          "font_size": "10",
+          "font_weight": "500",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "status",
+          "kind": "text",
+          "x": 20,
+          "y": 146,
+          "width": 480,
+          "height": 20,
+          "text": "Готово к поиску",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "results-boundary",
+          "kind": "control",
+          "x": 20,
+          "y": 174,
+          "width": 480,
+          "height": 28,
+          "text": "Результаты появляются ниже",
+          "fill": "#E7F2F7",
+          "radius": 10,
+          "font_size": "12",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-LISTING-FILTER-BAR": {
+      "anatomy": [
+        "city-fieldset",
+        "all-chip",
+        "city-chips",
+        "live-result-status",
+        "empty-recovery-action"
+      ],
+      "states": [
+        "all-selected",
+        "subset-selected",
+        "empty",
+        "single-city-no-filter"
+      ],
+      "responsive_behavior": "Filter chips remain source-owned controls; row reflow and result counts are downstream consumers.",
+      "dependencies": [
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "ListingControls",
+        "ListingDiscoveryRail"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "city-fieldset",
+          "kind": "text",
+          "x": 20,
+          "y": 16,
+          "width": 480,
+          "height": 24,
+          "text": "Город",
+          "fill": null,
+          "radius": 0,
+          "font_size": "15",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "all-chip",
+          "kind": "control",
+          "x": 20,
+          "y": 52,
+          "width": 72,
+          "height": 40,
+          "text": "Все",
+          "fill": "#A54821",
+          "radius": 20,
+          "font_size": "13",
+          "font_weight": "800",
+          "text_color": "#FFFFFF"
+        },
+        {
+          "key": "city-chips",
+          "kind": "control",
+          "x": 104,
+          "y": 52,
+          "width": 396,
+          "height": 40,
+          "text": "Калининград   Светлогорск   Зеленоградск",
+          "fill": "#FFFDF8",
+          "radius": 20,
+          "font_size": "12",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "live-result-status",
+          "kind": "text",
+          "x": 20,
+          "y": 108,
+          "width": 300,
+          "height": 22,
+          "text": "Показано 18 событий",
+          "fill": null,
+          "radius": 0,
+          "font_size": "13",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "empty-recovery-action",
+          "kind": "control",
+          "x": 332,
+          "y": 104,
+          "width": 168,
+          "height": 36,
+          "text": "Сбросить фильтры",
+          "fill": "#E7F2F7",
+          "radius": 18,
+          "font_size": "12",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-CONTENT-GROUPING": {
+      "anatomy": [
+        "semantic-group-heading",
+        "optional-eyebrow",
+        "optional-supporting-note",
+        "item-container",
+        "empty-state"
+      ],
+      "states": [
+        "events",
+        "exhibitions",
+        "behavior-group",
+        "empty"
+      ],
+      "responsive_behavior": "Grouping keeps heading and items in one semantic section; mobile changes columns, not group identity.",
+      "dependencies": [],
+      "source_consumers": [
+        "FreeCollectionSurface",
+        "PopularBehaviorRows",
+        "ArtifactCollection"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "semantic-group-heading",
+          "kind": "text",
+          "x": 20,
+          "y": 16,
+          "width": 480,
+          "height": 30,
+          "text": "События",
+          "fill": null,
+          "radius": 0,
+          "font_size": "22",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "optional-eyebrow",
+          "kind": "text",
+          "x": 20,
+          "y": 50,
+          "width": 480,
+          "height": 18,
+          "text": "КОЛЛЕКЦИЯ",
+          "fill": null,
+          "radius": 0,
+          "font_size": "11",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "optional-supporting-note",
+          "kind": "text",
+          "x": 20,
+          "y": 74,
+          "width": 480,
+          "height": 20,
+          "text": "Подборка обновлена сегодня",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "500",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "item-container",
+          "kind": "control",
+          "x": 20,
+          "y": 108,
+          "width": 480,
+          "height": 70,
+          "text": "Элемент 1   Элемент 2   Элемент 3",
+          "fill": "#FFFFFF",
+          "radius": 14,
+          "font_size": "13",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "empty-state",
+          "kind": "control",
+          "x": 20,
+          "y": 108,
+          "width": 480,
+          "height": 70,
+          "text": "Здесь пока ничего нет",
+          "fill": "#FFF8DB",
+          "radius": 14,
+          "font_size": "13",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        }
+      ]
+    },
+    "U-PATTERN-ROW-GROUP-COMPOSITION": {
+      "anatomy": [
+        "ordered-items",
+        "bounded-row-size",
+        "row-local-geometry",
+        "responsive-representation",
+        "supplemental-item-contract"
+      ],
+      "states": [
+        "desktop-row",
+        "mobile-adaptive",
+        "singleton",
+        "supplemental-tail"
+      ],
+      "responsive_behavior": "Desktop and mobile representations remain explicit source states; a route-specific singleton is not promoted as a separate shared component.",
+      "dependencies": [],
+      "source_consumers": [
+        "PopularBehaviorRows",
+        "PopularMobileBehaviorRows",
+        "FestivalTimelinePage",
+        "FreeCollectionSurface"
+      ],
+      "master": {
+        "width": 520,
+        "height": 220,
+        "fill": "#FFFDF8",
+        "stroke": "#E1D3C2",
+        "stroke_width": 1,
+        "radius": 20,
+        "clip_content": true
+      },
+      "anatomy_nodes": [
+        {
+          "key": "ordered-items",
+          "kind": "control",
+          "x": 20,
+          "y": 18,
+          "width": 480,
+          "height": 48,
+          "text": "1   2   3   4",
+          "fill": "#FFFFFF",
+          "radius": 12,
+          "font_size": "14",
+          "font_weight": "800",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "bounded-row-size",
+          "kind": "text",
+          "x": 20,
+          "y": 76,
+          "width": 220,
+          "height": 20,
+          "text": "До 4 элементов в ряду",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "row-local-geometry",
+          "kind": "text",
+          "x": 260,
+          "y": 76,
+          "width": 240,
+          "height": 20,
+          "text": "gap 16 · equal width",
+          "fill": null,
+          "radius": 0,
+          "font_size": "12",
+          "font_weight": "600",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "responsive-representation",
+          "kind": "control",
+          "x": 20,
+          "y": 108,
+          "width": 300,
+          "height": 48,
+          "text": "Desktop row → mobile stack",
+          "fill": "#E7F2F7",
+          "radius": 12,
+          "font_size": "12",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        },
+        {
+          "key": "supplemental-item-contract",
+          "kind": "control",
+          "x": 332,
+          "y": 108,
+          "width": 168,
+          "height": 48,
+          "text": "Хвост подборки",
+          "fill": "#FFF8DB",
+          "radius": 12,
+          "font_size": "12",
+          "font_weight": "700",
+          "text_color": "#221A14"
+        }
+      ]
+    }
+  },
+  "specimens": {
+    "u-pattern-rails-cities-only": {
+      "unit_id": "U-PATTERN-RAILS",
+      "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
+      "state": "cities-only",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "listing-controls"
+      ],
+      "label_overrides": {
+        "listing-controls": "Все города   Калининград   Светлогорск"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-rails-with-time": {
+      "unit_id": "U-PATTERN-RAILS",
+      "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
+      "state": "with-time",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "listing-controls",
+        "optional-time-plane"
+      ],
+      "label_overrides": {
+        "optional-time-plane": "Утро   День   Вечер"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-rails-date-context": {
+      "unit_id": "U-PATTERN-RAILS",
+      "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
+      "state": "date-context",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "optional-date-context",
+        "listing-controls"
+      ],
+      "label_overrides": {
+        "optional-date-context": "Сегодня, 1 сентября"
+      },
+      "tone": "brand",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-shelves-counted": {
+      "unit_id": "U-PATTERN-SHELVES",
+      "component_id": "U-PATTERN-CONTENT-SHELF",
+      "state": "counted",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "heading",
+        "count-or-category-inventory",
+        "supporting-note",
+        "content-plane"
+      ],
+      "label_overrides": {
+        "count-or-category-inventory": "24 события"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-shelves-category-inventory": {
+      "unit_id": "U-PATTERN-SHELVES",
+      "component_id": "U-PATTERN-CONTENT-SHELF",
+      "state": "category-inventory",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "optional-eyebrow",
+        "heading",
+        "count-or-category-inventory",
+        "content-plane"
+      ],
+      "label_overrides": {
+        "count-or-category-inventory": "Концерты · Театр · Выставки"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-shelves-compact": {
+      "unit_id": "U-PATTERN-SHELVES",
+      "component_id": "U-PATTERN-CONTENT-SHELF",
+      "state": "compact",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "heading",
+        "content-plane"
+      ],
+      "label_overrides": {
+        "heading": "Короткая подборка"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-section-headers-today": {
+      "unit_id": "U-PATTERN-SECTION-HEADERS",
+      "component_id": "U-PATTERN-LISTING-SECTION-HEADER",
+      "state": "today",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "date-or-context-label",
+        "title",
+        "result-count",
+        "related-route-navigation"
+      ],
+      "label_overrides": {
+        "date-or-context-label": "Сегодня",
+        "title": "События сегодня"
+      },
+      "tone": "brand",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-section-headers-weekend": {
+      "unit_id": "U-PATTERN-SECTION-HEADERS",
+      "component_id": "U-PATTERN-LISTING-SECTION-HEADER",
+      "state": "weekend",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "date-or-context-label",
+        "title",
+        "result-count",
+        "related-route-navigation"
+      ],
+      "label_overrides": {
+        "date-or-context-label": "7–8 сентября",
+        "title": "События на выходные"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-section-headers-popular": {
+      "unit_id": "U-PATTERN-SECTION-HEADERS",
+      "component_id": "U-PATTERN-LISTING-SECTION-HEADER",
+      "state": "popular",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "date-or-context-label",
+        "title",
+        "result-count",
+        "related-route-navigation"
+      ],
+      "label_overrides": {
+        "date-or-context-label": "Популярное",
+        "title": "Выбирают горожане"
+      },
+      "tone": "warning",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-search-control-bars-search-signed-out": {
+      "unit_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "component_id": "U-PATTERN-AUTHORIZED-SEARCH-BAR",
+      "state": "signed-out-enabled",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "heading-copy",
+        "auth-state",
+        "query-input",
+        "submit-action",
+        "status",
+        "results-boundary"
+      ],
+      "label_overrides": {
+        "auth-state": "Вход не выполнен",
+        "status": "Поиск доступен, персонализация выключена"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-search-control-bars-search-loading": {
+      "unit_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "component_id": "U-PATTERN-AUTHORIZED-SEARCH-BAR",
+      "state": "loading",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "heading-copy",
+        "auth-state",
+        "query-input",
+        "submit-action",
+        "progress",
+        "status",
+        "results-boundary"
+      ],
+      "label_overrides": {
+        "auth-state": "Вход выполнен",
+        "status": "Ищем события…"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-search-control-bars-filter-subset": {
+      "unit_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "component_id": "U-PATTERN-LISTING-FILTER-BAR",
+      "state": "subset-selected",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "city-fieldset",
+        "all-chip",
+        "city-chips",
+        "live-result-status"
+      ],
+      "label_overrides": {
+        "live-result-status": "Показано 18 событий"
+      },
+      "tone": "brand",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-search-control-bars-filter-empty": {
+      "unit_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "component_id": "U-PATTERN-LISTING-FILTER-BAR",
+      "state": "empty",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "city-fieldset",
+        "all-chip",
+        "city-chips",
+        "live-result-status",
+        "empty-recovery-action"
+      ],
+      "label_overrides": {
+        "live-result-status": "По выбранным городам событий нет"
+      },
+      "tone": "warning",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-content-groupings-events": {
+      "unit_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "component_id": "U-PATTERN-CONTENT-GROUPING",
+      "state": "events",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "semantic-group-heading",
+        "optional-eyebrow",
+        "optional-supporting-note",
+        "item-container"
+      ],
+      "label_overrides": {
+        "semantic-group-heading": "События"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-content-groupings-exhibitions": {
+      "unit_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "component_id": "U-PATTERN-CONTENT-GROUPING",
+      "state": "exhibitions",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "semantic-group-heading",
+        "optional-eyebrow",
+        "optional-supporting-note",
+        "item-container"
+      ],
+      "label_overrides": {
+        "semantic-group-heading": "Выставки"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-content-groupings-behavior-group": {
+      "unit_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "component_id": "U-PATTERN-CONTENT-GROUPING",
+      "state": "behavior-group",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "semantic-group-heading",
+        "optional-supporting-note",
+        "item-container"
+      ],
+      "label_overrides": {
+        "semantic-group-heading": "Популярно у читателей"
+      },
+      "tone": "brand",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-content-groupings-empty": {
+      "unit_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "component_id": "U-PATTERN-CONTENT-GROUPING",
+      "state": "empty",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "semantic-group-heading",
+        "optional-supporting-note",
+        "empty-state"
+      ],
+      "label_overrides": {
+        "semantic-group-heading": "События",
+        "optional-supporting-note": "Измените фильтры, чтобы увидеть варианты"
+      },
+      "tone": "warning",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-row-group-composition-desktop-row": {
+      "unit_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "state": "desktop-row",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "ordered-items",
+        "bounded-row-size",
+        "row-local-geometry",
+        "responsive-representation"
+      ],
+      "label_overrides": {
+        "responsive-representation": "4 колонки · desktop"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-row-group-composition-mobile-adaptive": {
+      "unit_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "state": "mobile-adaptive",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "ordered-items",
+        "bounded-row-size",
+        "row-local-geometry",
+        "responsive-representation"
+      ],
+      "label_overrides": {
+        "responsive-representation": "1 колонка · mobile"
+      },
+      "tone": "info",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-row-group-composition-singleton": {
+      "unit_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "state": "singleton",
+      "source_viewport": {
+        "width": 1280,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "ordered-items",
+        "bounded-row-size",
+        "row-local-geometry"
+      ],
+      "label_overrides": {
+        "ordered-items": "1"
+      },
+      "tone": "neutral",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    },
+    "u-pattern-row-group-composition-supplemental-tail": {
+      "unit_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "state": "supplemental-tail",
+      "source_viewport": {
+        "width": 390,
+        "height": 760
+      },
+      "visible_anatomy": [
+        "ordered-items",
+        "bounded-row-size",
+        "row-local-geometry",
+        "supplemental-item-contract"
+      ],
+      "label_overrides": {
+        "ordered-items": "1   2   3",
+        "supplemental-item-contract": "Ещё 1 элемент"
+      },
+      "tone": "warning",
+      "acceptance": [
+        "exact current source consumers",
+        "responsive/state contract",
+        "no route-specific one-off promotion"
+      ]
+    }
+  }
+}

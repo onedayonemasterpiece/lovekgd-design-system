@@ -1,0 +1,303 @@
+'use strict';
+
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const test = require('node:test');
+
+const { run } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_executor_v2');
+const { nativeContract, predecessor, productContract, setupNativeSuccessor, successor } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/setup_v2');
+const { pluginGet, protectedProjection, setSharedString, stableStringify, validateSuccessor } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v2');
+
+let sequence = 0;
+
+class PluginDataNode {
+  constructor() { this._pluginData = new Map(); }
+  setSharedPluginData(namespace, key, value) {
+    if (typeof value !== 'string') throw new TypeError(`TEST_DOUBLE_PLUGIN_DATA_STRING_REQUIRED:${key}`);
+    this._pluginData.set(`${namespace}\0${key}`, value);
+  }
+  getSharedPluginData(namespace, key) { return this._pluginData.get(`${namespace}\0${key}`) || ''; }
+}
+
+class Shape extends PluginDataNode {
+  constructor(type = 'board', id = null) {
+    super();
+    this.id = id || `shape-${++sequence}`;
+    this.type = type;
+    this.name = '';
+    this.x = 0;
+    this.y = 0;
+    this.width = 100;
+    this.height = 100;
+    this.hidden = false;
+    this.visible = true;
+    this.fills = [];
+    this.strokes = [];
+    this.borderRadius = 0;
+    this.clipContent = false;
+    this.children = [];
+    this.parent = null;
+    this._component = null;
+    this._isCopy = false;
+  }
+  appendChild(child) {
+    if (child.parent) child.parent.children = child.parent.children.filter((item) => item !== child);
+    child.parent = this;
+    this.children.push(child);
+  }
+  resize(width, height) { this.width = width; this.height = height; }
+  component() { return this._component; }
+  isComponentCopyInstance() { return this._isCopy; }
+}
+
+function cloneShape(source) {
+  const clone = new Shape(source.type);
+  for (const key of ['name', 'x', 'y', 'width', 'height', 'hidden', 'visible', 'borderRadius', 'clipContent', 'fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'growType', 'text', 'characters']) {
+    if (Object.hasOwn(source, key)) clone[key] = structuredClone(source[key]);
+  }
+  clone.fills = structuredClone(source.fills);
+  clone.strokes = structuredClone(source.strokes);
+  clone._pluginData = new Map(source._pluginData);
+  for (const child of source.children) clone.appendChild(cloneShape(child));
+  return clone;
+}
+
+class LocalComponent extends PluginDataNode {
+  constructor(main) {
+    super();
+    this.id = `component-${++sequence}`;
+    this.name = '';
+    this.path = '';
+    this._main = main;
+    main._component = this;
+  }
+  mainInstance() { return this._main; }
+  instance() {
+    const instance = cloneShape(this._main);
+    instance._component = this;
+    instance._isCopy = true;
+    return instance;
+  }
+}
+
+class LocalLibrary {
+  constructor() { this.components = []; }
+  createComponent(shapes) {
+    assert.equal(Array.isArray(shapes), true);
+    assert.equal(shapes.length, 1);
+    const component = new LocalComponent(shapes[0]);
+    this.components.push(component);
+    return component;
+  }
+}
+
+class Page extends PluginDataNode {
+  constructor(id = null) {
+    super();
+    this.id = id || `page-${++sequence}`;
+    this.name = '';
+    this.root = new Shape('root', `${this.id}-root`);
+  }
+}
+
+class CurrentFile extends PluginDataNode {
+  constructor(id) {
+    super();
+    this.id = id;
+    this.pages = [];
+  }
+  validate() { return []; }
+}
+
+class NativeLikePenpot {
+  constructor() {
+    this.currentFile = new CurrentFile(successor.target.file_id);
+    this.currentPage = null;
+    this.library = { local: new LocalLibrary() };
+    this.history = {
+      undoBlockBegin: () => ({ id: `undo-${++sequence}` }),
+      undoBlockFinish: (token) => assert.match(token.id, /^undo-/),
+    };
+    const protectedPage = new Page('protected-page');
+    protectedPage.name = 'Protected owner projection';
+    const protectedRoot = new Shape('board', 'protected-root');
+    protectedRoot.name = 'Protected exact root';
+    protectedRoot.resize(640, 480);
+    protectedPage.root.appendChild(protectedRoot);
+    this.currentFile.pages.push(protectedPage);
+  }
+  createPage() {
+    const page = new Page();
+    this.currentFile.pages.push(page);
+    this.currentPage = page;
+    return page;
+  }
+  createBoard() { return new Shape('board'); }
+  createRectangle() { return new Shape('rect'); }
+  createText(value) {
+    assert.equal(typeof value, 'string');
+    const text = new Shape('text');
+    text.text = value;
+    text.characters = value;
+    return text;
+  }
+  async openPage(page) { this.currentPage = page; }
+}
+
+class MemoryStorage {
+  constructor() { this.values = new Map(); }
+  async set(key, value) { this.values.set(key, structuredClone(value)); }
+  get(key) { return this.values.get(key); }
+}
+
+function environment() {
+  sequence = 0;
+  return { penpot: new NativeLikePenpot(), storage: new MemoryStorage(), lease: { active: true, cancelled: false, native_like: true, lease_id: 'native-like-run' } };
+}
+
+function snapshot(penpot) {
+  const node = (shape) => ({
+    id: shape.id, type: shape.type, name: shape.name, x: shape.x, y: shape.y, width: shape.width, height: shape.height,
+    hidden: shape.hidden, visible: shape.visible, fills: shape.fills, strokes: shape.strokes, characters: shape.characters,
+    plugin_data: [...shape._pluginData.entries()].sort(), component_id: shape.component?.()?.id || null,
+    is_copy: shape.isComponentCopyInstance?.() || false, children: shape.children.map(node),
+  });
+  return stableStringify({
+    pages: penpot.currentFile.pages.map((page) => ({ id: page.id, name: page.name, plugin_data: [...page._pluginData.entries()].sort(), root: node(page.root) })),
+    components: penpot.library.local.components.map((component) => ({ id: component.id, name: component.name, path: component.path, main_id: component.mainInstance().id })),
+  });
+}
+
+function managedRoot(penpot, unitId) {
+  const namespace = successor.execution.namespace;
+  const page = penpot.currentFile.pages.find((candidate) => pluginGet(candidate, namespace, 'unit-id') === unitId);
+  return page.root.children.find((candidate) => pluginGet(candidate, namespace, 'stable-id') === `root/${unitId}`);
+}
+
+test('successor freezes six existing units, seven components, 21 specimens, and exact source-consumer lineage', () => {
+  assert.deepEqual(validateSuccessor(successor, predecessor, productContract, nativeContract), []);
+  assert.equal(successor.page_units.length, 6);
+  assert.equal(Object.keys(nativeContract.components).length, 7);
+  assert.equal(Object.keys(nativeContract.specimens).length, 21);
+  for (const [componentId, component] of Object.entries(nativeContract.components)) {
+    assert.deepEqual(successor.component_source_lineage[componentId].map((entry) => entry.role), component.source_consumers);
+    assert.deepEqual(component.anatomy_nodes.map((node) => node.key), component.anatomy);
+    assert.ok(component.anatomy_nodes.every((node) => node.text !== undefined && node.width > 0 && node.height > 0));
+  }
+  assert.equal(successor.status, 'ATLAS_EXTENSION_PENDING');
+  assert.equal(successor.authorization.penpot_execution_authorized, false);
+  assert.equal(successor.authorization.publish_authorized, false);
+  assert.equal(successor.authorization.real_penpot_execution_authorized, false);
+  assert.equal(successor.execution.real_penpot_gates.o0_atlas_extension_binding.state, 'PENDING');
+  assert.equal(successor.execution.real_penpot_gates.action_nav_v0_closure.state, 'PENDING');
+  assert.equal(successor.boundaries.atlas_page_order_assigned, false);
+});
+
+test('strict shared-plugin-data rejects non-strings in runtime and native-like double without coercion', () => {
+  const node = new PluginDataNode();
+  assert.throws(() => node.setSharedPluginData('namespace', 'key', { invalid: true }), /TEST_DOUBLE_PLUGIN_DATA_STRING_REQUIRED/);
+  assert.throws(() => setSharedString(node, 'namespace', 'key', 42), /PLUGIN_DATA_STRING_REQUIRED/);
+  setSharedString(node, 'namespace', 'key', '42');
+  assert.equal(node.getSharedPluginData('namespace', 'key'), '42');
+  const runtime = fs.readFileSync(path.resolve(__dirname, '../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v2.js'), 'utf8');
+  assert.equal(runtime.includes('penpot.ensure'), false);
+  assert.equal(/\bString\(/.test(runtime), false);
+});
+
+test('two actual native-like executor runs create concrete masters and linked visible specimens once', async () => {
+  const env = environment();
+  const protectedBefore = protectedProjection(env.penpot, successor.execution.namespace, successor.package_id);
+  const registration = await setupNativeSuccessor(env);
+  assert.equal(registration.penpot_execution_authorized, false);
+  const first = await run(env);
+  const afterFirst = snapshot(env.penpot);
+  const second = await run(env);
+  const afterSecond = snapshot(env.penpot);
+
+  assert.equal(first.created, 147);
+  assert.equal(second.created, 0);
+  assert.equal(second.second_run_created, 0);
+  assert.equal(afterSecond, afterFirst);
+  assert.deepEqual(first.counts, { pages: 6, roots: 6, component_masters: 7, linked_visible_specimens: 21, duplicates: 0, detached: 0, screenshots: 0 });
+  assert.deepEqual(second.counts, first.counts);
+  assert.deepEqual(second.validation, []);
+  assert.deepEqual(first.protected_projection_before, protectedBefore);
+  assert.deepEqual(first.protected_projection_after, protectedBefore);
+  assert.equal(first.atlas_page_order_assigned, false);
+  assert.equal(first.penpot_authorization, false);
+  assert.equal(first.publish_authorization, false);
+
+  for (const unit of successor.page_units) {
+    const root = managedRoot(env.penpot, unit.unit_id);
+    assert.ok(root);
+    for (const specimenId of unit.specimen_ids) {
+      const wrapper = root.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === `specimen/${specimenId}`);
+      assert.ok(wrapper);
+      const instance = wrapper.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === `instance/${specimenId}`);
+      assert.ok(instance.isComponentCopyInstance());
+      assert.ok(instance.component());
+      assert.ok(instance.children.some((shape) => shape.visible && !shape.hidden));
+      assert.equal(pluginGet(instance, successor.execution.namespace, 'source-lineage'), pluginGet(wrapper, successor.execution.namespace, 'source-lineage'));
+      for (const [key, label] of Object.entries(nativeContract.specimens[specimenId].label_overrides)) {
+        const anatomy = instance.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') === key);
+        const text = anatomy.type === 'text' ? anatomy : anatomy.children.find((shape) => shape.type === 'text');
+        assert.equal(text.characters, label);
+      }
+    }
+  }
+});
+
+test('duplicate, detached, screenshot, source-lineage and protected-projection failures fail closed', async () => {
+  const duplicate = environment();
+  const firstPage = duplicate.penpot.createPage();
+  firstPage.name = successor.page_units[0].page_name;
+  const secondPage = duplicate.penpot.createPage();
+  secondPage.name = successor.page_units[0].page_name;
+  await assert.rejects(() => run(duplicate), /DUPLICATE_PAGE/);
+
+  const detached = environment();
+  await run(detached);
+  const detachedRoot = managedRoot(detached.penpot, successor.page_units[0].unit_id);
+  const specimenWrapper = detachedRoot.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id').startsWith('specimen/'));
+  specimenWrapper.children.find((shape) => shape.isComponentCopyInstance())._component = null;
+  await assert.rejects(() => run(detached), /DETACHED_INSTANCE/);
+
+  const screenshot = environment();
+  await run(screenshot);
+  managedRoot(screenshot.penpot, successor.page_units[0].unit_id).appendChild(new Shape('image'));
+  await assert.rejects(() => run(screenshot), /SCREENSHOT_IMPLEMENTATION/);
+
+  const lineage = environment();
+  await run(lineage);
+  const componentId = successor.page_units[0].component_ids[0];
+  const master = managedRoot(lineage.penpot, successor.page_units[0].unit_id).children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === `master/${componentId}`);
+  setSharedString(master, successor.execution.namespace, 'source-lineage', '[]');
+  await assert.rejects(() => run(lineage), /MASTER_SOURCE_LINEAGE/);
+
+  class DriftingPenpot extends NativeLikePenpot {
+    createPage() {
+      const page = super.createPage();
+      this.currentFile.pages[0].root.children[0].name = `drift-${this.currentFile.pages.length}`;
+      return page;
+    }
+  }
+  const protectedEnv = { penpot: new DriftingPenpot(), storage: new MemoryStorage(), lease: { active: true, cancelled: false, native_like: true } };
+  await assert.rejects(() => run(protectedEnv), /PROTECTED_PROJECTION_DRIFT/);
+});
+
+test('active lease cannot bypass pending O0 extension and ActionNav/V0 gates', async () => {
+  const env = environment();
+  env.lease.native_like = false;
+  const before = snapshot(env.penpot);
+  await assert.rejects(() => run(env), /REAL_PENPOT_EXECUTION_GATED/);
+  assert.equal(snapshot(env.penpot), before);
+});
+
+test('inactive lease fails before any native creation', async () => {
+  const env = environment();
+  env.lease = { active: false, cancelled: true, lease_id: 'cancelled' };
+  const before = snapshot(env.penpot);
+  await assert.rejects(() => run(env), /LEASE_NOT_ACTIVE/);
+  assert.equal(snapshot(env.penpot), before);
+});
