@@ -14,15 +14,15 @@
     "execution_context": "Penpot plugin context",
     "executor": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_layout_repair_payload_v1.js",
-      "bytes": 33743,
-      "sha256": "daabc67b7b82d6aff895b14b1da647f7d194b4a3fdc5c8950ff270d2b9689399",
-      "git_blob_sha1": "177f2ee8451adf24714f8e1d6d2d18e447fade65"
+      "bytes": 35072,
+      "sha256": "0921772b983868939e660442152dfd0719c5f7c90c4e62618a10f6ac3335a168",
+      "git_blob_sha1": "b04eee43a925fd3cd7105e5ca415d22902be9e1f"
     },
     "launcher": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_layout_repair_v1.js",
       "bytes": 3837,
-      "sha256": "b24d7f96e8aecb3db4b33acfd50e5683120221f28a7e77560782e3e55bb8a797",
-      "git_blob_sha1": "b26da1b64def9ae0fc1bb0b079368b819d156604"
+      "sha256": "b58bdb57436e24bddc8767c2f5c4521ee77cc529273765d7abec019ce7c66366",
+      "git_blob_sha1": "d7750966af9377203260c66aeef46044a3e1bfa1"
     },
     "load_order": [
       "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_layout_repair_payload_v1.js",
@@ -110,7 +110,7 @@
   "template_id": "FOUNDATION_ASSET_GRID_V1",
   "runtime_claim_contract": {
     "schema": "kenigevents.asp-atlas-publish-claim.v1",
-    "adapter_sha256": "daabc67b7b82d6aff895b14b1da647f7d194b4a3fdc5c8950ff270d2b9689399",
+    "adapter_sha256": "0921772b983868939e660442152dfd0719c5f7c90c4e62618a10f6ac3335a168",
     "binding_storage_key": "d0F0AtlasBindingV1:F-FOUNDATIONS-REVIEW-SPACING-SIZING",
     "protected_baseline_storage_key": "d0F0AtlasProtectedBaselineV1:F-FOUNDATIONS-REVIEW-SPACING-SIZING",
     "current_publish_identity": "RUNTIME_BOUND_NOT_HARDCODED",
@@ -149,7 +149,13 @@
       "sha256": "SELF_CONTAINED_PURE_JS"
     },
     "geometry_epsilon": 0.01,
-    "penpot_geometry_contract": "x/y/width/height numeric; resize readback compared with bounded epsilon"
+    "penpot_geometry_contract": "x/y/width/height numeric; resize readback compared with bounded epsilon",
+    "protected_baseline_supersession": {
+      "accepted_predecessor_adapter_sha256": "0f152221b1c2c0e47143746d039bd41cfdbd72642ebfeac002f9833075a5d6e6",
+      "requires_exact_live_projections": true,
+      "archive_preserved": true,
+      "penpot_mutations": 0
+    }
   },
   "reason": "native review page is absent; creator consumes exact protected/source projections and central component lineage, then builds exact atlas slots and linked state instances without mutating central masters"
 }
