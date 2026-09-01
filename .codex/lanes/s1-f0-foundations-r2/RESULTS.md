@@ -25,14 +25,16 @@ committed
 
 ## Head SHA
 
-Final integrity-repair implementation snapshot: `fa9de6bf2d73bcfc1010b3d4f49417d1420ecdd7`
-(tree `7b1b87fb3f057b535f3e9099057fd9a9d01b9f86`).
+Final fail-closed implementation snapshot: `5f63379159da6693ca580dda5268e5071c82f233`
+(tree `0bbff5968c37ff31705ad1fb4b4557c49773a480`).
 
 Independent QA rejected prior head `8e4bc94156715b5b502a2be8225084ea01556921`
 for family-rounded Flex rows and incomplete protected projections. Re-QA then
 rejected `ece0d5cd981429fb83cbb75f722814f96680c1dc` for finite plugin-key
 projection, pages-only component coverage, and placement-tag-only detach scans.
-This receipt records both bounded repairs and the subsequent same-head reruns.
+Third QA rejected `06e02b5ce61e49c6c7de77a901ebdf912a20cb8e` for a
+namespace-enumeration fallback and one-direction component-marker scan. This
+receipt records all bounded repairs and the subsequent same-head reruns.
 
 The final branch head necessarily includes this receipt-only commit and is
 recorded by provider-backed remote readback in the terminal lane handoff. QA
@@ -62,12 +64,12 @@ same remote head.
   `663be702d481972cb2e8863af500f1c35dda1d8c`, tree
   `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`, bindings blob
   `23475806beebfbe21bd77759440c169c60627550`.
-- Shared family-local payload: 47,177 bytes, blob
-  `0dfa636aab4d3e2135f364da5d5c35b5339f43a0`, SHA-256
-  `c44e669e4a01f5dd11cdabccc140065bb7ff3a86c436433cf50942ae19659173`.
+- Shared family-local payload: 46,985 bytes, blob
+  `a8e080920d4cadce3e17fff880e314d1f7857224`, SHA-256
+  `66ed63cf867c7316d4e52eac72665cd833a1d2748efb73d4728f07272c118fa6`.
 - Shared family-local launcher: 6,196 bytes, blob
-  `155eb89a7c6d8d51d2a2a56276f28d99c0f18455`, SHA-256
-  `130e54258905f32f102b3f727c1b3ce6b9434945dd8082e1396f7be0c121f95d`.
+  `19dc64ce81eb51e9eca6c3069007c8309cf90250`, SHA-256
+  `c4156c8976304d16e02ec5a55f3945e145278cf2730840a1da98f06384ae10f8`.
 - Every package has a distinct frozen execution tuple and adapter ID.
 - Native-like test double rejects non-string shared-plugin-data without any
   implicit `String(...)` coercion.
@@ -78,12 +80,13 @@ same remote head.
 - Exact global rows/review/root heights are `7/1984/2304`, `4/1120/1440`,
   `2/544/864`, and `3/832/1152`; Shape/Elevation is exactly two rows.
 - Complete fail-closed projections cover text, fills, strokes, shadows, opacity,
-  every enumerated plugin-data namespace/key (or every key in the declared
-  complete runtime namespace contract), Grid/Flex/layout cells, and component
-  lineage. Adversarial foreign/arbitrary keys reject before creation.
+  every enumerated plugin-data namespace/key, Grid/Flex/layout cells, file
+  plugin data, and component lineage. Namespace enumeration unavailable on any
+  protected object fails closed before creation; there is no finite fallback.
 - The digest covers the complete local component-library census, including
   unattached masters and component name/path/variant state. A recursive managed
-  subtree scan rejects untagged missing/foreign component copies before creation.
+  subtree scan rejects both copy-without-reference and reference-without-copy
+  marker mismatches, plus missing/foreign components, before creation.
 - Terminal readback returns `duplicates=0`, `detached=0`, `screenshots=0`, and
   unchanged Free/EventCard plus Foundation source/index projections.
 - Atlas R2 files were not changed. Penpot reads/mutations, PUBLISH, and Kaggle:
@@ -115,9 +118,10 @@ and mutation authorization remain pending the Atlas evidence gate.
 
 ## Tests / verification
 
-- Native-like QA: 16/16 PASS, including four separately named package replay
-  tests, exact Grid rows, arbitrary enumerated and runtime-contract plugin keys,
-  unattached component drift, and untagged nested detached-copy regressions.
+- Native-like QA: 17/17 PASS, including four separately named package replay
+  tests, exact Grid rows, a foreign fifth namespace with unavailable enumeration,
+  unattached component drift, and both component-reference/marker mismatch
+  directions.
 - Exact binding/bytes/formula INTEGRATE: 6/6 PASS.
 - Existing Foundation page-split adapter: PASS.
 - Existing Foundation candidate suite: 4/4 PASS.
