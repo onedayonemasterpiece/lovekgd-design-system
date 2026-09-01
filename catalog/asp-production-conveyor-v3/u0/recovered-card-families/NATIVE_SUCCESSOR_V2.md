@@ -53,8 +53,23 @@ declared_state_specimens=23/23
 Negative runs independently inject duplicate pages, a detached instance,
 screenshot-named geometry, `type=image`, `fillImage`, protected-owner drift,
 managed replay drift, and a cancelled lease. Each condition fails closed. Both
-protected and managed projections cover text, fills, strokes, radii, opacity,
-shared plugin data, component binding, and Flex properties.
+protected and managed projections cover text, complete paint/gradient fields,
+radii, opacity, blend/blur, shadows, all supported typography properties,
+constraints/transforms, layout-child/grid-cell/tokens, component binding, and
+all Flex sizing/alignment/padding fields. A shadow-only managed replay
+corruption fails closed.
+
+Complete plugin-data projection never uses a fixed key fallback. It enumerates
+local keys plus every shared namespace and every key in each namespace. Because
+the native PluginData API exposes shared keys only after a namespace is known,
+the execution surface requires the adapter capability
+`getSharedPluginDataNamespaces()`; if complete namespace enumeration is not
+available, the executor fails before the first native write. A foreign-namespace
+mutation is an explicit adversarial test.
+
+The detached-copy gate recursively scans every shape under every managed root
+and component master, including untagged nested shapes, on the first run and
+replay.
 
 ## Atlas and authorization boundary
 

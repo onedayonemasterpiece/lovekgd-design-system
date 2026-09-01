@@ -101,12 +101,18 @@ class NativeSuccessorInvariantTests(unittest.TestCase):
         for required in (
             "managedProjection", "MANAGED_REPLAY_PROJECTION_CHANGED", "shape.type || '').toLowerCase() === 'image'",
             "hasImageFill(shape)", "fillImage", "borderRadius", "pluginData", "component:", "flex:",
+            "shadows:", "shadowProjection", "fontFamily", "fontVariantId", "fontStyle", "letterSpacing",
+            "textTransform", "textDecoration", "direction", "verticalAlign", "blendMode", "backgroundBlur",
+            "layoutChildProjection", "layoutCellProjection", "tokenProjection", "topPadding", "horizontalSizing",
+            "getSharedPluginDataNamespaces", "SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED",
         ):
             self.assertIn(required, runtime)
+        self.assertNotIn("PROJECTION_PLUGIN_KEYS", runtime)
         for required in (
             "document-bounded-cover", "visual-media", "document-media", "future-meetings", "reduced-motion",
             "collecting", "found-badge').visible, false", "new Shape('image')", "fillImage:",
-            "MANAGED_REPLAY_PROJECTION_CHANGED",
+            "MANAGED_REPLAY_PROJECTION_CHANGED", "corrupt-shadow", "Untagged nested component copy",
+            "foreign-owner-namespace", "SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED",
         ):
             self.assertIn(required, node_test)
 

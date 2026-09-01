@@ -5,7 +5,7 @@
 - Atlas R2: read-only `663be702d481972cb2e8863af500f1c35dda1d8c` / tree `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`
 - JavaScript syntax: PASS
 - Exact source blob lineage: PASS
-- Node executor tests: 11/11 PASS (v1+v2)
+- Node executor tests: 12/12 PASS (v1+v2)
 - Python repository invariants: 15/15 PASS (v1+v2)
 - `compileall`: PASS
 - second-run-created: 0
@@ -40,10 +40,14 @@ Remote head/tree/blob readback is intentionally not asserted until GitHub public
 - Second run created: `0`
 - Duplicates/detached/screenshots/source-lineage errors: `0/0/0/0`
 - Protected projection changes: `0` (text/fills/strokes/radius/opacity/plugin/component/Flex)
-- Managed replay projection changes: `0`
+- Managed replay projection changes: `0` (including shadow-only corruption)
+- Recursive untagged nested detached-copy scan: PASS
+- Complete local/shared namespace+key plugin enumeration or pre-write failure: PASS
+- Foreign plugin namespace adversarial: PASS
+- Projection includes all supported paint/shadow/typography/layout/Flex style fields: PASS
 - Global managed-root `type=image` / `fillImage` gate: PASS
 - Enforced managed-node census: `38/38`
-- Node v2 tests: `6/6 PASS`
+- Node v2 tests: `7/7 PASS`
 - Python v2 invariants: `8/8 PASS`
 - Existing Atlas extension request: exact blob `1ecbada6d8159723f2d5618b8f809af1e4ad1653`, unchanged
 - Atlas page order assigned by U0: `false`

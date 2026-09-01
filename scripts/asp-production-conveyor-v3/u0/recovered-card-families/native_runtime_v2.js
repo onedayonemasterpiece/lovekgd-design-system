@@ -363,15 +363,6 @@ function managedComponents(penpot) {
   return Array.from(penpot.library?.local?.components || []).filter((component) => shared(component.mainInstance?.(), 'package-id') === PACKAGE_ID);
 }
 
-const PROJECTION_PLUGIN_KEYS = Object.freeze([
-  'package-id', 'unit-id', 'family-id', 'stable-id', 'specimen-id', 'state-id', 'state-binding',
-  'anatomy-id', 'source-head', 'source-tree', 'source-lineage', 'layout-contract', 'viewport',
-  'atlas-extension-state', 'atlas-page-order-assigned', 'media-fit', 'media-ratio',
-  'document-crop-budget', 'copy-lines', 'cover-state', 'motion-profile', 'transform-profile',
-  'transition-profile', 'focus-offset', 'aria-pressed', 'link-enabled', 'implementation-kind',
-  'protected-marker',
-]);
-
 function imageProjection(image) {
   if (!image) return null;
   return {
@@ -380,37 +371,102 @@ function imageProjection(image) {
   };
 }
 
+function gradientProjection(gradient) {
+  if (!gradient) return null;
+  return {
+    type: gradient.type ?? null, startX: gradient.startX ?? null, startY: gradient.startY ?? null,
+    endX: gradient.endX ?? null, endY: gradient.endY ?? null, width: gradient.width ?? null,
+    stops: Array.from(gradient.stops || []).map((stop) => ({ color: stop.color ?? null, opacity: stop.opacity ?? null, offset: stop.offset ?? null })),
+  };
+}
+
 function paintProjection(paint) {
   if (!paint || typeof paint !== 'object') return paint ?? null;
   return {
     fillColor: paint.fillColor ?? null, fillOpacity: paint.fillOpacity ?? null,
+    fillColorGradient: gradientProjection(paint.fillColorGradient),
+    fillColorRefFile: paint.fillColorRefFile ?? null, fillColorRefId: paint.fillColorRefId ?? null,
     strokeColor: paint.strokeColor ?? null, strokeOpacity: paint.strokeOpacity ?? null,
     strokeStyle: paint.strokeStyle ?? null, strokeWidth: paint.strokeWidth ?? null,
     strokeAlignment: paint.strokeAlignment ?? null,
+    strokeColorGradient: gradientProjection(paint.strokeColorGradient),
+    strokeColorRefFile: paint.strokeColorRefFile ?? null, strokeColorRefId: paint.strokeColorRefId ?? null,
+    strokeCapStart: paint.strokeCapStart ?? null, strokeCapEnd: paint.strokeCapEnd ?? null,
     fillImage: imageProjection(paint.fillImage),
   };
 }
 
 function pluginProjection(shape) {
-  const values = new Map();
-  if (shape?.shared instanceof Map) {
-    for (const [key, value] of shape.shared.entries()) values.set(key, value);
+  if (typeof shape?.getPluginDataKeys !== 'function' || typeof shape?.getPluginData !== 'function') {
+    throw new Error(`PLUGIN_DATA_KEY_ENUMERATION_REQUIRED:${shape?.id || 'unknown'}`);
   }
-  for (const key of PROJECTION_PLUGIN_KEYS) {
-    const value = shared(shape, key);
-    if (value !== '') values.set(`${NAMESPACE}\0${key}`, value);
+  if (typeof shape?.getSharedPluginDataNamespaces !== 'function' || typeof shape?.getSharedPluginDataKeys !== 'function' || typeof shape?.getSharedPluginData !== 'function') {
+    throw new Error(`SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED:${shape?.id || 'unknown'}`);
   }
-  return Array.from(values.entries()).sort(([left], [right]) => left.localeCompare(right));
+  const local = Array.from(shape.getPluginDataKeys()).sort().map((key) => [key, shape.getPluginData(key)]);
+  const sharedData = [];
+  for (const namespace of Array.from(shape.getSharedPluginDataNamespaces()).sort()) {
+    for (const key of Array.from(shape.getSharedPluginDataKeys(namespace)).sort()) {
+      sharedData.push([namespace, key, shape.getSharedPluginData(namespace, key)]);
+    }
+  }
+  return { local, shared: sharedData };
+}
+
+function shadowProjection(shadow) {
+  const color = shadow?.color;
+  return {
+    id: shadow?.id ?? null, style: shadow?.style ?? null, offsetX: shadow?.offsetX ?? null,
+    offsetY: shadow?.offsetY ?? null, blur: shadow?.blur ?? null, spread: shadow?.spread ?? null,
+    hidden: shadow?.hidden ?? null,
+    color: typeof color === 'string' ? color : color ? {
+      id: color.id ?? null, fileId: color.fileId ?? null, name: color.name ?? null, path: color.path ?? null,
+      color: color.color ?? null, opacity: color.opacity ?? null, refId: color.refId ?? null, refFile: color.refFile ?? null,
+      gradient: gradientProjection(color.gradient), image: imageProjection(color.image),
+    } : null,
+  };
+}
+
+function blurProjection(blur) {
+  return blur ? { id: blur.id ?? null, type: blur.type ?? null, value: blur.value ?? null, hidden: blur.hidden ?? null } : null;
 }
 
 function flexProjection(shape) {
   const flex = shape?.flex;
   if (!flex) return null;
   return {
-    dir: flex.dir ?? null, wrap: flex.wrap ?? null, alignItems: flex.alignItems ?? null,
-    justifyContent: flex.justifyContent ?? null, rowGap: flex.rowGap ?? null, columnGap: flex.columnGap ?? null,
+    dir: flex.dir ?? null, wrap: flex.wrap ?? null, alignItems: flex.alignItems ?? null, alignContent: flex.alignContent ?? null,
+    justifyItems: flex.justifyItems ?? null, justifyContent: flex.justifyContent ?? null,
+    rowGap: flex.rowGap ?? null, columnGap: flex.columnGap ?? null,
     verticalPadding: flex.verticalPadding ?? null, horizontalPadding: flex.horizontalPadding ?? null,
+    topPadding: flex.topPadding ?? null, rightPadding: flex.rightPadding ?? null,
+    bottomPadding: flex.bottomPadding ?? null, leftPadding: flex.leftPadding ?? null,
+    horizontalSizing: flex.horizontalSizing ?? null, verticalSizing: flex.verticalSizing ?? null,
   };
+}
+
+function layoutChildProjection(layout) {
+  return layout ? {
+    absolute: layout.absolute ?? null, zIndex: layout.zIndex ?? null,
+    horizontalSizing: layout.horizontalSizing ?? null, verticalSizing: layout.verticalSizing ?? null,
+    alignSelf: layout.alignSelf ?? null, horizontalMargin: layout.horizontalMargin ?? null,
+    verticalMargin: layout.verticalMargin ?? null, topMargin: layout.topMargin ?? null,
+    rightMargin: layout.rightMargin ?? null, bottomMargin: layout.bottomMargin ?? null,
+    leftMargin: layout.leftMargin ?? null, maxWidth: layout.maxWidth ?? null, maxHeight: layout.maxHeight ?? null,
+    minWidth: layout.minWidth ?? null, minHeight: layout.minHeight ?? null,
+  } : null;
+}
+
+function layoutCellProjection(cell) {
+  return cell ? {
+    row: cell.row ?? null, rowSpan: cell.rowSpan ?? null, column: cell.column ?? null,
+    columnSpan: cell.columnSpan ?? null, areaName: cell.areaName ?? null, position: cell.position ?? null,
+  } : null;
+}
+
+function tokenProjection(tokens) {
+  if (!tokens || typeof tokens !== 'object') return null;
+  return Object.keys(tokens).sort().map((key) => [key, tokens[key]]);
 }
 
 function shapeProjection(shape) {
@@ -425,6 +481,23 @@ function shapeProjection(shape) {
     borderRadius: shape.borderRadius ?? null,
     borderRadii: [shape.borderRadiusTopLeft ?? null, shape.borderRadiusTopRight ?? null, shape.borderRadiusBottomRight ?? null, shape.borderRadiusBottomLeft ?? null],
     opacity: shape.opacity ?? null,
+    blendMode: shape.blendMode ?? null,
+    shadows: Array.from(shape.shadows || []).map(shadowProjection),
+    blur: blurProjection(shape.blur), backgroundBlur: blurProjection(shape.backgroundBlur),
+    blocked: shape.blocked ?? null, hidden: shape.hidden ?? null, proportionLock: shape.proportionLock ?? null,
+    constraintsHorizontal: shape.constraintsHorizontal ?? null, constraintsVertical: shape.constraintsVertical ?? null,
+    fixedWhenScrolling: shape.fixedWhenScrolling ?? null, flipX: shape.flipX ?? null, flipY: shape.flipY ?? null,
+    rotation: shape.rotation ?? null,
+    layoutChild: layoutChildProjection(shape.layoutChild), layoutCell: layoutCellProjection(shape.layoutCell),
+    tokens: tokenProjection(shape.tokens),
+    typography: {
+      fontId: shape.fontId ?? null, fontFamily: shape.fontFamily ?? null, fontVariantId: shape.fontVariantId ?? null,
+      fontSize: shape.fontSize ?? null, fontWeight: shape.fontWeight ?? null, fontStyle: shape.fontStyle ?? null,
+      lineHeight: shape.lineHeight ?? null, letterSpacing: shape.letterSpacing ?? null,
+      textTransform: shape.textTransform ?? null, textDecoration: shape.textDecoration ?? null,
+      direction: shape.direction ?? null, align: shape.align ?? null, verticalAlign: shape.verticalAlign ?? null,
+      growType: shape.growType ?? null,
+    },
     pluginData: pluginProjection(shape),
     component: component ? { id: component.id, name: component.name || '', path: component.path || '', copy: Boolean(shape.isComponentCopyInstance?.()) } : null,
     flex: flexProjection(shape),
@@ -435,11 +508,11 @@ function shapeProjection(shape) {
 function protectedProjection(penpot) {
   const pages = Array.from(penpot.currentFile?.pages || [])
     .filter((page) => shared(page, 'package-id') !== PACKAGE_ID)
-    .map((page) => ({ id: page.id, name: page.name, root: shapeProjection(page.root) }))
+    .map((page) => ({ id: page.id, name: page.name, pluginData: pluginProjection(page), root: shapeProjection(page.root) }))
     .sort((left, right) => left.id.localeCompare(right.id));
   const components = Array.from(penpot.library?.local?.components || [])
     .filter((component) => shared(component.mainInstance?.(), 'package-id') !== PACKAGE_ID)
-    .map((component) => ({ id: component.id, name: component.name, main: component.mainInstance?.() ? shapeProjection(component.mainInstance()) : null }))
+    .map((component) => ({ id: component.id, name: component.name, path: component.path || '', pluginData: pluginProjection(component), main: component.mainInstance?.() ? shapeProjection(component.mainInstance()) : null }))
     .sort((left, right) => left.id.localeCompare(right.id));
   const projection = { fileId: penpot.currentFile.id, pages, components };
   return { canonical: canonical(projection), sha256: sha256(projection), projection };
@@ -451,7 +524,7 @@ function managedProjection(penpot) {
     .map((page) => ({ id: page.id, name: page.name, pluginData: pluginProjection(page), root: shapeProjection(page.root) }))
     .sort((left, right) => left.id.localeCompare(right.id));
   const components = managedComponents(penpot)
-    .map((component) => ({ id: component.id, name: component.name, path: component.path || '', main: shapeProjection(component.mainInstance()) }))
+    .map((component) => ({ id: component.id, name: component.name, path: component.path || '', pluginData: pluginProjection(component), main: shapeProjection(component.mainInstance()) }))
     .sort((left, right) => left.id.localeCompare(right.id));
   const projection = { fileId: penpot.currentFile.id, pages, components };
   return { canonical: canonical(projection), sha256: sha256(projection), projection };
@@ -571,6 +644,10 @@ function readback(penpot, packageDefinition) {
   const components = managedComponents(penpot);
   const wrappers = pages.flatMap((page) => walk(page.root).filter((shape) => shared(shape, 'stable-id').startsWith('specimen:')));
   const instances = pages.flatMap((page) => walk(page.root).filter((shape) => Boolean(shared(shape, 'specimen-id')) && shape.isComponentCopyInstance?.()));
+  const managedUniverse = [
+    ...roots.flatMap((root) => walk(root)),
+    ...components.flatMap((component) => walk(component.mainInstance?.())),
+  ];
   const duplicateKeys = [];
   const allKeys = [
     ...pages.map((page) => `page:${shared(page, 'unit-id')}`),
@@ -583,7 +660,7 @@ function readback(penpot, packageDefinition) {
     if (seen.has(key)) duplicateKeys.push(key);
     seen.add(key);
   }
-  const detached = instances.filter((instance) => !instance.isComponentCopyInstance?.() || !instance.component?.());
+  const detached = managedUniverse.filter((shape) => shape.isComponentCopyInstance?.() && !shape.component?.());
   const screenshots = roots.flatMap((root) => walk(root)).filter((shape) => (
     shared(shape, 'implementation-kind') === 'screenshot'
     || /screenshot/i.test(shape.name || '')
@@ -605,6 +682,8 @@ function validatePackage(packageDefinition) {
   if (packageDefinition.package_id !== PACKAGE_ID) errors.push('PACKAGE_ID_MISMATCH');
   if (packageDefinition.source_authority?.head !== '8f46f068ba41dab4dca538806d11693c8c0d3042') errors.push('SOURCE_HEAD_DRIFT');
   if (packageDefinition.source_authority?.tree !== 'a1739a4881262c2db9acd679e7b962a969ab5968') errors.push('SOURCE_TREE_DRIFT');
+  if (packageDefinition.native_materialization?.projection_contract !== 'all-shape-style-typography-shadow-layout-flex-plugin-component-fields') errors.push('PROJECTION_CONTRACT_REQUIRED');
+  if (packageDefinition.native_materialization?.plugin_data_namespace_enumeration !== 'complete-or-fail-before-mutation') errors.push('PLUGIN_NAMESPACE_ENUMERATION_CONTRACT_REQUIRED');
   if (!Array.isArray(packageDefinition.page_units) || packageDefinition.page_units.length !== 5) errors.push('FIVE_PAGE_UNITS_REQUIRED');
   for (const unit of packageDefinition.page_units || []) {
     if (!FAMILY_VISUALS[unit.unit_id]) errors.push(`FAMILY_VISUAL_MISSING:${unit.unit_id}`);

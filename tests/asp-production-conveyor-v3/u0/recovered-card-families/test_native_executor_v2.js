@@ -13,7 +13,12 @@ class Shape {
     this.id = id || `shape-${Shape.next.toString()}`; Shape.next += 1;
     this.type = type; this.name = ''; this.children = []; this.parent = null;
     this.x = 0; this.y = 0; this.width = 0; this.height = 0; this.fills = []; this.strokes = [];
-    this.borderRadius = 0; this.opacity = 1; this.visible = true; this.shared = new Map();
+    this.borderRadius = 0; this.borderRadiusTopLeft = 0; this.borderRadiusTopRight = 0; this.borderRadiusBottomRight = 0; this.borderRadiusBottomLeft = 0;
+    this.opacity = 1; this.visible = true; this.hidden = false; this.blocked = false; this.proportionLock = false;
+    this.constraintsHorizontal = 'left'; this.constraintsVertical = 'top'; this.fixedWhenScrolling = false;
+    this.blendMode = 'normal'; this.shadows = []; this.blur = null; this.backgroundBlur = null;
+    this.flipX = false; this.flipY = false; this.rotation = 0; this.layoutChild = null; this.layoutCell = null; this.tokens = {};
+    this.plugin = new Map(); this.shared = new Map();
     this._component = null; this._copyRoot = false;
   }
   appendChild(child) {
@@ -25,9 +30,14 @@ class Shape {
     assert.equal(typeof value, 'string', `non-string plugin data rejected for ${namespace}/${key}`);
     this.shared.set(`${namespace}\0${key}`, value);
   }
+  getPluginData(key) { return this.plugin.get(key) || ''; }
+  setPluginData(key, value) { assert.equal(typeof value, 'string'); this.plugin.set(key, value); }
+  getPluginDataKeys() { return Array.from(this.plugin.keys()); }
   getSharedPluginData(namespace, key) { return this.shared.get(`${namespace}\0${key}`) || ''; }
+  getSharedPluginDataKeys(namespace) { return Array.from(this.shared.keys()).filter((item) => item.startsWith(`${namespace}\0`)).map((item) => item.slice(namespace.length + 1)); }
+  getSharedPluginDataNamespaces() { return Array.from(new Set(Array.from(this.shared.keys()).map((item) => item.split('\0', 1)[0]))); }
   addFlexLayout() {
-    this.flex = { dir: 'row', wrap: 'nowrap', alignItems: 'stretch', justifyContent: 'start', rowGap: 0, columnGap: 0, verticalPadding: 0, horizontalPadding: 0 };
+    this.flex = { dir: 'row', wrap: 'nowrap', alignItems: 'stretch', alignContent: 'stretch', justifyItems: 'start', justifyContent: 'start', rowGap: 0, columnGap: 0, verticalPadding: 0, horizontalPadding: 0, topPadding: 0, rightPadding: 0, bottomPadding: 0, leftPadding: 0, horizontalSizing: 'fix', verticalSizing: 'fix' };
     return this.flex;
   }
   component() { return this._component; }
@@ -35,7 +45,11 @@ class Shape {
 }
 
 class TextShape extends Shape {
-  constructor(characters) { super('text'); this.characters = characters; }
+  constructor(characters) {
+    super('text'); this.characters = characters; this.fontId = 'inter'; this.fontFamily = 'Inter'; this.fontVariantId = 'regular';
+    this.fontSize = '14'; this.fontWeight = '500'; this.fontStyle = 'normal'; this.lineHeight = '1.25'; this.letterSpacing = '0';
+    this.textTransform = 'none'; this.textDecoration = 'none'; this.direction = 'ltr'; this.align = 'left'; this.verticalAlign = 'top'; this.growType = 'auto-height';
+  }
 }
 
 class Page extends Shape {
@@ -44,12 +58,24 @@ class Page extends Shape {
 
 function cloneShape(source, component, root = true) {
   const clone = source.type === 'text' ? new TextShape(source.characters) : new Shape(source.type);
-  for (const key of ['name', 'x', 'y', 'width', 'height', 'fills', 'strokes', 'borderRadius', 'opacity', 'visible', 'fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'growType', 'flex']) {
+  for (const key of ['name', 'x', 'y', 'width', 'height', 'fills', 'strokes', 'borderRadius', 'borderRadiusTopLeft', 'borderRadiusTopRight', 'borderRadiusBottomRight', 'borderRadiusBottomLeft', 'opacity', 'visible', 'hidden', 'blocked', 'proportionLock', 'constraintsHorizontal', 'constraintsVertical', 'fixedWhenScrolling', 'blendMode', 'shadows', 'blur', 'backgroundBlur', 'flipX', 'flipY', 'rotation', 'layoutChild', 'layoutCell', 'tokens', 'fontId', 'fontFamily', 'fontVariantId', 'fontSize', 'fontWeight', 'fontStyle', 'lineHeight', 'letterSpacing', 'textTransform', 'textDecoration', 'direction', 'align', 'verticalAlign', 'growType', 'flex']) {
     if (source[key] !== undefined) clone[key] = structuredClone(source[key]);
   }
-  clone.shared = new Map(source.shared); clone._component = component; clone._copyRoot = root;
+  clone.plugin = new Map(source.plugin); clone.shared = new Map(source.shared); clone._component = component; clone._copyRoot = root;
   for (const child of source.children) clone.appendChild(cloneShape(child, component, false));
   return clone;
+}
+
+function pluginHost(target) {
+  target.plugin = new Map(); target.shared = new Map();
+  target.getPluginData = (key) => target.plugin.get(key) || '';
+  target.setPluginData = (key, value) => { assert.equal(typeof value, 'string'); target.plugin.set(key, value); };
+  target.getPluginDataKeys = () => Array.from(target.plugin.keys());
+  target.getSharedPluginData = (namespace, key) => target.shared.get(`${namespace}\0${key}`) || '';
+  target.setSharedPluginData = (namespace, key, value) => { assert.equal(typeof value, 'string'); target.shared.set(`${namespace}\0${key}`, value); };
+  target.getSharedPluginDataKeys = (namespace) => Array.from(target.shared.keys()).filter((item) => item.startsWith(`${namespace}\0`)).map((item) => item.slice(namespace.length + 1));
+  target.getSharedPluginDataNamespaces = () => Array.from(new Set(Array.from(target.shared.keys()).map((item) => item.split('\0', 1)[0])));
+  return target;
 }
 
 function nativeSurface() {
@@ -58,12 +84,17 @@ function nativeSurface() {
   const foreignRoot = new Shape('board', 'foreign-root'); foreignRoot.name = 'Protected owner root'; foreignPage.root.appendChild(foreignRoot);
   foreignRoot.fills = [{ fillColor: '#abcdef', fillOpacity: 0.8 }];
   foreignRoot.strokes = [{ strokeColor: '#123456', strokeOpacity: 0.7, strokeStyle: 'solid', strokeWidth: 2, strokeAlignment: 'inner' }];
+  foreignRoot.shadows = [{ id: 'shadow-owner', style: 'drop-shadow', offsetX: 2, offsetY: 4, blur: 12, spread: 1, hidden: false, color: { color: '#102030', opacity: 0.4 } }];
   foreignRoot.borderRadius = 13; foreignRoot.opacity = 0.91; foreignRoot.addFlexLayout().rowGap = 7;
+  foreignRoot.layoutChild = { absolute: false, zIndex: 2, horizontalSizing: 'fill', verticalSizing: 'auto', alignSelf: 'stretch', horizontalMargin: 1, verticalMargin: 2, topMargin: 3, rightMargin: 4, bottomMargin: 5, leftMargin: 6, maxWidth: 900, maxHeight: null, minWidth: 10, minHeight: 20 };
+  foreignRoot.layoutCell = { row: 1, rowSpan: 2, column: 3, columnSpan: 4, areaName: 'owner', position: 'manual' };
+  foreignRoot.tokens = { shadow: 'owner.shadow', typography: 'owner.type' };
   foreignRoot.setSharedPluginData(R.NAMESPACE, 'protected-marker', 'owner-value');
+  foreignRoot.setSharedPluginData('foreign-owner-namespace', 'foreign-key', 'foreign-value');
   const foreignText = new TextShape('Protected owner text'); foreignText.name = 'Protected owner text'; foreignRoot.appendChild(foreignText);
   const components = [];
   const foreignMaster = new Shape('board', 'foreign-master'); foreignMaster.name = 'Protected component master';
-  const foreignComponent = { id: 'foreign-component', name: 'Protected component', path: 'Owner', mainInstance: () => foreignMaster, instance: () => cloneShape(foreignMaster, foreignComponent) };
+  const foreignComponent = pluginHost({ id: 'foreign-component', name: 'Protected component', path: 'Owner', mainInstance: () => foreignMaster, instance: () => cloneShape(foreignMaster, foreignComponent) });
   foreignMaster._component = foreignComponent; components.push(foreignComponent);
   const versions = [];
   let undoBegin = 0; let undoFinish = 0; let openCount = 0;
@@ -76,8 +107,8 @@ function nativeSurface() {
     },
     library: { local: { components, createComponent([main]) {
       const ordinal = (components.length + 1).toString();
-      const component = { id: `component-${ordinal}`, name: '', path: '', mainInstance: () => main, instance: () => cloneShape(main, component) };
-      main._component = component; components.push(component); return component;
+      const component = pluginHost({ id: `component-${ordinal}`, name: '', path: '', mainInstance: () => main, instance: () => cloneShape(main, component) });
+      main._component = component; components.push(component); if (penpot.onCreateComponent) penpot.onCreateComponent(component, main); return component;
     } } },
     createPage() { const page = new Page(''); this.currentFile.pages.push(page); return page; },
     createBoard() { return new Shape('board'); },
@@ -103,6 +134,10 @@ test('v2 package freezes all five source-bound families and removes metadata-onl
   assert.equal(packageDefinition.native_materialization.placeholder_geometry, false);
   assert.equal(packageDefinition.native_materialization.shared_plugin_data, 'strict-string-only');
   assert.equal(packageDefinition.native_materialization.page_order_assignment, false);
+  assert.equal(packageDefinition.native_materialization.projection_contract, 'all-shape-style-typography-shadow-layout-flex-plugin-component-fields');
+  assert.equal(packageDefinition.native_materialization.plugin_data_namespace_enumeration, 'complete-or-fail-before-mutation');
+  assert.equal(packageDefinition.acceptance.recursive_detached_component_copies, 0);
+  assert.equal(packageDefinition.acceptance.managed_replay_shadow_changes, 0);
   assert.equal(packageDefinition.atlas_extension_request_path.endsWith('ASP_ATLAS_EXTENSION_REQUEST_V1.md'), true);
   assert.equal(packageDefinition.acceptance.linked_visible_specimens, 23);
   assert.equal(packageDefinition.acceptance.maximum_managed_nodes, 38);
@@ -119,6 +154,13 @@ test('strict plugin-data runtime and native-like double reject every non-string 
   assert.throws(() => surface.foreignRoot.setSharedPluginData(R.NAMESPACE, 'bad', false), /non-string plugin data rejected/);
   assert.doesNotThrow(() => R.tag(surface.foreignRoot, 'good', '7'));
   assert.equal(surface.foreignRoot.getSharedPluginData(R.NAMESPACE, 'good'), '7');
+});
+
+test('complete plugin-data enumeration is mandatory before any mutation', async () => {
+  const unsupported = nativeSurface(); unsupported.foreignRoot.getSharedPluginDataNamespaces = undefined;
+  await assert.rejects(run({ penpot: unsupported.penpot, storage: unsupported.storage, lease: lease() }), /SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED/);
+  assert.equal(unsupported.penpot.currentFile.pages.length, 1);
+  assert.deepEqual(unsupported.counts(), { undoBegin: 0, undoFinish: 0, openCount: 0 });
 });
 
 test('two actual native-like executor runs create real masters and linked visible specimens only once', async () => {
@@ -169,6 +211,15 @@ test('duplicate, detached, screenshot, protected and cancellation gates fail clo
   R.readback(detached.penpot, packageDefinition).instances[0]._copyRoot = false;
   await assert.rejects(run({ penpot: detached.penpot, storage: detached.storage, lease: lease() }), /NATIVE_CENSUS_MISMATCH|DETACHED_INSTANCES/);
 
+  const nestedDetached = nativeSurface();
+  nestedDetached.penpot.onCreateComponent = (_component, main) => {
+    if (nestedDetached.injected) return; nestedDetached.injected = true;
+    const orphan = new Shape('board'); orphan.name = 'Untagged nested component copy'; orphan._copyRoot = true; orphan._component = null;
+    orphan.isComponentCopyInstance = () => true;
+    main.appendChild(orphan);
+  };
+  await assert.rejects(run({ penpot: nestedDetached.penpot, storage: nestedDetached.storage, lease: lease() }), /DETACHED_INSTANCES:1/);
+
   const screenshot = nativeSurface(); await run({ penpot: screenshot.penpot, storage: screenshot.storage, lease: lease() });
   const shot = screenshot.penpot.createBoard(); shot.name = 'screenshot evidence'; R.readback(screenshot.penpot, packageDefinition).roots[0].appendChild(shot);
   await assert.rejects(run({ penpot: screenshot.penpot, storage: screenshot.storage, lease: lease() }), /SCREENSHOT_SHAPES/);
@@ -185,6 +236,11 @@ test('duplicate, detached, screenshot, protected and cancellation gates fail clo
   const protectedDrift = nativeSurface(); protectedDrift.penpot.onOpen = (count) => { if (count === 1) protectedDrift.foreignRoot.name = 'mutated owner root'; };
   await assert.rejects(run({ penpot: protectedDrift.penpot, storage: protectedDrift.storage, lease: lease() }), /PROTECTED_PROJECTION_CHANGED/);
 
+  const foreignNamespaceDrift = nativeSurface(); foreignNamespaceDrift.penpot.onOpen = (count) => {
+    if (count === 1) foreignNamespaceDrift.foreignRoot.setSharedPluginData('foreign-owner-namespace', 'foreign-key', 'mutated');
+  };
+  await assert.rejects(run({ penpot: foreignNamespaceDrift.penpot, storage: foreignNamespaceDrift.storage, lease: lease() }), /PROTECTED_PROJECTION_CHANGED/);
+
   const cancelled = nativeSurface();
   await assert.rejects(run({ penpot: cancelled.penpot, storage: cancelled.storage, lease: { active: false, cancelled: true } }), /LEASE_NOT_ACTIVE/);
   assert.equal(cancelled.penpot.currentFile.pages.length, 1);
@@ -197,9 +253,33 @@ test('protected and managed projections cover native style, plugin, component an
     (surface) => { surface.foreignRoot.strokes = [{ strokeColor: '#ffffff', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 9, strokeAlignment: 'outer' }]; },
     (surface) => { surface.foreignRoot.borderRadius = 99; },
     (surface) => { surface.foreignRoot.opacity = 0.2; },
+    (surface) => { surface.foreignRoot.shadows[0].blur = 99; },
+    (surface) => { surface.foreignRoot.blur = { id: 'blur-1', type: 'layer-blur', value: 8, hidden: false }; },
+    (surface) => { surface.foreignRoot.backgroundBlur = { id: 'blur-2', type: 'layer-blur', value: 12, hidden: false }; },
+    (surface) => { surface.foreignRoot.blendMode = 'multiply'; },
     (surface) => { surface.foreignRoot.setSharedPluginData(R.NAMESPACE, 'protected-marker', 'changed'); },
+    (surface) => { surface.foreignRoot.setSharedPluginData('foreign-owner-namespace', 'foreign-key', 'changed'); },
+    (surface) => { surface.foreignRoot.setPluginData('local-owner-key', 'changed'); },
     (surface) => { surface.foreignComponent.path = 'Changed owner path'; },
     (surface) => { surface.foreignRoot.flex.rowGap = 99; },
+    (surface) => { surface.foreignRoot.flex.topPadding = 99; },
+    (surface) => { surface.foreignRoot.layoutChild.leftMargin = 99; },
+    (surface) => { surface.foreignRoot.layoutCell.columnSpan = 9; },
+    (surface) => { surface.foreignRoot.tokens.shadow = 'changed.shadow'; },
+    (surface) => { surface.foreignText.fontId = 'other-font'; },
+    (surface) => { surface.foreignText.fontFamily = 'Other'; },
+    (surface) => { surface.foreignText.fontVariantId = 'bold'; },
+    (surface) => { surface.foreignText.fontSize = '19'; },
+    (surface) => { surface.foreignText.fontWeight = '800'; },
+    (surface) => { surface.foreignText.fontStyle = 'italic'; },
+    (surface) => { surface.foreignText.lineHeight = '1.8'; },
+    (surface) => { surface.foreignText.letterSpacing = '2'; },
+    (surface) => { surface.foreignText.textTransform = 'uppercase'; },
+    (surface) => { surface.foreignText.textDecoration = 'underline'; },
+    (surface) => { surface.foreignText.direction = 'rtl'; },
+    (surface) => { surface.foreignText.align = 'center'; },
+    (surface) => { surface.foreignText.verticalAlign = 'bottom'; },
+    (surface) => { surface.foreignText.growType = 'fixed'; },
   ];
   for (const mutate of mutations) {
     const surface = nativeSurface(); const before = R.protectedProjection(surface.penpot).sha256; mutate(surface);
@@ -209,7 +289,7 @@ test('protected and managed projections cover native style, plugin, component an
   const replay = nativeSurface();
   const first = await run({ penpot: replay.penpot, storage: replay.storage, lease: lease() });
   const title = R.walk(R.readback(replay.penpot, packageDefinition).instances[0]).find((shape) => shape.getSharedPluginData(R.NAMESPACE, 'anatomy-id') === 'title');
-  title.characters = 'Unauthorized replay drift'; title.fills = [{ fillColor: '#000000', fillOpacity: 1 }];
+  title.shadows = [{ id: 'corrupt-shadow', style: 'drop-shadow', offsetX: 1, offsetY: 2, blur: 30, spread: 0, hidden: false, color: { color: '#000000', opacity: 0.9 } }];
   await assert.rejects(run({ penpot: replay.penpot, storage: replay.storage, lease: lease() }), /MANAGED_REPLAY_PROJECTION_CHANGED/);
   assert.equal(typeof first.managed_projection_sha256, 'string');
 });
