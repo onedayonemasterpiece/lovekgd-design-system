@@ -26,7 +26,10 @@ class T(unittest.TestCase):
      x=ep[key]; raw=(ROOT/x['path']).read_bytes(); self.assertEqual((len(raw),hashlib.sha256(raw).hexdigest(),blob(ROOT/x['path'])),(x['bytes'],x['sha256'],x['git_blob_sha1']))
     c=d['runtime_claim_contract']; self.assertEqual(c['adapter_sha256'],ep['executor']['sha256']); self.assertEqual(c['current_publish_identity'],'RUNTIME_BOUND_NOT_HARDCODED'); self.assertEqual(c['logical_writer_id'],'/root/publish_r2')
     self.assertIn(pid,ep['setup_call']); self.assertIn(pid,ep['call']); self.assertIn('claim',ep['setup_call']); self.assertIn('claim',ep['call'])
-    self.assertEqual(c['setup_penpot_mutations'],0); self.assertEqual(d['expected']['maximum_creations_per_invocation'],3); self.assertEqual(d['expected']['second_terminal_run_created'],0)
+    self.assertEqual(c['setup_penpot_mutations'],0);
+    if pid.startswith('F-FOUNDATIONS-REVIEW-'):
+     self.assertEqual(c['exact_prewrite_projections']['free']['sha256'],'0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042'); self.assertEqual(c['exact_prewrite_projections']['foundation_source_index']['sha256'],'1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa'); self.assertTrue(d['repair_policy']['page_create_if_missing']); self.assertFalse(d['repair_policy']['source_terminal_required'])
+    self.assertEqual(d['expected']['maximum_creations_per_invocation'],3); self.assertEqual(d['expected']['second_terminal_run_created'],0)
  def test_exact_foundation_template_geometry(self):
   registry=json.loads((ROOT/'catalog/asp-production-conveyor-v3/atlas/page-template-registry.v1.json').read_text())['templates']['FOUNDATION_ASSET_GRID_V1']
   for pid in PIDS:
