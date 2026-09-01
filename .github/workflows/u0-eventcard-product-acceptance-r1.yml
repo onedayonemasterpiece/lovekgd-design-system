@@ -1,0 +1,125 @@
+name: U0 EventCard product acceptance audit
+
+on:
+  push:
+    branches:
+      - u0/eventcard-product-acceptance-r1-20260901
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: u0-eventcard-product-acceptance-r1
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout acceptance branch and all refs
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify frozen remote heads
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin \
+            +refs/heads/agent/mat-eventcard-text-r11c-compatible-repair-20260901:refs/remotes/origin/agent/mat-eventcard-text-r11c-compatible-repair-20260901 \
+            +refs/heads/agent/mat-eventcard-media-coverage-repair-r1-20260901:refs/remotes/origin/agent/mat-eventcard-media-coverage-repair-r1-20260901 \
+            +refs/heads/agent/mat-eventcard-native-component-paths-repair-r1-20260901:refs/remotes/origin/agent/mat-eventcard-native-component-paths-repair-r1-20260901
+          test "$(git rev-parse refs/remotes/origin/agent/mat-eventcard-text-r11c-compatible-repair-20260901)" = d4ef6db8a4e1583308556b384d95f45e61223872
+          test "$(git rev-parse refs/remotes/origin/agent/mat-eventcard-media-coverage-repair-r1-20260901)" = c0174621635e3c4336f4b88674c3b47fa7d7acb2
+          test "$(git rev-parse refs/remotes/origin/agent/mat-eventcard-native-component-paths-repair-r1-20260901)" = 757652ed656f32569d5ade7dd75f5cd58cf9df96
+
+      - name: Re-run exact text package tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/eventcard-text d4ef6db8a4e1583308556b384d95f45e61223872
+          cd /tmp/eventcard-text
+          PYTHONDONTWRITEBYTECODE=1 python3 scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/build_eventcard_text_r11c.py --repo . --check
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests/asp-production-conveyor-v3/mat/eventcard-text-r11c -p 'test_*.py'
+          node --test tests/asp-production-conveyor-v3/mat/eventcard-text-r11c/test_native_like_harness.mjs
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p '*test.py'
+          git diff --check
+          test -z "$(git status --porcelain)"
+
+      - name: Re-run exact media package tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/eventcard-media c0174621635e3c4336f4b88674c3b47fa7d7acb2
+          cd /tmp/eventcard-media
+          PYTHONDONTWRITEBYTECODE=1 python3 scripts/asp-production-conveyor-v3/mat/eventcard-media-r1/compile_eventcard_media_repair.py --repo . --check
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/asp-production-conveyor-v3/mat/eventcard-media-r1/test_eventcard_media_package.py
+          node --test tests/asp-production-conveyor-v3/mat/eventcard-media-r1/eventcard_media_repair_v1.test.js
+          node --check scripts/asp-production-conveyor-v3/mat/eventcard-media-r1/eventcard_media_repair_v1.js
+          git diff --check
+          test -z "$(git status --porcelain)"
+
+      - name: Re-run exact component-path package tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/eventcard-paths 757652ed656f32569d5ade7dd75f5cd58cf9df96
+          cd /tmp/eventcard-paths
+          PYTHONDONTWRITEBYTECODE=1 python3 scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/build_eventcard_component_paths_r1.py --check
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/test_regeneration.py
+          node tests/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/test_eventcard_component_paths_native_executor_r1.js
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/asp_production_conveyor_v3_coverage_matrix_test.py tests/asp_production_conveyor_v3_atlas_layout_test.py
+          node --check scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/eventcard_component_paths_native_executor_r1.js
+          git diff --check
+          test -z "$(git status --porcelain)"
+
+      - name: Verify U0 acceptance matrix and corrected addenda
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONDONTWRITEBYTECODE=1 python3 scripts/asp-production-conveyor-v3/u0/eventcard-product-acceptance/verify_acceptance_matrix.py
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/asp-production-conveyor-v3/u0/eventcard-product-acceptance/test_acceptance_matrix.py
+          git diff --check
+          test -z "$(git status --porcelain)"
+
+      - name: Emit terminal evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/u0-eventcard-acceptance
+          python3 - <<'PY'
+          import json, pathlib, subprocess
+          def run(*args):
+              return subprocess.check_output(args, text=True).strip()
+          out = {
+              "state": "U0_EVENTCARD_THREE_REPAIRS_REMOTE_READY",
+              "acceptance_branch": run("git", "branch", "--show-current"),
+              "acceptance_head": run("git", "rev-parse", "HEAD"),
+              "acceptance_tree": run("git", "rev-parse", "HEAD^{tree}"),
+              "text_repair": {"head":"d4ef6db8a4e1583308556b384d95f45e61223872","tree":"c2e1b18d170cdccc580262c77fe7524c10f50df9","tests":"PASS"},
+              "media_repair": {"head":"c0174621635e3c4336f4b88674c3b47fa7d7acb2","tree":"81d9753b305c5d1dea67c4ca27f1efb99e09ebc5","tests":"PASS"},
+              "component_path_repair": {"head":"757652ed656f32569d5ade7dd75f5cd58cf9df96","tree":"2ffd893a8eba54156818b55fa5f63f88afbcc4c0","tests":"PASS"},
+              "acceptance_static_audit": "PASS",
+              "corrected_addenda": 3,
+              "whole_eventcard_visual_pass": False,
+              "remaining_text_offenders": 16,
+              "penpot_reads": 0,
+              "penpot_mutations": 0,
+              "next_owner": "D0_QA_INTEGRATE"
+          }
+          pathlib.Path("/tmp/u0-eventcard-acceptance/terminal.json").write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
+          print(json.dumps(out, indent=2, sort_keys=True))
+          PY
+
+      - name: Upload terminal evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: u0-eventcard-product-acceptance-r1
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            /tmp/u0-eventcard-acceptance/terminal.json
+            catalog/asp-production-conveyor-v3/u0/eventcard-product-acceptance/**
