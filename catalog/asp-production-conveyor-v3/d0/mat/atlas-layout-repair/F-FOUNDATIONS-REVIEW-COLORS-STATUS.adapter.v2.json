@@ -40,7 +40,7 @@
     "atlas_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
     "atlas_bindings_blob": "23475806beebfbe21bd77759440c169c60627550",
     "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
-    "payload_sha256": "45e989872723bdd2a1e5f70df812c88a217ab07717ec12aa16b6b0f65215cc91"
+    "payload_sha256": "e7712f21a0274f8bd35e0acbeb002fcf378a76682c44072e6ebc6d3da5a94221"
   },
   "entry_point": {
     "execution_context": "Penpot plugin context",
@@ -50,15 +50,15 @@
     ],
     "executor": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_payload_v2.js",
-      "bytes": 41133,
-      "sha256": "45e989872723bdd2a1e5f70df812c88a217ab07717ec12aa16b6b0f65215cc91",
-      "git_blob_sha1": "942f656b0e9fc1162fea2fef7532dce39cf3b6bc"
+      "bytes": 45516,
+      "sha256": "e7712f21a0274f8bd35e0acbeb002fcf378a76682c44072e6ebc6d3da5a94221",
+      "git_blob_sha1": "2414fd90b0897dd269c675b6dfcd80c4b1ec22cb"
     },
     "launcher": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_v2.js",
       "bytes": 6196,
-      "sha256": "7c0b8cecc86ecb579c035ce45f8deb9a6ea4366e281cef39cb1b5f9e89db2ae9",
-      "git_blob_sha1": "a4bef7450a9e5b4644972fe3300c68d8a0bb14a8"
+      "sha256": "d62ddacf4596c86203fe379e0dfe4faab7567bdf2698bab8f7b8c31881a0f3ad",
+      "git_blob_sha1": "306cc5d2e376c54c1e969ace3942324cf116ee03"
     },
     "setup_call": "return setupFoundationReviewAtlasR2RelayoutV2({penpot,storage,claim},'F-FOUNDATIONS-REVIEW-COLORS-STATUS');",
     "call": "return await runFoundationReviewAtlasR2RelayoutV2({penpot,storage,claim},'F-FOUNDATIONS-REVIEW-COLORS-STATUS');",
@@ -68,7 +68,7 @@
     "path": "catalog/asp-production-conveyor-v3/d0/mat/atlas-layout-repair/F-FOUNDATIONS-REVIEW-COLORS-STATUS.layout-contract.v2.json",
     "component_id": "ATLAS_PAGE_HEADER_V2",
     "linked_instance_required": true,
-    "shell_layout_engine": "NATIVE_FLEX",
+    "shell_layout_engine": "NATIVE_GRID_FLEX",
     "absolute_documentation_shell": "FORBIDDEN"
   },
   "semantic_slot_bindings": {
@@ -91,7 +91,7 @@
     "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
     "root": {
       "width": 2176,
-      "height": 2496,
+      "height": 2304,
       "width_formula": "max(header_right, master_right, grid_right) + outer_margin",
       "height_formula": "content_start_y + content_height + bottom_padding"
     },
@@ -112,7 +112,7 @@
       "x": 576,
       "y": 256,
       "width": 1376,
-      "height": 2176,
+      "height": 1984,
       "columns": 4,
       "column_gap": 32,
       "row_gap": 32,
@@ -123,20 +123,14 @@
         "foundation.colors-and-modes": 18,
         "foundation.status": 8
       },
-      "family_rows": {
-        "foundation.colors-and-modes": 5,
-        "foundation.status": 2
-      },
-      "family_group_heights": {
-        "foundation.colors-and-modes": 1472,
-        "foundation.status": 608
-      },
-      "row_count_formula": "ceil(family_instance_count / columns)",
-      "review_height_formula": "sum(section_label_height + row_gap + row_count * cell_height + max(row_count - 1, 0) * row_gap) + (family_count - 1) * section_gap"
+      "row_count_formula": "ceil(instance_count / columns)",
+      "review_height_formula": "row_count * cell_height + max(row_count - 1, 0) * row_gap",
+      "layout_engine": "NATIVE_GRID",
+      "instance_count": 26,
+      "row_count": 7
     },
     "content_start_y": 256,
-    "bottom_padding": 64,
-    "section_gap": 96
+    "bottom_padding": 64
   },
   "repair_policy": {
     "package_owned_product_components_preserved": true,
@@ -147,6 +141,8 @@
     "actual_second_native_like_replay_required": true,
     "promotion_authorized": false,
     "penpot_authorization": false,
-    "visual_acceptance": "PENDING_ATLAS_EVIDENCE_GATE"
+    "visual_acceptance": "PENDING_ATLAS_EVIDENCE_GATE",
+    "native_grid_review_shell": true,
+    "complete_fail_closed_protected_projection": true
   }
 }

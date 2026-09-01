@@ -39,18 +39,21 @@ four units.
 
 The shared family-local payload:
 
-1. verifies the exact protected Free/EventCard and Foundation source/index
-   projections before every write;
+1. binds a complete, fail-closed protected projection before every write,
+   including text, fills, strokes, shadows, opacity, shared plugin data,
+   native Grid/Flex layout, layout cells, and component lineage; the pinned
+   identity projection remains an independent source check;
 2. preserves the existing page/root and package-owned product-component
    instance IDs while migrating the R1 top-level documentation shell;
-3. creates a native Flex documentation shell at root width 2176 and uses one
-   linked `ATLAS_PAGE_HEADER_V2` instance;
-4. uses the exact `STANDARD_V2` four-column geometry and frozen formulas:
-   `ceil(family_instance_count / columns)`,
+3. creates a native Flex root/header/master shell at root width 2176, a real
+   native Grid review shell, and one linked `ATLAS_PAGE_HEADER_V2` instance;
+4. uses the exact `STANDARD_V2` four-column global instance geometry and frozen
+   formulas: `ceil(instance_count / columns)`,
    `content_start_y + content_height + bottom_padding`, and
    `max(header_right, master_right, grid_right) + outer_margin`;
 5. requires shared plugin-data values to satisfy `typeof value === "string"`;
-6. fails on duplicate pages/roots/slots/groups/cells/placements, detached linked
+6. fails on duplicate pages/roots/slots/cells/placements, legacy family groups,
+   adversarial protected style/content/layout/plugin-data drift, detached linked
    instances, screenshot nodes, validation drift, or protected projection drift;
 7. returns `duplicates=0`, `detached=0`, `screenshots=0`, and
    `secondRunCreated=0` only after an actual second native-like replay.
@@ -58,6 +61,11 @@ The shared family-local payload:
 The package-local adapter and layout-contract JSON files live in
 `catalog/asp-production-conveyor-v3/d0/mat/atlas-layout-repair/`. The executor
 and launcher live in `scripts/asp-production-conveyor-v3/d0/mat/`.
+
+The resulting global row/review-height/root-height tuples are respectively
+`7/1984/2304`, `4/1120/1440`, `2/544/864`, and `3/832/1152` in the package order
+shown above. In particular Shape/Elevation is two rows for eight instances; it
+does not sum independently rounded family row counts.
 
 ## Verification
 

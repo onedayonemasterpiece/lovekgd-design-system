@@ -18,6 +18,7 @@ PACKAGES = (
     "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION",
     "F-FOUNDATIONS-REVIEW-MOTION-ACCESSIBILITY",
 )
+INSTANCE_COUNTS = dict(zip(PACKAGES, (26, 14, 8, 9)))
 
 
 def git(*args, text=True):
@@ -95,10 +96,15 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
             self.assertEqual(template["root"]["width"], 2176)
             self.assertEqual(template["root"]["height_formula"], standard["page_root_height_formula"])
             self.assertEqual(template["root"]["width_formula"], standard["page_root_width_formula"])
-            self.assertEqual(template["review_grid"]["row_count_formula"], "ceil(family_instance_count / columns)")
-            family_rows = template["review_grid"]["family_rows"]
-            family_counts = template["review_grid"]["family_counts"]
-            self.assertEqual(family_rows, {family: (count + 3) // 4 for family, count in family_counts.items()})
+            rows = (INSTANCE_COUNTS[pid] + 3) // 4
+            review_height = rows * 256 + max(rows - 1, 0) * 32
+            self.assertEqual(template["review_grid"]["layout_engine"], "NATIVE_GRID")
+            self.assertEqual(template["review_grid"]["instance_count"], INSTANCE_COUNTS[pid])
+            self.assertEqual(template["review_grid"]["row_count"], rows)
+            self.assertEqual(template["review_grid"]["row_count_formula"], "ceil(instance_count / columns)")
+            self.assertEqual(template["review_grid"]["height"], review_height)
+            self.assertNotIn("family_rows", template["review_grid"])
+            self.assertEqual(template["root"]["height"], 256 + max(288, review_height) + 64)
             self.assertEqual(contract["documentation_header"]["component_id"], "ATLAS_PAGE_HEADER_V2")
             self.assertEqual(contract["documentation_header"]["lineage"], "LINKED_DOCUMENTATION_PAGEHEADER_ONLY")
             self.assertEqual(contract["documentation_header"]["layout_engine"], "NATIVE_FLEX")
@@ -127,6 +133,14 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
         self.assertIn("a.equal(second.secondRunCreated,0)", native_test)
         self.assertIn("duplicates:0,detached:0,screenshots:0", payload)
         self.assertIn("penpotAuthorization:false", payload)
+        self.assertIn("review.addGridLayout()", payload)
+        self.assertIn("review.grid.appendChild(shape,row,column)", payload)
+        self.assertIn("'NATIVE_GRID'", payload)
+        self.assertIn("ceil(instance_count / columns)", payload)
+        self.assertNotIn("ceil(family_instance_count / columns)", payload)
+        self.assertIn("Shape and Elevation uses two global rows for eight instances", native_test)
+        self.assertIn("protected Free fill drift rejects", native_test)
+        self.assertIn("protected Foundation text drift rejects", native_test)
 
 
 if __name__ == "__main__":

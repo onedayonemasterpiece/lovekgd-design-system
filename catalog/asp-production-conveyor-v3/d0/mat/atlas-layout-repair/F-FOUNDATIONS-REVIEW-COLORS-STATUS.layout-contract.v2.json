@@ -30,7 +30,7 @@
     "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
     "root": {
       "width": 2176,
-      "height": 2496,
+      "height": 2304,
       "width_formula": "max(header_right, master_right, grid_right) + outer_margin",
       "height_formula": "content_start_y + content_height + bottom_padding"
     },
@@ -51,7 +51,7 @@
       "x": 576,
       "y": 256,
       "width": 1376,
-      "height": 2176,
+      "height": 1984,
       "columns": 4,
       "column_gap": 32,
       "row_gap": 32,
@@ -62,20 +62,14 @@
         "foundation.colors-and-modes": 18,
         "foundation.status": 8
       },
-      "family_rows": {
-        "foundation.colors-and-modes": 5,
-        "foundation.status": 2
-      },
-      "family_group_heights": {
-        "foundation.colors-and-modes": 1472,
-        "foundation.status": 608
-      },
-      "row_count_formula": "ceil(family_instance_count / columns)",
-      "review_height_formula": "sum(section_label_height + row_gap + row_count * cell_height + max(row_count - 1, 0) * row_gap) + (family_count - 1) * section_gap"
+      "row_count_formula": "ceil(instance_count / columns)",
+      "review_height_formula": "row_count * cell_height + max(row_count - 1, 0) * row_gap",
+      "layout_engine": "NATIVE_GRID",
+      "instance_count": 26,
+      "row_count": 7
     },
     "content_start_y": 256,
-    "bottom_padding": 64,
-    "section_gap": 96
+    "bottom_padding": 64
   },
   "protected_surfaces": [
     "Free/EventCard",
