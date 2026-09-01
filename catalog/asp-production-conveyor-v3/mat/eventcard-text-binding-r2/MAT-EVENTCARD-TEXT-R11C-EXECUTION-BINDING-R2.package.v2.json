@@ -1,0 +1,78 @@
+{
+  "acceptance_matrix_reused": {
+    "head": "2a2394409912ce574530c5a451f2a3c169b557f7",
+    "reissued": false
+  },
+  "boundaries": {
+    "kaggle_calls": 0,
+    "new_eventcard_families": 0,
+    "penpot_mutations": 0,
+    "penpot_reads": 0
+  },
+  "claims": {
+    "penpot_execution_authorized": false,
+    "ready_to_promote": false,
+    "visual_pass": false,
+    "whole_eventcard_pass": false
+  },
+  "defect": "REPAIR_TEXT_STALE_FIXED_REVISION_BINDING",
+  "entrypoints": {
+    "distinct_later_readback": "readDistinctLaterTextBindingR2",
+    "execution": "executeTextExecutionBindingR2",
+    "projection": "projectTextExecutionBindingR2",
+    "runtime": "scripts/asp-production-conveyor-v3/mat/eventcard-text-binding-r2/eventcard_text_execution_binding_r2.js"
+  },
+  "execution": {
+    "authorization_binds": [
+      "exact current revision",
+      "exact projection SHA-256"
+    ],
+    "blind_retry": false,
+    "expected_contained": "22/38",
+    "mutation_count": 4,
+    "next_stage": "DISTINCT_LATER_READBACK",
+    "protected_outside_scope": 16,
+    "run_once": true
+  },
+  "negative_gates": [
+    "stale revision",
+    "stale projection SHA",
+    "missing ID",
+    "duplicate ID",
+    "changed protected surface",
+    "timeout/unknown outcome",
+    "non-string plugin data",
+    "executor replay"
+  ],
+  "package_id": "MAT-EVENTCARD-TEXT-R11C-EXECUTION-BINDING-R2",
+  "parent": {
+    "branch": "agent/mat-eventcard-text-r11c-compatible-repair-20260901",
+    "head": "d4ef6db8a4e1583308556b384d95f45e61223872",
+    "tree": "c2e1b18d170cdccc580262c77fe7524c10f50df9"
+  },
+  "projection": {
+    "binds": [
+      "characters",
+      "frame",
+      "textBounds",
+      "growType",
+      "parent/root",
+      "accepted collection",
+      "projection SHA-256"
+    ],
+    "case_roots": 4,
+    "managed_texts": 38,
+    "mutation_free": true,
+    "protected_text_offenders": 16,
+    "revision": "read-current-not-fixed",
+    "targets": 4
+  },
+  "schema_version": "kenigevents.mat-eventcard-text-execution-binding-package.v2",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "tests": {
+    "deterministic_projection_regeneration": "PASS",
+    "node": "9/9 PASS",
+    "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-binding-r2/eventcard_text_execution_binding_r2.js --self-test",
+    "python_package_invariants": "5/5 PASS"
+  }
+}
