@@ -1,0 +1,113 @@
+name: U0 small-page remote publication watchdog
+
+on:
+  push:
+    branches:
+      - u0/transfer-small-page-native-r2-watchdog
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: u0-small-page-native-transfer-r2
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TARGET_BRANCH: u0/small-page-native-executors-r2
+      BASE_HEAD: e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21
+      EXPECTED_TREE: 92a44400eb6834fb52af26feaa9c623636997bf9
+      ISSUE_NUMBER: '57'
+      STATUS_URL: https://filebin.net/u0-79b05edf5302f860-20260831-r2/u0-terminal-watchdog.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify terminal state or publish one exact blocker
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}" --force
+          head="$(git rev-parse "refs/remotes/origin/${TARGET_BRANCH}")"
+          tree="$(git rev-parse "${head}^{tree}")"
+          parent="$(git rev-parse "${head}^" 2>/dev/null || true)"
+          subject="$(git log -1 --format=%s "${head}")"
+          export OBSERVED_HEAD="${head}" OBSERVED_TREE="${tree}" OBSERVED_PARENT="${parent}" OBSERVED_SUBJECT="${subject}"
+          python3 - <<'PY'
+          import json, os, urllib.request
+          from pathlib import Path
+          repo=os.environ['GITHUB_REPOSITORY']; issue=int(os.environ['ISSUE_NUMBER']); token=os.environ['GH_TOKEN']
+          head=os.environ['OBSERVED_HEAD']; tree=os.environ['OBSERVED_TREE']; parent=os.environ['OBSERVED_PARENT']; subject=os.environ['OBSERVED_SUBJECT']
+          base=os.environ['BASE_HEAD']; expected_tree=os.environ['EXPECTED_TREE']; branch=os.environ['TARGET_BRANCH']
+          expected=['U-CONTROLS-BUTTONS-PRIMARY-ACTIONS','U-CONTROLS-SELECTORS-TOGGLES-STATES','U-FREE-DESKTOP-ROWS','U-FREE-MOBILE-GROUPS','U-SHELL-HEADER-NAV-FLOATING','U-SHELL-FOOTER-BREADCRUMBS']
+          def api(method,url,data=None):
+              req=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),method=method,headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'})
+              with urllib.request.urlopen(req) as response:return json.load(response)
+          comments=[]; page=1
+          while True:
+              batch=api('GET',f'https://api.github.com/repos/{repo}/issues/{issue}/comments?per_page=100&page={page}'); comments+=batch
+              if len(batch)<100:break
+              page+=1
+          ids=[]
+          for package in expected:
+              matches=[c for c in comments if package in c.get('body','') and head in c.get('body','') and 'MAT_PACKAGE_READY_QA_INTEGRATE_GATED' in c.get('body','')]
+              if len(matches)==1: ids.append(matches[0]['id'])
+          checkpoints=[c for c in comments if 'state: U0_SIX_SMALL_PAGES_REMOTE_READY' in c.get('body','') and head in c.get('body','')]
+          remote_ok=(head!=base and tree==expected_tree and parent==base and subject=='feat(u0): add six bounded executable small-page packages')
+          comments_ok=(len(ids)==6 and len(checkpoints)==1)
+          result={'remote_branch':branch,'observed_head':head,'observed_tree':tree,'observed_parent':parent,'observed_subject':subject,'remote_ok':remote_ok,'build_request_comment_ids':ids,'checkpoint_comment_id':checkpoints[0]['id'] if len(checkpoints)==1 else None,'comments_ok':comments_ok,'penpot_mutations_by_u0':0}
+          if remote_ok and comments_ok:
+              result['status']='PASS'; result['remote_readback']='PASS'
+          else:
+              result['status']='BLOCKED'; result['remote_readback']='NOT_PROVEN'
+              marker='<!-- ASP_CONVEYOR_TRANSFER_BLOCKER_V1 -->'
+              existing=next((c for c in comments if marker in c.get('body','') and branch in c.get('body','') and head in c.get('body','')),None)
+              if existing:
+                  result['blocker_comment_id']=existing['id']
+              else:
+                  body=f'''{marker}
+## ASP_CONVEYOR_TRANSFER_BLOCKER_V1 — U0 exact small-page remote publication
+
+```yaml
+role: U0
+state: TRANSFER_BLOCKED
+remote_branch: {branch}
+observed_head: {head}
+observed_tree: {tree}
+observed_parent: {parent or 'NONE'}
+expected_base: {base}
+expected_tree: {expected_tree}
+expected_content_commit_message: feat(u0): add six bounded executable small-page packages
+remote_commit_valid: {str(remote_ok).lower()}
+build_request_comments_found: {len(ids)}/6
+terminal_checkpoint_found: {len(checkpoints)}/1
+exact_patch:
+  sha256: 79b05edf5302f8601864f2582c8bc4608c39384864258a45835b6df11d52d322
+  bytes: 712864
+exact_archive:
+  sha256: 5638eb209ba2fc04402a01b629b70970594d76ffb705eb6348c620e3c1522534
+  bytes: 185713
+penpot_mutations_by_u0: 0
+new_packages_generated: 0
+manual_byte_reconstruction: false
+```
+
+Fail-closed: no build request or terminal READY marker is inferred without one exact remote commit, remote readback, six immutable comments and the terminal checkpoint.'''
+                  made=api('POST',f'https://api.github.com/repos/{repo}/issues/{issue}/comments',{'body':body}); result['blocker_comment_id']=made['id']
+          Path('/tmp/u0-terminal-watchdog.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+          curl --fail --silent --show-error --retry 3 --retry-all-errors -H 'Content-Type: application/json' --data-binary @/tmp/u0-terminal-watchdog.json "${STATUS_URL}" >/tmp/u0-watchdog-upload-response.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: u0-terminal-watchdog
+          if-no-files-found: error
+          retention-days: 30
+          path: /tmp/u0-terminal-watchdog.json
