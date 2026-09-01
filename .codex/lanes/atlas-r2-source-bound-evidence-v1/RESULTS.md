@@ -22,6 +22,15 @@ Completed source-bound representatives: `4/8`:
 3. `r2-controls-buttons` — 14 actual control anatomies from exact `Button.astro` + `design-system.css` source tuples.
 4. `r2-owner-review-index` — all 42 Atlas R2 physical pages in declared order.
 
+Action/Nav also records the sole-writer Lane-A terminal native export as
+corroborating evidence only: Penpot revision `176`, page/root
+`250f32b9-f4ec-800e-8008-9277ed92b007` /
+`250f32b9-f4ec-800e-8008-9277fa9bfd3d`, PNG `45587` bytes, SHA-256
+`9ffe9fb51611f24783660fe9c87ea983a36eb33659dec462c20bdf06179f040f`,
+8 components, 18 linked instances, 9/9 exact SVG bytes, `validation=[]`.
+Lane B did not read Penpot; the renderer still consumes the explicitly allowed
+nine frozen Git SVG streams.
+
 Fail-closed unresolved representatives: `4/8`:
 
 - `r2-medallions-densest`: aggregate package exposes 42 visuals + 3 brand assets but no immutable eight-visual membership tuple for `F-MEDALLIONS-INSTITUTIONS-A`; first-eight guessing was rejected.

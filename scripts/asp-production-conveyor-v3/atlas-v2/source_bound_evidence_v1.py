@@ -483,4 +483,20 @@ def render(label, unit, all_units):
         }[label]
     else:
         info["status"]="SOURCE_BOUND_EVIDENCE_READY"
+    if label == "action-nav":
+        # Supplied by the sole writer's terminal Lane-A receipt.  This lane did
+        # not query Penpot; the exact nine frozen SVG streams remain the actual
+        # renderer input and the native export is corroborating evidence only.
+        info["corroborating_native_export"]={
+            "penpot_revision":176,
+            "page_id":"250f32b9-f4ec-800e-8008-9277ed92b007",
+            "root_id":"250f32b9-f4ec-800e-8008-9277fa9bfd3d",
+            "png_bytes":45587,
+            "sha256":"9ffe9fb51611f24783660fe9c87ea983a36eb33659dec462c20bdf06179f040f",
+            "components":8,
+            "linked_instances":18,
+            "exact_svg_bytes":"9/9",
+            "validation":[],
+            "receipt_source":"D0 Lane A sole-writer terminal handoff; no Penpot read by Lane B",
+        }
     return svg,info
