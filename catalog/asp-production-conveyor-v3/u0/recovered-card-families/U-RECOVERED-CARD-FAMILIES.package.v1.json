@@ -1,0 +1,559 @@
+{
+  "schema_version": "kenigevents.u0-review-page-package.v1",
+  "package_id": "U-RECOVERED-CARD-FAMILIES",
+  "owner": "U0",
+  "priority": "P0",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "source_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "head": "8f46f068ba41dab4dca538806d11693c8c0d3042",
+    "tree": "a1739a4881262c2db9acd679e7b962a969ab5968",
+    "files": [
+      {
+        "role": "RelatedCardLayout",
+        "path": "site/src/lib/relatedCardLayout.mjs",
+        "git_blob_sha1": "da5dee098242c9842190f1ab21bfd440397c5813"
+      },
+      {
+        "role": "EventLayout",
+        "path": "site/src/layouts/EventLayout.astro",
+        "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+      },
+      {
+        "role": "FestivalTimelinePage",
+        "path": "site/src/pages/festivali/index.astro",
+        "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+      },
+      {
+        "role": "InterestClubCard",
+        "path": "site/src/components/InterestClubCard.astro",
+        "git_blob_sha1": "58fbb987379b35fda7faaadd49042fb1abb18989"
+      },
+      {
+        "role": "AmberRailArtifact",
+        "path": "site/src/components/listings/AmberRailArtifact.astro",
+        "git_blob_sha1": "74399ec3d49b7069eac4eca20e8adea5d3c862d6"
+      },
+      {
+        "role": "ArtifactCollection",
+        "path": "site/src/components/artifacts/ArtifactCollection.astro",
+        "git_blob_sha1": "914e0bf8fc092c925f040bfa8b721ba513368e54"
+      },
+      {
+        "role": "CollectionCatalog",
+        "path": "site/src/pages/podborki/index.astro",
+        "git_blob_sha1": "1a3dc3e2fb6d1df644625d2f2578b3042b3406bb"
+      },
+      {
+        "role": "EventCard",
+        "path": "site/src/components/EventCard.astro",
+        "git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c"
+      }
+    ],
+    "rule": "Current Astro bytes and semantics are authoritative; donor material is recovery capital only."
+  },
+  "donor_evidence": {
+    "principle": "Donors are recovery capital only; current source defines anatomy, state and semantics.",
+    "references": [
+      "PR#37 card-family taxonomy",
+      "PR#42 EventCard contrast evidence",
+      "current U0 coverage matrix 5492836757"
+    ],
+    "old_penpot_uuid_lineage_reused": false
+  },
+  "dependencies": {
+    "action_nav_icons": {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
+      "tree": "0bcfaf6b5db1182da27e459df502d742e1470f93",
+      "package": {
+        "path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json",
+        "git_blob_sha1": "b211bcec98a144a8e3ee7ed87098c37757fb8298",
+        "sha256": "9a89a0b283f110a811a06317a5b4f0a54b28f553de81a40b43b7261c0d864c7a",
+        "bytes": 16493
+      }
+    }
+  },
+  "atlas_r2": {
+    "branch": "o0/penpot-atlas-layout-v2-20260901",
+    "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "read_only": true,
+    "exact_pages_present": false
+  },
+  "target": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "section": "08 · Components · Recovered card families · Candidate",
+    "candidate_only": true
+  },
+  "families": [
+    "U-CARD-COMPACT",
+    "U-CARD-FESTIVAL",
+    "U-CARD-CLUB",
+    "U-CARD-ARTIFACT",
+    "U-CARD-COLLECTION"
+  ],
+  "page_units": [
+    {
+      "unit_id": "U-CARD-COMPACT",
+      "page_name": "08.1 · Components · Compact card · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-CARD-COMPACT",
+      "components": [
+        {
+          "component_id": "U-CARD-COMPACT",
+          "anatomy": [
+            "bounded-media-shell",
+            "title",
+            "date-and-place-summary",
+            "utility-and-feedback-tail"
+          ],
+          "states": [
+            "visual-fixed-5x4",
+            "document-contain",
+            "document-bounded-cover",
+            "long-copy"
+          ],
+          "responsive_behavior": "Desktop compact recommendation row uses bounded 5:4 visual treatment; mobile visual remains 5:4 while document media keeps natural aspect.",
+          "dependencies": [],
+          "source_consumers": [
+            "RelatedCardLayout",
+            "EventLayout"
+          ],
+          "explicit_difference_from_eventcard": "Recommendation-density card omits EventCard's full date/calendar/action stack and uses related-card row packing; it is not an EventCard clone.",
+          "canonical_master": true,
+          "old_uuid_lineage": false
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-card-compact-visual-fixed-5x4",
+          "component_ids": [
+            "U-CARD-COMPACT"
+          ],
+          "state": "visual-fixed-5x4",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Recommendation-density card omits EventCard's full date/calendar/action stack and uses related-card row packing; it is not an EventCard clone."
+          ]
+        },
+        {
+          "specimen_id": "u-card-compact-document-contain",
+          "component_ids": [
+            "U-CARD-COMPACT"
+          ],
+          "state": "document-contain",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Recommendation-density card omits EventCard's full date/calendar/action stack and uses related-card row packing; it is not an EventCard clone."
+          ]
+        },
+        {
+          "specimen_id": "u-card-compact-long-copy",
+          "component_ids": [
+            "U-CARD-COMPACT"
+          ],
+          "state": "long-copy",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Recommendation-density card omits EventCard's full date/calendar/action stack and uses related-card row packing; it is not an EventCard clone."
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-CARD-FESTIVAL",
+      "page_name": "08.2 · Components · Festival card · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-CARD-FESTIVAL",
+      "components": [
+        {
+          "component_id": "U-CARD-FESTIVAL",
+          "anatomy": [
+            "festival-media",
+            "category-icons",
+            "title",
+            "date-label",
+            "place",
+            "program-status",
+            "official-source-cta",
+            "local-favorite-state"
+          ],
+          "states": [
+            "announced",
+            "program-pending",
+            "date-pending",
+            "visual-media",
+            "document-media"
+          ],
+          "responsive_behavior": "Timeline rows retain category/date/status identity; mobile card media treatment follows source semantic class.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "FestivalTimelinePage"
+          ],
+          "explicit_difference_from_eventcard": "Festival identity is edition/status/source-led and has no EventCard admission/calendar/action anatomy.",
+          "canonical_master": true,
+          "old_uuid_lineage": false
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-card-festival-announced",
+          "component_ids": [
+            "U-CARD-FESTIVAL"
+          ],
+          "state": "announced",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Festival identity is edition/status/source-led and has no EventCard admission/calendar/action anatomy."
+          ]
+        },
+        {
+          "specimen_id": "u-card-festival-program-pending",
+          "component_ids": [
+            "U-CARD-FESTIVAL"
+          ],
+          "state": "program-pending",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Festival identity is edition/status/source-led and has no EventCard admission/calendar/action anatomy."
+          ]
+        },
+        {
+          "specimen_id": "u-card-festival-date-pending",
+          "component_ids": [
+            "U-CARD-FESTIVAL"
+          ],
+          "state": "date-pending",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Festival identity is edition/status/source-led and has no EventCard admission/calendar/action anatomy."
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-CARD-CLUB",
+      "page_name": "08.3 · Components · Club card · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-CARD-CLUB",
+      "components": [
+        {
+          "component_id": "U-CARD-CLUB",
+          "anatomy": [
+            "cover-or-fallback",
+            "veil",
+            "topic",
+            "future-meeting-badge",
+            "title",
+            "description",
+            "place-and-activity-facts",
+            "keyboard-hint",
+            "detail-action"
+          ],
+          "states": [
+            "cover-ready",
+            "cover-fallback",
+            "future-meetings",
+            "focus-visible",
+            "reduced-motion"
+          ],
+          "responsive_behavior": "Three-column fact grid collapses to two; source keyboard and focus semantics remain desktop-visible.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "InterestClubCard"
+          ],
+          "explicit_difference_from_eventcard": "Club card represents an enduring interest group and catalogue activity, not a scheduled EventCard occurrence.",
+          "canonical_master": true,
+          "old_uuid_lineage": false
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-card-club-cover-ready-future",
+          "component_ids": [
+            "U-CARD-CLUB"
+          ],
+          "state": "cover-ready-future",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Club card represents an enduring interest group and catalogue activity, not a scheduled EventCard occurrence."
+          ]
+        },
+        {
+          "specimen_id": "u-card-club-cover-fallback",
+          "component_ids": [
+            "U-CARD-CLUB"
+          ],
+          "state": "cover-fallback",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Club card represents an enduring interest group and catalogue activity, not a scheduled EventCard occurrence."
+          ]
+        },
+        {
+          "specimen_id": "u-card-club-focus-visible",
+          "component_ids": [
+            "U-CARD-CLUB"
+          ],
+          "state": "focus-visible",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Club card represents an enduring interest group and catalogue activity, not a scheduled EventCard occurrence."
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-CARD-ARTIFACT",
+      "page_name": "08.4 · Components · Artifact card · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-CARD-ARTIFACT",
+      "components": [
+        {
+          "component_id": "U-CARD-ARTIFACT",
+          "anatomy": [
+            "artifact-visual",
+            "discovery-glow",
+            "pressed-state",
+            "found-badge",
+            "live-region",
+            "collection-slot-relation"
+          ],
+          "states": [
+            "default",
+            "awake",
+            "collecting",
+            "collected",
+            "focus-visible",
+            "reduced-motion"
+          ],
+          "responsive_behavior": "Rail artifact and collection slot retain local-device collection semantics; motion is removed for reduced-motion.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "AmberRailArtifact",
+            "ArtifactCollection"
+          ],
+          "explicit_difference_from_eventcard": "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions.",
+          "canonical_master": true,
+          "old_uuid_lineage": false
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-card-artifact-default",
+          "component_ids": [
+            "U-CARD-ARTIFACT"
+          ],
+          "state": "default",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions."
+          ]
+        },
+        {
+          "specimen_id": "u-card-artifact-awake",
+          "component_ids": [
+            "U-CARD-ARTIFACT"
+          ],
+          "state": "awake",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions."
+          ]
+        },
+        {
+          "specimen_id": "u-card-artifact-collected",
+          "component_ids": [
+            "U-CARD-ARTIFACT"
+          ],
+          "state": "collected",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions."
+          ]
+        },
+        {
+          "specimen_id": "u-card-artifact-focus-visible",
+          "component_ids": [
+            "U-CARD-ARTIFACT"
+          ],
+          "state": "focus-visible",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions."
+          ]
+        }
+      ],
+      "managed_nodes_expected": 6
+    },
+    {
+      "unit_id": "U-CARD-COLLECTION",
+      "page_name": "08.5 · Components · Collection card · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-CARD-COLLECTION",
+      "components": [
+        {
+          "component_id": "U-CARD-COLLECTION",
+          "anatomy": [
+            "lifecycle-status",
+            "title",
+            "description",
+            "link-or-disabled-container"
+          ],
+          "states": [
+            "public-link",
+            "repair-link",
+            "deferred-disabled"
+          ],
+          "responsive_behavior": "Auto-fit grid preserves semantic link versus disabled article and minimum 18rem card basis.",
+          "dependencies": [],
+          "source_consumers": [
+            "CollectionCatalog"
+          ],
+          "explicit_difference_from_eventcard": "Collection card is an editorial route entry with lifecycle status, not an individual EventCard.",
+          "canonical_master": true,
+          "old_uuid_lineage": false
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-card-collection-public-link",
+          "component_ids": [
+            "U-CARD-COLLECTION"
+          ],
+          "state": "public-link",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Collection card is an editorial route entry with lifecycle status, not an individual EventCard."
+          ]
+        },
+        {
+          "specimen_id": "u-card-collection-repair-link",
+          "component_ids": [
+            "U-CARD-COLLECTION"
+          ],
+          "state": "repair-link",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Collection card is an editorial route entry with lifecycle status, not an individual EventCard."
+          ]
+        },
+        {
+          "specimen_id": "u-card-collection-deferred-disabled",
+          "component_ids": [
+            "U-CARD-COLLECTION"
+          ],
+          "state": "deferred-disabled",
+          "viewport": {
+            "width": 1160,
+            "height": 760
+          },
+          "acceptance": [
+            "linked to canonical family master",
+            "Collection card is an editorial route entry with lifecycle status, not an individual EventCard."
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    }
+  ],
+  "authorization": {
+    "penpot_execution_authorized": false,
+    "visual_acceptance": "PENDING_V0",
+    "promotion_authorized": false
+  },
+  "boundaries": {
+    "penpot_reads_by_u0": 0,
+    "penpot_mutations_by_u0": 0,
+    "eventcard_mat_repairs": 0,
+    "atlas_r2_read_only": true,
+    "kaggle_used": false
+  },
+  "acceptance": {
+    "families": 5,
+    "second_run_created": 0,
+    "maximum_managed_nodes": 30,
+    "detached_instances": 0,
+    "screenshot_shapes": 0,
+    "eventcard_clones": 0,
+    "old_penpot_uuid_lineage": 0
+  },
+  "branch": "u0/recovered-card-families-r1-20260901",
+  "package_path": "catalog/asp-production-conveyor-v3/u0/recovered-card-families/U-RECOVERED-CARD-FAMILIES.package.v1.json",
+  "contract_path": "catalog/asp-production-conveyor-v3/u0/recovered-card-families/product-contract.v1.json",
+  "execution": {
+    "setup": "scripts/asp-production-conveyor-v3/u0/recovered-card-families/setup_v1.js",
+    "executor": "scripts/asp-production-conveyor-v3/u0/recovered-card-families/native_executor_v1.js",
+    "runtime": "scripts/asp-production-conveyor-v3/u0/recovered-card-families/native_runtime_v1.js",
+    "node_test": "tests/asp-production-conveyor-v3/u0/recovered-card-families/test_native_executor_v1.js",
+    "python_test": "tests/asp-production-conveyor-v3/u0/recovered-card-families/test_repository_invariants_v1.py",
+    "second_run_created": 0
+  },
+  "atlas_extension_request_path": "catalog/asp-production-conveyor-v3/u0/recovered-card-families/ASP_ATLAS_EXTENSION_REQUEST_V1.md",
+  "build_request_template_path": "catalog/asp-production-conveyor-v3/u0/recovered-card-families/ASP_BUILD_REQUEST_V2.md"
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": "kenigevents.u0-product-contract.v1",
+  "contract_id": "U-RECOVERED-CARD-FAMILIES",
+  "product_boundary": "Only the five coverage-matrix gaps: compact, festival, club, artifact and collection cards.",
+  "families": [
+    {
+      "family_id": "U-CARD-COMPACT",
+      "source_lineage": [
+        {
+          "path": "site/src/lib/relatedCardLayout.mjs",
+          "git_blob_sha1": "da5dee098242c9842190f1ab21bfd440397c5813"
+        },
+        {
+          "path": "site/src/layouts/EventLayout.astro",
+          "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+        }
+      ],
+      "anatomy": [
+        "bounded-media-shell",
+        "title",
+        "date-and-place-summary",
+        "utility-and-feedback-tail"
+      ],
+      "states": [
+        "visual-fixed-5x4",
+        "document-contain",
+        "document-bounded-cover",
+        "long-copy"
+      ],
+      "responsive_behavior": "Desktop compact recommendation row uses bounded 5:4 visual treatment; mobile visual remains 5:4 while document media keeps natural aspect.",
+      "explicit_difference_from_eventcard": "Recommendation-density card omits EventCard's full date/calendar/action stack and uses related-card row packing; it is not an EventCard clone."
+    },
+    {
+      "family_id": "U-CARD-FESTIVAL",
+      "source_lineage": [
+        {
+          "path": "site/src/pages/festivali/index.astro",
+          "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+        }
+      ],
+      "anatomy": [
+        "festival-media",
+        "category-icons",
+        "title",
+        "date-label",
+        "place",
+        "program-status",
+        "official-source-cta",
+        "local-favorite-state"
+      ],
+      "states": [
+        "announced",
+        "program-pending",
+        "date-pending",
+        "visual-media",
+        "document-media"
+      ],
+      "responsive_behavior": "Timeline rows retain category/date/status identity; mobile card media treatment follows source semantic class.",
+      "explicit_difference_from_eventcard": "Festival identity is edition/status/source-led and has no EventCard admission/calendar/action anatomy."
+    },
+    {
+      "family_id": "U-CARD-CLUB",
+      "source_lineage": [
+        {
+          "path": "site/src/components/InterestClubCard.astro",
+          "git_blob_sha1": "58fbb987379b35fda7faaadd49042fb1abb18989"
+        }
+      ],
+      "anatomy": [
+        "cover-or-fallback",
+        "veil",
+        "topic",
+        "future-meeting-badge",
+        "title",
+        "description",
+        "place-and-activity-facts",
+        "keyboard-hint",
+        "detail-action"
+      ],
+      "states": [
+        "cover-ready",
+        "cover-fallback",
+        "future-meetings",
+        "focus-visible",
+        "reduced-motion"
+      ],
+      "responsive_behavior": "Three-column fact grid collapses to two; source keyboard and focus semantics remain desktop-visible.",
+      "explicit_difference_from_eventcard": "Club card represents an enduring interest group and catalogue activity, not a scheduled EventCard occurrence."
+    },
+    {
+      "family_id": "U-CARD-ARTIFACT",
+      "source_lineage": [
+        {
+          "path": "site/src/components/listings/AmberRailArtifact.astro",
+          "git_blob_sha1": "74399ec3d49b7069eac4eca20e8adea5d3c862d6"
+        },
+        {
+          "path": "site/src/components/artifacts/ArtifactCollection.astro",
+          "git_blob_sha1": "914e0bf8fc092c925f040bfa8b721ba513368e54"
+        }
+      ],
+      "anatomy": [
+        "artifact-visual",
+        "discovery-glow",
+        "pressed-state",
+        "found-badge",
+        "live-region",
+        "collection-slot-relation"
+      ],
+      "states": [
+        "default",
+        "awake",
+        "collecting",
+        "collected",
+        "focus-visible",
+        "reduced-motion"
+      ],
+      "responsive_behavior": "Rail artifact and collection slot retain local-device collection semantics; motion is removed for reduced-motion.",
+      "explicit_difference_from_eventcard": "Artifact is a collectable local-browser object with no event date, venue, admission or EventCard actions."
+    },
+    {
+      "family_id": "U-CARD-COLLECTION",
+      "source_lineage": [
+        {
+          "path": "site/src/pages/podborki/index.astro",
+          "git_blob_sha1": "1a3dc3e2fb6d1df644625d2f2578b3042b3406bb"
+        }
+      ],
+      "anatomy": [
+        "lifecycle-status",
+        "title",
+        "description",
+        "link-or-disabled-container"
+      ],
+      "states": [
+        "public-link",
+        "repair-link",
+        "deferred-disabled"
+      ],
+      "responsive_behavior": "Auto-fit grid preserves semantic link versus disabled article and minimum 18rem card basis.",
+      "explicit_difference_from_eventcard": "Collection card is an editorial route entry with lifecycle status, not an individual EventCard."
+    }
+  ],
+  "acceptance_criteria": [
+    "Each family has a canonical master and linked review specimens on its own bounded page.",
+    "No family substitutes an EventCard clone.",
+    "Current source is authoritative; donor facts never carry old Penpot IDs.",
+    "Second execution creates zero and preserves deterministic identities."
+  ]
+}
