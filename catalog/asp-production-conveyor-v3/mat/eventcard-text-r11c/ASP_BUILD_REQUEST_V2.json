@@ -1,0 +1,84 @@
+{
+  "contract": {
+    "bytes": 10969,
+    "commit": "7607143afc240b9f96abd51270ab82735aabf9bc",
+    "git_blob_sha1": "1facf0b2ae80b114d9c8b028b5c22769982e3fb7",
+    "id": "kenigevents.asp-conformance",
+    "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "sha256": "75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289",
+    "tree": "805cf61ed020c15f1c7bc57dc891a0dca0145548",
+    "version": "1.0.0"
+  },
+  "from": "MAT",
+  "immutable_inputs": [
+    {
+      "bytes": 4061,
+      "git_blob_sha1": "281101e1bbef92284eb3800302d2cbcd5a7018d7",
+      "head": "65d69509313d7450328861d73a0458fb5f7e3c92",
+      "path": "catalog/materialization-bundles/eventcard-free-slice.g4.ready-v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "600362047b24df707712598c6ccf2b79047aad62a143afbfdb41daa103a5351d",
+      "tree": "b05a79c8f9ae76e1c19d1e7aa278c2bb41cbd47d"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "integrate_gates": [
+    "same package/executor/readback hashes",
+    "clean exact-head worktree",
+    "separate runtime execution and readback authorizations remain absent until explicit INTEGRATE decision"
+  ],
+  "operation": "APPLY_CANARY_PROVEN_FIXED_TO_AUTO_WIDTH_NATIVE_LAYOUT_INVALIDATION_TO_FOUR_EXACT_OCCURRENCE_OFFENDERS_ONLY",
+  "package_id": "MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR",
+  "penpot_execution_authorized": false,
+  "publish_handoff": {
+    "included": false,
+    "reason": "This Git-only MAT package is not execution authorization."
+  },
+  "qa_gates": [
+    "exact immutable Git objects",
+    "deterministic regeneration",
+    "four exact target IDs and 16 exact protected offender IDs",
+    "mutation allowlist only",
+    "unknown outcome stops without retry",
+    "native-like success plus negative/tamper cases"
+  ],
+  "request_id": "MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR-20260901-R1",
+  "required_artifacts": [
+    {
+      "bytes": 28655,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR.package.v1.json",
+      "sha256": "9dad0da0d728bd638c2f1c5a90d00c2398b3a08b662e9760485b3d1c24923536"
+    },
+    {
+      "bytes": 9306,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/native-repair-executor.v1.js",
+      "sha256": "4dbf5998eddb1ed34fdc20da9a6ac1c6da1a614f994e18b277bde1de5b5987ca"
+    },
+    {
+      "bytes": 7953,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/distinct-later-readback.v1.js",
+      "sha256": "3e180115ce1b5152a3d58d9bc5b9109d10b94cbb7b10d9c054812c6d4771436e"
+    }
+  ],
+  "required_commands": [
+    "python3 scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/build_eventcard_text_r11c.py --repo . --check",
+    "python3 -m unittest discover -s tests/asp-production-conveyor-v3/mat/eventcard-text-r11c -p 'test_*.py'",
+    "node --test tests/asp-production-conveyor-v3/mat/eventcard-text-r11c/test_native_like_harness.mjs"
+  ],
+  "schema_version": "ASP_BUILD_REQUEST_V2",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal_on_success": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "to": [
+    "QA",
+    "INTEGRATE"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "generated_artifacts": [
+    {
+      "bytes": 3677,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/ASP_BUILD_REQUEST_V2.json",
+      "sha256": "0500a2810ce5fa926ae3149a3c1ed551da6b85d3417de8f193a91326e7e9af86"
+    },
+    {
+      "bytes": 28655,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR.package.v1.json",
+      "sha256": "9dad0da0d728bd638c2f1c5a90d00c2398b3a08b662e9760485b3d1c24923536"
+    },
+    {
+      "bytes": 7953,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/distinct-later-readback.v1.js",
+      "sha256": "3e180115ce1b5152a3d58d9bc5b9109d10b94cbb7b10d9c054812c6d4771436e"
+    },
+    {
+      "bytes": 9306,
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-text-r11c/native-repair-executor.v1.js",
+      "sha256": "4dbf5998eddb1ed34fdc20da9a6ac1c6da1a614f994e18b277bde1de5b5987ca"
+    }
+  ],
+  "generation_contract": {
+    "dynamic_timestamps": false,
+    "encoding": "UTF-8",
+    "indent": 2,
+    "sort_keys": true,
+    "terminal_newline": true
+  },
+  "generator_sources": [
+    {
+      "bytes": 23148,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/repair-spec.source.json",
+      "sha256": "227921b7796435d18e0ba4a7315c1ec68485d71c21ae4e9409e838fa3c21b9c1"
+    },
+    {
+      "bytes": 9260,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/executor.template.js",
+      "sha256": "21edeed352a3a3507a783b6289afb4c7404d1eadf43a3daec4a7d7416e36adc4"
+    },
+    {
+      "bytes": 7907,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/later-readback.template.js",
+      "sha256": "3f7db370ea2c6b5e3249fc513f0c21846d927fd9859fd6455f9f37f52e9ce5f0"
+    },
+    {
+      "bytes": 8534,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/native_like_harness.mjs",
+      "sha256": "a1023489b781f82239f2978931dc3b6baa40cf5f9f191ca29d10f2bca860e753"
+    },
+    {
+      "bytes": 13306,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/build_eventcard_text_r11c.py",
+      "sha256": "a48ff4ebf97d2878ac27616d2c2a021ef652e363b5c4fb764d4f630c53e3591c"
+    }
+  ],
+  "immutable_inputs": [
+    {
+      "bytes": 4061,
+      "git_blob_sha1": "281101e1bbef92284eb3800302d2cbcd5a7018d7",
+      "head": "65d69509313d7450328861d73a0458fb5f7e3c92",
+      "path": "catalog/materialization-bundles/eventcard-free-slice.g4.ready-v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "600362047b24df707712598c6ccf2b79047aad62a143afbfdb41daa103a5351d",
+      "tree": "b05a79c8f9ae76e1c19d1e7aa278c2bb41cbd47d"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "package_id": "MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR",
+  "package_semantic_sha256": "9a051662432f7c6ac66d569df20e3bfe9d546a7a73b110f769912a6e73977e7f",
+  "penpot_execution_authorized": false,
+  "regenerate": "python3 scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/build_eventcard_text_r11c.py --repo . --write",
+  "schema_version": "kenigevents.mat-eventcard-text-r11c-manifest.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal_recommendation": "QA validate exact committed bytes and native-like negative gates; INTEGRATE may issue a separate runtime authorization only for this exact package. Do not execute Penpot from MAT and do not claim whole-EventCard visual PASS.",
+  "verify": "python3 scripts/asp-production-conveyor-v3/mat/eventcard-text-r11c/build_eventcard_text_r11c.py --repo . --check"
+}
