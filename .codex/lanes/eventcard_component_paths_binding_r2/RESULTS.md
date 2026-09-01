@@ -11,3 +11,10 @@
 - Detach, clone, recreate, text/media/geometry mutation, and blind retry after timeout or unknown outcome remain forbidden.
 - No Penpot authorization, visual PASS, promotion, or whole-EventCard PASS is claimed.
 - U0 Penpot reads/mutations: `0/0`; Kaggle: `0`; new EventCard families: `0`.
+
+## D0 night-shift revalidation
+
+- Committed Node regression: `4/4 PASS`; embedded self-test: `9/9 PASS`.
+- QA: `PASS` for mutation-free `18 components / 18 mains / 26 linked instances` projection and stable relationships.
+- INTEGRATE: `PASS_PACKAGE_LOCAL`; exact native tuple awaits a fresh projection and external ACTIVE authorization.
+- Penpot execution remains unauthorized by this Git-only commit.
