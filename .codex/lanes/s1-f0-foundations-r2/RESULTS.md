@@ -25,12 +25,14 @@ committed
 
 ## Head SHA
 
-Repair implementation snapshot: `03d4deee128434d42956a4cdf2e2a5171878e51b`
-(tree `a98528ec1c4abdb00ed3c29e7dc0f8306612dd82`).
+Final integrity-repair implementation snapshot: `fa9de6bf2d73bcfc1010b3d4f49417d1420ecdd7`
+(tree `7b1b87fb3f057b535f3e9099057fd9a9d01b9f86`).
 
 Independent QA rejected prior head `8e4bc94156715b5b502a2be8225084ea01556921`
-for family-rounded Flex rows and incomplete protected projections. This receipt
-records the bounded repair and the subsequent same-head reruns.
+for family-rounded Flex rows and incomplete protected projections. Re-QA then
+rejected `ece0d5cd981429fb83cbb75f722814f96680c1dc` for finite plugin-key
+projection, pages-only component coverage, and placement-tag-only detach scans.
+This receipt records both bounded repairs and the subsequent same-head reruns.
 
 The final branch head necessarily includes this receipt-only commit and is
 recorded by provider-backed remote readback in the terminal lane handoff. QA
@@ -60,12 +62,12 @@ same remote head.
   `663be702d481972cb2e8863af500f1c35dda1d8c`, tree
   `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`, bindings blob
   `23475806beebfbe21bd77759440c169c60627550`.
-- Shared family-local payload: 45,516 bytes, blob
-  `2414fd90b0897dd269c675b6dfcd80c4b1ec22cb`, SHA-256
-  `e7712f21a0274f8bd35e0acbeb002fcf378a76682c44072e6ebc6d3da5a94221`.
+- Shared family-local payload: 47,177 bytes, blob
+  `0dfa636aab4d3e2135f364da5d5c35b5339f43a0`, SHA-256
+  `c44e669e4a01f5dd11cdabccc140065bb7ff3a86c436433cf50942ae19659173`.
 - Shared family-local launcher: 6,196 bytes, blob
-  `306cc5d2e376c54c1e969ace3942324cf116ee03`, SHA-256
-  `d62ddacf4596c86203fe379e0dfe4faab7567bdf2698bab8f7b8c31881a0f3ad`.
+  `155eb89a7c6d8d51d2a2a56276f28d99c0f18455`, SHA-256
+  `130e54258905f32f102b3f727c1b3ce6b9434945dd8082e1396f7be0c121f95d`.
 - Every package has a distinct frozen execution tuple and adapter ID.
 - Native-like test double rejects non-string shared-plugin-data without any
   implicit `String(...)` coercion.
@@ -76,8 +78,12 @@ same remote head.
 - Exact global rows/review/root heights are `7/1984/2304`, `4/1120/1440`,
   `2/544/864`, and `3/832/1152`; Shape/Elevation is exactly two rows.
 - Complete fail-closed projections cover text, fills, strokes, shadows, opacity,
-  shared plugin data, Grid/Flex/layout cells, and component lineage. Adversarial
-  protected Free-fill and Foundation-text mutations reject before creation.
+  every enumerated plugin-data namespace/key (or every key in the declared
+  complete runtime namespace contract), Grid/Flex/layout cells, and component
+  lineage. Adversarial foreign/arbitrary keys reject before creation.
+- The digest covers the complete local component-library census, including
+  unattached masters and component name/path/variant state. A recursive managed
+  subtree scan rejects untagged missing/foreign component copies before creation.
 - Terminal readback returns `duplicates=0`, `detached=0`, `screenshots=0`, and
   unchanged Free/EventCard plus Foundation source/index projections.
 - Atlas R2 files were not changed. Penpot reads/mutations, PUBLISH, and Kaggle:
@@ -109,9 +115,9 @@ and mutation authorization remain pending the Atlas evidence gate.
 
 ## Tests / verification
 
-- Native-like QA: 12/12 PASS, including four separately named package replay
-  tests, the two-row Shape/Elevation regression, and two adversarial protected
-  projection tests.
+- Native-like QA: 16/16 PASS, including four separately named package replay
+  tests, exact Grid rows, arbitrary enumerated and runtime-contract plugin keys,
+  unattached component drift, and untagged nested detached-copy regressions.
 - Exact binding/bytes/formula INTEGRATE: 6/6 PASS.
 - Existing Foundation page-split adapter: PASS.
 - Existing Foundation candidate suite: 4/4 PASS.
