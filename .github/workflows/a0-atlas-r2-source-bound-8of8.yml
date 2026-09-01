@@ -1,0 +1,114 @@
+name: A0 Atlas R2 source-bound evidence 8of8
+
+on:
+  push:
+    branches:
+      - d0/atlas-r2-source-bound-evidence-8of8-v1-20260901
+    paths:
+      - '.github/workflows/a0-atlas-r2-source-bound-8of8.yml'
+      - 'scripts/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/**'
+      - 'tests/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/**'
+
+permissions:
+  contents: write
+
+jobs:
+  render-lanes:
+    strategy:
+      fail-fast: false
+      matrix:
+        lane: [home, ready, exception]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand exact implementation payload
+        run: |
+          echo '23db3aee50e2b93e58a10deee43181c08d721d325d2c5f7faf29f09b7a31bda1  /tmp/a0-atlas-r2-evidence-payload.tar.gz' > /tmp/payload.sha256
+          base64 -d .a0-atlas-r2-evidence-bootstrap.b64 > /tmp/a0-atlas-r2-evidence-payload.tar.gz
+          sha256sum -c /tmp/payload.sha256
+          tar -xzf /tmp/a0-atlas-r2-evidence-payload.tar.gz
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check 'cairosvg==2.7.1' 'Pillow==10.4.0'
+      - name: Render deterministic lane
+        env:
+          A0_EVIDENCE_ROOT: ${{ runner.temp }}/a0-${{ matrix.lane }}
+        run: |
+          python scripts/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/render_a0_atlas_r2_routes_v1.py
+          case "${{ matrix.lane }}" in
+            home) n=r2-archetype-home ;;
+            ready) n=r2-composed-ready ;;
+            exception) n=r2-composed-exception ;;
+          esac
+          mkdir -p lane
+          cp "${A0_EVIDENCE_ROOT}/reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/${n}.svg" lane/
+          cp "${A0_EVIDENCE_ROOT}/reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/${n}.png" lane/
+          sha256sum lane/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: a0-${{ matrix.lane }}
+          path: lane/
+          if-no-files-found: error
+
+  aggregate:
+    needs: render-lanes
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Expand exact implementation payload
+        run: |
+          echo '23db3aee50e2b93e58a10deee43181c08d721d325d2c5f7faf29f09b7a31bda1  /tmp/a0-atlas-r2-evidence-payload.tar.gz' > /tmp/payload.sha256
+          base64 -d .a0-atlas-r2-evidence-bootstrap.b64 > /tmp/a0-atlas-r2-evidence-payload.tar.gz
+          sha256sum -c /tmp/payload.sha256
+          tar -xzf /tmp/a0-atlas-r2-evidence-payload.tar.gz
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check 'cairosvg==2.7.1' 'Pillow==10.4.0'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: a0-*
+          path: ${{ runner.temp }}/lanes
+      - name: Assemble exact source-bound evidence
+        run: |
+          set -euo pipefail
+          python scripts/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/render_a0_atlas_r2_routes_v1.py
+          out=reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes
+          cp "${RUNNER_TEMP}/lanes/a0-home/r2-archetype-home."{svg,png} "$out/"
+          cp "${RUNNER_TEMP}/lanes/a0-ready/r2-composed-ready."{svg,png} "$out/"
+          cp "${RUNNER_TEMP}/lanes/a0-exception/r2-composed-exception."{svg,png} "$out/"
+          cp "$out/r2-archetype-home."{svg,png} reports/asp-production-conveyor-v3/atlas-v2/rendered/
+          cp "$out/r2-composed-ready."{svg,png} reports/asp-production-conveyor-v3/atlas-v2/rendered/
+          cp "$out/r2-composed-exception."{svg,png} reports/asp-production-conveyor-v3/atlas-v2/rendered/
+          git fetch origin eb26bfb6b372c05e123430cf556c15e526cb6ef3
+          git show eb26bfb6b372c05e123430cf556c15e526cb6ef3:reports/asp-production-conveyor-v3/atlas-v2/source-bound/f0-medallions/r2-medallions-densest.svg > reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-medallions-densest.svg
+          git show eb26bfb6b372c05e123430cf556c15e526cb6ef3:reports/asp-production-conveyor-v3/atlas-v2/source-bound/f0-medallions/r2-medallions-densest.png > reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-medallions-densest.png
+          python scripts/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/finalize_atlas_r2_evidence_8of8_v1.py
+          python tests/asp-production-conveyor-v3/a0/atlas-r2-route-evidence/test_a0_atlas_r2_routes_v1.py
+          git diff --check
+      - name: Publish terminal aggregate
+        run: |
+          set -euo pipefail
+          git config user.name 'a0-atlas-r2-evidence-bot'
+          git config user.email 'a0-atlas-r2-evidence-bot@users.noreply.github.com'
+          git rm -f .a0-atlas-r2-evidence-bootstrap.b64 .github/workflows/a0-atlas-r2-source-bound-8of8.yml
+          git add \
+            scripts/asp-production-conveyor-v3/a0/atlas-r2-route-evidence \
+            tests/asp-production-conveyor-v3/a0/atlas-r2-route-evidence \
+            reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-archetype-home.svg \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-archetype-home.png \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-composed-ready.svg \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-composed-ready.png \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-composed-exception.svg \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-composed-exception.png \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-medallions-densest.svg \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/r2-medallions-densest.png \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/source-bound-evidence-8of8.v1.json \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/source-bound-evidence-8of8.validation.v1.json
+          test -n "$(git diff --cached --name-only)"
+          git commit -m 'feat(a0): publish Atlas R2 source-bound evidence 8of8'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
