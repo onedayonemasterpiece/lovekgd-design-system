@@ -70,9 +70,9 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
             self.assertEqual(adapter["terminal_status"], "PUBLISHABLE_AFTER_ATLAS_EVIDENCE_GATE")
             self.assertFalse(adapter["repair_policy"]["promotion_authorized"])
             self.assertFalse(adapter["repair_policy"]["penpot_authorization"])
-            self.assertEqual(adapter["repair_policy"]["shared_plugin_data_projection"], "ENUMERATE_ALL_KEYS_PER_RUNTIME_COMPLETE_NAMESPACE_CONTRACT")
+            self.assertEqual(adapter["repair_policy"]["shared_plugin_data_projection"], "ENUMERATE_ALL_NAMESPACES_AND_KEYS_OR_FAIL_CLOSED")
             self.assertEqual(adapter["repair_policy"]["local_component_library_projection"], "COMPLETE_INCLUDING_UNATTACHED_MASTERS")
-            self.assertEqual(adapter["repair_policy"]["managed_root_component_copy_scan"], "RECURSIVE_TAG_INDEPENDENT")
+            self.assertEqual(adapter["repair_policy"]["managed_root_component_copy_scan"], "RECURSIVE_BIDIRECTIONAL_REFERENCE_MARKER_CONSISTENCY")
         self.assertEqual(len(ids), 4)
 
     def test_exact_local_executor_launcher_and_remote_source_bytes(self):
@@ -147,13 +147,16 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
         self.assertNotIn("PROJECTION_PLUGIN_FIELDS", payload)
         self.assertIn("getSharedPluginDataNamespaces", payload)
         self.assertIn("getSharedPluginDataKeys(namespace)", payload)
-        self.assertIn("RUNTIME_DECLARED_COMPLETE_NAMESPACE_CONTRACT", payload)
+        self.assertIn("PROTECTED_PLUGIN_NAMESPACE_ENUMERATION_UNAVAILABLE", payload)
+        self.assertNotIn("RUNTIME_DECLARED_COMPLETE_NAMESPACE_CONTRACT", payload)
+        self.assertIn("pluginData:pluginProjection(P.currentFile)", payload)
         self.assertIn("localComponents().map(exactComponent)", payload)
         self.assertIn("assertManagedComponentCopies(root)", payload)
         self.assertIn("arbitrary foreign shared-plugin-data key rejects", native_test)
-        self.assertIn("runtime namespace contract enumerates arbitrary keys", native_test)
+        self.assertIn("unavailable namespace enumeration with foreign fifth namespace fails closed", native_test)
         self.assertIn("unattached local component name and path drift rejects", native_test)
         self.assertIn("untagged nested detached component copy rejects", native_test)
+        self.assertIn("retained component reference with false copy marker rejects", native_test)
 
 
 if __name__ == "__main__":

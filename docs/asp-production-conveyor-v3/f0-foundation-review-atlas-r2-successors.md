@@ -40,10 +40,11 @@ four units.
 The shared family-local payload:
 
 1. binds a complete, fail-closed protected projection before every write,
-   including text, fills, strokes, shadows, opacity, every plugin-data key in
-   every namespace exposed by the runtime (or every key in the declared
-   complete runtime namespace contract), native Grid/Flex layout, layout cells,
-   and component lineage; the pinned identity projection remains independent;
+   including text, fills, strokes, shadows, opacity, every plugin-data namespace
+   and key exposed by the runtime, native Grid/Flex layout, layout cells, and
+   component lineage; if namespace enumeration is unavailable on any protected
+   file/page/shape/component, execution fails closed; the pinned identity
+   projection remains independent;
 2. preserves the existing page/root and package-owned product-component
    instance IDs while migrating the R1 top-level documentation shell;
 3. creates a native Flex root/header/master shell at root width 2176, a real
@@ -54,8 +55,9 @@ The shared family-local payload:
    `max(header_right, master_right, grid_right) + outer_margin`;
 5. requires shared plugin-data values to satisfy `typeof value === "string"`;
 6. projects the complete local component-library census, including unattached
-   masters and component name/path/state, and recursively rejects every missing
-   or foreign component copy under the managed root independently of tags;
+   masters and component name/path/state, and recursively requires component
+   reference/copy-marker agreement in both directions, then rejects every
+   missing or foreign component under the managed root independently of tags;
 7. fails on duplicate pages/roots/slots/cells/placements, legacy family groups,
    adversarial protected style/content/layout/plugin-data/library drift,
    detached linked instances, screenshots, validation or projection drift;
