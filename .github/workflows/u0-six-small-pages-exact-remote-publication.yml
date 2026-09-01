@@ -46,7 +46,14 @@ jobs:
           test "${#parts[@]}" -eq 4
           for part in "${parts[@]}"; do
             git show "${transfer_ref}:${part}"
-          done | tr -d '\r\n' | base64 --decode > /tmp/u0-final/patch.xz
+          done | tr -d '\r\n' > /tmp/u0-final/patch.xz.b64
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          source=Path('/tmp/u0-final/patch.xz.b64').read_text(encoding='ascii')
+          source += '=' * (-len(source) % 4)
+          Path('/tmp/u0-final/patch.xz').write_bytes(base64.b64decode(source, validate=True))
+          PY
           xz -dc /tmp/u0-final/patch.xz > /tmp/u0-final/u0-small-page-native-executors-r3.patch
           test "$(wc -c < /tmp/u0-final/u0-small-page-native-executors-r3.patch)" = "${PATCH_BYTES}"
           test "$(sha256sum /tmp/u0-final/u0-small-page-native-executors-r3.patch | awk '{print $1}')" = "${PATCH_SHA256}"
