@@ -46,7 +46,8 @@ The shared family-local payload:
    file/page/shape/component, execution fails closed; the pinned identity
    projection remains independent;
 2. preserves the existing page/root and package-owned product-component
-   instance IDs while migrating the R1 top-level documentation shell;
+   instance IDs while removing the two legacy direct-root family labels and
+   migrating the R1 top-level documentation shell;
 3. creates a native Flex root/header/master shell at root width 2176, a real
    native Grid review shell, and one linked `ATLAS_PAGE_HEADER_V2` instance;
 4. uses the exact `STANDARD_V2` four-column global instance geometry and frozen
@@ -58,10 +59,13 @@ The shared family-local payload:
    masters and component name/path/state, and recursively requires component
    reference/copy-marker agreement in both directions, then rejects every
    missing or foreign component under the managed root independently of tags;
-7. fails on duplicate pages/roots/slots/cells/placements, legacy family groups,
+7. requires exactly three ordered typed root children (`header`, `master_column`,
+   `review_grid`), exact typed children in every shell slot/cell, and recursively
+   rejects any visible geometry without plugin-data or component classification;
+8. fails on duplicate pages/roots/slots/cells/placements, legacy family groups,
    adversarial protected style/content/layout/plugin-data/library drift,
    detached linked instances, screenshots, validation or projection drift;
-8. returns `duplicates=0`, `detached=0`, `screenshots=0`, and
+9. returns `duplicates=0`, `detached=0`, `screenshots=0`, and
    `secondRunCreated=0` only after an actual second native-like replay.
 
 The package-local adapter and layout-contract JSON files live in

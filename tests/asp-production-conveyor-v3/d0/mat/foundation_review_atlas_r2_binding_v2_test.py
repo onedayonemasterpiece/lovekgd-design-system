@@ -73,6 +73,9 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
             self.assertEqual(adapter["repair_policy"]["shared_plugin_data_projection"], "ENUMERATE_ALL_NAMESPACES_AND_KEYS_OR_FAIL_CLOSED")
             self.assertEqual(adapter["repair_policy"]["local_component_library_projection"], "COMPLETE_INCLUDING_UNATTACHED_MASTERS")
             self.assertEqual(adapter["repair_policy"]["managed_root_component_copy_scan"], "RECURSIVE_BIDIRECTIONAL_REFERENCE_MARKER_CONSISTENCY")
+            self.assertEqual(adapter["repair_policy"]["legacy_direct_root_family_labels"], "MIGRATE_REMOVE")
+            self.assertEqual(adapter["repair_policy"]["terminal_direct_child_topology"], "EXACT_ORDERED_HEADER_MASTER_REVIEW_AND_TYPED_DESCENDANTS")
+            self.assertEqual(adapter["repair_policy"]["unclassified_visible_geometry"], "REJECT_RECURSIVELY")
         self.assertEqual(len(ids), 4)
 
     def test_exact_local_executor_launcher_and_remote_source_bytes(self):
@@ -157,6 +160,10 @@ class FoundationReviewAtlasR2Binding(unittest.TestCase):
         self.assertIn("unattached local component name and path drift rejects", native_test)
         self.assertIn("untagged nested detached component copy rejects", native_test)
         self.assertIn("retained component reference with false copy marker rejects", native_test)
+        self.assertIn("ROOT_DIRECT_CHILD_TOPOLOGY", payload)
+        self.assertIn("UNCLASSIFIED_VISIBLE_GEOMETRY", payload)
+        self.assertIn("migrates two legacy root labels into exact three-slot Grid shell", native_test)
+        self.assertIn("untagged nested visible geometry rejects on replay", native_test)
 
 
 if __name__ == "__main__":
