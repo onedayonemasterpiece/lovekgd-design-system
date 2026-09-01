@@ -27,10 +27,10 @@
   path, and Git blob.
 - Enforced string-only shared plugin data in runtime and the test double; both
   reject non-string values and contain no implicit `String(...)` coercion.
-- Ran the native-like executor twice: first run created `147`; second run
+- Ran the native-like executor twice: first run created `150`; second run
   created `0`; snapshots were identical.
 - Readback census: pages `6`, roots `6`, component masters `7`, linked visible
-  specimens `21`, duplicates `0`, detached `0`, screenshots `0`, protected
+  specimens `22`, duplicates `0`, detached `0`, screenshots `0`, protected
   projection changes `0`, validation `[]`.
 - Real Penpot execution fails closed while O0 Atlas extension binding and
   ActionNav/V0 evidence closure are pending.
@@ -144,3 +144,14 @@ INTEGRATE verdict: `PASS` on the exact remote subject head.
 - Atlas R2 was not edited; page order was not assigned; Kaggle was not used.
 - No `CHANGELOG.md` exists in this repository/base, so no changelog file was
   applicable.
+
+## Independent-QA repair wave
+
+The earlier subject was rejected for schematic placeholder semantics. The repair
+freezes `site/src/styles/design-system.css` blob
+`4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1`, concrete source-consumer anatomy,
+22 visible linked specimens, exact selected/loading/pinned/current state bindings,
+and native Grid/Flex layout metadata. Adversarial replay tests mutate geometry,
+style, editable text, plugin data, layout, and local component-library identity;
+every mutation now fails closed. Protected projection includes text, fills,
+strokes, plugin data, layout, and foreign local components.

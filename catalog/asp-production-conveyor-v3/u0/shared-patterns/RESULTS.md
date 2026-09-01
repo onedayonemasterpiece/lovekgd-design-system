@@ -14,10 +14,10 @@
   reflow, and states from the frozen product contract.
 - Every master and linked specimen binds the exact ordered source-consumer
   tuple (`role`, source path, Git blob) from the predecessor package.
-- Two actual native-like executor runs: first created `147`; second created
+- Two actual native-like executor runs: first created `150`; second created
   `0`; snapshots identical.
 - Native census: pages `6`, roots `6`, component masters `7`, linked visible
-  specimens `21`.
+  specimens `22`.
 - Integrity: duplicates `0`, detached `0`, screenshots `0`, protected
   projection changes `0`, validation `[]`.
 - Shared plugin data is string-only in runtime and the test double; non-string
@@ -50,7 +50,7 @@
 - lease cancellation: fail-closed PASS
 - pages: 6
 - canonical masters: 7
-- linked specimens: 21
+- linked specimens: 22
 - managed nodes total: 34
 - maximum managed nodes on one page: 7 (hard limit 30)
 - detached instances: 0
@@ -62,3 +62,13 @@
 - Kaggle calls: 0
 
 Remote head/tree/blob readback is intentionally not asserted until GitHub publication.
+
+## R2 contract repair
+
+Independent QA rejection of the earlier schematic implementation is closed by the
+source-bound contract repair: the exact `design-system.css` blob owns all state
+styles; the 22 linked specimens expose concrete source-consumer content and
+selected/loading/pinned/current states through native Grid/Flex layouts. Replay
+now fails closed on managed anatomy geometry, surface, editable text, plugin data,
+layout, and local-component-library identity corruption. Protected projection
+covers text, fills, strokes, plugin data, layout, and foreign local components.

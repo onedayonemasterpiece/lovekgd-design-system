@@ -62,7 +62,8 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         self.assertEqual(SUCCESSOR["patterns"], PREDECESSOR["patterns"])
         self.assertEqual(len(SUCCESSOR["page_units"]), 6)
         self.assertEqual(len(NATIVE["components"]), 7)
-        self.assertEqual(len(NATIVE["specimens"]), 21)
+        self.assertEqual(len(NATIVE["specimens"]), 22)
+        self.assertEqual(NATIVE["authority"]["style_owner"]["git_blob_sha1"], "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1")
         products = {component["component_id"]: component for pattern in PRODUCT["patterns"] for component in pattern["components"]}
         authority = {item["role"]: item for item in SUCCESSOR["source_authority"]["files"]}
         for component_id, component in NATIVE["components"].items():
@@ -79,6 +80,8 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         for specimen in NATIVE["specimens"].values():
             self.assertIn(specimen["state"], NATIVE["components"][specimen["component_id"]]["states"])
             self.assertGreater(len(specimen["visible_anatomy"]), 0)
+            self.assertEqual(specimen["state_style"]["source_css_blob"], NATIVE["authority"]["style_owner"]["git_blob_sha1"])
+            self.assertIn(specimen["state_style"]["layout"]["mode"], {"grid", "flex"})
 
     def test_runtime_is_native_not_metadata_only_and_plugin_data_is_strict(self):
         runtime = (SCRIPT_DIR / "native_runtime_v2.js").read_text(encoding="utf-8")
@@ -98,7 +101,7 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         node_test = (ROOT / SUCCESSOR["execution"]["node_test"]).read_text(encoding="utf-8")
         for gate in ("DUPLICATE_PAGE", "DUPLICATE_STABLE_ID", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE", "REAL_PENPOT_EXECUTION_GATED"):
             self.assertIn(gate, runtime)
-        for evidence in ("second.created, 0", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE"):
+        for evidence in ("second.created, 0", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE", "SPECIMEN_ANATOMY_GEOMETRY", "COMPONENT_LIBRARY_IDENTITY"):
             self.assertIn(evidence, node_test)
         self.assertEqual(SUCCESSOR["execution"]["actual_native_like_runs"], 2)
         self.assertEqual(SUCCESSOR["execution"]["second_run_created"], 0)

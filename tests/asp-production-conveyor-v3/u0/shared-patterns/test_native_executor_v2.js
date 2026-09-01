@@ -160,6 +160,9 @@ function snapshot(penpot) {
   const node = (shape) => ({
     id: shape.id, type: shape.type, name: shape.name, x: shape.x, y: shape.y, width: shape.width, height: shape.height,
     hidden: shape.hidden, visible: shape.visible, fills: shape.fills, strokes: shape.strokes, characters: shape.characters,
+    opacity: shape.opacity, borderRadius: shape.borderRadius, clipContent: shape.clipContent,
+    layoutMode: shape.layoutMode, flexDirection: shape.flexDirection, layoutGap: shape.layoutGap,
+    layoutPadding: shape.layoutPadding, layoutAlign: shape.layoutAlign, layoutWrap: shape.layoutWrap, gridColumns: shape.gridColumns,
     plugin_data: [...shape._pluginData.entries()].sort(), component_id: shape.component?.()?.id || null,
     is_copy: shape.isComponentCopyInstance?.() || false, children: shape.children.map(node),
   });
@@ -175,11 +178,12 @@ function managedRoot(penpot, unitId) {
   return page.root.children.find((candidate) => pluginGet(candidate, namespace, 'stable-id') === `root/${unitId}`);
 }
 
-test('successor freezes six existing units, seven components, 21 specimens, and exact source-consumer lineage', () => {
+test('successor freezes six existing units, seven components, 22 source-bound specimens, and exact source-consumer lineage', () => {
   assert.deepEqual(validateSuccessor(successor, predecessor, productContract, nativeContract), []);
   assert.equal(successor.page_units.length, 6);
   assert.equal(Object.keys(nativeContract.components).length, 7);
-  assert.equal(Object.keys(nativeContract.specimens).length, 21);
+  assert.equal(Object.keys(nativeContract.specimens).length, 22);
+  assert.equal(nativeContract.authority.style_owner.git_blob_sha1, '4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1');
   for (const [componentId, component] of Object.entries(nativeContract.components)) {
     assert.deepEqual(successor.component_source_lineage[componentId].map((entry) => entry.role), component.source_consumers);
     assert.deepEqual(component.anatomy_nodes.map((node) => node.key), component.anatomy);
@@ -215,11 +219,11 @@ test('two actual native-like executor runs create concrete masters and linked vi
   const second = await run(env);
   const afterSecond = snapshot(env.penpot);
 
-  assert.equal(first.created, 147);
+  assert.equal(first.created, 150);
   assert.equal(second.created, 0);
   assert.equal(second.second_run_created, 0);
   assert.equal(afterSecond, afterFirst);
-  assert.deepEqual(first.counts, { pages: 6, roots: 6, component_masters: 7, linked_visible_specimens: 21, duplicates: 0, detached: 0, screenshots: 0 });
+  assert.deepEqual(first.counts, { pages: 6, roots: 6, component_masters: 7, linked_visible_specimens: 22, duplicates: 0, detached: 0, screenshots: 0 });
   assert.deepEqual(second.counts, first.counts);
   assert.deepEqual(second.validation, []);
   assert.deepEqual(first.protected_projection_before, protectedBefore);
@@ -283,6 +287,33 @@ test('duplicate, detached, screenshot, source-lineage and protected-projection f
     }
   }
   const protectedEnv = { penpot: new DriftingPenpot(), storage: new MemoryStorage(), lease: { active: true, cancelled: false, native_like: true } };
+  await assert.rejects(() => run(protectedEnv), /PROTECTED_PROJECTION_DRIFT/);
+});
+
+test('replay fails closed on old false-PASS anatomy geometry, style, text, plugin, layout, and component-library corruption', async () => {
+  async function corrupted(mutator, pattern) {
+    const env = environment();
+    await run(env);
+    const unit = successor.page_units[0];
+    const root = managedRoot(env.penpot, unit.unit_id);
+    const wrapper = root.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id').startsWith('specimen/'));
+    const instance = wrapper.children.find((shape) => shape.isComponentCopyInstance());
+    const anatomy = instance.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') && shape.visible !== false && shape.hidden !== true);
+    mutator({ env, root, instance, anatomy });
+    await assert.rejects(() => run(env), pattern);
+  }
+  await corrupted(({ anatomy }) => { anatomy.x += 1; }, /SPECIMEN_ANATOMY_GEOMETRY/);
+  await corrupted(({ anatomy }) => { anatomy.opacity = 0.314; }, /SPECIMEN_ANATOMY_OPACITY/);
+  await corrupted(({ anatomy }) => { const text = anatomy.type === 'text' ? anatomy : anatomy.children.find((child) => child.type === 'text'); text.characters = 'PLACEHOLDER'; }, /SPECIMEN_ANATOMY_TEXT/);
+  await corrupted(({ anatomy }) => { anatomy._pluginData.delete(`${successor.execution.namespace}\0anatomy-key`); }, /SPECIMEN_ANATOMY_CENSUS/);
+  await corrupted(({ instance }) => { instance.layoutMode = 'none'; }, /LAYOUT_MODE/);
+  await corrupted(({ env }) => { env.penpot.library.local.components[0].path = 'Wrong'; }, /COMPONENT_LIBRARY_IDENTITY/);
+
+  const protectedEnv = environment();
+  const foreign = protectedEnv.penpot.library.local.createComponent([protectedEnv.penpot.currentFile.pages[0].root.children[0]]);
+  foreign.name = 'Foreign'; foreign.path = 'Protected';
+  await run(protectedEnv);
+  foreign.path = 'Corrupted';
   await assert.rejects(() => run(protectedEnv), /PROTECTED_PROJECTION_DRIFT/);
 });
 
