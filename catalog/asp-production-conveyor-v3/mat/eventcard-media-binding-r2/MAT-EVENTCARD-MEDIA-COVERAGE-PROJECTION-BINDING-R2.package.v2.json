@@ -15,6 +15,14 @@
     "visual_pass": false,
     "whole_eventcard_pass": false
   },
+  "conformance": {
+    "contract_id": "kenigevents.asp-conformance",
+    "profile": "contracts/page-profiles/free-collection.owner-review.v1.yaml",
+    "profile_status": "BLOCKED_OWNER_REJECTED",
+    "status": "ACTIVE",
+    "this_git_package_authorizes_penpot_execution": false,
+    "version": "1.1.0"
+  },
   "defect": "REPAIR_MEDIA_PROJECTION_AND_AUTHORIZATION_BINDING_MISSING",
   "entrypoints": {
     "distinct_later_readback": "readDistinctLaterMediaBindingR2",
@@ -66,12 +74,24 @@
     "rows": 4,
     "unique_media_shape_ids": true
   },
+  "qa_integrate": {
+    "git_package_qa": "PASS",
+    "native_same_tuple_execution": "PENDING_FRESH_READ_ONLY_PROJECTION_AND_EXTERNAL_AUTHORIZATION",
+    "package_local_integrate": "PASS",
+    "penpot_execution_authorized": false
+  },
   "schema_version": "kenigevents.mat-eventcard-media-projection-binding-package.v2",
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
+    "committed_node": {
+      "command": "node --test tests/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.test.js",
+      "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.test.js",
+      "result": "4/4 PASS"
+    },
     "deterministic_projection_regeneration": "PASS",
-    "node": "9/9 PASS",
-    "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.js --self-test",
-    "python_package_invariants": "5/5 PASS"
+    "self_test": {
+      "command": "node scripts/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.js --self-test",
+      "result": "MEDIA_BINDING_R2_SELF_TEST_PASS 9/9"
+    }
   }
 }

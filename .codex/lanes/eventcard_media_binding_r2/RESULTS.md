@@ -11,3 +11,10 @@
 - Timeout or unknown outcome requires read-only all-four-target readback; blind retry is forbidden.
 - No Penpot authorization, visual PASS, promotion, or whole-EventCard PASS is claimed.
 - U0 Penpot reads/mutations: `0/0`; Kaggle: `0`; new EventCard families: `0`.
+
+## D0 night-shift revalidation
+
+- Exact parent focal semantics restored as literal `50% 50%`; ImageData SHA/bytes and finite coordinate/bounds gates are enforced.
+- Committed Node regression: `4/4 PASS`; embedded self-test: `9/9 PASS`.
+- QA: `PASS`; INTEGRATE: `PASS_PACKAGE_LOCAL`; exact native tuple awaits a fresh mutation-free four-case projection and external ACTIVE authorization.
+- Penpot execution remains unauthorized by this Git-only commit.
