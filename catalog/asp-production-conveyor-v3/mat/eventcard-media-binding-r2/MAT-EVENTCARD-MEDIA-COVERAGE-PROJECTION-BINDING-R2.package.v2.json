@@ -1,0 +1,77 @@
+{
+  "acceptance_matrix_reused": {
+    "head": "2a2394409912ce574530c5a451f2a3c169b557f7",
+    "reissued": false
+  },
+  "boundaries": {
+    "kaggle_calls": 0,
+    "new_eventcard_families": 0,
+    "penpot_mutations": 0,
+    "penpot_reads": 0
+  },
+  "claims": {
+    "penpot_execution_authorized": false,
+    "ready_to_promote": false,
+    "visual_pass": false,
+    "whole_eventcard_pass": false
+  },
+  "defect": "REPAIR_MEDIA_PROJECTION_AND_AUTHORIZATION_BINDING_MISSING",
+  "entrypoints": {
+    "distinct_later_readback": "readDistinctLaterMediaBindingR2",
+    "execution": "executeEventcardMediaProjectionBindingR2",
+    "projection": "projectEventcardMediaBindingR2",
+    "runtime": "scripts/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.js"
+  },
+  "execution": {
+    "authorization_binds": [
+      "exact current revision",
+      "exact projection SHA-256"
+    ],
+    "blind_retry": false,
+    "parent_executor": "runEventcardMediaRepairV1",
+    "projection_change_cancels_mutation": true
+  },
+  "negative_gates": [
+    "stale revision",
+    "stale projection SHA",
+    "missing media/parent ID",
+    "duplicate media ID",
+    "changed protected surface",
+    "timeout/unknown outcome",
+    "non-string plugin data",
+    "executor replay"
+  ],
+  "package_id": "MAT-EVENTCARD-MEDIA-COVERAGE-PROJECTION-BINDING-R2",
+  "parent": {
+    "branch": "agent/mat-eventcard-media-coverage-repair-r1-20260901",
+    "head": "c0174621635e3c4336f4b88674c3b47fa7d7acb2",
+    "tree": "81d9753b305c5d1dea67c4ca27f1efb99e09ebc5"
+  },
+  "projection": {
+    "binds": [
+      "case/root/media/parent IDs",
+      "semantic slot",
+      "local+parent coordinates",
+      "bounds",
+      "fills+ImageData identity",
+      "transform+rotation+flips",
+      "fit+focal",
+      "source image identity",
+      "protected collection digest",
+      "projection SHA-256"
+    ],
+    "historical_rev63_ids": "diagnostics-only",
+    "mutation_free": true,
+    "revision": "read-current",
+    "rows": 4,
+    "unique_media_shape_ids": true
+  },
+  "schema_version": "kenigevents.mat-eventcard-media-projection-binding-package.v2",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "tests": {
+    "deterministic_projection_regeneration": "PASS",
+    "node": "9/9 PASS",
+    "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-binding-r2/eventcard_media_projection_binding_r2.js --self-test",
+    "python_package_invariants": "5/5 PASS"
+  }
+}
