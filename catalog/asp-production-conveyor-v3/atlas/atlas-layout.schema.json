@@ -1,0 +1,250 @@
+{
+  "$defs": {
+    "page_unit": {
+      "additionalProperties": false,
+      "properties": {
+        "atlas_page_id": {
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "type": "string"
+        },
+        "exact_package_page_name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "hard_limit_census": {
+          "type": "object"
+        },
+        "inventory_class": {
+          "enum": [
+            "PROTECTED",
+            "F0",
+            "U0",
+            "A0"
+          ]
+        },
+        "owner": {
+          "enum": [
+            "F0",
+            "U0",
+            "A0"
+          ]
+        },
+        "package_id": {
+          "type": "string"
+        },
+        "page_order": {
+          "maximum": 59,
+          "minimum": 0,
+          "type": "number"
+        },
+        "protected_existing": {
+          "type": "boolean"
+        },
+        "protected_surface_rules": {
+          "type": "object"
+        },
+        "publication_dependency": {
+          "type": "object"
+        },
+        "section": {
+          "type": "string"
+        },
+        "semantic_slot_bindings": {
+          "minProperties": 3,
+          "type": "object"
+        },
+        "template_id": {
+          "enum": [
+            "ARCHETYPE_DESKTOP_MOBILE_V1",
+            "COMPONENT_STATE_GRID_V1",
+            "COMPOSED_ROUTE_STATES_V1",
+            "FOUNDATION_ASSET_GRID_V1",
+            "OWNER_INDEX_V1"
+          ]
+        },
+        "v0_review_scope": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "atlas_page_id",
+        "page_order",
+        "section",
+        "owner",
+        "package_id",
+        "exact_package_page_name",
+        "template_id",
+        "semantic_slot_bindings",
+        "publication_dependency",
+        "protected_surface_rules",
+        "v0_review_scope",
+        "inventory_class",
+        "protected_existing",
+        "hard_limit_census"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "kenigevents.asp-atlas-layout.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "atlas_id": {
+      "const": "ASP_PENPOT_ATLAS_LAYOUT_V1"
+    },
+    "d0_binding_contract": {
+      "type": "object"
+    },
+    "inventory_counts": {
+      "additionalProperties": false,
+      "properties": {
+        "A0": {
+          "const": 18
+        },
+        "F0": {
+          "const": 14
+        },
+        "U0": {
+          "const": 6
+        },
+        "protected_existing": {
+          "const": 2
+        },
+        "total": {
+          "const": 40
+        }
+      },
+      "required": [
+        "total",
+        "protected_existing",
+        "F0",
+        "U0",
+        "A0"
+      ],
+      "type": "object"
+    },
+    "page_units": {
+      "items": {
+        "$ref": "#/$defs/page_unit"
+      },
+      "maxItems": 40,
+      "minItems": 40,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "kenigevents.asp-penpot-page-map.v1"
+    },
+    "source_control_plane_base": {
+      "additionalProperties": false,
+      "properties": {
+        "remote_branch": {
+          "type": "string"
+        },
+        "remote_head": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        },
+        "remote_tree": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "remote_branch",
+        "remote_head",
+        "remote_tree"
+      ],
+      "type": "object"
+    },
+    "template_ids": {
+      "items": {
+        "enum": [
+          "ARCHETYPE_DESKTOP_MOBILE_V1",
+          "COMPONENT_STATE_GRID_V1",
+          "COMPOSED_ROUTE_STATES_V1",
+          "FOUNDATION_ASSET_GRID_V1",
+          "OWNER_INDEX_V1"
+        ]
+      },
+      "maxItems": 5,
+      "minItems": 5,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "atlas_id",
+    "source_control_plane_base",
+    "inventory_counts",
+    "template_ids",
+    "d0_binding_contract",
+    "page_units"
+  ],
+  "title": "ASP Penpot atlas page map",
+  "type": "object",
+  "x-d0-binding-contract": {
+    "incompatibility": {
+      "publish_coordinate_improvisation": "FORBIDDEN",
+      "scope": "AFFECTED_PACKAGE_ONLY",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    "integrate": {
+      "duplicate_or_missing_verdict": "ATLAS_LAYOUT_REPAIR",
+      "package_lookup_cardinality": "EXACTLY_ONCE_IN_PAGE_MAP"
+    },
+    "mat": {
+      "executor_coordinate_policy": "HONOR_AND_CHECK",
+      "internal_package_geometry_change": "FORBIDDEN_WITHOUT_SEPARATE_REPAIR",
+      "overlap": "REJECT",
+      "read_fields": [
+        "template_id",
+        "semantic_slot_bindings"
+      ],
+      "top_level_offsets": "CALCULATE_FROM_TEMPLATE"
+    },
+    "publish": {
+      "managed_nodes_boundary": "CANDIDATE_ROOT_ONLY",
+      "page_creation_order": "page_order_ASC",
+      "per_page_postflight": [
+        "native_readback",
+        "nonempty_export",
+        "page_scoped_v0_trigger"
+      ],
+      "semantic_slots": "EXACT"
+    },
+    "v0": {
+      "checks": [
+        "minimum_margins_and_gaps",
+        "desktop_mobile_alignment",
+        "clipping_and_overlap",
+        "no_free_floating_managed_nodes",
+        "source_a_correspondence"
+      ],
+      "scope": "PAGE_SCOPED"
+    }
+  },
+  "x-page-map-projection": {
+    "schema_version": "kenigevents.asp-penpot-page-map.v1",
+    "sort_by": [
+      "page_order",
+      "atlas_page_id"
+    ],
+    "unit_fields": [
+      "atlas_page_id",
+      "page_order",
+      "section",
+      "owner",
+      "package_id",
+      "exact_package_page_name",
+      "template_id",
+      "semantic_slot_bindings",
+      "publication_dependency",
+      "protected_surface_rules",
+      "v0_review_scope",
+      "inventory_class",
+      "protected_existing",
+      "hard_limit_census"
+    ]
+  }
+}

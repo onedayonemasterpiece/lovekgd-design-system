@@ -1,0 +1,198 @@
+{
+  "ownership_boundary": {
+    "atlas_owns": [
+      "page_order",
+      "section",
+      "template_id",
+      "top_level_semantic_slots",
+      "minimum_margins_and_gaps",
+      "desktop_mobile_evidence_placement",
+      "row_formulas",
+      "hard_limits",
+      "semantic_block_order"
+    ],
+    "package_internal_geometry_change_requires": "SEPARATE_REPAIR",
+    "package_owns": [
+      "internal_component_geometry",
+      "component_anatomy",
+      "component_state_geometry"
+    ]
+  },
+  "registry_id": "ASP_PENPOT_ATLAS_LAYOUT_V1",
+  "schema_version": "kenigevents.asp-penpot-page-template-registry.v1",
+  "templates": {
+    "ARCHETYPE_DESKTOP_MOBILE_V1": {
+      "desktop": [
+        64,
+        256,
+        1440,
+        "AUTO"
+      ],
+      "evidence": [
+        2048,
+        256,
+        512,
+        "AUTO"
+      ],
+      "hard_limits": {
+        "route_archetypes": 1
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "mobile": [
+        1568,
+        256,
+        390,
+        "AUTO"
+      ],
+      "next_row_y_formula": "max(desktop.bottom, mobile.bottom, evidence.bottom) + 96",
+      "page_root_width": 2624,
+      "purpose": "one route archetype with desktop and mobile on the same page",
+      "required_slots": [
+        "header",
+        "desktop",
+        "mobile",
+        "evidence"
+      ]
+    },
+    "COMPONENT_STATE_GRID_V1": {
+      "column_gap": 32,
+      "content_start_y": 256,
+      "hard_limits": {
+        "component_families": 3,
+        "instances": 30
+      },
+      "header": [
+        64,
+        64,
+        2048,
+        128
+      ],
+      "master_column": [
+        64,
+        256,
+        448,
+        "AUTO"
+      ],
+      "maximum_component_families": 3,
+      "maximum_instances": 30,
+      "outer_margin": 64,
+      "purpose": "controls and component families",
+      "required_slots": [
+        "header",
+        "master_column",
+        "state_grid"
+      ],
+      "row_gap": 32,
+      "section_gap": 96,
+      "state_cell_width": 400,
+      "state_grid_columns": 3,
+      "state_grid_x": 576
+    },
+    "COMPOSED_ROUTE_STATES_V1": {
+      "desktop": [
+        64,
+        256,
+        1440,
+        "AUTO"
+      ],
+      "evidence": [
+        2048,
+        256,
+        512,
+        "AUTO"
+      ],
+      "hard_limits": {
+        "route_states": 6
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "mobile": [
+        1568,
+        256,
+        390,
+        "AUTO"
+      ],
+      "next_row_y_formula": "max(previous.desktop.bottom, previous.mobile.bottom, previous.evidence.bottom) + 96",
+      "page_root_width": 2624,
+      "purpose": "Free collection and Date Listing composed states",
+      "required_slots": [
+        "header",
+        "desktop",
+        "mobile",
+        "evidence",
+        "states"
+      ],
+      "states": [
+        "top",
+        "scrolled",
+        "full",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "FOUNDATION_ASSET_GRID_V1": {
+      "column_gap": 32,
+      "content_start_y": 256,
+      "hard_limits": {
+        "instances": 30
+      },
+      "header": [
+        64,
+        64,
+        2048,
+        128
+      ],
+      "master_column_width": 448,
+      "master_column_x": 64,
+      "maximum_instances": 30,
+      "outer_margin": 64,
+      "purpose": "icons, medallions, brand, typography, and foundations review",
+      "required_slots": [
+        "header",
+        "master_column",
+        "review_grid"
+      ],
+      "review_cell_width": 320,
+      "review_grid_columns": 4,
+      "review_grid_x": 576,
+      "row_gap": 32,
+      "section_gap": 96
+    },
+    "OWNER_INDEX_V1": {
+      "content_start_y": 224,
+      "hard_limits": {
+        "product_component_masters": 0
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "outer_margin": 64,
+      "page_root_width": 2624,
+      "product_component_masters": 0,
+      "purpose": "compact index with section navigation, page status, package ID, V0 status, and page identity references",
+      "required_slots": [
+        "header",
+        "section_navigation",
+        "page_status",
+        "package_id",
+        "v0_status",
+        "page_references"
+      ],
+      "row_gap": 16,
+      "section_gap": 32
+    }
+  }
+}
