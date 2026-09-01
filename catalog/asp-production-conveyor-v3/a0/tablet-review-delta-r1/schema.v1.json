@@ -1,0 +1,67 @@
+{
+  "$defs": {
+    "extension_request": {
+      "not": {
+        "required": [
+          "page_order"
+        ]
+      },
+      "properties": {
+        "atlas_r2_mutation_by_a0": {
+          "const": false
+        },
+        "marker": {
+          "const": "ASP_ATLAS_EXTENSION_REQUEST_V1"
+        },
+        "record_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "kenigevents.asp-atlas-extension-request.v1"
+        }
+      },
+      "required": [
+        "schema_version",
+        "marker",
+        "request_id",
+        "atlas_r2",
+        "existing_lookup",
+        "requested_extension",
+        "atlas_r2_mutation_by_a0",
+        "record_sha256"
+      ],
+      "type": "object"
+    },
+    "tablet_unit": {
+      "properties": {
+        "promotion_authorized": {
+          "const": false
+        },
+        "record_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "route_registry_mutation": {
+          "const": false
+        },
+        "visual_acceptance": {
+          "const": "PENDING_V0"
+        }
+      },
+      "required": [
+        "schema_version",
+        "package_id",
+        "scenarios",
+        "source_page_unit",
+        "atlas_lookup",
+        "atlas_extension_request",
+        "component_bindings",
+        "record_sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "kenigevents.a0.tablet-review-delta-r1.schema.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
