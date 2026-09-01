@@ -1,0 +1,77 @@
+name: U0 three product gaps remote publication
+
+on:
+  push:
+    branches:
+      - u0/coverage-sprint-transfer-r1-20260901
+
+permissions:
+  contents: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: u0-three-product-gaps-remote-publication-r1
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out immutable transfer trigger
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Reconstruct and verify exact coverage bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=/tmp/u0-coverage
+          rm -rf "${root}"
+          mkdir -p "${root}/extract"
+          mapfile -t parts < <(compgen -G '.u0-coverage-transfer/bundle.tar.xz.b64.part-*' | LC_ALL=C sort)
+          test "${#parts[@]}" = '18'
+          cat "${parts[@]}" | tr -d '\r\n' > "${root}/bundle.tar.xz.b64"
+          base64 --decode "${root}/bundle.tar.xz.b64" > "${root}/bundle.tar.xz"
+          test "$(wc -c < "${root}/bundle.tar.xz")" = '22768'
+          test "$(sha256sum "${root}/bundle.tar.xz" | awk '{print $1}')" = '6f89c2c3e09a38817c12c7dc3413e488c7790ae571643fbcda9a31018ce7d9f5'
+          tar -xJf "${root}/bundle.tar.xz" -C "${root}/extract"
+          test -f "${root}/extract/transfer/publish.py"
+          test -z "$(find "${root}/extract" \( -name .git -o -name __pycache__ -o -name '*.pyc' \) -print -quit)"
+
+      - name: Publish three lanes, remote-read back, and write issue markers
+        id: publish
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 /tmp/u0-coverage/extract/transfer/publish.py | tee /tmp/u0-coverage/terminal-console.json
+
+      - name: Upload terminal evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: u0-three-product-gaps-remote-terminal
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            /tmp/u0-coverage/terminal/**
+            /tmp/u0-coverage/terminal-console.json
+
+      - name: Confirm terminal state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          terminal=json.loads(Path('/tmp/u0-coverage/terminal/terminal.json').read_text())
+          assert terminal['state']=='U0_THREE_PRODUCT_GAPS_REMOTE_READY'
+          assert terminal['remote_readback']=='PASS'
+          assert terminal['issue_readback']=='PASS'
+          assert len(terminal['build_request_comment_ids'])==3
+          assert terminal['penpot_reads']==0 and terminal['penpot_mutations']==0
+          PY
