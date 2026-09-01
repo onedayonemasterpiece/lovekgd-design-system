@@ -15,6 +15,7 @@
 | [`audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md`](audits/project-normalization-synthesis-v1-1-independent-red-team-reaudit.md) | byte-preserved independent v1.1 re-audit (61,775 bytes; SHA-bound) | controlling verdict for audited head; delta re-audit required for reconciled head |
 | [`audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md`](audits/project-normalization-synthesis-v1-1-1-proof-closure-report.md) | six-finding v1.1.1 correction/evidence ledger | implementation evidence only; no merge authorization |
 | [`penpot-product-design-operating-model.md`](penpot-product-design-operating-model.md) | связь Product Atlas → UI Exploration → Resource Graph → implementation | accepted cross-plane model |
+| [`foundations/typography-atlas-r2-native-successors.md`](foundations/typography-atlas-r2-native-successors.md) | два package-local executable successor для Typography Atlas R2 WIDE | Git executable; Atlas evidence gate pending; no Penpot authorization |
 | [`legacy-experiments.md`](legacy-experiments.md) | границы и выводы 003–005 | historical/noncanonical |
 | [`research/ui-normalization-2026-08/README.md`](research/ui-normalization-2026-08/README.md) | evidence-based research: UI normalization и component defragmentation | research corpus; not an acceptance decision |
 | [`research/first-party-action-map-2026-08/README.md`](research/first-party-action-map-2026-08/README.md) | semantic signals for component-level action observability | research input; not an acceptance decision |
