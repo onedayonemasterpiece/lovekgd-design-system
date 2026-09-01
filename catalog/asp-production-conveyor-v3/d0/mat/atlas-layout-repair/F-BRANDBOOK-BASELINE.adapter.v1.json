@@ -18,8 +18,14 @@
   },
   "classification": "ATLAS_LAYOUT_REPAIR",
   "entry_point": {
-    "call": "return await runBrandbookAtlasLayoutRepairV1({penpot,storage});",
+    "call": "return await runBrandbookAtlasLayoutRepairV1({penpot,storage,claim});",
     "execution_context": "Penpot plugin context",
+    "executor": {
+      "bytes": 25348,
+      "git_blob_sha1": "21f6862e58d388aec1cccba2fde5a86c7ee3faa3",
+      "path": "scripts/asp-production-conveyor-v3/d0/mat/brandbook_atlas_layout_repair_v1.js",
+      "sha256": "332087e33ba8e79d215a3ec012764108a9607a2fb31372701ef66cb18b01ed18"
+    },
     "path": "scripts/asp-production-conveyor-v3/d0/mat/brandbook_atlas_layout_repair_v1.js",
     "penpot_mutations_by_mat": 0
   },
@@ -67,6 +73,28 @@
   "package_id": "F-BRANDBOOK-BASELINE",
   "page_order": 5,
   "reason": "immutable package is declarative and requires an external native adapter; no concrete adapter exists at the pinned source head",
+  "runtime_claim_contract": {
+    "binding_storage_key": "d0BrandbookAtlasBindingV1",
+    "current_publish_identity": "RUNTIME_BOUND_NOT_HARDCODED",
+    "logical_writer_id": "/root/publish_r2",
+    "protected_baseline_storage_key": "d0BrandbookProtectedBaselineV1",
+    "protected_projection_schema": "kenigevents.asp-native-shape-projection.v1",
+    "required_fields": [
+      "package_id",
+      "logical_writer_id",
+      "publish_identity",
+      "run_id",
+      "lease_token",
+      "cancel_token",
+      "adapter_id",
+      "adapter_sha256",
+      "source_pointer_sha256",
+      "atlas_head",
+      "atlas_tree"
+    ],
+    "schema": "kenigevents.asp-atlas-publish-claim.v1",
+    "source_contract_sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"
+  },
   "schema_version": "kenigevents.asp-atlas-layout-repair-adapter.v1",
   "semantic_slot_bindings": {
     "header": "page_header",
