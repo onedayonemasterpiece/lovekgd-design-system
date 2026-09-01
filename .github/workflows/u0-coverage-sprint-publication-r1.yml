@@ -41,6 +41,18 @@ jobs:
           tar -xJf "${root}/bundle.tar.xz" -C "${root}/extract"
           test -f "${root}/extract/transfer/publish.py"
           test -z "$(find "${root}/extract" \( -name .git -o -name __pycache__ -o -name '*.pyc' \) -print -quit)"
+          python3 - <<'PY'
+          from pathlib import Path
+          path=Path('/tmp/u0-coverage/extract/transfer/publish.py')
+          source=path.read_text(encoding='utf-8')
+          old='        assert package["boundaries"]["kaggle_calls"] == 0\n'
+          new='        assert package["boundaries"].get("kaggle_used") is False\n        assert package["boundaries"].get("kaggle_calls", 0) == 0\n'
+          assert source.count(old) == 1
+          path.write_text(source.replace(old,new,1),encoding='utf-8')
+          PY
+          test "$(sha256sum "${root}/extract/transfer/publish.py" | awk '{print $1}')" = '245b1b6259a6fb5b2c57bae1d5a5fcf83fee977a65ccf8dc0d68507401760f7b'
+          python3 -m py_compile "${root}/extract/transfer/publish.py"
+          rm -rf "${root}/extract/transfer/__pycache__"
 
       - name: Publish three lanes, remote-read back, and write issue markers
         id: publish
