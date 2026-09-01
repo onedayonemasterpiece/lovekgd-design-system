@@ -1,0 +1,129 @@
+name: F0 Atlas R2 medallion source evidence
+
+on:
+  push:
+    branches:
+      - f0/atlas-r2-medallion-source-evidence-v1-20260901
+    paths:
+      - .github/workflows/f0-atlas-r2-medallion-source-evidence.yml
+      - scripts/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/**
+      - tests/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/**
+
+permissions:
+  contents: write
+
+concurrency:
+  group: f0-atlas-r2-medallion-source-evidence-v1
+  cancel-in-progress: false
+
+jobs:
+  render-and-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      EVENTS_COMMIT: f2d658e8be057f3b75431f6b77e4887af4536028
+      DONOR_COMMIT: 04afe27f208596c33e0b6ce9f78d0561108ff93c
+      ATLAS_COMMIT: 663be702d481972cb2e8863af500f1c35dda1d8c
+      AGGREGATE_COMMIT: 8c7fcdb00f583b7de1849d9fa21542bc585f2cea
+      OUTPUT_DIR: reports/asp-production-conveyor-v3/atlas-v2/source-bound/f0-medallions
+    steps:
+      - name: Checkout evidence branch with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout exact production asset authority
+        uses: actions/checkout@v4
+        with:
+          repository: onedayonemasterpiece/events-bot-new
+          ref: ${{ env.EVENTS_COMMIT }}
+          path: _sources/events-bot-new
+          fetch-depth: 1
+
+      - name: Resolve exact historical inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for sha in "$DONOR_COMMIT" "$ATLAS_COMMIT" "$AGGREGATE_COMMIT"; do
+            if ! git cat-file -e "${sha}^{commit}" 2>/dev/null; then
+              git fetch --no-tags origin "$sha"
+            fi
+            git cat-file -e "${sha}^{commit}"
+          done
+          test "$(git -C _sources/events-bot-new rev-parse HEAD)" = "$EVENTS_COMMIT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install deterministic renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check \
+            cairosvg==2.7.1 \
+            pillow==10.4.0
+
+      - name: Generate twice and compare byte-for-byte
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/f0-med-a /tmp/f0-med-b
+          python scripts/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/generate.py \
+            --repo . \
+            --events-repo _sources/events-bot-new \
+            --output-dir /tmp/f0-med-a
+          python scripts/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/generate.py \
+            --repo . \
+            --events-repo _sources/events-bot-new \
+            --output-dir /tmp/f0-med-b
+          for name in \
+            medallion-membership.v1.json \
+            r2-medallions-densest.svg \
+            r2-medallions-densest.png \
+            measurements.v1.json \
+            source-inventory.v1.json \
+            validation.v1.json; do
+            cmp "/tmp/f0-med-a/$name" "/tmp/f0-med-b/$name"
+          done
+          echo 'DETERMINISTIC_REGENERATION_PASS'
+
+      - name: Validate exact membership and geometry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tests/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/test_evidence.py \
+            --dir /tmp/f0-med-a
+          sha256sum /tmp/f0-med-a/* | sort
+          wc -c /tmp/f0-med-a/* | sort -n
+
+      - name: Publish exactly six source-bound artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$OUTPUT_DIR"
+          mkdir -p "$OUTPUT_DIR"
+          cp /tmp/f0-med-a/medallion-membership.v1.json "$OUTPUT_DIR/"
+          cp /tmp/f0-med-a/r2-medallions-densest.svg "$OUTPUT_DIR/"
+          cp /tmp/f0-med-a/r2-medallions-densest.png "$OUTPUT_DIR/"
+          cp /tmp/f0-med-a/measurements.v1.json "$OUTPUT_DIR/"
+          cp /tmp/f0-med-a/source-inventory.v1.json "$OUTPUT_DIR/"
+          cp /tmp/f0-med-a/validation.v1.json "$OUTPUT_DIR/"
+          test "$(find "$OUTPUT_DIR" -maxdepth 1 -type f | wc -l)" -eq 6
+          python tests/asp-production-conveyor-v3/f0/atlas-r2-medallion-source-evidence/test_evidence.py \
+            --dir "$OUTPUT_DIR"
+          git diff --check
+
+      - name: Freeze generated evidence on the same branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add "$OUTPUT_DIR"
+          test "$(git diff --cached --name-only | wc -l)" -eq 6
+          git diff --cached --check
+          git commit -m 'docs(f0): freeze exact Atlas R2 medallion evidence'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
