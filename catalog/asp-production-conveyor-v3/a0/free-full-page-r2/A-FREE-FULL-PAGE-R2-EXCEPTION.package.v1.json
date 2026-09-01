@@ -1,0 +1,401 @@
+{
+  "artifacts": {
+    "executor": {
+      "bytes": 9613,
+      "git_blob_sha1": "622a4f50980e3e486d18c279e3fe2c524bc082c9",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-full-page-r2/free_full_page_native_executor_r2.js",
+      "sha256": "526ed164791cd6342e211d98030be2dc5c55e1778e5e400eab7e2f862c7516a0"
+    },
+    "schema": {
+      "path": "catalog/asp-production-conveyor-v3/a0/free-full-page-r2/schema.v1.json"
+    },
+    "setup": {
+      "bytes": 1537,
+      "git_blob_sha1": "8441799cb113134dfef332c7cd3dadddd24faac3",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-full-page-r2/setup_free_full_page_r2.js",
+      "sha256": "9c04f64ffc5089a2227004fb44f70bd909e3e724fcd27487397538f5522c5422"
+    },
+    "test": {
+      "bytes": 8219,
+      "git_blob_sha1": "09760974530cbdcec124bf3af609f9733ede47b7",
+      "path": "tests/asp-production-conveyor-v3/a0/free-full-page-r2/free_full_page_r2.test.js",
+      "sha256": "9af5dc7c0ea40c4aa32bb2d1aa20c2c3645e895b9ba59fbd23807cd291682238"
+    }
+  },
+  "atlas_binding": {
+    "atlas_id": "ASP_PENPOT_ATLAS_LAYOUT_V2",
+    "atlas_mutation_by_a0": false,
+    "bindings_git_blob_sha1": "23475806beebfbe21bd77759440c169c60627550",
+    "bindings_path": "catalog/asp-production-conveyor-v3/atlas-v2/page-unit-bindings.v2.json",
+    "logical_source_unit_id": "free-collection-eventcard",
+    "page_order": "0201",
+    "physical_page_name": "00 · Components · Free collection · Exception states",
+    "projection_role": "EXCEPTION",
+    "remote_head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "remote_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "source_package_id": "PROTECTED-FREE-COLLECTION-EVENTCARD"
+  },
+  "dependency_gates": {
+    "brand": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "brand.identity-and-pwa"
+    },
+    "event_card": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "package_id": "U-EVENTCARD-FOUR-CASES",
+      "remote_head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "component.event-card.free-collection"
+    },
+    "free_shell": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "4e7479dea2ab321b51ef937425bd3c78e5bc06cb",
+      "package_id": "U-FREE-SHELL",
+      "remote_head": "9342d785df1d583ac9104dff2253df0e05b687dd",
+      "remote_tree": "9f45472edccce1836f84f21aa7a55764745f3f28",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "free.collection.route"
+    }
+  },
+  "frozen_base": {
+    "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+    "tree": "3132550212222ec3dea716710821e732ad0d92bb"
+  },
+  "lane1_terminal_head": "9e8edbed95eb40807059e6c6f10af74beeaee683",
+  "limits": {
+    "max_managed_creations_per_invocation": 3,
+    "second_terminal_run_created": 0
+  },
+  "logical_package_id": "A-FREE-FULL-PAGE-R2",
+  "logical_package_path": "catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2.logical-package.v1.json",
+  "logical_package_record_sha256": "33ce556aff7535126fea202443bdfd6212d4049e4896a0073d620c53eea046be",
+  "negative_test_classes": [
+    "lane1-head-drift",
+    "logical-record-drift",
+    "duplicate-state",
+    "stale-dependency",
+    "wrong-atlas-role",
+    "cancelled-lease",
+    "screenshot-implementation",
+    "protected-projection-drift"
+  ],
+  "old_penpot_lineage": "FORBIDDEN",
+  "owner": "A0",
+  "package_id": "A-FREE-FULL-PAGE-R2-EXCEPTION",
+  "penpot_execution_authorized": false,
+  "penpot_mutations_by_a0": 0,
+  "projection_role": "EXCEPTION",
+  "promotion_authorized": false,
+  "record_sha256": "b1204ebe2f74958a6c7cc9cbecdc6bd0f1afe347cb9610310d095ed8ffa83c21",
+  "route": "/podborki/besplatnye-sobytiya/",
+  "run_control": {
+    "cancel_token": "ddb2fe153b4d926643ebc7af86498de02a3ba20802123eab05dacedfbc047d59",
+    "lease_token": "a77eba6548fa9e93737b8a5b6c39d64bc6a6b7ecbe7b4f21244eb5d6b6255aa2",
+    "run_id": "d6f01767-dce7-5547-b5b6-3504f116db0b",
+    "schema": "kenigevents.asp-run-control.v1",
+    "separate_package_lease": true,
+    "state": "ACTIVE_REQUIRED",
+    "writer_id": "/root/publish_r2"
+  },
+  "schema_version": "kenigevents.a0.free-full-page-r2.physical-unit.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "states": [
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.loading.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "loading"
+      },
+      "state": "loading",
+      "state_packet_sha256": "be6a046157757b102694d7390cc389cda4187c85de267689ff997ee224308208",
+      "state_semantics": "EXCEPTION runtime pending state; exact factual input remains bound but no EventCard instance is rendered.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.loading.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "loading"
+      },
+      "state": "loading",
+      "state_packet_sha256": "bcac07ba43a75785899d7e67e455c6eb7b19075ab48f784a210ff44e390858b1",
+      "state_semantics": "EXCEPTION runtime pending state; exact factual input remains bound but no EventCard instance is rendered.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.empty.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "empty"
+      },
+      "state": "empty",
+      "state_packet_sha256": "4ff28da9a9b9ad460b99e019db5333e60acdbfc9f69dfd0fe2138215f0550d8a",
+      "state_semantics": "EXCEPTION successful zero-result presentation; exact factual input remains a provenance receipt, not visible cards.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.empty.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "empty"
+      },
+      "state": "empty",
+      "state_packet_sha256": "555d669174f69898753bac6f61262633251742ca833e2c598d866ea645b3c7f5",
+      "state_semantics": "EXCEPTION successful zero-result presentation; exact factual input remains a provenance receipt, not visible cards.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.error.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "error"
+      },
+      "state": "error",
+      "state_packet_sha256": "07518d455dd7d0c166b031b837c3a4bc5065f96182f74231c3526132af8eed41",
+      "state_semantics": "EXCEPTION recoverable failure presentation; exact factual input remains a provenance receipt, not visible cards.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "EXCEPTION",
+      "rendered_fixture_ids": [],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.error.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "surface": "error"
+      },
+      "state": "error",
+      "state_packet_sha256": "ce5b520a27b1206b35c8e2e813012f86b51e13fe838f16645ab5ff323c2414c7",
+      "state_semantics": "EXCEPTION recoverable failure presentation; exact factual input remains a provenance receipt, not visible cards.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    }
+  ],
+  "storage": {
+    "protected_baseline": "a0_free_full_page_exception_baseline",
+    "setup_receipt": "a0_free_full_page_exception_setup"
+  },
+  "target": {
+    "existing_atlas_content": "NO_MUTATION",
+    "managed_scope": "PACKAGE_ROOT_ONLY",
+    "mode": "D0_BINDS_EXISTING_ATLAS_PHYSICAL_PAGE",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · A-FREE-FULL-PAGE-R2 · EXCEPTION",
+    "root_semantic_id": "a0.free.full-page.r2.exception.root"
+  },
+  "terminal_contract": {
+    "candidate_roots": 1,
+    "detached_instances": 0,
+    "physical_pages": 1,
+    "root_export_nonempty": true,
+    "screenshot_shapes": 0,
+    "second_run_created": 0,
+    "state_boards": 6,
+    "states_exactly_once": true
+  },
+  "visual_acceptance": "PENDING_V0"
+}

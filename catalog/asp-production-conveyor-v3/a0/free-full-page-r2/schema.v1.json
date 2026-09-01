@@ -1,0 +1,70 @@
+{
+  "$defs": {
+    "logical": {
+      "properties": {
+        "lane1_terminal_head": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        },
+        "package_id": {
+          "const": "A-FREE-FULL-PAGE-R2"
+        },
+        "record_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "states": {
+          "maxItems": 12,
+          "minItems": 12,
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "package_id",
+        "lane1_terminal_head",
+        "factual_fixture_order",
+        "states",
+        "record_sha256"
+      ],
+      "type": "object"
+    },
+    "physical_unit": {
+      "properties": {
+        "projection_role": {
+          "enum": [
+            "READY",
+            "EXCEPTION"
+          ]
+        },
+        "promotion_authorized": {
+          "const": false
+        },
+        "record_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "states": {
+          "maxItems": 6,
+          "minItems": 6,
+          "type": "array"
+        },
+        "visual_acceptance": {
+          "const": "PENDING_V0"
+        }
+      },
+      "required": [
+        "schema_version",
+        "package_id",
+        "projection_role",
+        "lane1_terminal_head",
+        "states",
+        "atlas_binding",
+        "record_sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "kenigevents.a0.free-full-page-r2.schema.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
