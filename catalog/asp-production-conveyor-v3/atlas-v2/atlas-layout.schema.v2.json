@@ -1,0 +1,55 @@
+{
+  "$id": "kenigevents.asp-atlas-layout.v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "atlas_id": {
+      "const": "ASP_PENPOT_ATLAS_LAYOUT_V2"
+    },
+    "d0_binding_contract": {
+      "type": "object"
+    },
+    "logical_source_units": {
+      "const": 40
+    },
+    "page_units": {
+      "items": {
+        "required": [
+          "atlas_page_id",
+          "logical_source_unit_id",
+          "projection_role",
+          "page_order",
+          "physical_page_name",
+          "exact_package_page_name",
+          "template_id",
+          "package_id"
+        ],
+        "type": "object"
+      },
+      "maxItems": 42,
+      "minItems": 42,
+      "type": "array"
+    },
+    "physical_page_count": {
+      "const": 42
+    },
+    "schema_version": {
+      "const": "kenigevents.asp-penpot-page-map.v2"
+    },
+    "template_ids": {
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "atlas_id",
+    "logical_source_units",
+    "physical_page_count",
+    "template_ids",
+    "d0_binding_contract",
+    "page_units"
+  ],
+  "type": "object"
+}

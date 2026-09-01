@@ -1,0 +1,171 @@
+{
+  "action_nav_partial_migration": {
+    "delete_or_recreate": "FORBIDDEN",
+    "discovery": "D0_NATIVE_READBACK_BY_EXACT_PACKAGE_NAMESPACE_AND_SEMANTIC_STABLE_IDS",
+    "internal_svg_geometry_change": "FORBIDDEN",
+    "partial_page_policy": "PRESERVE_AND_REBIND_IN_PLACE",
+    "r1_slots": "SUPERSEDED_ONLY_AFTER_R2_POSTFLIGHT",
+    "stable_semantic_ids": "PRESERVE",
+    "top_level_documentation_relayout": "ALLOWED_AFTER_R2_PASS",
+    "unknown_page_root_ids": "NEVER_HARDCODE"
+  },
+  "appearance": {
+    "candidate_root_background": "#FFFFFF",
+    "evidence_background": "#F8FAFC",
+    "grid_cell": {
+      "color": "#E5E7EB",
+      "radius": 12,
+      "width": 1
+    },
+    "lifecycle": {
+      "CANDIDATE": {
+        "bg": "#FEF3C7",
+        "border": "#F59E0B",
+        "fg": "#78350F"
+      },
+      "PASS": {
+        "bg": "#DCFCE7",
+        "border": "#22C55E",
+        "fg": "#14532D"
+      },
+      "REPAIR": {
+        "bg": "#FEE2E2",
+        "border": "#EF4444",
+        "fg": "#7F1D1D"
+      }
+    },
+    "minimum_text_contrast_ratio": 4.5,
+    "page_background": "#F3F5F7",
+    "primary_title": "#111827",
+    "secondary_caption": "#6B7280",
+    "section_metadata": "#4B5563",
+    "separator": {
+      "color": "#D1D5DB",
+      "width": 1
+    },
+    "spacing_tokens": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64,
+      96
+    ]
+  },
+  "layout_engine_rules": {
+    "absolute_documentation_shell": "FORBIDDEN",
+    "absolute_inside_source_bound_product_boards": "ALLOWED",
+    "documentation": [
+      "NATIVE_FLEX",
+      "NATIVE_GRID"
+    ],
+    "exact_product_boards": "FIXED_SOURCE_GEOMETRY",
+    "managed_nodes_outside_candidate_root": "FORBIDDEN"
+  },
+  "page_header": {
+    "bands": {
+      "metadata_band": 56,
+      "top_band": 72
+    },
+    "component_id": "ATLAS_PAGE_HEADER_V2",
+    "height": 128,
+    "metadata_band_layout": {
+      "column_gap": 16,
+      "direction": "horizontal",
+      "empty_policy": {
+        "optional": "EM_DASH_RETAIN_SLOT",
+        "required": "FAIL_CLOSED"
+      },
+      "fields": {
+        "last_reviewed_revision": {
+          "max_chars": 16,
+          "required": false
+        },
+        "owner": {
+          "max_chars": 24,
+          "required": true
+        },
+        "package_id": {
+          "max_chars": 64,
+          "required": true
+        },
+        "source_or_fixture_identity": {
+          "max_chars": 96,
+          "required": false
+        },
+        "v0_status": {
+          "max_chars": 32,
+          "required": true
+        },
+        "viewport_and_state_coverage": {
+          "max_chars": 96,
+          "required": false
+        }
+      },
+      "label_typography": "10/14 uppercase",
+      "layout_engine": "NATIVE_FLEX",
+      "padding": [
+        8,
+        24
+      ],
+      "row_gap": 4,
+      "value_typography": "12/16 regular",
+      "wrap": {
+        "allowed": true,
+        "max_lines": 2
+      }
+    },
+    "publish_rule": "PUBLISH_MUST_INSTANTIATE_OR_REBIND_COMPONENT_NEVER_AD_HOC_HEADER_TEXT",
+    "stable_semantic_ids": [
+      "atlas.header.top.section",
+      "atlas.header.top.page-title",
+      "atlas.header.top.lifecycle-status",
+      "atlas.header.meta.owner",
+      "atlas.header.meta.package-id",
+      "atlas.header.meta.source-or-fixture",
+      "atlas.header.meta.viewport-and-state-coverage",
+      "atlas.header.meta.v0-status",
+      "atlas.header.meta.last-reviewed-revision"
+    ],
+    "top_band_layout": {
+      "align_items": "center",
+      "direction": "horizontal",
+      "gap": 16,
+      "layout_engine": "NATIVE_FLEX",
+      "lifecycle_chip": {
+        "height": 28,
+        "max_width": 124,
+        "min_width": 88,
+        "padding_horizontal": 12,
+        "typography": "12/16 700",
+        "values": [
+          "CANDIDATE",
+          "PASS",
+          "REPAIR"
+        ]
+      },
+      "padding": [
+        16,
+        24
+      ],
+      "page_title": {
+        "fills_remaining": true,
+        "max_chars": 96,
+        "max_lines": 2,
+        "typography": "28/32 700"
+      },
+      "section_slot": {
+        "max": 240,
+        "max_chars": 32,
+        "min": 160,
+        "typography": "12/16 700"
+      }
+    },
+    "width": "FILL_PARENT"
+  },
+  "schema_version": "kenigevents.asp-atlas-documentation-shell.v2",
+  "scope": "TECHNICAL_DOCUMENTATION_SHELL_ONLY"
+}

@@ -1,0 +1,687 @@
+{
+  "ownership_boundary": {
+    "atlas_owns": [
+      "documentation_shell",
+      "page_order",
+      "physical_projection",
+      "top_level_offsets"
+    ],
+    "package_internal_geometry_change_requires": "SEPARATE_REPAIR",
+    "package_owns": [
+      "internal_component_geometry",
+      "component_anatomy",
+      "product_board_geometry"
+    ]
+  },
+  "registry_id": "ASP_PENPOT_ATLAS_LAYOUT_V2",
+  "schema_version": "kenigevents.asp-penpot-page-template-registry.v2",
+  "templates": {
+    "ARCHETYPE_DESKTOP_MOBILE_V2": {
+      "align_items": "start",
+      "columns": 3,
+      "content_bounds_formula": "[64,256,2560,content_start_y + content_height]",
+      "content_height_formula": "sum(row_bottoms) + 64",
+      "desktop_1280_board_x": 144,
+      "desktop_board_x_formula": "64 + (1440 - actual_board_width) / 2",
+      "desktop_slot": {
+        "alignment": "CENTER_ONLY",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 1440,
+        "x": 64
+      },
+      "direction": "vertical",
+      "evidence_slot": {
+        "layout_engine": "NATIVE_FLEX",
+        "width": 512,
+        "x": 2048
+      },
+      "gap": 64,
+      "gaps": {
+        "desktop_to_mobile": 64,
+        "mobile_to_evidence": 64,
+        "right_margin": 64
+      },
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "route_archetypes": 1
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "layout_engine": "NATIVE_FLEX",
+      "mobile_slot": {
+        "actual_board_width": 390,
+        "actual_board_x": 1581,
+        "actual_board_x_formula": "1568 + (416 - 390) / 2",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 416,
+        "x": 1568
+      },
+      "next_row_y_formula": "max(desktop.bottom, mobile.bottom, evidence.bottom) + 96",
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width": 2624,
+      "page_root_width_formula": "2624",
+      "purpose": "Route archetype desktop/mobile/evidence rows",
+      "row_count_formula": "ceil(instance_count / columns)",
+      "rows": "AUTO",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "COMPONENT_STATE_GRID_V2": {
+      "align_items": "start",
+      "cell": {
+        "clipping": "FORBIDDEN",
+        "height_policy": "SOURCE_CONTENT_DERIVED",
+        "min": 192,
+        "width": 400
+      },
+      "column_gap": 32,
+      "columns": 3,
+      "content_bounds_formula": "[outer_margin, content_start_y, page_root_width - outer_margin, content_start_y + content_height]",
+      "content_height_formula": "sum(family_heights) + max(0, family_count - 1) * 96",
+      "direction": "vertical",
+      "family_height_formula": "max(master_height, rows * resolved_state_cell_height + max(0, rows-1) * 32)",
+      "future_options": {
+        "evidence_mode": {
+          "lifecycle": "MAY_AFTER_FIRST_FIVE_PAGES",
+          "values": [
+            "compact",
+            "expanded"
+          ]
+        },
+        "wide_control_row": {
+          "lifecycle": "MAY_AFTER_FIRST_FIVE_PAGES"
+        }
+      },
+      "gap": 32,
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "component_families": 3,
+        "instances": 30
+      },
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "layout_engine": "NATIVE_GRID",
+      "master_column": {
+        "width": 448,
+        "x": 64
+      },
+      "maximum_component_families": 3,
+      "maximum_instances": 30,
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "purpose": "Controls and component families",
+      "row_count_formula": "ceil(instance_count / columns)",
+      "row_gap": 32,
+      "rows": "ceil(family_instance_count / 3)",
+      "section_gap": 96,
+      "state_grid_x": 576,
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "COMPOSED_ROUTE_EXCEPTION_STATES_V2": {
+      "align_items": "start",
+      "columns": 3,
+      "content_bounds_formula": "[64,256,2560,content_start_y + content_height]",
+      "content_height_formula": "sum(row_bottoms) + 64",
+      "desktop_1280_board_x": 144,
+      "desktop_board_x_formula": "64 + (1440 - actual_board_width) / 2",
+      "desktop_slot": {
+        "alignment": "CENTER_ONLY",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 1440,
+        "x": 64
+      },
+      "direction": "vertical",
+      "evidence_slot": {
+        "layout_engine": "NATIVE_FLEX",
+        "width": 512,
+        "x": 2048
+      },
+      "gap": 64,
+      "gaps": {
+        "desktop_to_mobile": 64,
+        "mobile_to_evidence": 64,
+        "right_margin": 64
+      },
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "route_archetypes": 1
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "layout_engine": "NATIVE_FLEX",
+      "mobile_slot": {
+        "actual_board_width": 390,
+        "actual_board_x": 1581,
+        "actual_board_x_formula": "1568 + (416 - 390) / 2",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 416,
+        "x": 1568
+      },
+      "next_row_y_formula": "max(desktop.bottom, mobile.bottom, evidence.bottom) + 96",
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width": 2624,
+      "page_root_width_formula": "2624",
+      "purpose": "Composed route EXCEPTION projection",
+      "required_row_count": 3,
+      "row_count_formula": "ceil(instance_count / columns)",
+      "rows": "AUTO",
+      "states": [
+        "loading",
+        "empty",
+        "error"
+      ],
+      "template_id": "COMPOSED_ROUTE_EXCEPTION_STATES_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "COMPOSED_ROUTE_READY_STATES_V2": {
+      "align_items": "start",
+      "columns": 3,
+      "content_bounds_formula": "[64,256,2560,content_start_y + content_height]",
+      "content_height_formula": "sum(row_bottoms) + 64",
+      "desktop_1280_board_x": 144,
+      "desktop_board_x_formula": "64 + (1440 - actual_board_width) / 2",
+      "desktop_slot": {
+        "alignment": "CENTER_ONLY",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 1440,
+        "x": 64
+      },
+      "direction": "vertical",
+      "evidence_slot": {
+        "layout_engine": "NATIVE_FLEX",
+        "width": 512,
+        "x": 2048
+      },
+      "gap": 64,
+      "gaps": {
+        "desktop_to_mobile": 64,
+        "mobile_to_evidence": 64,
+        "right_margin": 64
+      },
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "route_archetypes": 1
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "layout_engine": "NATIVE_FLEX",
+      "mobile_slot": {
+        "actual_board_width": 390,
+        "actual_board_x": 1581,
+        "actual_board_x_formula": "1568 + (416 - 390) / 2",
+        "product_layout_engine": "FIXED_SOURCE_GEOMETRY",
+        "width": 416,
+        "x": 1568
+      },
+      "next_row_y_formula": "max(desktop.bottom, mobile.bottom, evidence.bottom) + 96",
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width": 2624,
+      "page_root_width_formula": "2624",
+      "purpose": "Composed route READY projection",
+      "required_row_count": 3,
+      "row_count_formula": "ceil(instance_count / columns)",
+      "rows": "AUTO",
+      "states": [
+        "top",
+        "scrolled",
+        "full"
+      ],
+      "template_id": "COMPOSED_ROUTE_READY_STATES_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "FOUNDATION_ASSET_GRID_DENSE_V2": {
+      "align_items": "start",
+      "cell": {
+        "align": "center/start",
+        "formula": "clamp(specimen_height + label_block_height + 48, 192, 288)",
+        "height_policy": "BOUNDED_CONTENT",
+        "max": 288,
+        "min": 192,
+        "padding": 16,
+        "width": 256
+      },
+      "column_gap": 24,
+      "columns": 6,
+      "content_bounds_formula": "[outer_margin, content_start_y, page_root_width - outer_margin, content_start_y + content_height]",
+      "direction": "vertical",
+      "gap": 24,
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "instances": 30
+      },
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "label": {
+        "max_chars": 48,
+        "max_lines": 2,
+        "position": "BELOW_SPECIMEN",
+        "typography": "12/16"
+      },
+      "layout_engine": "NATIVE_GRID",
+      "master_column": {
+        "layout": "FIXED_WIDTH_STACK",
+        "width": 320,
+        "x": 64
+      },
+      "maximum_instances": 30,
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "purpose": "Action/Nav and Medallions",
+      "review_grid_x": 416,
+      "row_count_formula": "ceil(instance_count / columns)",
+      "row_gap": 24,
+      "rows": "ceil(instance_count / 6)",
+      "section_gap": 64,
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "FOUNDATION_ASSET_GRID_STANDARD_V2": {
+      "align_items": "start",
+      "cell": {
+        "align": "start",
+        "formula": "clamp(specimen_height + label_block_height + 56, 256, 480)",
+        "height_policy": "BOUNDED_CONTENT",
+        "max": 480,
+        "min": 256,
+        "padding": 20,
+        "width": 320
+      },
+      "column_gap": 32,
+      "columns": 4,
+      "content_bounds_formula": "[outer_margin, content_start_y, page_root_width - outer_margin, content_start_y + content_height]",
+      "direction": "vertical",
+      "gap": 32,
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "instances": 30
+      },
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "label": {
+        "max_chars": 64,
+        "max_lines": 2,
+        "position": "BELOW_SPECIMEN",
+        "typography": "12/16"
+      },
+      "layout_engine": "NATIVE_GRID",
+      "master_column": {
+        "layout": "FIXED_WIDTH_STACK",
+        "width": 448,
+        "x": 64
+      },
+      "maximum_instances": 30,
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "purpose": "Foundation review",
+      "review_grid_x": 576,
+      "row_count_formula": "ceil(instance_count / columns)",
+      "row_gap": 32,
+      "rows": "ceil(instance_count / 4)",
+      "section_gap": 96,
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "FOUNDATION_ASSET_GRID_WIDE_V2": {
+      "align_items": "start",
+      "cell": {
+        "align": "start",
+        "formula": "clamp(specimen_height + label_block_height + 64, 320, 720)",
+        "height_policy": "BOUNDED_CONTENT",
+        "max": 720,
+        "min": 320,
+        "padding": 24,
+        "width": 736
+      },
+      "column_gap": 32,
+      "columns": 2,
+      "content_bounds_formula": "[outer_margin, content_start_y, page_root_width - outer_margin, content_start_y + content_height]",
+      "direction": "vertical",
+      "gap": 32,
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "instances": 30
+      },
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "label": {
+        "max_chars": 96,
+        "max_lines": 2,
+        "position": "ABOVE_SPECIMEN",
+        "typography": "14/20"
+      },
+      "layout_engine": "NATIVE_GRID",
+      "master_column": {
+        "layout": "FIXED_WIDTH_STACK",
+        "width": 512,
+        "x": 64
+      },
+      "maximum_instances": 30,
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width_formula": "max(header_right, master_right, grid_right) + outer_margin",
+      "purpose": "Brand and typography",
+      "review_grid_x": 608,
+      "row_count_formula": "ceil(instance_count / columns)",
+      "row_gap": 32,
+      "rows": "ceil(instance_count / 2)",
+      "section_gap": 96,
+      "template_id": "FOUNDATION_ASSET_GRID_WIDE_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    },
+    "OWNER_INDEX_V2": {
+      "align_items": "start",
+      "columns": 1,
+      "content_bounds_formula": "[outer_margin, content_start_y, page_root_width - outer_margin, content_start_y + content_height]",
+      "content_height_formula": "physical_page_count * row_height + section_count * section_gap",
+      "content_start_y": 256,
+      "direction": "vertical",
+      "gap": 16,
+      "guides": {
+        "bottom_padding": 64,
+        "content_start_y": 256,
+        "header": [
+          64,
+          64,
+          2048,
+          128
+        ],
+        "header_origin_y": 64,
+        "outer_margin": 64,
+        "spacing_tokens": [
+          4,
+          8,
+          12,
+          16,
+          24,
+          32,
+          48,
+          64,
+          96
+        ]
+      },
+      "hard_limits": {
+        "product_component_masters": 0
+      },
+      "header": [
+        64,
+        64,
+        2496,
+        128
+      ],
+      "horizontal_sizing": "FILL_CONTAINER",
+      "justify_content": "start",
+      "layout_engine": "NATIVE_GRID",
+      "overflow_policy": {
+        "managed_documentation_nodes": "MUST_BE_INSIDE_CANDIDATE_ROOT",
+        "root": "EXPAND_VERTICAL_FAIL_ON_HORIZONTAL"
+      },
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "page_root_height_formula": "content_start_y + content_height + bottom_padding",
+      "page_root_width": 2624,
+      "page_root_width_formula": "2624",
+      "physical_page_count": 42,
+      "purpose": "Compact physical/logical atlas index",
+      "row_count_formula": "physical_page_count",
+      "row_height": 48,
+      "rows": "physical_page_count",
+      "section_gap": 32,
+      "template_id": "OWNER_INDEX_V2",
+      "vertical_sizing": "HUG_CONTENT",
+      "wrap": "NO_WRAP"
+    }
+  }
+}

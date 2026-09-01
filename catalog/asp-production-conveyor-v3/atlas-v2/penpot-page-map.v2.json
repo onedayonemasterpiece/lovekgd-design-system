@@ -1,0 +1,2845 @@
+{
+  "atlas_id": "ASP_PENPOT_ATLAS_LAYOUT_V2",
+  "d0_binding_contract": {
+    "incompatibility": {
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    "integrate": {
+      "package_lookup_cardinality": "EXACTLY_ONCE_BY_SOURCE_PACKAGE_ID_AND_PROJECTION_ROLE"
+    },
+    "mat": {
+      "executor_coordinate_policy": "HONOR_AND_CHECK",
+      "internal_package_geometry_change": "FORBIDDEN_WITHOUT_PACKAGE_SCOPED_REPAIR",
+      "overlap": "REJECT",
+      "top_level_offsets": "CALCULATE_FROM_TEMPLATE_ONLY"
+    },
+    "publish": {
+      "managed_nodes_boundary": "CANDIDATE_ROOT_ONLY",
+      "page_creation_order": "page_order_ASC",
+      "per_page_postflight": [
+        "native_readback",
+        "export",
+        "page_scoped_v0_trigger"
+      ],
+      "semantic_slots": "EXACT"
+    },
+    "v0": {
+      "checks": [
+        "margins_gaps",
+        "desktop_mobile_centering",
+        "clipping_overlap",
+        "free_floating_managed_nodes",
+        "documentation_shell_consistency",
+        "page_specific_source_a"
+      ]
+    }
+  },
+  "logical_source_units": 40,
+  "page_units": [
+    {
+      "atlas_page_id": "owner-review-index",
+      "exact_package_page_name": "A0 · Owner Review Index · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 0,
+        "product_component_masters": 0,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "owner-review-index",
+      "owner": "A0",
+      "package_id": "A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1",
+      "page_order": "0000",
+      "physical_page_name": "A0 · Owner Review Index · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Owner Review Index · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5440,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "9f1497b0091fe3d99f4bf2dd8f7bf0978d60a34c",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "2317c3eb024cfc00f0f65f8e274c8f2fbfaf4fa4d0138e35e6f9fcbf703dbdb2",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/18-owner-review-index.package.v1.json"
+        }
+      },
+      "section": "owner-review",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "package_id": "package_identity",
+        "page_references": "atlas_page_id_references",
+        "page_status": "publication_dependency_state",
+        "section_navigation": "atlas_sections",
+        "v0_status": "page_scoped_v0_status"
+      },
+      "template_id": "OWNER_INDEX_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-action-navigation-icons",
+      "exact_package_page_name": "01 · Foundations · Action & navigation icons · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 18,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "01",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-action-navigation-icons",
+      "owner": "F0",
+      "package_id": "F-ACTION-NAV-ICONS",
+      "page_order": "0010",
+      "physical_page_name": "01 · Foundations · Action & navigation icons · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "current_repair_binding": {
+          "issue_comment_id": 5494292538,
+          "remote_branch": "agent/d0-atlas-wave/mat",
+          "remote_head": "5d44725c33cb3a4c776ef917e6ac7b9f1f36d545",
+          "remote_tree": "18a92b24cc2d82914f6ced07e2ce73b00619c456",
+          "scope": "EXECUTOR_ONLY_PACKAGE_BYTES_UNCHANGED"
+        },
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "01 · Foundations · Action & navigation icons · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 16493,
+          "checkpoint_comment_id": 5483869282,
+          "git_blob_sha1": "b211bcec98a144a8e3ee7ed87098c37757fb8298",
+          "remote_branch": "agent/f-action-nav-icons-r5/mat",
+          "remote_head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
+          "remote_tree": "0bcfaf6b5db1182da27e459df502d742e1470f93",
+          "sha256": "9a89a0b283f110a811a06317a5b4f0a54b28f553de81a40b43b7261c0d864c7a",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json"
+        }
+      },
+      "section": "foundations-icons",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-source-index",
+      "exact_package_page_name": "03 · Foundations · Current reconstructed specimens · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 0,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "03",
+      "inventory_class": "PROTECTED",
+      "logical_source_unit_id": "foundations-source-index",
+      "owner": "F0",
+      "package_id": "PROTECTED-FOUNDATIONS-SOURCE-INDEX",
+      "page_order": "0020",
+      "physical_page_name": "03 · Foundations · Current reconstructed specimens · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": true,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": 0,
+        "delete_forbidden": true,
+        "existing_protected_page": true,
+        "internal_package_geometry_owner": "PROTECTED_EXISTING_SURFACE",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": true
+      },
+      "publication_dependency": {
+        "dependency_state": "PROTECTED_EXISTING_REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "03 · Foundations · Current reconstructed specimens · Candidate",
+          "kind": "javascript_config",
+          "pointer": "F0_CONFIG.pageName"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 40724,
+          "checkpoint_comment_id": 5483175166,
+          "git_blob_sha1": "86a21b3a0325fef59d25f2b2790ba2e56707f0a5",
+          "remote_branch": "agent/f0-foundation-specimens-adapter-r3",
+          "remote_head": "dd2981880e2c34c19e3834b36f4f766e2c82a559",
+          "remote_tree": "4e366820526af8d877fd87c807d2bcb0b550bcf0",
+          "sha256": "c161a6705ad31182203b5d505005cd0da537c9f81b22d0c915d4d313c6416e14",
+          "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_specimens_native_adapter_v3.js"
+        }
+      },
+      "section": "foundations-source-index",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-typography-type-scale",
+      "exact_package_page_name": "04.1 · Foundations · Typography scale · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 24,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.1",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-typography-type-scale",
+      "owner": "F0",
+      "package_id": "F-TYPOGRAPHY-TYPE-SCALE-SMALL-PAGE",
+      "page_order": "0030",
+      "physical_page_name": "04.1 · Foundations · Typography scale · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.1 · Foundations · Typography scale · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.typography[0]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 21620,
+          "git_blob_sha1": "501c307799bf412bc658dc89a04245f8a5cabc61",
+          "remote_branch": "chatgpt/f0-typography-layout-repair-r4-20260831",
+          "remote_head": "eb388db611fb997283ba63c452b6642ff3508678",
+          "remote_tree": "95dd6b548d1a5fd071b6fe35d74a893f8db21d7a",
+          "sha256": "193b5b5db1a504883e9718e7029d756b552f29636fdb4d924ad08fe84764017f",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v3.json"
+        }
+      },
+      "section": "foundations-typography",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_WIDE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-typography-layout-rules",
+      "exact_package_page_name": "04.2 · Foundations · Layout rules · Candidate",
+      "hard_limit_census": {
+        "component_families": 7,
+        "instances": 27,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.2",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-typography-layout-rules",
+      "owner": "F0",
+      "package_id": "F-TYPOGRAPHY-LAYOUT-RULES-SMALL-PAGE",
+      "page_order": "0040",
+      "physical_page_name": "04.2 · Foundations · Layout rules · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.2 · Foundations · Layout rules · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.typography[1]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 21620,
+          "git_blob_sha1": "501c307799bf412bc658dc89a04245f8a5cabc61",
+          "remote_branch": "chatgpt/f0-typography-layout-repair-r4-20260831",
+          "remote_head": "eb388db611fb997283ba63c452b6642ff3508678",
+          "remote_tree": "95dd6b548d1a5fd071b6fe35d74a893f8db21d7a",
+          "sha256": "193b5b5db1a504883e9718e7029d756b552f29636fdb4d924ad08fe84764017f",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-TYPOGRAPHY-LAYOUT.package.v3.json"
+        }
+      },
+      "section": "foundations-typography",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_WIDE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-review-colors-status",
+      "exact_package_page_name": "03.1 · Foundations · Colors & status · Candidate",
+      "hard_limit_census": {
+        "component_families": 2,
+        "instances": 26,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "03.1",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-review-colors-status",
+      "owner": "F0",
+      "package_id": "F-FOUNDATIONS-REVIEW-COLORS-STATUS",
+      "page_order": "0050",
+      "physical_page_name": "03.1 · Foundations · Colors & status · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "03.1 · Foundations · Colors & status · Candidate",
+          "kind": "javascript_config",
+          "pointer": "B2_CONFIG.pages[key=colors-status]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 17146,
+          "checkpoint_comment_id": 5483574563,
+          "git_blob_sha1": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+          "remote_branch": "agent/f0-foundation-page-split-r1",
+          "remote_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+          "remote_tree": "6ed4fca2d754c3270b066f536bd82a0492c64755",
+          "sha256": "68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89",
+          "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js"
+        }
+      },
+      "section": "foundations-review",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-review-spacing-sizing",
+      "exact_package_page_name": "03.2 · Foundations · Spacing & sizing · Candidate",
+      "hard_limit_census": {
+        "component_families": 2,
+        "instances": 14,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "03.2",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-review-spacing-sizing",
+      "owner": "F0",
+      "package_id": "F-FOUNDATIONS-REVIEW-SPACING-SIZING",
+      "page_order": "0060",
+      "physical_page_name": "03.2 · Foundations · Spacing & sizing · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "03.2 · Foundations · Spacing & sizing · Candidate",
+          "kind": "javascript_config",
+          "pointer": "B2_CONFIG.pages[key=spacing-sizing]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 17146,
+          "checkpoint_comment_id": 5483574563,
+          "git_blob_sha1": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+          "remote_branch": "agent/f0-foundation-page-split-r1",
+          "remote_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+          "remote_tree": "6ed4fca2d754c3270b066f536bd82a0492c64755",
+          "sha256": "68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89",
+          "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js"
+        }
+      },
+      "section": "foundations-review",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-review-shape-elevation",
+      "exact_package_page_name": "03.3 · Foundations · Shape, borders & elevation · Candidate",
+      "hard_limit_census": {
+        "component_families": 2,
+        "instances": 8,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "03.3",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-review-shape-elevation",
+      "owner": "F0",
+      "package_id": "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION",
+      "page_order": "0070",
+      "physical_page_name": "03.3 · Foundations · Shape, borders & elevation · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "03.3 · Foundations · Shape, borders & elevation · Candidate",
+          "kind": "javascript_config",
+          "pointer": "B2_CONFIG.pages[key=shape-elevation]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 17146,
+          "checkpoint_comment_id": 5483574563,
+          "git_blob_sha1": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+          "remote_branch": "agent/f0-foundation-page-split-r1",
+          "remote_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+          "remote_tree": "6ed4fca2d754c3270b066f536bd82a0492c64755",
+          "sha256": "68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89",
+          "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js"
+        }
+      },
+      "section": "foundations-review",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "foundations-review-motion-accessibility",
+      "exact_package_page_name": "03.4 · Foundations · Motion & accessibility · Candidate",
+      "hard_limit_census": {
+        "component_families": 2,
+        "instances": 9,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "03.4",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "foundations-review-motion-accessibility",
+      "owner": "F0",
+      "package_id": "F-FOUNDATIONS-REVIEW-MOTION-ACCESSIBILITY",
+      "page_order": "0080",
+      "physical_page_name": "03.4 · Foundations · Motion & accessibility · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "03.4 · Foundations · Motion & accessibility · Candidate",
+          "kind": "javascript_config",
+          "pointer": "B2_CONFIG.pages[key=motion-accessibility]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 17146,
+          "checkpoint_comment_id": 5483574563,
+          "git_blob_sha1": "3d81ace5033b4ccde60291340c8019eb8ee3ba49",
+          "remote_branch": "agent/f0-foundation-page-split-r1",
+          "remote_head": "45499cc610a1bb5cbf36b8531c65b036d731013f",
+          "remote_tree": "6ed4fca2d754c3270b066f536bd82a0492c64755",
+          "sha256": "68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89",
+          "source_path": "scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js"
+        }
+      },
+      "section": "foundations-review",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-institutions-a",
+      "exact_package_page_name": "04.1 · Assets · Medallions · Institutions A · Candidate",
+      "hard_limit_census": {
+        "component_families": 8,
+        "instances": 24,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.1",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-institutions-a",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-INSTITUTIONS-A",
+      "page_order": "0090",
+      "physical_page_name": "04.1 · Assets · Medallions · Institutions A · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.1 · Assets · Medallions · Institutions A · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[0]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-institutions-a-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-institutions-b",
+      "exact_package_page_name": "04.2 · Assets · Medallions · Institutions B · Candidate",
+      "hard_limit_census": {
+        "component_families": 8,
+        "instances": 24,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.2",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-institutions-b",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-INSTITUTIONS-B",
+      "page_order": "0100",
+      "physical_page_name": "04.2 · Assets · Medallions · Institutions B · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.2 · Assets · Medallions · Institutions B · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[1]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-institutions-a-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-venues-a",
+      "exact_package_page_name": "04.3 · Assets · Medallions · Venues A · Candidate",
+      "hard_limit_census": {
+        "component_families": 8,
+        "instances": 24,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.3",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-venues-a",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-VENUES-A",
+      "page_order": "0110",
+      "physical_page_name": "04.3 · Assets · Medallions · Venues A · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.3 · Assets · Medallions · Venues A · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[2]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-institutions-a-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-venues-b",
+      "exact_package_page_name": "04.4 · Assets · Medallions · Venues B · Candidate",
+      "hard_limit_census": {
+        "component_families": 7,
+        "instances": 21,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.4",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-venues-b",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-VENUES-B",
+      "page_order": "0120",
+      "physical_page_name": "04.4 · Assets · Medallions · Venues B · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.4 · Assets · Medallions · Venues B · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[3]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-organizers-b-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-organizers-a",
+      "exact_package_page_name": "04.5 · Assets · Medallions · Organizers A · Candidate",
+      "hard_limit_census": {
+        "component_families": 7,
+        "instances": 21,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.5",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-organizers-a",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-ORGANIZERS-A",
+      "page_order": "0130",
+      "physical_page_name": "04.5 · Assets · Medallions · Organizers A · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.5 · Assets · Medallions · Organizers A · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[4]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-organizers-b-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "medallions-organizers-b",
+      "exact_package_page_name": "04.6 · Assets · Medallions · Organizers B · Candidate",
+      "hard_limit_census": {
+        "component_families": 7,
+        "instances": 21,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.6",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "medallions-organizers-b",
+      "owner": "F0",
+      "package_id": "F-MEDALLIONS-ORGANIZERS-B",
+      "page_order": "0140",
+      "physical_page_name": "04.6 · Assets · Medallions · Organizers B · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.6 · Assets · Medallions · Organizers B · Candidate",
+          "kind": "immutable_branch_checkpoint",
+          "pointer": "terminal_checkpoint.medallions[5]"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob_plus_immutable_branch_checkpoint",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-organizers-b-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "foundations-medallions",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "brand-current-baseline",
+      "exact_package_page_name": "05 · Brandbook · Current baseline · Candidate",
+      "hard_limit_census": {
+        "component_families": 5,
+        "instances": 14,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "05",
+      "inventory_class": "F0",
+      "logical_source_unit_id": "brand-current-baseline",
+      "owner": "F0",
+      "package_id": "F-BRANDBOOK-BASELINE",
+      "page_order": "0150",
+      "physical_page_name": "05 · Brandbook · Current baseline · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "05 · Brandbook · Current baseline · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 3501,
+          "git_blob_sha1": "b5ab4a39b819dc3538ee24ef0c924ec6718ef2bb",
+          "remote_branch": "chatgpt/f0-brandbook-small-page-r4-20260831",
+          "remote_head": "ed3d4655cbe3913a7f367c204465cc1310773c23",
+          "remote_tree": "29ad3ccf0628e448d0881007129981b9f766856f",
+          "sha256": "31da54ef6e51c0c983b761e204b7c67e06a3f90b199d423cfbf4df43fdbe4a36",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-BRANDBOOK-BASELINE.package.v4.json"
+        }
+      },
+      "section": "foundations-brand",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "review_grid": "linked_review_instances"
+      },
+      "template_id": "FOUNDATION_ASSET_GRID_WIDE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "controls-buttons",
+      "exact_package_page_name": "04.1 · Controls · Buttons · Candidate",
+      "hard_limit_census": {
+        "component_families": 1,
+        "instances": 14,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.1",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "controls-buttons",
+      "owner": "U0",
+      "package_id": "U-CONTROLS-BUTTONS-SMALL-PAGE",
+      "page_order": "0160",
+      "physical_page_name": "04.1 · Controls · Buttons · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.1 · Controls · Buttons · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 4336,
+          "git_blob_sha1": "07952cd6cf6d7290fcee19f54cc26d7e4c774938",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "c8d6cacb11e2204232986b3afe057cdf564cf7acc66c38a8576102ff1f112ffb",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-CONTROLS-BUTTONS-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "controls-buttons",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "controls-selectors",
+      "exact_package_page_name": "04.2 · Controls · Inputs & status · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 19,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "04.2",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "controls-selectors",
+      "owner": "U0",
+      "package_id": "U-CONTROLS-INPUT-STATUS-SMALL-PAGE",
+      "page_order": "0170",
+      "physical_page_name": "04.2 · Controls · Inputs & status · Candidate",
+      "prefix_order_conflict_indicator": true,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "04.2 · Controls · Inputs & status · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 4411,
+          "git_blob_sha1": "0f0301024404345ab79bc05a55e6967999572c41",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "3fc18362c88daef492420f8bd620e40341f3774b46bb32305fc60d2f4189892f",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-CONTROLS-INPUT-STATUS-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "controls-selectors",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "free-desktop-rows",
+      "exact_package_page_name": "05.1 · Free collection · Desktop rows · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 7,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "05.1",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "free-desktop-rows",
+      "owner": "U0",
+      "package_id": "U-FREE-DESKTOP-ROWS-SMALL-PAGE",
+      "page_order": "0180",
+      "physical_page_name": "05.1 · Free collection · Desktop rows · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "05.1 · Free collection · Desktop rows · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5750,
+          "git_blob_sha1": "3975d3ea14537c960d41948d083dc99fbcffac31",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "8217cb55c24dd4063681fb5b5a30cc2cf53b08ae203f7fe7598295c22a686eaa",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-FREE-DESKTOP-ROWS-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "content-patterns",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "free-mobile-groups",
+      "exact_package_page_name": "05.2 · Free collection · Mobile groups · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 7,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "05.2",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "free-mobile-groups",
+      "owner": "U0",
+      "package_id": "U-FREE-MOBILE-GROUPS-SMALL-PAGE",
+      "page_order": "0190",
+      "physical_page_name": "05.2 · Free collection · Mobile groups · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "05.2 · Free collection · Mobile groups · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5949,
+          "git_blob_sha1": "77eca3fc678b748a700d8cbc20727164e2bb173c",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "f0dbcfef81fc417f561f69eb8321ef7e7f8116910ee67948e747b93e9e0340af",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-FREE-MOBILE-GROUPS-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "content-patterns",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "free-collection-eventcard-ready",
+      "exact_package_page_name": "00 · Components · Free collection",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 0,
+        "product_component_masters": null,
+        "route_archetypes": 0,
+        "route_states": 3
+      },
+      "historical_prefix": "00",
+      "inventory_class": "PROTECTED",
+      "logical_source_unit_id": "free-collection-eventcard",
+      "owner": "U0",
+      "package_id": "PROTECTED-FREE-COLLECTION-EVENTCARD",
+      "page_order": "0200",
+      "physical_page_name": "00 · Components · Free collection",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": true,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": 0,
+        "delete_forbidden": true,
+        "existing_protected_page": true,
+        "internal_package_geometry_owner": "PROTECTED_EXISTING_SURFACE",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": true
+      },
+      "publication_dependency": {
+        "dependency_state": "PROTECTED_EXISTING_REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "00 · Components · Free collection",
+          "kind": "json_pointer",
+          "pointer": "/protected_surface/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-institutions-a-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "content-free-collection",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_state",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_state",
+        "states": "paired_desktop_mobile_evidence_rows"
+      },
+      "template_id": "COMPOSED_ROUTE_READY_STATES_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "free-collection-eventcard-exception",
+      "exact_package_page_name": "00 · Components · Free collection",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 0,
+        "product_component_masters": null,
+        "route_archetypes": 0,
+        "route_states": 3
+      },
+      "historical_prefix": "00",
+      "inventory_class": "PROTECTED",
+      "logical_source_unit_id": "free-collection-eventcard",
+      "owner": "U0",
+      "package_id": "PROTECTED-FREE-COLLECTION-EVENTCARD",
+      "page_order": "0201",
+      "physical_page_name": "00 · Components · Free collection · Exception states",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "EXCEPTION",
+      "protected_existing": true,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": 0,
+        "delete_forbidden": true,
+        "existing_protected_page": true,
+        "internal_package_geometry_owner": "PROTECTED_EXISTING_SURFACE",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": true
+      },
+      "publication_dependency": {
+        "dependency_state": "PROTECTED_EXISTING_REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "00 · Components · Free collection",
+          "kind": "json_pointer",
+          "pointer": "/protected_surface/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 10096,
+          "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+          "remote_branch": "chatgpt/f0-medallions-institutions-a-r1-20260831",
+          "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+          "remote_tree": "95ab14cbd64697910c871ccb1a7ca7428cf618bd",
+          "sha256": "1840e699f7543f6a393e941bf89ea651442d9b35c625f03c74d64137fa3a66bf",
+          "source_path": "catalog/asp-production-conveyor-v3/f0/F-MEDALLIONS-BRAND-ASSETS.package.v3.json"
+        }
+      },
+      "section": "content-free-collection",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_state",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_state",
+        "states": "paired_desktop_mobile_evidence_rows"
+      },
+      "template_id": "COMPOSED_ROUTE_EXCEPTION_STATES_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "shell-header-navigation",
+      "exact_package_page_name": "06.1 · Shell · Header & navigation · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 16,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "06.1",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "shell-header-navigation",
+      "owner": "U0",
+      "package_id": "U-SHELL-HEADER-NAVIGATION-SMALL-PAGE",
+      "page_order": "0220",
+      "physical_page_name": "06.1 · Shell · Header & navigation · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "06.1 · Shell · Header & navigation · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5574,
+          "git_blob_sha1": "3e9be5b35a9e2c33c33b748256901274d9c2b7fd",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "7b2a0471df8dcb0af6a8178e65824c91bf1939c1c29fe04c27f6ce3e51ed324f",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-SHELL-HEADER-NAVIGATION-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "shell-navigation",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "shell-footer-breadcrumbs",
+      "exact_package_page_name": "06.2 · Shell · Footer & breadcrumbs · Candidate",
+      "hard_limit_census": {
+        "component_families": 3,
+        "instances": 14,
+        "product_component_masters": null,
+        "route_archetypes": 0
+      },
+      "historical_prefix": "06.2",
+      "inventory_class": "U0",
+      "logical_source_unit_id": "shell-footer-breadcrumbs",
+      "owner": "U0",
+      "package_id": "U-SHELL-FOOTER-BREADCRUMBS-SMALL-PAGE",
+      "page_order": "0230",
+      "physical_page_name": "06.2 · Shell · Footer & breadcrumbs · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "06.2 · Shell · Footer & breadcrumbs · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/target/exact_page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5340,
+          "git_blob_sha1": "4a5cc92031b601b07a452b954d75732cbe6a516f",
+          "remote_branch": "u0/small-page-native-executors-r2",
+          "remote_head": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21",
+          "remote_tree": "848baf8b30a8bb6358a0159c0c20458fa7959dfc",
+          "sha256": "cb57792b19b737e4591ac8f86258fc0e41ce54f13ffd4daf6948c93d4229080e",
+          "source_path": "catalog/asp-production-conveyor-v3/u0/small-pages/U-SHELL-FOOTER-BREADCRUMBS-SMALL-PAGE.package.v1.json"
+        }
+      },
+      "section": "shell-navigation",
+      "semantic_slot_bindings": {
+        "header": "page_header",
+        "master_column": "package_owned_masters",
+        "state_grid": "linked_state_instances"
+      },
+      "template_id": "COMPONENT_STATE_GRID_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "date-listing-shell-ready",
+      "exact_package_page_name": "A0 · Date Listing + Shell · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 6,
+        "product_component_masters": null,
+        "route_archetypes": 1,
+        "route_states": 3
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "date-listing-shell",
+      "owner": "A0",
+      "package_id": "A0-PAGE-AUX-DATE_LISTING_SHELL-R1",
+      "page_order": "0240",
+      "physical_page_name": "A0 · Date Listing + Shell · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Date Listing + Shell · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5321,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "052c8950004b61cee9095080409e4ecaba30e771",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "d844ee7a5ca77fe0b3ba2da9d1a8e7505152e4b7e7dde7b6c2edddf4cc223990",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/17-archetype-listing-date.package.v1.json"
+        }
+      },
+      "section": "composed-listings",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_state",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_state",
+        "states": "paired_desktop_mobile_evidence_rows"
+      },
+      "template_id": "COMPOSED_ROUTE_READY_STATES_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "date-listing-shell-exception",
+      "exact_package_page_name": "A0 · Date Listing + Shell · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 6,
+        "product_component_masters": null,
+        "route_archetypes": 1,
+        "route_states": 3
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "date-listing-shell",
+      "owner": "A0",
+      "package_id": "A0-PAGE-AUX-DATE_LISTING_SHELL-R1",
+      "page_order": "0241",
+      "physical_page_name": "A0 · Date Listing + Shell · Candidate · Exception states",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "EXCEPTION",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Date Listing + Shell · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5321,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "052c8950004b61cee9095080409e4ecaba30e771",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "d844ee7a5ca77fe0b3ba2da9d1a8e7505152e4b7e7dde7b6c2edddf4cc223990",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/17-archetype-listing-date.package.v1.json"
+        }
+      },
+      "section": "composed-listings",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_state",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_state",
+        "states": "paired_desktop_mobile_evidence_rows"
+      },
+      "template_id": "COMPOSED_ROUTE_EXCEPTION_STATES_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-home",
+      "exact_package_page_name": "A0 · Archetype · Home · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-home",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-HOME-R1",
+      "page_order": "0260",
+      "physical_page_name": "A0 · Archetype · Home · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Home · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5427,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "66bff015f866393493fc3e4af9f51a1d3893ce45",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "f593fe27ee5d82379935288849f26bcf1def647930bdfb61b40bb9699d3397e0",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/01-archetype-home.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-weekend-listing",
+      "exact_package_page_name": "A0 · Archetype · Weekend Listing · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-weekend-listing",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-LISTING_WEEKEND-R1",
+      "page_order": "0270",
+      "physical_page_name": "A0 · Archetype · Weekend Listing · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Weekend Listing · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5997,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "940a282838a2cc993f9daba823c05889b1e6e687",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "a2005e9a1495e2c08e796e6eaceb077b626d186b9fb9ba95e8d80130b2948294",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/02-archetype-listing-weekend.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-popular-listing",
+      "exact_package_page_name": "A0 · Archetype · Popular Listing · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-popular-listing",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-LISTING_POPULAR-R1",
+      "page_order": "0280",
+      "physical_page_name": "A0 · Archetype · Popular Listing · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Popular Listing · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5702,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "d59a7e4a51b0c7b07f9ac7af4a39798ae8554770",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "a06cf1de2058bb017823347b52f817c69ffb0698de30fa16a213ad733eb914d6",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/03-archetype-listing-popular.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-unusual-listing",
+      "exact_package_page_name": "A0 · Archetype · Unusual Listing · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-unusual-listing",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-LISTING_UNUSUAL-R1",
+      "page_order": "0290",
+      "physical_page_name": "A0 · Archetype · Unusual Listing · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Unusual Listing · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5631,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "5c951fd5645efbd218cf00ed3047586de6d156c0",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "856d83485c853f02c408c9ff1670d39d1270ac9540ac55eb234424e67e493d7a",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/04-archetype-listing-unusual.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-collections",
+      "exact_package_page_name": "A0 · Archetype · Collections · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-collections",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-COLLECTIONS-R1",
+      "page_order": "0300",
+      "physical_page_name": "A0 · Archetype · Collections · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Collections · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5880,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "fbf93c21c2017e2f4b6723ffb8e687f3ed0a4959",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "9e91bf061cb308444375cf3f42d5c23765da72a71b2fd6d0a79cc981e996a1fb",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/05-archetype-collections.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-exhibitions",
+      "exact_package_page_name": "A0 · Archetype · Exhibitions · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-exhibitions",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE1-EXHIBITIONS-R1",
+      "page_order": "0310",
+      "physical_page_name": "A0 · Archetype · Exhibitions · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Exhibitions · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5696,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "576c049339c36140644a31738fda7bad7defb925",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "8338e38daa4579b758bd8f09bddd847ef1738fc89ed916f7470b01e79c0b221e",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/06-archetype-exhibitions.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-search",
+      "exact_package_page_name": "A0 · Archetype · Search · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-search",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-SEARCH-R1",
+      "page_order": "0320",
+      "physical_page_name": "A0 · Archetype · Search · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Search · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5679,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "97b341ff2904d9767e6f76cc75d6c59d34291506",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "a6e970ba3222eb066acb1a244ce66c7aecf417e4db2076bc28a94dc9c29963ff",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/07-archetype-search.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-favorites",
+      "exact_package_page_name": "A0 · Archetype · Favorites · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-favorites",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-FAVORITES-R1",
+      "page_order": "0330",
+      "physical_page_name": "A0 · Archetype · Favorites · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Favorites · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5638,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "8171abc54b5f07c91ed98419e30696dfaac4d0f6",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "e5befa1a68373f1e617a632086978813df4d83680a7acd809529c526e42e27dd",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/08-archetype-favorites.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-personal-feed",
+      "exact_package_page_name": "A0 · Archetype · Personal Feed · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-personal-feed",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-PERSONAL_FEED-R1",
+      "page_order": "0340",
+      "physical_page_name": "A0 · Archetype · Personal Feed · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Personal Feed · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5724,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "f594361bf36e658a2738317edfa414a21abf1239",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "dfc1fe0eda280922cbe8204cacea156fe138d18bff188028b4193fcb9616a8cb",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/09-archetype-personal-feed.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-festivals",
+      "exact_package_page_name": "A0 · Archetype · Festivals · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-festivals",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-FESTIVALS-R1",
+      "page_order": "0350",
+      "physical_page_name": "A0 · Archetype · Festivals · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Festivals · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5555,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "f730efc39ecab8c99ee57383e9947c2ce42c4775",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "1b34808858a6603fb1faace50d8c11a9233e24d8325b4d77890a76333acda2b9",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/10-archetype-festivals.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-interest-clubs",
+      "exact_package_page_name": "A0 · Archetype · Interest Clubs · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-interest-clubs",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-INTEREST_CLUBS-R1",
+      "page_order": "0360",
+      "physical_page_name": "A0 · Archetype · Interest Clubs · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Interest Clubs · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5927,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "019b3714427f50fece7476ce93c9e024950c1d57",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "67e4caec9c9ae86d50f0dc924fbabac877b154fa7381b139bf4ce2795e31f90f",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/11-archetype-interest-clubs.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-artifacts",
+      "exact_package_page_name": "A0 · Archetype · Artifacts · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-artifacts",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-ARTIFACTS-R1",
+      "page_order": "0370",
+      "physical_page_name": "A0 · Archetype · Artifacts · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Artifacts · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5641,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "4fb6e972988cbffc9798f6fd6995c8d50d06ea7c",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "84268f1ba996924fdcf8d1397f6aa7c92435dd65a7b2fdf21b51e604f0742b28",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/12-archetype-artifacts.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-event-detail",
+      "exact_package_page_name": "A0 · Archetype · Event Detail · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-event-detail",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-EVENT_DETAIL-R1",
+      "page_order": "0380",
+      "physical_page_name": "A0 · Archetype · Event Detail · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Event Detail · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 6114,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "cf7783738f62953a7d08ed71252655dfa45a1c79",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "75bd7162072dc1f16856641ad3b83f4ff891dd292a95dd699533e4597d744143",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/13-archetype-event-detail.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-focus-group",
+      "exact_package_page_name": "A0 · Archetype · Focus Group · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-focus-group",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-FOCUS_GROUP-R1",
+      "page_order": "0390",
+      "physical_page_name": "A0 · Archetype · Focus Group · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Focus Group · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 6131,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "529eda708b663d2b51b97fd5f11d2f21e0b90ae8",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "2c97f322f6653ef82b753c0b2e71ccfcf33b7b8eff8f65123e28e451f8606e56",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/14-archetype-focus-group.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-information-pages",
+      "exact_package_page_name": "A0 · Archetype · Information Pages · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-information-pages",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-INFORMATION_PAGES-R1",
+      "page_order": "0400",
+      "physical_page_name": "A0 · Archetype · Information Pages · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Information Pages · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5819,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "b61e2d8d14c031d15f09f56182a51acde20e11de",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "e8cbf4cb651b416ebf117d5588395e89336daf831732baec6e1b0b04bdaf3bb8",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/15-archetype-information-pages.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    },
+    {
+      "atlas_page_id": "archetype-archetype-special-state",
+      "exact_package_page_name": "A0 · Archetype · Special State · Candidate",
+      "hard_limit_census": {
+        "component_families": 0,
+        "instances": 3,
+        "product_component_masters": null,
+        "route_archetypes": 1
+      },
+      "historical_prefix": "A0",
+      "inventory_class": "A0",
+      "logical_source_unit_id": "archetype-archetype-special-state",
+      "owner": "A0",
+      "package_id": "A0-PAGE-WAVE2-SPECIAL_STATE-R1",
+      "page_order": "0410",
+      "physical_page_name": "A0 · Archetype · Special State · Candidate",
+      "prefix_order_conflict_indicator": false,
+      "projection_role": "READY",
+      "protected_existing": false,
+      "protected_surface_rules": {
+        "atlas_internal_geometry_mutation_forbidden": true,
+        "atlas_managed_nodes_on_protected_page": null,
+        "delete_forbidden": false,
+        "existing_protected_page": false,
+        "internal_package_geometry_owner": "PACKAGE_REPAIR_ONLY",
+        "managed_nodes_outside_candidate_root_allowed": false,
+        "recreate_forbidden": false
+      },
+      "publication_dependency": {
+        "dependency_state": "REMOTE_BOUND",
+        "page_name_source": {
+          "exact_value": "A0 · Archetype · Special State · Candidate",
+          "kind": "json_pointer",
+          "pointer": "/page_contract/page_name"
+        },
+        "remote_binding": {
+          "binding_kind": "git_blob",
+          "byte_count": 5608,
+          "checkpoint_comment_id": 5489851638,
+          "git_blob_sha1": "ffaffae8fd9735bec77c9611c17c7e17f5ca7c02",
+          "remote_branch": "a0/asp-penpot-page-wave-v1-20260901",
+          "remote_head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+          "remote_tree": "3132550212222ec3dea716710821e732ad0d92bb",
+          "sha256": "844efccf222831b412f7741561c36adcbe7d1b4555c050f10e46f5f70ae9ccc6",
+          "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/16-archetype-special-state.package.v1.json"
+        }
+      },
+      "section": "route-archetypes",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V2",
+      "v0_review_scope": {
+        "checks": [
+          "minimum_margins_and_gaps",
+          "desktop_mobile_alignment",
+          "clipping_and_overlap",
+          "no_free_floating_managed_nodes",
+          "source_a_correspondence"
+        ],
+        "required": true,
+        "trigger": "PAGE_SCOPED_AFTER_READBACK_AND_EXPORT"
+      }
+    }
+  ],
+  "physical_page_count": 42,
+  "schema_version": "kenigevents.asp-penpot-page-map.v2",
+  "template_ids": [
+    "ARCHETYPE_DESKTOP_MOBILE_V2",
+    "COMPONENT_STATE_GRID_V2",
+    "COMPOSED_ROUTE_EXCEPTION_STATES_V2",
+    "COMPOSED_ROUTE_READY_STATES_V2",
+    "FOUNDATION_ASSET_GRID_DENSE_V2",
+    "FOUNDATION_ASSET_GRID_STANDARD_V2",
+    "FOUNDATION_ASSET_GRID_WIDE_V2",
+    "OWNER_INDEX_V2"
+  ]
+}
