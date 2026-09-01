@@ -40,6 +40,8 @@ class Shape extends PluginDataNode {
     this.parent = null;
     this._component = null;
     this._isCopy = false;
+    this.flex = null;
+    this.grid = null;
   }
   appendChild(child) {
     if (child.parent) child.parent.children = child.parent.children.filter((item) => item !== child);
@@ -47,6 +49,18 @@ class Shape extends PluginDataNode {
     this.children.push(child);
   }
   resize(width, height) { this.width = width; this.height = height; }
+  addFlexLayout() {
+    const owner = this;
+    this.grid = null;
+    this.flex = { dir: 'row', wrap: 'nowrap', rowGap: 0, columnGap: 0, topPadding: 0, rightPadding: 0, bottomPadding: 0, leftPadding: 0, alignItems: 'start', justifyContent: 'start', horizontalSizing: 'fix', verticalSizing: 'fix', remove() { owner.flex = null; } };
+    return this.flex;
+  }
+  addGridLayout() {
+    const owner = this;
+    this.flex = null;
+    this.grid = { dir: 'row', rowGap: 0, columnGap: 0, topPadding: 0, rightPadding: 0, bottomPadding: 0, leftPadding: 0, alignItems: 'start', justifyItems: 'start', horizontalSizing: 'fix', verticalSizing: 'fix', columns: [], rows: [], addColumn(type, value) { this.columns.push({ type, value }); }, removeColumn(index) { this.columns.splice(index, 1); }, addRow(type, value = null) { this.rows.push({ type, value }); }, removeRow(index) { this.rows.splice(index, 1); }, remove() { owner.grid = null; } };
+    return this.grid;
+  }
   component() { return this._component; }
   isComponentCopyInstance() { return this._isCopy; }
 }
@@ -59,6 +73,12 @@ function cloneShape(source) {
   clone.fills = structuredClone(source.fills);
   clone.strokes = structuredClone(source.strokes);
   clone._pluginData = new Map(source._pluginData);
+  if (source.flex) Object.assign(clone.addFlexLayout(), Object.fromEntries(Object.entries(source.flex).filter(([, value]) => typeof value !== 'function')));
+  if (source.grid) {
+    const grid = clone.addGridLayout();
+    for (const [key, value] of Object.entries(source.grid)) if (typeof value !== 'function' && !['columns', 'rows'].includes(key)) grid[key] = structuredClone(value);
+    grid.columns = structuredClone(source.grid.columns); grid.rows = structuredClone(source.grid.rows);
+  }
   for (const child of source.children) clone.appendChild(cloneShape(child));
   return clone;
 }
@@ -157,12 +177,12 @@ function environment() {
 }
 
 function snapshot(penpot) {
+  const layout = (value) => value ? Object.fromEntries(Object.entries(value).filter(([, item]) => typeof item !== 'function')) : null;
   const node = (shape) => ({
     id: shape.id, type: shape.type, name: shape.name, x: shape.x, y: shape.y, width: shape.width, height: shape.height,
     hidden: shape.hidden, visible: shape.visible, fills: shape.fills, strokes: shape.strokes, characters: shape.characters,
     opacity: shape.opacity, borderRadius: shape.borderRadius, clipContent: shape.clipContent,
-    layoutMode: shape.layoutMode, flexDirection: shape.flexDirection, layoutGap: shape.layoutGap,
-    layoutPadding: shape.layoutPadding, layoutAlign: shape.layoutAlign, layoutWrap: shape.layoutWrap, gridColumns: shape.gridColumns,
+    flex: layout(shape.flex), grid: layout(shape.grid),
     plugin_data: [...shape._pluginData.entries()].sort(), component_id: shape.component?.()?.id || null,
     is_copy: shape.isComponentCopyInstance?.() || false, children: shape.children.map(node),
   });
@@ -178,16 +198,27 @@ function managedRoot(penpot, unitId) {
   return page.root.children.find((candidate) => pluginGet(candidate, namespace, 'stable-id') === `root/${unitId}`);
 }
 
-test('successor freezes six existing units, seven components, 22 source-bound specimens, and exact source-consumer lineage', () => {
+test('successor freezes six existing units, seven components, exact 21 source-bound specimens, and direct style-owner tuples', () => {
   assert.deepEqual(validateSuccessor(successor, predecessor, productContract, nativeContract), []);
   assert.equal(successor.page_units.length, 6);
   assert.equal(Object.keys(nativeContract.components).length, 7);
-  assert.equal(Object.keys(nativeContract.specimens).length, 22);
+  assert.equal(Object.keys(nativeContract.specimens).length, 21);
   assert.equal(nativeContract.authority.style_owner.git_blob_sha1, '4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1');
+  const exactOwners = {
+    'U-PATTERN-LISTING-DISCOVERY-RAIL': ['ListingDiscoveryRail', 'ListingControls'],
+    'U-PATTERN-LISTING-FILTER-BAR': ['ListingDiscoveryRail', 'ListingControls'],
+    'U-PATTERN-LISTING-SECTION-HEADER': ['ListingPageHeader'],
+    'U-PATTERN-AUTHORIZED-SEARCH-BAR': ['AuthorizedEventSearch', 'EventLayout'],
+    'U-PATTERN-CONTENT-SHELF': ['FreeCollectionSurface', 'FestivalTimelinePage'],
+    'U-PATTERN-CONTENT-GROUPING': ['FreeCollectionSurface', 'FestivalTimelinePage'],
+    'U-PATTERN-ROW-GROUP-COMPOSITION': ['FreeCollectionSurface', 'FestivalTimelinePage'],
+  };
   for (const [componentId, component] of Object.entries(nativeContract.components)) {
     assert.deepEqual(successor.component_source_lineage[componentId].map((entry) => entry.role), component.source_consumers);
     assert.deepEqual(component.anatomy_nodes.map((node) => node.key), component.anatomy);
     assert.ok(component.anatomy_nodes.every((node) => node.text !== undefined && node.width > 0 && node.height > 0));
+    assert.deepEqual(component.source_style_authority.direct_owner_tuples.map((entry) => entry.role), exactOwners[componentId]);
+    assert.ok(component.anatomy_nodes.filter((node) => node.kind !== 'text').every((node) => node.children.length > 0 && node.children.every((child) => ['chip', 'card', 'input', 'action', 'progress-track', 'content-group'].includes(child.role))));
   }
   assert.equal(successor.status, 'ATLAS_EXTENSION_PENDING');
   assert.equal(successor.authorization.penpot_execution_authorized, false);
@@ -219,11 +250,11 @@ test('two actual native-like executor runs create concrete masters and linked vi
   const second = await run(env);
   const afterSecond = snapshot(env.penpot);
 
-  assert.equal(first.created, 150);
+  assert.equal(first.created, 201);
   assert.equal(second.created, 0);
   assert.equal(second.second_run_created, 0);
   assert.equal(afterSecond, afterFirst);
-  assert.deepEqual(first.counts, { pages: 6, roots: 6, component_masters: 7, linked_visible_specimens: 22, duplicates: 0, detached: 0, screenshots: 0 });
+  assert.deepEqual(first.counts, { pages: 6, roots: 6, component_masters: 7, linked_visible_specimens: 21, duplicates: 0, detached: 0, screenshots: 0 });
   assert.deepEqual(second.counts, first.counts);
   assert.deepEqual(second.validation, []);
   assert.deepEqual(first.protected_projection_before, protectedBefore);
@@ -245,11 +276,29 @@ test('two actual native-like executor runs create concrete masters and linked vi
       assert.equal(pluginGet(instance, successor.execution.namespace, 'source-lineage'), pluginGet(wrapper, successor.execution.namespace, 'source-lineage'));
       for (const [key, label] of Object.entries(nativeContract.specimens[specimenId].label_overrides)) {
         const anatomy = instance.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') === key);
-        const text = anatomy.type === 'text' ? anatomy : anatomy.children.find((shape) => shape.type === 'text');
-        assert.equal(text.characters, label);
+        const texts = anatomy.type === 'text' ? [anatomy] : anatomy.children.flatMap((item) => item.children.filter((shape) => shape.type === 'text'));
+        const actual = anatomy.type === 'text' ? texts[0].characters : texts.map((text) => text.characters).filter(Boolean).join(' · ');
+        const expected = anatomy.type === 'text' ? label : label.replace(/\s{3,}/gu, ' · ');
+        assert.equal(actual, expected);
       }
+      assert.ok(instance.flex || instance.grid, 'native layout object required');
     }
   }
+  const findInstance = (specimenId) => {
+    const unit = successor.page_units.find((candidate) => candidate.specimen_ids.includes(specimenId));
+    const wrapper = managedRoot(env.penpot, unit.unit_id).children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === `specimen/${specimenId}`);
+    return wrapper.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === `instance/${specimenId}`);
+  };
+  const nestedTexts = (shape) => [shape, ...shape.children.flatMap(nestedTexts)].filter((node) => node.type === 'text');
+  for (const [specimenId, anatomyKey] of [['u-pattern-search-control-bars-filter-subset', 'city-chips'], ['u-pattern-section-headers-today', 'related-route-navigation']]) {
+    const anatomy = findInstance(specimenId).children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') === anatomyKey);
+    assert.ok(nestedTexts(anatomy).every((text) => text.fills[0].fillColor === '#FFFFFF'));
+  }
+  const railRoot = managedRoot(env.penpot, 'U-PATTERN-RAILS');
+  const railMaster = railRoot.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id') === 'master/U-PATTERN-LISTING-DISCOVERY-RAIL');
+  const pinnedControls = railMaster.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') === 'listing-controls');
+  assert.equal(pluginGet(railMaster, successor.execution.namespace, 'pinned'), 'true');
+  assert.ok(nestedTexts(pinnedControls).every((text) => text.fills[0].fillColor === '#793014'));
 });
 
 test('duplicate, detached, screenshot, source-lineage and protected-projection failures fail closed', async () => {
@@ -299,14 +348,23 @@ test('replay fails closed on old false-PASS anatomy geometry, style, text, plugi
     const wrapper = root.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'stable-id').startsWith('specimen/'));
     const instance = wrapper.children.find((shape) => shape.isComponentCopyInstance());
     const anatomy = instance.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') && shape.visible !== false && shape.hidden !== true);
-    mutator({ env, root, instance, anatomy });
+    const hidden = instance.children.find((shape) => pluginGet(shape, successor.execution.namespace, 'anatomy-key') && (shape.visible === false || shape.hidden === true));
+    const hiddenBoard = instance.children.find((shape) => shape.type === 'board' && pluginGet(shape, successor.execution.namespace, 'anatomy-key') && (shape.visible === false || shape.hidden === true));
+    mutator({ env, root, wrapper, instance, anatomy, hidden, hiddenBoard });
     await assert.rejects(() => run(env), pattern);
   }
   await corrupted(({ anatomy }) => { anatomy.x += 1; }, /SPECIMEN_ANATOMY_GEOMETRY/);
   await corrupted(({ anatomy }) => { anatomy.opacity = 0.314; }, /SPECIMEN_ANATOMY_OPACITY/);
-  await corrupted(({ anatomy }) => { const text = anatomy.type === 'text' ? anatomy : anatomy.children.find((child) => child.type === 'text'); text.characters = 'PLACEHOLDER'; }, /SPECIMEN_ANATOMY_TEXT/);
+  await corrupted(({ anatomy }) => { anatomy.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_ANATOMY_SURFACE/);
+  await corrupted(({ anatomy }) => { const text = anatomy.type === 'text' ? anatomy : anatomy.children[0].children.find((child) => child.type === 'text'); text.characters = 'PLACEHOLDER'; }, /SPECIMEN_ANATOMY_TEXT/);
+  await corrupted(({ hidden }) => { hidden.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_ANATOMY_(SURFACE|TEXT_COLOR)|MANAGED_PROJECTION_DRIFT/);
+  await corrupted(({ hiddenBoard }) => { hiddenBoard.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_ANATOMY_SURFACE/);
+  await corrupted(({ hidden }) => { const text = hidden.type === 'text' ? hidden : hidden.children[0].children.find((child) => child.type === 'text'); text.characters = 'HIDDEN PLACEHOLDER'; }, /SPECIMEN_ANATOMY_TEXT/);
+  await corrupted(({ wrapper }) => { wrapper.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_WRAPPER.*SURFACE/);
   await corrupted(({ anatomy }) => { anatomy._pluginData.delete(`${successor.execution.namespace}\0anatomy-key`); }, /SPECIMEN_ANATOMY_CENSUS/);
-  await corrupted(({ instance }) => { instance.layoutMode = 'none'; }, /LAYOUT_MODE/);
+  await corrupted(({ instance }) => { (instance.flex || instance.grid).dir = 'corrupt'; }, /LAYOUT_DIRECTION/);
+  await corrupted(({ anatomy }) => { anatomy.setSharedPluginData(successor.execution.namespace, 'unexpected-extra', 'corrupt'); }, /MANAGED_PROJECTION_DRIFT/);
+  await corrupted(({ instance }) => { const nested = new Shape('board'); nested._isCopy = true; nested._component = null; instance.appendChild(nested); }, /DETACHED_NESTED_INSTANCE/);
   await corrupted(({ env }) => { env.penpot.library.local.components[0].path = 'Wrong'; }, /COMPONENT_LIBRARY_IDENTITY/);
 
   const protectedEnv = environment();

@@ -14,10 +14,10 @@
   reflow, and states from the frozen product contract.
 - Every master and linked specimen binds the exact ordered source-consumer
   tuple (`role`, source path, Git blob) from the predecessor package.
-- Two actual native-like executor runs: first created `150`; second created
+- Two actual native-like executor runs: first created `201`; second created
   `0`; snapshots identical.
 - Native census: pages `6`, roots `6`, component masters `7`, linked visible
-  specimens `22`.
+  specimens `21`.
 - Integrity: duplicates `0`, detached `0`, screenshots `0`, protected
   projection changes `0`, validation `[]`.
 - Shared plugin data is string-only in runtime and the test double; non-string
@@ -50,7 +50,7 @@
 - lease cancellation: fail-closed PASS
 - pages: 6
 - canonical masters: 7
-- linked specimens: 22
+- linked specimens: 21
 - managed nodes total: 34
 - maximum managed nodes on one page: 7 (hard limit 30)
 - detached instances: 0
@@ -67,8 +67,25 @@ Remote head/tree/blob readback is intentionally not asserted until GitHub public
 
 Independent QA rejection of the earlier schematic implementation is closed by the
 source-bound contract repair: the exact `design-system.css` blob owns all state
-styles; the 22 linked specimens expose concrete source-consumer content and
+styles; the exact 21 linked specimens expose concrete source-consumer content and
 selected/loading/pinned/current states through native Grid/Flex layouts. Replay
 now fails closed on managed anatomy geometry, surface, editable text, plugin data,
 layout, and local-component-library identity corruption. Protected projection
 covers text, fills, strokes, plugin data, layout, and foreign local components.
+
+## R2 native-structure correction
+
+The exact backlog census is restored to 21 linked specimens. Component and
+specimen layouts now use real `Board.addFlexLayout()` / `Board.addGridLayout()`
+objects rather than scalar layout metadata. Control anatomy contains real nested
+chip, card/list, input, action, progress, and content-group boards with editable
+text. Direct style-owner tuples bind rail controls to ListingDiscoveryRail and
+ListingControls, section headers to ListingPageHeader, authorized search to
+AuthorizedEventSearch and EventLayout, and collection/row patterns to
+FreeCollectionSurface and the festivali page. Selected/current specimen text and
+the documented pinned master state receive their declared text colors.
+
+Replay validation covers visible and hidden text/fills, wrapper surfaces, extra
+plugin-data, native layout objects, complete owner tuples, component-library
+identity, and recursive nested detach corruption. Managed and protected
+projections are both stable across the actual second native-like run.

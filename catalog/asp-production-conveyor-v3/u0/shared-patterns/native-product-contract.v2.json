@@ -137,7 +137,58 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "listing-controls-1",
+              "role": "chip",
+              "text": "Все города",
+              "x": 6,
+              "y": 6,
+              "width": 152,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "14",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "listing-controls-2",
+              "role": "chip",
+              "text": "Калининград",
+              "x": 164,
+              "y": 6,
+              "width": 152,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "14",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "listing-controls-3",
+              "role": "chip",
+              "text": "Светлогорск",
+              "x": 322,
+              "y": 6,
+              "width": 152,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "14",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "optional-time-plane",
@@ -160,13 +211,78 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "optional-time-plane-1",
+              "role": "chip",
+              "text": "Утро",
+              "x": 6,
+              "y": 6,
+              "width": 92,
+              "height": 32,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "optional-time-plane-2",
+              "role": "chip",
+              "text": "День",
+              "x": 104,
+              "y": 6,
+              "width": 92,
+              "height": 32,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "optional-time-plane-3",
+              "role": "chip",
+              "text": "Вечер",
+              "x": 202,
+              "y": 6,
+              "width": 92,
+              "height": 32,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "ke-listing-discovery-rail",
@@ -176,6 +292,32 @@
         "padding": 20,
         "align": "start",
         "wrap": false
+      },
+      "documented_state_styles": {
+        "pinned-documented": {
+          "source_owner_tuples": [
+            {
+              "role": "ListingDiscoveryRail",
+              "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+              "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+            },
+            {
+              "role": "ListingControls",
+              "path": "site/src/components/listings/ListingControls.astro",
+              "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+            }
+          ],
+          "selected_anatomy": [
+            "listing-controls"
+          ],
+          "current_anatomy": [],
+          "pinned": true,
+          "loading": false,
+          "text_color_by_anatomy": {
+            "listing-controls": "#793014",
+            "optional-time-plane": "#44362D"
+          }
+        }
       }
     },
     "U-PATTERN-CONTENT-SHELF": {
@@ -262,7 +404,7 @@
           "y": 86,
           "width": 250,
           "height": 36,
-          "text": "24 события",
+          "text": "Концерты · Театр · Выставки",
           "fill": "#FFF8DB",
           "radius": 18,
           "font_size": "13",
@@ -276,7 +418,58 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "count-or-category-inventory-1",
+              "role": "chip",
+              "text": "Концерты",
+              "x": 6,
+              "y": 6,
+              "width": 75,
+              "height": 24,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "count-or-category-inventory-2",
+              "role": "chip",
+              "text": "Театр",
+              "x": 87,
+              "y": 6,
+              "width": 75,
+              "height": 24,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "count-or-category-inventory-3",
+              "role": "chip",
+              "text": "Выставки",
+              "x": 168,
+              "y": 6,
+              "width": 75,
+              "height": 24,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "supporting-note",
@@ -322,13 +515,62 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "card-list",
+          "children": [
+            {
+              "key": "content-plane-1",
+              "role": "card",
+              "text": "Органный концерт",
+              "x": 6,
+              "y": 6,
+              "width": 231,
+              "height": 48,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "content-plane-2",
+              "role": "card",
+              "text": "Балтийская выставка",
+              "x": 243,
+              "y": 6,
+              "width": 231,
+              "height": 48,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "free-collection__results",
@@ -438,7 +680,26 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "content-group",
+          "children": [
+            {
+              "key": "result-count-1",
+              "role": "content-group",
+              "text": "42 события",
+              "x": 6,
+              "y": 6,
+              "width": 98,
+              "height": 20,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "related-route-navigation",
@@ -461,13 +722,73 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "related-route-navigation-1",
+              "role": "chip",
+              "text": "Завтра",
+              "x": 6,
+              "y": 6,
+              "width": 152,
+              "height": 34,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "related-route-navigation-2",
+              "role": "chip",
+              "text": "Выходные",
+              "x": 164,
+              "y": 6,
+              "width": 152,
+              "height": 34,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "related-route-navigation-3",
+              "role": "chip",
+              "text": "Популярное",
+              "x": 322,
+              "y": 6,
+              "width": 152,
+              "height": 34,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "ListingPageHeader",
+            "path": "site/src/components/listings/ListingPageHeader.astro",
+            "git_blob_sha1": "8dfbdfa7e4b91c3192ccafa28ce423e5e9b3e335"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "ke-listing-head",
@@ -583,7 +904,26 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "input",
+          "children": [
+            {
+              "key": "query-input-1",
+              "role": "input",
+              "text": "Лекции, выставки, спектакли…",
+              "x": 6,
+              "y": 6,
+              "width": 338,
+              "height": 32,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "13",
+              "font_weight": "500",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "submit-action",
@@ -606,7 +946,26 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "action",
+          "children": [
+            {
+              "key": "submit-action-1",
+              "role": "action",
+              "text": "Найти",
+              "x": 6,
+              "y": 6,
+              "width": 106,
+              "height": 32,
+              "fill": "#A54821",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "14",
+              "font_weight": "800",
+              "text_color": "#FFFFFF"
+            }
+          ]
         },
         {
           "key": "progress",
@@ -615,7 +974,7 @@
           "y": 128,
           "width": 480,
           "height": 8,
-          "text": "",
+          "text": "Состояние загрузки",
           "fill": "#0F766E",
           "radius": 4,
           "font_size": "10",
@@ -629,7 +988,26 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "progress-track",
+          "children": [
+            {
+              "key": "progress-1",
+              "role": "progress-track",
+              "text": "Состояние загрузки",
+              "x": 6,
+              "y": 6,
+              "width": 468,
+              "height": 20,
+              "fill": "#0F766E",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "10",
+              "font_weight": "500",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "status",
@@ -675,13 +1053,46 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "card-list",
+          "children": [
+            {
+              "key": "results-boundary-1",
+              "role": "card",
+              "text": "Результаты появляются ниже",
+              "x": 6,
+              "y": 6,
+              "width": 468,
+              "height": 20,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "AuthorizedEventSearch",
+            "path": "site/src/components/AuthorizedEventSearch.astro",
+            "git_blob_sha1": "d40675a7df9a91c8ab2356e348ecbbfe6378f85b"
+          },
+          {
+            "role": "EventLayout",
+            "path": "site/src/layouts/EventLayout.astro",
+            "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "authorized-search",
@@ -769,7 +1180,26 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "all-chip-1",
+              "role": "chip",
+              "text": "Все",
+              "x": 6,
+              "y": 6,
+              "width": 60,
+              "height": 28,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "13",
+              "font_weight": "800",
+              "text_color": "#FFFFFF"
+            }
+          ]
         },
         {
           "key": "city-chips",
@@ -792,7 +1222,58 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "chip-list",
+          "children": [
+            {
+              "key": "city-chips-1",
+              "role": "chip",
+              "text": "Калининград",
+              "x": 6,
+              "y": 6,
+              "width": 124,
+              "height": 28,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "city-chips-2",
+              "role": "chip",
+              "text": "Светлогорск",
+              "x": 136,
+              "y": 6,
+              "width": 124,
+              "height": 28,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "city-chips-3",
+              "role": "chip",
+              "text": "Зеленоградск",
+              "x": 266,
+              "y": 6,
+              "width": 124,
+              "height": 28,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "live-result-status",
@@ -838,13 +1319,46 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "action",
+          "children": [
+            {
+              "key": "empty-recovery-action-1",
+              "role": "action",
+              "text": "Сбросить фильтры",
+              "x": 6,
+              "y": 6,
+              "width": 156,
+              "height": 24,
+              "fill": "#A54821",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 999,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "ke-listing-controls",
@@ -977,7 +1491,58 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "card-list",
+          "children": [
+            {
+              "key": "item-container-1",
+              "role": "card",
+              "text": "Концерт в Кафедральном соборе",
+              "x": 6,
+              "y": 6,
+              "width": 152,
+              "height": 58,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "13",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "item-container-2",
+              "role": "card",
+              "text": "Выставка «Море внутри»",
+              "x": 164,
+              "y": 6,
+              "width": 152,
+              "height": 58,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "13",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "item-container-3",
+              "role": "card",
+              "text": "Открытая лекция",
+              "x": 322,
+              "y": 6,
+              "width": 152,
+              "height": 58,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "13",
+              "font_weight": "600",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "empty-state",
@@ -1000,13 +1565,46 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "content-group",
+          "children": [
+            {
+              "key": "empty-state-1",
+              "role": "content-group",
+              "text": "Сейчас в актуальной выгрузке нет событий с подтверждённым бесплатным входом",
+              "x": 6,
+              "y": 6,
+              "width": 468,
+              "height": 58,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "13",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "ke-popular-behavior__group",
@@ -1071,7 +1669,74 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "card-list",
+          "children": [
+            {
+              "key": "ordered-items-1",
+              "role": "card",
+              "text": "Кантата у собора",
+              "x": 6,
+              "y": 6,
+              "width": 112,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "800",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "ordered-items-2",
+              "role": "card",
+              "text": "Джаз у моря",
+              "x": 124,
+              "y": 6,
+              "width": 112,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "800",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "ordered-items-3",
+              "role": "card",
+              "text": "Музейная ночь",
+              "x": 242,
+              "y": 6,
+              "width": 112,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "800",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "ordered-items-4",
+              "role": "card",
+              "text": "Городской пикник",
+              "x": 360,
+              "y": 6,
+              "width": 112,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "14",
+              "font_weight": "800",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "bounded-row-size",
@@ -1140,7 +1805,42 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "content-group",
+          "children": [
+            {
+              "key": "responsive-representation-1",
+              "role": "content-group",
+              "text": "desktop behavior row",
+              "x": 6,
+              "y": 6,
+              "width": 141,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "responsive-representation-2",
+              "role": "content-group",
+              "text": "mobile-large family rail",
+              "x": 153,
+              "y": 6,
+              "width": 141,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         },
         {
           "key": "supplemental-item-contract",
@@ -1163,13 +1863,62 @@
             "padding": 12,
             "align": "center",
             "wrap": true
-          }
+          },
+          "structure_type": "card-list",
+          "children": [
+            {
+              "key": "supplemental-item-contract-1",
+              "role": "card",
+              "text": "Персональная рекомендация",
+              "x": 6,
+              "y": 6,
+              "width": 75,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            },
+            {
+              "key": "supplemental-item-contract-2",
+              "role": "card",
+              "text": "вне основной пятёрки",
+              "x": 87,
+              "y": 6,
+              "width": 75,
+              "height": 36,
+              "fill": "#FFFDF8",
+              "stroke": "#E1D3C2",
+              "stroke_width": 1,
+              "radius": 10,
+              "font_size": "12",
+              "font_weight": "700",
+              "text_color": "#221A14"
+            }
+          ]
         }
       ],
       "source_style_authority": {
-        "role": "DesignSystemTokens",
-        "path": "site/src/styles/design-system.css",
-        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        "direct_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ],
+        "design_system_tokens": {
+          "role": "DesignSystemTokens",
+          "path": "site/src/styles/design-system.css",
+          "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+        }
       },
       "native_layout": {
         "source_css_class": "ke-popular-behavior__row",
@@ -1227,7 +1976,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ]
       }
     },
     "u-pattern-rails-with-time": {
@@ -1282,7 +2043,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ]
       }
     },
     "u-pattern-rails-date-context": {
@@ -1337,7 +2110,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ]
       }
     },
     "u-pattern-shelves-counted": {
@@ -1408,7 +2193,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-shelves-category-inventory": {
@@ -1479,7 +2276,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-shelves-compact": {
@@ -1534,7 +2343,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-section-headers-today": {
@@ -1609,7 +2430,14 @@
             "radius": 999,
             "text_color": "#FFFFFF"
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingPageHeader",
+            "path": "site/src/components/listings/ListingPageHeader.astro",
+            "git_blob_sha1": "8dfbdfa7e4b91c3192ccafa28ce423e5e9b3e335"
+          }
+        ]
       }
     },
     "u-pattern-section-headers-weekend": {
@@ -1684,7 +2512,14 @@
             "radius": 999,
             "text_color": "#FFFFFF"
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingPageHeader",
+            "path": "site/src/components/listings/ListingPageHeader.astro",
+            "git_blob_sha1": "8dfbdfa7e4b91c3192ccafa28ce423e5e9b3e335"
+          }
+        ]
       }
     },
     "u-pattern-section-headers-popular": {
@@ -1759,7 +2594,14 @@
             "radius": 999,
             "text_color": "#FFFFFF"
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingPageHeader",
+            "path": "site/src/components/listings/ListingPageHeader.astro",
+            "git_blob_sha1": "8dfbdfa7e4b91c3192ccafa28ce423e5e9b3e335"
+          }
+        ]
       }
     },
     "u-pattern-search-control-bars-search-signed-out": {
@@ -1848,7 +2690,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "AuthorizedEventSearch",
+            "path": "site/src/components/AuthorizedEventSearch.astro",
+            "git_blob_sha1": "d40675a7df9a91c8ab2356e348ecbbfe6378f85b"
+          },
+          {
+            "role": "EventLayout",
+            "path": "site/src/layouts/EventLayout.astro",
+            "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+          }
+        ]
       }
     },
     "u-pattern-search-control-bars-search-loading": {
@@ -1945,7 +2799,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "AuthorizedEventSearch",
+            "path": "site/src/components/AuthorizedEventSearch.astro",
+            "git_blob_sha1": "d40675a7df9a91c8ab2356e348ecbbfe6378f85b"
+          },
+          {
+            "role": "EventLayout",
+            "path": "site/src/layouts/EventLayout.astro",
+            "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+          }
+        ]
       }
     },
     "u-pattern-search-control-bars-filter-subset": {
@@ -2019,7 +2885,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ]
       }
     },
     "u-pattern-search-control-bars-filter-empty": {
@@ -2098,7 +2976,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "ListingDiscoveryRail",
+            "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+            "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+          },
+          {
+            "role": "ListingControls",
+            "path": "site/src/components/listings/ListingControls.astro",
+            "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+          }
+        ]
       }
     },
     "u-pattern-content-groupings-events": {
@@ -2170,7 +3060,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-content-groupings-exhibitions": {
@@ -2242,7 +3144,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-content-groupings-behavior-group": {
@@ -2306,7 +3220,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-content-groupings-empty": {
@@ -2370,7 +3296,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-row-group-composition-desktop-row": {
@@ -2443,7 +3381,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-row-group-composition-mobile-adaptive": {
@@ -2516,7 +3466,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-row-group-composition-singleton": {
@@ -2580,7 +3542,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
+        },
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+          },
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+          }
+        ]
       }
     },
     "u-pattern-row-group-composition-supplemental-tail": {
@@ -2653,71 +3627,19 @@
             "stroke_width": 1,
             "radius": 14
           }
-        }
-      }
-    },
-    "u-pattern-rails-pinned-documented": {
-      "unit_id": "U-PATTERN-RAILS",
-      "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
-      "state": "pinned-documented",
-      "source_viewport": {
-        "width": 1280,
-        "height": 760
-      },
-      "visible_anatomy": [
-        "optional-date-context",
-        "listing-controls",
-        "optional-time-plane"
-      ],
-      "label_overrides": {
-        "optional-date-context": "1 сентября · понедельник",
-        "listing-controls": "Все 42 · Калининград 31 · Светлогорск 7",
-        "optional-time-plane": "Утро 8 · День 21 · Вечер 13"
-      },
-      "tone": "brand",
-      "state_style": {
-        "style_id": "U-PATTERN-LISTING-DISCOVERY-RAIL/pinned-documented/desktop",
-        "source_css_blob": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1",
-        "layout": {
-          "mode": "grid",
-          "direction": "row",
-          "gap": 12,
-          "padding": 0,
-          "align": "center",
-          "wrap": false,
-          "grid_columns": "112px minmax(0,1fr) max-content"
         },
-        "selected_anatomy": [
-          "listing-controls"
-        ],
-        "current_anatomy": [],
-        "pinned": true,
-        "loading": false,
-        "node_styles": {
-          "optional-date-context": {
-            "opacity": 1,
-            "fill": null,
-            "stroke": null,
-            "stroke_width": 0,
-            "radius": 0
+        "source_owner_tuples": [
+          {
+            "role": "FreeCollectionSurface",
+            "path": "site/src/components/FreeCollectionSurface.astro",
+            "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
           },
-          "listing-controls": {
-            "opacity": 1,
-            "fill": null,
-            "stroke": null,
-            "stroke_width": 0,
-            "radius": 0,
-            "text_color": "#793014"
-          },
-          "optional-time-plane": {
-            "opacity": 1,
-            "fill": null,
-            "stroke": null,
-            "stroke_width": 0,
-            "radius": 0,
-            "text_color": "#44362D"
+          {
+            "role": "FestivalTimelinePage",
+            "path": "site/src/pages/festivali/index.astro",
+            "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
           }
-        }
+        ]
       }
     }
   }

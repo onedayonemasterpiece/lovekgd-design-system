@@ -62,15 +62,28 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         self.assertEqual(SUCCESSOR["patterns"], PREDECESSOR["patterns"])
         self.assertEqual(len(SUCCESSOR["page_units"]), 6)
         self.assertEqual(len(NATIVE["components"]), 7)
-        self.assertEqual(len(NATIVE["specimens"]), 22)
+        self.assertEqual(len(NATIVE["specimens"]), 21)
         self.assertEqual(NATIVE["authority"]["style_owner"]["git_blob_sha1"], "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1")
         products = {component["component_id"]: component for pattern in PRODUCT["patterns"] for component in pattern["components"]}
         authority = {item["role"]: item for item in SUCCESSOR["source_authority"]["files"]}
+        exact_owners = {
+            "U-PATTERN-LISTING-DISCOVERY-RAIL": ["ListingDiscoveryRail", "ListingControls"],
+            "U-PATTERN-LISTING-FILTER-BAR": ["ListingDiscoveryRail", "ListingControls"],
+            "U-PATTERN-LISTING-SECTION-HEADER": ["ListingPageHeader"],
+            "U-PATTERN-AUTHORIZED-SEARCH-BAR": ["AuthorizedEventSearch", "EventLayout"],
+            "U-PATTERN-CONTENT-SHELF": ["FreeCollectionSurface", "FestivalTimelinePage"],
+            "U-PATTERN-CONTENT-GROUPING": ["FreeCollectionSurface", "FestivalTimelinePage"],
+            "U-PATTERN-ROW-GROUP-COMPOSITION": ["FreeCollectionSurface", "FestivalTimelinePage"],
+        }
         for component_id, component in NATIVE["components"].items():
             self.assertEqual(component["anatomy"], products[component_id]["anatomy"])
             self.assertEqual(component["states"], products[component_id]["states"])
             self.assertEqual(component["source_consumers"], products[component_id]["source_consumers"])
             self.assertEqual([item["key"] for item in component["anatomy_nodes"]], component["anatomy"])
+            self.assertEqual([item["role"] for item in component["source_style_authority"]["direct_owner_tuples"]], exact_owners[component_id])
+            for node in component["anatomy_nodes"]:
+                if node["kind"] != "text":
+                    self.assertGreater(len(node["children"]), 0)
             lineage = SUCCESSOR["component_source_lineage"][component_id]
             self.assertEqual([item["role"] for item in lineage], component["source_consumers"])
             for item in lineage:
@@ -88,7 +101,7 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         executor = (SCRIPT_DIR / "native_executor_v2.js").read_text(encoding="utf-8")
         node_test = (ROOT / SUCCESSOR["execution"]["node_test"]).read_text(encoding="utf-8")
         self.assertNotIn("penpot.ensure", runtime)
-        for operation in ("createPage", "openPage", "createBoard", "createText", "createComponent", ".instance()"):
+        for operation in ("createPage", "openPage", "createBoard", "createText", "createComponent", ".instance()", "addFlexLayout", "addGridLayout"):
             self.assertIn(operation, runtime)
         self.assertIn("runNativeSuccessor", executor)
         self.assertIn("typeof value !== 'string'", runtime)

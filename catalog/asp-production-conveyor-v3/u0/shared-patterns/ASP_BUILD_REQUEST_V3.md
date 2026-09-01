@@ -34,10 +34,10 @@ native_census:
   pages: 6
   roots: 6
   component_masters: 7
-  linked_visible_specimens: 22
+  linked_visible_specimens: 21
 replay:
   actual_native_like_runs: 2
-  first_run_created: 150
+  first_run_created: 201
   second_run_created: 0
 integrity:
   duplicates: 0

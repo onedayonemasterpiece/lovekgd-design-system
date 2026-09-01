@@ -90,14 +90,18 @@ function shapeProjection(shape) {
     borderRadius: shape.borderRadius ?? null,
     clipContent: shape.clipContent ?? null,
     opacity: shape.opacity ?? 1,
-    layout: {
-      mode: shape.layoutMode ?? null, direction: shape.flexDirection ?? null,
-      gap: shape.layoutGap ?? null, padding: shape.layoutPadding ?? null,
-      align: shape.layoutAlign ?? null, wrap: shape.layoutWrap ?? null,
-      gridColumns: shape.gridColumns ?? null,
-    },
+    layout: layoutProjection(shape),
     plugin_data: shape?._pluginData ? [...shape._pluginData.entries()].sort() : null,
     children: children(shape).map(shapeProjection),
+  };
+}
+
+function layoutProjection(shape) {
+  const pick = (object, keys) => object ? Object.fromEntries(keys.map((key) => [key, object[key] ?? null])) : null;
+  return {
+    mode: shape.flex ? 'flex' : shape.grid ? 'grid' : shape.type === 'text' ? 'text' : 'none',
+    flex: pick(shape.flex, ['dir', 'wrap', 'rowGap', 'columnGap', 'topPadding', 'rightPadding', 'bottomPadding', 'leftPadding', 'alignItems', 'justifyContent', 'horizontalSizing', 'verticalSizing']),
+    grid: shape.grid ? { ...pick(shape.grid, ['dir', 'rowGap', 'columnGap', 'topPadding', 'rightPadding', 'bottomPadding', 'leftPadding', 'alignItems', 'justifyItems', 'horizontalSizing', 'verticalSizing']), columns: Array.from(shape.grid.columns || []), rows: Array.from(shape.grid.rows || []) } : null,
   };
 }
 
@@ -113,8 +117,18 @@ function protectedProjection(penpot, namespace, packageId) {
   return { chars: canonical.length, bytes: Buffer.byteLength(canonical), sha256: sha256(canonical) };
 }
 
+function managedProjection(penpot, namespace, packageId) {
+  const pages = Array.from(penpot.currentFile.pages || []).filter((page) => pluginGet(page, namespace, 'package-id') === packageId).sort((a, b) => a.id.localeCompare(b.id));
+  const components = Array.from(penpot.library?.local?.components || []).filter((component) => pluginGet(component.mainInstance?.(), namespace, 'package-id') === packageId).map((component) => ({ id: component.id, name: component.name, path: component.path, main: shapeProjection(component.mainInstance?.()) })).sort((a, b) => a.id.localeCompare(b.id));
+  const canonical = stableStringify({ pages: pages.map((page) => ({ id: page.id, name: page.name, plugin_data: page?._pluginData ? [...page._pluginData.entries()].sort() : null, root: shapeProjection(page.root) })), components });
+  return { chars: canonical.length, bytes: Buffer.byteLength(canonical), sha256: sha256(canonical) };
+}
+
 function sourceLineage(successor, componentId) {
   return stableStringify(successor.component_source_lineage[componentId]);
+}
+function styleOwnerTuples(nativeContract, componentId) {
+  return stableStringify(nativeContract.components[componentId].source_style_authority.direct_owner_tuples);
 }
 
 function validateSuccessor(successor, predecessor, productContract, nativeContract) {
@@ -130,7 +144,7 @@ function validateSuccessor(successor, predecessor, productContract, nativeContra
   if (successor?.boundaries?.atlas_page_order_assigned !== false) errors.push('ATLAS_PAGE_ORDER');
   if (successor?.page_units?.length !== 6) errors.push('PAGE_UNIT_COUNT');
   if (Object.keys(nativeContract?.components || {}).length !== 7) errors.push('COMPONENT_COUNT');
-  if (Object.keys(nativeContract?.specimens || {}).length !== 22) errors.push('SPECIMEN_COUNT');
+  if (Object.keys(nativeContract?.specimens || {}).length !== 21) errors.push('SPECIMEN_COUNT');
   if (nativeContract?.authority?.style_owner?.git_blob_sha1 !== '4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1') errors.push('STYLE_OWNER_BLOB');
 
   const predecessorUnits = new Map((predecessor?.page_units || []).map((unit) => [unit.unit_id, unit]));
@@ -152,6 +166,9 @@ function validateSuccessor(successor, predecessor, productContract, nativeContra
         if (!/^site\//.test(binding.path) || !/^[0-9a-f]{40}$/.test(binding.git_blob_sha1)) errors.push(`SOURCE_BINDING:${componentId}:${binding.role}`);
       }
       if (stableStringify((native?.anatomy_nodes || []).map((node) => node.key)) !== stableStringify(product?.anatomy)) errors.push(`VISIBLE_ANATOMY_DRIFT:${componentId}`);
+      const owners = native?.source_style_authority?.direct_owner_tuples;
+      if (!Array.isArray(owners) || owners.length === 0 || owners.some((entry) => !successor.source_authority.files.some((binding) => binding.role === entry.role && binding.path === entry.path && binding.git_blob_sha1 === entry.git_blob_sha1))) errors.push(`DIRECT_STYLE_OWNER_TUPLES:${componentId}`);
+      for (const node of native?.anatomy_nodes || []) if (node.kind !== 'text' && (!Array.isArray(node.children) || node.children.length === 0)) errors.push(`STRUCTURAL_ANATOMY:${componentId}:${node.key}`);
     }
     for (const specimenId of unit.specimen_ids || []) {
       const specimen = nativeContract.specimens?.[specimenId];
@@ -178,13 +195,30 @@ function setSurface(shape, { fill, stroke, stroke_width: strokeWidth = 0, radius
 
 function setNativeLayout(shape, layout) {
   assert(layout && ['grid', 'flex', 'text'].includes(layout.mode), `NATIVE_LAYOUT_REQUIRED:${shape.name}`);
-  shape.layoutMode = layout.mode;
-  shape.flexDirection = layout.direction;
-  shape.layoutGap = layout.gap;
-  shape.layoutPadding = layout.padding;
-  shape.layoutAlign = layout.align;
-  shape.layoutWrap = layout.wrap;
-  shape.gridColumns = layout.grid_columns || null;
+  if (layout.mode === 'text') return;
+  if (layout.mode === 'flex') {
+    assert(typeof shape.addFlexLayout === 'function', `NATIVE_FLEX_API_REQUIRED:${shape.name}`);
+    shape.grid?.remove?.();
+    const flex = shape.flex || shape.addFlexLayout();
+    assert(flex && shape.flex === flex, `NATIVE_FLEX_OBJECT_REQUIRED:${shape.name}`);
+    flex.dir = layout.direction; flex.wrap = layout.wrap ? 'wrap' : 'nowrap';
+    flex.rowGap = layout.direction === 'column' ? layout.gap : 0; flex.columnGap = layout.direction === 'row' ? layout.gap : 0;
+    flex.topPadding = layout.padding; flex.rightPadding = layout.padding; flex.bottomPadding = layout.padding; flex.leftPadding = layout.padding;
+    flex.alignItems = layout.align; flex.justifyContent = 'start'; flex.horizontalSizing = 'fix'; flex.verticalSizing = 'fix';
+  } else {
+    assert(typeof shape.addGridLayout === 'function', `NATIVE_GRID_API_REQUIRED:${shape.name}`);
+    shape.flex?.remove?.();
+    const grid = shape.grid || shape.addGridLayout();
+    assert(grid && shape.grid === grid && typeof grid.addColumn === 'function' && typeof grid.addRow === 'function', `NATIVE_GRID_OBJECT_REQUIRED:${shape.name}`);
+    while (grid.columns.length) grid.removeColumn(grid.columns.length - 1);
+    while (grid.rows.length) grid.removeRow(grid.rows.length - 1);
+    const columns = layout.grid_columns && layout.grid_columns !== '1fr' ? Math.max(1, (layout.grid_columns.match(/\s+/g) || []).length + 1) : 1;
+    for (let index = 0; index < columns; index += 1) grid.addColumn('flex', 1);
+    grid.addRow('auto');
+    grid.dir = layout.direction; grid.rowGap = layout.gap; grid.columnGap = layout.gap;
+    grid.topPadding = layout.padding; grid.rightPadding = layout.padding; grid.bottomPadding = layout.padding; grid.leftPadding = layout.padding;
+    grid.alignItems = layout.align; grid.justifyItems = 'start'; grid.horizontalSizing = 'fix'; grid.verticalSizing = 'fix';
+  }
 }
 
 function createText(penpot, parent, spec) {
@@ -213,14 +247,22 @@ function createAnatomyNode(penpot, lease, parent, namespace, componentId, node, 
       setGeometry(shape, parent, node);
       setSurface(shape, { fill: node.fill, stroke: '#E1D3C2', stroke_width: 1, radius: node.radius, clip_content: true });
       parent.appendChild(shape);
-      createText(penpot, shape, {
-        key: `${node.key}-label`, text: node.text, x: 12, y: Math.max(4, Math.floor((node.height - Number(node.font_size)) / 2) - 2),
-        width: Math.max(20, node.width - 24), height: Math.max(16, node.height - 8), font_size: node.font_size,
-        font_weight: node.font_weight, text_color: node.text_color,
-      });
-      created.value += 1;
+      setNativeLayout(shape, node.native_layout);
+      assert(Array.isArray(node.children) && node.children.length > 0, `STRUCTURAL_CHILDREN_REQUIRED:${componentId}:${node.key}`);
+      for (const child of node.children) {
+        const item = penpot.createBoard();
+        item.name = `${child.role} · ${child.key}`;
+        setGeometry(item, shape, child);
+        setSurface(item, { fill: child.fill, stroke: child.stroke, stroke_width: child.stroke_width, radius: child.radius, clip_content: true });
+        setNativeLayout(item, { mode: 'flex', direction: 'row', gap: 0, padding: 6, align: 'center', wrap: false });
+        mark(item, namespace, { 'structure-key': child.key, 'structure-role': child.role, 'component-id': componentId, 'anatomy-owner': node.key });
+        shape.appendChild(item);
+        const label = createText(penpot, item, { key: `${child.key}-text`, text: child.text, x: 6, y: 3, width: Math.max(16, child.width - 12), height: Math.max(14, child.height - 6), font_size: child.font_size, font_weight: child.font_weight, text_color: child.text_color });
+        mark(label, namespace, { 'structure-text': 'true', 'structure-key': child.key, 'component-id': componentId, 'anatomy-owner': node.key });
+        created.value += 2;
+      }
     }
-    setNativeLayout(shape, node.native_layout);
+    if (node.kind === 'text') setNativeLayout(shape, node.native_layout);
     mark(shape, namespace, { 'stable-id': `anatomy/${componentId}/${node.key}`, 'anatomy-key': node.key, 'component-id': componentId, 'native-visible-content': 'true', 'source-css-class': node.source_css_class, 'layout-spec': stableStringify(node.native_layout) });
     created.value += 1;
     return shape;
@@ -323,6 +365,7 @@ function createMaster(penpot, lease, successor, nativeContract, root, unit, comp
     mark(master, namespace, {
       'stable-id': `master/${componentId}`, 'package-id': successor.package_id, 'unit-id': unit.unit_id,
       'component-id': componentId, 'source-lineage': lineage, 'source-consumers': stableStringify(visual.source_consumers),
+      'style-owner-tuples': styleOwnerTuples(nativeContract, componentId),
       anatomy: stableStringify(visual.anatomy), states: stableStringify(visual.states),
       'responsive-behavior': visual.responsive_behavior, dependencies: stableStringify(visual.dependencies),
       'native-master': 'true', 'candidate-label': 'CANDIDATE_BUILD_NOT_ACCEPTED',
@@ -341,6 +384,24 @@ function createComponent(penpot, lease, successor, master, componentId, created)
     created.value += 1;
     return component;
   });
+}
+
+function applyDocumentedMasterStates(master, namespace, componentContract) {
+  const pinned = componentContract.documented_state_styles?.['pinned-documented'];
+  if (!pinned) return;
+  mark(master, namespace, { 'documented-state': 'pinned-documented', pinned: 'true', selected: stableStringify(pinned.selected_anatomy), current: stableStringify(pinned.current_anatomy), 'documented-style-owner-tuples': stableStringify(pinned.source_owner_tuples) });
+  for (const [key, color] of Object.entries(pinned.text_color_by_anatomy)) {
+    const shape = children(master).find((candidate) => pluginGet(candidate, namespace, 'anatomy-key') === key);
+    assert(shape, `DOCUMENTED_PINNED_ANATOMY_MISSING:${key}`);
+    for (const text of descendantTexts(shape)) text.fills = [{ fillColor: color, fillOpacity: 1 }];
+    setSharedString(shape, namespace, 'documented-text-color', color);
+  }
+}
+
+function descendantTexts(shape) { return walk(shape).filter((child) => child !== shape && child.type === 'text'); }
+function splitLabels(value) { return value.replace(/\s{3,}/gu, ' · ').split(/\s+·\s+/u).map((part) => part.trim()).filter(Boolean); }
+function translateDescendants(shape, dx, dy) {
+  for (const child of children(shape)) { child.x += dx; child.y += dy; translateDescendants(child, dx, dy); }
 }
 
 function applySpecimenState(instance, namespace, componentId, specimen, componentContract) {
@@ -364,23 +425,26 @@ function applySpecimenState(instance, namespace, componentId, specimen, componen
       shape.borderRadius = nodeStyle.radius;
     } else setSurface(shape, { fill: nodeStyle.fill, stroke: nodeStyle.stroke, stroke_width: nodeStyle.stroke_width, radius: nodeStyle.radius, clip_content: shape.clipContent });
     if (isVisible) {
+      const oldX = shape.x; const oldY = shape.y;
       shape.x = instance.x + (mobile ? 14 : node.x);
       shape.y = instance.y + (mobile ? mobileY : node.y);
+      translateDescendants(shape, shape.x - oldX, shape.y - oldY);
       shape.resize(mobile ? Math.min(332, Math.max(80, node.width)) : node.width, node.height);
       if (mobile) mobileY += node.height + 7;
-      const nestedText = shape.type === 'text' ? null : children(shape).find((child) => child.type === 'text');
-      if (nestedText) {
-        nestedText.x = shape.x + 12; nestedText.y = shape.y + Math.max(4, Math.floor((shape.height - Number(node.font_size)) / 2) - 2);
-        nestedText.resize(Math.max(20, shape.width - 24), Math.max(16, shape.height - 8));
-      }
     }
     if (specimen.label_overrides[key]) {
       const label = specimen.label_overrides[key];
-      const text = shape.type === 'text' ? shape : walk(shape).find((child) => child.type === 'text');
-      assert(text, `STATE_TEXT_MISSING:${componentId}:${key}`);
-      text.characters = label;
+      const texts = shape.type === 'text' ? [shape] : descendantTexts(shape);
+      assert(texts.length > 0, `STATE_TEXT_MISSING:${componentId}:${key}`);
+      const labels = shape.type === 'text' ? [label] : splitLabels(label);
+      for (const [index, text] of texts.entries()) {
+        text.characters = labels[index] || '';
+        text.visible = index < labels.length; text.hidden = index >= labels.length;
+      }
       setSharedString(shape, namespace, 'state-label-override', label);
     }
+    const stateTextColor = nodeStyle.text_color || node.text_color;
+    for (const text of shape.type === 'text' ? [shape] : descendantTexts(shape)) text.fills = [{ fillColor: stateTextColor, fillOpacity: 1 }];
   }
   instance.resize(mobile ? 360 : 520, 200);
   instance.clipContent = true;
@@ -414,7 +478,7 @@ function createSpecimen(penpot, lease, successor, nativeContract, root, unit, sp
       height: layout.review_cell_height,
     });
     setSurface(wrapper, { fill: nativeContract.palette.surface_strong, stroke: TONES[specimen.tone], stroke_width: 2, radius: 20, clip_content: true });
-    mark(wrapper, namespace, { 'stable-id': `specimen/${specimenId}`, 'specimen-id': specimenId, 'package-id': successor.package_id, 'unit-id': unit.unit_id, 'component-id': specimen.component_id, state: specimen.state, 'source-lineage': sourceLineage(successor, specimen.component_id), screenshot: 'false' });
+    mark(wrapper, namespace, { 'stable-id': `specimen/${specimenId}`, 'specimen-id': specimenId, 'package-id': successor.package_id, 'unit-id': unit.unit_id, 'component-id': specimen.component_id, state: specimen.state, 'source-lineage': sourceLineage(successor, specimen.component_id), 'style-owner-tuples': styleOwnerTuples(nativeContract, specimen.component_id), screenshot: 'false' });
     root.appendChild(wrapper);
     createText(penpot, wrapper, { key: `${specimenId}-state`, text: `${specimen.state} · ${specimen.source_viewport.width}px`, x: 16, y: 10, width: 520, height: 20, font_family: 'Inter', font_size: '12', font_weight: '700', line_height: '1.2', text_color: TONES[specimen.tone] });
     const instance = component.instance();
@@ -422,7 +486,7 @@ function createSpecimen(penpot, lease, successor, nativeContract, root, unit, sp
     instance.name = `Linked / ${specimenId}`;
     instance.x = wrapper.x + 16;
     instance.y = wrapper.y + 38;
-    mark(instance, namespace, { 'stable-id': `instance/${specimenId}`, 'specimen-id': specimenId, 'package-id': successor.package_id, 'unit-id': unit.unit_id, 'component-id': specimen.component_id, 'source-lineage': sourceLineage(successor, specimen.component_id), detached: 'false', screenshot: 'false' });
+    mark(instance, namespace, { 'stable-id': `instance/${specimenId}`, 'specimen-id': specimenId, 'package-id': successor.package_id, 'unit-id': unit.unit_id, 'component-id': specimen.component_id, 'source-lineage': sourceLineage(successor, specimen.component_id), 'style-owner-tuples': styleOwnerTuples(nativeContract, specimen.component_id), detached: 'false', screenshot: 'false' });
     wrapper.appendChild(instance);
     applySpecimenState(instance, namespace, specimen.component_id, specimen, nativeContract.components[specimen.component_id]);
     created.value += 3;
@@ -444,9 +508,16 @@ function assertSurface(shape, spec, code) {
 }
 
 function assertLayout(shape, spec, code) {
-  assert(shape.layoutMode === spec.mode && shape.flexDirection === spec.direction, `${code}:LAYOUT_MODE`);
-  assert(shape.layoutGap === spec.gap && shape.layoutPadding === spec.padding && shape.layoutAlign === spec.align && shape.layoutWrap === spec.wrap, `${code}:LAYOUT_VALUES`);
-  assert((shape.gridColumns || null) === (spec.grid_columns || null), `${code}:GRID_COLUMNS`);
+  if (spec.mode === 'text') { assert(shape.type === 'text' && !shape.flex && !shape.grid, `${code}:LAYOUT_MODE`); return; }
+  const object = spec.mode === 'flex' ? shape.flex : shape.grid;
+  assert(object && !(spec.mode === 'flex' ? shape.grid : shape.flex), `${code}:LAYOUT_MODE`);
+  assert(object.dir === spec.direction, `${code}:LAYOUT_DIRECTION`);
+  assert(object.topPadding === spec.padding && object.rightPadding === spec.padding && object.bottomPadding === spec.padding && object.leftPadding === spec.padding, `${code}:LAYOUT_PADDING`);
+  assert(object.alignItems === spec.align, `${code}:LAYOUT_ALIGN`);
+  if (spec.mode === 'flex') {
+    assert(object.wrap === (spec.wrap ? 'wrap' : 'nowrap'), `${code}:LAYOUT_WRAP`);
+    assert(object.rowGap === (spec.direction === 'column' ? spec.gap : 0) && object.columnGap === (spec.direction === 'row' ? spec.gap : 0), `${code}:LAYOUT_GAP`);
+  } else assert(object.rowGap === spec.gap && object.columnGap === spec.gap && object.columns.length > 0 && object.rows.length > 0, `${code}:LAYOUT_GRID`);
 }
 
 function readback(penpot, successor, nativeContract) {
@@ -480,6 +551,7 @@ function readback(penpot, successor, nativeContract) {
       assert(components[0].name === componentId && components[0].path === 'U0 / Shared Patterns / Native R2', `COMPONENT_LIBRARY_IDENTITY:${componentId}`);
       const expectedLineage = sourceLineage(successor, componentId);
       assert(pluginGet(masters[0], namespace, 'source-lineage') === expectedLineage, `MASTER_SOURCE_LINEAGE:${componentId}`);
+      assert(pluginGet(masters[0], namespace, 'style-owner-tuples') === styleOwnerTuples(nativeContract, componentId), `MASTER_STYLE_OWNER_TUPLES:${componentId}`);
       const contract = nativeContract.components[componentId];
       const master = masters[0];
       assert(master.width === contract.master.width && master.height === contract.master.height, `MASTER_GEOMETRY:${componentId}`);
@@ -490,11 +562,25 @@ function readback(penpot, successor, nativeContract) {
         assert(matches.length === 1, `MASTER_ANATOMY_CENSUS:${componentId}:${node.key}`);
         const shape = matches[0];
         assert(shape.x === master.x + node.x && shape.y === master.y + node.y && shape.width === node.width && shape.height === node.height, `MASTER_ANATOMY_GEOMETRY:${componentId}:${node.key}`);
-        const text = shape.type === 'text' ? shape : children(shape).find((child) => child.type === 'text');
-        assert(text?.characters === node.text, `MASTER_ANATOMY_TEXT:${componentId}:${node.key}`);
-        assert(text.fontSize === node.font_size && text.fontWeight === node.font_weight && text.fills?.[0]?.fillColor === node.text_color, `MASTER_ANATOMY_TYPOGRAPHY:${componentId}:${node.key}`);
+        const texts = shape.type === 'text' ? [shape] : descendantTexts(shape);
+        assert(texts.map((text) => text.characters).filter(Boolean).join(' · ') === splitLabels(node.text).join(' · '), `MASTER_ANATOMY_TEXT:${componentId}:${node.key}`);
+        const documentedColor = contract.documented_state_styles?.['pinned-documented']?.text_color_by_anatomy?.[node.key] || node.text_color;
+        assert(texts.every((text) => text.fontSize === node.font_size && text.fontWeight === node.font_weight && text.fills?.[0]?.fillColor === documentedColor), `MASTER_ANATOMY_TYPOGRAPHY:${componentId}:${node.key}`);
+        if (node.kind !== 'text') {
+          const items = children(shape).filter((child) => pluginGet(child, namespace, 'structure-key'));
+          assert(items.length === node.children.length, `MASTER_STRUCTURAL_CHILDREN:${componentId}:${node.key}`);
+          for (const [index, item] of items.entries()) {
+            const child = node.children[index];
+            assert(pluginGet(item, namespace, 'structure-key') === child.key && pluginGet(item, namespace, 'structure-role') === child.role, `MASTER_STRUCTURAL_ROLE:${componentId}:${node.key}:${child.key}`);
+            assert(item.x === shape.x + child.x && item.y === shape.y + child.y && item.width === child.width && item.height === child.height, `MASTER_STRUCTURAL_GEOMETRY:${componentId}:${node.key}:${child.key}`);
+            assertSurface(item, child, `MASTER_STRUCTURAL_SURFACE:${componentId}:${node.key}:${child.key}`);
+          }
+        }
         assert(pluginGet(shape, namespace, 'source-css-class') === node.source_css_class, `MASTER_ANATOMY_SOURCE_STYLE:${componentId}:${node.key}`);
         assertLayout(shape, node.native_layout, `MASTER_ANATOMY:${componentId}:${node.key}`);
+      }
+      if (contract.documented_state_styles?.['pinned-documented']) {
+        assert(pluginGet(master, namespace, 'documented-state') === 'pinned-documented' && pluginGet(master, namespace, 'pinned') === 'true', `MASTER_DOCUMENTED_PINNED:${componentId}`);
       }
       lineage[componentId] = sha256(expectedLineage);
       counts.component_masters += 1;
@@ -505,8 +591,16 @@ function readback(penpot, successor, nativeContract) {
       assert(wrappers.length === 1 && instances.length === 1, `SPECIMEN_CENSUS:${specimenId}`);
       const instance = instances[0];
       const specimen = nativeContract.specimens[specimenId];
+      const wrapper = wrappers[0];
+      const layout = nativeContract.page_layout; const specimenIndex = unit.specimen_ids.indexOf(specimenId);
+      assert(wrapper.x === root.x + layout.review_grid_x + (specimenIndex % layout.review_columns) * (layout.review_cell_width + layout.column_gap) && wrapper.y === root.y + layout.content_start_y + Math.floor(specimenIndex / layout.review_columns) * (layout.review_cell_height + layout.row_gap), `SPECIMEN_WRAPPER_GEOMETRY:${specimenId}`);
+      assertSurface(wrapper, { fill: nativeContract.palette.surface_strong, stroke: TONES[specimen.tone], stroke_width: 2, radius: 20 }, `SPECIMEN_WRAPPER:${specimenId}`);
+      assert(children(wrapper).length === 2, `SPECIMEN_WRAPPER_CHILDREN:${specimenId}`);
       assert(instance.component?.() && pluginGet(instance, namespace, 'component-id') === specimen.component_id, `DETACHED_INSTANCE:${specimenId}`);
+      assert(walk(instance).filter((shape) => shape.isComponentCopyInstance?.() && !shape.component?.()).length === 0, `DETACHED_NESTED_INSTANCE:${specimenId}`);
       assert(pluginGet(instance, namespace, 'source-lineage') === sourceLineage(successor, specimen.component_id), `SPECIMEN_SOURCE_LINEAGE:${specimenId}`);
+      const expectedOwners = styleOwnerTuples(nativeContract, specimen.component_id);
+      assert(pluginGet(wrapper, namespace, 'style-owner-tuples') === expectedOwners && pluginGet(instance, namespace, 'style-owner-tuples') === expectedOwners, `SPECIMEN_STYLE_OWNER_TUPLES:${specimenId}`);
       assert(instance.visible !== false && children(instance).some((shape) => shape.visible !== false && shape.hidden !== true), `SPECIMEN_NOT_VISIBLE:${specimenId}`);
       assert(pluginGet(instance, namespace, 'style-id') === specimen.state_style.style_id && pluginGet(instance, namespace, 'source-css-blob') === nativeContract.authority.style_owner.git_blob_sha1, `SPECIMEN_STYLE_AUTHORITY:${specimenId}`);
       assert(pluginGet(instance, namespace, 'selected') === stableStringify(specimen.state_style.selected_anatomy), `SPECIMEN_SELECTED_STATE:${specimenId}`);
@@ -521,19 +615,20 @@ function readback(penpot, successor, nativeContract) {
       let mobileY = 14;
       for (const shape of anatomy) {
         const key = pluginGet(shape, namespace, 'anatomy-key');
+        const node = nativeContract.components[specimen.component_id].anatomy_nodes.find((candidate) => candidate.key === key);
+        const style = specimen.state_style.node_styles[key] || { opacity: 1, fill: node.fill, stroke: node.kind === 'text' ? null : '#E1D3C2', stroke_width: node.kind === 'text' ? 0 : 1, radius: node.radius };
         assert((shape.visible !== false && shape.hidden !== true) === expectedVisible.has(key), `SPECIMEN_ANATOMY_VISIBILITY:${specimenId}:${key}`);
+        if (shape.type !== 'text') assertSurface(shape, style, `SPECIMEN_ANATOMY_SURFACE:${specimenId}:${key}`);
+        assert(shape.opacity === style.opacity, `SPECIMEN_ANATOMY_OPACITY:${specimenId}:${key}`);
+        const expectedText = specimen.label_overrides[key] || node.text;
+        const texts = shape.type === 'text' ? [shape] : descendantTexts(shape);
+        assert(shape.type === 'text' ? texts[0]?.characters === expectedText : texts.map((text) => text.characters).filter(Boolean).join(' · ') === splitLabels(expectedText).join(' · '), `SPECIMEN_ANATOMY_TEXT:${specimenId}:${key}`);
+        assert(texts.every((text) => text.fills?.[0]?.fillColor === (style.text_color || node.text_color)), `SPECIMEN_ANATOMY_TEXT_COLOR:${specimenId}:${key}`);
         if (expectedVisible.has(key)) {
-          const node = nativeContract.components[specimen.component_id].anatomy_nodes.find((candidate) => candidate.key === key);
           const expectedX = instance.x + (mobile ? 14 : node.x);
           const expectedY = instance.y + (mobile ? mobileY : node.y);
           assert(shape.x === expectedX && shape.y === expectedY && shape.width === (mobile ? Math.min(332, Math.max(80, node.width)) : node.width) && shape.height === node.height, `SPECIMEN_ANATOMY_GEOMETRY:${specimenId}:${key}`);
           if (mobile) mobileY += node.height + 7;
-          const style = specimen.state_style.node_styles[key];
-          if (shape.type !== 'text') assertSurface(shape, style, `SPECIMEN_ANATOMY:${specimenId}:${key}`);
-          assert(shape.opacity === style.opacity, `SPECIMEN_ANATOMY_OPACITY:${specimenId}:${key}`);
-          const expectedText = specimen.label_overrides[key] || nativeContract.components[specimen.component_id].anatomy_nodes.find((node) => node.key === key).text;
-          const text = shape.type === 'text' ? shape : children(shape).find((child) => child.type === 'text');
-          assert(text?.characters === expectedText, `SPECIMEN_ANATOMY_TEXT:${specimenId}:${key}`);
         }
       }
       counts.linked_visible_specimens += 1;
@@ -568,6 +663,10 @@ async function runNativeSuccessor({ penpot, storage, lease, successor, predecess
   const beforeProtected = protectedProjection(penpot, successor.execution.namespace, successor.package_id);
   const priorReceipt = typeof storage.get === 'function' ? storage.get(`receipt:${successor.successor_id}`) : null;
   if (priorReceipt?.protected_projection_after) assert(stableStringify(beforeProtected) === stableStringify(priorReceipt.protected_projection_after), 'PROTECTED_PROJECTION_DRIFT');
+  if (priorReceipt?.managed_projection_after) {
+    readback(penpot, successor, nativeContract);
+    assert(stableStringify(managedProjection(penpot, successor.execution.namespace, successor.package_id)) === stableStringify(priorReceipt.managed_projection_after), 'MANAGED_PROJECTION_DRIFT');
+  }
   const created = { value: 0 };
 
   for (const unit of successor.page_units) {
@@ -592,6 +691,7 @@ async function runNativeSuccessor({ penpot, storage, lease, successor, predecess
       if (!master) {
         master = createMaster(penpot, lease, successor, nativeContract, root, unit, componentId, index, created);
         for (const node of nativeContract.components[componentId].anatomy_nodes) createAnatomyNode(penpot, lease, master, successor.execution.namespace, componentId, node, created);
+        applyDocumentedMasterStates(master, successor.execution.namespace, nativeContract.components[componentId]);
       }
       let local = localComponents(penpot, successor.execution.namespace, componentId);
       assert(local.length <= 1, `DUPLICATE_COMPONENT:${componentId}`);
@@ -623,6 +723,7 @@ async function runNativeSuccessor({ penpot, storage, lease, successor, predecess
     validation: readbackResult.validation,
     protected_projection_before: beforeProtected,
     protected_projection_after: afterProtected,
+    managed_projection_after: managedProjection(penpot, successor.execution.namespace, successor.package_id),
     source_lineage_sha256: readbackResult.source_lineage_sha256,
     atlas_extension_request_blob: successor.atlas_extension_request.git_blob_sha1,
     atlas_page_order_assigned: false,
