@@ -1,0 +1,62 @@
+{
+  "authorization_contract": {
+    "exact_active_run_package_lease_cancel_binding": true,
+    "exact_read_only_protected_projection_sha256": true,
+    "external_receipt_schema": "kenigevents.asp-path-repair-execution-authorization.v1",
+    "packaged_authorization": false,
+    "required_before_any_penpot_write": true,
+    "sole_writer": "/root/publish_r2"
+  },
+  "failure_policy": {
+    "identity_or_protected_surface_drift": "FAIL_CLOSED_ZERO_WRITES",
+    "no_replacement_components_or_detach": true,
+    "no_text_media_geometry_visibility_or_name_mutation": true,
+    "retry_without_exact_readback": false,
+    "unknown_nonblank_path": "FAIL_CLOSED_ZERO_WRITES",
+    "unknown_or_timeout": "STOP_UNKNOWN_OUTCOME_READBACK_REQUIRED"
+  },
+  "from": "U0",
+  "immutable_inputs": [
+    {
+      "bytes": 6384,
+      "git_blob_sha1": "e6aa7adec5b6fb5a191834e6e46f725fa3a9d77e",
+      "head": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-NATIVE-COMPONENT-PATHS.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "15e6919487cd7cf0c9fef96907ea2c8249c54d6a00eab8a235422e0d23583895",
+      "tree": "2609ef4bd5152a47f47fbd287d74ae575d648326"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "marker": "ASP_BUILD_REQUEST_V2",
+  "operation": "SET_EXACT_NATIVE_COMPONENT_PATHS_IN_PLACE",
+  "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-REPAIR-R1",
+  "penpot_execution_authorized": false,
+  "request_id": "U0-EVENTCARD-NATIVE-PATHS-20260831-R1",
+  "required_result": [
+    "resolve the exact existing eighteen components without recreation",
+    "set only native LibraryComponent.path to the four generation-neutral groups",
+    "read back 18/18 exact non-empty paths, including both linked event-type components",
+    "preserve all component, main and linked-instance IDs",
+    "preserve component leaf name and main.name exactly with zero name writes",
+    "preserve the one Free collection root, eighteen children/components, all text/media/geometry/visibility, and validation=[]",
+    "prove idempotent replay with zero path mutations"
+  ],
+  "schema_version": "kenigevents.asp-build-request.v2",
+  "serialization": "AFTER_EVENTCARD_TEXT_READBACK_AND_BEFORE_FREE_FULL_PAGE_COMPOSITION",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal_recommendation": "QA_AND_INTEGRATE_REVIEW_EXACT_BYTES; THEN D0/PUBLISH MAY ISSUE A SEPARATE AUTHORIZATION AND MUST READ BACK BEFORE EACH RESUME",
+  "to": [
+    "D0/MAT",
+    "D0/QA",
+    "D0/INTEGRATE"
+  ]
+}

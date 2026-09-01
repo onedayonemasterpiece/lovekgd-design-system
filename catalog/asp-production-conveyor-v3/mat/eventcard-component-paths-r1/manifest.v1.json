@@ -1,0 +1,60 @@
+{
+  "generated_files": [
+    {
+      "bytes": 16739,
+      "git_blob_sha1": "2276f8f245449804d1fc9c98ab09e160a88eb1f1",
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-REPAIR-R1.package.v1.json",
+      "sha256": "f22c4d3db43d1c7dc1d0b7728ab3570db261508a22e1899aa194d891c3055b12"
+    },
+    {
+      "bytes": 2991,
+      "git_blob_sha1": "14559031cb142fd4e2d7ee08f9b951db0bc42aa9",
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/ASP_BUILD_REQUEST_V2.eventcard-native-component-paths-r1.json",
+      "sha256": "7ae1a7596da197aa5899e3fb2611197896a3ba882221ac6c34667e39ae973aa8"
+    },
+    {
+      "bytes": 20867,
+      "entry_calls": [
+        "readEventCardComponentPathsR1({penpot})",
+        "runEventCardComponentPathsR1({penpot, authorization})"
+      ],
+      "git_blob_sha1": "71b91f619db5fb289bbd7c9d3764d0b95ecf571b",
+      "kind": "self-contained-native-penpot-executor",
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/eventcard_component_paths_native_executor_r1.js",
+      "sha256": "a68020e405d4fe9831a247fe17522dc4d36a4a8bea3496746351739157481e65"
+    }
+  ],
+  "immutable_inputs": [
+    {
+      "bytes": 6384,
+      "git_blob_sha1": "e6aa7adec5b6fb5a191834e6e46f725fa3a9d77e",
+      "head": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-NATIVE-COMPONENT-PATHS.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "15e6919487cd7cf0c9fef96907ea2c8249c54d6a00eab8a235422e0d23583895",
+      "tree": "2609ef4bd5152a47f47fbd287d74ae575d648326"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "repository": "onedayonemasterpiece/lovekgd-design-system",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-REPAIR-R1",
+  "penpot_execution_authorized": false,
+  "regeneration": {
+    "command": "python3 scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/build_eventcard_component_paths_r1.py --check",
+    "deterministic": true
+  },
+  "schema_version": "kenigevents.mat-eventcard-native-component-paths-manifest.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal_recommendation": "QA_AND_INTEGRATE_REVIEW_EXACT_BYTES; THEN D0/PUBLISH MAY ISSUE A SEPARATE AUTHORIZATION AND MUST READ BACK BEFORE EACH RESUME",
+  "tests": [
+    "node tests/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/test_eventcard_component_paths_native_executor_r1.js",
+    "python3 -m unittest tests/asp-production-conveyor-v3/mat/eventcard-component-paths-r1/test_regeneration.py"
+  ]
+}
