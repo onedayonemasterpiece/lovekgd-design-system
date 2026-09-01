@@ -1,0 +1,599 @@
+{
+  "$defs": {
+    "classification": {
+      "enum": [
+        "CANONICAL_NATIVE_COMPONENT_LIBRARY_COVERAGE",
+        "LINKED_USE_ONLY_ON_COMPOSED_PAGE",
+        "REMOTE_PACKAGE_READY",
+        "LOCAL_ONLY_PACKAGE",
+        "DEPENDENCY_BLOCKED",
+        "MISSING_COMPONENT_PACKAGE",
+        "MISSING_REVIEW_PAGE",
+        "INTENTIONALLY_POST_V1"
+      ]
+    },
+    "gap": {
+      "additionalProperties": false,
+      "properties": {
+        "immutable_inputs": {
+          "items": {
+            "$ref": "#/$defs/immutable_input"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "lowest_owner": {
+          "enum": [
+            "F0",
+            "U0",
+            "A0",
+            "MAT"
+          ]
+        },
+        "non_overlapping_git_paths": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "package_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "proposed_package_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "replacement_window_resume_prompt": {
+          "maxLength": 360,
+          "minLength": 20,
+          "type": "string"
+        },
+        "target_penpot_page_or_dependency": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "terminal_artifact": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "lowest_owner",
+        "package_id",
+        "proposed_package_id",
+        "non_overlapping_git_paths",
+        "immutable_inputs",
+        "target_penpot_page_or_dependency",
+        "terminal_artifact",
+        "replacement_window_resume_prompt"
+      ],
+      "type": "object"
+    },
+    "immutable_input": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "git_blob_sha1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha40"
+            },
+            {
+              "const": "NOT_APPLICABLE_TREE_INPUT"
+            }
+          ]
+        },
+        "head": {
+          "$ref": "#/$defs/sha40"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "repository": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha64"
+        },
+        "tree": {
+          "$ref": "#/$defs/sha40"
+        }
+      },
+      "required": [
+        "repository",
+        "head",
+        "tree",
+        "path",
+        "git_blob_sha1",
+        "bytes",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "producer_queue": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "frozen_atlas_head": {
+          "const": "a32b9874e1eec367fd6b98bc3c601d0638408843"
+        },
+        "generation_contract": {
+          "type": "object"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/queue_item"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "marker": {
+          "const": "ASP_PRODUCER_REACTIVATION_QUEUE_V1"
+        },
+        "ordering_rule": {
+          "type": "string"
+        },
+        "penpot_mutations_by_o0": {
+          "const": 0
+        },
+        "schema_version": {
+          "const": "kenigevents.asp-producer-reactivation-queue.v1"
+        },
+        "state": {
+          "const": "NOT_LAUNCHED"
+        },
+        "u0_transfer_result": {
+          "$ref": "#/$defs/u0_transfer_result"
+        }
+      },
+      "required": [
+        "$schema",
+        "schema_version",
+        "marker",
+        "state",
+        "ordering_rule",
+        "frozen_atlas_head",
+        "u0_transfer_result",
+        "items",
+        "penpot_mutations_by_o0",
+        "generation_contract"
+      ],
+      "type": "object"
+    },
+    "queue_item": {
+      "additionalProperties": false,
+      "properties": {
+        "depends_on": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "immutable_inputs": {
+          "items": {
+            "$ref": "#/$defs/immutable_input"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "lane_kind": {
+          "enum": [
+            "PRODUCER_REACTIVATION",
+            "MAT_ONLY_REPAIR"
+          ]
+        },
+        "lowest_owner": {
+          "enum": [
+            "F0",
+            "U0",
+            "A0",
+            "MAT"
+          ]
+        },
+        "non_overlapping_git_paths": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "order": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "package_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ready_claim": {
+          "const": false
+        },
+        "replacement_window_resume_prompt": {
+          "maxLength": 360,
+          "minLength": 20,
+          "type": "string"
+        },
+        "state": {
+          "const": "REACTIVATION_NOT_LAUNCHED"
+        },
+        "target_penpot_page_or_dependency": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "terminal_artifact": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "order",
+        "package_id",
+        "lowest_owner",
+        "lane_kind",
+        "state",
+        "non_overlapping_git_paths",
+        "immutable_inputs",
+        "target_penpot_page_or_dependency",
+        "terminal_artifact",
+        "replacement_window_resume_prompt",
+        "depends_on",
+        "ready_claim"
+      ],
+      "type": "object"
+    },
+    "sha40": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "sha64": {
+      "pattern": "^(?:[0-9a-f]{64}|NOT_APPLICABLE_TREE_INPUT)$",
+      "type": "string"
+    },
+    "u0_transfer_result": {
+      "additionalProperties": false,
+      "properties": {
+        "build_requests_published": {
+          "const": 0
+        },
+        "expected_build_requests": {
+          "const": 6
+        },
+        "force": {
+          "const": false
+        },
+        "issue_comment_id": {
+          "const": 5492761555
+        },
+        "lowest_owner": {
+          "const": "O0/U0 transport"
+        },
+        "next_safe_action": {
+          "const": "expose exact verified Library patch or tar bytes to the devstand filesystem or connector, then resume the same U0 thread and repeat exact hash/tree/test/fast-forward gates"
+        },
+        "patch_sha256": {
+          "const": "79b05edf5302f8601864f2582c8bc4608c39384864258a45835b6df11d52d322"
+        },
+        "penpot_mutations": {
+          "const": 0
+        },
+        "push_performed": {
+          "const": false
+        },
+        "remote_commit_created": {
+          "const": false
+        },
+        "remote_head": {
+          "const": "e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21"
+        },
+        "remote_tree": {
+          "const": "848baf8b30a8bb6358a0159c0c20458fa7959dfc"
+        },
+        "requested_result_tree": {
+          "const": "92a44400eb6834fb52af26feaa9c623636997bf9"
+        },
+        "status": {
+          "const": "EXACT_RAW_BYTES_TRANSFER_BLOCKED"
+        },
+        "tar_sha256": {
+          "const": "5638eb209ba2fc04402a01b629b70970594d76ffb705eb6348c620e3c1522534"
+        },
+        "target_branch": {
+          "const": "u0/small-page-native-executors-r2"
+        }
+      },
+      "required": [
+        "status",
+        "issue_comment_id",
+        "target_branch",
+        "remote_head",
+        "remote_tree",
+        "requested_result_tree",
+        "patch_sha256",
+        "tar_sha256",
+        "remote_commit_created",
+        "push_performed",
+        "force",
+        "build_requests_published",
+        "expected_build_requests",
+        "penpot_mutations",
+        "lowest_owner",
+        "next_safe_action"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "kenigevents.asp-coverage-matrix.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "atlas_page_units": {
+      "items": {
+        "type": "object"
+      },
+      "maxItems": 40,
+      "minItems": 40,
+      "type": "array"
+    },
+    "canonical_coverage_rule": {
+      "type": "object"
+    },
+    "category_counts": {
+      "additionalProperties": false,
+      "properties": {
+        "CANONICAL_NATIVE_COMPONENT_LIBRARY_COVERAGE": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "DEPENDENCY_BLOCKED": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "INTENTIONALLY_POST_V1": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "LINKED_USE_ONLY_ON_COMPOSED_PAGE": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "LOCAL_ONLY_PACKAGE": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "MISSING_COMPONENT_PACKAGE": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "MISSING_REVIEW_PAGE": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "REMOTE_PACKAGE_READY": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "CANONICAL_NATIVE_COMPONENT_LIBRARY_COVERAGE",
+        "LINKED_USE_ONLY_ON_COMPOSED_PAGE",
+        "REMOTE_PACKAGE_READY",
+        "LOCAL_ONLY_PACKAGE",
+        "DEPENDENCY_BLOCKED",
+        "MISSING_COMPONENT_PACKAGE",
+        "MISSING_REVIEW_PAGE",
+        "INTENTIONALLY_POST_V1"
+      ],
+      "type": "object"
+    },
+    "classification_vocabulary": {
+      "items": {
+        "$ref": "#/$defs/classification"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "coverage_items": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "atlas_page_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "canonical_evidence": {
+            "properties": {
+              "native_component_library_evidence": {
+                "type": "object"
+              },
+              "remote_immutable_package": {
+                "$ref": "#/$defs/immutable_input"
+              },
+              "review_page_evidence": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "remote_immutable_package",
+              "native_component_library_evidence",
+              "review_page_evidence"
+            ],
+            "type": "object"
+          },
+          "classification": {
+            "$ref": "#/$defs/classification"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "gap": {
+            "$ref": "#/$defs/gap"
+          },
+          "normative_authority": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "readiness_claim": {
+            "enum": [
+              "NONE",
+              "REMOTE_PACKAGE_READY_ONLY"
+            ]
+          },
+          "scope_family": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "scope_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "scope_state": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "scope_family",
+          "scope_state",
+          "classification",
+          "normative_authority",
+          "atlas_page_refs",
+          "evidence_refs",
+          "readiness_claim",
+          "notes"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "eventcard_defects": {
+      "type": "object"
+    },
+    "evidence_inputs": {
+      "additionalProperties": {
+        "$ref": "#/$defs/immutable_input"
+      },
+      "type": "object"
+    },
+    "fresh_read": {
+      "type": "object"
+    },
+    "frozen_atlas": {
+      "additionalProperties": true,
+      "properties": {
+        "branch": {
+          "const": "o0/penpot-atlas-layout-v1-20260901"
+        },
+        "head": {
+          "const": "a32b9874e1eec367fd6b98bc3c601d0638408843"
+        },
+        "page_unit_count": {
+          "const": 40
+        },
+        "tree": {
+          "const": "f527c628ed0dfc17eec9208b0ae15b8a29bbedb2"
+        }
+      },
+      "required": [
+        "branch",
+        "head",
+        "tree",
+        "page_unit_count"
+      ],
+      "type": "object"
+    },
+    "generation_contract": {
+      "type": "object"
+    },
+    "marker": {
+      "const": "ASP_DESIGN_SYSTEM_COVERAGE_MATRIX_V1"
+    },
+    "normative_scope_items": {
+      "items": {
+        "required": [
+          "scope_id",
+          "scope_family",
+          "scope_state",
+          "authority"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "penpot_mutations_by_o0": {
+      "const": 0
+    },
+    "producer_queue_path": {
+      "const": "catalog/asp-production-conveyor-v3/coverage/producer-reactivation-queue.v1.json"
+    },
+    "requirements_contract": {
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "kenigevents.asp-design-system-coverage-matrix.v1"
+    },
+    "status": {
+      "const": "IMMUTABLE_GIT_EVIDENCE_NOT_PENPOT_ACCEPTANCE"
+    },
+    "u0_transfer_result": {
+      "$ref": "#/$defs/u0_transfer_result"
+    }
+  },
+  "required": [
+    "$schema",
+    "schema_version",
+    "marker",
+    "status",
+    "frozen_atlas",
+    "fresh_read",
+    "requirements_contract",
+    "classification_vocabulary",
+    "canonical_coverage_rule",
+    "evidence_inputs",
+    "atlas_page_units",
+    "normative_scope_items",
+    "coverage_items",
+    "category_counts",
+    "eventcard_defects",
+    "u0_transfer_result",
+    "producer_queue_path",
+    "penpot_mutations_by_o0",
+    "generation_contract"
+  ],
+  "title": "ASP design-system coverage matrix v1",
+  "type": "object"
+}
