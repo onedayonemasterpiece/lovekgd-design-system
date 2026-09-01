@@ -1,0 +1,713 @@
+{
+  "schema_version": "kenigevents.u0-review-page-package.v1",
+  "package_id": "U-SHARED-PATTERNS",
+  "owner": "U0",
+  "priority": "P0",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "source_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "head": "8f46f068ba41dab4dca538806d11693c8c0d3042",
+    "tree": "a1739a4881262c2db9acd679e7b962a969ab5968",
+    "files": [
+      {
+        "role": "ListingDiscoveryRail",
+        "path": "site/src/components/listings/ListingDiscoveryRail.astro",
+        "git_blob_sha1": "511450828001932cadf4496c96d7e6dd1fc7bdf3"
+      },
+      {
+        "role": "ListingControls",
+        "path": "site/src/components/listings/ListingControls.astro",
+        "git_blob_sha1": "28c0f865947551e260d785e0e157b5bc8012a204"
+      },
+      {
+        "role": "ListingPageHeader",
+        "path": "site/src/components/listings/ListingPageHeader.astro",
+        "git_blob_sha1": "8dfbdfa7e4b91c3192ccafa28ce423e5e9b3e335"
+      },
+      {
+        "role": "AuthorizedEventSearch",
+        "path": "site/src/components/AuthorizedEventSearch.astro",
+        "git_blob_sha1": "d40675a7df9a91c8ab2356e348ecbbfe6378f85b"
+      },
+      {
+        "role": "DateListingSurface",
+        "path": "site/src/components/listings/DateListingSurface.astro",
+        "git_blob_sha1": "c54eddc5aea4dbac435ee8cdee948863ea14bdc0"
+      },
+      {
+        "role": "WeekendListingSurface",
+        "path": "site/src/components/listings/WeekendListingSurface.astro",
+        "git_blob_sha1": "0573e4689407da1b2147008087151fb5fc271bcd"
+      },
+      {
+        "role": "PopularListingSurface",
+        "path": "site/src/components/listings/PopularListingSurface.astro",
+        "git_blob_sha1": "788cd6e6454b0e46aa06bce7ea07c83d360395e6"
+      },
+      {
+        "role": "PopularBehaviorRows",
+        "path": "site/src/components/listings/PopularBehaviorRows.astro",
+        "git_blob_sha1": "fd6229b01680015d60b891947fd19cb6ca99a593"
+      },
+      {
+        "role": "PopularMobileBehaviorRows",
+        "path": "site/src/components/listings/PopularMobileBehaviorRows.astro",
+        "git_blob_sha1": "1db8dc35bcb9324e23401f41e30c4c8d360bc83b"
+      },
+      {
+        "role": "FreeCollectionSurface",
+        "path": "site/src/components/FreeCollectionSurface.astro",
+        "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696"
+      },
+      {
+        "role": "FestivalTimelinePage",
+        "path": "site/src/pages/festivali/index.astro",
+        "git_blob_sha1": "4fbd5dd9fde70b9e1b71a5bfa11bc193d4b6e785"
+      },
+      {
+        "role": "ArtifactCollection",
+        "path": "site/src/components/artifacts/ArtifactCollection.astro",
+        "git_blob_sha1": "914e0bf8fc092c925f040bfa8b721ba513368e54"
+      },
+      {
+        "role": "EventLayout",
+        "path": "site/src/layouts/EventLayout.astro",
+        "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e"
+      }
+    ],
+    "rule": "Current Astro bytes and semantics are authoritative; donor material is recovery capital only."
+  },
+  "shared_promotion_rule": "A pattern is canonical only when represented by a reusable source component or at least two exact current source consumers.",
+  "excluded_one_off_rule": "Route-specific product compositions appearing once remain consumers and are not promoted as canonical shared components.",
+  "dependencies": {
+    "action_nav_icons": {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
+      "tree": "0bcfaf6b5db1182da27e459df502d742e1470f93",
+      "package": {
+        "path": "catalog/asp-production-conveyor-v3/f0/F-ACTION-NAV-ICONS.package.v5.json",
+        "git_blob_sha1": "b211bcec98a144a8e3ee7ed87098c37757fb8298",
+        "sha256": "9a89a0b283f110a811a06317a5b4f0a54b28f553de81a40b43b7261c0d864c7a",
+        "bytes": 16493
+      }
+    }
+  },
+  "atlas_r2": {
+    "branch": "o0/penpot-atlas-layout-v2-20260901",
+    "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "read_only": true,
+    "exact_pages_present": false
+  },
+  "target": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "section": "09 · Components · Shared rows, rails, shelves and search bars · Candidate",
+    "candidate_only": true
+  },
+  "patterns": [
+    "U-PATTERN-RAILS",
+    "U-PATTERN-SHELVES",
+    "U-PATTERN-SECTION-HEADERS",
+    "U-PATTERN-SEARCH-CONTROL-BARS",
+    "U-PATTERN-CONTENT-GROUPINGS",
+    "U-PATTERN-ROW-GROUP-COMPOSITION"
+  ],
+  "page_units": [
+    {
+      "unit_id": "U-PATTERN-RAILS",
+      "page_name": "09.1 · Components · Discovery rails · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-RAILS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
+          "anatomy": [
+            "optional-date-context",
+            "listing-controls",
+            "optional-time-plane"
+          ],
+          "states": [
+            "cities-only",
+            "with-time",
+            "date-context",
+            "pinned-documented"
+          ],
+          "responsive_behavior": "Desktop rail may reveal date context only while source-pinned; mobile retains controls without inventing a separate route composition.",
+          "dependencies": [],
+          "source_consumers": [
+            "DateListingSurface",
+            "WeekendListingSurface",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-rails-cities-only",
+          "component_ids": [
+            "U-PATTERN-LISTING-DISCOVERY-RAIL"
+          ],
+          "state": "cities-only",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-rails-with-time",
+          "component_ids": [
+            "U-PATTERN-LISTING-DISCOVERY-RAIL"
+          ],
+          "state": "with-time",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-rails-date-context",
+          "component_ids": [
+            "U-PATTERN-LISTING-DISCOVERY-RAIL"
+          ],
+          "state": "date-context",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-PATTERN-SHELVES",
+      "page_name": "09.2 · Components · Content shelves · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-SHELVES",
+      "components": [
+        {
+          "component_id": "U-PATTERN-CONTENT-SHELF",
+          "anatomy": [
+            "optional-eyebrow",
+            "heading",
+            "count-or-category-inventory",
+            "supporting-note",
+            "content-plane"
+          ],
+          "states": [
+            "standard",
+            "counted",
+            "category-inventory",
+            "compact"
+          ],
+          "responsive_behavior": "Shelf heading and content plane remain together; count/category inventory wraps without changing semantic order.",
+          "dependencies": [],
+          "source_consumers": [
+            "FreeCollectionSurface",
+            "FestivalTimelinePage",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-shelves-counted",
+          "component_ids": [
+            "U-PATTERN-CONTENT-SHELF"
+          ],
+          "state": "counted",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-shelves-category-inventory",
+          "component_ids": [
+            "U-PATTERN-CONTENT-SHELF"
+          ],
+          "state": "category-inventory",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-shelves-compact",
+          "component_ids": [
+            "U-PATTERN-CONTENT-SHELF"
+          ],
+          "state": "compact",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-PATTERN-SECTION-HEADERS",
+      "page_name": "09.3 · Components · Section headers · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-SECTION-HEADERS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-LISTING-SECTION-HEADER",
+          "anatomy": [
+            "date-or-context-label",
+            "title",
+            "result-count",
+            "related-route-navigation"
+          ],
+          "states": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "responsive_behavior": "Header navigation wraps while title/count identity remains stable across listing surfaces.",
+          "dependencies": [],
+          "source_consumers": [
+            "DateListingSurface",
+            "WeekendListingSurface",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-section-headers-today",
+          "component_ids": [
+            "U-PATTERN-LISTING-SECTION-HEADER"
+          ],
+          "state": "today",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-section-headers-weekend",
+          "component_ids": [
+            "U-PATTERN-LISTING-SECTION-HEADER"
+          ],
+          "state": "weekend",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-section-headers-popular",
+          "component_ids": [
+            "U-PATTERN-LISTING-SECTION-HEADER"
+          ],
+          "state": "popular",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 5
+    },
+    {
+      "unit_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "page_name": "09.4 · Components · Search and control bars · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-SEARCH-CONTROL-BARS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-AUTHORIZED-SEARCH-BAR",
+          "anatomy": [
+            "heading-copy",
+            "auth-state",
+            "query-input",
+            "submit-action",
+            "progress",
+            "status",
+            "results-boundary"
+          ],
+          "states": [
+            "disabled-prototype",
+            "signed-out-enabled",
+            "loading",
+            "success",
+            "empty",
+            "error",
+            "validation"
+          ],
+          "responsive_behavior": "Standalone textarea and embedded search input share the same authenticated lifecycle without merging result content into the bar.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "AuthorizedEventSearch",
+            "EventLayout"
+          ]
+        },
+        {
+          "component_id": "U-PATTERN-LISTING-FILTER-BAR",
+          "anatomy": [
+            "city-fieldset",
+            "all-chip",
+            "city-chips",
+            "live-result-status",
+            "empty-recovery-action"
+          ],
+          "states": [
+            "all-selected",
+            "subset-selected",
+            "empty",
+            "single-city-no-filter"
+          ],
+          "responsive_behavior": "Filter chips remain source-owned controls; row reflow and result counts are downstream consumers.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "ListingControls",
+            "ListingDiscoveryRail"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-search-control-bars-search-signed-out",
+          "component_ids": [
+            "U-PATTERN-AUTHORIZED-SEARCH-BAR"
+          ],
+          "state": "search-signed-out",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-search-control-bars-search-loading",
+          "component_ids": [
+            "U-PATTERN-AUTHORIZED-SEARCH-BAR"
+          ],
+          "state": "search-loading",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-search-control-bars-filter-subset",
+          "component_ids": [
+            "U-PATTERN-LISTING-FILTER-BAR"
+          ],
+          "state": "filter-subset",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-search-control-bars-filter-empty",
+          "component_ids": [
+            "U-PATTERN-LISTING-FILTER-BAR"
+          ],
+          "state": "filter-empty",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 7
+    },
+    {
+      "unit_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "page_name": "09.5 · Components · Content groupings · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-CONTENT-GROUPINGS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-CONTENT-GROUPING",
+          "anatomy": [
+            "semantic-group-heading",
+            "optional-eyebrow",
+            "optional-supporting-note",
+            "item-container",
+            "empty-state"
+          ],
+          "states": [
+            "events",
+            "exhibitions",
+            "behavior-group",
+            "empty"
+          ],
+          "responsive_behavior": "Grouping keeps heading and items in one semantic section; mobile changes columns, not group identity.",
+          "dependencies": [],
+          "source_consumers": [
+            "FreeCollectionSurface",
+            "PopularBehaviorRows",
+            "ArtifactCollection"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-content-groupings-events",
+          "component_ids": [
+            "U-PATTERN-CONTENT-GROUPING"
+          ],
+          "state": "events",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-content-groupings-exhibitions",
+          "component_ids": [
+            "U-PATTERN-CONTENT-GROUPING"
+          ],
+          "state": "exhibitions",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-content-groupings-behavior-group",
+          "component_ids": [
+            "U-PATTERN-CONTENT-GROUPING"
+          ],
+          "state": "behavior-group",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-content-groupings-empty",
+          "component_ids": [
+            "U-PATTERN-CONTENT-GROUPING"
+          ],
+          "state": "empty",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 6
+    },
+    {
+      "unit_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "page_name": "09.6 · Components · Row and group composition · Candidate",
+      "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · U-PATTERN-ROW-GROUP-COMPOSITION",
+      "components": [
+        {
+          "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+          "anatomy": [
+            "ordered-items",
+            "bounded-row-size",
+            "row-local-geometry",
+            "responsive-representation",
+            "supplemental-item-contract"
+          ],
+          "states": [
+            "desktop-row",
+            "mobile-adaptive",
+            "singleton",
+            "supplemental-tail"
+          ],
+          "responsive_behavior": "Desktop and mobile representations remain explicit source states; a route-specific singleton is not promoted as a separate shared component.",
+          "dependencies": [],
+          "source_consumers": [
+            "PopularBehaviorRows",
+            "PopularMobileBehaviorRows",
+            "FestivalTimelinePage",
+            "FreeCollectionSurface"
+          ]
+        }
+      ],
+      "specimens": [
+        {
+          "specimen_id": "u-pattern-row-group-composition-desktop-row",
+          "component_ids": [
+            "U-PATTERN-ROW-GROUP-COMPOSITION"
+          ],
+          "state": "desktop-row",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-row-group-composition-mobile-adaptive",
+          "component_ids": [
+            "U-PATTERN-ROW-GROUP-COMPOSITION"
+          ],
+          "state": "mobile-adaptive",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-row-group-composition-singleton",
+          "component_ids": [
+            "U-PATTERN-ROW-GROUP-COMPOSITION"
+          ],
+          "state": "singleton",
+          "viewport": {
+            "width": 1280,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        },
+        {
+          "specimen_id": "u-pattern-row-group-composition-supplemental-tail",
+          "component_ids": [
+            "U-PATTERN-ROW-GROUP-COMPOSITION"
+          ],
+          "state": "supplemental-tail",
+          "viewport": {
+            "width": 390,
+            "height": 760
+          },
+          "acceptance": [
+            "exact current source consumers",
+            "responsive/state contract",
+            "no route-specific one-off promotion"
+          ]
+        }
+      ],
+      "managed_nodes_expected": 6
+    }
+  ],
+  "authorization": {
+    "penpot_execution_authorized": false,
+    "visual_acceptance": "PENDING_V0",
+    "promotion_authorized": false
+  },
+  "boundaries": {
+    "penpot_reads_by_u0": 0,
+    "penpot_mutations_by_u0": 0,
+    "eventcard_mat_repairs": 0,
+    "atlas_r2_read_only": true,
+    "kaggle_used": false
+  },
+  "acceptance": {
+    "patterns": 6,
+    "second_run_created": 0,
+    "maximum_managed_nodes": 30,
+    "detached_instances": 0,
+    "screenshot_shapes": 0,
+    "route_specific_one_offs_promoted": 0
+  },
+  "branch": "u0/shared-patterns-r1-20260901",
+  "package_path": "catalog/asp-production-conveyor-v3/u0/shared-patterns/U-SHARED-PATTERNS.package.v1.json",
+  "contract_path": "catalog/asp-production-conveyor-v3/u0/shared-patterns/product-contract.v1.json",
+  "execution": {
+    "setup": "scripts/asp-production-conveyor-v3/u0/shared-patterns/setup_v1.js",
+    "executor": "scripts/asp-production-conveyor-v3/u0/shared-patterns/native_executor_v1.js",
+    "runtime": "scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v1.js",
+    "node_test": "tests/asp-production-conveyor-v3/u0/shared-patterns/test_native_executor_v1.js",
+    "python_test": "tests/asp-production-conveyor-v3/u0/shared-patterns/test_repository_invariants_v1.py",
+    "second_run_created": 0
+  },
+  "atlas_extension_request_path": "catalog/asp-production-conveyor-v3/u0/shared-patterns/ASP_ATLAS_EXTENSION_REQUEST_V1.md",
+  "build_request_template_path": "catalog/asp-production-conveyor-v3/u0/shared-patterns/ASP_BUILD_REQUEST_V2.md"
+}

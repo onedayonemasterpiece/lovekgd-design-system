@@ -1,0 +1,266 @@
+{
+  "schema_version": "kenigevents.u0-product-contract.v1",
+  "contract_id": "U-SHARED-PATTERNS",
+  "product_boundary": "Rails, shelves, section headers, search/control bars, content groupings and row/group composition with confirmed reuse only.",
+  "patterns": [
+    {
+      "pattern_id": "U-PATTERN-RAILS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-LISTING-DISCOVERY-RAIL",
+          "anatomy": [
+            "optional-date-context",
+            "listing-controls",
+            "optional-time-plane"
+          ],
+          "states": [
+            "cities-only",
+            "with-time",
+            "date-context",
+            "pinned-documented"
+          ],
+          "responsive_behavior": "Desktop rail may reveal date context only while source-pinned; mobile retains controls without inventing a separate route composition.",
+          "dependencies": [],
+          "source_consumers": [
+            "DateListingSurface",
+            "WeekendListingSurface",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "DateListingSurface",
+        "PopularListingSurface",
+        "WeekendListingSurface"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    },
+    {
+      "pattern_id": "U-PATTERN-SHELVES",
+      "components": [
+        {
+          "component_id": "U-PATTERN-CONTENT-SHELF",
+          "anatomy": [
+            "optional-eyebrow",
+            "heading",
+            "count-or-category-inventory",
+            "supporting-note",
+            "content-plane"
+          ],
+          "states": [
+            "standard",
+            "counted",
+            "category-inventory",
+            "compact"
+          ],
+          "responsive_behavior": "Shelf heading and content plane remain together; count/category inventory wraps without changing semantic order.",
+          "dependencies": [],
+          "source_consumers": [
+            "FreeCollectionSurface",
+            "FestivalTimelinePage",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "FestivalTimelinePage",
+        "FreeCollectionSurface",
+        "PopularListingSurface"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    },
+    {
+      "pattern_id": "U-PATTERN-SECTION-HEADERS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-LISTING-SECTION-HEADER",
+          "anatomy": [
+            "date-or-context-label",
+            "title",
+            "result-count",
+            "related-route-navigation"
+          ],
+          "states": [
+            "today",
+            "tomorrow",
+            "weekend",
+            "popular",
+            "date"
+          ],
+          "responsive_behavior": "Header navigation wraps while title/count identity remains stable across listing surfaces.",
+          "dependencies": [],
+          "source_consumers": [
+            "DateListingSurface",
+            "WeekendListingSurface",
+            "PopularListingSurface"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "DateListingSurface",
+        "PopularListingSurface",
+        "WeekendListingSurface"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    },
+    {
+      "pattern_id": "U-PATTERN-SEARCH-CONTROL-BARS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-AUTHORIZED-SEARCH-BAR",
+          "anatomy": [
+            "heading-copy",
+            "auth-state",
+            "query-input",
+            "submit-action",
+            "progress",
+            "status",
+            "results-boundary"
+          ],
+          "states": [
+            "disabled-prototype",
+            "signed-out-enabled",
+            "loading",
+            "success",
+            "empty",
+            "error",
+            "validation"
+          ],
+          "responsive_behavior": "Standalone textarea and embedded search input share the same authenticated lifecycle without merging result content into the bar.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "AuthorizedEventSearch",
+            "EventLayout"
+          ]
+        },
+        {
+          "component_id": "U-PATTERN-LISTING-FILTER-BAR",
+          "anatomy": [
+            "city-fieldset",
+            "all-chip",
+            "city-chips",
+            "live-result-status",
+            "empty-recovery-action"
+          ],
+          "states": [
+            "all-selected",
+            "subset-selected",
+            "empty",
+            "single-city-no-filter"
+          ],
+          "responsive_behavior": "Filter chips remain source-owned controls; row reflow and result counts are downstream consumers.",
+          "dependencies": [
+            "F-ACTION-NAV-ICONS"
+          ],
+          "source_consumers": [
+            "ListingControls",
+            "ListingDiscoveryRail"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "AuthorizedEventSearch",
+        "EventLayout",
+        "ListingControls",
+        "ListingDiscoveryRail"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    },
+    {
+      "pattern_id": "U-PATTERN-CONTENT-GROUPINGS",
+      "components": [
+        {
+          "component_id": "U-PATTERN-CONTENT-GROUPING",
+          "anatomy": [
+            "semantic-group-heading",
+            "optional-eyebrow",
+            "optional-supporting-note",
+            "item-container",
+            "empty-state"
+          ],
+          "states": [
+            "events",
+            "exhibitions",
+            "behavior-group",
+            "empty"
+          ],
+          "responsive_behavior": "Grouping keeps heading and items in one semantic section; mobile changes columns, not group identity.",
+          "dependencies": [],
+          "source_consumers": [
+            "FreeCollectionSurface",
+            "PopularBehaviorRows",
+            "ArtifactCollection"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "ArtifactCollection",
+        "FreeCollectionSurface",
+        "PopularBehaviorRows"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    },
+    {
+      "pattern_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+      "components": [
+        {
+          "component_id": "U-PATTERN-ROW-GROUP-COMPOSITION",
+          "anatomy": [
+            "ordered-items",
+            "bounded-row-size",
+            "row-local-geometry",
+            "responsive-representation",
+            "supplemental-item-contract"
+          ],
+          "states": [
+            "desktop-row",
+            "mobile-adaptive",
+            "singleton",
+            "supplemental-tail"
+          ],
+          "responsive_behavior": "Desktop and mobile representations remain explicit source states; a route-specific singleton is not promoted as a separate shared component.",
+          "dependencies": [],
+          "source_consumers": [
+            "PopularBehaviorRows",
+            "PopularMobileBehaviorRows",
+            "FestivalTimelinePage",
+            "FreeCollectionSurface"
+          ]
+        }
+      ],
+      "source_consumers": [
+        "FestivalTimelinePage",
+        "FreeCollectionSurface",
+        "PopularBehaviorRows",
+        "PopularMobileBehaviorRows"
+      ],
+      "acceptance": [
+        "At least two exact current consumers or a reusable current source component.",
+        "Responsive and state behavior is explicit.",
+        "No route-specific one-off is promoted."
+      ]
+    }
+  ]
+}
