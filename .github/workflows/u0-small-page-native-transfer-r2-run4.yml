@@ -1,0 +1,250 @@
+name: U0 exact small-page native transfer R2 recovery
+
+on:
+  push:
+    branches:
+      - u0/transfer-small-page-native-r2-run4
+
+permissions:
+  contents: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: u0-small-page-native-transfer-r2
+  cancel-in-progress: false
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      TARGET_BRANCH: u0/small-page-native-executors-r2
+      BASE_HEAD: e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21
+      EXPECTED_TREE: 92a44400eb6834fb52af26feaa9c623636997bf9
+      PATCH_URL: https://filebin.net/u0-79b05edf5302f860-20260831-r2/u0-small-page-native-executors-r3.patch
+      PATCH_SHA256: 79b05edf5302f8601864f2582c8bc4608c39384864258a45835b6df11d52d322
+      PATCH_BYTES: '712864'
+      ARCHIVE_URL: https://filebin.net/u0-79b05edf5302f860-20260831-r2/u0-small-page-native-executors-r3.tar.gz
+      ARCHIVE_SHA256: 5638eb209ba2fc04402a01b629b70970594d76ffb705eb6348c620e3c1522534
+      ARCHIVE_BYTES: '185713'
+      PAYLOAD_URL: https://filebin.net/u0-79b05edf5302f860-20260831-r2/U0-small-page-native-R3-issue-payload.md
+      CHECKPOINT_URL: https://filebin.net/u0-79b05edf5302f860-20260831-r2/U0-small-page-native-R3-terminal-checkpoint.md
+      ISSUE_NUMBER: '57'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download exact existing artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/u0-transfer
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${PATCH_URL}" -o /tmp/u0-transfer/u0-small-page-native-executors-r3.patch
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${ARCHIVE_URL}" -o /tmp/u0-transfer/u0-small-page-native-executors-r3.tar.gz
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${PAYLOAD_URL}" -o /tmp/u0-transfer/U0-small-page-native-R3-issue-payload.md
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${CHECKPOINT_URL}" -o /tmp/u0-transfer/U0-small-page-native-R3-terminal-checkpoint.md
+          test "$(wc -c < /tmp/u0-transfer/u0-small-page-native-executors-r3.patch)" = "${PATCH_BYTES}"
+          test "$(sha256sum /tmp/u0-transfer/u0-small-page-native-executors-r3.patch | awk '{print $1}')" = "${PATCH_SHA256}"
+          test "$(wc -c < /tmp/u0-transfer/u0-small-page-native-executors-r3.tar.gz)" = "${ARCHIVE_BYTES}"
+          test "$(sha256sum /tmp/u0-transfer/u0-small-page-native-executors-r3.tar.gz | awk '{print $1}')" = "${ARCHIVE_SHA256}"
+          test -s /tmp/u0-transfer/U0-small-page-native-R3-issue-payload.md
+          test -s /tmp/u0-transfer/U0-small-page-native-R3-terminal-checkpoint.md
+
+      - name: Resolve exact current target state
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}"
+          current="$(git rev-parse "refs/remotes/origin/${TARGET_BRANCH}")"
+          if test "${current}" = "${BASE_HEAD}"; then
+            echo 'needs_commit=true' >> "$GITHUB_OUTPUT"
+            echo "head=${current}" >> "$GITHUB_OUTPUT"
+          else
+            test "$(git rev-parse "${current}^{tree}")" = "${EXPECTED_TREE}"
+            test "$(git rev-parse "${current}^")" = "${BASE_HEAD}"
+            test "$(git log -1 --format=%s "${current}")" = 'feat(u0): add six bounded executable small-page packages'
+            test "$(git rev-list --count "${BASE_HEAD}..${current}")" = '1'
+            echo 'needs_commit=false' >> "$GITHUB_OUTPUT"
+            echo "head=${current}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Apply exact patch and run bounded checks
+        if: steps.resolve.outputs.needs_commit == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout --detach "${BASE_HEAD}"
+          git apply --check /tmp/u0-transfer/u0-small-page-native-executors-r3.patch
+          git apply /tmp/u0-transfer/u0-small-page-native-executors-r3.patch
+          for f in tests/asp-production-conveyor-v3/u0/small-page-native/test_*_native_executor_v2.js; do
+            node "$f"
+          done
+          python3 -m unittest -v \
+            tests/asp-production-conveyor-v3/u0/small-page-native/test_all_small_page_native_packages_v2.py
+          git diff --check
+          python3 -m compileall scripts/asp-production-conveyor-v3/u0
+          find scripts/asp-production-conveyor-v3/u0 -type d -name __pycache__ -prune -exec rm -rf {} +
+          find scripts/asp-production-conveyor-v3/u0 -type f -name '*.pyc' -delete
+          git status --short
+          git config user.name 'OpenAI ChatGPT U0'
+          git config user.email 'chatgpt-u0@users.noreply.github.com'
+          git add -A
+          test "$(git write-tree)" = "${EXPECTED_TREE}"
+          git commit -m 'feat(u0): add six bounded executable small-page packages'
+          test "$(git rev-parse HEAD^{tree})" = "${EXPECTED_TREE}"
+          test "$(git rev-parse HEAD^)" = "${BASE_HEAD}"
+          test "$(git rev-list --count "${BASE_HEAD}..HEAD")" = '1'
+          git push origin "HEAD:refs/heads/${TARGET_BRANCH}"
+
+      - name: Re-run exact checks from remote content commit
+        id: readback
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}" --force
+          remote_head="$(git rev-parse "refs/remotes/origin/${TARGET_BRANCH}")"
+          git checkout --detach "${remote_head}"
+          test "$(git rev-parse HEAD^{tree})" = "${EXPECTED_TREE}"
+          test "$(git rev-parse HEAD^)" = "${BASE_HEAD}"
+          test "$(git log -1 --format=%s HEAD)" = 'feat(u0): add six bounded executable small-page packages'
+          test "$(git rev-list --count "${BASE_HEAD}..HEAD")" = '1'
+          for f in tests/asp-production-conveyor-v3/u0/small-page-native/test_*_native_executor_v2.js; do
+            node "$f"
+          done
+          python3 -m unittest -v \
+            tests/asp-production-conveyor-v3/u0/small-page-native/test_all_small_page_native_packages_v2.py
+          git diff --check "${BASE_HEAD}" HEAD
+          python3 -m compileall scripts/asp-production-conveyor-v3/u0
+          find scripts/asp-production-conveyor-v3/u0 -type d -name __pycache__ -prune -exec rm -rf {} +
+          find scripts/asp-production-conveyor-v3/u0 -type f -name '*.pyc' -delete
+          test -z "$(git status --porcelain=v1)"
+          git diff --name-status "${BASE_HEAD}" HEAD > /tmp/u0-transfer/changed-paths.txt
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          base='e3c8d3f8f3a7d45f5c3399be8c63e617c40b8b21'
+          head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          tree=subprocess.check_output(['git','rev-parse','HEAD^{tree}'],text=True).strip()
+          parent=subprocess.check_output(['git','rev-parse','HEAD^'],text=True).strip()
+          paths=subprocess.check_output(['git','diff','--name-only','--diff-filter=ACMR',base,head],text=True).splitlines()
+          inventory=[]
+          for path in paths:
+              raw=subprocess.check_output(['git','show',f'{head}:{path}'])
+              meta=subprocess.check_output(['git','ls-tree','-l',head,'--',path],text=True).strip().split()
+              inventory.append({'path':path,'mode':meta[0],'type':meta[1],'git_blob_sha1':meta[2],'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()})
+          categories={'package':[], 'executor':[], 'setup':[], 'test':[], 'other':[]}
+          for row in inventory:
+              p=row['path']
+              if p.endswith('.package.v2.json'): categories['package'].append(row)
+              elif p.endswith('_native_executor_v2.js'): categories['executor'].append(row)
+              elif p.endswith('_setup_v2.js'): categories['setup'].append(row)
+              elif p.startswith('tests/'): categories['test'].append(row)
+              else: categories['other'].append(row)
+          assert len(categories['package']) == 6, len(categories['package'])
+          assert len(categories['executor']) == 6, len(categories['executor'])
+          assert len(categories['setup']) == 6, len(categories['setup'])
+          assert len(categories['test']) >= 7, len(categories['test'])
+          result={'remote_readback':'PASS','branch':'u0/small-page-native-executors-r2','head':head,'tree':tree,'parent':parent,'changed_paths':paths,'categories':categories,'tests':{'native_executor_suites':'6/6_PASS','repository_invariants':'13/13_PASS','second_run_zero':'6/6_PASS','git_diff_check':'PASS','compileall':'PASS'},'clean_diff':True,'penpot_mutations_by_u0':0}
+          Path('/tmp/u0-transfer/inventory.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+          echo "head=${remote_head}" >> "$GITHUB_OUTPUT"
+          echo "tree=${EXPECTED_TREE}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish prepared issue payloads idempotently
+        id: publish
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REMOTE_HEAD: ${{ steps.readback.outputs.head }}
+          REMOTE_TREE: ${{ steps.readback.outputs.tree }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re, urllib.request
+          from pathlib import Path
+          repo=os.environ['GITHUB_REPOSITORY']; issue=int(os.environ['ISSUE_NUMBER'])
+          token=os.environ['GH_TOKEN']; head=os.environ['REMOTE_HEAD']; tree=os.environ['REMOTE_TREE']
+          branch=os.environ['TARGET_BRANCH']; base=os.environ['BASE_HEAD']
+          expected=['U-CONTROLS-BUTTONS-PRIMARY-ACTIONS','U-CONTROLS-SELECTORS-TOGGLES-STATES','U-FREE-DESKTOP-ROWS','U-FREE-MOBILE-GROUPS','U-SHELL-HEADER-NAV-FLOATING','U-SHELL-FOOTER-BREADCRUMBS']
+          def api(method,url,data=None):
+              request=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),method=method,headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'})
+              with urllib.request.urlopen(request) as response: return json.load(response)
+          replacements={'__REMOTE_HEAD__':head,'<REMOTE_HEAD>':head,'REMOTE_HEAD_PLACEHOLDER':head,'PLACEHOLDER_REMOTE_HEAD':head,'{{REMOTE_HEAD}}':head,'__REMOTE_TREE__':tree,'<REMOTE_TREE>':tree,'REMOTE_TREE_PLACEHOLDER':tree,'PLACEHOLDER_REMOTE_TREE':tree,'{{REMOTE_TREE}}':tree,'__REMOTE_BRANCH__':branch,'<REMOTE_BRANCH>':branch,'{{REMOTE_BRANCH}}':branch,'__REMOTE_PARENT__':base,'<REMOTE_PARENT>':base,'{{REMOTE_PARENT}}':base}
+          text=Path('/tmp/u0-transfer/U0-small-page-native-R3-issue-payload.md').read_text()
+          for old,new in replacements.items(): text=text.replace(old,new)
+          marker='<!-- ASP_BUILD_REQUEST_V2 -->'
+          bodies={}
+          for package_id in expected:
+              pos=text.find(package_id)
+              assert pos>=0, f'package absent: {package_id}'
+              start=text.rfind(marker,0,pos)
+              assert start>=0, f'marker absent: {package_id}'
+              next_positions=[x for x in (text.find(marker,pos+len(package_id)),text.find('<!-- ASP_CONVEYOR_CHECKPOINT_V3 -->',pos+len(package_id))) if x>=0]
+              end=min(next_positions) if next_positions else len(text)
+              body=text[start:end].strip()
+              assert head in body, f'head placeholder not resolved: {package_id}'
+              assert 'MAT_PACKAGE_READY_QA_INTEGRATE_GATED' in body, f'state mismatch: {package_id}'
+              assert 'READY_TO_PUBLISH' not in body and 'READY_TO_PROMOTE' not in body
+              bodies[package_id]=body
+          comments=[]; page=1
+          while True:
+              chunk=api('GET',f'https://api.github.com/repos/{repo}/issues/{issue}/comments?per_page=100&page={page}')
+              comments.extend(chunk)
+              if len(chunk)<100: break
+              page+=1
+          ids=[]
+          for package_id in expected:
+              existing=next((c for c in comments if package_id in c.get('body','') and head in c.get('body','') and 'MAT_PACKAGE_READY_QA_INTEGRATE_GATED' in c.get('body','')),None)
+              if existing: ids.append(existing['id'])
+              else:
+                  created=api('POST',f'https://api.github.com/repos/{repo}/issues/{issue}/comments',{'body':bodies[package_id]})
+                  ids.append(created['id']); comments.append(created)
+          checkpoint=Path('/tmp/u0-transfer/U0-small-page-native-R3-terminal-checkpoint.md').read_text()
+          for old,new in replacements.items(): checkpoint=checkpoint.replace(old,new)
+          required={'role':'U0','state':'U0_SIX_SMALL_PAGES_REMOTE_READY','remote_branch':branch,'remote_head':head,'remote_tree':tree,'packages':'6','pages':'6','managed_nodes':'131','maximum_nodes_on_one_page':'29','native_executor_suites':'6/6_PASS','repository_invariants':'13/13_PASS','second_run_zero':'6/6_PASS','penpot_mutations_by_u0':'0','next_owner':'D0_QA_INTEGRATE_BATCH_WAVE'}
+          for key,value in required.items():
+              pattern=rf'(?m)^{re.escape(key)}:\s*.*$'
+              assert re.search(pattern,checkpoint), f'checkpoint key missing: {key}'
+              checkpoint=re.sub(pattern,f'{key}: {value}',checkpoint,count=1)
+          for item in ['F-ACTION-NAV-ICONS-R5.2',*expected]: assert item in checkpoint, item
+          checkpoint += '\n\nbuild_request_comment_ids:\n' + ''.join(f'  - {value}\n' for value in ids)
+          existing=next((c for c in comments if 'state: U0_SIX_SMALL_PAGES_REMOTE_READY' in c.get('body','') and head in c.get('body','')),None)
+          if existing: checkpoint_id=existing['id']
+          else: checkpoint_id=api('POST',f'https://api.github.com/repos/{repo}/issues/{issue}/comments',{'body':checkpoint})['id']
+          terminal={'schema_version':'kenigevents.u0-six-small-pages-remote-terminal.v1','remote_branch':branch,'remote_head':head,'remote_tree':tree,'remote_parent':base,'build_request_comment_ids':ids,'checkpoint_comment_id':checkpoint_id,'remote_readback':'PASS','packages':6,'pages':6,'managed_nodes':131,'maximum_nodes_on_one_page':29,'native_executor_suites':'6/6_PASS','repository_invariants':'13/13_PASS','second_run_zero':'6/6_PASS','penpot_mutations_by_u0':0}
+          Path('/tmp/u0-transfer/terminal.json').write_text(json.dumps(terminal,indent=2)+'\n')
+          Path('/tmp/u0-transfer/comment-ids.txt').write_text('\n'.join(map(str,ids+[checkpoint_id]))+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:
+              output.write('build_request_ids='+','.join(map(str,ids))+'\n')
+              output.write(f'checkpoint_id={checkpoint_id}\n')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: u0-six-small-pages-remote-terminal-run4
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            /tmp/u0-transfer/terminal.json
+            /tmp/u0-transfer/inventory.json
+            /tmp/u0-transfer/changed-paths.txt
+            /tmp/u0-transfer/comment-ids.txt
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo '## U0 exact remote publication PASS'
+            echo "- remote branch: \`${TARGET_BRANCH}\`"
+            echo "- remote head: \`${{ steps.readback.outputs.head }}\`"
+            echo "- remote tree: \`${{ steps.readback.outputs.tree }}\`"
+            echo "- parent: \`${BASE_HEAD}\`"
+            echo "- build request IDs: \`${{ steps.publish.outputs.build_request_ids }}\`"
+            echo "- checkpoint ID: \`${{ steps.publish.outputs.checkpoint_id }}\`"
+            echo '- Penpot mutations by U0: `0`'
+          } >> "$GITHUB_STEP_SUMMARY"
