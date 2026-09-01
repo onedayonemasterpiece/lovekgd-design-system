@@ -25,8 +25,12 @@ committed
 
 ## Head SHA
 
-Implementation snapshot: `2b634cfa2cdd3fb489315a9d5c1c4bd236650779`
-(tree `925a116514e7306788248cd4e43d36a484f87aae`).
+Repair implementation snapshot: `03d4deee128434d42956a4cdf2e2a5171878e51b`
+(tree `a98528ec1c4abdb00ed3c29e7dc0f8306612dd82`).
+
+Independent QA rejected prior head `8e4bc94156715b5b502a2be8225084ea01556921`
+for family-rounded Flex rows and incomplete protected projections. This receipt
+records the bounded repair and the subsequent same-head reruns.
 
 The final branch head necessarily includes this receipt-only commit and is
 recorded by provider-backed remote readback in the terminal lane handoff. QA
@@ -56,18 +60,24 @@ same remote head.
   `663be702d481972cb2e8863af500f1c35dda1d8c`, tree
   `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`, bindings blob
   `23475806beebfbe21bd77759440c169c60627550`.
-- Shared family-local payload: 41,133 bytes, blob
-  `942f656b0e9fc1162fea2fef7532dce39cf3b6bc`, SHA-256
-  `45e989872723bdd2a1e5f70df812c88a217ab07717ec12aa16b6b0f65215cc91`.
+- Shared family-local payload: 45,516 bytes, blob
+  `2414fd90b0897dd269c675b6dfcd80c4b1ec22cb`, SHA-256
+  `e7712f21a0274f8bd35e0acbeb002fcf378a76682c44072e6ebc6d3da5a94221`.
 - Shared family-local launcher: 6,196 bytes, blob
-  `a4bef7450a9e5b4644972fe3300c68d8a0bb14a8`, SHA-256
-  `7c0b8cecc86ecb579c035ce45f8deb9a6ea4366e281cef39cb1b5f9e89db2ae9`.
+  `306cc5d2e376c54c1e969ace3942324cf116ee03`, SHA-256
+  `d62ddacf4596c86203fe379e0dfe4faab7567bdf2698bab8f7b8c31881a0f3ad`.
 - Every package has a distinct frozen execution tuple and adapter ID.
 - Native-like test double rejects non-string shared-plugin-data without any
   implicit `String(...)` coercion.
 - Four independent native-like package tests preserve legacy page/root/product
-  instance IDs, bind linked `ATLAS_PAGE_HEADER_V2`, use native Flex, and execute
-  an actual second replay with `secondRunCreated=0`.
+  instance IDs, bind linked `ATLAS_PAGE_HEADER_V2`, use native Flex for the
+  root/header/master and native Grid for the review shell, and execute an actual
+  second replay with `secondRunCreated=0`.
+- Exact global rows/review/root heights are `7/1984/2304`, `4/1120/1440`,
+  `2/544/864`, and `3/832/1152`; Shape/Elevation is exactly two rows.
+- Complete fail-closed projections cover text, fills, strokes, shadows, opacity,
+  shared plugin data, Grid/Flex/layout cells, and component lineage. Adversarial
+  protected Free-fill and Foundation-text mutations reject before creation.
 - Terminal readback returns `duplicates=0`, `detached=0`, `screenshots=0`, and
   unchanged Free/EventCard plus Foundation source/index projections.
 - Atlas R2 files were not changed. Penpot reads/mutations, PUBLISH, and Kaggle:
@@ -99,7 +109,9 @@ and mutation authorization remain pending the Atlas evidence gate.
 
 ## Tests / verification
 
-- Native-like QA: 9/9 PASS, including four separately named package replay tests.
+- Native-like QA: 12/12 PASS, including four separately named package replay
+  tests, the two-row Shape/Elevation regression, and two adversarial protected
+  projection tests.
 - Exact binding/bytes/formula INTEGRATE: 6/6 PASS.
 - Existing Foundation page-split adapter: PASS.
 - Existing Foundation candidate suite: 4/4 PASS.
@@ -112,8 +124,10 @@ and mutation authorization remain pending the Atlas evidence gate.
 - This wave intentionally performs no real Penpot read/mutation, export, V0
   visual review, or PUBLISH. Therefore it proves executor/package readiness,
   not visual acceptance or mutation authorization.
-- The test harness is native-like and exercises native Flex API semantics; a
-  later authorized Penpot run remains required by the Atlas evidence gate.
+- The test harness is native-like and exercises native Grid plus Flex API
+  semantics; a later authorized Penpot run remains required by the Atlas
+  evidence gate. Official Penpot plugin API documentation was used only to
+  verify the Git executor contract; no Penpot file/tool/API read occurred.
 - Initial shared-disk exhaustion was diagnosed before writes; the orchestrator
   safely removed stale detached worktrees/caches. No lane content was lost.
 
