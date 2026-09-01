@@ -1,0 +1,58 @@
+_delta_r1.test.js
+git add \
+  catalog/asp-production-conveyor-v3/a0/tablet-review-delta-r1 \
+  scripts/asp-production-conveyor-v3/a0/tablet-review-delta-r1 \
+  tests/asp-production-conveyor-v3/a0/tablet-review-delta-r1
+git commit -m 'feat(a0): freeze A0-TABLET-REVIEW-DELTA-R1'
+LANE3_HEAD=$(git rev-parse HEAD)
+LANE3_TREE=$(git rev-parse HEAD^{tree})
+git push origin "$LANE3_HEAD:refs/heads/$LANE3_BRANCH"
+
+python3 .a0-bootstrap-tools/finalize.py aggregate "$LANE1_HEAD" "$LANE2_HEAD" "$LANE3_HEAD"
+node --test \
+  tests/asp-production-conveyor-v3/a0/free-rows-data-r2/free_rows_data_r2.test.js \
+  tests/asp-production-conveyor-v3/a0/free-full-page-r2/free_full_page_r2.test.js \
+  tests/asp-production-conveyor-v3/a0/tablet-review-delta-r1/tablet_review_delta_r1.test.js \
+  tests/asp-production-conveyor-v3/a0/free-page-state-coverage-r1/aggregate.test.js \
+  tests/asp-production-conveyor-v3/a0/page-wave-v1/page-wave.test.js
+python3 - <<'PY'
+import json, pathlib
+roots = [
+ pathlib.Path('catalog/asp-production-conveyor-v3/a0/free-rows-data-r2'),
+ pathlib.Path('catalog/asp-production-conveyor-v3/a0/free-full-page-r2'),
+ pathlib.Path('catalog/asp-production-conveyor-v3/a0/tablet-review-delta-r1'),
+ pathlib.Path('catalog/asp-production-conveyor-v3/a0/free-page-state-coverage-r1'),
+]
+for root in roots:
+ for path in root.rglob('*.json'):
+  json.loads(path.read_text(encoding='utf-8'))
+print('A0_NEW_JSON_PARSE_PASS')
+PY
+
+git diff --quiet "$BASE_HEAD"..HEAD -- catalog/asp-production-conveyor-v3/a0/page-wave-v1
+git diff --quiet "$BASE_HEAD"..HEAD -- \
+  catalog/asp-production-conveyor-v3/a0/archetype-wave-1-candidate-adapter.v1.json \
+  catalog/asp-production-conveyor-v3/a0/archetype-wave-2-candidate-adapter.v1.json \
+  catalog/asp-production-conveyor-v3/a0/date-listing-shell-candidate-adapter.v1.json \
+  catalog/asp-production-conveyor-v3/a0/owner-review-index-candidate-adapter.v1.json \
+  catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json
+if git diff --name-only "$BASE_HEAD"..HEAD | grep -E '(^|/)atlas-v2/|route-archetype-registry|[Kk]aggle'; then
+  echo 'FORBIDDEN_PATH_MUTATION' >&2
+  exit 1
+fi
+rm -rf .a0-bootstrap-tools
+git add \
+  catalog/asp-production-conveyor-v3/a0/free-page-state-coverage-r1 \
+  tests/asp-production-conveyor-v3/a0/free-page-state-coverage-r1
+git commit -m 'feat(a0): publish free-page and tablet state coverage sprint'
+FINAL_HEAD=$(git rev-parse HEAD)
+FINAL_TREE=$(git rev-parse HEAD^{tree})
+git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+
+rm -rf /tmp/a0-final-readback
+git clone --no-checkout https://github.com/onedayonemasterpiece/lovekgd-design-system.git /tmp/a0-final-readback
+git -C /tmp/a0-final-readback fetch --no-tags origin "$TARGET_BRANCH"
+git -C /tmp/a0-final-readback checkout --detach "origin/$TARGET_BRANCH"
+test "$(git -C /tmp/a0-final-readback rev-parse HEAD)" = "$FINAL_HEAD"
+test "$(git -C /tmp/a0-final-readback rev-parse HEAD^{tree})" = "$FINAL_TREE"
+test -z "$(git -C /tmp/a0-final-readback status --porcelai
