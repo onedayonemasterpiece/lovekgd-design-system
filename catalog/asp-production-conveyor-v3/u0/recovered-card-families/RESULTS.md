@@ -5,16 +5,16 @@
 - Atlas R2: read-only `663be702d481972cb2e8863af500f1c35dda1d8c` / tree `cf9a1e6a5e0a84aea5636334dbd3be4961039b75`
 - JavaScript syntax: PASS
 - Exact source blob lineage: PASS
-- Node executor tests: 5/5 PASS
-- Python repository invariants: 7/7 PASS
+- Node executor tests: 11/11 PASS (v1+v2)
+- Python repository invariants: 15/15 PASS (v1+v2)
 - `compileall`: PASS
 - second-run-created: 0
 - lease cancellation: fail-closed PASS
 - pages: 5
 - canonical masters: 5
-- linked specimens: 16
-- managed nodes total: 26
-- maximum managed nodes on one page: 6 (hard limit 30)
+- linked specimens: 23
+- managed nodes total: 38
+- maximum managed nodes on one page: 8 (hard limit 30)
 - detached instances: 0
 - screenshot shapes: 0
 - substitute implementations: 0
@@ -31,17 +31,20 @@ Remote head/tree/blob readback is intentionally not asserted until GitHub public
 - Source tuple and all eight source blobs: unchanged
 - Metadata-only `penpot.ensure` execution: removed from the v2 path
 - Concrete native pages/roots/component masters: `5/5/5`
-- Real linked visible state specimens: `16`
+- Real linked visible state specimens: `23` (every declared state)
 - Native Flex documentation shells: PASS
-- Product-specific anatomy/layout/styles/states: PASS
+- Product-specific anatomy/layout/styles/states: PASS (23/23, no invented `cover-ready-future`, no relabel-only state)
 - Strict string-only shared plugin data: PASS
 - Native-like executor runs on the same surface: `2`
-- First run created: `31`
+- First run created: `38`
 - Second run created: `0`
 - Duplicates/detached/screenshots/source-lineage errors: `0/0/0/0`
-- Protected projection changes: `0`
-- Node v2 tests: `5/5 PASS`
-- Python v2 invariants: `7/7 PASS`
+- Protected projection changes: `0` (text/fills/strokes/radius/opacity/plugin/component/Flex)
+- Managed replay projection changes: `0`
+- Global managed-root `type=image` / `fillImage` gate: PASS
+- Enforced managed-node census: `38/38`
+- Node v2 tests: `6/6 PASS`
+- Python v2 invariants: `8/8 PASS`
 - Existing Atlas extension request: exact blob `1ecbada6d8159723f2d5618b8f809af1e4ad1653`, unchanged
 - Atlas page order assigned by U0: `false`
 - Penpot reads/mutations: `0/0`

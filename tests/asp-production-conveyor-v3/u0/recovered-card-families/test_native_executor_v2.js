@@ -56,6 +56,11 @@ function nativeSurface() {
   Shape.next = 1;
   const foreignPage = new Page('Owner managed page', 'foreign-page');
   const foreignRoot = new Shape('board', 'foreign-root'); foreignRoot.name = 'Protected owner root'; foreignPage.root.appendChild(foreignRoot);
+  foreignRoot.fills = [{ fillColor: '#abcdef', fillOpacity: 0.8 }];
+  foreignRoot.strokes = [{ strokeColor: '#123456', strokeOpacity: 0.7, strokeStyle: 'solid', strokeWidth: 2, strokeAlignment: 'inner' }];
+  foreignRoot.borderRadius = 13; foreignRoot.opacity = 0.91; foreignRoot.addFlexLayout().rowGap = 7;
+  foreignRoot.setSharedPluginData(R.NAMESPACE, 'protected-marker', 'owner-value');
+  const foreignText = new TextShape('Protected owner text'); foreignText.name = 'Protected owner text'; foreignRoot.appendChild(foreignText);
   const components = [];
   const foreignMaster = new Shape('board', 'foreign-master'); foreignMaster.name = 'Protected component master';
   const foreignComponent = { id: 'foreign-component', name: 'Protected component', path: 'Owner', mainInstance: () => foreignMaster, instance: () => cloneShape(foreignMaster, foreignComponent) };
@@ -81,8 +86,8 @@ function nativeSurface() {
     createText(value) { assert.equal(typeof value, 'string'); return value.length ? new TextShape(value) : null; },
     async openPage(page) { openCount += 1; this.currentPage = page; if (this.onOpen) this.onOpen(openCount); },
   };
-  const storage = { values: new Map(), async set(key, value) { this.values.set(key, structuredClone(value)); } };
-  return { penpot, storage, foreignPage, foreignRoot, foreignComponent, components, versions, counts: () => ({ undoBegin, undoFinish, openCount }) };
+  const storage = { values: new Map(), async get(key) { return structuredClone(this.values.get(key)); }, async set(key, value) { this.values.set(key, structuredClone(value)); } };
+  return { penpot, storage, foreignPage, foreignRoot, foreignText, foreignComponent, components, versions, counts: () => ({ undoBegin, undoFinish, openCount }) };
 }
 
 const lease = () => ({ active: true, cancelled: false, lease_id: 'native-like-test' });
@@ -99,6 +104,12 @@ test('v2 package freezes all five source-bound families and removes metadata-onl
   assert.equal(packageDefinition.native_materialization.shared_plugin_data, 'strict-string-only');
   assert.equal(packageDefinition.native_materialization.page_order_assignment, false);
   assert.equal(packageDefinition.atlas_extension_request_path.endsWith('ASP_ATLAS_EXTENSION_REQUEST_V1.md'), true);
+  assert.equal(packageDefinition.acceptance.linked_visible_specimens, 23);
+  assert.equal(packageDefinition.acceptance.maximum_managed_nodes, 38);
+  for (const unit of packageDefinition.page_units) {
+    assert.deepEqual(unit.specimens.map((specimen) => specimen.state), unit.components[0].states);
+    assert.equal(unit.managed_nodes_expected, 1 + unit.components.length + unit.specimens.length);
+  }
 });
 
 test('strict plugin-data runtime and native-like double reject every non-string without coercion', () => {
@@ -124,18 +135,21 @@ test('two actual native-like executor runs create real masters and linked visibl
   };
   const second = await run({ penpot: surface.penpot, storage: surface.storage, lease: lease() });
   const secondAudit = R.readback(surface.penpot, packageDefinition);
-  assert.equal(first.created, 31);
+  assert.equal(first.created, 38);
   assert.equal(second.created, 0);
   assert.deepEqual({
     pages: secondAudit.pages.map((item) => item.id), roots: secondAudit.roots.map((item) => item.id),
     components: secondAudit.components.map((item) => item.id), wrappers: secondAudit.wrappers.map((item) => item.id),
     instances: secondAudit.instances.map((item) => item.id),
   }, stableIds);
-  assert.deepEqual({ pages: first.pages, roots: first.roots, components: first.component_masters, specimens: first.linked_visible_specimens }, { pages: 5, roots: 5, components: 5, specimens: 16 });
+  assert.deepEqual({ pages: first.pages, roots: first.roots, components: first.component_masters, specimens: first.linked_visible_specimens }, { pages: 5, roots: 5, components: 5, specimens: 23 });
   assert.deepEqual({ duplicates: second.duplicates, detached: second.detached, screenshots: second.screenshots, lineage: second.source_lineage_errors }, { duplicates: 0, detached: 0, screenshots: 0, lineage: 0 });
   assert.equal(second.protected_projection_changed, false);
   assert.equal(second.protected_projection_before, protectedBefore.sha256);
   assert.equal(second.protected_projection_after, protectedBefore.sha256);
+  assert.equal(second.managed_nodes, 38);
+  assert.equal(second.managed_replay_projection_changed, false);
+  assert.equal(second.managed_projection_sha256, first.managed_projection_sha256);
   assert.equal(second.atlas_extension_request_preserved, true);
   assert.equal(second.atlas_page_order_assigned, false);
   assert.equal(second.penpot_execution_authorized, false);
@@ -159,12 +173,45 @@ test('duplicate, detached, screenshot, protected and cancellation gates fail clo
   const shot = screenshot.penpot.createBoard(); shot.name = 'screenshot evidence'; R.readback(screenshot.penpot, packageDefinition).roots[0].appendChild(shot);
   await assert.rejects(run({ penpot: screenshot.penpot, storage: screenshot.storage, lease: lease() }), /SCREENSHOT_SHAPES/);
 
+  const imageType = nativeSurface(); await run({ penpot: imageType.penpot, storage: imageType.storage, lease: lease() });
+  const image = new Shape('image'); image.name = 'innocent media'; R.readback(imageType.penpot, packageDefinition).roots[0].appendChild(image);
+  await assert.rejects(run({ penpot: imageType.penpot, storage: imageType.storage, lease: lease() }), /SCREENSHOT_SHAPES/);
+
+  const imageFill = nativeSurface(); await run({ penpot: imageFill.penpot, storage: imageFill.storage, lease: lease() });
+  const filled = imageFill.penpot.createBoard(); filled.name = 'ordinary board'; filled.fills = [{ fillColor: '#fff', fillOpacity: 1, fillImage: { id: 'raster-1', width: 100, height: 80 } }];
+  R.readback(imageFill.penpot, packageDefinition).roots[0].appendChild(filled);
+  await assert.rejects(run({ penpot: imageFill.penpot, storage: imageFill.storage, lease: lease() }), /SCREENSHOT_SHAPES/);
+
   const protectedDrift = nativeSurface(); protectedDrift.penpot.onOpen = (count) => { if (count === 1) protectedDrift.foreignRoot.name = 'mutated owner root'; };
   await assert.rejects(run({ penpot: protectedDrift.penpot, storage: protectedDrift.storage, lease: lease() }), /PROTECTED_PROJECTION_CHANGED/);
 
   const cancelled = nativeSurface();
   await assert.rejects(run({ penpot: cancelled.penpot, storage: cancelled.storage, lease: { active: false, cancelled: true } }), /LEASE_NOT_ACTIVE/);
   assert.equal(cancelled.penpot.currentFile.pages.length, 1);
+});
+
+test('protected and managed projections cover native style, plugin, component and Flex state', async () => {
+  const mutations = [
+    (surface) => { surface.foreignText.characters = 'Changed owner text'; },
+    (surface) => { surface.foreignRoot.fills = [{ fillColor: '#000000', fillOpacity: 1 }]; },
+    (surface) => { surface.foreignRoot.strokes = [{ strokeColor: '#ffffff', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 9, strokeAlignment: 'outer' }]; },
+    (surface) => { surface.foreignRoot.borderRadius = 99; },
+    (surface) => { surface.foreignRoot.opacity = 0.2; },
+    (surface) => { surface.foreignRoot.setSharedPluginData(R.NAMESPACE, 'protected-marker', 'changed'); },
+    (surface) => { surface.foreignComponent.path = 'Changed owner path'; },
+    (surface) => { surface.foreignRoot.flex.rowGap = 99; },
+  ];
+  for (const mutate of mutations) {
+    const surface = nativeSurface(); const before = R.protectedProjection(surface.penpot).sha256; mutate(surface);
+    assert.notEqual(R.protectedProjection(surface.penpot).sha256, before);
+  }
+
+  const replay = nativeSurface();
+  const first = await run({ penpot: replay.penpot, storage: replay.storage, lease: lease() });
+  const title = R.walk(R.readback(replay.penpot, packageDefinition).instances[0]).find((shape) => shape.getSharedPluginData(R.NAMESPACE, 'anatomy-id') === 'title');
+  title.characters = 'Unauthorized replay drift'; title.fills = [{ fillColor: '#000000', fillOpacity: 1 }];
+  await assert.rejects(run({ penpot: replay.penpot, storage: replay.storage, lease: lease() }), /MANAGED_REPLAY_PROJECTION_CHANGED/);
+  assert.equal(typeof first.managed_projection_sha256, 'string');
 });
 
 test('visible anatomy and family-specific states follow the frozen product contract', async () => {
@@ -183,4 +230,28 @@ test('visible anatomy and family-specific states follow the frozen product contr
   }
   const states = new Set(audit.instances.map((instance) => instance.getSharedPluginData(R.NAMESPACE, 'state-id')));
   for (const specimen of packageDefinition.page_units.flatMap((unit) => unit.specimens)) assert.equal(states.has(specimen.state), true, specimen.state);
+
+  const instance = (family, state) => audit.instances.find((item) => item.getSharedPluginData(R.NAMESPACE, 'family-id') === family && item.getSharedPluginData(R.NAMESPACE, 'state-id') === state);
+  const anatomy = (root, id) => R.walk(root).find((shape) => shape.getSharedPluginData(R.NAMESPACE, 'anatomy-id') === id);
+  for (const unit of packageDefinition.page_units) {
+    for (const state of unit.components[0].states) {
+      const specimen = instance(unit.unit_id, state);
+      assert.ok(specimen, `${unit.unit_id}:${state}`);
+      assert.equal(specimen.getSharedPluginData(R.NAMESPACE, 'state-binding'), `${unit.unit_id}:${state}`);
+    }
+  }
+  assert.equal(instance('U-CARD-COMPACT', 'document-bounded-cover').getSharedPluginData(R.NAMESPACE, 'document-crop-budget'), '0.20');
+  assert.equal(anatomy(instance('U-CARD-COMPACT', 'document-bounded-cover'), 'bounded-media-shell').height, 400);
+  assert.equal(anatomy(instance('U-CARD-COMPACT', 'document-contain'), 'bounded-media-shell').height, 450);
+  assert.equal(anatomy(instance('U-CARD-FESTIVAL', 'document-media'), 'festival-media').parent.height, 450);
+  assert.equal(instance('U-CARD-FESTIVAL', 'document-media').getSharedPluginData(R.NAMESPACE, 'media-fit'), 'cover');
+  assert.equal(instance('U-CARD-FESTIVAL', 'visual-media').getSharedPluginData(R.NAMESPACE, 'media-fit'), 'cover');
+  assert.equal(anatomy(instance('U-CARD-CLUB', 'cover-ready'), 'future-meeting-badge').visible, false);
+  assert.equal(anatomy(instance('U-CARD-CLUB', 'future-meetings'), 'future-meeting-badge').visible, true);
+  assert.equal(instance('U-CARD-CLUB', 'reduced-motion').getSharedPluginData(R.NAMESPACE, 'motion-profile'), 'none');
+  assert.equal(anatomy(instance('U-CARD-ARTIFACT', 'default'), 'found-badge').visible, false);
+  assert.equal(anatomy(instance('U-CARD-ARTIFACT', 'collecting'), 'pressed-state').visible, true);
+  assert.equal(anatomy(instance('U-CARD-ARTIFACT', 'collected'), 'found-badge').visible, true);
+  assert.equal(instance('U-CARD-ARTIFACT', 'reduced-motion').getSharedPluginData(R.NAMESPACE, 'motion-profile'), 'none');
+  assert.equal(states.has('cover-ready-future'), false);
 });

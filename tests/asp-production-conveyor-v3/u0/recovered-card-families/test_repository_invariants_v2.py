@@ -44,6 +44,14 @@ class NativeSuccessorInvariantTests(unittest.TestCase):
             component = package_units[family_id]["components"][0]
             for key in ("anatomy", "states", "responsive_behavior", "explicit_difference_from_eventcard"):
                 self.assertEqual(component[key], frozen[key], f"{family_id}:{key}")
+            self.assertEqual([item["state"] for item in package_units[family_id]["specimens"]], frozen["states"])
+            self.assertEqual(
+                package_units[family_id]["managed_nodes_expected"],
+                1 + len(package_units[family_id]["components"]) + len(package_units[family_id]["specimens"]),
+            )
+        self.assertEqual(PACKAGE["acceptance"]["linked_visible_specimens"], 23)
+        self.assertEqual(PACKAGE["acceptance"]["maximum_managed_nodes"], 38)
+        self.assertNotIn("cover-ready-future", json.dumps(PACKAGE, ensure_ascii=False))
 
     def test_executor_is_concrete_native_not_metadata_ensure(self):
         runtime = (SCRIPT_DIR / "native_runtime_v2.js").read_text(encoding="utf-8")
@@ -84,6 +92,23 @@ class NativeSuccessorInvariantTests(unittest.TestCase):
         self.assertEqual(PACKAGE["acceptance"]["detached_instances"], 0)
         self.assertEqual(PACKAGE["acceptance"]["screenshot_shapes"], 0)
         self.assertEqual(PACKAGE["acceptance"]["protected_projection_changes"], 0)
+
+    def test_state_projection_and_global_image_gates_are_concrete(self):
+        runtime = (SCRIPT_DIR / "native_runtime_v2.js").read_text(encoding="utf-8")
+        node_test = (ROOT / "tests/asp-production-conveyor-v3/u0/recovered-card-families/test_native_executor_v2.js").read_text(encoding="utf-8")
+        for state in (state for family in PRODUCT["families"] for state in family["states"]):
+            self.assertIn(state, runtime, state)
+        for required in (
+            "managedProjection", "MANAGED_REPLAY_PROJECTION_CHANGED", "shape.type || '').toLowerCase() === 'image'",
+            "hasImageFill(shape)", "fillImage", "borderRadius", "pluginData", "component:", "flex:",
+        ):
+            self.assertIn(required, runtime)
+        for required in (
+            "document-bounded-cover", "visual-media", "document-media", "future-meetings", "reduced-motion",
+            "collecting", "found-badge').visible, false", "new Shape('image')", "fillImage:",
+            "MANAGED_REPLAY_PROJECTION_CHANGED",
+        ):
+            self.assertIn(required, node_test)
 
     def test_atlas_extension_request_is_exact_and_order_remains_o0_only(self):
         request = (PACKAGE_DIR / "ASP_ATLAS_EXTENSION_REQUEST_V1.md").read_bytes()

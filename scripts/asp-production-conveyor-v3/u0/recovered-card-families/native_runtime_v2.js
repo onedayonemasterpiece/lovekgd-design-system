@@ -223,7 +223,8 @@ function makeClubMaster(penpot, visual) {
   addFlex(veil, { dir: 'column', gap: 12, padding: 18, justify: 'end' });
   tag(veil, 'anatomy-id', 'veil');
   appendTagged(veil, makeText(penpot, visual.meta.toUpperCase(), { color: '#e9fffd', fontSize: '13', fontWeight: '850' }), 'topic');
-  appendTagged(veil, makeText(penpot, 'Есть будущие встречи', { color: '#24170c', fontSize: '12', fontWeight: '900' }), 'future-meeting-badge');
+  const futureBadge = appendTagged(veil, makeText(penpot, 'Есть будущие встречи', { color: '#24170c', fontSize: '12', fontWeight: '900' }), 'future-meeting-badge');
+  futureBadge.visible = false;
   appendTagged(veil, makeText(penpot, visual.title, { color: '#ffffff', fontSize: '32', fontWeight: '820' }), 'title');
   appendTagged(veil, makeText(penpot, 'Мы исследуем город пешком, собираем истории и делимся маршрутами.', { color: '#e7f2f2', fontSize: '15', fontWeight: '500' }), 'description');
   appendTagged(veil, makeText(penpot, visual.place, { color: '#d7ecec', fontSize: '13', fontWeight: '760' }), 'place-and-activity-facts');
@@ -244,7 +245,10 @@ function makeArtifactMaster(penpot, visual) {
   appendTagged(artifact, makeText(penpot, visual.media.label, { color: '#5c3109', fontSize: '12', fontWeight: '900' }), 'artifact-visual');
   master.appendChild(artifact);
   appendTagged(master, makeText(penpot, 'Нажатие', { color: '#793014', fontSize: '9', fontWeight: '800' }), 'pressed-state');
-  appendTagged(master, makeText(penpot, '✓ Найдено', { color: '#793014', fontSize: '9', fontWeight: '800' }), 'found-badge');
+  const pressed = walk(master).find((shape) => shared(shape, 'anatomy-id') === 'pressed-state');
+  pressed.visible = false;
+  const found = appendTagged(master, makeText(penpot, '✓ Найдено', { color: '#793014', fontSize: '9', fontWeight: '800' }), 'found-badge');
+  found.visible = false;
   const live = appendTagged(master, makeText(penpot, 'Артефакт добавлен в локальную коллекцию', { color: '#281d17', fontSize: '1', fontWeight: '500' }), 'live-region');
   live.visible = false;
   appendTagged(master, makeText(penpot, 'Ячейка 01', { color: '#98401f', fontSize: '9', fontWeight: '800' }), 'collection-slot-relation');
@@ -271,7 +275,7 @@ function makeMaster(penpot, unit) {
   return makeCollectionMaster(penpot, visual);
 }
 
-function applyState(instance, state) {
+function applyState(instance, familyId, state) {
   tag(instance, 'state-id', state);
   instance.name = `Linked specimen / ${state}`;
   const byAnatomy = new Map(walk(instance).map((shape) => [shared(shape, 'anatomy-id'), shape]));
@@ -279,33 +283,151 @@ function applyState(instance, state) {
     const node = byAnatomy.get(id);
     if (node && typeof node.characters === 'string') node.characters = text;
   };
-  if (state.includes('pending')) setText('program-status', state === 'date-pending' ? 'Даты уточняются' : 'Программа скоро');
-  if (state.includes('document')) setText('bounded-media-shell', 'Документ · contain · natural aspect');
-  if (state.includes('long-copy')) setText('title', 'Длинный заголовок камерного вечера с музыкой и разговорами у моря');
-  if (state.includes('fallback')) setText('cover-or-fallback', 'Нативный геометрический fallback обложки');
-  if (state.includes('focus-visible')) instance.strokes = [{ strokeColor: '#ffffff', strokeOpacity: 1, strokeStyle: 'solid', strokeWidth: 3, strokeAlignment: 'outer' }];
-  if (state === 'collected') setText('found-badge', '✓ Найдено');
-  if (state === 'awake') {
-    const glow = byAnatomy.get('discovery-glow');
-    if (glow) glow.fills = [{ fillColor: '#ffd76a', fillOpacity: 0.78 }];
+  const setFill = (shape, color, opacity = 1) => { if (shape) shape.fills = [{ fillColor: color, fillOpacity: opacity }]; };
+  const setStroke = (shape, color, width, opacity = 1) => { if (shape) shape.strokes = [{ strokeColor: color, strokeOpacity: opacity, strokeStyle: 'solid', strokeWidth: width, strokeAlignment: 'outer' }]; };
+  const mediaParent = (id) => byAnatomy.get(id)?.parent || null;
+  const binding = `${familyId}:${state}`;
+
+  if (binding === 'U-CARD-COMPACT:visual-fixed-5x4') {
+    const media = byAnatomy.get('bounded-media-shell'); resize(media, 360, 288); setFill(media, '#8a3f23');
+    tag(instance, 'media-fit', 'cover'); tag(instance, 'media-ratio', '5:4');
+  } else if (binding === 'U-CARD-COMPACT:document-contain') {
+    const media = byAnatomy.get('bounded-media-shell'); resize(media, 360, 450); setFill(media, '#f7efe3'); setStroke(media, '#793014', 1);
+    setText('bounded-media-shell', 'Документ · contain · natural aspect'); resize(instance, 360, 592);
+    tag(instance, 'media-fit', 'contain'); tag(instance, 'media-ratio', 'natural');
+  } else if (binding === 'U-CARD-COMPACT:document-bounded-cover') {
+    const media = byAnatomy.get('bounded-media-shell'); resize(media, 360, 400); setFill(media, '#ead7ca'); setStroke(media, '#793014', 2);
+    setText('bounded-media-shell', 'Документ · bounded cover · crop ≤ 20%'); resize(instance, 360, 542);
+    tag(instance, 'media-fit', 'cover'); tag(instance, 'document-crop-budget', '0.20');
+  } else if (binding === 'U-CARD-COMPACT:long-copy') {
+    setText('title', 'Длинный заголовок камерного вечера с музыкой и разговорами у моря');
+    resize(instance, 360, 472); resize(byAnatomy.get('title'), 332, 72); tag(instance, 'copy-lines', '3');
+  } else if (binding === 'U-CARD-FESTIVAL:announced') {
+    setText('program-status', 'Объявлено'); setFill(byAnatomy.get('program-status'), '#24743b');
+  } else if (binding === 'U-CARD-FESTIVAL:program-pending') {
+    setText('program-status', 'Программа скоро'); setFill(byAnatomy.get('program-status'), '#76540a');
+    byAnatomy.get('official-source-cta').opacity = 0.72;
+  } else if (binding === 'U-CARD-FESTIVAL:date-pending') {
+    setText('date-label', 'Даты уточняются'); setText('program-status', 'Следим за анонсом');
+    setFill(byAnatomy.get('date-label'), '#ffffff'); setFill(byAnatomy.get('program-status'), '#76540a'); resize(byAnatomy.get('date-label'), 172, 34);
+  } else if (binding === 'U-CARD-FESTIVAL:visual-media') {
+    const media = mediaParent('festival-media'); setFill(media, '#432c22'); setStroke(media, '#39271b', 1); resize(media, 360, 225); resize(instance, 360, 225); setText('festival-media', 'Визуальное медиа · cover · 16:10');
+    tag(instance, 'media-fit', 'cover'); tag(instance, 'media-ratio', '16:10');
+  } else if (binding === 'U-CARD-FESTIVAL:document-media') {
+    const media = mediaParent('festival-media'); setFill(media, '#432c22'); setStroke(media, '#39271b', 1); resize(media, 360, 450); resize(instance, 360, 450);
+    setText('festival-media', 'Документ · protected cover · 4:5'); setFill(byAnatomy.get('festival-media'), '#f8e2ce'); tag(instance, 'media-fit', 'cover'); tag(instance, 'media-ratio', '4:5');
+  } else if (binding === 'U-CARD-CLUB:cover-ready') {
+    const media = mediaParent('cover-or-fallback'); setFill(media, '#17343a'); setText('cover-or-fallback', 'Обложка клуба · cover · center 48%');
+    byAnatomy.get('future-meeting-badge').visible = false; tag(instance, 'cover-state', 'ready'); tag(instance, 'media-fit', 'cover');
+  } else if (binding === 'U-CARD-CLUB:cover-fallback') {
+    const media = mediaParent('cover-or-fallback'); setFill(media, '#1b263d'); setStroke(media, '#75d3cc', 1, 0.3); setText('cover-or-fallback', 'Нативный геометрический fallback обложки');
+    byAnatomy.get('future-meeting-badge').visible = false; tag(instance, 'cover-state', 'fallback');
+  } else if (binding === 'U-CARD-CLUB:future-meetings') {
+    const badge = byAnatomy.get('future-meeting-badge'); badge.visible = true; setText('future-meeting-badge', 'Ближайших встреч: 3'); setFill(badge, '#f49a25'); setStroke(badge, '#fff4da', 1, 0.78); resize(badge, 176, 34);
+  } else if (binding === 'U-CARD-CLUB:focus-visible') {
+    setStroke(instance, '#f4b942', 3); const hint = byAnatomy.get('keyboard-hint'); hint.visible = true; hint.opacity = 0.72;
+    tag(instance, 'focus-offset', '5');
+  } else if (binding === 'U-CARD-CLUB:reduced-motion') {
+    const hint = byAnatomy.get('keyboard-hint'); hint.visible = false; instance.x = 0; instance.y = 0; instance.opacity = 1;
+    tag(instance, 'motion-profile', 'none'); tag(instance, 'transform-profile', 'none');
+  } else if (binding === 'U-CARD-ARTIFACT:default') {
+    byAnatomy.get('found-badge').visible = false; byAnatomy.get('pressed-state').visible = false; setFill(byAnatomy.get('discovery-glow'), '#ffbe43', 0.42);
+  } else if (binding === 'U-CARD-ARTIFACT:awake') {
+    const glow = byAnatomy.get('discovery-glow'); setFill(glow, '#ffd76a', 0.78); const visual = mediaParent('artifact-visual'); visual.y = -1;
+    tag(instance, 'motion-profile', 'awake-cycle');
+  } else if (binding === 'U-CARD-ARTIFACT:collecting') {
+    const pressed = byAnatomy.get('pressed-state'); pressed.visible = true; setFill(pressed, '#fff4bd'); const visual = mediaParent('artifact-visual'); resize(visual, 81, 105);
+    tag(instance, 'motion-profile', 'collect-430ms');
+  } else if (binding === 'U-CARD-ARTIFACT:collected') {
+    const badge = byAnatomy.get('found-badge'); badge.visible = true; const visual = mediaParent('artifact-visual'); resize(visual, 70, 90); visual.opacity = 0.82;
+    setFill(byAnatomy.get('discovery-glow'), '#ffbe43', 0.28); tag(instance, 'aria-pressed', 'true');
+  } else if (binding === 'U-CARD-ARTIFACT:focus-visible') {
+    setStroke(instance, '#0f766e', 3, 0.66); tag(instance, 'focus-offset', '-4');
+  } else if (binding === 'U-CARD-ARTIFACT:reduced-motion') {
+    const visual = mediaParent('artifact-visual'); visual.y = 0; setFill(byAnatomy.get('discovery-glow'), '#ffec9c', 0.76); byAnatomy.get('found-badge').visible = false;
+    tag(instance, 'motion-profile', 'none'); tag(instance, 'transition-profile', 'none');
+  } else if (binding === 'U-CARD-COLLECTION:public-link') {
+    setText('lifecycle-status', 'ГОТОВО'); setFill(byAnatomy.get('lifecycle-status'), '#24743b'); setStroke(instance, '#dddddd', 1);
+  } else if (binding === 'U-CARD-COLLECTION:repair-link') {
+    setText('lifecycle-status', 'ОБНОВЛЯЕТСЯ'); setFill(byAnatomy.get('lifecycle-status'), '#a54821'); setStroke(instance, '#d08a31', 2);
+  } else if (binding === 'U-CARD-COLLECTION:deferred-disabled') {
+    setText('lifecycle-status', 'СКОРО'); setText('link-or-disabled-container', 'Подборка пока недоступна'); instance.opacity = 0.72;
+    tag(instance, 'link-enabled', 'false');
+  } else {
+    throw new Error(`STATE_BINDING_MISSING:${binding}`);
   }
-  if (state === 'repair-link') setText('lifecycle-status', 'ВОССТАНАВЛИВАЕТСЯ');
-  if (state === 'deferred-disabled') {
-    setText('lifecycle-status', 'ЗАПЛАНИРОВАНО');
-    setText('link-or-disabled-container', 'Подборка пока недоступна');
-    instance.opacity = 0.68;
-  }
+  tag(instance, 'state-binding', binding);
 }
 
 function managedComponents(penpot) {
   return Array.from(penpot.library?.local?.components || []).filter((component) => shared(component.mainInstance?.(), 'package-id') === PACKAGE_ID);
 }
 
+const PROJECTION_PLUGIN_KEYS = Object.freeze([
+  'package-id', 'unit-id', 'family-id', 'stable-id', 'specimen-id', 'state-id', 'state-binding',
+  'anatomy-id', 'source-head', 'source-tree', 'source-lineage', 'layout-contract', 'viewport',
+  'atlas-extension-state', 'atlas-page-order-assigned', 'media-fit', 'media-ratio',
+  'document-crop-budget', 'copy-lines', 'cover-state', 'motion-profile', 'transform-profile',
+  'transition-profile', 'focus-offset', 'aria-pressed', 'link-enabled', 'implementation-kind',
+  'protected-marker',
+]);
+
+function imageProjection(image) {
+  if (!image) return null;
+  return {
+    id: image.id ?? null, name: image.name ?? null, width: image.width ?? null, height: image.height ?? null,
+    mimeType: image.mimeType ?? image.mime_type ?? null,
+  };
+}
+
+function paintProjection(paint) {
+  if (!paint || typeof paint !== 'object') return paint ?? null;
+  return {
+    fillColor: paint.fillColor ?? null, fillOpacity: paint.fillOpacity ?? null,
+    strokeColor: paint.strokeColor ?? null, strokeOpacity: paint.strokeOpacity ?? null,
+    strokeStyle: paint.strokeStyle ?? null, strokeWidth: paint.strokeWidth ?? null,
+    strokeAlignment: paint.strokeAlignment ?? null,
+    fillImage: imageProjection(paint.fillImage),
+  };
+}
+
+function pluginProjection(shape) {
+  const values = new Map();
+  if (shape?.shared instanceof Map) {
+    for (const [key, value] of shape.shared.entries()) values.set(key, value);
+  }
+  for (const key of PROJECTION_PLUGIN_KEYS) {
+    const value = shared(shape, key);
+    if (value !== '') values.set(`${NAMESPACE}\0${key}`, value);
+  }
+  return Array.from(values.entries()).sort(([left], [right]) => left.localeCompare(right));
+}
+
+function flexProjection(shape) {
+  const flex = shape?.flex;
+  if (!flex) return null;
+  return {
+    dir: flex.dir ?? null, wrap: flex.wrap ?? null, alignItems: flex.alignItems ?? null,
+    justifyContent: flex.justifyContent ?? null, rowGap: flex.rowGap ?? null, columnGap: flex.columnGap ?? null,
+    verticalPadding: flex.verticalPadding ?? null, horizontalPadding: flex.horizontalPadding ?? null,
+  };
+}
+
 function shapeProjection(shape) {
+  const component = shape.component?.() || null;
   return {
     id: shape.id, name: shape.name || '', type: shape.type || '', x: shape.x, y: shape.y,
     width: shape.width, height: shape.height, visible: shape.visible !== false,
     characters: typeof shape.characters === 'string' ? shape.characters : null,
+    fills: Array.from(shape.fills || []).map(paintProjection),
+    strokes: Array.from(shape.strokes || []).map(paintProjection),
+    fillImage: imageProjection(shape.fillImage),
+    borderRadius: shape.borderRadius ?? null,
+    borderRadii: [shape.borderRadiusTopLeft ?? null, shape.borderRadiusTopRight ?? null, shape.borderRadiusBottomRight ?? null, shape.borderRadiusBottomLeft ?? null],
+    opacity: shape.opacity ?? null,
+    pluginData: pluginProjection(shape),
+    component: component ? { id: component.id, name: component.name || '', path: component.path || '', copy: Boolean(shape.isComponentCopyInstance?.()) } : null,
+    flex: flexProjection(shape),
     children: children(shape).map(shapeProjection),
   };
 }
@@ -321,6 +443,23 @@ function protectedProjection(penpot) {
     .sort((left, right) => left.id.localeCompare(right.id));
   const projection = { fileId: penpot.currentFile.id, pages, components };
   return { canonical: canonical(projection), sha256: sha256(projection), projection };
+}
+
+function managedProjection(penpot) {
+  const pages = Array.from(penpot.currentFile?.pages || [])
+    .filter((page) => shared(page, 'package-id') === PACKAGE_ID)
+    .map((page) => ({ id: page.id, name: page.name, pluginData: pluginProjection(page), root: shapeProjection(page.root) }))
+    .sort((left, right) => left.id.localeCompare(right.id));
+  const components = managedComponents(penpot)
+    .map((component) => ({ id: component.id, name: component.name, path: component.path || '', main: shapeProjection(component.mainInstance()) }))
+    .sort((left, right) => left.id.localeCompare(right.id));
+  const projection = { fileId: penpot.currentFile.id, pages, components };
+  return { canonical: canonical(projection), sha256: sha256(projection), projection };
+}
+
+function hasImageFill(shape) {
+  if (shape?.fillImage) return true;
+  return Array.from(shape?.fills || []).some((paint) => Boolean(paint?.fillImage));
 }
 
 function findPages(penpot, unitId) {
@@ -356,7 +495,10 @@ function createPage(penpot, lease, unit) {
 
 function createRoot(penpot, lease, page, unit, sourceAuthority) {
   return nativeWrite(penpot, lease, `root:${unit.unit_id}`, () => {
-    const root = makePanel(penpot, unit.root_name, 1536, 1600, '#f7efe3', 28);
+    const specimenRows = Math.ceil(unit.specimens.length / 2);
+    const specimensHeight = specimenRows * 660 + Math.max(0, specimenRows - 1) * 24;
+    const rootHeight = 32 + 128 + 24 + specimensHeight + 32;
+    const root = makePanel(penpot, unit.root_name, 1536, rootHeight, '#f7efe3', 28);
     root.x = 0; root.y = 0;
     addFlex(root, { dir: 'column', gap: 24, padding: 32 });
     tag(root, 'package-id', PACKAGE_ID);
@@ -370,7 +512,7 @@ function createRoot(penpot, lease, page, unit, sourceAuthority) {
     header.appendChild(makeText(penpot, unit.page_name, { color: '#281d17', fontSize: '28', fontWeight: '840' }));
     header.appendChild(makeText(penpot, `${unit.components[0].responsive_behavior} ${unit.components[0].explicit_difference_from_eventcard}`, { color: '#725f50', fontSize: '14', fontWeight: '520' }));
     root.appendChild(header);
-    const specimens = makePanel(penpot, 'Linked visible state specimens', 1472, 1376, '#f7efe3', 0);
+    const specimens = makePanel(penpot, 'Linked visible state specimens', 1472, specimensHeight, '#f7efe3', 0);
     addFlex(specimens, { dir: 'row', gap: 24, padding: 0, align: 'start', wrap: 'wrap' });
     tag(specimens, 'stable-id', `specimens-grid:${unit.unit_id}`);
     root.appendChild(specimens);
@@ -414,7 +556,7 @@ function createSpecimen(penpot, lease, root, unit, specimen, component) {
     tag(instance, 'package-id', PACKAGE_ID);
     tag(instance, 'family-id', unit.unit_id);
     tag(instance, 'specimen-id', specimen.specimen_id);
-    applyState(instance, specimen.state);
+    applyState(instance, unit.unit_id, specimen.state);
     wrapper.appendChild(instance);
     const grid = walk(root).find((shape) => shared(shape, 'stable-id') === `specimens-grid:${unit.unit_id}`);
     if (!grid) throw new Error(`SPECIMEN_GRID_MISSING:${unit.unit_id}`);
@@ -442,7 +584,12 @@ function readback(penpot, packageDefinition) {
     seen.add(key);
   }
   const detached = instances.filter((instance) => !instance.isComponentCopyInstance?.() || !instance.component?.());
-  const screenshots = pages.flatMap((page) => walk(page.root)).filter((shape) => shared(shape, 'implementation-kind') === 'screenshot' || /screenshot/i.test(shape.name || ''));
+  const screenshots = roots.flatMap((root) => walk(root)).filter((shape) => (
+    shared(shape, 'implementation-kind') === 'screenshot'
+    || /screenshot/i.test(shape.name || '')
+    || String(shape.type || '').toLowerCase() === 'image'
+    || hasImageFill(shape)
+  ));
   const lineageErrors = [];
   for (const unit of packageDefinition.page_units) {
     const expected = JSON.stringify(sourceLineage(packageDefinition.source_authority, unit));
@@ -464,14 +611,25 @@ function validatePackage(packageDefinition) {
     if (unit.components?.length !== 1) errors.push(`ONE_COMPONENT_REQUIRED:${unit.unit_id}`);
     if (!unit.specimens?.length) errors.push(`SPECIMENS_REQUIRED:${unit.unit_id}`);
     if (!unit.components?.[0]?.explicit_difference_from_eventcard) errors.push(`EVENTCARD_DIFFERENCE_REQUIRED:${unit.unit_id}`);
+    const declaredStates = unit.components?.[0]?.states || [];
+    const specimenStates = (unit.specimens || []).map((specimen) => specimen.state);
+    if (new Set(declaredStates).size !== declaredStates.length) errors.push(`DUPLICATE_DECLARED_STATE:${unit.unit_id}`);
+    if (new Set(specimenStates).size !== specimenStates.length) errors.push(`DUPLICATE_SPECIMEN_STATE:${unit.unit_id}`);
+    if (canonical([...declaredStates].sort()) !== canonical([...specimenStates].sort())) errors.push(`STATE_SPECIMEN_COVERAGE_MISMATCH:${unit.unit_id}`);
+    const managedExpected = 1 + (unit.components?.length || 0) + (unit.specimens?.length || 0);
+    if (unit.managed_nodes_expected !== managedExpected) errors.push(`MANAGED_NODE_CENSUS_MISMATCH:${unit.unit_id}:${managedExpected}:${unit.managed_nodes_expected}`);
   }
+  const specimenCount = (packageDefinition.page_units || []).reduce((count, unit) => count + (unit.specimens?.length || 0), 0);
+  const managedCount = (packageDefinition.page_units?.length || 0) + (packageDefinition.page_units || []).reduce((count, unit) => count + unit.managed_nodes_expected, 0);
+  if (packageDefinition.acceptance?.linked_visible_specimens !== specimenCount) errors.push(`LINKED_SPECIMEN_CENSUS_MISMATCH:${specimenCount}`);
+  if (packageDefinition.acceptance?.maximum_managed_nodes !== managedCount) errors.push(`MAXIMUM_MANAGED_NODE_CENSUS_MISMATCH:${managedCount}`);
   return errors;
 }
 
 async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   if (!penpot?.currentFile || typeof penpot.createPage !== 'function' || typeof penpot.createBoard !== 'function') throw new TypeError('NATIVE_PENPOT_CONTEXT_REQUIRED');
   if (!penpot.library?.local || typeof penpot.library.local.createComponent !== 'function') throw new TypeError('NATIVE_COMPONENT_LIBRARY_REQUIRED');
-  if (!storage || typeof storage.set !== 'function') throw new TypeError('STORAGE_SET_REQUIRED');
+  if (!storage || typeof storage.set !== 'function' || typeof storage.get !== 'function') throw new TypeError('STORAGE_GET_SET_REQUIRED');
   assertActiveLease(lease, 'entry');
   const errors = validatePackage(packageDefinition);
   if (errors.length) throw new Error(`PACKAGE_VALIDATION_FAILED:${errors.join('|')}`);
@@ -500,13 +658,20 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     }
   }
   const audit = readback(penpot, packageDefinition);
-  if (audit.pages.length !== 5 || audit.roots.length !== 5 || audit.components.length !== 5 || audit.wrappers.length !== 16 || audit.instances.length !== 16) throw new Error('NATIVE_CENSUS_MISMATCH');
+  const expectedSpecimens = packageDefinition.page_units.reduce((count, unit) => count + unit.specimens.length, 0);
+  const expectedManaged = packageDefinition.page_units.length + packageDefinition.page_units.reduce((count, unit) => count + unit.managed_nodes_expected, 0);
+  if (audit.pages.length !== packageDefinition.page_units.length || audit.roots.length !== packageDefinition.page_units.length || audit.components.length !== packageDefinition.page_units.length || audit.wrappers.length !== expectedSpecimens || audit.instances.length !== expectedSpecimens) throw new Error('NATIVE_CENSUS_MISMATCH');
+  const actualManaged = audit.pages.length + audit.roots.length + audit.components.length + audit.wrappers.length;
+  if (actualManaged !== expectedManaged || actualManaged !== packageDefinition.acceptance.maximum_managed_nodes) throw new Error(`MANAGED_NODE_CENSUS_MISMATCH:${actualManaged}:${expectedManaged}`);
   if (audit.duplicateKeys.length) throw new Error(`DUPLICATE_MANAGED_IDS:${audit.duplicateKeys.join(',')}`);
   if (audit.detached.length) throw new Error(`DETACHED_INSTANCES:${audit.detached.length}`);
   if (audit.screenshots.length) throw new Error(`SCREENSHOT_SHAPES:${audit.screenshots.length}`);
   if (audit.lineageErrors.length) throw new Error(`SOURCE_LINEAGE_DRIFT:${audit.lineageErrors.join(',')}`);
   const protectedAfter = protectedProjection(penpot);
   if (protectedAfter.canonical !== protectedBefore.canonical) throw new Error('PROTECTED_PROJECTION_CHANGED');
+  const managedAfter = managedProjection(penpot);
+  const priorManaged = await storage.get(`managed-projection:${PACKAGE_ID}:v2`);
+  if (created === 0 && priorManaged && priorManaged.canonical !== managedAfter.canonical) throw new Error('MANAGED_REPLAY_PROJECTION_CHANGED');
   const validation = penpot.currentFile.validate?.() || [];
   if (validation.length) throw new Error(`PENPOT_VALIDATION_FAILED:${canonical(validation)}`);
   const receipt = {
@@ -516,9 +681,12 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     linked_visible_specimens: audit.instances.length, duplicates: 0, detached: 0, screenshots: 0,
     source_lineage_errors: 0, validation, protected_projection_before: protectedBefore.sha256,
     protected_projection_after: protectedAfter.sha256, protected_projection_changed: false,
+    managed_nodes: actualManaged, managed_projection_sha256: managedAfter.sha256,
+    managed_replay_projection_changed: false,
     atlas_extension_request_preserved: true, atlas_page_order_assigned: false,
     penpot_execution_authorized: false, promotion_authorized: false,
   };
+  await storage.set(`managed-projection:${PACKAGE_ID}:v2`, { canonical: managedAfter.canonical, sha256: managedAfter.sha256 });
   await storage.set(`receipt:${PACKAGE_ID}:v2`, receipt);
   assertActiveLease(lease, 'after-receipt');
   return receipt;
@@ -526,5 +694,5 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
 
 module.exports = {
   FAMILY_VISUALS, NAMESPACE, PACKAGE_ID, assertActiveLease, assertString, canonical,
-  protectedProjection, readback, runNativePackage, sha256, tag, validatePackage, walk,
+  managedProjection, protectedProjection, readback, runNativePackage, sha256, shapeProjection, tag, validatePackage, walk,
 };

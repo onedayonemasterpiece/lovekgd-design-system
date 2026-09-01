@@ -12,9 +12,12 @@ The v2 executor creates, through native Penpot plugin API calls:
 - five package-owned pages, one per existing card family;
 - five visible documentation roots with native Flex shells;
 - five concrete component masters with family-specific product anatomy;
-- sixteen state wrappers containing real `LibraryComponent.instance()` copies;
+- twenty-three state wrappers containing real `LibraryComponent.instance()`
+  copies;
 - visible Russian content, source-derived dimensions, radii, fills, strokes,
-  typography hierarchy, responsive/state labels, and state-specific overrides.
+  typography hierarchy, and concrete source-bound state layout/style bindings.
+  Every declared state is materialized; no relabel-only or invented combined
+  state remains.
 
 The component families remain exactly:
 
@@ -42,11 +45,16 @@ detached=0
 screenshots=0
 source_lineage_errors=0
 protected_projection_changed=false
+managed_replay_projection_changed=false
+managed_nodes=38
+declared_state_specimens=23/23
 ```
 
-Negative runs independently inject duplicate pages, a detached instance, a
-screenshot-named node, protected-owner drift, and a cancelled lease. Each
-condition fails closed.
+Negative runs independently inject duplicate pages, a detached instance,
+screenshot-named geometry, `type=image`, `fillImage`, protected-owner drift,
+managed replay drift, and a cancelled lease. Each condition fails closed. Both
+protected and managed projections cover text, fills, strokes, radii, opacity,
+shared plugin data, component binding, and Flex properties.
 
 ## Atlas and authorization boundary
 
