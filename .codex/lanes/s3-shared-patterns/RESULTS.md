@@ -1,42 +1,48 @@
-# S3-SHARED-PATTERNS-REPAIR — RESULTS
+# S3-SHARED-PATTERNS-REPAIR-R2 — RESULTS
 
-## Lane / bounds
-- Lane: `s3-shared-patterns-repair`; directive `RD-U0-U-SHARED-PATTERNS` (issue #57 comment 5499373802).
-- Base SHA/tree: `9bde6ed4c3338cd3487f828c2aea27e22e274299` / `02d9d78b44182f3615e2e2e974683d84d8ce57c6`.
-- Rejected predecessor subject: `352aba5e7322cc093626dde2bf0e40811fabdaf1`.
-- Repair implementation subject/tree: `3f0ed20d69f5b910ea40f0e4d2d7649c02df5af1` / `443f8c6b5f49fdbbeeb7db1a29c3d1ed1ac9fb82`.
-- Exact status: `ATLAS_EXTENSION_PENDING`; Git QA is not Penpot authorization.
+## Lane contract
+- Lane: `s3-shared-patterns-repair-r2`; directive `RD-U0-U-SHARED-PATTERNS` (issue #57, comment 5499373802).
+- Writable scope: Shared Patterns package/runtime/tests/docs only.
+- Base SHA/tree: `9bde6ed4c3338cd3487f828c2aea27e22e274299` / `02d9d78b44182f3615e2e974683d84d8ce57c6`.
+- R2 implementation subject/tree: `3e47c9f851b69e2d5ac6be300626b5754412fcf8` / `3397a293049fd4877800b22c2162c5e45e9d903b`.
+- Exact status: `ATLAS_EXTENSION_PENDING`. Git QA/INTEGRATE is not Penpot authorization.
 
-## Result
-- Removed schematic semantics: exact source-consumer anatomy/content and state styles are frozen against `site/src/styles/design-system.css` blob `4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1`.
-- Six existing page units, seven existing masters, and 22 real linked specimens cover selected/loading/pinned/current states and native Grid/Flex layouts. No new family or broad package.
-- Two actual native-like executions: first created 150; replay created 0; pages 6, roots 6, masters 7, linked specimens 22, duplicates/detached/screenshots/protected changes all 0.
-- Replay fails closed on managed anatomy geometry, surface/style, editable text, plugin data, layout, and component-library identity corruption.
-- Protected projection covers text, fills, strokes, plugin data, layout, and foreign local component-library state.
-- Strict string-only shared plugin data remains enforced without implicit `String(...)` coercion.
-- Atlas extension request remains exact blob `4eb5d0b9c87100c9811001bcb776d865efa61f00` (1072 bytes; SHA-256 `767e61efc68d98a42e522132bb288f2ef8647ab152c3048beb18d320fc61621d`); page order is not assigned.
+## Outcome
+- Restored the exact backlog census: 6 pages, 6 roots, 7 existing component masters, and exactly 21 linked visible specimens.
+- Two actual native-like executions: first created 201 native objects; replay created 0; deterministic snapshots equal; duplicates/detached/screenshots/protected changes/managed changes all zero.
+- Uses native `Board.addFlexLayout()` and `Board.addGridLayout()` APIs plus returned Flex/Grid objects; scalar-only layout is not accepted.
+- Replaced concatenated-label generic boards with nested chip, card/list, input, action, progress, and content-group boards containing editable text.
+- Complete direct style-owner tuples are frozen and applied to masters/wrappers/instances: ListingDiscoveryRail+ListingControls; ListingPageHeader; AuthorizedEventSearch+EventLayout; FreeCollectionSurface+FestivalTimelinePage. Design-system token blob remains `4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1`.
+- Declared nested text colors are materialized/read back for selected, current, and documented pinned states.
+- Replay fails closed on visible/hidden text and fill corruption, wrapper surface corruption, extra plugin data, native layout-object corruption, recursive nested detach, source/style tuple drift, master/component identity drift, screenshots, duplicates, and protected projection drift.
+- Strict string-only plugin data is enforced in runtime and test double with no implicit `String(...)` coercion.
+- Preserved Atlas request blob `4eb5d0b9c87100c9811001bcb776d865efa61f00`, 1072 bytes, SHA-256 `767e61efc68d98a42e522132bb288f2ef8647ab152c3048beb18d320fc61621d`; Atlas page order remains unassigned.
 - Penpot reads/mutations 0; PUBLISH 0; Kaggle 0; Atlas R2 mutations 0.
 
-## Commands / tests
-- `node --check scripts/.../native_runtime_v2.js`
-- `node --test` v1 + v2 suites: 12/12 PASS.
-- `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest` v1 + v2 suites: 13/13 PASS.
-- JSON parse, `git diff --check`, exact request hash/bytes: PASS.
+## QA / INTEGRATE commands
+- `node --check` on runtime/executor/setup: PASS.
+- `node --test` v1+v2 suites: 12/12 PASS.
+- `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest` v1+v2 suites: 13/13 PASS.
+- JSON parse, `git diff --check`, request blob/size/SHA verification: PASS.
 
-## Provider readback of repair subject
-- Remote head/tree matched `3f0ed20d...` / `443f8c6b...`.
-- successor: blob `79e67c54b5220a6fecb8cda6bf38dec4f7e87228`, 14514 bytes, SHA-256 `6ce0f5b995bebf7b882eeed6691f842e013da6a29a54616ec7b63274af50d304`.
-- native contract: `e211b79110022afd35c9f2bfc7405f3ce449cbc0`, 77281, `a961be57b38c067c24bf20700c6ebe66058f1d93b9f7d2bd14e1f729f12b8d35`.
-- receipt: `0d54e0af36c87788c2bb6d9497876338b00d863c`, 1800, `531df19ac8664b365e68fc7328168d7e8eb7a2b6e1feb19ff6d2a6c6d0575533`.
-- runtime: `719253fe310c9189b3659daaa344dfe6b9a03e07`, 37969, `366ea03b308c0920d0fcdb5eb30b2c984bdcfc99bba784bb06ead54f6833bd23`.
-- Node test: `eb20ebc459a2876e53f0a82fcb5627107e53eab8`, 16049, `507e78e625ea1fe0741054045e2b1deb57c5ce783b7d48d5ab79ef83316750b0`.
-- Python test: `d8ba916e47e456fdd56cd4eb8622c9948b29b073`, 8036, `20ab8c2a1eb09eb73f4e81478debae14c9b8af093861f194ea638e5ab93a1550`.
+## Provider-backed readback of implementation subject
+GitHub returned exact head/tree `3e47c9f851b69e2d5ac6be300626b5754412fcf8` / `3397a293049fd4877800b22c2162c5e45e9d903b`.
+
+| Path | Git blob | Bytes | SHA-256 |
+|---|---|---:|---|
+| successor | `1df9c222632e6d916724a8937881b7705430ccdd` | 14469 | `c00c208ead3493ff175e6117590a7e57362ee1771b84e6651c0c6ec374113397` |
+| native contract | `46668a6aecf6e41a2e6e7b9a4ccd81cb117d1ea0` | 107962 | `239c99227763da8317d0fb65826ccaab1cd46646ccdfa7e821316a02e4e1ca62` |
+| local receipt | `774074446f1508b4e654acbcc5cbd4b21620838e` | 2090 | `5b980d0bd2c6e27da5b639d25df6ab77900335c7e9688224f86810aff0bf1c06` |
+| runtime | `445118fe8492d656675a3091df8c2577df5f14d2` | 48694 | `26d1bcfa85781c978857dce46cc9c782d40dd6920250dec1a51d3c6e489f1d10` |
+| Node test | `3d19e7383672361d75637390c4f3068375421f88` | 21951 | `028a5fac7be5a04b2b3b679896d65e94294ab49b6318cb0d7c49fdcb9c9763b2` |
+| Python test | `a9730dfd91792e651eafadbed969ce7a06094e82` | 9032 | `dc7b397994ddd233fd257f90a69f3c56d9e35054b843c413890db644b3dbf8f8` |
+| Atlas request | `4eb5d0b9c87100c9811001bcb776d865efa61f00` | 1072 | `767e61efc68d98a42e522132bb288f2ef8647ab152c3048beb18d320fc61621d` |
 
 ## Changed files
-- package successor/native contract/build request/receipt/results
-- package-local v2 runtime
-- v2 Node/Python tests
-- this lane result
+- Shared package successor, native contract, build request, receipt, and package results.
+- Shared package-local v2 runtime.
+- Shared v2 Node and Python tests.
+- This lane result.
 
-## Risks
-Real Penpot execution remains correctly gated by pending O0 Atlas extension and ActionNav/V0 evidence. No Penpot authorization is claimed.
+## Risk
+Real Penpot execution remains correctly gated by pending O0 extension and ActionNav/V0 evidence. No Penpot authorization is claimed.
