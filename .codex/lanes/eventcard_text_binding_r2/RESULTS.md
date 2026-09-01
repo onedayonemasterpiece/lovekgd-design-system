@@ -12,3 +12,10 @@
 - U0 Penpot reads/mutations: `0/0`.
 - Kaggle calls: `0`.
 - New EventCard families: `0`.
+
+## D0 night-shift revalidation
+
+- Committed Node regression: `4/4 PASS`; embedded self-test: `9/9 PASS`.
+- QA: `PASS` for exact Git package and current-revision/four-target/four-root/sixteen-protected binding.
+- INTEGRATE: `PASS_PACKAGE_LOCAL`; exact native tuple remains pending a fresh mutation-free projection and external ACTIVE authorization.
+- Penpot execution remains unauthorized by this Git-only commit.
