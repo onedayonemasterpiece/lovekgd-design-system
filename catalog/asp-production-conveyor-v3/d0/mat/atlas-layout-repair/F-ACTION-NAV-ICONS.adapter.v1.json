@@ -14,15 +14,15 @@
     "execution_context": "Penpot plugin context",
     "executor": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/f0_existing_atlas_layout_repair_payload_v1.js",
-      "bytes": 19260,
-      "sha256": "096366d2eb6c1204cd1446f37e1c2e163ec7fa596d45b47d76a1d5f5af7b4b2b",
-      "git_blob_sha1": "905e75dc9018dc2d7fcc8a80f1b3119ea3e90875"
+      "bytes": 48417,
+      "sha256": "592055d518b17d5c159dad44f39a8502734287a8546915496e73613d9d69c83b",
+      "git_blob_sha1": "1d666c2ba1dd4a177ef283cfda70147396e66c28"
     },
     "launcher": {
       "path": "scripts/asp-production-conveyor-v3/d0/mat/f0_existing_atlas_layout_repair_v1.js",
       "bytes": 3586,
-      "sha256": "a74e229e3b1f143691c56922c76ec48f6efe5a1a274abc7bb4e37b3400bf82e3",
-      "git_blob_sha1": "b18339658a25b485a0f26b48259b367098fa422e"
+      "sha256": "0884894eac0544467b815d92df8d919837d0f7a9231e41cb64a910f17b95afe3",
+      "git_blob_sha1": "dff588b17cdd1148132292f7a13338437396d8ec"
     },
     "load_order": [
       "scripts/asp-production-conveyor-v3/d0/mat/f0_existing_atlas_layout_repair_payload_v1.js",
@@ -81,8 +81,9 @@
     "screenshots_forbidden": true,
     "source_page_mutated_only": true,
     "source_protected_pages_unchanged": true,
-    "source_terminal_required": true,
-    "visual_acceptance": "PENDING_V0"
+    "source_terminal_required": false,
+    "visual_acceptance": "PENDING_V0",
+    "page_create_if_missing": true
   },
   "schema_version": "kenigevents.asp-atlas-layout-repair-adapter.v1",
   "semantic_slot_bindings": {
@@ -109,7 +110,7 @@
   "template_id": "FOUNDATION_ASSET_GRID_V1",
   "runtime_claim_contract": {
     "schema": "kenigevents.asp-atlas-publish-claim.v1",
-    "adapter_sha256": "096366d2eb6c1204cd1446f37e1c2e163ec7fa596d45b47d76a1d5f5af7b4b2b",
+    "adapter_sha256": "592055d518b17d5c159dad44f39a8502734287a8546915496e73613d9d69c83b",
     "binding_storage_key": "d0F0AtlasBindingV1:F-ACTION-NAV-ICONS",
     "protected_baseline_storage_key": "d0F0AtlasProtectedBaselineV1:F-ACTION-NAV-ICONS",
     "current_publish_identity": "RUNTIME_BOUND_NOT_HARDCODED",
@@ -128,7 +129,33 @@
       "atlas_tree"
     ],
     "setup_entry_point": "return setupF0ExistingAtlasLayoutRepairV1({penpot,storage,claim},'F-ACTION-NAV-ICONS');",
-    "setup_penpot_mutations": 0
+    "setup_penpot_mutations": 0,
+    "active_run_package_id": "F-ACTION-NAV-ICONS",
+    "plugin_runtime_dependencies": {
+      "TextEncoder": "NOT_REQUIRED",
+      "crypto": "NOT_REQUIRED",
+      "sha256": "SELF_CONTAINED_PURE_JS"
+    },
+    "exact_prewrite_projections": {
+      "free": {
+        "chars": 84033,
+        "utf8_bytes": 84034,
+        "sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"
+      },
+      "foundation_source_index": {
+        "chars": 43736,
+        "utf8_bytes": 43746,
+        "sha256": "1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa"
+      }
+    },
+    "geometry_epsilon": 0.01,
+    "action_asset_proof_storage_key": "d0ActionAssetProofsV1:F-ACTION-NAV-ICONS"
   },
-  "reason": "exact terminal package geometry conflicts with FOUNDATION_ASSET_GRID_V1; bounded adapter rehomes existing linked material into exact atlas slots without changing component anatomy"
+  "reason": "native ActionNav page is absent; creator consumes exact embedded SVG asset bytes plus pinned protected/source projections and creates all masters/linked states directly inside atlas slots",
+  "exact_asset_contract": {
+    "variant_count": 9,
+    "component_count": 8,
+    "source": "native_executor.embedded_exact_svg_variants",
+    "prewrite_sha256_and_bytes_required": true
+  }
 }

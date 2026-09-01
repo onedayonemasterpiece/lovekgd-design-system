@@ -30,6 +30,13 @@ class T(unittest.TestCase):
     if pid.startswith('F-FOUNDATIONS-REVIEW-'):
      self.assertEqual(c['exact_prewrite_projections']['free']['sha256'],'0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042'); self.assertEqual(c['exact_prewrite_projections']['foundation_source_index']['sha256'],'1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa'); self.assertTrue(d['repair_policy']['page_create_if_missing']); self.assertFalse(d['repair_policy']['source_terminal_required']); self.assertEqual(c['active_run_package_id'],pid); self.assertEqual(c['plugin_runtime_dependencies']['sha256'],'SELF_CONTAINED_PURE_JS')
     self.assertEqual(d['expected']['maximum_creations_per_invocation'],3); self.assertEqual(d['expected']['second_terminal_run_created'],0)
+ def test_action_exact_nine_asset_tuples_and_states(self):
+  d=json.loads((DIR/'F-ACTION-NAV-ICONS.adapter.v1.json').read_text()); package=json.loads(remote_bytes(d)); payload=ROOT/d['entry_point']['executor']['path']
+  actual=json.loads(subprocess.check_output(['node','-e',f"process.stdout.write(JSON.stringify(require({json.dumps(str(payload))}).ACTION_ASSETS))"],cwd=ROOT,text=True))
+  expected=package['assets_and_hashes'];
+  self.assertEqual([{'asset_id':x['assetId'],'variant':x['variant'],'path':x['path'],'git_blob_sha1':x['gitBlobSha1'],'sha256':x['sha256'],'bytes':x['bytes']} for x in actual],[{k:x[k] for k in ('asset_id','variant','path','git_blob_sha1','sha256','bytes')} for x in expected]); self.assertEqual(len(actual),9)
+  self.assertEqual(set(package['component_ids']),{'icon.action.not_interested','icon.action.calendar_add','icon.action.share','icon.action.favorite','icon.navigation.afisha','icon.navigation.dates','icon.navigation.search','icon.navigation.personal'})
+  self.assertEqual(len(package['states']),18); self.assertTrue(d['exact_asset_contract']['prewrite_sha256_and_bytes_required'])
  def test_exact_foundation_template_geometry(self):
   registry=json.loads((ROOT/'catalog/asp-production-conveyor-v3/atlas/page-template-registry.v1.json').read_text())['templates']['FOUNDATION_ASSET_GRID_V1']
   for pid in PIDS:
