@@ -64,6 +64,42 @@ class EvidenceTest(unittest.TestCase):
         for control in ("Открыть афишу","Повторить"):
             self.assertIn(control,svg)
 
+    def test_mobile_exception_recovery_controls_do_not_overlap_footer(self):
+        svg_root=ET.fromstring((A0/"r2-composed-exception.svg").read_text())
+        measurements=json.loads((A0/"measurements.v1.json").read_text())
+        controls={}
+        footers={}
+        for node in svg_root.iter():
+            kind=node.attrib.get("data-evidence-node")
+            viewport=node.attrib.get("data-viewport")
+            state=node.attrib.get("data-state")
+            if viewport!="mobile" or state not in ("empty","error"):
+                continue
+            bounds={k:float(node.attrib[k]) for k in ("x","y","width","height")}
+            if kind=="recovery-control": controls[state]=bounds
+            elif kind=="recovery-footer": footers[state]=bounds
+        self.assertEqual(set(controls),{"empty","error"})
+        self.assertEqual(set(footers),{"empty","error"})
+        for state in ("empty","error"):
+            control,footer=controls[state],footers[state]
+            self.assertLessEqual(control["y"]+control["height"],footer["y"])
+            key=f"mobile_{state}"
+            proof=measurements["recovery_control_bounds"][key]
+            compact=lambda bounds:{"x":int(bounds["x"]),"y":int(bounds["y"]),
+                                   "w":int(bounds["width"]),"h":int(bounds["height"])}
+            self.assertEqual(proof["control"],compact(control))
+            self.assertEqual(proof["footer"],compact(footer))
+            self.assertEqual(proof["control_footer_gap"],11)
+            self.assertFalse(proof["overlap"])
+            self.assertFalse(proof["clipping"])
+            self.assertFalse(proof["content_outside_root"])
+            panel=proof["panel"]
+            for bounds in (proof["control"],proof["footer"]):
+                self.assertGreaterEqual(bounds["x"],panel["x"])
+                self.assertGreaterEqual(bounds["y"],panel["y"])
+                self.assertLessEqual(bounds["x"]+bounds["w"],panel["x"]+panel["w"])
+                self.assertLessEqual(bounds["y"]+bounds["h"],panel["y"]+panel["h"])
+
     def test_gates_and_aggregate(self):
         local=json.loads((A0/"validation.v1.json").read_text())
         self.assertEqual(local["gates"]["source_bound_content"],"3/3")

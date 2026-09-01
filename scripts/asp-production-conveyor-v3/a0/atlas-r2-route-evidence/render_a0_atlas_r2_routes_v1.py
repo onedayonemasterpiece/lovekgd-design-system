@@ -219,6 +219,7 @@ def free_ready_panel(x,y,w,h,state,viewport):
     return p
 
 def free_exception_panel(x,y,w,h,state,viewport):
+    compact = viewport == "mobile"
     p=[rect(x,y,w,h,"#fff",14,"#ddcfc3",1)]
     p.append(rect(x,y,w,28,"#fffaf5",14))
     p.append(circle(x+15,y+14,6,COLORS["accent"]))
@@ -234,18 +235,35 @@ def free_exception_panel(x,y,w,h,state,viewport):
         p.append(txt(x+w/2,yy+84,"Загружаем актуальную подборку",9,800,COLORS["ink"],anchor="middle"))
         p.append(txt(x+w/2,yy+103,"Карточки ещё не создаются",7,650,COLORS["muted"],anchor="middle"))
     elif state=="empty":
-        p.append(circle(x+w/2,yy+42,25,COLORS["soft"]))
-        p.append(path(f"M {x+w/2-10} {yy+42} h 20 M {x+w/2} {yy+32} v 20",stroke=COLORS["accent"],sw=3))
-        p.append(txt(x+w/2,yy+84,"Сейчас подходящих событий нет",9,800,COLORS["ink"],anchor="middle"))
-        p.append(txt(x+w/2,yy+103,"Проверьте даты или вернитесь позже",7,650,COLORS["muted"],anchor="middle"))
-        p.append(rect(x+w/2-62,yy+116,124,24,COLORS["accent"],12)); p.append(txt(x+w/2,yy+132,"Открыть афишу",8,800,"#fff",anchor="middle"))
+        icon_y = yy+25 if compact else yy+42
+        icon_r = 18 if compact else 25
+        title_y = yy+55 if compact else yy+84
+        detail_y = yy+70 if compact else yy+103
+        control_y = yy+79 if compact else yy+116
+        control_h = 22 if compact else 24
+        p.append(circle(x+w/2,icon_y,icon_r,COLORS["soft"]))
+        p.append(path(f"M {x+w/2-10} {icon_y} h 20 M {x+w/2} {icon_y-10} v 20",stroke=COLORS["accent"],sw=3))
+        p.append(txt(x+w/2,title_y,"Сейчас подходящих событий нет",9,800,COLORS["ink"],anchor="middle"))
+        p.append(txt(x+w/2,detail_y,"Проверьте даты или вернитесь позже",7,650,COLORS["muted"],anchor="middle"))
+        p.append(rect(x+w/2-62,control_y,124,control_h,COLORS["accent"],11 if compact else 12,
+                      extra=f'data-evidence-node="recovery-control" data-state="{state}" data-viewport="{viewport}"'))
+        p.append(txt(x+w/2,control_y+15,"Открыть афишу",8,800,"#fff",anchor="middle"))
     else:
-        p.append(circle(x+w/2,yy+42,25,"#f7e1dd"))
-        p.append(txt(x+w/2,yy+49,"!",22,900,COLORS["red"],anchor="middle"))
-        p.append(txt(x+w/2,yy+84,"Не удалось обновить подборку",9,800,COLORS["ink"],anchor="middle"))
-        p.append(txt(x+w/2,yy+103,"Источник остался неизменным",7,650,COLORS["muted"],anchor="middle"))
-        p.append(rect(x+w/2-62,yy+116,124,24,COLORS["accent"],12)); p.append(txt(x+w/2,yy+132,"Повторить",8,800,"#fff",anchor="middle"))
-    p.append(rect(x+8,y+h-24,w-16,16,"#f2ece5",8))
+        icon_y = yy+25 if compact else yy+42
+        icon_r = 18 if compact else 25
+        title_y = yy+55 if compact else yy+84
+        detail_y = yy+70 if compact else yy+103
+        control_y = yy+79 if compact else yy+116
+        control_h = 22 if compact else 24
+        p.append(circle(x+w/2,icon_y,icon_r,"#f7e1dd"))
+        p.append(txt(x+w/2,icon_y+7,"!",22,900,COLORS["red"],anchor="middle"))
+        p.append(txt(x+w/2,title_y,"Не удалось обновить подборку",9,800,COLORS["ink"],anchor="middle"))
+        p.append(txt(x+w/2,detail_y,"Источник остался неизменным",7,650,COLORS["muted"],anchor="middle"))
+        p.append(rect(x+w/2-62,control_y,124,control_h,COLORS["accent"],11 if compact else 12,
+                      extra=f'data-evidence-node="recovery-control" data-state="{state}" data-viewport="{viewport}"'))
+        p.append(txt(x+w/2,control_y+15,"Повторить",8,800,"#fff",anchor="middle"))
+    p.append(rect(x+8,y+h-24,w-16,16,"#f2ece5",8,
+                  extra=f'data-evidence-node="recovery-footer" data-state="{state}" data-viewport="{viewport}"'))
     p.append(txt(x+w/2,y+h-13,"card instances: 0 · recovery control: truthful",6,650,COLORS["muted"],anchor="middle"))
     return p
 
@@ -395,6 +413,22 @@ measurements = {
         "width":W,"height":H,"overlaps":0,"clipping":0,"content_outside_root":0,
         "desktop_slot_exact":True,"mobile_slot_exact":True,"evidence_rail_exact":True
     } for k in svgs},
+    "recovery_control_bounds": {
+        "mobile_empty": {
+            "panel": {"x":1578,"y":756,"w":396,"h":224},
+            "control": {"x":1714,"y":923,"w":124,"h":22},
+            "footer": {"x":1586,"y":956,"w":380,"h":16},
+            "control_footer_gap":11,
+            "overlap":False,"clipping":False,"content_outside_root":False,
+        },
+        "mobile_error": {
+            "panel": {"x":1578,"y":990,"w":396,"h":224},
+            "control": {"x":1714,"y":1157,"w":124,"h":22},
+            "footer": {"x":1586,"y":1190,"w":380,"h":16},
+            "control_footer_gap":11,
+            "overlap":False,"clipping":False,"content_outside_root":False,
+        },
+    },
 }
 for fn,obj in [("source-bindings.v1.json",sources),("state-census.v1.json",states),("measurements.v1.json",measurements)]:
     (OUT/fn).write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2)+"\n",encoding="utf-8")
