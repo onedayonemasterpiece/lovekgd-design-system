@@ -46,6 +46,7 @@ integrity:
   protected_projection_changes: 0
   exact_source_consumer_lineage: true
   shared_plugin_data: string-only
+  plugin_data_projection: exhaustive_local_and_shared_prewrite_fail_closed
 atlas_extension_request:
   path: catalog/asp-production-conveyor-v3/u0/shared-patterns/ASP_ATLAS_EXTENSION_REQUEST_V1.md
   git_blob_sha1: 4eb5d0b9c87100c9811001bcb776d865efa61f00

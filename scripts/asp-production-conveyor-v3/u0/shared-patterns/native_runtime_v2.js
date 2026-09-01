@@ -42,6 +42,21 @@ function setSharedString(target, namespace, key, value) {
   target.setSharedPluginData(namespace, key, value);
 }
 
+function pluginProjection(target) {
+  assert(target && typeof target.getPluginDataKeys === 'function' && typeof target.getPluginData === 'function', `PLUGIN_DATA_KEY_ENUMERATION_REQUIRED:${target?.id || 'unknown'}`);
+  assert(typeof target.getSharedPluginDataNamespaces === 'function'
+    && typeof target.getSharedPluginDataKeys === 'function'
+    && typeof target.getSharedPluginData === 'function', `SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED:${target?.id || 'unknown'}`);
+  const local = Array.from(target.getPluginDataKeys()).sort().map((key) => [key, target.getPluginData(key)]);
+  const shared = [];
+  for (const namespace of Array.from(target.getSharedPluginDataNamespaces()).sort()) {
+    for (const key of Array.from(target.getSharedPluginDataKeys(namespace)).sort()) {
+      shared.push([namespace, key, target.getSharedPluginData(namespace, key)]);
+    }
+  }
+  return { local, shared };
+}
+
 function mark(target, namespace, values) {
   for (const [key, value] of Object.entries(values)) setSharedString(target, namespace, key, value);
 }
@@ -91,7 +106,7 @@ function shapeProjection(shape) {
     clipContent: shape.clipContent ?? null,
     opacity: shape.opacity ?? 1,
     layout: layoutProjection(shape),
-    plugin_data: shape?._pluginData ? [...shape._pluginData.entries()].sort() : null,
+    plugin_data: pluginProjection(shape),
     children: children(shape).map(shapeProjection),
   };
 }
@@ -111,16 +126,16 @@ function protectedProjection(penpot, namespace, packageId) {
     .sort((left, right) => left.id.localeCompare(right.id));
   const foreignComponents = Array.from(penpot.library?.local?.components || [])
     .filter((component) => pluginGet(component.mainInstance?.(), namespace, 'package-id') !== packageId)
-    .map((component) => ({ id: component.id, name: component.name, path: component.path, main: shapeProjection(component.mainInstance?.()), plugin_data: component?._pluginData ? [...component._pluginData.entries()].sort() : null }))
+    .map((component) => ({ id: component.id, name: component.name, path: component.path, main: shapeProjection(component.mainInstance?.()), plugin_data: pluginProjection(component) }))
     .sort((a, b) => a.id.localeCompare(b.id));
-  const canonical = stableStringify({ pages: pages.map((page) => ({ id: page.id, name: page.name, plugin_data: page?._pluginData ? [...page._pluginData.entries()].sort() : null, root: shapeProjection(page.root) })), foreignComponents });
+  const canonical = stableStringify({ pages: pages.map((page) => ({ id: page.id, name: page.name, plugin_data: pluginProjection(page), root: shapeProjection(page.root) })), foreignComponents });
   return { chars: canonical.length, bytes: Buffer.byteLength(canonical), sha256: sha256(canonical) };
 }
 
 function managedProjection(penpot, namespace, packageId) {
   const pages = Array.from(penpot.currentFile.pages || []).filter((page) => pluginGet(page, namespace, 'package-id') === packageId).sort((a, b) => a.id.localeCompare(b.id));
   const components = Array.from(penpot.library?.local?.components || []).filter((component) => pluginGet(component.mainInstance?.(), namespace, 'package-id') === packageId).map((component) => ({ id: component.id, name: component.name, path: component.path, main: shapeProjection(component.mainInstance?.()) })).sort((a, b) => a.id.localeCompare(b.id));
-  const canonical = stableStringify({ pages: pages.map((page) => ({ id: page.id, name: page.name, plugin_data: page?._pluginData ? [...page._pluginData.entries()].sort() : null, root: shapeProjection(page.root) })), components });
+  const canonical = stableStringify({ pages: pages.map((page) => ({ id: page.id, name: page.name, plugin_data: pluginProjection(page), root: shapeProjection(page.root) })), components });
   return { chars: canonical.length, bytes: Buffer.byteLength(canonical), sha256: sha256(canonical) };
 }
 
@@ -659,6 +674,10 @@ async function runNativeSuccessor({ penpot, storage, lease, successor, predecess
   assertExecutionMode(lease, successor);
   const validationErrors = validateSuccessor(successor, predecessor, productContract, nativeContract);
   if (validationErrors.length) throw new Error(`SUCCESSOR_VALIDATION_FAILED:${validationErrors.join('|')}`);
+  // A real execution must be able to enumerate the complete file-level local
+  // and shared plugin-data projection before the first native write. Never
+  // fall back to mock-only private fields or a guessed namespace/key list.
+  pluginProjection(penpot.currentFile);
   assert(managedPages(penpot, successor).length <= 6, 'MANAGED_PAGE_CENSUS_PRECHECK');
   const beforeProtected = protectedProjection(penpot, successor.execution.namespace, successor.package_id);
   const priorReceipt = typeof storage.get === 'function' ? storage.get(`receipt:${successor.successor_id}`) : null;
@@ -741,6 +760,7 @@ module.exports = {
   assertActiveLease,
   assertExecutionMode,
   pluginGet,
+  pluginProjection,
   protectedProjection,
   readback,
   runNativeSuccessor,

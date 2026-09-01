@@ -22,7 +22,10 @@
   projection changes `0`, validation `[]`.
 - Shared plugin data is string-only in runtime and the test double; non-string
   writes fail before the adapter and there is no implicit `String(...)`
-  coercion.
+  coercion. The runtime enumerates every local key and every shared namespace/key
+  on the current file before its first native write; unavailable enumeration
+  fails closed without creating a page or component. No mock-private plugin-data
+  field is used by the implementation projection.
 - Preserved Atlas request: blob
   `4eb5d0b9c87100c9811001bcb776d865efa61f00`, `1072` bytes,
   SHA-256 `767e61efc68d98a42e522132bb288f2ef8647ab152c3048beb18d320fc61621d`.
@@ -88,4 +91,6 @@ the documented pinned master state receive their declared text colors.
 Replay validation covers visible and hidden text/fills, wrapper surfaces, extra
 plugin-data, native layout objects, complete owner tuples, component-library
 identity, and recursive nested detach corruption. Managed and protected
-projections are both stable across the actual second native-like run.
+projections are both stable across the actual second native-like run. Complete
+local/shared plugin-data enumeration is a pre-write gate, so the native projection
+cannot silently degrade to a known-namespace subset.

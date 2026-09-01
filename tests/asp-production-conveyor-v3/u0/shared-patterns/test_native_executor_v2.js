@@ -7,17 +7,25 @@ const test = require('node:test');
 
 const { run } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_executor_v2');
 const { nativeContract, predecessor, productContract, setupNativeSuccessor, successor } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/setup_v2');
-const { pluginGet, protectedProjection, setSharedString, stableStringify, validateSuccessor } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v2');
+const { pluginGet, pluginProjection, protectedProjection, setSharedString, stableStringify, validateSuccessor } = require('../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v2');
 
 let sequence = 0;
 
 class PluginDataNode {
-  constructor() { this._pluginData = new Map(); }
+  constructor() { this._localPluginData = new Map(); this._sharedPluginData = new Map(); }
+  setPluginData(key, value) {
+    if (typeof value !== 'string') throw new TypeError(`TEST_DOUBLE_PLUGIN_DATA_STRING_REQUIRED:${key}`);
+    this._localPluginData.set(key, value);
+  }
+  getPluginData(key) { return this._localPluginData.get(key) || ''; }
+  getPluginDataKeys() { return [...this._localPluginData.keys()]; }
   setSharedPluginData(namespace, key, value) {
     if (typeof value !== 'string') throw new TypeError(`TEST_DOUBLE_PLUGIN_DATA_STRING_REQUIRED:${key}`);
-    this._pluginData.set(`${namespace}\0${key}`, value);
+    this._sharedPluginData.set(`${namespace}\0${key}`, value);
   }
-  getSharedPluginData(namespace, key) { return this._pluginData.get(`${namespace}\0${key}`) || ''; }
+  getSharedPluginData(namespace, key) { return this._sharedPluginData.get(`${namespace}\0${key}`) || ''; }
+  getSharedPluginDataNamespaces() { return [...new Set([...this._sharedPluginData.keys()].map((key) => key.split('\0')[0]))]; }
+  getSharedPluginDataKeys(namespace) { return [...this._sharedPluginData.keys()].filter((key) => key.startsWith(`${namespace}\0`)).map((key) => key.slice(namespace.length + 1)); }
 }
 
 class Shape extends PluginDataNode {
@@ -72,7 +80,8 @@ function cloneShape(source) {
   }
   clone.fills = structuredClone(source.fills);
   clone.strokes = structuredClone(source.strokes);
-  clone._pluginData = new Map(source._pluginData);
+  clone._localPluginData = new Map(source._localPluginData);
+  clone._sharedPluginData = new Map(source._sharedPluginData);
   if (source.flex) Object.assign(clone.addFlexLayout(), Object.fromEntries(Object.entries(source.flex).filter(([, value]) => typeof value !== 'function')));
   if (source.grid) {
     const grid = clone.addGridLayout();
@@ -183,11 +192,11 @@ function snapshot(penpot) {
     hidden: shape.hidden, visible: shape.visible, fills: shape.fills, strokes: shape.strokes, characters: shape.characters,
     opacity: shape.opacity, borderRadius: shape.borderRadius, clipContent: shape.clipContent,
     flex: layout(shape.flex), grid: layout(shape.grid),
-    plugin_data: [...shape._pluginData.entries()].sort(), component_id: shape.component?.()?.id || null,
+    plugin_data: pluginProjection(shape), component_id: shape.component?.()?.id || null,
     is_copy: shape.isComponentCopyInstance?.() || false, children: shape.children.map(node),
   });
   return stableStringify({
-    pages: penpot.currentFile.pages.map((page) => ({ id: page.id, name: page.name, plugin_data: [...page._pluginData.entries()].sort(), root: node(page.root) })),
+    pages: penpot.currentFile.pages.map((page) => ({ id: page.id, name: page.name, plugin_data: pluginProjection(page), root: node(page.root) })),
     components: penpot.library.local.components.map((component) => ({ id: component.id, name: component.name, path: component.path, main_id: component.mainInstance().id })),
   });
 }
@@ -238,6 +247,28 @@ test('strict shared-plugin-data rejects non-strings in runtime and native-like d
   const runtime = fs.readFileSync(path.resolve(__dirname, '../../../../scripts/asp-production-conveyor-v3/u0/shared-patterns/native_runtime_v2.js'), 'utf8');
   assert.equal(runtime.includes('penpot.ensure'), false);
   assert.equal(/\bString\(/.test(runtime), false);
+});
+
+test('complete local and shared plugin-data enumeration is mandatory before the first native write', async () => {
+  const env = environment();
+  env.penpot.currentFile.setPluginData('foreign-local', 'local-value');
+  env.penpot.currentFile.setSharedPluginData('foreign-namespace', 'foreign-key', 'shared-value');
+  assert.deepEqual(pluginProjection(env.penpot.currentFile), {
+    local: [['foreign-local', 'local-value']],
+    shared: [['foreign-namespace', 'foreign-key', 'shared-value']],
+  });
+
+  const missingLocalEnumeration = environment();
+  missingLocalEnumeration.penpot.currentFile.getPluginDataKeys = undefined;
+  await assert.rejects(() => run(missingLocalEnumeration), /PLUGIN_DATA_KEY_ENUMERATION_REQUIRED/);
+  assert.equal(missingLocalEnumeration.penpot.currentFile.pages.length, 1);
+  assert.equal(missingLocalEnumeration.penpot.library.local.components.length, 0);
+
+  const missingSharedEnumeration = environment();
+  missingSharedEnumeration.penpot.currentFile.getSharedPluginDataNamespaces = undefined;
+  await assert.rejects(() => run(missingSharedEnumeration), /SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED/);
+  assert.equal(missingSharedEnumeration.penpot.currentFile.pages.length, 1);
+  assert.equal(missingSharedEnumeration.penpot.library.local.components.length, 0);
 });
 
 test('two actual native-like executor runs create concrete masters and linked visible specimens once', async () => {
@@ -361,7 +392,7 @@ test('replay fails closed on old false-PASS anatomy geometry, style, text, plugi
   await corrupted(({ hiddenBoard }) => { hiddenBoard.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_ANATOMY_SURFACE/);
   await corrupted(({ hidden }) => { const text = hidden.type === 'text' ? hidden : hidden.children[0].children.find((child) => child.type === 'text'); text.characters = 'HIDDEN PLACEHOLDER'; }, /SPECIMEN_ANATOMY_TEXT/);
   await corrupted(({ wrapper }) => { wrapper.fills = [{ fillColor: '#010203', fillOpacity: 1 }]; }, /SPECIMEN_WRAPPER.*SURFACE/);
-  await corrupted(({ anatomy }) => { anatomy._pluginData.delete(`${successor.execution.namespace}\0anatomy-key`); }, /SPECIMEN_ANATOMY_CENSUS/);
+  await corrupted(({ anatomy }) => { anatomy._sharedPluginData.delete(`${successor.execution.namespace}\0anatomy-key`); }, /SPECIMEN_ANATOMY_CENSUS/);
   await corrupted(({ instance }) => { (instance.flex || instance.grid).dir = 'corrupt'; }, /LAYOUT_DIRECTION/);
   await corrupted(({ anatomy }) => { anatomy.setSharedPluginData(successor.execution.namespace, 'unexpected-extra', 'corrupt'); }, /MANAGED_PROJECTION_DRIFT/);
   await corrupted(({ instance }) => { const nested = new Shape('board'); nested._isCopy = true; nested._component = null; instance.appendChild(nested); }, /DETACHED_NESTED_INSTANCE/);

@@ -106,6 +106,13 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         self.assertIn("runNativeSuccessor", executor)
         self.assertIn("typeof value !== 'string'", runtime)
         self.assertIn("typeof value !== 'string'", node_test)
+        for operation in ("getPluginDataKeys", "getPluginData", "getSharedPluginDataNamespaces", "getSharedPluginDataKeys", "getSharedPluginData"):
+            self.assertIn(operation, runtime)
+            self.assertIn(operation, node_test)
+        self.assertNotIn("._pluginData", runtime)
+        self.assertIn("PLUGIN_DATA_KEY_ENUMERATION_REQUIRED", runtime)
+        self.assertIn("SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED", runtime)
+        self.assertIn("before the first native write", runtime)
         self.assertIsNone(re.search(r"\bString\(", runtime))
         self.assertIsNone(re.search(r"\bString\(", node_test))
 
@@ -114,7 +121,7 @@ class NativeSuccessorRepositoryTests(unittest.TestCase):
         node_test = (ROOT / SUCCESSOR["execution"]["node_test"]).read_text(encoding="utf-8")
         for gate in ("DUPLICATE_PAGE", "DUPLICATE_STABLE_ID", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE", "REAL_PENPOT_EXECUTION_GATED"):
             self.assertIn(gate, runtime)
-        for evidence in ("second.created, 0", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE", "SPECIMEN_ANATOMY_GEOMETRY", "COMPONENT_LIBRARY_IDENTITY"):
+        for evidence in ("second.created, 0", "DETACHED_INSTANCE", "SCREENSHOT_IMPLEMENTATION", "PROTECTED_PROJECTION_DRIFT", "MASTER_SOURCE_LINEAGE", "SPECIMEN_ANATOMY_GEOMETRY", "COMPONENT_LIBRARY_IDENTITY", "PLUGIN_DATA_KEY_ENUMERATION_REQUIRED", "SHARED_PLUGIN_NAMESPACE_ENUMERATION_REQUIRED"):
             self.assertIn(evidence, node_test)
         self.assertEqual(SUCCESSOR["execution"]["actual_native_like_runs"], 2)
         self.assertEqual(SUCCESSOR["execution"]["second_run_created"], 0)
