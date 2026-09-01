@@ -147,6 +147,37 @@ class FreeShellNativeSuccessorTests(unittest.TestCase):
             self.assertIn(field, runtime)
         self.assertIn("MANAGED_REPLAY_PROJECTION_DRIFT", node_test)
 
+    def test_exact_source_tracks_cells_and_per_anatomy_styles_are_frozen(self):
+        components = {item["component_id"]: item for item in PACKAGE["page_units"][0]["components"]}
+        footer = components["U-SHELL-FOOTER"]["native_visual"]
+        self.assertEqual(footer["master_layout"]["columns"], "minmax(16rem,1.5fr) repeat(3,minmax(9rem,1fr))")
+        self.assertEqual(footer["master_layout"]["rows"], "repeat(3,auto)")
+        self.assertEqual(len(footer["master_layout"]["cells"]), 9)
+        bottom = components["U-SHELL-MOBILE-BOTTOM-NAVIGATION"]["native_visual"]
+        self.assertEqual(bottom["master_layout"]["columns"], "repeat(4,minmax(0,1fr))")
+        self.assertEqual([cell["column"] for cell in bottom["master_layout"]["cells"]], [1, 2, 3, 4])
+        mobile = components["U-SHELL-HEADER-MOBILE"]["native_visual"]
+        menu = mobile["role_layouts"]["fullscreen-menu-panel"]
+        self.assertEqual(menu["rows"], "repeat(6,52px)")
+        self.assertEqual([cell["row"] for cell in menu["cells"]], [1, 2, 3, 4, 5, 6])
+        self.assertEqual(mobile["node_styles"]["reference4-brand-trigger"]["radius"], {
+            "top_left": 0, "top_right": 0, "bottom_right": 14, "bottom_left": 14,
+        })
+        self.assertEqual(mobile["node_styles"]["fullscreen-menu-panel"]["background_blur"], 22)
+        self.assertEqual(len(mobile["node_styles"]["menu-close-action"]["shadows"]), 2)
+        desktop = components["U-SHELL-HEADER-DESKTOP"]["native_visual"]
+        self.assertEqual(desktop["node_styles"]["optional-header-badge"]["font_weight"], "900")
+        self.assertEqual(len(desktop["node_styles"]["optional-header-badge"]["shadows"]), 2)
+        self.assertEqual(footer["node_styles"]["share-strip"]["border_width"], 5)
+        self.assertEqual(footer["node_styles"]["share-strip"]["shadows"][0]["blur"], 38)
+        runtime = RUNTIME.read_text(encoding="utf-8")
+        node_test = NODE_TEST.read_text(encoding="utf-8")
+        for exact_guard in ("parseTrackList", "GRID_TRACK_UNSUPPORTED", "GRID_CELL_CHILD_MISSING", "assertSourceStyle"):
+            self.assertIn(exact_guard, runtime)
+        for old_generic in ("kind === 'circle'", "kind === 'pill'", "fill === '#25211e'", "grid.addColumn('flex', 1)"):
+            self.assertNotIn(old_generic, runtime)
+        self.assertIn("exact track, corner, and nested typography corruption", node_test)
+
     def test_extension_request_is_byte_preserved_and_order_is_o0_only(self):
         self.assertEqual(git_blob_sha1(REQUEST), "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf")
         text = REQUEST.read_text(encoding="utf-8")

@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 
 const { packageDefinition, setupPackage } = require('../../../../scripts/asp-production-conveyor-v3/u0/free-shell-review/setup_v2');
-const { canonical, get, put, walk } = require('../../../../scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2');
+const { canonical, get, parseTrackList, put, walk } = require('../../../../scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2');
 const { run } = require('../../../../scripts/asp-production-conveyor-v3/u0/free-shell-review/native_executor_v2');
 
 let nextId = 0;
@@ -101,6 +101,10 @@ function cloneShape(source) {
   clone.fills = structuredClone(source.fills);
   clone.strokes = structuredClone(source.strokes);
   clone.borderRadius = source.borderRadius;
+  clone.borderRadiusTopLeft = source.borderRadiusTopLeft;
+  clone.borderRadiusTopRight = source.borderRadiusTopRight;
+  clone.borderRadiusBottomRight = source.borderRadiusBottomRight;
+  clone.borderRadiusBottomLeft = source.borderRadiusBottomLeft;
   clone.clipContent = source.clipContent;
   clone.opacity = source.opacity;
   clone.hidden = source.hidden;
@@ -118,8 +122,10 @@ function cloneShape(source) {
   clone.blendMode = source.blendMode;
   clone.fontSize = source.fontSize;
   clone.fontWeight = source.fontWeight;
+  clone.lineHeight = source.lineHeight;
   clone.growType = source.growType;
   clone.characters = source.characters;
+  clone.layoutCell = structuredClone(source.layoutCell);
   clone.pluginData = new Map(source.pluginData);
   for (const child of source.children) clone.appendChild(cloneShape(child));
   if (source.flex) Object.assign(addFlexObject(clone), structuredClone(Object.fromEntries(Object.entries(source.flex).filter(([, value]) => typeof value !== 'function'))));
@@ -221,12 +227,14 @@ function projection(penpot) {
   const node = (shape) => ({
     id: shape.id, type: shape.type, name: shape.name,
     x: shape.x, y: shape.y, width: shape.width, height: shape.height,
-    fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius, svg: shape.svg || '',
+    fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius,
+    corners: [shape.borderRadiusTopLeft, shape.borderRadiusTopRight, shape.borderRadiusBottomRight, shape.borderRadiusBottomLeft], svg: shape.svg || '',
     opacity: shape.opacity, hidden: shape.hidden, visible: shape.visible,
     shadows: shape.shadows, blur: shape.blur, backgroundBlur: shape.backgroundBlur, blendMode: shape.blendMode,
     layout: shape.layout, layoutFlexDir: shape.layoutFlexDir, layoutGap: shape.layoutGap,
     layoutPadding: shape.layoutPadding, layoutWrap: shape.layoutWrap, layoutGridColumns: shape.layoutGridColumns,
     layoutGridRows: shape.layoutGridRows,
+    layoutCell: shape.layoutCell || null, fontSize: shape.fontSize || '', fontWeight: shape.fontWeight || '', lineHeight: shape.lineHeight || '',
     flex: shape.flex ? { dir:shape.flex.dir,wrap:shape.flex.wrap,rowGap:shape.flex.rowGap,columnGap:shape.flex.columnGap,topPadding:shape.flex.topPadding,rightPadding:shape.flex.rightPadding,bottomPadding:shape.flex.bottomPadding,leftPadding:shape.flex.leftPadding,horizontalSizing:shape.flex.horizontalSizing,verticalSizing:shape.flex.verticalSizing } : null,
     grid: shape.grid ? { dir:shape.grid.dir,rows:shape.grid.rows,columns:shape.grid.columns,rowGap:shape.grid.rowGap,columnGap:shape.grid.columnGap,topPadding:shape.grid.topPadding,rightPadding:shape.grid.rightPadding,bottomPadding:shape.grid.bottomPadding,leftPadding:shape.grid.leftPadding,horizontalSizing:shape.grid.horizontalSizing,verticalSizing:shape.grid.verticalSizing } : null,
     data: [...shape.pluginData].sort(), children: shape.children.map(node),
@@ -336,7 +344,13 @@ test('two actual native-like runs create concrete masters/linked specimens once 
   const footerMaster = masters.find((master) => get(master, ns, 'component-id') === 'U-SHELL-FOOTER');
   const breadcrumbMaster = masters.find((master) => get(master, ns, 'component-id') === 'U-SHELL-BREADCRUMBS');
   assert.ok(footerMaster.grid && !footerMaster.flex);
-  assert.deepEqual([footerMaster.grid.columns.length, footerMaster.grid.rows.length], [2, 5]);
+  assert.deepEqual(footerMaster.grid.columns, [
+    { type: 'flex', value: 1.5 }, { type: 'flex', value: 1 },
+    { type: 'flex', value: 1 }, { type: 'flex', value: 1 },
+  ]);
+  assert.deepEqual(footerMaster.grid.rows, Array.from({ length: 3 }, () => ({ type: 'auto', value: null })));
+  assert.deepEqual(footerMaster.children[0].layoutCell, { row:1, column:1, rowSpan:1, columnSpan:4 });
+  assert.deepEqual(footerMaster.children[8].layoutCell, { row:3, column:4, rowSpan:1, columnSpan:1 });
   assert.ok(breadcrumbMaster.flex && !breadcrumbMaster.grid);
   assert.equal(breadcrumbMaster.flex.dir, 'row');
   assert.deepEqual(JSON.parse(get(footerMaster, ns, 'native-layout-owner')).direct_source_tuples.map((item) => item.role), ['SiteFooter', 'EventLayout']);
@@ -522,7 +536,7 @@ test('native layout objects, shadows, fill images, extra plugin data, and exhaus
     const ns = packageDefinition.native_successor.plugin_data_namespace;
     const anatomy = walk(managedRoot(env)).find((node) => get(node, ns, 'anatomy-role'));
     anatomy.shadows = [{ style:'drop-shadow', color:'#00000080', offsetX:1, offsetY:2, blur:3, spread:0, hidden:false }];
-    await assert.rejects(() => run(env), /MANAGED_REPLAY_PROJECTION_DRIFT/);
+    await assert.rejects(() => run(env), /MASTER_ANATOMY_STYLE_DRIFT|MANAGED_REPLAY_PROJECTION_DRIFT/);
   }
   {
     const env = environment();
@@ -540,6 +554,68 @@ test('native layout objects, shadows, fill images, extra plugin data, and exhaus
     imageFill.fills = [{ fillImage: { id:'forbidden' } }];
     specimen.children[1].children[0].appendChild(imageFill);
     await assert.rejects(() => run(env), /SCREENSHOT_NODE/);
+  }
+});
+
+test('exact native tracks, cells, asymmetric corners, blur, shadows, and typography are source materialized', async () => {
+  assert.deepEqual(parseTrackList('minmax(16rem,1.5fr) repeat(3,minmax(9rem,1fr))'), [
+    { type:'flex', value:1.5, minimum:'16rem', source:'minmax(16rem,1.5fr)' },
+    ...Array.from({ length:3 }, () => ({ type:'flex', value:1, minimum:'9rem', source:'minmax(9rem,1fr)' })),
+  ]);
+  assert.deepEqual(parseTrackList('repeat(6,52px)'), Array.from({ length:6 }, () => ({ type:'fixed', value:52, source:'52px' })));
+  const env = environment();
+  await run(env);
+  const ns = packageDefinition.native_successor.plugin_data_namespace;
+  const root = managedRoot(env);
+  const master = (id) => walk(root).find((node) => get(node, ns, 'node-role') === 'component-master' && get(node, ns, 'component-id') === id);
+  const desktop = master('U-SHELL-HEADER-DESKTOP');
+  const brand = desktop.children.find((node) => get(node, ns, 'anatomy-role') === 'announcements-lockup');
+  assert.deepEqual([brand.borderRadiusTopLeft, brand.borderRadiusTopRight, brand.borderRadiusBottomRight, brand.borderRadiusBottomLeft], [0,0,12,12]);
+  assert.deepEqual(desktop.shadows, [{ style:'drop-shadow', color:'rgba(69,45,28,.035)', offsetX:0, offsetY:6, blur:22, spread:0, hidden:false }]);
+  const badge = desktop.children.find((node) => get(node, ns, 'anatomy-role') === 'optional-header-badge');
+  assert.equal(badge.children[0].fills[0].fillColor, '#ffffff');
+  assert.deepEqual([badge.children[0].fontSize, badge.children[0].fontWeight, badge.children[0].lineHeight], ['10.56','900','10.56']);
+  assert.equal(badge.shadows.length, 2);
+
+  const footer = master('U-SHELL-FOOTER');
+  assert.equal(footer.layoutGridColumns, 'minmax(16rem,1.5fr) repeat(3,minmax(9rem,1fr))');
+  assert.deepEqual(footer.grid.columns.map((track) => track.value), [1.5,1,1,1]);
+  assert.deepEqual(footer.children[0].layoutCell, { row:1, column:1, rowSpan:1, columnSpan:4 });
+  const share = footer.children[0];
+  assert.deepEqual([share.strokes[0].strokeWidth, share.borderRadius, share.shadows[0].blur], [5,20,38]);
+  assert.equal(share.children[0].fills[0].fillColor, '#552414');
+
+  const bottom = master('U-SHELL-MOBILE-BOTTOM-NAVIGATION');
+  assert.deepEqual(bottom.grid.columns, Array.from({ length:4 }, () => ({ type:'flex', value:1 })));
+  assert.deepEqual(bottom.children.map((child) => child.layoutCell.column), [1,2,3,4]);
+  assert.equal(bottom.shadows[0].offsetY, -9);
+  assert.ok(bottom.children.every((child) => child.children.find((nested) => nested.type === 'text').fontSize === '10'));
+
+  const mobileOpen = walk(root).find((node) => get(node, ns, 'specimen-id') === 'free-shell-mobile-full' && get(node, ns, 'node-role') === 'visible-specimen');
+  const panel = walk(mobileOpen).find((node) => get(node, ns, 'anatomy-role') === 'fullscreen-menu-panel');
+  assert.deepEqual(panel.grid.rows, Array.from({ length:6 }, () => ({ type:'fixed', value:52 })));
+  assert.deepEqual(panel.children.map((child) => child.layoutCell.row), [1,2,3,4,5,6]);
+  assert.equal(panel.backgroundBlur, 22);
+  assert.equal(panel.shadows.length, 2);
+  assert.ok(panel.children.every((row) => row.fontSize === '19' && row.fontWeight === '560' && row.fills[0].fillColor === '#261d18'));
+
+  const currentItem = walk(mobileOpen).find((node) => get(node, ns, 'anatomy-role') === 'search');
+  assert.equal(currentItem.children.find((node) => node.type === 'text').fills[0].fillColor, '#221a14');
+  assert.equal(currentItem.children.find((node) => node.type === 'text').fontWeight, '900');
+});
+
+test('exact track, corner, and nested typography corruption fail before replay PASS', async () => {
+  for (const mutate of [
+    (root, ns) => { const footer = walk(root).find((node) => get(node, ns, 'component-id') === 'U-SHELL-FOOTER' && get(node, ns, 'node-role') === 'component-master'); footer.grid.columns[0].value = 1; },
+    (root, ns) => { const footer = walk(root).find((node) => get(node, ns, 'component-id') === 'U-SHELL-FOOTER' && get(node, ns, 'node-role') === 'component-master'); footer.children[0].layoutCell.columnSpan = 2; },
+    (root, ns) => { const brand = walk(root).find((node) => get(node, ns, 'anatomy-role') === 'announcements-lockup'); brand.borderRadiusBottomRight = 8; },
+    (root, ns) => { const badge = walk(root).find((node) => get(node, ns, 'anatomy-role') === 'optional-header-badge'); badge.children[0].fontWeight = '400'; },
+  ]) {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    mutate(managedRoot(env), ns);
+    await assert.rejects(() => run(env), /NATIVE_LAYOUT_DRIFT|ANATOMY_STYLE_DRIFT|TEXT_STYLE_DRIFT|MANAGED_REPLAY_PROJECTION_DRIFT/);
   }
 });
 

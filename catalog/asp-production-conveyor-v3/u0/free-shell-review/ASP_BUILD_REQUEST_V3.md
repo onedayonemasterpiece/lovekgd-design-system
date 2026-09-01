@@ -86,3 +86,12 @@ anatomy must own real `flex` objects created with `addFlexLayout()`. Readback
 must include native tracks/gaps/padding/sizing plus every supported style field,
 including shadows. If exhaustive plugin-data enumeration is unavailable, abort
 before the first mutation rather than projecting a finite guessed key list.
+
+### Repair-4 exact tracks and per-anatomy source styles
+
+Grid readback is exact, not count-only: preserve track type/value/ratio and
+authored `minmax`/`repeat` strings plus explicit native row/column/span cells.
+Footer, bottom navigation, and the six-row menu grid use their source-specific
+contracts. Each anatomy role also owns a complete source-style tuple covering
+fill, stroke width, asymmetric corners, shadows/blur and nested typography;
+generic kind-derived boards are forbidden.

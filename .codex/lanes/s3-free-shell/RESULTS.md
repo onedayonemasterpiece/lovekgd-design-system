@@ -3,11 +3,11 @@
 - Lane ID: `S3-FREE-SHELL`
 - Requirement: `RD-U0-U-FREE-SHELL-REVIEW-PAGE-R1`
 - Base SHA: `e5ded37cd33f94db1033a9300b69fc91c203aa62`
-- Verified subject head SHA: `83f808e98d3f6ec3c8e44d2398ff86bc97bb4ad0`
-- Verified subject tree SHA: `4982404ba9c66f0a4d2c2395df3e016267a204a2`
-- Stable subject-manifest SHA-256: `ae805fc5cd3b7558a950d5975a9e88b44d5a0c6d29e2702e51d6377d704abfef`
+- Verified subject head SHA: `provider-read-back final branch tip; see terminal shard handoff`
+- Verified subject tree SHA: `provider-read-back final branch tree; see terminal shard handoff`
+- Stable subject-manifest SHA-256: `7842449282174bc607b61f2c6674f40e817612582d06de39a66e6e8fa7f78e19`
 - Branch: `agent/d0-executable-buffer-v2/u0-free-shell-native-r2`
-- Final content-manifest SHA-256: `afd032091c6daabf49cbf2f93861b53749183e3e96561a77e66b6da19cc14432`
+- Final content-manifest SHA-256: `7842449282174bc607b61f2c6674f40e817612582d06de39a66e6e8fa7f78e19`
 - Status: `ATLAS_EXTENSION_PENDING`
 
 The receipt/evidence commit is intentionally outside the verified subject
@@ -45,17 +45,17 @@ re-tested after the receipt commit and provider-read back separately.
 
 ## Independent checks on the same subject
 
-QA on subject `83f808e…` / manifest `ae805fc5…`:
+QA on final self-nonreferential subject manifest `78424492…`:
 
-- v2 Node native suite: `8/8 PASS`
-- v2 Python invariants: `10/10 PASS`
-- exact pinned-source style literal audit: `24/24 PASS`
+- v2 Node native suite: `11/11 PASS`
+- v2 Python invariants: `12/12 PASS`
+- per-anatomy pinned-source style contracts: `35/35 PASS`
 
 INTEGRATE on the same subject/manifest:
 
 - v2 runtime/executor/setup syntax: `3/3 PASS`
-- v1 + v2 Node suites: `13/13 PASS`
-- v1 + v2 Python suites: `17/17 PASS`
+- v1 + v2 Node suites: `16/16 PASS`
+- v1 + v2 Python suites: `19/19 PASS`
 - exact extension blob, semantic gates, clean-tree check: `PASS`
 
 ## Changed files
@@ -85,7 +85,7 @@ The lane changes are package-local under:
 - Master child and linked instance positions are checked independently of the digest.
 - Recursive detach scanning catches untagged nested component copies.
 - Every declared family state has a frozen inner-anatomy contract; mobile menu rows, current bottom-nav item, responsive hero/sticky medallions, breadcrumbs, footer Grid and control Flex states are asserted.
-- Subject tests: v2 Node `8/8 PASS`, v2 Python `10/10 PASS`; integrated v1+v2 Node `13/13 PASS`, Python `17/17 PASS`.
+- Subject tests after Repair-4: v2 Node `11/11 PASS`, v2 Python `12/12 PASS`; integrated v1+v2 Node `16/16 PASS`, Python `19/19 PASS`.
 
 ## Repair-3 closure (content-manifest bound)
 
@@ -95,3 +95,10 @@ The lane changes are package-local under:
 - Exhaustive plugin enumeration is required before mutation; no finite fallback namespaces or keys remain.
 - Protected/managed shadow, extra-plugin and fill-image adversarial cases fail closed.
 - Final evidence uses the receipt's self-nonreferential content manifest; provider head/tree are read back after the single final commit.
+
+## Repair-4 closure
+
+- Replaced count-only Grid expansion with exact parsing/materialization/readback of native track types, values, ratios, and explicit child cells.
+- Footer now owns the source `minmax(16rem,1.5fr) repeat(3,minmax(9rem,1fr))` four-column Grid; bottom-nav owns four equal source columns; open mobile menu owns six fixed `52px` rows.
+- Replaced kind-derived generic anatomy styles with per-role source contracts for asymmetric corners, stroke widths, shadows, blur and nested typography.
+- Added positive exact-value and adversarial ratio/corner/nested-type tests. Unsupported track syntax and any readback drift fail closed.

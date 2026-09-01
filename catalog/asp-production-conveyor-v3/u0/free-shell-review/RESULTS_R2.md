@@ -66,3 +66,19 @@ constraints, tokens, interactions and native layout objects. Plugin-data
 projection requires exhaustive enumeration before the first mutation and never
 falls back to guessed namespaces/keys. Protected/managed shadow, extra plugin
 entry and fill-image adversarial mutations fail closed.
+
+## Repair-4 exact track and source-style closure
+
+Grid evidence now preserves and read-backs the authored track grammar rather
+than reducing it to counts. The source Footer materializes
+`minmax(16rem,1.5fr) repeat(3,minmax(9rem,1fr))`, including 1.5:1:1:1 native
+ratios and explicit nine-child row/column/span cells. Bottom navigation keeps
+four equal `minmax(0,1fr)` columns, and the open menu owns six fixed `52px`
+rows with exact cells. Unsupported track syntax aborts.
+
+Every anatomy role now has its own frozen source style contract. Native
+readback asserts asymmetric brand/menu corners, Footer share-strip border and
+shadow, menu blur and dual shadows, bottom-nav shadow/current typography,
+badge typography/shadows, and nested text color/weight/line-height. No
+kind-based generic radius, border, or typography fallback remains. Adversarial
+track-ratio, cell, corner, shadow, and nested-typography changes fail replay.

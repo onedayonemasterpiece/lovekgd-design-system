@@ -66,15 +66,32 @@ function position(node, x, y) {
 function styleSurface(node, spec) {
   const opacity = Number(spec.opacity ?? 1);
   node.fills = [{ fillColor: spec.fill, fillOpacity: opacity }];
-  node.strokes = [{ strokeColor: spec.border, strokeWidth: 1, strokeStyle: 'solid' }];
-  node.borderRadius = spec.radius;
+  node.strokes = [{ strokeColor: spec.border, strokeWidth: Number(spec.border_width ?? 1), strokeStyle: 'solid' }];
+  const radius = spec.radius ?? 0;
+  if (radius && typeof radius === 'object') {
+    node.borderRadius = 0;
+    node.borderRadiusTopLeft = radius.top_left;
+    node.borderRadiusTopRight = radius.top_right;
+    node.borderRadiusBottomRight = radius.bottom_right;
+    node.borderRadiusBottomLeft = radius.bottom_left;
+  } else {
+    node.borderRadius = radius;
+    node.borderRadiusTopLeft = radius;
+    node.borderRadiusTopRight = radius;
+    node.borderRadiusBottomRight = radius;
+    node.borderRadiusBottomLeft = radius;
+  }
+  node.shadows = structuredClone(spec.shadows || []);
+  node.blur = spec.blur ?? null;
+  node.backgroundBlur = spec.background_blur ?? null;
   node.clipContent = false;
   node.opacity = opacity;
 }
 
-function styleText(node, color, size = '15', weight = '500') {
+function styleText(node, color, size = '15', weight = '500', lineHeight = 'normal') {
   node.fontSize = size;
   node.fontWeight = weight;
+  node.lineHeight = lineHeight;
   node.fills = [{ fillColor: color, fillOpacity: 1 }];
   node.growType = 'auto-width';
 }
@@ -138,7 +155,7 @@ function projectedShape(node, namespace) {
     horizontalSizing: node.horizontalSizing || '', verticalSizing: node.verticalSizing || '',
     layoutChild: node.layoutChild || null, layoutCell: node.layoutCell || null,
     showInViewMode: node.showInViewMode ?? null, exports: node.exports || [], tokens: node.tokens || {}, interactions: node.interactions || [],
-    clipContent: node.clipContent === true, fontSize: node.fontSize || '', fontWeight: node.fontWeight || '',
+    clipContent: node.clipContent === true, fontSize: node.fontSize || '', fontWeight: node.fontWeight || '', lineHeight: node.lineHeight || '',
     growType: node.growType || '', svg: node.svg || '', componentId: component?.id || null,
     componentCopy: node?.isComponentCopyInstance?.() === true,
     layout: node.layout || '', layoutFlexDir: node.layoutFlexDir || '', layoutGap: node.layoutGap ?? null,
@@ -205,8 +222,9 @@ function applyManagedIdentity(node, pkg, namespace, managedId, role) {
   put(node, namespace, 'atlas-page-order-assigned', 'false');
 }
 
-function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, componentId, created) {
+function createLabeledVisual(penpot, parent, nodeSpec, nodeStyle, pkg, namespace, componentId, created) {
   const [role, kind, label, width, height, fill, inlineSvg] = nodeSpec;
+  demand(nodeStyle && nodeStyle.fill === fill, `SOURCE_NODE_STYLE_REQUIRED:${componentId}:${role}`);
   if (kind === 'source-svg') {
     const asset = pkg.asset_bindings?.free_listing_medallion;
     demand(asset && digest(asset.svg) === asset.sha256 && new TextEncoder().encode(asset.svg).length === asset.bytes, 'SOURCE_SVG_BYTES_MISMATCH');
@@ -222,6 +240,9 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
     put(shape, namespace, 'asset-bytes', `${asset.bytes}`);
     append(parent, shape);
     shape.opacity = 1;
+    shape.shadows = structuredClone(nodeStyle.shadows || []);
+    shape.blur = nodeStyle.blur ?? null;
+    shape.backgroundBlur = nodeStyle.background_blur ?? null;
     shape.hidden = false;
     shape.visible = true;
     created.count += 1;
@@ -231,7 +252,7 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
   demand(surface, `NATIVE_ANATOMY_CREATE_FAILED:${componentId}:${role}`);
   surface.name = `${componentId} / ${role}`;
   resize(surface, width, height);
-  styleSurface(surface, { fill, border: kind === 'circle' ? '#221a14' : '#e1d3c2', radius: kind === 'circle' ? Math.min(width, height) / 2 : kind === 'pill' ? Math.min(height / 2, 24) : 10, opacity: 1 });
+  styleSurface(surface, nodeStyle);
   put(surface, namespace, 'anatomy-role', role);
   put(surface, namespace, 'component-id', componentId);
   put(surface, namespace, 'layout', kind);
@@ -260,7 +281,7 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
     const text = penpot.createText(characters);
     demand(text, `NATIVE_TEXT_CREATE_FAILED:${componentId}:${role}:${index}`);
     text.name = labels.length > 1 ? `${role} / source-row-${index + 1}` : `${role} / label`;
-    styleText(text, fill === '#25211e' || fill === '#98401f' ? '#fffaf2' : '#221a14', kind === 'text' ? '16' : kind === 'inline-svg' ? '10' : '13', kind === 'text' ? '700' : '600');
+    styleText(text, nodeStyle.text_color, nodeStyle.font_size, nodeStyle.font_weight, nodeStyle.line_height);
     position(text, labels.length > 1 ? 22 : 10, labels.length > 1 ? index * 52 + 17 : kind === 'inline-svg' ? 38 : Math.max(6, (height - 18) / 2));
     append(surface, text);
   });
@@ -282,8 +303,7 @@ function layOutAnatomy(items, direction, padding, gap) {
 }
 
 function masterLayoutContract(component) {
-  if (component.component_id === 'U-SHELL-FOOTER') return { mode: 'grid', direction: 'row', gap: 16, padding: 32, wrap: true, columns: 'repeat(2,minmax(0,1fr))', rows: 'repeat(5,auto)' };
-  if (component.component_id === 'U-SHELL-MOBILE-BOTTOM-NAVIGATION') return { mode: 'grid', direction: 'row', gap: 0, padding: 0, wrap: false, columns: 'repeat(4,1fr)', rows: '1fr' };
+  if (component.native_visual.master_layout) return component.native_visual.master_layout;
   return { mode: 'flex', direction: component.native_visual.direction, gap: component.native_visual.gap, padding: component.native_visual.padding, wrap: false };
 }
 
@@ -306,7 +326,8 @@ async function createMaster({ penpot, root, pkg, unit, component, namespace, x, 
     master.name = `U0 / ${component.component_id} / Main`;
     resize(master, visual.size[0], visual.size[1]);
     position(master, x, y);
-    styleSurface(master, { fill: visual.fill, border: visual.border, radius: visual.radius, opacity: 1 });
+    demand(visual.surface_style && visual.surface_style.fill === visual.fill, `SOURCE_SURFACE_STYLE_REQUIRED:${component.component_id}`);
+    styleSurface(master, visual.surface_style);
     applyManagedIdentity(master, pkg, namespace, `master/${component.component_id}`, 'component-master');
     put(master, namespace, 'component-id', component.component_id);
     put(master, namespace, 'layout', visual.direction === 'row' ? 'native-row' : 'native-column');
@@ -316,7 +337,7 @@ async function createMaster({ penpot, root, pkg, unit, component, namespace, x, 
     demand(visual.native_layout_owner?.mode === masterLayoutContract(component).mode, `NATIVE_LAYOUT_OWNER_REQUIRED:${component.component_id}`);
     put(master, namespace, 'native-layout-owner', canonical(visual.native_layout_owner));
     const items = visual.nodes.map((spec) => createLabeledVisual(
-      penpot, master, spec, pkg, namespace, component.component_id, created,
+      penpot, master, spec, visual.node_styles?.[spec[0]], pkg, namespace, component.component_id, created,
     ));
     layOutAnatomy(items, visual.direction, visual.padding, visual.gap);
     const nativeLayout = masterLayoutContract(component);
@@ -338,6 +359,17 @@ function assertExactSurface(node, fill, border, radius, code) {
   demand(node.borderRadius === radius, `${code}:RADIUS`);
 }
 
+function assertSourceStyle(node, style, code) {
+  demand(node.fills?.[0]?.fillColor === style.fill, `${code}:FILL`);
+  demand(node.strokes?.[0]?.strokeColor === style.border && node.strokes?.[0]?.strokeWidth === Number(style.border_width), `${code}:STROKE`);
+  if (style.radius && typeof style.radius === 'object') {
+    demand(node.borderRadiusTopLeft === style.radius.top_left && node.borderRadiusTopRight === style.radius.top_right
+      && node.borderRadiusBottomRight === style.radius.bottom_right && node.borderRadiusBottomLeft === style.radius.bottom_left, `${code}:CORNERS`);
+  } else demand(node.borderRadius === style.radius, `${code}:RADIUS`);
+  demand(canonical(node.shadows || []) === canonical(style.shadows || []), `${code}:SHADOWS`);
+  demand((node.blur ?? null) === (style.blur ?? null) && (node.backgroundBlur ?? null) === (style.background_blur ?? null), `${code}:BLUR`);
+}
+
 function validateMaster(master, component, pkg, namespace) {
   const visual = component.native_visual;
   demand(master.name === `U0 / ${component.component_id} / Main`, `MASTER_NAME_DRIFT:${component.component_id}`);
@@ -346,7 +378,7 @@ function validateMaster(master, component, pkg, namespace) {
   demand(get(master, namespace, 'source-style-evidence') === canonical(visual.source_style_evidence), `MASTER_STYLE_EVIDENCE_DRIFT:${component.component_id}`);
   demand(get(master, namespace, 'native-layout-owner') === canonical(visual.native_layout_owner), `MASTER_LAYOUT_OWNER_DRIFT:${component.component_id}`);
   demand(master.width === visual.size[0] && master.height === visual.size[1], `MASTER_GEOMETRY_DRIFT:${component.component_id}`);
-  assertExactSurface(master, visual.fill, visual.border, visual.radius, `MASTER_STYLE_DRIFT:${component.component_id}`);
+  assertSourceStyle(master, visual.surface_style, `MASTER_STYLE_DRIFT:${component.component_id}`);
   const nativeLayout = masterLayoutContract(component);
   demand(get(master, namespace, 'state-layout') === canonical(nativeLayout), `MASTER_LAYOUT_DATA_DRIFT:${component.component_id}`);
   assertNativeLayout(master, nativeLayout, `MASTER_NATIVE_LAYOUT_DRIFT:${component.component_id}`);
@@ -364,7 +396,8 @@ function validateMaster(master, component, pkg, namespace) {
     if (spec[1] === 'source-svg') {
       demand(get(node, namespace, 'asset-sha256') === pkg.asset_bindings.free_listing_medallion.sha256, `MASTER_ASSET_DRIFT:${component.component_id}:${spec[0]}`);
     } else {
-      demand(node.fills?.[0]?.fillColor === spec[5], `MASTER_ANATOMY_STYLE_DRIFT:${component.component_id}:${spec[0]}`);
+      const sourceStyle = visual.node_styles?.[spec[0]];
+      assertSourceStyle(node, sourceStyle, `MASTER_ANATOMY_STYLE_DRIFT:${component.component_id}:${spec[0]}`);
       const expectedLabels = spec[0] === 'fullscreen-menu-panel' ? spec[2].split(' · ') : [spec[2] || spec[0]];
       const labels = walk(node).filter((child) => child.type === 'text');
       demand(canonical(labels.map((label) => label.characters)) === canonical(expectedLabels), `MASTER_ANATOMY_TEXT_DRIFT:${component.component_id}:${spec[0]}`);
@@ -372,6 +405,9 @@ function validateMaster(master, component, pkg, namespace) {
         const expectedLabelX = expectedLabels.length > 1 ? 22 : 10;
         const expectedLabelY = expectedLabels.length > 1 ? labelIndex * 52 + 17 : spec[1] === 'inline-svg' ? 38 : Math.max(6, (spec[4] - 18) / 2);
         demand(label.x === expectedLabelX && label.y === expectedLabelY, `MASTER_ANATOMY_LABEL_POSITION_DRIFT:${component.component_id}:${spec[0]}:${labelIndex}`);
+        demand(label.fills?.[0]?.fillColor === sourceStyle.text_color && label.fontSize === sourceStyle.font_size
+          && label.fontWeight === sourceStyle.font_weight && label.lineHeight === sourceStyle.line_height,
+        `MASTER_ANATOMY_TEXT_STYLE_DRIFT:${component.component_id}:${spec[0]}:${labelIndex}`);
       });
       if (spec[1] === 'inline-svg') {
         const icon = children(node).find((child) => child.type === 'path');
@@ -407,19 +443,66 @@ function baseAnatomyGeometry(component) {
     const geometry = {
       x: visual.direction === 'row' ? cursor : visual.padding,
       y: visual.direction === 'row' ? visual.padding : cursor,
-      width: spec[3], height: spec[4], fill: spec[5],
-      border: spec[1] === 'circle' ? '#221a14' : '#e1d3c2', opacity: 1,
+      width: spec[3], height: spec[4], ...visual.node_styles[spec[0]],
     };
     cursor += (visual.direction === 'row' ? spec[3] : spec[4]) + visual.gap;
     return [spec[0], geometry];
   }));
 }
 
-function gridTrackCount(value, fallback = 1) {
-  if (!value) return fallback;
-  const repeat = /^repeat\((\d+),/u.exec(value);
-  if (repeat) return Number(repeat[1]);
-  return Math.max(1, value.trim().split(/\s+/u).length);
+function splitTracks(value) {
+  const result = [];
+  let depth = 0;
+  let token = '';
+  for (const character of value.trim()) {
+    if (character === '(') depth += 1;
+    if (character === ')') depth -= 1;
+    if (/\s/u.test(character) && depth === 0) {
+      if (token) result.push(token);
+      token = '';
+    } else token += character;
+  }
+  if (token) result.push(token);
+  demand(depth === 0, `GRID_TRACK_SYNTAX_INVALID:${value}`);
+  return result;
+}
+
+function parseTrack(token) {
+  const repeat = /^repeat\((\d+),(.+)\)$/u.exec(token);
+  if (repeat) return Array.from({ length: Number(repeat[1]) }, () => parseTrackList(repeat[2])).flat();
+  const minmax = /^minmax\(([^,]+),(.+)\)$/u.exec(token);
+  if (minmax) {
+    const maximum = parseTrack(minmax[2]);
+    demand(maximum.length === 1, `GRID_MINMAX_INVALID:${token}`);
+    return [{ ...maximum[0], minimum: minmax[1], source: token }];
+  }
+  if (token === 'auto') return [{ type: 'auto', value: null, source: token }];
+  let match = /^(-?(?:\d+\.?\d*|\.\d+))fr$/u.exec(token);
+  if (match) return [{ type: 'flex', value: Number(match[1]), source: token }];
+  match = /^(-?(?:\d+\.?\d*|\.\d+))px$/u.exec(token);
+  if (match) return [{ type: 'fixed', value: Number(match[1]), source: token }];
+  match = /^(-?(?:\d+\.?\d*|\.\d+))%$/u.exec(token);
+  if (match) return [{ type: 'percent', value: Number(match[1]), source: token }];
+  demand(false, `GRID_TRACK_UNSUPPORTED:${token}`);
+}
+
+function parseTrackList(value, fallback = '1fr') {
+  return splitTracks(value || fallback).flatMap(parseTrack);
+}
+
+function materializedTracks(value, fallback) {
+  return parseTrackList(value, fallback).map(({ type, value }) => ({ type, value }));
+}
+
+function applyGridCells(node, layout) {
+  for (const cell of layout.cells || []) {
+    const child = children(node)[cell.index];
+    demand(child, `GRID_CELL_CHILD_MISSING:${node.id}:${cell.index}`);
+    child.layoutCell = {
+      row: cell.row, column: cell.column,
+      rowSpan: cell.row_span, columnSpan: cell.column_span,
+    };
+  }
 }
 
 function configureNativeLayout(node, layout) {
@@ -448,10 +531,16 @@ function configureNativeLayout(node, layout) {
     demand(grid && node.grid === grid && typeof grid.addColumn === 'function' && typeof grid.addRow === 'function', `NATIVE_GRID_OBJECT_REQUIRED:${node.id}`);
     while (grid.columns.length) grid.removeColumn(grid.columns.length - 1);
     while (grid.rows.length) grid.removeRow(grid.rows.length - 1);
-    const columns = gridTrackCount(layout.columns, 1);
-    const rows = gridTrackCount(layout.rows, 1);
-    for (let index = 0; index < columns; index += 1) grid.addColumn('flex', 1);
-    for (let index = 0; index < rows; index += 1) grid.addRow('auto');
+    const columns = parseTrackList(layout.columns, '1fr');
+    const rows = parseTrackList(layout.rows, 'auto');
+    for (const track of columns) {
+      if (track.value === null) grid.addColumn(track.type);
+      else grid.addColumn(track.type, track.value);
+    }
+    for (const track of rows) {
+      if (track.value === null) grid.addRow(track.type);
+      else grid.addRow(track.type, track.value);
+    }
     grid.dir = layout.direction === 'column' ? 'column' : 'row';
     grid.rowGap = layout.gap; grid.columnGap = layout.gap;
     grid.topPadding = layout.padding; grid.rightPadding = layout.padding;
@@ -459,6 +548,7 @@ function configureNativeLayout(node, layout) {
     grid.alignItems = layout.alignItems || 'start';
     grid.justifyItems = layout.justifyItems || 'start';
     grid.horizontalSizing = 'fix'; grid.verticalSizing = 'fix';
+    applyGridCells(node, layout);
   }
   // Metadata mirrors the native object only for deterministic readback; it is
   // never treated as the layout implementation.
@@ -482,8 +572,13 @@ function assertNativeLayout(node, layout, code) {
     demand(node.flex.rowGap === (layout.direction === 'column' ? layout.gap : 0) && node.flex.columnGap === (layout.direction === 'row' ? layout.gap : 0), `${code}:FLEX_GAP`);
   } else {
     demand(node.grid && !node.flex, `${code}:GRID_OBJECT`);
-    demand(node.grid.columns.length === gridTrackCount(layout.columns, 1) && node.grid.rows.length === gridTrackCount(layout.rows, 1), `${code}:GRID_TRACKS`);
+    demand(canonical(node.grid.columns) === canonical(materializedTracks(layout.columns, '1fr'))
+      && canonical(node.grid.rows) === canonical(materializedTracks(layout.rows, 'auto')), `${code}:GRID_TRACKS`);
     demand(node.grid.rowGap === layout.gap && node.grid.columnGap === layout.gap, `${code}:GRID_GAP`);
+    for (const cell of layout.cells || []) {
+      const child = children(node)[cell.index];
+      demand(child && canonical(child.layoutCell) === canonical({ row: cell.row, column: cell.column, rowSpan: cell.row_span, columnSpan: cell.column_span }), `${code}:GRID_CELL:${cell.index}`);
+    }
   }
   const native = node.flex || node.grid;
   demand(native.topPadding === layout.padding && native.rightPadding === layout.padding && native.bottomPadding === layout.padding && native.leftPadding === layout.padding, `${code}:PADDING`);
@@ -512,21 +607,19 @@ function materializeStateAnatomy(instance, component, state, namespace, viewport
     node.hidden = !visible;
     node.visible = visible;
     put(node, namespace, 'state-visibility', visible ? 'visible' : 'hidden');
-    const roleLayout = expected.layout || (role === 'fullscreen-menu-panel'
-      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: '1fr', rows: 'repeat(6,52px)' }
+    const roleLayout = expected.layout || component.native_visual.role_layouts?.[role] || (role === 'fullscreen-menu-panel'
+      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: 'minmax(0,1fr)', rows: 'repeat(6,52px)' }
       : { mode: spec[1] === 'source-svg' ? 'none' : 'flex', direction: spec[1] === 'inline-svg' ? 'column' : 'row', gap: 0, padding: 0, wrap: false });
     configureNativeLayout(node, roleLayout);
     put(node, namespace, 'state-layout', canonical(roleLayout));
     if (spec[1] !== 'source-svg') {
-      styleSurface(node, {
-        fill: expected.fill, border: expected.border, radius: node.borderRadius,
-        opacity: visible ? Number(expected.opacity ?? 1) : 0,
-      });
+      styleSurface(node, { ...expected, opacity: visible ? Number(expected.opacity ?? 1) : 0 });
       node.hidden = !visible;
       node.visible = visible;
     }
     const labels = walk(node).filter((child) => child.type === 'text');
     if (labels[0] && typeof expected.text === 'string') labels[0].characters = expected.text;
+    labels.forEach((label) => styleText(label, expected.text_color, expected.font_size, expected.font_weight, expected.line_height));
   }
   return contract;
 }
@@ -551,20 +644,22 @@ function validateStateAnatomy(instance, component, state, namespace, viewport, e
     demand(node && node.x === expected.x && node.y === expected.y && node.width === expected.width && node.height === expected.height, `INSTANCE_ANATOMY_GEOMETRY_DRIFT:${component.component_id}:${state}:${role}`);
     demand(node.hidden === !visible && node.visible === visible && node.opacity === (visible ? Number(expected.opacity ?? 1) : 0), `INSTANCE_ANATOMY_VISIBILITY_DRIFT:${component.component_id}:${state}:${role}`);
     demand(get(node, namespace, 'state-visibility') === (visible ? 'visible' : 'hidden'), `INSTANCE_ANATOMY_DATA_DRIFT:${component.component_id}:${state}:${role}`);
-    const roleLayout = expected.layout || (role === 'fullscreen-menu-panel'
-      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: '1fr', rows: 'repeat(6,52px)' }
+    const roleLayout = expected.layout || component.native_visual.role_layouts?.[role] || (role === 'fullscreen-menu-panel'
+      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: 'minmax(0,1fr)', rows: 'repeat(6,52px)' }
       : { mode: spec[1] === 'source-svg' ? 'none' : 'flex', direction: spec[1] === 'inline-svg' ? 'column' : 'row', gap: 0, padding: 0, wrap: false });
     demand(get(node, namespace, 'state-layout') === canonical(roleLayout) && node.layout === roleLayout.mode && node.layoutFlexDir === roleLayout.direction, `INSTANCE_ANATOMY_LAYOUT_DRIFT:${component.component_id}:${state}:${role}`);
     assertNativeLayout(node, roleLayout, `INSTANCE_ANATOMY_NATIVE_LAYOUT_DRIFT:${component.component_id}:${state}:${role}`);
     if (spec[1] !== 'source-svg') {
-      demand(node.fills?.[0]?.fillColor === expected.fill && node.strokes?.[0]?.strokeColor === expected.border, `INSTANCE_ANATOMY_STYLE_DRIFT:${component.component_id}:${state}:${role}`);
+      assertSourceStyle(node, expected, `INSTANCE_ANATOMY_STYLE_DRIFT:${component.component_id}:${state}:${role}`);
     }
     if (spec[1] !== 'source-svg') {
       const expectedLabels = typeof expected.text === 'string'
         ? [expected.text, ...(role === 'fullscreen-menu-panel' ? spec[2].split(' · ').slice(1) : [])]
         : role === 'fullscreen-menu-panel' ? spec[2].split(' · ') : [spec[2] || role];
-      const labels = walk(node).filter((child) => child.type === 'text').map((child) => child.characters);
-      demand(canonical(labels) === canonical(expectedLabels), `INSTANCE_ANATOMY_TEXT_DRIFT:${component.component_id}:${state}:${role}`);
+      const labels = walk(node).filter((child) => child.type === 'text');
+      demand(canonical(labels.map((child) => child.characters)) === canonical(expectedLabels), `INSTANCE_ANATOMY_TEXT_DRIFT:${component.component_id}:${state}:${role}`);
+      demand(labels.every((label) => label.fills?.[0]?.fillColor === expected.text_color && label.fontSize === expected.font_size
+        && label.fontWeight === expected.font_weight && label.lineHeight === expected.line_height), `INSTANCE_ANATOMY_TEXT_STYLE_DRIFT:${component.component_id}:${state}:${role}`);
     }
   }
 }
@@ -573,7 +668,7 @@ function applyStateStyle(instance, component, state, namespace, viewport) {
   demand(component.states.includes(state), `STATE_NOT_IN_PRODUCT_CONTRACT:${component.component_id}:${state}`);
   const visual = component.native_visual;
   const value = stateStyle(component, state);
-  styleSurface(instance, { fill: value[0], border: value[1], radius: visual.radius, opacity: Number(value[2]) });
+  styleSurface(instance, { ...visual.surface_style, fill: value[0], border: value[1], opacity: Number(value[2]) });
   materializeStateAnatomy(instance, component, state, namespace, viewport);
   put(instance, namespace, 'state', state);
 }
@@ -841,6 +936,7 @@ module.exports = {
   canonical,
   digest,
   get,
+  parseTrackList,
   protectedProjection,
   put,
   runNativePackage,
