@@ -1,0 +1,84 @@
+{
+  "addenda": [
+    {
+      "correction_kind": "EXECUTION_AND_SECOND_RUN_SEMANTICS",
+      "fields": {
+        "distinct_readback_mutations": 0,
+        "executor_replay_after_marker": "FORBIDDEN_AND_CLASSIFIED_AS_UNKNOWN_OUTCOME",
+        "expected_post_readback_contained": "22/38",
+        "remaining_protected_text_offenders": 16,
+        "second_run_created": 0,
+        "second_run_kind": "DISTINCT_LATER_READBACK",
+        "whole_text_lane_completion": false
+      },
+      "gate": "D0/QA must not reinterpret executor replay as idempotent mutation replay or infer whole-EventCard text PASS.",
+      "original_comment_id": 5497771357,
+      "package_id": "MAT-EVENTCARD-TEXT-R11C-COMPATIBLE-REPAIR"
+    },
+    {
+      "correction_kind": "EXACT_TARGET_ID_BINDING_AND_UNKNOWN_OUTCOME_RECOVERY",
+      "fields": {
+        "all_four_media_shape_ids_unique": true,
+        "pre_execution_read_only_target_projection_required": true,
+        "projection_rows": 4,
+        "required_projection_fields": [
+          "case_id",
+          "root_id",
+          "media_shape_id",
+          "media_parent_or_group_id",
+          "semantic_slot",
+          "bounds",
+          "parent_coordinates",
+          "fills_and_image_data_identity",
+          "transform",
+          "rotation",
+          "flip",
+          "fit",
+          "focal",
+          "protected_projection_sha256"
+        ],
+        "second_run_created": 0,
+        "terminal_idempotent_accepted_root_mutations": 0,
+        "unknown_outcome": {
+          "complete": "accept readback; do not rerun",
+          "next_action": "READ_ONLY_ALL_FOUR_TARGET_AND_COLLECTION_READBACK_BEFORE_ANY_RETRY",
+          "partial_or_unknown": "stop and escalate; no blind retry",
+          "rolled_back": "new exact authorization required before a new execution"
+        }
+      },
+      "gate": "The existing build request's root count is not an exact affected-ID census; the four current media shape IDs must be provider-persisted before authorization.",
+      "original_comment_id": 5497771511,
+      "package_id": "MAT-EVENTCARD-MEDIA-COVERAGE-REPAIR-R1"
+    },
+    {
+      "correction_kind": "BASELINE_VS_TERMINAL_AND_EXACT_ID_PROJECTION",
+      "fields": {
+        "baseline_empty_paths": 15,
+        "baseline_exact_canonical_paths": "0/18",
+        "baseline_legacy_nonempty_paths": 3,
+        "component_and_main_name_writes": 0,
+        "expected_terminal_exact_nonempty_paths": "18/18",
+        "pre_execution_read_only_projection_required": true,
+        "projection_must_enumerate": {
+          "component_ids": 18,
+          "current_and_expected_native_paths": 18,
+          "linked_instance_ids": 26,
+          "main_ids": 18
+        },
+        "projection_sha256_must_bind_execution_authorization": true,
+        "second_run_created": 0,
+        "terminal_second_run_path_mutations": 0
+      },
+      "gate": "Do not read canonical_nonempty_paths:18/18 as a baseline fact; it is the terminal acceptance target.",
+      "original_comment_id": 5497771692,
+      "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-REPAIR-R1"
+    }
+  ],
+  "does_not_modify_frozen_package_heads": true,
+  "marker": "ASP_BUILD_REQUEST_V2_CORRECTED_ADDENDA_EVENTCARD_V1",
+  "next_gate": "D0/QA exact bytes and mandatory addenda; same-tuple D0/INTEGRATE",
+  "observed_at_utc": "2026-09-01T19:35:42Z",
+  "penpot_execution_authorized": false,
+  "schema_version": "kenigevents.asp-build-request-v2-corrected-addenda.v1",
+  "state": "MANDATORY_ADDENDA_TO_EXISTING_FROZEN_REQUESTS"
+}
