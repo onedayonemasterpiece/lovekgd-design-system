@@ -1,0 +1,122 @@
+name: A0 Atlas R2 route source-bound evidence
+
+on:
+  push:
+    branches:
+      - a0/atlas-r2-route-source-evidence-v1-20260901
+    paths:
+      - '.a0-atlas-r2-route-evidence/**'
+      - '.github/workflows/a0-atlas-r2-route-source-evidence.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify exact A0 base and install bounded tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor 48d924404512ef9f854fb80851f3959a58baa66d HEAD
+          test "$(git rev-parse 48d924404512ef9f854fb80851f3959a58baa66d^{tree})" = b611f4ddbb2a779d1cbf5ddfedbbdf211d936407
+          cat .a0-atlas-r2-route-evidence/generate.mjs.b64.part* | base64 -d > .a0-atlas-r2-route-evidence/generate.mjs
+          cat .a0-atlas-r2-route-evidence/validate.mjs.b64.part* | base64 -d > .a0-atlas-r2-route-evidence/validate.mjs
+          cat .a0-atlas-r2-route-evidence/package.json.b64.part* | base64 -d > .a0-atlas-r2-route-evidence/package.json
+          node --check .a0-atlas-r2-route-evidence/generate.mjs
+          node --check .a0-atlas-r2-route-evidence/validate.mjs
+          export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+          npm --prefix .a0-atlas-r2-route-evidence install --ignore-scripts --no-package-lock
+
+      - name: Checkout immutable events-bot-new source and build actual Astro routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/events-bot-new-a0-atlas
+          git clone --filter=blob:none --no-checkout https://github.com/onedayonemasterpiece/events-bot-new.git /tmp/events-bot-new-a0-atlas
+          git -C /tmp/events-bot-new-a0-atlas fetch --depth=1 origin 7b44306b0b58889506b987627fffb3848aa00ed6
+          git -C /tmp/events-bot-new-a0-atlas checkout --detach 7b44306b0b58889506b987627fffb3848aa00ed6
+          test "$(git -C /tmp/events-bot-new-a0-atlas rev-parse HEAD^{tree})" = 1e1383589bcaa68a3173bfb5ec86714ef8408f18
+          git -C /tmp/events-bot-new-a0-atlas fetch --depth=1 origin main
+          git -C /tmp/events-bot-new-a0-atlas rev-parse FETCH_HEAD > /tmp/current-events-main-head
+          export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+          npm --prefix /tmp/events-bot-new-a0-atlas/site ci
+          PUBLIC_PRELAUNCH_MODE=0 npm --prefix /tmp/events-bot-new-a0-atlas/site run build
+          test -s /tmp/events-bot-new-a0-atlas/site/dist/index.html
+          test -s /tmp/events-bot-new-a0-atlas/site/dist/podborki/besplatnye-sobytiya/index.html
+
+      - name: Start immutable source server
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup python3 -m http.server 4173 --directory /tmp/events-bot-new-a0-atlas/site/dist >/tmp/a0-atlas-http.log 2>&1 &
+          echo $! > /tmp/a0-atlas-http.pid
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/a0-atlas-http.log
+          exit 1
+
+      - name: Generate twice and prove deterministic source-bound evidence
+        shell: bash
+        env:
+          EVENTS_SOURCE_DIR: /tmp/events-bot-new-a0-atlas
+          EVENTS_BASE_URL: http://127.0.0.1:4173
+        run: |
+          set -euo pipefail
+          export CURRENT_EVENTS_MAIN_HEAD="$(cat /tmp/current-events-main-head)"
+          export CHROME_PATH="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)"
+          rm -rf /tmp/a0-atlas-route-evidence-a /tmp/a0-atlas-route-evidence-b
+          node .a0-atlas-r2-route-evidence/generate.mjs --repo "$GITHUB_WORKSPACE" --output /tmp/a0-atlas-route-evidence-a --events-source "$EVENTS_SOURCE_DIR" --base-url "$EVENTS_BASE_URL" > /tmp/a0-atlas-generate-a.json
+          node .a0-atlas-r2-route-evidence/generate.mjs --repo "$GITHUB_WORKSPACE" --output /tmp/a0-atlas-route-evidence-b --events-source "$EVENTS_SOURCE_DIR" --base-url "$EVENTS_BASE_URL" > /tmp/a0-atlas-generate-b.json
+          diff -qr /tmp/a0-atlas-route-evidence-a /tmp/a0-atlas-route-evidence-b
+          diff -u /tmp/a0-atlas-generate-a.json /tmp/a0-atlas-generate-b.json
+          rm -rf reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes
+          mkdir -p reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes
+          cp -a /tmp/a0-atlas-route-evidence-a/. reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/
+
+      - name: Fresh-checkout-style validation and immutable-source checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          node .a0-atlas-r2-route-evidence/validate.mjs --repo "$GITHUB_WORKSPACE" --output reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes | tee /tmp/a0-atlas-validation.json
+          test "$(find reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes -maxdepth 1 -type f | wc -l)" -eq 10
+          test "$(git rev-parse 48d924404512ef9f854fb80851f3959a58baa66d:catalog/asp-production-conveyor-v3/a0/page-wave-v1^{tree})" = "$(git rev-parse HEAD:catalog/asp-production-conveyor-v3/a0/page-wave-v1^{tree})"
+          test "$(git rev-parse 48d924404512ef9f854fb80851f3959a58baa66d:catalog/asp-production-conveyor-v3/a0/free-rows-data-r2/A-FREE-ROWS-DATA-R2.package.v1.json)" = "$(git rev-parse HEAD:catalog/asp-production-conveyor-v3/a0/free-rows-data-r2/A-FREE-ROWS-DATA-R2.package.v1.json)"
+          test "$(git rev-parse 48d924404512ef9f854fb80851f3959a58baa66d:catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2-READY.package.v1.json)" = "$(git rev-parse HEAD:catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2-READY.package.v1.json)"
+          test "$(git rev-parse 48d924404512ef9f854fb80851f3959a58baa66d:catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2-EXCEPTION.package.v1.json)" = "$(git rev-parse HEAD:catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2-EXCEPTION.package.v1.json)"
+          test "$(git rev-parse 663be702d481972cb2e8863af500f1c35dda1d8c^{tree})" = cf9a1e6a5e0a84aea5636334dbd3be4961039b75
+          git diff --check
+
+      - name: Publish final remote evidence tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p scripts/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence
+          mkdir -p tests/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence
+          cp .a0-atlas-r2-route-evidence/generate.mjs scripts/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence/generate.mjs
+          cp .a0-atlas-r2-route-evidence/validate.mjs tests/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence/route-evidence.test.mjs
+          git rm -r .a0-atlas-r2-route-evidence .github/workflows/a0-atlas-r2-route-source-evidence.yml
+          git add reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes scripts/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence tests/asp-production-conveyor-v3/a0/atlas-r2-route-source-evidence
+          git diff --cached --check
+          git config user.name 'a0-atlas-route-evidence-bot'
+          git config user.email 'a0-atlas-route-evidence-bot@users.noreply.github.com'
+          git commit -m 'feat(a0): publish Atlas R2 route source-bound evidence'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Stop source server
+        if: always()
+        shell: bash
+        run: |
+          if test -f /tmp/a0-atlas-http.pid; then kill "$(cat /tmp/a0-atlas-http.pid)" || true; fi
