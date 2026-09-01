@@ -1,0 +1,413 @@
+{
+  "atlas_source": {
+    "bindings": "catalog/asp-production-conveyor-v3/atlas/page-unit-bindings.v1.json",
+    "branch": "o0/penpot-atlas-layout-v1-20260901",
+    "head": "a32b9874e1eec367fd6b98bc3c601d0638408843",
+    "page_map": "catalog/asp-production-conveyor-v3/atlas/penpot-page-map.v1.json",
+    "templates": "catalog/asp-production-conveyor-v3/atlas/page-template-registry.v1.json",
+    "tree": "f527c628ed0dfc17eec9208b0ae15b8a29bbedb2"
+  },
+  "checks": {
+    "a0_remote_head_tree": "PASS",
+    "atlas_remote_head_tree": "PASS",
+    "package_blobs_bytes_sha256": "PASS",
+    "package_lookup_exactly_once_in_bindings": "PASS",
+    "package_lookup_exactly_once_in_page_map": "PASS",
+    "page_map_binding_record_identity": "PASS",
+    "page_name_json_pointer_binding": "PASS",
+    "shared_atlas_execution_binding": "REPAIR"
+  },
+  "classification_id": "D0-INTEGRATE-A0-WAVE1-R04",
+  "coordination": {
+    "atlas_layout_comment_ids": [
+      5491140186,
+      5491140403,
+      5491140611
+    ],
+    "checkpoint_comment_id": 5489851638,
+    "issue": 57,
+    "issue_read_through_comment_id": 5492278110,
+    "pr": 55,
+    "pr_head": "7bf067475a1dd03b5208b804ced9dbed277cdf30",
+    "publisher_incident": {
+      "comment_id": 5492278110,
+      "effect_on_git_only_r04": "NONE_CONTINUE_INDEPENDENTLY",
+      "state": "PENPOT_BRIDGE_DISCONNECTED_NO_MUTATION_ATTEMPTED"
+    }
+  },
+  "executor_observed": {
+    "candidate_root_width": 1800,
+    "component_main_positions": {
+      "desktop": [
+        2000,
+        0
+      ],
+      "mobile": [
+        2000,
+        1000
+      ]
+    },
+    "component_mains_parent": "PAGE_ROOT_OUTSIDE_CANDIDATE_ROOT",
+    "desktop_instance": [
+      32,
+      32,
+      1280,
+      "PACKAGE_HEIGHT"
+    ],
+    "evidence_slot_materialized": false,
+    "header_slot_materialized": false,
+    "mobile_instance": [
+      1350,
+      32,
+      390,
+      "PACKAGE_HEIGHT"
+    ],
+    "reads_semantic_slot_bindings": false,
+    "reads_template_id": false
+  },
+  "overall_verdict": "ATLAS_LAYOUT_REPAIR",
+  "package_source": {
+    "branch": "a0/asp-penpot-page-wave-v1-20260901",
+    "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+    "shared_executor": {
+      "byte_count": 11238,
+      "git_blob_sha1": "5643b0373aa092ae64d03d79abf29a7de9b2ab45",
+      "path": "scripts/asp-production-conveyor-v3/a0/page-wave-v1/native-page-unit-executor.v1.js",
+      "sha256": "d0cff3136a9cd99736db5b6adba79e2a5a63a5345df78e9457cf5d5a89108d5d"
+    },
+    "tree": "3132550212222ec3dea716710821e732ad0d92bb"
+  },
+  "penpot_mutations": 0,
+  "promotion_authorized": false,
+  "required_adapter_contract": {
+    "coordinate_improvisation": "FORBIDDEN",
+    "coordinate_policy": "CALCULATE_FROM_TEMPLATE_HONOR_AND_CHECK",
+    "input_binding": "EXACT_ATLAS_RECORD_PLUS_EXACT_PACKAGE_RECORD",
+    "internal_package_geometry_change": "FORBIDDEN_WITHOUT_SEPARATE_REPAIR",
+    "managed_nodes_boundary": "CANDIDATE_ROOT_ONLY",
+    "max_managed_creations_per_invocation": 3,
+    "missing_exact_evidence": "ABORT_NO_PLACEHOLDER_OR_SCREENSHOT",
+    "overlap": "REJECT",
+    "package_lookup_cardinality": "EXACTLY_ONCE_IN_PAGE_MAP_AND_BINDINGS",
+    "postflight": [
+      "native_readback",
+      "nonempty_export",
+      "page_scoped_v0_trigger"
+    ],
+    "read_fields": [
+      "template_id",
+      "semantic_slot_bindings"
+    ],
+    "required_slots": [
+      "header",
+      "desktop",
+      "mobile",
+      "evidence"
+    ],
+    "second_run_created": 0
+  },
+  "requirements_contract": {
+    "commit": "7607143afc240b9f96abd51270ab82735aabf9bc",
+    "id": "kenigevents.asp-conformance",
+    "sha256": "75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289",
+    "version": "1.0.0"
+  },
+  "schema_version": "kenigevents.asp-atlas-integration-classification.v1",
+  "scope": {
+    "classified_packages": 6,
+    "expected_packages": 6,
+    "inventory_class": "A0",
+    "lane": "wave1"
+  },
+  "template_expected": {
+    "coordinate_policy": "HONOR_AND_CHECK",
+    "desktop": [
+      64,
+      256,
+      1440,
+      "AUTO"
+    ],
+    "evidence": [
+      2048,
+      256,
+      512,
+      "AUTO"
+    ],
+    "header": [
+      64,
+      64,
+      2496,
+      128
+    ],
+    "managed_nodes_boundary": "CANDIDATE_ROOT_ONLY",
+    "mobile": [
+      1568,
+      256,
+      390,
+      "AUTO"
+    ],
+    "overlap": "REJECT",
+    "page_root_width": 2624,
+    "required_slots": [
+      "header",
+      "desktop",
+      "mobile",
+      "evidence"
+    ],
+    "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1"
+  },
+  "units": [
+    {
+      "atlas_page_id": "archetype-archetype-home",
+      "byte_count": 5427,
+      "exact_package_page_name": "A0 · Archetype · Home · Candidate",
+      "git_blob_sha1": "66bff015f866393493fc3e4af9f51a1d3893ce45",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-HOME-R1",
+      "package_managed_nodes": 11,
+      "package_record_sha256": "bb47598a97ecd0b38b02cf3d2d632b54ba575b4915e7fa249fbb0312a865266b",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 40,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "f593fe27ee5d82379935288849f26bcf1def647930bdfb61b40bb9699d3397e0",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/01-archetype-home.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    {
+      "atlas_page_id": "archetype-archetype-weekend-listing",
+      "byte_count": 5997,
+      "exact_package_page_name": "A0 · Archetype · Weekend Listing · Candidate",
+      "git_blob_sha1": "940a282838a2cc993f9daba823c05889b1e6e687",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-LISTING_WEEKEND-R1",
+      "package_managed_nodes": 19,
+      "package_record_sha256": "9561c73467194adfcb646f2bb7dd42f83cf7be8756216a37a67cf0fc3c3c6b2d",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 41,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "a2005e9a1495e2c08e796e6eaceb077b626d186b9fb9ba95e8d80130b2948294",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/02-archetype-listing-weekend.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    {
+      "atlas_page_id": "archetype-archetype-popular-listing",
+      "byte_count": 5702,
+      "exact_package_page_name": "A0 · Archetype · Popular Listing · Candidate",
+      "git_blob_sha1": "d59a7e4a51b0c7b07f9ac7af4a39798ae8554770",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-LISTING_POPULAR-R1",
+      "package_managed_nodes": 15,
+      "package_record_sha256": "fdf905bc9550a1f2dbe71964c6f268d72047fe1156486e7c342e36d2b87b7547",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 42,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "a06cf1de2058bb017823347b52f817c69ffb0698de30fa16a213ad733eb914d6",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/03-archetype-listing-popular.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    {
+      "atlas_page_id": "archetype-archetype-unusual-listing",
+      "byte_count": 5631,
+      "exact_package_page_name": "A0 · Archetype · Unusual Listing · Candidate",
+      "git_blob_sha1": "5c951fd5645efbd218cf00ed3047586de6d156c0",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-LISTING_UNUSUAL-R1",
+      "package_managed_nodes": 13,
+      "package_record_sha256": "48cb61d689db9355034273163b45d5b6f888d906d1ac3ca3897d9a0235d6cae7",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 43,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "856d83485c853f02c408c9ff1670d39d1270ac9540ac55eb234424e67e493d7a",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/04-archetype-listing-unusual.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    {
+      "atlas_page_id": "archetype-archetype-collections",
+      "byte_count": 5880,
+      "exact_package_page_name": "A0 · Archetype · Collections · Candidate",
+      "git_blob_sha1": "fbf93c21c2017e2f4b6723ffb8e687f3ed0a4959",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-COLLECTIONS-R1",
+      "package_managed_nodes": 19,
+      "package_record_sha256": "e564d4feb0d1317254199db791d8c44e321c55dea86cd4489608566f310743d6",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 44,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "9e91bf061cb308444375cf3f42d5c23765da72a71b2fd6d0a79cc981e996a1fb",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/05-archetype-collections.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    },
+    {
+      "atlas_page_id": "archetype-archetype-exhibitions",
+      "byte_count": 5696,
+      "exact_package_page_name": "A0 · Archetype · Exhibitions · Candidate",
+      "git_blob_sha1": "576c049339c36140644a31738fda7bad7defb925",
+      "lookup_cardinality": "PASS",
+      "package_id": "A0-PAGE-WAVE1-EXHIBITIONS-R1",
+      "package_managed_nodes": 15,
+      "package_record_sha256": "d0b969bc9452a47226e62d01de190658076e3be410e29ccb055a213094a40ef1",
+      "package_variant_viewports": {
+        "desktop": {
+          "height": 800,
+          "width": 1280
+        },
+        "mobile": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "page_name_binding": "PASS",
+      "page_order": 45,
+      "remote_integrity": "PASS",
+      "repair_evidence_codes": [
+        "A0W1_EXECUTOR_DOES_NOT_READ_ATLAS_BINDING",
+        "A0W1_ROOT_WIDTH_1800_NOT_TEMPLATE_2624",
+        "A0W1_DESKTOP_MOBILE_COORDINATES_NOT_TEMPLATE",
+        "A0W1_HEADER_AND_EVIDENCE_SLOTS_NOT_MATERIALIZED",
+        "A0W1_MANAGED_MAINS_OUTSIDE_CANDIDATE_ROOT"
+      ],
+      "repair_scope": "AFFECTED_PACKAGE_ONLY",
+      "semantic_slot_bindings": {
+        "desktop": "desktop_1440",
+        "evidence": "source_a_and_v0_evidence",
+        "header": "page_header",
+        "mobile": "mobile_390"
+      },
+      "sha256": "8338e38daa4579b758bd8f09bddd847ef1738fc89ed916f7470b01e79c0b221e",
+      "source_path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/06-archetype-exhibitions.package.v1.json",
+      "template_binding": "REPAIR",
+      "template_id": "ARCHETYPE_DESKTOP_MOBILE_V1",
+      "verdict": "ATLAS_LAYOUT_REPAIR"
+    }
+  ]
+}
