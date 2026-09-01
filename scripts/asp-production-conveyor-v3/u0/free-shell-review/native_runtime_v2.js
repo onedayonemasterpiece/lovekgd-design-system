@@ -7,6 +7,7 @@ const MANAGED_KEYS = [
   'state', 'source-bindings', 'source-head', 'source-tree', 'anatomy-role',
   'layout', 'candidate-label', 'detached', 'screenshot', 'atlas-page-order-assigned',
   'scenario-state', 'source-style-evidence', 'asset-sha256', 'asset-bytes',
+  'state-visibility', 'state-flags', 'state-layout',
 ];
 
 function canonical(value) {
@@ -62,10 +63,12 @@ function position(node, x, y) {
 }
 
 function styleSurface(node, spec) {
-  node.fills = [{ fillColor: spec.fill, fillOpacity: Number(spec.opacity || 1) }];
+  const opacity = Number(spec.opacity ?? 1);
+  node.fills = [{ fillColor: spec.fill, fillOpacity: opacity }];
   node.strokes = [{ strokeColor: spec.border, strokeWidth: 1, strokeStyle: 'solid' }];
   node.borderRadius = spec.radius;
   node.clipContent = false;
+  node.opacity = opacity;
 }
 
 function styleText(node, color, size = '15', weight = '500') {
@@ -101,11 +104,18 @@ function projectedPluginData(node, namespace) {
 }
 
 function projectedShape(node, namespace) {
+  const component = node?.component?.();
   return {
     id: node.id, type: node.type || '', name: node.name || '', characters: node.characters || '',
     x: node.x || 0, y: node.y || 0, width: node.width || 0, height: node.height || 0,
     fills: node.fills || [], strokes: node.strokes || [], borderRadius: node.borderRadius || 0,
+    opacity: node.opacity ?? 1, hidden: node.hidden === true, visible: node.visible !== false,
     clipContent: node.clipContent === true, fontSize: node.fontSize || '', fontWeight: node.fontWeight || '',
+    growType: node.growType || '', svg: node.svg || '', componentId: component?.id || null,
+    componentCopy: node?.isComponentCopyInstance?.() === true,
+    layout: node.layout || '', layoutFlexDir: node.layoutFlexDir || '', layoutGap: node.layoutGap ?? null,
+    layoutPadding: node.layoutPadding ?? null, layoutWrap: node.layoutWrap ?? null, layoutGridColumns: node.layoutGridColumns || '',
+    layoutGridRows: node.layoutGridRows || '',
     pluginData: projectedPluginData(node, namespace), children: children(node).map((child) => projectedShape(child, namespace)),
   };
 }
@@ -182,6 +192,9 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
     put(shape, namespace, 'asset-sha256', asset.sha256);
     put(shape, namespace, 'asset-bytes', `${asset.bytes}`);
     append(parent, shape);
+    shape.opacity = 1;
+    shape.hidden = false;
+    shape.visible = true;
     created.count += 1;
     return shape;
   }
@@ -193,6 +206,14 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
   put(surface, namespace, 'anatomy-role', role);
   put(surface, namespace, 'component-id', componentId);
   put(surface, namespace, 'layout', kind);
+  surface.layout = kind === 'text' ? 'flex' : 'flex';
+  surface.layoutFlexDir = 'row';
+  surface.layoutGap = 0;
+  surface.layoutPadding = 0;
+  surface.layoutWrap = false;
+  surface.opacity = 1;
+  surface.hidden = false;
+  surface.visible = true;
   append(parent, surface);
   if (kind === 'inline-svg') {
     demand(typeof inlineSvg === 'string' && inlineSvg.startsWith('<svg'), `INLINE_SOURCE_SVG_REQUIRED:${componentId}:${role}`);
@@ -205,13 +226,16 @@ function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, component
     append(surface, icon);
     created.count += 1;
   }
-  const text = penpot.createText(label || role);
-  demand(text, `NATIVE_TEXT_CREATE_FAILED:${componentId}:${role}`);
-  text.name = `${role} / label`;
-  styleText(text, fill === '#25211e' || fill === '#98401f' ? '#fffaf2' : '#221a14', kind === 'text' ? '16' : kind === 'inline-svg' ? '10' : '13', kind === 'text' ? '700' : '600');
-  position(text, 10, kind === 'inline-svg' ? 38 : Math.max(6, (height - 18) / 2));
-  append(surface, text);
-  created.count += 2;
+  const labels = role === 'fullscreen-menu-panel' ? label.split(' · ') : [label || role];
+  labels.forEach((characters, index) => {
+    const text = penpot.createText(characters);
+    demand(text, `NATIVE_TEXT_CREATE_FAILED:${componentId}:${role}:${index}`);
+    text.name = labels.length > 1 ? `${role} / source-row-${index + 1}` : `${role} / label`;
+    styleText(text, fill === '#25211e' || fill === '#98401f' ? '#fffaf2' : '#221a14', kind === 'text' ? '16' : kind === 'inline-svg' ? '10' : '13', kind === 'text' ? '700' : '600');
+    position(text, labels.length > 1 ? 22 : 10, labels.length > 1 ? index * 52 + 17 : kind === 'inline-svg' ? 38 : Math.max(6, (height - 18) / 2));
+    append(surface, text);
+  });
+  created.count += 1 + labels.length;
   return surface;
 }
 
@@ -284,15 +308,33 @@ function validateMaster(master, component, pkg, namespace) {
   assertExactSurface(master, visual.fill, visual.border, visual.radius, `MASTER_STYLE_DRIFT:${component.component_id}`);
   const anatomy = children(master);
   demand(anatomy.length === visual.nodes.length, `MASTER_ANATOMY_COUNT_DRIFT:${component.component_id}`);
+  let cursor = visual.padding;
   anatomy.forEach((node, index) => {
     const spec = visual.nodes[index];
     demand(get(node, namespace, 'anatomy-role') === spec[0], `MASTER_ANATOMY_ROLE_DRIFT:${component.component_id}:${spec[0]}`);
     demand(node.width === spec[3] && node.height === spec[4], `MASTER_ANATOMY_GEOMETRY_DRIFT:${component.component_id}:${spec[0]}`);
+    const expectedX = visual.direction === 'row' ? cursor : visual.padding;
+    const expectedY = visual.direction === 'row' ? visual.padding : cursor;
+    demand(node.x === expectedX && node.y === expectedY, `MASTER_ANATOMY_POSITION_DRIFT:${component.component_id}:${spec[0]}`);
+    demand(node.opacity === 1 && node.hidden !== true && node.visible !== false, `MASTER_ANATOMY_VISIBILITY_DRIFT:${component.component_id}:${spec[0]}`);
     if (spec[1] === 'source-svg') {
       demand(get(node, namespace, 'asset-sha256') === pkg.asset_bindings.free_listing_medallion.sha256, `MASTER_ASSET_DRIFT:${component.component_id}:${spec[0]}`);
     } else {
       demand(node.fills?.[0]?.fillColor === spec[5], `MASTER_ANATOMY_STYLE_DRIFT:${component.component_id}:${spec[0]}`);
+      const expectedLabels = spec[0] === 'fullscreen-menu-panel' ? spec[2].split(' · ') : [spec[2] || spec[0]];
+      const labels = walk(node).filter((child) => child.type === 'text');
+      demand(canonical(labels.map((label) => label.characters)) === canonical(expectedLabels), `MASTER_ANATOMY_TEXT_DRIFT:${component.component_id}:${spec[0]}`);
+      labels.forEach((label, labelIndex) => {
+        const expectedLabelX = expectedLabels.length > 1 ? 22 : 10;
+        const expectedLabelY = expectedLabels.length > 1 ? labelIndex * 52 + 17 : spec[1] === 'inline-svg' ? 38 : Math.max(6, (spec[4] - 18) / 2);
+        demand(label.x === expectedLabelX && label.y === expectedLabelY, `MASTER_ANATOMY_LABEL_POSITION_DRIFT:${component.component_id}:${spec[0]}:${labelIndex}`);
+      });
+      if (spec[1] === 'inline-svg') {
+        const icon = children(node).find((child) => child.type === 'path');
+        demand(icon && icon.width === 21 && icon.height === 21 && icon.x === (spec[3] - 21) / 2 && icon.y === 8, `MASTER_INLINE_ICON_DRIFT:${component.component_id}:${spec[0]}`);
+      }
     }
+    cursor += (visual.direction === 'row' ? spec[3] : spec[4]) + visual.gap;
   });
 }
 
@@ -303,11 +345,125 @@ function stateStyle(component, state) {
   return value;
 }
 
-function applyStateStyle(instance, component, state, namespace) {
+function stateAnatomy(component, state, viewport) {
+  const contract = component.native_visual.state_anatomy?.[state];
+  demand(contract && Array.isArray(contract.visible_roles) && Array.isArray(contract.hidden_roles), `STATE_ANATOMY_REQUIRED:${component.component_id}:${state}`);
+  const responsive = (contract.responsive_overrides || []).find((entry) => viewport.width <= entry.max_width);
+  return {
+    ...contract,
+    instance_size: responsive?.instance_size || contract.instance_size,
+    role_overrides: { ...(contract.role_overrides || {}), ...(responsive?.role_overrides || {}) },
+  };
+}
+
+function baseAnatomyGeometry(component) {
+  const visual = component.native_visual;
+  let cursor = visual.padding;
+  return Object.fromEntries(visual.nodes.map((spec) => {
+    const geometry = {
+      x: visual.direction === 'row' ? cursor : visual.padding,
+      y: visual.direction === 'row' ? visual.padding : cursor,
+      width: spec[3], height: spec[4], fill: spec[5],
+      border: spec[1] === 'circle' ? '#221a14' : '#e1d3c2', opacity: 1,
+    };
+    cursor += (visual.direction === 'row' ? spec[3] : spec[4]) + visual.gap;
+    return [spec[0], geometry];
+  }));
+}
+
+function configureNativeLayout(node, layout) {
+  node.layout = layout.mode;
+  node.layoutFlexDir = layout.direction;
+  node.layoutGap = layout.gap;
+  node.layoutPadding = layout.padding;
+  node.layoutWrap = layout.wrap;
+  node.layoutGridColumns = layout.columns || '';
+  node.layoutGridRows = layout.rows || '';
+}
+
+function materializeStateAnatomy(instance, component, state, namespace, viewport) {
+  const contract = stateAnatomy(component, state, viewport);
+  const base = baseAnatomyGeometry(component);
+  const byRole = new Map(children(instance).map((node) => [get(node, namespace, 'anatomy-role'), node]));
+  demand(byRole.size === component.native_visual.nodes.length, `INSTANCE_ANATOMY_COUNT_DRIFT:${component.component_id}:${state}`);
+  resize(instance, contract.instance_size[0], contract.instance_size[1]);
+  configureNativeLayout(instance, contract.layout);
+  put(instance, namespace, 'state-layout', canonical(contract.layout));
+  put(instance, namespace, 'state-flags', canonical(contract.flags || {}));
+  for (const spec of component.native_visual.nodes) {
+    const role = spec[0];
+    const node = byRole.get(role);
+    demand(node, `INSTANCE_ANATOMY_MISSING:${component.component_id}:${state}:${role}`);
+    const visible = contract.visible_roles.includes(role);
+    demand(visible || contract.hidden_roles.includes(role), `INSTANCE_ANATOMY_STATE_UNBOUND:${component.component_id}:${state}:${role}`);
+    const expected = { ...base[role], ...(contract.role_overrides?.[role] || {}) };
+    position(node, expected.x, expected.y);
+    resize(node, expected.width, expected.height);
+    node.opacity = visible ? Number(expected.opacity ?? 1) : 0;
+    node.hidden = !visible;
+    node.visible = visible;
+    put(node, namespace, 'state-visibility', visible ? 'visible' : 'hidden');
+    const roleLayout = expected.layout || (role === 'fullscreen-menu-panel'
+      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: '1fr', rows: 'repeat(6,52px)' }
+      : { mode: spec[1] === 'source-svg' ? 'none' : 'flex', direction: spec[1] === 'inline-svg' ? 'column' : 'row', gap: 0, padding: 0, wrap: false });
+    configureNativeLayout(node, roleLayout);
+    put(node, namespace, 'state-layout', canonical(roleLayout));
+    if (spec[1] !== 'source-svg') {
+      styleSurface(node, {
+        fill: expected.fill, border: expected.border, radius: node.borderRadius,
+        opacity: visible ? Number(expected.opacity ?? 1) : 0,
+      });
+      node.hidden = !visible;
+      node.visible = visible;
+    }
+    const labels = walk(node).filter((child) => child.type === 'text');
+    if (labels[0] && typeof expected.text === 'string') labels[0].characters = expected.text;
+  }
+  return contract;
+}
+
+function validateStateAnatomy(instance, component, state, namespace, viewport, expectedWidth) {
+  const contract = stateAnatomy(component, state, viewport);
+  const base = baseAnatomyGeometry(component);
+  demand(instance.width === expectedWidth && instance.height === contract.instance_size[1], `INSTANCE_GEOMETRY_DRIFT:${component.component_id}:${state}`);
+  demand(instance.layout === contract.layout.mode && instance.layoutFlexDir === contract.layout.direction, `INSTANCE_LAYOUT_DRIFT:${component.component_id}:${state}`);
+  demand(instance.layoutGap === contract.layout.gap && instance.layoutPadding === contract.layout.padding && instance.layoutWrap === contract.layout.wrap, `INSTANCE_LAYOUT_METRICS_DRIFT:${component.component_id}:${state}`);
+  demand((instance.layoutGridColumns || '') === (contract.layout.columns || ''), `INSTANCE_GRID_DRIFT:${component.component_id}:${state}`);
+  demand(get(instance, namespace, 'state-layout') === canonical(contract.layout), `INSTANCE_LAYOUT_DATA_DRIFT:${component.component_id}:${state}`);
+  demand(get(instance, namespace, 'state-flags') === canonical(contract.flags || {}), `INSTANCE_STATE_FLAGS_DRIFT:${component.component_id}:${state}`);
+  const byRole = new Map(children(instance).map((node) => [get(node, namespace, 'anatomy-role'), node]));
+  demand(byRole.size === component.native_visual.nodes.length, `INSTANCE_ANATOMY_COUNT_DRIFT:${component.component_id}:${state}`);
+  for (const spec of component.native_visual.nodes) {
+    const role = spec[0];
+    const node = byRole.get(role);
+    const visible = contract.visible_roles.includes(role);
+    const expected = { ...base[role], ...(contract.role_overrides?.[role] || {}) };
+    demand(node && node.x === expected.x && node.y === expected.y && node.width === expected.width && node.height === expected.height, `INSTANCE_ANATOMY_GEOMETRY_DRIFT:${component.component_id}:${state}:${role}`);
+    demand(node.hidden === !visible && node.visible === visible && node.opacity === (visible ? Number(expected.opacity ?? 1) : 0), `INSTANCE_ANATOMY_VISIBILITY_DRIFT:${component.component_id}:${state}:${role}`);
+    demand(get(node, namespace, 'state-visibility') === (visible ? 'visible' : 'hidden'), `INSTANCE_ANATOMY_DATA_DRIFT:${component.component_id}:${state}:${role}`);
+    const roleLayout = expected.layout || (role === 'fullscreen-menu-panel'
+      ? { mode: 'grid', direction: 'column', gap: 0, padding: 0, wrap: false, columns: '1fr', rows: 'repeat(6,52px)' }
+      : { mode: spec[1] === 'source-svg' ? 'none' : 'flex', direction: spec[1] === 'inline-svg' ? 'column' : 'row', gap: 0, padding: 0, wrap: false });
+    demand(get(node, namespace, 'state-layout') === canonical(roleLayout) && node.layout === roleLayout.mode && node.layoutFlexDir === roleLayout.direction, `INSTANCE_ANATOMY_LAYOUT_DRIFT:${component.component_id}:${state}:${role}`);
+    if (spec[1] !== 'source-svg') {
+      demand(node.fills?.[0]?.fillColor === expected.fill && node.strokes?.[0]?.strokeColor === expected.border, `INSTANCE_ANATOMY_STYLE_DRIFT:${component.component_id}:${state}:${role}`);
+    }
+    if (spec[1] !== 'source-svg') {
+      const expectedLabels = typeof expected.text === 'string'
+        ? [expected.text, ...(role === 'fullscreen-menu-panel' ? spec[2].split(' · ').slice(1) : [])]
+        : role === 'fullscreen-menu-panel' ? spec[2].split(' · ') : [spec[2] || role];
+      const labels = walk(node).filter((child) => child.type === 'text').map((child) => child.characters);
+      demand(canonical(labels) === canonical(expectedLabels), `INSTANCE_ANATOMY_TEXT_DRIFT:${component.component_id}:${state}:${role}`);
+    }
+  }
+}
+
+function applyStateStyle(instance, component, state, namespace, viewport) {
   demand(component.states.includes(state), `STATE_NOT_IN_PRODUCT_CONTRACT:${component.component_id}:${state}`);
   const visual = component.native_visual;
   const value = stateStyle(component, state);
   styleSurface(instance, { fill: value[0], border: value[1], radius: visual.radius, opacity: Number(value[2]) });
+  materializeStateAnatomy(instance, component, state, namespace, viewport);
   put(instance, namespace, 'state', state);
 }
 
@@ -349,7 +505,7 @@ async function createSpecimen({ penpot, root, pkg, unit, specimen, components, n
       put(instance, namespace, 'screenshot', 'false');
       const componentState = specimen.component_state_bindings?.[item.component.component_id];
       demand(typeof componentState === 'string', `UNBOUND_SPECIMEN_COMPONENT_STATE:${specimen.specimen_id}:${item.component.component_id}`);
-      applyStateStyle(instance, item.component, componentState, namespace);
+      applyStateStyle(instance, item.component, componentState, namespace, specimen.viewport);
       const innerWidth = spec.width - spec.padding * 2;
       if (instance.width > innerWidth) resize(instance, innerWidth, instance.height);
       position(instance, spec.padding, cursor);
@@ -371,6 +527,8 @@ function validateManagedIntegrity({ page, root, pkg, namespace }) {
   const linked = nodes.filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
   const detached = linked.filter((node) => node.isComponentCopyInstance?.() !== true || !node.component?.());
   demand(detached.length === 0, `DETACHED_INSTANCE:${detached.map((node) => node.id).join(',')}`);
+  const recursivelyDetached = nodes.filter((node) => node.isComponentCopyInstance?.() === true && !node.component?.());
+  demand(recursivelyDetached.length === 0, `RECURSIVE_DETACHED_INSTANCE:${recursivelyDetached.map((node) => node.id).join(',')}`);
   const screenshots = nodes.filter((node) => node.type === 'image' || get(node, namespace, 'screenshot') === 'true');
   demand(screenshots.length === 0, `SCREENSHOT_NODE:${screenshots.map((node) => node.id).join(',')}`);
   const specimens = nodes.filter((node) => get(node, namespace, 'node-role') === 'visible-specimen');
@@ -393,6 +551,8 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   demand(packageDefinition.native_successor.execution_mode === 'concrete-native-page-component-master-linked-instance', 'NATIVE_SUCCESSOR_CONTRACT_REQUIRED');
   demand(packageDefinition.native_successor.atlas_page_order_assigned === false, 'ATLAS_PAGE_ORDER_FORBIDDEN');
   const namespace = packageDefinition.native_successor.plugin_data_namespace;
+  const receiptKey = `receipt:${packageDefinition.package_id}:R2`;
+  const previousReceipt = typeof storage.get === 'function' ? await storage.get(receiptKey) : null;
   const beforeProtected = protectedProjection(penpot, namespace, packageDefinition.package_id);
   const created = { count: 0 };
 
@@ -485,6 +645,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
       const linkedNodes = walk(board).filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
       const linkedIds = linkedNodes.map((node) => get(node, namespace, 'component-id'));
       demand(canonical(linkedIds) === canonical(specimen.component_ids), `SPECIMEN_LINEAGE_DRIFT:${specimen.specimen_id}`);
+      let instanceCursor = specimen.native_composition.padding + 54;
       linkedNodes.forEach((node) => {
         const componentId = get(node, namespace, 'component-id');
         const item = components.get(componentId);
@@ -493,6 +654,10 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
         const value = stateStyle(item.component, boundState);
         demand(get(node, namespace, 'state') === boundState, `INSTANCE_STATE_DRIFT:${specimen.specimen_id}:${componentId}`);
         assertExactSurface(node, value[0], value[1], item.component.native_visual.radius, `INSTANCE_STYLE_DRIFT:${specimen.specimen_id}:${componentId}`);
+        const expectedWidth = Math.min(stateAnatomy(item.component, boundState, specimen.viewport).instance_size[0], board.width - specimen.native_composition.padding * 2);
+        validateStateAnatomy(node, item.component, boundState, namespace, specimen.viewport, expectedWidth);
+        demand(node.x === specimen.native_composition.padding && node.y === instanceCursor, `INSTANCE_POSITION_DRIFT:${specimen.specimen_id}:${componentId}`);
+        instanceCursor += node.height + specimen.native_composition.gap;
       });
       specimenY += board.height + 48;
     }
@@ -503,6 +668,17 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   else demand(root.height === expectedHeight, 'NATIVE_ROOT_HEIGHT_DRIFT');
 
   const integrity = validateManagedIntegrity({ page, root, pkg: packageDefinition, namespace });
+  const managedProjection = digest({
+    page: { id: page.id, name: page.name, pluginData: projectedPluginData(page, namespace) },
+    root: projectedShape(root, namespace),
+    components: Array.from(penpot.library?.local?.components || [])
+      .filter((component) => get(componentMain(component), namespace, 'package-id') === packageDefinition.package_id)
+      .map((component) => ({ id: component.id, name: component.name || '', path: component.path || '', main: projectedShape(componentMain(component), namespace) })),
+  });
+  if (previousReceipt) {
+    demand(created.count === 0, 'MANAGED_REPLAY_RECREATION_FORBIDDEN');
+    demand(previousReceipt.managed_projection_sha256 === managedProjection, 'MANAGED_REPLAY_PROJECTION_DRIFT');
+  }
   const afterProtected = protectedProjection(penpot, namespace, packageDefinition.package_id);
   demand(afterProtected === beforeProtected, 'PROTECTED_PROJECTION_CHANGED');
   assertActiveLease(lease, 'before-receipt');
@@ -522,6 +698,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     protected_projection_before: beforeProtected,
     protected_projection_after: afterProtected,
     protected_projections_unchanged: true,
+    managed_projection_sha256: managedProjection,
     shared_plugin_data_string_only: true,
     exact_managed_nodes: integrity.managed,
     unbound_state_fallbacks: 0,
@@ -531,7 +708,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     penpot_execution_authorized: false,
     validation: [],
   };
-  await storage.set(`receipt:${packageDefinition.package_id}:R2`, receipt);
+  await storage.set(receiptKey, receipt);
   assertActiveLease(lease, 'after-receipt');
   return receipt;
 }

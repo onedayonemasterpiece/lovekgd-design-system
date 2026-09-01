@@ -68,3 +68,12 @@ kaggle_calls: 0
 `QA/INTEGRATE PASS` for this successor proves executable Git bytes and the
 native-like in-memory replay only. It is not Penpot authorization and it does
 not satisfy the pending O0 Atlas extension/V0 evidence gate.
+
+### Repair-2 invariant
+
+Execution evidence is invalid unless state-specific inner anatomy is material:
+menu open/closed, current route/item, sticky/hidden medallions, responsive
+medallion sizes, footer Grid and control Flex layouts must change exact native
+children. Replay must compare the complete managed projection and recursively
+reject an untagged detached component copy. Protected projection includes
+opacity in addition to geometry/text/styles/plugin/component/layout data.

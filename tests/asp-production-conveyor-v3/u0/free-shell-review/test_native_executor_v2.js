@@ -32,6 +32,16 @@ class Shape extends PluginDataNode {
     this.strokes = [];
     this.borderRadius = 0;
     this.clipContent = false;
+    this.opacity = 1;
+    this.hidden = false;
+    this.visible = true;
+    this.layout = '';
+    this.layoutFlexDir = '';
+    this.layoutGap = null;
+    this.layoutPadding = null;
+    this.layoutWrap = null;
+    this.layoutGridColumns = '';
+    this.layoutGridRows = '';
     this.parent = null;
     this._component = null;
     this._copy = false;
@@ -57,6 +67,16 @@ function cloneShape(source) {
   clone.strokes = structuredClone(source.strokes);
   clone.borderRadius = source.borderRadius;
   clone.clipContent = source.clipContent;
+  clone.opacity = source.opacity;
+  clone.hidden = source.hidden;
+  clone.visible = source.visible;
+  clone.layout = source.layout;
+  clone.layoutFlexDir = source.layoutFlexDir;
+  clone.layoutGap = source.layoutGap;
+  clone.layoutPadding = source.layoutPadding;
+  clone.layoutWrap = source.layoutWrap;
+  clone.layoutGridColumns = source.layoutGridColumns;
+  clone.layoutGridRows = source.layoutGridRows;
   clone.fontSize = source.fontSize;
   clone.fontWeight = source.fontWeight;
   clone.growType = source.growType;
@@ -161,6 +181,10 @@ function projection(penpot) {
     id: shape.id, type: shape.type, name: shape.name,
     x: shape.x, y: shape.y, width: shape.width, height: shape.height,
     fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius, svg: shape.svg || '',
+    opacity: shape.opacity, hidden: shape.hidden, visible: shape.visible,
+    layout: shape.layout, layoutFlexDir: shape.layoutFlexDir, layoutGap: shape.layoutGap,
+    layoutPadding: shape.layoutPadding, layoutWrap: shape.layoutWrap, layoutGridColumns: shape.layoutGridColumns,
+    layoutGridRows: shape.layoutGridRows,
     data: [...shape.pluginData].sort(), children: shape.children.map(node),
   });
   return canonical({
@@ -277,8 +301,35 @@ test('two actual native-like runs create concrete masters/linked specimens once 
       assert.equal(instance.fills[0].fillColor, exact[0]);
       assert.equal(instance.strokes[0].strokeColor, exact[1]);
       assert.equal(instance.borderRadius, component.native_visual.radius);
+      const baseContract = component.native_visual.state_anatomy[boundState];
+      const responsive = baseContract.responsive_overrides.find((entry) => specimen.viewport.width <= entry.max_width);
+      const expectedContract = {
+        ...baseContract,
+        instance_size: responsive?.instance_size || baseContract.instance_size,
+        role_overrides: { ...baseContract.role_overrides, ...(responsive?.role_overrides || {}) },
+      };
+      assert.equal(get(instance, ns, 'state-layout'), canonical(expectedContract.layout));
+      assert.equal(get(instance, ns, 'state-flags'), canonical(expectedContract.flags));
+      for (const anatomy of instance.children) {
+        const role = get(anatomy, ns, 'anatomy-role');
+        const visible = expectedContract.visible_roles.includes(role);
+        assert.equal(anatomy.hidden, !visible, `${specimen.specimen_id}:${componentId}:${role}:hidden`);
+        assert.equal(anatomy.visible, visible, `${specimen.specimen_id}:${componentId}:${role}:visible`);
+        assert.equal(get(anatomy, ns, 'state-visibility'), visible ? 'visible' : 'hidden');
+      }
     }
   }
+  const mobileTop = specimens.find((node) => get(node, ns, 'specimen-id') === 'free-shell-mobile-top');
+  const mobileMedallion = walk(mobileTop).find((node) => get(node, ns, 'component-id') === 'U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT' && get(node, ns, 'node-role') === 'linked-visible-instance');
+  const hero = mobileMedallion.children.find((node) => get(node, ns, 'anatomy-role') === 'hero-medallion-large');
+  const compact = mobileMedallion.children.find((node) => get(node, ns, 'anatomy-role') === 'compact-medallion');
+  assert.deepEqual([hero.width, hero.height, hero.hidden], [96, 96, false]);
+  assert.equal(compact.hidden, true);
+  const mobileOpen = specimens.find((node) => get(node, ns, 'specimen-id') === 'free-shell-mobile-full');
+  const menu = walk(mobileOpen).find((node) => get(node, ns, 'anatomy-role') === 'fullscreen-menu-panel');
+  const close = walk(mobileOpen).find((node) => get(node, ns, 'anatomy-role') === 'menu-close-action');
+  assert.deepEqual([menu.hidden, menu.width, menu.height], [false, 390, 416]);
+  assert.deepEqual([close.hidden, close.width, close.height], [false, 112, 112]);
 });
 
 test('duplicate, detached, and screenshot corruption fail closed on replay', async () => {
@@ -345,6 +396,49 @@ test('unbound component state, untagged detached specimen child, and protected s
       return originalCreateBoard();
     };
     await assert.rejects(() => run(env), /PROTECTED_PROJECTION_CHANGED/);
+  }
+});
+
+test('opacity, instance position, master anatomy position, and recursive untagged detach mutations fail closed', async () => {
+  {
+    const env = environment();
+    const originalCreateBoard = env.penpot.createBoard.bind(env.penpot);
+    let changed = false;
+    env.penpot.createBoard = () => {
+      if (!changed) {
+        changed = true;
+        env.protectedPage.root.children[0].opacity = 0.37;
+      }
+      return originalCreateBoard();
+    };
+    await assert.rejects(() => run(env), /PROTECTED_PROJECTION_CHANGED/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    const instance = walk(managedRoot(env)).find((node) => get(node, ns, 'node-role') === 'linked-visible-instance');
+    instance.x += 7;
+    await assert.rejects(() => run(env), /INSTANCE_POSITION_DRIFT|MANAGED_REPLAY_PROJECTION_DRIFT/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    const master = walk(managedRoot(env)).find((node) => get(node, ns, 'node-role') === 'component-master');
+    master.children[0].x += 5;
+    await assert.rejects(() => run(env), /MASTER_ANATOMY_POSITION_DRIFT|MANAGED_REPLAY_PROJECTION_DRIFT/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const ns = packageDefinition.native_successor.plugin_data_namespace;
+    const instance = walk(managedRoot(env)).find((node) => get(node, ns, 'node-role') === 'linked-visible-instance');
+    const detached = new Shape('board');
+    detached._copy = true;
+    detached._component = null;
+    instance.children[0].appendChild(detached);
+    await assert.rejects(() => run(env), /RECURSIVE_DETACHED_INSTANCE/);
   }
 });
 

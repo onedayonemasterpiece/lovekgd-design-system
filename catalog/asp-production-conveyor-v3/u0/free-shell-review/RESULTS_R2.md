@@ -38,3 +38,17 @@ PUBLISH was not run, Atlas R2 was not changed, and Kaggle was not used. The
 native-like QA result is not Penpot authorization.
 
 Terminal package status: `ATLAS_EXTENSION_PENDING`.
+
+## Replay/state repair closure
+
+The final native-like gate also materializes and verifies inner source anatomy,
+not only instance surfaces: closed mobile headers omit the 390×416 menu panel
+and 112×112 close action; open headers expose six 52px source rows; current
+bottom-nav items alone receive the source current fill; desktop/mobile
+breadcrumbs switch exact children; hero medallions are 300px desktop and 96px
+mobile while sticky medallions are 58px/50px and mutually exclusive. Footer
+states carry explicit source Grid layouts and controls carry native Flex
+layouts. Full managed replay projection includes every child geometry, text,
+fill, stroke, opacity, plugin datum, component identity and layout field.
+Adversarial opacity, linked-instance position, master-anatomy position and
+untagged nested-detach mutations now fail closed.
