@@ -1,0 +1,200 @@
+{
+  "authority": {
+    "authority_mode": "ASTRO_AS_IS_REFERENCE",
+    "contract": {
+      "commit": "7607143afc240b9f96abd51270ab82735aabf9bc",
+      "id": "kenigevents.asp-conformance",
+      "path": "docs/product-governance/astro-sot-penpot-conformance.md",
+      "sha256": "75c70629f01f8d60fb98290fa2e6e8abc201fc84885339c16010bcd75ddd4289",
+      "version": "1.0.0"
+    },
+    "source_a": {
+      "authority_mode": "ASTRO_AS_IS_REFERENCE",
+      "commit": "c7c3e2367db8fd8865a735c8b9f5df1ef2b6efd1",
+      "component_git_blob_sha1": "e7b299660572dda731ca15bd5052b3bf5714cd7c",
+      "component_path": "site/src/components/EventCard.astro",
+      "repository": "onedayonemasterpiece/events-bot-new",
+      "tree": "3c7b231d10e93866899cede299c3523c8b996711"
+    }
+  },
+  "executor": {
+    "entrypoint": "runEventcardMediaRepairV1",
+    "logical_writer": "/root/publish_r2",
+    "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-r1/eventcard_media_repair_v1.js",
+    "runtime_authorization_required": true
+  },
+  "factual_media": {
+    "event.real.2182": {
+      "acceptance": "full exact box coverage with centered horizontal crop and zero dark leak",
+      "asset_path": "catalog/fixtures/ui-reference-events/v2/assets/99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e.webp",
+      "bytes": 229072,
+      "desktop_box": {
+        "aspect": "1.25",
+        "height": 425.438,
+        "width": 531.797
+      },
+      "fit": "cover",
+      "focal_position": "50% 50%",
+      "intrinsic_height": 853,
+      "intrinsic_width": 1280,
+      "sha256": "99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e"
+    },
+    "event.real.8006": {
+      "acceptance": "entire image fills the exact box with zero crop, zero letterbox and zero dark leak",
+      "asset_path": "catalog/penpot-executor/g10/input-media/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp",
+      "bytes": 111072,
+      "desktop_box": {
+        "aspect": "0.75",
+        "height": 709.063,
+        "width": 531.797
+      },
+      "fit": "contain",
+      "focal_position": "50% 50%",
+      "intrinsic_height": 1920,
+      "intrinsic_width": 1440,
+      "sha256": "dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b"
+    }
+  },
+  "immutable_inputs": [
+    {
+      "bytes": 6832,
+      "git_blob_sha1": "381a9007803dbd7ad74a8b0555fee8bf0d207a31",
+      "head": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-MEDIA-COVERAGE-INPUT.package.v1.json",
+      "sha256": "7b1bb2053cf1b7a5b582f1c87233e4dd2c504309c2c74eeb20c1394bfe8a21b9",
+      "tree": "2609ef4bd5152a47f47fbd287d74ae575d648326"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "package_id": "MAT-EVENTCARD-MEDIA-COVERAGE-REPAIR-R1",
+  "penpot_execution_authorized": false,
+  "probe": {
+    "accepted_root_mutation_before_pass": "FORBIDDEN",
+    "all_outcomes_must_be_known": true,
+    "disposable_outside_collection": true,
+    "selection": "lowest rank variant passing both factual cases",
+    "variants": [
+      {
+        "id": "A_current",
+        "operation": "createShapeFromSvgWithImages_then_resize_place",
+        "rank": 4,
+        "source_input": "createShapeFromSvgWithImages current SVG then common resize/place"
+      },
+      {
+        "id": "B_no_post_import_resize",
+        "operation": "createShapeFromSvgWithImages_at_final_dimensions_no_resize",
+        "rank": 2,
+        "source_input": "import SVG at final dimensions, append and position without second resize"
+      },
+      {
+        "id": "C_direct_native_fill",
+        "operation": "uploadMediaData_then_createRectangle_fillImage",
+        "rank": 1,
+        "source_input": "uploadMediaData then createRectangle with fills=[{fillOpacity:1, fillImage:imageData}]"
+      },
+      {
+        "id": "D_optional_minimal_import",
+        "operation": "single_href_svg_at_final_dimensions_no_resize",
+        "rank": 3,
+        "source_input": "single-href minimal SVG image import only if needed to isolate importer behavior"
+      }
+    ]
+  },
+  "readback_contract": {
+    "coverage_status": "KNOWN_PASS",
+    "destination_coverage": "FULL_EXACT_MEDIA_BOX",
+    "event.real.2182": {
+      "crop_axis": "horizontal",
+      "focal": [
+        "0.5",
+        "0.5"
+      ],
+      "source_crop_formula": "w=(box_width/box_height)/(intrinsic_width/intrinsic_height); x=(1-w)/2"
+    },
+    "event.real.8006": {
+      "letterbox_pixels": 0,
+      "source_crop_normalized": [
+        "0",
+        "0",
+        "1",
+        "1"
+      ]
+    },
+    "opaque_non_source_overlay_count": 0,
+    "raw_fill_and_shape_same_complete_raster": true,
+    "uncovered_pixel_count": 0,
+    "unknown_or_missing_field": "STOP_ROLLBACK_NO_RETRY_NO_CONCEALMENT"
+  },
+  "repair": {
+    "allowed_changed_fields": [
+      "fills",
+      "plugin_data.media-construction-variant"
+    ],
+    "apply_in_place_to_existing_media_shape_id": true,
+    "atomic_rollback_on_any_failure": true,
+    "forbidden": [
+      "text mutation",
+      "component path mutation",
+      "component or root recreation",
+      "opaque concealment overlay",
+      "factual raster substitution",
+      "fit, focal, box, transform, rotation or flip change"
+    ],
+    "idempotent_replay_mutations": 0,
+    "preserve": [
+      "all root, component, instance, text and media shape IDs",
+      "all text fields and geometry",
+      "all LibraryComponent.path values",
+      "collection root, child order and 18/18 component census",
+      "media box, parent coordinates, transform, rotation and flip",
+      "source fit and focal semantics"
+    ]
+  },
+  "schema_version": "kenigevents.asp-mat-eventcard-media-coverage-repair.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal_identity": {
+    "collection_children": 18,
+    "collection_root_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "local_components": 18,
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "roots": [
+      {
+        "case_id": "eventcard.desktop-wide-calendar.8006",
+        "fixture_id": "event.real.8006",
+        "root_id": "313fb1ed-0d5c-8095-8008-912c45090653",
+        "semantic_media_slot": "event.media-frame/image-content"
+      },
+      {
+        "case_id": "eventcard.desktop-packed-calendar-absent.2182",
+        "fixture_id": "event.real.2182",
+        "root_id": "313fb1ed-0d5c-8095-8008-914c76615924",
+        "semantic_media_slot": "event.media-frame/image-content"
+      },
+      {
+        "case_id": "eventcard.mobile-wide-calendar.8006",
+        "fixture_id": "event.real.8006",
+        "root_id": "313fb1ed-0d5c-8095-8008-916b340de148",
+        "semantic_media_slot": "event.media-frame/image-content"
+      },
+      {
+        "case_id": "eventcard.mobile-packed-calendar-absent.2182",
+        "fixture_id": "event.real.2182",
+        "root_id": "313fb1ed-0d5c-8095-8008-916bd0ab6c98",
+        "semantic_media_slot": "event.media-frame/image-content"
+      }
+    ],
+    "validation": []
+  },
+  "tests": {
+    "native_like_harness": "tests/asp-production-conveyor-v3/mat/eventcard-media-r1/eventcard_media_repair_v1.test.js",
+    "package": "tests/asp-production-conveyor-v3/mat/eventcard-media-r1/test_eventcard_media_package.py"
+  }
+}

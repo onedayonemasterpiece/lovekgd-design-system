@@ -1,0 +1,47 @@
+{
+  "failure_policy": "STOP; accepted roots unchanged or atomically rolled back; publish counterexample readback; no retry, concealment, text or path mutation",
+  "from": "D0/MAT",
+  "immutable_inputs": [
+    {
+      "bytes": 6832,
+      "git_blob_sha1": "381a9007803dbd7ad74a8b0555fee8bf0d207a31",
+      "head": "9b63c901f90aacef3d1f555a22a7e2c1d3f01856",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-MEDIA-COVERAGE-INPUT.package.v1.json",
+      "sha256": "7b1bb2053cf1b7a5b582f1c87233e4dd2c504309c2c74eeb20c1394bfe8a21b9",
+      "tree": "2609ef4bd5152a47f47fbd287d74ae575d648326"
+    },
+    {
+      "bytes": 20051,
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "path": "catalog/asp-production-conveyor-v3/u0/U-EVENTCARD-FOUR-CASES.package.v1.json",
+      "sha256": "bf25934808144ba1a34c6676fdb4dd6147916713da783eaf7c7e50a61b196f81",
+      "tree": "ddff285e2a16f2f0590ac2964b27dedd853d4de8"
+    }
+  ],
+  "operation": "VERIFY_EVENTCARD_MEDIA_ONLY_NATIVE_REPAIR",
+  "package_id": "MAT-EVENTCARD-MEDIA-COVERAGE-REPAIR-R1",
+  "penpot_execution_authorized": false,
+  "request_id": "MAT-EVENTCARD-MEDIA-COVERAGE-REPAIR-R1-QA-INTEGRATE",
+  "required_checks": [
+    "verify exact immutable Git bytes and deterministic package regeneration",
+    "run strict native-like A/B/C/D harness including unknown-outcome rollback",
+    "verify exact four existing roots and stable media/root/component/text IDs",
+    "verify contain/cover/focal/crop and complete non-occluded destination coverage",
+    "verify protected Free collection remains one root, 18 children and 18 components",
+    "verify text and native component paths are byte-for-byte unchanged",
+    "verify second replay reports zero mutations"
+  ],
+  "required_commands": [
+    "python3 scripts/asp-production-conveyor-v3/mat/eventcard-media-r1/compile_eventcard_media_repair.py --repo . --check",
+    "python3 -m unittest tests/asp-production-conveyor-v3/mat/eventcard-media-r1/test_eventcard_media_package.py",
+    "node --test tests/asp-production-conveyor-v3/mat/eventcard-media-r1/eventcard_media_repair_v1.test.js"
+  ],
+  "schema_version": "ASP_BUILD_REQUEST_V2",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "success_transition": "QA_AND_INTEGRATE_MAY_REQUEST_SEPARATE_PUBLISH_AUTHORIZATION",
+  "to": [
+    "D0/QA",
+    "D0/INTEGRATE"
+  ]
+}
