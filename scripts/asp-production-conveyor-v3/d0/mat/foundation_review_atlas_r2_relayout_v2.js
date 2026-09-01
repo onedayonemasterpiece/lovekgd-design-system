@@ -1,9 +1,9 @@
 'use strict';
 const FOUNDATION_REVIEW_R2_PAYLOAD=Object.freeze({
   path:'scripts/asp-production-conveyor-v3/d0/mat/foundation_review_atlas_r2_relayout_payload_v2.js',
-  bytes:45516,
-  sha256:'e7712f21a0274f8bd35e0acbeb002fcf378a76682c44072e6ebc6d3da5a94221',
-  gitBlobSha1:'2414fd90b0897dd269c675b6dfcd80c4b1ec22cb'
+  bytes:47177,
+  sha256:'c44e669e4a01f5dd11cdabccc140065bb7ff3a86c436433cf50942ae19659173',
+  gitBlobSha1:'0dfa636aab4d3e2135f364da5d5c35b5339f43a0'
 });
 const ATLAS_R2=Object.freeze({branch:'o0/penpot-atlas-layout-v2-20260901',head:'663be702d481972cb2e8863af500f1c35dda1d8c',tree:'cf9a1e6a5e0a84aea5636334dbd3be4961039b75',bindingsBlob:'23475806beebfbe21bd77759440c169c60627550',templateId:'FOUNDATION_ASSET_GRID_STANDARD_V2'});
 const SOURCE=Object.freeze({branch:'agent/f0-foundation-page-split-r1',head:'45499cc610a1bb5cbf36b8531c65b036d731013f',tree:'6ed4fca2d754c3270b066f536bd82a0492c64755',path:'scripts/asp-production-conveyor-v3/f0/foundation_review_pages_native_adapter_v1.js',blob:'3d81ace5033b4ccde60291340c8019eb8ee3ba49',bytes:17146,sha256:'68d9d6a7ffd49855b3092af6ebfced0d2e0f55de621ff16358903d326ceebe89'});
