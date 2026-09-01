@@ -24,3 +24,31 @@
 - Kaggle calls: 0
 
 Remote head/tree/blob readback is intentionally not asserted until GitHub publication.
+
+## Native successor v2 — RD-U0-U-RECOVERED-CARD-FAMILIES
+
+- Successor base: `5df944f3b72331fdf7a28205c328827a660b726f` / tree `0e5b9b8cfd124084f9d08db9e74b83e16931033a`
+- Source tuple and all eight source blobs: unchanged
+- Metadata-only `penpot.ensure` execution: removed from the v2 path
+- Concrete native pages/roots/component masters: `5/5/5`
+- Real linked visible state specimens: `16`
+- Native Flex documentation shells: PASS
+- Product-specific anatomy/layout/styles/states: PASS
+- Strict string-only shared plugin data: PASS
+- Native-like executor runs on the same surface: `2`
+- First run created: `31`
+- Second run created: `0`
+- Duplicates/detached/screenshots/source-lineage errors: `0/0/0/0`
+- Protected projection changes: `0`
+- Node v2 tests: `5/5 PASS`
+- Python v2 invariants: `7/7 PASS`
+- Existing Atlas extension request: exact blob `1ecbada6d8159723f2d5618b8f809af1e4ad1653`, unchanged
+- Atlas page order assigned by U0: `false`
+- Penpot reads/mutations: `0/0`
+- PUBLISH / Kaggle: `0/0`
+- Independent local QA: `PASS`
+- Independent local INTEGRATE: `PASS`
+- Exact status: `ATLAS_EXTENSION_PENDING`
+
+This Git result is not Penpot authorization. O0 Atlas extension binding and the
+ActionNav/V0 closure remain required.
