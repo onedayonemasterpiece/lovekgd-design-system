@@ -1,0 +1,317 @@
+{
+  "schema_version": "kenigevents.u0-product-contract.v1",
+  "contract_id": "U-FREE-SHELL-REVIEW-PAGE-R1",
+  "product_boundary": "Existing current Free collection shell only; no new shell design.",
+  "components": [
+    {
+      "component_id": "U-SHELL-HEADER-DESKTOP",
+      "anatomy": [
+        "announcements-lockup",
+        "primary-navigation",
+        "current-route-state",
+        "utility-and-action-region",
+        "optional-header-badge"
+      ],
+      "states": [
+        "top-default",
+        "scrolled-sticky-documented",
+        "route-current"
+      ],
+      "responsive_behavior": "Desktop sticky header at the source-defined header bar height; scrolling is represented as a documented specimen, not simulated.",
+      "dependencies": [
+        "F-BRANDBOOK-BASELINE",
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "EventLayout",
+        "AnnouncementsLockup"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-HEADER-MOBILE",
+      "anatomy": [
+        "reference4-brand-trigger",
+        "announcements-wordmark",
+        "current-section-badge",
+        "fullscreen-menu-panel",
+        "menu-close-action"
+      ],
+      "states": [
+        "top-default",
+        "scrolled-sticky-documented",
+        "menu-closed",
+        "menu-open"
+      ],
+      "responsive_behavior": "Fixed mobile brand tag and full-screen menu below 760px; no synthetic desktop collapse.",
+      "dependencies": [
+        "F-BRANDBOOK-BASELINE",
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "EventLayout",
+        "Reference4MobileMenu"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-MOBILE-BOTTOM-NAVIGATION",
+      "anatomy": [
+        {
+          "key": "afisha",
+          "label": "Афиша",
+          "route_semantic": "/populyarnoe/"
+        },
+        {
+          "key": "dates",
+          "label": "Даты",
+          "route_semantic": "/segodnya/"
+        },
+        {
+          "key": "search",
+          "label": "Поиск",
+          "route_semantic": "/poisk/"
+        },
+        {
+          "key": "personal",
+          "label": "Для меня",
+          "route_semantic": "/dlya-menya/"
+        }
+      ],
+      "states": [
+        "no-current",
+        "afisha-current",
+        "dates-current",
+        "search-current",
+        "personal-current"
+      ],
+      "responsive_behavior": "Four equal mobile columns below 760px with source-owned aria-current; routes remain resolved by mobileDiscoveryHref.",
+      "dependencies": [
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "MobileBottomNav",
+        "EventLayout"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-FOOTER",
+      "anatomy": [
+        "share-strip",
+        "brand-lockup",
+        "afisha-links",
+        "project-links",
+        "documents-future-disabled",
+        "pwa-install-action",
+        "social-links",
+        "personalization-reset",
+        "copyright-or-prototype-state"
+      ],
+      "states": [
+        "desktop-service-footer",
+        "tablet-stacked-share",
+        "mobile-two-column",
+        "future-documents-disabled"
+      ],
+      "responsive_behavior": "Source grid collapses at 980px and 640px without removing legal/document states; mobile footer suppression is owned by the mobile nav shell.",
+      "dependencies": [
+        "F-BRANDBOOK-BASELINE",
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "SiteFooter",
+        "EventLayout"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-BREADCRUMBS",
+      "anatomy": [
+        "ordered-parent-links",
+        "separator",
+        "current-terminal-item",
+        "mobile-parent-back-link"
+      ],
+      "states": [
+        "responsive",
+        "desktop",
+        "mobile-parent-link"
+      ],
+      "responsive_behavior": "Desktop ordered trail; below 1024px the responsive trail yields to a single parent link. Current item remains non-link aria-current.",
+      "dependencies": [],
+      "source_consumers": [
+        "Breadcrumbs",
+        "FreeCollectionSurface",
+        "CollectionCatalog"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-FLOATING-CONTROLS",
+      "anatomy": [
+        "current-action-group",
+        "share-action",
+        "focus-ring",
+        "availability-contract"
+      ],
+      "states": [
+        "visible",
+        "focus-visible",
+        "source-unavailable"
+      ],
+      "responsive_behavior": "Floating grouping preserves source action order and source-defined availability; no hover-only functionality.",
+      "dependencies": [
+        "F-ACTION-NAV-ICONS"
+      ],
+      "source_consumers": [
+        "EventLayout",
+        "Reference4MobileMenu",
+        "SiteFooter"
+      ]
+    },
+    {
+      "component_id": "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT",
+      "anatomy": [
+        "hero-medallion-large",
+        "sticky-identity-anchor",
+        "compact-medallion",
+        "accessible-label"
+      ],
+      "states": [
+        "hero-default",
+        "sticky-visible-documented",
+        "sticky-hidden-documented",
+        "reduced-motion"
+      ],
+      "responsive_behavior": "Desktop large 180–300px hero placement and 58px compact identity; mobile 96px hero and 50px compact identity. Sticky visibility is documented, not simulated.",
+      "dependencies": [
+        "F-MEDALLIONS-BRAND-ASSETS",
+        "F-BRANDBOOK-BASELINE"
+      ],
+      "source_consumers": [
+        "FreeCollectionSurface"
+      ]
+    }
+  ],
+  "review_scenarios": [
+    {
+      "specimen_id": "free-shell-desktop-top",
+      "component_ids": [
+        "U-SHELL-HEADER-DESKTOP",
+        "U-SHELL-HEADER-MOBILE",
+        "U-SHELL-MOBILE-BOTTOM-NAVIGATION",
+        "U-SHELL-FOOTER",
+        "U-SHELL-BREADCRUMBS",
+        "U-SHELL-FLOATING-CONTROLS",
+        "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT"
+      ],
+      "state": "desktop-top",
+      "viewport": {
+        "width": 1440,
+        "height": 1024
+      },
+      "acceptance": [
+        "header top/default",
+        "hero medallion large",
+        "desktop breadcrumbs",
+        "footer composition",
+        "floating controls visible"
+      ]
+    },
+    {
+      "specimen_id": "free-shell-desktop-scrolled-documented",
+      "component_ids": [
+        "U-SHELL-HEADER-DESKTOP",
+        "U-SHELL-FLOATING-CONTROLS",
+        "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT"
+      ],
+      "state": "desktop-scrolled-documented",
+      "viewport": {
+        "width": 1440,
+        "height": 1024
+      },
+      "acceptance": [
+        "sticky header documented",
+        "compact medallion visible documented",
+        "no runtime scroll simulation"
+      ]
+    },
+    {
+      "specimen_id": "free-shell-desktop-full",
+      "component_ids": [
+        "U-SHELL-HEADER-DESKTOP",
+        "U-SHELL-BREADCRUMBS",
+        "U-SHELL-FOOTER",
+        "U-SHELL-FLOATING-CONTROLS"
+      ],
+      "state": "desktop-full-shell",
+      "viewport": {
+        "width": 1440,
+        "height": 1600
+      },
+      "acceptance": [
+        "complete source-order shell",
+        "no new shell composition"
+      ]
+    },
+    {
+      "specimen_id": "free-shell-mobile-top",
+      "component_ids": [
+        "U-SHELL-HEADER-MOBILE",
+        "U-SHELL-MOBILE-BOTTOM-NAVIGATION",
+        "U-SHELL-BREADCRUMBS",
+        "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT"
+      ],
+      "state": "mobile-top",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "acceptance": [
+        "reference4 tag closed",
+        "bottom navigation source labels",
+        "mobile parent link",
+        "96px hero medallion"
+      ]
+    },
+    {
+      "specimen_id": "free-shell-mobile-scrolled-documented",
+      "component_ids": [
+        "U-SHELL-HEADER-MOBILE",
+        "U-SHELL-MOBILE-BOTTOM-NAVIGATION",
+        "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT"
+      ],
+      "state": "mobile-scrolled-documented",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "acceptance": [
+        "sticky state documented only",
+        "50px compact medallion",
+        "no motion simulation"
+      ]
+    },
+    {
+      "specimen_id": "free-shell-mobile-full",
+      "component_ids": [
+        "U-SHELL-HEADER-MOBILE",
+        "U-SHELL-MOBILE-BOTTOM-NAVIGATION",
+        "U-SHELL-FOOTER",
+        "U-SHELL-FLOATING-CONTROLS"
+      ],
+      "state": "mobile-full-shell",
+      "viewport": {
+        "width": 390,
+        "height": 1200
+      },
+      "acceptance": [
+        "mobile footer suppression remains source-owned when bottom nav mode is nav",
+        "no duplicated navigation"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Desktop and mobile top, documented-scrolled and full-shell specimens use canonical linked masters.",
+    "Mobile navigation preserves exact source labels and route semantics.",
+    "Sticky behavior is documented as a state and is never simulated by the executor.",
+    "F0 action, brand and medallion dependencies are immutable exact bindings.",
+    "Second execution creates zero nodes and preserves every deterministic identity."
+  ]
+}
