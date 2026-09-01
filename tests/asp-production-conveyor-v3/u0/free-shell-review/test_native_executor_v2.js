@@ -105,6 +105,7 @@ class StrictNativePenpotDouble {
     this.pageCreates = 0;
     this.boardCreates = 0;
     this.textCreates = 0;
+    this.svgCreates = 0;
     this.finishedUndoTokens = [];
     this.history = {
       undoBlockBegin: () => Symbol('native-write'),
@@ -130,6 +131,15 @@ class StrictNativePenpotDouble {
     return page;
   }
   createBoard() { this.boardCreates += 1; this.created += 1; return new Shape('board'); }
+  createShapeFromSvg(svg) {
+    assert.equal(typeof svg, 'string');
+    assert.match(svg, /^<svg/);
+    const shape = new Shape('path');
+    shape.svg = svg;
+    this.svgCreates += 1;
+    this.created += 1;
+    return shape;
+  }
   createText(characters) {
     const textShape = new Shape('text');
     textShape.characters = characters;
@@ -150,7 +160,7 @@ function projection(penpot) {
   const node = (shape) => ({
     id: shape.id, type: shape.type, name: shape.name,
     x: shape.x, y: shape.y, width: shape.width, height: shape.height,
-    fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius,
+    fills: shape.fills, strokes: shape.strokes, radius: shape.borderRadius, svg: shape.svg || '',
     data: [...shape.pluginData].sort(), children: shape.children.map(node),
   });
   return canonical({
@@ -251,7 +261,24 @@ test('two actual native-like runs create concrete masters/linked specimens once 
   assert.ok(masters.every((master) => JSON.parse(get(master, ns, 'source-bindings')).every((binding) => /^[0-9a-f]{40}$/.test(binding.git_blob_sha1))));
   assert.ok(masters.every((master) => master.children.length > 0 && master.children.every((child) => get(child, ns, 'anatomy-role'))));
   assert.ok(instances.every((instance) => instance.isComponentCopyInstance() && instance.component()));
-  assert.ok(env.penpot.boardCreates > 0 && env.penpot.textCreates > 0);
+  assert.ok(env.penpot.boardCreates > 0 && env.penpot.textCreates > 0 && env.penpot.svgCreates > 0);
+  assert.equal(second.exact_managed_nodes, 40);
+  assert.equal(second.unbound_state_fallbacks, 0);
+  for (const specimen of packageDefinition.page_units[0].specimens) {
+    const board = specimens.find((node) => get(node, ns, 'specimen-id') === specimen.specimen_id);
+    const linked = walk(board).filter((node) => get(node, ns, 'node-role') === 'linked-visible-instance');
+    for (const instance of linked) {
+      const componentId = get(instance, ns, 'component-id');
+      const component = packageDefinition.page_units[0].components.find((item) => item.component_id === componentId);
+      const boundState = specimen.component_state_bindings[componentId];
+      assert.ok(component.states.includes(boundState));
+      assert.equal(get(instance, ns, 'state'), boundState);
+      const exact = component.native_visual.state_styles[boundState];
+      assert.equal(instance.fills[0].fillColor, exact[0]);
+      assert.equal(instance.strokes[0].strokeColor, exact[1]);
+      assert.equal(instance.borderRadius, component.native_visual.radius);
+    }
+  }
 });
 
 test('duplicate, detached, and screenshot corruption fail closed on replay', async () => {
@@ -281,11 +308,43 @@ test('duplicate, detached, and screenshot corruption fail closed on replay', asy
     const ns = packageDefinition.native_successor.plugin_data_namespace;
     const specimen = walk(managedRoot(env)).find((node) => get(node, ns, 'node-role') === 'visible-specimen');
     const image = new Shape('image');
-    put(image, ns, 'package-id', packageDefinition.package_id);
-    put(image, ns, 'managed-id', 'forbidden/screenshot');
-    put(image, ns, 'screenshot', 'true');
+    // Deliberately untagged: global managed-root scan must still reject it.
     specimen.appendChild(image);
     await assert.rejects(() => run(env), /SCREENSHOT_NODE/);
+  }
+});
+
+test('unbound component state, untagged detached specimen child, and protected style/text mutation catch old false passes', async () => {
+  {
+    const env = environment();
+    const broken = structuredClone(packageDefinition);
+    delete broken.page_units[0].specimens[0].component_state_bindings['U-SHELL-HEADER-DESKTOP'];
+    const { runNativePackage } = require('../../../../scripts/asp-production-conveyor-v3/u0/free-shell-review/native_runtime_v2');
+    await assert.rejects(() => runNativePackage({ ...env, packageDefinition: broken }), /UNBOUND_SPECIMEN_COMPONENT_STATE/);
+  }
+  {
+    const env = environment();
+    await run(env);
+    const specimen = walk(managedRoot(env)).find((node) => get(node, packageDefinition.native_successor.plugin_data_namespace, 'node-role') === 'visible-specimen');
+    specimen.appendChild(new Shape('board'));
+    await assert.rejects(() => run(env), /UNTAGGED_SPECIMEN_CHILD/);
+  }
+  {
+    const env = environment();
+    const originalCreateBoard = env.penpot.createBoard.bind(env.penpot);
+    let mutated = false;
+    env.penpot.createBoard = () => {
+      if (!mutated) {
+        mutated = true;
+        const sentinel = env.protectedPage.root.children[0];
+        sentinel.name = 'MUTATED';
+        sentinel.fills = [{ fillColor: '#000000', fillOpacity: 1 }];
+        sentinel.characters = 'changed';
+        sentinel.setSharedPluginData('unknown-protected-namespace', 'secret', '{"state":"MUTATED"}');
+      }
+      return originalCreateBoard();
+    };
+    await assert.rejects(() => run(env), /PROTECTED_PROJECTION_CHANGED/);
   }
 });
 

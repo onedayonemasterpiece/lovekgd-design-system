@@ -48,6 +48,16 @@
         "role": "CollectionCatalog",
         "path": "site/src/pages/podborki/index.astro",
         "git_blob_sha1": "1a3dc3e2fb6d1df644625d2f2578b3042b3406bb"
+      },
+      {
+        "role": "DesignSystemTokens",
+        "path": "site/src/styles/design-system.css",
+        "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1"
+      },
+      {
+        "role": "FreeListingMedallionAsset",
+        "path": "site/public/assets/badges/free-listing-medallion.svg",
+        "git_blob_sha1": "3f6f7aadf0dc818112ab310875d8ad270c563b45"
       }
     ],
     "rule": "Current Astro bytes and semantics are authoritative; donor material is recovery capital only."
@@ -135,71 +145,98 @@
           ],
           "native_visual": {
             "size": [
-              1024,
-              112
+              1440,
+              88
             ],
             "direction": "row",
-            "gap": 16,
-            "padding": 20,
-            "fill": "#FFF4D6",
-            "border": "#221A14",
-            "radius": 18,
+            "gap": 4,
+            "padding": 0,
+            "fill": "#fffaf2",
+            "border": "rgba(121,48,20,0.12)",
+            "radius": 0,
             "nodes": [
               [
                 "announcements-lockup",
-                "text",
-                "Афиша Кёнигсберга",
-                210,
-                40,
-                "#221A14"
+                "surface",
+                "Полюбить Калининград · Анонсы",
+                240,
+                88,
+                "#98401f"
               ],
               [
                 "primary-navigation",
-                "pill",
-                "Сегодня · Выходные · Популярное",
-                360,
+                "surface",
+                "Сегодня · Завтра · Выходные · Выставки · Фестивали · Популярное · Необычное",
+                760,
                 44,
-                "#FFFFFF"
+                "#fffaf2"
               ],
               [
                 "current-route-state",
                 "pill",
                 "Бесплатно",
-                126,
+                116,
                 44,
-                "#FFC629"
+                "#f5eadc"
               ],
               [
                 "utility-and-action-region",
-                "pill",
-                "Поиск · Поделиться",
-                190,
+                "surface",
+                "Основная навигация",
+                176,
                 44,
-                "#FFFFFF"
+                "#fffaf2"
               ],
               [
                 "optional-header-badge",
                 "pill",
-                "Коллекция",
-                110,
-                36,
-                "#6E3D9A"
+                "NEW",
+                44,
+                20,
+                "#d93b48"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "DesignSystemTokens",
+                "git_blob_sha1": "4d54d3c59f8f1a4e844953edf8d9c86078ccb8c1",
+                "selector": ":root",
+                "exact_declarations": [
+                  "--ke-color-header:#fffaf2",
+                  "--ke-site-header-bar-height:57px",
+                  "--ke-color-brand-tag:#98401f"
+                ]
+              },
+              {
+                "role": "EventLayout",
+                "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e",
+                "selector": ".site-header/.site-header__brand-tag/.site-nav a",
+                "exact_declarations": [
+                  "height:57px",
+                  "brand:240x88",
+                  "nav-min-height:44px",
+                  "nav-gap:4px",
+                  "brand-radius:0 0 12px 12px",
+                  "current:#793014",
+                  "hover:#f5eadc",
+                  "badge:#d93b48"
+                ]
+              }
             ],
             "state_styles": {
               "top-default": [
-                "#FFF4D6",
-                "#221A14",
+                "#fffaf2",
+                "rgba(121,48,20,0.12)",
                 "1"
               ],
               "scrolled-sticky-documented": [
-                "#FFFFFF",
-                "#6E3D9A",
+                "#fffaf2",
+                "rgba(121,48,20,0.12)",
                 "1"
               ],
               "route-current": [
-                "#FFC629",
-                "#221A14",
+                "#f5eadc",
+                "#a54821",
                 "1"
               ]
             }
@@ -232,75 +269,94 @@
           "native_visual": {
             "size": [
               390,
-              196
+              720
             ],
             "direction": "column",
-            "gap": 10,
-            "padding": 16,
-            "fill": "#FFF4D6",
-            "border": "#221A14",
-            "radius": 18,
+            "gap": 8,
+            "padding": 0,
+            "fill": "#fffaf2",
+            "border": "#98401f",
+            "radius": 0,
             "nodes": [
               [
                 "reference4-brand-trigger",
-                "pill",
-                "Кёнигсберг",
-                126,
-                36,
-                "#221A14"
+                "surface",
+                "Полюбить Калининград · Анонсы",
+                120,
+                84,
+                "#98401f"
               ],
               [
                 "announcements-wordmark",
                 "text",
-                "Афиша",
-                180,
-                32,
-                "#221A14"
+                "Анонсы",
+                104,
+                24,
+                "#fffaf4"
               ],
               [
                 "current-section-badge",
                 "pill",
                 "Бесплатно",
-                112,
-                34,
-                "#FFC629"
+                30,
+                30,
+                "#fffaf2"
               ],
               [
                 "fullscreen-menu-panel",
                 "surface",
-                "Меню: Сегодня · Выходные · Поиск",
-                344,
-                48,
-                "#FFFFFF"
+                "Сегодня · Завтра · Выходные · Подборки · Поиск · Для меня",
+                390,
+                416,
+                "rgba(255,252,247,.48)"
               ],
               [
                 "menu-close-action",
-                "pill",
+                "surface",
                 "Закрыть",
-                92,
-                32,
-                "#6E3D9A"
+                112,
+                112,
+                "#fffaf2"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "Reference4MobileMenu",
+                "git_blob_sha1": "05c9d4ea7ef5d912ce4b571c7d4b92a4e3b4aeb2",
+                "selector": ".mobile-discovery-menu--reference4/.reference4-menu",
+                "exact_declarations": [
+                  "tag:120x84",
+                  "tag-radius:0 0 14px 14px",
+                  "tag:#98401f",
+                  "panel:390x100%",
+                  "list-height:416px",
+                  "list-radius:22px",
+                  "row-height:52px",
+                  "close:112x112",
+                  "wordmark:104px",
+                  "transition:320ms cubic-bezier(.22,.86,.32,1)"
+                ]
+              }
             ],
             "state_styles": {
               "top-default": [
-                "#FFF4D6",
-                "#221A14",
+                "#98401f",
+                "#98401f",
                 "1"
               ],
               "scrolled-sticky-documented": [
-                "#FFFFFF",
-                "#6E3D9A",
+                "#98401f",
+                "#98401f",
                 "1"
               ],
               "menu-closed": [
-                "#FFF4D6",
-                "#221A14",
+                "#98401f",
+                "#98401f",
                 "1"
               ],
               "menu-open": [
-                "#6E3D9A",
-                "#221A14",
+                "#fffaf2",
+                "#98401f",
                 "1"
               ]
             }
@@ -348,72 +404,95 @@
           "native_visual": {
             "size": [
               390,
-              84
+              64
             ],
             "direction": "row",
-            "gap": 4,
-            "padding": 8,
-            "fill": "#221A14",
-            "border": "#221A14",
-            "radius": 18,
+            "gap": 0,
+            "padding": 0,
+            "fill": "#fffdf8",
+            "border": "rgba(121,48,20,.13)",
+            "radius": 0,
             "nodes": [
               [
                 "afisha",
-                "pill",
+                "inline-svg",
                 "Афиша",
-                88,
-                60,
-                "#FFC629"
+                97.5,
+                64,
+                "#fffdf8",
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M4.75 6.25A2.25 2.25 0 0 1 7 4h10a2.25 2.25 0 0 1 2.25 2.25v2.06a2.3 2.3 0 0 0 0 4.38v2.06A2.25 2.25 0 0 1 17 17H7a2.25 2.25 0 0 1-2.25-2.25v-2.06a2.3 2.3 0 0 0 0-4.38V6.25Zm5 1a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5Zm0 4a.75.75 0 0 0 0 1.5h2.8a.75.75 0 0 0 0-1.5h-2.8Z\"/></svg>"
               ],
               [
                 "dates",
-                "pill",
+                "inline-svg",
                 "Даты",
-                88,
-                60,
-                "#FFFFFF"
+                97.5,
+                64,
+                "#fffdf8",
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h.25A2.75 2.75 0 0 1 21 6.75v11.5A2.75 2.75 0 0 1 18.25 21H5.75A2.75 2.75 0 0 1 3 18.25V6.75A2.75 2.75 0 0 1 5.75 4H6V3a1 1 0 0 1 1-1ZM5 9v9.25c0 .41.34.75.75.75h12.5c.41 0 .75-.34.75-.75V9H5Z\" clip-rule=\"evenodd\"/></svg>"
               ],
               [
                 "search",
-                "pill",
+                "inline-svg",
                 "Поиск",
-                88,
-                60,
-                "#FFFFFF"
+                97.5,
+                64,
+                "#fffdf8",
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M10.75 3a7.75 7.75 0 1 0 4.82 13.82l3.8 3.8a.88.88 0 0 0 1.24-1.24l-3.8-3.8A7.75 7.75 0 0 0 10.75 3Zm-6 7.75a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z\" clip-rule=\"evenodd\"/></svg>"
               ],
               [
                 "personal",
-                "pill",
+                "inline-svg",
                 "Для меня",
-                88,
-                60,
-                "#FFFFFF"
+                97.5,
+                64,
+                "#fffdf8",
+                "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 2.8c.36 0 .68.23.81.56l1.78 4.55 4.55 1.78a.87.87 0 0 1 0 1.62l-4.55 1.78-1.78 4.55a.87.87 0 0 1-1.62 0l-1.78-4.55-4.55-1.78a.87.87 0 0 1 0-1.62l4.55-1.78 1.78-4.55c.13-.33.45-.56.81-.56Zm6.05 12.45c.28 0 .52.17.63.43l.58 1.38 1.38.58a.68.68 0 0 1 0 1.26l-1.38.58-.58 1.38a.68.68 0 0 1-1.26 0l-.58-1.38-1.38-.58a.68.68 0 0 1 0-1.26l1.38-.58.58-1.38a.68.68 0 0 1 .63-.43Z\"/></svg>"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "MobileBottomNav",
+                "git_blob_sha1": "54fe6d86372e531a1d0320cd52afbdbbb5e10448",
+                "selector": ".mobile-bottom-nav",
+                "exact_declarations": [
+                  "max-width:759px",
+                  "height:64px + safe-area",
+                  "columns:repeat(4,1fr)",
+                  "background:#fffdf8",
+                  "item-min-height:64px",
+                  "icon:38x28",
+                  "svg:21x21",
+                  "default:#766b62",
+                  "current:#221a14",
+                  "current-icon:rgba(34,26,20,.08)"
+                ]
+              }
             ],
             "state_styles": {
               "no-current": [
-                "#221A14",
-                "#FFC629",
+                "#fffdf8",
+                "rgba(121,48,20,.13)",
                 "1"
               ],
               "afisha-current": [
-                "#221A14",
-                "#FFC629",
+                "rgba(34,26,20,.08)",
+                "#221a14",
                 "1"
               ],
               "dates-current": [
-                "#221A14",
-                "#FFC629",
+                "rgba(34,26,20,.08)",
+                "#221a14",
                 "1"
               ],
               "search-current": [
-                "#221A14",
-                "#FFC629",
+                "rgba(34,26,20,.08)",
+                "#221a14",
                 "1"
               ],
               "personal-current": [
-                "#221A14",
-                "#FFC629",
+                "rgba(34,26,20,.08)",
+                "#221a14",
                 "1"
               ]
             }
@@ -449,109 +528,128 @@
           ],
           "native_visual": {
             "size": [
-              1024,
-              360
+              1180,
+              680
             ],
             "direction": "column",
-            "gap": 12,
-            "padding": 28,
-            "fill": "#221A14",
-            "border": "#221A14",
-            "radius": 24,
+            "gap": 16,
+            "padding": 32,
+            "fill": "#25211e",
+            "border": "#25211e",
+            "radius": 0,
             "nodes": [
               [
                 "share-strip",
-                "pill",
-                "Поделиться афишей",
-                230,
-                42,
-                "#FFC629"
+                "surface",
+                "Понравились Анонсы? Поделитесь",
+                1116,
+                84,
+                "#fff8ee"
               ],
               [
                 "brand-lockup",
                 "text",
-                "Кёнигсберг · события рядом",
-                420,
-                42,
-                "#FFFFFF"
+                "Полюбить Калининград · Анонсы",
+                240,
+                88,
+                "#25211e"
               ],
               [
                 "afisha-links",
                 "text",
-                "Сегодня · Выходные · Бесплатно",
+                "Сегодня · Завтра · Выходные · Выставки · Популярное · Необычное · Поиск",
                 520,
-                30,
-                "#FFFFFF"
+                56,
+                "#25211e"
               ],
               [
                 "project-links",
                 "text",
-                "О проекте · Обратная связь",
+                "Партнёры · Стать партнёром · Правообладателям",
                 420,
-                30,
-                "#FFFFFF"
+                56,
+                "#25211e"
               ],
               [
                 "documents-future-disabled",
-                "pill",
-                "Документы · скоро",
-                190,
-                34,
-                "#665D56"
+                "surface",
+                "Пользовательское соглашение · готовится",
+                500,
+                56,
+                "#25211e"
               ],
               [
                 "pwa-install-action",
                 "pill",
                 "Установить приложение",
-                230,
-                38,
-                "#FFFFFF"
+                240,
+                48,
+                "#fffdf8"
               ],
               [
                 "social-links",
-                "text",
-                "Telegram · VK",
-                240,
-                30,
-                "#FFFFFF"
+                "surface",
+                "Telegram · ВК · Max",
+                420,
+                44,
+                "rgba(255,255,255,.045)"
               ],
               [
                 "personalization-reset",
-                "pill",
-                "Сбросить настройки",
-                210,
-                36,
-                "#FFFFFF"
+                "text",
+                "Сбросить персонализацию",
+                260,
+                44,
+                "#25211e"
               ],
               [
                 "copyright-or-prototype-state",
                 "text",
-                "© Афиша Кёнигсберга",
-                260,
-                28,
-                "#FFFFFF"
+                "События Калининграда и области",
+                360,
+                44,
+                "#25211e"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "SiteFooter",
+                "git_blob_sha1": "3c74525a41be0dfb88fa882a62404941ac95b572",
+                "selector": ".site-footer--service-v1/.site-footer-prototype",
+                "exact_declarations": [
+                  "background:#25211e",
+                  "color:#f8ecdd",
+                  "share-min-height:84px",
+                  "share-radius:20px",
+                  "share:#fff8ee",
+                  "main:1.5fr + 3 columns",
+                  "social-min-height:44px",
+                  "tablet<=980:3 columns",
+                  "mobile<=640:2 columns",
+                  "mobile-share-radius:18px"
+                ]
+              }
             ],
             "state_styles": {
               "desktop-service-footer": [
-                "#221A14",
-                "#FFC629",
+                "#25211e",
+                "#25211e",
                 "1"
               ],
               "tablet-stacked-share": [
-                "#221A14",
-                "#FFC629",
+                "#25211e",
+                "#25211e",
                 "1"
               ],
               "mobile-two-column": [
-                "#221A14",
-                "#FFC629",
+                "#25211e",
+                "#25211e",
                 "1"
               ],
               "future-documents-disabled": [
-                "#221A14",
-                "#FFC629",
-                "1"
+                "#25211e",
+                "#25211e",
+                ".72"
               ]
             }
           }
@@ -579,62 +677,78 @@
           "native_visual": {
             "size": [
               720,
-              64
+              44
             ],
             "direction": "row",
-            "gap": 8,
-            "padding": 12,
-            "fill": "#FFFFFF",
-            "border": "#D8CFC5",
-            "radius": 12,
+            "gap": 6.72,
+            "padding": 0,
+            "fill": "#fffdf8",
+            "border": "#e1d3c2",
+            "radius": 0,
             "nodes": [
               [
                 "ordered-parent-links",
                 "text",
-                "Главная · Подборки",
-                240,
-                32,
-                "#6E3D9A"
+                "Афиша",
+                120,
+                44,
+                "#fffdf8"
               ],
               [
                 "separator",
                 "text",
                 "›",
-                24,
-                32,
-                "#665D56"
+                16,
+                44,
+                "#fffdf8"
               ],
               [
                 "current-terminal-item",
                 "text",
-                "Бесплатно",
-                160,
-                32,
-                "#221A14"
+                "Бесплатные события",
+                240,
+                44,
+                "#fffdf8"
               ],
               [
                 "mobile-parent-back-link",
-                "pill",
-                "← Подборки",
+                "text",
+                "← Афиша",
                 132,
-                36,
-                "#FFF4D6"
+                44,
+                "#fffdf8"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "Breadcrumbs",
+                "git_blob_sha1": "a38066c8ffe75bf0cb41a224578fc0d7ae268667",
+                "selector": ".product-breadcrumbs/.product-parent-link",
+                "exact_declarations": [
+                  "font-size:.88rem",
+                  "gap:.42rem",
+                  "link-min-height:44px",
+                  "current-max-width:min(34vw,22rem)",
+                  "primary:#8e3216",
+                  "mobile-parent-min-height:44px",
+                  "responsive-switch:1023/1024px"
+                ]
+              }
             ],
             "state_styles": {
               "responsive": [
-                "#FFFFFF",
-                "#D8CFC5",
+                "#fffdf8",
+                "#e1d3c2",
                 "1"
               ],
               "desktop": [
-                "#FFFFFF",
-                "#D8CFC5",
+                "#fffdf8",
+                "#e1d3c2",
                 "1"
               ],
               "mobile-parent-link": [
-                "#FFFFFF",
-                "#D8CFC5",
+                "#fffdf8",
+                "#8e3216",
                 "1"
               ]
             }
@@ -664,64 +778,80 @@
           ],
           "native_visual": {
             "size": [
-              300,
-              72
+              390,
+              112
             ],
             "direction": "row",
-            "gap": 8,
-            "padding": 10,
-            "fill": "#FFFFFF",
-            "border": "#6E3D9A",
-            "radius": 36,
+            "gap": 8.8,
+            "padding": 8,
+            "fill": "#fffdf8",
+            "border": "rgba(121,48,20,.18)",
+            "radius": 20,
             "nodes": [
               [
                 "current-action-group",
                 "pill",
                 "Сохранить",
-                112,
-                48,
-                "#FFC629"
+                96,
+                44,
+                "#fffdf8"
               ],
               [
                 "share-action",
                 "pill",
                 "Поделиться",
-                120,
-                48,
-                "#FFF4D6"
+                112,
+                44,
+                "#fffdf8"
               ],
               [
                 "focus-ring",
                 "surface",
-                "",
-                12,
-                48,
-                "#6E3D9A"
+                "Фокус",
+                44,
+                44,
+                "#0f766e"
               ],
               [
                 "availability-contract",
                 "text",
                 "Доступно",
-                86,
-                24,
-                "#221A14"
+                92,
+                44,
+                "#fffdf8"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "EventLayout",
+                "git_blob_sha1": "f90eb29949841f72755254e52d58912fc6f27b2e",
+                "selector": ".event-hero__actions/.feedback-button",
+                "exact_declarations": [
+                  "grid:repeat(2,1fr)",
+                  "gap:.55rem",
+                  "control-min-height:44px",
+                  "secondary:#fff",
+                  "border:rgba(121,48,20,.18)",
+                  "focus-outline:3px rgba(15,118,110,.65)",
+                  "like:#c93434"
+                ]
+              }
             ],
             "state_styles": {
               "visible": [
-                "#FFFFFF",
-                "#6E3D9A",
+                "#fffdf8",
+                "rgba(121,48,20,.18)",
                 "1"
               ],
               "focus-visible": [
-                "#FFF4D6",
-                "#6E3D9A",
+                "#fffdf8",
+                "#0f766e",
                 "1"
               ],
               "source-unavailable": [
-                "#F3F0EC",
-                "#D8CFC5",
-                "0.55"
+                "#f2e7d7",
+                "#e1d3c2",
+                ".72"
               ]
             }
           }
@@ -750,68 +880,95 @@
           ],
           "native_visual": {
             "size": [
-              320,
-              320
+              430,
+              430
             ],
             "direction": "column",
-            "gap": 12,
-            "padding": 20,
-            "fill": "#FFF4D6",
-            "border": "#221A14",
-            "radius": 24,
+            "gap": 8,
+            "padding": 16,
+            "fill": "#f1f6e9",
+            "border": "rgba(47,125,50,.16)",
+            "radius": 32,
             "nodes": [
               [
                 "hero-medallion-large",
-                "circle",
-                "БЕСПЛАТНО",
-                180,
-                180,
-                "#FFC629"
+                "source-svg",
+                "Бесплатно",
+                300,
+                300,
+                "#f1f6e9"
               ],
               [
                 "sticky-identity-anchor",
                 "surface",
-                "Якорь коллекции",
-                260,
-                28,
-                "#FFFFFF"
+                "sticky top 57 / mobile 64",
+                300,
+                24,
+                "#fffdf8"
               ],
               [
                 "compact-medallion",
-                "circle",
+                "source-svg",
                 "0 ₽",
                 58,
                 58,
-                "#FFC629"
+                "#f1f6e9"
               ],
               [
                 "accessible-label",
                 "text",
-                "Бесплатные события",
-                240,
-                30,
-                "#221A14"
+                "Бесплатные события: ноль рублей",
+                300,
+                28,
+                "#fffdf8"
               ]
+            ],
+            "source_style_evidence": [
+              {
+                "role": "FreeCollectionSurface",
+                "git_blob_sha1": "c76e94893efc0241b555e2fa0eaa08ba789bb696",
+                "selector": ".free-collection__hero/.free-collection__medallion",
+                "exact_declarations": [
+                  "hero:180..300px",
+                  "mobile-hero:96px",
+                  "compact:58px",
+                  "mobile-compact:50px",
+                  "sticky-top:57px/mobile:64px",
+                  "hero-radius:32px/mobile:24px",
+                  "green:#2f7d32",
+                  "background:#f1f6e9",
+                  "reduced-motion:transition:none"
+                ]
+              },
+              {
+                "role": "FreeListingMedallionAsset",
+                "git_blob_sha1": "3f6f7aadf0dc818112ab310875d8ad270c563b45",
+                "selector": "svg[viewBox=\"0 0 512 512\"]",
+                "exact_declarations": [
+                  "bytes:754",
+                  "sha256:27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31"
+                ]
+              }
             ],
             "state_styles": {
               "hero-default": [
-                "#FFF4D6",
-                "#221A14",
+                "#f1f6e9",
+                "rgba(47,125,50,.16)",
                 "1"
               ],
               "sticky-visible-documented": [
-                "#FFFFFF",
-                "#6E3D9A",
+                "#fffdf8",
+                "#2f7d32",
                 "1"
               ],
               "sticky-hidden-documented": [
-                "#F3F0EC",
-                "#D8CFC5",
-                "0.45"
+                "#fffdf8",
+                "#2f7d32",
+                "0"
               ],
               "reduced-motion": [
-                "#FFF4D6",
-                "#221A14",
+                "#f1f6e9",
+                "rgba(47,125,50,.16)",
                 "1"
               ]
             }
@@ -848,9 +1005,18 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-DESKTOP": "top-default",
+            "U-SHELL-HEADER-MOBILE": "menu-closed",
+            "U-SHELL-MOBILE-BOTTOM-NAVIGATION": "no-current",
+            "U-SHELL-FOOTER": "desktop-service-footer",
+            "U-SHELL-BREADCRUMBS": "desktop",
+            "U-SHELL-FLOATING-CONTROLS": "visible",
+            "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT": "hero-default"
           }
         },
         {
@@ -876,9 +1042,14 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-DESKTOP": "scrolled-sticky-documented",
+            "U-SHELL-FLOATING-CONTROLS": "visible",
+            "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT": "sticky-visible-documented"
           }
         },
         {
@@ -904,9 +1075,15 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-DESKTOP": "top-default",
+            "U-SHELL-BREADCRUMBS": "desktop",
+            "U-SHELL-FOOTER": "desktop-service-footer",
+            "U-SHELL-FLOATING-CONTROLS": "visible"
           }
         },
         {
@@ -934,9 +1111,15 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-MOBILE": "menu-closed",
+            "U-SHELL-MOBILE-BOTTOM-NAVIGATION": "search-current",
+            "U-SHELL-BREADCRUMBS": "mobile-parent-link",
+            "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT": "hero-default"
           }
         },
         {
@@ -962,9 +1145,14 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-MOBILE": "scrolled-sticky-documented",
+            "U-SHELL-MOBILE-BOTTOM-NAVIGATION": "search-current",
+            "U-SHELL-FREE-ADMISSION-MEDALLION-PLACEMENT": "sticky-visible-documented"
           }
         },
         {
@@ -990,9 +1178,15 @@
             "layout": "column",
             "gap": 20,
             "padding": 24,
-            "fill": "#F7F1E8",
-            "border": "#D8CFC5",
-            "radius": 24
+            "fill": "#fbf7ef",
+            "border": "#e1d3c2",
+            "radius": 28
+          },
+          "component_state_bindings": {
+            "U-SHELL-HEADER-MOBILE": "menu-open",
+            "U-SHELL-MOBILE-BOTTOM-NAVIGATION": "search-current",
+            "U-SHELL-FOOTER": "mobile-two-column",
+            "U-SHELL-FLOATING-CONTROLS": "source-unavailable"
           }
         }
       ],
@@ -1013,7 +1207,7 @@
   },
   "acceptance": {
     "second_run_created": 0,
-    "maximum_managed_nodes": 30,
+    "maximum_managed_nodes": 40,
     "detached_instances": 0,
     "screenshot_shapes": 0,
     "substitutes": 0,
@@ -1022,7 +1216,18 @@
     "duplicates": 0,
     "protected_projections_unchanged": true,
     "plugin_data_string_only": true,
-    "atlas_page_order_assigned": false
+    "atlas_page_order_assigned": false,
+    "exact_managed_nodes": 40,
+    "unbound_state_fallbacks": 0,
+    "source_style_evidence_complete": true,
+    "global_managed_root_screenshot_scan": true,
+    "protected_projection_fields": [
+      "text",
+      "fills",
+      "strokes",
+      "plugin-data",
+      "component-library"
+    ]
   },
   "branch": "agent/d0-executable-buffer-v2/u0-free-shell-native-r2",
   "package_path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/U-FREE-SHELL-REVIEW-PAGE-R1.package.v2.json",
@@ -1045,9 +1250,9 @@
     "plugin_data_values": "strict-string-only",
     "root": {
       "width": 2176,
-      "fill": "#FFFDF8",
+      "fill": "#fbf7ef",
       "master_x": 64,
-      "review_x": 736,
+      "review_x": 64,
       "top": 224,
       "gap": 32
     },
@@ -1055,8 +1260,22 @@
     "protected_projection": "all-non-package-pages-byte-stable",
     "atlas_extension_request_git_blob_sha1": "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf",
     "atlas_page_order_assigned": false,
-    "expected_status": "ATLAS_EXTENSION_PENDING"
+    "expected_status": "ATLAS_EXTENSION_PENDING",
+    "source_style_policy": "every geometry/style literal carries exact selector plus source role/blob evidence; no fallback state/style",
+    "managed_nodes_expected": 40
   },
   "result_path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/RESULTS_R2.md",
-  "local_qa_receipt_path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/local-qa-receipt.v2.json"
+  "local_qa_receipt_path": "catalog/asp-production-conveyor-v3/u0/free-shell-review/local-qa-receipt.v2.json",
+  "asset_bindings": {
+    "free_listing_medallion": {
+      "role": "FreeListingMedallionAsset",
+      "path": "site/public/assets/badges/free-listing-medallion.svg",
+      "git_blob_sha1": "3f6f7aadf0dc818112ab310875d8ad270c563b45",
+      "bytes": 754,
+      "sha256": "27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31",
+      "media_type": "image/svg+xml",
+      "viewBox": "0 0 512 512",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"512\" height=\"512\" viewBox=\"0 0 512 512\" role=\"img\" aria-label=\"Бесплатно\">\n  <circle cx=\"256\" cy=\"256\" r=\"238\" fill=\"#f7f3ec\" stroke=\"#5f5a54\" stroke-width=\"10\"/>\n  <circle cx=\"256\" cy=\"256\" r=\"216\" fill=\"none\" stroke=\"#8a847d\" stroke-width=\"5\" stroke-dasharray=\"3 17\" stroke-linecap=\"round\"/>\n  <path d=\"M256 75l10 21 23 3-17 17 4 23-20-11-20 11 4-23-17-17 23-3z\" fill=\"#5f5a54\"/>\n  <text x=\"256\" y=\"285\" fill=\"#302d29\" font-family=\"Arial, sans-serif\" font-size=\"142\" font-weight=\"850\" text-anchor=\"middle\">0 ₽</text>\n  <text x=\"256\" y=\"350\" fill=\"#5f5a54\" font-family=\"Arial, sans-serif\" font-size=\"43\" font-weight=\"800\" letter-spacing=\"4\" text-anchor=\"middle\">БЕСПЛАТНО</text>\n</svg>\n"
+    }
+  }
 }

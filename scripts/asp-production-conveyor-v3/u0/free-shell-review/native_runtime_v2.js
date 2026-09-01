@@ -6,6 +6,7 @@ const MANAGED_KEYS = [
   'package-id', 'managed-id', 'node-role', 'component-id', 'specimen-id',
   'state', 'source-bindings', 'source-head', 'source-tree', 'anatomy-role',
   'layout', 'candidate-label', 'detached', 'screenshot', 'atlas-page-order-assigned',
+  'scenario-state', 'source-style-evidence', 'asset-sha256', 'asset-bytes',
 ];
 
 function canonical(value) {
@@ -92,14 +93,37 @@ function assertActiveLease(lease, boundary) {
   demand(lease && lease.active === true && lease.cancelled !== true, `LEASE_NOT_ACTIVE:${boundary}`);
 }
 
+function projectedPluginData(node, namespace) {
+  if (node?.pluginData instanceof Map) return [...node.pluginData.entries()].sort(([left], [right]) => left.localeCompare(right));
+  const namespaces = [namespace, 'kenigevents'];
+  const keys = [...MANAGED_KEYS, 'asp-active-run-v1'];
+  return namespaces.flatMap((ns) => keys.map((key) => [ns, key, get(node, ns, key)]).filter((item) => item[2] !== ''));
+}
+
+function projectedShape(node, namespace) {
+  return {
+    id: node.id, type: node.type || '', name: node.name || '', characters: node.characters || '',
+    x: node.x || 0, y: node.y || 0, width: node.width || 0, height: node.height || 0,
+    fills: node.fills || [], strokes: node.strokes || [], borderRadius: node.borderRadius || 0,
+    clipContent: node.clipContent === true, fontSize: node.fontSize || '', fontWeight: node.fontWeight || '',
+    pluginData: projectedPluginData(node, namespace), children: children(node).map((child) => projectedShape(child, namespace)),
+  };
+}
+
 function protectedProjection(penpot, namespace, packageId) {
   const pages = Array.from(penpot.currentFile?.pages || []).filter((page) => get(page, namespace, 'package-id') !== packageId);
-  const shape = (node) => ({
-    id: node.id, type: node.type || '', name: node.name || '',
-    x: node.x || 0, y: node.y || 0, width: node.width || 0, height: node.height || 0,
-    children: children(node).map(shape),
+  const components = Array.from(penpot.library?.local?.components || []).filter((component) => {
+    const main = componentMain(component);
+    return get(main, namespace, 'package-id') !== packageId;
   });
-  return digest(pages.map((page) => ({ id: page.id, name: page.name, root: shape(page.root) })));
+  return digest({
+    pages: pages.map((page) => ({
+      id: page.id, name: page.name, pluginData: projectedPluginData(page, namespace), root: projectedShape(page.root, namespace),
+    })),
+    components: components.map((component) => ({
+      id: component.id, name: component.name || '', path: component.path || '', main: projectedShape(componentMain(component), namespace),
+    })),
+  });
 }
 
 async function inUndo(penpot, work) {
@@ -142,22 +166,50 @@ function applyManagedIdentity(node, pkg, namespace, managedId, role) {
   put(node, namespace, 'atlas-page-order-assigned', 'false');
 }
 
-function createLabeledVisual(penpot, parent, nodeSpec, namespace, componentId, index, direction, padding, gap, created) {
-  const [role, kind, label, width, height, fill] = nodeSpec;
+function createLabeledVisual(penpot, parent, nodeSpec, pkg, namespace, componentId, created) {
+  const [role, kind, label, width, height, fill, inlineSvg] = nodeSpec;
+  if (kind === 'source-svg') {
+    const asset = pkg.asset_bindings?.free_listing_medallion;
+    demand(asset && digest(asset.svg) === asset.sha256 && new TextEncoder().encode(asset.svg).length === asset.bytes, 'SOURCE_SVG_BYTES_MISMATCH');
+    demand(typeof penpot.createShapeFromSvg === 'function', 'NATIVE_SVG_IMPORT_REQUIRED');
+    const shape = penpot.createShapeFromSvg(asset.svg);
+    demand(shape, `NATIVE_SOURCE_SVG_CREATE_FAILED:${componentId}:${role}`);
+    shape.name = `${componentId} / ${role} / exact-source-svg`;
+    resize(shape, width, height);
+    put(shape, namespace, 'anatomy-role', role);
+    put(shape, namespace, 'component-id', componentId);
+    put(shape, namespace, 'layout', kind);
+    put(shape, namespace, 'asset-sha256', asset.sha256);
+    put(shape, namespace, 'asset-bytes', `${asset.bytes}`);
+    append(parent, shape);
+    created.count += 1;
+    return shape;
+  }
   const surface = penpot.createBoard();
   demand(surface, `NATIVE_ANATOMY_CREATE_FAILED:${componentId}:${role}`);
   surface.name = `${componentId} / ${role}`;
   resize(surface, width, height);
-  styleSurface(surface, { fill, border: kind === 'circle' ? '#221A14' : '#D8CFC5', radius: kind === 'circle' ? Math.min(width, height) / 2 : kind === 'pill' ? Math.min(height / 2, 24) : 10, opacity: 1 });
+  styleSurface(surface, { fill, border: kind === 'circle' ? '#221a14' : '#e1d3c2', radius: kind === 'circle' ? Math.min(width, height) / 2 : kind === 'pill' ? Math.min(height / 2, 24) : 10, opacity: 1 });
   put(surface, namespace, 'anatomy-role', role);
   put(surface, namespace, 'component-id', componentId);
   put(surface, namespace, 'layout', kind);
   append(parent, surface);
+  if (kind === 'inline-svg') {
+    demand(typeof inlineSvg === 'string' && inlineSvg.startsWith('<svg'), `INLINE_SOURCE_SVG_REQUIRED:${componentId}:${role}`);
+    demand(typeof penpot.createShapeFromSvg === 'function', 'NATIVE_SVG_IMPORT_REQUIRED');
+    const icon = penpot.createShapeFromSvg(inlineSvg);
+    demand(icon, `INLINE_SOURCE_SVG_CREATE_FAILED:${componentId}:${role}`);
+    icon.name = `${role} / exact-inline-source-icon`;
+    resize(icon, 21, 21);
+    position(icon, (width - 21) / 2, 8);
+    append(surface, icon);
+    created.count += 1;
+  }
   const text = penpot.createText(label || role);
   demand(text, `NATIVE_TEXT_CREATE_FAILED:${componentId}:${role}`);
   text.name = `${role} / label`;
-  styleText(text, fill === '#221A14' || fill === '#6E3D9A' ? '#FFFFFF' : '#221A14', kind === 'text' ? '16' : '13', kind === 'text' ? '700' : '600');
-  position(text, 10, Math.max(6, (height - 18) / 2));
+  styleText(text, fill === '#25211e' || fill === '#98401f' ? '#fffaf2' : '#221a14', kind === 'text' ? '16' : kind === 'inline-svg' ? '10' : '13', kind === 'text' ? '700' : '600');
+  position(text, 10, kind === 'inline-svg' ? 38 : Math.max(6, (height - 18) / 2));
   append(surface, text);
   created.count += 2;
   return surface;
@@ -200,9 +252,10 @@ async function createMaster({ penpot, root, pkg, unit, component, namespace, x, 
     put(master, namespace, 'component-id', component.component_id);
     put(master, namespace, 'layout', visual.direction === 'row' ? 'native-row' : 'native-column');
     put(master, namespace, 'source-bindings', canonical(sourceBindings(component, pkg)));
-    const items = visual.nodes.map((spec, index) => createLabeledVisual(
-      penpot, master, spec, namespace, component.component_id, index,
-      visual.direction, visual.padding, visual.gap, created,
+    demand(Array.isArray(visual.source_style_evidence) && visual.source_style_evidence.length > 0, `SOURCE_STYLE_EVIDENCE_REQUIRED:${component.component_id}`);
+    put(master, namespace, 'source-style-evidence', canonical(visual.source_style_evidence));
+    const items = visual.nodes.map((spec) => createLabeledVisual(
+      penpot, master, spec, pkg, namespace, component.component_id, created,
     ));
     layOutAnatomy(items, visual.direction, visual.padding, visual.gap);
     append(root, master);
@@ -215,18 +268,46 @@ async function createMaster({ penpot, root, pkg, unit, component, namespace, x, 
   });
 }
 
+function assertExactSurface(node, fill, border, radius, code) {
+  demand(node.fills?.[0]?.fillColor === fill, `${code}:FILL`);
+  demand(node.strokes?.[0]?.strokeColor === border, `${code}:BORDER`);
+  demand(node.borderRadius === radius, `${code}:RADIUS`);
+}
+
 function validateMaster(master, component, pkg, namespace) {
+  const visual = component.native_visual;
   demand(master.name === `U0 / ${component.component_id} / Main`, `MASTER_NAME_DRIFT:${component.component_id}`);
   demand(get(master, namespace, 'node-role') === 'component-master', `MASTER_ROLE_DRIFT:${component.component_id}`);
   demand(get(master, namespace, 'source-bindings') === canonical(sourceBindings(component, pkg)), `MASTER_SOURCE_DRIFT:${component.component_id}`);
-  const roles = children(master).map((node) => get(node, namespace, 'anatomy-role')).filter(Boolean);
-  demand(canonical(roles) === canonical(component.native_visual.nodes.map((node) => node[0])), `MASTER_ANATOMY_DRIFT:${component.component_id}`);
+  demand(get(master, namespace, 'source-style-evidence') === canonical(visual.source_style_evidence), `MASTER_STYLE_EVIDENCE_DRIFT:${component.component_id}`);
+  demand(master.width === visual.size[0] && master.height === visual.size[1], `MASTER_GEOMETRY_DRIFT:${component.component_id}`);
+  assertExactSurface(master, visual.fill, visual.border, visual.radius, `MASTER_STYLE_DRIFT:${component.component_id}`);
+  const anatomy = children(master);
+  demand(anatomy.length === visual.nodes.length, `MASTER_ANATOMY_COUNT_DRIFT:${component.component_id}`);
+  anatomy.forEach((node, index) => {
+    const spec = visual.nodes[index];
+    demand(get(node, namespace, 'anatomy-role') === spec[0], `MASTER_ANATOMY_ROLE_DRIFT:${component.component_id}:${spec[0]}`);
+    demand(node.width === spec[3] && node.height === spec[4], `MASTER_ANATOMY_GEOMETRY_DRIFT:${component.component_id}:${spec[0]}`);
+    if (spec[1] === 'source-svg') {
+      demand(get(node, namespace, 'asset-sha256') === pkg.asset_bindings.free_listing_medallion.sha256, `MASTER_ASSET_DRIFT:${component.component_id}:${spec[0]}`);
+    } else {
+      demand(node.fills?.[0]?.fillColor === spec[5], `MASTER_ANATOMY_STYLE_DRIFT:${component.component_id}:${spec[0]}`);
+    }
+  });
+}
+
+function stateStyle(component, state) {
+  demand(Object.prototype.hasOwnProperty.call(component.native_visual.state_styles, state), `UNBOUND_COMPONENT_STATE:${component.component_id}:${state}`);
+  const value = component.native_visual.state_styles[state];
+  demand(Array.isArray(value) && value.length === 3, `INVALID_COMPONENT_STATE_STYLE:${component.component_id}:${state}`);
+  return value;
 }
 
 function applyStateStyle(instance, component, state, namespace) {
+  demand(component.states.includes(state), `STATE_NOT_IN_PRODUCT_CONTRACT:${component.component_id}:${state}`);
   const visual = component.native_visual;
-  const stateStyle = visual.state_styles[state] || [visual.fill, visual.border, '1'];
-  styleSurface(instance, { fill: stateStyle[0], border: stateStyle[1], radius: visual.radius, opacity: Number(stateStyle[2]) });
+  const value = stateStyle(component, state);
+  styleSurface(instance, { fill: value[0], border: value[1], radius: visual.radius, opacity: Number(value[2]) });
   put(instance, namespace, 'state', state);
 }
 
@@ -247,11 +328,11 @@ async function createSpecimen({ penpot, root, pkg, unit, specimen, components, n
     styleSurface(board, { fill: spec.fill, border: spec.border, radius: spec.radius, opacity: 1 });
     applyManagedIdentity(board, pkg, namespace, `specimen/${specimen.specimen_id}`, 'visible-specimen');
     put(board, namespace, 'specimen-id', specimen.specimen_id);
-    put(board, namespace, 'state', specimen.state);
+    put(board, namespace, 'scenario-state', specimen.state);
     put(board, namespace, 'layout', 'native-column');
     const heading = penpot.createText(`${specimen.state} · ${specimen.viewport.width}×${specimen.viewport.height}`);
     heading.name = 'Specimen state and viewport';
-    styleText(heading, '#221A14', '18', '700');
+    styleText(heading, '#221a14', '18', '700');
     position(heading, spec.padding, spec.padding);
     append(board, heading);
     created.count += 2;
@@ -266,7 +347,9 @@ async function createSpecimen({ penpot, root, pkg, unit, specimen, components, n
       put(instance, namespace, 'specimen-id', specimen.specimen_id);
       put(instance, namespace, 'detached', 'false');
       put(instance, namespace, 'screenshot', 'false');
-      applyStateStyle(instance, item.component, specimen.state, namespace);
+      const componentState = specimen.component_state_bindings?.[item.component.component_id];
+      demand(typeof componentState === 'string', `UNBOUND_SPECIMEN_COMPONENT_STATE:${specimen.specimen_id}:${item.component.component_id}`);
+      applyStateStyle(instance, item.component, componentState, namespace);
       const innerWidth = spec.width - spec.padding * 2;
       if (instance.width > innerWidth) resize(instance, innerWidth, instance.height);
       position(instance, spec.padding, cursor);
@@ -279,18 +362,27 @@ async function createSpecimen({ penpot, root, pkg, unit, specimen, components, n
   });
 }
 
-function validateManagedIntegrity({ penpot, page, pkg, namespace }) {
-  const nodes = walk(page.root);
-  const managed = nodes.filter((node) => get(node, namespace, 'package-id') === pkg.package_id);
-  const ids = managed.map((node) => get(node, namespace, 'managed-id')).filter(Boolean);
+function validateManagedIntegrity({ page, root, pkg, namespace }) {
+  const nodes = walk(root);
+  const ids = nodes.map((node) => get(node, namespace, 'managed-id')).filter(Boolean);
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
   demand(duplicates.length === 0, `DUPLICATE_MANAGED_ID:${[...new Set(duplicates)].join(',')}`);
-  const linked = managed.filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
+  demand(ids.length === pkg.native_successor.managed_nodes_expected, `MANAGED_NODE_COUNT_MISMATCH:${ids.length}:${pkg.native_successor.managed_nodes_expected}`);
+  const linked = nodes.filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
   const detached = linked.filter((node) => node.isComponentCopyInstance?.() !== true || !node.component?.());
   demand(detached.length === 0, `DETACHED_INSTANCE:${detached.map((node) => node.id).join(',')}`);
-  const screenshots = managed.filter((node) => node.type === 'image' || get(node, namespace, 'screenshot') === 'true');
+  const screenshots = nodes.filter((node) => node.type === 'image' || get(node, namespace, 'screenshot') === 'true');
   demand(screenshots.length === 0, `SCREENSHOT_NODE:${screenshots.map((node) => node.id).join(',')}`);
-  return { managed: managed.length, duplicates: 0, detached: 0, screenshots: 0, linked_instances: linked.length };
+  const specimens = nodes.filter((node) => get(node, namespace, 'node-role') === 'visible-specimen');
+  for (const specimen of specimens) {
+    for (const child of children(specimen)) {
+      const role = get(child, namespace, 'node-role');
+      const allowedHeading = child.type === 'text' && child.name === 'Specimen state and viewport';
+      demand(allowedHeading || role === 'linked-visible-instance', `UNTAGGED_SPECIMEN_CHILD:${specimen.id}:${child.id}`);
+    }
+  }
+  demand(get(page, namespace, 'atlas-page-order-assigned') === 'false', 'ATLAS_PAGE_ORDER_DRIFT');
+  return { managed: ids.length, duplicates: 0, detached: 0, screenshots: 0, linked_instances: linked.length };
 }
 
 async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
@@ -331,7 +423,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
       value.name = unit.root_name;
       resize(value, packageDefinition.native_successor.root.width, 1000);
       position(value, 0, 0);
-      styleSurface(value, { fill: packageDefinition.native_successor.root.fill, border: '#D8CFC5', radius: 0, opacity: 1 });
+      styleSurface(value, { fill: packageDefinition.native_successor.root.fill, border: '#e1d3c2', radius: 0, opacity: 1 });
       applyManagedIdentity(value, packageDefinition, namespace, 'root', 'native-review-root');
       put(value, namespace, 'layout', 'native-two-column-masters-plus-stacked-compositions');
       append(page.root, value);
@@ -347,7 +439,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   if (!title) {
     title = penpot.createText('Free collection · shell states · source-bound native successor');
     title.name = 'Candidate page title';
-    styleText(title, '#221A14', '28', '700');
+    styleText(title, '#221a14', '28', '700');
     position(title, 64, 64);
     applyManagedIdentity(title, packageDefinition, namespace, 'page-title', 'page-title');
     append(root, title);
@@ -389,9 +481,19 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
       const made = await createSpecimen({ penpot, root, pkg: packageDefinition, unit, specimen, components, namespace, x: 64, y: specimenY, created });
       specimenY += made.height + 48;
     } else {
-      demand(get(board, namespace, 'state') === specimen.state, `SPECIMEN_STATE_DRIFT:${specimen.specimen_id}`);
-      const linkedIds = walk(board).filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance').map((node) => get(node, namespace, 'component-id'));
+      demand(get(board, namespace, 'scenario-state') === specimen.state, `SPECIMEN_STATE_DRIFT:${specimen.specimen_id}`);
+      const linkedNodes = walk(board).filter((node) => get(node, namespace, 'node-role') === 'linked-visible-instance');
+      const linkedIds = linkedNodes.map((node) => get(node, namespace, 'component-id'));
       demand(canonical(linkedIds) === canonical(specimen.component_ids), `SPECIMEN_LINEAGE_DRIFT:${specimen.specimen_id}`);
+      linkedNodes.forEach((node) => {
+        const componentId = get(node, namespace, 'component-id');
+        const item = components.get(componentId);
+        const boundState = specimen.component_state_bindings?.[componentId];
+        demand(typeof boundState === 'string', `UNBOUND_SPECIMEN_COMPONENT_STATE:${specimen.specimen_id}:${componentId}`);
+        const value = stateStyle(item.component, boundState);
+        demand(get(node, namespace, 'state') === boundState, `INSTANCE_STATE_DRIFT:${specimen.specimen_id}:${componentId}`);
+        assertExactSurface(node, value[0], value[1], item.component.native_visual.radius, `INSTANCE_STYLE_DRIFT:${specimen.specimen_id}:${componentId}`);
+      });
       specimenY += board.height + 48;
     }
   }
@@ -400,7 +502,7 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
   if (created.count > 0) resize(root, packageDefinition.native_successor.root.width, expectedHeight);
   else demand(root.height === expectedHeight, 'NATIVE_ROOT_HEIGHT_DRIFT');
 
-  const integrity = validateManagedIntegrity({ penpot, page, pkg: packageDefinition, namespace });
+  const integrity = validateManagedIntegrity({ page, root, pkg: packageDefinition, namespace });
   const afterProtected = protectedProjection(penpot, namespace, packageDefinition.package_id);
   demand(afterProtected === beforeProtected, 'PROTECTED_PROJECTION_CHANGED');
   assertActiveLease(lease, 'before-receipt');
@@ -421,6 +523,9 @@ async function runNativePackage({ penpot, storage, lease, packageDefinition }) {
     protected_projection_after: afterProtected,
     protected_projections_unchanged: true,
     shared_plugin_data_string_only: true,
+    exact_managed_nodes: integrity.managed,
+    unbound_state_fallbacks: 0,
+    source_style_evidence_complete: true,
     atlas_page_order_assigned: false,
     atlas_extension_status: 'ATLAS_EXTENSION_PENDING',
     penpot_execution_authorized: false,

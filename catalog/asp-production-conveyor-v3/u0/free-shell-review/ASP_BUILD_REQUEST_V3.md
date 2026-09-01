@@ -30,13 +30,17 @@ native_contract:
   component_masters: 7
   visible_specimens: 6
   linked_instances: 25
+  exact_managed_nodes: 40
   source_binding: exact_role_path_git_blob_sha1
+  source_style_binding: exact_selector_declarations_and_source_blob
+  component_state_bindings: exact_no_fallback
   shared_plugin_data: strict_string_only
   second_run_created: 0
   duplicates: 0
   detached: 0
   screenshots: 0
   protected_projections_unchanged: true
+  protected_projection_fields: [text, fills, strokes, plugin_data, component_library]
 dependency_corrections:
   brandbook_tree: 29ad3ccf0628e448d0881007129981b9f766856f
   medallions_tree: 95ab14cbd64697910c871ccb1a7ca7428cf618bd
@@ -44,6 +48,10 @@ dependency_corrections:
     role: CollectionCatalog
     path: site/src/pages/podborki/index.astro
     git_blob_sha1: 1a3dc3e2fb6d1df644625d2f2578b3042b3406bb
+  free_medallion_asset:
+    git_blob_sha1: 3f6f7aadf0dc818112ab310875d8ad270c563b45
+    bytes: 754
+    sha256: 27cc37743a0212868f28edbf3b1f0b6ad5033241d93154b26501cb7538122b31
 atlas_extension_request:
   path: catalog/asp-production-conveyor-v3/u0/free-shell-review/ASP_ATLAS_EXTENSION_REQUEST_V1.md
   git_blob_sha1: 2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf

@@ -57,7 +57,7 @@ class FreeShellNativeSuccessorTests(unittest.TestCase):
             self.assertGreater(visual["size"][0], 0)
             self.assertGreater(visual["size"][1], 0)
             self.assertIn(visual["direction"], ("row", "column"))
-            self.assertRegex(visual["fill"], r"^#[0-9A-F]{6}$")
+            self.assertRegex(visual["fill"], r"^(?:#[0-9a-fA-F]{6}|rgba?\()")
             roles = [node[0] for node in visual["nodes"]]
             anatomy = [node if isinstance(node, str) else node["key"] for node in product["anatomy"]]
             self.assertEqual(roles, anatomy)
@@ -92,6 +92,47 @@ class FreeShellNativeSuccessorTests(unittest.TestCase):
         for gate in ("DUPLICATE", "DETACHED", "SCREENSHOT", "PROTECTED_PROJECTION_CHANGED"):
             self.assertIn(gate, runtime + node_test)
 
+    def test_every_specimen_has_exact_family_state_binding_and_no_generic_palette(self):
+        components = {item["component_id"]: item for item in PACKAGE["page_units"][0]["components"]}
+        for specimen in PACKAGE["page_units"][0]["specimens"]:
+            self.assertEqual(set(specimen["component_state_bindings"]), set(specimen["component_ids"]))
+            for component_id, state in specimen["component_state_bindings"].items():
+                self.assertIn(state, components[component_id]["states"])
+                self.assertIn(state, components[component_id]["native_visual"]["state_styles"])
+        serialized = json.dumps(PACKAGE, ensure_ascii=False).lower()
+        for old_generic in ("#ffc629", "#6e3d9a", "#fff4d6", "#d8cfc5", "#f7f1e8"):
+            self.assertNotIn(old_generic, serialized)
+        self.assertEqual(PACKAGE["acceptance"]["unbound_state_fallbacks"], 0)
+
+    def test_source_style_and_exact_asset_evidence_are_frozen(self):
+        sources = {item["role"]: item for item in PACKAGE["source_authority"]["files"]}
+        for component in PACKAGE["page_units"][0]["components"]:
+            evidence = component["native_visual"]["source_style_evidence"]
+            self.assertGreater(len(evidence), 0)
+            for row in evidence:
+                self.assertIn(row["role"], sources)
+                self.assertEqual(row["git_blob_sha1"], sources[row["role"]]["git_blob_sha1"])
+                self.assertTrue(row["selector"] and row["exact_declarations"])
+        asset = PACKAGE["asset_bindings"]["free_listing_medallion"]
+        payload = asset["svg"].encode()
+        self.assertEqual(len(payload), asset["bytes"])
+        self.assertEqual(hashlib.sha256(payload).hexdigest(), asset["sha256"])
+        self.assertEqual(asset["git_blob_sha1"], "3f6f7aadf0dc818112ab310875d8ad270c563b45")
+
+    def test_complete_protection_global_integrity_and_coherent_census_are_enforced(self):
+        runtime = RUNTIME.read_text(encoding="utf-8")
+        node_test = NODE_TEST.read_text(encoding="utf-8")
+        self.assertEqual(PACKAGE["native_successor"]["managed_nodes_expected"], 40)
+        self.assertEqual(PACKAGE["acceptance"]["maximum_managed_nodes"], 40)
+        self.assertEqual(PACKAGE["acceptance"]["exact_managed_nodes"], 40)
+        for field in ("characters", "fills", "strokes", "pluginData", "components"):
+            self.assertIn(field, runtime)
+        self.assertIn("const nodes = walk(root)", runtime)
+        self.assertIn("node.type === 'image'", runtime)
+        self.assertIn("UNTAGGED_SPECIMEN_CHILD", runtime + node_test)
+        self.assertIn("PROTECTED_PROJECTION_CHANGED", runtime + node_test)
+        self.assertIn("UNBOUND_SPECIMEN_COMPONENT_STATE", runtime + node_test)
+
     def test_extension_request_is_byte_preserved_and_order_is_o0_only(self):
         self.assertEqual(git_blob_sha1(REQUEST), "2ad8f60cd717e36df1908c3bc7857ecbaa83d8cf")
         text = REQUEST.read_text(encoding="utf-8")
@@ -104,6 +145,7 @@ class FreeShellNativeSuccessorTests(unittest.TestCase):
         self.assertEqual(PACKAGE["boundaries"]["penpot_mutations_by_u0"], 0)
         self.assertFalse(PACKAGE["boundaries"]["kaggle_used"])
         self.assertEqual(PACKAGE["acceptance"]["second_run_created"], 0)
+        self.assertEqual(PACKAGE["acceptance"]["exact_managed_nodes"], 40)
         self.assertEqual(PACKAGE["acceptance"]["duplicates"], 0)
         self.assertEqual(PACKAGE["acceptance"]["detached_instances"], 0)
         self.assertEqual(PACKAGE["acceptance"]["screenshot_shapes"], 0)
