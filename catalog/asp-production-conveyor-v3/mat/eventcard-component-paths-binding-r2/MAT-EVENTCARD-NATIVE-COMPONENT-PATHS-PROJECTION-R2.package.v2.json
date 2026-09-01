@@ -1,0 +1,87 @@
+{
+  "acceptance_matrix_reused": {
+    "head": "2a2394409912ce574530c5a451f2a3c169b557f7",
+    "reissued": false
+  },
+  "baseline": {
+    "empty_paths": 15,
+    "exact_canonical_paths": "0/18",
+    "legacy_nonempty_paths": 3
+  },
+  "boundaries": {
+    "kaggle_calls": 0,
+    "new_eventcard_families": 0,
+    "penpot_mutations": 0,
+    "penpot_reads": 0
+  },
+  "claims": {
+    "penpot_execution_authorized": false,
+    "ready_to_promote": false,
+    "visual_pass": false,
+    "whole_eventcard_pass": false
+  },
+  "defect": "REPAIR_PATHS_26_LINKED_INSTANCE_ID_PROJECTION_MISSING",
+  "entrypoints": {
+    "distinct_later_readback": "readEventcardComponentPathsSettlementR2",
+    "execution": "executeEventcardComponentPathsProjectionR2",
+    "projection": "projectEventcardComponentPathsR2",
+    "runtime": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-binding-r2/eventcard_component_paths_projection_r2.js"
+  },
+  "execution": {
+    "allowed_mutation": "LibraryComponent.path only",
+    "authorization_binds": [
+      "exact current revision",
+      "exact projection SHA-256"
+    ],
+    "blind_retry": false
+  },
+  "negative_gates": [
+    "stale revision",
+    "stale projection SHA",
+    "missing component/main/linked ID",
+    "duplicate component/main/linked ID",
+    "changed protected surface",
+    "timeout/unknown outcome",
+    "non-string plugin data",
+    "component/main name drift",
+    "executor replay"
+  ],
+  "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-PROJECTION-R2",
+  "parent": {
+    "branch": "agent/mat-eventcard-native-component-paths-repair-r1-20260901",
+    "head": "757652ed656f32569d5ade7dd75f5cd58cf9df96",
+    "tree": "2ffd893a8eba54156818b55fa5f63f88afbcc4c0"
+  },
+  "projection": {
+    "binds": [
+      "current and expected paths",
+      "component/main relations",
+      "linked-instance relations",
+      "protected collection digest",
+      "projection SHA-256"
+    ],
+    "component_ids": 18,
+    "linked_instance_ids": 26,
+    "main_ids": 18,
+    "mutation_free": true,
+    "revision": "read-current"
+  },
+  "schema_version": "kenigevents.mat-eventcard-component-paths-projection-package.v2",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "terminal": {
+    "clone": 0,
+    "component_ids_preserved": true,
+    "component_main_names_untouched": true,
+    "detach": 0,
+    "exact_nonempty_canonical_paths": "18/18",
+    "linked_instance_ids_preserved": true,
+    "main_ids_preserved": true,
+    "recreate": 0
+  },
+  "tests": {
+    "deterministic_projection_regeneration": "PASS",
+    "node": "9/9 PASS",
+    "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-binding-r2/eventcard_component_paths_projection_r2.js --self-test",
+    "python_package_invariants": "5/5 PASS"
+  }
+}
