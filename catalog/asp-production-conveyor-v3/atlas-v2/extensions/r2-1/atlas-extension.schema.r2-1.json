@@ -1,0 +1,178 @@
+{
+  "$id": "kenigevents.asp-penpot-atlas-extension.r2-1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "atlas-extension.schema.r2-1.json"
+    },
+    "base": {
+      "type": "object"
+    },
+    "counts": {
+      "type": "object"
+    },
+    "coverage_matrix": {
+      "type": "object"
+    },
+    "extension_pages": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "atlas_page_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "density_profile": {
+            "enum": [
+              "COMPOSED_ROUTE_READY_3_ROWS",
+              "COMPONENT_STATE_GRID_STANDARD_3COL"
+            ]
+          },
+          "exact_package_page_name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "extension_page_role": {
+            "enum": [
+              "SHELL_STATES",
+              "COMPACT",
+              "FESTIVAL",
+              "CLUB",
+              "ARTIFACT",
+              "COLLECTION",
+              "DISCOVERY_RAILS",
+              "CONTENT_SHELVES",
+              "SECTION_HEADERS",
+              "SEARCH_CONTROL_BARS",
+              "CONTENT_GROUPINGS",
+              "ROW_GROUP_COMPOSITION"
+            ]
+          },
+          "page_order": {
+            "pattern": "^0230\\.(00[1-9]|01[0-2])$",
+            "type": "string"
+          },
+          "physical_page_name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "projection_role": {
+            "const": "READY"
+          },
+          "section": {
+            "enum": [
+              "content-free-collection",
+              "component-cards",
+              "shared-patterns"
+            ]
+          },
+          "semantic_slot_bindings": {
+            "minProperties": 3,
+            "type": "object"
+          },
+          "source_package_id": {
+            "enum": [
+              "U-FREE-SHELL-REVIEW-PAGE-R1",
+              "U-RECOVERED-CARD-FAMILIES",
+              "U-SHARED-PATTERNS"
+            ]
+          },
+          "source_tuple_ref": {
+            "enum": [
+              "FREE_SHELL_NATIVE_R2",
+              "RECOVERED_CARDS_NATIVE_R2",
+              "SHARED_PATTERNS_NATIVE_R3"
+            ]
+          },
+          "template_id": {
+            "enum": [
+              "COMPOSED_ROUTE_READY_STATES_V2",
+              "COMPONENT_STATE_GRID_V2"
+            ]
+          },
+          "v0_review_scope": {
+            "additionalProperties": false,
+            "properties": {
+              "checks": {
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 12,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "required": {
+                "const": true
+              }
+            },
+            "required": [
+              "required",
+              "checks"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "atlas_page_id",
+          "page_order",
+          "physical_page_name",
+          "exact_package_page_name",
+          "section",
+          "source_package_id",
+          "extension_page_role",
+          "projection_role",
+          "template_id",
+          "density_profile",
+          "semantic_slot_bindings",
+          "source_tuple_ref",
+          "v0_review_scope"
+        ],
+        "type": "object"
+      },
+      "maxItems": 12,
+      "minItems": 12,
+      "type": "array"
+    },
+    "insertion_contract": {
+      "type": "object"
+    },
+    "marker": {
+      "const": "ASP_PENPOT_ATLAS_EXTENSION_R2_1"
+    },
+    "penpot_access": {
+      "type": "object"
+    },
+    "repository": {
+      "const": "onedayonemasterpiece/lovekgd-design-system"
+    },
+    "requirements_contract": {
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "kenigevents.asp-penpot-atlas-extension.r2-1"
+    },
+    "source_tuples": {
+      "type": "object"
+    },
+    "state": {
+      "const": "O0_ACCEPTED_VERSIONED_OVERLAY"
+    }
+  },
+  "required": [
+    "$schema",
+    "schema_version",
+    "marker",
+    "state",
+    "repository",
+    "requirements_contract",
+    "base",
+    "coverage_matrix",
+    "counts",
+    "insertion_contract",
+    "source_tuples",
+    "extension_pages",
+    "penpot_access"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,508 @@
+{
+  "categories": [
+    "V0_REVIEWABLE",
+    "EXACT_QA_INTEGRATE_READY",
+    "PACKAGE_REPAIR_RUNNING",
+    "ATLAS_EXTENSION_ACCEPTED",
+    "PUBLISHABLE_NOW",
+    "OWNER_DECISION_REQUIRED"
+  ],
+  "category_counts": {
+    "ATLAS_EXTENSION_ACCEPTED": 3,
+    "EXACT_QA_INTEGRATE_READY": 1,
+    "OWNER_DECISION_REQUIRED": 1,
+    "PACKAGE_REPAIR_RUNNING": 13,
+    "PUBLISHABLE_NOW": 0,
+    "V0_REVIEWABLE": 0
+  },
+  "classification_rules": {
+    "exact_qa_integrate_ready_requires": [
+      "concrete_native_executor",
+      "explicit_current_page_activation_and_identity_guard",
+      "bounded_resumable_phases_max_creates_lte_3",
+      "complete_immutable_tuple_fields"
+    ],
+    "publishable_now_requires_same_exact_tuple": [
+      "concrete_native_executor",
+      "current_page_activation_and_identity_guard",
+      "bounded_resumable_max_creates_lte_3",
+      "exact_remote_bytes",
+      "qa_pass_same_tuple",
+      "integrate_pass_same_tuple",
+      "owner_and_profile_gate_clear"
+    ],
+    "qa_ready_is_not_publishable": true,
+    "remote_existence_is_not_executability": true
+  },
+  "continuous_consumption": {
+    "d0_does_not_wait_for_all_producers": true,
+    "first_exact_publishable_now_goes_to_writer_on_next_d0_transition": true,
+    "next_transition": "D0_CONTINUOUS_CONSUMPTION",
+    "one_repair_does_not_block_unrelated_jobs": true,
+    "writer_launched_this_turn": false
+  },
+  "deploy": false,
+  "executable_buffer": {
+    "basis": "PUBLISHABLE_NOW_SAME_TUPLE_ALL_GATES",
+    "deficit": 3,
+    "minimum": 3,
+    "proven_count": 0
+  },
+  "kaggle": false,
+  "lane_status": {
+    "A0": "NO_NEW_EXECUTABLE_PACKAGE_TWO_EXACT_REPAIRS_RUNNING",
+    "D0/PUBLISH": "NO_PUBLISHABLE_NOW_NEXT_TRANSITION_CONTINUOUS_CONSUMPTION",
+    "F0": "ONE_EXACT_QA_INTEGRATE_READY_SIX_REPAIRS_RUNNING",
+    "U0": "ATLAS_EXTENSION_ACCEPTED_RUNTIME_AND_EVENTCARD_REPAIRS_RUNNING_TEXT_OWNER_DECISION_REQUIRED",
+    "V0": "LATEST_VERDICT_REPAIR_AT_COMMENT_5505857804_NOT_CURRENTLY_REVIEWABLE"
+  },
+  "lanes": [
+    "F0",
+    "U0",
+    "A0",
+    "V0",
+    "D0/PUBLISH"
+  ],
+  "marker": "ASP_MORNING_PARALLEL_EXECUTION_V1",
+  "merge": false,
+  "penpot_access": {
+    "mutations": 0,
+    "reads": 0
+  },
+  "promotion": false,
+  "queues": {
+    "ATLAS_EXTENSION_ACCEPTED": [
+      {
+        "id": "atlas-extension-free-shell",
+        "lane": "U0",
+        "package_id": "U-FREE-SHELL-REVIEW-PAGE-R1",
+        "page_ids": [
+          "free-shell-states-r2-1"
+        ],
+        "page_orders": [
+          "0230.001"
+        ],
+        "tuple": {
+          "branch": "agent/d0-executable-buffer-v2/u0-free-shell-native-r2",
+          "head": "60ff5406bd4654d8b1961a6fa9ea3e766cb76dab",
+          "provider_identity": "PASS",
+          "tree": "63b7cec779f5598c9ab179cad5100aeed36b5eed"
+        }
+      },
+      {
+        "id": "atlas-extension-recovered-cards",
+        "lane": "U0",
+        "package_id": "U-RECOVERED-CARD-FAMILIES",
+        "page_ids": [
+          "recovered-card-compact-r2-1",
+          "recovered-card-festival-r2-1",
+          "recovered-card-club-r2-1",
+          "recovered-card-artifact-r2-1",
+          "recovered-card-collection-r2-1"
+        ],
+        "page_orders": [
+          "0230.002",
+          "0230.003",
+          "0230.004",
+          "0230.005",
+          "0230.006"
+        ],
+        "tuple": {
+          "branch": "agent/d0-executable-buffer-v2/u0-recovered-cards-native-r2",
+          "head": "3f8e54e9d39fb8489877e4df5fc2decfab7c88d6",
+          "provider_identity": "PASS",
+          "tree": "296a82e5fc3cf39f2c0a33075c9de53082b66644"
+        }
+      },
+      {
+        "id": "atlas-extension-shared-patterns",
+        "lane": "U0",
+        "package_id": "U-SHARED-PATTERNS",
+        "page_ids": [
+          "shared-pattern-discovery-rails-r2-1",
+          "shared-pattern-content-shelves-r2-1",
+          "shared-pattern-section-headers-r2-1",
+          "shared-pattern-search-control-bars-r2-1",
+          "shared-pattern-content-groupings-r2-1",
+          "shared-pattern-row-group-composition-r2-1"
+        ],
+        "page_orders": [
+          "0230.007",
+          "0230.008",
+          "0230.009",
+          "0230.010",
+          "0230.011",
+          "0230.012"
+        ],
+        "superseded_predecessor": {
+          "branch": "agent/d0-executable-buffer-v2/u0-shared-patterns-native-r2",
+          "head": "d139adac27c96041026f70e12daad2fa9728fcc0",
+          "status": "SUPERSEDED_EXECUTABLE_TUPLE",
+          "tree": "3fbf16d93ff485c1618259db2de458375020351f"
+        },
+        "tuple": {
+          "branch": "agent/night-u0-shared-patterns-plugin-projection-r3-20260901",
+          "head": "6c0496874764b3019cdaafcac53ed330664f323e",
+          "provider_identity": "PASS",
+          "tree": "78502699abbea223a73929a01940f1b00df4f58f"
+        }
+      }
+    ],
+    "EXACT_QA_INTEGRATE_READY": [
+      {
+        "entrypoint": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.mjs#executeMedallionsInstitutionsAR2NativePhase",
+        "gates": {
+          "bounded_resumable_max_creates_lte_3": true,
+          "complete_immutable_tuple_fields": true,
+          "concrete_native_executor": true,
+          "current_page_activation_and_identity_guard": true,
+          "exact_remote_bytes": true,
+          "integrate_pass_same_tuple": false,
+          "owner_and_profile_gate_clear": true,
+          "qa_pass_same_tuple": false
+        },
+        "id": "f0-medallions-institutions-a-r2-native-staged",
+        "issue_comment_ids": [
+          5505848490
+        ],
+        "lane": "F0",
+        "package_id": "F-MEDALLIONS-INSTITUTIONS-A-R2-NATIVE",
+        "status": "READY_FOR_INDEPENDENT_QA_INTEGRATE_NOT_PUBLISHABLE",
+        "tuple": {
+          "branch": "d0/f-medallions-institutions-a-r2-native-staged-v1-20260902",
+          "head": "1c9e43c150af74eaf54e1e0cd49143166c5100d5",
+          "provider_identity": "PASS",
+          "tree": "6da94de3cb6cd0019bfc0887723cffd2ff838b81"
+        }
+      }
+    ],
+    "OWNER_DECISION_REQUIRED": [
+      {
+        "blocking_gate": "active_profile_materialization_allowed_to_mutate_penpot_false",
+        "id": "eventcard-text-profile-authority",
+        "issue_comment_ids": [
+          5501811061,
+          5505635260
+        ],
+        "lane": "U0",
+        "package_id": "MAT-EVENTCARD-TEXT-R11C-EXECUTION-BINDING-R2",
+        "requested_response_options": [
+          "APPROVE_EVENTCARD_TEXT_ONE_BOUNDED_MUTATION",
+          "KEEP_EVENTCARD_TEXT_BLOCKED"
+        ],
+        "tuple": {
+          "branch": "agent/u0-eventcard-text-execution-binding-r2-20260902",
+          "head": "8180b11dd0af10794212d1bc6390c86ed661c0ef",
+          "provider_identity": "PASS",
+          "tree": "74c39d7c5812a7e783c517d607c78481934cea17"
+        }
+      }
+    ],
+    "PACKAGE_REPAIR_RUNNING": [
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-foundations-colors-status",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "declared_tree_must_match_provider_tree",
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "exact_atlas_standard_master_column_and_review_grid_slots",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-FOUNDATIONS-REVIEW-COLORS-STATUS-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-foundations-review-colors-status-r2-native-20260902",
+          "head": "b5427c4f8a27b63ac10af6dac9871e99b0d5005c",
+          "provider_identity": "PASS",
+          "tree": "a7bd523abfee5cc74f58417c2d760e5f3a856222"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-foundations-spacing-sizing",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "declared_tree_must_match_provider_tree",
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "exact_atlas_standard_master_column_and_review_grid_slots",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-FOUNDATIONS-REVIEW-SPACING-SIZING-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-foundations-review-spacing-sizing-r2-native-20260902",
+          "head": "2df6f62d95feef7893a762b6f0080cb04ced80b3",
+          "provider_identity": "PASS",
+          "tree": "202e7bc7ab3feb38ffa64e17c32d4a6e395c0fd2"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-foundations-shape-elevation",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "declared_tree_must_match_provider_tree",
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "exact_atlas_standard_master_column_and_review_grid_slots",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-FOUNDATIONS-REVIEW-SHAPE-ELEVATION-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-foundations-review-shape-elevation-r2-native-20260902",
+          "head": "a86130790847f05911ecebdf7897a56827c362bc",
+          "provider_identity": "PASS",
+          "tree": "afd7202ae29e0b56f3c5b1af69295ae46f011bd0"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-foundations-motion-accessibility",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "declared_tree_must_match_provider_tree",
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "exact_atlas_standard_master_column_and_review_grid_slots",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-FOUNDATIONS-REVIEW-MOTION-ACCESSIBILITY-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-foundations-review-motion-accessibility-r2-native-20260902",
+          "head": "7b8ffdb35dc9ab6ccffacc161f0f1ad23a41a5dd",
+          "provider_identity": "PASS",
+          "tree": "832fd2b12d4270e4e1826cfd4ecbd47eb3149fc8"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-typography-type-scale",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "total_linked_instance_census_must_equal_atlas_hard_census_24",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-TYPOGRAPHY-TYPE-SCALE-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-typography-type-scale-r2-native-20260902",
+          "head": "27c2c71e6c800359e9182301cb10df4327eee928",
+          "provider_identity": "PASS",
+          "tree": "6a9f273d42453b41167840f83443f97a245bedb8"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "f0-typography-layout-rules",
+        "issue_comment_ids": [
+          5505637468,
+          5505693595,
+          5505712654
+        ],
+        "lane": "F0",
+        "missing_gates": [
+          "current_page_activation_and_identity_guard",
+          "bounded_resumable_max_creates_lte_3",
+          "total_linked_instance_census_must_equal_atlas_hard_census_27_and_template_maximum_30",
+          "same_tuple_qa_pass",
+          "same_tuple_integrate_pass"
+        ],
+        "package_id": "F-TYPOGRAPHY-LAYOUT-RULES-R2-NATIVE",
+        "tuple": {
+          "branch": "f0/f-typography-layout-rules-r2-native-20260902",
+          "head": "d35ec1b42b08e3249d599d08c570b6b4fea86331",
+          "provider_identity": "PASS",
+          "tree": "2b38bd934ef826d87ecff922348d1aec94f14e6a"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "u0-free-shell-bounded-runtime",
+        "issue_comment_ids": [
+          5505680735
+        ],
+        "lane": "U0",
+        "missing_gates": [
+          "durable_resumable_cursor_max_creates_lte_3",
+          "same_tuple_qa_pass_after_runtime_successor",
+          "same_tuple_integrate_pass_after_runtime_successor"
+        ],
+        "package_id": "U-FREE-SHELL-REVIEW-PAGE-R1",
+        "tuple": {
+          "branch": "agent/d0-executable-buffer-v2/u0-free-shell-native-r2",
+          "head": "60ff5406bd4654d8b1961a6fa9ea3e766cb76dab",
+          "provider_identity": "PASS",
+          "tree": "63b7cec779f5598c9ab179cad5100aeed36b5eed"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "u0-recovered-cards-bounded-runtime",
+        "issue_comment_ids": [
+          5505680735
+        ],
+        "lane": "U0",
+        "missing_gates": [
+          "replace_monolithic_five_page_loop_with_durable_resumable_cursor_max_creates_lte_3",
+          "same_tuple_qa_pass_after_runtime_successor",
+          "same_tuple_integrate_pass_after_runtime_successor"
+        ],
+        "package_id": "U-RECOVERED-CARD-FAMILIES",
+        "tuple": {
+          "branch": "agent/d0-executable-buffer-v2/u0-recovered-cards-native-r2",
+          "head": "3f8e54e9d39fb8489877e4df5fc2decfab7c88d6",
+          "provider_identity": "PASS",
+          "tree": "296a82e5fc3cf39f2c0a33075c9de53082b66644"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "u0-shared-patterns-bounded-runtime",
+        "issue_comment_ids": [
+          5505680735
+        ],
+        "lane": "U0",
+        "missing_gates": [
+          "replace_monolithic_six_page_loop_with_durable_resumable_cursor_max_creates_lte_3",
+          "same_tuple_qa_pass_after_runtime_successor",
+          "same_tuple_integrate_pass_after_runtime_successor"
+        ],
+        "package_id": "U-SHARED-PATTERNS",
+        "tuple": {
+          "branch": "agent/night-u0-shared-patterns-plugin-projection-r3-20260901",
+          "head": "6c0496874764b3019cdaafcac53ed330664f323e",
+          "provider_identity": "PASS",
+          "tree": "78502699abbea223a73929a01940f1b00df4f58f"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "u0-eventcard-paths-fresh-projection",
+        "issue_comment_ids": [
+          5501810582,
+          5505635260
+        ],
+        "lane": "U0",
+        "missing_gates": [
+          "fresh_mutation_free_native_projection_on_exact_tuple",
+          "same_tuple_qa_and_integrate_after_projection"
+        ],
+        "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-PROJECTION-R2",
+        "tuple": {
+          "branch": "agent/u0-eventcard-component-paths-projection-r2-20260902",
+          "head": "5a99ec37ccf82d6ba7428a4f22862206b295a622",
+          "provider_identity": "PASS",
+          "tree": "53f0ade733c27a9867644dedb080ec7843449d60"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "u0-eventcard-media-fresh-projection",
+        "issue_comment_ids": [
+          5501810834,
+          5505635260
+        ],
+        "lane": "U0",
+        "missing_gates": [
+          "fresh_mutation_free_native_projection_with_image_data_sha_bytes_and_semantic_slot",
+          "same_tuple_qa_and_integrate_after_projection"
+        ],
+        "package_id": "MAT-EVENTCARD-MEDIA-COVERAGE-PROJECTION-BINDING-R2",
+        "tuple": {
+          "branch": "agent/u0-eventcard-media-projection-binding-r2-20260902",
+          "head": "6ea516d72ec440a6a9967a6519685045046ede1a",
+          "provider_identity": "PASS",
+          "tree": "98b4285db2d9106797e3e6771b78756d903e4785"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "a0-atlas-evidence-renderer-dependency",
+        "issue_comment_ids": [
+          5505664458,
+          5505668053
+        ],
+        "lane": "A0",
+        "missing_gates": [
+          "package_local_pinned_renderer_dependency_or_reproducible_bootstrap",
+          "clean_checkout_7_of_7_pass"
+        ],
+        "package_id": "ATLAS_R2_SOURCE_BOUND_EVIDENCE_8OF8_V1",
+        "tuple": {
+          "branch": "d0/atlas-r2-source-bound-evidence-8of8-v1-20260901-r2",
+          "head": "0fbfd4839343de71d5128b2e9c2ad232dde6abf4",
+          "provider_identity": "PASS",
+          "tree": "6e84d13d660b46cedd23f76312b31076e4a6132f"
+        }
+      },
+      {
+        "does_not_block_unrelated_jobs": true,
+        "id": "a0-atlas-medallions-balance",
+        "issue_comment_ids": [
+          5505857804
+        ],
+        "lane": "A0",
+        "missing_gates": [
+          "center_final_two_group_cards_in_dense_tracks_3_and_4",
+          "derive_ledger_and_root_height_from_two_occupied_rows_plus_bottom_padding",
+          "regenerate_only_medallions_representative_and_measurement_bounds",
+          "deterministic_qa_exact_remote_tuple",
+          "v0_re_review_changed_representative"
+        ],
+        "package_id": "ATLAS_R2_SOURCE_BOUND_EVIDENCE_MEDALLIONS_BALANCE",
+        "tuple": {
+          "branch": "d0/atlas-r2-source-bound-evidence-8of8-v1-20260901-r2",
+          "head": "0fbfd4839343de71d5128b2e9c2ad232dde6abf4",
+          "provider_identity": "PASS",
+          "tree": "6e84d13d660b46cedd23f76312b31076e4a6132f"
+        }
+      }
+    ],
+    "PUBLISHABLE_NOW": [],
+    "V0_REVIEWABLE": []
+  },
+  "schema_version": "kenigevents.asp-morning-parallel-execution.v1",
+  "snapshot": {
+    "final_tip_comment_id": 5505857804,
+    "fresh_read_count": 1,
+    "initial_tip_comment_id": 5505712654,
+    "issue_number": 57,
+    "new_checkpoint_comment_ids": [
+      5505848490,
+      5505857804
+    ]
+  },
+  "state": "O0_MORNING_ATLAS_EXTENSION_AND_QUEUE_READY"
+}
