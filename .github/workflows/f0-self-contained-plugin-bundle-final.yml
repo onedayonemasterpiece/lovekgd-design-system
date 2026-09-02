@@ -1,0 +1,50 @@
+name: F0 canonical self-contained plugin bundle conversion
+
+on:
+  push:
+    branches:
+      - f0/self-contained-plugin-bundle-final-builder-20260902
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: f0-self-contained-plugin-bundle-final-builder-20260902
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout exact builder
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "F0 Plugin Bundle Builder"
+          git config --global user.email "f0-plugin-bundle-builder@users.noreply.github.com"
+
+      - name: Expand and verify converter
+        run: |
+          gzip -dc tools/f0-self-contained-bundles/build-self-contained-plugin-bundles.mjs.gz > /tmp/build-self-contained-plugin-bundles.mjs
+          test "$(sha256sum tools/f0-self-contained-bundles/build-self-contained-plugin-bundles.mjs.gz | cut -d' ' -f1)" = "579726e7db17a84c2cc9efac3cc53d9f5d0f197046af0fc10a5796bc508faf94"
+          node --check /tmp/build-self-contained-plugin-bundles.mjs
+
+      - name: Convert and publish seven primary bundles
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node /tmp/build-self-contained-plugin-bundles.mjs
+
+      - name: Upload exact provider proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f0-self-contained-plugin-bundle-results
+          path: artifacts/f0-self-contained-plugin-bundle-results.json
+          if-no-files-found: warn
