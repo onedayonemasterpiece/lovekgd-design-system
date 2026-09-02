@@ -2,30 +2,36 @@
 
 Status owner: `N0`  
 Coordination issue: `onedayonemasterpiece/events-bot-new#621`  
-Programme start `T+0`: `NOT_SET` — set only when N0/F0/M0/A0/V0 and R0 have
-accepted the canonical programme.
+Programme start `T+0`: `NOT_SET`
 
-This file is the compact consolidated state. Other windows post meaningful
-results to issue #621; only N0 updates this file.
+T+0 is set only when N0/F0/M0/A0/V0 and R0 accept the corrected real-data-first
+programme. No implementation window should launch from an older Golden-owner-
+review or `/lab/launch/*` prompt.
 
-## Current baseline
+## Current verified baseline
 
 ```yaml
 events_bot_new:
-  base_branch: main
-  base_commit: 61f7a6af5f5e82515dcd42c93dd02748297112bc
+  main_commit_at_programme_design: 61f7a6af5f5e82515dcd42c93dd02748297112bc
   integration_branch: integration/ui-normalization-launch-20260902
-  current_product: working Astro implementation with historical component drift
-  existing_design_system:
-    tokens: present
-    primitives: present
-    runtime_catalog: /lab/design-system/
-    source_checks: present
+  product_state: substantial Astro implementation with historical UI drift
+  actual_date_routes:
+    today: /segodnya/
+    tomorrow: /zavtra/
+    arbitrary_date: /date-YYYY-MM-DD/
+    active_weekend: /vyhodnye/
+    selected_weekend: /vyhodnye/YYYY-MM-DD/
+  shared_compositions:
+    date: DateListingSurface
+    weekend: WeekendListingSurface
+  owner_preview_entrypoint: /<buildId>/__preview/
+  current_checked_in_production_catalog: historical_and_must_be_refreshed
+  existing_export_preview_production_kaggle_paths: present
+  existing_foundations_components_and_checks: present_but_drifted
 
 lovekgd_design_system:
-  base_branch: main
-  base_commit: b3567cb72d81a7aad4b47a68e220325f055697a2
   integration_branch: integration/launch-normalized-sot-penpot-20260902
+  role: thin_family_consumer_asset_golden_penpot_binding
   reusable_inputs:
     - decoder 107 logical components
     - normalization synthesis 47 analytical families
@@ -37,46 +43,52 @@ lovekgd_design_system:
 
 penpot:
   target_file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
-  current_value: historical/partial candidate materialization only
+  current_value: historical_partial_candidate_only
   accepted_launch_families: 0
   accepted_launch_pages: 0
   free_page_ASP: false
 
-production_generation:
-  existing_local_and_kaggle_paths: present
-  current_launch_branch_reproduction: not_started
-  current_real_data_review_candidate: absent
+owner_review:
+  first_required_surface: fresh_real_data_preview
+  golden_corpus_review_required: false
+  new_owner_facing_lab_pages: forbidden
+
+golden_conformance:
+  purpose: internal_deterministic_A_equals_S_equals_P
+  frozen_current_day: Friday
+  routes:
+    friday: /segodnya/
+    saturday: /zavtra/
+    sunday: /date-YYYY-MM-DD/
+    weekend: /vyhodnye/
+    free: /podborki/besplatnye-sobytiya/
 ```
 
 ## Owner-visible checkpoint board
 
-| Checkpoint | Latest | Surface required | Status | Exact link / Penpot page | Blocker |
+| Checkpoint | Latest | Required owner-visible result | Status | Exact link / artifact | Blocker |
 |---|---:|---|---|---|---|
-| Programme routing | T+1h | plan, branches, status | PREPARED_BEFORE_T0 | issue #621 + canonical docs | none |
-| Golden date corpus | T+3h | Friday/Saturday/Sunday single-date pages + weekend page | NOT_STARTED | — | T0 not set |
-| Corpus coverage review | T+4h | fixture matrix and free projection | NOT_STARTED | — | T0 not set |
-| Foundations browser catalogue | T+6h | normalized `/lab/design-system/` | NOT_STARTED | — | T0 not set |
-| First Penpot families | T+7h | Foundations, Icons, MediaFrame | NOT_STARTED | — | T0 not set |
-| MediaFrame + EventCard | T+10h | four browser cases + Penpot export | NOT_STARTED | — | T0 not set |
-| Free collection Golden | T+14h | complete desktop/mobile page | NOT_STARTED | — | T0 not set |
-| Free collection Penpot/V0 | T+16h | matching page + visual verdict | NOT_STARTED | — | T0 not set |
-| Date/weekend normalized | T+20h | corrected browser pages | NOT_STARTED | — | T0 not set |
-| First real-data preview | T+24h | exact review link | NOT_STARTED | — | T0 not set |
-| Half route scope | T+24h | ≥ half launch archetypes in browser | NOT_STARTED | — | T0 not set |
-| Broad Penpot | T+30h | foundations/cards/shell + 8–10 archetypes | NOT_STARTED | — | T0 not set |
-| Full Golden route scope | T+36h | all launch-critical archetypes in browser | NOT_STARTED | — | T0 not set |
-| Production-form candidate | T+40h | real-data Kaggle/build result | NOT_STARTED | — | T0 not set |
-| Full Penpot route scope | T+44h | every launch archetype represented | NOT_STARTED | — | T0 not set |
-| Terminal | T+48h | final real-data candidate + free page A=S=P | NOT_STARTED | — | T0 not set |
+| Fresh current product | T+1h | fresh real-data `/<buildId>/__preview/` + build verdict | NOT_STARTED | — | T0 not set |
+| Normalization baseline | T+3h | compact foundations/family/icon/media drift report | NOT_STARTED | — | T0 not set |
+| First normalized wave | T+6h | refreshed real-data preview with foundations/icons applied | NOT_STARTED | — | T0 not set |
+| Media/cards wave | T+10h | refreshed real-data preview with MediaFrame/EventCard normalized | NOT_STARTED | — | T0 not set |
+| Key actual pages | T+14h | normalized free + today/tomorrow/weekend/date pages on real data | NOT_STARTED | — | T0 not set |
+| First Penpot parity | T+16h | native foundations/icons/media/cards + linked free board + V0 verdict | NOT_STARTED | — | T0 not set |
+| Half route scope | T+24h | ≥ half launch route families normalized on real data | NOT_STARTED | — | T0 not set |
+| Astro normalization | T+32h | all critical families normalized or bounded deviation | NOT_STARTED | — | T0 not set |
+| Internal Golden evidence | T+36h | deterministic conformance across critical shared families | NOT_STARTED | — | T0 not set |
+| Production-form candidate | T+40h | fresh real-data Kaggle/build candidate | NOT_STARTED | — | T0 not set |
+| Broad Penpot | T+44h | launch-scope masters + linked representative route boards | NOT_STARTED | — | T0 not set |
+| Terminal | T+48h | final candidate + normalization report + free page A=S=P | NOT_STARTED | — | T0 not set |
 
-## Family delivery board
+## Normalization delivery board
 
 Status values:
 
 ```text
 NOT_STARTED
 ASTRO_BUILDING
-BROWSER_REVIEW
+REAL_DATA_REVIEW
 ASTRO_ACCEPTED
 PENPOT_VISIBLE
 ASP_PASS
@@ -85,39 +97,47 @@ BLOCKED_EXTERNAL
 BLOCKED_PRODUCT_DECISION
 ```
 
-| Family / surface | Owner | Astro | Golden browser | Penpot | V0 | Real data | Current blocker |
+| Family / surface | Owner | Central Astro + consumers | Real-data review | Thin S | Penpot linked | Golden V0 | Blocker |
 |---|---|---|---|---|---|---|---|
-| Golden Corpus + launch index | N0 | NOT_STARTED | NOT_STARTED | n/a | n/a | n/a | T0 not set |
-| Foundations/tokens | F0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Primitives/controls | F0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Canonical icons/brand/medallions | F0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| Fresh data export and preview | N0 | NOT_STARTED | NOT_STARTED | n/a | n/a | n/a | T0 not set |
+| Foundations/type/spacing/colour/radii | F0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| Four icon-size roles + SVG/brand/medallions | F0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
 | MediaFrame | M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| EventCard | M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Other card/content families | M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| EventCard / ListingEventCard family | M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| Other content/card families | M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
 | Shell/navigation/footer/floating | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Single-date listing (Fri/Sat/Sun) | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Weekend/two-day listing | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| DateListingSurface consumers | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| WeekendListingSurface consumers | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
 | Free collection | A0 + M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Search/favourites/personal | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Collections/exhibitions/festivals/clubs | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Event detail | A0 + M0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Focus/partners/special states | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
-| Production generation/release | N0 | NOT_STARTED | n/a | n/a | NOT_STARTED | NOT_STARTED | T0 not set |
+| Remaining route archetypes | A0 | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | NOT_STARTED | T0 not set |
+| Production/Kaggle release | N0 | NOT_STARTED | NOT_STARTED | n/a | n/a | n/a | T0 not set |
+
+## Required normalization report sections
+
+- font families/weights and H1/H2/H3/H4/body/label/metadata roles;
+- spacing/sizing/containers;
+- semantic colours;
+- radii/borders/elevation/layering;
+- exactly four icon size roles and every consumer mapping;
+- canonical SVG identities;
+- MediaFrame modes and framing rules;
+- normalized families/variants/states and actual route consumers;
+- removed page-local forks/internal overrides;
+- bounded deviations;
+- fresh real-data preview URL and checks;
+- Penpot master/linked-instance and A=S=P status.
 
 ## Live actors
 
 | Actor | Required role | Actual liveness | Branch/task | Last meaningful result |
 |---|---|---|---|---|
-| N0 | docs/corpus/integration/release | NOT_LAUNCHED | — | — |
-| F0 | foundations/primitives/assets | NOT_LAUNCHED | — | — |
+| N0 | docs/data/integration/release | NOT_LAUNCHED | — | — |
+| F0 | foundations/icons/assets | NOT_LAUNCHED | — | — |
 | M0 | media/component families | NOT_LAUNCHED | — | — |
 | A0 | shell/listings/archetypes | NOT_LAUNCHED | — | — |
-| V0 | independent visual audit | NOT_LAUNCHED | — | — |
-| K0 | detailed consultant | SPEC_READY | this branch | consultant spec created |
+| V0 | real-data sanity + Golden Penpot audit | NOT_LAUNCHED | — | — |
+| K0 | detailed consultant | SPEC_UPDATED | this branch | real-data-first correction |
 | R0 | direct persistent Codex execution | NOT_LAUNCHED | — | — |
 
-## Update rule
-
-N0 updates this file only after a meaningful issue #621 result or review verdict.
-Do not add rows for internal materializer phases, hashes, child-agent handoffs or
-empty Penpot objects.
+N0 updates this file only after a meaningful result. No internal materializer
+phases, hashes, child handoffs or empty Penpot objects are recorded.
