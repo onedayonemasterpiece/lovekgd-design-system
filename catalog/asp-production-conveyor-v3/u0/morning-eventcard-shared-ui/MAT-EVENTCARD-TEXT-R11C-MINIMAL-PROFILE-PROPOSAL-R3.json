@@ -1,0 +1,116 @@
+{
+  "applied": false,
+  "authority": {
+    "activation_requires_one_of": [
+      "OWNER",
+      "O0"
+    ],
+    "active_page_profile_allowed_to_mutate_penpot_observed": false,
+    "active_page_profile_status_observed": "BLOCKED_OWNER_REJECTED",
+    "this_proposal_authorizes_penpot_execution": false,
+    "this_proposal_changes_active_profile": false
+  },
+  "boundaries": {
+    "kaggle_calls": 0,
+    "new_eventcard_families": 0,
+    "penpot_mutations_by_u0": 0,
+    "penpot_reads_by_u0": 0,
+    "ready_to_promote": false,
+    "visual_pass": false,
+    "whole_eventcard_pass": false
+  },
+  "lifecycle": {
+    "automatic_expiry_events": [
+      "expires_at reached",
+      "one execution receipt emitted",
+      "DISTINCT_LATER_READBACK terminal or failure emitted",
+      "lease cancelled or writer changes",
+      "revision changes",
+      "projection SHA changes",
+      "timeout or unknown outcome"
+    ],
+    "execution_count": 1,
+    "executor_replay": "FORBIDDEN_UNKNOWN_OUTCOME",
+    "next_operation": "DISTINCT_LATER_READBACK",
+    "single_use": true,
+    "ttl_seconds": 900
+  },
+  "mutation": {
+    "allowed": [
+      "four target Text.growType fixed→auto-width",
+      "four exact self-character native invalidations",
+      "target-local string-only evidence"
+    ],
+    "forbidden": [
+      "all 16 protected offenders",
+      "media",
+      "component paths",
+      "other text",
+      "component/root/page recreation",
+      "save/export before distinct readback"
+    ],
+    "rollback": "atomic rollback when provider confirms no persistence",
+    "unknown_outcome": "expire profile; exact read-only four-target and collection readback; no blind retry",
+    "whole_eventcard_text_pass": false
+  },
+  "native_observation": {
+    "contained": 18,
+    "exact_targets": 4,
+    "expected_after_authorized_execution": {
+      "contained": 22,
+      "offenders": 16
+    },
+    "managed_texts": 38,
+    "offenders": 20,
+    "projection_sha256": "aaf55dc4ee2f21c5ee1fcb7699fd36ef1ea9317368004752e460b14d06d2be82",
+    "revision": 180
+  },
+  "package_id": "MAT-EVENTCARD-TEXT-R11C-MINIMAL-PROFILE-PROPOSAL-R3",
+  "parent": {
+    "branch": "agent/u0-eventcard-text-execution-binding-r2-20260902",
+    "head": "8180b11dd0af10794212d1bc6390c86ed661c0ef",
+    "tree": "74c39d7c5812a7e783c517d607c78481934cea17"
+  },
+  "profile_id": "free-collection.eventcard-r11c-four-targets.single-use.v1",
+  "protected_offenders": [
+    "313fb1ed-0d5c-8095-8008-912d41586b13",
+    "313fb1ed-0d5c-8095-8008-912d4fa0afe5",
+    "313fb1ed-0d5c-8095-8008-912d500a695a",
+    "313fb1ed-0d5c-8095-8008-912d506e9dba",
+    "313fb1ed-0d5c-8095-8008-914c77dfcf31",
+    "313fb1ed-0d5c-8095-8008-916afac06e71",
+    "313fb1ed-0d5c-8095-8008-916b0aa7e2a6",
+    "313fb1ed-0d5c-8095-8008-916b0af29b13",
+    "313fb1ed-0d5c-8095-8008-916b376e6f1c",
+    "313fb1ed-0d5c-8095-8008-916baef0312c",
+    "313fb1ed-0d5c-8095-8008-916baf75cc83",
+    "313fb1ed-0d5c-8095-8008-916bafe5eea9",
+    "313fb1ed-0d5c-8095-8008-916bd231c7cd",
+    "313fb1ed-0d5c-8095-8008-916bd4d215df",
+    "313fb1ed-0d5c-8095-8008-916be6eddba1",
+    "313fb1ed-0d5c-8095-8008-916be7436f37"
+  ],
+  "schema_version": "kenigevents.eventcard-r11c-minimal-profile-proposal.v1",
+  "status": "PROPOSAL_INACTIVE",
+  "targets": [
+    "313fb1ed-0d5c-8095-8008-912c46b9ecba",
+    "313fb1ed-0d5c-8095-8008-914c77b9c576",
+    "313fb1ed-0d5c-8095-8008-916b3552cb12",
+    "313fb1ed-0d5c-8095-8008-916bd1ff0eb3"
+  ],
+  "activation_receipt_required_fields": [
+    "authority_kind",
+    "authority_reference",
+    "issued_at_utc",
+    "expires_at_utc",
+    "writer_id",
+    "run_id",
+    "lease_token",
+    "cancel_token",
+    "current_revision",
+    "projection_sha256",
+    "target_ids",
+    "protected_ids",
+    "single_use_nonce"
+  ]
+}
