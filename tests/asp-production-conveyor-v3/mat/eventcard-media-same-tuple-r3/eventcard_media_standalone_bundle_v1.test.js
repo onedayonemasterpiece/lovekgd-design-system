@@ -11,7 +11,7 @@ const BUNDLE_SHA = crypto.createHash('sha256').update(BUNDLE_SOURCE).digest('hex
 const BUNDLE_BYTES = Buffer.byteLength(BUNDLE_SOURCE);
 const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocation'); }, console, Uint8Array, ArrayBuffer, DataView };
 sandbox.globalThis = sandbox; vm.createContext(sandbox); vm.runInContext(BUNDLE_SOURCE, sandbox, { filename:BUNDLE });
-const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV2;
+const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV3;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -35,7 +35,7 @@ class FakeImageData {
 
 class Fixture {
   constructor() {
-    this.nowValue = 1_000; this.shared = new Map(); this.opened = [];
+    this.nowValue = 1_000; this.shared = new Map(); this.activeReads = 0; this.opened = [];
     this.uploads = []; this.fillWrites = []; this.evidenceWrites = []; this.nativeHook = null;
     this.sourceAssets = {};
     for (const asset of Object.values(M.SOURCE_ASSETS)) {
@@ -84,7 +84,7 @@ class Fixture {
       return { id: `component-${index}`, name, path: `Path / ${index}`, mainInstance: () => main };
     });
     this.file = { id: M.FILE_ID, revn: 180, pages: [this.otherPage, this.targetPage], validate: () => [],
-      getSharedPluginData: (namespace, key) => this.shared.get(`${namespace}:${key}`) || '',
+      getSharedPluginData: (namespace, key) => { if (namespace === R.NAMESPACE && key === R.ACTIVE_KEY) this.activeReads += 1; return this.shared.get(`${namespace}:${key}`) || ''; },
       setSharedPluginData: (namespace, key, value) => {
         if (typeof value !== 'string') throw new TypeError('plugin data requires string');
         this.shared.set(`${namespace}:${key}`, value); this.nativeHook?.('receipt', 1);
@@ -102,11 +102,12 @@ class Fixture {
     this.context = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE, exactBundleSha256: BUNDLE_SHA, exactBundleBytes: BUNDLE_BYTES,
       sourceAssets: this.sourceAssets, pageProfile: { profileId: 'free-collection.owner-review.v1',
         state: 'BLOCKED_OWNER_REJECTED', allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
-      readActiveMarker: () => this.active, now: () => this.nowValue,
-      readNativeCoverage: async (mediaShapeId) => {
-        const spec = M.CASES.find((value) => value.mediaShapeId === mediaShapeId), asset = M.SOURCE_ASSETS[spec.fixtureId];
-        return { status: 'KNOWN_PASS', uncoveredPixels: 0, opaqueOverlays: 0, sourceSha256: asset.sha256 };
-      } };
+      };
+  }
+
+  syncActive() {
+    const key = `${R.NAMESPACE}:${R.ACTIVE_KEY}`;
+    if (this.active) this.shared.set(key, JSON.stringify(this.active)); else this.shared.delete(key);
   }
 
   authorize(projection) {
@@ -114,7 +115,7 @@ class Fixture {
       packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE, triggeredBy: 'issue-57-morning-media',
       pageProfileSha256: this.context.pageProfile.profileSha256, ownerDirective: R.OWNER_DIRECTIVE,
       authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID, authorityScope: R.AUTHORITY_SCOPE,
-      leaseToken: 'lease-eventcard-media', leaseExpiresAt: 5_000, bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
+      leaseToken: 'lease-eventcard-media', leaseExpiresAt: Date.now() + 60_000, bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
     const authorization = { schema: R.AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
       packageHead: HEAD, packageTree: TREE, state: 'ACTIVE', authorized: true, cancelled: false,
       revision: projection.revision, projectionSha256: projection.projectionSha256,
@@ -129,6 +130,7 @@ class Fixture {
       authorityScope: provenance.authorityScope, leaseToken: provenance.leaseToken,
       leaseExpiresAt: provenance.leaseExpiresAt };
     this.context.authorization = authorization;
+    this.syncActive();
     return authorization;
   }
 }
@@ -148,12 +150,11 @@ test('executes four exact in-place fills, verifies pre/post bytes, settles cover
   const fixture = new Fixture(), before = await API.projection(fixture.context);
   const geometry = before.rows.map((row) => [row.rootId, row.mediaShapeId, row.parentGroupId, row.bounds,
     row.localCoordinates, row.parentCoordinates, row.transform, row.rotation, row.horizontalFlip, row.verticalFlip, row.fit, row.focal]);
-  let checks = 0; fixture.context.readActiveMarker = () => { checks += 1; return fixture.active; };
   const receipt = await (fixture.authorize(before), API.execution(fixture.context));
   assert.equal(receipt.mediaFillMutations, 4); assert.equal(receipt.evidenceMutations, 16);
   assert.equal(receipt.nativeMutationCalls, 24); assert.equal(fixture.uploads.length, 4);
   assert.equal(fixture.fillWrites.length, 4); assert.equal(fixture.evidenceWrites.length, 16);
-  assert.ok(checks >= 27);
+  assert.ok(fixture.activeReads >= 27);
   const after = await API.projection(fixture.context);
   assert.deepEqual(after.rows.map((row) => [row.rootId, row.mediaShapeId, row.parentGroupId, row.bounds,
     row.localCoordinates, row.parentCoordinates, row.transform, row.rotation, row.horizontalFlip, row.verticalFlip, row.fit, row.focal]), geometry);
@@ -170,7 +171,7 @@ test('package bytes, head/tree, current projection, owner Media scope and physic
     (fixture, auth) => { auth.packageHead = 'c'.repeat(40); },
     (fixture, auth) => { auth.projectionSha256 = '0'.repeat(64); },
     (fixture, auth) => { auth.authorityScope = 'EVENTCARD_TEXT_ONLY'; },
-    (fixture) => { fixture.active.writerId = '/root/other'; },
+    (fixture) => { fixture.active.writerId = '/root/other'; fixture.syncActive(); },
     (fixture) => { fixture.context.sourceAssets[M.SOURCE_ASSETS['event.real.8006'].sha256] = new Uint8Array(111072); },
   ]) {
     const fixture = new Fixture(), projection = await API.projection(fixture.context), auth = fixture.authorize(projection);
@@ -183,7 +184,7 @@ test('package bytes, head/tree, current projection, owner Media scope and physic
 
 test('cancel after upload blocks the fill setter and returns a distinct no-retry readback', async () => {
   const fixture = new Fixture(), projection = await API.projection(fixture.context), auth = fixture.authorize(projection);
-  fixture.nativeHook = (kind, count) => { if (kind === 'upload' && count === 1) fixture.active.cancelled = true; };
+  fixture.nativeHook = (kind, count) => { if (kind === 'upload' && count === 1) fixture.active.cancelled = true; fixture.syncActive(); };
   await assert.rejects(() => API.execution(fixture.context), (error) => {
     assert.equal(error.unknownOutcome, true); assert.equal(error.retryAllowed, false);
     assert.equal(error.requiredNextOperation, 'DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION');
@@ -192,9 +193,22 @@ test('cancel after upload blocks the fill setter and returns a distinct no-retry
   assert.equal(fixture.uploads.length, 1); assert.equal(fixture.fillWrites.length, 0);
 });
 
+test('uploaded native ImageData.data is mandatory before the first fill setter', async () => {
+  const fixture = new Fixture(), projection = await API.projection(fixture.context);
+  fixture.penpot.uploadMediaData = async () => { const image = { id: 'opaque-upload', width: 601, height: 800, mtype: 'image/webp' };
+    fixture.uploads.push(image); return image; };
+  fixture.authorize(projection);
+  await assert.rejects(() => API.execution(fixture.context), (error) => {
+    assert.equal(error.unknownOutcome, true); assert.equal(error.retryAllowed, false);
+    assert.equal(error.nativeMutationCallsBeforeStop, 1); return true;
+  });
+  assert.equal(fixture.uploads.length, 1); assert.equal(fixture.fillWrites.length, 0);
+  assert.equal(fixture.evidenceWrites.length, 0);
+});
+
 test('lease expiry after first target evidence blocks the next native call without blind retry', async () => {
   const fixture = new Fixture(), projection = await API.projection(fixture.context), auth = fixture.authorize(projection);
-  fixture.nativeHook = (kind, count) => { if (kind === 'evidence' && count === 1) fixture.nowValue = 5_000; };
+  fixture.nativeHook = (kind, count) => { if (kind === 'evidence' && count === 1) fixture.active.leaseExpiresAt = Date.now() - 1; fixture.syncActive(); };
   await assert.rejects(() => API.execution(fixture.context),
     (error) => error.unknownOutcome === true && error.nativeMutationCallsBeforeStop === 3);
   assert.equal(fixture.evidenceWrites.length, 1);
@@ -205,28 +219,35 @@ test('Text authority cannot authorize Media and current-page activation is lease
   auth.ownerDirective = 'APPROVE_EVENTCARD_TEXT_ONE_BOUNDED_MUTATION';
   await assert.rejects(() => API.execution(fixture.context),
     (error) => error.code === 'MEDIA_R3_AUTH_OWNERDIRECTIVE_MISMATCH');
-  const valid = fixture.authorize(projection); fixture.penpot.currentPage = fixture.otherPage; fixture.opened.length = 0; fixture.active = null;
+  const valid = fixture.authorize(projection); fixture.penpot.currentPage = fixture.otherPage; fixture.opened.length = 0; fixture.active = null; fixture.syncActive();
   await assert.rejects(() => API.execution(fixture.context),
     (error) => error.code === 'MEDIA_R3_PHYSICAL_ACTIVE_MISSING');
   assert.deepEqual(fixture.opened, []);
 });
 
-test('strict shared plugin data accepts only strings and coverage failure blocks settlement', async () => {
+test('strict shared plugin data and bundled native coverage reject an opaque overlay at settlement', async () => {
   const fixture = new Fixture();
   for (const value of [374, {}, true, null, undefined]) assert.throws(() => fixture.file.setSharedPluginData('x', 'y', value), TypeError);
   const projection = await API.projection(fixture.context), receipt = await (fixture.authorize(projection), API.execution(fixture.context));
-  fixture.context.readNativeCoverage = async () => ({ status: 'KNOWN_FAIL', uncoveredPixels: 1, opaqueOverlays: 0 });
+  const shape = fixture.mediaShapes.get(M.CASES[0].mediaShapeId);
+  shape.parent.children.push({ id:'opaque-overlay', type:'rect', x:shape.x, y:shape.y, width:shape.width, height:shape.height,
+    fills:[{fillColor:'#000000',fillOpacity:1}], children:[], parent:shape.parent, visible:true, hidden:false, opacity:1 });
   await assert.rejects(() => API.settlement(fixture.context),
     (error) => error.code === 'MEDIA_R3_SETTLEMENT_COVERAGE_FAIL');
 });
 
-test('missing native coverage reader blocks before every upload, fill, evidence and receipt call', async () => {
+test('bundle owns concrete coverage proof; no caller helper is injected', async () => {
   const fixture = new Fixture();
-  const projection = await API.projection(fixture.context), auth = fixture.authorize(projection);
-  fixture.context.readNativeCoverage = undefined;
-  await assert.rejects(() => API.execution(fixture.context),
-    (error) => error.code === 'MEDIA_R3_NATIVE_COVERAGE_READBACK_UNAVAILABLE');
-  assert.equal(fixture.uploads.length, 0); assert.equal(fixture.fillWrites.length, 0);
-  assert.equal(fixture.evidenceWrites.length, 0);
-  assert.equal(fixture.shared.has(`${R.NAMESPACE}:${R.RECEIPT_KEY}`), false);
+  assert.equal(Object.hasOwn(fixture.context,'nativeCoverageProof'),false);
+  assert.equal(Object.values(fixture.context).some((value) => typeof value === 'function'), false);
+  assert.equal(/context\.(?:readActiveMarker|readNativeCoverage|sourceAssetBytes|settle|now)\b/.test(BUNDLE_SOURCE), false);
+  const projection = await API.projection(fixture.context);
+  for (const row of projection.rows) {
+    const proof = await R.nativeCoverageProof(fixture.context,row.mediaShapeId,row.rootId);
+    assert.equal(proof.status,'KNOWN_PASS'); assert.equal(proof.uncoveredPixels,0); assert.equal(proof.opaqueOverlays,0);
+    assert.equal(proof.sourceSha256,M.SOURCE_ASSETS[row.fixtureId].sha256);
+    assert.equal(proof.proof,'NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1');
+  }
+  const receipt = await (fixture.authorize(projection), API.execution(fixture.context));
+  assert.equal(receipt.mediaFillMutations,4);
 });

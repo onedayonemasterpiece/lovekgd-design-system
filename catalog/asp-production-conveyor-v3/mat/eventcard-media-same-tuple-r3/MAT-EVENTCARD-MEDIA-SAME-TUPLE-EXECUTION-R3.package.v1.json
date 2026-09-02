@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 498555,
+      "bytes": 501330,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "5b46dc6f28b0a765bf9d059792b6368519b57a796e90f3d2a1881116a23575af"
+      "sha256": "da904a2dceaee53820cb6453640f0688764f97234e716efb1617cdf198f1f151"
     },
     "browser_penpot_vm_load": true,
     "builder": {
       "bytes": 10815,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "a6f44d5d28f23dd7206c0c13e58b82939d6951a35389fbf624f5019e342c37b0"
+      "sha256": "10aa2499df6e24aa174b575a07a05c23152c2ea918e7af3508075b703ddd72b7"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,7 +34,7 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3StandaloneV2",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV3",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
     "portable_plain_data_clone": true,
@@ -52,21 +52,37 @@
     "schema": "D0_PLUGIN_BUNDLE_V1",
     "shared_conformance": {
       "branch": "agent/d0-plugin-bundle-conformance-v1-20260902",
-      "head": "9ab3696f1053ba41ecd4ac7bf1f52ef3427d145b",
+      "head": "ee6f563af73f7262f5e4aa38e2044b25b5139f24",
       "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
       "receipt_comment": 5509766689,
-      "result": "PASS",
-      "tree": "f0603efe12801a9beb3a156eefd8bff12544246b"
+      "result": "PASS_NATIVE_RUNTIME_NEGATIVE",
+      "tree": "300d3075424cd7cd1bae9542eea533af855b3a13"
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 16056,
+      "bytes": 17410,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "c4c4eea3b16ed3af33715ef4d1d96ceae1193cff5685a141d9cb6d6b38bda569"
+      "sha256": "c797b6de1b008f63bce88702bd759e6fc89c403b5b9fefa851f69ff3e8d1a353"
     },
-    "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY"
+    "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY",
+    "native_coverage_reader": {
+      "bundled": true,
+      "caller_injected_helper_required": false,
+      "proof": "NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1",
+      "reads": [
+        "exact shape bounds",
+        "native fill ImageData.data bytes/SHA-256",
+        "native fill fit and focal semantics",
+        "parent sibling z-order and opaque overlap"
+      ],
+      "pre_upload_calls": 4,
+      "settlement_calls": 4
+    },
+    "uploaded_image_data_preflight": "uploadMediaData result must expose callable ImageData.data(); exact bytes/SHA verified before fill setter",
+    "zero_caller_injected_helpers": true,
+    "physical_active_reader": "currentFile.getSharedPluginData(namespace, active-key); concrete inside bundle"
   },
-  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_CONCRETE_EXECUTION_COVERAGE_PREFLIGHT_DIRECT_PLUGIN_CALLABILITY_AND_PENPOT_STRUCTUREDCLONE_INVOCATION_GAP",
+  "defect_closed": "CALLER_INJECTED_NATIVE_COVERAGE_HELPER_AND_UPLOADED_IMAGEDATA_PREFLIGHT_GAP",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -84,7 +100,7 @@
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV2",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV3",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -96,8 +112,8 @@
     "image_data_contract": "await ImageData.data() and verify exact bytes/SHA before authorization and after every upload/fill",
     "media_fill_mutations": 4,
     "native_mutation_calls": 25,
-    "physical_active_recheck": "before current-page activation, uploadMediaData, uploaded ImageData.data(), each fill setter, each string evidence setter, and durable receipt marker",
-    "pre_mutation_coverage_capability_required": true,
+    "physical_active_recheck": "concrete currentFile shared-plugin-data ACTIVE reader before activation/upload/ImageData.data/fill/evidence/receipt; zero caller-injected marker helper",
+    "pre_mutation_coverage_capability_required": "bundled concrete native reader invoked for all four targets before first upload; no caller helper",
     "projection_entrypoint": "projectEventcardMediaPenpotR3",
     "publisher_bespoke_rebundle": false,
     "same_tuple": true,
@@ -107,7 +123,7 @@
     "source_evidence_mutations": 16,
     "transform_contract": "official ShapeBase has no transform field; native null is truthful; exact rotation/flip are mandatory",
     "unknown_outcome": "STOP; distinct read-only four-target projection; no blind retry",
-    "uploaded_image_data": 4
+    "uploaded_image_data": "4; each uploadMediaData result exact ImageData.data bytes/SHA read before fill setter"
   },
   "native_observation": {
     "image_data_identity_contract": "capture exact opaque native id/name/intrinsics/mtype in preflight; do not invent unavailable IDs in Git",
@@ -193,10 +209,12 @@
     "global_profile_override": false,
     "owner_directive": "MORNING_PRODUCTION_SHIFT:EVENTCARD_MEDIA_AFTER_EXACT_AUTHORIZATION",
     "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
-    "required_distinct_coverage_readback": "KNOWN_PASS; uncoveredPixels=0; opaqueOverlays=0; exact source SHA-256",
+    "required_distinct_coverage_readback": "bundled NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1; KNOWN_PASS; uncoveredPixels=0; opaqueOverlays=0; exact source SHA-256",
     "source_registry_sha256": "evidence computed by sourceRegistrySha256() and bound to authorization",
     "text_remains_blocked": true,
-    "validation": []
+    "validation": [],
+    "caller_injected_readNativeCoverage": false,
+    "upload_media_data_contract": "returned ImageData must expose data(); exact bytes/SHA before fill setter"
   },
   "package_id": "MAT-EVENTCARD-MEDIA-SAME-TUPLE-EXECUTION-R3",
   "packaged_assets": {

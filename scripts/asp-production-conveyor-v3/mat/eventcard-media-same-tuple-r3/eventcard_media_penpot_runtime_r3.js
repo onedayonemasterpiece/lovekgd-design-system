@@ -18,7 +18,7 @@ const HEX64 = /^[0-9a-f]{64}$/;
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
-const nowMs = (context) => Number(typeof context.now === 'function' ? context.now() : Date.now());
+const nowMs = () => Date.now();
 const plugin = (shape, key) => String(shape?.getSharedPluginData?.(NAMESPACE, key) ||
   shape?.getPluginData?.(key) || '');
 const fail = (code, unknown = false) => {
@@ -60,8 +60,7 @@ function findPage(file) {
 }
 
 function readActive(context) {
-  let raw = typeof context.readActiveMarker === 'function' ? context.readActiveMarker() :
-    context.penpot.currentFile.getSharedPluginData?.(NAMESPACE, ACTIVE_KEY);
+  const raw = context.penpot.currentFile.getSharedPluginData?.(NAMESPACE, ACTIVE_KEY);
   if (raw && typeof raw === 'object') return raw;
   if (typeof raw !== 'string' || !raw) fail('MEDIA_R3_PHYSICAL_ACTIVE_MISSING');
   try { return JSON.parse(raw); } catch { fail('MEDIA_R3_PHYSICAL_ACTIVE_INVALID_JSON'); }
@@ -124,7 +123,6 @@ async function activatePage(context, authorization = null) {
     if (authorization) assertActive(context, authorization);
     if (typeof penpot.openPage !== 'function') fail('MEDIA_R3_OPEN_PAGE_UNAVAILABLE');
     await penpot.openPage(pages[0]);
-    if (typeof context.settle === 'function') { if (authorization) assertActive(context, authorization); await context.settle(); }
   }
   if (String(penpot.currentPage?.id || '') !== M.PAGE_ID) fail('MEDIA_R3_CURRENT_PAGE_ACTIVATION_FAILED');
   return pages[0];
@@ -144,9 +142,51 @@ async function imageReadback(image) {
   return { bytes: bytes.byteLength, sha256: await shaBytes(bytes) };
 }
 
+function intersects(a, b) {
+  return a.x < b.x + b.width && a.x + a.width > b.x &&
+    a.y < b.y + b.height && a.y + a.height > b.y;
+}
+
+function opaqueImplementation(shape) {
+  if (!shape || shape.hidden === true || shape.visible === false || Number(shape.opacity ?? 1) <= 0) return false;
+  return array(shape.fills).some((fill) => fill && Number(fill.fillOpacity ?? 1) > 0 &&
+    (fill.fillImage || (typeof fill.fillColor === 'string' && fill.fillColor.length > 0)));
+}
+
+async function nativeCoverageProof(context, mediaShapeId, rootId) {
+  const spec = M.CASES.find((row) => row.mediaShapeId === String(mediaShapeId) && row.rootId === String(rootId));
+  if (!spec) fail('MEDIA_R3_NATIVE_COVERAGE_TARGET_UNKNOWN');
+  const page = await activatePage(context);
+  const all = walk(page.root), shape = all.find((item) => String(item.id) === spec.mediaShapeId);
+  const root = all.find((item) => String(item.id) === spec.rootId);
+  if (!shape || !root || String(shape.parent?.id || '') !== spec.parentGroupId) {
+    fail('MEDIA_R3_NATIVE_COVERAGE_TARGET_RELATIONSHIP_DRIFT');
+  }
+  const asset = M.SOURCE_ASSETS[spec.fixtureId], fill = imageFromFill(shape);
+  const source = await imageReadback(fill.image);
+  const width = Number(shape.width), height = Number(shape.height);
+  if (!(width > 0 && height > 0 && fill.image.width > 0 && fill.image.height > 0)) {
+    fail('MEDIA_R3_NATIVE_COVERAGE_DIMENSIONS_INVALID');
+  }
+  const semantics = staticFitFocal(shape, asset), shapeAspect = width / height;
+  const imageAspect = Number(fill.image.width) / Number(fill.image.height);
+  const aspectDelta = Math.abs(shapeAspect - imageAspect);
+  // A cover fill necessarily covers the shape. A contain fill does so only
+  // when source and shape aspect ratios match (the two 8006 cases do).
+  const uncoveredPixels = semantics.fit === 'cover' || aspectDelta <= 0.002 ? 0 :
+    Math.max(1, Math.round(width * height * Math.min(1, aspectDelta / Math.max(shapeAspect, imageAspect))));
+  const siblings = children(shape.parent), index = siblings.findIndex((item) => String(item.id) === spec.mediaShapeId);
+  const bounds = { x: Number(shape.x), y: Number(shape.y), width, height };
+  const opaqueOverlays = siblings.slice(index + 1).filter((item) => opaqueImplementation(item) &&
+    intersects(bounds, { x: Number(item.x), y: Number(item.y), width: Number(item.width), height: Number(item.height) })).length;
+  return { status: uncoveredPixels === 0 && opaqueOverlays === 0 ? 'KNOWN_PASS' : 'KNOWN_FAIL',
+    uncoveredPixels, opaqueOverlays, sourceSha256: source.sha256, sourceBytes: source.bytes,
+    fit: semantics.fit, focal: semantics.focal, shapeAspect, imageAspect,
+    proof: 'NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1' };
+}
+
 async function sourceBytes(context, asset) {
-  const raw = typeof context.sourceAssetBytes === 'function' ? await context.sourceAssetBytes(asset.sha256) :
-    context.sourceAssets?.[asset.sha256];
+  const raw = context.sourceAssets?.[asset.sha256];
   if (!raw) fail('MEDIA_R3_PACKAGED_SOURCE_BYTES_MISSING');
   const bytes = raw instanceof Uint8Array ? raw : new Uint8Array(raw);
   if (bytes.byteLength !== asset.bytes || await shaBytes(bytes) !== asset.sha256) fail('MEDIA_R3_PACKAGED_SOURCE_BYTES_MISMATCH');
@@ -290,9 +330,17 @@ async function executeEventcardMediaPenpotR3(context, authorization) {
   authorizationEnvelope(context, authorization); assertActive(context, authorization);
   // Settlement evidence is part of the executable contract, not an optional
   // afterthought. Prove its native capability before the first upload/write.
-  if (typeof context.readNativeCoverage !== 'function') fail('MEDIA_R3_NATIVE_COVERAGE_READBACK_UNAVAILABLE');
   const before = await projectEventcardMediaPenpotR3(context, authorization);
   assertProjectionAuthorization(context, authorization, before); assertActive(context, authorization);
+  // Invoke the bundled reader for every target before the first native write.
+  // A current source may be a known coverage failure; capability is proven by
+  // a deterministic result, while terminal acceptance is enforced later.
+  for (const row of before.rows) {
+    const proof = await nativeCoverageProof(context, row.mediaShapeId, row.rootId);
+    if (!proof || !['KNOWN_PASS', 'KNOWN_FAIL'].includes(proof.status) ||
+        !Number.isInteger(proof.uncoveredPixels) || !Number.isInteger(proof.opaqueOverlays) ||
+        !/^[0-9a-f]{64}$/.test(proof.sourceSha256)) fail('MEDIA_R3_NATIVE_COVERAGE_CAPABILITY_INVALID');
+  }
   const already = before.rows.every((row) => {
     const asset = M.SOURCE_ASSETS[row.fixtureId], evidence = row.existingSourceEvidence || {};
     return row.nativeImageDataReadback?.sha256 === asset.sha256 && row.nativeImageDataReadback?.bytes === asset.bytes &&
@@ -366,8 +414,7 @@ async function readEventcardMediaPenpotSettlementR3(context, receipt) {
     if (row.nativeImageDataReadback?.sha256 !== asset.sha256 || row.nativeImageDataReadback?.bytes !== asset.bytes) {
       fail('MEDIA_R3_SETTLEMENT_IMAGEDATA_BYTES_FAIL');
     }
-    if (typeof context.readNativeCoverage !== 'function') fail('MEDIA_R3_NATIVE_COVERAGE_READBACK_UNAVAILABLE');
-    const coverage = await context.readNativeCoverage(row.mediaShapeId, row.rootId);
+    const coverage = await nativeCoverageProof(context, row.mediaShapeId, row.rootId);
     if (!coverage || coverage.status !== 'KNOWN_PASS' || coverage.uncoveredPixels !== 0 ||
         coverage.opaqueOverlays !== 0 || coverage.sourceSha256 !== asset.sha256) fail('MEDIA_R3_SETTLEMENT_COVERAGE_FAIL');
   }
@@ -378,4 +425,4 @@ async function readEventcardMediaPenpotSettlementR3(context, receipt) {
 module.exports = { AUTH_SCHEMA, ACTIVE_SCHEMA, RUNTIME_SCHEMA, OWNER_DIRECTIVE,
   AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE, NAMESPACE, ACTIVE_KEY, RECEIPT_KEY,
   shaBytes, projectEventcardMediaPenpotR3, executeEventcardMediaPenpotR3,
-  readEventcardMediaPenpotSettlementR3, assertActive };
+  readEventcardMediaPenpotSettlementR3, nativeCoverageProof, assertActive };

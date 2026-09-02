@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_media_same_tuple_r3.js'
 RUNTIME = HERE / 'eventcard_media_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_media_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardMediaR3StandaloneV2'
+GLOBAL = 'KenigEventsD0EventcardMediaR3StandaloneV3'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {
