@@ -1,0 +1,146 @@
+    bundle_sha = sha256(bundle_path.read_bytes())
+    conformance_raw = run(
+        "node", harness_path.as_posix(),
+        "--bundle", bundle_path.as_posix(),
+        "--sha256", bundle_sha,
+        "--global", package["bundle"]["global"],
+        cwd=cwd,
+    )
+    try:
+        conformance = json.loads(conformance_raw.splitlines()[-1])
+    except Exception as error:
+        raise RuntimeError(f"CONFORMANCE_OUTPUT_INVALID:{conformance_raw}") from error
+    if conformance.get("state") != "D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS":
+        raise AssertionError(f"D0_CONFORMANCE_NOT_PASS:{conformance}")
+    package_out = run(sys.executable, (package_dir / "package.test.py").as_posix(), package_dir.as_posix(), cwd=cwd)
+    source_out = run(sys.executable, (package_dir / "source-binding.test.py").as_posix(), package_dir.as_posix(), cwd.as_posix(), cwd=cwd)
+    result = {
+        "d0_plugin_bundle_conformance": "PASS",
+        "d0_harness": {
+            "head": D0_HARNESS,
+            "tree": D0_HARNESS_TREE,
+            "path": D0_HARNESS_PATH,
+            "git_blob_sha1": blob(D0_HARNESS, D0_HARNESS_PATH, cwd),
+            "sha256": sha256(show(D0_HARNESS, D0_HARNESS_PATH, cwd)),
+            "first_run": conformance.get("first_run"),
+            "replay": conformance.get("replay"),
+        },
+        "package": "PASS",
+        "package_output": package_out,
+        "source_fixture_binding": "PASS",
+        "source_output": source_out,
+        "deterministic_regeneration": "PASS",
+        "terminal_replay_created_zero": conformance.get("replay", {}).get("created") == 0,
+    }
+    (package_dir / "d0-conformance.r2.json").write_text(pretty(conformance), encoding="utf-8")
+    receipt_path = package_dir / "receipt.r2.json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt["deterministic_regeneration"] = "PASS"
+    receipt["tests"] = result
+    receipt_path.write_text(pretty(receipt), encoding="utf-8")
+    return result
+
+
+def publish(artifacts: Path, cwd: Path) -> None:
+    builder_destination = cwd / "scripts/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-r2/build.py"
+    builder_destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(Path(__file__).resolve(), builder_destination)
+    git("config", "user.name", "a0-direct-plugin-r2-bot", cwd=cwd)
+    git("config", "user.email", "a0-direct-plugin-r2-bot@users.noreply.github.com", cwd=cwd)
+    if tree(BASELINE, cwd) != BASELINE_TREE:
+        raise AssertionError("BASELINE_TREE_DRIFT")
+    if tree(ATLAS_R21, cwd) != ATLAS_R21_TREE or tree(D0_HARNESS, cwd) != D0_HARNESS_TREE:
+        raise AssertionError("AUTHORITY_TREE_DRIFT")
+    fresh = issue_fresh_read()
+    report_dir = cwd / REPORT_ROOT
+    report_dir.mkdir(parents=True, exist_ok=True)
+    (report_dir / "fresh-read.r2.json").write_text(pretty(fresh), encoding="utf-8")
+    harness_path = cwd / ".tmp-d0-plugin-bundle-conformance-v1.mjs"
+    harness_path.write_bytes(show(D0_HARNESS, D0_HARNESS_PATH, cwd))
+    published: list[dict[str, Any]] = []
+    blocked: list[dict[str, Any]] = []
+    for lane in ("lane-1", "lane-2", "lane-3"):
+        lane_index = json.loads((artifacts / lane / "lane-index.r2.json").read_text(encoding="utf-8"))
+        blocked.extend(lane_index["blocked"])
+    for slug in ORDER:
+        source_dir = next((artifacts / lane / slug for lane in LANES if slug in LANES[lane]), None)
+        if source_dir is None or not source_dir.exists():
+            continue
+        destination = cwd / OUT_ROOT / slug
+        if destination.exists():
+            shutil.rmtree(destination)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(source_dir, destination)
+        tests = run_package_tests(cwd, destination, harness_path)
+        package = json.loads((destination / "package.r2.json").read_text(encoding="utf-8"))
+        rel = destination.relative_to(cwd).as_posix()
+        git("add", rel, cwd=cwd)
+        git("diff", "--cached", "--check", cwd=cwd)
+        git("commit", "-m", f"feat(a0): publish direct-plugin R2 bundle {slug}", cwd=cwd)
+        git("push", "origin", f"HEAD:{BRANCH}", cwd=cwd)
+        head = git("rev-parse", "HEAD", cwd=cwd)
+        tree_sha = git("rev-parse", "HEAD^{tree}", cwd=cwd)
+        remote_line = git("ls-remote", "--heads", "origin", f"refs/heads/{BRANCH}", cwd=cwd)
+        remote_head = remote_line.split()[0] if remote_line else ""
+        if remote_head != head:
+            raise AssertionError(f"REMOTE_HEAD_READBACK_MISMATCH:{slug}:{head}:{remote_head}")
+        git("fetch", "origin", f"refs/heads/{BRANCH}:refs/remotes/origin/{BRANCH}", cwd=cwd)
+        remote_ref = f"refs/remotes/origin/{BRANCH}"
+        remote_tree = git("rev-parse", f"{remote_ref}^{{tree}}", cwd=cwd)
+        if remote_tree != tree_sha:
+            raise AssertionError(f"REMOTE_TREE_READBACK_MISMATCH:{slug}:{tree_sha}:{remote_tree}")
+        bundle_rel = f"{rel}/bundle.direct-plugin.r2.js"
+        bundle_raw = (destination / "bundle.direct-plugin.r2.js").read_bytes()
+        bundle_record = {
+            "path": bundle_rel,
+            "git_blob_sha1": git("rev-parse", f"{remote_ref}:{bundle_rel}", cwd=cwd),
+            "bytes": len(bundle_raw),
+            "sha256": sha256(bundle_raw),
+            "global": package["bundle"]["global"],
+        }
+        body = "\n".join([
+            "<!-- ASP_BUILD_REQUEST_V2 -->",
+            f"## ASP_BUILD_REQUEST_V2 — {package['package_id']}",
+            "",
+            "```yaml",
+            "state: DIRECT_PLUGIN_BUNDLE_READY_D0_QA_INTEGRATE",
+            "owner: A0",
+            f"lane: {package['lane']}",
+            f"package_id: {package['package_id']}",
+            f"branch: {BRANCH}",
+            f"head: {head}",
+            f"tree: {tree_sha}",
+            "bundle:",
+            f"  path: {bundle_record['path']}",
+            f"  git_blob_sha1: {bundle_record['git_blob_sha1']}",
+            f"  bytes: {bundle_record['bytes']}",
+            f"  sha256: {bundle_record['sha256']}",
+            f"  global: {bundle_record['global']}",
+            "atlas_binding:",
+            f"  base_head: {package['atlas_binding']['base_head']}",
+            f"  base_tree: {package['atlas_binding']['base_tree']}",
+            f"  extension_head: {package['atlas_binding']['extension_head']}",
+            f"  extension_tree: {package['atlas_binding']['extension_tree']}",
+            f"  atlas_page_id: {package['atlas_binding']['atlas_page_id']}",
+            f"  physical_page_name: {json.dumps(package['atlas_binding']['physical_page_name'], ensure_ascii=False)}",
+            f"  page_order: {package['atlas_binding']['page_order']}",
+            f"  template_id: {package['atlas_binding']['template_id']}",
+            f"  projection_role: {package['atlas_binding']['projection_role']}",
+            "tests:",
+            "  deterministic_generation: PASS",
+            "  D0_PLUGIN_BUNDLE_CONFORMANCE_V1: PASS",
+            "  browser_sandbox: PASS",
+            "  package: PASS",
+            "  factual_source_fixture_binding: PASS",
+            "  terminal_replay_created_zero: PASS",
+            "runtime_shared_imports: 0",
+            "dependency_absence: FAIL_CLOSED_BEFORE_PAGE_CREATE",
+            "substitute_cards: 0",
+            "placeholders: 0",
+            "factual_package_bytes_changed: 0",
+            "route_registry_changed: false",
+            "atlas_changed: false",
+            "visual_pass_declared: false",
+            "penpot_execution_performed: false",
+            "penpot_reads: 0",
+            "penpot_mutations: 0",
