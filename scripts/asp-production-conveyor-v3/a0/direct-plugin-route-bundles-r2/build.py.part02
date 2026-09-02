@@ -1,0 +1,174 @@
+        role_filtered = [u for u in by_source if str(u.get("projection_role", "")).upper() == role]
+        if role_filtered:
+            by_source = role_filtered
+    if len(by_source) == 1:
+        return by_source[0]
+
+    if target_name:
+        by_name = [u for u in units if target_name in {u.get("physical_page_name"), u.get("exact_package_page_name")}]
+        if len(by_name) == 1:
+            return by_name[0]
+
+    aliases = {
+        "owner-review-index": ["owner-review-index"],
+        "home": ["archetype-home", "home"],
+        "weekend-listing": ["weekend", "listing-weekend"],
+        "popular-listing": ["popular", "listing-popular"],
+        "unusual-listing": ["unusual", "listing-unusual"],
+        "collections": ["collections"],
+        "exhibitions": ["exhibitions"],
+        "search": ["search"],
+        "favorites": ["favorites"],
+        "personal-feed": ["personal-feed"],
+        "festivals": ["festivals"],
+        "free-ready": ["free", "ready"],
+        "free-exception": ["free", "exception"],
+        "date-listing-ready": ["date", "ready"],
+        "date-listing-exception": ["date", "exception"],
+    }[slug]
+    scored: list[tuple[int, dict[str, Any]]] = []
+    for unit in units:
+        haystack = norm(" ".join(str(unit.get(k) or "") for k in (
+            "atlas_page_id", "logical_source_unit_id", "package_id", "physical_page_name", "projection_role"
+        )))
+        score = sum(1 for token in aliases if norm(token) in haystack)
+        if role and str(unit.get("projection_role", "")).upper() == role:
+            score += 2
+        if score:
+            scored.append((score, unit))
+    scored.sort(key=lambda pair: (pair[0], str(pair[1].get("page_order"))), reverse=True)
+    if not scored or (len(scored) > 1 and scored[0][0] == scored[1][0]):
+        raise AssertionError(
+            f"ATLAS_UNIT_AMBIGUOUS:{slug}:source={source_package}:role={role}:"
+            f"candidates={[u.get('atlas_page_id') for _, u in scored[:8]]}"
+        )
+    return scored[0][1]
+
+
+def dependency_bindings(old: dict[str, Any], sources: list[dict[str, Any]], job_id: str) -> list[dict[str, Any]]:
+    primary = sources[0]
+    result = []
+    for index, item in enumerate(old.get("dependencies", []), start=1):
+        semantic = str(item.get("semantic_id") or item.get("key") or "")
+        if not semantic:
+            raise AssertionError(f"DEPENDENCY_SEMANTIC_ID_MISSING:{job_id}:{index}")
+        source_tuple = {
+            "semantic_id": semantic,
+            "package_id": old.get("source_package_id"),
+            "remote_head": primary["ref"],
+            "git_blob_sha1": primary["git_blob_sha1"],
+            "source_sha256": primary["sha256"],
+        }
+        token = digest([job_id, semantic, source_tuple])
+        result.append({
+            "ordinal": index,
+            "semantic_id": semantic,
+            "canonical_path": f"A0 Route Dependencies / {semantic}",
+            "component_id": f"a0c-{token[:24]}",
+            "main_id": f"a0m-{token[24:48]}",
+            "source_tuple": source_tuple,
+            "source_tuple_sha256": digest(source_tuple),
+            "binding_state": "QA_INTEGRATE_GATED_EXACT_NATIVE_IDENTITY",
+            "placeholder_substitution": False,
+        })
+    return result
+
+
+def text_line(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def owner_rows(atlas: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = []
+    for unit in sorted(atlas["units"], key=lambda item: str(item["page_order"])):
+        rows.append({
+            "page_order": unit["page_order"],
+            "atlas_page_id": unit["atlas_page_id"],
+            "package_id": unit["package_id"],
+            "template_id": unit["template_id"],
+            "projection_role": unit["projection_role"],
+            "physical_page_name": unit["physical_page_name"],
+            "v0_status": "PENDING_V0",
+        })
+    if len(rows) != 42 or len({r["page_order"] for r in rows}) != 42:
+        raise AssertionError("OWNER_INDEX_ROWS_NOT_EXACT_42")
+    return rows
+
+
+def build_operations(slug: str, old: dict[str, Any], atlas_unit: dict[str, Any], rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    operations: list[dict[str, Any]] = []
+    job_id = f"A0-DIRECT-PLUGIN-{slug.replace('-', '_').upper()}-R2"
+
+    def add(kind: str, role: str, name: str, text: str, x: int, y: int, width: int, height: int) -> None:
+        stable = "a0r2-" + digest([job_id, role, name, text])[:28]
+        operations.append({
+            "ordinal": len(operations) + 1,
+            "kind": kind,
+            "role": role,
+            "stable_id": stable,
+            "name": name,
+            "text": text,
+            "geometry": {"x": x, "y": y, "width": width, "height": height},
+        })
+
+    if slug == "owner-review-index":
+        add("board", "root", "OWNER_INDEX_V2 · A0 · Candidate", "", 0, 0, 2624, 2528)
+        add(
+            "text", "header", "Owner Review Index · exact Atlas R2 42-page census",
+            "Atlas R2 owner review index · 42 exact physical page units · PENDING_V0",
+            64, 24, 2496, 72,
+        )
+        y = 120
+        for row in rows:
+            add(
+                "text", "owner-index-row", f"{row['page_order']} · {row['atlas_page_id']}",
+                text_line(row), 64, y, 2496, 48,
+            )
+            y += 56
+        if y - 56 + 48 != 2464:
+            raise AssertionError(f"OWNER_INDEX_BOTTOM_GEOMETRY:{y - 56 + 48}")
+        return operations
+
+    exact = old.get("exact_tuple") or {}
+    variants = list(exact.get("variants") or [])
+    routes = list(exact.get("routes") or [])
+    states = list(exact.get("states") or [])
+    fixtures = list(exact.get("fixtures") or [])
+    projection_role = str(old.get("projection_role") or atlas_unit.get("projection_role") or "CANDIDATE")
+    root_height = 1164
+    if slug.startswith("free-") or slug.startswith("date-listing-"):
+        root_height = max(1164, 300 + 300 * max(1, len(variants)))
+    add("board", "root", f"{atlas_unit['physical_page_name']} · {projection_role}", "", 0, 0, 2624, root_height)
+    header = {
+        "package_id": old.get("source_package_id"),
+        "route": routes,
+        "states": states,
+        "fixtures": fixtures,
+        "atlas_page_id": atlas_unit["atlas_page_id"],
+        "page_order": atlas_unit["page_order"],
+        "template_id": atlas_unit["template_id"],
+        "projection_role": projection_role,
+    }
+    add("text", "header", f"{slug} · exact source-bound route header", text_line(header), 64, 48, 2496, 104)
+
+    if not variants:
+        variants = [{
+            "id": "source-bound",
+            "scenario_id": exact.get("subject") or slug,
+            "semantic_regions": sorted({dep.get("semantic_id") for dep in old.get("dependencies", []) if dep.get("semantic_id")}),
+            "viewport": {"width": 1280, "height": 800},
+        }]
+    left = 64
+    top = 184
+    for index, variant in enumerate(variants):
+        vid = str(variant.get("id") or variant.get("scenario_id") or f"variant-{index+1}")
+        viewport = variant.get("viewport") or {}
+        semantic_regions = list(variant.get("semantic_regions") or [])
+        scenario = {
+            "variant_id": vid,
+            "scenario_id": variant.get("scenario_id"),
+            "source_root_key": variant.get("source_root_key"),
+            "viewport": viewport,
+            "routes": routes,
+            "states": states,
+            "fixtures": [] if ("exception" in slug and any(state in {"loading", "empty", "error"} for state in states)) else fixtures,
