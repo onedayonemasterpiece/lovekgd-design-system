@@ -4,7 +4,7 @@
   "package_id": "MAT-ACTION-NAV-R2-DOC-LAYER-REPAIR-R1",
   "defect_id": "V0-ACTION-NAV-R2-DOC-LAYER-001",
   "branch": "d0/action-nav-doc-layer-standalone-v1-20260902",
-  "source_parent_head": "534773376f86680713177da46b98706eeefaf5f1",
+  "source_parent_head": "feeee36fb5a5ed2049742b9f299dcfe9b955fa0b",
   "product_source_head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
   "atlas": {
     "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
@@ -15,10 +15,10 @@
   "bundle": {
     "path": "executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js",
     "global": "D0ActionNavDocumentationLayerV1",
-    "bytes": 51601,
-    "sha256": "1f01ffa253490291230baf8d85340b04888c658c1f2feca4acec5bd39ab84509",
-    "git_blob_sha1": "d162c8c0605ff40c997b11ea05c2ef7b36cec5df",
-    "source_sha256": "1f01ffa253490291230baf8d85340b04888c658c1f2feca4acec5bd39ab84509",
+    "bytes": 55703,
+    "sha256": "0c6dc22b8a097a1256cc9d674320b860cbe0e1aedc3d2efd6e4bcfa5befa1da7",
+    "git_blob_sha1": "2526209ffeaab6b04636a7ff5937ead730e7a50b",
+    "source_sha256": "0c6dc22b8a097a1256cc9d674320b860cbe0e1aedc3d2efd6e4bcfa5befa1da7",
     "deterministic_regeneration": true,
     "browser_penpot_vm_safe": true
   },
@@ -62,8 +62,8 @@
     "per_phase_save_version": "FORBIDDEN_NONBLOCKING_RECOVERY",
     "phase_receipt_independent_of_save_version": true,
     "fresh_cursor_reconciliation_after_unknown_outcome": true,
-    "authorization_rebind": "HISTORICAL_V7_ROOT_PROOF_PLUS_EXACT_CURRENT_RELEASED_MARKER_LITERAL_SHA_SCHEMA_AGNOSTIC_TO_V10_ATOMIC_ACTIVE",
-    "authorized_revision_min": 190,
+    "authorization_rebind": "HISTORICAL_V7_OR_EXACT_FAILED_PRECREATE_V11_ROOT_AND_RELEASED_MARKER_TO_V12_ATOMIC_ACTIVE",
+    "authorized_revision_min": 194,
     "authorized_revision_must_equal_current": true,
     "native_revision_accessor": "Number(file.revn)",
     "revn_authoritative": true,
@@ -75,7 +75,8 @@
     "revision_advance_simulated_each_phase": true,
     "revision_alias": "FORBIDDEN_NOT_READ_NOT_WRITTEN_NOT_DELETED",
     "conformance_host_revision": "ASSIGN_REVN_ONLY",
-    "conformance_host_save_version": "ABSENT_NO_OVERRIDE"
+    "conformance_host_save_version": "ABSENT_NO_OVERRIDE",
+    "parent_identity": "NORMALIZED_NATIVE_ID_NOT_PROXY_OBJECT_IDENTITY"
   },
   "authorization": {
     "sole_writer": "/root/publish_r2",
@@ -96,7 +97,7 @@
     "product_mutations": 0
   },
   "native_continuation_binding": {
-    "initial_current_revision": "FRESH_CURRENT_REVN_MIN_190",
+    "initial_current_revision": "EXACT_FAILED_V11_RECOVERY_REVN_194_THEN_FRESH_CURRENT_REVN",
     "initial_projection_sha256": "1b8251c5612a68ab67fce04b0d218e66bbe62ce0adf49e8bc8e526ea4114d15a",
     "initial_cursor": "CELL_DOCUMENTATION",
     "initial_documentation": {
@@ -112,6 +113,16 @@
     "publisher_must_copy_current_physical_literal_without_reserialization": true,
     "current_physical_marker_controls": "SOLE_WRITER_NON_ACTIVE_CANCELLED_OR_EXPIRED_MUTATION_FALSE_WRITER_RELEASED_RELEASED_AT_NOT_FUTURE",
     "historical_actionnav_proof": "EXACT_V7_ROOT_AUTH_PLUS_MARKER_SHA_418D_AND_DOCS_8_1_1",
-    "successive_actionnav_marker": "EXACT_PREVIOUS_ROOT_RUN_LEASE_CANCEL_BUNDLE_PROJECTION_CURSOR"
+    "successive_actionnav_marker": "EXACT_PREVIOUS_ROOT_RUN_LEASE_CANCEL_BUNDLE_PROJECTION_CURSOR",
+    "v11_failed_root_binding_sha256": "4f338b586714eff7ecf0a1a29ac7969c93d86062732fcf665e494dc0aaca8f5e",
+    "v11_failed_marker_sha256": "c75c2ec76f27aa9216f3604ca0ddea8a8689316b75a9e915c679d6523eef6b78",
+    "v11_failed_projection_sha256": "1b8251c5612a68ab67fce04b0d218e66bbe62ce0adf49e8bc8e526ea4114d15a",
+    "v11_failed_documentation": {
+      "master_labels": 8,
+      "cell_containers": 1,
+      "placement_captions": 1
+    },
+    "v11_failed_created": 0,
+    "parent_proxy_identity": "STRING_NORMALIZED_NATIVE_ID"
   }
 }

@@ -4,7 +4,7 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `1f01ffa253490291230baf8d85340b04888c658c1f2feca4acec5bd39ab84509`, Git blob `d162c8c0605ff40c997b11ea05c2ef7b36cec5df`, bytes `51601`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `0c6dc22b8a097a1256cc9d674320b860cbe0e1aedc3d2efd6e4bcfa5befa1da7`, Git blob `2526209ffeaab6b04636a7ff5937ead730e7a50b`, bytes `55703`.
 2. Put the exact branch/head/tree/blob/bytes/SHA bundle identity, fresh current `revn`/projection/cursor/docs authorization, and the exact current physical released-marker **raw literal plus SHA-256** into storage. Do **not** write a new physical ACTIVE marker externally.
 3. Call `executeActionNavDocLayerPhase({penpot, storage})` once. The bundle validates the released physical marker, atomically mints ACTIVE, creates at most three nodes, binds its after-projection receipt, and releases the marker inside that same native call.
 4. For each remaining phase, perform a distinct read-only projection and repeat step 2 with the new authoritative `revn`; skipped/regressed counts and stale revisions fail closed. A timeout has unknown outcome: project again; never blindly retry.
@@ -52,3 +52,9 @@ V10 removes V9's incorrect assumption that every package uses `kenigevents.asp-r
 ## V11 revn-only native-host cleanup
 
 V11 does not read, write, or delete the unsupported `currentFile.revision` alias. Both production and conformance execution read only `currentFile.revn` and fail closed when it is absent. The conformance host also does not assign or override `currentFile.saveVersion`. This preserves the V10 raw released-marker literal/SHA bridge and atomic bounded phase while satisfying the nonconfigurable native-host traps in harness `62f26df36b8199e4b8899b9252f796b1fa5e9d42`.
+
+## V12 native proxy identity and exact V11 recovery
+
+V12 compares a documented instance parent with its container by normalized native IDs (`String(parent.id) === String(container.id)`), never by JavaScript wrapper identity. This matches the real Penpot bridge, where repeated access may return distinct proxy objects for the same native node; an unequal native ID still fails before creates. The regression host covers both the equal-ID alias and unequal-ID rejection.
+
+The one-time recovery path accepts only the exact 517-byte failed-precreate V11 root binding (SHA-256 `4f338b58…`) and exact 1714-byte released `SUSPENDED_ERROR` physical marker (SHA-256 `c75c2ec…`) at native `revn=194`, with unchanged projection `1b8251c5…`, docs `8/1/1`, and `created=0`. Any literal, hash, revision, projection, census, provenance, error, or release-control drift fails closed. After migration, the existing per-phase fresh `revn`, exact root/marker linkage, atomic ACTIVE/phase/release, maximum-three creates, and replay-zero contract remains unchanged.
