@@ -1,0 +1,100 @@
+name: V0 bounded Medallions evidence transfer
+
+on:
+  push:
+    branches:
+      - v0/atlas-visual-preflight-evidence-20260901
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact corrected tuple
+        uses: actions/checkout@v4
+        with:
+          ref: 9c2f0578cc58c2e490248a66bfe6e8297ab9410c
+          path: corrected
+          persist-credentials: false
+
+      - name: Checkout exact parent tuple
+        uses: actions/checkout@v4
+        with:
+          ref: 0fbfd4839343de71d5128b2e9c2ad232dde6abf4
+          path: parent
+          persist-credentials: false
+
+      - name: Verify tuple and protected representatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="bundle"
+          mkdir -p "$out/medallions" "$out/verification"
+
+          corrected_head=$(git -C corrected rev-parse HEAD)
+          corrected_tree=$(git -C corrected rev-parse HEAD^{tree})
+          corrected_parent=$(git -C corrected show -s --format=%P HEAD)
+          parent_head=$(git -C parent rev-parse HEAD)
+
+          test "$corrected_head" = "9c2f0578cc58c2e490248a66bfe6e8297ab9410c"
+          test "$corrected_tree" = "c22812886dd41578364808d56e2915e7df1ad2aa"
+          test "$corrected_parent" = "0fbfd4839343de71d5128b2e9c2ad232dde6abf4"
+          test "$parent_head" = "0fbfd4839343de71d5128b2e9c2ad232dde6abf4"
+
+          src="reports/asp-production-conveyor-v3/atlas-v2/rendered"
+          reps=(
+            r2-action-nav
+            r2-typography-densest
+            r2-controls-buttons
+            r2-archetype-home
+            r2-composed-ready
+            r2-composed-exception
+            r2-owner-review-index
+          )
+
+          {
+            echo "corrected_head=$corrected_head"
+            echo "corrected_tree=$corrected_tree"
+            echo "corrected_parent=$corrected_parent"
+            echo "parent_head=$parent_head"
+            echo "protected_representatives=7"
+            echo "protected_files=14"
+          } > "$out/verification/provider-readback.txt"
+
+          : > "$out/verification/byte-identity.tsv"
+          printf 'representative\textension\tparent_sha256\tcorrected_sha256\tbyte_identical\n' >> "$out/verification/byte-identity.tsv"
+          for rep in "${reps[@]}"; do
+            for ext in svg png; do
+              a="parent/$src/$rep.$ext"
+              b="corrected/$src/$rep.$ext"
+              cmp -s "$a" "$b"
+              sha_a=$(sha256sum "$a" | awk '{print $1}')
+              sha_b=$(sha256sum "$b" | awk '{print $1}')
+              test "$sha_a" = "$sha_b"
+              printf '%s\t%s\t%s\t%s\ttrue\n' "$rep" "$ext" "$sha_a" "$sha_b" >> "$out/verification/byte-identity.tsv"
+            done
+          done
+
+          cp "corrected/$src/r2-medallions-densest.svg" "$out/medallions/"
+          cp "corrected/$src/r2-medallions-densest.png" "$out/medallions/"
+          cp "corrected/$src/source-bound-evidence-8of8.v1.json" "$out/medallions/"
+          cp "corrected/$src/source-bound-evidence-8of8.validation.v1.json" "$out/medallions/"
+          cp "corrected/$src/layout-measurements.v2.json" "$out/medallions/"
+          cp "corrected/$src/overlap-bounds-report.v2.json" "$out/medallions/"
+
+          find "$out" -type f -print0 | sort -z | xargs -0 sha256sum > "$out/SHA256SUMS"
+          test "$(stat -c%s "$out/medallions/r2-medallions-densest.svg")" = "1125061"
+          test "$(stat -c%s "$out/medallions/r2-medallions-densest.png")" = "269618"
+          test "$(git -C corrected hash-object "$src/r2-medallions-densest.svg")" = "1b6944bdb9926b3baf9eda0b634c3e4e6658ff22"
+          test "$(git -C corrected hash-object "$src/r2-medallions-densest.png")" = "70a50bc885c38134feb21d023e90d7de21ffb343"
+
+      - name: Upload bounded review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: v0-medallions-bounded-review-20260902
+          path: bundle
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
