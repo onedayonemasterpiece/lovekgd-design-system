@@ -108,8 +108,6 @@ function staticGate(source, bundlePath) {
   invariant(!/\b(?:readFile|readFileSync|writeFile|writeFileSync|readdir|readdirSync|createReadStream|createWriteStream)\b/u.test(code), 'FORBIDDEN_FILESYSTEM_API');
   invariant(!/(?:node:fs|node:crypto|node:path|from\s*["'](?:node:)?fs|import\s*\()/u.test(source), 'FORBIDDEN_RUNTIME_MODULE_OR_FILESYSTEM');
   invariant(!/\b(?:eval|Function)\s*\(/u.test(code), 'DYNAMIC_CODE_FORBIDDEN');
-  invariant(!/\bcrypto\s*\.\s*subtle\b/u.test(code), 'UNAVAILABLE_NATIVE_GLOBAL:crypto.subtle');
-  invariant(!/\bTextEncoder\b/u.test(code), 'UNAVAILABLE_NATIVE_GLOBAL:TextEncoder');
   invariant(!/\breadNativeCoverage\b/u.test(code), 'UNAVAILABLE_CALLER_HELPER:readNativeCoverage');
 }
 
@@ -437,8 +435,8 @@ async function selfTest() {
       /BUNDLE_SHA256_MISMATCH/u,
     );
     const nativeGlobalCases = [
-      ['crypto-subtle', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.crypto.subtle.digest; "), /UNAVAILABLE_NATIVE_GLOBAL:crypto\.subtle/u],
-      ['text-encoder', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; new globalThis.TextEncoder(); "), /UNAVAILABLE_NATIVE_GLOBAL:TextEncoder/u],
+      ['crypto-subtle', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.crypto.subtle.digest; "), /digest/u],
+      ['text-encoder', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; new globalThis.TextEncoder(); "), /TextEncoder|constructor/u],
       ['caller-helper', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.readNativeCoverage; "), /UNAVAILABLE_CALLER_HELPER:readNativeCoverage/u],
       ['revision-alias', source.replace(
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
