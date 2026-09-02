@@ -117,20 +117,22 @@ function nativeAdapter(context, page) {
   // namespace members belong to this package; the other 17 are protected.
   const components = fileLocalComponents.filter((component) => targetNames.has(component?.name));
   const otherComponents = fileLocalComponents.filter((component) => !targetNames.has(component?.name));
+  const targetMainIds = new Set(components.map((component) => String(mainOf(component)?.id || '')));
   const pageRoots = children(page.root);
   const roots = pageRoots.filter((shape) => String(shape?.id || '') === M.COLLECTION_ID);
   const board = roots[0];
   const allShapes = walk(page.root);
   const protectedDigest = M.sha256({
     fileId: M.FILE_ID, pageId: M.PAGE_ID,
-    shapes: allShapes.map(shapeProjection).sort((a, b) => a.id.localeCompare(b.id)),
+    shapes: allShapes.map(shapeProjection).map((shape) => targetMainIds.has(shape.id)
+      ? { ...shape, name: undefined } : shape).sort((a, b) => a.id.localeCompare(b.id)),
     components: fileLocalComponents.map((component) => {
       const main = mainOf(component);
       // LibraryComponent.path is intentionally excluded: this is the path-only
       // repair's protected geometry/text/media/ID projection.
       const target = targetNames.has(component?.name);
       return { id: String(component?.id || ''), name: component?.name ?? null,
-        mainId: String(main?.id || ''), mainName: main?.name ?? null,
+        mainId: String(main?.id || ''), mainName: target ? undefined : main?.name ?? null,
         path: target ? undefined : String(component?.path ?? '') };
     }).sort((a, b) => a.id.localeCompare(b.id)),
   });
@@ -318,9 +320,33 @@ async function executeEventcardPathsPenpotR3(context, authorization) {
 
   const terminalAlready = fresh.count.exact === 18 && fresh.count.empty === 0 && fresh.count.legacy === 0;
   if (terminalAlready) {
-    if (!readReceiptMarker(context)) fail('PATHS_R3_TERMINAL_WITHOUT_DURABLE_RECEIPT');
-    return { schema: RUNTIME_SCHEMA, state: 'REPLAY_NOOP', created: 0, pathMutations: 0,
-      secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
+    if (readReceiptMarker(context)) {
+      return { schema: RUNTIME_SCHEMA, state: 'REPLAY_NOOP', created: 0, pathMutations: 0,
+        secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
+    }
+    const automatic = fresh.components.filter((row) => row.nativeProjectedMainLayerName).length;
+    if (automatic !== 18) fail('PATHS_R3_TERMINAL_MAIN_LAYER_NATIVE_PROJECTION_CENSUS');
+    // Recovery of the exact unknown-outcome state: all native path setters
+    // already landed, but the prior bundle stopped before its durable receipt.
+    // Never call a path setter again. Only persist the recovery receipt under
+    // the fresh bounded ACTIVE authorization, then mandate later readback.
+    const recovered = {
+      schema: 'kenigevents.eventcard-paths-penpot-execution-receipt.r3', packageId: M.PACKAGE_ID,
+      packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+      authorizedRevision: authorization.revision,
+      authorizedProjectionSha256: authorization.projectionSha256,
+      terminalProjectionSha256: fresh.projectionSha256,
+      state: 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK', pathMutations: 0,
+      recoveredPriorPathMutations: 18, nativeAutomaticMainLayerNameProjections: 18,
+      componentIds: fresh.componentIds, mainIds: fresh.mainIds,
+      linkedInstanceIds: fresh.linkedInstanceIds,
+      displayNameMutations: 0, explicitMainLayerNameMutations: 0,
+      textMutations: 0, mediaMutations: 0,
+      detach: 0, clone: 0, recreate: 0, created: 0, retryAllowed: false,
+      recovery: 'POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION',
+    };
+    await writeReceiptMarker(context, authorization, recovered);
+    return recovered;
   }
   if (M.canonical(fresh.count) !== M.canonical({ exact: 0, empty: 15, legacy: 3 })) {
     fail('PATHS_R3_PARTIAL_STATE_REQUIRES_OWNER_READBACK');
@@ -373,8 +399,9 @@ async function readEventcardPathsPenpotSettlementR3(context, receipt) {
       M.canonical(terminal.linkedInstanceIds) !== M.canonical(receipt.linkedInstanceIds)) {
     fail('PATHS_R3_NATIVE_SETTLEMENT_ID_DRIFT');
   }
-  return { schema: RUNTIME_SCHEMA, state: 'PATHS_18_OF_18_LINKAGE_READBACK_PASS_PENDING_V0',
+    return { schema: RUNTIME_SCHEMA, state: 'PATHS_18_OF_18_LINKAGE_READBACK_PASS_PENDING_V0',
     exactCanonicalPaths: 18, componentIds: 18, mainIds: 18, linkedInstances: 26,
+    nativeAutomaticMainLayerNameProjections: terminal.components.filter((row) => row.nativeProjectedMainLayerName).length,
     readbackMutations: 0, validation: [], visualPass: false, wholeEventcardPass: false };
 }
 

@@ -63,13 +63,23 @@ class PackageTest(unittest.TestCase):
     def test_standalone_bundle_identity_and_forbidden_runtime_tokens(self):
         meta = self.package["browser_plugin_bundle"]
         self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
-        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV2")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV3")
         self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
         self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
         for name in ["require", "module", "exports", "process", "Buffer"]:
             self.assertIsNone(re.search(rf"\b{name}\b", self.bundle))
         self.assertIn("bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE'", self.bundle)
         self.assertIn("PATHS_R3_BUNDLE_AUTHORIZATION_MISMATCH", self.bundle)
+
+    def test_native_main_name_projection_recovery_is_exact_and_write_free(self):
+        recovery = self.package["native_automatic_main_layer_projection_recovery"]
+        self.assertEqual(recovery["observed_revision"], 181)
+        self.assertTrue(recovery["arbitrary_main_name_rejected"])
+        self.assertEqual(recovery["recovery_path_setters"], 0)
+        self.assertEqual(recovery["recovery_creates"], 0)
+        self.assertEqual(recovery["preserved_linked_instance_ids"], 26)
+        self.assertIn("nativeProjectedMainLayerName", self.runtime)
+        self.assertIn("POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION", self.native_runtime)
 
     def test_boundaries(self):
         boundaries = self.package["boundaries"]

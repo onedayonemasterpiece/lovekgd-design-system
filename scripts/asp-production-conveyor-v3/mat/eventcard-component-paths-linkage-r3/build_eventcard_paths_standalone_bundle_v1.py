@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_component_paths_linkage_r3.js'
 RUNTIME = HERE / 'eventcard_component_paths_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_paths_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV2'
+GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV3'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {

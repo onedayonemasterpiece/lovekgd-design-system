@@ -69,10 +69,20 @@ const stringOnly = (value) => {
   return value;
 };
 
-function acceptedMainLayerNames(spec) {
-  return spec.legacyMain
+function nativeProjectedMainLayerName(spec) {
+  return `${PATHS[spec.group]} / ${spec.displayName}`;
+}
+
+function acceptedMainLayerNames(spec, currentPath) {
+  const accepted = spec.legacyMain
     ? new Set([spec.displayName, `${LEGACY_MAIN_PREFIX}${spec.displayName}`])
     : new Set([spec.displayName]);
+  // Penpot's LibraryComponent.path setter has a documented native side effect:
+  // it projects the canonical library path into the structural main-layer name.
+  // Accept that exact derived value only after the component already has the
+  // matching canonical path. Component display identity remains authoritative.
+  if (currentPath === PATHS[spec.group]) accepted.add(nativeProjectedMainLayerName(spec));
+  return accepted;
 }
 
 function collection(adapter) {
@@ -106,14 +116,14 @@ function componentRows(adapter) {
     if (!item.id || !item.main || !item.main.id || !item.main.name) fail('PATHS_R3_COMPONENT_OR_MAIN_ID_MISSING');
     if (spec.componentId && item.id !== spec.componentId) fail('PATHS_R3_PINNED_COMPONENT_ID_DRIFT');
     if (spec.mainId && item.main.id !== spec.mainId) fail('PATHS_R3_PINNED_MAIN_ID_DRIFT');
-    if (!acceptedMainLayerNames(spec).has(item.main.name)) fail('PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
+    const currentPath = String(item.path ?? '');
+    if (!acceptedMainLayerNames(spec, currentPath).has(item.main.name)) fail('PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
 
     const relationship = adapter.componentMainRelationship(item.id, item.main.id);
     if (!relationship || relationship.componentId !== item.id || relationship.mainId !== item.main.id ||
         relationship.native !== true) fail('PATHS_R3_COMPONENT_MAIN_RELATIONSHIP_DRIFT');
 
     const expectedPath = PATHS[spec.group];
-    const currentPath = String(item.path ?? '');
     const pathAllowed = currentPath === '' || currentPath === expectedPath ||
       (spec.legacyMain && currentPath === LEGACY_PATH);
     if (!pathAllowed) fail('PATHS_R3_UNKNOWN_COMPONENT_PATH');
@@ -130,6 +140,7 @@ function componentRows(adapter) {
       kind: spec.kind,
       linkedCount: spec.linkedCount,
       legacyMainLayerNameAccepted: item.main.name.startsWith(LEGACY_MAIN_PREFIX),
+      nativeProjectedMainLayerName: item.main.name === nativeProjectedMainLayerName(spec),
     };
   });
 
@@ -221,7 +232,7 @@ function assertAuthorization(auth, projection) {
 function stableIdentity(projection) {
   return {
     components: projection.components.map((row) => [
-      row.semanticName, row.displayName, row.currentMainLayerName, row.componentId, row.mainId,
+      row.semanticName, row.displayName, row.componentId, row.mainId,
       row.relationship.componentId, row.relationship.mainId,
     ]),
     linkedInstances: projection.linkedInstances,
@@ -326,6 +337,7 @@ module.exports = {
   PACKAGE_ID, PARENT_PACKAGE_ID, FILE_ID, PAGE_ID, COLLECTION_ID, COLLECTION_NAME,
   LEGACY_PATH, LEGACY_MAIN_PREFIX, PATHS, SPECS, MAIN_LAYER_NORMALIZATION_DECISION,
   LinkageStop, canonical, sha256, stringOnly,
+  nativeProjectedMainLayerName,
   projectState, stableIdentity,
   projectEventcardPathsLinkageR3, executeEventcardPathsLinkageR3,
   readEventcardPathsLinkageSettlementR3,

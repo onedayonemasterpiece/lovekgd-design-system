@@ -37,15 +37,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 41770,
+      "bytes": 44221,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_penpot_standalone_bundle_v1.js",
-      "sha256": "b152d1a951e079e3706536a1128709f6cf6ca153e60f57e970761212d72e02db"
+      "sha256": "eca8fc4e5ee5b8a2ff503adbfcf5016ae376789f7789f9abf820962e4b11d55d"
     },
     "browser_penpot_vm_load": true,
     "builder": {
       "bytes": 9707,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/build_eventcard_paths_standalone_bundle_v1.py",
-      "sha256": "382eb851d7dc44181c0da121497b6cd7a3bda597f68f75a347d94bba7db2a275"
+      "sha256": "65f17d747a7b115f20ff22bc0f440978bc3985e6cd2e793262231f4feea124c5"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -58,7 +58,7 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardPathsR3StandaloneV2",
+    "global": "KenigEventsD0EventcardPathsR3StandaloneV3",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
     "portable_plain_data_clone": true,
@@ -84,13 +84,13 @@
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 8446,
+      "bytes": 10592,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
-      "sha256": "d0aed0ceb7f11bfa8182f062271863e0252bf0ef2b1c842a1c879b1579578e56"
+      "sha256": "ade754c39e8cbd94b24e1ec8dbd1b4fa8df0fde82987f5a843dec585d67febe4"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY"
   },
-  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_CONCRETE_NATIVE_EXECUTION_DIRECT_PLUGIN_CALLABILITY_AND_PENPOT_STRUCTUREDCLONE_INVOCATION_GAP",
+  "defect_closed": "PENPOT_NATIVE_PATH_SETTER_AUTOMATIC_MAIN_LAYER_NAME_PROJECTION_AND_POST_WRITE_RECEIPT_RECOVERY",
   "execution": {
     "allowed_default_mutation": "LibraryComponent.path only",
     "authorization_binds": [
@@ -109,13 +109,14 @@
     "concrete_penpot_adapter": true,
     "current_page_activation": "open exact page ID and verify currentPage before projection or mutation",
     "detach": 0,
-    "direct_plugin_global": "KenigEventsD0EventcardPathsR3StandaloneV2",
+    "direct_plugin_global": "KenigEventsD0EventcardPathsR3StandaloneV3",
     "entrypoint": "executeEventcardPathsPenpotR3",
     "lease_expiry_recheck_before_every_native_mutation": true,
     "linked_instance_ids_preserved": 26,
     "main_ids_preserved": 18,
     "path_mutations": 18,
     "physical_active_recheck": "immediately before current-page activation, each of 18 LibraryComponent.path setters, and durable receipt marker",
+    "post_write_unknown_outcome_recovery": "detect exact terminal paths plus 18 exact native-projected structural main names; write receipt only under fresh ACTIVE; zero further LibraryComponent.path setters",
     "projection_entrypoint": "projectEventcardPathsPenpotR3",
     "publisher_bespoke_rebundle": false,
     "receipt_marker_values": "strict strings only",
@@ -127,8 +128,8 @@
   "identity_model": {
     "canonical_library_path": "LibraryComponent.path; grouping hierarchy, never inferred from main layer name",
     "display_name": "LibraryComponent.name; stable semantic identity and library display label",
-    "main_component_relationship": "native component.id \u2194 main.id relation proven by main.component()/mainInstance(), not by string equality",
-    "main_layer_name": "structural canvas layer name; may carry the accepted legacy G19 prefix without changing display name or canonical path"
+    "main_component_relationship": "native component.id ↔ main.id relation proven by main.component()/mainInstance(), not by string equality",
+    "main_layer_name": "structural canvas layer name; exact canonical <LibraryComponent.path> / <LibraryComponent.name> is an accepted Penpot-native automatic projection only when the canonical path is already exact"
   },
   "legacy_main_layer_names": [
     {
@@ -150,6 +151,21 @@
       "main_id": "313fb1ed-0d5c-8095-8008-916bd0ab6c98"
     }
   ],
+  "native_automatic_main_layer_projection_recovery": {
+    "accepted_exact_formula": "<expected canonical LibraryComponent.path> / <unchanged LibraryComponent.name>",
+    "arbitrary_main_name_rejected": true,
+    "blind_retry": false,
+    "distinct_settlement_required": true,
+    "durable_receipt_requires_fresh_active": true,
+    "observed_revision": 181,
+    "observed_state": "exact paths 18/18; component display names unchanged; all 18 structural main names auto-projected by native LibraryComponent.path setter; receipt missing",
+    "preserved_component_ids": 18,
+    "preserved_linked_instance_ids": 26,
+    "preserved_main_ids": 18,
+    "recovery_creates": 0,
+    "recovery_detach_clone_recreate": 0,
+    "recovery_path_setters": 0
+  },
   "native_observation": {
     "baseline_paths": {
       "empty": 15,
@@ -202,7 +218,7 @@
       "projection SHA-256",
       "18 component display names and IDs",
       "18 main layer names and IDs",
-      "18 native component\u2194main relationship proofs",
+      "18 native component↔main relationship proofs",
       "current and canonical component-library paths",
       "26 linked-instance IDs and relationships",
       "visible product-label projection digest",
@@ -229,6 +245,6 @@
     "node_total_cases": 18,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
-    "standalone_bundle_cases": 3
+    "standalone_bundle_cases": 5
   }
 }

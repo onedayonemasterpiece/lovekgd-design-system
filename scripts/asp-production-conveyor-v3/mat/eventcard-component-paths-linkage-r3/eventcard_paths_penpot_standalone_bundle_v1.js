@@ -121,10 +121,20 @@ const stringOnly = (value) => {
   return value;
 };
 
-function acceptedMainLayerNames(spec) {
-  return spec.legacyMain
+function nativeProjectedMainLayerName(spec) {
+  return `${PATHS[spec.group]} / ${spec.displayName}`;
+}
+
+function acceptedMainLayerNames(spec, currentPath) {
+  const accepted = spec.legacyMain
     ? new Set([spec.displayName, `${LEGACY_MAIN_PREFIX}${spec.displayName}`])
     : new Set([spec.displayName]);
+  // Penpot's LibraryComponent.path setter has a documented native side effect:
+  // it projects the canonical library path into the structural main-layer name.
+  // Accept that exact derived value only after the component already has the
+  // matching canonical path. Component display identity remains authoritative.
+  if (currentPath === PATHS[spec.group]) accepted.add(nativeProjectedMainLayerName(spec));
+  return accepted;
 }
 
 function collection(adapter) {
@@ -158,14 +168,14 @@ function componentRows(adapter) {
     if (!item.id || !item.main || !item.main.id || !item.main.name) fail('PATHS_R3_COMPONENT_OR_MAIN_ID_MISSING');
     if (spec.componentId && item.id !== spec.componentId) fail('PATHS_R3_PINNED_COMPONENT_ID_DRIFT');
     if (spec.mainId && item.main.id !== spec.mainId) fail('PATHS_R3_PINNED_MAIN_ID_DRIFT');
-    if (!acceptedMainLayerNames(spec).has(item.main.name)) fail('PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
+    const currentPath = String(item.path ?? '');
+    if (!acceptedMainLayerNames(spec, currentPath).has(item.main.name)) fail('PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
 
     const relationship = adapter.componentMainRelationship(item.id, item.main.id);
     if (!relationship || relationship.componentId !== item.id || relationship.mainId !== item.main.id ||
         relationship.native !== true) fail('PATHS_R3_COMPONENT_MAIN_RELATIONSHIP_DRIFT');
 
     const expectedPath = PATHS[spec.group];
-    const currentPath = String(item.path ?? '');
     const pathAllowed = currentPath === '' || currentPath === expectedPath ||
       (spec.legacyMain && currentPath === LEGACY_PATH);
     if (!pathAllowed) fail('PATHS_R3_UNKNOWN_COMPONENT_PATH');
@@ -182,6 +192,7 @@ function componentRows(adapter) {
       kind: spec.kind,
       linkedCount: spec.linkedCount,
       legacyMainLayerNameAccepted: item.main.name.startsWith(LEGACY_MAIN_PREFIX),
+      nativeProjectedMainLayerName: item.main.name === nativeProjectedMainLayerName(spec),
     };
   });
 
@@ -273,7 +284,7 @@ function assertAuthorization(auth, projection) {
 function stableIdentity(projection) {
   return {
     components: projection.components.map((row) => [
-      row.semanticName, row.displayName, row.currentMainLayerName, row.componentId, row.mainId,
+      row.semanticName, row.displayName, row.componentId, row.mainId,
       row.relationship.componentId, row.relationship.mainId,
     ]),
     linkedInstances: projection.linkedInstances,
@@ -378,6 +389,7 @@ return {
   PACKAGE_ID, PARENT_PACKAGE_ID, FILE_ID, PAGE_ID, COLLECTION_ID, COLLECTION_NAME,
   LEGACY_PATH, LEGACY_MAIN_PREFIX, PATHS, SPECS, MAIN_LAYER_NORMALIZATION_DECISION,
   LinkageStop, canonical, sha256, stringOnly,
+  nativeProjectedMainLayerName,
   projectState, stableIdentity,
   projectEventcardPathsLinkageR3, executeEventcardPathsLinkageR3,
   readEventcardPathsLinkageSettlementR3,
@@ -499,20 +511,22 @@ function nativeAdapter(context, page) {
   // namespace members belong to this package; the other 17 are protected.
   const components = fileLocalComponents.filter((component) => targetNames.has(component?.name));
   const otherComponents = fileLocalComponents.filter((component) => !targetNames.has(component?.name));
+  const targetMainIds = new Set(components.map((component) => String(mainOf(component)?.id || '')));
   const pageRoots = children(page.root);
   const roots = pageRoots.filter((shape) => String(shape?.id || '') === M.COLLECTION_ID);
   const board = roots[0];
   const allShapes = walk(page.root);
   const protectedDigest = M.sha256({
     fileId: M.FILE_ID, pageId: M.PAGE_ID,
-    shapes: allShapes.map(shapeProjection).sort((a, b) => a.id.localeCompare(b.id)),
+    shapes: allShapes.map(shapeProjection).map((shape) => targetMainIds.has(shape.id)
+      ? { ...shape, name: undefined } : shape).sort((a, b) => a.id.localeCompare(b.id)),
     components: fileLocalComponents.map((component) => {
       const main = mainOf(component);
       // LibraryComponent.path is intentionally excluded: this is the path-only
       // repair's protected geometry/text/media/ID projection.
       const target = targetNames.has(component?.name);
       return { id: String(component?.id || ''), name: component?.name ?? null,
-        mainId: String(main?.id || ''), mainName: main?.name ?? null,
+        mainId: String(main?.id || ''), mainName: target ? undefined : main?.name ?? null,
         path: target ? undefined : String(component?.path ?? '') };
     }).sort((a, b) => a.id.localeCompare(b.id)),
   });
@@ -700,9 +714,33 @@ async function executeEventcardPathsPenpotR3(context, authorization) {
 
   const terminalAlready = fresh.count.exact === 18 && fresh.count.empty === 0 && fresh.count.legacy === 0;
   if (terminalAlready) {
-    if (!readReceiptMarker(context)) fail('PATHS_R3_TERMINAL_WITHOUT_DURABLE_RECEIPT');
-    return { schema: RUNTIME_SCHEMA, state: 'REPLAY_NOOP', created: 0, pathMutations: 0,
-      secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
+    if (readReceiptMarker(context)) {
+      return { schema: RUNTIME_SCHEMA, state: 'REPLAY_NOOP', created: 0, pathMutations: 0,
+        secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
+    }
+    const automatic = fresh.components.filter((row) => row.nativeProjectedMainLayerName).length;
+    if (automatic !== 18) fail('PATHS_R3_TERMINAL_MAIN_LAYER_NATIVE_PROJECTION_CENSUS');
+    // Recovery of the exact unknown-outcome state: all native path setters
+    // already landed, but the prior bundle stopped before its durable receipt.
+    // Never call a path setter again. Only persist the recovery receipt under
+    // the fresh bounded ACTIVE authorization, then mandate later readback.
+    const recovered = {
+      schema: 'kenigevents.eventcard-paths-penpot-execution-receipt.r3', packageId: M.PACKAGE_ID,
+      packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+      authorizedRevision: authorization.revision,
+      authorizedProjectionSha256: authorization.projectionSha256,
+      terminalProjectionSha256: fresh.projectionSha256,
+      state: 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK', pathMutations: 0,
+      recoveredPriorPathMutations: 18, nativeAutomaticMainLayerNameProjections: 18,
+      componentIds: fresh.componentIds, mainIds: fresh.mainIds,
+      linkedInstanceIds: fresh.linkedInstanceIds,
+      displayNameMutations: 0, explicitMainLayerNameMutations: 0,
+      textMutations: 0, mediaMutations: 0,
+      detach: 0, clone: 0, recreate: 0, created: 0, retryAllowed: false,
+      recovery: 'POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION',
+    };
+    await writeReceiptMarker(context, authorization, recovered);
+    return recovered;
   }
   if (M.canonical(fresh.count) !== M.canonical({ exact: 0, empty: 15, legacy: 3 })) {
     fail('PATHS_R3_PARTIAL_STATE_REQUIRES_OWNER_READBACK');
@@ -755,8 +793,9 @@ async function readEventcardPathsPenpotSettlementR3(context, receipt) {
       M.canonical(terminal.linkedInstanceIds) !== M.canonical(receipt.linkedInstanceIds)) {
     fail('PATHS_R3_NATIVE_SETTLEMENT_ID_DRIFT');
   }
-  return { schema: RUNTIME_SCHEMA, state: 'PATHS_18_OF_18_LINKAGE_READBACK_PASS_PENDING_V0',
+    return { schema: RUNTIME_SCHEMA, state: 'PATHS_18_OF_18_LINKAGE_READBACK_PASS_PENDING_V0',
     exactCanonicalPaths: 18, componentIds: 18, mainIds: 18, linkedInstances: 26,
+    nativeAutomaticMainLayerNameProjections: terminal.components.filter((row) => row.nativeProjectedMainLayerName).length,
     readbackMutations: 0, validation: [], visualPass: false, wholeEventcardPass: false };
 }
 
@@ -791,7 +830,7 @@ async function __conformanceSettlement(host) { return { state:'DONE', created:0,
 const PUBLIC_API = Object.freeze({
   metadata: Object.freeze({
     schema: 'D0_PLUGIN_BUNDLE_V1', package_id: M.PACKAGE_ID, bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE',
-    global_name: 'KenigEventsD0EventcardPathsR3StandaloneV2',
+    global_name: 'KenigEventsD0EventcardPathsR3StandaloneV3',
     entrypoints: Object.freeze({projection:'projection', execution:'execution', settlement:'settlement'}),
     current_page_activation: true, max_creates_per_phase: 3, replay_created: 0,
     mutation_scope: 'LibraryComponent.path only', unknown_outcome: 'DISTINCT_READ_ONLY_PROJECTION_NO_RETRY'
@@ -810,5 +849,5 @@ const PUBLIC_API = Object.freeze({
   projectEventcardPathsPenpotR3, executeEventcardPathsPenpotR3,
   readEventcardPathsPenpotSettlementR3, assertPhysicalActive, })
 });
-Object.defineProperty(global, 'KenigEventsD0EventcardPathsR3StandaloneV2', {value: PUBLIC_API, enumerable: true, configurable: false, writable: false});
+Object.defineProperty(global, 'KenigEventsD0EventcardPathsR3StandaloneV3', {value: PUBLIC_API, enumerable: true, configurable: false, writable: false});
 })(globalThis);

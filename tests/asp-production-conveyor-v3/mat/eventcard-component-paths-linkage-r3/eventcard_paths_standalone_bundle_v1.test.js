@@ -14,7 +14,7 @@ const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocati
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox, { filename: BUNDLE });
-const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV2;
+const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV3;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -30,7 +30,8 @@ class Fixture {
       const component = { id: spec.componentId || `component-${index}`, name: spec.displayName, mainInstance: () => main };
       let componentPath = spec.legacyMain ? M.LEGACY_PATH : '';
       Object.defineProperty(component, 'path', { enumerable: true, get: () => componentPath, set: (value) => {
-        componentPath = value; this.pathWrites.push([component.id, value]);
+        componentPath = value; main.name = `${value} / ${component.name}`;
+        this.pathWrites.push([component.id, value]);
       }});
       main.component = () => component; board.children.push(main); return component;
     });
@@ -92,17 +93,48 @@ test('single artifact loads in a browser-like VM and exposes exact D0 bundle API
   assert.equal(M.sha256({b:2,a:1}), crypto.createHash('sha256').update(M.canonical({b:2,a:1})).digest('hex'));
 });
 
-test('standalone bundle executes 18 path-only writes, settles, and replay creates zero', async () => {
+test('standalone bundle accepts Penpot-native main-layer projection, settles, and replay creates zero', async () => {
   const fixture = new Fixture();
   const projection = await API.projection(fixture.host); fixture.authorize(projection);
   const ids = fixture.components.map((c) => [c.id,c.name,c.mainInstance().id,c.mainInstance().name]);
   const receipt = await API.execution(fixture.host);
   assert.equal(receipt.pathMutations,18); assert.equal(receipt.created,0); assert.equal(fixture.pathWrites.length,18);
-  assert.deepEqual(fixture.components.map((c) => [c.id,c.name,c.mainInstance().id,c.mainInstance().name]),ids);
+  assert.deepEqual(fixture.components.map((c) => [c.id,c.name,c.mainInstance().id]),ids.map((row) => row.slice(0,3)));
+  assert.equal(fixture.components.filter((component, index) =>
+    component.mainInstance().name === `${M.PATHS[M.SPECS[index].group]} / ${component.name}`).length,18);
   const settlement = await API.settlement(fixture.host); assert.equal(settlement.exactCanonicalPaths,18);
   fixture.host.receipt = null; const terminal = await API.projection(fixture.host); fixture.authorize(terminal);
   const replay = await API.execution(fixture.host); assert.equal(replay.state,'REPLAY_NOOP');
   assert.equal(replay.secondRunCreated,0); assert.equal(fixture.pathWrites.length,18);
+});
+
+test('post-write unknown-outcome recovery emits receipt with zero further path setters', async () => {
+  const fixture = new Fixture();
+  for (const [index, component] of fixture.components.entries()) component.path = M.PATHS[M.SPECS[index].group];
+  fixture.pathWrites.length = 0;
+  const ids = fixture.components.map((component) => [component.id, component.name, component.mainInstance().id]);
+  const linked = fixture.components.slice(14).flatMap((component) => component.mainInstance().children.map((shape) => shape.id));
+  const projection = await API.projection(fixture.host);
+  assert.equal(M.canonical(projection.count),M.canonical({exact:18,empty:0,legacy:0}));
+  fixture.authorize(projection);
+  const receipt = await API.execution(fixture.host);
+  assert.equal(receipt.pathMutations,0);
+  assert.equal(receipt.recoveredPriorPathMutations,18);
+  assert.equal(receipt.nativeAutomaticMainLayerNameProjections,18);
+  assert.equal(fixture.pathWrites.length,0);
+  assert.deepEqual(fixture.components.map((component) => [component.id, component.name, component.mainInstance().id]),ids);
+  assert.deepEqual(fixture.components.slice(14).flatMap((component) => component.mainInstance().children.map((shape) => shape.id)),linked);
+  fixture.host.receipt = receipt;
+  const settlement = await API.settlement(fixture.host);
+  assert.equal(settlement.nativeAutomaticMainLayerNameProjections,18);
+  assert.equal(settlement.readbackMutations,0);
+});
+
+test('canonical path does not authorize any unrelated structural main-layer name', async () => {
+  const fixture = new Fixture();
+  for (const [index, component] of fixture.components.entries()) component.path = M.PATHS[M.SPECS[index].group];
+  fixture.components[4].mainInstance().name = 'Unrelated visible rename';
+  await assert.rejects(() => API.projection(fixture.host), (error) => error.code === 'PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
 });
 
 test('bundle SHA/bytes must be exact in authorization and provenance before any write', async () => {
