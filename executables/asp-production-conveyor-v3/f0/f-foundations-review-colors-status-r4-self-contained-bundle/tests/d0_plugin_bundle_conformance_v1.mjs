@@ -442,6 +442,12 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   invariant(revisionDescriptor && typeof revisionDescriptor.get === 'function', 'NATIVE_REVISION_ALIAS_GUARD_MISSING');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
 
+  if (typeof bundle.conformance.identityNegativeProbe === 'function') {
+    const negative = await bundle.conformance.identityNegativeProbe(host);
+    for (const key of ['authorization_head','physical_head','immutable_head','operation_identity']) invariant(negative[key] === true, `PROVIDER_IDENTITY_DRIFT_ACCEPTED:${key}`);
+    invariant(instrumented.audit.creates === 0, 'PROVIDER_IDENTITY_NEGATIVE_CREATED');
+  }
+
   const strictProbe = await bundle.conformance.strictStringProbe(host);
   invariant(strictProbe && strictProbe.string === 'PASS', 'STRICT_STRING_ACCEPTANCE_MISSING');
   for (const key of ['number', 'object', 'boolean', 'null', 'undefined']) {
