@@ -25,7 +25,7 @@ native calls. Unknown outcome requires projection/readback; blind retry is forbi
 ```bash
 node tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs \
   --bundle executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r4-self-contained-bundle/dist/penpot-plugin.bundle.js \
-  --sha256 52b9afaabfc2a3ff4cabc3ca6add2a76ba4481476721c82c69d2ba9c4559a7ca \
+  --sha256 8a394cc28b40c2190099b449b436b89188e9753a25c7b734cc73da36bd4526a4 \
   --global KenigeventsF0DirectPluginBundle
 ```
 
@@ -35,3 +35,5 @@ tree `f0603efe12801a9beb3a156eefd8bff12544246b`.
 Terminal census: eight native masters, 24 linked tier specimens, six exact SVGs, two exact WebPs,
 two non-empty WebP leaf export proofs, `validation=[]`, detached/screenshot/duplicate counts zero,
 and replay-created zero.
+
+Atlas binding is literal: `page_order=0090`; `header=page_header`; `master_column=package_owned_masters`; `review_grid=linked_review_instances`. These values are written as string-only page/slot provenance and do not change product geometry or assets.
