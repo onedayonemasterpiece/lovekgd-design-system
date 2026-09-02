@@ -380,6 +380,7 @@ const RECEIPT_KEY = 'eventcard-media-same-tuple-r3-receipt';
 const PROGRESS_KEY = 'eventcard-media-same-tuple-r3-progress';
 const HEX40 = /^[0-9a-f]{40}$/;
 const HEX64 = /^[0-9a-f]{64}$/;
+const EXACT_PROVIDER_IDENTITY = Object.freeze({"schema":"kenigevents.eventcard-media-provider-identity.v1","packageBranch":"agent/d0-eventcard-media-v7-content-addressed-provider-20260902","packageHead":"282b188d1db3fd0d54d75ee8b2d66edeed18108b","packageTree":"7d17d39f771104b084c09bf5cdb61e94b90b1327","bundleSha256":"c88c0bcdb4f74cf64415c777be5c8a57caffb88db7f06326d84f655a8ceb053b","bundleBlobSha1":"97337fa4556bd2a2a9f5619625a3ccc3ef991b34","bundleBytes":34007,"operationIdentitySha256":"693a6e9574af1d290cb90bdcc091789aa415e48d9a0c03d6e48a13b9820af678","sourceHead":"282b188d1db3fd0d54d75ee8b2d66edeed18108b"});
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
@@ -391,6 +392,16 @@ const fail = (code, unknown = false) => {
   if (unknown) error.requiredNextOperation = 'DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION';
   throw error;
 };
+
+function assertProviderContext(context) {
+  const expected = EXACT_PROVIDER_IDENTITY;
+  if (context.exactPackageHead !== expected.packageHead || context.exactPackageTree !== expected.packageTree ||
+      context.exactBundleSha256 !== expected.bundleSha256 || context.exactBundleBlobSha1 !== expected.bundleBlobSha1 ||
+      context.exactBundleBytes !== expected.bundleBytes ||
+      context.exactOperationIdentitySha256 !== expected.operationIdentitySha256 ||
+      context.exactSourceHead !== expected.sourceHead) fail('MEDIA_R3_EXACT_PROVIDER_CONTEXT_MISMATCH');
+  return expected;
+}
 
 function walk(root) {
   const output = [], queue = root ? [root] : [];
@@ -440,12 +451,13 @@ function readActive(context) {
 }
 
 function authorizationEnvelope(context, authorization) {
-  if (!HEX40.test(String(context.exactPackageHead || '')) || !HEX40.test(String(context.exactPackageTree || ''))) {
-    fail('MEDIA_R3_PROVIDER_IDENTITY_MISSING');
-  }
+  const provider = assertProviderContext(context);
   const expected = {
     schema: AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
-    packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+    packageHead: provider.packageHead, packageTree: provider.packageTree,
+    bundleSha256: provider.bundleSha256, bundleBlobSha1: provider.bundleBlobSha1,
+    bundleBytes: provider.bundleBytes, operationIdentitySha256: provider.operationIdentitySha256,
+    sourceHead: provider.sourceHead,
     state: 'ACTIVE', authorized: true, cancelled: false,
     sourceRegistrySha256: M.sourceRegistrySha256(),
     ownerDirective: OWNER_DIRECTIVE, authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
@@ -458,17 +470,20 @@ function authorizationEnvelope(context, authorization) {
   for (const key of ['sessionId', 'taskId', 'writerId', 'operationId', 'cancelToken', 'leaseToken']) {
     if (!p || typeof p[key] !== 'string' || p[key].length < 8) fail(`MEDIA_R3_PROVENANCE_${key.toUpperCase()}_INVALID`);
   }
-  const bound = { packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
-    packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
+  const bound = { packageId: M.PACKAGE_ID, packageHead: provider.packageHead,
+    packageTree: provider.packageTree, triggeredBy: authorization.triggeredBy,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID, authorityScope: AUTHORITY_SCOPE,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    bundleSha256: provider.bundleSha256, bundleBlobSha1: provider.bundleBlobSha1,
+    bundleBytes: provider.bundleBytes, operationIdentitySha256: provider.operationIdentitySha256,
+    sourceHead: provider.sourceHead,
     operationId: authorization.operationId,
     revision: authorization.revision, projectionSha256: authorization.projectionSha256,
     previousPhaseReceiptSha256: authorization.previousPhaseReceiptSha256 };
   if (typeof authorization.triggeredBy !== 'string' || !authorization.triggeredBy) fail('MEDIA_R3_TRIGGERED_BY_MISSING');
   for (const key of ['sessionId', 'taskId', 'writerId', 'triggeredBy', 'cancelToken', 'leaseToken',
-    'operationId', 'bundleSha256', 'bundleBytes', 'revision', 'projectionSha256',
+    'operationId', 'bundleSha256', 'bundleBlobSha1', 'bundleBytes', 'operationIdentitySha256',
+    'sourceHead', 'revision', 'projectionSha256',
     'previousPhaseReceiptSha256']) {
     if (authorization[key] !== p[key]) fail(`MEDIA_R3_AUTH_${key.toUpperCase()}_PROVENANCE_PARITY`);
   }
@@ -486,11 +501,13 @@ function assertActive(context, authorization) {
   const p = authorization.provenance, marker = readActive(context);
   const expected = { schema: ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
     sessionId: p.sessionId, taskId: p.taskId, writerId: p.writerId,
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
     triggeredBy: authorization.triggeredBy,
     ownerDirective: OWNER_DIRECTIVE, authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, cancelToken: p.cancelToken, leaseToken: p.leaseToken,
-    leaseExpiresAt: p.leaseExpiresAt, bundleSha256: p.bundleSha256, bundleBytes: p.bundleBytes,
+    leaseExpiresAt: p.leaseExpiresAt, bundleSha256: p.bundleSha256, bundleBlobSha1: p.bundleBlobSha1,
+    bundleBytes: p.bundleBytes, operationIdentitySha256: p.operationIdentitySha256, sourceHead: p.sourceHead,
     operationId: p.operationId, revision: p.revision, projectionSha256: p.projectionSha256,
     previousPhaseReceiptSha256: p.previousPhaseReceiptSha256 };
   for (const [key, value] of Object.entries(expected)) {
@@ -699,8 +716,13 @@ async function distinctUnknown(context, error, calls) {
 
 function immutableOperationIdentity(context, authorization) {
   return {
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
+    bundleSha256: EXACT_PROVIDER_IDENTITY.bundleSha256,
+    bundleBlobSha1: EXACT_PROVIDER_IDENTITY.bundleBlobSha1,
+    bundleBytes: EXACT_PROVIDER_IDENTITY.bundleBytes,
+    operationIdentitySha256: EXACT_PROVIDER_IDENTITY.operationIdentitySha256,
+    sourceHead: EXACT_PROVIDER_IDENTITY.sourceHead,
     sourceRegistrySha256: M.sourceRegistrySha256(), authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, writerId: SOLE_WRITER, operationId: authorization.operationId,
   };
@@ -753,8 +775,13 @@ function receiptValue(context, authorization = null) {
   const value = parseDurable(context, RECEIPT_KEY, 'kenigevents.eventcard-media-penpot-execution-receipt.r3', 'RECEIPT');
   if (!value) return null;
   const expected = {
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
+    bundleSha256: EXACT_PROVIDER_IDENTITY.bundleSha256,
+    bundleBlobSha1: EXACT_PROVIDER_IDENTITY.bundleBlobSha1,
+    bundleBytes: EXACT_PROVIDER_IDENTITY.bundleBytes,
+    operationIdentitySha256: EXACT_PROVIDER_IDENTITY.operationIdentitySha256,
+    sourceHead: EXACT_PROVIDER_IDENTITY.sourceHead,
     sourceRegistrySha256: M.sourceRegistrySha256(), authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, writerId: SOLE_WRITER,
   };
@@ -883,11 +910,16 @@ function __withEmbeddedAssets(host) {
 }
 function __assertBundleAuthorization(host) {
   const auth = host && host.authorization;
-  if (!host || typeof host.exactBundleSha256 !== 'string' || !/^[0-9a-f]{64}$/.test(host.exactBundleSha256) ||
-      !Number.isInteger(host.exactBundleBytes) || host.exactBundleBytes <= 0 ||
-      !auth || auth.bundleSha256 !== host.exactBundleSha256 || auth.bundleBytes !== host.exactBundleBytes ||
-      !auth.provenance || auth.provenance.bundleSha256 !== host.exactBundleSha256 ||
-      auth.provenance.bundleBytes !== host.exactBundleBytes) {
+  const p=EXACT_PROVIDER_IDENTITY;
+  if (!host || host.exactPackageHead!==p.packageHead || host.exactPackageTree!==p.packageTree ||
+      host.exactBundleSha256!==p.bundleSha256 || host.exactBundleBlobSha1!==p.bundleBlobSha1 ||
+      host.exactBundleBytes!==p.bundleBytes || host.exactOperationIdentitySha256!==p.operationIdentitySha256 ||
+      host.exactSourceHead!==p.sourceHead || !auth || auth.bundleSha256!==p.bundleSha256 ||
+      auth.bundleBlobSha1!==p.bundleBlobSha1 || auth.bundleBytes!==p.bundleBytes ||
+      auth.operationIdentitySha256!==p.operationIdentitySha256 || auth.sourceHead!==p.sourceHead ||
+      !auth.provenance || auth.provenance.bundleSha256!==p.bundleSha256 ||
+      auth.provenance.bundleBlobSha1!==p.bundleBlobSha1 || auth.provenance.bundleBytes!==p.bundleBytes ||
+      auth.provenance.operationIdentitySha256!==p.operationIdentitySha256 || auth.provenance.sourceHead!==p.sourceHead) {
     const error = new Error('MEDIA_R3_BUNDLE_AUTHORIZATION_MISMATCH');
     error.code = 'MEDIA_R3_BUNDLE_AUTHORIZATION_MISMATCH'; error.retryAllowed = false; throw error;
   }
@@ -911,17 +943,18 @@ async function __createNativeConformanceHost(seed) {
   while(collection.children.length<18){const index=collection.children.length,dummy=node(`media-dummy-${index}`,'board');dummy.name=`event.leaf.${index}`;dummy.x=index;dummy.y=0;dummy.width=1;dummy.height=1;collection.appendChild(dummy);}
   p.library.local.components=Array.from({length:35},(_,index)=>{const target=index<18,name=target?(index<14?`event.leaf.${index}`:`eventcard.case.${index}`):`other.component.${index}`,main=node(`component-main-${index}`,'board');main.name=name;return {id:`component-${index}`,name,path:`Path / ${index}`,mainInstance:()=>main};});
   const rawUpload=p.uploadMediaData.bind(p);p.uploadMediaData=async(name,bytes,mimeType)=>{const image=await rawUpload(name,bytes,mimeType),asset=Object.values(M.SOURCE_ASSETS).find((value)=>value.bytes===bytes.byteLength&&value.mimeType===mimeType);if(!asset)throw new Error('MEDIA_CONFORMANCE_ASSET_UNKNOWN');image.name=name;image.width=asset.width;image.height=asset.height;image.mtype=asset.mimeType;image.data=async()=>new Uint8Array(bytes);return image;};
-  const host={penpot:p,storage:seed.storage,exactPackageHead:'a'.repeat(40),exactPackageTree:'b'.repeat(40),exactBundleSha256:'c'.repeat(64),exactBundleBytes:1};
+  const provider=EXACT_PROVIDER_IDENTITY;
+  const host={penpot:p,storage:seed.storage,exactPackageHead:provider.packageHead,exactPackageTree:provider.packageTree,exactBundleSha256:provider.bundleSha256,exactBundleBlobSha1:provider.bundleBlobSha1,exactBundleBytes:provider.bundleBytes,exactOperationIdentitySha256:provider.operationIdentitySha256,exactSourceHead:provider.sourceHead};
   await p.openPage(page);const projection=await projectEventcardMediaPenpotR3(__withEmbeddedAssets(host));
-  const provenance={sessionId:'session-media-v6',taskId:'task-media-v6',writerId:SOLE_WRITER,operationId:'operation-media-v6',triggeredBy:'d0-conformance-media-v6',cancelToken:'cancel-media-v6',leaseToken:'lease-media-v6-0',leaseExpiresAt:Date.now()+600000,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes,revision:projection.revision,projectionSha256:projection.projectionSha256,previousPhaseReceiptSha256:null};
-  host.authorization={schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,state:'ACTIVE',authorized:true,cancelled:false,sourceRegistrySha256:M.sourceRegistrySha256(),ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,operationId:provenance.operationId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256,previousPhaseReceiptSha256:null,provenance};
-  p.currentFile.setSharedPluginData(NAMESPACE,ACTIVE_KEY,M.canonical({schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,operationId:provenance.operationId,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,triggeredBy:provenance.triggeredBy,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256,previousPhaseReceiptSha256:null}));
+  const provenance={sessionId:'session-media-v7',taskId:'task-media-v7',writerId:SOLE_WRITER,operationId:'operation-media-v7',triggeredBy:'d0-conformance-media-v7',cancelToken:'cancel-media-v7',leaseToken:'lease-media-v7-0',leaseExpiresAt:Date.now()+600000,packageId:M.PACKAGE_ID,packageHead:provider.packageHead,packageTree:provider.packageTree,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:provider.bundleSha256,bundleBlobSha1:provider.bundleBlobSha1,bundleBytes:provider.bundleBytes,operationIdentitySha256:provider.operationIdentitySha256,sourceHead:provider.sourceHead,revision:projection.revision,projectionSha256:projection.projectionSha256,previousPhaseReceiptSha256:null};
+  host.authorization={schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:provider.packageHead,packageTree:provider.packageTree,state:'ACTIVE',authorized:true,cancelled:false,sourceRegistrySha256:M.sourceRegistrySha256(),ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,operationId:provenance.operationId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,bundleSha256:provenance.bundleSha256,bundleBlobSha1:provenance.bundleBlobSha1,bundleBytes:provenance.bundleBytes,operationIdentitySha256:provenance.operationIdentitySha256,sourceHead:provenance.sourceHead,revision:provenance.revision,projectionSha256:provenance.projectionSha256,previousPhaseReceiptSha256:null,provenance};
+  p.currentFile.setSharedPluginData(NAMESPACE,ACTIVE_KEY,M.canonical({schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,operationId:provenance.operationId,packageId:M.PACKAGE_ID,packageHead:provider.packageHead,packageTree:provider.packageTree,triggeredBy:provenance.triggeredBy,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBlobSha1:provenance.bundleBlobSha1,bundleBytes:provenance.bundleBytes,operationIdentitySha256:provenance.operationIdentitySha256,sourceHead:provenance.sourceHead,revision:provenance.revision,projectionSha256:provenance.projectionSha256,previousPhaseReceiptSha256:null}));
   return host;
 }
 const PUBLIC_API=Object.freeze({
   metadata:Object.freeze({
     schema:'D0_PLUGIN_BUNDLE_V1',package_id:M.PACKAGE_ID,bundle_sha256_binding:'EXTERNAL_AUTHORIZATION_TUPLE',
-    global_name:'KenigEventsD0EventcardMediaR3StandaloneV6',entrypoints:Object.freeze({projection:'projection',execution:'execution',settlement:'settlement'}),
+    global_name:'KenigEventsD0EventcardMediaR3StandaloneV7',entrypoints:Object.freeze({projection:'projection',execution:'execution',settlement:'settlement'}),
     current_page_activation:true,max_creates_per_phase:3,replay_created:0,
     mutation_scope:'four existing media fills plus target-local string evidence',unknown_outcome:'DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY',
     embedded_assets:2
@@ -934,11 +967,12 @@ const PUBLIC_API=Object.freeze({
     prepareReplay:async(host,seed)=>({penpot:seed.penpot,storage:seed.storage,exactPackageHead:host.exactPackageHead,exactPackageTree:host.exactPackageTree,exactBundleSha256:host.exactBundleSha256,exactBundleBytes:host.exactBundleBytes,authorization:host.authorization}),
     strictStringProbe:async(host)=>{const page=host.penpot.__seedPage('eventcard-media-string-probe');const values={number:374,object:{x:1},boolean:true,null:null,undefined:void 0},result={string:'FAIL'};__conformanceWrite(page,'374');result.string='PASS';for(const key of Object.keys(values)){try{__conformanceWrite(page,values[key]);result[key]='ACCEPTED';}catch{result[key]='REJECTED';}}return result;}
   }),
-  constants:Object.freeze({packageId:M.PACKAGE_ID,fileId:M.FILE_ID,pageId:M.PAGE_ID,collectionId:M.COLLECTION_ID,sourceAssets:M.SOURCE_ASSETS}),
+  constants:Object.freeze({packageId:M.PACKAGE_ID,fileId:M.FILE_ID,pageId:M.PAGE_ID,collectionId:M.COLLECTION_ID,sourceAssets:M.SOURCE_ASSETS,providerIdentity:EXACT_PROVIDER_IDENTITY}),
   internals:Object.freeze({logic:M,AUTH_SCHEMA, ACTIVE_SCHEMA, RUNTIME_SCHEMA, OWNER_DIRECTIVE,
   AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE, SOLE_WRITER, NAMESPACE, ACTIVE_KEY, RECEIPT_KEY, PROGRESS_KEY,
+  EXACT_PROVIDER_IDENTITY,
   shaBytes, projectEventcardMediaPenpotR3, executeEventcardMediaPenpotR3,
   readEventcardMediaPenpotSettlementR3, nativeCoverageProof, assertActive})
 });
-Object.defineProperty(global,'KenigEventsD0EventcardMediaR3StandaloneV6',{value:PUBLIC_API,enumerable:true,configurable:false,writable:false});
+Object.defineProperty(global,'KenigEventsD0EventcardMediaR3StandaloneV7',{value:PUBLIC_API,enumerable:true,configurable:false,writable:false});
 })(globalThis);

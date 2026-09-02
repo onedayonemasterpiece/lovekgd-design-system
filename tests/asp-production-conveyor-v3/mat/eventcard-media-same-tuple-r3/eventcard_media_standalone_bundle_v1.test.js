@@ -7,19 +7,21 @@ const crypto = require('node:crypto');
 const vm = require('node:vm');
 const BUNDLE = path.resolve(__dirname, '../../../../scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js');
 const BUNDLE_SOURCE = fs.readFileSync(BUNDLE, 'utf8');
-const BUNDLE_SHA = crypto.createHash('sha256').update(BUNDLE_SOURCE).digest('hex');
-const BUNDLE_BYTES = Buffer.byteLength(BUNDLE_SOURCE);
+const OUTER_BUNDLE_SHA = crypto.createHash('sha256').update(BUNDLE_SOURCE).digest('hex');
+const OUTER_BUNDLE_BYTES = Buffer.byteLength(BUNDLE_SOURCE);
 const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocation'); }, console, Uint8Array, ArrayBuffer, DataView };
 sandbox.globalThis = sandbox; vm.createContext(sandbox); vm.runInContext(BUNDLE_SOURCE, sandbox, { filename:BUNDLE });
-const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV6;
+const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV7;
 const M = API.internals.logic;
 const R = API.internals;
-const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
+const PROVIDER = API.constants.providerIdentity;
+const HEAD = PROVIDER.packageHead, TREE = PROVIDER.packageTree, BUNDLE_SHA = PROVIDER.bundleSha256, BUNDLE_BYTES = PROVIDER.bundleBytes;
 const ASSET_DIR = path.resolve(__dirname, '../../../../catalog/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/assets');
 
 test('single media artifact is browser-loadable and embeds exact source assets', () => {
   assert.equal(API.metadata.schema,'D0_PLUGIN_BUNDLE_V1'); assert.equal(API.metadata.embedded_assets,2);
   assert.equal(API.metadata.bundle_sha256_binding,'EXTERNAL_AUTHORIZATION_TUPLE');
+  assert.match(OUTER_BUNDLE_SHA,/^[0-9a-f]{64}$/); assert.ok(OUTER_BUNDLE_BYTES > PROVIDER.bundleBytes);
   for (const name of ['projection','execution','settlement']) assert.equal(typeof API[name],'function');
   for (const pattern of [/\brequire\s*\(/,/\bmodule\b/,/\bexports\b/,/\bprocess\b/,/\bBuffer\b/,/\bimport\s*\(/,/\bimport\s+/]) assert.equal(pattern.test(BUNDLE_SOURCE),false);
   assert.equal(M.sha256({b:2,a:1}),crypto.createHash('sha256').update(M.canonical({b:2,a:1})).digest('hex'));
@@ -99,7 +101,7 @@ class Fixture {
         this.uploads.push(image); this.nativeHook?.('upload', this.uploads.length); return image;
       } };
     this.active = null;
-    this.context = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE, exactBundleSha256: BUNDLE_SHA, exactBundleBytes: BUNDLE_BYTES,
+    this.context = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE, exactBundleSha256: BUNDLE_SHA, exactBundleBlobSha1: PROVIDER.bundleBlobSha1, exactBundleBytes: BUNDLE_BYTES, exactOperationIdentitySha256: PROVIDER.operationIdentitySha256, exactSourceHead: PROVIDER.sourceHead,
       sourceAssets: this.sourceAssets, pageProfile: { profileId: 'free-collection.owner-review.v1',
         state: 'BLOCKED_OWNER_REJECTED', allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
       };
@@ -116,7 +118,7 @@ class Fixture {
       pageProfileSha256: this.context.pageProfile.profileSha256, ownerDirective: R.OWNER_DIRECTIVE,
       authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID, authorityScope: R.AUTHORITY_SCOPE,
       leaseToken: 'lease-eventcard-media', leaseExpiresAt: Date.now() + 60_000, cancelToken: 'cancel-eventcard-media',
-      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES, revision: projection.revision, projectionSha256: projection.projectionSha256,
+      bundleSha256: BUNDLE_SHA, bundleBlobSha1: PROVIDER.bundleBlobSha1, bundleBytes: BUNDLE_BYTES, operationIdentitySha256: PROVIDER.operationIdentitySha256, sourceHead: PROVIDER.sourceHead, revision: projection.revision, projectionSha256: projection.projectionSha256,
       previousPhaseReceiptSha256 };
     const authorization = { schema: R.AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
       packageHead: HEAD, packageTree: TREE, state: 'ACTIVE', authorized: true, cancelled: false,
@@ -125,14 +127,14 @@ class Fixture {
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
       authorityScope: R.AUTHORITY_SCOPE, triggeredBy: provenance.triggeredBy, sessionId: provenance.sessionId, taskId: provenance.taskId,
       writerId: provenance.writerId, operationId: provenance.operationId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken, provenance,
-      previousPhaseReceiptSha256, bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
+      previousPhaseReceiptSha256, bundleSha256: BUNDLE_SHA, bundleBlobSha1: PROVIDER.bundleBlobSha1, bundleBytes: BUNDLE_BYTES, operationIdentitySha256: PROVIDER.operationIdentitySha256, sourceHead: PROVIDER.sourceHead };
     this.active = { schema: R.ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
       sessionId: provenance.sessionId, taskId: provenance.taskId, writerId: provenance.writerId,
       packageId: provenance.packageId, packageHead: provenance.packageHead, packageTree: provenance.packageTree,
       triggeredBy: provenance.triggeredBy, pageProfileSha256: provenance.pageProfileSha256,
       ownerDirective: provenance.ownerDirective, authorityCardCommentId: provenance.authorityCardCommentId,
       authorityScope: provenance.authorityScope, operationId: provenance.operationId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken,
-      leaseExpiresAt: provenance.leaseExpiresAt, bundleSha256: provenance.bundleSha256, bundleBytes: provenance.bundleBytes,
+      leaseExpiresAt: provenance.leaseExpiresAt, bundleSha256: provenance.bundleSha256, bundleBlobSha1: provenance.bundleBlobSha1, bundleBytes: provenance.bundleBytes, operationIdentitySha256: provenance.operationIdentitySha256, sourceHead: provenance.sourceHead,
       revision: provenance.revision, projectionSha256: provenance.projectionSha256, previousPhaseReceiptSha256 };
     this.context.authorization = authorization;
     this.syncActive();
@@ -202,6 +204,21 @@ test('package bytes, head/tree, current projection, owner Media scope and physic
       (error) => String(error.code || '').startsWith('MEDIA_R3_'));
     assert.equal(fixture.fillWrites.length, 0);
   }
+});
+
+test('self-consistent wrong provider context, auth, provenance and physical ACTIVE reject before create', async () => {
+  const fixture = new Fixture(), projection = await API.projection(fixture.context), auth = fixture.authorize(projection);
+  const wrong = { packageHead: 'a'.repeat(40), packageTree: 'b'.repeat(40), bundleSha256: 'c'.repeat(64),
+    bundleBlobSha1: 'd'.repeat(40), bundleBytes: 1, operationIdentitySha256: 'e'.repeat(64), sourceHead: 'f'.repeat(40) };
+  Object.assign(fixture.context, { exactPackageHead: wrong.packageHead, exactPackageTree: wrong.packageTree,
+    exactBundleSha256: wrong.bundleSha256, exactBundleBlobSha1: wrong.bundleBlobSha1,
+    exactBundleBytes: wrong.bundleBytes, exactOperationIdentitySha256: wrong.operationIdentitySha256,
+    exactSourceHead: wrong.sourceHead });
+  Object.assign(auth, wrong); Object.assign(auth.provenance, wrong); Object.assign(fixture.active, wrong); fixture.syncActive();
+  await assert.rejects(() => API.execution(fixture.context),
+    (error) => error.code === 'MEDIA_R3_BUNDLE_AUTHORIZATION_MISMATCH' || error.code === 'MEDIA_R3_EXACT_PROVIDER_CONTEXT_MISMATCH');
+  assert.equal(fixture.uploads.length, 0); assert.equal(fixture.fillWrites.length, 0);
+  assert.equal(fixture.evidenceWrites.length, 0);
 });
 
 test('cancel, bundle, revision and projection parity fail before every native write', async () => {

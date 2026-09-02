@@ -17,6 +17,17 @@ const RECEIPT_KEY = 'eventcard-media-same-tuple-r3-receipt';
 const PROGRESS_KEY = 'eventcard-media-same-tuple-r3-progress';
 const HEX40 = /^[0-9a-f]{40}$/;
 const HEX64 = /^[0-9a-f]{64}$/;
+const EXACT_PROVIDER_IDENTITY = Object.freeze({
+  schema: 'kenigevents.eventcard-media-provider-identity.v1',
+  packageBranch: 'agent/d0-eventcard-media-v7-content-addressed-provider-20260902',
+  packageHead: '282b188d1db3fd0d54d75ee8b2d66edeed18108b',
+  packageTree: '7d17d39f771104b084c09bf5cdb61e94b90b1327',
+  bundleSha256: 'cf235d51d66a7e4c19a57f35f171148ec52d54517752fca6310d6fa8d2709657',
+  bundleBlobSha1: '7179f58fbc87bd387ddb40e3e61e3e8727f9a437',
+  bundleBytes: 511919,
+  operationIdentitySha256: 'd34f379d3723a2e44bc6a75f42219f70f7224440044ad756457b90cf53973c7c',
+  sourceHead: '282b188d1db3fd0d54d75ee8b2d66edeed18108b',
+});
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
@@ -28,6 +39,16 @@ const fail = (code, unknown = false) => {
   if (unknown) error.requiredNextOperation = 'DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION';
   throw error;
 };
+
+function assertProviderContext(context) {
+  const expected = EXACT_PROVIDER_IDENTITY;
+  if (context.exactPackageHead !== expected.packageHead || context.exactPackageTree !== expected.packageTree ||
+      context.exactBundleSha256 !== expected.bundleSha256 || context.exactBundleBlobSha1 !== expected.bundleBlobSha1 ||
+      context.exactBundleBytes !== expected.bundleBytes ||
+      context.exactOperationIdentitySha256 !== expected.operationIdentitySha256 ||
+      context.exactSourceHead !== expected.sourceHead) fail('MEDIA_R3_EXACT_PROVIDER_CONTEXT_MISMATCH');
+  return expected;
+}
 
 function walk(root) {
   const output = [], queue = root ? [root] : [];
@@ -77,12 +98,13 @@ function readActive(context) {
 }
 
 function authorizationEnvelope(context, authorization) {
-  if (!HEX40.test(String(context.exactPackageHead || '')) || !HEX40.test(String(context.exactPackageTree || ''))) {
-    fail('MEDIA_R3_PROVIDER_IDENTITY_MISSING');
-  }
+  const provider = assertProviderContext(context);
   const expected = {
     schema: AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
-    packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+    packageHead: provider.packageHead, packageTree: provider.packageTree,
+    bundleSha256: provider.bundleSha256, bundleBlobSha1: provider.bundleBlobSha1,
+    bundleBytes: provider.bundleBytes, operationIdentitySha256: provider.operationIdentitySha256,
+    sourceHead: provider.sourceHead,
     state: 'ACTIVE', authorized: true, cancelled: false,
     sourceRegistrySha256: M.sourceRegistrySha256(),
     ownerDirective: OWNER_DIRECTIVE, authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
@@ -95,17 +117,20 @@ function authorizationEnvelope(context, authorization) {
   for (const key of ['sessionId', 'taskId', 'writerId', 'operationId', 'cancelToken', 'leaseToken']) {
     if (!p || typeof p[key] !== 'string' || p[key].length < 8) fail(`MEDIA_R3_PROVENANCE_${key.toUpperCase()}_INVALID`);
   }
-  const bound = { packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
-    packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
+  const bound = { packageId: M.PACKAGE_ID, packageHead: provider.packageHead,
+    packageTree: provider.packageTree, triggeredBy: authorization.triggeredBy,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID, authorityScope: AUTHORITY_SCOPE,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    bundleSha256: provider.bundleSha256, bundleBlobSha1: provider.bundleBlobSha1,
+    bundleBytes: provider.bundleBytes, operationIdentitySha256: provider.operationIdentitySha256,
+    sourceHead: provider.sourceHead,
     operationId: authorization.operationId,
     revision: authorization.revision, projectionSha256: authorization.projectionSha256,
     previousPhaseReceiptSha256: authorization.previousPhaseReceiptSha256 };
   if (typeof authorization.triggeredBy !== 'string' || !authorization.triggeredBy) fail('MEDIA_R3_TRIGGERED_BY_MISSING');
   for (const key of ['sessionId', 'taskId', 'writerId', 'triggeredBy', 'cancelToken', 'leaseToken',
-    'operationId', 'bundleSha256', 'bundleBytes', 'revision', 'projectionSha256',
+    'operationId', 'bundleSha256', 'bundleBlobSha1', 'bundleBytes', 'operationIdentitySha256',
+    'sourceHead', 'revision', 'projectionSha256',
     'previousPhaseReceiptSha256']) {
     if (authorization[key] !== p[key]) fail(`MEDIA_R3_AUTH_${key.toUpperCase()}_PROVENANCE_PARITY`);
   }
@@ -123,11 +148,13 @@ function assertActive(context, authorization) {
   const p = authorization.provenance, marker = readActive(context);
   const expected = { schema: ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
     sessionId: p.sessionId, taskId: p.taskId, writerId: p.writerId,
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
     triggeredBy: authorization.triggeredBy,
     ownerDirective: OWNER_DIRECTIVE, authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, cancelToken: p.cancelToken, leaseToken: p.leaseToken,
-    leaseExpiresAt: p.leaseExpiresAt, bundleSha256: p.bundleSha256, bundleBytes: p.bundleBytes,
+    leaseExpiresAt: p.leaseExpiresAt, bundleSha256: p.bundleSha256, bundleBlobSha1: p.bundleBlobSha1,
+    bundleBytes: p.bundleBytes, operationIdentitySha256: p.operationIdentitySha256, sourceHead: p.sourceHead,
     operationId: p.operationId, revision: p.revision, projectionSha256: p.projectionSha256,
     previousPhaseReceiptSha256: p.previousPhaseReceiptSha256 };
   for (const [key, value] of Object.entries(expected)) {
@@ -336,8 +363,13 @@ async function distinctUnknown(context, error, calls) {
 
 function immutableOperationIdentity(context, authorization) {
   return {
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
+    bundleSha256: EXACT_PROVIDER_IDENTITY.bundleSha256,
+    bundleBlobSha1: EXACT_PROVIDER_IDENTITY.bundleBlobSha1,
+    bundleBytes: EXACT_PROVIDER_IDENTITY.bundleBytes,
+    operationIdentitySha256: EXACT_PROVIDER_IDENTITY.operationIdentitySha256,
+    sourceHead: EXACT_PROVIDER_IDENTITY.sourceHead,
     sourceRegistrySha256: M.sourceRegistrySha256(), authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, writerId: SOLE_WRITER, operationId: authorization.operationId,
   };
@@ -390,8 +422,13 @@ function receiptValue(context, authorization = null) {
   const value = parseDurable(context, RECEIPT_KEY, 'kenigevents.eventcard-media-penpot-execution-receipt.r3', 'RECEIPT');
   if (!value) return null;
   const expected = {
-    packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    packageId: M.PACKAGE_ID, packageHead: EXACT_PROVIDER_IDENTITY.packageHead,
+    packageTree: EXACT_PROVIDER_IDENTITY.packageTree,
+    bundleSha256: EXACT_PROVIDER_IDENTITY.bundleSha256,
+    bundleBlobSha1: EXACT_PROVIDER_IDENTITY.bundleBlobSha1,
+    bundleBytes: EXACT_PROVIDER_IDENTITY.bundleBytes,
+    operationIdentitySha256: EXACT_PROVIDER_IDENTITY.operationIdentitySha256,
+    sourceHead: EXACT_PROVIDER_IDENTITY.sourceHead,
     sourceRegistrySha256: M.sourceRegistrySha256(), authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, writerId: SOLE_WRITER,
   };
@@ -514,5 +551,6 @@ async function readEventcardMediaPenpotSettlementR3(context, receipt) {
 
 module.exports = { AUTH_SCHEMA, ACTIVE_SCHEMA, RUNTIME_SCHEMA, OWNER_DIRECTIVE,
   AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE, SOLE_WRITER, NAMESPACE, ACTIVE_KEY, RECEIPT_KEY, PROGRESS_KEY,
+  EXACT_PROVIDER_IDENTITY,
   shaBytes, projectEventcardMediaPenpotR3, executeEventcardMediaPenpotR3,
   readEventcardMediaPenpotSettlementR3, nativeCoverageProof, assertActive };

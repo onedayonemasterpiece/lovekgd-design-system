@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 511919,
+      "bytes": 515175,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "cf235d51d66a7e4c19a57f35f171148ec52d54517752fca6310d6fa8d2709657"
+      "sha256": "cfeff7e64988ed767c25ccfcc574074946d0866de3783c2b152b2bd85cdc3440"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 14592,
+      "bytes": 16614,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "c22ffd58f1dc1d70ce20c2da210bc9bc553824048bba16df19183574dac13cff"
+      "sha256": "2a63da3b2621526b4ee69f809e5340d3234746b18286b0d545586dff41eaff04"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,7 +34,7 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3StandaloneV6",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV7",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
     "portable_plain_data_clone": "owned plainDataClone; global structuredClone identifier absent",
@@ -63,9 +63,9 @@
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 20063,
+      "bytes": 22144,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "a2152d5594fe8c919d231161752818a7edeb7db5efe5402abac211bff824e882"
+      "sha256": "d8ba5bcde3de0449d5f84d4eff8cfd4522175f5941c9671619f809ca96720d9f"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY",
     "native_coverage_reader": {
@@ -98,7 +98,20 @@
       "phase_authorization_bridge": "exact previous durable phase receipt SHA-256 -> fresh ACTIVE revn/projection tuple",
       "fresh_currentfile_revn_after_every_phase": true,
       "fresh_projection_after_every_phase": true
-    }
+    },
+    "content_addressed_provider": {
+      "schema": "kenigevents.eventcard-media-provider-identity.v1",
+      "packageBranch": "agent/d0-eventcard-media-v7-content-addressed-provider-20260902",
+      "packageHead": "282b188d1db3fd0d54d75ee8b2d66edeed18108b",
+      "packageTree": "7d17d39f771104b084c09bf5cdb61e94b90b1327",
+      "bundleSha256": "c88c0bcdb4f74cf64415c777be5c8a57caffb88db7f06326d84f655a8ceb053b",
+      "bundleBlobSha1": "97337fa4556bd2a2a9f5619625a3ccc3ef991b34",
+      "bundleBytes": 34007,
+      "operationIdentitySha256": "693a6e9574af1d290cb90bdcc091789aa415e48d9a0c03d6e48a13b9820af678",
+      "sourceHead": "282b188d1db3fd0d54d75ee8b2d66edeed18108b"
+    },
+    "provider_envelope_path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/provider-envelope.v1.json",
+    "standalone_bundle_cases": 12
   },
   "defect_closed": "V5_STALE_REVN_PROGRESS_TUPLE_DEADLOCK_WITHOUT_EXACT_PREVIOUS_RECEIPT_TO_FRESH_ACTIVE_BRIDGE",
   "execution": {
@@ -120,7 +133,7 @@
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV6",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV7",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -341,10 +354,10 @@
     "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.test.js",
     "native_like_cases": 10,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.test.js",
-    "node_total_cases": 29,
+    "node_total_cases": 30,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-    "standalone_bundle_cases": 11
+    "standalone_bundle_cases": 12
   },
   "tests_v4": {
     "global_structuredClone_illegal_invocation": "PASS; exact bundle contains zero structuredClone identifiers",
@@ -365,5 +378,12 @@
     "previous_receipt_chain": "PASS; wrong SHA-256 rejects before another upload",
     "operation_identity_drift": "PASS; changed operationId rejects before another upload",
     "shared_harness_62f": "invoked unchanged; expected second-phase stale rejection because generic harness cannot mint external ACTIVE tuples"
+  },
+  "tests_v7": {
+    "content_addressed_provider": "payload is eventcard_media_penpot_runtime_r3.js; SHA-256/blob/bytes sealed in provider envelope",
+    "embedded_provider_context": "PASS",
+    "self_consistent_wrong_provider": "PASS_BEFORE_UPLOAD_CREATE",
+    "four_phase_bridge_preserved": "PASS",
+    "new_harnesses": 0
   }
 }
