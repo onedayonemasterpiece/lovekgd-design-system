@@ -1,0 +1,55 @@
+name: F0 self-contained bundle wave
+
+on:
+  push:
+    branches:
+      - f0/self-contained-bundle-builder-20260902
+
+permissions:
+  contents: write
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact builder branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Configure Git transport
+        run: |
+          git config --global user.name "F0 Bundle Builder"
+          git config --global user.email "f0-bundle-builder@users.noreply.github.com"
+      - name: Apply bounded builder corrections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('tools/f0-self-contained-bundles/build-and-publish.mjs')
+          s = p.read_text()
+          old = "join(d,'..','${inDir}','native-like-host.v3.mjs')"
+          new = "join(d,'..','${inDir.split('/').at(-1)}','native-like-host.v3.mjs')"
+          if old not in s:
+              raise SystemExit('bounded path marker missing')
+          s = s.replace(old, new)
+          old2 = "try{const mod=await import(pathToFileURL(join(wt,c.inDir,'package.v3.mjs')).href+'?'+Date.now());"
+          new2 = "try{c.tree=sh(['git','rev-parse','HEAD^{tree}'],{cwd:wt}).trim();const mod=await import(pathToFileURL(join(wt,c.inDir,'package.v3.mjs')).href+'?'+Date.now());"
+          if old2 not in s:
+              raise SystemExit('tree correction marker missing')
+          p.write_text(s.replace(old2, new2))
+          PY
+          node --check tools/f0-self-contained-bundles/build-and-publish.mjs
+      - name: Build, sandbox-test, push and publish seven bundles
+        run: node tools/f0-self-contained-bundles/build-and-publish.mjs
+      - name: Upload terminal proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f0-self-contained-bundle-wave-proof
+          path: artifacts/results.json
+          if-no-files-found: warn
