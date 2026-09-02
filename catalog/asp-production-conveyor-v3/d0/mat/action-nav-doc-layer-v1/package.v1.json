@@ -4,7 +4,7 @@
   "package_id": "MAT-ACTION-NAV-R2-DOC-LAYER-REPAIR-R1",
   "defect_id": "V0-ACTION-NAV-R2-DOC-LAYER-001",
   "branch": "d0/action-nav-doc-layer-standalone-v1-20260902",
-  "source_parent_head": "1f0312b32c1b0eb764a61bc0bc2af45f385e73d3",
+  "source_parent_head": "e27c850c46ce5c5b2ac08cec8d2a0ba87dd1bbfb",
   "product_source_head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
   "atlas": {
     "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
@@ -15,10 +15,10 @@
   "bundle": {
     "path": "executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js",
     "global": "D0ActionNavDocumentationLayerV1",
-    "bytes": 51678,
-    "sha256": "a08e73ecb3a51f4da09082b823365030273b92c7bbae36098417a16dce6d3739",
-    "git_blob_sha1": "07123165e2d47b011b4fc7ffc6bf075c8f0bfb58",
-    "source_sha256": "a08e73ecb3a51f4da09082b823365030273b92c7bbae36098417a16dce6d3739",
+    "bytes": 50963,
+    "sha256": "4907ca3403aebcbb351cfa36f4eb1e63298b16cda02ea8c99e5f69e8d58f0e63",
+    "git_blob_sha1": "2681f80b4a4b1e3216d27b9fac58659436aa3403",
+    "source_sha256": "4907ca3403aebcbb351cfa36f4eb1e63298b16cda02ea8c99e5f69e8d58f0e63",
     "deterministic_regeneration": true,
     "browser_penpot_vm_safe": true
   },
@@ -62,14 +62,14 @@
     "per_phase_save_version": "FORBIDDEN_NONBLOCKING_RECOVERY",
     "phase_receipt_independent_of_save_version": true,
     "fresh_cursor_reconciliation_after_unknown_outcome": true,
-    "authorization_rebind": "V7_RELEASED_PARTIAL_TO_V8_THEN_FRESH_PER_PHASE_ATOMIC_ACTIVE",
+    "authorization_rebind": "HISTORICAL_V7_ROOT_PROOF_PLUS_ANY_CURRENT_RELEASED_SOLE_WRITER_MARKER_TO_V9_ATOMIC_ACTIVE",
     "authorized_revision_min": 190,
     "authorized_revision_must_equal_current": true,
-    "native_revision_accessor": "Number(file.revn ?? file.revision)",
+    "native_revision_accessor": "Number(file.revn)",
     "revn_authoritative": true,
-    "revision_fallback": true,
+    "revision_fallback": false,
     "dual_field_conflict": "REJECT",
-    "missing_revision": "REJECT",
+    "missing_revision": "REJECT_NATIVE_REVN_REQUIRED",
     "atomic_active_mint_and_phase": true,
     "internal_release_after_phase": true,
     "external_active_marker_call_forbidden": true,
@@ -103,6 +103,8 @@
       "placement_captions": 1
     },
     "v7_released_marker_sha256": "418d736a8876fd87332c83422727ab89fad5b5155a94c0696bbf473d86dae2ff",
-    "per_phase_contract": "FRESH_REVN_PROJECTION_CURSOR_DOCS_THEN_ATOMIC_ACTIVE_EXECUTE_RELEASE"
+    "per_phase_contract": "FRESH_REVN_PROJECTION_CURSOR_DOCS_THEN_ATOMIC_ACTIVE_EXECUTE_RELEASE",
+    "current_physical_marker": "ANY_EXACT_RELEASED_CANCELLED_MUTATION_FALSE_WRITER_RELEASED_SOLE_WRITER_TUPLE",
+    "historical_actionnav_proof": "EXACT_V7_ROOT_AUTH_PLUS_MARKER_SHA_418D"
   }
 }

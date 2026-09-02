@@ -4,7 +4,7 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `a08e73ecb3a51f4da09082b823365030273b92c7bbae36098417a16dce6d3739`, Git blob `07123165e2d47b011b4fc7ffc6bf075c8f0bfb58`, bytes `51678`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `4907ca3403aebcbb351cfa36f4eb1e63298b16cda02ea8c99e5f69e8d58f0e63`, Git blob `2681f80b4a4b1e3216d27b9fac58659436aa3403`, bytes `50963`.
 2. Put the exact branch/head/tree/blob/bytes/SHA bundle identity, fresh current `revn`/projection/cursor/docs authorization, and the exact previous released-marker continuation into storage. Do **not** write a new physical ACTIVE marker externally.
 3. Call `executeActionNavDocLayerPhase({penpot, storage})` once. The bundle validates the released physical marker, atomically mints ACTIVE, creates at most three nodes, binds its after-projection receipt, and releases the marker inside that same native call.
 4. For each remaining phase, perform a distinct read-only projection and repeat step 2 with the new authoritative `revn`; skipped/regressed counts and stale revisions fail closed. A timeout has unknown outcome: project again; never blindly retry.
@@ -40,3 +40,7 @@ An external marker write before execution is forbidden because it advances Penpo
 invalidates the authorization. Active/unreleased markers, another writer, revision/projection
 mismatch, skipped or regressed documentation counts, and non-contiguous V8 phase bindings all
 fail before product creates.
+
+## V9 intervening-writer marker handling
+
+The exact historical ActionNav V7 partial is now proven independently by its root authorization and known released-marker SHA. The current global physical marker may belong to an intervening package (for example released Owner V4 phase 2), but it must be the exact currently stored marker, writer `/root/publish_r2`, non-ACTIVE, cancelled, `mutation_in_flight=false`, and `writer_released=true`. V9 rejects ACTIVE, unreleased, or other-writer markers, then atomically replaces the released marker with the ActionNav phase ACTIVE. Native revision authority is `currentFile.revn` only; the legacy `revision` fallback is no longer accepted.

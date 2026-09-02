@@ -1,5 +1,5 @@
 {
-  "schema": "kenigevents.action-nav-phase-authorization-repair.v1",
+  "schema": "kenigevents.action-nav-phase-authorization-repair.v2",
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "supersedes_runtime": "V7_FIXED_REVN_188_PER_PHASE",
   "current_native_authority": {
@@ -50,10 +50,17 @@
     "max_creates": 3,
     "save_version_calls": 0,
     "replay_created": 0,
-    "unknown_outcome": "DISTINCT_FRESH_PROJECTION_NO_BLIND_RETRY"
+    "unknown_outcome": "DISTINCT_FRESH_PROJECTION_NO_BLIND_RETRY",
+    "native_revision": "currentFile.revn only; revision alias is not accepted"
   },
   "tests": {
     "package": "10/10 after package identity refresh",
     "newest_harness": "PASS 22 phases / 44 creates / replay 0"
+  },
+  "v9_current_physical_marker": {
+    "accepted": "any exact current released/cancelled/mutation_in_flight=false/writer_released sole-writer marker",
+    "historical_actionnav_proof": "independent exact V7 root authorization plus known released marker SHA",
+    "intervening_owner_v4_phase2": "ACCEPTED_IF_EXACT_CURRENT_RELEASED",
+    "active_unreleased_other_writer": "REJECT"
   }
 }
