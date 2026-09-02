@@ -1,0 +1,839 @@
+{
+  "schema_version": "kenigevents.asp-conveyor.a0.candidate-adapter.v1",
+  "adapter_id": "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER.v1",
+  "package_manifest": {
+    "package_id": "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER",
+    "owner": "A0",
+    "priority": "P0",
+    "status": "READY_TO_PUBLISH",
+    "branch": "a0/asp-production-conveyor-20260831",
+    "sha": "a02a4cfb5a9d76b81b071804a0bc25c37d523803",
+    "paths": [
+      "catalog/asp-production-conveyor-v3/a0/date-listing-shell-candidate-adapter.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
+      "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json"
+    ],
+    "source_and_donor_lineage": [
+      {
+        "source": "A-DATE-LISTING-SHELL-REPLAY",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "current seven A0 representations, current projections, fixtures and viewports"
+      },
+      {
+        "pr": 42,
+        "commit": "7a26772828a5d74a9683c08e7e6774ff15ac61a5",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "canonical Golden Corpus data only"
+      },
+      {
+        "pr": 43,
+        "commit": "da16dde8812220125a806bd5a03d5015357d4c07",
+        "disposition": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION",
+        "scope": "seven-representation ordering and shell case classes only; no Penpot lineage or visual status"
+      },
+      {
+        "pr": 50,
+        "commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "archetype.listing.date and production route identities only"
+      }
+    ],
+    "corpus_projection_state_tuple": {
+      "source_head": "2586a77858ba41a8107d1c74b2d2d8f9db1941c8",
+      "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+      "a0_correction_payload_sha": "d85b38c7883d53f43b628d885513c5851c164b25",
+      "date_replay_record_sha256": "75ef44c4b460c8c7f5632feaad667e4f5a80f01063874286da0001ceeda96023",
+      "projection_sha256_by_id": {
+        "date.today.2026-09-01": "2bc98e1a727ab3936912950a0e087232d4dbcf7bfa601ff7da95a231855b6b58",
+        "date.tomorrow.2026-09-02": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+        "date.explicit.2026-09-06": "08877f7ddca78649243bc6cfb4ed2c83e644be7c683cb087ea88e66e750e6b79"
+      }
+    },
+    "archetype_or_route_ids": [
+      "archetype.listing.date",
+      "/segodnya/",
+      "/zavtra/",
+      "/date-2026-09-06/"
+    ],
+    "dependencies": [
+      "A-DATE-LISTING-SHELL-REPLAY",
+      "U-SHARED-PATTERNS",
+      "U-EVENTCARD-FOUR-CASES",
+      "F-SHARED-FOUNDATION-BINDINGS",
+      "F-TYPOGRAPHY-LAYOUT",
+      "F-ACTION-NAV-ICONS"
+    ],
+    "target_penpot_page": "a0.candidate.page.date-listing-shell-replay.v1",
+    "expected_roots": [
+      "a0.candidate.root.date.typical.desktop.v1",
+      "a0.candidate.root.date.typical.mobile.v1",
+      "a0.candidate.root.date.sparse.desktop.v1",
+      "a0.candidate.root.date.state-matrix.mobile.v1",
+      "a0.candidate.root.date.stress.desktop.v1",
+      "a0.candidate.root.date.full.desktop.v1",
+      "a0.candidate.root.date.full.mobile.v1"
+    ],
+    "expected_components": [
+      "u0.component.date-listing",
+      "u0.component.event-card",
+      "u0.component.mobile-bottom-navigation",
+      "u0.component.shared-footer",
+      "u0.component.shared-header",
+      "u0.component.state-panel"
+    ],
+    "expected_instances": {
+      "semantic_pages": 1,
+      "scenario_roots": 7,
+      "event_cards_across_cases": 8,
+      "state_panels": 3
+    },
+    "materialization_entry_point": "D0/MAT or D0/INTEGRATE consumes build_contract.steps in order; D0/PUBLISH assigns all new Penpot identities and performs bounded pre/post readback.",
+    "validation": {
+      "schema": "candidate-adapter.schema.json#/$defs/candidate_adapter",
+      "negative_tests": "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+      "visual_acceptance": "PENDING_V0",
+      "promotion_authorized": false
+    },
+    "astro_evidence_cases": [
+      "a0.date.typical.desktop.v1",
+      "a0.date.typical.mobile.v1",
+      "a0.date.sparse.desktop.v1",
+      "a0.date.state-matrix.mobile.v1",
+      "a0.date.stress.desktop.v1",
+      "a0.date.full.desktop.v1",
+      "a0.date.full.mobile.v1"
+    ],
+    "explicit_gaps": [
+      "A0 supplies no acceptance-grade component geometry; U0/F0 dependency packages are authoritative.",
+      "V0 visual acceptance remains pending.",
+      "D0 assigns every Penpot identity and must abort when dependency readback is incomplete."
+    ],
+    "package_record_sha256": "2ac73a2448ee479d515986f0f8894b472546532f647ecb14f65b631cabece92c"
+  },
+  "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+  "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+  "visual_acceptance": "PENDING_V0",
+  "promotion_authorized": false,
+  "penpot_mutations": 0,
+  "canonicalization": {
+    "algorithm": "RFC8785-compatible project subset: UTF-8 JSON, recursively sorted object keys, arrays preserved, no insignificant whitespace, ensure_ascii=false",
+    "record_hash_scope": "entire adapter object excluding receipts",
+    "idempotency_hash_scope": "canonical idempotency_material object",
+    "file_receipt_scope": "exact committed file bytes"
+  },
+  "source_inputs": [
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/date-listing-shell-replay.v1.json",
+      "git_commit": "2586a77858ba41a8107d1c74b2d2d8f9db1941c8",
+      "file_sha256": "88e4e9607fd3344b58f1e50e2c42680c14c0ca02835929584df1aefe4201393a",
+      "record_sha256": "75ef44c4b460c8c7f5632feaad667e4f5a80f01063874286da0001ceeda96023"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/production-bundle.v1.json",
+      "git_commit": "2586a77858ba41a8107d1c74b2d2d8f9db1941c8",
+      "file_sha256": "4126d436ecec0e38210b73301a61c4a6013450fe57bc29fdb559051c34d54a0d"
+    },
+    {
+      "path": "catalog/fixtures/ui-reference-events/v2/corpus.json",
+      "git_commit": "immutable-canonical-v2-ref",
+      "file_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a"
+    },
+    {
+      "path": "catalog/page-archetypes/date-listing-shell-v1/fixture-manifest.v1.json",
+      "git_commit": "da16dde8812220125a806bd5a03d5015357d4c07",
+      "file_sha256": "4c0e3d11bf98dde644f296429ad246ff7044f6a663cb54cf770897a424f5c373",
+      "usage": "STRUCTURE_ONLY_AFTER_RECONSTRUCTION"
+    }
+  ],
+  "dependency_refs": [
+    {
+      "package_id": "U-SHARED-PATTERNS",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "U-EVENTCARD-FOUR-CASES",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-SHARED-FOUNDATION-BINDINGS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-TYPOGRAPHY-LAYOUT",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    }
+  ],
+  "target": {
+    "semantic_page_key": "a0.candidate.page.date-listing-shell-replay.v1",
+    "semantic_page_name": "A0 Candidate · Date Listing + Shell Replay",
+    "semantic_root_order": [
+      "a0.candidate.root.date.typical.desktop.v1",
+      "a0.candidate.root.date.typical.mobile.v1",
+      "a0.candidate.root.date.sparse.desktop.v1",
+      "a0.candidate.root.date.state-matrix.mobile.v1",
+      "a0.candidate.root.date.stress.desktop.v1",
+      "a0.candidate.root.date.full.desktop.v1",
+      "a0.candidate.root.date.full.mobile.v1"
+    ],
+    "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+  },
+  "bounded_mutation_scope": {
+    "allowed_paths": [
+      "a0.candidate.page.date-listing-shell-replay.v1",
+      "a0.candidate.root.date.typical.desktop.v1",
+      "a0.candidate.root.date.typical.mobile.v1",
+      "a0.candidate.root.date.sparse.desktop.v1",
+      "a0.candidate.root.date.state-matrix.mobile.v1",
+      "a0.candidate.root.date.stress.desktop.v1",
+      "a0.candidate.root.date.full.desktop.v1",
+      "a0.candidate.root.date.full.mobile.v1"
+    ],
+    "max_semantic_pages": 1,
+    "max_semantic_roots": 7,
+    "existing_non_candidate_pages": "NO_MUTATION",
+    "acceptance_geometry": "NOT_OWNED_BY_A0",
+    "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+  },
+  "build_contract": {
+    "ordering": "STRICT_ASCENDING_ORDER",
+    "steps": [
+      {
+        "order": 1,
+        "semantic_root_key": "a0.candidate.root.date.typical.desktop.v1",
+        "scenario_id": "a0.date.typical.desktop.v1",
+        "representation": "typical",
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 900
+        },
+        "projection_ref": "date.tomorrow.2026-09-02",
+        "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+        "fixture_ids": [
+          "event.real.8006"
+        ],
+        "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "date-listing-body-crop",
+        "shell_semantic_slots": [
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body"
+        ],
+        "component_semantic_refs": [
+          "u0.component.date-listing",
+          "u0.component.event-card"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 1,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 2,
+        "semantic_root_key": "a0.candidate.root.date.typical.mobile.v1",
+        "scenario_id": "a0.date.typical.mobile.v1",
+        "representation": "typical",
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "date.tomorrow.2026-09-02",
+        "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+        "fixture_ids": [
+          "event.real.8006"
+        ],
+        "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "date-listing-body-crop",
+        "shell_semantic_slots": [
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body"
+        ],
+        "component_semantic_refs": [
+          "u0.component.date-listing",
+          "u0.component.event-card"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 1,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 3,
+        "semantic_root_key": "a0.candidate.root.date.sparse.desktop.v1",
+        "scenario_id": "a0.date.sparse.desktop.v1",
+        "representation": "sparse",
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 760
+        },
+        "projection_ref": "date.explicit.2026-09-06",
+        "projection_sha256": "08877f7ddca78649243bc6cfb4ed2c83e644be7c683cb087ea88e66e750e6b79",
+        "fixture_ids": [
+          "event.real.8200"
+        ],
+        "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "date-listing-body-crop",
+        "shell_semantic_slots": [
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body"
+        ],
+        "component_semantic_refs": [
+          "u0.component.date-listing",
+          "u0.component.event-card"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 1,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 4,
+        "semantic_root_key": "a0.candidate.root.date.state-matrix.mobile.v1",
+        "scenario_id": "a0.date.state-matrix.mobile.v1",
+        "representation": "state-matrix",
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 720
+        },
+        "projection_ref": null,
+        "projection_sha256": null,
+        "fixture_ids": [],
+        "fixture_semantics": "NO_ROUTE_MEMBERSHIP_ASSERTED",
+        "required_states": [
+          "loading",
+          "empty",
+          "error"
+        ],
+        "active_candidate_state": "state-matrix",
+        "shell_ref": "date-listing-state-matrix",
+        "shell_semantic_slots": [
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-state-region"
+        ],
+        "component_semantic_refs": [
+          "u0.component.date-listing",
+          "u0.component.state-panel"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 0,
+          "state_panel_instances": 3
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 5,
+        "semantic_root_key": "a0.candidate.root.date.stress.desktop.v1",
+        "scenario_id": "a0.date.stress.desktop.v1",
+        "representation": "stress",
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 1000
+        },
+        "projection_ref": null,
+        "projection_sha256": null,
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "date-listing-stress",
+        "shell_semantic_slots": [
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body"
+        ],
+        "component_semantic_refs": [
+          "u0.component.date-listing",
+          "u0.component.event-card"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 3,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 6,
+        "semantic_root_key": "a0.candidate.root.date.full.desktop.v1",
+        "scenario_id": "a0.date.full.desktop.v1",
+        "representation": "full-page-shell",
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 900
+        },
+        "projection_ref": "date.tomorrow.2026-09-02",
+        "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+        "fixture_ids": [
+          "event.real.8006"
+        ],
+        "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "desktop-v1",
+        "shell_semantic_slots": [
+          "slot.shared-header",
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body",
+          "slot.shared-footer"
+        ],
+        "component_semantic_refs": [
+          "u0.component.shared-header",
+          "u0.component.date-listing",
+          "u0.component.event-card",
+          "u0.component.shared-footer"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 1,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      },
+      {
+        "order": 7,
+        "semantic_root_key": "a0.candidate.root.date.full.mobile.v1",
+        "scenario_id": "a0.date.full.mobile.v1",
+        "representation": "full-page-shell",
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "date.tomorrow.2026-09-02",
+        "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+        "fixture_ids": [
+          "event.real.8006"
+        ],
+        "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+        "required_states": [
+          "ready"
+        ],
+        "active_candidate_state": "ready",
+        "shell_ref": "mobile-v1-menu-bottom-nav",
+        "shell_semantic_slots": [
+          "slot.shared-header",
+          "slot.date-heading",
+          "slot.date-navigation",
+          "slot.listing-body",
+          "slot.mobile-bottom-navigation"
+        ],
+        "component_semantic_refs": [
+          "u0.component.shared-header",
+          "u0.component.date-listing",
+          "u0.component.event-card",
+          "u0.component.mobile-bottom-navigation"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "event_card_instances": 1,
+          "state_panel_instances": 0
+        },
+        "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+      }
+    ]
+  },
+  "readback_contract": {
+    "pre": [
+      "one exact D0/PUBLISH writer",
+      "target semantic page absent or tagged with exact idempotency digest",
+      "all source/dependency hashes and ordered fixture/state tuples match",
+      "no unmanaged root will be mutated"
+    ],
+    "post": [
+      "one semantic page with exact idempotency digest",
+      "semantic roots match target.semantic_root_order byte-for-byte and in order",
+      "each root reports scenario, viewport, projection, fixtures, states and semantic component bindings",
+      "all persisted IDs are newly assigned by D0 and are absent from this adapter",
+      "validation is empty before V0 handoff"
+    ]
+  },
+  "abort_conditions": [
+    "SOURCE_FILE_HASH_MISMATCH",
+    "CORPUS_OR_PROJECTION_HASH_MISMATCH",
+    "FIXTURE_ID_OR_ORDER_MISMATCH",
+    "REQUIRED_STATE_OMITTED_OR_CHANGED",
+    "U0_COMPONENT_DEPENDENCY_MISSING_OR_STALE",
+    "F0_ASSET_FOUNDATION_OR_GEOMETRY_DEPENDENCY_MISSING_OR_STALE",
+    "SEMANTIC_ROOT_ORDER_MISMATCH",
+    "MULTIPLE_PENPOT_WRITERS",
+    "EXISTING_ROOT_IDEMPOTENCY_DIGEST_MISMATCH",
+    "OLD_PENPOT_UUID_OR_DIRECT_URL_PRESENT",
+    "STALE_VISUAL_PASS_OR_ACCEPTANCE_CLAIM",
+    "PROMOTION_REQUESTED_FROM_CANDIDATE_ADAPTER"
+  ],
+  "idempotency": {
+    "key": "a0.date-listing-shell-candidate.v1:45bc4c601acc9b8bf1bc8be784fbe20e2d1436af89a72915fdc2040e7c5b9155",
+    "sha256": "45bc4c601acc9b8bf1bc8be784fbe20e2d1436af89a72915fdc2040e7c5b9155",
+    "material": {
+      "adapter_id": "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER.v1",
+      "source_tuple": {
+        "source_head": "2586a77858ba41a8107d1c74b2d2d8f9db1941c8",
+        "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+        "a0_correction_payload_sha": "d85b38c7883d53f43b628d885513c5851c164b25",
+        "date_replay_record_sha256": "75ef44c4b460c8c7f5632feaad667e4f5a80f01063874286da0001ceeda96023",
+        "projection_sha256_by_id": {
+          "date.today.2026-09-01": "2bc98e1a727ab3936912950a0e087232d4dbcf7bfa601ff7da95a231855b6b58",
+          "date.tomorrow.2026-09-02": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+          "date.explicit.2026-09-06": "08877f7ddca78649243bc6cfb4ed2c83e644be7c683cb087ea88e66e750e6b79"
+        }
+      },
+      "target": {
+        "semantic_page_key": "a0.candidate.page.date-listing-shell-replay.v1",
+        "semantic_page_name": "A0 Candidate · Date Listing + Shell Replay",
+        "semantic_root_order": [
+          "a0.candidate.root.date.typical.desktop.v1",
+          "a0.candidate.root.date.typical.mobile.v1",
+          "a0.candidate.root.date.sparse.desktop.v1",
+          "a0.candidate.root.date.state-matrix.mobile.v1",
+          "a0.candidate.root.date.stress.desktop.v1",
+          "a0.candidate.root.date.full.desktop.v1",
+          "a0.candidate.root.date.full.mobile.v1"
+        ],
+        "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+      },
+      "build_steps": [
+        {
+          "order": 1,
+          "semantic_root_key": "a0.candidate.root.date.typical.desktop.v1",
+          "scenario_id": "a0.date.typical.desktop.v1",
+          "representation": "typical",
+          "viewport": {
+            "id": "desktop",
+            "width": 1280,
+            "height": 900
+          },
+          "projection_ref": "date.tomorrow.2026-09-02",
+          "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+          "fixture_ids": [
+            "event.real.8006"
+          ],
+          "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "date-listing-body-crop",
+          "shell_semantic_slots": [
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body"
+          ],
+          "component_semantic_refs": [
+            "u0.component.date-listing",
+            "u0.component.event-card"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 1,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 2,
+          "semantic_root_key": "a0.candidate.root.date.typical.mobile.v1",
+          "scenario_id": "a0.date.typical.mobile.v1",
+          "representation": "typical",
+          "viewport": {
+            "id": "mobile",
+            "width": 390,
+            "height": 844
+          },
+          "projection_ref": "date.tomorrow.2026-09-02",
+          "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+          "fixture_ids": [
+            "event.real.8006"
+          ],
+          "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "date-listing-body-crop",
+          "shell_semantic_slots": [
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body"
+          ],
+          "component_semantic_refs": [
+            "u0.component.date-listing",
+            "u0.component.event-card"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 1,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 3,
+          "semantic_root_key": "a0.candidate.root.date.sparse.desktop.v1",
+          "scenario_id": "a0.date.sparse.desktop.v1",
+          "representation": "sparse",
+          "viewport": {
+            "id": "desktop",
+            "width": 1280,
+            "height": 760
+          },
+          "projection_ref": "date.explicit.2026-09-06",
+          "projection_sha256": "08877f7ddca78649243bc6cfb4ed2c83e644be7c683cb087ea88e66e750e6b79",
+          "fixture_ids": [
+            "event.real.8200"
+          ],
+          "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "date-listing-body-crop",
+          "shell_semantic_slots": [
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body"
+          ],
+          "component_semantic_refs": [
+            "u0.component.date-listing",
+            "u0.component.event-card"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 1,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 4,
+          "semantic_root_key": "a0.candidate.root.date.state-matrix.mobile.v1",
+          "scenario_id": "a0.date.state-matrix.mobile.v1",
+          "representation": "state-matrix",
+          "viewport": {
+            "id": "mobile",
+            "width": 390,
+            "height": 720
+          },
+          "projection_ref": null,
+          "projection_sha256": null,
+          "fixture_ids": [],
+          "fixture_semantics": "NO_ROUTE_MEMBERSHIP_ASSERTED",
+          "required_states": [
+            "loading",
+            "empty",
+            "error"
+          ],
+          "active_candidate_state": "state-matrix",
+          "shell_ref": "date-listing-state-matrix",
+          "shell_semantic_slots": [
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-state-region"
+          ],
+          "component_semantic_refs": [
+            "u0.component.date-listing",
+            "u0.component.state-panel"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 0,
+            "state_panel_instances": 3
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 5,
+          "semantic_root_key": "a0.candidate.root.date.stress.desktop.v1",
+          "scenario_id": "a0.date.stress.desktop.v1",
+          "representation": "stress",
+          "viewport": {
+            "id": "desktop",
+            "width": 1280,
+            "height": 1000
+          },
+          "projection_ref": null,
+          "projection_sha256": null,
+          "fixture_ids": [
+            "event.real.4240",
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "date-listing-stress",
+          "shell_semantic_slots": [
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body"
+          ],
+          "component_semantic_refs": [
+            "u0.component.date-listing",
+            "u0.component.event-card"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 3,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 6,
+          "semantic_root_key": "a0.candidate.root.date.full.desktop.v1",
+          "scenario_id": "a0.date.full.desktop.v1",
+          "representation": "full-page-shell",
+          "viewport": {
+            "id": "desktop",
+            "width": 1280,
+            "height": 900
+          },
+          "projection_ref": "date.tomorrow.2026-09-02",
+          "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+          "fixture_ids": [
+            "event.real.8006"
+          ],
+          "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "desktop-v1",
+          "shell_semantic_slots": [
+            "slot.shared-header",
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body",
+            "slot.shared-footer"
+          ],
+          "component_semantic_refs": [
+            "u0.component.shared-header",
+            "u0.component.date-listing",
+            "u0.component.event-card",
+            "u0.component.shared-footer"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 1,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        },
+        {
+          "order": 7,
+          "semantic_root_key": "a0.candidate.root.date.full.mobile.v1",
+          "scenario_id": "a0.date.full.mobile.v1",
+          "representation": "full-page-shell",
+          "viewport": {
+            "id": "mobile",
+            "width": 390,
+            "height": 844
+          },
+          "projection_ref": "date.tomorrow.2026-09-02",
+          "projection_sha256": "c2377b3b22436b1e7259ab40bc543ae01badc27200ee13932a75b02386ee2c42",
+          "fixture_ids": [
+            "event.real.8006"
+          ],
+          "fixture_semantics": "EXACT_PROJECTION_MEMBERSHIP",
+          "required_states": [
+            "ready"
+          ],
+          "active_candidate_state": "ready",
+          "shell_ref": "mobile-v1-menu-bottom-nav",
+          "shell_semantic_slots": [
+            "slot.shared-header",
+            "slot.date-heading",
+            "slot.date-navigation",
+            "slot.listing-body",
+            "slot.mobile-bottom-navigation"
+          ],
+          "component_semantic_refs": [
+            "u0.component.shared-header",
+            "u0.component.date-listing",
+            "u0.component.event-card",
+            "u0.component.mobile-bottom-navigation"
+          ],
+          "expected_instances": {
+            "semantic_roots": 1,
+            "event_card_instances": 1,
+            "state_panel_instances": 0
+          },
+          "geometry_authority": "CURRENT_DATE_REPLAY_VIEWPORT_ONLY; U0/F0 OWN COMPONENT_GEOMETRY"
+        }
+      ],
+      "bounded_mutation_scope": {
+        "allowed_paths": [
+          "a0.candidate.page.date-listing-shell-replay.v1",
+          "a0.candidate.root.date.typical.desktop.v1",
+          "a0.candidate.root.date.typical.mobile.v1",
+          "a0.candidate.root.date.sparse.desktop.v1",
+          "a0.candidate.root.date.state-matrix.mobile.v1",
+          "a0.candidate.root.date.stress.desktop.v1",
+          "a0.candidate.root.date.full.desktop.v1",
+          "a0.candidate.root.date.full.mobile.v1"
+        ],
+        "max_semantic_pages": 1,
+        "max_semantic_roots": 7,
+        "existing_non_candidate_pages": "NO_MUTATION",
+        "acceptance_geometry": "NOT_OWNED_BY_A0",
+        "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+      }
+    }
+  },
+  "receipts": {
+    "receipt_path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+    "adapter_record_sha256": "72e2aaea9817352ac5a570bdc7ccdfe25dc70a706073f2ad137098678538e788"
+  }
+}
