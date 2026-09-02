@@ -1,4 +1,4 @@
-# A0 Owner Review Index direct plugin bundle v6
+# A0 Owner Review Index direct plugin bundle v7
 
 Package-local deterministic standalone bundle for `A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1`.
 It preserves the older 45-row A0 donor only as immutable provenance, but uses the
@@ -20,7 +20,7 @@ product package.
 ## Plugin entrypoint
 
 Load `owner-review-index.bundle.js` as one browser/Penpot plugin artifact and
-use global `D0A0OwnerReviewIndexV6`:
+use global `D0A0OwnerReviewIndexV7`:
 
 - `project(host)` — read-only preflight/projection;
 - `execute(host)` — resumable mutation, at most three actual native creates per call;
@@ -29,7 +29,7 @@ use global `D0A0OwnerReviewIndexV6`:
 The physical ACTIVE tuple and finite lease must be supplied by the sole writer.
 The bundle itself grants no Penpot authorization.
 
-V6 uses a portable in-bundle UTF-8/SHA-256 implementation (no `TextEncoder` or
+V7 uses a portable in-bundle UTF-8/SHA-256 implementation (no `TextEncoder` or
 `crypto.subtle`) and treats `currentFile.revn` as authoritative. The ACTIVE
 tuple revision must equal that native value; missing or conflicting revisions
 fail before any create.
@@ -53,9 +53,13 @@ The sole writer must bind both `protected_projection_revision` and
 `protected_projection_sha256` into the authorization and physical ACTIVE tuple;
 `execute` and `settle` recompute and compare them before any product create.
 
-## V6 receipt-bound in-place partial recovery
+## V7 exact-provider and receipt-bound in-place recovery
 
-V6 supersedes V5 and remains bound to the V4 partial after native receipt `5511471375`. Before the first native setter and again at settlement it requires the exact durable UUIDs:
+V7 binds authorization and the physical ACTIVE marker to the complete immutable
+Owner Review Index R2 provider tuple from marker `5514792061` (branch/head/tree/blob/bytes/SHA-256). Coordinated drift in
+both copies fails before create. It remains bound to the V4 partial after native
+receipt `5511471375`; before the first native setter and again at settlement it
+requires the exact durable UUIDs:
 
 - page `dbfda7a0-9d19-80cd-8008-93e9632cea31`;
 - root `dbfda7a0-9d19-80cd-8008-93e99c725185`;

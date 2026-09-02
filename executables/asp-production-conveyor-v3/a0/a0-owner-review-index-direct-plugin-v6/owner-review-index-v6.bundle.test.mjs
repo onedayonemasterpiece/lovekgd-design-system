@@ -68,7 +68,7 @@ function loadBundle() {
   sandbox.globalThis = sandbox;
   vm.createContext(sandbox, { codeGeneration: { strings: false, wasm: false } });
   new vm.Script(bundleSource, { filename: BUNDLE_PATH }).runInContext(sandbox, { timeout: 3000 });
-  return sandbox.D0A0OwnerReviewIndexV6;
+  return sandbox[packageRecord.global];
 }
 
 async function hostFixture() {
@@ -241,6 +241,18 @@ test('all four receipt UUIDs and exact linked header fail closed before the firs
     await assert.rejects(() => bundle.execute(host), pattern);
     assert.equal(audit.creates, beforeCreates, `${scenario} created native nodes`);
     assert.deepEqual([root.width, root.height, header.width, header.height, title.width, title.height], beforeBounds, `${scenario} called a geometry setter`);
+  }
+});
+
+test('exact predecessor provider tuple rejects coordinated authorization and physical drift before create', async () => {
+  const fields = {package_branch:'wrong/branch',package_head:'0'.repeat(40),package_tree:'1'.repeat(40),bundle_sha256:'2'.repeat(64),bundle_blob_sha1:'3'.repeat(40),bundle_bytes:1};
+  for (const [field,value] of Object.entries(fields)) {
+    const { bundle, host, audit } = await hostFixture();
+    const before = audit.creates;
+    host.authorization[field] = value;
+    writeActive(host, { ...activeMarker(host), [field]: value });
+    await assert.rejects(() => bundle.execute(host), new RegExp('AUTHORIZATION_EXACT_PROVIDER:'+field));
+    assert.equal(audit.creates, before, `${field} coordinated drift created native nodes`);
   }
 });
 
