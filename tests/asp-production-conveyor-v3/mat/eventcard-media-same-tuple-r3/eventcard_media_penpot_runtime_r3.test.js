@@ -7,7 +7,7 @@ const path = require('node:path');
 const M = require('../../../../scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.js');
 const R = require('../../../../scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.js');
 
-const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
+const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40), BUNDLE_SHA = 'd'.repeat(64), BUNDLE_BYTES = 501330;
 const ASSET_DIR = path.resolve(__dirname, '../../../../catalog/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/assets');
 
 class FakeImageData {
@@ -85,7 +85,7 @@ class Fixture {
         this.uploads.push(image); this.nativeHook?.('upload', this.uploads.length); return image;
       } };
     this.active = null;
-    this.context = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE,
+    this.context = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE, exactBundleSha256: BUNDLE_SHA, exactBundleBytes: BUNDLE_BYTES,
       sourceAssets: this.sourceAssets, pageProfile: { profileId: 'free-collection.owner-review.v1',
         state: 'BLOCKED_OWNER_REJECTED', allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
       };
@@ -101,20 +101,24 @@ class Fixture {
       packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE, triggeredBy: 'issue-57-morning-media',
       pageProfileSha256: this.context.pageProfile.profileSha256, ownerDirective: R.OWNER_DIRECTIVE,
       authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID, authorityScope: R.AUTHORITY_SCOPE,
-      leaseToken: 'lease-eventcard-media', leaseExpiresAt: Date.now() + 60_000 };
+      leaseToken: 'lease-eventcard-media', leaseExpiresAt: Date.now() + 60_000, cancelToken: 'cancel-eventcard-media',
+      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES, revision: projection.revision, projectionSha256: projection.projectionSha256 };
     const authorization = { schema: R.AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
       packageHead: HEAD, packageTree: TREE, state: 'ACTIVE', authorized: true, cancelled: false,
       revision: projection.revision, projectionSha256: projection.projectionSha256,
       sourceRegistrySha256: M.sourceRegistrySha256(), pageProfileSha256: provenance.pageProfileSha256,
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
-      authorityScope: R.AUTHORITY_SCOPE, triggeredBy: provenance.triggeredBy, provenance };
+      authorityScope: R.AUTHORITY_SCOPE, triggeredBy: provenance.triggeredBy, sessionId: provenance.sessionId, taskId: provenance.taskId,
+      writerId: provenance.writerId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken, provenance,
+      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
     this.active = { schema: R.ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
       sessionId: provenance.sessionId, taskId: provenance.taskId, writerId: provenance.writerId,
       packageId: provenance.packageId, packageHead: provenance.packageHead, packageTree: provenance.packageTree,
       triggeredBy: provenance.triggeredBy, pageProfileSha256: provenance.pageProfileSha256,
       ownerDirective: provenance.ownerDirective, authorityCardCommentId: provenance.authorityCardCommentId,
-      authorityScope: provenance.authorityScope, leaseToken: provenance.leaseToken,
-      leaseExpiresAt: provenance.leaseExpiresAt };
+      authorityScope: provenance.authorityScope, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken,
+      leaseExpiresAt: provenance.leaseExpiresAt, bundleSha256: provenance.bundleSha256, bundleBytes: provenance.bundleBytes,
+      revision: provenance.revision, projectionSha256: provenance.projectionSha256 };
     this.syncActive();
     return authorization;
   }

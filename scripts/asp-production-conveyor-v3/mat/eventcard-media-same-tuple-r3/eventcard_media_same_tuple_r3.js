@@ -87,6 +87,8 @@ const stringOnly = (value) => {
   return value;
 };
 const finitePositive = (value) => typeof value === 'number' && Number.isFinite(value) && value > 0;
+const plainDataClone = (value) => Array.isArray(value) ? value.map(plainDataClone) :
+  value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).map((key) => [key, plainDataClone(value[key])])) : value;
 
 function sourceRegistrySha256() {
   return sha256(SOURCE_ASSETS);
@@ -99,7 +101,7 @@ function collection(adapter) {
       typeof value.protectedDigest !== 'string' || !value.protectedDigest) {
     fail('MEDIA_R3_COLLECTION_DRIFT');
   }
-  return structuredClone(value);
+  return plainDataClone(value);
 }
 
 function assertAssetBytes(adapter, asset) {
@@ -111,7 +113,7 @@ function assertAssetBytes(adapter, asset) {
 function normalizeMediaRow(adapter, spec) {
   const rows = adapter.media(spec.mediaShapeId);
   if (!Array.isArray(rows) || rows.length !== 1) fail('MEDIA_R3_MEDIA_ID_CARDINALITY');
-  const row = structuredClone(rows[0]);
+  const row = plainDataClone(rows[0]);
   const asset = SOURCE_ASSETS[spec.fixtureId];
   if (!row.id || row.id !== spec.mediaShapeId || row.rootId !== spec.rootId ||
       row.parentId !== spec.parentGroupId) fail('MEDIA_R3_ROOT_MEDIA_PARENT_ID_DRIFT');

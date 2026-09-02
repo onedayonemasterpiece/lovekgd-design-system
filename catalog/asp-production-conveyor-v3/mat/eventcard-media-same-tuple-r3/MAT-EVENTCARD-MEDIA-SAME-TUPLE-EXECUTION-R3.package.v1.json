@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 501330,
+      "bytes": 502132,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "da904a2dceaee53820cb6453640f0688764f97234e716efb1617cdf198f1f151"
+      "sha256": "4a486d7b3c4db4d8fd20f20d9f3712513f05bb8ff1ce2e280fe63e2962db948c"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 10815,
+      "bytes": 10513,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "10aa2499df6e24aa174b575a07a05c23152c2ea918e7af3508075b703ddd72b7"
+      "sha256": "ae74f3ed3dd867dc65d4eb0a7ab184b8bae6eafdd17388bee97dccfdb2521edb"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,10 +34,10 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3StandaloneV3",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV4",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
-    "portable_plain_data_clone": true,
+    "portable_plain_data_clone": "owned plainDataClone in logic and native adapter; global structuredClone identifier absent",
     "replay_created": 0,
     "runtime_forbidden_tokens": [
       "require",
@@ -60,9 +60,9 @@
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 17410,
+      "bytes": 19202,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "c797b6de1b008f63bce88702bd759e6fc89c403b5b9fefa851f69ff3e8d1a353"
+      "sha256": "ab0055ea7b6f15f8b92d1e0f9667be172d18dc7f65b92a206c71f65a40280323"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY",
     "native_coverage_reader": {
@@ -82,7 +82,7 @@
     "zero_caller_injected_helpers": true,
     "physical_active_reader": "currentFile.getSharedPluginData(namespace, active-key); concrete inside bundle"
   },
-  "defect_closed": "CALLER_INJECTED_NATIVE_COVERAGE_HELPER_AND_UPLOADED_IMAGEDATA_PREFLIGHT_GAP",
+  "defect_closed": "GLOBAL_STRUCTUREDCLONE_ILLEGAL_INVOCATION_PLUS_INCOMPLETE_AUTH_PROVENANCE_PHYSICAL_ACTIVE_PARITY",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -94,13 +94,13 @@
       "fresh four-target native projection SHA-256",
       "source registry SHA-256",
       "current blocked profile SHA-256 plus exact bounded Media owner directive",
-      "triggered_by and session/task/sole-writer/lease tuple",
+      "triggered_by/session/task/sole-writer/cancel/lease tuple",
       "exact standalone bundle SHA-256 and byte count",
-      "bundle SHA-256 and byte count repeated in authorization provenance"
+      "full authorization ↔ provenance ↔ physical ACTIVE parity for cancel/bundle/revision/projection"
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV3",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV4",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -112,7 +112,7 @@
     "image_data_contract": "await ImageData.data() and verify exact bytes/SHA before authorization and after every upload/fill",
     "media_fill_mutations": 4,
     "native_mutation_calls": 25,
-    "physical_active_recheck": "concrete currentFile shared-plugin-data ACTIVE reader before activation/upload/ImageData.data/fill/evidence/receipt; zero caller-injected marker helper",
+    "physical_active_recheck": "concrete currentFile shared-plugin-data ACTIVE reader; exact cancelToken, bundle SHA/bytes, revision, projection SHA and provenance parity before activation/upload/ImageData.data/fill/evidence/receipt",
     "pre_mutation_coverage_capability_required": "bundled concrete native reader invoked for all four targets before first upload; no caller helper",
     "projection_entrypoint": "projectEventcardMediaPenpotR3",
     "publisher_bespoke_rebundle": false,
@@ -320,5 +320,11 @@
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
     "standalone_bundle_cases": 9
+  },
+  "tests_v4": {
+    "global_structuredClone_illegal_invocation": "PASS; exact bundle contains zero structuredClone identifiers",
+    "wrong_or_missing_cancel_bundle_revision_projection": "10 zero-native-write negative cases PASS",
+    "zero_caller_helpers": "PASS",
+    "native_runtime_and_bundle": "20/20 PASS expected after combined run"
   }
 }

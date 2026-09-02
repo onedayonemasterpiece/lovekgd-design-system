@@ -33,6 +33,12 @@ function walk(root) {
   return output;
 }
 
+function plainDataClone(value) {
+  if (Array.isArray(value)) return value.map(plainDataClone);
+  if (value && typeof value === 'object') { const out = {}; for (const key of Object.keys(value)) out[key] = plainDataClone(value[key]); return out; }
+  return value;
+}
+
 function jsonValue(value) {
   if (value == null || ['string', 'number', 'boolean'].includes(typeof value)) return value;
   if (Array.isArray(value)) return value.map(jsonValue);
@@ -86,14 +92,20 @@ function authorizationEnvelope(context, authorization) {
     if (authorization?.[key] !== value) fail(`MEDIA_R3_AUTH_${key.toUpperCase()}_MISMATCH`);
   }
   const p = authorization.provenance;
-  for (const key of ['sessionId', 'taskId', 'writerId', 'leaseToken']) {
+  for (const key of ['sessionId', 'taskId', 'writerId', 'cancelToken', 'leaseToken']) {
     if (!p || typeof p[key] !== 'string' || p[key].length < 8) fail(`MEDIA_R3_PROVENANCE_${key.toUpperCase()}_INVALID`);
   }
   const bound = { packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
     packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
     pageProfileSha256: profile.profileSha256, ownerDirective: OWNER_DIRECTIVE,
-    authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID, authorityScope: AUTHORITY_SCOPE };
+    authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID, authorityScope: AUTHORITY_SCOPE,
+    bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    revision: authorization.revision, projectionSha256: authorization.projectionSha256 };
   if (typeof authorization.triggeredBy !== 'string' || !authorization.triggeredBy) fail('MEDIA_R3_TRIGGERED_BY_MISSING');
+  for (const key of ['sessionId', 'taskId', 'writerId', 'triggeredBy', 'cancelToken', 'leaseToken',
+    'bundleSha256', 'bundleBytes', 'revision', 'projectionSha256']) {
+    if (authorization[key] !== p[key]) fail(`MEDIA_R3_AUTH_${key.toUpperCase()}_PROVENANCE_PARITY`);
+  }
   for (const [key, value] of Object.entries(bound)) if (p[key] !== value) fail(`MEDIA_R3_PROVENANCE_${key.toUpperCase()}_MISMATCH`);
   if (!Number.isFinite(Number(p.leaseExpiresAt))) fail('MEDIA_R3_LEASE_EXPIRY_INVALID');
   return p;
@@ -106,7 +118,9 @@ function assertActive(context, authorization) {
     packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
     triggeredBy: authorization.triggeredBy, pageProfileSha256: context.pageProfile.profileSha256,
     ownerDirective: OWNER_DIRECTIVE, authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
-    authorityScope: AUTHORITY_SCOPE, leaseToken: p.leaseToken, leaseExpiresAt: p.leaseExpiresAt };
+    authorityScope: AUTHORITY_SCOPE, cancelToken: p.cancelToken, leaseToken: p.leaseToken,
+    leaseExpiresAt: p.leaseExpiresAt, bundleSha256: p.bundleSha256, bundleBytes: p.bundleBytes,
+    revision: p.revision, projectionSha256: p.projectionSha256 };
   for (const [key, value] of Object.entries(expected)) {
     if (marker?.[key] !== value) fail(`MEDIA_R3_PHYSICAL_ACTIVE_${key.toUpperCase()}_MISMATCH`);
   }
@@ -263,7 +277,7 @@ async function buildNativeAdapter(context, page) {
     collection: () => ({ rootId: board ? String(board.id) : '', children: children(board).length,
       components: eventcardComponents.length, validation: normalized, protectedDigest,
       fileLocalComponents: localComponents.length }),
-    media: (id) => rows.has(id) ? [structuredClone(rows.get(id))] : [],
+    media: (id) => rows.has(id) ? [plainDataClone(rows.get(id))] : [],
     asset: (path) => sourceMap.get(path) || null,
     rows, shapes: byId, protectedDigest,
   };
