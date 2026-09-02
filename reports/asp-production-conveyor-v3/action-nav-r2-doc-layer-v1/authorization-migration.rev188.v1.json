@@ -17,9 +17,9 @@
   },
   "from_bundle_sha256": "cc80c6978ec052152d420246db928451c4f5a29d69514f269c9468d8ac14fc13",
   "to_bundle": {
-    "blob": "6630fdd155c4fb4309d9a7490672ef477000e120",
-    "bytes": 43813,
-    "sha256": "518a466edec2539bce05342993e6f27e7b33241b422fe92b5e52fc606a8a03d5"
+    "blob": "18579063a185e5c2a31bca7c530ec8c56dda58b8",
+    "bytes": 44306,
+    "sha256": "e51e8ade5558075c3735c092e1f8fd0c7c3d67c1e04d565826d653cc5b3015ec"
   },
   "migration_gate": {
     "exactly_once": true,
@@ -48,7 +48,7 @@
     "replay_created": 0
   },
   "tests": {
-    "committed": "8/8 PASS",
+    "committed": "9/9 PASS",
     "shared_harness": "PASS",
     "first_run": "22 phases / 44 creates",
     "replay_created": 0
@@ -75,5 +75,16 @@
   "exact_old_marker_times": {
     "expires_at": "2026-09-02T13:36:38.685Z",
     "released_at": "2026-09-02T13:27:08.600Z"
+  },
+  "native_revision": {
+    "authoritative_property": "revn",
+    "fallback_property": "revision",
+    "accessor": "Number(file.revn ?? file.revision)",
+    "both_present_disagree": "REJECT",
+    "neither_present": "REJECT",
+    "real_preflight": {
+      "revn": 188,
+      "revision": null
+    }
   }
 }
