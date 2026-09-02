@@ -1,0 +1,58 @@
+{
+  "schema": "kenigevents.action-nav-phase-authorization-repair.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "supersedes_runtime": "V7_FIXED_REVN_188_PER_PHASE",
+  "current_native_authority": {
+    "revision": 190,
+    "projection_sha256": "1b8251c5612a68ab67fce04b0d218e66bbe62ce0adf49e8bc8e526ea4114d15a",
+    "cursor": "CELL_DOCUMENTATION",
+    "documentation": {
+      "master_labels": 8,
+      "cell_containers": 1,
+      "placement_captions": 1
+    },
+    "icon_proof_sha256": "fa1eadb2254c68916af4d1e7e0e605055a3aac1d8072f10b404a4cfc32deea81",
+    "protected_projection_sha256": "0c8b455d33b460ba6a012c6c2322d1e8cde381bf1a21380f0d9c3078d5f4da32",
+    "validation": []
+  },
+  "v7_released": {
+    "root_authorization": {
+      "bundleSha256": "e51e8ade5558075c3735c092e1f8fd0c7c3d67c1e04d565826d653cc5b3015ec",
+      "cancelToken": "actionnav-v7-cancel-1788359377457",
+      "initialProjectionSha256": "2822bc7d24718a778d1794c88d370a90498879d1862c23be8677d235c5443b4d",
+      "leaseToken": "actionnav-v7-lease-1788359377457",
+      "runId": "actionnav-v7-rev188-1788359377457"
+    },
+    "physical_marker_sha256": "418d736a8876fd87332c83422727ab89fad5b5155a94c0696bbf473d86dae2ff",
+    "released_at": "2026-09-02T14:32:14.795Z",
+    "mutation_in_flight": false
+  },
+  "v8_contract": {
+    "caller_supplies_fresh": [
+      "revn",
+      "projection_sha256",
+      "cursor",
+      "master_labels",
+      "cell_containers",
+      "placement_captions",
+      "bundle_identity",
+      "run_lease_cancel"
+    ],
+    "bundle_atomically": [
+      "validate_released_previous_tuple",
+      "mint_physical_ACTIVE",
+      "execute_one_bounded_phase",
+      "bind_after_projection",
+      "release_physical_marker"
+    ],
+    "external_active_write_before_execution": "FORBIDDEN_REVISION_DRIFT",
+    "max_creates": 3,
+    "save_version_calls": 0,
+    "replay_created": 0,
+    "unknown_outcome": "DISTINCT_FRESH_PROJECTION_NO_BLIND_RETRY"
+  },
+  "tests": {
+    "package": "10/10 after package identity refresh",
+    "newest_harness": "PASS 22 phases / 44 creates / replay 0"
+  }
+}

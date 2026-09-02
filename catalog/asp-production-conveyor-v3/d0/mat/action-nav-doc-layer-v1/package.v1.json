@@ -4,7 +4,7 @@
   "package_id": "MAT-ACTION-NAV-R2-DOC-LAYER-REPAIR-R1",
   "defect_id": "V0-ACTION-NAV-R2-DOC-LAYER-001",
   "branch": "d0/action-nav-doc-layer-standalone-v1-20260902",
-  "source_parent_head": "ad880d5c88d25cf6aa2016896e82db606bd7e432",
+  "source_parent_head": "1f0312b32c1b0eb764a61bc0bc2af45f385e73d3",
   "product_source_head": "fecb90c6b1c475687d77b8cce4c905d932a0bf23",
   "atlas": {
     "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
@@ -15,10 +15,10 @@
   "bundle": {
     "path": "executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js",
     "global": "D0ActionNavDocumentationLayerV1",
-    "bytes": 44306,
-    "sha256": "e51e8ade5558075c3735c092e1f8fd0c7c3d67c1e04d565826d653cc5b3015ec",
-    "git_blob_sha1": "18579063a185e5c2a31bca7c530ec8c56dda58b8",
-    "source_sha256": "e51e8ade5558075c3735c092e1f8fd0c7c3d67c1e04d565826d653cc5b3015ec",
+    "bytes": 51673,
+    "sha256": "348c503e57fd900e04db53057f970fc18797148495fa8e1feb25ae5e98dd7a09",
+    "git_blob_sha1": "d2051180bf50e779d57c3099929eb4843fd89660",
+    "source_sha256": "348c503e57fd900e04db53057f970fc18797148495fa8e1feb25ae5e98dd7a09",
     "deterministic_regeneration": true,
     "browser_penpot_vm_safe": true
   },
@@ -62,14 +62,18 @@
     "per_phase_save_version": "FORBIDDEN_NONBLOCKING_RECOVERY",
     "phase_receipt_independent_of_save_version": true,
     "fresh_cursor_reconciliation_after_unknown_outcome": true,
-    "authorization_rebind": "EXACT_ONCE_V4_SUSPENDED_RELEASED_EXPIRED_TO_V6_ACTIVE",
-    "authorized_revision_min": 188,
+    "authorization_rebind": "V7_RELEASED_PARTIAL_TO_V8_THEN_FRESH_PER_PHASE_ATOMIC_ACTIVE",
+    "authorized_revision_min": 190,
     "authorized_revision_must_equal_current": true,
     "native_revision_accessor": "Number(file.revn ?? file.revision)",
     "revn_authoritative": true,
     "revision_fallback": true,
     "dual_field_conflict": "REJECT",
-    "missing_revision": "REJECT"
+    "missing_revision": "REJECT",
+    "atomic_active_mint_and_phase": true,
+    "internal_release_after_phase": true,
+    "external_active_marker_call_forbidden": true,
+    "revision_advance_simulated_each_phase": true
   },
   "authorization": {
     "sole_writer": "/root/publish_r2",
@@ -88,5 +92,17 @@
     "same_header_component_id": "250f32b9-f4ec-800e-8008-92c64c51fdc0",
     "same_header_main_id": "250f32b9-f4ec-800e-8008-92c64a6147cc",
     "product_mutations": 0
+  },
+  "native_continuation_binding": {
+    "initial_current_revision": 190,
+    "initial_projection_sha256": "1b8251c5612a68ab67fce04b0d218e66bbe62ce0adf49e8bc8e526ea4114d15a",
+    "initial_cursor": "CELL_DOCUMENTATION",
+    "initial_documentation": {
+      "master_labels": 8,
+      "cell_containers": 1,
+      "placement_captions": 1
+    },
+    "v7_released_marker_sha256": "418d736a8876fd87332c83422727ab89fad5b5155a94c0696bbf473d86dae2ff",
+    "per_phase_contract": "FRESH_REVN_PROJECTION_CURSOR_DOCS_THEN_ATOMIC_ACTIVE_EXECUTE_RELEASE"
   }
 }

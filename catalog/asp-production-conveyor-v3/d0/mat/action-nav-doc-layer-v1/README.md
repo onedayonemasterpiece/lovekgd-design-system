@@ -4,11 +4,11 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `e51e8ade5558075c3735c092e1f8fd0c7c3d67c1e04d565826d653cc5b3015ec`, Git blob `18579063a185e5c2a31bca7c530ec8c56dda58b8`, bytes `44306`.
-2. Put the exact execution authorization and bundle identity into `storage.actionNavDocLayerAuthorization` and `storage.actionNavDocLayerBundleIdentity`.
-3. Call `projectActionNavDocLayer({penpot, storage})`; bind its initial projection SHA to the authorization and physical ACTIVE marker.
-4. Call `executeActionNavDocLayerPhase({penpot, storage})` sequentially. Each call activates the exact target page, creates at most three nodes, rechecks ACTIVE/cancel/provenance, preserves the 8/8/18/9 native identities and returns an explicit resume/terminal receipt without calling or awaiting `currentFile.saveVersion()`. A timeout has unknown outcome: project again; never blindly retry.
-5. Call `readActionNavDocLayerSettlement({penpot, storage})` distinctly. Replay execution must return `created=0`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `348c503e57fd900e04db53057f970fc18797148495fa8e1feb25ae5e98dd7a09`, Git blob `d2051180bf50e779d57c3099929eb4843fd89660`, bytes `51673`.
+2. Put the exact branch/head/tree/blob/bytes/SHA bundle identity, fresh current `revn`/projection/cursor/docs authorization, and the exact previous released-marker continuation into storage. Do **not** write a new physical ACTIVE marker externally.
+3. Call `executeActionNavDocLayerPhase({penpot, storage})` once. The bundle validates the released physical marker, atomically mints ACTIVE, creates at most three nodes, binds its after-projection receipt, and releases the marker inside that same native call.
+4. For each remaining phase, perform a distinct read-only projection and repeat step 2 with the new authoritative `revn`; skipped/regressed counts and stale revisions fail closed. A timeout has unknown outcome: project again; never blindly retry.
+5. After terminal census `8/18/18`, call `readActionNavDocLayerSettlement({penpot, storage})` distinctly. Replay execution must return `created=0`.
 
 The repair adds only eight semantic master labels, eighteen documented specimen cells/captions, explicit focus-visible/current/selected treatments and nine visibly labeled `ATLAS_PAGE_HEADER_V2` fields. It does not recreate the page/root/components/mains/instances/SVGs and does not edit internal icon geometry.
 
@@ -27,3 +27,16 @@ V6 may replace the root authorization binding exactly once only when the stored 
 ## Native file revision accessor
 
 V7 uses `file.revn` as the authoritative Penpot Plugin API field and falls back to `file.revision` only for older mocks/runtimes. This follows the upstream Penpot file-format name and the Plugin API correction tracked in `penpot/penpot#10394`. If both properties are present they must be numerically equal; if neither is available, execution fails before creates. The real rev188 preflight exposes `revn=188` and no `revision`.
+
+## Rev 190 V8 per-phase atomic continuation
+
+V8 supersedes the fixed-revision V7 continuation. The first V8 call accepts only the exact
+released V7 partial (`revn=190`, projection `1b8251c5…`, cursor `CELL_DOCUMENTATION`, docs
+`8/1/1`, released-marker SHA-256 `418d736a…`). Every remaining bounded phase starts from a
+fresh caller-supplied `revn`/projection/cursor/docs tuple and the exact prior released root
+binding. The bundle itself validates that released tuple, mints physical `ACTIVE`, executes one
+phase, stores the after-projection receipt, and releases the marker **inside one native call**.
+An external marker write before execution is forbidden because it advances Penpot revision and
+invalidates the authorization. Active/unreleased markers, another writer, revision/projection
+mismatch, skipped or regressed documentation counts, and non-contiguous V8 phase bindings all
+fail before product creates.
