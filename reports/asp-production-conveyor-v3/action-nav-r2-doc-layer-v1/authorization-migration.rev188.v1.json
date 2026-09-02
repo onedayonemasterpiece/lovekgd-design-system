@@ -1,0 +1,79 @@
+{
+  "schema": "kenigevents.action-nav-authorization-migration-repair.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "authoritative_preflight": {
+    "revision": 188,
+    "old_marker_state": "SUSPENDED_REPAIR",
+    "old_marker_cancelled": true,
+    "mutation_in_flight": false,
+    "writer_released": true,
+    "lease_expired": true,
+    "cursor": "CELL_DOCUMENTATION",
+    "master_labels": 8,
+    "cell_containers": 0,
+    "placement_captions": 0,
+    "icon_and_protected_unchanged": true,
+    "validation": []
+  },
+  "from_bundle_sha256": "cc80c6978ec052152d420246db928451c4f5a29d69514f269c9468d8ac14fc13",
+  "to_bundle": {
+    "blob": "6630fdd155c4fb4309d9a7490672ef477000e120",
+    "bytes": 43813,
+    "sha256": "518a466edec2539bce05342993e6f27e7b33241b422fe92b5e52fc606a8a03d5"
+  },
+  "migration_gate": {
+    "exactly_once": true,
+    "stale_marker_state_required": "SUSPENDED_REPAIR",
+    "cancelled_required": true,
+    "mutation_in_flight_required": false,
+    "writer_released_required": true,
+    "lease_expired_required": true,
+    "writer_required": "/root/publish_r2",
+    "fresh_projection_sha_required": true,
+    "cursor_required": "CELL_DOCUMENTATION",
+    "census_required": "8/0/0",
+    "current_revision_must_equal_authorized_revision": true,
+    "minimum_revision": 188,
+    "active_or_unexpired_old_marker": "REJECT",
+    "other_writer": "REJECT",
+    "revision_drift": "REJECT"
+  },
+  "preservation": {
+    "all_ids": true,
+    "icon_geometry": true,
+    "completed_documentation": true,
+    "protected_projection": true,
+    "save_version_calls": 0,
+    "max_creates_per_phase": 3,
+    "replay_created": 0
+  },
+  "tests": {
+    "committed": "8/8 PASS",
+    "shared_harness": "PASS",
+    "first_run": "22 phases / 44 creates",
+    "replay_created": 0
+  },
+  "penpot_reads": 0,
+  "penpot_mutations": 0,
+  "penpot_execution_authorized": false,
+  "next_gate": "EXACT_QA_PLUS_INTEGRATE_THEN_SOLE_WRITER_FRESH_REVISION_188_PLUS_PROJECTION",
+  "exact_old_root_binding": {
+    "bundleSha256": "cc80c6978ec052152d420246db928451c4f5a29d69514f269c9468d8ac14fc13",
+    "cancelToken": "actionnav-v4-cancel-1788355298685",
+    "initialProjectionSha256": "35ac2eee0534948b96093dd8ba3c4a97fb54747063c11a94f15267408bdb49fc",
+    "leaseToken": "actionnav-v4-lease-1788355298685",
+    "runId": "actionnav-v4-rev181-1788355298685"
+  },
+  "exact_current_projection": {
+    "revision": 188,
+    "projectionSha256": "2822bc7d24718a778d1794c88d370a90498879d1862c23be8677d235c5443b4d",
+    "iconProofSha256": "fa1eadb2254c68916af4d1e7e0e605055a3aac1d8072f10b404a4cfc32deea81",
+    "protectedProjectionSha256": "0c8b455d33b460ba6a012c6c2322d1e8cde381bf1a21380f0d9c3078d5f4da32",
+    "cursor": "CELL_DOCUMENTATION",
+    "census": "8/0/0"
+  },
+  "exact_old_marker_times": {
+    "expires_at": "2026-09-02T13:36:38.685Z",
+    "released_at": "2026-09-02T13:27:08.600Z"
+  }
+}

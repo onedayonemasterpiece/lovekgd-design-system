@@ -4,7 +4,7 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `35abe4d4e29977e5a25bb8aab946ae0dd7d93f20a76604f7867b323468a8f338`, Git blob `f6839aa8a693bae6382daa275e3ccd80cb321546`, bytes `39255`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `518a466edec2539bce05342993e6f27e7b33241b422fe92b5e52fc606a8a03d5`, Git blob `6630fdd155c4fb4309d9a7490672ef477000e120`, bytes `43813`.
 2. Put the exact execution authorization and bundle identity into `storage.actionNavDocLayerAuthorization` and `storage.actionNavDocLayerBundleIdentity`.
 3. Call `projectActionNavDocLayer({penpot, storage})`; bind its initial projection SHA to the authorization and physical ACTIVE marker.
 4. Call `executeActionNavDocLayerPhase({penpot, storage})` sequentially. Each call activates the exact target page, creates at most three nodes, rechecks ACTIVE/cancel/provenance, preserves the 8/8/18/9 native identities and returns an explicit resume/terminal receipt without calling or awaiting `currentFile.saveVersion()`. A timeout has unknown outcome: project again; never blindly retry.
@@ -19,3 +19,7 @@ The repair adds only eight semantic master labels, eighteen documented specimen 
 ## Rev 181 timeout recovery
 
 V5 removes the blocking per-phase `currentFile.saveVersion()` call. Every invocation starts with a fresh native projection and reconciles the current cursor, so the unknown outcome of the earlier `MASTER_LABELS` HTTP 504 is never guessed or blindly retried. After the prior lease expires, the sole writer must obtain a fresh authorization and projection before continuing.
+
+## Rev 188 one-time V4 authorization migration
+
+V6 may replace the root authorization binding exactly once only when the stored binding is the V4 bundle `cc80c697…`, the authorization tuple contains a SHA-bound stale marker proving `SUSPENDED_REPAIR`, `cancelled=true`, `mutation_in_flight=false`, `writer_released=true`, expired lease, and writer `/root/publish_r2`, and the fresh revision-bound projection is exactly cursor `CELL_DOCUMENTATION` with documentation census `8/0/0`. The new ACTIVE marker must link `authorization_rebind_from_bundle_sha256` to V4. Active/unexpired stale markers, another writer, a projection mismatch, or revision drift fail before creates. The current file revision must equal the string-bound authorized revision and be at least 188.
