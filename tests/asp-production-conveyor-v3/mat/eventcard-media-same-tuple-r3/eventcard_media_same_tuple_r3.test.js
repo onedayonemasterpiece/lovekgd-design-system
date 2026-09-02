@@ -119,6 +119,13 @@ test('projection binds exact four shapes, parents, opaque ImageData identities, 
   assert.equal(projection.projectionSha256, M.projectEventcardMediaSameTupleR3(adapter).projectionSha256);
 });
 
+test('truthful official ShapeBase transform absence is represented by null, not invented geometry', () => {
+  const adapter = new Adapter();
+  for (const row of adapter.rows.values()) row.transform = null;
+  const projection = M.projectEventcardMediaSameTupleR3(adapter);
+  assert.equal(projection.rows.every((row) => row.transform === null), true);
+});
+
 test('same-tuple execution binds exact source bytes in place and preserves geometry/fit/focal/transform', async () => {
   const adapter = new Adapter();
   const before = M.projectEventcardMediaSameTupleR3(adapter);

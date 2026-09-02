@@ -125,7 +125,10 @@ function normalizeMediaRow(adapter, spec) {
       !Number.isFinite(row.parent?.x) || !Number.isFinite(row.parent?.y)) {
     fail('MEDIA_R3_GEOMETRY_DRIFT');
   }
-  if (!Array.isArray(row.fills) || row.fills.length === 0 || row.transform == null ||
+  // ShapeBase exposes rotation/flip but no general transform field. A truthful
+  // native projection therefore uses null when transform is unavailable.
+  if (!Array.isArray(row.fills) || row.fills.length === 0 ||
+      (row.transform !== null && typeof row.transform !== 'object') ||
       !Number.isFinite(row.rotation) || typeof row.flipX !== 'boolean' || typeof row.flipY !== 'boolean') {
     fail('MEDIA_R3_FILL_OR_TRANSFORM_MISSING');
   }
@@ -158,6 +161,7 @@ function normalizeMediaRow(adapter, spec) {
     focal: row.focal,
     exactSourceAsset: asset,
     existingSourceEvidence: row.sourceEvidence || null,
+    nativeImageDataReadback: row.nativeImageDataReadback || null,
   };
 }
 

@@ -5,12 +5,14 @@ import unittest
 ROOT = pathlib.Path(__file__).resolve().parents[4]
 PACKAGE = ROOT / "catalog/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/MAT-EVENTCARD-MEDIA-SAME-TUPLE-EXECUTION-R3.package.v1.json"
 RUNTIME = ROOT / "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.js"
+NATIVE = ROOT / "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.js"
 
 class PackageTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.package = json.loads(PACKAGE.read_text(encoding="utf-8"))
         cls.runtime = RUNTIME.read_text(encoding="utf-8")
+        cls.native = NATIVE.read_text(encoding="utf-8")
 
     def test_parent_and_native_tuple(self):
         self.assertEqual(self.package["parent"]["head"], "6ea516d72ec440a6a9967a6519685045046ede1a")
@@ -33,6 +35,29 @@ class PackageTest(unittest.TestCase):
         authority = self.package["semantic_slot_authority"]
         self.assertEqual(authority["slot"], "event.media-frame/image-content")
         self.assertEqual(authority["value_type"], "string-only")
+
+    def test_concrete_runtime_and_native_truth(self):
+        execution = self.package["execution"]
+        self.assertEqual(execution["entrypoint"], "executeEventcardMediaPenpotR3")
+        self.assertTrue(execution["concrete_penpot_adapter"])
+        self.assertIn("ShapeBase", execution["transform_contract"])
+        self.assertIn("imageReadback(uploaded)", self.native)
+        self.assertIn("assertActive(context, authorization);", self.native)
+
+    def test_exact_packaged_assets(self):
+        for asset in self.package["packaged_assets"].values():
+            path = ROOT / asset["path"]
+            self.assertTrue(path.is_file())
+            self.assertEqual(path.stat().st_size, asset["bytes"])
+            import hashlib
+            self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), asset["sha256"])
+
+    def test_media_authority_is_bounded_and_text_stays_blocked(self):
+        preflight = self.package["native_preflight"]
+        self.assertEqual(preflight["authority_card_comment_id"], 5505976359)
+        self.assertFalse(preflight["global_profile_override"])
+        self.assertTrue(preflight["text_remains_blocked"])
+        self.assertIn("EVENTCARD_MEDIA", preflight["owner_directive"])
 
     def test_boundaries(self):
         b = self.package["boundaries"]

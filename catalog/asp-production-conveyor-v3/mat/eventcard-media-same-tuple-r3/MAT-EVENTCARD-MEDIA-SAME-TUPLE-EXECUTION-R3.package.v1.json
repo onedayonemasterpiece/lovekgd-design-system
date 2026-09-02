@@ -9,18 +9,23 @@
     "visual_pass": false,
     "whole_eventcard_pass": false
   },
-  "defect_closed": "REPAIR_NATIVE_IMAGE_SOURCE_SHA_BYTES_AND_SEMANTIC_SLOT_UNAVAILABLE",
+  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_AND_CONCRETE_EXECUTION_GAP",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
       "target-local string-only source evidence"
     ],
     "authorization_binds": [
-      "exact revision",
-      "projection SHA-256",
-      "source registry SHA-256"
+      "exact provider package head/tree",
+      "exact current revision",
+      "fresh four-target native projection SHA-256",
+      "source registry SHA-256",
+      "current blocked profile SHA-256 plus exact bounded Media owner directive",
+      "triggered_by and session/task/sole-writer/lease tuple"
     ],
-    "entrypoint": "executeEventcardMediaSameTupleR3",
+    "concrete_penpot_adapter": true,
+    "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
+    "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
       "component paths",
@@ -28,8 +33,18 @@
       "opaque overlay",
       "fit/focal/transform/rotation/flip changes"
     ],
+    "image_data_contract": "await ImageData.data() and verify exact bytes/SHA before authorization and after every upload/fill",
+    "media_fill_mutations": 4,
+    "native_mutation_calls": 25,
+    "physical_active_recheck": "before current-page activation, uploadMediaData, uploaded ImageData.data(), each fill setter, each string evidence setter, and durable receipt marker",
+    "projection_entrypoint": "projectEventcardMediaPenpotR3",
     "same_tuple": true,
-    "unknown_outcome": "STOP_READ_ONLY_FOUR_TARGETS_AND_COLLECTION_NO_BLIND_RETRY"
+    "second_run_created": 0,
+    "settlement_entrypoint": "readEventcardMediaPenpotSettlementR3",
+    "source_evidence_mutations": 16,
+    "transform_contract": "official ShapeBase has no transform field; native null is truthful; exact rotation/flip are mandatory",
+    "unknown_outcome": "STOP; distinct read-only four-target projection; no blind retry",
+    "uploaded_image_data": 4
   },
   "native_observation": {
     "image_data_identity_contract": "capture exact opaque native id/name/intrinsics/mtype in preflight; do not invent unavailable IDs in Git",
@@ -102,7 +117,39 @@
       }
     ]
   },
+  "native_preflight": {
+    "authority_card_comment_id": 5505976359,
+    "authority_card_scope": "EVENTCARD_TEXT_ONLY; explicitly lists Media as unblocked",
+    "collection_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "eventcard_components": 18,
+    "exact_roots": 4,
+    "exact_unique_media_shapes": 4,
+    "exact_unique_parents": 4,
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "file_local_components": 35,
+    "global_profile_override": false,
+    "owner_directive": "MORNING_PRODUCTION_SHIFT:EVENTCARD_MEDIA_AFTER_EXACT_AUTHORIZATION",
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "required_distinct_coverage_readback": "KNOWN_PASS; uncoveredPixels=0; opaqueOverlays=0; exact source SHA-256",
+    "source_registry_sha256": "evidence computed by sourceRegistrySha256() and bound to authorization",
+    "text_remains_blocked": true,
+    "validation": []
+  },
   "package_id": "MAT-EVENTCARD-MEDIA-SAME-TUPLE-EXECUTION-R3",
+  "packaged_assets": {
+    "event.real.2182": {
+      "bytes": 229072,
+      "mime_type": "image/webp",
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/assets/99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e.webp",
+      "sha256": "99d4b75ef3291c90e1457b6fdc3fe89e519b327f9d6c8ff56cd95f763e71ab1e"
+    },
+    "event.real.8006": {
+      "bytes": 111072,
+      "mime_type": "image/webp",
+      "path": "catalog/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/assets/dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b.webp",
+      "sha256": "dd8834258d4a1ebde029aca1960bdd224bdf636d3fd8aee8fc7824012475de8b"
+    }
+  },
   "parent": {
     "branch": "agent/u0-eventcard-media-projection-binding-r2-20260902",
     "head": "6ea516d72ec440a6a9967a6519685045046ede1a",
@@ -123,8 +170,16 @@
       "protected collection digest",
       "projection SHA-256"
     ],
-    "entrypoint": "projectEventcardMediaSameTupleR3",
-    "mutation_free": true
+    "concrete_current_page_native": true,
+    "entrypoint": "projectEventcardMediaPenpotR3",
+    "fresh_digest_required_for_authorization": true,
+    "mutation_free": true,
+    "native_image_data_data_sha_bytes": true
+  },
+  "repair_parent": {
+    "branch": "agent/u0-eventcard-media-same-tuple-r3-20260902",
+    "head": "24877bc2a13a769a67358193bf57695d04991c18",
+    "tree": "00a2bbcb080c3b855d9f45288e35c5e6a728c8ff"
   },
   "schema_version": "kenigevents.mat-eventcard-media-same-tuple-execution-package.v3",
   "semantic_slot_authority": {
@@ -177,7 +232,10 @@
   "source_terminal_comment": 5502077071,
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
+    "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.test.js",
+    "native_like_cases": 7,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.test.js",
+    "node_total_cases": 15,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py"
   }
 }
