@@ -1,0 +1,145 @@
+            "next_owner: D0_QA_INTEGRATE",
+            "```",
+        ])
+        comment_id = post_comment(body)
+        published.append({
+            "slug": slug,
+            "lane": package["lane"],
+            "package_id": package["package_id"],
+            "state": package["state"],
+            "head": head,
+            "tree": tree_sha,
+            "bundle": bundle_record,
+            "tests": tests,
+            "atlas_binding": package["atlas_binding"],
+            "route_state_fixture_tuple_sha256": package["route_state_fixture_tuple_sha256"],
+            "dependency_count": len(package["dependencies"]),
+            "issue_comment_id": comment_id,
+        })
+    if len(published) < 8:
+        raise AssertionError(f"DIRECTLY_CALLABLE_TARGET_NOT_MET:{len(published)}")
+    terminal = {
+        "schema_version": "kenigevents.a0.direct-plugin-route-buffer.r2",
+        "state": "A0_DIRECT_PLUGIN_ROUTE_BUFFER_READY",
+        "branch": BRANCH,
+        "baseline": {"branch": "a0/morning-executable-route-buffer-v1-20260902", "head": BASELINE, "tree": BASELINE_TREE},
+        "implementation_ancestry": {
+            "receipt_tip": CURRENT_AGGREGATE,
+            "implementation_subject": IMPLEMENTATION_SUBJECT,
+            "r2_supersedes_publishable_claims_from_v1": True,
+        },
+        "atlas_r2_1": {"base_head": ATLAS_R2, "base_tree": ATLAS_R2_TREE, "extension_head": ATLAS_R21, "extension_tree": ATLAS_R21_TREE},
+        "d0_conformance": {"head": D0_HARNESS, "tree": D0_HARNESS_TREE},
+        "bundles_ready": len(published),
+        "bundles": published,
+        "dependency_repairs": [{
+            "scope": "package-local exact resolver",
+            "status": "BUNDLED_FAIL_CLOSED_QA_INTEGRATE_GATED",
+            "caller_injected_dependencies": 0,
+            "substitutions": 0,
+        }],
+        "factual_defects": blocked,
+        "unprocessed_archetypes": [item["slug"] for item in blocked],
+        "directly_callable_route_jobs_target": 8,
+        "target_met": len(published) >= 8,
+        "new_archetype_wave_created": False,
+        "factual_package_bytes_changed": 0,
+        "route_registry_changed": False,
+        "atlas_changed": False,
+        "runtime_shared_imports": 0,
+        "visual_pass_declared": False,
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+        "kaggle": False,
+        "next_owner": "D0_CONTINUOUS_INTAKE",
+    }
+    terminal_path = cwd / OUT_ROOT / "A0_DIRECT_PLUGIN_ROUTE_BUFFER_READY.r2.json"
+    terminal_path.write_text(pretty(terminal), encoding="utf-8")
+    validation = {
+        "result": "PASS",
+        "state": terminal["state"],
+        "bundles_ready": len(published),
+        "all_d0_conformance_pass": all(item["tests"]["d0_plugin_bundle_conformance"] == "PASS" for item in published),
+        "all_replay_zero": all(item["tests"]["terminal_replay_created_zero"] is True for item in published),
+        "factual_package_bytes_changed": 0,
+        "route_registry_changed": False,
+        "atlas_changed": False,
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+    }
+    validation_path = report_dir / "validation.r2.json"
+    validation_path.write_text(pretty(validation), encoding="utf-8")
+    git("add", terminal_path.relative_to(cwd).as_posix(), validation_path.relative_to(cwd).as_posix(), (report_dir / "fresh-read.r2.json").relative_to(cwd).as_posix(), builder_destination.relative_to(cwd).as_posix(), cwd=cwd)
+    git("diff", "--cached", "--check", cwd=cwd)
+    git("commit", "-m", "feat(a0): publish direct-plugin R2 route buffer terminal", cwd=cwd)
+    git("push", "origin", f"HEAD:{BRANCH}", cwd=cwd)
+    terminal_head = git("rev-parse", "HEAD", cwd=cwd)
+    terminal_tree = git("rev-parse", "HEAD^{tree}", cwd=cwd)
+    remote_line = git("ls-remote", "--heads", "origin", f"refs/heads/{BRANCH}", cwd=cwd)
+    if not remote_line or remote_line.split()[0] != terminal_head:
+        raise AssertionError("TERMINAL_REMOTE_HEAD_READBACK_MISMATCH")
+    git("fetch", "origin", f"refs/heads/{BRANCH}:refs/remotes/origin/{BRANCH}", cwd=cwd)
+    remote_ref = f"refs/remotes/origin/{BRANCH}"
+    if git("rev-parse", f"{remote_ref}^{{tree}}", cwd=cwd) != terminal_tree:
+        raise AssertionError("TERMINAL_REMOTE_TREE_READBACK_MISMATCH")
+
+    fresh_dir = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "a0-direct-plugin-r2-fresh-checkout"
+    if fresh_dir.exists():
+        shutil.rmtree(fresh_dir)
+    git("worktree", "add", "--detach", fresh_dir.as_posix(), remote_ref, cwd=cwd)
+    fresh_results = []
+    try:
+        for item in published:
+            package_dir = fresh_dir / OUT_ROOT / item["slug"]
+            package = json.loads((package_dir / "package.r2.json").read_text(encoding="utf-8"))
+            bundle_path = package_dir / "bundle.direct-plugin.r2.js"
+            actual_sha = sha256(bundle_path.read_bytes())
+            conformance_raw = run(
+                "node", harness_path.as_posix(), "--bundle", bundle_path.as_posix(),
+                "--sha256", actual_sha, "--global", package["bundle"]["global"], cwd=fresh_dir,
+            )
+            conformance = json.loads(conformance_raw.splitlines()[-1])
+            if conformance.get("state") != "D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS":
+                raise AssertionError(f"FRESH_CONFORMANCE_FAIL:{item['slug']}")
+            run(sys.executable, (package_dir / "package.test.py").as_posix(), package_dir.as_posix(), cwd=fresh_dir)
+            run(sys.executable, (package_dir / "source-binding.test.py").as_posix(), package_dir.as_posix(), fresh_dir.as_posix(), cwd=fresh_dir)
+            fresh_results.append({
+                "slug": item["slug"], "bundle_sha256": actual_sha,
+                "conformance": "PASS", "package": "PASS", "source_binding": "PASS",
+                "replay_created": conformance.get("replay", {}).get("created"),
+            })
+    finally:
+        git("worktree", "remove", "--force", fresh_dir.as_posix(), cwd=cwd)
+    fresh_validation = {
+        "schema_version": "kenigevents.a0.direct-plugin-route-buffer-fresh-checkout.r2",
+        "validated_remote_head": terminal_head,
+        "validated_remote_tree": terminal_tree,
+        "bundles": fresh_results,
+        "bundles_verified": len(fresh_results),
+        "result": "PASS",
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+    }
+    fresh_path = report_dir / "fresh-checkout-validation.r2.json"
+    fresh_path.write_text(pretty(fresh_validation), encoding="utf-8")
+    git("add", fresh_path.relative_to(cwd).as_posix(), cwd=cwd)
+    git("commit", "-m", "test(a0): verify direct-plugin R2 buffer from remote checkout", cwd=cwd)
+    git("push", "origin", f"HEAD:{BRANCH}", cwd=cwd)
+    head = git("rev-parse", "HEAD", cwd=cwd)
+    tree_sha = git("rev-parse", "HEAD^{tree}", cwd=cwd)
+    remote_line = git("ls-remote", "--heads", "origin", f"refs/heads/{BRANCH}", cwd=cwd)
+    if not remote_line or remote_line.split()[0] != head:
+        raise AssertionError("FINAL_REMOTE_HEAD_READBACK_MISMATCH")
+    git("fetch", "origin", f"refs/heads/{BRANCH}:refs/remotes/origin/{BRANCH}", cwd=cwd)
+    if git("rev-parse", f"refs/remotes/origin/{BRANCH}^{{tree}}", cwd=cwd) != tree_sha:
+        raise AssertionError("FINAL_REMOTE_TREE_READBACK_MISMATCH")
+    checkpoint = "\n".join([
+        "<!-- ASP_CONVEYOR_CHECKPOINT_V3 -->",
+        "## A0 direct-plugin route buffer R2 terminal",
+        "",
+        "```yaml",
+        "state: A0_DIRECT_PLUGIN_ROUTE_BUFFER_READY",
+        f"branch: {BRANCH}",
+        f"head: {head}",
+        f"tree: {tree_sha}",
+        f"bundles_ready: {len(published)}",
