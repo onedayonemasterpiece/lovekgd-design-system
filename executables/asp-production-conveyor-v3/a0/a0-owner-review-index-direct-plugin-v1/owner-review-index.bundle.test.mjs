@@ -99,8 +99,12 @@ test('exact source and Atlas R2 binding are preserved', async () => {
   assert.equal(packageRecord.atlas_r2.template_id, 'OWNER_INDEX_V2');
   assert.equal(packageRecord.atlas_r2.page_order, '0000');
   assert.equal(packageRecord.atlas_r2.physical_page_name, 'A0 · Owner Review Index · Candidate');
-  assert.equal(packageRecord.source_bound_content.rows, 45);
-  assert.equal(packageRecord.source_bound_content.package_groups, 5);
+  assert.equal(packageRecord.source_bound_content.rows, 42);
+  assert.equal(packageRecord.source_bound_content.row_authority, 'ATLAS_R2_PAGE_UNITS');
+  assert.equal(packageRecord.source_bound_content.atlas_page_units_sha256, '8035a658a6293ceb1329abf2e49d6aff7d66778ab7c7e0fd136d94f8db23cbd4');
+  assert.equal(packageRecord.source_bound_content.donor_rows_ignored, 45);
+  assert.equal(packageRecord.terminal_census.root_height, 2528);
+  assert.equal(packageRecord.terminal_census.bottommost_content_y, 2464);
   assert.equal(packageRecord.source_bound_content.placeholders, 0);
   assert.equal(sha256(bundleBytes), packageRecord.bundle.sha256);
 });
@@ -112,12 +116,14 @@ test('deterministic regeneration and exact shared harness pass', () => {
   assert.equal(receipt.state, 'D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS');
   assert.equal(receipt.package_id, packageRecord.package_id);
   assert.equal(receipt.bundle_sha256, packageRecord.bundle.sha256);
-  assert.equal(receipt.first_run.created, 330);
-  assert.equal(receipt.settlement_receipt.mutation_count, 330);
-  assert.equal(receipt.settlement_receipt.mutated_stable_ids.length, 329);
+  assert.equal(receipt.first_run.created, 349);
+  assert.equal(receipt.settlement_receipt.mutation_count, 349);
+  assert.equal(receipt.settlement_receipt.mutated_stable_ids.length, 348);
   assert.equal(receipt.settlement_receipt.provenance.requirements_contract_sha256, '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72');
-  assert.equal(receipt.settlement_receipt.rows, 45);
-  assert.equal(receipt.settlement_receipt.group_labels, 5);
+  assert.equal(receipt.settlement_receipt.rows, 42);
+  assert.equal(receipt.settlement_receipt.atlas_page_units, 42);
+  assert.equal(receipt.settlement_receipt.atlas_page_units_sha256, '8035a658a6293ceb1329abf2e49d6aff7d66778ab7c7e0fd136d94f8db23cbd4');
+  assert.equal(receipt.settlement_receipt.row_authority, 'ATLAS_R2_PAGE_UNITS');
   assert.equal(receipt.settlement_receipt.linked_atlas_headers, 1);
   assert.equal(receipt.settlement_receipt.detached, 0);
   assert.equal(receipt.settlement_receipt.screenshots, 0);
@@ -158,15 +164,20 @@ test('protected projection drift fails closed before native creates', async () =
   assert.equal(audit.creates, before);
 });
 
-test('source-bound rows stay exact, ordered, pending and non-placeholder', () => {
+test('Atlas R2 physical page rows stay exact, ordered, pending and non-placeholder', () => {
   const bundle = loadBundle();
-  assert.equal(bundle.source.rows.length, 45);
-  assert.deepEqual([...bundle.source.rows].map((row) => row.order), Array.from({ length: 45 }, (_, index) => index + 1));
-  assert.equal(new Set(bundle.source.rows.map((row) => row.review_key)).size, 45);
-  assert.ok(bundle.source.rows.every((row) => row.materialization === 'AWAITING_D0_MATERIALIZATION'));
-  assert.ok(bundle.source.rows.every((row) => row.v0_acceptance === 'PENDING'));
-  assert.ok(bundle.source.rows.every((row) => row.target === 'D0_ASSIGNS_NEW_ID'));
+  assert.equal(bundle.source.rows.length, 42);
+  assert.deepEqual([...bundle.source.rows].map((row) => row.order), Array.from({ length: 42 }, (_, index) => index + 1));
+  assert.equal(new Set(bundle.source.rows.map((row) => row.page_order)).size, 42);
+  assert.equal(new Set(bundle.source.rows.map((row) => row.atlas_page_id)).size, 42);
+  assert.equal(bundle.source.rows.map((row) => row.page_order).join('\n'), [...bundle.source.rows].map((row) => row.page_order).sort().join('\n'));
+  assert.ok(bundle.source.rows.every((row) => row.package_id && row.template_id && row.projection_role));
+  assert.ok(bundle.source.rows.every((row) => row.v0_status === 'PENDING_V0'));
+  assert.equal(bundle.source.atlas.page_units_sha256, '8035a658a6293ceb1329abf2e49d6aff7d66778ab7c7e0fd136d94f8db23cbd4');
+  assert.equal(bundle.source.page.height, 2528);
+  assert.equal(bundle.source.atlas.bottommost_content_y, 2464);
   assert.ok(!bundleSource.toLowerCase().includes('labels-only'));
   assert.equal(bundle.metadata.atlas_template, 'OWNER_INDEX_V2');
+  assert.equal(bundle.metadata.row_authority, 'ATLAS_R2_PAGE_UNITS');
   assert.equal(bundle.metadata.placeholder_nodes, 0);
 });

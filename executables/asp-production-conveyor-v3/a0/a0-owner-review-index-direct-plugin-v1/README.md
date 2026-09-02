@@ -1,8 +1,10 @@
 # A0 Owner Review Index direct plugin bundle v1
 
 Package-local deterministic standalone bundle for `A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1`.
-It embeds the exact 45-row A0 source tuple and materializes it with the Atlas R2
-`OWNER_INDEX_V2` contract on physical page order `0000`.
+It preserves the older 45-row A0 donor only as immutable provenance, but uses the
+exact 42 Atlas R2 `page_units` as the sole visible row authority. It materializes
+each physical page exactly once in `page_order` with `OWNER_INDEX_V2` on order `0000`,
+a `2624×2528` root, bottommost content at `2464`, and truthful `PENDING_V0` chips.
 
 ## Frozen inputs
 
@@ -36,4 +38,5 @@ node --test owner-review-index.bundle.test.mjs
 
 The package test invokes the exact frozen `D0_PLUGIN_BUNDLE_CONFORMANCE_V1`
 mirror, then checks cancellation, expiry, provenance, protected projections,
-unknown-outcome stop, exact source order, linked header, and replay creation.
+unknown-outcome stop, exact 42-row Atlas order/fields, linked header, and replay creation.
+The stale 45-row donor is explicitly ignored as count authority.
