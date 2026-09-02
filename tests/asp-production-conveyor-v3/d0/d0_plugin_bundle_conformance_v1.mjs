@@ -108,6 +108,9 @@ function staticGate(source, bundlePath) {
   invariant(!/\b(?:readFile|readFileSync|writeFile|writeFileSync|readdir|readdirSync|createReadStream|createWriteStream)\b/u.test(code), 'FORBIDDEN_FILESYSTEM_API');
   invariant(!/(?:node:fs|node:crypto|node:path|from\s*["'](?:node:)?fs|import\s*\()/u.test(source), 'FORBIDDEN_RUNTIME_MODULE_OR_FILESYSTEM');
   invariant(!/\b(?:eval|Function)\s*\(/u.test(code), 'DYNAMIC_CODE_FORBIDDEN');
+  invariant(!/\bcrypto\s*\.\s*subtle\b/u.test(code), 'UNAVAILABLE_NATIVE_GLOBAL:crypto.subtle');
+  invariant(!/\bTextEncoder\b/u.test(code), 'UNAVAILABLE_NATIVE_GLOBAL:TextEncoder');
+  invariant(!/\breadNativeCoverage\b/u.test(code), 'UNAVAILABLE_CALLER_HELPER:readNativeCoverage');
 }
 
 function pluginNode(id, type = 'shape') {
@@ -144,14 +147,25 @@ function buildInstrumentedPenpot() {
   };
   let sequence = 0;
   const pages = [];
+  const currentFile = {
+    id: 'd0-conformance-file',
+    revn: 1,
+    pages,
+    validate: () => [],
+  };
+  // Penpot's native file API exposes `revn`. A writable `revision` alias made
+  // stale test doubles pass while the same bundle failed in the sole writer.
+  // Keep the alias deletable for bundles that defensively remove it, but fail
+  // closed if a conformance host tries to manufacture it.
+  Object.defineProperty(currentFile, 'revision', {
+    configurable: true,
+    enumerable: false,
+    get: () => undefined,
+    set: () => invariant(false, 'NATIVE_REVISION_ALIAS_FORBIDDEN'),
+  });
   const penpot = {
     currentPage: null,
-    currentFile: {
-      id: 'd0-conformance-file',
-      revision: 1,
-      pages,
-      validate: () => [],
-    },
+    currentFile,
     library: { local: { components: [] } },
     selection: [],
     async openPage(page) {
@@ -287,9 +301,12 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const sandbox = {
     console: Object.freeze({ log() {}, warn() {}, error() {} }),
     penpot: instrumented.penpot,
-    crypto: globalThis.crypto,
-    TextEncoder,
-    TextDecoder,
+    // These browser globals are not part of the native Penpot plugin runtime
+    // contract used by the sole writer. Bundles must ship portable primitives
+    // or use native Penpot APIs rather than relying on them.
+    crypto: Object.freeze({}),
+    TextEncoder: undefined,
+    TextDecoder: undefined,
     Uint8Array,
     ArrayBuffer,
     Blob,
@@ -319,6 +336,8 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   });
   invariant(host && host.penpot === instrumented.penpot, 'CONFORMANCE_HOST_MUST_USE_INSTRUMENTED_PENPOT');
   invariant(host.storage === storage, 'CONFORMANCE_HOST_MUST_USE_PROVIDED_STORAGE');
+  invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
+  invariant(instrumented.penpot.currentFile.revision === undefined, 'NATIVE_REVISION_ALIAS_FORBIDDEN');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
 
   const strictProbe = await bundle.conformance.strictStringProbe(host);
@@ -367,6 +386,14 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
       open_page_calls: instrumented.audit.openPageCalls,
       all_non_page_creates_activated: true,
     },
+    native_runtime: {
+      crypto_subtle_available: false,
+      text_encoder_available: false,
+      text_encoder_constructible: false,
+      current_file_revision_property: 'revn',
+      revision_alias_available: false,
+      caller_injected_helpers_allowed: false,
+    },
   };
 }
 
@@ -380,6 +407,14 @@ async function selfTest() {
     const pass = await runConformance({ bundlePath: path, expectedSha256, globalName: 'D0ConformanceFixture' });
     assert.equal(pass.replay.created, 0);
     assert.equal(pass.first_run.created, 2);
+    assert.deepEqual(pass.native_runtime, {
+      crypto_subtle_available: false,
+      text_encoder_available: false,
+      text_encoder_constructible: false,
+      current_file_revision_property: 'revn',
+      revision_alias_available: false,
+      caller_injected_helpers_allowed: false,
+    });
 
     const forbidden = [
       ['require', 'globalThis.Bad={}; require("x")'],
@@ -401,7 +436,24 @@ async function selfTest() {
       () => runConformance({ bundlePath: path, expectedSha256: '0'.repeat(64), globalName: 'D0ConformanceFixture' }),
       /BUNDLE_SHA256_MISMATCH/u,
     );
-    return { ...pass, self_test_negative_cases: forbidden.length + 1 };
+    const nativeGlobalCases = [
+      ['crypto-subtle', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.crypto.subtle.digest; "), /UNAVAILABLE_NATIVE_GLOBAL:crypto\.subtle/u],
+      ['text-encoder', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; new globalThis.TextEncoder(); "), /UNAVAILABLE_NATIVE_GLOBAL:TextEncoder/u],
+      ['caller-helper', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.readNativeCoverage; "), /UNAVAILABLE_CALLER_HELPER:readNativeCoverage/u],
+      ['revision-alias', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){seed.penpot.currentFile.revision=1;return {penpot:seed.penpot,storage:seed.storage};}',
+      ), /NATIVE_REVISION_ALIAS_FORBIDDEN/u],
+    ];
+    for (const [name, body, error] of nativeGlobalCases) {
+      const badPath = join(directory, `${name}.js`);
+      await writeFile(badPath, body, 'utf8');
+      await assert.rejects(
+        () => runConformance({ bundlePath: badPath, expectedSha256: sha256(Buffer.from(body)), globalName: 'D0ConformanceFixture' }),
+        error,
+      );
+    }
+    return { ...pass, self_test_negative_cases: forbidden.length + 1 + nativeGlobalCases.length };
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
