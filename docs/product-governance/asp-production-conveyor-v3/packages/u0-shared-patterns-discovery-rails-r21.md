@@ -7,3 +7,5 @@ The standalone browser bundle binds `COMPONENT_STATE_GRID_V2`: a 2176px candidat
 Execution is stable-ID resumable. Every call activates the exact page, rechecks the bounded physical ACTIVE lease, performs at most three actual native creates, and verifies a SHA-256 projection of all protected pages and components. Unknown outcomes stop for a distinct read-only projection and prohibit blind retry. A fresh-storage replay creates zero nodes.
 
 Git QA/INTEGRATE does not authorize Penpot mutation. The sole writer still requires a fresh native projection, exact bundle authorization tuple, physical ACTIVE marker, settlement readback, validation `[]`, native exports and a page-scoped V0 trigger.
+
+The V2 authorization envelope additionally binds the exact Atlas page ID and three semantic slots, Atlas head/tree provenance, sole writer `/root/publish_r2`, D0 session/task/trigger identities and cancel-token parity between authorization provenance and the physical ACTIVE marker.

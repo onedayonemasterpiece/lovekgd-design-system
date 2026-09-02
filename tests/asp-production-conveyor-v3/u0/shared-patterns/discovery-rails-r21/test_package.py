@@ -9,10 +9,12 @@ class TestPackage(unittest.TestCase):
  def test_geometry_and_product_census(self):
   q=self.p['physical_page'];self.assertEqual(q['header'],[64,64,2048,128]);self.assertEqual(q['master'],[64,256,448,220]);self.assertEqual(q['state_grid'],{'cell_height':280,'cell_width':400,'column_gap':32,'columns':3,'x':576});self.assertEqual(self.p['product']['linked_specimens'],3);self.assertEqual(self.p['product']['placeholders'],0)
  def test_bundle_identity(self):
-  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V1');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
+  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V2');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
   for x in ['require','module','exports','process','Buffer']: self.assertIsNone(re.search(rf'\b{x}\b',self.s))
  def test_active_and_unknown_contract(self):
   self.assertIn('PHYSICAL_ACTIVE_REQUIRED',self.s);self.assertIn('DISTINCT_READ_ONLY_PROJECTION',self.s);self.assertIn('PROTECTED_PROJECTION_DRIFT',self.s);self.assertFalse(self.p['boundaries']['penpot_execution_authorized'])
+  self.assertEqual(self.p['execution']['sole_writer'],'/root/publish_r2');self.assertIn('cancelToken',self.p['execution']['authorization_physical_active_parity'])
+  self.assertEqual(self.p['atlas_tuple']['atlas_page_id'],'shared-pattern-discovery-rails-r2-1');self.assertEqual(self.p['atlas_tuple']['semantic_slot_bindings'],{'header':'page_header','master_column':'package_owned_masters','state_grid':'linked_state_instances'})
  def test_deterministic_regeneration(self):
   before=hashlib.sha256(self.b).hexdigest();subprocess.run(['python3',str(ROOT/'scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/build_discovery_rails_r21_bundle_v1.py')],cwd=ROOT,check=True,capture_output=True);self.assertEqual(before,hashlib.sha256((ROOT/self.p['bundle']['path']).read_bytes()).hexdigest())
 if __name__=='__main__':unittest.main()

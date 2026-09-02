@@ -1,5 +1,6 @@
 {
   "atlas_tuple": {
+    "atlas_page_id": "shared-pattern-discovery-rails-r2-1",
     "branch": "o0/penpot-atlas-extension-r2-1-20260902",
     "files": [
       {
@@ -17,6 +18,11 @@
     ],
     "head": "be4918e5d8e1c1bba5da478acfd08f8035cfc1a5",
     "page_order": "0230.007",
+    "semantic_slot_bindings": {
+      "header": "page_header",
+      "master_column": "package_owned_masters",
+      "state_grid": "linked_state_instances"
+    },
     "template_id": "COMPONENT_STATE_GRID_V2",
     "tree": "da1f5c305c75d467af5e4e26f8a996b8c243d74f"
   },
@@ -33,26 +39,26 @@
   },
   "build_inputs": {
     "builder": {
-      "bytes": 1212,
-      "git_blob_sha1": "9fa04501c5c1560cd050ea36aa64978b354ce8a7",
+      "bytes": 1378,
+      "git_blob_sha1": "4b8e36929fb19d7052c2149cec4154bb4774ea39",
       "path": "scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/build_discovery_rails_r21_bundle_v1.py",
-      "sha256": "d6b592e3a674bb78dc91613b5dcf64b8511d96ac370104b190fa5b0d11301abe"
+      "sha256": "241c847a79c09a18be91ef26f4096e0fbfa74aff647c83520059fb5df960e922"
     },
     "template": {
-      "bytes": 19625,
-      "git_blob_sha1": "73ee6a40fa0a1db7ae3f8bc5fe65c9bb6490a681",
+      "bytes": 21350,
+      "git_blob_sha1": "f9b260203de001267c70502d55c2c310e2076ae3",
       "path": "scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/discovery_rails_r21_bundle.template.js",
-      "sha256": "801135c609148d3cca7b9132ee86684c333a7c5d3d8c1a172b2b97771ee5bc57"
+      "sha256": "d0c4e79fb496d96e987dd126156dfd8056e1345176f6512753738a73c6fca945"
     },
     "test": {
-      "bytes": 5831,
-      "git_blob_sha1": "ac3e42ff3cb6e7ad127352d9e156bf2b48878a35",
+      "bytes": 8600,
+      "git_blob_sha1": "58c90e9ae12f326394f3012c8f74e75ff8e1e97a",
       "path": "tests/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/discovery_rails_r21_standalone_bundle_v1.test.mjs",
-      "sha256": "e4bad185396a792109386b3fe2f995d1b1cc95a53a2beceff3df277f4be85729"
+      "sha256": "72afbaaaced91b11719e3f8c801067ce91da90a6dd90aa0221174f84ce42968f"
     }
   },
   "bundle": {
-    "bytes": 31261,
+    "bytes": 33152,
     "current_page_activation": true,
     "entrypoints": {
       "execution": "execution",
@@ -60,23 +66,39 @@
       "settlement": "settlement"
     },
     "forbidden_runtime_modules": true,
-    "git_blob_sha1": "2558c071a05a3c5b5082bd0f8befda7513fbddc6",
-    "global": "KenigEventsD0SharedPatternsDiscoveryRailsR21V1",
+    "git_blob_sha1": "3f0c856e135fb8a53739bcba4236e85b335ae0bf",
+    "global": "KenigEventsD0SharedPatternsDiscoveryRailsR21V2",
     "max_creates_per_phase": 3,
     "observed_test_native_creates": 24,
     "observed_test_phases": 23,
     "path": "scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/discovery_rails_r21_standalone_bundle_v1.js",
     "replay_created": 0,
     "schema": "D0_PLUGIN_BUNDLE_V1",
-    "sha256": "7df874ffa45331aeb782f1b50ab0d33de4db85d333c0f44c6f4a1cf9d9c713aa",
+    "sha256": "ac67f5c142ee701906f98c0439caaee9eb4c15e438bb4ecac8508bead080e37d",
     "shared_conformance": "PASS"
   },
   "execution": {
+    "authorization_physical_active_parity": [
+      "packageHead",
+      "packageTree",
+      "bundleSha256",
+      "bundleBytes",
+      "revision",
+      "projectionSha256",
+      "sessionId",
+      "taskId",
+      "writerId",
+      "triggeredBy",
+      "cancelToken",
+      "leaseToken",
+      "leaseExpiresAt"
+    ],
     "fresh_projection_authorization_required": true,
     "lease_expiry_per_phase": true,
     "managed_nodes_outside_root": 0,
     "physical_active_per_phase": true,
     "protected_projection_sha256": true,
+    "sole_writer": "/root/publish_r2",
     "strict_string_plugin_data": true,
     "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY"
   },
@@ -157,6 +179,6 @@
   "tests": {
     "D0_PLUGIN_BUNDLE_CONFORMANCE_V1": "PASS",
     "deterministic_regeneration": "PASS",
-    "native_like": "3/3_PASS"
+    "native_like": "4/4_PASS"
   }
 }
