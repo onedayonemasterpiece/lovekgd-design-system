@@ -68,6 +68,8 @@ const stringOnly = (value) => {
   if (typeof value !== 'string') fail('PATHS_R3_PLUGIN_DATA_NOT_STRING');
   return value;
 };
+const clone = (value) => Array.isArray(value) ? value.map(clone) :
+  value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).map((key) => [key, clone(value[key])])) : value;
 
 function nativeProjectedMainLayerName(spec) {
   return `${PATHS[spec.group]} / ${spec.displayName}`;
@@ -100,7 +102,7 @@ function collection(adapter) {
        typeof value.protectedOtherComponentsDigest !== 'string' || !value.protectedOtherComponentsDigest)) {
     fail('PATHS_R3_FILE_LOCAL_COMPONENT_CENSUS_DRIFT');
   }
-  return structuredClone(value);
+  return clone(value);
 }
 
 function componentRows(adapter) {
@@ -134,7 +136,7 @@ function componentRows(adapter) {
       currentMainLayerName: item.main.name,
       componentId: String(item.id),
       mainId: String(item.main.id),
-      relationship: structuredClone(relationship),
+      relationship: clone(relationship),
       currentPath,
       expectedCanonicalPath: expectedPath,
       kind: spec.kind,

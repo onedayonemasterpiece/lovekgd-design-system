@@ -26,7 +26,7 @@ const mainOf = (component) => typeof component?.mainInstance === 'function'
   ? component.mainInstance() : component?.mainInstance;
 const linkedComponent = (shape) => typeof shape?.component === 'function' ? shape.component() : null;
 const plugin = (shape, key) => String(shape?.getPluginData?.(key) || '');
-const nowMs = (context) => Number(typeof context.now === 'function' ? context.now() : Date.now());
+const nowMs = () => Date.now();
 const fail = (code, unknown = false) => {
   const error = new M.LinkageStop(code, unknown);
   if (unknown) {
@@ -100,10 +100,6 @@ async function activateExactPage(context, requireLease = null) {
     if (requireLease) assertPhysicalActive(context, requireLease);
     if (typeof penpot.openPage !== 'function') fail('PATHS_R3_OPEN_PAGE_UNAVAILABLE');
     await penpot.openPage(pages[0]);
-    if (typeof context.settle === 'function') {
-      if (requireLease) assertPhysicalActive(context, requireLease);
-      await context.settle();
-    }
   }
   if (String(penpot.currentPage?.id || '') !== M.PAGE_ID) fail('PATHS_R3_CURRENT_PAGE_ACTIVATION_FAILED');
   return pages[0];
@@ -229,7 +225,11 @@ function assertAuthorizationEnvelope(context, authorization) {
   }
   if (!authorization.triggeredBy || typeof authorization.triggeredBy !== 'string') fail('PATHS_R3_TRIGGERED_BY_MISSING');
   const p = authorization.provenance;
-  for (const key of ['sessionId', 'taskId', 'writerId', 'leaseToken']) {
+  for (const key of ['sessionId', 'taskId', 'writerId', 'triggeredBy', 'cancelToken', 'leaseToken',
+    'bundleSha256', 'bundleBytes', 'revision', 'projectionSha256']) {
+    if (authorization[key] !== p?.[key]) fail(`PATHS_R3_AUTH_${key.toUpperCase()}_PROVENANCE_PARITY`);
+  }
+  for (const key of ['sessionId', 'taskId', 'writerId', 'cancelToken', 'leaseToken']) {
     if (!p || typeof p[key] !== 'string' || p[key].length < 8) fail(`PATHS_R3_PROVENANCE_${key.toUpperCase()}_INVALID`);
   }
   for (const [key, value] of Object.entries({
@@ -238,7 +238,8 @@ function assertAuthorizationEnvelope(context, authorization) {
     pageProfileSha256: context.pageProfile.profileSha256,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
-    authorityScope: AUTHORITY_SCOPE,
+    authorityScope: AUTHORITY_SCOPE, bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
+    revision: authorization.revision, projectionSha256: authorization.projectionSha256,
   })) if (p[key] !== value) fail(`PATHS_R3_PROVENANCE_${key.toUpperCase()}_MISMATCH`);
   if (!Number.isFinite(Number(p.leaseExpiresAt))) fail('PATHS_R3_LEASE_EXPIRY_INVALID');
   return p;
@@ -254,10 +255,7 @@ function assertAuthorization(context, authorization, projection) {
 }
 
 function readPhysicalActive(context) {
-  let raw;
-  if (typeof context.readActiveMarker === 'function') raw = context.readActiveMarker();
-  else raw = context.penpot.currentFile.getSharedPluginData?.(ACTIVE_NAMESPACE, ACTIVE_KEY);
-  if (raw && typeof raw === 'object') return raw;
+  const raw = context.penpot.currentFile.getSharedPluginData?.(ACTIVE_NAMESPACE, ACTIVE_KEY);
   if (typeof raw !== 'string' || !raw) fail('PATHS_R3_PHYSICAL_ACTIVE_MISSING');
   try { return JSON.parse(raw); } catch { fail('PATHS_R3_PHYSICAL_ACTIVE_INVALID_JSON'); }
 }
@@ -273,7 +271,8 @@ function assertPhysicalActive(context, authorization) {
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE,
-    leaseToken: p.leaseToken, leaseExpiresAt: p.leaseExpiresAt,
+    cancelToken: p.cancelToken, leaseToken: p.leaseToken, leaseExpiresAt: p.leaseExpiresAt,
+    bundleSha256: p.bundleSha256, bundleBytes: p.bundleBytes, revision: p.revision, projectionSha256: p.projectionSha256,
   };
   for (const [key, value] of Object.entries(exact)) {
     if (marker?.[key] !== value) fail(`PATHS_R3_PHYSICAL_ACTIVE_${key.toUpperCase()}_MISMATCH`);
@@ -296,14 +295,12 @@ async function distinctUnknownReadback(context, cause, writes) {
 async function writeReceiptMarker(context, authorization, receipt) {
   assertPhysicalActive(context, authorization);
   const value = M.stringOnly(M.canonical(receipt));
-  if (typeof context.writeReceiptMarker === 'function') return context.writeReceiptMarker(value);
   const setter = context.penpot.currentFile.setSharedPluginData;
   if (typeof setter !== 'function') fail('PATHS_R3_RECEIPT_MARKER_API_MISSING');
   return setter.call(context.penpot.currentFile, ACTIVE_NAMESPACE, RECEIPT_KEY, value);
 }
 
 function readReceiptMarker(context) {
-  if (typeof context.readReceiptMarker === 'function') return context.readReceiptMarker();
   return context.penpot.currentFile.getSharedPluginData?.(ACTIVE_NAMESPACE, RECEIPT_KEY) || '';
 }
 
@@ -321,7 +318,7 @@ async function executeEventcardPathsPenpotR3(context, authorization) {
   const terminalAlready = fresh.count.exact === 18 && fresh.count.empty === 0 && fresh.count.legacy === 0;
   if (terminalAlready) {
     if (readReceiptMarker(context)) {
-      return { schema: RUNTIME_SCHEMA, state: 'REPLAY_NOOP', created: 0, pathMutations: 0,
+      return { schema: RUNTIME_SCHEMA, state: 'DONE', terminal: true, replayState: 'REPLAY_NOOP', created: 0, pathMutations: 0,
         secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
     }
     const automatic = fresh.components.filter((row) => row.nativeProjectedMainLayerName).length;
@@ -343,7 +340,7 @@ async function executeEventcardPathsPenpotR3(context, authorization) {
       displayNameMutations: 0, explicitMainLayerNameMutations: 0,
       textMutations: 0, mediaMutations: 0,
       detach: 0, clone: 0, recreate: 0, created: 0, retryAllowed: false,
-      recovery: 'POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION',
+      recovery: 'POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION', terminal: true,
     };
     await writeReceiptMarker(context, authorization, recovered);
     return recovered;

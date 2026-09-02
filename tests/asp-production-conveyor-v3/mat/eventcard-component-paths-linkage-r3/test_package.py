@@ -63,13 +63,22 @@ class PackageTest(unittest.TestCase):
     def test_standalone_bundle_identity_and_forbidden_runtime_tokens(self):
         meta = self.package["browser_plugin_bundle"]
         self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
-        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV3")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV4")
         self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
         self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
         for name in ["require", "module", "exports", "process", "Buffer"]:
             self.assertIsNone(re.search(rf"\b{name}\b", self.bundle))
         self.assertIn("bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE'", self.bundle)
         self.assertIn("PATHS_R3_BUNDLE_AUTHORIZATION_MISMATCH", self.bundle)
+        self.assertNotIn("__d0BundleConformance", self.bundle)
+        self.assertNotIn("structuredClone", self.bundle)
+        self.assertTrue(meta["receipt_only_recovery"])
+        self.assertTrue(meta["production_entrypoints_exercised_by_conformance"])
+        self.assertEqual(meta["caller_injected_helpers"], 0)
+        self.assertEqual(meta["recovery_contract"]["expected_native_creates"], 0)
+        self.assertEqual(meta["recovery_contract"]["expected_native_setters"], 0)
+        self.assertEqual(meta["shared_conformance"]["head"], "bb26c3d966511b590e26c3992da458b68c16fe2a")
+        self.assertEqual(meta["shared_conformance"]["tree"], "9546076fd074604d117b65afea0489b1b60ccd96")
 
     def test_native_main_name_projection_recovery_is_exact_and_write_free(self):
         recovery = self.package["native_automatic_main_layer_projection_recovery"]

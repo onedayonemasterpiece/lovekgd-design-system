@@ -7,10 +7,11 @@ const R = require('../../../../scripts/asp-production-conveyor-v3/mat/eventcard-
 
 const HEAD = 'a'.repeat(40);
 const TREE = 'b'.repeat(40);
+const BUNDLE_SHA = 'c'.repeat(64), BUNDLE_BYTES = 1;
 
 class Fixture {
   constructor() {
-    this.nowValue = 1_000;
+    this.activeReads = 0;
     this.pathWrites = [];
     this.shared = new Map();
     this.opened = [];
@@ -63,7 +64,7 @@ class Fixture {
     this.otherPage = { id: 'other-page', name: 'Other', root: { id: 'other-root', children: [] } };
     this.file = {
       id: M.FILE_ID, revn: 180, pages: [this.otherPage, this.targetPage], validate: () => [],
-      getSharedPluginData: (namespace, key) => this.shared.get(`${namespace}:${key}`) || '',
+      getSharedPluginData: (namespace, key) => { if (namespace === R.ACTIVE_NAMESPACE && key === R.ACTIVE_KEY) this.activeReads += 1; return this.shared.get(`${namespace}:${key}`) || ''; },
       setSharedPluginData: (namespace, key, value) => {
         if (typeof value !== 'string') throw new TypeError('plugin data requires string');
         this.shared.set(`${namespace}:${key}`, value);
@@ -76,19 +77,20 @@ class Fixture {
     };
     this.active = null;
     this.context = {
-      penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE,
+      penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE, exactBundleSha256: BUNDLE_SHA, exactBundleBytes: BUNDLE_BYTES,
       pageProfile: { profileId: 'free-collection.owner-review.v1', state: 'BLOCKED_OWNER_REJECTED',
         allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
-      now: () => this.nowValue,
-      readActiveMarker: () => this.active,
     };
   }
+
+  syncActive() { const key=`${R.ACTIVE_NAMESPACE}:${R.ACTIVE_KEY}`; if(this.active)this.shared.set(key,JSON.stringify(this.active));else this.shared.delete(key); }
 
   authorize(projection, overrides = {}) {
     const provenance = {
       sessionId: 'session-01a0581e', taskId: 'task-eventcard-paths-r3', writerId: '/root/publish',
       packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE,
-      triggeredBy: 'issue-57-comment-5506140332', leaseToken: 'lease-paths-r3-001', leaseExpiresAt: 5_000,
+      triggeredBy: 'issue-57-comment-5506140332', cancelToken: 'cancel-paths-r3-001', leaseToken: 'lease-paths-r3-001', leaseExpiresAt: Date.now()+60_000,
+      bundleSha256:BUNDLE_SHA,bundleBytes:BUNDLE_BYTES,revision:projection.revision,projectionSha256:projection.projectionSha256,
       pageProfileSha256: this.context.pageProfile.profileSha256,
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
       authorityScope: R.AUTHORITY_SCOPE,
@@ -98,7 +100,7 @@ class Fixture {
       schema: R.AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
       packageHead: HEAD, packageTree: TREE, state: 'ACTIVE', authorized: true, cancelled: false,
       revision: projection.revision, projectionSha256: projection.projectionSha256,
-      triggeredBy: provenance.triggeredBy, provenance,
+      triggeredBy: provenance.triggeredBy, sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,bundleSha256:BUNDLE_SHA,bundleBytes:BUNDLE_BYTES, provenance,
       pageProfileSha256: this.context.pageProfile.profileSha256,
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
       authorityScope: R.AUTHORITY_SCOPE,
@@ -109,12 +111,13 @@ class Fixture {
       schema: R.ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
       sessionId: provenance.sessionId, taskId: provenance.taskId, writerId: provenance.writerId,
       packageId: provenance.packageId, packageHead: provenance.packageHead, packageTree: provenance.packageTree,
-      triggeredBy: provenance.triggeredBy, leaseToken: provenance.leaseToken,
+      triggeredBy: provenance.triggeredBy, cancelToken:provenance.cancelToken, leaseToken: provenance.leaseToken,
       leaseExpiresAt: provenance.leaseExpiresAt,
       pageProfileSha256: this.context.pageProfile.profileSha256,
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
-      authorityScope: R.AUTHORITY_SCOPE,
+      authorityScope: R.AUTHORITY_SCOPE,bundleSha256:BUNDLE_SHA,bundleBytes:BUNDLE_BYTES,revision:projection.revision,projectionSha256:projection.projectionSha256,
     };
+    this.syncActive();
     return authorization;
   }
 }
@@ -139,13 +142,11 @@ test('executes path-only repair under exact physical tuple and distinct settleme
   const before = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const names = fixture.components.map((component) => [component.id, component.name,
     component.mainInstance().id, component.mainInstance().name]);
-  let checks = 0;
-  fixture.context.readActiveMarker = () => { checks += 1; return fixture.active; };
   const receipt = await R.executeEventcardPathsPenpotR3(fixture.context, fixture.authorize(before));
   assert.equal(receipt.pathMutations, 18);
   assert.equal(receipt.created, 0);
   assert.equal(fixture.pathWrites.length, 18);
-  assert.ok(checks >= 20, 'ACTIVE is checked before all 18 setters and the receipt marker');
+  assert.ok(fixture.activeReads >= 20, 'ACTIVE is checked before all 18 setters and the receipt marker');
   assert.deepEqual(fixture.components.map((component) => [component.id, component.name,
     component.mainInstance().id, component.mainInstance().name]), names);
   assert.equal(typeof fixture.shared.get(`${R.ACTIVE_NAMESPACE}:${R.RECEIPT_KEY}`), 'string');
@@ -154,7 +155,7 @@ test('executes path-only repair under exact physical tuple and distinct settleme
   assert.equal(settlement.readbackMutations, 0);
   const terminal = await R.projectEventcardPathsPenpotR3(fixture.context, 'terminal');
   const replay = await R.executeEventcardPathsPenpotR3(fixture.context, fixture.authorize(terminal));
-  assert.equal(replay.state, 'REPLAY_NOOP');
+  assert.equal(replay.replayState, 'REPLAY_NOOP');
   assert.equal(replay.secondRunCreated, 0);
   assert.equal(replay.pathMutations, 0);
   assert.equal(fixture.pathWrites.length, 18);
@@ -165,9 +166,9 @@ test('head/tree/trigger/provenance and physical ACTIVE tuple are exact, not arbi
     (fixture, auth) => { auth.packageHead = 'c'.repeat(40); },
     (fixture) => { fixture.context.exactPackageTree = 'short'; },
     (fixture, auth) => { auth.triggeredBy = 'another-trigger'; },
-    (fixture) => { fixture.active.packageHead = 'd'.repeat(40); },
-    (fixture) => { fixture.active.writerId = '/root/another-writer'; },
-    (fixture) => { fixture.active.leaseToken = 'different-lease'; },
+    (fixture) => { fixture.active.packageHead = 'd'.repeat(40); fixture.syncActive(); },
+    (fixture) => { fixture.active.writerId = '/root/another-writer'; fixture.syncActive(); },
+    (fixture) => { fixture.active.leaseToken = 'different-lease'; fixture.syncActive(); },
   ]) {
     const fixture = new Fixture();
     const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
@@ -185,7 +186,7 @@ test('current-page activation itself is blocked without the physical ACTIVE leas
   const auth = fixture.authorize(projection);
   fixture.penpot.currentPage = fixture.otherPage;
   fixture.opened.length = 0;
-  fixture.active = null;
+  fixture.active = null; fixture.syncActive();
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
     (error) => error.code === 'PATHS_R3_PHYSICAL_ACTIVE_MISSING');
   assert.deepEqual(fixture.opened, []);
@@ -214,7 +215,7 @@ test('cancel between adjacent native setters stops before the second setter and 
   const fixture = new Fixture();
   const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const auth = fixture.authorize(projection);
-  fixture.afterPathWrite = (count) => { if (count === 1) fixture.active.cancelled = true; };
+  fixture.afterPathWrite = (count) => { if (count === 1) fixture.active.cancelled = true; fixture.syncActive(); };
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth), (error) => {
     assert.equal(error.unknownOutcome, true);
     assert.equal(error.retryAllowed, false);
@@ -231,7 +232,7 @@ test('lease expiry between adjacent native setters stops before the second sette
   const fixture = new Fixture();
   const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const auth = fixture.authorize(projection);
-  fixture.afterPathWrite = (count) => { if (count === 1) fixture.nowValue = 5_000; };
+  fixture.afterPathWrite = (count) => { if (count === 1) fixture.active.leaseExpiresAt=Date.now()-1; fixture.syncActive(); };
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
     (error) => error.unknownOutcome === true && error.nativeWritesBeforeStop === 1);
   assert.equal(fixture.pathWrites.length, 1);
@@ -241,7 +242,7 @@ test('receipt marker is separately lease-guarded after the eighteenth setter', a
   const fixture = new Fixture();
   const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const auth = fixture.authorize(projection);
-  fixture.afterPathWrite = (count) => { if (count === 18) fixture.active.cancelled = true; };
+  fixture.afterPathWrite = (count) => { if (count === 18) fixture.active.cancelled = true; fixture.syncActive(); };
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth), (error) => {
     assert.equal(error.unknownOutcome, true);
     assert.equal(error.nativeWritesBeforeStop, 18);
@@ -258,7 +259,7 @@ test('fresh projection digest binds authorization and protected surfaces stay pa
   const auth = fixture.authorize(projection);
   auth.projectionSha256 = '0'.repeat(64);
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
-    (error) => error.code === 'PATHS_R3_AUTH_PROJECTIONSHA256_MISMATCH');
+    (error) => ['PATHS_R3_AUTH_PROJECTIONSHA256_MISMATCH','PATHS_R3_AUTH_PROJECTIONSHA256_PROVENANCE_PARITY'].includes(error.code));
   assert.equal(fixture.pathWrites.length, 0);
   const valid = fixture.authorize(projection);
   await R.executeEventcardPathsPenpotR3(fixture.context, valid);
@@ -273,7 +274,7 @@ test('all 17 non-EventCard local components are excluded from mutation and diges
   const auth = fixture.authorize(projection);
   fixture.otherComponents[3].path = 'Unexpected / Drift';
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
-    (error) => error.code === 'PATHS_R3_AUTH_PROJECTIONSHA256_MISMATCH');
+    (error) => ['PATHS_R3_AUTH_PROJECTIONSHA256_MISMATCH','PATHS_R3_AUTH_PROJECTIONSHA256_PROVENANCE_PARITY'].includes(error.code));
   assert.equal(fixture.pathWrites.length, 0);
   const fresh = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const otherBefore = fixture.otherComponents.map((component) => [component.id, component.name, component.path]);

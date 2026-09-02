@@ -14,7 +14,7 @@ const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocati
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox, { filename: BUNDLE });
-const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV3;
+const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV4;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -60,25 +60,26 @@ class Fixture {
       exactBundleSha256: sha, exactBundleBytes: bytes,
       pageProfile: { profileId: 'free-collection.owner-review.v1', state: 'BLOCKED_OWNER_REJECTED',
         allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
-      now: () => this.nowValue, readActiveMarker: () => this.active };
+      };
   }
   authorize(projection) {
     const provenance = { sessionId:'session-01a0581e',taskId:'task-eventcard-paths-r3',writerId:'/root/publish_r2',
       packageId:M.PACKAGE_ID,packageHead:HEAD,packageTree:TREE,triggeredBy:'issue-57-standalone-bundle',
-      leaseToken:'lease-paths-r3-001',leaseExpiresAt:5000,pageProfileSha256:this.host.pageProfile.profileSha256,
+      cancelToken:'cancel-paths-r3-001',leaseToken:'lease-paths-r3-001',leaseExpiresAt:Date.now()+60000,bundleSha256:sha,bundleBytes:bytes,revision:projection.revision,projectionSha256:projection.projectionSha256,pageProfileSha256:this.host.pageProfile.profileSha256,
       ownerDirective:R.OWNER_DIRECTIVE,authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,
       bundleSha256:sha,bundleBytes:bytes };
     const authorization = { schema:R.AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,
       packageHead:HEAD,packageTree:TREE,state:'ACTIVE',authorized:true,cancelled:false,revision:projection.revision,
-      projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,provenance,
+      projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,provenance,
       pageProfileSha256:this.host.pageProfile.profileSha256,ownerDirective:R.OWNER_DIRECTIVE,
       authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,
       bundleSha256:sha,bundleBytes:bytes };
     this.active = { schema:R.ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,
       sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,
-      packageHead:HEAD,packageTree:TREE,triggeredBy:provenance.triggeredBy,leaseToken:provenance.leaseToken,
+      packageHead:HEAD,packageTree:TREE,triggeredBy:provenance.triggeredBy,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,
       leaseExpiresAt:provenance.leaseExpiresAt,pageProfileSha256:provenance.pageProfileSha256,
-      ownerDirective:R.OWNER_DIRECTIVE,authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE };
+      ownerDirective:R.OWNER_DIRECTIVE,authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,bundleSha256:sha,bundleBytes:bytes,revision:projection.revision,projectionSha256:projection.projectionSha256 };
+    this.shared.set(`${R.ACTIVE_NAMESPACE}:${R.ACTIVE_KEY}`,JSON.stringify(this.active));
     this.host.authorization = authorization; return authorization;
   }
 }
@@ -104,7 +105,7 @@ test('standalone bundle accepts Penpot-native main-layer projection, settles, an
     component.mainInstance().name === `${M.PATHS[M.SPECS[index].group]} / ${component.name}`).length,18);
   const settlement = await API.settlement(fixture.host); assert.equal(settlement.exactCanonicalPaths,18);
   fixture.host.receipt = null; const terminal = await API.projection(fixture.host); fixture.authorize(terminal);
-  const replay = await API.execution(fixture.host); assert.equal(replay.state,'REPLAY_NOOP');
+  const replay = await API.execution(fixture.host); assert.equal(replay.replayState,'REPLAY_NOOP');
   assert.equal(replay.secondRunCreated,0); assert.equal(fixture.pathWrites.length,18);
 });
 

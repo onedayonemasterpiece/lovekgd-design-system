@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_component_paths_linkage_r3.js'
 RUNTIME = HERE / 'eventcard_component_paths_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_paths_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV3'
+GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV4'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {
@@ -88,12 +88,6 @@ bundle = f"""/* Generated deterministically by {Path(__file__).name}. Do not han
 (function (global) {{
 'use strict';
 {SHA256}
-function __bundleClone(value) {{
-  if (Array.isArray(value)) return value.map(__bundleClone);
-  if (value && typeof value === 'object') {{ const out={{}}; for (const key of Object.keys(value)) out[key]=__bundleClone(value[key]); return out; }}
-  return value;
-}}
-const structuredClone = __bundleClone;
 const M = (() => {{
 {logic}
 }})();
@@ -111,34 +105,35 @@ function __assertBundleAuthorization(host) {{
 }}
 const __CONFORMANCE_NS = 'd0-eventcard-paths-bundle-v1';
 const __CONFORMANCE_KEY = 'stable';
-function __conformanceWrite(node, value) {{ node.setSharedPluginData(__CONFORMANCE_NS, __CONFORMANCE_KEY, value); }}
-async function __conformanceProjection(host) {{
-  return {{ schema:'D0_PLUGIN_BUNDLE_CONFORMANCE_PROJECTION_V1', pages:host.penpot.currentFile.pages.length, created:0 }};
+function __conformanceWrite(node,value){{node.setSharedPluginData(__CONFORMANCE_NS,__CONFORMANCE_KEY,value);}}
+async function __seedProductionHost(seed){{
+  const p=seed.penpot,node=seed.pluginNode;p.currentFile.id=M.FILE_ID;p.currentFile.revn=188;
+  const page=p.__seedPage(M.PAGE_ID);page.id=M.PAGE_ID;page.name='00 · Components · Free collection';
+  const board=node(M.COLLECTION_ID,'board');board.name=M.COLLECTION_NAME;page.root.appendChild(board);const components=[];
+  for(let index=0;index<M.SPECS.length;index+=1){{const spec=M.SPECS[index],main=node(spec.mainId||'main-'+index,'board'),component={{id:spec.componentId||'component-'+index,name:spec.displayName,path:M.PATHS[spec.group],mainInstance:()=>main}};main.name=M.PATHS[spec.group]+' / '+spec.displayName;main.component=()=>component;board.appendChild(main);components.push(component);}}
+  for(let caseIndex=0;caseIndex<4;caseIndex+=1){{const main=components[14+caseIndex].mainInstance(),pool=caseIndex<2?components.slice(0,7):components.slice(7,14),selected=M.SPECS[14+caseIndex].linkedCount===7?pool:pool.filter((_,i)=>i!==4).slice(0,6);for(let i=0;i<selected.length;i+=1){{const linked=node('linked-'+caseIndex+'-'+i,'instance');linked.component=()=>selected[i];main.appendChild(linked);}}}}
+  for(let i=0;i<17;i+=1){{const main=node('other-main-'+i,'board'),c={{id:'other-component-'+i,name:'other.component.'+i,path:'Protected / Other / '+i,mainInstance:()=>main}};main.name='other.main.'+i;main.component=()=>c;components.push(c);}}p.library.local.components.push(...components);
+  const host={{penpot:p,storage:seed.storage,exactPackageHead:'a'.repeat(40),exactPackageTree:'b'.repeat(40),exactBundleSha256:'c'.repeat(64),exactBundleBytes:1,expectedState:'terminal',pageProfile:{{profileId:'free-collection.owner-review.v1',state:'BLOCKED_OWNER_REJECTED',allowedToMutatePenpot:false,profileSha256:'e'.repeat(64)}}}};
+  const projection=await projectEventcardPathsPenpotR3(host,'terminal'),provenance={{sessionId:'session-01a0581e',taskId:'task-paths-recovery',writerId:'/root/publish_r2',triggeredBy:'d0-conformance-paths-recovery',cancelToken:'cancel-paths-recovery',leaseToken:'lease-paths-recovery',leaseExpiresAt:Date.now()+60000,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,pageProfileSha256:host.pageProfile.profileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes,revision:projection.revision,projectionSha256:projection.projectionSha256}};
+  host.authorization={{schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,state:'ACTIVE',authorized:true,cancelled:false,revision:projection.revision,projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,provenance,pageProfileSha256:provenance.pageProfileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes}};
+  p.currentFile.setSharedPluginData(ACTIVE_NAMESPACE,ACTIVE_KEY,M.canonical({{schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,triggeredBy:provenance.triggeredBy,pageProfileSha256:provenance.pageProfileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256}}));return host;
 }}
-async function __conformanceExecution(host) {{
-  const page = host.penpot.currentFile.pages.find((item) => item.name === 'EventCard Paths conformance');
-  if (!page) throw new Error('PATHS_BUNDLE_CONFORMANCE_PAGE_MISSING');
-  await host.penpot.openPage(page);
-  const exists = page.root.children.some((item) => item.getSharedPluginData(__CONFORMANCE_NS,__CONFORMANCE_KEY) === 'paths');
-  if (exists) return {{ state:'DONE', terminal:true, created:0, replay_created:0 }};
-  const marker = host.penpot.createRectangle(); __conformanceWrite(marker,'paths'); page.root.appendChild(marker);
-  return {{ state:'DONE', terminal:true, created:1 }};
-}}
-async function __conformanceSettlement(host) {{ return {{ state:'DONE', created:0, validation:host.penpot.currentFile.validate() }}; }}
+async function __replayHost(host,seed){{return {{...host,storage:seed.storage,receipt:null}};}}
 const PUBLIC_API = Object.freeze({{
   metadata: Object.freeze({{
     schema: 'D0_PLUGIN_BUNDLE_V1', package_id: M.PACKAGE_ID, bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE',
     global_name: '{GLOBAL}',
     entrypoints: Object.freeze({{projection:'projection', execution:'execution', settlement:'settlement'}}),
-    current_page_activation: true, max_creates_per_phase: 3, replay_created: 0,
-    mutation_scope: 'LibraryComponent.path only', unknown_outcome: 'DISTINCT_READ_ONLY_PROJECTION_NO_RETRY'
+    current_page_activation: true, max_creates_per_phase: 3, replay_created: 0, receipt_only_recovery: true,
+    recovery_contract: Object.freeze({{expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,receipt:Object.freeze({{namespace:ACTIVE_NAMESPACE,key:RECEIPT_KEY,value_sha256:'76d637b82f34177b151a2511ff455f1b60949a549910e42f48333ffedb26c86d'}})}}),
+    mutation_scope: 'receipt-only recovery; zero path setters', unknown_outcome: 'DISTINCT_READ_ONLY_PROJECTION_NO_RETRY'
   }}),
-  projection: (host) => host && host.__d0BundleConformance === true ? __conformanceProjection(host) : projectEventcardPathsPenpotR3(host, host && host.expectedState || 'any'),
-  execution: async (host) => {{ if (host && host.__d0BundleConformance === true) return __conformanceExecution(host); __assertBundleAuthorization(host); const receipt = await executeEventcardPathsPenpotR3(host, host.authorization); host.receipt = receipt; return receipt; }},
-  settlement: (host) => host && host.__d0BundleConformance === true ? __conformanceSettlement(host) : readEventcardPathsPenpotSettlementR3(host, host && host.receipt),
+  projection: (host) => projectEventcardPathsPenpotR3(host, host && host.expectedState || 'any'),
+  execution: async (host) => {{ __assertBundleAuthorization(host); const receipt = await executeEventcardPathsPenpotR3(host, host.authorization); host.receipt = receipt; return receipt; }},
+  settlement: (host) => readEventcardPathsPenpotSettlementR3(host, host && host.receipt),
   conformance: Object.freeze({{
-    createHost: async (seed) => {{ const page=seed.penpot.__seedPage('eventcard-paths-conformance-page');page.name='EventCard Paths conformance';return {{penpot:seed.penpot,storage:seed.storage,__d0BundleConformance:true}}; }},
-    prepareReplay: async (host,seed) => ({{penpot:seed.penpot,storage:seed.storage,__d0BundleConformance:true}}),
+    createHost: __seedProductionHost,
+    prepareReplay: __replayHost,
     strictStringProbe: async (host) => {{ const page=host.penpot.__seedPage('eventcard-paths-string-probe'); const values={{number:374,object:{{x:1}},boolean:true,null:null,undefined:void 0}},result={{string:'FAIL'}}; __conformanceWrite(page,'374');result.string='PASS';for(const key of Object.keys(values)){{try{{__conformanceWrite(page,values[key]);result[key]='ACCEPTED';}}catch{{result[key]='REJECTED';}}}}return result; }}
   }}),
   constants: Object.freeze({{ packageId:M.PACKAGE_ID, fileId:M.FILE_ID, pageId:M.PAGE_ID, collectionId:M.COLLECTION_ID }}),
