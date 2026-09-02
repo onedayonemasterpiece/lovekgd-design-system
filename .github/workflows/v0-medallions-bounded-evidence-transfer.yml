@@ -17,6 +17,7 @@ jobs:
         with:
           ref: 9c2f0578cc58c2e490248a66bfe6e8297ab9410c
           path: corrected
+          fetch-depth: 2
           persist-credentials: false
 
       - name: Checkout exact parent tuple
@@ -24,6 +25,7 @@ jobs:
         with:
           ref: 0fbfd4839343de71d5128b2e9c2ad232dde6abf4
           path: parent
+          fetch-depth: 1
           persist-credentials: false
 
       - name: Verify tuple and protected representatives
@@ -69,9 +71,9 @@ jobs:
             for ext in svg png; do
               a="parent/$src/$rep.$ext"
               b="corrected/$src/$rep.$ext"
-              cmp -s "$a" "$b"
               sha_a=$(sha256sum "$a" | awk '{print $1}')
               sha_b=$(sha256sum "$b" | awk '{print $1}')
+              cmp -s "$a" "$b"
               test "$sha_a" = "$sha_b"
               printf '%s\t%s\t%s\t%s\ttrue\n' "$rep" "$ext" "$sha_a" "$sha_b" >> "$out/verification/byte-identity.tsv"
             done
@@ -84,11 +86,11 @@ jobs:
           cp "corrected/$src/layout-measurements.v2.json" "$out/medallions/"
           cp "corrected/$src/overlap-bounds-report.v2.json" "$out/medallions/"
 
-          find "$out" -type f -print0 | sort -z | xargs -0 sha256sum > "$out/SHA256SUMS"
           test "$(stat -c%s "$out/medallions/r2-medallions-densest.svg")" = "1125061"
           test "$(stat -c%s "$out/medallions/r2-medallions-densest.png")" = "269618"
           test "$(git -C corrected hash-object "$src/r2-medallions-densest.svg")" = "1b6944bdb9926b3baf9eda0b634c3e4e6658ff22"
           test "$(git -C corrected hash-object "$src/r2-medallions-densest.png")" = "70a50bc885c38134feb21d023e90d7de21ffb343"
+          find "$out" -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > "$out/SHA256SUMS"
 
       - name: Upload bounded review evidence
         uses: actions/upload-artifact@v4
