@@ -1,0 +1,70 @@
+name: A0 direct plugin route-bundle sprint v1
+
+on:
+  push:
+    branches:
+      - a0/direct-plugin-route-bundle-sprint-bootstrap-v1-20260902
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: a0-direct-plugin-route-bundle-sprint-v1
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch exact immutable source commits
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin \
+            862bb09cf61750bd5afce26d84207a501f7ec733 \
+            4edc859861fba3f18fab0e65e9d2e8c0a7394bdb \
+            9e8edbed95eb40807059e6c6f10af74beeaee683 \
+            4ee9651c97da4e46b0fda4e244f9d5dea634e063 \
+            0fbfd4839343de71d5128b2e9c2ad232dde6abf4 \
+            9c2f0578cc58c2e490248a66bfe6e8297ab9410c
+          for commit in \
+            862bb09cf61750bd5afce26d84207a501f7ec733 \
+            4edc859861fba3f18fab0e65e9d2e8c0a7394bdb \
+            9e8edbed95eb40807059e6c6f10af74beeaee683 \
+            4ee9651c97da4e46b0fda4e244f9d5dea634e063 \
+            0fbfd4839343de71d5128b2e9c2ad232dde6abf4 \
+            9c2f0578cc58c2e490248a66bfe6e8297ab9410c; do
+            git cat-file -e "${commit}^{commit}"
+          done
+
+      - name: Decode and verify deterministic generator
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .a0-direct-plugin-bootstrap/part-*.b64 | tr -d '\n' | base64 -d > /tmp/direct_plugin_sprint.py.gz
+          echo '7040fa06a64ca4c704ed0ec5cf1a5ad1cfc035691a295644d5c35809b46c4f7a  /tmp/direct_plugin_sprint.py.gz' | sha256sum -c -
+          gzip -dc /tmp/direct_plugin_sprint.py.gz > /tmp/direct_plugin_sprint.py
+          echo 'a335ef466bc8a933e7b7facf06dd30d394346274fe4d386734b0f979fd77b6f9  /tmp/direct_plugin_sprint.py' | sha256sum -c -
+          python3 -m py_compile /tmp/direct_plugin_sprint.py
+
+      - name: Run three bounded lanes and aggregate terminal buffer
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 /tmp/direct_plugin_sprint.py --orchestrate --repo "$GITHUB_WORKSPACE"
+
+      - name: Upload terminal remote readback
+        uses: actions/upload-artifact@v4
+        with:
+          name: a0-direct-plugin-route-buffer-result
+          path: a0-direct-plugin-route-buffer-result.json
+          retention-days: 3
+          if-no-files-found: error
