@@ -108,6 +108,9 @@ function staticGate(source, bundlePath) {
   invariant(!/\b(?:readFile|readFileSync|writeFile|writeFileSync|readdir|readdirSync|createReadStream|createWriteStream)\b/u.test(code), 'FORBIDDEN_FILESYSTEM_API');
   invariant(!/(?:node:fs|node:crypto|node:path|from\s*["'](?:node:)?fs|import\s*\()/u.test(source), 'FORBIDDEN_RUNTIME_MODULE_OR_FILESYSTEM');
   invariant(!/\b(?:eval|Function)\s*\(/u.test(code), 'DYNAMIC_CODE_FORBIDDEN');
+  invariant(!/\breadNativeCoverage\b/u.test(code), 'UNAVAILABLE_CALLER_HELPER:readNativeCoverage');
+  invariant(!/\b__d0BundleConformance\b/u.test(code), 'CONFORMANCE_AUTHORIZATION_BYPASS_FORBIDDEN');
+  invariant(!/\bstructuredClone\s*\(/u.test(code), 'NATIVE_STRUCTURED_CLONE_FORBIDDEN');
 }
 
 function pluginNode(id, type = 'shape') {
@@ -141,17 +144,67 @@ function buildInstrumentedPenpot() {
     openPageCalls: 0,
     pluginStringWrites: 0,
     rejectedPluginWrites: 0,
+    currentFilePluginReads: 0,
+    currentFilePluginReadEvents: [],
+    currentFilePluginWrites: 0,
+    currentFilePluginWriteEvents: [],
+    nativeSetterCalls: 0,
+    saveVersionOverrideAttempts: 0,
   };
   let sequence = 0;
   const pages = [];
+  const currentFilePluginData = new Map();
+  const currentFile = {
+    id: 'd0-conformance-file',
+    revn: 1,
+    pages,
+    validate: () => [],
+    findVersions: async () => [],
+  };
+  const nativeSetSharedPluginData = (namespace, key, value) => {
+    invariant(typeof namespace === 'string' && namespace.length > 0, 'FILE_PLUGIN_NAMESPACE_NOT_STRING');
+    invariant(typeof key === 'string' && key.length > 0, 'FILE_PLUGIN_KEY_NOT_STRING');
+    invariant(typeof value === 'string', `FILE_PLUGIN_DATA_NOT_STRING:${typeof value}`);
+    currentFilePluginData.set(`${namespace}\u0000${key}`, value);
+    audit.currentFilePluginWrites += 1;
+    audit.currentFilePluginWriteEvents.push({ namespace, key, value, value_sha256: sha256(Buffer.from(value, 'utf8')) });
+  };
+  const nativeGetSharedPluginData = (namespace, key) => {
+    audit.currentFilePluginReads += 1;
+    audit.currentFilePluginReadEvents.push({ namespace, key });
+    return currentFilePluginData.get(`${namespace}\u0000${key}`) || '';
+  };
+  const saveVersionTrap = async () => invariant(false, 'ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN');
+  for (const [name, nativeMethod] of [
+    ['setSharedPluginData', nativeSetSharedPluginData],
+    ['getSharedPluginData', nativeGetSharedPluginData],
+  ]) {
+    Object.defineProperty(currentFile, name, {
+      configurable: false,
+      enumerable: true,
+      get: () => nativeMethod,
+      set: () => {},
+    });
+  }
+  Object.defineProperty(currentFile, 'saveVersion', {
+    configurable: false,
+    enumerable: true,
+    get: () => saveVersionTrap,
+    set: () => { audit.saveVersionOverrideAttempts += 1; },
+  });
+  // Penpot's native file API exposes `revn`. A writable `revision` alias made
+  // stale test doubles pass while the same bundle failed in the sole writer.
+  // Keep the alias deletable for bundles that defensively remove it, but fail
+  // closed if a conformance host tries to manufacture it.
+  Object.defineProperty(currentFile, 'revision', {
+    configurable: false,
+    enumerable: false,
+    get: () => invariant(false, 'NATIVE_REVISION_ALIAS_READ_FORBIDDEN'),
+    set: () => invariant(false, 'NATIVE_REVISION_ALIAS_FORBIDDEN'),
+  });
   const penpot = {
     currentPage: null,
-    currentFile: {
-      id: 'd0-conformance-file',
-      revision: 1,
-      pages,
-      validate: () => [],
-    },
+    currentFile,
     library: { local: { components: [] } },
     selection: [],
     async openPage(page) {
@@ -223,7 +276,14 @@ function buildInstrumentedPenpot() {
   const rawUpload = penpot.uploadMediaData.bind(penpot);
   penpot.uploadMediaData = async (...args) => observePluginWrites(await rawUpload(...args));
 
-  return { penpot, audit, pluginNode: (id, type) => observePluginWrites(originalNode(id, type)) };
+  return {
+    penpot,
+    audit,
+    pluginNode: (id, type) => observePluginWrites(originalNode(id, type)),
+    tamperCurrentFilePluginData(namespace, key, value) {
+      currentFilePluginData.set(`${namespace}\u0000${key}`, value);
+    },
+  };
 }
 
 function assertMetadata(bundle, globalName) {
@@ -246,7 +306,53 @@ function assertMetadata(bundle, globalName) {
   invariant(bundle.conformance && typeof bundle.conformance.createHost === 'function', 'CONFORMANCE_CREATE_HOST');
   invariant(typeof bundle.conformance.prepareReplay === 'function', 'CONFORMANCE_PREPARE_REPLAY');
   invariant(typeof bundle.conformance.strictStringProbe === 'function', 'CONFORMANCE_STRICT_STRING_PROBE');
-  return { metadata, methods };
+  let recovery = null;
+  if (metadata.receipt_only_recovery === true) {
+    recovery = metadata.recovery_contract;
+    invariant(recovery && typeof recovery === 'object', 'RECOVERY_CONTRACT_REQUIRED');
+    invariant(recovery.expected_native_creates === 0, 'RECOVERY_EXPECTED_CREATES_ZERO');
+    invariant(recovery.expected_native_setters === 0, 'RECOVERY_EXPECTED_SETTERS_ZERO');
+    invariant(recovery.physical_active_current_file === true, 'RECOVERY_PHYSICAL_ACTIVE_CURRENT_FILE_REQUIRED');
+    invariant(recovery.full_authorization_tuple === true, 'RECOVERY_FULL_AUTHORIZATION_TUPLE_REQUIRED');
+    invariant(recovery.active_marker?.namespace === 'kenigevents', 'RECOVERY_ACTIVE_NAMESPACE_EXACT');
+    invariant(recovery.active_marker?.key === 'asp-active-run-v1', 'RECOVERY_ACTIVE_KEY_EXACT');
+    invariant(recovery.receipt && typeof recovery.receipt === 'object', 'RECOVERY_RECEIPT_CONTRACT_REQUIRED');
+    invariant(typeof recovery.receipt.namespace === 'string' && recovery.receipt.namespace.length > 0, 'RECOVERY_RECEIPT_NAMESPACE');
+    invariant(typeof recovery.receipt.key === 'string' && recovery.receipt.key.length > 0, 'RECOVERY_RECEIPT_KEY');
+    invariant(SHA_RE.test(recovery.receipt.value_sha256 || ''), 'RECOVERY_RECEIPT_VALUE_SHA256');
+    invariant(recovery.receipt.value_sha256_scope === 'CONFORMANCE_FIXTURE_ONLY', 'RECOVERY_RECEIPT_SHA_SCOPE');
+    invariant(recovery.receipt.production_tuple_verified === true, 'RECOVERY_PRODUCTION_TUPLE_VERIFICATION_REQUIRED');
+    const exactTupleFields = ['package_head', 'package_tree', 'bundle_sha256', 'native_revision', 'projection_sha256', 'component_ids', 'main_ids', 'linked_instance_ids'];
+    invariant(JSON.stringify(recovery.receipt.production_tuple_fields) === JSON.stringify(exactTupleFields), 'RECOVERY_PRODUCTION_TUPLE_FIELDS');
+  } else {
+    invariant(metadata.recovery_contract === undefined, 'RECOVERY_CONTRACT_WITHOUT_DECLARATION');
+  }
+  return { metadata, methods, recovery };
+}
+
+function instrumentNativeRecoverySetters(penpot, audit) {
+  const seen = new Set();
+  const wrap = (object, key) => {
+    if (!object || seen.has(`${object.id || 'anonymous'}\u0000${key}`)) return;
+    const descriptor = Object.getOwnPropertyDescriptor(object, key);
+    if (descriptor && descriptor.configurable === false) return;
+    let value = object[key];
+    try {
+      Object.defineProperty(object, key, {
+        configurable: true,
+        enumerable: descriptor?.enumerable ?? true,
+        get: () => value,
+        set: (next) => { audit.nativeSetterCalls += 1; value = next; },
+      });
+      seen.add(`${object.id || 'anonymous'}\u0000${key}`);
+    } catch {}
+  };
+  for (const component of penpot.library.local.components) {
+    wrap(component, 'name');
+    wrap(component, 'path');
+    const main = typeof component.mainInstance === 'function' ? component.mainInstance() : null;
+    wrap(main, 'name');
+  }
 }
 
 function terminal(receipt) {
@@ -287,9 +393,13 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const sandbox = {
     console: Object.freeze({ log() {}, warn() {}, error() {} }),
     penpot: instrumented.penpot,
-    crypto: globalThis.crypto,
-    TextEncoder,
-    TextDecoder,
+    // These browser globals are not part of the native Penpot plugin runtime
+    // contract used by the sole writer. Bundles must ship portable primitives
+    // or use native Penpot APIs rather than relying on them.
+    crypto: Object.freeze({}),
+    TextEncoder: undefined,
+    TextDecoder: undefined,
+    structuredClone: undefined,
     Uint8Array,
     ArrayBuffer,
     Blob,
@@ -309,7 +419,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   });
   new vm.Script(source, { filename: absolutePath }).runInContext(context, { timeout: 3000 });
   const bundle = sandbox[globalName];
-  const { metadata, methods } = assertMetadata(bundle, globalName);
+  const { metadata, methods, recovery } = assertMetadata(bundle, globalName);
 
   const storage = Object.create(null);
   const host = await bundle.conformance.createHost({
@@ -319,6 +429,17 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   });
   invariant(host && host.penpot === instrumented.penpot, 'CONFORMANCE_HOST_MUST_USE_INSTRUMENTED_PENPOT');
   invariant(host.storage === storage, 'CONFORMANCE_HOST_MUST_USE_PROVIDED_STORAGE');
+  invariant(host.dependencies === undefined, 'CONFORMANCE_HOST_INJECTED_DEPENDENCIES');
+  invariant(host.localStorage === undefined, 'CONFORMANCE_HOST_INJECTED_LOCAL_STORAGE');
+  invariant(host.readActiveMarker === undefined, 'CONFORMANCE_HOST_INJECTED_ACTIVE_READER');
+  for (const component of instrumented.penpot.library.local.components) {
+    invariant(typeof component?.mainInstance === 'function', 'NATIVE_COMPONENT_MAIN_INSTANCE_METHOD_REQUIRED');
+    invariant(!Object.prototype.hasOwnProperty.call(component, 'main'), 'NON_NATIVE_COMPONENT_MAIN_API_FORBIDDEN');
+  }
+  if (recovery) instrumentNativeRecoverySetters(instrumented.penpot, instrumented.audit);
+  invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
+  const revisionDescriptor = Object.getOwnPropertyDescriptor(instrumented.penpot.currentFile, 'revision');
+  invariant(revisionDescriptor && typeof revisionDescriptor.get === 'function', 'NATIVE_REVISION_ALIAS_GUARD_MISSING');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
 
   const strictProbe = await bundle.conformance.strictStringProbe(host);
@@ -333,19 +454,54 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const projectionReceipt = await methods.projection(host);
   invariant(instrumented.audit.creates === projectionBefore, 'PROJECTION_MUTATED_NATIVE_STATE');
 
-  const first = await driveExecution(methods.execution, host, instrumented.audit, null, 'FIRST_RUN');
-  invariant(first.total > 0, 'FIRST_RUN_CREATED_NOT_POSITIVE');
+  const recoveryWritesBefore = instrumented.audit.currentFilePluginWrites;
+  const recoverySettersBefore = instrumented.audit.nativeSetterCalls;
+  const first = await driveExecution(methods.execution, host, instrumented.audit, recovery ? 0 : null, 'FIRST_RUN');
+  if (!recovery) invariant(first.total > 0, 'FIRST_RUN_CREATED_NOT_POSITIVE');
   invariant(instrumented.audit.createEvents.filter((event) => event.kind !== 'page').every((event) => event.current_page_id), 'CURRENT_PAGE_ACTIVATION_NOT_PROVEN');
+  if (/\bACTIVE\b/u.test(source) && /\/root\/publish_r2/u.test(source)) {
+    invariant(instrumented.audit.currentFilePluginReads > 0, 'PHYSICAL_ACTIVE_CURRENT_FILE_READER_REQUIRED');
+  }
 
   const settlementBefore = instrumented.audit.creates;
   const settlementReceipt = await methods.settlement(host);
   invariant(instrumented.audit.creates === settlementBefore, 'SETTLEMENT_MUTATED_NATIVE_STATE');
+  if (recovery) {
+    invariant(instrumented.audit.nativeSetterCalls - recoverySettersBefore === 0, 'RECOVERY_NATIVE_SETTER_CALLED');
+    const writes = instrumented.audit.currentFilePluginWriteEvents.slice(recoveryWritesBefore);
+    invariant(writes.length === 1, `RECOVERY_RECEIPT_WRITE_COUNT:${writes.length}`);
+    const [write] = writes;
+    invariant(write.namespace === recovery.receipt.namespace, 'RECOVERY_RECEIPT_NAMESPACE_MISMATCH');
+    invariant(write.key === recovery.receipt.key, 'RECOVERY_RECEIPT_KEY_MISMATCH');
+    invariant(write.value_sha256 === recovery.receipt.value_sha256, 'RECOVERY_RECEIPT_VALUE_SHA256_MISMATCH');
+    invariant(instrumented.audit.currentFilePluginReadEvents.some((event) => event.namespace === recovery.active_marker.namespace && event.key === recovery.active_marker.key), 'RECOVERY_PHYSICAL_ACTIVE_NOT_READ');
+  }
 
   const replayStorage = Object.create(null);
   const replayHost = await bundle.conformance.prepareReplay(host, { penpot: instrumented.penpot, storage: replayStorage });
   invariant(replayHost && replayHost.penpot === instrumented.penpot, 'REPLAY_HOST_MUST_PRESERVE_PENPOT_STATE');
   invariant(replayHost.storage === replayStorage, 'REPLAY_HOST_MUST_USE_FRESH_STORAGE');
+  const replayWritesBefore = instrumented.audit.currentFilePluginWrites;
+  const replaySettersBefore = instrumented.audit.nativeSetterCalls;
+  if (recovery) {
+    const receiptWrite = instrumented.audit.currentFilePluginWriteEvents.at(-1);
+    instrumented.tamperCurrentFilePluginData(recovery.receipt.namespace, recovery.receipt.key, '{"state":"stale-nonempty"}');
+    const createsBeforeTamperProbe = instrumented.audit.creates;
+    const writesBeforeTamperProbe = instrumented.audit.currentFilePluginWrites;
+    const settersBeforeTamperProbe = instrumented.audit.nativeSetterCalls;
+    let rejected = false;
+    try { await methods.execution(replayHost); } catch { rejected = true; }
+    invariant(rejected, 'RECOVERY_STALE_RECEIPT_ACCEPTED');
+    invariant(instrumented.audit.creates === createsBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_CREATED');
+    invariant(instrumented.audit.currentFilePluginWrites === writesBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_REWRITTEN');
+    invariant(instrumented.audit.nativeSetterCalls === settersBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_NATIVE_SETTER');
+    instrumented.tamperCurrentFilePluginData(recovery.receipt.namespace, recovery.receipt.key, receiptWrite.value);
+  }
   const replay = await driveExecution(methods.execution, replayHost, instrumented.audit, 0, 'REPLAY');
+  if (recovery) {
+    invariant(instrumented.audit.currentFilePluginWrites === replayWritesBefore, 'RECOVERY_REPLAY_RECEIPT_REWRITE');
+    invariant(instrumented.audit.nativeSetterCalls === replaySettersBefore, 'RECOVERY_REPLAY_NATIVE_SETTER_CALLED');
+  }
 
   return {
     state: 'D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS',
@@ -367,6 +523,14 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
       open_page_calls: instrumented.audit.openPageCalls,
       all_non_page_creates_activated: true,
     },
+    native_runtime: {
+      crypto_subtle_available: false,
+      text_encoder_available: false,
+      text_encoder_constructible: false,
+      current_file_revision_property: 'revn',
+      revision_alias_available: false,
+      caller_injected_helpers_allowed: false,
+    },
   };
 }
 
@@ -380,6 +544,56 @@ async function selfTest() {
     const pass = await runConformance({ bundlePath: path, expectedSha256, globalName: 'D0ConformanceFixture' });
     assert.equal(pass.replay.created, 0);
     assert.equal(pass.first_run.created, 2);
+    assert.deepEqual(pass.native_runtime, {
+      crypto_subtle_available: false,
+      text_encoder_available: false,
+      text_encoder_constructible: false,
+      current_file_revision_property: 'revn',
+      revision_alias_available: false,
+      caller_injected_helpers_allowed: false,
+    });
+
+    const recoveryValue = '{"state":"recovered"}';
+    const recoveryValueSha256 = sha256(Buffer.from(recoveryValue, 'utf8'));
+    const recoveryMetadata = `receipt_only_recovery:true,recovery_contract:Object.freeze({expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,active_marker:Object.freeze({namespace:'kenigevents',key:'asp-active-run-v1'}),receipt:Object.freeze({namespace:'d0-recovery',key:'receipt',value_sha256:'${recoveryValueSha256}',value_sha256_scope:'CONFORMANCE_FIXTURE_ONLY',production_tuple_verified:true,production_tuple_fields:Object.freeze(['package_head','package_tree','bundle_sha256','native_revision','projection_sha256','component_ids','main_ids','linked_instance_ids'])})}),`;
+    const recoveryExecution = `async function execution(host){
+      const file=host.penpot.currentFile;
+      if(file.getSharedPluginData('kenigevents','asp-active-run-v1')!=='ACTIVE')throw new Error('ACTIVE_REQUIRED');
+      const stored=file.getSharedPluginData('d0-recovery','receipt');
+      if(stored){if(stored!=='${recoveryValue}')throw new Error('STALE_RECEIPT');return {created:0,terminal:true};}
+      file.setSharedPluginData('d0-recovery','receipt','${recoveryValue}');
+      return {created:0,terminal:true};
+    }
+    `;
+    const recoverySource = source
+      .replace("metadata:Object.freeze({schema:'D0_PLUGIN_BUNDLE_V1',", `metadata:Object.freeze({schema:'D0_PLUGIN_BUNDLE_V1',${recoveryMetadata}`)
+      .replace(/async function execution\(host\)\{[\s\S]*?\n  \}\n  async function settlement/u, `${recoveryExecution}  async function settlement`)
+      .replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        "async createHost(seed){seed.penpot.currentFile.setSharedPluginData('kenigevents','asp-active-run-v1','ACTIVE');return {penpot:seed.penpot,storage:seed.storage};}",
+      );
+    const recoveryPath = join(directory, 'recovery.js');
+    await writeFile(recoveryPath, recoverySource, 'utf8');
+    const recoveryPass = await runConformance({
+      bundlePath: recoveryPath,
+      expectedSha256: sha256(Buffer.from(recoverySource)),
+      globalName: 'D0ConformanceFixture',
+    });
+    invariant(recoveryPass.first_run.created === 0 && recoveryPass.replay.created === 0, 'SELF_TEST_RECOVERY_ZERO_CREATE');
+
+    const recoveryNegativeCases = [
+      ['false-declaration', recoverySource.replace(recoveryMetadata, 'receipt_only_recovery:true,'), /RECOVERY_CONTRACT_REQUIRED/u],
+      ['dummy-create', recoverySource.replace('const file=host.penpot.currentFile;', 'host.penpot.createPage();const file=host.penpot.currentFile;'), /FIRST_RUN_RECEIPT_CREATED_MISMATCH|FIRST_RUN_TOTAL_CREATED/u],
+      ['missing-receipt', recoverySource.replace(`file.setSharedPluginData('d0-recovery','receipt','${recoveryValue}');`, ''), /RECOVERY_RECEIPT_WRITE_COUNT:0/u],
+    ];
+    for (const [name, body, error] of recoveryNegativeCases) {
+      const badPath = join(directory, `recovery-${name}.js`);
+      await writeFile(badPath, body, 'utf8');
+      await assert.rejects(
+        () => runConformance({ bundlePath: badPath, expectedSha256: sha256(Buffer.from(body)), globalName: 'D0ConformanceFixture' }),
+        error,
+      );
+    }
 
     const forbidden = [
       ['require', 'globalThis.Bad={}; require("x")'],
@@ -401,7 +615,50 @@ async function selfTest() {
       () => runConformance({ bundlePath: path, expectedSha256: '0'.repeat(64), globalName: 'D0ConformanceFixture' }),
       /BUNDLE_SHA256_MISMATCH/u,
     );
-    return { ...pass, self_test_negative_cases: forbidden.length + 1 };
+    const nativeGlobalCases = [
+      ['crypto-subtle', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.crypto.subtle.digest; "), /digest/u],
+      ['text-encoder', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; new globalThis.TextEncoder(); "), /TextEncoder|constructor/u],
+      ['caller-helper', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.readNativeCoverage; "), /UNAVAILABLE_CALLER_HELPER:readNativeCoverage/u],
+      ['structured-clone', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; structuredClone({}); "), /NATIVE_STRUCTURED_CLONE_FORBIDDEN/u],
+      ['authorization-bypass', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable', __d0BundleConformance=true; void __d0BundleConformance; "), /CONFORMANCE_AUTHORIZATION_BYPASS_FORBIDDEN/u],
+      ['revision-alias', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){seed.penpot.currentFile.revision=1;return {penpot:seed.penpot,storage:seed.storage};}',
+      ), /NATIVE_REVISION_ALIAS_FORBIDDEN/u],
+      ['caller-dependencies', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage,dependencies:{}};}',
+      ), /CONFORMANCE_HOST_INJECTED_DEPENDENCIES/u],
+      ['caller-active-reader', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage,readActiveMarker(){return {}}};}',
+      ), /CONFORMANCE_HOST_INJECTED_ACTIVE_READER/u],
+      ['non-native-component-main', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){seed.penpot.library.local.components.push({id:"bad",main:{}});return {penpot:seed.penpot,storage:seed.storage};}',
+      ), /NATIVE_COMPONENT_MAIN_INSTANCE_METHOD_REQUIRED/u],
+      ['storage-only-active', source.replace(
+        "  const NS='d0-fixture', KEY='stable';",
+        "  const NS='d0-fixture', KEY='stable', ACTIVE='ACTIVE', WRITER='/root/publish_r2'; void ACTIVE; void WRITER;",
+      ), /PHYSICAL_ACTIVE_CURRENT_FILE_READER_REQUIRED/u],
+      ['save-version', source.replace(
+        'async function settlement(host){return {validation:host.penpot.currentFile.validate(),created:0};}',
+        'async function settlement(host){await host.penpot.currentFile.saveVersion("forbidden");return {validation:host.penpot.currentFile.validate(),created:0};}',
+      ), /ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN/u],
+    ];
+    for (const [name, body, error] of nativeGlobalCases) {
+      const badPath = join(directory, `${name}.js`);
+      await writeFile(badPath, body, 'utf8');
+      await assert.rejects(
+        () => runConformance({ bundlePath: badPath, expectedSha256: sha256(Buffer.from(body)), globalName: 'D0ConformanceFixture' }),
+        error,
+      );
+    }
+    return {
+      ...pass,
+      recovery_receipt_only: { first_created: recoveryPass.first_run.created, replay_created: recoveryPass.replay.created },
+      self_test_negative_cases: forbidden.length + 1 + nativeGlobalCases.length + recoveryNegativeCases.length,
+    };
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
