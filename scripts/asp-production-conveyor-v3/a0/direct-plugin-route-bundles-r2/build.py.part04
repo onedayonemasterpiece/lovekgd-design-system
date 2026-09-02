@@ -1,0 +1,39 @@
+function guardProtected(host){const current=captureProtected(host.penpot);if(host.storage.__protected===undefined)host.storage.__protected=current;need(host.storage.__protected===current,'PROTECTED_PROJECTION_DRIFT');return current}
+function resolveDependencies(penpot){
+  const list=Array.from(penpot.library.local.components||[]),resolved=[];
+  for(const spec of DATA.dependencies){const matches=list.filter(component=>component.id===spec.component_id&&pget(component,'semantic-id','kenigevents')===spec.semantic_id&&pget(component,'source-tuple-sha256','kenigevents')===spec.source_tuple_sha256&&component.path===spec.canonical_path);need(matches.length===1,'DEPENDENCY_EXACT_CARDINALITY',spec.semantic_id);const main=matches[0].mainInstance();need(main&&main.id===spec.main_id,'DEPENDENCY_MAIN_ID',spec.semantic_id);resolved.push({semantic_id:spec.semantic_id,component_id:matches[0].id,main_id:main.id})}
+  return resolved;
+}
+function project(host){
+  const penpot=need(host&&host.penpot,'PENPOT_REQUIRED');need(host.storage&&typeof host.storage==='object','HOST_STORAGE_REQUIRED');verifySources();
+  need(DATA.atlas.base_head&&DATA.atlas.base_tree&&DATA.atlas.extension_head&&DATA.atlas.extension_tree,'ATLAS_TUPLE_REQUIRED');
+  need(DATA.atlas.atlas_page_id&&DATA.atlas.physical_page_name&&DATA.atlas.page_order&&DATA.atlas.template_id,'ATLAS_PAGE_BINDING_REQUIRED');
+  const marker=active(penpot),protected_sha256=guardProtected(host),dependencies=resolveDependencies(penpot),page=findPage(penpot);
+  return {state:'PROJECTED',package_id:DATA.package_id,native_revision:nativeRevision(penpot),active_marker:{package_head:marker.package_head,package_tree:marker.package_tree,bundle_sha256:marker.bundle_sha256,bundle_bytes:marker.bundle_bytes},atlas:DATA.atlas,route_state_fixture_tuple_sha256:DATA.route_state_fixture_tuple_sha256,protected_sha256,dependencies,target_page_id:page?page.id:null};
+}
+function unknownManaged(page){return walk(page&&page.root).filter(node=>(node.name||'').startsWith(DATA.managed_name_prefix)&&!pget(node,'stable-id'))}
+async function activate(penpot,page){await penpot.openPage(page);need(penpot.currentPage===page&&penpot.currentPage.id===page.id,'CURRENT_PAGE_PROOF')}
+function parentFor(page,op){if(op.role==='root')return page.root;const roots=findByStable(page,DATA.operations[0].stable_id);need(roots.length===1,'ROOT_CARDINALITY');return roots[0]}
+function createNode(penpot,op){let node;if(op.kind==='board')node=penpot.createBoard();else if(op.kind==='text')node=penpot.createText(op.text);else fail('OP_KIND',op.kind);need(node&&node.id,'UNKNOWN_OUTCOME_STOP',op.stable_id);node.name=DATA.managed_name_prefix+op.name;node.x=op.geometry.x;node.y=op.geometry.y;node.width=op.geometry.width;node.height=op.geometry.height;if(op.kind==='text')node.characters=op.text;pset(node,'stable-id',op.stable_id);pset(node,'owner-job',DATA.package_id);pset(node,'operation-ordinal',String(op.ordinal));return node}
+async function execute(host){
+  const projection=project(host),penpot=host.penpot;let page=findPage(penpot);
+  if(!page){active(penpot);page=penpot.createPage();need(page&&page.id,'UNKNOWN_OUTCOME_STOP','page');page.name=DATA.atlas.physical_page_name;pset(page,'stable-page-id',DATA.stable_page_id);pset(page,'owner-job',DATA.package_id);pset(page,'atlas-binding',canon(DATA.atlas));host.storage.phase='PAGE_CREATED';return {state:'RUNNING',phase_after:'PAGE_CREATED',created:1,terminal:false,projection_sha256:sha256Hex(canon(projection))}}
+  await activate(penpot,page);need(unknownManaged(page).length===0,'UNKNOWN_MANAGED_NODE');
+  const missing=[];for(const op of DATA.operations){const matches=findByStable(page,op.stable_id);need(matches.length<=1,'DUPLICATE_STABLE_ID',op.stable_id);if(matches.length===0)missing.push(op)}
+  if(missing.length===0){host.storage.phase='DONE';return {state:'DONE',phase_after:'DONE',created:0,terminal:true}}
+  let created=0;for(const op of missing.slice(0,3)){active(penpot);need(penpot.currentPage===page&&penpot.currentPage.id===page.id,'CURRENT_PAGE_PROOF_BEFORE_CREATE');const parent=parentFor(page,op);const node=createNode(penpot,op);parent.appendChild(node);need(findByStable(page,op.stable_id).length===1,'POST_CREATE_READBACK',op.stable_id);active(penpot);need(penpot.currentPage===page,'CURRENT_PAGE_PROOF_AFTER_CREATE');created++}
+  const left=DATA.operations.filter(op=>findByStable(page,op.stable_id).length===0).length;host.storage.phase=left===0?'DONE':'MATERIALIZING';return {state:left===0?'DONE':'RUNNING',phase_after:host.storage.phase,created,terminal:left===0,remaining:left};
+}
+async function settle(host){
+  const projection=project(host),page=findPage(host.penpot);need(page,'TARGET_PAGE_MISSING');await activate(host.penpot,page);need(unknownManaged(page).length===0,'UNKNOWN_MANAGED_NODE');
+  for(const op of DATA.operations)need(findByStable(page,op.stable_id).length===1,'SETTLEMENT_OPERATION_MISSING',op.stable_id);
+  const owned=walk(page.root).filter(node=>pget(node,'owner-job')===DATA.package_id);need(owned.length===DATA.operations.length,'SETTLEMENT_MANAGED_CENSUS');
+  const rootNodes=findByStable(page,DATA.operations[0].stable_id);need(rootNodes.length===1,'SETTLEMENT_ROOT');for(const node of owned)need(node===rootNodes[0]||walk(rootNodes[0]).includes(node),'MANAGED_OUTSIDE_ROOT');
+  return {state:'SETTLED',terminal:true,created:0,page_id:page.id,root_id:rootNodes[0].id,managed_nodes:owned.length,projection_sha256:sha256Hex(canon(projection))};
+}
+async function createHost(args){
+  const penpot=need(args&&args.penpot,'PENPOT_REQUIRED'),storage=need(args.storage,'STORAGE_REQUIRED'),make=need(args.pluginNode,'PLUGIN_NODE_FACTORY_REQUIRED');
+  const ensureSeedPage=(spec)=>{let page=Array.from(penpot.currentFile.pages||[]).find(item=>item.id===spec.page_id);if(!page){need(typeof penpot.__seedPage==='function','CONFORMANCE_SEED_PAGE_UNAVAILABLE');page=penpot.__seedPage(spec.page_id);page.name='Protected '+spec.page_id}for(const rootId of spec.root_ids){let node=walk(page.root).find(item=>item.id===rootId);if(!node){node=make(rootId,'board');node.name='Protected '+rootId;page.root.appendChild(node)}}};
+  for(const spec of DATA.protected_projections.pages)ensureSeedPage(spec);
+  for(const spec of DATA.dependencies){if(Array.from(penpot.library.local.components||[]).some(item=>item.id===spec.component_id))continue;const component=make(spec.component_id,'component'),main=make(spec.main_id,'board');component.name=spec.semantic_id;component.path=spec.canonical_path;component.mainInstance=()=>main;pset(component,'semantic-id',spec.semantic_id,'kenigevents');pset(component,'source-tuple-sha256',spec.source_tuple_sha256,'kenigevents');pset(component,'package-id',String(spec.source_tuple.package_id||''),'kenigevents');pset(component,'remote-head',spec.source_tuple.remote_head,'kenigevents');pset(component,'git-blob-sha1',spec.source_tuple.git_blob_sha1,'kenigevents');penpot.library.local.components.push(component)}
+  const marker={schema:DATA.run_control.schema,package_id:DATA.package_id,run_id:DATA.run_control.run_id,writer_id:'/root/publish_r2',lease_token:DATA.run_control.lease_token,cancel_token:DATA.run_control.cancel_token,state:'ACTIVE',cancelled:false,mutation_in_flight:false,writer_released:false,triggered_by:'D0_PLUGIN_BUNDLE_CONFORMANCE_V1',package_head:'0000000000000000000000000000000000000000',package_tree:'1111111111111111111111111111111111111111',bundle_sha256:'2222222222222222222222222222222222222222222222222222222222222222',bundle_bytes:1,native_revision:nativeRevision(penpot),projection_sha256:DATA.atlas.binding_sha256};
