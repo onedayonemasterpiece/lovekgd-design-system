@@ -9,13 +9,15 @@ class TestPackage(unittest.TestCase):
  def test_geometry_and_product_census(self):
   q=self.p['physical_page'];self.assertEqual(q['header'],[64,64,2048,128]);self.assertEqual(q['master'],[64,256,448,220]);self.assertEqual(q['state_grid'],{'cell_height':280,'cell_width':400,'column_gap':32,'columns':3,'x':576});self.assertEqual(self.p['product']['linked_specimens'],3);self.assertEqual(self.p['product']['placeholders'],0)
  def test_bundle_identity(self):
-  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V4');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
+  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V5');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
   for x in ['require','module','exports','process','Buffer','crypto','TextEncoder']: self.assertIsNone(re.search(rf'\b{x}\b',self.s))
   self.assertTrue(b['portable_sha256']);self.assertTrue(b['portable_utf8']);self.assertFalse(b['runtime_global_crypto_required']);self.assertFalse(b['runtime_global_TextEncoder_required'])
  def test_active_and_unknown_contract(self):
   self.assertIn('PHYSICAL_ACTIVE_REQUIRED',self.s);self.assertIn('DISTINCT_READ_ONLY_PROJECTION',self.s);self.assertIn('PROTECTED_PROJECTION_DRIFT',self.s);self.assertFalse(self.p['boundaries']['penpot_execution_authorized'])
   self.assertEqual(self.p['execution']['sole_writer'],'/root/publish_r2');self.assertIn('cancelToken',self.p['execution']['authorization_physical_active_parity'])
   self.assertEqual(self.p['atlas_tuple']['atlas_page_id'],'shared-pattern-discovery-rails-r2-1');self.assertEqual(self.p['atlas_tuple']['semantic_slot_bindings'],{'header':'page_header','master_column':'package_owned_masters','state_grid':'linked_state_instances'})
+  self.assertEqual(self.p['atlas_header']['component_id'],'250f32b9-f4ec-800e-8008-92c64c51fdc0');self.assertEqual(self.p['atlas_header']['main_id'],'250f32b9-f4ec-800e-8008-92c64a6147cc')
+  self.assertIn("getSharedPluginData(ACTIVE_NS,ACTIVE_KEY)",self.s);self.assertNotIn('readActiveMarker',self.s);self.assertNotIn('__d0BundleConformance',self.s);self.assertNotIn('currentFile.revision',self.s)
  def test_deterministic_regeneration(self):
   before=hashlib.sha256(self.b).hexdigest();subprocess.run(['python3',str(ROOT/'scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/build_discovery_rails_r21_bundle_v1.py')],cwd=ROOT,check=True,capture_output=True);self.assertEqual(before,hashlib.sha256((ROOT/self.p['bundle']['path']).read_bytes()).hexdigest())
 if __name__=='__main__':unittest.main()
