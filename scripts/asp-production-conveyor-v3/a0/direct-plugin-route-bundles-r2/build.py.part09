@@ -1,0 +1,44 @@
+        "directly_callable_route_jobs_target: 8",
+        f"target_met: {'true' if len(published) >= 8 else 'false'}",
+        "dependency_repairs:",
+        "  - package_local_exact_resolver_bundled_fail_closed_QA_INTEGRATE_GATED",
+        f"factual_defects: {len(blocked)}",
+        f"unprocessed_archetypes: {len(blocked)}",
+        "new_archetype_wave_created: false",
+        "factual_package_bytes_changed: 0",
+        "route_registry_changed: false",
+        "atlas_changed: false",
+        "runtime_shared_imports: 0",
+        "visual_pass_declared: false",
+        "penpot_reads: 0",
+        "penpot_mutations: 0",
+        "kaggle: false",
+        "next_owner: D0_CONTINUOUS_INTAKE",
+        f"terminal_record: {terminal_path.relative_to(cwd).as_posix()}",
+        "```",
+    ])
+    checkpoint_id = post_comment(checkpoint)
+    result = {"state": terminal["state"], "branch": BRANCH, "head": head, "tree": tree_sha, "bundles_ready": len(published), "factual_defects": blocked, "checkpoint_comment_id": checkpoint_id}
+    print(pretty(result))
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="command", required=True)
+    build = sub.add_parser("build-lane")
+    build.add_argument("--lane", required=True)
+    build.add_argument("--repo", type=Path, default=Path.cwd())
+    build.add_argument("--out", type=Path, required=True)
+    pub = sub.add_parser("publish")
+    pub.add_argument("--repo", type=Path, default=Path.cwd())
+    pub.add_argument("--artifacts", type=Path, required=True)
+    args = parser.parse_args()
+    if args.command == "build-lane":
+        build_lane(args.lane, args.repo.resolve(), args.out.resolve())
+    else:
+        publish(args.artifacts.resolve(), args.repo.resolve())
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
