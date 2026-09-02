@@ -1,6 +1,6 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.0.0
-status: ACTIVE_PROGRAMME_CANDIDATE
+version: 1.1.0
+status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 
 authority:
@@ -11,24 +11,23 @@ authority:
     owns:
       - foundations_and_tokens
       - astro_components
-      - route_compositions
-      - golden_runtime_catalogue
+      - actual_route_compositions
+      - golden_and_real_data_builds
       - production_generation
   thin_sot_and_penpot_delivery:
     repository: onedayonemasterpiece/lovekgd-design-system
     branch: integration/launch-normalized-sot-penpot-20260902
-    base_commit: b3567cb72d81a7aad4b47a68e220325f055697a2
     owns:
       - stable_family_ids
       - variant_and_state_axes
-      - golden_corpus_bindings
-      - astro_source_bindings
+      - golden_corpus_and_route_bindings
+      - astro_source_and_consumer_bindings
       - visible_asset_identities
-      - penpot_placement
+      - penpot_master_and_route_board_placement
       - visual_status
   penpot:
     file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
-    role: native_visual_projection_and_owner_review
+    role: native_component_identity_linked_reuse_and_visual_parity
     sole_writer: R0.PENPOT
     candidate_pages_replaceable_before_visual_acceptance: true
 
@@ -40,7 +39,7 @@ not_a_new_sot:
 
 golden_corpus:
   corpus_id: launch-golden-v1
-  status: TO_BE_SELECTED_BY_N0_AND_OWNER_REVIEWED
+  status: TO_BE_SELECTED_AND_OWNER_REVIEWED
   timezone: Europe/Kaliningrad
   reference_clock_mode: frozen_independent_of_wall_time
   update_policy: append_only
@@ -51,19 +50,16 @@ golden_corpus:
     sunday: TO_BE_SELECTED_CONSECUTIVE
   page_types:
     single_date_listing:
+      actual_route_template: /date-{date}/
       required_dates: [friday, saturday, sunday]
-      target_occurrences_per_date:
-        friday: 5
-        saturday: 6
-        sunday: 5
-      minimum_occurrences_per_date:
-        friday: 4
-        saturday: 5
-        sunday: 4
+      target_occurrences_per_date: {friday: 5, saturday: 6, sunday: 5}
+      minimum_occurrences_per_date: {friday: 4, saturday: 5, sunday: 4}
     weekend_two_day:
+      actual_route_template: /vyhodnye/{start}/
       uses_same_occurrences_as: [saturday, sunday]
       duplicate_dataset_forbidden: true
     free_collection:
+      actual_route: /podborki/besplatnye-sobytiya/
       derived_from_same_event_corpus: true
       first_end_to_end_ASP_page: true
   required_stress_cells:
@@ -102,25 +98,57 @@ golden_corpus:
     must_be_visibly_marked_synthetic: true
     must_not_claim_real_source_fidelity: true
   owner_review_order:
-    - corpus_identity_and_coverage
-    - normalized_golden_browser_surfaces
-    - penpot_parity
-    - real_data_browser_surfaces
+    - actual_golden_routes_and_corpus_coverage
+    - normalized_actual_golden_routes
+    - penpot_master_and_linked_route_parity
+    - same_actual_routes_on_real_data
 
-browser_surfaces:
-  preferred_routes:
-    index: /lab/launch/
-    date_friday: /lab/launch/date-friday/
-    date_saturday: /lab/launch/date-saturday/
-    date_sunday: /lab/launch/date-sunday/
-    weekend: /lab/launch/weekend/
-    free_collection: /lab/launch/free-collection/
-    component_catalogue: /lab/design-system/
-  equivalent_stable_lab_routes_allowed: true
+owner_browser_surfaces:
+  mode: actual_route_templates_with_golden_build_profile
+  new_owner_facing_lab_pages: forbidden
   exact_clickable_urls_must_be_posted_to_issue: true
+  routes:
+    date_friday: /date-{FRIDAY}/
+    date_saturday: /date-{SATURDAY}/
+    date_sunday: /date-{SUNDAY}/
+    weekend: /vyhodnye/{SATURDAY}/
+    free_collection: /podborki/besplatnye-sobytiya/
+  existing_design_system_lab:
+    route: /lab/design-system/
+    role: internal_regression_only
+    owner_checkpoint: false
+    expansion_in_48h_programme: forbidden
+    page_composition_evidence: insufficient
+
+component_identity_proof:
+  astro:
+    central_family_source_required: true
+    actual_route_consumer_inventory_required: true
+    page_local_visual_fork_forbidden: true
+    forbidden_internal_css_override_required_to_be_detected: true
+    debug_evidence_fields:
+      - family_id
+      - family_version
+      - state_key
+      - fixture_id
+  thin_sot:
+    records:
+      - family_id
+      - astro_source_paths
+      - actual_route_consumers
+      - variant_and_state_axes
+      - visible_asset_identities
+      - penpot_master_target
+  penpot:
+    one_native_master_or_variant_family: true
+    route_boards_use_linked_instances: true
+    detached_visual_copy_does_not_pass: true
+  V0:
+    compares_actual_route_dom_to_linked_penpot_route_board: true
+    final_visual_judge: true
 
 normalization_rules:
-  unit: complete_component_family_with_representative_cases
+  unit: complete_component_family_in_actual_consumers
   current_astro_is_observed_A0_not_automatic_target: true
   preserve:
     - component_family_synthesis
@@ -130,31 +158,29 @@ normalization_rules:
     - variant_and_state_axes
     - migration_of_page_local_forks
     - golden_corpus
-    - browser_and_penpot_visual_review
+    - actual_route_browser_and_penpot_visual_review
   family_done_requires:
     - bounded_current_consumer_and_drift_census
     - target_component_variant_state_composition_decision
     - thin_sot_record
-    - normalized_astro_implementation
-    - production_consumer_migration
-    - golden_browser_specimens
+    - normalized_central_astro_implementation
+    - actual_route_consumer_migration
+    - actual_golden_route_visibility
     - automated_smoke_checks
-    - native_penpot_component_and_linked_cases
+    - native_penpot_master_and_linked_route_cases
     - V0_visual_verdict
-  design_decisions_happen_on_browser_golden_surfaces: true
+  design_decisions_happen_on_actual_golden_routes: true
   penpot_may_not_block_astro_normalization: true
 
 families:
   foundations:
     owner: F0
-    astro_paths:
-      - site/src/styles/design-system.css
+    astro_paths: [site/src/styles/design-system.css]
     penpot_page: 10 · Foundations
     status: NOT_STARTED
   primitives:
     owner: F0
-    astro_paths:
-      - site/src/components/design-system/**
+    astro_paths: [site/src/components/design-system/**]
     penpot_page: 20 · Primitives & controls
     status: NOT_STARTED
   iconography_brand:
@@ -170,6 +196,7 @@ families:
     astro_paths:
       - site/src/lib/relatedCardLayout.mjs
       - site/src/components/EventMediaRail.astro
+    actual_route_consumers_required: true
     penpot_page: 30 · MediaFrame
     status: NOT_STARTED
   event_card:
@@ -177,8 +204,9 @@ families:
     astro_paths:
       - site/src/components/EventCard.astro
       - site/src/components/listings/ListingEventCard.astro
-    penpot_page: 40 · Event cards
     required_golden_case_count: 4
+    cases_must_be_visible_inside_actual_routes: true
+    penpot_page: 40 · Event cards
     first_component_ASP_target: true
     status: NOT_STARTED
   content_components:
@@ -200,34 +228,31 @@ families:
     status: NOT_STARTED
   date_listing:
     owner: A0
-    browser_cases: [date_friday, date_saturday, date_sunday]
+    actual_route_cases: [date_friday, date_saturday, date_sunday]
     penpot_page: 60 · Golden · Date listings
     status: NOT_STARTED
   weekend_listing:
     owner: A0
-    browser_cases: [weekend]
+    actual_route_cases: [weekend]
     penpot_page: 61 · Golden · Weekend
     status: NOT_STARTED
   free_collection:
     owner: [A0, M0]
-    browser_cases: [free_collection_desktop, free_collection_mobile]
+    actual_route: /podborki/besplatnye-sobytiya/
     penpot_page: 62 · Golden · Free collection
     first_page_ASP_target: true
     status: NOT_STARTED
   discovery_personal:
     owner: A0
     archetypes: [search, favorites, personal]
-    penpot_page: 70 · Archetypes · Discovery & personal
     status: NOT_STARTED
   collections_content:
     owner: A0
     archetypes: [collections, exhibitions, festivals, clubs, event_detail]
-    penpot_page: 71 · Archetypes · Content
     status: NOT_STARTED
   focus_partner_special:
     owner: A0
     archetypes: [focus_group, partners, closed, empty, loading, degraded, error]
-    penpot_page: 72 · Archetypes · Special states
     status: NOT_STARTED
 
 visual_conformance:
@@ -242,6 +267,7 @@ visual_conformance:
     - token_values
     - line_count_and_overflow_behavior
     - responsive_composition
+    - linked_penpot_component_identity
   tolerated_when_visually_immaterial:
     - anti_aliasing
     - glyph_rasterization
@@ -266,6 +292,7 @@ critical_path_exclusions:
   - new_sot_repository
   - extracted_component_package_before_launch
   - new_generation_or_lifecycle_system
+  - new_owner_facing_lab_pages
   - pre_candidate_promotion_receipts
   - per_step_lease_cancel_provider_crypto
   - full_penpot_tree_hash
