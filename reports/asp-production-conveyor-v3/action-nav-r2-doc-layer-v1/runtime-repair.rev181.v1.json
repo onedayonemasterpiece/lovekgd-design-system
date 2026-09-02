@@ -1,0 +1,45 @@
+{
+  "schema": "kenigevents.action-nav-doc-layer-runtime-repair.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "incident": {
+    "penpot_revision": 181,
+    "projection_before": "PASS",
+    "first_timeout": "HEADER_LABELS_APPLIED_DISTINCT_READBACK",
+    "cursor_after_first_timeout": "MASTER_LABELS",
+    "second_timeout": "UNKNOWN_OUTCOME_NO_RETRY",
+    "control_release_timeout": true,
+    "native_mutation_in_flight": "UNKNOWN_UNTIL_LEASE_EXPIRY_AND_FRESH_PROJECTION",
+    "lease_auto_expires_at": "2026-09-02T13:36:38Z",
+    "icon_geometry_unchanged": true,
+    "protected_projection_unchanged": true,
+    "validation": []
+  },
+  "lowest_defect": "AWAITED_CURRENT_FILE_SAVE_VERSION_BLOCKS_BOUNDED_PHASE_RECEIPT",
+  "repair": {
+    "per_phase_save_version_calls": 0,
+    "save_version_awaits": 0,
+    "fresh_projection_before_every_phase": true,
+    "unknown_outcome": "DISTINCT_PROJECTION_NO_BLIND_RETRY",
+    "fresh_cursor_reconciliation": true,
+    "all_native_ids_preserved": true,
+    "icon_geometry_preserved": true
+  },
+  "bundle": {
+    "bytes": 39255,
+    "sha256": "35abe4d4e29977e5a25bb8aab946ae0dd7d93f20a76604f7867b323468a8f338",
+    "git_blob_sha1": "f6839aa8a693bae6382daa275e3ccd80cb321546"
+  },
+  "harness": {
+    "head": "9ab3696f1053ba41ecd4ac7bf1f52ef3427d145b",
+    "tree": "f0603efe12801a9beb3a156eefd8bff12544246b",
+    "result": "PASS",
+    "first_run_phases": 22,
+    "first_run_created": 44,
+    "replay_created": 0
+  },
+  "regression": "saveVersion returns never-resolving Promise; bounded HEADER_LABELS phase returns receipt and calls saveVersion zero times",
+  "penpot_reads": 0,
+  "penpot_mutations": 0,
+  "penpot_execution_authorized": false,
+  "next_gate": "EXACT_QA_PLUS_INTEGRATE_THEN_FRESH_NATIVE_PROJECTION_AFTER_LEASE_EXPIRY"
+}
