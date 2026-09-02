@@ -380,7 +380,7 @@ const RECEIPT_KEY = 'eventcard-media-same-tuple-r3-receipt';
 const PROGRESS_KEY = 'eventcard-media-same-tuple-r3-progress';
 const HEX40 = /^[0-9a-f]{40}$/;
 const HEX64 = /^[0-9a-f]{64}$/;
-const EXACT_PROVIDER_IDENTITY = Object.freeze({"schema":"kenigevents.eventcard-media-provider-identity.v1","packageBranch":"agent/d0-eventcard-media-v7-content-addressed-provider-20260902","packageHead":"282b188d1db3fd0d54d75ee8b2d66edeed18108b","packageTree":"7d17d39f771104b084c09bf5cdb61e94b90b1327","bundleSha256":"c88c0bcdb4f74cf64415c777be5c8a57caffb88db7f06326d84f655a8ceb053b","bundleBlobSha1":"97337fa4556bd2a2a9f5619625a3ccc3ef991b34","bundleBytes":34007,"operationIdentitySha256":"693a6e9574af1d290cb90bdcc091789aa415e48d9a0c03d6e48a13b9820af678","sourceHead":"282b188d1db3fd0d54d75ee8b2d66edeed18108b"});
+const EXACT_PROVIDER_IDENTITY = Object.freeze({"schema":"kenigevents.eventcard-media-provider-identity.v1","packageBranch":"agent/d0-eventcard-media-v7-content-addressed-provider-20260902","packageHead":"eb6986b42117b97a7bfb9d6d9e5d4ba5cda49093","packageTree":"57a876b8e21463ae5ddc6f290e50c6cca29029c8","bundleSha256":"c88c0bcdb4f74cf64415c777be5c8a57caffb88db7f06326d84f655a8ceb053b","bundleBlobSha1":"97337fa4556bd2a2a9f5619625a3ccc3ef991b34","bundleBytes":34007,"operationIdentitySha256":"693a6e9574af1d290cb90bdcc091789aa415e48d9a0c03d6e48a13b9820af678","sourceHead":"282b188d1db3fd0d54d75ee8b2d66edeed18108b"});
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
