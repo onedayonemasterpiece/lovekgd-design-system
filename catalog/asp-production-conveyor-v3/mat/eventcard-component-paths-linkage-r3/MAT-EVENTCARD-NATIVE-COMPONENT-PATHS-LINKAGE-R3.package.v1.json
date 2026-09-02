@@ -1,4 +1,12 @@
 {
+  "authority_census_repair_parent": {
+    "head": "92459f622264d13e18e2c55a92670f917522b7c0",
+    "qa_repair_comments": [
+      5506564477,
+      5506574662
+    ],
+    "tree": "cb9545861a5fc048ad75173444fe2f7035cd4cfc"
+  },
   "boundaries": {
     "kaggle_calls": 0,
     "new_eventcard_families": 0,
@@ -27,7 +35,60 @@
     "this_package_authorizes_normalization": false,
     "visible_user_name_change_requires_owner_action": true
   },
-  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_AND_CONCRETE_NATIVE_EXECUTION_GAP",
+  "browser_plugin_bundle": {
+    "artifact": {
+      "bytes": 41462,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_penpot_standalone_bundle_v1.js",
+      "sha256": "ce622091b0ff999051e44efe236a8cf1bf68883651848bda72e4b4a2e5cbeaba"
+    },
+    "browser_penpot_vm_load": true,
+    "builder": {
+      "bytes": 9399,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/build_eventcard_paths_standalone_bundle_v1.py",
+      "sha256": "7dfded85c2af8853a191439ec4a36b2afbce047838a3f9614404468b40e5d01f"
+    },
+    "bundle_authorization_binding": [
+      "exact bundle SHA-256",
+      "exact bundle byte count",
+      "authorization provenance same tuple"
+    ],
+    "current_page_activation": true,
+    "entrypoints": {
+      "execution": "execution",
+      "projection": "projection",
+      "settlement": "settlement"
+    },
+    "global": "KenigEventsD0EventcardPathsR3Bundle",
+    "max_creates_per_phase": 3,
+    "replay_created": 0,
+    "runtime_forbidden_tokens": [
+      "require",
+      "module",
+      "exports",
+      "process",
+      "Buffer",
+      "filesystem",
+      "static import",
+      "dynamic import"
+    ],
+    "schema": "D0_PLUGIN_BUNDLE_V1",
+    "shared_conformance": {
+      "branch": "agent/d0-plugin-bundle-conformance-v1-20260902",
+      "head": "9ab3696f1053ba41ecd4ac7bf1f52ef3427d145b",
+      "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
+      "receipt_comment": 5509766689,
+      "result": "PASS",
+      "tree": "f0603efed53e1bb77214510361f4dc2cf23a5a9e"
+    },
+    "single_javascript_artifact": true,
+    "test": {
+      "bytes": 8386,
+      "path": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
+      "sha256": "9762c6c49c642f6e59476db97b665854a804d26f49c3d0c910a518310ea9fa66"
+    },
+    "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY"
+  },
+  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_CONCRETE_NATIVE_EXECUTION_AND_DIRECT_PLUGIN_CALLABILITY_GAP",
   "execution": {
     "allowed_default_mutation": "LibraryComponent.path only",
     "authorization_binds": [
@@ -36,7 +97,9 @@
       "fresh native projection SHA-256",
       "current BLOCKED_OWNER_REJECTED page-profile SHA-256 plus exact bounded Paths owner directive",
       "triggered_by",
-      "session/task/sole-writer/lease tuple"
+      "session/task/sole-writer/lease tuple",
+      "exact standalone bundle SHA-256 and byte count",
+      "bundle SHA-256 and byte count repeated in authorization provenance"
     ],
     "blind_retry": false,
     "clone": 0,
@@ -44,6 +107,7 @@
     "concrete_penpot_adapter": true,
     "current_page_activation": "open exact page ID and verify currentPage before projection or mutation",
     "detach": 0,
+    "direct_plugin_global": "KenigEventsD0EventcardPathsR3Bundle",
     "entrypoint": "executeEventcardPathsPenpotR3",
     "lease_expiry_recheck_before_every_native_mutation": true,
     "linked_instance_ids_preserved": 26,
@@ -51,6 +115,7 @@
     "path_mutations": 18,
     "physical_active_recheck": "immediately before current-page activation, each of 18 LibraryComponent.path setters, and durable receipt marker",
     "projection_entrypoint": "projectEventcardPathsPenpotR3",
+    "publisher_bespoke_rebundle": false,
     "receipt_marker_values": "strict strings only",
     "recreate": 0,
     "second_run_created": 0,
@@ -60,7 +125,7 @@
   "identity_model": {
     "canonical_library_path": "LibraryComponent.path; grouping hierarchy, never inferred from main layer name",
     "display_name": "LibraryComponent.name; stable semantic identity and library display label",
-    "main_component_relationship": "native component.id ↔ main.id relation proven by main.component()/mainInstance(), not by string equality",
+    "main_component_relationship": "native component.id \u2194 main.id relation proven by main.component()/mainInstance(), not by string equality",
     "main_layer_name": "structural canvas layer name; may carry the accepted legacy G19 prefix without changing display name or canonical path"
   },
   "legacy_main_layer_names": [
@@ -90,6 +155,7 @@
       "legacy": 3
     },
     "components": 18,
+    "file_local_components": 35,
     "linked_by_case": [
       7,
       6,
@@ -97,15 +163,16 @@
       6
     ],
     "linked_instances": 26,
-    "file_local_components": 35,
-    "protected_non_eventcard_components": 17,
-    "target_filter": "exact 18 EventCard component display names plus pinned case component/main IDs",
     "main_layer_name_match": "15/18",
     "mains": 18,
     "projection_sha256": "f46fce8ca122632fe37f566a9709115d33f63e992d1469daa2365c12ce0c6c7b",
-    "revision": 180
+    "protected_non_eventcard_components": 17,
+    "revision": 180,
+    "target_filter": "exact 18 EventCard component display names plus pinned case component/main IDs"
   },
   "native_preflight": {
+    "authority_card_comment_id": 5505976359,
+    "authority_card_scope": "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked",
     "collection_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
     "components": 18,
     "current_repository_profile_is_blocking_for_text_only": true,
@@ -114,21 +181,14 @@
     "file_local_components": 35,
     "linked_instances": 26,
     "mains": 18,
-    "protected_non_eventcard_components": 17,
-    "authority_card_comment_id": 5505976359,
-    "authority_card_scope": "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked",
     "mutation_authorization_requires_exact_bounded_owner_directive": "MORNING_PRODUCTION_SHIFT:EVENTCARD_PATHS_AFTER_EXACT_AUTHORIZATION",
     "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
     "page_profile": "free-collection.owner-review.v1",
     "page_profile_tuple_must_remain_exact": "BLOCKED_OWNER_REJECTED / allowed_to_mutate=false; no global profile override",
+    "protected_non_eventcard_components": 17,
     "validation": []
   },
   "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-LINKAGE-R3",
-  "authority_census_repair_parent": {
-    "head": "92459f622264d13e18e2c55a92670f917522b7c0",
-    "tree": "cb9545861a5fc048ad75173444fe2f7035cd4cfc",
-    "qa_repair_comments": [5506564477, 5506574662]
-  },
   "parent": {
     "branch": "agent/u0-eventcard-component-paths-projection-r2-20260902",
     "head": "5a99ec37ccf82d6ba7428a4f22862206b295a622",
@@ -140,7 +200,7 @@
       "projection SHA-256",
       "18 component display names and IDs",
       "18 main layer names and IDs",
-      "18 native component↔main relationship proofs",
+      "18 native component\u2194main relationship proofs",
       "current and canonical component-library paths",
       "26 linked-instance IDs and relationships",
       "visible product-label projection digest",
@@ -165,6 +225,8 @@
     "native_like_cases": 11,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_linkage_r3.test.js",
     "node_total_cases": 18,
-    "python": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/test_package.py"
+    "python": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/test_package.py",
+    "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
+    "standalone_bundle_cases": 3
   }
 }

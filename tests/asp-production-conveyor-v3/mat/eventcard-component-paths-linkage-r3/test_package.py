@@ -1,11 +1,14 @@
 import json
 import pathlib
 import unittest
+import hashlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
 PACKAGE = ROOT / "catalog/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-LINKAGE-R3.package.v1.json"
 RUNTIME = ROOT / "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_linkage_r3.js"
 NATIVE_RUNTIME = ROOT / "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_penpot_runtime_r3.js"
+BUNDLE = ROOT / "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_penpot_standalone_bundle_v1.js"
 
 class PackageTest(unittest.TestCase):
     @classmethod
@@ -13,6 +16,8 @@ class PackageTest(unittest.TestCase):
         cls.package = json.loads(PACKAGE.read_text(encoding="utf-8"))
         cls.runtime = RUNTIME.read_text(encoding="utf-8")
         cls.native_runtime = NATIVE_RUNTIME.read_text(encoding="utf-8")
+        cls.bundle_bytes = BUNDLE.read_bytes()
+        cls.bundle = cls.bundle_bytes.decode("utf-8")
 
     def test_identity_model_is_explicit(self):
         self.assertEqual(set(self.package["identity_model"]), {
@@ -53,6 +58,18 @@ class PackageTest(unittest.TestCase):
         self.assertEqual(preflight["authority_card_scope"], "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked")
         self.assertIn("EVENTCARD_PATHS", preflight["mutation_authorization_requires_exact_bounded_owner_directive"])
         self.assertFalse(self.package["boundaries"]["penpot_execution_authorized"])
+
+
+    def test_standalone_bundle_identity_and_forbidden_runtime_tokens(self):
+        meta = self.package["browser_plugin_bundle"]
+        self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3Bundle")
+        self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
+        self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
+        for name in ["require", "module", "exports", "process", "Buffer"]:
+            self.assertIsNone(re.search(rf"\b{name}\b", self.bundle))
+        self.assertIn("bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE'", self.bundle)
+        self.assertIn("PATHS_R3_BUNDLE_AUTHORIZATION_MISMATCH", self.bundle)
 
     def test_boundaries(self):
         boundaries = self.package["boundaries"]
