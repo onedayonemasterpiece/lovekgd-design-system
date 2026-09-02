@@ -1,0 +1,409 @@
+{
+  "schema_version": "kenigevents.asp-conveyor.a0.candidate-adapter.v1",
+  "adapter_id": "A-OWNER-REVIEW-INDEX-CANDIDATE-ADAPTER.v1",
+  "package_manifest": {
+    "package_id": "A-OWNER-REVIEW-INDEX-CANDIDATE-ADAPTER",
+    "owner": "A0",
+    "priority": "P2",
+    "status": "READY_TO_PUBLISH",
+    "branch": "a0/asp-production-conveyor-20260831",
+    "sha": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+    "paths": [
+      "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/owner-review-index-candidate-adapter.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+      "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py"
+    ],
+    "source_and_donor_lineage": [
+      {
+        "source": "A-OWNER-REVIEW-INDEX",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "exact forty-five semantic review keys and package/case order"
+      },
+      {
+        "pr": 52,
+        "commit": "b86bab3e91511b3d4bd7d953b22bceb847f02a51",
+        "disposition": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION",
+        "scope": "compact review-index concept only; all old Penpot IDs, URLs and statuses dropped"
+      },
+      {
+        "policy": "ASP_NONBLOCKING_WORK_STEALING_V6",
+        "comment": 5481580183,
+        "disposition": "INDEPENDENT_BACKLOG_CONTINUATION",
+        "scope": "continued while Wave 2 source-fidelity repair remained bounded"
+      }
+    ],
+    "corpus_projection_state_tuple": {
+      "source_head": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+      "owner_review_index_file_sha256": "184ba75bcfb6952b8d8c4e5cde01a633918dada127930cfaecdaec75acb44c77",
+      "owner_review_index_record_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+      "review_keys_sha256": "999588112510a5936a3c2a4498bf99e5c9d196eee2ff528c97b88d098a32f442",
+      "entry_count": 45,
+      "package_groups": 5
+    },
+    "archetype_or_route_ids": [
+      "free-page",
+      "archetype.listing.date",
+      "A-ARCHETYPE-WAVE-1",
+      "A-ARCHETYPE-WAVE-2",
+      "owner-review-index"
+    ],
+    "dependencies": [
+      "A-FREE-FULL-PAGE",
+      "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER",
+      "A-ARCHETYPE-WAVE-1-CANDIDATE-ADAPTER",
+      "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER",
+      "U-SHARED-PATTERNS",
+      "F-SHARED-FOUNDATION-BINDINGS"
+    ],
+    "target_penpot_page": "a0.candidate.page.owner-review-index.v1",
+    "expected_roots": [
+      "a0.candidate.root.owner-review-index.desktop.v1",
+      "a0.candidate.root.owner-review-index.mobile.v1"
+    ],
+    "expected_components": [
+      "owner-review.index",
+      "owner-review.package-group",
+      "owner-review.case-row",
+      "owner-review.status-chip",
+      "shell.desktop-header",
+      "shell.footer",
+      "shell.mobile-header",
+      "shell.mobile-bottom-navigation"
+    ],
+    "expected_instances": {
+      "semantic_pages": 1,
+      "scenario_roots": 2,
+      "review_rows_per_viewport": 45,
+      "total_review_row_instances": 90,
+      "package_groups_per_viewport": 5
+    },
+    "materialization_entry_point": "D0/MAT or D0/INTEGRATE consumes the exact owner-review-index source and two ordered build steps; D0/PUBLISH assigns all new Penpot identities.",
+    "validation": {
+      "schema": "candidate-adapter.schema.json#/$defs/candidate_adapter",
+      "positive_and_negative_tests": "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+      "visual_acceptance": "PENDING_V0",
+      "promotion_authorized": false,
+      "legacy_status_inheritance": false
+    },
+    "astro_evidence_cases": [
+      "v0.a0.owner-review-index.desktop.v1",
+      "v0.a0.owner-review-index.mobile.v1"
+    ],
+    "explicit_gaps": [
+      "This index reports package/case inventory only; it does not promote or visually accept any listed case.",
+      "Every row remains pending until D0 persists new identities and V0 supplies direct review."
+    ],
+    "package_record_sha256": "d0d87e032f01f8525b927849f16ed5ac51bcecb193fae4a78722f50c2df552a8"
+  },
+  "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+  "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+  "visual_acceptance": "PENDING_V0",
+  "promotion_authorized": false,
+  "penpot_mutations": 0,
+  "canonicalization": {
+    "algorithm": "RFC8785-compatible project subset: UTF-8 JSON, recursively sorted object keys, arrays preserved, no insignificant whitespace, ensure_ascii=false",
+    "record_hash_scope": "entire adapter object excluding receipts",
+    "idempotency_hash_scope": "canonical idempotency.material object",
+    "file_receipt_scope": "exact committed file bytes"
+  },
+  "source_inputs": [
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+      "git_commit": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+      "file_sha256": "184ba75bcfb6952b8d8c4e5cde01a633918dada127930cfaecdaec75acb44c77",
+      "record_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+      "usage": "EXACT_FORTY_FIVE_ROW_ORDER"
+    }
+  ],
+  "dependency_refs": [
+    {
+      "package_id": "A-FREE-FULL-PAGE",
+      "owner": "A0",
+      "required_at": "DATA_BINDING",
+      "a0_readiness_assertion": "IMMUTABLE_READY_PACKAGE"
+    },
+    {
+      "package_id": "A-DATE-LISTING-SHELL-CANDIDATE-ADAPTER",
+      "owner": "A0",
+      "required_at": "DATA_BINDING",
+      "a0_readiness_assertion": "READY_TO_MATERIALIZE_CANDIDATE"
+    },
+    {
+      "package_id": "A-ARCHETYPE-WAVE-1-CANDIDATE-ADAPTER",
+      "owner": "A0",
+      "required_at": "DATA_BINDING",
+      "a0_readiness_assertion": "READY_TO_MATERIALIZE_CANDIDATE"
+    },
+    {
+      "package_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER",
+      "owner": "A0",
+      "required_at": "DATA_BINDING",
+      "a0_readiness_assertion": "READY_TO_MATERIALIZE_CANDIDATE"
+    },
+    {
+      "package_id": "U-SHARED-PATTERNS",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-SHARED-FOUNDATION-BINDINGS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    }
+  ],
+  "index_contract": {
+    "columns": [
+      "order",
+      "review_key",
+      "package_id",
+      "subject",
+      "viewport",
+      "scenario",
+      "materialization",
+      "v0_acceptance",
+      "target"
+    ],
+    "review_keys": [
+      "a0.free.desktop.top.v1",
+      "a0.free.desktop.scrolled.v1",
+      "a0.free.desktop.full.v1",
+      "a0.free.mobile.top.v1",
+      "a0.free.mobile.scrolled.v1",
+      "a0.free.mobile.full.v1",
+      "a0.date.typical.desktop.v1",
+      "a0.date.typical.mobile.v1",
+      "a0.date.sparse.desktop.v1",
+      "a0.date.state-matrix.mobile.v1",
+      "a0.date.stress.desktop.v1",
+      "a0.date.full.desktop.v1",
+      "a0.date.full.mobile.v1",
+      "a0.review.archetype.home.desktop.v1",
+      "a0.review.archetype.home.mobile.v1",
+      "a0.review.archetype.listing.weekend.desktop.v1",
+      "a0.review.archetype.listing.weekend.mobile.v1",
+      "a0.review.archetype.listing.popular.desktop.v1",
+      "a0.review.archetype.listing.popular.mobile.v1",
+      "a0.review.archetype.listing.unusual.desktop.v1",
+      "a0.review.archetype.listing.unusual.mobile.v1",
+      "a0.review.archetype.collections.desktop.v1",
+      "a0.review.archetype.collections.mobile.v1",
+      "a0.review.archetype.exhibitions.desktop.v1",
+      "a0.review.archetype.exhibitions.mobile.v1",
+      "a0.review.archetype.search.desktop.v1",
+      "a0.review.archetype.search.mobile.v1",
+      "a0.review.archetype.favorites.desktop.v1",
+      "a0.review.archetype.favorites.mobile.v1",
+      "a0.review.archetype.personal-feed.desktop.v1",
+      "a0.review.archetype.personal-feed.mobile.v1",
+      "a0.review.archetype.festivals.desktop.v1",
+      "a0.review.archetype.festivals.mobile.v1",
+      "a0.review.archetype.interest-clubs.desktop.v1",
+      "a0.review.archetype.interest-clubs.mobile.v1",
+      "a0.review.archetype.artifacts.desktop.v1",
+      "a0.review.archetype.artifacts.mobile.v1",
+      "a0.review.archetype.event-detail.desktop.v1",
+      "a0.review.archetype.event-detail.mobile.v1",
+      "a0.review.archetype.focus-group.desktop.v1",
+      "a0.review.archetype.focus-group.mobile.v1",
+      "a0.review.archetype.information-pages.desktop.v1",
+      "a0.review.archetype.information-pages.mobile.v1",
+      "a0.review.archetype.special-state.desktop.v1",
+      "a0.review.archetype.special-state.mobile.v1"
+    ],
+    "review_keys_sha256": "999588112510a5936a3c2a4498bf99e5c9d196eee2ff528c97b88d098a32f442",
+    "package_groups": [
+      "A-FREE-FULL-PAGE",
+      "A-DATE-LISTING-SHELL-REPLAY",
+      "A-ARCHETYPE-WAVE-1",
+      "A-ARCHETYPE-WAVE-2",
+      "OWNER-REVIEW-INDEX"
+    ],
+    "source_status_policy": {
+      "materialization": "AWAITING_D0_MATERIALIZATION",
+      "v0_acceptance": "PENDING",
+      "target": "D0_ASSIGNS_NEW_ID"
+    },
+    "row_count": 45
+  },
+  "target": {
+    "semantic_page_key": "a0.candidate.page.owner-review-index.v1",
+    "semantic_page_name": "A0 Candidate · Owner Review Index",
+    "semantic_root_order": [
+      "a0.candidate.root.owner-review-index.desktop.v1",
+      "a0.candidate.root.owner-review-index.mobile.v1"
+    ],
+    "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+  },
+  "bounded_mutation_scope": {
+    "allowed_paths": [
+      "a0.candidate.page.owner-review-index.v1",
+      "a0.candidate.root.owner-review-index.desktop.v1",
+      "a0.candidate.root.owner-review-index.mobile.v1"
+    ],
+    "max_semantic_pages": 1,
+    "max_semantic_roots": 2,
+    "existing_non_candidate_pages": "NO_MUTATION",
+    "acceptance_geometry": "NOT_OWNED_BY_A0",
+    "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+  },
+  "build_contract": {
+    "ordering": "STRICT_ASCENDING_ORDER",
+    "steps": [
+      {
+        "order": 1,
+        "semantic_root_key": "a0.candidate.root.owner-review-index.desktop.v1",
+        "scenario_id": "a0.owner-review-index.desktop.v1",
+        "evidence_key": "v0.a0.owner-review-index.desktop.v1",
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 900
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+        "projection_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "required_states": [
+          "pending"
+        ],
+        "active_candidate_state": "pending",
+        "shell_semantic_slots": [
+          "owner-review.header",
+          "owner-review.package-groups",
+          "owner-review.case-table",
+          "owner-review.status-legend"
+        ],
+        "component_semantic_refs": [
+          "owner-review.index",
+          "owner-review.package-group",
+          "owner-review.case-row",
+          "owner-review.status-chip",
+          "shell.desktop-header",
+          "shell.footer"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "review_rows": 45,
+          "package_groups": 5,
+          "status_legend": 1
+        },
+        "geometry_authority": "OWNER_INDEX_DATA_FROM_A0; U0/F0_OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 2,
+        "semantic_root_key": "a0.candidate.root.owner-review-index.mobile.v1",
+        "scenario_id": "a0.owner-review-index.mobile.v1",
+        "evidence_key": "v0.a0.owner-review-index.mobile.v1",
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+        "projection_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "required_states": [
+          "pending"
+        ],
+        "active_candidate_state": "pending",
+        "shell_semantic_slots": [
+          "owner-review.header",
+          "owner-review.package-groups",
+          "owner-review.case-table",
+          "owner-review.status-legend"
+        ],
+        "component_semantic_refs": [
+          "owner-review.index",
+          "owner-review.package-group",
+          "owner-review.case-row",
+          "owner-review.status-chip",
+          "shell.mobile-header",
+          "shell.mobile-bottom-navigation"
+        ],
+        "expected_instances": {
+          "semantic_roots": 1,
+          "review_rows": 45,
+          "package_groups": 5,
+          "status_legend": 1
+        },
+        "geometry_authority": "OWNER_INDEX_DATA_FROM_A0; U0/F0_OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      }
+    ]
+  },
+  "readback_contract": {
+    "pre": [
+      "one exact D0/PUBLISH writer",
+      "exact forty-five-row source hash matches",
+      "all four referenced package groups resolve by immutable package ID, never Penpot UUID",
+      "target page is absent or tagged with exact idempotency digest"
+    ],
+    "post": [
+      "one semantic page with exact idempotency digest",
+      "desktop and mobile roots match target.semantic_root_order exactly",
+      "both roots bind the same forty-five review keys byte-for-byte and in order",
+      "all persisted IDs are newly assigned by D0 and absent from this adapter",
+      "every case remains pending before V0 review"
+    ]
+  },
+  "abort_conditions": [
+    "OWNER_REVIEW_INDEX_FILE_OR_RECORD_HASH_MISMATCH",
+    "REVIEW_KEY_OMITTED_CHANGED_DUPLICATED_OR_REORDERED",
+    "PACKAGE_GROUP_MISSING_OR_RENAMED",
+    "PENDING_STATUS_REPLACED_BY_PASS_OR_ACCEPTED",
+    "SEMANTIC_ROOT_ORDER_MISMATCH",
+    "U0_OR_F0_DEPENDENCY_MISSING_OR_STALE",
+    "MULTIPLE_PENPOT_WRITERS",
+    "EXISTING_ROOT_IDEMPOTENCY_DIGEST_MISMATCH",
+    "OLD_PENPOT_UUID_OR_DIRECT_URL_PRESENT",
+    "STALE_VISUAL_PASS_OR_ACCEPTANCE_CLAIM",
+    "PROMOTION_REQUESTED_FROM_CANDIDATE_ADAPTER"
+  ],
+  "idempotency": {
+    "key": "a0.owner-review-index-candidate.v1:f9fbb23b35a06ca9290105b85c4a739827756fa782366066a7fba64d38fe9cd9",
+    "sha256": "f9fbb23b35a06ca9290105b85c4a739827756fa782366066a7fba64d38fe9cd9",
+    "material": {
+      "adapter_id": "A-OWNER-REVIEW-INDEX-CANDIDATE-ADAPTER.v1",
+      "source_tuple": {
+        "source_head": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+        "owner_review_index_file_sha256": "184ba75bcfb6952b8d8c4e5cde01a633918dada127930cfaecdaec75acb44c77",
+        "owner_review_index_record_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+        "review_keys_sha256": "999588112510a5936a3c2a4498bf99e5c9d196eee2ff528c97b88d098a32f442",
+        "entry_count": 45,
+        "package_groups": 5
+      },
+      "review_keys_sha256": "999588112510a5936a3c2a4498bf99e5c9d196eee2ff528c97b88d098a32f442",
+      "target": {
+        "semantic_page_key": "a0.candidate.page.owner-review-index.v1",
+        "semantic_page_name": "A0 Candidate · Owner Review Index",
+        "semantic_root_order": [
+          "a0.candidate.root.owner-review-index.desktop.v1",
+          "a0.candidate.root.owner-review-index.mobile.v1"
+        ],
+        "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+      },
+      "build_steps_sha256": "2379cfe6aac76688d77d28aa10734b2dc6b9258e5c6fe501f701990d7732c150",
+      "bounded_mutation_scope": {
+        "allowed_paths": [
+          "a0.candidate.page.owner-review-index.v1",
+          "a0.candidate.root.owner-review-index.desktop.v1",
+          "a0.candidate.root.owner-review-index.mobile.v1"
+        ],
+        "max_semantic_pages": 1,
+        "max_semantic_roots": 2,
+        "existing_non_candidate_pages": "NO_MUTATION",
+        "acceptance_geometry": "NOT_OWNED_BY_A0",
+        "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+      }
+    }
+  },
+  "receipts": {
+    "receipt_path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+    "adapter_record_sha256": "f16e5a11070f7f7c36eea6d237d12830c1e1054a3bd4a59d626a55f7aba71f1e"
+  }
+}
