@@ -1,0 +1,93 @@
+name: A0 morning exact multi-ref snapshot
+
+on:
+  push:
+    branches:
+      - a0/morning-executable-route-buffer-v1-20260902
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Export exact text/source package inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$RUNNER_TEMP/a0-morning-snapshot"
+          mkdir -p "$ROOT"
+          git fetch --no-tags origin \
+            0fbfd4839343de71d5128b2e9c2ad232dde6abf4 \
+            4edc859861fba3f18fab0e65e9d2e8c0a7394bdb \
+            9e8edbed95eb40807059e6c6f10af74beeaee683 \
+            4ee9651c97da4e46b0fda4e244f9d5dea634e063
+
+          extract_paths() {
+            local ref="$1" dest="$2"; shift 2
+            mkdir -p "$dest"
+            local existing=() missing=()
+            local p
+            for p in "$@"; do
+              if git cat-file -e "$ref:$p" 2>/dev/null; then
+                existing+=("$p")
+              else
+                missing+=("$p")
+              fi
+            done
+            printf '%s\n' "${missing[@]:-}" > "$dest/MISSING_PATHS.txt"
+            if ((${#existing[@]})); then
+              git archive "$ref" "${existing[@]}" | tar -x -C "$dest"
+            fi
+            printf '%s\n' "$ref" > "$dest/REF.txt"
+          }
+
+          extract_paths 0fbfd4839343de71d5128b2e9c2ad232dde6abf4 "$ROOT/final-evidence" \
+            AGENTS.md \
+            docs/product-governance/asp-production-conveyor-v3/A0.md \
+            catalog/asp-production-conveyor-v3/a0 \
+            catalog/asp-production-conveyor-v3/atlas-v2 \
+            catalog/asp-production-conveyor-v3/f0 \
+            catalog/asp-production-conveyor-v3/u0 \
+            catalog/global-archetype-sot-v1 \
+            scripts/asp-production-conveyor-v3/a0 \
+            scripts/asp-production-conveyor-v3/atlas-v2 \
+            scripts/asp-production-conveyor-v3/f0 \
+            scripts/asp-production-conveyor-v3/u0 \
+            tests/asp-production-conveyor-v3/a0 \
+            tests/asp-production-conveyor-v3/atlas-v2 \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/source-bound-evidence-8of8.v1.json \
+            reports/asp-production-conveyor-v3/atlas-v2/rendered/source-bound-evidence-8of8.validation.v1.json \
+            reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/source-bindings.v1.json \
+            reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/state-census.v1.json \
+            reports/asp-production-conveyor-v3/atlas-v2/source-bound/a0-routes/validation.v1.json
+
+          extract_paths 4edc859861fba3f18fab0e65e9d2e8c0a7394bdb "$ROOT/page-wave" \
+            catalog/asp-production-conveyor-v3/a0 \
+            catalog/asp-production-conveyor-v3/atlas-v2 \
+            catalog/global-archetype-sot-v1 \
+            scripts/asp-production-conveyor-v3/a0 \
+            tests/asp-production-conveyor-v3/a0
+
+          extract_paths 9e8edbed95eb40807059e6c6f10af74beeaee683 "$ROOT/free-rows" \
+            catalog/asp-production-conveyor-v3/a0/free-rows-data-r2 \
+            scripts/asp-production-conveyor-v3/a0/free-rows-data-r2 \
+            tests/asp-production-conveyor-v3/a0/free-rows-data-r2
+
+          extract_paths 4ee9651c97da4e46b0fda4e244f9d5dea634e063 "$ROOT/free-full-page" \
+            catalog/asp-production-conveyor-v3/a0/free-full-page-r2 \
+            scripts/asp-production-conveyor-v3/a0/free-full-page-r2 \
+            tests/asp-production-conveyor-v3/a0/free-full-page-r2
+
+          (cd "$ROOT" && find . -type f -print0 | sort -z | xargs -0 sha256sum > SNAPSHOT.SHA256)
+          tar -C "$RUNNER_TEMP" -czf "$RUNNER_TEMP/a0-morning-snapshot.tar.gz" a0-morning-snapshot
+      - uses: actions/upload-artifact@v4
+        with:
+          name: a0-morning-exact-snapshot
+          path: ${{ runner.temp }}/a0-morning-snapshot.tar.gz
+          if-no-files-found: error
+          retention-days: 3
