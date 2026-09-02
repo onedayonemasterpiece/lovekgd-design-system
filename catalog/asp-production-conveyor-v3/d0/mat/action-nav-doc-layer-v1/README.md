@@ -4,7 +4,7 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `348c503e57fd900e04db53057f970fc18797148495fa8e1feb25ae5e98dd7a09`, Git blob `d2051180bf50e779d57c3099929eb4843fd89660`, bytes `51673`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `a08e73ecb3a51f4da09082b823365030273b92c7bbae36098417a16dce6d3739`, Git blob `07123165e2d47b011b4fc7ffc6bf075c8f0bfb58`, bytes `51678`.
 2. Put the exact branch/head/tree/blob/bytes/SHA bundle identity, fresh current `revn`/projection/cursor/docs authorization, and the exact previous released-marker continuation into storage. Do **not** write a new physical ACTIVE marker externally.
 3. Call `executeActionNavDocLayerPhase({penpot, storage})` once. The bundle validates the released physical marker, atomically mints ACTIVE, creates at most three nodes, binds its after-projection receipt, and releases the marker inside that same native call.
 4. For each remaining phase, perform a distinct read-only projection and repeat step 2 with the new authoritative `revn`; skipped/regressed counts and stale revisions fail closed. A timeout has unknown outcome: project again; never blindly retry.
@@ -31,7 +31,7 @@ V7 uses `file.revn` as the authoritative Penpot Plugin API field and falls back 
 ## Rev 190 V8 per-phase atomic continuation
 
 V8 supersedes the fixed-revision V7 continuation. The first V8 call accepts only the exact
-released V7 partial (`revn=190`, projection `1b8251c5…`, cursor `CELL_DOCUMENTATION`, docs
+released V7 partial (fresh current `revn>=190`, projection `1b8251c5…`, cursor `CELL_DOCUMENTATION`, docs
 `8/1/1`, released-marker SHA-256 `418d736a…`). Every remaining bounded phase starts from a
 fresh caller-supplied `revn`/projection/cursor/docs tuple and the exact prior released root
 binding. The bundle itself validates that released tuple, mints physical `ACTIVE`, executes one
