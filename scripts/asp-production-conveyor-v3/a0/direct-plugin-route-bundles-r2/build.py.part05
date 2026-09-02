@@ -1,0 +1,139 @@
+  penpot.currentFile.setSharedPluginData('kenigevents','asp-active-run-v1',JSON.stringify(marker));
+  const probe=make('strict-string-probe-'+DATA.slug,'shape');return {penpot,storage,__probe:probe};
+}
+async function prepareReplay(host,args){return {penpot:need(args&&args.penpot,'PENPOT_REQUIRED'),storage:need(args.storage,'STORAGE_REQUIRED')}}
+async function strictStringProbe(host){const node=need(host.__probe,'STRICT_PROBE_MISSING'),result={};pset(node,'string','PASS');result.string='PASS';for(const [key,value] of [['number',1],['object',{}],['boolean',true],['null',null],['undefined',undefined]]){try{node.setSharedPluginData(DATA.plugin_namespace,key,value);result[key]='ACCEPTED'}catch(error){result[key]='REJECTED'}}return result}
+const api={
+  metadata:{schema:'D0_PLUGIN_BUNDLE_V1',package_id:DATA.package_id,bundle_sha256_binding:'EXTERNAL_AUTHORIZATION_TUPLE',current_page_activation:true,max_creates_per_phase:3,replay_created:0,entrypoints:{projection:'project',execution:'execute',settlement:'settle'},atlas_binding:DATA.atlas,route_state_fixture_tuple_sha256:DATA.route_state_fixture_tuple_sha256,runtime_shared_imports:0},
+  project,execute,settle,conformance:{createHost,prepareReplay,strictStringProbe}
+};
+root[DATA.global_name]=Object.freeze(api);
+})(globalThis);
+'''
+
+
+def protected_pages(old: dict[str, Any]) -> list[dict[str, Any]]:
+    policy = old.get("protected_projections") or {}
+    pages: list[dict[str, Any]] = []
+    free = policy.get("free") or {}
+    if free.get("page_id") and free.get("root_ids"):
+        pages.append({"page_id": free["page_id"], "root_ids": list(free["root_ids"]), "external_sha256": free.get("sha256")})
+    foundations = policy.get("foundations") or {}
+    if foundations.get("page_id") and foundations.get("root_id"):
+        pages.append({"page_id": foundations["page_id"], "root_ids": [foundations["root_id"]], "external_sha256": foundations.get("sha256")})
+    if not pages:
+        raise AssertionError("PROTECTED_PROJECTIONS_MISSING")
+    return pages
+
+
+def build_data(slug: str, lane: str, old: dict[str, Any], cwd: Path) -> dict[str, Any]:
+    atlas, extension, atlas_sources = load_atlas(cwd)
+    source_records, source_raw = exact_source_records(old, cwd)
+    atlas_unit = choose_atlas_unit(slug, old, atlas)
+    rows = owner_rows(atlas) if slug == "owner-review-index" else []
+    job_id = f"A0-DIRECT-PLUGIN-{slug.replace('-', '_').upper()}-R2"
+    global_name = "A0DirectPlugin" + slug_ident(slug) + "R2"
+    deps = dependency_bindings(old, source_records, job_id)
+    operations = build_operations(slug, old, atlas_unit, rows)
+    run_seed = digest([job_id, source_records, atlas_unit])
+    exact_tuple = old.get("exact_tuple") or {}
+    atlas_binding = {
+        "atlas_id": "ASP_PENPOT_ATLAS_LAYOUT_R2_1",
+        "base_head": ATLAS_R2,
+        "base_tree": ATLAS_R2_TREE,
+        "extension_head": ATLAS_R21,
+        "extension_tree": ATLAS_R21_TREE,
+        "atlas_page_id": atlas_unit["atlas_page_id"],
+        "physical_page_name": atlas_unit["physical_page_name"],
+        "page_order": atlas_unit["page_order"],
+        "template_id": atlas_unit["template_id"],
+        "projection_role": atlas_unit["projection_role"],
+        "semantic_slot_bindings": atlas_unit["semantic_slot_bindings"],
+        "binding_origin": "ATLAS_R2_BASE_IMMUTABLE_UNDER_R2_1_EXTENSION",
+        "base_source": atlas_sources["base"],
+        "extension_source": atlas_sources["extension"],
+        "extension_page_count": extension.get("counts", {}).get("extension_page_count"),
+    }
+    atlas_binding["binding_sha256"] = digest(atlas_binding)
+    data = {
+        "schema_version": "kenigevents.a0.direct-plugin-route-bundle.r2",
+        "package_id": job_id,
+        "source_package_id": old.get("source_package_id"),
+        "source_job_id": old.get("job_id"),
+        "slug": slug,
+        "lane": lane,
+        "global_name": global_name,
+        "plugin_namespace": "kenigevents-a0-route-r2",
+        "managed_name_prefix": f"[A0R2:{slug}] ",
+        "stable_page_id": "a0p-" + digest([job_id, atlas_unit["atlas_page_id"]])[:28],
+        "sources": source_records,
+        "source_raw": source_raw,
+        "source_package_record_sha256": old.get("source_package_record_sha256"),
+        "route_state_fixture_tuple": exact_tuple,
+        "route_state_fixture_tuple_sha256": digest(exact_tuple),
+        "atlas": atlas_binding,
+        "owner_index_rows": rows,
+        "dependencies": deps,
+        "protected_projections": {"pages": protected_pages(old)},
+        "operations": operations,
+        "run_control": {
+            "schema": "kenigevents.asp-run-control.v1",
+            "run_id": run_seed[:8] + "-" + run_seed[8:12] + "-4" + run_seed[13:16] + "-a" + run_seed[17:20] + "-" + run_seed[20:32],
+            "lease_token": digest([run_seed, "lease"]),
+            "cancel_token": digest([run_seed, "cancel"]),
+        },
+        "factual_bytes_changed": 0,
+        "route_registry_changed": False,
+        "atlas_changed": False,
+        "visual_pass_declared": False,
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+        "kaggle": False,
+    }
+    data["record_sha256"] = digest(data)
+    return data
+
+
+def render_bundle(data: dict[str, Any]) -> str:
+    payload = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return RUNTIME_JS.replace("__DATA__", payload).replace("__SHA_JS__", SHA_JS).lstrip()
+
+
+def package_test_source() -> str:
+    return r'''#!/usr/bin/env python3
+import hashlib,json,re,sys
+from pathlib import Path
+root=Path(sys.argv[1])
+package=json.loads((root/'package.r2.json').read_text(encoding='utf-8'))
+bundle=(root/'bundle.direct-plugin.r2.js').read_bytes()
+assert package['state']=='DIRECT_PLUGIN_BUNDLE_READY_D0_QA_INTEGRATE'
+assert package['bundle']['bytes']==len(bundle)
+assert package['bundle']['sha256']==hashlib.sha256(bundle).hexdigest()
+assert package['bundle']['global'].isidentifier()
+assert package['runtime_shared_imports']==0
+assert package['factual_package_bytes_changed']==0
+assert package['route_registry_changed'] is False
+assert package['atlas_changed'] is False
+assert package['visual_pass_declared'] is False
+assert package['penpot_reads']==0 and package['penpot_mutations']==0
+assert package['atlas_binding']['base_head']=='663be702d481972cb2e8863af500f1c35dda1d8c'
+assert package['atlas_binding']['extension_head']=='be4918e5d8e1c1bba5da478acfd08f8035cfc1a5'
+assert package['atlas_binding']['atlas_page_id']
+assert package['atlas_binding']['physical_page_name']
+assert package['atlas_binding']['page_order']
+assert package['atlas_binding']['template_id']
+assert package['atlas_binding']['semantic_slot_bindings']
+assert package['operations'][0]['role']=='root'
+assert all(op['text'] or op['kind']=='board' for op in package['operations'])
+for op in package['operations']:
+    text=(op['name']+' '+op['text']).lower()
+    assert not re.search(r'\b(?:placeholder|lorem|generic blank)\b',text)
+if package['slug']=='owner-review-index':
+    assert len(package['owner_index_rows'])==42
+    assert len({row['page_order'] for row in package['owner_index_rows']})==42
+    assert package['operations'][0]['geometry']=={'x':0,'y':0,'width':2624,'height':2528}
+    rows=[op for op in package['operations'] if op['role']=='owner-index-row']
+    assert len(rows)==42
+    assert max(row['geometry']['y']+row['geometry']['height'] for row in rows)==2464
+source=bundle.decode('utf-8')
+for token in ('D0_PLUGIN_BUNDLE_V1','createHost','prepareReplay','strictStringProbe','currentFile.revn','await penpot.openPage','EXTERNAL_AUTHORIZATION_TUPLE'):
