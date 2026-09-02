@@ -1,0 +1,180 @@
+    assert token in source, token
+print(json.dumps({'result':'PASS','slug':package['slug'],'bundle_sha256':package['bundle']['sha256']}))
+'''
+
+
+def source_test_source() -> str:
+    return r'''#!/usr/bin/env python3
+import hashlib,json,subprocess,sys
+from pathlib import Path
+root=Path(sys.argv[1]);repo=Path(sys.argv[2])
+package=json.loads((root/'package.r2.json').read_text(encoding='utf-8'))
+for item in package['sources']:
+    cp=subprocess.run(['git','show',f"{item['ref']}:{item['path']}"],cwd=repo,stdout=subprocess.PIPE,check=True)
+    raw=cp.stdout
+    assert len(raw)==item['bytes']
+    assert hashlib.sha256(raw).hexdigest()==item['sha256']
+    blob=subprocess.check_output(['git','rev-parse',f"{item['ref']}:{item['path']}"],cwd=repo,text=True).strip()
+    assert blob==item['git_blob_sha1']
+for key in ('base_source','extension_source'):
+    item=package['atlas_binding'][key]
+    raw=subprocess.check_output(['git','show',f"{item['head']}:{item['path']}"],cwd=repo)
+    assert len(raw)==item['bytes']
+    assert hashlib.sha256(raw).hexdigest()==item['sha256']
+    assert subprocess.check_output(['git','rev-parse',f"{item['head']}:{item['path']}"],cwd=repo,text=True).strip()==item['git_blob_sha1']
+print(json.dumps({'result':'PASS','slug':package['slug'],'sources':len(package['sources'])}))
+'''
+
+
+def build_one(slug: str, lane: str, cwd: Path, out: Path) -> dict[str, Any]:
+    old_head = OLD_LANE_HEADS[lane]
+    old_path = OLD_MANIFEST.format(lane=lane, slug=slug)
+    old = json_at(old_head, old_path, cwd)
+    data = build_data(slug, lane, old, cwd)
+    bundle_text = render_bundle(data)
+    package_dir = out / slug
+    package_dir.mkdir(parents=True, exist_ok=True)
+    bundle_path = package_dir / "bundle.direct-plugin.r2.js"
+    bundle_path.write_text(bundle_text, encoding="utf-8")
+    bundle_record = {
+        "path": f"{OUT_ROOT.as_posix()}/{slug}/bundle.direct-plugin.r2.js",
+        "bytes": bundle_path.stat().st_size,
+        "sha256": sha256(bundle_path.read_bytes()),
+        "global": data["global_name"],
+    }
+    package = {
+        **{key: value for key, value in data.items() if key != "source_raw"},
+        "schema_version": "kenigevents.a0.direct-plugin-route-bundle-package.r2",
+        "state": "DIRECT_PLUGIN_BUNDLE_READY_D0_QA_INTEGRATE",
+        "bundle": bundle_record,
+        "runtime_shared_imports": 0,
+        "factual_package_bytes_changed": 0,
+        "dependency_absence": "FAIL_CLOSED_BEFORE_PAGE_CREATE",
+        "substitute_cards": 0,
+        "placeholders": 0,
+        "next_owner": "D0_QA_INTEGRATE",
+    }
+    package["package_record_sha256"] = digest(package)
+    (package_dir / "package.r2.json").write_text(pretty(package), encoding="utf-8")
+    receipt = {
+        "schema_version": "kenigevents.a0.direct-plugin-route-bundle-receipt.r2",
+        "slug": slug,
+        "state": package["state"],
+        "bundle": bundle_record,
+        "package_record_sha256": package["package_record_sha256"],
+        "deterministic_regeneration": "PENDING_DOUBLE_BUILD",
+        "tests": {
+            "d0_plugin_bundle_conformance": "PENDING_PUBLICATION_JOB",
+            "package": "PENDING_PUBLICATION_JOB",
+            "source_fixture_binding": "PENDING_PUBLICATION_JOB",
+        },
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+    }
+    (package_dir / "receipt.r2.json").write_text(pretty(receipt), encoding="utf-8")
+    (package_dir / "package.test.py").write_text(package_test_source(), encoding="utf-8")
+    (package_dir / "source-binding.test.py").write_text(source_test_source(), encoding="utf-8")
+    for index, source in enumerate(data["sources"], start=1):
+        source_dir = package_dir / "sources"
+        source_dir.mkdir(exist_ok=True)
+        name = re.sub(r"[^a-z0-9]+", "-", source["name"].lower()).strip("-")
+        (source_dir / f"{index:02d}-{name}.json").write_text(data["source_raw"][source["name"]], encoding="utf-8")
+    return {
+        "slug": slug,
+        "lane": lane,
+        "package_id": data["package_id"],
+        "global": data["global_name"],
+        "bundle": bundle_record,
+        "atlas_page_id": data["atlas"]["atlas_page_id"],
+        "page_order": data["atlas"]["page_order"],
+        "source_package_id": data["source_package_id"],
+        "dependency_count": len(data["dependencies"]),
+    }
+
+
+def build_lane(lane: str, cwd: Path, out: Path) -> None:
+    if lane not in LANES:
+        raise SystemExit(f"UNKNOWN_LANE:{lane}")
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
+    ready, blocked = [], []
+    for slug in LANES[lane]:
+        try:
+            ready.append(build_one(slug, lane, cwd, out))
+        except Exception as error:
+            blocked.append({"slug": slug, "lane": lane, "state": "BLOCKED_FAIL_CLOSED", "defect": str(error)})
+    index = {
+        "schema_version": "kenigevents.a0.direct-plugin-route-bundle-lane.r2",
+        "lane": lane,
+        "ready": ready,
+        "blocked": blocked,
+        "ready_count": len(ready),
+        "blocked_count": len(blocked),
+        "penpot_reads": 0,
+        "penpot_mutations": 0,
+    }
+    (out / "lane-index.r2.json").write_text(pretty(index), encoding="utf-8")
+    print(pretty(index))
+
+
+def api(path: str, method: str = "GET", body: dict[str, Any] | None = None) -> Any:
+    token = os.environ.get("GITHUB_TOKEN", "")
+    if not token:
+        raise RuntimeError("GITHUB_TOKEN_MISSING")
+    request = urllib.request.Request(
+        "https://api.github.com/" + path.lstrip("/"),
+        data=None if body is None else json.dumps(body).encode("utf-8"),
+        method=method,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "User-Agent": "a0-direct-plugin-route-buffer-r2",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=60) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def issue_fresh_read() -> dict[str, Any]:
+    required = {}
+    for cid in REQUIRED_COMMENTS:
+        comment = api(f"repos/{REPOSITORY}/issues/comments/{cid}")
+        required[str(cid)] = {
+            "id": cid,
+            "updated_at": comment.get("updated_at"),
+            "body_sha256": sha256((comment.get("body") or "").encode("utf-8")),
+        }
+    comments = []
+    page = 1
+    while True:
+        batch = api(f"repos/{REPOSITORY}/issues/{ISSUE}/comments?per_page=100&page={page}")
+        comments.extend(batch)
+        if len(batch) < 100:
+            break
+        page += 1
+    morning = [c for c in comments if "A0_MORNING_EXECUTABLE_ROUTE_BUFFER_READY" in (c.get("body") or "")]
+    return {
+        "required_comments": required,
+        "comments_read": len(comments),
+        "final_morning_checkpoint": None if not morning else {
+            "id": morning[-1]["id"],
+            "body_sha256": sha256((morning[-1].get("body") or "").encode("utf-8")),
+        },
+        "tip_before_publication": {
+            "id": comments[-1]["id"],
+            "updated_at": comments[-1].get("updated_at"),
+            "body_sha256": sha256((comments[-1].get("body") or "").encode("utf-8")),
+        },
+    }
+
+
+def post_comment(body: str) -> int:
+    return int(api(f"repos/{REPOSITORY}/issues/{ISSUE}/comments", "POST", {"body": body})["id"])
+
+
+def run_package_tests(cwd: Path, package_dir: Path, harness_path: Path) -> dict[str, Any]:
+    package_path = package_dir / "package.r2.json"
+    package = json.loads(package_path.read_text(encoding="utf-8"))
+    bundle_path = package_dir / "bundle.direct-plugin.r2.js"
