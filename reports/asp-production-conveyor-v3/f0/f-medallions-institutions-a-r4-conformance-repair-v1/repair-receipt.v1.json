@@ -13,7 +13,13 @@
     "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
     "atlas_page_id": "medallions-institutions-a",
     "physical_page_name": "04.1 · Assets · Medallions · Institutions A · Candidate",
-    "template": "FOUNDATION_ASSET_GRID_DENSE_V2"
+    "template": "FOUNDATION_ASSET_GRID_DENSE_V2",
+    "page_order": "0090",
+    "semantic_slot_bindings": {
+      "header": "page_header",
+      "master_column": "package_owned_masters",
+      "review_grid": "linked_review_instances"
+    }
   },
   "reconciled_inputs": {
     "f0_product": {
@@ -121,11 +127,27 @@
   },
   "bundle": {
     "path": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r4-self-contained-bundle/dist/penpot-plugin.bundle.js",
-    "bytes": 311606,
-    "sha256": "52b9afaabfc2a3ff4cabc3ca6add2a76ba4481476721c82c69d2ba9c4559a7ca"
+    "blob": "4002de2863b33e3e8f0a255ffa05ab47965f7be0",
+    "bytes": 314556,
+    "sha256": "040613624eaed3184d7200aae739a61ad73eeab6dfc0d400f378e0328fb9e3e3"
   },
   "penpot_reads": 0,
   "penpot_mutations": 0,
   "penpot_execution_authorized": false,
-  "next_gate": "EXACT_QA_PLUS_INTEGRATE_SAME_TUPLE_THEN_SOLE_WRITER_NATIVE_PREFLIGHT"
+  "next_gate": "EXACT_QA_PLUS_INTEGRATE_SAME_TUPLE_THEN_SOLE_WRITER_NATIVE_PREFLIGHT",
+  "supersedes_integrate_repair_comment": 5510415019,
+  "native_revision_authorization": {
+    "claim_fields": [
+      "authorized_revision",
+      "protected_manifest_sha256",
+      "protected_entity_digests_json"
+    ],
+    "lease_same_tuple_required": true,
+    "current_file_accessor": "revn ?? revision",
+    "revn_authoritative": true,
+    "minimum_revision": 180,
+    "current_must_equal_authorized": true,
+    "stale_embedded_revision_equality_removed": true
+  },
+  "tests": "8/8 PASS"
 }

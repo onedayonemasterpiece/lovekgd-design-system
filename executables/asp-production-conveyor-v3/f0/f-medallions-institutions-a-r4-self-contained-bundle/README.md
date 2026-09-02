@@ -25,7 +25,7 @@ native calls. Unknown outcome requires projection/readback; blind retry is forbi
 ```bash
 node tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs \
   --bundle executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r4-self-contained-bundle/dist/penpot-plugin.bundle.js \
-  --sha256 8a394cc28b40c2190099b449b436b89188e9753a25c7b734cc73da36bd4526a4 \
+  --sha256 040613624eaed3184d7200aae739a61ad73eeab6dfc0d400f378e0328fb9e3e3 \
   --global KenigeventsF0DirectPluginBundle
 ```
 
@@ -37,3 +37,5 @@ two non-empty WebP leaf export proofs, `validation=[]`, detached/screenshot/dupl
 and replay-created zero.
 
 Atlas binding is literal: `page_order=0090`; `header=page_header`; `master_column=package_owned_masters`; `review_grid=linked_review_instances`. These values are written as string-only page/slot provenance and do not change product geometry or assets.
+
+The execution authorization is bound to a fresh protected projection: decimal-string `authorized_revision`, `protected_manifest_sha256`, and `protected_entity_digests_json` must match exactly in both claim and lease. Runtime uses native `currentFile.revn` (with `revision` fallback), requires current revision to equal the authorized revision and be at least the embedded baseline 180, and rejects conflicts/absence before creates. It no longer hard-equals the live file to revision 180.

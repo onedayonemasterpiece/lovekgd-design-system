@@ -1,0 +1,49 @@
+{
+  "schema": "kenigevents.medallions-fresh-revision-authorization.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "supersedes_defects": [
+    5510417399,
+    5510431558,
+    5510431856
+  ],
+  "bundle": {
+    "blob": "4002de2863b33e3e8f0a255ffa05ab47965f7be0",
+    "bytes": 314556,
+    "sha256": "040613624eaed3184d7200aae739a61ad73eeab6dfc0d400f378e0328fb9e3e3"
+  },
+  "authorization": {
+    "authorized_revision": "fresh projection decimal string",
+    "protected_manifest_sha256": "fresh projection exact SHA",
+    "protected_entity_digests_json": "fresh projection exact JSON string",
+    "claim_lease_same_tuple": true,
+    "current_revision_must_equal_authorized": true,
+    "minimum_revision": 180
+  },
+  "revision_accessor": {
+    "authoritative": "revn",
+    "fallback": "revision",
+    "conflict": "REJECT",
+    "absence": "REJECT"
+  },
+  "atlas": {
+    "page_order": "0090",
+    "semantic_slot_bindings": {
+      "header": "page_header",
+      "master_column": "package_owned_masters",
+      "review_grid": "linked_review_instances"
+    }
+  },
+  "preserved": {
+    "eight_asset_bytes_sha_git_blobs": true,
+    "svg_geometry": true,
+    "webp_data_export_proofs": true,
+    "layout_geometry": true,
+    "max_creates": 3,
+    "replay_created": 0
+  },
+  "tests": "8/8 PASS",
+  "harness": "PASS63/71/replay0",
+  "penpot_reads": 0,
+  "penpot_mutations": 0,
+  "penpot_execution_authorized": false
+}
