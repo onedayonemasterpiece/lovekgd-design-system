@@ -9,16 +9,17 @@
 const M = require('./eventcard_component_paths_linkage_r3.js');
 
 const ACTIVE_NAMESPACE = 'kenigevents';
-const ACTIVE_KEY = 'asp-physical-active-marker-v3';
+const ACTIVE_KEY = 'asp-active-run-v1';
 const RECEIPT_KEY = 'eventcard-paths-linkage-r3-receipt';
 const AUTH_SCHEMA = 'kenigevents.eventcard-paths-penpot-authorization.r3';
-const ACTIVE_SCHEMA = 'kenigevents.asp-physical-active-marker.v3';
+const ACTIVE_SCHEMA = 'kenigevents.asp-run-control.v1';
 const RUNTIME_SCHEMA = 'kenigevents.eventcard-paths-penpot-runtime.r3';
 const HEX40 = /^[0-9a-f]{40}$/;
 const HEX64 = /^[0-9a-f]{64}$/;
 const OWNER_DIRECTIVE = 'MORNING_PRODUCTION_SHIFT:EVENTCARD_PATHS_AFTER_EXACT_AUTHORIZATION';
-const AUTHORITY_CARD_COMMENT_ID = 5505976359;
-const AUTHORITY_SCOPE = 'EVENTCARD_PATHS_ONLY';
+const AUTHORITY_CARD_COMMENT_ID = 5514360206;
+const AUTHORITY_SCOPE = 'D0_CONTINUOUS_SHIFT_ACTIVE:EVENTCARD_PATHS_RECEIPT_RECOVERY_ONLY';
+const SOLE_WRITER = '/root/publish_r2';
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
@@ -143,7 +144,8 @@ function nativeAdapter(context, page) {
   const byId = new Map(components.map((item) => [String(item.id), item]));
   return {
     identity() {
-      const revision = Number(penpot.currentFile.revn ?? penpot.currentFile.revision);
+      const revision = Number(penpot.currentFile.revn);
+      if (!Number.isInteger(revision)) fail('PATHS_R3_CURRENT_REVN_REQUIRED');
       return { fileId: String(penpot.currentFile.id), pageId: String(penpot.currentPage.id), revision };
     },
     collection() {
@@ -202,17 +204,10 @@ async function projectEventcardPathsPenpotR3(context, expectedState = 'any') {
 }
 
 function assertAuthorizationEnvelope(context, authorization) {
-  const profile = context.pageProfile;
-  if (!profile || profile.profileId !== 'free-collection.owner-review.v1' ||
-      profile.state !== 'BLOCKED_OWNER_REJECTED' || profile.allowedToMutatePenpot !== false ||
-      !HEX64.test(String(profile.profileSha256 || ''))) {
-    fail('PATHS_R3_EXPECTED_OWNER_REJECTED_PROFILE_TUPLE_DRIFT');
-  }
   const expected = {
     schema: AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
     packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
     state: 'ACTIVE', authorized: true, cancelled: false,
-    pageProfileSha256: profile.profileSha256,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE,
@@ -232,10 +227,10 @@ function assertAuthorizationEnvelope(context, authorization) {
   for (const key of ['sessionId', 'taskId', 'writerId', 'cancelToken', 'leaseToken']) {
     if (!p || typeof p[key] !== 'string' || p[key].length < 8) fail(`PATHS_R3_PROVENANCE_${key.toUpperCase()}_INVALID`);
   }
+  if (p.writerId !== SOLE_WRITER) fail('PATHS_R3_PROVENANCE_WRITERID_MISMATCH');
   for (const [key, value] of Object.entries({
     packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
     packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
-    pageProfileSha256: context.pageProfile.profileSha256,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE, bundleSha256: context.exactBundleSha256, bundleBytes: context.exactBundleBytes,
@@ -267,7 +262,6 @@ function assertPhysicalActive(context, authorization) {
     sessionId: p.sessionId, taskId: p.taskId, writerId: p.writerId,
     packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
     packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
-    pageProfileSha256: context.pageProfile.profileSha256,
     ownerDirective: OWNER_DIRECTIVE,
     authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
     authorityScope: AUTHORITY_SCOPE,
@@ -304,6 +298,41 @@ function readReceiptMarker(context) {
   return context.penpot.currentFile.getSharedPluginData?.(ACTIVE_NAMESPACE, RECEIPT_KEY) || '';
 }
 
+function exactRecoveryReceipt(context, authorization, projection) {
+  return {
+    schema: 'kenigevents.eventcard-paths-receipt-recovery.v5',
+    state: 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK',
+    package_head: context.exactPackageHead,
+    package_tree: context.exactPackageTree,
+    bundle_sha256: context.exactBundleSha256,
+    bundle_bytes: context.exactBundleBytes,
+    native_revision: authorization.revision,
+    projection_sha256: authorization.projectionSha256,
+    component_ids: projection.componentIds,
+    main_ids: projection.mainIds,
+    linked_instance_ids: projection.linkedInstanceIds,
+    path_mutations: 0,
+    created: 0,
+    native_setters: 0,
+    recovered_prior_path_mutations: 18,
+    native_automatic_main_layer_name_projections: 18,
+    retry_allowed: false,
+    terminal: true,
+  };
+}
+
+function exactStoredReceipt(context, expected, required = false) {
+  const raw = readReceiptMarker(context);
+  if (!raw) {
+    if (required) fail('PATHS_R3_NATIVE_SETTLEMENT_RECEIPT_REQUIRED');
+    return null;
+  }
+  let stored;
+  try { stored = JSON.parse(raw); } catch { fail('PATHS_R3_STORED_RECEIPT_INVALID_JSON'); }
+  if (M.canonical(stored) !== M.canonical(expected)) fail('PATHS_R3_STORED_RECEIPT_TUPLE_MISMATCH');
+  return stored;
+}
+
 async function executeEventcardPathsPenpotR3(context, authorization) {
   // Even current-page activation is run only under the exact physical lease.
   // The projection digest itself is then re-derived from that activated page.
@@ -316,84 +345,27 @@ async function executeEventcardPathsPenpotR3(context, authorization) {
   assertPhysicalActive(context, authorization);
 
   const terminalAlready = fresh.count.exact === 18 && fresh.count.empty === 0 && fresh.count.legacy === 0;
-  if (terminalAlready) {
-    if (readReceiptMarker(context)) {
+  if (!terminalAlready) fail('PATHS_R3_RECEIPT_RECOVERY_REQUIRES_TERMINAL_18_OF_18');
+  const automatic = fresh.components.filter((row) => row.nativeProjectedMainLayerName).length;
+  if (automatic !== 18) fail('PATHS_R3_TERMINAL_MAIN_LAYER_NATIVE_PROJECTION_CENSUS');
+  const recovered = exactRecoveryReceipt(context, authorization, fresh);
+  if (exactStoredReceipt(context, recovered, false)) {
       return { schema: RUNTIME_SCHEMA, state: 'DONE', terminal: true, replayState: 'REPLAY_NOOP', created: 0, pathMutations: 0,
         secondRunCreated: 0, retryAllowed: false, terminalProjectionSha256: fresh.projectionSha256 };
-    }
-    const automatic = fresh.components.filter((row) => row.nativeProjectedMainLayerName).length;
-    if (automatic !== 18) fail('PATHS_R3_TERMINAL_MAIN_LAYER_NATIVE_PROJECTION_CENSUS');
-    // Recovery of the exact unknown-outcome state: all native path setters
-    // already landed, but the prior bundle stopped before its durable receipt.
-    // Never call a path setter again. Only persist the recovery receipt under
-    // the fresh bounded ACTIVE authorization, then mandate later readback.
-    const recovered = {
-      schema: 'kenigevents.eventcard-paths-penpot-execution-receipt.r3', packageId: M.PACKAGE_ID,
-      packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-      authorizedRevision: authorization.revision,
-      authorizedProjectionSha256: authorization.projectionSha256,
-      terminalProjectionSha256: fresh.projectionSha256,
-      state: 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK', pathMutations: 0,
-      recoveredPriorPathMutations: 18, nativeAutomaticMainLayerNameProjections: 18,
-      componentIds: fresh.componentIds, mainIds: fresh.mainIds,
-      linkedInstanceIds: fresh.linkedInstanceIds,
-      displayNameMutations: 0, explicitMainLayerNameMutations: 0,
-      textMutations: 0, mediaMutations: 0,
-      detach: 0, clone: 0, recreate: 0, created: 0, retryAllowed: false,
-      recovery: 'POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION', terminal: true,
-    };
-    await writeReceiptMarker(context, authorization, recovered);
-    return recovered;
   }
-  if (M.canonical(fresh.count) !== M.canonical({ exact: 0, empty: 15, legacy: 3 })) {
-    fail('PATHS_R3_PARTIAL_STATE_REQUIRES_OWNER_READBACK');
-  }
-
-  const beforeIdentity = M.stableIdentity(fresh);
-  let writes = 0;
-  try {
-    for (const row of fresh.components) {
-      // This check is deliberately adjacent to each actual native setter. No
-      // logical operation is allowed to amortize one lease check over writes.
-      assertPhysicalActive(context, authorization);
-      const component = adapter.componentObjects.get(row.componentId);
-      component.path = row.expectedCanonicalPath;
-      writes += 1;
-      if (String(component.path ?? '') !== row.expectedCanonicalPath) fail('PATHS_R3_NATIVE_PATH_WRITE_READBACK_MISMATCH');
-    }
-    const terminalAdapter = nativeAdapter(context, page);
-    const terminal = M.projectState(terminalAdapter, 'terminal');
-    if (M.canonical(M.stableIdentity(terminal)) !== M.canonical(beforeIdentity)) {
-      fail('PATHS_R3_NATIVE_ID_NAME_LINK_OR_PROTECTED_DRIFT');
-    }
-    const receipt = {
-      schema: 'kenigevents.eventcard-paths-penpot-execution-receipt.r3', packageId: M.PACKAGE_ID,
-      packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
-      authorizedRevision: authorization.revision,
-      authorizedProjectionSha256: authorization.projectionSha256,
-      terminalProjectionSha256: terminal.projectionSha256,
-      state: 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK', pathMutations: 18,
-      componentIds: terminal.componentIds, mainIds: terminal.mainIds,
-      linkedInstanceIds: terminal.linkedInstanceIds,
-      displayNameMutations: 0, mainLayerNameMutations: 0, textMutations: 0, mediaMutations: 0,
-      detach: 0, clone: 0, recreate: 0, created: 0, retryAllowed: false,
-    };
-    await writeReceiptMarker(context, authorization, receipt);
-    return receipt;
-  } catch (error) {
-    if (writes > 0 || error?.unknownOutcome) return distinctUnknownReadback(context, error, writes);
-    throw error;
-  }
+  await writeReceiptMarker(context, authorization, recovered);
+  return recovered;
 }
 
 async function readEventcardPathsPenpotSettlementR3(context, receipt) {
-  if (!receipt || receipt.state !== 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK' || !readReceiptMarker(context)) {
+  if (!receipt || receipt.state !== 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK') {
     fail('PATHS_R3_NATIVE_SETTLEMENT_RECEIPT_REQUIRED');
   }
   const terminal = await projectEventcardPathsPenpotR3(context, 'terminal');
-  if (M.canonical(terminal.componentIds) !== M.canonical(receipt.componentIds) ||
-      M.canonical(terminal.mainIds) !== M.canonical(receipt.mainIds) ||
-      M.canonical(terminal.linkedInstanceIds) !== M.canonical(receipt.linkedInstanceIds)) {
+  exactStoredReceipt(context, receipt, true);
+  if (M.canonical(terminal.componentIds) !== M.canonical(receipt.component_ids) ||
+      M.canonical(terminal.mainIds) !== M.canonical(receipt.main_ids) ||
+      M.canonical(terminal.linkedInstanceIds) !== M.canonical(receipt.linked_instance_ids)) {
     fail('PATHS_R3_NATIVE_SETTLEMENT_ID_DRIFT');
   }
     return { schema: RUNTIME_SCHEMA, state: 'PATHS_18_OF_18_LINKAGE_READBACK_PASS_PENDING_V0',
@@ -404,7 +376,7 @@ async function readEventcardPathsPenpotSettlementR3(context, receipt) {
 
 module.exports = {
   ACTIVE_NAMESPACE, ACTIVE_KEY, RECEIPT_KEY, AUTH_SCHEMA, ACTIVE_SCHEMA, RUNTIME_SCHEMA,
-  OWNER_DIRECTIVE, AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE,
+  OWNER_DIRECTIVE, AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE, SOLE_WRITER,
   projectEventcardPathsPenpotR3, executeEventcardPathsPenpotR3,
   readEventcardPathsPenpotSettlementR3, assertPhysicalActive,
 };

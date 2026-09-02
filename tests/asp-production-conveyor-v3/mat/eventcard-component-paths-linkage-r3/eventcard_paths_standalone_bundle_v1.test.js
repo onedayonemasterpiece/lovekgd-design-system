@@ -14,7 +14,7 @@ const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocati
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox, { filename: BUNDLE });
-const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV4;
+const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV5;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -25,10 +25,10 @@ class Fixture {
     const board = { id: M.COLLECTION_ID, name: M.COLLECTION_NAME, type: 'board', children: [] };
     const pageRoot = { id: 'page-root', name: 'Page root', type: 'root', children: [board] }; board.parent = pageRoot;
     this.components = M.SPECS.map((spec, index) => {
-      const main = { id: spec.mainId || `main-${index}`, name: spec.legacyMain ? `${M.LEGACY_MAIN_PREFIX}${spec.displayName}` : spec.displayName,
+      const main = { id: spec.mainId || `main-${index}`, name: `${M.PATHS[spec.group]} / ${spec.displayName}`,
         type: 'board', children: [], parent: board, x: index * 10, y: 0, width: 100, height: 100 };
       const component = { id: spec.componentId || `component-${index}`, name: spec.displayName, mainInstance: () => main };
-      let componentPath = spec.legacyMain ? M.LEGACY_PATH : '';
+      let componentPath = M.PATHS[spec.group];
       Object.defineProperty(component, 'path', { enumerable: true, get: () => componentPath, set: (value) => {
         componentPath = value; main.name = `${value} / ${component.name}`;
         this.pathWrites.push([component.id, value]);
@@ -57,27 +57,24 @@ class Fixture {
       openPage: async (page) => { this.penpot.currentPage = page; this.opened.push(page.id); } };
     this.active = null;
     this.host = { penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE,
-      exactBundleSha256: sha, exactBundleBytes: bytes,
-      pageProfile: { profileId: 'free-collection.owner-review.v1', state: 'BLOCKED_OWNER_REJECTED',
-        allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
-      };
+      exactBundleSha256: sha, exactBundleBytes: bytes };
   }
   authorize(projection) {
     const provenance = { sessionId:'session-01a0581e',taskId:'task-eventcard-paths-r3',writerId:'/root/publish_r2',
       packageId:M.PACKAGE_ID,packageHead:HEAD,packageTree:TREE,triggeredBy:'issue-57-standalone-bundle',
-      cancelToken:'cancel-paths-r3-001',leaseToken:'lease-paths-r3-001',leaseExpiresAt:Date.now()+60000,bundleSha256:sha,bundleBytes:bytes,revision:projection.revision,projectionSha256:projection.projectionSha256,pageProfileSha256:this.host.pageProfile.profileSha256,
+      cancelToken:'cancel-paths-r3-001',leaseToken:'lease-paths-r3-001',leaseExpiresAt:Date.now()+60000,bundleSha256:sha,bundleBytes:bytes,revision:projection.revision,projectionSha256:projection.projectionSha256,
       ownerDirective:R.OWNER_DIRECTIVE,authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,
       bundleSha256:sha,bundleBytes:bytes };
     const authorization = { schema:R.AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,
       packageHead:HEAD,packageTree:TREE,state:'ACTIVE',authorized:true,cancelled:false,revision:projection.revision,
       projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,provenance,
-      pageProfileSha256:this.host.pageProfile.profileSha256,ownerDirective:R.OWNER_DIRECTIVE,
+      ownerDirective:R.OWNER_DIRECTIVE,
       authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,
       bundleSha256:sha,bundleBytes:bytes };
     this.active = { schema:R.ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,
       sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,
       packageHead:HEAD,packageTree:TREE,triggeredBy:provenance.triggeredBy,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,
-      leaseExpiresAt:provenance.leaseExpiresAt,pageProfileSha256:provenance.pageProfileSha256,
+      leaseExpiresAt:provenance.leaseExpiresAt,
       ownerDirective:R.OWNER_DIRECTIVE,authorityCardCommentId:R.AUTHORITY_CARD_COMMENT_ID,authorityScope:R.AUTHORITY_SCOPE,bundleSha256:sha,bundleBytes:bytes,revision:projection.revision,projectionSha256:projection.projectionSha256 };
     this.shared.set(`${R.ACTIVE_NAMESPACE}:${R.ACTIVE_KEY}`,JSON.stringify(this.active));
     this.host.authorization = authorization; return authorization;
@@ -94,58 +91,105 @@ test('single artifact loads in a browser-like VM and exposes exact D0 bundle API
   assert.equal(M.sha256({b:2,a:1}), crypto.createHash('sha256').update(M.canonical({b:2,a:1})).digest('hex'));
 });
 
-test('standalone bundle accepts Penpot-native main-layer projection, settles, and replay creates zero', async () => {
-  const fixture = new Fixture();
-  const projection = await API.projection(fixture.host); fixture.authorize(projection);
-  const ids = fixture.components.map((c) => [c.id,c.name,c.mainInstance().id,c.mainInstance().name]);
-  const receipt = await API.execution(fixture.host);
-  assert.equal(receipt.pathMutations,18); assert.equal(receipt.created,0); assert.equal(fixture.pathWrites.length,18);
-  assert.deepEqual(fixture.components.map((c) => [c.id,c.name,c.mainInstance().id]),ids.map((row) => row.slice(0,3)));
-  assert.equal(fixture.components.filter((component, index) =>
-    component.mainInstance().name === `${M.PATHS[M.SPECS[index].group]} / ${component.name}`).length,18);
-  const settlement = await API.settlement(fixture.host); assert.equal(settlement.exactCanonicalPaths,18);
-  fixture.host.receipt = null; const terminal = await API.projection(fixture.host); fixture.authorize(terminal);
-  const replay = await API.execution(fixture.host); assert.equal(replay.replayState,'REPLAY_NOOP');
-  assert.equal(replay.secondRunCreated,0); assert.equal(fixture.pathWrites.length,18);
+test('receipt-only bundle has no structural path writer or native create call', () => {
+  assert.equal(/\.path\s*=/.test(source), false);
+  assert.equal(/\bsetPath\s*\(/.test(source), false);
+  assert.equal(/\bcreate(?:Page|Board|Rectangle|Text|Ellipse|Path)\s*\(/.test(source), false);
+  assert.equal(source.includes('asp-physical-active-marker-v3'), false);
+  assert.equal(source.includes("asp-active-run-v1"), true);
 });
 
-test('post-write unknown-outcome recovery emits receipt with zero further path setters', async () => {
+test('terminal 18/18/26 projection writes one exact real-tuple recovery receipt', async () => {
   const fixture = new Fixture();
-  for (const [index, component] of fixture.components.entries()) component.path = M.PATHS[M.SPECS[index].group];
-  fixture.pathWrites.length = 0;
-  const ids = fixture.components.map((component) => [component.id, component.name, component.mainInstance().id]);
-  const linked = fixture.components.slice(14).flatMap((component) => component.mainInstance().children.map((shape) => shape.id));
   const projection = await API.projection(fixture.host);
-  assert.equal(M.canonical(projection.count),M.canonical({exact:18,empty:0,legacy:0}));
+  assert.equal(projection.observedState, 'terminal');
   fixture.authorize(projection);
+  const beforeWrites = fixture.pathWrites.length;
   const receipt = await API.execution(fixture.host);
-  assert.equal(receipt.pathMutations,0);
-  assert.equal(receipt.recoveredPriorPathMutations,18);
-  assert.equal(receipt.nativeAutomaticMainLayerNameProjections,18);
-  assert.equal(fixture.pathWrites.length,0);
-  assert.deepEqual(fixture.components.map((component) => [component.id, component.name, component.mainInstance().id]),ids);
-  assert.deepEqual(fixture.components.slice(14).flatMap((component) => component.mainInstance().children.map((shape) => shape.id)),linked);
+  assert.equal(receipt.path_mutations, 0);
+  assert.equal(receipt.native_setters, 0);
+  assert.equal(receipt.created, 0);
+  assert.equal(receipt.package_head, HEAD);
+  assert.equal(receipt.package_tree, TREE);
+  assert.equal(receipt.bundle_sha256, sha);
+  assert.equal(receipt.native_revision, projection.revision);
+  assert.equal(receipt.projection_sha256, projection.projectionSha256);
+  assert.equal(receipt.component_ids.length, 18);
+  assert.equal(receipt.main_ids.length, 18);
+  assert.equal(receipt.linked_instance_ids.length, 26);
+  assert.equal(fixture.pathWrites.length, beforeWrites);
   fixture.host.receipt = receipt;
   const settlement = await API.settlement(fixture.host);
-  assert.equal(settlement.nativeAutomaticMainLayerNameProjections,18);
-  assert.equal(settlement.readbackMutations,0);
+  assert.equal(settlement.exactCanonicalPaths, 18);
+  assert.equal(settlement.readbackMutations, 0);
 });
 
-test('canonical path does not authorize any unrelated structural main-layer name', async () => {
+test('exact stored receipt replays without rewrite; stale nonempty receipt fails closed', async () => {
   const fixture = new Fixture();
-  for (const [index, component] of fixture.components.entries()) component.path = M.PATHS[M.SPECS[index].group];
-  fixture.components[4].mainInstance().name = 'Unrelated visible rename';
-  await assert.rejects(() => API.projection(fixture.host), (error) => error.code === 'PATHS_R3_MAIN_LAYER_NAME_OUTSIDE_ACCEPTED_SET');
+  const projection = await API.projection(fixture.host); fixture.authorize(projection);
+  const receipt = await API.execution(fixture.host);
+  const key = `${R.ACTIVE_NAMESPACE}:${R.RECEIPT_KEY}`;
+  const exact = fixture.shared.get(key);
+  const writes = fixture.pathWrites.length;
+  fixture.host.receipt = null;
+  const replay = await API.execution(fixture.host);
+  assert.equal(replay.replayState, 'REPLAY_NOOP');
+  assert.equal(fixture.shared.get(key), exact);
+  assert.equal(fixture.pathWrites.length, writes);
+  fixture.shared.set(key, JSON.stringify({ state: 'stale-nonempty' }));
+  await assert.rejects(() => API.execution(fixture.host),
+    (error) => error.code === 'PATHS_R3_STORED_RECEIPT_TUPLE_MISMATCH');
+  assert.equal(fixture.shared.get(key), JSON.stringify({ state: 'stale-nonempty' }));
+  assert.equal(fixture.pathWrites.length, writes);
+  assert.equal(receipt.terminal, true);
 });
 
-test('bundle SHA/bytes must be exact in authorization and provenance before any write', async () => {
+test('nonterminal state cannot re-enter historical path mutation', async () => {
+  const fixture = new Fixture();
+  fixture.components[0].path = '';
+  fixture.components[0].mainInstance().name = fixture.components[0].name;
+  fixture.pathWrites.length = 0;
+  const projection = await API.projection(fixture.host);
+  fixture.authorize(projection);
+  await assert.rejects(() => API.execution(fixture.host),
+    (error) => error.code === 'PATHS_R3_RECEIPT_RECOVERY_REQUIRES_TERMINAL_18_OF_18');
+  assert.equal(fixture.pathWrites.length, 0);
+});
+
+test('sole ACTIVE key, revn-only and exact writer tuple fail closed before receipt write', async () => {
+  for (const mutate of [
+    (fixture) => fixture.shared.delete(`${R.ACTIVE_NAMESPACE}:${R.ACTIVE_KEY}`),
+    (fixture) => { fixture.active.writerId = '/root/another-writer'; fixture.shared.set(`${R.ACTIVE_NAMESPACE}:${R.ACTIVE_KEY}`, JSON.stringify(fixture.active)); },
+    (fixture) => { delete fixture.file.revn; fixture.file.revision = 180; },
+  ]) {
+    const fixture = new Fixture();
+    const projection = await API.projection(fixture.host); fixture.authorize(projection); mutate(fixture);
+    await assert.rejects(() => API.execution(fixture.host));
+    assert.equal(fixture.shared.has(`${R.ACTIVE_NAMESPACE}:${R.RECEIPT_KEY}`), false);
+  }
+});
+
+test('Paths authority is independent of the Text-only owner profile', async () => {
+  const fixture = new Fixture();
+  fixture.host.pageProfile = { profileId: 'free-collection.owner-review.v1', state: 'BLOCKED_OWNER_REJECTED' };
+  const projection = await API.projection(fixture.host); const auth = fixture.authorize(projection);
+  const receipt = await API.execution(fixture.host);
+  assert.equal(receipt.state, 'PATHS_18_OF_18_PENDING_DISTINCT_READBACK');
+  const next = new Fixture();
+  const nextProjection = await API.projection(next.host); const bad = next.authorize(nextProjection);
+  bad.authorityScope = 'EVENTCARD_TEXT_ONLY';
+  await assert.rejects(() => API.execution(next.host, bad),
+    (error) => error.code === 'PATHS_R3_AUTH_AUTHORITYSCOPE_MISMATCH');
+});
+
+test('bundle SHA/bytes must be exact before receipt write', async () => {
   for (const mutate of [
     (host) => { host.authorization.bundleSha256 = '0'.repeat(64); },
     (host) => { host.authorization.provenance.bundleBytes += 1; },
     (host) => { host.exactBundleBytes += 1; },
   ]) {
     const fixture = new Fixture(), projection = await API.projection(fixture.host); fixture.authorize(projection); mutate(fixture.host);
-    await assert.rejects(() => API.execution(fixture.host), (error) => error.code === 'PATHS_R3_BUNDLE_AUTHORIZATION_MISMATCH');
-    assert.equal(fixture.pathWrites.length,0);
+    await assert.rejects(() => API.execution(fixture.host));
+    assert.equal(fixture.shared.has(`${R.ACTIVE_NAMESPACE}:${R.RECEIPT_KEY}`), false);
   }
 });

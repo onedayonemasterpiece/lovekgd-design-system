@@ -37,15 +37,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 47173,
+      "bytes": 43216,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_penpot_standalone_bundle_v1.js",
-      "sha256": "6a2c599067dd78ce52356aa392f1f5bc883809662d41ee0ae91e336a70a935ce"
+      "sha256": "c675d05081f2a7994b6de0ef3cc6c5ea227d3a360ffe5586918a9f718a578b19"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 12386,
+      "bytes": 12910,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/build_eventcard_paths_standalone_bundle_v1.py",
-      "sha256": "8fa6e9a3fce731b897296adae51acc2012afc2ecd843208cc7b2d732bf6b9d44"
+      "sha256": "770dc435f3d5d4dab7c1322f06cf76436a781fd6f7f30b93f91b4f271c335239"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -58,7 +58,7 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardPathsR3StandaloneV4",
+    "global": "KenigEventsD0EventcardPathsR3StandaloneV5",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
     "portable_plain_data_clone": true,
@@ -76,17 +76,17 @@
     "schema": "D0_PLUGIN_BUNDLE_V1",
     "shared_conformance": {
       "branch": "agent/d0-plugin-bundle-conformance-v1-20260902",
-      "head": "bb26c3d966511b590e26c3992da458b68c16fe2a",
-      "tree": "9546076fd074604d117b65afea0489b1b60ccd96",
+      "head": "62f26df36b8199e4b8899b9252f796b1fa5e9d42",
+      "tree": "23bc8ef208c9e68e76890183fdda15c1a60f5fbd",
       "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
-      "receipt_comment": 5511278431,
-      "result": "PASS_RECEIPT_ONLY_PRODUCTION_ENTRYPOINTS"
+      "receipt_comment": 5511575507,
+      "result": "PASS_RECEIPT_ONLY_REAL_PRODUCTION_TUPLE"
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 11078,
+      "bytes": 12227,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
-      "sha256": "1b554c78829f837b5e7243a37ca77a29d8aee0169f0ce754ef51c1775aa75705"
+      "sha256": "59e237f7a6565200c395a0ae48843a00e817651404c1b5efb39e2c9e948eda6d"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY",
     "receipt_only_recovery": true,
@@ -98,7 +98,23 @@
       "receipt": {
         "namespace": "kenigevents",
         "key": "eventcard-paths-linkage-r3-receipt",
-        "value_sha256": "76d637b82f34177b151a2511ff455f1b60949a549910e42f48333ffedb26c86d"
+        "value_sha256": "ba0de11bbbe1b95b88de2c0234e53d8b66cc28448dfee2d57972bff19ae36430",
+        "value_sha256_scope": "CONFORMANCE_FIXTURE_ONLY",
+        "production_tuple_verified": true,
+        "production_tuple_fields": [
+          "package_head",
+          "package_tree",
+          "bundle_sha256",
+          "native_revision",
+          "projection_sha256",
+          "component_ids",
+          "main_ids",
+          "linked_instance_ids"
+        ]
+      },
+      "active_marker": {
+        "namespace": "kenigevents",
+        "key": "asp-active-run-v1"
       }
     },
     "caller_injected_helpers": 0,
@@ -107,20 +123,23 @@
     "physical_active_full_tuple": true,
     "recovery_native_path_setters": 0,
     "recovery_native_creates": 0,
-    "distinct_settlement": true
+    "distinct_settlement": true,
+    "production_receipt_sha256": "DERIVED_AND_EXACTLY_VERIFIED_FROM_CURRENT_NATIVE_TUPLE",
+    "structural_path_setter_tokens_in_bundle": 0,
+    "current_file_revision_accessor": "revn-only; missing revn fails closed"
   },
-  "defect_closed": "PENPOT_NATIVE_PATH_SETTER_AUTOMATIC_MAIN_LAYER_NAME_PROJECTION_POST_WRITE_RECEIPT_RECOVERY_PRODUCTION_ENTRYPOINTS",
+  "defect_closed": "RECEIPT_ONLY_REAL_TUPLE_REVN_ONLY_SOLE_ACTIVE_STRUCTURALLY_ZERO_PATH_SETTERS",
   "execution": {
-    "allowed_default_mutation": "LibraryComponent.path only",
+    "allowed_default_mutation": "one currentFile shared-plugin-data recovery receipt only",
     "authorization_binds": [
       "exact provider package head/tree",
       "exact current revision",
       "fresh native projection SHA-256",
-      "current BLOCKED_OWNER_REJECTED page-profile SHA-256 plus exact bounded Paths owner directive",
       "triggered_by",
       "session/task/sole-writer/lease tuple",
       "exact standalone bundle SHA-256 and byte count",
-      "bundle SHA-256 and byte count repeated in authorization provenance"
+      "bundle SHA-256 and byte count repeated in authorization provenance",
+      "D0 shift 5514360206 Paths-specific receipt-recovery scope independent of Text-only owner profile"
     ],
     "blind_retry": false,
     "clone": 0,
@@ -133,9 +152,9 @@
     "lease_expiry_recheck_before_every_native_mutation": true,
     "linked_instance_ids_preserved": 26,
     "main_ids_preserved": 18,
-    "path_mutations": 18,
-    "physical_active_recheck": "immediately before current-page activation, each of 18 LibraryComponent.path setters, and durable receipt marker",
-    "post_write_unknown_outcome_recovery": "detect exact terminal paths plus 18 exact native-projected structural main names; write receipt only under fresh ACTIVE; zero further LibraryComponent.path setters",
+    "path_mutations": 0,
+    "physical_active_recheck": "sole kenigevents/asp-active-run-v1 immediately before current-page activation and the one receipt write",
+    "post_write_unknown_outcome_recovery": "terminal 18/18/26 only; exact current tuple receipt; structurally zero LibraryComponent.path setters",
     "projection_entrypoint": "projectEventcardPathsPenpotR3",
     "publisher_bespoke_rebundle": false,
     "receipt_marker_values": "strict strings only",
@@ -185,9 +204,11 @@
     "recovery_detach_clone_recreate": 0,
     "recovery_path_setters": 0,
     "conformance_production_entrypoints": true,
-    "receipt_value_sha256": "76d637b82f34177b151a2511ff455f1b60949a549910e42f48333ffedb26c86d",
+    "receipt_value_sha256": "CONFORMANCE_FIXTURE_ONLY:ba0de11bbbe1b95b88de2c0234e53d8b66cc28448dfee2d57972bff19ae36430",
     "physical_active_full_tuple": true,
-    "caller_injected_helpers": 0
+    "caller_injected_helpers": 0,
+    "physical_active_key": "kenigevents/asp-active-run-v1",
+    "production_receipt": "derived and exact-compared from head/tree/bundle/revn/projection/18 component IDs/18 main IDs/26 linked IDs"
   },
   "native_observation": {
     "baseline_paths": {
@@ -212,8 +233,8 @@
     "target_filter": "exact 18 EventCard component display names plus pinned case component/main IDs"
   },
   "native_preflight": {
-    "authority_card_comment_id": 5505976359,
-    "authority_card_scope": "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked",
+    "authority_card_comment_id": 5514360206,
+    "authority_card_scope": "D0_CONTINUOUS_SHIFT_ACTIVE:EVENTCARD_PATHS_RECEIPT_RECOVERY_ONLY",
     "collection_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
     "components": 18,
     "current_repository_profile_is_blocking_for_text_only": true,
@@ -225,7 +246,7 @@
     "mutation_authorization_requires_exact_bounded_owner_directive": "MORNING_PRODUCTION_SHIFT:EVENTCARD_PATHS_AFTER_EXACT_AUTHORIZATION",
     "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
     "page_profile": "free-collection.owner-review.v1",
-    "page_profile_tuple_must_remain_exact": "BLOCKED_OWNER_REJECTED / allowed_to_mutate=false; no global profile override",
+    "page_profile_tuple_must_remain_exact": "Text profile is not consumed by the Paths recovery authorization",
     "protected_non_eventcard_components": 17,
     "validation": []
   },
@@ -263,12 +284,12 @@
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
     "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_penpot_runtime_r3.test.js",
-    "native_like_cases": 11,
+    "native_like_cases": 8,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_linkage_r3.test.js",
     "node_total_cases": 18,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
-    "standalone_bundle_cases": 5,
-    "shared_conformance": "bb26c3d / receipt 5511278431"
+    "standalone_bundle_cases": 8,
+    "shared_conformance": "62f26df / receipt 5511575507"
   }
 }

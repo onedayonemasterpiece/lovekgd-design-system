@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_component_paths_linkage_r3.js'
 RUNTIME = HERE / 'eventcard_component_paths_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_paths_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV4'
+GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV5'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {
@@ -74,6 +74,15 @@ logic = strip_header(LOGIC.read_text())
 logic = logic.replace("const crypto = require('node:crypto');\n\n", '')
 logic = logic.replace("const sha256 = (value) => crypto.createHash('sha256').update(canonical(value)).digest('hex');",
                       "const sha256 = (value) => __bundleSha256Text(canonical(value));")
+# The standalone V5 artifact is a receipt-only recovery.  Keep the projection
+# helpers, but structurally remove the historical LibraryComponent.path writer
+# from the production artifact so no classification bug can re-enter it.
+logic = re.sub(
+    r"async function executeEventcardPathsLinkageR3\([\s\S]*?(?=\nfunction readEventcardPathsLinkageSettlementR3)",
+    "async function executeEventcardPathsLinkageR3() { fail('PATHS_R3_RECEIPT_ONLY_RECOVERY'); }\n",
+    logic,
+    count=1,
+)
 logic = replace_export(logic, 'logic')
 
 runtime = strip_header(RUNTIME.read_text()).replace('This module is inert', 'This source is inert')
@@ -113,10 +122,10 @@ async function __seedProductionHost(seed){{
   for(let index=0;index<M.SPECS.length;index+=1){{const spec=M.SPECS[index],main=node(spec.mainId||'main-'+index,'board'),component={{id:spec.componentId||'component-'+index,name:spec.displayName,path:M.PATHS[spec.group],mainInstance:()=>main}};main.name=M.PATHS[spec.group]+' / '+spec.displayName;main.component=()=>component;board.appendChild(main);components.push(component);}}
   for(let caseIndex=0;caseIndex<4;caseIndex+=1){{const main=components[14+caseIndex].mainInstance(),pool=caseIndex<2?components.slice(0,7):components.slice(7,14),selected=M.SPECS[14+caseIndex].linkedCount===7?pool:pool.filter((_,i)=>i!==4).slice(0,6);for(let i=0;i<selected.length;i+=1){{const linked=node('linked-'+caseIndex+'-'+i,'instance');linked.component=()=>selected[i];main.appendChild(linked);}}}}
   for(let i=0;i<17;i+=1){{const main=node('other-main-'+i,'board'),c={{id:'other-component-'+i,name:'other.component.'+i,path:'Protected / Other / '+i,mainInstance:()=>main}};main.name='other.main.'+i;main.component=()=>c;components.push(c);}}p.library.local.components.push(...components);
-  const host={{penpot:p,storage:seed.storage,exactPackageHead:'a'.repeat(40),exactPackageTree:'b'.repeat(40),exactBundleSha256:'c'.repeat(64),exactBundleBytes:1,expectedState:'terminal',pageProfile:{{profileId:'free-collection.owner-review.v1',state:'BLOCKED_OWNER_REJECTED',allowedToMutatePenpot:false,profileSha256:'e'.repeat(64)}}}};
-  const projection=await projectEventcardPathsPenpotR3(host,'terminal'),provenance={{sessionId:'session-01a0581e',taskId:'task-paths-recovery',writerId:'/root/publish_r2',triggeredBy:'d0-conformance-paths-recovery',cancelToken:'cancel-paths-recovery',leaseToken:'lease-paths-recovery',leaseExpiresAt:Date.now()+60000,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,pageProfileSha256:host.pageProfile.profileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes,revision:projection.revision,projectionSha256:projection.projectionSha256}};
-  host.authorization={{schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,state:'ACTIVE',authorized:true,cancelled:false,revision:projection.revision,projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,provenance,pageProfileSha256:provenance.pageProfileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes}};
-  p.currentFile.setSharedPluginData(ACTIVE_NAMESPACE,ACTIVE_KEY,M.canonical({{schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,triggeredBy:provenance.triggeredBy,pageProfileSha256:provenance.pageProfileSha256,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256}}));return host;
+  const host={{penpot:p,storage:seed.storage,exactPackageHead:'a'.repeat(40),exactPackageTree:'b'.repeat(40),exactBundleSha256:'c'.repeat(64),exactBundleBytes:1,expectedState:'terminal'}};
+  const projection=await projectEventcardPathsPenpotR3(host,'terminal'),provenance={{sessionId:'session-01a0581e',taskId:'task-paths-recovery',writerId:'/root/publish_r2',triggeredBy:'d0-conformance-paths-recovery',cancelToken:'cancel-paths-recovery',leaseToken:'lease-paths-recovery',leaseExpiresAt:Date.now()+60000,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes,revision:projection.revision,projectionSha256:projection.projectionSha256}};
+  host.authorization={{schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,state:'ACTIVE',authorized:true,cancelled:false,revision:projection.revision,projectionSha256:projection.projectionSha256,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,provenance,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes}};
+  p.currentFile.setSharedPluginData(ACTIVE_NAMESPACE,ACTIVE_KEY,M.canonical({{schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,triggeredBy:provenance.triggeredBy,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256}}));return host;
 }}
 async function __replayHost(host,seed){{return {{...host,storage:seed.storage,receipt:null}};}}
 const PUBLIC_API = Object.freeze({{
@@ -125,7 +134,7 @@ const PUBLIC_API = Object.freeze({{
     global_name: '{GLOBAL}',
     entrypoints: Object.freeze({{projection:'projection', execution:'execution', settlement:'settlement'}}),
     current_page_activation: true, max_creates_per_phase: 3, replay_created: 0, receipt_only_recovery: true,
-    recovery_contract: Object.freeze({{expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,receipt:Object.freeze({{namespace:ACTIVE_NAMESPACE,key:RECEIPT_KEY,value_sha256:'76d637b82f34177b151a2511ff455f1b60949a549910e42f48333ffedb26c86d'}})}}),
+    recovery_contract: Object.freeze({{expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,active_marker:Object.freeze({{namespace:ACTIVE_NAMESPACE,key:ACTIVE_KEY}}),receipt:Object.freeze({{namespace:ACTIVE_NAMESPACE,key:RECEIPT_KEY,value_sha256:'ba0de11bbbe1b95b88de2c0234e53d8b66cc28448dfee2d57972bff19ae36430',value_sha256_scope:'CONFORMANCE_FIXTURE_ONLY',production_tuple_verified:true,production_tuple_fields:Object.freeze(['package_head','package_tree','bundle_sha256','native_revision','projection_sha256','component_ids','main_ids','linked_instance_ids'])}})}}),
     mutation_scope: 'receipt-only recovery; zero path setters', unknown_outcome: 'DISTINCT_READ_ONLY_PROJECTION_NO_RETRY'
   }}),
   projection: (host) => projectEventcardPathsPenpotR3(host, host && host.expectedState || 'any'),

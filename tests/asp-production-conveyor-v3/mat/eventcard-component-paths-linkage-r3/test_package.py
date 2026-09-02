@@ -48,14 +48,14 @@ class PackageTest(unittest.TestCase):
         self.assertTrue(execution["lease_expiry_recheck_before_every_native_mutation"])
         self.assertEqual(execution["second_run_created"], 0)
         self.assertIn("assertPhysicalActive(context, authorization);", self.native_runtime)
-        self.assertIn("component.path = row.expectedCanonicalPath", self.native_runtime)
+        self.assertNotIn("component.path = row.expectedCanonicalPath", self.native_runtime)
         self.assertEqual(self.package["native_preflight"]["file_local_components"], 35)
         self.assertEqual(self.package["native_preflight"]["protected_non_eventcard_components"], 17)
 
     def test_blocked_profile_is_not_globally_overridden(self):
         preflight = self.package["native_preflight"]
-        self.assertEqual(preflight["authority_card_comment_id"], 5505976359)
-        self.assertEqual(preflight["authority_card_scope"], "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked")
+        self.assertEqual(preflight["authority_card_comment_id"], 5514360206)
+        self.assertIn("EVENTCARD_PATHS_RECEIPT_RECOVERY_ONLY", preflight["authority_card_scope"])
         self.assertIn("EVENTCARD_PATHS", preflight["mutation_authorization_requires_exact_bounded_owner_directive"])
         self.assertFalse(self.package["boundaries"]["penpot_execution_authorized"])
 
@@ -63,7 +63,7 @@ class PackageTest(unittest.TestCase):
     def test_standalone_bundle_identity_and_forbidden_runtime_tokens(self):
         meta = self.package["browser_plugin_bundle"]
         self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
-        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV4")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV5")
         self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
         self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
         for name in ["require", "module", "exports", "process", "Buffer"]:
@@ -77,8 +77,8 @@ class PackageTest(unittest.TestCase):
         self.assertEqual(meta["caller_injected_helpers"], 0)
         self.assertEqual(meta["recovery_contract"]["expected_native_creates"], 0)
         self.assertEqual(meta["recovery_contract"]["expected_native_setters"], 0)
-        self.assertEqual(meta["shared_conformance"]["head"], "bb26c3d966511b590e26c3992da458b68c16fe2a")
-        self.assertEqual(meta["shared_conformance"]["tree"], "9546076fd074604d117b65afea0489b1b60ccd96")
+        self.assertEqual(meta["shared_conformance"]["head"], "62f26df36b8199e4b8899b9252f796b1fa5e9d42")
+        self.assertEqual(meta["shared_conformance"]["tree"], "23bc8ef208c9e68e76890183fdda15c1a60f5fbd")
 
     def test_native_main_name_projection_recovery_is_exact_and_write_free(self):
         recovery = self.package["native_automatic_main_layer_projection_recovery"]
@@ -88,7 +88,7 @@ class PackageTest(unittest.TestCase):
         self.assertEqual(recovery["recovery_creates"], 0)
         self.assertEqual(recovery["preserved_linked_instance_ids"], 26)
         self.assertIn("nativeProjectedMainLayerName", self.runtime)
-        self.assertIn("POST_PATH_SETTER_NATIVE_MAIN_NAME_PROJECTION", self.native_runtime)
+        self.assertIn("exactRecoveryReceipt", self.native_runtime)
 
     def test_boundaries(self):
         boundaries = self.package["boundaries"]
