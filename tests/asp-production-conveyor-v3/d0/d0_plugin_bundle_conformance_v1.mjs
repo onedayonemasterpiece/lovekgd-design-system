@@ -145,6 +145,7 @@ function buildInstrumentedPenpot() {
     pluginStringWrites: 0,
     rejectedPluginWrites: 0,
     currentFilePluginReads: 0,
+    currentFilePluginReadEvents: [],
     currentFilePluginWrites: 0,
     currentFilePluginWriteEvents: [],
     nativeSetterCalls: 0,
@@ -170,6 +171,7 @@ function buildInstrumentedPenpot() {
   };
   const nativeGetSharedPluginData = (namespace, key) => {
     audit.currentFilePluginReads += 1;
+    audit.currentFilePluginReadEvents.push({ namespace, key });
     return currentFilePluginData.get(`${namespace}\u0000${key}`) || '';
   };
   const saveVersionTrap = async () => invariant(false, 'ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN');
@@ -195,9 +197,9 @@ function buildInstrumentedPenpot() {
   // Keep the alias deletable for bundles that defensively remove it, but fail
   // closed if a conformance host tries to manufacture it.
   Object.defineProperty(currentFile, 'revision', {
-    configurable: true,
+    configurable: false,
     enumerable: false,
-    get: () => undefined,
+    get: () => invariant(false, 'NATIVE_REVISION_ALIAS_READ_FORBIDDEN'),
     set: () => invariant(false, 'NATIVE_REVISION_ALIAS_FORBIDDEN'),
   });
   const penpot = {
@@ -274,7 +276,14 @@ function buildInstrumentedPenpot() {
   const rawUpload = penpot.uploadMediaData.bind(penpot);
   penpot.uploadMediaData = async (...args) => observePluginWrites(await rawUpload(...args));
 
-  return { penpot, audit, pluginNode: (id, type) => observePluginWrites(originalNode(id, type)) };
+  return {
+    penpot,
+    audit,
+    pluginNode: (id, type) => observePluginWrites(originalNode(id, type)),
+    tamperCurrentFilePluginData(namespace, key, value) {
+      currentFilePluginData.set(`${namespace}\u0000${key}`, value);
+    },
+  };
 }
 
 function assertMetadata(bundle, globalName) {
@@ -305,10 +314,16 @@ function assertMetadata(bundle, globalName) {
     invariant(recovery.expected_native_setters === 0, 'RECOVERY_EXPECTED_SETTERS_ZERO');
     invariant(recovery.physical_active_current_file === true, 'RECOVERY_PHYSICAL_ACTIVE_CURRENT_FILE_REQUIRED');
     invariant(recovery.full_authorization_tuple === true, 'RECOVERY_FULL_AUTHORIZATION_TUPLE_REQUIRED');
+    invariant(recovery.active_marker?.namespace === 'kenigevents', 'RECOVERY_ACTIVE_NAMESPACE_EXACT');
+    invariant(recovery.active_marker?.key === 'asp-active-run-v1', 'RECOVERY_ACTIVE_KEY_EXACT');
     invariant(recovery.receipt && typeof recovery.receipt === 'object', 'RECOVERY_RECEIPT_CONTRACT_REQUIRED');
     invariant(typeof recovery.receipt.namespace === 'string' && recovery.receipt.namespace.length > 0, 'RECOVERY_RECEIPT_NAMESPACE');
     invariant(typeof recovery.receipt.key === 'string' && recovery.receipt.key.length > 0, 'RECOVERY_RECEIPT_KEY');
     invariant(SHA_RE.test(recovery.receipt.value_sha256 || ''), 'RECOVERY_RECEIPT_VALUE_SHA256');
+    invariant(recovery.receipt.value_sha256_scope === 'CONFORMANCE_FIXTURE_ONLY', 'RECOVERY_RECEIPT_SHA_SCOPE');
+    invariant(recovery.receipt.production_tuple_verified === true, 'RECOVERY_PRODUCTION_TUPLE_VERIFICATION_REQUIRED');
+    const exactTupleFields = ['package_head', 'package_tree', 'bundle_sha256', 'native_revision', 'projection_sha256', 'component_ids', 'main_ids', 'linked_instance_ids'];
+    invariant(JSON.stringify(recovery.receipt.production_tuple_fields) === JSON.stringify(exactTupleFields), 'RECOVERY_PRODUCTION_TUPLE_FIELDS');
   } else {
     invariant(metadata.recovery_contract === undefined, 'RECOVERY_CONTRACT_WITHOUT_DECLARATION');
   }
@@ -423,7 +438,8 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   }
   if (recovery) instrumentNativeRecoverySetters(instrumented.penpot, instrumented.audit);
   invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
-  invariant(instrumented.penpot.currentFile.revision === undefined, 'NATIVE_REVISION_ALIAS_FORBIDDEN');
+  const revisionDescriptor = Object.getOwnPropertyDescriptor(instrumented.penpot.currentFile, 'revision');
+  invariant(revisionDescriptor && typeof revisionDescriptor.get === 'function', 'NATIVE_REVISION_ALIAS_GUARD_MISSING');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
 
   const strictProbe = await bundle.conformance.strictStringProbe(host);
@@ -458,7 +474,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
     invariant(write.namespace === recovery.receipt.namespace, 'RECOVERY_RECEIPT_NAMESPACE_MISMATCH');
     invariant(write.key === recovery.receipt.key, 'RECOVERY_RECEIPT_KEY_MISMATCH');
     invariant(write.value_sha256 === recovery.receipt.value_sha256, 'RECOVERY_RECEIPT_VALUE_SHA256_MISMATCH');
-    invariant(instrumented.audit.currentFilePluginReads > 0, 'RECOVERY_PHYSICAL_ACTIVE_NOT_READ');
+    invariant(instrumented.audit.currentFilePluginReadEvents.some((event) => event.namespace === recovery.active_marker.namespace && event.key === recovery.active_marker.key), 'RECOVERY_PHYSICAL_ACTIVE_NOT_READ');
   }
 
   const replayStorage = Object.create(null);
@@ -467,6 +483,20 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   invariant(replayHost.storage === replayStorage, 'REPLAY_HOST_MUST_USE_FRESH_STORAGE');
   const replayWritesBefore = instrumented.audit.currentFilePluginWrites;
   const replaySettersBefore = instrumented.audit.nativeSetterCalls;
+  if (recovery) {
+    const receiptWrite = instrumented.audit.currentFilePluginWriteEvents.at(-1);
+    instrumented.tamperCurrentFilePluginData(recovery.receipt.namespace, recovery.receipt.key, '{"state":"stale-nonempty"}');
+    const createsBeforeTamperProbe = instrumented.audit.creates;
+    const writesBeforeTamperProbe = instrumented.audit.currentFilePluginWrites;
+    const settersBeforeTamperProbe = instrumented.audit.nativeSetterCalls;
+    let rejected = false;
+    try { await methods.execution(replayHost); } catch { rejected = true; }
+    invariant(rejected, 'RECOVERY_STALE_RECEIPT_ACCEPTED');
+    invariant(instrumented.audit.creates === createsBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_CREATED');
+    invariant(instrumented.audit.currentFilePluginWrites === writesBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_REWRITTEN');
+    invariant(instrumented.audit.nativeSetterCalls === settersBeforeTamperProbe, 'RECOVERY_STALE_RECEIPT_NATIVE_SETTER');
+    instrumented.tamperCurrentFilePluginData(recovery.receipt.namespace, recovery.receipt.key, receiptWrite.value);
+  }
   const replay = await driveExecution(methods.execution, replayHost, instrumented.audit, 0, 'REPLAY');
   if (recovery) {
     invariant(instrumented.audit.currentFilePluginWrites === replayWritesBefore, 'RECOVERY_REPLAY_RECEIPT_REWRITE');
@@ -525,11 +555,12 @@ async function selfTest() {
 
     const recoveryValue = '{"state":"recovered"}';
     const recoveryValueSha256 = sha256(Buffer.from(recoveryValue, 'utf8'));
-    const recoveryMetadata = `receipt_only_recovery:true,recovery_contract:Object.freeze({expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,receipt:Object.freeze({namespace:'d0-recovery',key:'receipt',value_sha256:'${recoveryValueSha256}'})}),`;
+    const recoveryMetadata = `receipt_only_recovery:true,recovery_contract:Object.freeze({expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,active_marker:Object.freeze({namespace:'kenigevents',key:'asp-active-run-v1'}),receipt:Object.freeze({namespace:'d0-recovery',key:'receipt',value_sha256:'${recoveryValueSha256}',value_sha256_scope:'CONFORMANCE_FIXTURE_ONLY',production_tuple_verified:true,production_tuple_fields:Object.freeze(['package_head','package_tree','bundle_sha256','native_revision','projection_sha256','component_ids','main_ids','linked_instance_ids'])})}),`;
     const recoveryExecution = `async function execution(host){
       const file=host.penpot.currentFile;
-      if(file.getSharedPluginData('d0-recovery','active')!=='ACTIVE')throw new Error('ACTIVE_REQUIRED');
-      if(file.getSharedPluginData('d0-recovery','receipt'))return {created:0,terminal:true};
+      if(file.getSharedPluginData('kenigevents','asp-active-run-v1')!=='ACTIVE')throw new Error('ACTIVE_REQUIRED');
+      const stored=file.getSharedPluginData('d0-recovery','receipt');
+      if(stored){if(stored!=='${recoveryValue}')throw new Error('STALE_RECEIPT');return {created:0,terminal:true};}
       file.setSharedPluginData('d0-recovery','receipt','${recoveryValue}');
       return {created:0,terminal:true};
     }
@@ -539,7 +570,7 @@ async function selfTest() {
       .replace(/async function execution\(host\)\{[\s\S]*?\n  \}\n  async function settlement/u, `${recoveryExecution}  async function settlement`)
       .replace(
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
-        "async createHost(seed){seed.penpot.currentFile.setSharedPluginData('d0-recovery','active','ACTIVE');return {penpot:seed.penpot,storage:seed.storage};}",
+        "async createHost(seed){seed.penpot.currentFile.setSharedPluginData('kenigevents','asp-active-run-v1','ACTIVE');return {penpot:seed.penpot,storage:seed.storage};}",
       );
     const recoveryPath = join(directory, 'recovery.js');
     await writeFile(recoveryPath, recoverySource, 'utf8');

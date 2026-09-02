@@ -31,6 +31,8 @@ The self-test loads one conforming single-file bundle in a browser/Penpot-like V
 
 The default path still requires a positive first-run native create count. A strictly declared `receipt_only_recovery` path may create zero nodes only when its contract declares zero creates/setters, physical `currentFile` ACTIVE and full authorization parity, and an exact receipt namespace/key/value SHA-256. The harness then observes exactly one bounded receipt write, zero instrumented component/main setters, and zero additional writes or creates on replay; false declarations, dummy creates, and missing receipts are negative self-tests.
 
+Receipt recovery additionally pins the sole physical marker to `kenigevents/asp-active-run-v1`, forbids reading a `currentFile.revision` alias, distinguishes the conformance fixture receipt SHA from the production tuple, and requires declared production receipt fields for head/tree/bundle/revision/projection/component/main/link IDs. Before the normal replay assertion, the harness replaces the stored receipt with a nonempty stale value and requires the production execution entrypoint to reject it without creates, setters, or receipt rewrites.
+
 ## Risks
 The harness is a technical callability gate only. Package-specific semantics, protected projections, authorization, native readback, and visual acceptance remain independent gates.
 
