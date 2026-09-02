@@ -316,6 +316,7 @@ module.exports = {
   PACKAGE_ID, PARENT_PACKAGE_ID, FILE_ID, PAGE_ID, COLLECTION_ID, COLLECTION_NAME,
   LEGACY_PATH, LEGACY_MAIN_PREFIX, PATHS, SPECS, MAIN_LAYER_NORMALIZATION_DECISION,
   LinkageStop, canonical, sha256, stringOnly,
+  projectState, stableIdentity,
   projectEventcardPathsLinkageR3, executeEventcardPathsLinkageR3,
   readEventcardPathsLinkageSettlementR3,
 };

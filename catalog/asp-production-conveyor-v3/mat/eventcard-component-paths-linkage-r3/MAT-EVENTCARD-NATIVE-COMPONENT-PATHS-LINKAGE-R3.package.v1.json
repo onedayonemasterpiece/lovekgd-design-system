@@ -27,21 +27,35 @@
     "this_package_authorizes_normalization": false,
     "visible_user_name_change_requires_owner_action": true
   },
-  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY",
+  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_AND_CONCRETE_NATIVE_EXECUTION_GAP",
   "execution": {
     "allowed_default_mutation": "LibraryComponent.path only",
     "authorization_binds": [
+      "exact provider package head/tree",
       "exact current revision",
-      "exact projection SHA-256"
+      "fresh native projection SHA-256",
+      "ACTIVE page-profile SHA-256",
+      "triggered_by",
+      "session/task/sole-writer/lease tuple"
     ],
     "blind_retry": false,
     "clone": 0,
     "component_ids_preserved": 18,
+    "concrete_penpot_adapter": true,
+    "current_page_activation": "open exact page ID and verify currentPage before projection or mutation",
     "detach": 0,
-    "entrypoint": "executeEventcardPathsLinkageR3",
+    "entrypoint": "executeEventcardPathsPenpotR3",
+    "lease_expiry_recheck_before_every_native_mutation": true,
     "linked_instance_ids_preserved": 26,
     "main_ids_preserved": 18,
-    "recreate": 0
+    "path_mutations": 18,
+    "physical_active_recheck": "immediately before current-page activation, each of 18 LibraryComponent.path setters, and durable receipt marker",
+    "projection_entrypoint": "projectEventcardPathsPenpotR3",
+    "receipt_marker_values": "strict strings only",
+    "recreate": 0,
+    "second_run_created": 0,
+    "settlement_entrypoint": "readEventcardPathsPenpotSettlementR3",
+    "unknown_outcome": "STOP; distinct read-only native projection required; blind retry forbidden"
   },
   "identity_model": {
     "canonical_library_path": "LibraryComponent.path; grouping hierarchy, never inferred from main layer name",
@@ -88,6 +102,20 @@
     "projection_sha256": "f46fce8ca122632fe37f566a9709115d33f63e992d1469daa2365c12ce0c6c7b",
     "revision": 180
   },
+  "native_preflight": {
+    "collection_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+    "components": 18,
+    "current_repository_profile_is_blocking": true,
+    "current_repository_profile_status": "BLOCKED_OWNER_REJECTED",
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "linked_instances": 26,
+    "mains": 18,
+    "mutation_authorization_requires_new_exact_active_profile_sha256": true,
+    "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+    "page_profile": "free-collection.owner-review.v1",
+    "page_profile_must_be_active_and_allow_penpot_mutation": true,
+    "validation": []
+  },
   "package_id": "MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-LINKAGE-R3",
   "parent": {
     "branch": "agent/u0-eventcard-component-paths-projection-r2-20260902",
@@ -106,14 +134,25 @@
       "visible product-label projection digest",
       "protected collection digest"
     ],
-    "entrypoint": "projectEventcardPathsLinkageR3",
+    "concrete_current_page_native": true,
+    "entrypoint": "projectEventcardPathsPenpotR3",
+    "fresh_digest_required_for_authorization": true,
     "mutation_free": true
+  },
+  "repair_parent": {
+    "branch": "agent/u0-eventcard-paths-linkage-r3-20260902",
+    "head": "b38a97e84d2f8dbd96391885248fe480bd234b99",
+    "issue_comment": 5506140332,
+    "tree": "4f70f40dc34f5208fcfb3e16c8b94128cf82d169"
   },
   "schema_version": "kenigevents.mat-eventcard-component-paths-linkage-package.v3",
   "source_terminal_comment": 5502077071,
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
+    "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_penpot_runtime_r3.test.js",
+    "native_like_cases": 10,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_component_paths_linkage_r3.test.js",
+    "node_total_cases": 17,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/test_package.py"
   }
 }
