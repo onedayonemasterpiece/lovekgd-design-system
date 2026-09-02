@@ -1,0 +1,227 @@
+#!/usr/bin/env node
+import { createHash } from 'node:crypto';
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, '../../../..');
+const SOURCE_HEAD = '4edc859861fba3f18fab0e65e9d2e8c0a7394bdb';
+const SOURCE_TREE = '3132550212222ec3dea716710821e732ad0d92bb';
+const SOURCE_PACKAGE_PATH = 'catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/18-owner-review-index.package.v1.json';
+const SOURCE_INDEX_PATH = 'catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json';
+const SOURCE_ADAPTER_PATH = 'catalog/asp-production-conveyor-v3/a0/owner-review-index-candidate-adapter.v1.json';
+const ATLAS_HEAD = '663be702d481972cb2e8863af500f1c35dda1d8c';
+const ATLAS_TREE = 'cf9a1e6a5e0a84aea5636334dbd3be4961039b75';
+const ATLAS_TEMPLATE_PATH = 'catalog/asp-production-conveyor-v3/atlas-v2/page-template-registry.v2.json';
+const ATLAS_MAP_PATH = 'catalog/asp-production-conveyor-v3/atlas-v2/penpot-page-map.v2.json';
+const HARNESS_HEAD = '5b6341abdcb85d7251262b6ec7fba46277be69f1';
+const HARNESS_TREE = 'dc1335338be90aaafaf7b57a9d4327630ca5a0c6';
+const HARNESS_PATH = 'tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs';
+const LOCAL_SOURCE_PACKAGE_PATH = 'executables/asp-production-conveyor-v3/a0/a0-owner-review-index-direct-plugin-v4/source-inputs/18-owner-review-index.package.v1.json';
+const LOCAL_SOURCE_INDEX_PATH = 'executables/asp-production-conveyor-v3/a0/a0-owner-review-index-direct-plugin-v4/source-inputs/owner-review-index.v1.json';
+const LOCAL_SOURCE_ADAPTER_PATH = 'executables/asp-production-conveyor-v3/a0/a0-owner-review-index-direct-plugin-v4/source-inputs/owner-review-index-candidate-adapter.v1.json';
+const OUT_BUNDLE = join(HERE, 'owner-review-index.bundle.js');
+const OUT_PACKAGE = join(HERE, 'package.v1.json');
+const OUT_GENERATED = join(HERE, 'generated.v1.json');
+const CHECK = process.argv.includes('--check');
+
+const readJson = async (path) => JSON.parse(await readFile(join(ROOT, path), 'utf8'));
+const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const invariant = (value, code) => { if (!value) throw new Error(code); };
+
+const sourcePackageBytes = await readFile(join(ROOT, LOCAL_SOURCE_PACKAGE_PATH));
+const sourceIndexBytes = await readFile(join(ROOT, LOCAL_SOURCE_INDEX_PATH));
+const sourceAdapterBytes = await readFile(join(ROOT, LOCAL_SOURCE_ADAPTER_PATH));
+const sourcePackage = JSON.parse(sourcePackageBytes);
+const sourceIndex = JSON.parse(sourceIndexBytes);
+const sourceAdapter = JSON.parse(sourceAdapterBytes);
+const atlasTemplates = await readJson(ATLAS_TEMPLATE_PATH);
+const atlasMap = await readJson(ATLAS_MAP_PATH);
+const ownerTemplate = atlasTemplates.templates.OWNER_INDEX_V2;
+const atlasUnits = atlasMap.page_units.filter((unit) => unit.package_id === sourcePackage.package_id);
+
+invariant(sourcePackage.package_id === 'A0-PAGE-AUX-OWNER_REVIEW_INDEX-R1', 'SOURCE_PACKAGE_ID');
+invariant(sourceIndex.rows.length === 45 && sourceIndex.summary.entry_count === 45, 'SOURCE_ROW_COUNT');
+invariant(sourceIndex.summary.free_cases === 6 && sourceIndex.summary.date_cases === 7 && sourceIndex.summary.wave_1_cases === 12 && sourceIndex.summary.wave_2_cases === 20, 'SOURCE_CASE_CENSUS');
+invariant(sourceIndex.record_sha256 === '6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892', 'SOURCE_RECORD_SHA');
+invariant(sourcePackage.subject.contract.review_keys_sha256 === '999588112510a5936a3c2a4498bf99e5c9d196eee2ff528c97b88d098a32f442', 'REVIEW_KEYS_SHA');
+invariant(sourceAdapter.index_contract.row_count === 45 && sourceAdapter.index_contract.package_groups.length === 5, 'ADAPTER_CENSUS');
+invariant(ownerTemplate.template_id === 'OWNER_INDEX_V2' && ownerTemplate.page_root_width === 2624 && ownerTemplate.row_height === 48, 'ATLAS_TEMPLATE');
+invariant(atlasUnits.length === 1, 'ATLAS_BINDING_CARDINALITY');
+const atlasUnit = atlasUnits[0];
+invariant(atlasUnit.page_order === '0000' && atlasUnit.physical_page_name === 'A0 · Owner Review Index · Candidate' && atlasUnit.projection_role === 'READY', 'ATLAS_BINDING');
+invariant(atlasUnit.template_id === 'OWNER_INDEX_V2', 'ATLAS_TEMPLATE_BINDING');
+
+const atlasRows = atlasMap.page_units.map((unit, index) => ({
+  order: index + 1,
+  page_order: unit.page_order,
+  atlas_page_id: unit.atlas_page_id,
+  package_id: unit.package_id,
+  physical_page_name: unit.physical_page_name,
+  template_id: unit.template_id,
+  projection_role: unit.projection_role,
+  v0_status: 'PENDING_V0',
+}));
+invariant(atlasRows.length === 42, 'ATLAS_PHYSICAL_PAGE_CENSUS');
+invariant(new Set(atlasRows.map((row) => row.page_order)).size === 42, 'ATLAS_PAGE_ORDER_UNIQUE');
+invariant(new Set(atlasRows.map((row) => row.atlas_page_id)).size === 42, 'ATLAS_PAGE_ID_UNIQUE');
+invariant(atlasRows.map((row) => row.page_order).join('\n') === [...atlasRows].sort((a, b) => a.page_order.localeCompare(b.page_order)).map((row) => row.page_order).join('\n'), 'ATLAS_PAGE_ORDER_SORT');
+const atlasPageUnitsSha256 = sha256(Buffer.from(JSON.stringify(atlasRows)));
+
+const embedded = {
+  schema: 'kenigevents.d0.a0-owner-review-index-direct-plugin.v4',
+  requirements_contract: { id: 'kenigevents.asp-conformance', version: '1.1.0', status: 'ACTIVE', authority_mode: 'ASTRO_AS_IS_REFERENCE', commit: 'f134001382f547cebe8b025da24065128b174ffb', git_blob_sha1: '24e02d3048f2feba912cb990f8226b23006e8c2c', sha256: '54002c01430d48d836af491a09f493526c309e0779c2c6f0deedbf434975cf72' },
+  package_id: sourcePackage.package_id,
+  source: {
+    branch: 'a0/asp-penpot-page-wave-v1-20260901', head: SOURCE_HEAD, tree: SOURCE_TREE,
+    package_path: SOURCE_PACKAGE_PATH, package_blob: '9f1497b0091fe3d99f4bf2dd8f7bf0978d60a34c', package_bytes: sourcePackageBytes.length, package_sha256: sha256(sourcePackageBytes),
+    index_path: SOURCE_INDEX_PATH, index_blob: 'b36119de3721c94c2df18091b664df7b7ecda73e', index_bytes: sourceIndexBytes.length, index_sha256: sha256(sourceIndexBytes), index_record_sha256: sourceIndex.record_sha256,
+    adapter_path: SOURCE_ADAPTER_PATH, adapter_blob: '10902365d7ca04fbd973a59b86d0bc531bc30030', adapter_bytes: sourceAdapterBytes.length, adapter_sha256: sha256(sourceAdapterBytes), adapter_record_sha256: sourcePackage.source_adapter.adapter_record_sha256,
+    review_keys_sha256: sourcePackage.subject.contract.review_keys_sha256,
+  },
+  atlas: {
+    branch: 'o0/penpot-atlas-layout-v2-20260901', head: ATLAS_HEAD, tree: ATLAS_TREE,
+    page_order: atlasUnit.page_order, physical_page_name: atlasUnit.physical_page_name, projection_role: atlasUnit.projection_role,
+    template_id: atlasUnit.template_id, page_root_width: ownerTemplate.page_root_width, content_start_y: ownerTemplate.content_start_y,
+    row_height: ownerTemplate.row_height, section_gap: ownerTemplate.section_gap, bottom_padding: ownerTemplate.guides.bottom_padding,
+    overflow_policy: ownerTemplate.overflow_policy,
+    semantic_slots: atlasUnit.semantic_slot_bindings,
+    row_authority: 'ATLAS_R2_PAGE_UNITS',
+    page_units_sha256: atlasPageUnitsSha256,
+    page_units_count: 42,
+    row_start_y: 448,
+    bottommost_content_y: 2464,
+  },
+  page: {
+    file_id: '40e06342-8830-80d6-8008-8fc8a3a4cd4f',
+    page_name: atlasUnit.physical_page_name,
+    root_name: sourcePackage.page_contract.root_name,
+    page_key: 'a0.candidate.page.owner-review-index.atlas-r2.v2',
+    root_key: 'a0.candidate.root.owner-review-index.atlas-r2.42-page-units.v2',
+    width: ownerTemplate.page_root_width,
+    height: 2528,
+    header_component_id: '250f32b9-f4ec-800e-8008-92c64c51fdc0',
+    header_component_path: 'Documentation / Atlas V2',
+    header_component_name: 'ATLAS_PAGE_HEADER_V2',
+    header_main_id: '250f32b9-f4ec-800e-8008-92c64a6147cc',
+    header_main_type: 'board',
+    header_main_provenance_absent: true,
+  },
+  census: { rows: atlasRows.length, atlas_page_units: 42, donor_rows_ignored: 45, screenshots: 0, placeholders: 0 },
+  protected: {
+    minimum_revision: 113,
+    free: { page_id: 'c16498cb-b51d-8030-8008-904bd8fc9c53', root_ids: ['313fb1ed-0d5c-8095-8008-9108df52b2ce','313fb1ed-0d5c-8095-8008-912c45090653'] },
+    foundations: { page_id: '313fb1ed-0d5c-8095-8008-9183322ab3a9', root_id: '313fb1ed-0d5c-8095-8008-918a0c1473af' },
+  },
+  rows: atlasRows,
+};
+
+function bundleSource(data) {
+  return `(() => {\n'use strict';\nconst DATA=${JSON.stringify(data)};\nconst NS='kenigevents-d0-a0-owner-review-index-v4';\nconst ACTIVE_NS='kenigevents';\nconst ACTIVE_KEY='asp-active-run-v1';\nconst AUTH_SCHEMA='kenigevents.asp-owner-review-index-authorization.v1';\nconst METADATA=Object.freeze({schema:'D0_PLUGIN_BUNDLE_V1',package_id:DATA.package_id,bundle_sha256_binding:'EXTERNAL_AUTHORIZATION_TUPLE',entrypoints:{projection:'project',execution:'execute',settlement:'settle'},current_page_activation:true,max_creates_per_phase:3,replay_created:0,source_head:DATA.source.head,source_tree:DATA.source.tree,atlas_head:DATA.atlas.head,atlas_tree:DATA.atlas.tree,atlas_template:DATA.atlas.template_id,atlas_page_order:DATA.atlas.page_order,physical_page_name:DATA.atlas.physical_page_name,source_rows:42,row_authority:'ATLAS_R2_PAGE_UNITS',placeholder_nodes:0});\nfunction ok(value,code){if(!value)throw new Error(code)}\nfunction children(node){return Array.from(node&&node.children||[])}\nfunction walk(node){return node?[node,...children(node).flatMap(walk)]:[]}\nfunction getData(node,key){return node&&node.getSharedPluginData?node.getSharedPluginData(NS,key)||'':''}\nfunction stable(node){return getData(node,'stable-id')}\nfunction canonical(value){if(Array.isArray(value))return '['+value.map(canonical).join(',')+']';if(value&&typeof value==='object')return '{'+Object.keys(value).sort().map((key)=>JSON.stringify(key)+':'+canonical(value[key])).join(',')+'}';return JSON.stringify(value)}\nfunction utf8Bytes(text){
+  const out=[];
+  for(let i=0;i<text.length;i++){
+    let c=text.charCodeAt(i);
+    if(c<0x80){out.push(c);continue}
+    if(c<0x800){out.push(0xc0|(c>>6),0x80|(c&63));continue}
+    if(c>=0xd800&&c<=0xdbff&&i+1<text.length){
+      const d=text.charCodeAt(++i);
+      if(d>=0xdc00&&d<=0xdfff){
+        const cp=0x10000+((c-0xd800)<<10)+(d-0xdc00);
+        out.push(0xf0|(cp>>18),0x80|((cp>>12)&63),0x80|((cp>>6)&63),0x80|(cp&63));
+        continue
+      }
+      i--;
+    }
+    out.push(0xe0|(c>>12),0x80|((c>>6)&63),0x80|(c&63));
+  }
+  return out
+}
+function sha256Hex(input){
+  const bytes=typeof input==='string'?utf8Bytes(input):Array.from(input||[]);
+  const k=[
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+  ];
+  const h=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const data=bytes.slice();
+  const bitLen=bytes.length*8;
+  data.push(0x80);
+  while((data.length%64)!==56)data.push(0);
+  const hi=Math.floor(bitLen/0x100000000);
+  const lo=bitLen>>>0;
+  for(let shift=24;shift>=0;shift-=8)data.push((hi>>>shift)&255);
+  for(let shift=24;shift>=0;shift-=8)data.push((lo>>>shift)&255);
+  const w=new Array(64);
+  const rotr=(x,n)=>(x>>>n)|(x<<(32-n));
+  for(let off=0;off<data.length;off+=64){
+    for(let i=0;i<16;i++){
+      const j=off+i*4;
+      w[i]=((data[j]<<24)|(data[j+1]<<16)|(data[j+2]<<8)|data[j+3])>>>0;
+    }
+    for(let i=16;i<64;i++){
+      const a=w[i-15],b=w[i-2];
+      const s0=(rotr(a,7)^rotr(a,18)^(a>>>3))>>>0;
+      const s1=(rotr(b,17)^rotr(b,19)^(b>>>10))>>>0;
+      w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0;
+    }
+    let [a,b,c,d,e,f,g,q]=h;
+    for(let i=0;i<64;i++){
+      const S1=(rotr(e,6)^rotr(e,11)^rotr(e,25))>>>0;
+      const ch=((e&f)^((~e)&g))>>>0;
+      const t1=(q+S1+ch+k[i]+w[i])>>>0;
+      const S0=(rotr(a,2)^rotr(a,13)^rotr(a,22))>>>0;
+      const maj=((a&b)^(a&c)^(b&c))>>>0;
+      const t2=(S0+maj)>>>0;
+      q=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0;
+    }
+    h[0]=(h[0]+a)>>>0;h[1]=(h[1]+b)>>>0;h[2]=(h[2]+c)>>>0;h[3]=(h[3]+d)>>>0;
+    h[4]=(h[4]+e)>>>0;h[5]=(h[5]+f)>>>0;h[6]=(h[6]+g)>>>0;h[7]=(h[7]+q)>>>0;
+  }
+  return h.map(x=>x.toString(16).padStart(8,'0')).join('');
+}
+function bytes(value){return utf8Bytes(typeof value==='string'?value:canonical(value))}\nasync function digest(value){const input=ArrayBuffer.isView(value)?Array.from(new Uint8Array(value.buffer,value.byteOffset,value.byteLength)):bytes(value);return sha256Hex(input)}\nfunction exactString(value,code){ok(typeof value==='string',code);return value}\nfunction readActive(host){const raw=host.penpot.currentFile&&host.penpot.currentFile.getSharedPluginData?host.penpot.currentFile.getSharedPluginData(ACTIVE_NS,ACTIVE_KEY):'';ok(raw,'PHYSICAL_ACTIVE_MARKER_MISSING');try{return JSON.parse(raw)}catch{throw new Error('PHYSICAL_ACTIVE_MARKER_INVALID')}}\nfunction currentRevn(host){const value=Number(host&&host.penpot&&host.penpot.currentFile&&host.penpot.currentFile.revn);ok(Number.isInteger(value)&&value>=DATA.protected.minimum_revision,'CURRENT_REVN_UNAVAILABLE');return value}\nfunction assertActive(host){const revn=currentRevn(host);const auth=host.authorization;ok(auth&&auth.schema===AUTH_SCHEMA,'AUTHORIZATION_SCHEMA');ok(auth.package_id===DATA.package_id,'AUTHORIZATION_PACKAGE');ok(typeof auth.package_head==='string'&&auth.package_head.length===40,'AUTHORIZATION_HEAD');ok(typeof auth.package_tree==='string'&&auth.package_tree.length===40,'AUTHORIZATION_TREE');ok(/^[0-9a-f]{64}$/.test(auth.bundle_sha256),'AUTHORIZATION_BUNDLE_SHA');ok(typeof auth.session_id==='string'&&auth.session_id,'AUTHORIZATION_SESSION');ok(typeof auth.task_id==='string'&&auth.task_id,'AUTHORIZATION_TASK');ok(auth.writer_id==='/root/publish_r2','AUTHORIZATION_WRITER');ok(typeof auth.triggered_by==='string'&&auth.triggered_by,'AUTHORIZATION_TRIGGER');ok(typeof auth.lease_token==='string'&&auth.lease_token,'AUTHORIZATION_LEASE');ok(typeof auth.cancel_token==='string'&&auth.cancel_token,'AUTHORIZATION_CANCEL');const expiry=Date.parse(auth.expires_at);ok(Number.isFinite(expiry)&&expiry>Date.now(),'AUTHORIZATION_EXPIRED');const active=readActive(host);ok(auth.requirements_contract_sha256===DATA.requirements_contract.sha256,'AUTHORIZATION_REQUIREMENTS_CONTRACT');ok(auth.source_projection_sha256===DATA.atlas.page_units_sha256,'AUTHORIZATION_SOURCE_PROJECTION');ok(auth.atlas_head===DATA.atlas.head&&auth.atlas_tree===DATA.atlas.tree,'AUTHORIZATION_ATLAS');ok(auth.native_revision===revn,'AUTHORIZATION_REVISION_PARITY');ok(auth.protected_projection_revision===revn,'AUTHORIZATION_PROTECTED_PROJECTION_REVISION');ok(/^[0-9a-f]{64}$/.test(auth.protected_projection_sha256||''),'AUTHORIZATION_PROTECTED_PROJECTION_SHA');for(const key of ['package_id','package_head','package_tree','bundle_sha256','session_id','task_id','writer_id','triggered_by','lease_token','cancel_token','expires_at','requirements_contract_sha256','source_projection_sha256','atlas_head','atlas_tree','native_revision','protected_projection_revision','protected_projection_sha256'])ok(active[key]===auth[key],'PHYSICAL_ACTIVE_TUPLE_MISMATCH:'+key);ok(active.state==='ACTIVE'&&active.cancelled!==true,'PHYSICAL_ACTIVE_CANCELLED');return active}\nfunction guarded(host,action){assertActive(host);return action()}\nfunction write(host,node,key,value){exactString(value,'PLUGIN_DATA_VALUE_NOT_STRING');return guarded(host,()=>node.setSharedPluginData(NS,key,value))}\nfunction set(host,node,key,value){return guarded(host,()=>{node[key]=value;return value})}\nfunction append(host,parent,node){return guarded(host,()=>parent.appendChild(node))}\nfunction resize(host,node,width,height){if(typeof node.resize==='function')return guarded(host,()=>node.resize(width,height));set(host,node,'width',width);return set(host,node,'height',height)}\nfunction fill(host,node,color,opacity=1){return set(host,node,'fills',[{fillColor:color,fillOpacity:opacity}])}\nfunction frame(host,node,x,y,width,height){set(host,node,'x',x);set(host,node,'y',y);return resize(host,node,width,height)}\nfunction nodeRecord(node){return{id:node.id,name:node.name||'',type:node.type||'',x:node.x||0,y:node.y||0,width:node.width||0,height:node.height||0,children:children(node).map(nodeRecord)}}\nasync function calculateProtectedProjection(host){const pages=Array.from(host.penpot.currentFile.pages||[]);const freePage=pages.find((page)=>page.id===DATA.protected.free.page_id);const foundationsPage=pages.find((page)=>page.id===DATA.protected.foundations.page_id);ok(freePage&&foundationsPage,'PROTECTED_PAGE_MISSING');const freeRoots=DATA.protected.free.root_ids.map((id)=>walk(freePage.root).find((node)=>node.id===id));const foundationsRoot=walk(foundationsPage.root).find((node)=>node.id===DATA.protected.foundations.root_id);ok(freeRoots.every(Boolean)&&foundationsRoot,'PROTECTED_ROOT_MISSING');const calculate=async(nodes)=>{const text=canonical(nodes.map(nodeRecord));return{chars:text.length,utf8_bytes:bytes(text).length,sha256:await digest(text)}};const state={native_revision:currentRevn(host),free:{page_id:DATA.protected.free.page_id,root_ids:[...DATA.protected.free.root_ids],...(await calculate(freeRoots))},foundations:{page_id:DATA.protected.foundations.page_id,root_id:DATA.protected.foundations.root_id,...(await calculate([foundationsRoot]))}};state.projection_sha256=await digest({native_revision:state.native_revision,free:state.free,foundations:state.foundations});return state}
+async function protectedProjection(host,verify=true){const state=await calculateProtectedProjection(host);if(verify){const auth=host.authorization;ok(auth&&auth.protected_projection_revision===state.native_revision,'PROTECTED_PROJECTION_REVISION_MISMATCH');ok(auth.protected_projection_sha256===state.projection_sha256,'PROTECTED_PROJECTION_SHA_MISMATCH');const active=readActive(host);ok(active.protected_projection_revision===state.native_revision,'PHYSICAL_ACTIVE_PROTECTED_REVISION_MISMATCH');ok(active.protected_projection_sha256===state.projection_sha256,'PHYSICAL_ACTIVE_PROTECTED_SHA_MISMATCH')}return state}\nfunction pages(host){return Array.from(host.penpot.currentFile.pages||[])}\nfunction targetPages(host){return pages(host).filter((page)=>page.name===DATA.page.page_name||getData(page,'page-key')===DATA.page.page_key)}\nfunction findStable(root,id){return walk(root).filter((node)=>stable(node)===id)}\nfunction headerComponent(host){return Array.from(host.penpot.library&&host.penpot.library.local&&host.penpot.library.local.components||[]).find((component)=>component.id===DATA.page.header_component_id)||null}\nfunction allRows(){return DATA.rows}\nfunction rowY(index){return DATA.atlas.row_start_y+index*DATA.atlas.row_height}\nfunction textPlan(id,text,x,y,width,height,size=10,weight='400',color='#111827'){return{kind:'text',id,text,x,y,width,height,size,weight,color,parent:'root'}}\nfunction buildPlan(){const plan=[];plan.push({kind:'root',id:DATA.page.root_key,name:DATA.page.root_name,x:0,y:0,width:DATA.page.width,height:DATA.page.height,parent:'page'});plan.push({kind:'header',id:'atlas.header.instance',name:'ATLAS_PAGE_HEADER_V2 · Owner Review Index',x:64,y:64,width:2496,height:128,parent:'root'});plan.push(textPlan('authority/title','42 CURRENT ATLAS R2 PHYSICAL PAGES',64,272,1200,28,18,'700','#111827'));plan.push(textPlan('authority/status','Every row is PENDING_V0 until its own native export receives a page-scoped V0 verdict. No PASS is inherited.',64,312,1800,24,12,'400','#92400E'));plan.push(textPlan('authority/digest','Atlas page_units SHA-256 · '+DATA.atlas.page_units_sha256,64,352,1800,22,11,'400','#4B5563'));const columns=[['ORDER',64,72],['ATLAS PAGE ID',148,488],['PACKAGE',648,488],['TEMPLATE',1148,424],['PROJECTION',1584,144],['V0 STATUS',1740,160],['PHYSICAL PAGE',1912,648]];for(const [label,x,width] of columns)plan.push(textPlan('column/'+label.toLowerCase().replaceAll(' ','-'),label,x,416,width,24,10,'700','#4B5563'));for(let index=0;index<DATA.rows.length;index+=1){const row=DATA.rows[index];const y=rowY(index),id='row/'+String(index+1).padStart(2,'0'),shade=index%2===0?'#FFFFFF':'#F8FAFC';plan.push({kind:'rect',id,name:'Atlas physical page row '+row.page_order,x:64,y,width:2496,height:48,color:shade,parent:'root',row});plan.push(textPlan(id+'/page-order',row.page_order,76,y+14,56,20,10,'700'));plan.push(textPlan(id+'/atlas-page-id',row.atlas_page_id,148,y+14,488,20,9,'400'));plan.push(textPlan(id+'/package',row.package_id,648,y+14,488,20,9,'400'));plan.push(textPlan(id+'/template',row.template_id,1148,y+14,424,20,9,'400'));plan.push(textPlan(id+'/projection',row.projection_role,1584,y+14,144,20,10,'700'));plan.push(textPlan(id+'/v0-status',row.v0_status,1740,y+14,160,20,10,'700','#92400E'));plan.push(textPlan(id+'/physical-page',row.physical_page_name,1912,y+14,648,20,9,'400'));}return plan}\nconst PLAN=buildPlan();\nconst HEADER_VALUES={'atlas.header.top.section':'owner-review','atlas.header.top.page-title':DATA.page.page_name,'atlas.header.meta.owner':'A0','atlas.header.meta.package-id':DATA.package_id,'atlas.header.meta.source-or-fixture':'Atlas R2 page_units · exact immutable authority','atlas.header.meta.viewport-and-state-coverage':'42 physical pages · exact page_order','atlas.header.meta.v0-status':'PENDING','atlas.header.meta.last-reviewed-revision':'unreviewed'};\nconst HEADER_NAMESPACES=[NS,'kenigevents-atlas','kenigevents-atlas-r2','kenigevents-action-nav-r2','kenigevents-d0-action-nav-r2','kenigevents'];\nfunction headerSemanticKey(node){for(const namespace of HEADER_NAMESPACES){const value=node&&node.getSharedPluginData?node.getSharedPluginData(namespace,'semantic-id')||'':'';if(HEADER_VALUES[value]!==undefined)return value}const name=node&&node.name||'';return HEADER_VALUES[name]!==undefined?name:''}\nfunction assertHeaderContract(component){ok(component&&component.id===DATA.page.header_component_id,'ATLAS_PAGE_HEADER_V2_COMPONENT_MISSING');ok(component.name===DATA.page.header_component_name,'ATLAS_HEADER_COMPONENT_NAME');ok(component.path===DATA.page.header_component_path,'ATLAS_HEADER_COMPONENT_PATH');ok(typeof component.mainInstance==='function','ATLAS_HEADER_MAIN_READER_MISSING');const main=component.mainInstance();ok(main,'ATLAS_HEADER_MAIN_MISSING');ok(main.id===DATA.page.header_main_id,'ATLAS_HEADER_MAIN_ID');ok(main.type===DATA.page.header_main_type,'ATLAS_HEADER_MAIN_TYPE');ok(typeof main.getSharedPluginData==='function','ATLAS_HEADER_MAIN_PLUGIN_READER');for(const namespace of [NS,'kenigevents','kenigevents-atlas','kenigevents-atlas-r2'])for(const key of ['stable-id','package-id','component-stable-id'])ok((main.getSharedPluginData(namespace,key)||'')==='','ATLAS_HEADER_MAIN_PROVENANCE_BASELINE:'+namespace+':'+key);const keys=new Set(walk(main).map(headerSemanticKey).filter(Boolean));for(const key of Object.keys(HEADER_VALUES))ok(keys.has(key),'ATLAS_HEADER_FIELD_MISSING:'+key);return component}\nfunction tagOperation(host,node,operation){write(host,node,'stable-id',operation.id);write(host,node,'package-id',DATA.package_id);write(host,node,'atlas-template',DATA.atlas.template_id);write(host,node,'atlas-page-order',DATA.atlas.page_order);if(operation.row){write(host,node,'page-order',operation.row.page_order);write(host,node,'atlas-page-id',operation.row.atlas_page_id);write(host,node,'source-package-id',operation.row.package_id);write(host,node,'physical-page-name',operation.row.physical_page_name);write(host,node,'template-id',operation.row.template_id);write(host,node,'projection-role',operation.row.projection_role);write(host,node,'v0-status',operation.row.v0_status)}}\nfunction createText(host,operation){const node=guarded(host,()=>host.penpot.createText(operation.text));set(host,node,'name',operation.id);set(host,node,'characters',operation.text);frame(host,node,operation.x,operation.y,operation.width,operation.height);set(host,node,'fontSize',operation.size);set(host,node,'fontWeight',operation.weight);fill(host,node,operation.color);tagOperation(host,node,operation);return node}\nfunction createRect(host,operation){const node=guarded(host,()=>host.penpot.createRectangle());set(host,node,'name',operation.name);frame(host,node,operation.x,operation.y,operation.width,operation.height);fill(host,node,operation.color);set(host,node,'strokes',[{strokeColor:'#E5E7EB',strokeWidth:1}]);tagOperation(host,node,operation);return node}\nfunction createRoot(host,operation){const node=guarded(host,()=>host.penpot.createBoard());set(host,node,'name',operation.name);frame(host,node,operation.x,operation.y,operation.width,operation.height);fill(host,node,'#FFFFFF');tagOperation(host,node,operation);write(host,node,'atlas-page-units-sha256',DATA.atlas.page_units_sha256);write(host,node,'row-authority','ATLAS_R2_PAGE_UNITS');write(host,node,'source-row-count','42');write(host,node,'donor-row-count-ignored','45');write(host,node,'candidate-status','PENDING_V0');return node}\nfunction overrideHeader(host,instance){const replaced=new Set();for(const node of walk(instance)){const key=headerSemanticKey(node);if(HEADER_VALUES[key]!==undefined&&'characters'in node){set(host,node,'characters',HEADER_VALUES[key]);replaced.add(key)}}for(const key of Object.keys(HEADER_VALUES))ok(replaced.has(key),'ATLAS_HEADER_OVERRIDE_MISSING:'+key);write(host,instance,'header-contract','ATLAS_PAGE_HEADER_V2');write(host,instance,'header-owner','A0');write(host,instance,'header-package-id',DATA.package_id);write(host,instance,'header-source','Atlas R2 page_units / 42 exact rows');write(host,instance,'header-v0-status','PENDING')}\nfunction createHeader(host,operation){const component=assertHeaderContract(headerComponent(host));const node=guarded(host,()=>component.instance());ok(node&&typeof node.isComponentCopyInstance==='function'&&node.isComponentCopyInstance(),'ATLAS_HEADER_DETACHED');set(host,node,'name',operation.name);frame(host,node,operation.x,operation.y,operation.width,operation.height);tagOperation(host,node,operation);overrideHeader(host,node);return node}\nfunction createOperation(host,operation,page,root){if(operation.kind==='root')return createRoot(host,operation);if(operation.kind==='header')return createHeader(host,operation);if(operation.kind==='rect')return createRect(host,operation);if(operation.kind==='text')return createText(host,operation);throw new Error('UNKNOWN_OPERATION:'+operation.kind)}\nasync function project(host){ok(host&&host.penpot&&host.penpot.currentFile,'HOST_INVALID');ok(host.penpot.currentFile.id===DATA.page.file_id,'WRONG_FILE');assertHeaderContract(headerComponent(host));const found=targetPages(host);ok(found.length<=1,'DUPLICATE_TARGET_PAGE');const protectedState=await protectedProjection(host,false);let root=null;if(found[0]){const roots=findStable(found[0].root,DATA.page.root_key);ok(roots.length<=1,'DUPLICATE_TARGET_ROOT');root=roots[0]||null}return{created:0,file_id:host.penpot.currentFile.id,revision:currentRevn(host),page_id:found[0]&&found[0].id||null,root_id:root&&root.id||null,rows:root?findStable(root,'row/01').length+DATA.rows.slice(1).filter((row,index)=>findStable(root,'row/'+String(index+2).padStart(2,'0')).length===1).length:0,protected:protectedState,validation:host.penpot.currentFile.validate?host.penpot.currentFile.validate():[]}}\nasync function execute(host){ok(host&&host.penpot&&host.storage,'HOST_INVALID');ok(!host.storage.unknown_outcome,'DISTINCT_READ_ONLY_SETTLEMENT_REQUIRED');ok(host.penpot.currentFile.id===DATA.page.file_id,'WRONG_FILE');assertActive(host);await protectedProjection(host,true);assertHeaderContract(headerComponent(host));let found=targetPages(host);ok(found.length<=1,'DUPLICATE_TARGET_PAGE');if(!found.length){host.storage.unknown_outcome={operation:'create-page'};const page=guarded(host,()=>host.penpot.createPage());set(host,page,'name',DATA.page.page_name);write(host,page,'page-key',DATA.page.page_key);write(host,page,'package-id',DATA.package_id);write(host,page,'source-head',DATA.source.head);write(host,page,'source-tree',DATA.source.tree);write(host,page,'atlas-head',DATA.atlas.head);write(host,page,'atlas-tree',DATA.atlas.tree);write(host,page,'atlas-template',DATA.atlas.template_id);write(host,page,'atlas-page-order',DATA.atlas.page_order);host.storage.unknown_outcome=null;host.storage.native_created_total=(host.storage.native_created_total||0)+1;return{created:1,terminal:false,phase_after:'PAGE_CREATED',page_id:page.id}}const page=found[0];ok(getData(page,'page-key')===DATA.page.page_key,'TARGET_PAGE_OWNERSHIP_DRIFT');if(!host.penpot.currentPage||host.penpot.currentPage.id!==page.id){assertActive(host);await host.penpot.openPage(page);assertActive(host)}const roots=findStable(page.root,DATA.page.root_key);ok(roots.length<=1,'DUPLICATE_TARGET_ROOT');let root=roots[0]||null;let created=0;for(const operation of PLAN){if(created>=3)break;const parent=operation.parent==='page'?page.root:root;if(operation.kind!=='root'&&!root)break;const existing=findStable(page.root,operation.id);ok(existing.length<=1,'DUPLICATE_STABLE_ID:'+operation.id);if(existing.length)continue;host.storage.unknown_outcome={operation:operation.id};const node=createOperation(host,operation,page,root);if(operation.kind==='root'){append(host,page.root,node);root=node}else append(host,parent,node);host.storage.unknown_outcome=null;host.storage.native_created_total=(host.storage.native_created_total||0)+1;created+=1}const remaining=PLAN.filter((operation)=>findStable(page.root,operation.id).length===0);const terminal=remaining.length===0;if(terminal){const receipt=await settle(host);ok(receipt.rows===42&&receipt.atlas_page_units===42,'TERMINAL_CENSUS');const receiptSha=await digest(receipt);if(getData(page,'terminal-receipt-sha256')!==receiptSha)write(host,page,'terminal-receipt-sha256',receiptSha)}return{created,terminal,done:terminal,phase_after:terminal?'DONE':'MATERIALIZING',remaining:remaining.length,page_id:page.id,root_id:root&&root.id||null}}\nasync function settle(host){ok(host&&host.penpot&&host.penpot.currentFile,'HOST_INVALID');ok(!host.storage.unknown_outcome,'UNKNOWN_OUTCOME_REQUIRES_DISTINCT_READBACK');const found=targetPages(host);ok(found.length===1,'TARGET_PAGE_CENSUS');const page=found[0];const roots=findStable(page.root,DATA.page.root_key);ok(roots.length===1,'TARGET_ROOT_CENSUS');const root=roots[0];const stableNodes=walk(root).filter((node)=>stable(node));const ids=stableNodes.map(stable);ok(new Set(ids).size===ids.length,'DUPLICATE_STABLE_ID');const headers=findStable(root,'atlas.header.instance');ok(headers.length===1,'ATLAS_HEADER_CENSUS');const header=headers[0];ok(typeof header.isComponentCopyInstance==='function'&&header.isComponentCopyInstance(),'ATLAS_HEADER_DETACHED');ok(header.component&&header.component()&&header.component().id===DATA.page.header_component_id,'ATLAS_HEADER_COMPONENT_DRIFT');const rows=DATA.rows.map((row,index)=>{const id='row/'+String(index+1).padStart(2,'0'),nodes=findStable(root,id);ok(nodes.length===1,'ROW_CENSUS:'+id);for(const [key,value] of Object.entries({'page-order':row.page_order,'atlas-page-id':row.atlas_page_id,'source-package-id':row.package_id,'physical-page-name':row.physical_page_name,'template-id':row.template_id,'projection-role':row.projection_role,'v0-status':row.v0_status}))ok(getData(nodes[0],key)===value,'ROW_FIELD_DRIFT:'+id+':'+key);return row.page_order});ok(rows.join('\\n')===DATA.rows.map((row)=>row.page_order).join('\\n'),'PAGE_ORDER_DRIFT');ok(new Set(DATA.rows.map((row)=>row.atlas_page_id)).size===42,'ATLAS_PAGE_ID_CENSUS');const rowRects=DATA.rows.map((row,index)=>findStable(root,'row/'+String(index+1).padStart(2,'0'))[0]);let overlaps=0;for(let left=0;left<rowRects.length;left+=1)for(let right=left+1;right<rowRects.length;right+=1){const a=rowRects[left],b=rowRects[right];if(a.x<b.x+b.width&&a.x+a.width>b.x&&a.y<b.y+b.height&&a.y+a.height>b.y)overlaps+=1}ok(overlaps===0,'ROW_OVERLAP');const images=walk(root).filter((node)=>node.type==='image'||Array.from(node.fills||[]).some((value)=>value&&value.fillImage));ok(images.length===0,'SCREENSHOT_IMPLEMENTATION');for(const node of stableNodes){const right=(node.x||0)+(node.width||0);const bottom=(node.y||0)+(node.height||0);ok((node.x||0)>=0&&(node.y||0)>=0&&right<=DATA.page.width&&bottom<=DATA.page.height,'CONTENT_OUTSIDE_ROOT:'+stable(node))}const validation=host.penpot.currentFile.validate?host.penpot.currentFile.validate():[];ok(Array.isArray(validation)&&validation.length===0,'VALIDATION_DRIFT');const protectedState=await protectedProjection(host,true);return{schema:'kenigevents.d0.a0-owner-review-index-settlement.v1',created:0,mutation_count:host.storage.native_created_total||0,mutated_stable_ids:ids,provenance:{package_head:host.authorization&&host.authorization.package_head||null,package_tree:host.authorization&&host.authorization.package_tree||null,bundle_sha256:host.authorization&&host.authorization.bundle_sha256||null,session_id:host.authorization&&host.authorization.session_id||null,task_id:host.authorization&&host.authorization.task_id||null,writer_id:host.authorization&&host.authorization.writer_id||null,triggered_by:host.authorization&&host.authorization.triggered_by||null,requirements_contract_sha256:DATA.requirements_contract.sha256,source_projection_sha256:DATA.atlas.page_units_sha256,atlas_head:DATA.atlas.head,atlas_tree:DATA.atlas.tree},rows:rows.length,atlas_page_units:rows.length,linked_atlas_headers:1,detached:0,screenshots:0,placeholders:0,overlaps:0,outside_root:0,validation,protected:protectedState,page_id:page.id,root_id:root.id,atlas_page_units_sha256:DATA.atlas.page_units_sha256,row_authority:DATA.atlas.row_authority,atlas_template:DATA.atlas.template_id,atlas_page_order:DATA.atlas.page_order}}\nfunction syntheticNodeRecord(node){return{id:node.id,name:node.name||'',type:node.type||'',x:node.x||0,y:node.y||0,width:node.width||0,height:node.height||0,children:children(node).map(syntheticNodeRecord)}}\nasync function makeConformanceHost(seed,prior){const penpot=seed.penpot;const storage=seed.storage;const nodeFactory=seed.pluginNode||prior&&prior.node_factory;ok(penpot&&storage&&nodeFactory,'CONFORMANCE_SEED');penpot.currentFile.id=DATA.page.file_id;penpot.currentFile.revn=188;const markerStore=penpot.currentFile.__d0_marker_store||new Map();penpot.currentFile.__d0_marker_store=markerStore;if(typeof penpot.currentFile.setSharedPluginData!=='function')penpot.currentFile.setSharedPluginData=(namespace,key,value)=>{ok(typeof value==='string','PLUGIN_DATA_VALUE_NOT_STRING');markerStore.set(namespace+'\\u0000'+key,value)};if(typeof penpot.currentFile.getSharedPluginData!=='function')penpot.currentFile.getSharedPluginData=(namespace,key)=>markerStore.get(namespace+'\\u0000'+key)||'';const ensurePage=(id)=>Array.from(penpot.currentFile.pages||[]).find((page)=>page.id===id)||penpot.__seedPage(id);const ensureChild=(parent,id,name)=>{let node=walk(parent).find((value)=>value.id===id);if(!node){node=nodeFactory(id,'board');node.name=name;node.width=100;node.height=100;parent.appendChild(node)}return node};const freePage=ensurePage(DATA.protected.free.page_id);for(const id of DATA.protected.free.root_ids)ensureChild(freePage.root,id,'Protected Free '+id);const foundationsPage=ensurePage(DATA.protected.foundations.page_id);ensureChild(foundationsPage.root,DATA.protected.foundations.root_id,'Protected Foundations');let header=Array.from(penpot.library.local.components||[]).find((component)=>component.id===DATA.page.header_component_id);if(!header){const main=nodeFactory(DATA.page.header_main_id,DATA.page.header_main_type);for(const key of Object.keys(HEADER_VALUES)){const text=nodeFactory('header-main-'+key,'text');text.name=key;text.characters='seed';text.setSharedPluginData(NS,'semantic-id',key);main.appendChild(text)}header={id:DATA.page.header_component_id,name:DATA.page.header_component_name,path:DATA.page.header_component_path,mainInstance(){return main},instance(){const instance=penpot.createBoard();instance.isComponentCopyInstance=()=>true;instance.component=()=>header;for(const key of Object.keys(HEADER_VALUES)){const text=nodeFactory('header-'+key,'text');text.name=key;text.characters='seed';text.setSharedPluginData(NS,'semantic-id',key);instance.appendChild(text)}return instance}};penpot.library.local.components.push(header)}const baseAuth=prior&&prior.authorization||{schema:AUTH_SCHEMA,package_id:DATA.package_id,package_head:'1'.repeat(40),package_tree:'2'.repeat(40),bundle_sha256:'3'.repeat(64),session_id:'d0-conformance-session',task_id:'d0-conformance-task',writer_id:'/root/publish_r2',triggered_by:'D0_PLUGIN_BUNDLE_CONFORMANCE_V1',lease_token:'d0-conformance-lease',cancel_token:'d0-conformance-cancel',expires_at:'2999-01-01T00:00:00.000Z',requirements_contract_sha256:DATA.requirements_contract.sha256,source_projection_sha256:DATA.atlas.page_units_sha256,atlas_head:DATA.atlas.head,atlas_tree:DATA.atlas.tree,native_revision:188};const protectedState=await calculateProtectedProjection({penpot});const auth={...baseAuth,native_revision:protectedState.native_revision,protected_projection_revision:protectedState.native_revision,protected_projection_sha256:protectedState.projection_sha256};penpot.currentFile.setSharedPluginData(ACTIVE_NS,ACTIVE_KEY,JSON.stringify({...auth,state:'ACTIVE',cancelled:false}));return{penpot,storage,authorization:auth,node_factory:nodeFactory}}\nasync function strictStringProbe(host){const page=host.penpot.__seedPage('owner-index-string-probe');const values={number:374,object:{x:1},boolean:true,null:null,undefined:void 0};const result={string:'FAIL'};guarded(host,()=>page.setSharedPluginData(NS,'probe','374'));result.string='PASS';for(const key of Object.keys(values)){try{guarded(host,()=>page.setSharedPluginData(NS,'probe',values[key]));result[key]='ACCEPTED'}catch{result[key]='REJECTED'}}return result}\nconst BUNDLE={metadata:METADATA,project,execute,settle,source:Object.freeze(DATA),conformance:{async createHost(seed){return makeConformanceHost(seed,null)},async prepareReplay(host,seed){return makeConformanceHost({...seed,pluginNode:host.node_factory},host)},strictStringProbe}};globalThis.D0A0OwnerReviewIndexV4=BUNDLE;\n})();\n`;
+}
+
+const bundle = bundleSource(embedded);
+const bundleBytes = Buffer.from(bundle, 'utf8');
+const bundleSha = sha256(bundleBytes);
+const localHarnessBytes = await readFile(join(HERE, 'test-deps/d0_plugin_bundle_conformance_v1.mjs'));
+const packageRecord = {
+  schema_version: 'kenigevents.d0.a0-owner-review-index-direct-plugin-package.v4',
+  state: 'MAT_PACKAGE_READY_QA_INTEGRATE_GATED',
+  package_id: sourcePackage.package_id,
+  global: 'D0A0OwnerReviewIndexV4',
+  bundle: { path: 'executables/asp-production-conveyor-v3/a0/a0-owner-review-index-direct-plugin-v4/owner-review-index.bundle.js', bytes: bundleBytes.length, sha256: bundleSha },
+  entrypoints: { projection: 'project', execution: 'execute', settlement: 'settle' },
+  immutable_source: embedded.source,
+  requirements_contract: embedded.requirements_contract,
+  atlas_r2: embedded.atlas,
+  current_page_activation: true,
+  max_actual_native_creates_per_phase: 3,
+  physical_active_cancel_provenance_expiry_recheck: 'BEFORE_EVERY_NATIVE_CREATE_AND_MUTATING_WRITE',
+  protected_projection: { ...embedded.protected, authority: 'FRESH_NATIVE_READBACK_BOUND_TO_CURRENTFILE_REVN_AND_PHYSICAL_ACTIVE', stale_embedded_hashes: false, authorization_fields: ['protected_projection_revision','protected_projection_sha256'] },
+  source_bound_content: { rows: 42, row_authority: 'ATLAS_R2_PAGE_UNITS', atlas_page_units_sha256: embedded.atlas.page_units_sha256, required_fields: ['page_order','atlas_page_id','package_id','template_id','projection_role','v0_status'], donor_rows_ignored: 45, placeholders: 0 },
+  terminal_census: { candidate_roots: 1, exact_atlas_page_rows: 42, linked_atlas_headers: 1, bottommost_content_y: 2464, root_height: 2528, detached: 0, screenshots: 0, outside_root: 0 },
+  unknown_outcome: 'STOP_DISTINCT_READ_ONLY_SETTLEMENT_NO_BLIND_RETRY',
+  replay_created: 0,
+  harness: { branch: 'agent/d0-plugin-bundle-conformance-v1-20260902', head: HARNESS_HEAD, tree: HARNESS_TREE, source_path: HARNESS_PATH, local_exact_mirror: 'executables/asp-production-conveyor-v3/a0/a0-owner-review-index-direct-plugin-v4/test-deps/d0_plugin_bundle_conformance_v1.mjs', bytes: localHarnessBytes.length, sha256: sha256(localHarnessBytes) },
+  latest_producer_reconciliation: { checkpoint: 5510524215, head: 'd82dd648b7ca8eb938d9e9b1a87600ec7fe0edde', tree: 'c538a55ca280237f25ff76dff570b43ead5a1b77', bundle_blob: '21f7396374786a0fc80c4fbae0c953bc96e1aed3', bundle_bytes: 87959, bundle_sha256: '7d8ad46fee7816e6fe7b1f8775eb54088bf1904600efc8d3a332a35e8a90aef9', disposition: 'NOT_ADOPTED_STALE_45_ROW_DONOR' },
+  header_native_binding: { component_id: embedded.page.header_component_id, component_name: embedded.page.header_component_name, component_path: embedded.page.header_component_path, main_id: embedded.page.header_main_id, main_type: embedded.page.header_main_type, main_reader: 'mainInstance()', main_plugin_provenance: 'ABSENT_AT_REVISION_BOUND_PREFLIGHT' },
+  native_runtime_contract: { supersedes_head: 'e13a854705cebf3761455ab3a5557fb74de8c156', repair_comment: 5511056976, harness_comment: 5511122890, portable_sha256: true, text_encoder_required: false, crypto_subtle_required: false, revision_source: 'currentFile.revn', revision_alias: 'FORBIDDEN', active_revision_parity: 'EXACT', missing_or_conflicting_revision: 'FAIL_BEFORE_CREATE', main_instance_reader: 'component.mainInstance()', protected_projection_binding: 'FRESH_CURRENT_REVN_PLUS_SHA256_IN_AUTH_AND_PHYSICAL_ACTIVE' },
+  boundaries: { product_semantics_changed: false, atlas_changed: false, penpot_execution_authorized: false, penpot_reads: 0, penpot_mutations: 0, merge: false, deploy: false, promotion: false },
+};
+const generated = { schema_version: 'kenigevents.d0.deterministic-generated.v1', generator: 'generate-bundle.mjs', inputs: { source_package_sha256: embedded.source.package_sha256, source_index_sha256: embedded.source.index_sha256, source_adapter_sha256: embedded.source.adapter_sha256, atlas_head: ATLAS_HEAD, atlas_tree: ATLAS_TREE, harness_head: HARNESS_HEAD, harness_tree: HARNESS_TREE }, outputs: { bundle_bytes: bundleBytes.length, bundle_sha256: bundleSha, package_sha256: sha256(Buffer.from(JSON.stringify(packageRecord, null, 2) + '\n')) } };
+const files = [[OUT_BUNDLE, bundle], [OUT_PACKAGE, JSON.stringify(packageRecord, null, 2) + '\n'], [OUT_GENERATED, JSON.stringify(generated, null, 2) + '\n']];
+for (const [path, content] of files) {
+  if (CHECK) invariant(await readFile(path, 'utf8') === content, `GENERATED_DRIFT:${path}`);
+  else await writeFile(path, content, 'utf8');
+}
+console.log(JSON.stringify({ state: CHECK ? 'DETERMINISTIC_REGENERATION_PASS' : 'GENERATED', bundle_bytes: bundleBytes.length, bundle_sha256: bundleSha, rows: 42, row_authority: 'ATLAS_R2_PAGE_UNITS', root_height: 2528, atlas_template: 'OWNER_INDEX_V2' }, null, 2));
