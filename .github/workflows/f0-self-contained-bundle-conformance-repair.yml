@@ -1,0 +1,39 @@
+name: F0 self-contained bundle conformance repair
+
+on:
+  push:
+    branches:
+      - f0/self-contained-bundle-conformance-repair-builder-20260902
+
+permissions:
+  contents: write
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  repair-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact repair builder
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Configure Git transport
+        run: |
+          git config --global user.name "F0 Bundle Builder"
+          git config --global user.email "f0-bundle-builder@users.noreply.github.com"
+      - name: Verify builder syntax
+        run: node --check tools/f0-self-contained-bundles/build-conformance-repair.mjs
+      - name: Build, test, push and publish six D0-conformant successors
+        run: node tools/f0-self-contained-bundles/build-conformance-repair.mjs
+      - name: Upload provider-backed terminal proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f0-self-contained-bundle-conformance-repair-proof
+          path: artifacts/conformance-repair-results.json
+          if-no-files-found: warn
