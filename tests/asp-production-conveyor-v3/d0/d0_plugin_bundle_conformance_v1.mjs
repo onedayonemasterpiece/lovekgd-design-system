@@ -146,6 +146,8 @@ function buildInstrumentedPenpot() {
     rejectedPluginWrites: 0,
     currentFilePluginReads: 0,
     currentFilePluginWrites: 0,
+    currentFilePluginWriteEvents: [],
+    nativeSetterCalls: 0,
     saveVersionOverrideAttempts: 0,
   };
   let sequence = 0;
@@ -164,6 +166,7 @@ function buildInstrumentedPenpot() {
     invariant(typeof value === 'string', `FILE_PLUGIN_DATA_NOT_STRING:${typeof value}`);
     currentFilePluginData.set(`${namespace}\u0000${key}`, value);
     audit.currentFilePluginWrites += 1;
+    audit.currentFilePluginWriteEvents.push({ namespace, key, value, value_sha256: sha256(Buffer.from(value, 'utf8')) });
   };
   const nativeGetSharedPluginData = (namespace, key) => {
     audit.currentFilePluginReads += 1;
@@ -294,7 +297,47 @@ function assertMetadata(bundle, globalName) {
   invariant(bundle.conformance && typeof bundle.conformance.createHost === 'function', 'CONFORMANCE_CREATE_HOST');
   invariant(typeof bundle.conformance.prepareReplay === 'function', 'CONFORMANCE_PREPARE_REPLAY');
   invariant(typeof bundle.conformance.strictStringProbe === 'function', 'CONFORMANCE_STRICT_STRING_PROBE');
-  return { metadata, methods };
+  let recovery = null;
+  if (metadata.receipt_only_recovery === true) {
+    recovery = metadata.recovery_contract;
+    invariant(recovery && typeof recovery === 'object', 'RECOVERY_CONTRACT_REQUIRED');
+    invariant(recovery.expected_native_creates === 0, 'RECOVERY_EXPECTED_CREATES_ZERO');
+    invariant(recovery.expected_native_setters === 0, 'RECOVERY_EXPECTED_SETTERS_ZERO');
+    invariant(recovery.physical_active_current_file === true, 'RECOVERY_PHYSICAL_ACTIVE_CURRENT_FILE_REQUIRED');
+    invariant(recovery.full_authorization_tuple === true, 'RECOVERY_FULL_AUTHORIZATION_TUPLE_REQUIRED');
+    invariant(recovery.receipt && typeof recovery.receipt === 'object', 'RECOVERY_RECEIPT_CONTRACT_REQUIRED');
+    invariant(typeof recovery.receipt.namespace === 'string' && recovery.receipt.namespace.length > 0, 'RECOVERY_RECEIPT_NAMESPACE');
+    invariant(typeof recovery.receipt.key === 'string' && recovery.receipt.key.length > 0, 'RECOVERY_RECEIPT_KEY');
+    invariant(SHA_RE.test(recovery.receipt.value_sha256 || ''), 'RECOVERY_RECEIPT_VALUE_SHA256');
+  } else {
+    invariant(metadata.recovery_contract === undefined, 'RECOVERY_CONTRACT_WITHOUT_DECLARATION');
+  }
+  return { metadata, methods, recovery };
+}
+
+function instrumentNativeRecoverySetters(penpot, audit) {
+  const seen = new Set();
+  const wrap = (object, key) => {
+    if (!object || seen.has(`${object.id || 'anonymous'}\u0000${key}`)) return;
+    const descriptor = Object.getOwnPropertyDescriptor(object, key);
+    if (descriptor && descriptor.configurable === false) return;
+    let value = object[key];
+    try {
+      Object.defineProperty(object, key, {
+        configurable: true,
+        enumerable: descriptor?.enumerable ?? true,
+        get: () => value,
+        set: (next) => { audit.nativeSetterCalls += 1; value = next; },
+      });
+      seen.add(`${object.id || 'anonymous'}\u0000${key}`);
+    } catch {}
+  };
+  for (const component of penpot.library.local.components) {
+    wrap(component, 'name');
+    wrap(component, 'path');
+    const main = typeof component.mainInstance === 'function' ? component.mainInstance() : null;
+    wrap(main, 'name');
+  }
 }
 
 function terminal(receipt) {
@@ -361,7 +404,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   });
   new vm.Script(source, { filename: absolutePath }).runInContext(context, { timeout: 3000 });
   const bundle = sandbox[globalName];
-  const { metadata, methods } = assertMetadata(bundle, globalName);
+  const { metadata, methods, recovery } = assertMetadata(bundle, globalName);
 
   const storage = Object.create(null);
   const host = await bundle.conformance.createHost({
@@ -378,6 +421,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
     invariant(typeof component?.mainInstance === 'function', 'NATIVE_COMPONENT_MAIN_INSTANCE_METHOD_REQUIRED');
     invariant(!Object.prototype.hasOwnProperty.call(component, 'main'), 'NON_NATIVE_COMPONENT_MAIN_API_FORBIDDEN');
   }
+  if (recovery) instrumentNativeRecoverySetters(instrumented.penpot, instrumented.audit);
   invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
   invariant(instrumented.penpot.currentFile.revision === undefined, 'NATIVE_REVISION_ALIAS_FORBIDDEN');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
@@ -394,8 +438,10 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const projectionReceipt = await methods.projection(host);
   invariant(instrumented.audit.creates === projectionBefore, 'PROJECTION_MUTATED_NATIVE_STATE');
 
-  const first = await driveExecution(methods.execution, host, instrumented.audit, null, 'FIRST_RUN');
-  invariant(first.total > 0, 'FIRST_RUN_CREATED_NOT_POSITIVE');
+  const recoveryWritesBefore = instrumented.audit.currentFilePluginWrites;
+  const recoverySettersBefore = instrumented.audit.nativeSetterCalls;
+  const first = await driveExecution(methods.execution, host, instrumented.audit, recovery ? 0 : null, 'FIRST_RUN');
+  if (!recovery) invariant(first.total > 0, 'FIRST_RUN_CREATED_NOT_POSITIVE');
   invariant(instrumented.audit.createEvents.filter((event) => event.kind !== 'page').every((event) => event.current_page_id), 'CURRENT_PAGE_ACTIVATION_NOT_PROVEN');
   if (/\bACTIVE\b/u.test(source) && /\/root\/publish_r2/u.test(source)) {
     invariant(instrumented.audit.currentFilePluginReads > 0, 'PHYSICAL_ACTIVE_CURRENT_FILE_READER_REQUIRED');
@@ -404,12 +450,28 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const settlementBefore = instrumented.audit.creates;
   const settlementReceipt = await methods.settlement(host);
   invariant(instrumented.audit.creates === settlementBefore, 'SETTLEMENT_MUTATED_NATIVE_STATE');
+  if (recovery) {
+    invariant(instrumented.audit.nativeSetterCalls - recoverySettersBefore === 0, 'RECOVERY_NATIVE_SETTER_CALLED');
+    const writes = instrumented.audit.currentFilePluginWriteEvents.slice(recoveryWritesBefore);
+    invariant(writes.length === 1, `RECOVERY_RECEIPT_WRITE_COUNT:${writes.length}`);
+    const [write] = writes;
+    invariant(write.namespace === recovery.receipt.namespace, 'RECOVERY_RECEIPT_NAMESPACE_MISMATCH');
+    invariant(write.key === recovery.receipt.key, 'RECOVERY_RECEIPT_KEY_MISMATCH');
+    invariant(write.value_sha256 === recovery.receipt.value_sha256, 'RECOVERY_RECEIPT_VALUE_SHA256_MISMATCH');
+    invariant(instrumented.audit.currentFilePluginReads > 0, 'RECOVERY_PHYSICAL_ACTIVE_NOT_READ');
+  }
 
   const replayStorage = Object.create(null);
   const replayHost = await bundle.conformance.prepareReplay(host, { penpot: instrumented.penpot, storage: replayStorage });
   invariant(replayHost && replayHost.penpot === instrumented.penpot, 'REPLAY_HOST_MUST_PRESERVE_PENPOT_STATE');
   invariant(replayHost.storage === replayStorage, 'REPLAY_HOST_MUST_USE_FRESH_STORAGE');
+  const replayWritesBefore = instrumented.audit.currentFilePluginWrites;
+  const replaySettersBefore = instrumented.audit.nativeSetterCalls;
   const replay = await driveExecution(methods.execution, replayHost, instrumented.audit, 0, 'REPLAY');
+  if (recovery) {
+    invariant(instrumented.audit.currentFilePluginWrites === replayWritesBefore, 'RECOVERY_REPLAY_RECEIPT_REWRITE');
+    invariant(instrumented.audit.nativeSetterCalls === replaySettersBefore, 'RECOVERY_REPLAY_NATIVE_SETTER_CALLED');
+  }
 
   return {
     state: 'D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS',
@@ -460,6 +522,47 @@ async function selfTest() {
       revision_alias_available: false,
       caller_injected_helpers_allowed: false,
     });
+
+    const recoveryValue = '{"state":"recovered"}';
+    const recoveryValueSha256 = sha256(Buffer.from(recoveryValue, 'utf8'));
+    const recoveryMetadata = `receipt_only_recovery:true,recovery_contract:Object.freeze({expected_native_creates:0,expected_native_setters:0,physical_active_current_file:true,full_authorization_tuple:true,receipt:Object.freeze({namespace:'d0-recovery',key:'receipt',value_sha256:'${recoveryValueSha256}'})}),`;
+    const recoveryExecution = `async function execution(host){
+      const file=host.penpot.currentFile;
+      if(file.getSharedPluginData('d0-recovery','active')!=='ACTIVE')throw new Error('ACTIVE_REQUIRED');
+      if(file.getSharedPluginData('d0-recovery','receipt'))return {created:0,terminal:true};
+      file.setSharedPluginData('d0-recovery','receipt','${recoveryValue}');
+      return {created:0,terminal:true};
+    }
+    `;
+    const recoverySource = source
+      .replace("metadata:Object.freeze({schema:'D0_PLUGIN_BUNDLE_V1',", `metadata:Object.freeze({schema:'D0_PLUGIN_BUNDLE_V1',${recoveryMetadata}`)
+      .replace(/async function execution\(host\)\{[\s\S]*?\n  \}\n  async function settlement/u, `${recoveryExecution}  async function settlement`)
+      .replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        "async createHost(seed){seed.penpot.currentFile.setSharedPluginData('d0-recovery','active','ACTIVE');return {penpot:seed.penpot,storage:seed.storage};}",
+      );
+    const recoveryPath = join(directory, 'recovery.js');
+    await writeFile(recoveryPath, recoverySource, 'utf8');
+    const recoveryPass = await runConformance({
+      bundlePath: recoveryPath,
+      expectedSha256: sha256(Buffer.from(recoverySource)),
+      globalName: 'D0ConformanceFixture',
+    });
+    invariant(recoveryPass.first_run.created === 0 && recoveryPass.replay.created === 0, 'SELF_TEST_RECOVERY_ZERO_CREATE');
+
+    const recoveryNegativeCases = [
+      ['false-declaration', recoverySource.replace(recoveryMetadata, 'receipt_only_recovery:true,'), /RECOVERY_CONTRACT_REQUIRED/u],
+      ['dummy-create', recoverySource.replace('const file=host.penpot.currentFile;', 'host.penpot.createPage();const file=host.penpot.currentFile;'), /FIRST_RUN_RECEIPT_CREATED_MISMATCH|FIRST_RUN_TOTAL_CREATED/u],
+      ['missing-receipt', recoverySource.replace(`file.setSharedPluginData('d0-recovery','receipt','${recoveryValue}');`, ''), /RECOVERY_RECEIPT_WRITE_COUNT:0/u],
+    ];
+    for (const [name, body, error] of recoveryNegativeCases) {
+      const badPath = join(directory, `recovery-${name}.js`);
+      await writeFile(badPath, body, 'utf8');
+      await assert.rejects(
+        () => runConformance({ bundlePath: badPath, expectedSha256: sha256(Buffer.from(body)), globalName: 'D0ConformanceFixture' }),
+        error,
+      );
+    }
 
     const forbidden = [
       ['require', 'globalThis.Bad={}; require("x")'],
@@ -520,7 +623,11 @@ async function selfTest() {
         error,
       );
     }
-    return { ...pass, self_test_negative_cases: forbidden.length + 1 + nativeGlobalCases.length };
+    return {
+      ...pass,
+      recovery_receipt_only: { first_created: recoveryPass.first_run.created, replay_created: recoveryPass.replay.created },
+      self_test_negative_cases: forbidden.length + 1 + nativeGlobalCases.length + recoveryNegativeCases.length,
+    };
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

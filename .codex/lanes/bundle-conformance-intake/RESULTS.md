@@ -29,6 +29,8 @@ Recorded by the terminal provider readback.
 ## Tests / verification
 The self-test loads one conforming single-file bundle in a browser/Penpot-like VM and drives projection, bounded execution, settlement, and a fresh-storage replay. It also rejects require, module/exports, process, Buffer, dynamic import, filesystem APIs, and an incorrect exact SHA-256. The native-like host exposes `currentFile.revn` without a manufactured `revision` alias; omits browser-only crypto/text encoders, bare `structuredClone`, and caller-injected dependency, storage, coverage, and ACTIVE-marker helpers; and traps orchestration-owned `saveVersion` calls. Writer packages must actually read a physical ACTIVE marker from `currentFile` shared plugin data. Component mocks expose the real `mainInstance()` method contract and may not substitute a `.main` property. Portable in-bundle fallbacks remain allowed when they execute in that host, while conformance-only authorization bypasses are rejected.
 
+The default path still requires a positive first-run native create count. A strictly declared `receipt_only_recovery` path may create zero nodes only when its contract declares zero creates/setters, physical `currentFile` ACTIVE and full authorization parity, and an exact receipt namespace/key/value SHA-256. The harness then observes exactly one bounded receipt write, zero instrumented component/main setters, and zero additional writes or creates on replay; false declarations, dummy creates, and missing receipts are negative self-tests.
+
 ## Risks
 The harness is a technical callability gate only. Package-specific semantics, protected projections, authorization, native readback, and visual acceptance remain independent gates.
 
