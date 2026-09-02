@@ -1,0 +1,187 @@
+name: A0 direct-plugin route buffer R2 package repair
+
+on:
+  push:
+    branches:
+      - a0/direct-plugin-route-buffer-r2-20260902
+
+permissions:
+  contents: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: a0-direct-plugin-route-buffer-r2-package-repair
+  cancel-in-progress: false
+
+jobs:
+  build-lanes:
+    if: "${{ github.event.head_commit.message == 'ci(a0): repair direct-plugin R2 package atlas binding' }}"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        lane: [lane-1, lane-2, lane-3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch exact immutable inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin \
+            862bb09cf61750bd5afce26d84207a501f7ec733 \
+            bc8ee45489812a346d2731f97908803e8ec01ba5 \
+            10fc2ccbd6e7e2e47bcc5870f71af84ce200f888 \
+            4edc859861fba3f18fab0e65e9d2e8c0a7394bdb \
+            9e8edbed95eb40807059e6c6f10af74beeaee683 \
+            4ee9651c97da4e46b0fda4e244f9d5dea634e063 \
+            663be702d481972cb2e8863af500f1c35dda1d8c \
+            be4918e5d8e1c1bba5da478acfd08f8035cfc1a5 \
+            62f26df36b8199e4b8899b9252f796b1fa5e9d42 \
+            674d793cfc761b39e6cebe087aae6450ded910d6 \
+            864e83b4fb3efb50a018e1f37db6c67da2730485 \
+            bf436751607c335111656576317cd9a18af9baee
+          test "$(git rev-parse 862bb09cf61750bd5afce26d84207a501f7ec733^{tree})" = 9cf76a269e8febfb56fbdc93a1f0a73a74a2bd46
+          test "$(git rev-parse 663be702d481972cb2e8863af500f1c35dda1d8c^{tree})" = cf9a1e6a5e0a84aea5636334dbd3be4961039b75
+          test "$(git rev-parse be4918e5d8e1c1bba5da478acfd08f8035cfc1a5^{tree})" = da1f5c305c75d467af5e4e26f8a996b8c243d74f
+          test "$(git rev-parse 62f26df36b8199e4b8899b9252f796b1fa5e9d42^{tree})" = 23bc8ef208c9e68e76890183fdda15c1a60f5fbd
+
+      - name: Reconstruct bounded repaired builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat scripts/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-r2/build.py.part* > /tmp/a0-direct-plugin-r2-build.py
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('/tmp/a0-direct-plugin-r2-build.py')
+          source = path.read_text(encoding='utf-8')
+          source = source.replace(
+              'ATLAS_EXTENSION_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/extensions/atlas-extension-r2-1.v1.json"',
+              'ATLAS_EXTENSION_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/extensions/r2-1/atlas-extension-map.r2-1.json"',
+          )
+          source = source.replace(
+              '    old_path = OLD_MANIFEST.format(lane=lane, slug=slug)\n',
+              '    old_slug = {"popular-listing": "popular", "unusual-listing": "unusual"}.get(slug, slug)\n    old_path = OLD_MANIFEST.format(lane=lane, slug=old_slug)\n',
+          )
+          source = source.replace(
+              '    print(pretty(index))\n\n\ndef api',
+              '    print(pretty(index))\n    if not ready:\n        raise AssertionError(f"LANE_ZERO_READY:{lane}:{blocked}")\n\n\ndef api',
+          )
+          old = 'json.loads(conformance_raw.splitlines()[-1])'
+          assert source.count(old) == 2, source.count(old)
+          source = source.replace(old, 'json.loads(conformance_raw)')
+          needle = '        "bundle": bundle_record,\n        "runtime_shared_imports": 0,\n'
+          assert source.count(needle) == 1, source.count(needle)
+          source = source.replace(needle, '        "bundle": bundle_record,\n        "atlas_binding": data["atlas"],\n        "runtime_shared_imports": 0,\n')
+          path.write_text(source, encoding='utf-8')
+          PY
+          test "$(sha256sum /tmp/a0-direct-plugin-r2-build.py | awk '{print $1}')" = 327c4a11147e5d91dbe0db3dcdb5308b1767bc090ae7d5879b24ea8fe35b2439
+          python3 -m py_compile /tmp/a0-direct-plugin-r2-build.py
+
+      - name: Build lane twice and prove deterministic bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 /tmp/a0-direct-plugin-r2-build.py build-lane \
+            --lane '${{ matrix.lane }}' --repo "$GITHUB_WORKSPACE" \
+            --out "/tmp/a0-r2-build-1/${{ matrix.lane }}"
+          python3 /tmp/a0-direct-plugin-r2-build.py build-lane \
+            --lane '${{ matrix.lane }}' --repo "$GITHUB_WORKSPACE" \
+            --out "/tmp/a0-r2-build-2/${{ matrix.lane }}"
+          diff -ru "/tmp/a0-r2-build-1/${{ matrix.lane }}" "/tmp/a0-r2-build-2/${{ matrix.lane }}"
+          test "$(jq -r .ready_count /tmp/a0-r2-build-1/${{ matrix.lane }}/lane-index.r2.json)" -gt 0
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packagefix-${{ matrix.lane }}
+          path: /tmp/a0-r2-build-1/${{ matrix.lane }}
+          if-no-files-found: error
+          retention-days: 3
+
+  publish:
+    if: "${{ github.event.head_commit.message == 'ci(a0): repair direct-plugin R2 package atlas binding' }}"
+    needs: build-lanes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch exact inputs and current branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'a0-direct-plugin-r2-bot'
+          git config user.email 'a0-direct-plugin-r2-bot@users.noreply.github.com'
+          git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+          git checkout -B "$GITHUB_REF_NAME" "refs/remotes/origin/$GITHUB_REF_NAME"
+          for commit in \
+            862bb09cf61750bd5afce26d84207a501f7ec733 \
+            bc8ee45489812a346d2731f97908803e8ec01ba5 \
+            10fc2ccbd6e7e2e47bcc5870f71af84ce200f888 \
+            4edc859861fba3f18fab0e65e9d2e8c0a7394bdb \
+            9e8edbed95eb40807059e6c6f10af74beeaee683 \
+            4ee9651c97da4e46b0fda4e244f9d5dea634e063 \
+            663be702d481972cb2e8863af500f1c35dda1d8c \
+            be4918e5d8e1c1bba5da478acfd08f8035cfc1a5 \
+            62f26df36b8199e4b8899b9252f796b1fa5e9d42 \
+            674d793cfc761b39e6cebe087aae6450ded910d6 \
+            864e83b4fb3efb50a018e1f37db6c67da2730485 \
+            bf436751607c335111656576317cd9a18af9baee; do
+            git cat-file -e "${commit}^{commit}"
+          done
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: packagefix-*
+          merge-multiple: false
+          path: /tmp/a0-r2-packagefix
+
+      - name: Normalize lane artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/a0-r2-artifacts
+          for lane in lane-1 lane-2 lane-3; do
+            test -d "/tmp/a0-r2-packagefix/packagefix-${lane}"
+            mv "/tmp/a0-r2-packagefix/packagefix-${lane}" "/tmp/a0-r2-artifacts/${lane}"
+            test "$(jq -r .ready_count /tmp/a0-r2-artifacts/${lane}/lane-index.r2.json)" -gt 0
+          done
+
+      - name: Reconstruct bounded repaired builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat scripts/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-r2/build.py.part* > /tmp/a0-direct-plugin-r2-build.py
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('/tmp/a0-direct-plugin-r2-build.py')
+          source = path.read_text(encoding='utf-8')
+          source = source.replace('ATLAS_EXTENSION_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/extensions/atlas-extension-r2-1.v1.json"','ATLAS_EXTENSION_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/extensions/r2-1/atlas-extension-map.r2-1.json"')
+          source = source.replace('    old_path = OLD_MANIFEST.format(lane=lane, slug=slug)\n','    old_slug = {"popular-listing": "popular", "unusual-listing": "unusual"}.get(slug, slug)\n    old_path = OLD_MANIFEST.format(lane=lane, slug=old_slug)\n')
+          source = source.replace('    print(pretty(index))\n\n\ndef api','    print(pretty(index))\n    if not ready:\n        raise AssertionError(f"LANE_ZERO_READY:{lane}:{blocked}")\n\n\ndef api')
+          old = 'json.loads(conformance_raw.splitlines()[-1])'
+          assert source.count(old) == 2
+          source = source.replace(old, 'json.loads(conformance_raw)')
+          needle = '        "bundle": bundle_record,\n        "runtime_shared_imports": 0,\n'
+          assert source.count(needle) == 1
+          source = source.replace(needle, '        "bundle": bundle_record,\n        "atlas_binding": data["atlas"],\n        "runtime_shared_imports": 0,\n')
+          path.write_text(source, encoding='utf-8')
+          PY
+          test "$(sha256sum /tmp/a0-direct-plugin-r2-build.py | awk '{print $1}')" = 327c4a11147e5d91dbe0db3dcdb5308b1767bc090ae7d5879b24ea8fe35b2439
+          python3 -m py_compile /tmp/a0-direct-plugin-r2-build.py
+
+      - name: Test, publish each bundle, and freeze terminal buffer
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 /tmp/a0-direct-plugin-r2-build.py publish \
+            --repo "$GITHUB_WORKSPACE" --artifacts /tmp/a0-r2-artifacts
