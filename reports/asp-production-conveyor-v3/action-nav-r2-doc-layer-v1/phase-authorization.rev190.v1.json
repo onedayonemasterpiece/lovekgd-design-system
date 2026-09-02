@@ -1,5 +1,5 @@
 {
-  "schema": "kenigevents.action-nav-phase-authorization-repair.v2",
+  "schema": "kenigevents.action-nav-phase-authorization-repair.v3",
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "supersedes_runtime": "V7_FIXED_REVN_188_PER_PHASE",
   "current_native_authority": {
@@ -57,10 +57,16 @@
     "package": "10/10 after package identity refresh",
     "newest_harness": "PASS 22 phases / 44 creates / replay 0"
   },
-  "v9_current_physical_marker": {
-    "accepted": "any exact current released/cancelled/mutation_in_flight=false/writer_released sole-writer marker",
-    "historical_actionnav_proof": "independent exact V7 root authorization plus known released marker SHA",
-    "intervening_owner_v4_phase2": "ACCEPTED_IF_EXACT_CURRENT_RELEASED",
+  "v10_current_physical_marker": {
+    "accepted": "raw literal plus SHA-256 exactly equal current physical marker; schema opaque; sole writer, inactive, cancelled-or-expired, mutation_in_flight=false, writer_released, released_at not future",
+    "continuation_fields": [
+      "current_physical_marker_literal",
+      "current_physical_marker_sha256"
+    ],
+    "sha256_scope": "RAW_UTF8_LITERAL",
+    "physical_prewrite_equality": "BYTE_EXACT",
+    "historical_actionnav_proof": "independent exact V7 root authorization plus known released marker SHA and docs 8/1/1",
+    "intervening_owner_v4_phase2": "ACCEPTED_IF_EXACT_CURRENT_LITERAL_AND_SHA",
     "active_unreleased_other_writer": "REJECT"
   }
 }

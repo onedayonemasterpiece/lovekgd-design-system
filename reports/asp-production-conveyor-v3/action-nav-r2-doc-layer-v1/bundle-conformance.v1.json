@@ -2,8 +2,8 @@
   "state": "D0_PLUGIN_BUNDLE_CONFORMANCE_V1_PASS",
   "package_id": "MAT-ACTION-NAV-R2-DOC-LAYER-REPAIR-R1",
   "bundle": "executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js",
-  "bundle_bytes": 50963,
-  "bundle_sha256": "4907ca3403aebcbb351cfa36f4eb1e63298b16cda02ea8c99e5f69e8d58f0e63",
+  "bundle_bytes": 51829,
+  "bundle_sha256": "c15dbcd9cba82f90e4dd64be1b2a6238cbb078615e1079b88783dc092d36a675",
   "global": "D0ActionNavDocumentationLayerV1",
   "entrypoints": {
     "projection": "projectActionNavDocLayer",
@@ -190,11 +190,19 @@
     "bytes": 22511,
     "sha256": "2ed8f7bffc84f74e16bd627c0191fffd3063d23897974f7d1b6826c7b417d333"
   },
-  "v9_phase_authorization": {
+  "v10_phase_authorization": {
     "initial_revn": "FRESH_CURRENT_REVN_MIN_190",
     "historical_v7_root_binding": "EXACT",
     "historical_v7_released_marker_sha256": "418d736a8876fd87332c83422727ab89fad5b5155a94c0696bbf473d86dae2ff",
-    "current_physical_marker": "ANY_EXACT_RELEASED_CANCELLED_MUTATION_FALSE_WRITER_RELEASED_SOLE_WRITER_TUPLE",
+    "current_physical_marker": "RAW_LITERAL_PLUS_SHA256_EXACT_PHYSICAL_EQUALITY_SCHEMA_AGNOSTIC",
+    "literal_field": "current_physical_marker_literal",
+    "sha256_scope": "RAW_UTF8_LITERAL",
+    "physical_prewrite_equality": "BYTE_EXACT",
+    "owner_v4_phase2_fixture": {
+      "receipt": 5511471375,
+      "schema": "kenigevents.asp-owner-review-index-authorization.v1",
+      "raw_literal_sha256": "9c48f01345e57fbccac0677714e2ffde2ea5a10c3df22d15fb610d20d3b3697c"
+    },
     "intervening_released_owner_marker_accepted": true,
     "active_or_unreleased_or_other_writer_rejected": true,
     "revn_only": true,
