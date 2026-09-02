@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_media_same_tuple_r3.js'
 RUNTIME = HERE / 'eventcard_media_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_media_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardMediaR3StandaloneV4'
+GLOBAL = 'KenigEventsD0EventcardMediaR3StandaloneV5'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {
@@ -128,16 +128,29 @@ function __assertBundleAuthorization(host) {{
 const __CONFORMANCE_NS = 'd0-eventcard-media-bundle-v1';
 const __CONFORMANCE_KEY = 'stable';
 function __conformanceWrite(node, value) {{ node.setSharedPluginData(__CONFORMANCE_NS, __CONFORMANCE_KEY, value); }}
-async function __conformanceProjection(host) {{ return {{schema:'D0_PLUGIN_BUNDLE_CONFORMANCE_PROJECTION_V1',pages:host.penpot.currentFile.pages.length,created:0}}; }}
-async function __conformanceExecution(host) {{
-  const page=host.penpot.currentFile.pages.find((item)=>item.name==='EventCard Media conformance');
-  if(!page) throw new Error('MEDIA_BUNDLE_CONFORMANCE_PAGE_MISSING'); await host.penpot.openPage(page);
-  const exists=page.root.children.some((item)=>item.getSharedPluginData(__CONFORMANCE_NS,__CONFORMANCE_KEY)==='media');
-  if(exists) return {{state:'DONE',terminal:true,created:0,replay_created:0}};
-  const marker=host.penpot.createRectangle();__conformanceWrite(marker,'media');page.root.appendChild(marker);
-  return {{state:'DONE',terminal:true,created:1}};
+async function __createNativeConformanceHost(seed) {{
+  const p=seed.penpot,node=seed.pluginNode;p.currentFile.id=M.FILE_ID;p.currentFile.revn=192;
+  const page=p.__seedPage(M.PAGE_ID);page.name='00 · Components · Free collection';
+  const collection=node(M.COLLECTION_ID,'board');collection.name='KenigEvents · G12 bounded L0-L3';page.root.appendChild(collection);
+  for(let index=0;index<M.CASES.length;index+=1){{
+    const spec=M.CASES[index],asset=M.SOURCE_ASSETS[spec.fixtureId],root=node(spec.rootId,'board'),parent=node(spec.parentGroupId,'group'),shape=node(spec.mediaShapeId,'rect');
+    root.name=spec.caseId;root.x=index*600;root.y=20;root.width=spec.width;root.height=spec.height;
+    parent.name='event.media-frame';parent.x=30+index;parent.y=40+index;parent.width=spec.width;parent.height=spec.height;
+    shape.name='image-content';shape.x=10+index;shape.y=11+index;shape.width=spec.width;shape.height=spec.height;shape.rotation=0;shape.flipX=false;shape.flipY=false;
+    const bytes=__BUNDLED_SOURCE_ASSETS[asset.sha256],image={{id:`seed-image-${{index}}`,name:asset.sourceAssetPath.split('/').at(-1),width:asset.width,height:asset.height,mtype:asset.mimeType,data:async()=>new Uint8Array(bytes)}};
+    let fills=[{{fillImage:image,fillOpacity:1,fillImageKeepAspectRatio:asset.fit==='contain'}}];Object.defineProperty(shape,'fills',{{enumerable:true,configurable:true,get:()=>fills,set:(value)=>{{fills=value;}}}});
+    parent.appendChild(shape);root.appendChild(parent);collection.appendChild(root);
+  }}
+  while(collection.children.length<18){{const index=collection.children.length,dummy=node(`media-dummy-${{index}}`,'board');dummy.name=`event.leaf.${{index}}`;dummy.x=index;dummy.y=0;dummy.width=1;dummy.height=1;collection.appendChild(dummy);}}
+  p.library.local.components=Array.from({{length:35}},(_,index)=>{{const target=index<18,name=target?(index<14?`event.leaf.${{index}}`:`eventcard.case.${{index}}`):`other.component.${{index}}`,main=node(`component-main-${{index}}`,'board');main.name=name;return {{id:`component-${{index}}`,name,path:`Path / ${{index}}`,mainInstance:()=>main}};}});
+  const rawUpload=p.uploadMediaData.bind(p);p.uploadMediaData=async(name,bytes,mimeType)=>{{const image=await rawUpload(name,bytes,mimeType),asset=Object.values(M.SOURCE_ASSETS).find((value)=>value.bytes===bytes.byteLength&&value.mimeType===mimeType);if(!asset)throw new Error('MEDIA_CONFORMANCE_ASSET_UNKNOWN');image.name=name;image.width=asset.width;image.height=asset.height;image.mtype=asset.mimeType;image.data=async()=>new Uint8Array(bytes);return image;}};
+  const host={{penpot:p,storage:seed.storage,exactPackageHead:'a'.repeat(40),exactPackageTree:'b'.repeat(40),exactBundleSha256:'c'.repeat(64),exactBundleBytes:1}};
+  await p.openPage(page);const projection=await projectEventcardMediaPenpotR3(__withEmbeddedAssets(host));
+  const provenance={{sessionId:'session-media-v5',taskId:'task-media-v5',writerId:SOLE_WRITER,triggeredBy:'d0-conformance-media-v5',cancelToken:'cancel-media-v5',leaseToken:'lease-media-v5',leaseExpiresAt:Date.now()+600000,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,bundleSha256:host.exactBundleSha256,bundleBytes:host.exactBundleBytes,revision:projection.revision,projectionSha256:projection.projectionSha256}};
+  host.authorization={{schema:AUTH_SCHEMA,packageId:M.PACKAGE_ID,parentPackageId:M.PARENT_PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,state:'ACTIVE',authorized:true,cancelled:false,sourceRegistrySha256:M.sourceRegistrySha256(),ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,triggeredBy:provenance.triggeredBy,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256,provenance}};
+  p.currentFile.setSharedPluginData(NAMESPACE,ACTIVE_KEY,M.canonical({{schema:ACTIVE_SCHEMA,state:'ACTIVE',authorized:true,cancelled:false,sessionId:provenance.sessionId,taskId:provenance.taskId,writerId:provenance.writerId,packageId:M.PACKAGE_ID,packageHead:host.exactPackageHead,packageTree:host.exactPackageTree,triggeredBy:provenance.triggeredBy,ownerDirective:OWNER_DIRECTIVE,authorityCardCommentId:AUTHORITY_CARD_COMMENT_ID,authorityScope:AUTHORITY_SCOPE,cancelToken:provenance.cancelToken,leaseToken:provenance.leaseToken,leaseExpiresAt:provenance.leaseExpiresAt,bundleSha256:provenance.bundleSha256,bundleBytes:provenance.bundleBytes,revision:provenance.revision,projectionSha256:provenance.projectionSha256}}));
+  return host;
 }}
-async function __conformanceSettlement(host) {{return {{state:'DONE',created:0,validation:host.penpot.currentFile.validate()}};}}
 const PUBLIC_API=Object.freeze({{
   metadata:Object.freeze({{
     schema:'D0_PLUGIN_BUNDLE_V1',package_id:M.PACKAGE_ID,bundle_sha256_binding:'EXTERNAL_AUTHORIZATION_TUPLE',
@@ -146,12 +159,12 @@ const PUBLIC_API=Object.freeze({{
     mutation_scope:'four existing media fills plus target-local string evidence',unknown_outcome:'DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY',
     embedded_assets:2
   }}),
-  projection:(host)=>host&&host.__d0BundleConformance===true?__conformanceProjection(host):projectEventcardMediaPenpotR3(__withEmbeddedAssets(host),host&&host.authorization||null),
-  execution:async(host)=>{{if(host&&host.__d0BundleConformance===true)return __conformanceExecution(host);__withEmbeddedAssets(host);__assertBundleAuthorization(host);const receipt=await executeEventcardMediaPenpotR3(host,host.authorization);host.receipt=receipt;return receipt;}},
-  settlement:(host)=>host&&host.__d0BundleConformance===true?__conformanceSettlement(host):readEventcardMediaPenpotSettlementR3(__withEmbeddedAssets(host),host&&host.receipt),
+  projection:(host)=>projectEventcardMediaPenpotR3(__withEmbeddedAssets(host),host&&host.authorization||null),
+  execution:async(host)=>{{__withEmbeddedAssets(host);__assertBundleAuthorization(host);const receipt=await executeEventcardMediaPenpotR3(host,host.authorization);if(receipt&&receipt.terminal===true)host.receipt=receipt;return receipt;}},
+  settlement:(host)=>readEventcardMediaPenpotSettlementR3(__withEmbeddedAssets(host),host&&host.receipt),
   conformance:Object.freeze({{
-    createHost:async(seed)=>{{const page=seed.penpot.__seedPage('eventcard-media-conformance-page');page.name='EventCard Media conformance';return {{penpot:seed.penpot,storage:seed.storage,__d0BundleConformance:true}};}},
-    prepareReplay:async(host,seed)=>({{penpot:seed.penpot,storage:seed.storage,__d0BundleConformance:true}}),
+    createHost:async(seed)=>__createNativeConformanceHost(seed),
+    prepareReplay:async(host,seed)=>({{penpot:seed.penpot,storage:seed.storage,exactPackageHead:host.exactPackageHead,exactPackageTree:host.exactPackageTree,exactBundleSha256:host.exactBundleSha256,exactBundleBytes:host.exactBundleBytes,authorization:host.authorization}}),
     strictStringProbe:async(host)=>{{const page=host.penpot.__seedPage('eventcard-media-string-probe');const values={{number:374,object:{{x:1}},boolean:true,null:null,undefined:void 0}},result={{string:'FAIL'}};__conformanceWrite(page,'374');result.string='PASS';for(const key of Object.keys(values)){{try{{__conformanceWrite(page,values[key]);result[key]='ACCEPTED';}}catch{{result[key]='REJECTED';}}}}return result;}}
   }}),
   constants:Object.freeze({{packageId:M.PACKAGE_ID,fileId:M.FILE_ID,pageId:M.PAGE_ID,collectionId:M.COLLECTION_ID,sourceAssets:M.SOURCE_ASSETS}}),
@@ -161,7 +174,7 @@ Object.defineProperty(global,'{GLOBAL}',{{value:PUBLIC_API,enumerable:true,confi
 }})(globalThis);
 """
 
-forbidden = [r'\brequire\s*\(', r'\bmodule\b', r'\bexports\b', r'\bprocess\b', r'\bBuffer\b', r'\bimport\s*\(', r'\bimport\s+']
+forbidden = [r'\brequire\s*\(', r'\bmodule\b', r'\bexports\b', r'\bprocess\b', r'\bBuffer\b', r'\bimport\s*\(', r'\bimport\s+', r'\bstructuredClone\s*\(', r'\bcrypto\.subtle\b', r'\b__d0BundleConformance\b']
 for pattern in forbidden:
     if re.search(pattern, bundle):
         raise SystemExit(f'forbidden token in generated bundle: {pattern}')

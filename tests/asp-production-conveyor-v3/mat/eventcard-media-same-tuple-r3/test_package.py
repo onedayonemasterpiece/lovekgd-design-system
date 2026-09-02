@@ -59,7 +59,7 @@ class PackageTest(unittest.TestCase):
 
     def test_media_authority_is_bounded_and_text_stays_blocked(self):
         preflight = self.package["native_preflight"]
-        self.assertEqual(preflight["authority_card_comment_id"], 5505976359)
+        self.assertEqual(preflight["authority_card_comment_id"], 5514360206)
         self.assertFalse(preflight["global_profile_override"])
         self.assertTrue(preflight["text_remains_blocked"])
         self.assertIn("EVENTCARD_MEDIA", preflight["owner_directive"])
@@ -68,7 +68,7 @@ class PackageTest(unittest.TestCase):
     def test_standalone_bundle_identity_assets_and_forbidden_runtime_tokens(self):
         meta = self.package["browser_plugin_bundle"]
         self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
-        self.assertEqual(meta["global"], "KenigEventsD0EventcardMediaR3StandaloneV4")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardMediaR3StandaloneV5")
         self.assertEqual(meta["embedded_exact_source_assets"], 2)
         self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
         self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
@@ -82,6 +82,10 @@ class PackageTest(unittest.TestCase):
         self.assertIn("async function nativeCoverageProof(context, mediaShapeId, rootId)", self.bundle)
         self.assertNotIn("context.nativeCoverageProof", self.bundle)
         self.assertNotIn("structuredClone", self.bundle)
+        self.assertNotIn("crypto.subtle", self.bundle)
+        self.assertNotIn("__d0BundleConformance", self.bundle)
+        self.assertIn("asp-active-run-v1", self.bundle)
+        self.assertNotIn("asp-physical-active-marker-v3", self.bundle)
         self.assertTrue(meta["zero_caller_injected_helpers"])
         self.assertIn("uploaded native ImageData.data is mandatory", (ROOT / meta["test"]["path"]).read_text(encoding="utf-8"))
 

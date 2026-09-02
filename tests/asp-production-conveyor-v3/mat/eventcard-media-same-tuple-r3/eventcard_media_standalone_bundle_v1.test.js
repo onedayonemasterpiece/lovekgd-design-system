@@ -11,7 +11,7 @@ const BUNDLE_SHA = crypto.createHash('sha256').update(BUNDLE_SOURCE).digest('hex
 const BUNDLE_BYTES = Buffer.byteLength(BUNDLE_SOURCE);
 const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocation'); }, console, Uint8Array, ArrayBuffer, DataView };
 sandbox.globalThis = sandbox; vm.createContext(sandbox); vm.runInContext(BUNDLE_SOURCE, sandbox, { filename:BUNDLE });
-const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV4;
+const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV5;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -111,7 +111,7 @@ class Fixture {
   }
 
   authorize(projection) {
-    const provenance = { sessionId: 'session-01a0581e', taskId: 'task-eventcard-media-r3', writerId: '/root/publish',
+    const provenance = { sessionId: 'session-01a0581e', taskId: 'task-eventcard-media-r3', writerId: '/root/publish_r2',
       packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE, triggeredBy: 'issue-57-morning-media',
       pageProfileSha256: this.context.pageProfile.profileSha256, ownerDirective: R.OWNER_DIRECTIVE,
       authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID, authorityScope: R.AUTHORITY_SCOPE,
@@ -139,6 +139,17 @@ class Fixture {
   }
 }
 
+async function executeAll(fixture, projection) {
+  fixture.authorize(projection);
+  let receipt;
+  for (let phase = 0; phase < 4; phase += 1) {
+    receipt = await API.execution(fixture.context);
+    assert.ok(receipt.created <= 1);
+    if (receipt.terminal === true) return receipt;
+  }
+  throw new Error('MEDIA_TEST_DID_NOT_TERMINATE');
+}
+
 test('fresh concrete read activates exact page and hashes ImageData.data for all four exact targets', async () => {
   const fixture = new Fixture();
   const projection = await API.projection(fixture.context);
@@ -154,7 +165,7 @@ test('executes four exact in-place fills, verifies pre/post bytes, settles cover
   const fixture = new Fixture(), before = await API.projection(fixture.context);
   const geometry = before.rows.map((row) => [row.rootId, row.mediaShapeId, row.parentGroupId, row.bounds,
     row.localCoordinates, row.parentCoordinates, row.transform, row.rotation, row.horizontalFlip, row.verticalFlip, row.fit, row.focal]);
-  const receipt = await (fixture.authorize(before), API.execution(fixture.context));
+  const receipt = await executeAll(fixture, before);
   assert.equal(receipt.mediaFillMutations, 4); assert.equal(receipt.evidenceMutations, 16);
   assert.equal(receipt.nativeMutationCalls, 24); assert.equal(fixture.uploads.length, 4);
   assert.equal(fixture.fillWrites.length, 4); assert.equal(fixture.evidenceWrites.length, 16);
@@ -165,7 +176,7 @@ test('executes four exact in-place fills, verifies pre/post bytes, settles cover
   assert.equal(after.rows.every((row) => row.nativeImageDataReadback.sha256 === M.SOURCE_ASSETS[row.fixtureId].sha256), true);
   const settlement = await API.settlement(fixture.context);
   assert.equal(settlement.rows, 4); assert.equal(settlement.readbackMutations, 0);
-  const replay = await (fixture.authorize(after), API.execution(fixture.context));
+  const replay = await API.execution(fixture.context);
   assert.equal(replay.state, 'REPLAY_NOOP'); assert.equal(replay.secondRunCreated, 0);
   assert.equal(fixture.uploads.length, 4);
 });
@@ -254,7 +265,7 @@ test('Text authority cannot authorize Media and current-page activation is lease
 test('strict shared plugin data and bundled native coverage reject an opaque overlay at settlement', async () => {
   const fixture = new Fixture();
   for (const value of [374, {}, true, null, undefined]) assert.throws(() => fixture.file.setSharedPluginData('x', 'y', value), TypeError);
-  const projection = await API.projection(fixture.context), receipt = await (fixture.authorize(projection), API.execution(fixture.context));
+  const projection = await API.projection(fixture.context), receipt = await executeAll(fixture, projection);
   const shape = fixture.mediaShapes.get(M.CASES[0].mediaShapeId);
   shape.parent.children.push({ id:'opaque-overlay', type:'rect', x:shape.x, y:shape.y, width:shape.width, height:shape.height,
     fills:[{fillColor:'#000000',fillOpacity:1}], children:[], parent:shape.parent, visible:true, hidden:false, opacity:1 });
@@ -274,6 +285,6 @@ test('bundle owns concrete coverage proof; no caller helper is injected', async 
     assert.equal(proof.sourceSha256,M.SOURCE_ASSETS[row.fixtureId].sha256);
     assert.equal(proof.proof,'NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1');
   }
-  const receipt = await (fixture.authorize(projection), API.execution(fixture.context));
+  const receipt = await executeAll(fixture, projection);
   assert.equal(receipt.mediaFillMutations,4);
 });

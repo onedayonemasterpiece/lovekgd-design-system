@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 502132,
+      "bytes": 510237,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "4a486d7b3c4db4d8fd20f20d9f3712513f05bb8ff1ce2e280fe63e2962db948c"
+      "sha256": "128efa06ebdf5e1acf46ab3d3ea07c045c6cbfae1426230beb178af733ccba9d"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 10513,
+      "bytes": 14391,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "ae74f3ed3dd867dc65d4eb0a7ab184b8bae6eafdd17388bee97dccfdb2521edb"
+      "sha256": "019f44f3614ec41f717e930af95760086fb976d6c872dcdeb0a5a24acac584fe"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,10 +34,10 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3StandaloneV4",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV5",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
-    "portable_plain_data_clone": "owned plainDataClone in logic and native adapter; global structuredClone identifier absent",
+    "portable_plain_data_clone": "owned plainDataClone; global structuredClone identifier absent",
     "replay_created": 0,
     "runtime_forbidden_tokens": [
       "require",
@@ -47,22 +47,25 @@
       "Buffer",
       "filesystem",
       "static import",
-      "dynamic import"
+      "dynamic import",
+      "structuredClone",
+      "crypto.subtle",
+      "TextEncoder"
     ],
     "schema": "D0_PLUGIN_BUNDLE_V1",
     "shared_conformance": {
       "branch": "agent/d0-plugin-bundle-conformance-v1-20260902",
-      "head": "ee6f563af73f7262f5e4aa38e2044b25b5139f24",
+      "head": "62f26df36b8199e4b8899b9252f796b1fa5e9d42",
       "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
       "receipt_comment": 5509766689,
-      "result": "PASS_NATIVE_RUNTIME_NEGATIVE",
-      "tree": "300d3075424cd7cd1bae9542eea533af855b3a13"
+      "result": "PASS_REAL_PRODUCTION_ENTRYPOINTS_4_PHASES_4_CREATES_REPLAY_ZERO",
+      "tree": "23bc8ef208c9e68e76890183fdda15c1a60f5fbd"
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 19202,
+      "bytes": 19423,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "ab0055ea7b6f15f8b92d1e0f9667be172d18dc7f65b92a206c71f65a40280323"
+      "sha256": "a386f6ddd714d011b6c47b7ef42b59f5d1016f4fc174d913ccb792813c39479b"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY",
     "native_coverage_reader": {
@@ -80,9 +83,20 @@
     },
     "uploaded_image_data_preflight": "uploadMediaData result must expose callable ImageData.data(); exact bytes/SHA verified before fill setter",
     "zero_caller_injected_helpers": true,
-    "physical_active_reader": "currentFile.getSharedPluginData(namespace, active-key); concrete inside bundle"
+    "physical_active_reader": "currentFile.getSharedPluginData('kenigevents','asp-active-run-v1'); sole exact physical run-control source",
+    "conformance_production_entrypoints": true,
+    "conformance_authorization_bypass": false,
+    "phased_execution": {
+      "max_native_creates_per_invocation": 1,
+      "first_run_phases": 4,
+      "first_run_creates": 4,
+      "replay_phases": 1,
+      "replay_creates": 0,
+      "durable_progress_key": "eventcard-media-same-tuple-r3-progress",
+      "unknown_generic_retry": false
+    }
   },
-  "defect_closed": "GLOBAL_STRUCTUREDCLONE_ILLEGAL_INVOCATION_PLUS_INCOMPLETE_AUTH_PROVENANCE_PHYSICAL_ACTIVE_PARITY",
+  "defect_closed": "CONFORMANCE_BYPASS_PLUS_CRYPTO_SUBTLE_PLUS_NONPHASED_MEDIA_PLUS_STALE_ACTIVE_AUTHORITY",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -93,14 +107,14 @@
       "exact current revision",
       "fresh four-target native projection SHA-256",
       "source registry SHA-256",
-      "current blocked profile SHA-256 plus exact bounded Media owner directive",
       "triggered_by/session/task/sole-writer/cancel/lease tuple",
       "exact standalone bundle SHA-256 and byte count",
-      "full authorization ↔ provenance ↔ physical ACTIVE parity for cancel/bundle/revision/projection"
+      "full authorization ↔ provenance ↔ physical ACTIVE parity for cancel/bundle/revision/projection",
+      "current D0 shift marker 5514360206, Media-only authority and sole writer /root/publish_r2"
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV4",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV5",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -111,9 +125,9 @@
     ],
     "image_data_contract": "await ImageData.data() and verify exact bytes/SHA before authorization and after every upload/fill",
     "media_fill_mutations": 4,
-    "native_mutation_calls": 25,
-    "physical_active_recheck": "concrete currentFile shared-plugin-data ACTIVE reader; exact cancelToken, bundle SHA/bytes, revision, projection SHA and provenance parity before activation/upload/ImageData.data/fill/evidence/receipt",
-    "pre_mutation_coverage_capability_required": "bundled concrete native reader invoked for all four targets before first upload; no caller helper",
+    "native_mutation_calls": "6 per target phase plus durable progress; 24 target calls total plus progress/receipt strings",
+    "physical_active_recheck": "sole currentFile asp-active-run-v1; full exact cancel/bundle/revn/initial-projection/authority/provenance parity",
+    "pre_mutation_coverage_capability_required": "bundled exact native reader; no caller helper",
     "projection_entrypoint": "projectEventcardMediaPenpotR3",
     "publisher_bespoke_rebundle": false,
     "same_tuple": true,
@@ -122,8 +136,9 @@
     "source_asset_delivery": "two exact WebP byte arrays embedded in the standalone artifact",
     "source_evidence_mutations": 16,
     "transform_contract": "official ShapeBase has no transform field; native null is truthful; exact rotation/flip are mandatory",
-    "unknown_outcome": "STOP; distinct read-only four-target projection; no blind retry",
-    "uploaded_image_data": "4; each uploadMediaData result exact ImageData.data bytes/SHA read before fill setter"
+    "unknown_outcome": "durable UNKNOWN; reject generic retry; distinct read-only recovery decision required",
+    "uploaded_image_data": "4; each uploadMediaData result exact ImageData.data bytes/SHA read before fill setter",
+    "phased_cursor": "durable UNKNOWN -> PARTIAL_CONFIRMED/DONE; one target per invocation"
   },
   "native_observation": {
     "image_data_identity_contract": "capture exact opaque native id/name/intrinsics/mtype in preflight; do not invent unavailable IDs in Git",
@@ -197,8 +212,8 @@
     ]
   },
   "native_preflight": {
-    "authority_card_comment_id": 5505976359,
-    "authority_card_scope": "EVENTCARD_TEXT_ONLY; explicitly lists Media as unblocked",
+    "authority_card_comment_id": 5514360206,
+    "authority_card_scope": "D0_CONTINUOUS_SHIFT_ACTIVE:EVENTCARD_MEDIA_PHASED_RECOVERY_ONLY",
     "collection_id": "313fb1ed-0d5c-8095-8008-9108df52b2ce",
     "eventcard_components": 18,
     "exact_roots": 4,
@@ -207,14 +222,17 @@
     "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
     "file_local_components": 35,
     "global_profile_override": false,
-    "owner_directive": "MORNING_PRODUCTION_SHIFT:EVENTCARD_MEDIA_AFTER_EXACT_AUTHORIZATION",
+    "owner_directive": "D0_CONTINUOUS_PRODUCTION_SHIFT_V3:EVENTCARD_MEDIA_PHASED_EXACT_AUTHORIZATION",
     "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
     "required_distinct_coverage_readback": "bundled NATIVE_FILL_IMAGEDATA_GEOMETRY_AND_Z_ORDER_V1; KNOWN_PASS; uncoveredPixels=0; opaqueOverlays=0; exact source SHA-256",
     "source_registry_sha256": "evidence computed by sourceRegistrySha256() and bound to authorization",
     "text_remains_blocked": true,
     "validation": [],
     "caller_injected_readNativeCoverage": false,
-    "upload_media_data_contract": "returned ImageData must expose data(); exact bytes/SHA before fill setter"
+    "upload_media_data_contract": "returned ImageData must expose data(); exact bytes/SHA before fill setter",
+    "active_marker_key": "asp-active-run-v1",
+    "active_marker_schema": "kenigevents.asp-run-control.v1",
+    "sole_writer": "/root/publish_r2"
   },
   "package_id": "MAT-EVENTCARD-MEDIA-SAME-TUPLE-EXECUTION-R3",
   "packaged_assets": {
@@ -314,17 +332,23 @@
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
     "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.test.js",
-    "native_like_cases": 8,
+    "native_like_cases": 9,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.test.js",
-    "node_total_cases": 16,
+    "node_total_cases": 28,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-    "standalone_bundle_cases": 9
+    "standalone_bundle_cases": 11
   },
   "tests_v4": {
     "global_structuredClone_illegal_invocation": "PASS; exact bundle contains zero structuredClone identifiers",
     "wrong_or_missing_cancel_bundle_revision_projection": "10 zero-native-write negative cases PASS",
     "zero_caller_helpers": "PASS",
     "native_runtime_and_bundle": "20/20 PASS expected after combined run"
+  },
+  "tests_v5": {
+    "real_production_entrypoints_conformance": "PASS 4 phases/4 creates; replay 1/0",
+    "portable_runtime": "PASS without structuredClone, crypto.subtle, TextEncoder or Node built-ins",
+    "durable_unknown_guard": "PASS; second generic invocation creates zero",
+    "full_active_authority": "PASS; asp-active-run-v1, current shift, sole writer, revn-only"
   }
 }
