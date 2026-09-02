@@ -45,20 +45,20 @@
       "sha256": "241c847a79c09a18be91ef26f4096e0fbfa74aff647c83520059fb5df960e922"
     },
     "template": {
-      "bytes": 23388,
-      "git_blob_sha1": "dfbc392de35bcc0767230a484a4b4509597aff39",
+      "bytes": 23401,
+      "git_blob_sha1": "a2b4dd9100c383956e62e519aa1ac4e1374e9fcc",
       "path": "scripts/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/discovery_rails_r21_bundle.template.js",
-      "sha256": "13edaa1caa6c030b77765525a6537fa5ce7af5df9ed4a6b49665852c0d3fc3b7"
+      "sha256": "81ee0939c2b880c4e299fa8a184b741228a9c599f32f97331b958d54039d43e3"
     },
     "test": {
-      "bytes": 8779,
-      "git_blob_sha1": "050ca81e32c883c916022e0630351e9f0f3f627b",
+      "bytes": 9227,
+      "git_blob_sha1": "61fb66807eed1682e0f50cfea7ec349636c75a0d",
       "path": "tests/asp-production-conveyor-v3/u0/shared-patterns/discovery-rails-r21/discovery_rails_r21_standalone_bundle_v1.test.mjs",
-      "sha256": "33462913164cb6927bf7e0c0594498a94d3e9c05aa090697d009b0964bbba953"
+      "sha256": "216c2a57996931899201e1e5b100d5269780974d347d82a3acd0f653a4012fc3"
     }
   },
   "bundle": {
-    "bytes": 35190,
+    "bytes": 35203,
     "current_page_activation": true,
     "entrypoints": {
       "execution": "execution",
@@ -66,8 +66,8 @@
       "settlement": "settlement"
     },
     "forbidden_runtime_modules": true,
-    "git_blob_sha1": "b4569d784823d1077bf1eb98c505db5f80be3004",
-    "global": "KenigEventsD0SharedPatternsDiscoveryRailsR21V3",
+    "git_blob_sha1": "97d7e8b4448467efd35e55f91d17eb11443a19dd",
+    "global": "KenigEventsD0SharedPatternsDiscoveryRailsR21V4",
     "max_creates_per_phase": 3,
     "observed_test_native_creates": 24,
     "observed_test_phases": 23,
@@ -78,7 +78,7 @@
     "runtime_global_TextEncoder_required": false,
     "runtime_global_crypto_required": false,
     "schema": "D0_PLUGIN_BUNDLE_V1",
-    "sha256": "e598a2997c0c90ab188977a4c1211160689f009b490b2fad6f6505d5d0fd1d4a",
+    "sha256": "d5f48bd6ae8a46bcfb52102958d6e517de71b9e90a8b1613b91f212e7d39febd",
     "shared_conformance": "PASS"
   },
   "execution": {
@@ -104,7 +104,8 @@
     "protected_projection_sha256": true,
     "sole_writer": "/root/publish_r2",
     "strict_string_plugin_data": true,
-    "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY"
+    "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY",
+    "authorization_lease_token_parity": "authorization.leaseToken === authorization.provenance.leaseToken === physical ACTIVE leaseToken; wrong/missing fails before create"
   },
   "package_id": "U-SHARED-PATTERNS-DISCOVERY-RAILS-ATLAS-R2-1",
   "physical_page": {
@@ -184,6 +185,6 @@
     "D0_PLUGIN_BUNDLE_CONFORMANCE_V1": "PASS",
     "deterministic_regeneration": "PASS",
     "native_globals_negative": "PASS",
-    "native_like": "4/4_PASS"
+    "native_like": "5/5_PASS"
   }
 }

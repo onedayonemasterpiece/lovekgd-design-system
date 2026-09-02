@@ -9,7 +9,7 @@ class TestPackage(unittest.TestCase):
  def test_geometry_and_product_census(self):
   q=self.p['physical_page'];self.assertEqual(q['header'],[64,64,2048,128]);self.assertEqual(q['master'],[64,256,448,220]);self.assertEqual(q['state_grid'],{'cell_height':280,'cell_width':400,'column_gap':32,'columns':3,'x':576});self.assertEqual(self.p['product']['linked_specimens'],3);self.assertEqual(self.p['product']['placeholders'],0)
  def test_bundle_identity(self):
-  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V3');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
+  b=self.p['bundle'];self.assertEqual(len(self.b),b['bytes']);self.assertEqual(hashlib.sha256(self.b).hexdigest(),b['sha256']);self.assertEqual(b['global'],'KenigEventsD0SharedPatternsDiscoveryRailsR21V4');self.assertEqual(b['max_creates_per_phase'],3);self.assertEqual(b['replay_created'],0)
   for x in ['require','module','exports','process','Buffer','crypto','TextEncoder']: self.assertIsNone(re.search(rf'\b{x}\b',self.s))
   self.assertTrue(b['portable_sha256']);self.assertTrue(b['portable_utf8']);self.assertFalse(b['runtime_global_crypto_required']);self.assertFalse(b['runtime_global_TextEncoder_required'])
  def test_active_and_unknown_contract(self):

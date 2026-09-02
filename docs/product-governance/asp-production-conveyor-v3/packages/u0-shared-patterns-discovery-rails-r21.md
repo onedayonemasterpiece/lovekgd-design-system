@@ -10,4 +10,6 @@ Git QA/INTEGRATE does not authorize Penpot mutation. The sole writer still requi
 
 The V2 authorization envelope additionally binds the exact Atlas page ID and three semantic slots, Atlas head/tree provenance, sole writer `/root/publish_r2`, D0 session/task/trigger identities and cancel-token parity between authorization provenance and the physical ACTIVE marker.
 
-V3 owns its deterministic UTF-8 encoder and SHA-256 implementation. Native projection does not depend on `crypto`, `crypto.subtle`, `TextEncoder`, Node built-ins or repository imports; tests execute with those globals explicitly absent.
+V4 owns its deterministic UTF-8 encoder and SHA-256 implementation. Native projection does not depend on `crypto`, `crypto.subtle`, `TextEncoder`, Node built-ins or repository imports; tests execute with those globals explicitly absent.
+
+V4 additionally requires exact `authorization.leaseToken` parity with provenance and the physical ACTIVE marker; wrong or missing authorization lease tokens fail before every create.
