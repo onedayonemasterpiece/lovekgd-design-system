@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 498247,
+      "bytes": 498555,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "3450a1f73be46c6d383bf2bb6a08b95793a1976d87896a1f7df3a9a21630b62c"
+      "sha256": "5b46dc6f28b0a765bf9d059792b6368519b57a796e90f3d2a1881116a23575af"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 10507,
+      "bytes": 10815,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "71d8fdcec0b15250c7d7c5260955dbdb4b5069735af17f51eb9fe2920f112756"
+      "sha256": "a6f44d5d28f23dd7206c0c13e58b82939d6951a35389fbf624f5019e342c37b0"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,8 +34,10 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3Bundle",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV2",
     "max_creates_per_phase": 3,
+    "penpot_structured_clone_invoked": false,
+    "portable_plain_data_clone": true,
     "replay_created": 0,
     "runtime_forbidden_tokens": [
       "require",
@@ -58,13 +60,13 @@
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 15996,
+      "bytes": 16056,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "fc8960284da9a6ac4cd7d03b6d281000bb2f80119684b97d2b57dbbacb755c59"
+      "sha256": "c4c4eea3b16ed3af33715ef4d1d96ceae1193cff5685a141d9cb6d6b38bda569"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY"
   },
-  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_CONCRETE_EXECUTION_COVERAGE_PREFLIGHT_AND_DIRECT_PLUGIN_CALLABILITY_GAP",
+  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_CONCRETE_EXECUTION_COVERAGE_PREFLIGHT_DIRECT_PLUGIN_CALLABILITY_AND_PENPOT_STRUCTUREDCLONE_INVOCATION_GAP",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -82,7 +84,7 @@
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3Bundle",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV2",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
