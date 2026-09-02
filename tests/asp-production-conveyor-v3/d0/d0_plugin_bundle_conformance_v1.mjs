@@ -150,6 +150,8 @@ function buildInstrumentedPenpot() {
     revn: 1,
     pages,
     validate: () => [],
+    findVersions: async () => [],
+    saveVersion: async () => invariant(false, 'ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN'),
   };
   // Penpot's native file API exposes `revn`. A writable `revision` alias made
   // stale test doubles pass while the same bundle failed in the sole writer.
@@ -334,6 +336,9 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   });
   invariant(host && host.penpot === instrumented.penpot, 'CONFORMANCE_HOST_MUST_USE_INSTRUMENTED_PENPOT');
   invariant(host.storage === storage, 'CONFORMANCE_HOST_MUST_USE_PROVIDED_STORAGE');
+  invariant(host.dependencies === undefined, 'CONFORMANCE_HOST_INJECTED_DEPENDENCIES');
+  invariant(host.localStorage === undefined, 'CONFORMANCE_HOST_INJECTED_LOCAL_STORAGE');
+  invariant(host.readActiveMarker === undefined, 'CONFORMANCE_HOST_INJECTED_ACTIVE_READER');
   invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
   invariant(instrumented.penpot.currentFile.revision === undefined, 'NATIVE_REVISION_ALIAS_FORBIDDEN');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
@@ -442,6 +447,18 @@ async function selfTest() {
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
         'async createHost(seed){seed.penpot.currentFile.revision=1;return {penpot:seed.penpot,storage:seed.storage};}',
       ), /NATIVE_REVISION_ALIAS_FORBIDDEN/u],
+      ['caller-dependencies', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage,dependencies:{}};}',
+      ), /CONFORMANCE_HOST_INJECTED_DEPENDENCIES/u],
+      ['caller-active-reader', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage,readActiveMarker(){return {}}};}',
+      ), /CONFORMANCE_HOST_INJECTED_ACTIVE_READER/u],
+      ['save-version', source.replace(
+        'async function settlement(host){return {validation:host.penpot.currentFile.validate(),created:0};}',
+        'async function settlement(host){await host.penpot.currentFile.saveVersion("forbidden");return {validation:host.penpot.currentFile.validate(),created:0};}',
+      ), /ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN/u],
     ];
     for (const [name, body, error] of nativeGlobalCases) {
       const badPath = join(directory, `${name}.js`);
