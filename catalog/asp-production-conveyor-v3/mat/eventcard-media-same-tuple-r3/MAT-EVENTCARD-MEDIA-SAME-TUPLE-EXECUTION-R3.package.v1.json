@@ -9,7 +9,62 @@
     "visual_pass": false,
     "whole_eventcard_pass": false
   },
-  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_AND_CONCRETE_EXECUTION_GAP",
+  "browser_plugin_bundle": {
+    "artifact": {
+      "bytes": 498247,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
+      "sha256": "3450a1f73be46c6d383bf2bb6a08b95793a1976d87896a1f7df3a9a21630b62c"
+    },
+    "browser_penpot_vm_load": true,
+    "builder": {
+      "bytes": 10507,
+      "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
+      "sha256": "71d8fdcec0b15250c7d7c5260955dbdb4b5069735af17f51eb9fe2920f112756"
+    },
+    "bundle_authorization_binding": [
+      "exact bundle SHA-256",
+      "exact bundle byte count",
+      "authorization provenance same tuple"
+    ],
+    "coverage_reader_preflight": true,
+    "current_page_activation": true,
+    "embedded_exact_source_assets": 2,
+    "entrypoints": {
+      "execution": "execution",
+      "projection": "projection",
+      "settlement": "settlement"
+    },
+    "global": "KenigEventsD0EventcardMediaR3Bundle",
+    "max_creates_per_phase": 3,
+    "replay_created": 0,
+    "runtime_forbidden_tokens": [
+      "require",
+      "module",
+      "exports",
+      "process",
+      "Buffer",
+      "filesystem",
+      "static import",
+      "dynamic import"
+    ],
+    "schema": "D0_PLUGIN_BUNDLE_V1",
+    "shared_conformance": {
+      "branch": "agent/d0-plugin-bundle-conformance-v1-20260902",
+      "head": "9ab3696f1053ba41ecd4ac7bf1f52ef3427d145b",
+      "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
+      "receipt_comment": 5509766689,
+      "result": "PASS",
+      "tree": "f0603efe12801a9beb3a156eefd8bff12544246b"
+    },
+    "single_javascript_artifact": true,
+    "test": {
+      "bytes": 15996,
+      "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
+      "sha256": "fc8960284da9a6ac4cd7d03b6d281000bb2f80119684b97d2b57dbbacb755c59"
+    },
+    "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY"
+  },
+  "defect_closed": "NATIVE_IMAGE_BYTES_SEMANTIC_EVIDENCE_CONCRETE_EXECUTION_COVERAGE_PREFLIGHT_AND_DIRECT_PLUGIN_CALLABILITY_GAP",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -21,10 +76,13 @@
       "fresh four-target native projection SHA-256",
       "source registry SHA-256",
       "current blocked profile SHA-256 plus exact bounded Media owner directive",
-      "triggered_by and session/task/sole-writer/lease tuple"
+      "triggered_by and session/task/sole-writer/lease tuple",
+      "exact standalone bundle SHA-256 and byte count",
+      "bundle SHA-256 and byte count repeated in authorization provenance"
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3Bundle",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -39,9 +97,11 @@
     "physical_active_recheck": "before current-page activation, uploadMediaData, uploaded ImageData.data(), each fill setter, each string evidence setter, and durable receipt marker",
     "pre_mutation_coverage_capability_required": true,
     "projection_entrypoint": "projectEventcardMediaPenpotR3",
+    "publisher_bespoke_rebundle": false,
     "same_tuple": true,
     "second_run_created": 0,
     "settlement_entrypoint": "readEventcardMediaPenpotSettlementR3",
+    "source_asset_delivery": "two exact WebP byte arrays embedded in the standalone artifact",
     "source_evidence_mutations": 16,
     "transform_contract": "official ShapeBase has no transform field; native null is truthful; exact rotation/flip are mandatory",
     "unknown_outcome": "STOP; distinct read-only four-target projection; no blind retry",
@@ -237,6 +297,8 @@
     "native_like_cases": 8,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.test.js",
     "node_total_cases": 16,
-    "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py"
+    "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py",
+    "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
+    "standalone_bundle_cases": 9
   }
 }
