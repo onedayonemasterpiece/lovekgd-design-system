@@ -1,0 +1,72 @@
+name: A0 authoritative direct-plugin route buffer v1
+
+on:
+  push:
+    branches:
+      - a0/direct-plugin-route-buffer-v1-20260902
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: a0-direct-plugin-route-buffer-v1
+  cancel-in-progress: false
+
+jobs:
+  build-publish:
+    if: github.event.head_commit.message == 'ci(a0): execute authoritative direct-plugin route buffer'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build, test and publish package-local bundles
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/asp-production-conveyor-v3/a0/direct-plugin-route-bundles/run_authoritative_sprint.py
+
+      - name: Durable success summary
+        run: |
+          terminal='catalog/asp-production-conveyor-v3/a0/direct-plugin-route-bundles/A0_DIRECT_PLUGIN_ROUTE_BUFFER_READY.v1.json'
+          {
+            echo '## A0 direct-plugin route buffer'
+            echo
+            echo "- state: \`$(jq -r .state "$terminal")\`"
+            echo "- bundles ready: \`$(jq -r .bundles_ready "$terminal")\`"
+            echo "- branch: \`${GITHUB_REF_NAME}\`"
+            echo "- head: \`$(git rev-parse HEAD)\`"
+            echo "- tree: \`$(git rev-parse 'HEAD^{tree}')\`"
+            echo '- Penpot reads/mutations: `0/0`'
+            echo '- next owner: `D0_CONTINUOUS_INTAKE`'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish fail-closed incident
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(cat <<EOF
+          <!-- ASP_CONVEYOR_INCIDENT_V3 -->
+          ## A0 direct-plugin route bundle conversion incident
+
+          \`\`\`yaml
+          state: A0_DIRECT_PLUGIN_ROUTE_BUFFER_REPAIR
+          branch: ${GITHUB_REF_NAME}
+          triggering_head: ${GITHUB_SHA}
+          workflow_run: ${GITHUB_RUN_ID}
+          rule: FAIL_CLOSED_NO_READY_CLAIM
+          factual_package_bytes_changed: 0
+          route_registry_changed: false
+          atlas_changed: false
+          penpot_reads: 0
+          penpot_mutations: 0
+          kaggle: false
+          \`\`\`
+          EOF
+          )"
+          gh api "repos/${GITHUB_REPOSITORY}/issues/57/comments" -f body="$body"
