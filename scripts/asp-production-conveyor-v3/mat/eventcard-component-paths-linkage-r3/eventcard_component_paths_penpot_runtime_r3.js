@@ -16,6 +16,9 @@ const ACTIVE_SCHEMA = 'kenigevents.asp-physical-active-marker.v3';
 const RUNTIME_SCHEMA = 'kenigevents.eventcard-paths-penpot-runtime.r3';
 const HEX40 = /^[0-9a-f]{40}$/;
 const HEX64 = /^[0-9a-f]{64}$/;
+const OWNER_DIRECTIVE = 'MORNING_PRODUCTION_SHIFT:EVENTCARD_PATHS_AFTER_EXACT_AUTHORIZATION';
+const AUTHORITY_CARD_COMMENT_ID = 5505976359;
+const AUTHORITY_SCOPE = 'EVENTCARD_PATHS_ONLY';
 
 const array = (value) => Array.from(value || []);
 const children = (shape) => array(shape?.children);
@@ -108,7 +111,12 @@ async function activateExactPage(context, requireLease = null) {
 
 function nativeAdapter(context, page) {
   const { penpot } = context;
-  const components = array(penpot.library?.local?.components);
+  const fileLocalComponents = array(penpot.library?.local?.components);
+  const targetNames = new Set(M.SPECS.map((spec) => spec.displayName));
+  // The file contains 35 local components. Only the exact 18 EventCard
+  // namespace members belong to this package; the other 17 are protected.
+  const components = fileLocalComponents.filter((component) => targetNames.has(component?.name));
+  const otherComponents = fileLocalComponents.filter((component) => !targetNames.has(component?.name));
   const pageRoots = children(page.root);
   const roots = pageRoots.filter((shape) => String(shape?.id || '') === M.COLLECTION_ID);
   const board = roots[0];
@@ -116,14 +124,21 @@ function nativeAdapter(context, page) {
   const protectedDigest = M.sha256({
     fileId: M.FILE_ID, pageId: M.PAGE_ID,
     shapes: allShapes.map(shapeProjection).sort((a, b) => a.id.localeCompare(b.id)),
-    components: components.map((component) => {
+    components: fileLocalComponents.map((component) => {
       const main = mainOf(component);
       // LibraryComponent.path is intentionally excluded: this is the path-only
       // repair's protected geometry/text/media/ID projection.
+      const target = targetNames.has(component?.name);
       return { id: String(component?.id || ''), name: component?.name ?? null,
-        mainId: String(main?.id || ''), mainName: main?.name ?? null };
+        mainId: String(main?.id || ''), mainName: main?.name ?? null,
+        path: target ? undefined : String(component?.path ?? '') };
     }).sort((a, b) => a.id.localeCompare(b.id)),
   });
+  const protectedOtherComponentsDigest = M.sha256(otherComponents.map((component) => {
+    const main = mainOf(component);
+    return { id: String(component?.id || ''), name: component?.name ?? null,
+      path: String(component?.path ?? ''), mainId: String(main?.id || ''), mainName: main?.name ?? null };
+  }).sort((a, b) => a.id.localeCompare(b.id)));
   const visibleProductLabelsDigest = M.sha256(visibleLabelsProjection(page));
   const validation = penpot.currentFile.validate?.();
   const normalizedValidation = Array.isArray(validation) ? validation : validation == null ? [] : array(validation);
@@ -139,6 +154,9 @@ function nativeAdapter(context, page) {
         roots: pageRoots.length, children: children(board).length, components: components.length,
         detached: 0, clones: 0, recreated: 0, validation: normalizedValidation,
         protectedDigest, visibleProductLabelsDigest,
+        fileLocalComponents: fileLocalComponents.length,
+        protectedOtherComponents: otherComponents.length,
+        protectedOtherComponentsDigest,
       };
     },
     components() {
@@ -166,6 +184,7 @@ function nativeAdapter(context, page) {
     get componentObjects() { return byId; },
     protectedDigest,
     visibleProductLabelsDigest,
+    protectedOtherComponentsDigest,
   };
 }
 
@@ -187,15 +206,18 @@ async function projectEventcardPathsPenpotR3(context, expectedState = 'any') {
 function assertAuthorizationEnvelope(context, authorization) {
   const profile = context.pageProfile;
   if (!profile || profile.profileId !== 'free-collection.owner-review.v1' ||
-      profile.state !== 'ACTIVE' || profile.allowedToMutatePenpot !== true ||
+      profile.state !== 'BLOCKED_OWNER_REJECTED' || profile.allowedToMutatePenpot !== false ||
       !HEX64.test(String(profile.profileSha256 || ''))) {
-    fail('PATHS_R3_ACTIVE_PAGE_PROFILE_DOES_NOT_AUTHORIZE_MUTATION');
+    fail('PATHS_R3_EXPECTED_OWNER_REJECTED_PROFILE_TUPLE_DRIFT');
   }
   const expected = {
     schema: AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
     packageHead: context.exactPackageHead, packageTree: context.exactPackageTree,
     state: 'ACTIVE', authorized: true, cancelled: false,
     pageProfileSha256: profile.profileSha256,
+    ownerDirective: OWNER_DIRECTIVE,
+    authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
+    authorityScope: AUTHORITY_SCOPE,
   };
   if (!HEX40.test(String(context.exactPackageHead || '')) || !HEX40.test(String(context.exactPackageTree || ''))) {
     fail('PATHS_R3_PROVIDER_IDENTITY_MISSING');
@@ -212,6 +234,9 @@ function assertAuthorizationEnvelope(context, authorization) {
     packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
     packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
     pageProfileSha256: context.pageProfile.profileSha256,
+    ownerDirective: OWNER_DIRECTIVE,
+    authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
+    authorityScope: AUTHORITY_SCOPE,
   })) if (p[key] !== value) fail(`PATHS_R3_PROVENANCE_${key.toUpperCase()}_MISMATCH`);
   if (!Number.isFinite(Number(p.leaseExpiresAt))) fail('PATHS_R3_LEASE_EXPIRY_INVALID');
   return p;
@@ -243,6 +268,9 @@ function assertPhysicalActive(context, authorization) {
     packageId: M.PACKAGE_ID, packageHead: context.exactPackageHead,
     packageTree: context.exactPackageTree, triggeredBy: authorization.triggeredBy,
     pageProfileSha256: context.pageProfile.profileSha256,
+    ownerDirective: OWNER_DIRECTIVE,
+    authorityCardCommentId: AUTHORITY_CARD_COMMENT_ID,
+    authorityScope: AUTHORITY_SCOPE,
     leaseToken: p.leaseToken, leaseExpiresAt: p.leaseExpiresAt,
   };
   for (const [key, value] of Object.entries(exact)) {
@@ -352,6 +380,7 @@ async function readEventcardPathsPenpotSettlementR3(context, receipt) {
 
 module.exports = {
   ACTIVE_NAMESPACE, ACTIVE_KEY, RECEIPT_KEY, AUTH_SCHEMA, ACTIVE_SCHEMA, RUNTIME_SCHEMA,
+  OWNER_DIRECTIVE, AUTHORITY_CARD_COMMENT_ID, AUTHORITY_SCOPE,
   projectEventcardPathsPenpotR3, executeEventcardPathsPenpotR3,
   readEventcardPathsPenpotSettlementR3, assertPhysicalActive,
 };

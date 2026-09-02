@@ -85,6 +85,11 @@ function collection(adapter) {
       typeof value.visibleProductLabelsDigest !== 'string' || !value.visibleProductLabelsDigest) {
     fail('PATHS_R3_COLLECTION_DRIFT');
   }
+  if (value.fileLocalComponents != null &&
+      (value.fileLocalComponents !== 35 || value.protectedOtherComponents !== 17 ||
+       typeof value.protectedOtherComponentsDigest !== 'string' || !value.protectedOtherComponentsDigest)) {
+    fail('PATHS_R3_FILE_LOCAL_COMPONENT_CENSUS_DRIFT');
+  }
   return structuredClone(value);
 }
 
@@ -193,6 +198,11 @@ function projectState(adapter, expectedState = 'baseline') {
     visibleProductLabelsDigest: protectedCollection.visibleProductLabelsDigest,
     mutationFree: true,
   };
+  if (protectedCollection.fileLocalComponents != null) {
+    payload.fileLocalComponents = protectedCollection.fileLocalComponents;
+    payload.protectedOtherComponents = protectedCollection.protectedOtherComponents;
+    payload.protectedOtherComponentsDigest = protectedCollection.protectedOtherComponentsDigest;
+  }
   return { ...payload, projectionSha256: sha256(payload), penpotMutations: 0 };
 }
 

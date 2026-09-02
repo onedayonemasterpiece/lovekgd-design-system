@@ -52,6 +52,13 @@ class Fixture {
         return linked;
       });
     }
+    this.otherComponents = Array.from({ length: 17 }, (_, index) => {
+      const main = { id: `other-main-${index}`, name: `other.main.${index}`, type: 'board', children: [] };
+      const component = { id: `other-component-${index}`, name: `other.component.${index}`,
+        path: `Protected / Other / ${index}`, mainInstance: () => main };
+      main.component = () => component;
+      return component;
+    });
     this.targetPage = { id: M.PAGE_ID, name: '00 · Components · Free collection', root: pageRoot };
     this.otherPage = { id: 'other-page', name: 'Other', root: { id: 'other-root', children: [] } };
     this.file = {
@@ -64,14 +71,14 @@ class Fixture {
     };
     this.penpot = {
       currentFile: this.file, currentPage: this.otherPage,
-      library: { local: { components: this.components } },
+      library: { local: { components: [...this.components, ...this.otherComponents] } },
       openPage: async (page) => { this.opened.push(page.id); this.penpot.currentPage = page; },
     };
     this.active = null;
     this.context = {
       penpot: this.penpot, exactPackageHead: HEAD, exactPackageTree: TREE,
-      pageProfile: { profileId: 'free-collection.owner-review.v1', state: 'ACTIVE',
-        allowedToMutatePenpot: true, profileSha256: 'e'.repeat(64) },
+      pageProfile: { profileId: 'free-collection.owner-review.v1', state: 'BLOCKED_OWNER_REJECTED',
+        allowedToMutatePenpot: false, profileSha256: 'e'.repeat(64) },
       now: () => this.nowValue,
       readActiveMarker: () => this.active,
     };
@@ -83,6 +90,8 @@ class Fixture {
       packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE,
       triggeredBy: 'issue-57-comment-5506140332', leaseToken: 'lease-paths-r3-001', leaseExpiresAt: 5_000,
       pageProfileSha256: this.context.pageProfile.profileSha256,
+      ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
+      authorityScope: R.AUTHORITY_SCOPE,
       ...(overrides.provenance || {}),
     };
     const authorization = {
@@ -91,6 +100,8 @@ class Fixture {
       revision: projection.revision, projectionSha256: projection.projectionSha256,
       triggeredBy: provenance.triggeredBy, provenance,
       pageProfileSha256: this.context.pageProfile.profileSha256,
+      ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
+      authorityScope: R.AUTHORITY_SCOPE,
       ...overrides,
     };
     authorization.provenance = provenance;
@@ -101,6 +112,8 @@ class Fixture {
       triggeredBy: provenance.triggeredBy, leaseToken: provenance.leaseToken,
       leaseExpiresAt: provenance.leaseExpiresAt,
       pageProfileSha256: this.context.pageProfile.profileSha256,
+      ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
+      authorityScope: R.AUTHORITY_SCOPE,
     };
     return authorization;
   }
@@ -116,6 +129,8 @@ test('concrete projection activates the exact current page and proves 18/18/26 b
   assert.equal(projection.componentIds.length, 18);
   assert.equal(projection.mainIds.length, 18);
   assert.equal(projection.linkedInstanceIds.length, 26);
+  assert.equal(projection.fileLocalComponents, 35);
+  assert.equal(projection.protectedOtherComponents, 17);
   assert.equal(fixture.pathWrites.length, 0);
 });
 
@@ -177,14 +192,21 @@ test('current-page activation itself is blocked without the physical ACTIVE leas
   assert.equal(fixture.pathWrites.length, 0);
 });
 
-test('current blocked owner-review profile cannot be silently overridden by an execution receipt', async () => {
+test('text-only owner-action card cannot authorize paths without the exact bounded owner directive', async () => {
   const fixture = new Fixture();
   const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
   const auth = fixture.authorize(projection);
-  fixture.context.pageProfile.allowedToMutatePenpot = false;
-  fixture.context.pageProfile.state = 'BLOCKED_OWNER_REJECTED';
+  auth.ownerDirective = 'APPROVE_EVENTCARD_TEXT_ONE_BOUNDED_MUTATION';
   await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
-    (error) => error.code === 'PATHS_R3_ACTIVE_PAGE_PROFILE_DOES_NOT_AUTHORIZE_MUTATION');
+    (error) => error.code === 'PATHS_R3_AUTH_OWNERDIRECTIVE_MISMATCH');
+  auth.ownerDirective = R.OWNER_DIRECTIVE;
+  auth.authorityCardCommentId = 0;
+  await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
+    (error) => error.code === 'PATHS_R3_AUTH_AUTHORITYCARDCOMMENTID_MISMATCH');
+  auth.authorityCardCommentId = R.AUTHORITY_CARD_COMMENT_ID;
+  auth.authorityScope = 'EVENTCARD_TEXT_ONLY';
+  await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
+    (error) => error.code === 'PATHS_R3_AUTH_AUTHORITYSCOPE_MISMATCH');
   assert.equal(fixture.pathWrites.length, 0);
 });
 
@@ -243,6 +265,20 @@ test('fresh projection digest binds authorization and protected surfaces stay pa
   const after = await R.projectEventcardPathsPenpotR3(fixture.context, 'terminal');
   assert.equal(after.protectedCollectionDigest, protectedSha);
   assert.equal(after.visibleProductLabelsDigest, projection.visibleProductLabelsDigest);
+});
+
+test('all 17 non-EventCard local components are excluded from mutation and digest-protected', async () => {
+  const fixture = new Fixture();
+  const projection = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
+  const auth = fixture.authorize(projection);
+  fixture.otherComponents[3].path = 'Unexpected / Drift';
+  await assert.rejects(() => R.executeEventcardPathsPenpotR3(fixture.context, auth),
+    (error) => error.code === 'PATHS_R3_AUTH_PROJECTIONSHA256_MISMATCH');
+  assert.equal(fixture.pathWrites.length, 0);
+  const fresh = await R.projectEventcardPathsPenpotR3(fixture.context, 'baseline');
+  const otherBefore = fixture.otherComponents.map((component) => [component.id, component.name, component.path]);
+  await R.executeEventcardPathsPenpotR3(fixture.context, fixture.authorize(fresh));
+  assert.deepEqual(fixture.otherComponents.map((component) => [component.id, component.name, component.path]), otherBefore);
 });
 
 test('shared plugin data rejects every non-string value', () => {

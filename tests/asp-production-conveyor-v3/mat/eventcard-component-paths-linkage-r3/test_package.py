@@ -44,11 +44,14 @@ class PackageTest(unittest.TestCase):
         self.assertEqual(execution["second_run_created"], 0)
         self.assertIn("assertPhysicalActive(context, authorization);", self.native_runtime)
         self.assertIn("component.path = row.expectedCanonicalPath", self.native_runtime)
+        self.assertEqual(self.package["native_preflight"]["file_local_components"], 35)
+        self.assertEqual(self.package["native_preflight"]["protected_non_eventcard_components"], 17)
 
-    def test_blocked_profile_is_not_silently_overridden(self):
+    def test_blocked_profile_is_not_globally_overridden(self):
         preflight = self.package["native_preflight"]
-        self.assertTrue(preflight["page_profile_must_be_active_and_allow_penpot_mutation"])
-        self.assertTrue(preflight["current_repository_profile_is_blocking"])
+        self.assertEqual(preflight["authority_card_comment_id"], 5505976359)
+        self.assertEqual(preflight["authority_card_scope"], "EVENTCARD_TEXT_ONLY; explicitly lists Paths as unblocked")
+        self.assertIn("EVENTCARD_PATHS", preflight["mutation_authorization_requires_exact_bounded_owner_directive"])
         self.assertFalse(self.package["boundaries"]["penpot_execution_authorized"])
 
     def test_boundaries(self):
