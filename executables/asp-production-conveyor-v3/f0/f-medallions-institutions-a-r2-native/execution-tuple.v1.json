@@ -85,13 +85,17 @@
       "package_head",
       "package_tree",
       "triggered_by",
-      "lease_token"
+      "lease_token",
+      "lease_expires_at"
     ],
     "unknown_outcome_requires_distinct_readback": true,
     "blind_retry": false,
     "physical_active_marker_exact_tuple": true,
     "native_create_receipt_verified": true,
     "webp_image_data_readback_sha256": true,
-    "webp_leaf_export_nonempty": true
+    "webp_leaf_export_nonempty": true,
+    "active_recheck_granularity": "immediately before each native API create, including both calls in master and WebP operations",
+    "lease_expiry_required": true,
+    "lease_expiry_check_before_every_create": true
   }
 }

@@ -11,6 +11,7 @@ const EXACT_HEAD='1c9e43c150af74eaf54e1e0cd49143166c5100d5';
 const EXACT_TREE='6da94de3cb6cd0019bfc0887723cffd2ff838b81';
 const TRIGGERED_BY='D0_MORNING_PRODUCTION_SHIFT';
 const LEASE_TOKEN='lease-m05-medallions';
+const LEASE_EXPIRES_AT='2099-09-02T08:00:00.000Z';
 const CREATE_KINDS=new Set(['page','board','ellipse','rectangle','svg','media','component','instance']);
 let nextId=1;
 
@@ -53,12 +54,12 @@ function assetHandle(descriptor){
   const bytes=fs.readFileSync(path.join(HERE,'assets',localAssetName(descriptor)));
   return{...descriptor,verified:true,content_kind:'provider-verified-exact-bytes-v1',...(descriptor.media_type==='image/svg+xml'?{svg:bytes.toString('utf8')}:{data:Uint8Array.from(bytes)})};
 }
-function marker(){return{state:'ACTIVE',cancel_requested:false,session_id:'session-morning',task_id:'task-m05',writer_id:'sole-publish',package_id:SPEC.package_id,package_head:EXACT_HEAD,package_tree:EXACT_TREE,triggered_by:TRIGGERED_BY,lease_token:LEASE_TOKEN};}
+function marker(){return{state:'ACTIVE',cancel_requested:false,session_id:'session-morning',task_id:'task-m05',writer_id:'sole-publish',package_id:SPEC.package_id,package_head:EXACT_HEAD,package_tree:EXACT_TREE,triggered_by:TRIGGERED_BY,lease_token:LEASE_TOKEN,lease_expires_at:LEASE_EXPIRES_AT};}
 function context(){
   const penpot=new FakePenpot(),active=marker();
-  return{penpot,active,exactPackageHead:EXACT_HEAD,exactPackageTree:EXACT_TREE,assetCheckout:{async readVerifiedAsset(descriptor){return assetHandle(descriptor);}},async readActiveMarker(){return{...active};},async readProtectedProjection(id){return Object.values(SPEC.protected_projections).find((row)=>row.projection_id===id).sha256;},async validate(){return[];}};
+  return{penpot,active,exactPackageHead:EXACT_HEAD,exactPackageTree:EXACT_TREE,async now(){return Date.parse('2026-09-02T07:00:00.000Z');},assetCheckout:{async readVerifiedAsset(descriptor){return assetHandle(descriptor);}},async readActiveMarker(){return{...active};},async readProtectedProjection(id){return Object.values(SPEC.protected_projections).find((row)=>row.projection_id===id).sha256;},async validate(){return[];}};
 }
-function authorization(projection){return{schema_version:'kenigevents.d0-bounded-native-authorization.v1',package_id:SPEC.package_id,package_head:projection.package_head,package_tree:projection.package_tree,state:'ACTIVE',authorized:true,cancel_requested:false,revision:projection.revision,cursor:projection.cursor,projection_sha256:projection.projection_sha256,max_creates:3,triggered_by:TRIGGERED_BY,provenance:{session_id:'session-morning',task_id:'task-m05',writer_id:'sole-publish',package_head:projection.package_head,package_tree:projection.package_tree,triggered_by:TRIGGERED_BY,lease_token:LEASE_TOKEN}};}
+function authorization(projection){return{schema_version:'kenigevents.d0-bounded-native-authorization.v1',package_id:SPEC.package_id,package_head:projection.package_head,package_tree:projection.package_tree,state:'ACTIVE',authorized:true,cancel_requested:false,revision:projection.revision,cursor:projection.cursor,projection_sha256:projection.projection_sha256,max_creates:3,triggered_by:TRIGGERED_BY,provenance:{session_id:'session-morning',task_id:'task-m05',writer_id:'sole-publish',package_id:SPEC.package_id,package_head:projection.package_head,package_tree:projection.package_tree,triggered_by:TRIGGERED_BY,lease_token:LEASE_TOKEN,lease_expires_at:LEASE_EXPIRES_AT}};}
 function nativeCreateCount(log){return log.filter((row)=>CREATE_KINDS.has(row[0])).length;}
 async function complete(ctx){
   const receipts=[];
@@ -100,6 +101,26 @@ test('authorization binds provider head/tree and physical ACTIVE lease tuple',as
   ctx=context();p=await R.projectMedallionsInstitutionsAR2Native(ctx);a=authorization(p);ctx.active.package_head='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,a),(error)=>error.code==='ACTIVE_LEASE_IDENTITY_DRIFT');
   ctx=context();p=await R.projectMedallionsInstitutionsAR2Native(ctx);a=authorization(p);ctx.active.triggered_by='OTHER_SHIFT';await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,a),(error)=>error.code==='ACTIVE_LEASE_IDENTITY_DRIFT');
 });
+
+test('fresh full ACTIVE tuple is checked before both native creates of a master operation',async()=>{
+  const ctx=context();
+  for(let i=0;i<2;i+=1){const p=await R.projectMedallionsInstitutionsAR2Native(ctx);await R.executeMedallionsInstitutionsAR2NativePhase(ctx,authorization(p));}
+  const projection=await R.projectMedallionsInstitutionsAR2Native(ctx);assert.equal(projection.cursor,5);
+  const original=ctx.penpot.createBoard.bind(ctx.penpot);ctx.penpot.createBoard=()=>{const board=original();ctx.active.cancel_requested=true;ctx.active.state='CANCEL_REQUESTED';return board;};
+  await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,authorization(projection)),(error)=>{assert.equal(error.code,'ACTIVE_LEASE_NOT_ACTIVE');assert.equal(error.unknownOutcome,true);assert.equal(error.retryAllowed,false);assert.equal(error.nativeCreates,1);assert.deepEqual(error.nativeCreateLabels,['penpot.createBoard']);assert.equal(error.readbackError.code,'PARTIAL_COMPONENT_MASTER_UNKNOWN_OUTCOME');return true;});
+  assert.equal(ctx.penpot.mutationLog.filter((row)=>row[0]==='component').length,0,'second paired native create must be blocked');
+});
+
+test('fresh lease expiry is checked after awaited WebP upload before rectangle creation',async()=>{
+  const ctx=context();
+  while((await R.projectMedallionsInstitutionsAR2Native(ctx)).cursor<31){const p=await R.projectMedallionsInstitutionsAR2Native(ctx);await R.executeMedallionsInstitutionsAR2NativePhase(ctx,authorization(p));}
+  const projection=await R.projectMedallionsInstitutionsAR2Native(ctx);assert.equal(R.PLAN[projection.cursor].kind,'artwork');assert.equal(R.PLAN[projection.cursor].asset.source.media_type,'image/webp');
+  const original=ctx.penpot.uploadMediaData.bind(ctx.penpot);ctx.penpot.uploadMediaData=async(...args)=>{const image=await original(...args);ctx.active.lease_expires_at='2026-09-02T06:59:59.000Z';return image;};
+  await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,authorization(projection)),(error)=>{assert.equal(error.code,'ACTIVE_LEASE_IDENTITY_DRIFT');assert.equal(error.unknownOutcome,true);assert.equal(error.nativeCreates,1);assert.deepEqual(error.nativeCreateLabels,['penpot.uploadMediaData']);assert.equal(error.readback.cursor,projection.cursor);return true;});
+  assert.equal(ctx.penpot.mutationLog.filter((row)=>row[0]==='rectangle').length,0,'rectangle must not be created after lease expiry/drift');
+});
+
+test('already-expired bounded lease fails before the first native create',async()=>{const ctx=context(),p=await R.projectMedallionsInstitutionsAR2Native(ctx),a=authorization(p);ctx.active.lease_expires_at='2026-09-02T06:59:59.000Z';a.provenance.lease_expires_at=ctx.active.lease_expires_at;await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,a),(error)=>error.code==='ACTIVE_LEASE_EXPIRED');assert.equal(nativeCreateCount(ctx.penpot.mutationLog),0);});
 
 test('stale cursor, cancelled lease and protected drift fail closed before create',async()=>{
   let ctx=context(),p=await R.projectMedallionsInstitutionsAR2Native(ctx),a=authorization(p);a.cursor=1;await assert.rejects(()=>R.executeMedallionsInstitutionsAR2NativePhase(ctx,a),(error)=>error.code==='AUTH_CURSOR_STALE');

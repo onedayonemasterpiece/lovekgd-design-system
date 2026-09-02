@@ -13,3 +13,4 @@
 - Complete replay creates 0. Protected Free/EventCard and Foundations source/index projections, strict plugin-data strings, validation `[]`, detached `0`, screenshot implementations `0`, and placeholders `0` remain mandatory.
 - No Penpot read or mutation, Kaggle, merge, deploy, promotion, or V0 verdict occurs in this Git-only repair.
 - State remains `MAT_PACKAGE_READY_QA_INTEGRATE_GATED`; publication is not authorized until independent same-tuple QA and INTEGRATE PASS.
+- Successor hardening re-reads and expiry-validates the full physical ACTIVE tuple immediately before each of all 63 native calls, including between `createBoard`/`createComponent` and awaited `uploadMediaData`/`createRectangle`; cancellation or expiry blocks the second call and returns unknown-outcome/distinct-readback evidence.
