@@ -1,0 +1,74 @@
+name: F0 secondary package inventory
+
+on:
+  push:
+    branches:
+      - f0/secondary-self-contained-plugin-bundle-builder-20260902
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout all refs
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Build exact source inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+          mkdir -p artifact/sources
+
+          refs=(
+            'origin/chatgpt/f0-brandbook-small-page-r4-20260831'
+            'origin/chatgpt/f0-copy-check-assets-20260831'
+            'origin/design-system/iconography-resource-plane-004-20260807'
+          )
+
+          : > artifact/inventory.txt
+          for ref in "${refs[@]}"; do
+            echo "===== $ref =====" >> artifact/inventory.txt
+            git rev-parse "$ref" >> artifact/inventory.txt
+            git show -s --format='tree=%T%nparent=%P%nsubject=%s' "$ref" >> artifact/inventory.txt
+            git ls-tree -r --name-only "$ref" | grep -Ei '(brandbook|copy[-_/]?check|iconograph|asset|logo)' >> artifact/inventory.txt || true
+            echo >> artifact/inventory.txt
+          done
+
+          echo '===== ALL REMOTE REF PATH MATCHES =====' >> artifact/inventory.txt
+          while IFS= read -r ref; do
+            matches="$(git ls-tree -r --name-only "$ref" | grep -Ei '(extended[-_/]?iconograph|iconograph.*extended|f[-_/]?extended[-_/]?icon|copy[-_/]?check|f[-_/]?brandbook)' || true)"
+            if [ -n "$matches" ]; then
+              echo "--- $ref ($(git rev-parse "$ref"))" >> artifact/inventory.txt
+              printf '%s\n' "$matches" >> artifact/inventory.txt
+            fi
+          done < <(git for-each-ref --format='%(refname)' refs/remotes/origin | sort)
+
+          archive_matches() {
+            local ref="$1"; local pattern="$2"; local out="$3"
+            mapfile -t paths < <(git ls-tree -r --name-only "$ref" | grep -Ei "$pattern" || true)
+            if [ "${#paths[@]}" -gt 0 ]; then
+              git archive --format=tar "$ref" -- "${paths[@]}" | gzip -9 > "artifact/sources/$out.tar.gz"
+            fi
+          }
+
+          archive_matches 'origin/chatgpt/f0-brandbook-small-page-r4-20260831' '(brandbook|canonical-logo|identity-fingerprint)' 'brandbook'
+          archive_matches 'origin/chatgpt/f0-copy-check-assets-20260831' '(copy[-_/]?check|check[-_/]?asset|copy)' 'copy-check'
+          archive_matches 'origin/design-system/iconography-resource-plane-004-20260807' '(iconograph|icon|svg)' 'iconography-resource-plane'
+
+          sha256sum artifact/sources/* 2>/dev/null | sort > artifact/source-archives.sha256 || true
+          wc -c artifact/inventory.txt artifact/sources/* 2>/dev/null > artifact/sizes.txt || true
+
+      - name: Upload inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: f0-secondary-package-inventory
+          path: artifact
+          if-no-files-found: error
