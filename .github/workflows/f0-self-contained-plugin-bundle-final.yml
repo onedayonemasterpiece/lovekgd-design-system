@@ -1,4 +1,4 @@
-name: F0 canonical self-contained plugin bundle conversion
+name: F0 typography self-contained plugin bundle repair
 
 on:
   push:
@@ -15,11 +15,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  convert:
+  repair-typography:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
-      - name: Checkout exact builder
+      - name: Checkout exact repair builder
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,21 +30,21 @@ jobs:
           git config --global user.name "F0 Plugin Bundle Builder"
           git config --global user.email "f0-plugin-bundle-builder@users.noreply.github.com"
 
-      - name: Expand and verify converter
+      - name: Expand and verify typography repair
         run: |
-          gzip -dc tools/f0-self-contained-bundles/build-self-contained-plugin-bundles.mjs.gz > /tmp/build-self-contained-plugin-bundles.mjs
-          test "$(sha256sum tools/f0-self-contained-bundles/build-self-contained-plugin-bundles.mjs.gz | cut -d' ' -f1)" = "579726e7db17a84c2cc9efac3cc53d9f5d0f197046af0fc10a5796bc508faf94"
-          node --check /tmp/build-self-contained-plugin-bundles.mjs
+          gzip -dc tools/f0-self-contained-bundles/build-self-contained-plugin-bundles-typography-repair.mjs.gz > /tmp/build-self-contained-plugin-bundles-typography-repair.mjs
+          test "$(sha256sum tools/f0-self-contained-bundles/build-self-contained-plugin-bundles-typography-repair.mjs.gz | cut -d' ' -f1)" = "ddce10566c540edc2e2592548aa28c84d957d6fea46312c3db39eababb9d538a"
+          node --check /tmp/build-self-contained-plugin-bundles-typography-repair.mjs
 
-      - name: Convert and publish seven primary bundles
+      - name: Convert and publish both Typography bundles
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node /tmp/build-self-contained-plugin-bundles.mjs
+        run: node /tmp/build-self-contained-plugin-bundles-typography-repair.mjs
 
-      - name: Upload exact provider proof
+      - name: Upload exact seven-package proof
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: f0-self-contained-plugin-bundle-results
+          name: f0-self-contained-plugin-bundle-results-typography-repair
           path: artifacts/f0-self-contained-plugin-bundle-results.json
           if-no-files-found: warn
