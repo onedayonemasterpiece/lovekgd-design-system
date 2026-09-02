@@ -4,16 +4,19 @@
     "detached": 0,
     "duplicates": 0,
     "empty_asset_wells": 0,
-    "first_run_created": 61,
+    "first_run_created": 53,
     "generic_circles": 0,
     "linked_specimens": 24,
-    "master_previews": 8,
+    "master_previews": 0,
     "metadata_only_surfaces": 0,
     "placeholder_cells": 0,
     "placeholder_only_surfaces": 0,
     "screenshots": 0,
     "second_run_created": 0,
-    "source_artworks": 8
+    "source_artworks": 8,
+    "master_surfaces": 8,
+    "max_creates_per_phase": 3,
+    "phase_count": 18
   },
   "atlas": {
     "branch": "o0/penpot-atlas-layout-v2-20260901",
@@ -21,10 +24,10 @@
     "modified": false,
     "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75"
   },
-  "branch": "f0/f-medallions-institutions-a-r2-native-20260902",
+  "branch": "d0/f-medallions-institutions-a-r2-native-staged-v1-20260902",
   "commands": {
     "regenerate_check": "node executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/regenerate.v1.mjs --check",
-    "test": "node --test executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.native-like.test.mjs"
+    "test": "node --test executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.native-like.test.mjs executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.test.mjs"
   },
   "directive_id": "RD-F0-F-MEDALLIONS-INSTITUTIONS-A",
   "marker": "F0_R2_NATIVE_PACKAGE",
@@ -34,23 +37,44 @@
   "package_id": "F-MEDALLIONS-INSTITUTIONS-A-R2-NATIVE",
   "paths": {
     "declared_checkout": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/declared-checkout.v1.json",
-    "entrypoint": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.v1.mjs#execute",
+    "entrypoint": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.mjs#executeMedallionsInstitutionsAR2NativePhase",
     "execution_tuple": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/execution-tuple.v1.json",
     "generated_manifest": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/generated.manifest.v1.json",
     "regenerator": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/regenerate.v1.mjs",
     "setup": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/setup.v1.mjs",
     "spec": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/spec.v1.json",
-    "test": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.native-like.test.mjs"
+    "test": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.native-like.test.mjs",
+    "projection": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.mjs#projectMedallionsInstitutionsAR2Native",
+    "settlement": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.mjs#readMedallionsInstitutionsAR2Settlement",
+    "native_runtime_test": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.test.mjs"
   },
   "penpot_mutations": 0,
   "penpot_reads": 0,
   "placeholder_only_surface": false,
   "qa_integrate_publish_authorized": false,
-  "schema_version": "kenigevents.f0-r2-native-package.v1",
+  "schema_version": "kenigevents.f0-r2-native-package.v2",
   "source": {
     "branch": "f0/atlas-r2-medallion-source-evidence-v1-20260901",
     "head": "eb26bfb6b372c05e123430cf556c15e526cb6ef3",
     "tree": "2f64ec93076dab4a1c0a5834d0b6fc6ed903b124"
   },
-  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED"
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "repair_parent": {
+    "branch": "f0/f-medallions-institutions-a-r2-native-20260902",
+    "head": "03188ef9ad579ae24ffba87b6a15e65a567a4869",
+    "tree": "72fa23b8f7a48b08097b0315cbe63c354be728da"
+  },
+  "native_execution": {
+    "adapter": "package-local direct Penpot Plugin API",
+    "current_page_activation": "await penpot.openPage(page) then exact currentPage.id verification before geometry",
+    "max_creates_per_phase": 3,
+    "resume_cursor": "exact contiguous operation cursor 0..53 bound to revision and projection SHA-256",
+    "active_cancel_provenance": "rechecked before every create",
+    "unknown_outcome": "distinct read-only projection required; blind retry forbidden",
+    "terminal_census": {
+      "component_masters": 8,
+      "linked_specimens": 24,
+      "master_preview_instances": 0
+    }
+  }
 }

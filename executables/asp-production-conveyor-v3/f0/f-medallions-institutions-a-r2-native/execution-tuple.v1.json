@@ -4,7 +4,7 @@
   "atlas_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
   "directive_id": "RD-F0-F-MEDALLIONS-INSTITUTIONS-A",
   "does_not_repair_eventcard_text": false,
-  "executor_path": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.v1.mjs",
+  "executor_path": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/penpot-runtime.v2.mjs",
   "force": false,
   "linked_header_component_id": "ATLAS_PAGE_HEADER_V2",
   "metadata_only_executor": false,
@@ -22,23 +22,67 @@
   "replay": {
     "detached": 0,
     "duplicates": 0,
-    "first_run_created": 61,
+    "first_run_created": 53,
     "runs": 2,
     "screenshots": 0,
-    "second_run_created": 0
+    "second_run_created": 0,
+    "max_creates_per_phase": 3,
+    "phase_count": 18,
+    "resume_cursor_bound": true
   },
   "root_height": 1160,
   "root_width": 2176,
-  "schema_version": "kenigevents.f0-r2-native-execution-tuple.v1",
+  "schema_version": "kenigevents.f0-r2-native-execution-tuple.v2",
   "setup_path": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/setup.v1.mjs",
   "source_branch": "f0/atlas-r2-medallion-source-evidence-v1-20260901",
   "source_head": "eb26bfb6b372c05e123430cf556c15e526cb6ef3",
   "source_tree": "2f64ec93076dab4a1c0a5834d0b6fc6ed903b124",
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "strict_string_only_plugin_data": true,
-  "target_branch": "f0/f-medallions-institutions-a-r2-native-20260902",
+  "target_branch": "d0/f-medallions-institutions-a-r2-native-staged-v1-20260902",
   "template_family": "DENSE",
   "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
   "test_path": "executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r2-native/executor.native-like.test.mjs",
-  "tuple_id": "MAT-F-MEDALLIONS-INSTITUTIONS-A-R2-NATIVE"
+  "tuple_id": "MAT-F-MEDALLIONS-INSTITUTIONS-A-R2-NATIVE",
+  "entrypoint": "executeMedallionsInstitutionsAR2NativePhase",
+  "projection_entrypoint": "projectMedallionsInstitutionsAR2Native",
+  "settlement_entrypoint": "readMedallionsInstitutionsAR2Settlement",
+  "page_activation": {
+    "required_before_geometry": true,
+    "operation": "await penpot.openPage(page)",
+    "verification": "penpot.currentPage.id === page.id"
+  },
+  "atlas_binding": {
+    "logical_page_id": "medallions-institutions-a",
+    "physical_page_name": "04.1 · Assets · Medallions · Institutions A · Candidate",
+    "template_id": "FOUNDATION_ASSET_GRID_DENSE_V2",
+    "semantic_slots": {
+      "header": "page_header",
+      "master_column": "package_owned_masters",
+      "review_grid": "linked_review_instances"
+    },
+    "atlas_source_package_id": "F-MEDALLIONS-INSTITUTIONS-A",
+    "page_order": "0090",
+    "projection_role": "READY",
+    "section": "foundations-medallions"
+  },
+  "linked_instance_census": {
+    "product_linked_specimens": 24,
+    "master_preview_instances": 0,
+    "linked_header_instances": 1,
+    "atlas_hard_limit_instances": 24
+  },
+  "run_control": {
+    "active_lease_recheck_before_every_create": true,
+    "cancel_requested_stops_before_next_create": true,
+    "provenance_required": [
+      "session_id",
+      "task_id",
+      "writer_id",
+      "package_head",
+      "triggered_by"
+    ],
+    "unknown_outcome_requires_distinct_readback": true,
+    "blind_retry": false
+  }
 }

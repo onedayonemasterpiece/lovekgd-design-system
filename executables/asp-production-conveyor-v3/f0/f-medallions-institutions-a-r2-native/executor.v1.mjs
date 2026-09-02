@@ -72,8 +72,6 @@ async function executeMedallions(env, root) {
     for (const [key,value] of [['semantic-id',asset.semantic_id],['binding-id',asset.binding_id],['consumer-group',asset.consumer_group],['source-path',asset.source.path],['source-ref',asset.source.ref],['source-git-blob',asset.source.git_blob_sha1],['source-sha256',asset.source.sha256]]) setString(master,key,value);
     document.ensureShape(`${master.id}.background`,master.id,{shapeKind:'ellipse',x:0,y:0,width:96,height:96,fill:asset.presentation.background,stroke:asset.presentation.ring,strokeWidth:2,sourceBound:true,...owned(SPEC.package_id,'source-bound-medallion-background')});
     document.ensureArtwork(`${master.id}.artwork`,master.id,handle,{x:8,y:8,width:80,height:80,fitBox:asset.presentation.fit_box,logoCrop:asset.presentation.logo_crop,ariaLabel:asset.presentation.aria_label,...owned(SPEC.package_id,'source-artwork')});
-    const previewCellWidth = (SPEC.page.master_rail_bounds[2]-16)/2;
-    document.ensureLinkedInstance(`${SPEC.page.id}.master-preview.${asset.semantic_id}`,rail.id,master.id,{x:(index%2)* (previewCellWidth+16)+(previewCellWidth-88)/2,y:Math.floor(index/2)*176+28,width:88,height:88,name:`${asset.name} · master`,...owned(SPEC.package_id,'master-preview')});
     asset.tiers_px.forEach((tier,tierIndex) => {
       const order = index*3+tierIndex;
       const col = order%6, row = Math.floor(order/6);
@@ -83,7 +81,7 @@ async function executeMedallions(env, root) {
       for (const [key,value] of [['semantic-id',asset.semantic_id],['tier-px',String(tier)],['linked-order',String(order+1)],['source-sha256',asset.source.sha256]]) setString(instance,key,value);
     });
   });
-  return {asset_masters:8,source_artworks:8,master_previews:8,linked_specimens:24,placeholder_cells:0,empty_asset_wells:0,generic_circles:0};
+  return {asset_masters:8,source_artworks:8,master_surfaces:8,master_previews:0,linked_specimens:24,placeholder_cells:0,empty_asset_wells:0,generic_circles:0};
 }
 
 async function executeTypography(env, root) {
