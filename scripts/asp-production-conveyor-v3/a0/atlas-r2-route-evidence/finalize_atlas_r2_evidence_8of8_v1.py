@@ -35,9 +35,9 @@ expected_existing = {
         "source": "d0/atlas-r2-source-bound-evidence-v1-20260901@0a3d880344accb2f35d2d0c851b5987d81a31576",
     },
     "r2-medallions-densest": {
-        "svg": "a0fc1e56a689d53fcd22d0bec76f96eb3ed1944f",
-        "png": "c14e13bbf0f884465f2f0157a8736a4128f80f37",
-        "source": "f0/atlas-r2-medallion-source-evidence-v1-20260901@eb26bfb6b372c05e123430cf556c15e526cb6ef3",
+        "svg": "1b6944bdb9926b3baf9eda0b634c3e4e6658ff22",
+        "png": "70a50bc885c38134feb21d023e90d7de21ffb343",
+        "source": "f0/atlas-r2-medallion-source-evidence-v1-20260901@eb26bfb6b372c05e123430cf556c15e526cb6ef3 + V0-ATLAS-R2-MEDALLIONS-BALANCE-001",
     },
 }
 a0_names = ["r2-archetype-home", "r2-composed-ready", "r2-composed-exception"]
@@ -77,6 +77,9 @@ gates = {
     "clipping": 0,
     "content_outside_root": 0,
     "deterministic_regeneration": "PASS",
+    "medallions_final_row_tracks": [3, 4],
+    "medallions_occupied_rows": 2,
+    "medallions_root_height": 920,
 }
 manifest = {
     "schema_version": "kenigevents.asp-atlas-r2-source-bound-evidence-ready.v1",
@@ -99,7 +102,9 @@ validation = {
     "schema_version": "kenigevents.asp-atlas-r2-source-bound-evidence-validation.v1",
     "result": "PASS",
     "gates": gates,
-    "existing_five_byte_identical": True,
+    "existing_four_non_medallion_byte_identical": True,
+    "other_seven_representatives_byte_identical": True,
+    "medallions_balance_repaired": True,
     "a0_three_added": True,
     "aggregate_manifest": {"path": str(out.relative_to(ROOT)), "bytes": len(out.read_bytes()), "sha256": sha256(out.read_bytes()), "git_blob_sha1": git_blob(out.read_bytes())},
 }
