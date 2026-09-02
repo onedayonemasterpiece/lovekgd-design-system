@@ -1,0 +1,276 @@
+schema: kenigevents.launch-normalized-ui.v1
+version: 1.0.0
+status: ACTIVE_PROGRAMME_CANDIDATE
+coordination_issue: onedayonemasterpiece/events-bot-new#621
+
+authority:
+  executable_ui:
+    repository: onedayonemasterpiece/events-bot-new
+    branch: integration/ui-normalization-launch-20260902
+    base_commit: 61f7a6af5f5e82515dcd42c93dd02748297112bc
+    owns:
+      - foundations_and_tokens
+      - astro_components
+      - route_compositions
+      - golden_runtime_catalogue
+      - production_generation
+  thin_sot_and_penpot_delivery:
+    repository: onedayonemasterpiece/lovekgd-design-system
+    branch: integration/launch-normalized-sot-penpot-20260902
+    base_commit: b3567cb72d81a7aad4b47a68e220325f055697a2
+    owns:
+      - stable_family_ids
+      - variant_and_state_axes
+      - golden_corpus_bindings
+      - astro_source_bindings
+      - visible_asset_identities
+      - penpot_placement
+      - visual_status
+  penpot:
+    file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
+    role: native_visual_projection_and_owner_review
+    sole_writer: R0.PENPOT
+    candidate_pages_replaceable_before_visual_acceptance: true
+
+not_a_new_sot:
+  new_repository: forbidden
+  second_independently_edited_astro_implementation: forbidden
+  package_extraction_before_launch: forbidden
+  old_asp_issue_as_runtime_queue: forbidden
+
+golden_corpus:
+  corpus_id: launch-golden-v1
+  status: TO_BE_SELECTED_BY_N0_AND_OWNER_REVIEWED
+  timezone: Europe/Kaliningrad
+  reference_clock_mode: frozen_independent_of_wall_time
+  update_policy: append_only
+  stability_target_days: 14
+  exact_dates:
+    friday: TO_BE_SELECTED
+    saturday: TO_BE_SELECTED_CONSECUTIVE
+    sunday: TO_BE_SELECTED_CONSECUTIVE
+  page_types:
+    single_date_listing:
+      required_dates: [friday, saturday, sunday]
+      target_occurrences_per_date:
+        friday: 5
+        saturday: 6
+        sunday: 5
+      minimum_occurrences_per_date:
+        friday: 4
+        saturday: 5
+        sunday: 4
+    weekend_two_day:
+      uses_same_occurrences_as: [saturday, sunday]
+      duplicate_dataset_forbidden: true
+    free_collection:
+      derived_from_same_event_corpus: true
+      first_end_to_end_ASP_page: true
+  required_stress_cells:
+    media:
+      - landscape_event_photo
+      - portrait_poster
+      - text_heavy_artwork_contain_required
+      - ocr_or_unknown_text_protected
+      - no_image_or_broken_image_fallback
+      - multiple_images
+      - cover_safe
+      - focal_position_case
+    content:
+      - short_title
+      - long_title
+      - long_venue_or_address
+      - exact_time
+      - absent_or_approximate_time
+      - multiple_dates_or_continuing_occurrence
+    admission_and_state:
+      - free
+      - paid
+      - sold_out
+      - calendar_present
+      - calendar_absent
+      - cancelled
+      - rescheduled
+      - continuing_exhibition
+      - venue_or_brand_medallion
+  source_preference:
+    - pr42_exact_events_and_assets
+    - september_free_collection_corpus
+    - current_real_data_snapshot
+  synthetic_fixture_policy:
+    allowed_only_for_missing_stress_cell: true
+    must_be_visibly_marked_synthetic: true
+    must_not_claim_real_source_fidelity: true
+  owner_review_order:
+    - corpus_identity_and_coverage
+    - normalized_golden_browser_surfaces
+    - penpot_parity
+    - real_data_browser_surfaces
+
+browser_surfaces:
+  preferred_routes:
+    index: /lab/launch/
+    date_friday: /lab/launch/date-friday/
+    date_saturday: /lab/launch/date-saturday/
+    date_sunday: /lab/launch/date-sunday/
+    weekend: /lab/launch/weekend/
+    free_collection: /lab/launch/free-collection/
+    component_catalogue: /lab/design-system/
+  equivalent_stable_lab_routes_allowed: true
+  exact_clickable_urls_must_be_posted_to_issue: true
+
+normalization_rules:
+  unit: complete_component_family_with_representative_cases
+  current_astro_is_observed_A0_not_automatic_target: true
+  preserve:
+    - component_family_synthesis
+    - central_foundations
+    - canonical_svg_identity
+    - media_frame_semantics
+    - variant_and_state_axes
+    - migration_of_page_local_forks
+    - golden_corpus
+    - browser_and_penpot_visual_review
+  family_done_requires:
+    - bounded_current_consumer_and_drift_census
+    - target_component_variant_state_composition_decision
+    - thin_sot_record
+    - normalized_astro_implementation
+    - production_consumer_migration
+    - golden_browser_specimens
+    - automated_smoke_checks
+    - native_penpot_component_and_linked_cases
+    - V0_visual_verdict
+  design_decisions_happen_on_browser_golden_surfaces: true
+  penpot_may_not_block_astro_normalization: true
+
+families:
+  foundations:
+    owner: F0
+    astro_paths:
+      - site/src/styles/design-system.css
+    penpot_page: 10 · Foundations
+    status: NOT_STARTED
+  primitives:
+    owner: F0
+    astro_paths:
+      - site/src/components/design-system/**
+    penpot_page: 20 · Primitives & controls
+    status: NOT_STARTED
+  iconography_brand:
+    owner: F0
+    astro_paths:
+      - site/src/components/Icon.astro
+      - site/src/components/SocialIcon.astro
+      - site/src/components/brand/**
+    penpot_page: 21 · Icons & brand
+    status: NOT_STARTED
+  media_frame:
+    owner: M0
+    astro_paths:
+      - site/src/lib/relatedCardLayout.mjs
+      - site/src/components/EventMediaRail.astro
+    penpot_page: 30 · MediaFrame
+    status: NOT_STARTED
+  event_card:
+    owner: M0
+    astro_paths:
+      - site/src/components/EventCard.astro
+      - site/src/components/listings/ListingEventCard.astro
+    penpot_page: 40 · Event cards
+    required_golden_case_count: 4
+    first_component_ASP_target: true
+    status: NOT_STARTED
+  content_components:
+    owner: M0
+    astro_paths:
+      - site/src/components/EventHero.astro
+      - site/src/components/EventFacts.astro
+      - site/src/components/EventCtaPanel.astro
+      - site/src/components/InterestClubCard.astro
+    penpot_page: 41 · Content components
+    status: NOT_STARTED
+  shell_navigation:
+    owner: A0
+    astro_paths:
+      - site/src/layouts/EventLayout.astro
+      - site/src/components/listings/ListingPageHeader.astro
+      - site/src/components/Reference4MobileMenu.astro
+    penpot_page: 50 · Shell & navigation
+    status: NOT_STARTED
+  date_listing:
+    owner: A0
+    browser_cases: [date_friday, date_saturday, date_sunday]
+    penpot_page: 60 · Golden · Date listings
+    status: NOT_STARTED
+  weekend_listing:
+    owner: A0
+    browser_cases: [weekend]
+    penpot_page: 61 · Golden · Weekend
+    status: NOT_STARTED
+  free_collection:
+    owner: [A0, M0]
+    browser_cases: [free_collection_desktop, free_collection_mobile]
+    penpot_page: 62 · Golden · Free collection
+    first_page_ASP_target: true
+    status: NOT_STARTED
+  discovery_personal:
+    owner: A0
+    archetypes: [search, favorites, personal]
+    penpot_page: 70 · Archetypes · Discovery & personal
+    status: NOT_STARTED
+  collections_content:
+    owner: A0
+    archetypes: [collections, exhibitions, festivals, clubs, event_detail]
+    penpot_page: 71 · Archetypes · Content
+    status: NOT_STARTED
+  focus_partner_special:
+    owner: A0
+    archetypes: [focus_group, partners, closed, empty, loading, degraded, error]
+    penpot_page: 72 · Archetypes · Special states
+    status: NOT_STARTED
+
+visual_conformance:
+  exact:
+    - family_id
+    - variant_or_state
+    - fixture_id
+    - visible_content_and_order
+    - svg_and_image_bytes
+    - semantic_media_mode
+    - crop_focal_clip_result
+    - token_values
+    - line_count_and_overflow_behavior
+    - responsive_composition
+  tolerated_when_visually_immaterial:
+    - anti_aliasing
+    - glyph_rasterization
+    - subpixel_rounding
+    - rendered_bound_delta_px_1_to_2
+  image_diff_role: defect_finder_not_automatic_final_judge
+  final_visual_judge: V0
+
+status_values:
+  - NOT_STARTED
+  - ASTRO_BUILDING
+  - BROWSER_REVIEW
+  - ASTRO_ACCEPTED
+  - PENPOT_VISIBLE
+  - ASP_PASS
+  - REAL_DATA_PASS
+  - BLOCKED_EXTERNAL
+  - BLOCKED_PRODUCT_DECISION
+
+critical_path_exclusions:
+  - new_global_decoder
+  - new_sot_repository
+  - extracted_component_package_before_launch
+  - new_generation_or_lifecycle_system
+  - pre_candidate_promotion_receipts
+  - per_step_lease_cancel_provider_crypto
+  - full_penpot_tree_hash
+  - bespoke_penpot_runner_per_family
+  - empty_page_or_root_checkpoint
+  - full_old_penpot_reconstruction
+  - pixel_perfect_antialiasing_gate
+  - owner_as_message_bus
