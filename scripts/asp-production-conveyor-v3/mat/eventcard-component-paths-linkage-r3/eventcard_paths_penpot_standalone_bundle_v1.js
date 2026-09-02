@@ -47,6 +47,12 @@ function __bundleSha256Bytes(input) {
   return [h0,h1,h2,h3,h4,h5,h6,h7].map((v)=>v.toString(16).padStart(8,'0')).join('');
 }
 function __bundleSha256Text(text) { return __bundleSha256Bytes(__bundleUtf8Bytes(String(text))); }
+function __bundleClone(value) {
+  if (Array.isArray(value)) return value.map(__bundleClone);
+  if (value && typeof value === 'object') { const out={}; for (const key of Object.keys(value)) out[key]=__bundleClone(value[key]); return out; }
+  return value;
+}
+const structuredClone = __bundleClone;
 const M = (() => {
 const PACKAGE_ID = 'MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-LINKAGE-R3';
 const PARENT_PACKAGE_ID = 'MAT-EVENTCARD-NATIVE-COMPONENT-PATHS-PROJECTION-R2';
@@ -785,7 +791,7 @@ async function __conformanceSettlement(host) { return { state:'DONE', created:0,
 const PUBLIC_API = Object.freeze({
   metadata: Object.freeze({
     schema: 'D0_PLUGIN_BUNDLE_V1', package_id: M.PACKAGE_ID, bundle_sha256_binding: 'EXTERNAL_AUTHORIZATION_TUPLE',
-    global_name: 'KenigEventsD0EventcardPathsR3Bundle',
+    global_name: 'KenigEventsD0EventcardPathsR3StandaloneV2',
     entrypoints: Object.freeze({projection:'projection', execution:'execution', settlement:'settlement'}),
     current_page_activation: true, max_creates_per_phase: 3, replay_created: 0,
     mutation_scope: 'LibraryComponent.path only', unknown_outcome: 'DISTINCT_READ_ONLY_PROJECTION_NO_RETRY'
@@ -804,5 +810,5 @@ const PUBLIC_API = Object.freeze({
   projectEventcardPathsPenpotR3, executeEventcardPathsPenpotR3,
   readEventcardPathsPenpotSettlementR3, assertPhysicalActive, })
 });
-Object.defineProperty(global, 'KenigEventsD0EventcardPathsR3Bundle', {value: PUBLIC_API, enumerable: true, configurable: false, writable: false});
+Object.defineProperty(global, 'KenigEventsD0EventcardPathsR3StandaloneV2', {value: PUBLIC_API, enumerable: true, configurable: false, writable: false});
 })(globalThis);

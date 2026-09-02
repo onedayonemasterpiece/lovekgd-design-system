@@ -37,15 +37,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 41462,
+      "bytes": 41770,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_penpot_standalone_bundle_v1.js",
-      "sha256": "ce622091b0ff999051e44efe236a8cf1bf68883651848bda72e4b4a2e5cbeaba"
+      "sha256": "b152d1a951e079e3706536a1128709f6cf6ca153e60f57e970761212d72e02db"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 9399,
+      "bytes": 9707,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/build_eventcard_paths_standalone_bundle_v1.py",
-      "sha256": "7dfded85c2af8853a191439ec4a36b2afbce047838a3f9614404468b40e5d01f"
+      "sha256": "382eb851d7dc44181c0da121497b6cd7a3bda597f68f75a347d94bba7db2a275"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -58,8 +58,10 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardPathsR3Bundle",
+    "global": "KenigEventsD0EventcardPathsR3StandaloneV2",
     "max_creates_per_phase": 3,
+    "penpot_structured_clone_invoked": false,
+    "portable_plain_data_clone": true,
     "replay_created": 0,
     "runtime_forbidden_tokens": [
       "require",
@@ -82,13 +84,13 @@
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 8386,
+      "bytes": 8446,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-component-paths-linkage-r3/eventcard_paths_standalone_bundle_v1.test.js",
-      "sha256": "9762c6c49c642f6e59476db97b665854a804d26f49c3d0c910a518310ea9fa66"
+      "sha256": "d0aed0ceb7f11bfa8182f062271863e0252bf0ef2b1c842a1c879b1579578e56"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_PROJECTION_NO_RETRY"
   },
-  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_CONCRETE_NATIVE_EXECUTION_AND_DIRECT_PLUGIN_CALLABILITY_GAP",
+  "defect_closed": "THREE_LEGACY_MAIN_NAME_CARDINALITY_CONCRETE_NATIVE_EXECUTION_DIRECT_PLUGIN_CALLABILITY_AND_PENPOT_STRUCTUREDCLONE_INVOCATION_GAP",
   "execution": {
     "allowed_default_mutation": "LibraryComponent.path only",
     "authorization_binds": [
@@ -107,7 +109,7 @@
     "concrete_penpot_adapter": true,
     "current_page_activation": "open exact page ID and verify currentPage before projection or mutation",
     "detach": 0,
-    "direct_plugin_global": "KenigEventsD0EventcardPathsR3Bundle",
+    "direct_plugin_global": "KenigEventsD0EventcardPathsR3StandaloneV2",
     "entrypoint": "executeEventcardPathsPenpotR3",
     "lease_expiry_recheck_before_every_native_mutation": true,
     "linked_instance_ids_preserved": 26,

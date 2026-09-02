@@ -7,7 +7,7 @@ HERE = Path(__file__).resolve().parent
 LOGIC = HERE / 'eventcard_component_paths_linkage_r3.js'
 RUNTIME = HERE / 'eventcard_component_paths_penpot_runtime_r3.js'
 OUTPUT = HERE / 'eventcard_paths_penpot_standalone_bundle_v1.js'
-GLOBAL = 'KenigEventsD0EventcardPathsR3Bundle'
+GLOBAL = 'KenigEventsD0EventcardPathsR3StandaloneV2'
 
 SHA256 = r'''
 function __bundleUtf8Bytes(text) {
@@ -88,6 +88,12 @@ bundle = f"""/* Generated deterministically by {Path(__file__).name}. Do not han
 (function (global) {{
 'use strict';
 {SHA256}
+function __bundleClone(value) {{
+  if (Array.isArray(value)) return value.map(__bundleClone);
+  if (value && typeof value === 'object') {{ const out={{}}; for (const key of Object.keys(value)) out[key]=__bundleClone(value[key]); return out; }}
+  return value;
+}}
+const structuredClone = __bundleClone;
 const M = (() => {{
 {logic}
 }})();

@@ -10,11 +10,11 @@ const BUNDLE = path.resolve(__dirname, '../../../../scripts/asp-production-conve
 const source = fs.readFileSync(BUNDLE, 'utf8');
 const sha = crypto.createHash('sha256').update(source).digest('hex');
 const bytes = Buffer.byteLength(source);
-const sandbox = { structuredClone, console };
+const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocation'); }, console };
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox, { filename: BUNDLE });
-const API = sandbox.KenigEventsD0EventcardPathsR3Bundle;
+const API = sandbox.KenigEventsD0EventcardPathsR3StandaloneV2;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
