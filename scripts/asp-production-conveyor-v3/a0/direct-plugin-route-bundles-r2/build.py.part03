@@ -1,0 +1,95 @@
+            "semantic_regions": semantic_regions,
+            "cards_absent_by_state_contract": bool("exception" in slug),
+        }
+        width = 1184 if index % 2 == 0 else 1184
+        x = left if index % 2 == 0 else 1376
+        y = top + (index // 2) * 304
+        add("board", "source-bound-surface", f"{slug} · {vid} · source-bound", "", x, y, width, 264)
+        add("text", "surface-metadata", f"{vid} · exact route/state/fixture tuple", text_line(scenario), x + 24, y + 24, width - 48, 96)
+        region_text = text_line({"semantic_regions": semantic_regions, "source_bound": True, "no_placeholders": True})
+        add("text", "surface-content", f"{vid} · semantic regions", region_text, x + 24, y + 136, width - 48, 96)
+    evidence_y = top + ((len(variants) + 1) // 2) * 304
+    evidence = {
+        "source_package_record_sha256": old.get("source_package_record_sha256"),
+        "projection": exact.get("projection"),
+        "fixture_semantics": exact.get("fixture_semantics"),
+        "atlas_semantic_slots": atlas_unit.get("semantic_slot_bindings"),
+    }
+    add("board", "evidence", f"{slug} · evidence", "", 64, evidence_y, 2496, 184)
+    add("text", "evidence-content", f"{slug} · source / projection / fixture evidence", text_line(evidence), 88, evidence_y + 24, 2448, 128)
+    return operations
+
+
+SHA_JS = r'''
+function utf8Bytes(text){
+  const out=[];
+  for(let i=0;i<text.length;i++){
+    let c=text.charCodeAt(i);
+    if(c<0x80){out.push(c);continue}
+    if(c<0x800){out.push(0xc0|(c>>6),0x80|(c&63));continue}
+    if(c>=0xd800&&c<=0xdbff&&i+1<text.length){
+      const d=text.charCodeAt(++i);
+      if(d>=0xdc00&&d<=0xdfff){const cp=0x10000+((c-0xd800)<<10)+(d-0xdc00);out.push(0xf0|(cp>>18),0x80|((cp>>12)&63),0x80|((cp>>6)&63),0x80|(cp&63));continue}
+      i--;
+    }
+    out.push(0xe0|(c>>12),0x80|((c>>6)&63),0x80|(c&63));
+  }
+  return out;
+}
+function sha256Hex(input){
+  const bytes=typeof input==='string'?utf8Bytes(input):Array.from(input||[]);
+  const k=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const h=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const data=bytes.slice(),bitLen=bytes.length*8;data.push(0x80);while((data.length%64)!==56)data.push(0);
+  const hi=Math.floor(bitLen/0x100000000),lo=bitLen>>>0;for(let s=24;s>=0;s-=8)data.push((hi>>>s)&255);for(let s=24;s>=0;s-=8)data.push((lo>>>s)&255);
+  const w=new Array(64),rotr=(x,n)=>(x>>>n)|(x<<(32-n));
+  for(let off=0;off<data.length;off+=64){
+    for(let i=0;i<16;i++){const j=off+i*4;w[i]=((data[j]<<24)|(data[j+1]<<16)|(data[j+2]<<8)|data[j+3])>>>0}
+    for(let i=16;i<64;i++){const a=w[i-15],b=w[i-2],s0=(rotr(a,7)^rotr(a,18)^(a>>>3))>>>0,s1=(rotr(b,17)^rotr(b,19)^(b>>>10))>>>0;w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let [a,b,c,d,e,f,g,q]=h;
+    for(let i=0;i<64;i++){const S1=(rotr(e,6)^rotr(e,11)^rotr(e,25))>>>0,ch=((e&f)^((~e)&g))>>>0,t1=(q+S1+ch+k[i]+w[i])>>>0,S0=(rotr(a,2)^rotr(a,13)^rotr(a,22))>>>0,maj=((a&b)^(a&c)^(b&c))>>>0,t2=(S0+maj)>>>0;q=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
+    h[0]=(h[0]+a)>>>0;h[1]=(h[1]+b)>>>0;h[2]=(h[2]+c)>>>0;h[3]=(h[3]+d)>>>0;h[4]=(h[4]+e)>>>0;h[5]=(h[5]+f)>>>0;h[6]=(h[6]+g)>>>0;h[7]=(h[7]+q)>>>0;
+  }
+  return h.map(x=>x.toString(16).padStart(8,'0')).join('');
+}
+'''
+
+RUNTIME_JS = r'''
+((root)=>{
+'use strict';
+const DATA=__DATA__;
+__SHA_JS__
+const fail=(code,detail)=>{throw new Error(detail?code+':'+detail:code)};
+const need=(value,code,detail)=>{if(!value)fail(code,detail);return value};
+const canon=value=>Array.isArray(value)?'['+value.map(canon).join(',')+']':value&&typeof value==='object'?'{'+Object.keys(value).sort().map(key=>JSON.stringify(key)+':'+canon(value[key])).join(',')+'}':JSON.stringify(value);
+const parse=value=>{try{return JSON.parse(value)}catch(error){fail('JSON_INVALID')}};
+const children=node=>Array.from(node&&node.children||[]);
+const walk=node=>node?[node].concat(children(node).flatMap(walk)):[];
+const pget=(node,key,space=DATA.plugin_namespace)=>node&&typeof node.getSharedPluginData==='function'?(node.getSharedPluginData(space,key)||''):'';
+const pset=(node,key,value,space=DATA.plugin_namespace)=>{need(node&&typeof node.setSharedPluginData==='function','PLUGIN_DATA_UNAVAILABLE',key);need(typeof value==='string','PLUGIN_DATA_STRING_REQUIRED',key);node.setSharedPluginData(space,key,value)};
+const findPage=penpot=>Array.from(penpot.currentFile.pages||[]).find(page=>pget(page,'stable-page-id')===DATA.stable_page_id||page.name===DATA.atlas.physical_page_name)||null;
+const findByStable=(page,id)=>walk(page&&page.root).filter(node=>pget(node,'stable-id')===id);
+const nativeRevision=penpot=>{const value=penpot.currentFile.revn;need(Number.isInteger(value)&&value>=0,'NATIVE_REVN_INVALID');return value};
+function active(penpot){
+  const raw=penpot.currentFile.getSharedPluginData('kenigevents','asp-active-run-v1')||'';
+  need(raw,'PHYSICAL_ACTIVE_REQUIRED');const marker=parse(raw);
+  need(marker.schema===DATA.run_control.schema,'ACTIVE_SCHEMA');
+  need(marker.package_id===DATA.package_id,'ACTIVE_PACKAGE');
+  need(marker.writer_id==='/root/publish_r2','ACTIVE_WRITER');
+  need(marker.run_id===DATA.run_control.run_id&&marker.lease_token===DATA.run_control.lease_token&&marker.cancel_token===DATA.run_control.cancel_token,'ACTIVE_LEASE');
+  need(marker.state==='ACTIVE'&&marker.cancelled===false,'ACTIVE_STATE');
+  need(marker.triggered_by&&typeof marker.triggered_by==='string','ACTIVE_TRIGGER');
+  need(/^[0-9a-f]{40}$/.test(marker.package_head||'')&&/^[0-9a-f]{40}$/.test(marker.package_tree||''),'ACTIVE_GIT_TUPLE');
+  need(/^[0-9a-f]{64}$/.test(marker.bundle_sha256||'')&&Number.isInteger(marker.bundle_bytes)&&marker.bundle_bytes>0,'ACTIVE_BUNDLE_TUPLE');
+  need(marker.native_revision===nativeRevision(penpot),'ACTIVE_REVISION');
+  return marker;
+}
+function verifySources(){
+  for(const item of DATA.sources){const raw=DATA.source_raw[item.name];need(typeof raw==='string','SOURCE_RAW_MISSING',item.name);need(utf8Bytes(raw).length===item.bytes,'SOURCE_BYTES',item.name);need(sha256Hex(raw)===item.sha256,'SOURCE_SHA',item.name)}
+  need(DATA.factual_bytes_changed===0,'FACTUAL_BYTES_CHANGED');
+}
+function captureProtected(penpot){
+  const policy=DATA.protected_projections,descriptor=[];
+  for(const spec of policy.pages){const page=Array.from(penpot.currentFile.pages||[]).find(item=>item.id===spec.page_id);need(page,'PROTECTED_PAGE_MISSING',spec.page_id);const ids=[];for(const id of spec.root_ids){const node=walk(page.root).find(item=>item.id===id);need(node,'PROTECTED_ROOT_MISSING',id);ids.push({id:node.id,name:node.name||'',children:children(node).map(child=>child.id)})}descriptor.push({page_id:page.id,roots:ids})}
+  return sha256Hex(canon(descriptor));
+}
