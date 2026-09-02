@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import urllib.request
+from pathlib import Path
+from typing import Any, Iterable
+
+REPO = Path(__file__).resolve().parents[0]
+REPOSITORY = "onedayonemasterpiece/lovekgd-design-system"
+ISSUE = 57
+BRANCH = "a0/direct-plugin-route-buffer-r2-20260902"
+BASELINE = "862bb09cf61750bd5afce26d84207a501f7ec733"
+BASELINE_TREE = "9cf76a269e8febfb56fbdc93a1f0a73a74a2bd46"
+CURRENT_AGGREGATE = "bc8ee45489812a346d2731f97908803e8ec01ba5"
+IMPLEMENTATION_SUBJECT = "10fc2ccbd6e7e2e47bcc5870f71af84ce200f888"
+PAGE_WAVE = "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb"
+FREE_ROWS = "9e8edbed95eb40807059e6c6f10af74beeaee683"
+FREE_FULL = "4ee9651c97da4e46b0fda4e244f9d5dea634e063"
+ATLAS_R2 = "663be702d481972cb2e8863af500f1c35dda1d8c"
+ATLAS_R2_TREE = "cf9a1e6a5e0a84aea5636334dbd3be4961039b75"
+ATLAS_R21 = "be4918e5d8e1c1bba5da478acfd08f8035cfc1a5"
+ATLAS_R21_TREE = "da1f5c305c75d467af5e4e26f8a996b8c243d74f"
+D0_HARNESS = "62f26df36b8199e4b8899b9252f796b1fa5e9d42"
+D0_HARNESS_TREE = "23bc8ef208c9e68e76890183fdda15c1a60f5fbd"
+D0_HARNESS_PATH = "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs"
+ATLAS_BINDINGS_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/page-unit-bindings.v2.json"
+ATLAS_EXTENSION_PATH = "catalog/asp-production-conveyor-v3/atlas-v2/extensions/atlas-extension-r2-1.v1.json"
+OUT_ROOT = Path("catalog/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-r2")
+REPORT_ROOT = Path("reports/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-r2")
+REQUIRED_COMMENTS = [5506769941, 5506830213, 5506836084]
+
+LANES: dict[str, list[str]] = {
+    "lane-1": ["owner-review-index", "home", "weekend-listing"],
+    "lane-2": ["free-ready", "free-exception", "date-listing-ready", "date-listing-exception"],
+    "lane-3": [
+        "popular-listing", "unusual-listing", "collections", "exhibitions",
+        "search", "favorites", "personal-feed", "festivals",
+    ],
+}
+OLD_LANE_HEADS = {
+    "lane-1": "674d793cfc761b39e6cebe087aae6450ded910d6",
+    "lane-2": "864e83b4fb3efb50a018e1f37db6c67da2730485",
+    "lane-3": "bf436751607c335111656576317cd9a18af9baee",
+}
+OLD_MANIFEST = (
+    "catalog/asp-production-conveyor-v3/a0/direct-plugin-route-bundles-v1/"
+    "{lane}/{slug}/manifest.v1.json"
+)
+ORDER = [slug for lane in ("lane-1", "lane-2", "lane-3") for slug in LANES[lane]]
+
+
+def run(*args: str, cwd: Path | None = None, check: bool = True) -> str:
+    cp = subprocess.run(
+        list(args), cwd=cwd or Path.cwd(), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    if check and cp.returncode:
+        raise RuntimeError(f"COMMAND_FAILED:{args}:\nSTDOUT:\n{cp.stdout}\nSTDERR:\n{cp.stderr}")
+    return cp.stdout.strip()
+
+
+def git(*args: str, cwd: Path | None = None, check: bool = True) -> str:
+    return run("git", *args, cwd=cwd, check=check)
+
+
+def show(ref: str, path: str, cwd: Path | None = None) -> bytes:
+    cp = subprocess.run(
+        ["git", "show", f"{ref}:{path}"], cwd=cwd or Path.cwd(),
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    if cp.returncode:
+        raise RuntimeError(f"GIT_SHOW_FAILED:{ref}:{path}:{cp.stderr.decode('utf-8', 'replace')}")
+    return cp.stdout
+
+
+def json_at(ref: str, path: str, cwd: Path | None = None) -> Any:
+    return json.loads(show(ref, path, cwd).decode("utf-8"))
+
+
+def sha256(raw: bytes) -> str:
+    return hashlib.sha256(raw).hexdigest()
+
+
+def canonical(value: Any) -> bytes:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def digest(value: Any) -> str:
+    return sha256(canonical(value))
+
+
+def pretty(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
+
+
+def blob(ref: str, path: str, cwd: Path | None = None) -> str:
+    return git("rev-parse", f"{ref}:{path}", cwd=cwd)
+
+
+def tree(ref: str, cwd: Path | None = None) -> str:
+    return git("rev-parse", f"{ref}^{{tree}}", cwd=cwd)
+
+
+def slug_ident(slug: str) -> str:
+    return "".join(part.capitalize() for part in re.split(r"[^A-Za-z0-9]+", slug) if part)
+
+
+def exact_source_records(old: dict[str, Any], cwd: Path) -> tuple[list[dict[str, Any]], dict[str, str]]:
+    records: list[dict[str, Any]] = []
+    raw_by_name: dict[str, str] = {}
+    for item in old.get("sources", []):
+        ref = str(item["ref"])
+        path = str(item["path"])
+        raw = show(ref, path, cwd)
+        actual = {
+            "name": str(item["name"]),
+            "ref": ref,
+            "path": path,
+            "git_blob_sha1": blob(ref, path, cwd),
+            "bytes": len(raw),
+            "sha256": sha256(raw),
+        }
+        for key in ("git_blob_sha1", "bytes", "sha256"):
+            if str(actual[key]) != str(item[key]):
+                raise AssertionError(f"SOURCE_BINDING_DRIFT:{actual['name']}:{key}:{item[key]}:{actual[key]}")
+        records.append(actual)
+        raw_by_name[actual["name"]] = raw.decode("utf-8")
+    if not records:
+        raise AssertionError("NO_EXACT_SOURCE_RECORDS")
+    return records, raw_by_name
+
+
+def load_atlas(cwd: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    if tree(ATLAS_R2, cwd) != ATLAS_R2_TREE:
+        raise AssertionError("ATLAS_R2_TREE_DRIFT")
+    if tree(ATLAS_R21, cwd) != ATLAS_R21_TREE:
+        raise AssertionError("ATLAS_R21_TREE_DRIFT")
+    base_raw = show(ATLAS_R2, ATLAS_BINDINGS_PATH, cwd)
+    base = json.loads(base_raw)
+    ext_raw = show(ATLAS_R21, ATLAS_EXTENSION_PATH, cwd)
+    extension = json.loads(ext_raw)
+    sources = {
+        "base": {
+            "head": ATLAS_R2, "tree": ATLAS_R2_TREE, "path": ATLAS_BINDINGS_PATH,
+            "git_blob_sha1": blob(ATLAS_R2, ATLAS_BINDINGS_PATH, cwd),
+            "bytes": len(base_raw), "sha256": sha256(base_raw),
+        },
+        "extension": {
+            "head": ATLAS_R21, "tree": ATLAS_R21_TREE, "path": ATLAS_EXTENSION_PATH,
+            "git_blob_sha1": blob(ATLAS_R21, ATLAS_EXTENSION_PATH, cwd),
+            "bytes": len(ext_raw), "sha256": sha256(ext_raw),
+        },
+    }
+    if int(base.get("physical_page_count", 0)) != 42 or len(base.get("units", [])) != 42:
+        raise AssertionError("ATLAS_R2_EXPECTED_42_UNITS")
+    if extension.get("base", {}).get("head") != ATLAS_R2:
+        raise AssertionError("ATLAS_R21_BASE_HEAD_MISMATCH")
+    return base, extension, sources
+
+
+def norm(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
+def choose_atlas_unit(slug: str, old: dict[str, Any], atlas: dict[str, Any]) -> dict[str, Any]:
+    units = list(atlas.get("units", []))
+    source_package = str(old.get("source_package_id") or "")
+    role = str(old.get("projection_role") or "").upper()
+    target_name = str((old.get("target") or {}).get("page_name") or "")
+    primary_source_paths = {str(item.get("path")) for item in old.get("sources", [])}
+
+    candidates = [u for u in units if u.get("package_id") == source_package]
+    if role in {"READY", "EXCEPTION"}:
+        role_filtered = [u for u in candidates if str(u.get("projection_role", "")).upper() == role]
+        if role_filtered:
+            candidates = role_filtered
+    if len(candidates) == 1:
+        return candidates[0]
+
+    by_source = []
+    for unit in units:
+        remote = ((unit.get("publication_dependency") or {}).get("remote_binding") or {})
+        if remote.get("source_path") in primary_source_paths:
+            by_source.append(unit)
+    if role in {"READY", "EXCEPTION"}:
