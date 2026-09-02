@@ -1,7 +1,8 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.2.0
+version: 1.3.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
+parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
 
 authority:
   executable_ui:
@@ -9,7 +10,7 @@ authority:
     branch: integration/ui-normalization-launch-20260902
     owns:
       - foundations_and_tokens
-      - astro_components
+      - astro_component_roots_and_variants
       - actual_route_compositions
       - fresh_real_data_preview_and_release_generation
   thin_sot_and_penpot_delivery:
@@ -22,7 +23,7 @@ authority:
       - exact_visible_asset_identities
       - internal_golden_fixture_and_route_bindings
       - penpot_master_and_route_board_placement
-      - visual_status
+      - browser_and_visual_status
   penpot:
     file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
     role: native_component_identity_linked_reuse_and_visual_parity
@@ -34,6 +35,7 @@ not_a_new_sot:
   second_independently_edited_astro_implementation: forbidden
   package_extraction_before_launch: forbidden
   old_asp_issue_as_runtime_queue: forbidden
+  new_orchestrator: forbidden
 
 actual_route_model:
   current_date:
@@ -62,9 +64,30 @@ actual_route_model:
   free_collection:
     route: /podborki/besplatnye-sobytiya/
     implementation: site/src/pages/podborki/[slug]/index.astro
+    shared_surface: site/src/components/FreeCollectionSurface.astro
+
+execution_order:
+  restore_existing_generation_first: true
+  normalization_may_start_in_parallel_before_owner_preview: true
+  technical_fresh_data_baseline_required: true
+  technical_baseline_is_owner_review_requirement: false
+  first_owner_preview_should_include_first_normalization_wave: true
+  family_done_requires_fresh_real_data_build: true
+  family_done_requires_browser_dom_audit: true
+  sequence:
+    - N0_restore_export_and_build
+    - N0_capture_technical_fresh_data_baseline
+    - F0_M0_A0_normalize_in_parallel
+    - N0_integrate_first_wave
+    - V0_browser_dom_and_computed_style_audit
+    - close_critical_drift
+    - publish_first_normalized_owner_preview
+    - repeat_family_waves
+    - thin_sot_and_penpot_follow_completed_waves
+    - open_product_ui_gap_work_after_normalization_pass
 
 owner_review:
-  first_surface: fresh_real_data_preview
+  first_surface: first_normalized_fresh_real_data_preview
   entrypoint_template: /<buildId>/__preview/
   existing_implementation: site/src/pages/[preview]/index.astro
   exact_clickable_url_required: true
@@ -78,6 +101,7 @@ owner_review:
     - radii_and_surface_geometry
     - colours
     - icon_consistency_and_scale
+    - adaptive_card_rows
     - responsive_composition
     - visible_page_specific_anomalies
 
@@ -99,24 +123,6 @@ golden_conformance:
   weekend_reuses_same_saturday_sunday_occurrences: true
   update_policy: append_only
   stability_target_days: 14
-  required_stress_cells:
-    - landscape_event_photo
-    - portrait_poster
-    - text_heavy_or_OCR_contain_required
-    - missing_or_broken_image
-    - multiple_images
-    - short_and_long_titles
-    - long_venue_or_address
-    - exact_and_absent_time
-    - free_paid_sold_out
-    - calendar_present_and_absent
-    - cancelled_and_rescheduled
-    - continuing_exhibition
-    - medallion_context
-  source_preference:
-    - pr42_exact_events_and_assets
-    - current_free_collection_corpus
-    - current_real_data_snapshot
   synthetic_fixture_policy:
     allowed_only_for_missing_stress_cell: true
     visibly_marked: true
@@ -124,12 +130,20 @@ golden_conformance:
 normalization:
   current_astro_is_observed_A0_not_automatic_target: true
   unit: complete_component_family_in_actual_consumers
+  family_decision_classes:
+    - component
+    - variant
+    - state
+    - composition
+    - accidental_drift
   sequence:
     - bounded_consumer_and_drift_census
-    - component_variant_state_composition_decision
+    - component_root_variant_state_composition_decision
     - normalize_central_astro_foundations_or_family
     - migrate_actual_launch_consumers
     - rebuild_fresh_real_data_preview
+    - V0_browser_dom_and_computed_style_verdict
+    - close_critical_drift
     - record_result_in_thin_sot
     - materialize_native_penpot_master_and_linked_route_instances
     - V0_internal_golden_visual_verdict
@@ -140,8 +154,51 @@ normalization:
     - page_local_component_forks
     - forbidden_internal_style_overrides
     - framing_rule_duplicates
+    - unexplained_card_grid_variants
   penpot_may_not_block_astro_normalization: true
-  penpot_may_not_be_deferred_until_all_families_complete: true
+  penpot_follows_completed_family_waves: true
+
+component_identity:
+  visually_and_behaviorally_same_means_one_family_root: true
+  one_canonical_astro_root_or_variant_family: true
+  one_family_css_owner: true
+  one_canonical_svg_per_semantic_action: true
+  actual_route_consumer_inventory_required: true
+  page_local_copy_is_drift_even_if_pixels_match: true
+  differences_allowed_only_as_named:
+    - variant
+    - state
+    - composition
+  diagnostics_required:
+    - data-ds-family
+    - data-ds-version
+    - data-ds-variant
+  diagnostics_when_applicable:
+    - data-ds-state
+  source_checks:
+    actual_consumers_import_canonical_root: true
+    duplicate_page_markup_for_family: forbidden
+    forbidden_internal_overrides_detected: true
+  browser_checks:
+    normalized_dom_anatomy_signature: true
+    invariant_computed_style_signature: true
+  penpot_checks:
+    one_native_master_or_variant_family: true
+    route_boards_use_linked_instances: true
+    detached_visual_copy_does_not_pass: true
+
+colors:
+  all_visible_ui_colors_tokenized: true
+  raw_literals_allowed_only_in:
+    - canonical_token_registry
+    - image_or_media_data
+    - documented_technical_exception
+  exact_duplicates_merged: true
+  near_duplicates_clustered: true
+  near_duplicates_with_same_semantic_role_merged: true
+  retained_near_duplicate_requires_semantic_or_contrast_reason: true
+  palette_exploration_after_drift_normalization: true
+  central_token_change_updates_all_consumers: true
 
 iconography:
   canonical_svg_identity_required: true
@@ -151,91 +208,153 @@ iconography:
   individual_component_hardcoded_icon_sizes_forbidden: true
   global_role_value_change_updates_all_consumers: true
 
+media_frame:
+  shared_owner_required: true
+  local_page_framing_override_forbidden: true
+  required_rules:
+    - media_role
+    - frame_ratio
+    - contain_or_cover
+    - crop_permission
+    - focal_or_object_position
+    - clip_and_overflow
+    - fallback_and_loading
+    - responsive_resource_behavior
+  mandatory_donors:
+    - docs/features/static-site-pages/image-framing.md
+    - site/src/lib/relatedCardLayout.mjs
+    - site/src/components/OptimizedEventCardGrid.astro
+  parallel_reimplementation_forbidden_without_proven_reuse_failure: true
+  browser_bounds_and_object_fit_evidence_required: true
+
+adaptive_event_card_grid:
+  one_family_root_required: true
+  existing_optimizer_reuse_required: true
+  applicable_consumer_census_required: true
+  required_behavior:
+    container_uses_available_width: true
+    row_occupancy_target: 100_percent_minus_declared_gaps
+    column_count_uses_available_width_and_named_density_variant: true
+    phantom_empty_column_forbidden: true
+    final_remainder_uses_named_layout_variant: true
+    cards_fill_row_width: true
+    media_and_total_card_heights_equal_within_row: true
+    local_grid_css_may_not_change_framing_policy: true
+    mobile_and_compact_desktop_no_overflow: true
+  known_consumers_to_census:
+    - FreeCollectionSurface
+    - search_collection_pages
+    - UnusualListingSurface
+    - GastronomyCollectionSurface
+    - preview_hub_specimens
+    - OptimizedEventCardGrid
+    - related_and_discovery_rows
+  browser_measurements:
+    - row_bounds
+    - card_bounds
+    - declared_gap
+    - occupancy_ratio
+    - media_ratio
+    - equal_height_delta
+
+browser_validation:
+  owner: V0
+  required_connector: my-browser-bridge
+  mode: read_only
+  source_declaration_alone_is_not_pass: true
+  minimum_routes:
+    - /
+    - /segodnya/
+    - /zavtra/
+    - /date-YYYY-MM-DD/
+    - /vyhodnye/
+    - /podborki/besplatnye-sobytiya/
+    - /populyarnoe/
+    - /vystavki/
+    - /festivali/
+    - /sobytiya/<real-slug>/
+  viewport_classes:
+    - desktop_wide
+    - desktop_compact
+    - mobile_390_to_430
+  checks:
+    - component_identity_markers
+    - normalized_dom_anatomy
+    - computed_typography
+    - computed_spacing
+    - computed_colors
+    - computed_radii_and_borders
+    - computed_icon_sizes
+    - image_bounds_overflow_clip_and_object_fit
+    - adaptive_row_occupancy_and_equal_heights
+    - responsive_transitions
+    - horizontal_overflow
+  verdicts:
+    PASS: family_or_route_matches_contract
+    DRIFT: immediately_route_to_F0_M0_or_A0
+    PRODUCT_GAP: backlog_after_normalization_gate
+    BLOCKER: factual_browser_evidence_unavailable
+
+normalization_gate:
+  id: ASTRO_NORMALIZATION_PASS
+  required:
+    - fresh_data_generation_reproducible
+    - foundations_and_colors_tokenized
+    - four_icon_roles_applied_to_all_consumers
+    - same_components_have_single_family_roots
+    - media_frame_and_framing_pass
+    - adaptive_event_card_grid_migrated_to_applicable_consumers
+    - actual_routes_migrated
+    - no_critical_V0_browser_drift
+  opens:
+    - product_UI_gap_work
+    - palette_exploration
+    - interface_redesign
+  release_of_changed_family_requires_thin_sot_and_penpot_update: true
+
 normalization_report:
   required:
     - font_families_and_weights
     - H1_H2_H3_H4_body_label_metadata_roles
-    - spacing_sizing_and_container_scale
-    - colour_semantic_roles
+    - spacing_sizing_container_and_breakpoint_scale
+    - color_semantic_roles_and_merged_duplicates
     - radii_borders_elevation_layering
     - four_icon_size_roles_and_consumer_map
     - canonical_svg_identity_map
     - media_frame_roles_ratios_fit_crop_focal_clip_fallback
-    - normalized_family_variant_state_and_actual_consumer_map
+    - component_roots_variants_states_and_actual_consumer_map
+    - adaptive_event_card_grid_variants_and_migrated_surfaces
     - removed_page_local_forks_and_overrides
     - bounded_remaining_deviations
     - fresh_real_data_preview_url
+    - V0_browser_verdict
     - checks_run
     - penpot_master_linked_instance_and_ASP_status
 
-component_identity_proof:
-  astro:
-    one_central_family_source: true
-    actual_route_consumer_inventory: true
-    page_local_visual_fork: forbidden
-    forbidden_internal_override_detected_by_checks: true
-    debug_evidence_fields: [family_id, family_version, state_key, fixture_id]
-  thin_sot:
-    records:
-      - family_id
-      - astro_source_paths
-      - actual_route_consumers
-      - variants_and_states
-      - visible_asset_identities
-      - penpot_master_target
-  penpot:
-    one_native_master_or_variant_family: true
-    route_boards_use_linked_instances: true
-    detached_visual_copy_does_not_pass: true
-  visual:
-    real_data_owner_sanity_review: true
-    internal_golden_Astro_to_Penpot_review: true
-    final_visual_judge: V0
-
-families:
-  foundations_and_primitives:
-    owner: F0
-    astro_paths:
-      - site/src/styles/design-system.css
-      - site/src/components/design-system/**
-      - site/src/layouts/EventLayout.astro
-    status: NOT_STARTED
-  iconography_brand_medallions:
-    owner: F0
-    astro_paths:
-      - site/src/components/Icon.astro
-      - site/src/components/SocialIcon.astro
-      - site/src/components/brand/**
-    status: NOT_STARTED
-  media_and_cards:
-    owner: M0
-    astro_paths:
-      - site/src/lib/relatedCardLayout.mjs
-      - site/src/components/EventCard.astro
-      - site/src/components/listings/ListingEventCard.astro
-      - site/src/components/EventMediaRail.astro
-    status: NOT_STARTED
-  shell_and_listings:
-    owner: A0
-    astro_paths:
-      - site/src/layouts/EventLayout.astro
-      - site/src/components/listings/**
-      - site/src/pages/**
-    status: NOT_STARTED
-  production_generation:
-    owner: N0
-    existing_paths:
-      - site/scripts/export-production-preview-data.py
-      - site/scripts/build-preview.mjs
-      - site/scripts/build-production.mjs
-      - scripts/run_static_site_builder_kaggle.py
-    status: NOT_STARTED
+roles:
+  N0:
+    owns: [generation, technical_baseline, integration, status, preview, release]
+  F0:
+    owns: [foundations, typography, spacing, colors, icon_roles, svg, brand]
+  M0:
+    owns: [component_roots, media_frame, cards, adaptive_event_card_grid]
+  A0:
+    owns: [shell, listings, routes, consumer_migration]
+  V0:
+    owns: [browser_dom_audit, computed_style_audit, later_golden_penpot_audit]
+  K0:
+    owns: [fresh_read_diagnosis, prompt_authoring]
+  R0:
+    owns: [bounded_code_worktrees, merge_test_support, sole_penpot_write]
 
 status_values:
   - NOT_STARTED
+  - SOURCE_CENSUS
   - ASTRO_BUILDING
-  - REAL_DATA_REVIEW
-  - ASTRO_ACCEPTED
+  - FRESH_DATA_BUILD
+  - DOM_AUDIT
+  - DRIFT_REPAIR
+  - ASTRO_NORMALIZED
   - PENPOT_VISIBLE
   - ASP_PASS
   - REAL_DATA_PASS
@@ -249,10 +368,10 @@ critical_path_exclusions:
   - new_owner_facing_lab_pages
   - owner_golden_corpus_review
   - new_generation_or_lifecycle_system
-  - pre_candidate_promotion_receipts
-  - per_step_lease_cancel_provider_crypto
+  - mandatory_MAT_QA_INTEGRATE_PUBLISH_chain
   - full_penpot_tree_hash
   - bespoke_penpot_runner_per_family
   - empty_page_or_root_checkpoint
   - full_old_penpot_reconstruction
   - owner_as_message_bus
+  - product_gap_implementation_before_normalization_pass
