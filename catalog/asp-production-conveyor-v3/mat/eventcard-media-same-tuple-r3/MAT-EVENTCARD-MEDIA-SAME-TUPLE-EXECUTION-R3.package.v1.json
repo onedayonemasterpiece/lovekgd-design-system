@@ -11,15 +11,15 @@
   },
   "browser_plugin_bundle": {
     "artifact": {
-      "bytes": 510237,
+      "bytes": 511919,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_standalone_bundle_v1.js",
-      "sha256": "128efa06ebdf5e1acf46ab3d3ea07c045c6cbfae1426230beb178af733ccba9d"
+      "sha256": "cf235d51d66a7e4c19a57f35f171148ec52d54517752fca6310d6fa8d2709657"
     },
     "browser_penpot_vm_load": true,
     "builder": {
-      "bytes": 14391,
+      "bytes": 14592,
       "path": "scripts/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/build_eventcard_media_standalone_bundle_v1.py",
-      "sha256": "019f44f3614ec41f717e930af95760086fb976d6c872dcdeb0a5a24acac584fe"
+      "sha256": "c22ffd58f1dc1d70ce20c2da210bc9bc553824048bba16df19183574dac13cff"
     },
     "bundle_authorization_binding": [
       "exact bundle SHA-256",
@@ -34,7 +34,7 @@
       "projection": "projection",
       "settlement": "settlement"
     },
-    "global": "KenigEventsD0EventcardMediaR3StandaloneV5",
+    "global": "KenigEventsD0EventcardMediaR3StandaloneV6",
     "max_creates_per_phase": 3,
     "penpot_structured_clone_invoked": false,
     "portable_plain_data_clone": "owned plainDataClone; global structuredClone identifier absent",
@@ -58,14 +58,14 @@
       "head": "62f26df36b8199e4b8899b9252f796b1fa5e9d42",
       "path": "tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs",
       "receipt_comment": 5509766689,
-      "result": "PASS_REAL_PRODUCTION_ENTRYPOINTS_4_PHASES_4_CREATES_REPLAY_ZERO",
+      "result": "EXPECTED_STALE_PHASE_REJECTION_WITHOUT_EXTERNAL_REBIND; package regression owns fresh-revn lifecycle",
       "tree": "23bc8ef208c9e68e76890183fdda15c1a60f5fbd"
     },
     "single_javascript_artifact": true,
     "test": {
-      "bytes": 19423,
+      "bytes": 20063,
       "path": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
-      "sha256": "a386f6ddd714d011b6c47b7ef42b59f5d1016f4fc174d913ccb792813c39479b"
+      "sha256": "a2152d5594fe8c919d231161752818a7edeb7db5efe5402abac211bff824e882"
     },
     "unknown_outcome": "DISTINCT_READ_ONLY_FOUR_TARGET_PROJECTION_NO_RETRY",
     "native_coverage_reader": {
@@ -93,10 +93,14 @@
       "replay_phases": 1,
       "replay_creates": 0,
       "durable_progress_key": "eventcard-media-same-tuple-r3-progress",
-      "unknown_generic_retry": false
+      "unknown_generic_retry": false,
+      "immutable_operation_identity": "operationId plus exact package/head/tree/bundle/source/authority/writer",
+      "phase_authorization_bridge": "exact previous durable phase receipt SHA-256 -> fresh ACTIVE revn/projection tuple",
+      "fresh_currentfile_revn_after_every_phase": true,
+      "fresh_projection_after_every_phase": true
     }
   },
-  "defect_closed": "CONFORMANCE_BYPASS_PLUS_CRYPTO_SUBTLE_PLUS_NONPHASED_MEDIA_PLUS_STALE_ACTIVE_AUTHORITY",
+  "defect_closed": "V5_STALE_REVN_PROGRESS_TUPLE_DEADLOCK_WITHOUT_EXACT_PREVIOUS_RECEIPT_TO_FRESH_ACTIVE_BRIDGE",
   "execution": {
     "allowed_mutations": [
       "four existing media fills in place",
@@ -110,11 +114,13 @@
       "triggered_by/session/task/sole-writer/cancel/lease tuple",
       "exact standalone bundle SHA-256 and byte count",
       "full authorization ↔ provenance ↔ physical ACTIVE parity for cancel/bundle/revision/projection",
-      "current D0 shift marker 5514360206, Media-only authority and sole writer /root/publish_r2"
+      "current D0 shift marker 5514360206, Media-only authority and sole writer /root/publish_r2",
+      "immutable operationId separate from per-phase revision/projection",
+      "exact previous durable phase receipt SHA-256 for successor phases"
     ],
     "concrete_penpot_adapter": true,
     "current_page_activation": "open and verify exact current page under physical ACTIVE lease",
-    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV5",
+    "direct_plugin_global": "KenigEventsD0EventcardMediaR3StandaloneV6",
     "entrypoint": "executeEventcardMediaPenpotR3",
     "forbidden": [
       "text",
@@ -130,7 +136,7 @@
     "pre_mutation_coverage_capability_required": "bundled exact native reader; no caller helper",
     "projection_entrypoint": "projectEventcardMediaPenpotR3",
     "publisher_bespoke_rebundle": false,
-    "same_tuple": true,
+    "same_tuple": false,
     "second_run_created": 0,
     "settlement_entrypoint": "readEventcardMediaPenpotSettlementR3",
     "source_asset_delivery": "two exact WebP byte arrays embedded in the standalone artifact",
@@ -138,7 +144,8 @@
     "transform_contract": "official ShapeBase has no transform field; native null is truthful; exact rotation/flip are mandatory",
     "unknown_outcome": "durable UNKNOWN; reject generic retry; distinct read-only recovery decision required",
     "uploaded_image_data": "4; each uploadMediaData result exact ImageData.data bytes/SHA read before fill setter",
-    "phased_cursor": "durable UNKNOWN -> PARTIAL_CONFIRMED/DONE; one target per invocation"
+    "phased_cursor": "durable UNKNOWN -> exact prior receipt -> fresh ACTIVE revn/projection -> PARTIAL_CONFIRMED/DONE; one target per invocation",
+    "same_operation_identity": true
   },
   "native_observation": {
     "image_data_identity_contract": "capture exact opaque native id/name/intrinsics/mtype in preflight; do not invent unavailable IDs in Git",
@@ -332,9 +339,9 @@
   "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
   "tests": {
     "native_like": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_penpot_runtime_r3.test.js",
-    "native_like_cases": 9,
+    "native_like_cases": 10,
     "node": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_same_tuple_r3.test.js",
-    "node_total_cases": 28,
+    "node_total_cases": 29,
     "python": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/test_package.py",
     "standalone_bundle": "tests/asp-production-conveyor-v3/mat/eventcard-media-same-tuple-r3/eventcard_media_standalone_bundle_v1.test.js",
     "standalone_bundle_cases": 11
@@ -350,5 +357,13 @@
     "portable_runtime": "PASS without structuredClone, crypto.subtle, TextEncoder or Node built-ins",
     "durable_unknown_guard": "PASS; second generic invocation creates zero",
     "full_active_authority": "PASS; asp-active-run-v1, current shift, sole writer, revn-only"
+  },
+  "tests_v6": {
+    "root_cause_closed": "immutable operation identity is independent of per-phase currentFile.revn/projection",
+    "fresh_revn_regression": "PASS; host increments currentFile.revn after every one of four phases and remints exact ACTIVE",
+    "fresh_projection_regression": "PASS; every successor authorization binds a newly read projection",
+    "previous_receipt_chain": "PASS; wrong SHA-256 rejects before another upload",
+    "operation_identity_drift": "PASS; changed operationId rejects before another upload",
+    "shared_harness_62f": "invoked unchanged; expected second-phase stale rejection because generic harness cannot mint external ACTIVE tuples"
   }
 }

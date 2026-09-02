@@ -11,7 +11,7 @@ const BUNDLE_SHA = crypto.createHash('sha256').update(BUNDLE_SOURCE).digest('hex
 const BUNDLE_BYTES = Buffer.byteLength(BUNDLE_SOURCE);
 const sandbox = { structuredClone: () => { throw new TypeError('Illegal invocation'); }, console, Uint8Array, ArrayBuffer, DataView };
 sandbox.globalThis = sandbox; vm.createContext(sandbox); vm.runInContext(BUNDLE_SOURCE, sandbox, { filename:BUNDLE });
-const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV5;
+const API = sandbox.KenigEventsD0EventcardMediaR3StandaloneV6;
 const M = API.internals.logic;
 const R = API.internals;
 const HEAD = 'a'.repeat(40), TREE = 'b'.repeat(40);
@@ -110,29 +110,30 @@ class Fixture {
     if (this.active) this.shared.set(key, JSON.stringify(this.active)); else this.shared.delete(key);
   }
 
-  authorize(projection) {
+  authorize(projection, previousPhaseReceiptSha256 = null) {
     const provenance = { sessionId: 'session-01a0581e', taskId: 'task-eventcard-media-r3', writerId: '/root/publish_r2',
-      packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE, triggeredBy: 'issue-57-morning-media',
+      packageId: M.PACKAGE_ID, packageHead: HEAD, packageTree: TREE, operationId: 'eventcard-media-operation-v6', triggeredBy: 'issue-57-morning-media',
       pageProfileSha256: this.context.pageProfile.profileSha256, ownerDirective: R.OWNER_DIRECTIVE,
       authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID, authorityScope: R.AUTHORITY_SCOPE,
       leaseToken: 'lease-eventcard-media', leaseExpiresAt: Date.now() + 60_000, cancelToken: 'cancel-eventcard-media',
-      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES, revision: projection.revision, projectionSha256: projection.projectionSha256, bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
+      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES, revision: projection.revision, projectionSha256: projection.projectionSha256,
+      previousPhaseReceiptSha256 };
     const authorization = { schema: R.AUTH_SCHEMA, packageId: M.PACKAGE_ID, parentPackageId: M.PARENT_PACKAGE_ID,
       packageHead: HEAD, packageTree: TREE, state: 'ACTIVE', authorized: true, cancelled: false,
       revision: projection.revision, projectionSha256: projection.projectionSha256,
       sourceRegistrySha256: M.sourceRegistrySha256(), pageProfileSha256: provenance.pageProfileSha256,
       ownerDirective: R.OWNER_DIRECTIVE, authorityCardCommentId: R.AUTHORITY_CARD_COMMENT_ID,
       authorityScope: R.AUTHORITY_SCOPE, triggeredBy: provenance.triggeredBy, sessionId: provenance.sessionId, taskId: provenance.taskId,
-      writerId: provenance.writerId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken, provenance,
-      bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
+      writerId: provenance.writerId, operationId: provenance.operationId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken, provenance,
+      previousPhaseReceiptSha256, bundleSha256: BUNDLE_SHA, bundleBytes: BUNDLE_BYTES };
     this.active = { schema: R.ACTIVE_SCHEMA, state: 'ACTIVE', authorized: true, cancelled: false,
       sessionId: provenance.sessionId, taskId: provenance.taskId, writerId: provenance.writerId,
       packageId: provenance.packageId, packageHead: provenance.packageHead, packageTree: provenance.packageTree,
       triggeredBy: provenance.triggeredBy, pageProfileSha256: provenance.pageProfileSha256,
       ownerDirective: provenance.ownerDirective, authorityCardCommentId: provenance.authorityCardCommentId,
-      authorityScope: provenance.authorityScope, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken,
+      authorityScope: provenance.authorityScope, operationId: provenance.operationId, cancelToken: provenance.cancelToken, leaseToken: provenance.leaseToken,
       leaseExpiresAt: provenance.leaseExpiresAt, bundleSha256: provenance.bundleSha256, bundleBytes: provenance.bundleBytes,
-      revision: provenance.revision, projectionSha256: provenance.projectionSha256 };
+      revision: provenance.revision, projectionSha256: provenance.projectionSha256, previousPhaseReceiptSha256 };
     this.context.authorization = authorization;
     this.syncActive();
     return authorization;
@@ -140,11 +141,17 @@ class Fixture {
 }
 
 async function executeAll(fixture, projection) {
-  fixture.authorize(projection);
-  let receipt;
+  let currentProjection = projection, previousPhaseReceiptSha256 = null, receipt;
   for (let phase = 0; phase < 4; phase += 1) {
+    fixture.authorize(currentProjection, previousPhaseReceiptSha256);
     receipt = await API.execution(fixture.context);
     assert.ok(receipt.created <= 1);
+    assert.match(receipt.phaseReceiptSha256, /^[0-9a-f]{64}$/);
+    previousPhaseReceiptSha256 = receipt.phaseReceiptSha256;
+    fixture.file.revn += 1;
+    currentProjection = await API.projection(fixture.context);
+    assert.equal(currentProjection.revision, 181 + phase);
+    fixture.authorize(currentProjection, previousPhaseReceiptSha256);
     if (receipt.terminal === true) return receipt;
   }
   throw new Error('MEDIA_TEST_DID_NOT_TERMINATE');
