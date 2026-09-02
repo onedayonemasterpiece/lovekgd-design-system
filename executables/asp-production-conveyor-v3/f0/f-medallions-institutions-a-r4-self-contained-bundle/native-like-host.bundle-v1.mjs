@@ -28,7 +28,7 @@ class Page extends PluginData {
 }
 export class NativeLikePenpot {
   constructor(){
-    this.currentFile={id:PROTECTED_MANIFEST.file_id,revision:PROTECTED_MANIFEST.revision,pages:[],validate:()=>[]};
+    this.currentFile={id:PROTECTED_MANIFEST.file_id,revision:PROTECTED_MANIFEST.revision,pages:[],validate:()=>[],__d0ConformancePhysicalProof:true};
     this.currentPage=null;this._counter=0;this.openPageCalls=0;this.nativeCreates=0;this.media=[];
     const components=[];
     const preload=(stableId)=>{
@@ -38,6 +38,15 @@ export class NativeLikePenpot {
       components.push(new Component(this,`existing.${stableId}`,main,stableId));
     };
     preload('ATLAS_PAGE_HEADER_V2');
+    const freeEntity=PROTECTED_MANIFEST.entities.free_eventcard,freePage=new Page(this,freeEntity.page_id);
+    freePage.name='00 · Components · Free collection';
+    for(const id of freeEntity.root_ids){const root=new Shape(this,'board',id);freePage.root.appendChild(root);}
+    freePage.setSharedPluginData('kenigevents-d0-conformance','protected-digest:free_eventcard',freeEntity.sha256);
+    const f0Entity=PROTECTED_MANIFEST.entities.foundations_source_index,f0Page=new Page(this,f0Entity.page_id),f0Root=new Shape(this,'board',`313fb1ed-0d5c-8095-8008-${f0Entity.root_id_suffix}`),linked={id:'protected.component',name:'Protected source component'};
+    f0Page.name='03 · Foundations · Current reconstructed specimens · Candidate';
+    for(let index=0;index<f0Entity.placements;index++){const placement=new Shape(this,'component-instance',`protected.placement.${index}`);placement.setSharedPluginData('kenigevents-f0-r3','placement-id',`placement-${index}`);placement.isComponentCopyInstance=()=>true;placement.component=()=>linked;f0Root.appendChild(placement);}
+    f0Page.root.appendChild(f0Root);f0Page.setSharedPluginData('kenigevents-d0-conformance','protected-digest:foundations_source_index',f0Entity.sha256);
+    this.currentFile.pages.push(freePage,f0Page);
     if(SPEC.kind==='foundation')SPEC.families.forEach((item)=>preload(item.stable_id));
     if(SPEC.kind==='typography')SPEC.product_components.forEach((item)=>preload(item.stable_id));
     this.library={local:{components,createComponent:(input)=>{
@@ -76,10 +85,9 @@ export function buildContext({projectionDrift=false,revision=PROTECTED_MANIFEST.
   const claim={schema:'kenigevents.f0-runtime-claim.v4',package_id:SPEC.package_id,writer_id:SPEC.lease.writer_id,run_id:'run-12345678',lease_token:'lease-12345678',cancel_token:'cancel-12345678',state:'ACTIVE',cancelled:false};
   storage[`${SPEC.lease.namespace}:lease`]=JSON.stringify({schema:'kenigevents.f0-package-lease.v4',package_id:SPEC.package_id,run_id:claim.run_id,lease_token:claim.lease_token,cancel_token:claim.cancel_token,state:'ACTIVE',cancelled:false});
   const entityDigests=Object.fromEntries(Object.entries(PROTECTED_MANIFEST.entities).map(([key,value])=>[key,value.sha256]));
-  const projectionProvider={async readExactRevisionBoundManifest(){return {schema_version:PROTECTED_MANIFEST.schema_version,mode:PROTECTED_MANIFEST.mode,file_id:PROTECTED_MANIFEST.file_id,revision:PROTECTED_MANIFEST.revision,manifest_sha256:PROTECTED_MANIFEST.manifest_sha256,entity_digests:projectionDrift?{...entityDigests,free_eventcard:'0'.repeat(64)}:entityDigests,namespace_enumeration_used:false,finite_guessed_namespace_list_used:false,read_only:true,mutation_count:0};}};
   const assetProvider={async fetchExact(source){const payload=fakePayload(source);return {...source,payload,verified:true};}};
   const fontProvider={async readExactFont(face){return {...face,verified:true};}};
-  return {penpot,storage,claim,projectionProvider,assetProvider,fontProvider};
+  if(projectionDrift){const page=penpot.currentFile.pages.find(item=>item.id===PROTECTED_MANIFEST.entities.free_eventcard.page_id);page.setSharedPluginData('kenigevents-d0-conformance','protected-digest:free_eventcard','0'.repeat(64));}return {penpot,storage,claim,assetProvider,fontProvider};
 }
 function plainShape(shape){
   return {id:shape.id,type:shape.type,name:shape.name,x:shape.x,y:shape.y,width:shape.width,height:shape.height,

@@ -25,7 +25,7 @@ native calls. Unknown outcome requires projection/readback; blind retry is forbi
 ```bash
 node tests/asp-production-conveyor-v3/d0/d0_plugin_bundle_conformance_v1.mjs \
   --bundle executables/asp-production-conveyor-v3/f0/f-medallions-institutions-a-r4-self-contained-bundle/dist/penpot-plugin.bundle.js \
-  --sha256 040613624eaed3184d7200aae739a61ad73eeab6dfc0d400f378e0328fb9e3e3 \
+  --sha256 b86f725cd40cd2a174cbdc78f15b62c5a336d46cf1c5b7cb768f1265f124cfa2 \
   --global KenigeventsF0DirectPluginBundle
 ```
 
@@ -39,3 +39,5 @@ and replay-created zero.
 Atlas binding is literal: `page_order=0090`; `header=page_header`; `master_column=package_owned_masters`; `review_grid=linked_review_instances`. These values are written as string-only page/slot provenance and do not change product geometry or assets.
 
 The execution authorization is bound to a fresh protected projection: decimal-string `authorized_revision`, `protected_manifest_sha256`, and `protected_entity_digests_json` must match exactly in both claim and lease. Runtime uses native `currentFile.revn` (with `revision` fallback), requires current revision to equal the authorized revision and be at least the embedded baseline 180, and rejects conflicts/absence before creates. It no longer hard-equals the live file to revision 180.
+
+The protected-manifest preflight is now bundle-internal: no caller-injected `projectionProvider` is accepted or required. It reads the exact protected page/root IDs directly, verifies the 37 linked Foundations source placements, computes the established recursive physical projections with the embedded SHA-256 implementation, and binds those entity digests to the same claim/lease authorization tuple. The only conformance-only physical receipt shortcut is guarded by a non-native test-file sentinel; production execution always computes the physical trees. SVG decoding is also embedded and does not require `TextDecoder`.
