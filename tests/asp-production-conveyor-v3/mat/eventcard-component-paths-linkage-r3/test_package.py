@@ -63,7 +63,7 @@ class PackageTest(unittest.TestCase):
     def test_standalone_bundle_identity_and_forbidden_runtime_tokens(self):
         meta = self.package["browser_plugin_bundle"]
         self.assertEqual(meta["schema"], "D0_PLUGIN_BUNDLE_V1")
-        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3Bundle")
+        self.assertEqual(meta["global"], "KenigEventsD0EventcardPathsR3StandaloneV2")
         self.assertEqual(meta["artifact"]["bytes"], len(self.bundle_bytes))
         self.assertEqual(meta["artifact"]["sha256"], hashlib.sha256(self.bundle_bytes).hexdigest())
         for name in ["require", "module", "exports", "process", "Buffer"]:
