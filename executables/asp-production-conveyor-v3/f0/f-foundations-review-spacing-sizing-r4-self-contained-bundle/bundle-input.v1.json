@@ -4,8 +4,14 @@
     "atlas": {
       "branch": "o0/penpot-atlas-layout-v2-20260901",
       "head": "663be702d481972cb2e8863af500f1c35dda1d8c",
-      "header_component_id": "ATLAS_PAGE_HEADER_V2",
-      "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75"
+      "tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+      "atlas_page_id": "foundations-review-spacing-sizing",
+      "page_order": "0060",
+      "template_id": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "header_component_id": "250f32b9-f4ec-800e-8008-92c64c51fdc0",
+      "header_main_id": "250f32b9-f4ec-800e-8008-92c64a6147cc",
+      "header_component_name": "ATLAS_PAGE_HEADER_V2",
+      "header_component_path": "Documentation / Atlas V2"
     },
     "expected": {
       "asset_masters": 0,
@@ -21,51 +27,69 @@
     },
     "families": [
       {
-        "component_name": "Foundation/Specimen/SpacingScale",
+        "stable_id": "foundation.spacing",
         "label_ru": "SpacingScale",
-        "stable_id": "foundation.spacing"
+        "component_name": "SpacingScale",
+        "component_path": "Foundation / Specimen",
+        "component_id": "313fb1ed-0d5c-8095-8008-9189b3279453",
+        "main_id": "313fb1ed-0d5c-8095-8008-9189b2963057"
       },
       {
-        "component_name": "Foundation/Specimen/SizingDensity",
+        "stable_id": "foundation.sizing-density",
         "label_ru": "SizingDensity",
-        "stable_id": "foundation.sizing-density"
+        "component_name": "SizingDensity",
+        "component_path": "Foundation / Specimen",
+        "component_id": "313fb1ed-0d5c-8095-8008-9189edddf556",
+        "main_id": "313fb1ed-0d5c-8095-8008-9189ed7fc58a"
       }
     ],
     "kind": "foundation",
     "lease": {
-      "max_native_creates_per_invocation": 3,
-      "namespace": "kenigevents-f0-morning-spacing-sizing-r3",
+      "namespace": "kenigevents",
+      "key": "asp-active-run-v1",
       "writer_id": "/root/publish_r2",
+      "max_native_creates_per_invocation": 3,
       "require_active_before_every_create": true,
-      "require_expiry_before_every_create": true,
-      "require_cancel_before_every_create": true
+      "require_active_before_every_setter": true,
+      "require_active_before_every_plugin_write": true
     },
     "new_foundation_families": 0,
-    "package_id": "F-FOUNDATIONS-REVIEW-SPACING-SIZING-R4-SELF-CONTAINED-BUNDLE",
+    "package_id": "F-FOUNDATIONS-REVIEW-SPACING-SIZING",
     "page": {
+      "name": "03.2 · Foundations · Spacing & sizing · Candidate",
+      "stable_id": "atlas.f0.spacing-sizing.candidate.v5",
+      "page_key": "f0.candidate.page.spacing-sizing.atlas-r2.v5",
+      "root_key": "f0.candidate.root.spacing-sizing.atlas-r2.v5",
+      "root_name": "F0 · Spacing & sizing · Candidate root",
+      "template": "FOUNDATION_ASSET_GRID_STANDARD_V2",
+      "width": 2176,
+      "height": 1440,
+      "root_bounds": [
+        0,
+        0,
+        2176,
+        1440
+      ],
       "header_bounds": [
         64,
         64,
         2048,
         128
       ],
-      "height": 1248,
-      "name": "03.2 · Foundations · Spacing & sizing · Runtime repair",
-      "root_bounds": [
-        0,
-        0,
-        2176,
-        1248
-      ],
-      "shell_bounds": [
-        64,
-        256,
-        2048,
-        928
-      ],
-      "stable_id": "atlas.f0.spacing-sizing.r3-runtime",
-      "template": "FOUNDATION_ASSET_GRID_STANDARD_V2",
-      "width": 2176
+      "content_start_y": 256,
+      "master_column": {
+        "x": 64,
+        "width": 448
+      },
+      "review_grid": {
+        "x": 576,
+        "columns": 4,
+        "cell_width": 320,
+        "cell_height": 256,
+        "column_gap": 32,
+        "row_gap": 32
+      },
+      "bottom_padding": 64
     },
     "placements": [
       {
@@ -167,46 +191,53 @@
         "value": "clamp(221px, min(13vw, 24svh), 244px)"
       }
     ],
-    "protected_manifest_sha256": "938f077cd580d54d9e10cc3a89fb947d4bea5d4d42679105bdab8a3b721bc24a",
     "schema_version": "kenigevents.f0-morning-runtime-spec.v3",
     "source_parent": {
       "head": "1dad0d7551d3bce6bc74848943b7aa21d4edaad9",
       "tree": "d0cd83b1743db4a7352a5ad1192de211cd52cf38"
     },
-    "state": "DIRECT_PLUGIN_BUNDLE_READY_D0_QA_INTEGRATE",
+    "state": "D0_DIRECT_PLUGIN_BUNDLE_READY_FOR_INDEPENDENT_QA_INTEGRATE",
     "source_bundle_parent": {
       "head": "47890d81360b21f9de43b3c568aeba49c422878b",
       "tree": "bffebcbc1351f3da4070115ea7886ec7bdb4d0ab"
-    }
-  },
-  "manifest": {
-    "candidate_write_scope": "TARGET_PAGE_DESCENDANTS_ONLY",
-    "entities": {
-      "foundations_source_index": {
-        "page_id": "313fb1ed-0d5c-8095-8008-9183322ab3a9",
-        "placements": 37,
-        "projection_id": "PROTECTED_FOUNDATIONS_SOURCE_INDEX",
-        "root_id_suffix": "918a0c1473af",
-        "sha256": "1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa"
-      },
-      "free_eventcard": {
+    },
+    "protected": {
+      "minimum_revn": 194,
+      "free": {
         "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
-        "projection_id": "PROTECTED_FREE_EVENTCARD",
         "root_ids": [
           "313fb1ed-0d5c-8095-8008-9108df52b2ce",
           "313fb1ed-0d5c-8095-8008-912c45090653"
-        ],
-        "sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042"
+        ]
+      },
+      "foundations": {
+        "page_id": "313fb1ed-0d5c-8095-8008-9183322ab3a9",
+        "root_id": "313fb1ed-0d5c-8095-8008-918a0c1473af"
       }
-    },
+    }
+  },
+  "manifest": {
+    "schema_version": "kenigevents.f0-current-protected-projection.v2",
+    "mode": "EXACT_MUTATION_FREE_REVN_BOUND_PROJECTION",
     "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "native_revn_evidence": 194,
+    "candidate_write_scope": "TARGET_PAGE_DESCENDANTS_ONLY",
     "finite_guessed_namespace_list_used": false,
-    "manifest_sha256": "938f077cd580d54d9e10cc3a89fb947d4bea5d4d42679105bdab8a3b721bc24a",
-    "mode": "EXACT_MUTATION_FREE_REVISION_BOUND_MANIFEST",
     "namespace_enumeration_required": false,
-    "revision": 180,
-    "schema_version": "kenigevents.f0-revision-bound-protected-projection.v1",
-    "source_comment": 5502077071
+    "entities": {
+      "minimum_revn": 194,
+      "free": {
+        "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+        "root_ids": [
+          "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+          "313fb1ed-0d5c-8095-8008-912c45090653"
+        ]
+      },
+      "foundations": {
+        "page_id": "313fb1ed-0d5c-8095-8008-9183322ab3a9",
+        "root_id": "313fb1ed-0d5c-8095-8008-918a0c1473af"
+      }
+    }
   },
   "assets": {}
 }
