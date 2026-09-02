@@ -1,0 +1,437 @@
+{
+  "artifacts": {
+    "executor": {
+      "bytes": 9613,
+      "git_blob_sha1": "622a4f50980e3e486d18c279e3fe2c524bc082c9",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-full-page-r2/free_full_page_native_executor_r2.js",
+      "sha256": "526ed164791cd6342e211d98030be2dc5c55e1778e5e400eab7e2f862c7516a0"
+    },
+    "schema": {
+      "path": "catalog/asp-production-conveyor-v3/a0/free-full-page-r2/schema.v1.json"
+    },
+    "setup": {
+      "bytes": 1537,
+      "git_blob_sha1": "8441799cb113134dfef332c7cd3dadddd24faac3",
+      "path": "scripts/asp-production-conveyor-v3/a0/free-full-page-r2/setup_free_full_page_r2.js",
+      "sha256": "9c04f64ffc5089a2227004fb44f70bd909e3e724fcd27487397538f5522c5422"
+    },
+    "test": {
+      "bytes": 8219,
+      "git_blob_sha1": "09760974530cbdcec124bf3af609f9733ede47b7",
+      "path": "tests/asp-production-conveyor-v3/a0/free-full-page-r2/free_full_page_r2.test.js",
+      "sha256": "9af5dc7c0ea40c4aa32bb2d1aa20c2c3645e895b9ba59fbd23807cd291682238"
+    }
+  },
+  "atlas_binding": {
+    "atlas_id": "ASP_PENPOT_ATLAS_LAYOUT_V2",
+    "atlas_mutation_by_a0": false,
+    "bindings_git_blob_sha1": "23475806beebfbe21bd77759440c169c60627550",
+    "bindings_path": "catalog/asp-production-conveyor-v3/atlas-v2/page-unit-bindings.v2.json",
+    "logical_source_unit_id": "free-collection-eventcard",
+    "page_order": "0200",
+    "physical_page_name": "00 · Components · Free collection",
+    "projection_role": "READY",
+    "remote_head": "663be702d481972cb2e8863af500f1c35dda1d8c",
+    "remote_tree": "cf9a1e6a5e0a84aea5636334dbd3be4961039b75",
+    "source_package_id": "PROTECTED-FREE-COLLECTION-EVENTCARD"
+  },
+  "dependency_gates": {
+    "brand": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "fc904c1284bcd237f77853a8a4fd41efa153ebe9",
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "remote_head": "8c7fcdb00f583b7de1849d9fa21542bc585f2cea",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "brand.identity-and-pwa"
+    },
+    "event_card": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "6496f9fdf2c19cce06c2a07d5b4d48061afe5522",
+      "package_id": "U-EVENTCARD-FOUR-CASES",
+      "remote_head": "c2d6ff107c632311d1c1d0cb1b74d7eb0a465b18",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "component.event-card.free-collection"
+    },
+    "free_shell": {
+      "fallback": "FORBIDDEN",
+      "git_blob_sha1": "4e7479dea2ab321b51ef937425bd3c78e5bc06cb",
+      "package_id": "U-FREE-SHELL",
+      "remote_head": "9342d785df1d583ac9104dff2253df0e05b687dd",
+      "remote_tree": "9f45472edccce1836f84f21aa7a55764745f3f28",
+      "required_state": "D0_QA_INTEGRATE_EXACT_PASS",
+      "semantic_id": "free.collection.route"
+    }
+  },
+  "frozen_base": {
+    "head": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+    "tree": "3132550212222ec3dea716710821e732ad0d92bb"
+  },
+  "lane1_terminal_head": "9e8edbed95eb40807059e6c6f10af74beeaee683",
+  "limits": {
+    "max_managed_creations_per_invocation": 3,
+    "second_terminal_run_created": 0
+  },
+  "logical_package_id": "A-FREE-FULL-PAGE-R2",
+  "logical_package_path": "catalog/asp-production-conveyor-v3/a0/free-full-page-r2/A-FREE-FULL-PAGE-R2.logical-package.v1.json",
+  "logical_package_record_sha256": "33ce556aff7535126fea202443bdfd6212d4049e4896a0073d620c53eea046be",
+  "negative_test_classes": [
+    "lane1-head-drift",
+    "logical-record-drift",
+    "duplicate-state",
+    "stale-dependency",
+    "wrong-atlas-role",
+    "cancelled-lease",
+    "screenshot-implementation",
+    "protected-projection-drift"
+  ],
+  "old_penpot_lineage": "FORBIDDEN",
+  "owner": "A0",
+  "package_id": "A-FREE-FULL-PAGE-R2-READY",
+  "penpot_execution_authorized": false,
+  "penpot_mutations_by_a0": 0,
+  "projection_role": "READY",
+  "promotion_authorized": false,
+  "record_sha256": "eaee8022664de1dab8a1d4ab47327794ed57788dd8947988b88f3a81eb34a8be",
+  "route": "/podborki/besplatnye-sobytiya/",
+  "run_control": {
+    "cancel_token": "e150485de72f28cf094c568cc645fd752712bbf7771adadaabe00fc989e418fd",
+    "lease_token": "113e8bf53677c8ebc13ec54f6b93ae003c724d53c118172042ae3828903a040d",
+    "run_id": "c979dc5c-6f57-5901-a7d8-a0d627ee1a49",
+    "schema": "kenigevents.asp-run-control.v1",
+    "separate_package_lease": true,
+    "state": "ACTIVE_REQUIRED",
+    "writer_id": "/root/publish_r2"
+  },
+  "schema_version": "kenigevents.a0.free-full-page-r2.physical-unit.v1",
+  "state": "MAT_PACKAGE_READY_QA_INTEGRATE_GATED",
+  "states": [
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.top.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "medallion": "normal"
+      },
+      "state": "top",
+      "state_packet_sha256": "689bd109987c0774ff165b53d90668191cc06965ad048f8357a8ad531b123a3b",
+      "state_semantics": "READY route at initial scroll; hero visible; exact 2+3 rows rendered.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.top.r2",
+      "shell_contract": {
+        "header": "default",
+        "hero": "visible",
+        "medallion": "normal"
+      },
+      "state": "top",
+      "state_packet_sha256": "d0f28a994d33030ddfc3a1a1cbbca6449f334812a15946bf409da9c4259306ff",
+      "state_semantics": "READY route at initial scroll; hero visible; exact 2+3 rows rendered.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.scrolled.r2",
+      "shell_contract": {
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      "state": "scrolled",
+      "state_packet_sha256": "07669631fd165c9e48f7731abd080d34df04703ea35214e33eef304bd7028cd0",
+      "state_semantics": "READY route after shell scroll transition; exact 2+3 rows remain unchanged.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.scrolled.r2",
+      "shell_contract": {
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      "state": "scrolled",
+      "state_packet_sha256": "ac31508ec217eab2944698d5f049e459633eab8705836a26dde11d77456c70b9",
+      "state_semantics": "READY route after shell scroll transition; exact 2+3 rows remain unchanged.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.desktop.full.r2",
+      "shell_contract": {
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      "state": "full",
+      "state_packet_sha256": "d81d0533fb7cdb5852d846e5fc9dedd3e79c7ff0d32e1ab6a8c107fbf55e7975",
+      "state_semantics": "READY full-route composition; exact 2+3 rows and terminal footer/navigation state.",
+      "viewport": {
+        "height": 800,
+        "id": "desktop",
+        "width": 1280
+      }
+    },
+    {
+      "factual_fixture_order": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "projection_role": "READY",
+      "rendered_fixture_ids": [
+        "event.real.2182",
+        "event.real.6711",
+        "event.real.7609",
+        "event.real.8006",
+        "event.real.8200"
+      ],
+      "route": "/podborki/besplatnye-sobytiya/",
+      "rows": [
+        {
+          "count": 2,
+          "fixture_ids": [
+            "event.real.8006",
+            "event.real.8200"
+          ],
+          "group": "events"
+        },
+        {
+          "count": 3,
+          "fixture_ids": [
+            "event.real.2182",
+            "event.real.6711",
+            "event.real.7609"
+          ],
+          "group": "exhibitions"
+        }
+      ],
+      "scenario_id": "a0.free.mobile.full.r2",
+      "shell_contract": {
+        "header": "scrolled",
+        "hero": "past-or-full",
+        "medallion": "sticky/floating"
+      },
+      "state": "full",
+      "state_packet_sha256": "1b7398baeb8bb3d3758a90e5cf1585ccf25738c588e996a19bcfb8b5daffde00",
+      "state_semantics": "READY full-route composition; exact 2+3 rows and terminal footer/navigation state.",
+      "viewport": {
+        "height": 844,
+        "id": "mobile",
+        "width": 390
+      }
+    }
+  ],
+  "storage": {
+    "protected_baseline": "a0_free_full_page_ready_baseline",
+    "setup_receipt": "a0_free_full_page_ready_setup"
+  },
+  "target": {
+    "existing_atlas_content": "NO_MUTATION",
+    "managed_scope": "PACKAGE_ROOT_ONLY",
+    "mode": "D0_BINDS_EXISTING_ATLAS_PHYSICAL_PAGE",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · A-FREE-FULL-PAGE-R2 · READY",
+    "root_semantic_id": "a0.free.full-page.r2.ready.root"
+  },
+  "terminal_contract": {
+    "candidate_roots": 1,
+    "detached_instances": 0,
+    "physical_pages": 1,
+    "root_export_nonempty": true,
+    "screenshot_shapes": 0,
+    "second_run_created": 0,
+    "state_boards": 6,
+    "states_exactly_once": true
+  },
+  "visual_acceptance": "PENDING_V0"
+}
