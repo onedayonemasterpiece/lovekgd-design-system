@@ -1,0 +1,271 @@
+{
+  "atlas_authorization": {
+    "branch": "d0/atlas-r2-medallions-balance-evidence-v1-20260902",
+    "bundle_readiness_is_not_penpot_execution_authorization": true,
+    "comment": 5506769941,
+    "future_visual_pass_implied": false,
+    "head": "9c2f0578cc58c2e490248a66bfe6e8297ab9410c",
+    "initial_batch_max_new_pages": 3,
+    "parent": "0fbfd4839343de71d5128b2e9c2ad232dde6abf4",
+    "tree": "c22812886dd41578364808d56e2915e7df1ad2aa"
+  },
+  "atlas_binding": null,
+  "branch": "a0/direct-plugin-archetypes-v1-20260902",
+  "browser_sandbox_test": "PASS",
+  "bundle": {
+    "bytes": 161534,
+    "entrypoints": [
+      "inspect",
+      "project",
+      "execute",
+      "settle"
+    ],
+    "filename": "favorites.bundle.js",
+    "git_blob_sha1": "3dcd7213796182ca93db5cf582ebf9e130cb1c52",
+    "global": "KenigEventsA0DirectPluginBundles",
+    "global_key": "A0-DIRECT-PLUGIN-FAVORITES-V1",
+    "sha256": "f51be9892f5cfc63d6bd582c19aff26a7537edc14db648bee7883393f8212686"
+  },
+  "bundle_rule": {
+    "await_open_page": true,
+    "exact_current_page_proof": true,
+    "page_only_first_phase": true,
+    "placeholders_forbidden": true,
+    "protected_projections_fail_closed": true,
+    "runtime_shared_imports_forbidden": true,
+    "second_terminal_replay_created": 0,
+    "self_contained_single_file": true,
+    "stable_id_resume": true,
+    "substitute_cards_forbidden": true
+  },
+  "callability_contract_comments": [
+    5506830213,
+    5506836084
+  ],
+  "content_kind": "PAGE_UNIT",
+  "dependencies": [
+    {
+      "exact_tuple_required": true,
+      "key": "authorization.static-site",
+      "semantic_id": "authorization.static-site"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "event.card.large",
+      "semantic_id": "event.card.large"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "favorites.saved-events-controller",
+      "semantic_id": "favorites.saved-events-controller"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "listing.event-card.compact",
+      "semantic_id": "listing.event-card.compact"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "runtime.favorites",
+      "semantic_id": "runtime.favorites"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.desktop-header",
+      "semantic_id": "shell.desktop-header"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.event-layout",
+      "semantic_id": "shell.event-layout"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.footer",
+      "semantic_id": "shell.footer"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.mobile-bottom-navigation",
+      "semantic_id": "shell.mobile-bottom-navigation"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.mobile-header",
+      "semantic_id": "shell.mobile-header"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "shell.mobile-menu",
+      "semantic_id": "shell.mobile-menu"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "system.state-panel",
+      "semantic_id": "system.state-panel"
+    },
+    {
+      "exact_tuple_required": true,
+      "key": "system.toast-region",
+      "semantic_id": "system.toast-region"
+    }
+  ],
+  "deterministic_regeneration": "PASS",
+  "exact_tuple": {
+    "active_state": "populated",
+    "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+    "fixtures": [
+      "event.real.4240",
+      "event.real.8006",
+      "event.real.8200"
+    ],
+    "projection": {
+      "ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/1",
+      "sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b"
+    },
+    "routes": [
+      "/izbrannoe/"
+    ],
+    "states": [
+      "anonymous",
+      "authenticated",
+      "empty",
+      "error",
+      "loading",
+      "populated",
+      "retry",
+      "stale"
+    ],
+    "subject": "archetype.favorites",
+    "variants": [
+      {
+        "id": "desktop",
+        "scenario_id": "a0.review.archetype.favorites.desktop.v1",
+        "semantic_regions": [
+          "favorites.header",
+          "favorites.identity-gate",
+          "favorites.saved-events",
+          "favorites.recovery"
+        ],
+        "source_root_key": "a0.candidate.root.archetype.favorites.desktop.v1",
+        "viewport": {
+          "height": 800,
+          "width": 1280
+        }
+      },
+      {
+        "id": "mobile",
+        "scenario_id": "a0.review.archetype.favorites.mobile.v1",
+        "semantic_regions": [
+          "favorites.header",
+          "favorites.identity-gate",
+          "favorites.saved-events",
+          "favorites.recovery"
+        ],
+        "source_root_key": "a0.candidate.root.archetype.favorites.mobile.v1",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      }
+    ]
+  },
+  "factual_bytes_changed": 0,
+  "generator_input_sha256": "4238ae01bb6f64e5bcf14cdc99449a8a7c7352f10242da889557f9ab743e7ac9",
+  "job_id": "A0-DIRECT-PLUGIN-FAVORITES-V1",
+  "lane": "lane-3",
+  "limits": {
+    "max_creates_per_invocation": 3,
+    "second_terminal_replay_created": 0
+  },
+  "next_owner": "D0_QA_INTEGRATE",
+  "package_test": "PASS",
+  "penpot_execution_authorized": false,
+  "penpot_mutations": 0,
+  "penpot_reads": 0,
+  "projection_role": "CANDIDATE",
+  "protected_projections": {
+    "foundations": {
+      "chars": 43736,
+      "page_id": "313fb1ed-0d5c-8095-8008-9183322ab3a9",
+      "placements": 37,
+      "rejected_scalar_sha256": "523e43cfe95df7962f8034c4dc2e9f04f02114b15ad488587c707e35b6fed8f1",
+      "root_id": "313fb1ed-0d5c-8095-8008-918a0c1473af",
+      "sha256": "1b119d154376505b8d28036cbf33e97f9009a007bf0a5a5765de2750644da1fa",
+      "utf8_bytes": 43746
+    },
+    "free": {
+      "chars": 84033,
+      "page_id": "c16498cb-b51d-8030-8008-904bd8fc9c53",
+      "root_ids": [
+        "313fb1ed-0d5c-8095-8008-9108df52b2ce",
+        "313fb1ed-0d5c-8095-8008-912c45090653"
+      ],
+      "sha256": "0b00102e348367601fe35de30e06dc22b10883577a22917320955058115fc042",
+      "utf8_bytes": 84034
+    },
+    "minimum_revision": 113
+  },
+  "run_control": {
+    "cancel_token": "63f227420fcd8c5716dc7921f1e10aaac948cf75381bdd903e757fabb1cbcda0",
+    "lease_token": "0eb4d10668fa944c6cb9895c6c85eb652f3c09d34b6208f98efdcef9fddc237c",
+    "package_id": "A0-DIRECT-PLUGIN-FAVORITES-V1",
+    "run_id": "2b10447d-1720-43e9-a859-afa5d5514213",
+    "schema": "kenigevents.asp-run-control.v1",
+    "state": "ACTIVE_REQUIRED",
+    "writer_id": "/root/publish_r2"
+  },
+  "runtime_shared_imports": 0,
+  "schema_version": "kenigevents.a0.direct-plugin-route-bundle-manifest.v1",
+  "slug": "favorites",
+  "source_fixture_binding_test": "PASS",
+  "source_package_id": "A0-PAGE-WAVE2-FAVORITES-R1",
+  "source_package_record_sha256": "2030431d5fa7ca71cda3abad8e456d42dab5f66c33ca2d68d3749620b26b47a5",
+  "sources": [
+    {
+      "bytes": 5638,
+      "filename": "01-physical-page-unit.json",
+      "git_blob_sha1": "8171abc54b5f07c91ed98419e30696dfaac4d0f6",
+      "name": "physical-page-unit",
+      "path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/units/08-archetype-favorites.package.v1.json",
+      "ref": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "sha256": "e5befa1a68373f1e617a632086978813df4d83680a7acd809529c526e42e27dd"
+    },
+    {
+      "bytes": 4082,
+      "filename": "02-runtime-contract.json",
+      "git_blob_sha1": "c3f4a96cccb9ef8c94aa1a7c1a9b331ed6d351c3",
+      "name": "runtime-contract",
+      "path": "catalog/asp-production-conveyor-v3/a0/page-wave-v1/runtime-contract.v1.json",
+      "ref": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "sha256": "5830231383fb451f4a2dcc66d08a35bde03e3c9396833e6ef23a841193808226"
+    },
+    {
+      "bytes": 6410,
+      "filename": "03-archetype-projection.json",
+      "git_blob_sha1": "ebbc62cb07acedb84b4e933b73b0c2c40712246b",
+      "name": "archetype-projection",
+      "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+      "ref": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "sha256": "8146bb75b385b5048d75f41177db083e9a3bcb9651e5dba7cae7a27078c83897"
+    },
+    {
+      "bytes": 92896,
+      "filename": "04-candidate-adapter.json",
+      "git_blob_sha1": "7bf0d01b420e035e59c322e71ae9fc83856c2eb1",
+      "name": "candidate-adapter",
+      "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2-candidate-adapter.v1.json",
+      "ref": "4edc859861fba3f18fab0e65e9d2e8c0a7394bdb",
+      "sha256": "2cee06d94f4183df76e4aa3ba014a9b8907795e817ab541b7148cee098954596"
+    }
+  ],
+  "state": "DIRECT_PLUGIN_BUNDLE_READY_D0_QA_INTEGRATE",
+  "target": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "mode": "CREATE_OR_RESUME_PAGE",
+    "page_name": "A0 · Archetype · Favorites · Candidate",
+    "root_name": "CANDIDATE_BUILD_NOT_ACCEPTED · A0 · archetype.favorites",
+    "root_stable_id": "root/favorites"
+  },
+  "visual_pass_declared": false
+}

@@ -1,0 +1,2539 @@
+{
+  "schema_version": "kenigevents.asp-conveyor.a0.candidate-adapter.v1",
+  "adapter_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER.v1",
+  "package_manifest": {
+    "package_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER",
+    "owner": "A0",
+    "priority": "P1",
+    "status": "READY_TO_PUBLISH",
+    "branch": "a0/asp-production-conveyor-20260831",
+    "sha": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+    "paths": [
+      "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+      "catalog/asp-production-conveyor-v3/a0/archetype-wave-2-candidate-adapter.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/ready-manifests-phase2-repair.v4.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter-queue.v1.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter.schema.json",
+      "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+      "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+      "tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py"
+    ],
+    "source_and_donor_lineage": [
+      {
+        "source": "A-ARCHETYPE-WAVE-2",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "ten current archetypes and twenty desktop/mobile cases after bounded focus-route source-fidelity repair"
+      },
+      {
+        "policy": "ASP_NONBLOCKING_WORK_STEALING_V6",
+        "comment": 5481580183,
+        "disposition": "LOWEST_OWNER_REPAIR",
+        "scope": "restore two exact focus-group routes and source pages before compiling the adapter"
+      },
+      {
+        "pr": 50,
+        "commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+        "disposition": "REUSE_CANONICAL_DATA",
+        "scope": "route/archetype identities, exact regions, state contracts, component refs and viewport tuples"
+      },
+      {
+        "pr": 52,
+        "commit": "b86bab3e91511b3d4bd7d953b22bceb847f02a51",
+        "disposition": "REUSE_STRUCTURE_AFTER_RECONSTRUCTION",
+        "scope": "desktop/mobile case ordering only; all Penpot IDs, URLs, screenshots and statuses dropped"
+      }
+    ],
+    "corpus_projection_state_tuple": {
+      "source_head": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+      "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+      "a0_correction_payload_sha": "d85b38c7883d53f43b628d885513c5851c164b25",
+      "wave2_record_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+      "wave2_file_sha256": "8146bb75b385b5048d75f41177db083e9a3bcb9651e5dba7cae7a27078c83897",
+      "route_registry_sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d",
+      "pr52_case_structure_file_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285",
+      "focus_group_contract_git_blob_sha1": "798538de7bc3b6deff41dded3406195bb5803827"
+    },
+    "archetype_or_route_ids": [
+      "archetype.search",
+      "archetype.favorites",
+      "archetype.personal-feed",
+      "archetype.festivals",
+      "archetype.interest-clubs",
+      "archetype.artifacts",
+      "archetype.event-detail",
+      "archetype.focus-group",
+      "archetype.information-pages",
+      "archetype.special-state"
+    ],
+    "dependencies": [
+      "A-ARCHETYPE-WAVE-2",
+      "U-SHARED-PATTERNS",
+      "U-EVENTCARD-FOUR-CASES",
+      "U-RECOVERED-CARD-FAMILIES",
+      "U-CONTROLS-PRIMITIVES",
+      "F-SHARED-FOUNDATION-BINDINGS",
+      "F-TYPOGRAPHY-LAYOUT",
+      "F-ACTION-NAV-ICONS",
+      "F-MEDALLIONS-BRAND-ASSETS"
+    ],
+    "target_penpot_page": "a0.candidate.page.archetype-wave-2.v1",
+    "expected_roots": [
+      "a0.candidate.root.archetype.search.desktop.v1",
+      "a0.candidate.root.archetype.search.mobile.v1",
+      "a0.candidate.root.archetype.favorites.desktop.v1",
+      "a0.candidate.root.archetype.favorites.mobile.v1",
+      "a0.candidate.root.archetype.personal-feed.desktop.v1",
+      "a0.candidate.root.archetype.personal-feed.mobile.v1",
+      "a0.candidate.root.archetype.festivals.desktop.v1",
+      "a0.candidate.root.archetype.festivals.mobile.v1",
+      "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+      "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+      "a0.candidate.root.archetype.artifacts.desktop.v1",
+      "a0.candidate.root.archetype.artifacts.mobile.v1",
+      "a0.candidate.root.archetype.event-detail.desktop.v1",
+      "a0.candidate.root.archetype.event-detail.mobile.v1",
+      "a0.candidate.root.archetype.focus-group.desktop.v1",
+      "a0.candidate.root.archetype.focus-group.mobile.v1",
+      "a0.candidate.root.archetype.information-pages.desktop.v1",
+      "a0.candidate.root.archetype.information-pages.mobile.v1",
+      "a0.candidate.root.archetype.special-state.desktop.v1",
+      "a0.candidate.root.archetype.special-state.mobile.v1"
+    ],
+    "expected_components": [
+      "action.calendar",
+      "action.share",
+      "artifact.collection-card",
+      "artifact.collection-progress",
+      "artifact.unlock-dialog",
+      "authorization.static-site",
+      "brand.identity-and-pwa",
+      "club.card",
+      "club.detail-facts",
+      "club.meeting-list",
+      "core.breadcrumbs",
+      "core.button",
+      "core.dialog",
+      "core.field",
+      "document.typography",
+      "event.card.large",
+      "event.detail.facts",
+      "event.detail.hero-composition",
+      "event.detail.related",
+      "event.detail.transport",
+      "event.medallion",
+      "event.media-frame",
+      "favorites.saved-events-controller",
+      "festival.card",
+      "festival.header",
+      "festival.timeline",
+      "focus.completion",
+      "focus.connectivity-diagnostic",
+      "focus.feedback",
+      "focus.invitation-intake",
+      "focus.lab-badge",
+      "focus.thank-you",
+      "listing.event-card.compact",
+      "listing.personal-filter",
+      "partners.logo-grid",
+      "partnership.conditions",
+      "personal.interest-profile",
+      "personal.rerank-controller",
+      "runtime.artifacts",
+      "runtime.favorites",
+      "runtime.focus-group",
+      "runtime.personal-feed",
+      "runtime.search",
+      "runtime.special-state",
+      "search.collection-links",
+      "search.query-controller",
+      "semantic.theme-chip",
+      "shell.desktop-header",
+      "shell.event-layout",
+      "shell.footer",
+      "shell.mobile-bottom-navigation",
+      "shell.mobile-header",
+      "shell.mobile-menu",
+      "social-proof.like",
+      "special.closed-hub",
+      "special.membership-gate",
+      "special.prelaunch",
+      "system.state-panel",
+      "system.toast-region"
+    ],
+    "expected_instances": {
+      "semantic_pages": 1,
+      "scenario_roots": 20,
+      "archetypes": 10,
+      "desktop_cases": 10,
+      "mobile_cases": 10,
+      "semantic_region_slots": 116,
+      "specimen_record_bindings": 38,
+      "required_component_bindings": 252,
+      "required_state_bindings": 144,
+      "excluded_state_receipts": 6
+    },
+    "materialization_entry_point": "D0/MAT or D0/INTEGRATE consumes build_contract.steps in strict order, binds U0/F0 dependencies by semantic ref, and D0/PUBLISH assigns every new Penpot identity.",
+    "validation": {
+      "schema": "candidate-adapter.schema.json#/$defs/candidate_adapter",
+      "positive_and_negative_tests": [
+        "tests/asp_production_conveyor_v3_a0_candidate_adapters_test.py",
+        "tests/asp_production_conveyor_v3_a0_wave2_source_fidelity_test.py"
+      ],
+      "visual_acceptance": "PENDING_V0",
+      "promotion_authorized": false,
+      "specimen_data_is_route_membership": false,
+      "focus_group_routes_repaired": true
+    },
+    "astro_evidence_cases": [
+      "v0.a0.review.archetype.search.desktop.v1",
+      "v0.a0.review.archetype.search.mobile.v1",
+      "v0.a0.review.archetype.favorites.desktop.v1",
+      "v0.a0.review.archetype.favorites.mobile.v1",
+      "v0.a0.review.archetype.personal-feed.desktop.v1",
+      "v0.a0.review.archetype.personal-feed.mobile.v1",
+      "v0.a0.review.archetype.festivals.desktop.v1",
+      "v0.a0.review.archetype.festivals.mobile.v1",
+      "v0.a0.review.archetype.interest-clubs.desktop.v1",
+      "v0.a0.review.archetype.interest-clubs.mobile.v1",
+      "v0.a0.review.archetype.artifacts.desktop.v1",
+      "v0.a0.review.archetype.artifacts.mobile.v1",
+      "v0.a0.review.archetype.event-detail.desktop.v1",
+      "v0.a0.review.archetype.event-detail.mobile.v1",
+      "v0.a0.review.archetype.focus-group.desktop.v1",
+      "v0.a0.review.archetype.focus-group.mobile.v1",
+      "v0.a0.review.archetype.information-pages.desktop.v1",
+      "v0.a0.review.archetype.information-pages.mobile.v1",
+      "v0.a0.review.archetype.special-state.desktop.v1",
+      "v0.a0.review.archetype.special-state.mobile.v1"
+    ],
+    "explicit_gaps": [
+      "Specimen fixture bindings never assert production route membership.",
+      "Interest-club detail historical observation failed; V0 must re-observe the current candidate.",
+      "Event-detail tablet remains outside the exact twenty desktop/mobile Wave 2 cases.",
+      "/legal/:slug/ remains excluded because no current production source page is present.",
+      "Prelaunch-env and unavailable special states remain receipt-only and are not materialized.",
+      "Volunteer remains excluded because no factual current canonical route contract exists.",
+      "U0/F0 own component and acceptance geometry; V0 visual acceptance remains pending."
+    ],
+    "package_record_sha256": "d4f1f3194385697d7d70b59c5e41070511b17182be4a65e79426e589c6248e1c"
+  },
+  "materialization_status": "READY_TO_MATERIALIZE_CANDIDATE",
+  "acceptance_status": "CANDIDATE_BUILD_NOT_ACCEPTED",
+  "visual_acceptance": "PENDING_V0",
+  "promotion_authorized": false,
+  "penpot_mutations": 0,
+  "canonicalization": {
+    "algorithm": "RFC8785-compatible project subset: UTF-8 JSON, recursively sorted object keys, arrays preserved, no insignificant whitespace, ensure_ascii=false",
+    "record_hash_scope": "entire adapter object excluding receipts",
+    "idempotency_hash_scope": "canonical idempotency.material object",
+    "file_receipt_scope": "exact committed file bytes"
+  },
+  "source_inputs": [
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json",
+      "git_commit": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+      "file_sha256": "8146bb75b385b5048d75f41177db083e9a3bcb9651e5dba7cae7a27078c83897",
+      "record_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+      "usage": "REPAIRED_CURRENT_WAVE2_SOURCE"
+    },
+    {
+      "path": "catalog/asp-production-conveyor-v3/a0/owner-review-index.v1.json",
+      "git_commit": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+      "file_sha256": "184ba75bcfb6952b8d8c4e5cde01a633918dada127930cfaecdaec75acb44c77",
+      "record_sha256": "6165ee48dab45d4af16e7e7907c5068dd51d2f1ac1468a81f33eb079379d6892",
+      "usage": "EXACT_TWENTY_CASE_ORDER"
+    },
+    {
+      "path": "catalog/global-archetype-sot-v1/route-archetype-registry.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "file_sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d",
+      "usage": "CANONICAL_ROUTE_ARCHETYPE_DATA"
+    },
+    {
+      "path": "catalog/round-trip-reconstruction/v1/owner-review-manifest.v1.json",
+      "git_commit": "b86bab3e91511b3d4bd7d953b22bceb847f02a51",
+      "file_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285",
+      "usage": "DESKTOP_MOBILE_CASE_ORDER_STRUCTURE_ONLY_AFTER_RECONSTRUCTION"
+    }
+  ],
+  "contract_receipts": [
+    {
+      "archetype_id": "archetype.search",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/search.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "8ce71b4def54894be37c303125703f823b8eb9ca",
+      "route_patterns": [
+        "/poisk/"
+      ],
+      "source_pages": [
+        "site/src/pages/poisk/index.astro"
+      ],
+      "contract_states": [
+        "anonymous",
+        "authenticated",
+        "empty",
+        "error",
+        "idle",
+        "loading",
+        "results",
+        "retry",
+        "stale"
+      ],
+      "materialization_states": [
+        "anonymous",
+        "authenticated",
+        "empty",
+        "error",
+        "idle",
+        "loading",
+        "results",
+        "retry",
+        "stale"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.favorites",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/favorites.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "459656f10abdb375b8e85788bce454a7ad7d69c4",
+      "route_patterns": [
+        "/izbrannoe/"
+      ],
+      "source_pages": [
+        "site/src/pages/izbrannoe/index.astro"
+      ],
+      "contract_states": [
+        "anonymous",
+        "authenticated",
+        "empty",
+        "error",
+        "loading",
+        "populated",
+        "retry",
+        "stale"
+      ],
+      "materialization_states": [
+        "anonymous",
+        "authenticated",
+        "empty",
+        "error",
+        "loading",
+        "populated",
+        "retry",
+        "stale"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.personal-feed",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "a68a6f2ef96ba4dfa12b94a7e8502d7c8def0616",
+      "route_patterns": [
+        "/dlya-menya/"
+      ],
+      "source_pages": [
+        "site/src/pages/dlya-menya/index.astro"
+      ],
+      "contract_states": [
+        "cold-start",
+        "empty",
+        "failure",
+        "filtered",
+        "loading",
+        "profile-ready",
+        "reranked",
+        "stale"
+      ],
+      "materialization_states": [
+        "cold-start",
+        "empty",
+        "failure",
+        "filtered",
+        "loading",
+        "profile-ready",
+        "reranked",
+        "stale"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.festivals",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/festivals.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "c9a5ceae36204eff6f52c766affd373d41003252",
+      "route_patterns": [
+        "/festivali/"
+      ],
+      "source_pages": [
+        "site/src/pages/festivali/index.astro"
+      ],
+      "contract_states": [
+        "empty-period",
+        "favorite-count",
+        "past",
+        "ready",
+        "theme-values",
+        "upcoming"
+      ],
+      "materialization_states": [
+        "empty-period",
+        "favorite-count",
+        "past",
+        "ready",
+        "theme-values",
+        "upcoming"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.interest-clubs",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "fdf480026bb9fe9d83ffbb95440ce26f062c7c01",
+      "route_patterns": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/:slug/"
+      ],
+      "source_pages": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+      ],
+      "contract_states": [
+        "catalog",
+        "cover-absent",
+        "cover-present",
+        "detail-future-meetings",
+        "detail-no-future-meetings"
+      ],
+      "materialization_states": [
+        "catalog",
+        "cover-absent",
+        "cover-present",
+        "detail-future-meetings",
+        "detail-no-future-meetings"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.artifacts",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/artifacts.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "eb030343b898794ed110000388b35daa22e8a9f4",
+      "route_patterns": [
+        "/artefakty/"
+      ],
+      "source_pages": [
+        "site/src/pages/artefakty/index.astro"
+      ],
+      "contract_states": [
+        "complete",
+        "dialog-open",
+        "empty",
+        "locked",
+        "partial",
+        "unlocked"
+      ],
+      "materialization_states": [
+        "complete",
+        "dialog-open",
+        "empty",
+        "locked",
+        "partial",
+        "unlocked"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.event-detail",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/event-detail.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "2fd2180a3f7ca11b5c12184ce6782d785394fbda",
+      "route_patterns": [
+        "/sobytiya/:slug/"
+      ],
+      "source_pages": [
+        "site/src/pages/sobytiya/[slug].astro"
+      ],
+      "contract_states": [
+        "admission-absent",
+        "admission-present",
+        "archived",
+        "calendar-absent",
+        "calendar-present",
+        "multi-image",
+        "no-image",
+        "ocr-protected",
+        "portrait-image",
+        "transport-absent",
+        "transport-present",
+        "wide-image"
+      ],
+      "materialization_states": [
+        "admission-absent",
+        "admission-present",
+        "archived",
+        "calendar-absent",
+        "calendar-present",
+        "multi-image",
+        "no-image",
+        "ocr-protected",
+        "portrait-image",
+        "transport-absent",
+        "transport-present",
+        "wide-image"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.focus-group",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/focus-group.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "798538de7bc3b6deff41dded3406195bb5803827",
+      "route_patterns": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/diagnostika/",
+        "/fokus-gruppa/diagnostika-ustoychivost/",
+        "/fokus-gruppa/kollektsiya/",
+        "/fokus-gruppa/zavershenie/"
+      ],
+      "source_pages": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+        "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+      ],
+      "contract_states": [
+        "collection-locked",
+        "collection-open",
+        "completion",
+        "diagnostic-failure",
+        "diagnostic-idle",
+        "diagnostic-running",
+        "diagnostic-success",
+        "invitation-invalid",
+        "invitation-loading",
+        "invitation-valid",
+        "program"
+      ],
+      "materialization_states": [
+        "collection-locked",
+        "collection-open",
+        "completion",
+        "diagnostic-failure",
+        "diagnostic-idle",
+        "diagnostic-running",
+        "diagnostic-success",
+        "invitation-invalid",
+        "invitation-loading",
+        "invitation-valid",
+        "program"
+      ],
+      "excluded_unmaterialized_states": []
+    },
+    {
+      "archetype_id": "archetype.information-pages",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/information-pages.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "aadec25c3dc7004e625694a38e99a21b98184d6d",
+      "route_patterns": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "source_pages": [
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro"
+      ],
+      "contract_states": [
+        "legal-document",
+        "long-content",
+        "partners-index",
+        "partnership-content"
+      ],
+      "materialization_states": [
+        "long-content",
+        "partners-index",
+        "partnership-content"
+      ],
+      "excluded_unmaterialized_states": [
+        "legal-document"
+      ]
+    },
+    {
+      "archetype_id": "archetype.special-state",
+      "path": "catalog/global-archetype-sot-v1/archetype-contracts/special-state.semantic-contract.v1.json",
+      "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+      "git_blob_sha1": "22c2c8fa5dfc339fca870110ed9e3326de4444a6",
+      "route_patterns": [
+        "/zakrytaya-afisha/"
+      ],
+      "source_pages": [
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
+      "contract_states": [
+        "checking",
+        "hub",
+        "locked",
+        "noscript",
+        "prelaunch-env",
+        "unavailable"
+      ],
+      "materialization_states": [
+        "checking",
+        "hub",
+        "locked",
+        "noscript"
+      ],
+      "excluded_unmaterialized_states": [
+        "prelaunch-env",
+        "unavailable"
+      ]
+    }
+  ],
+  "dependency_refs": [
+    {
+      "package_id": "U-SHARED-PATTERNS",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "U-EVENTCARD-FOUR-CASES",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "U-RECOVERED-CARD-FAMILIES",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "U-CONTROLS-PRIMITIVES",
+      "owner": "U0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-SHARED-FOUNDATION-BINDINGS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-TYPOGRAPHY-LAYOUT",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-ACTION-NAV-ICONS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    },
+    {
+      "package_id": "F-MEDALLIONS-BRAND-ASSETS",
+      "owner": "F0",
+      "required_at": "MATERIALIZATION",
+      "a0_readiness_assertion": "NONE"
+    }
+  ],
+  "target": {
+    "semantic_page_key": "a0.candidate.page.archetype-wave-2.v1",
+    "semantic_page_name": "A0 Candidate · Archetype Wave 2",
+    "semantic_root_order": [
+      "a0.candidate.root.archetype.search.desktop.v1",
+      "a0.candidate.root.archetype.search.mobile.v1",
+      "a0.candidate.root.archetype.favorites.desktop.v1",
+      "a0.candidate.root.archetype.favorites.mobile.v1",
+      "a0.candidate.root.archetype.personal-feed.desktop.v1",
+      "a0.candidate.root.archetype.personal-feed.mobile.v1",
+      "a0.candidate.root.archetype.festivals.desktop.v1",
+      "a0.candidate.root.archetype.festivals.mobile.v1",
+      "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+      "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+      "a0.candidate.root.archetype.artifacts.desktop.v1",
+      "a0.candidate.root.archetype.artifacts.mobile.v1",
+      "a0.candidate.root.archetype.event-detail.desktop.v1",
+      "a0.candidate.root.archetype.event-detail.mobile.v1",
+      "a0.candidate.root.archetype.focus-group.desktop.v1",
+      "a0.candidate.root.archetype.focus-group.mobile.v1",
+      "a0.candidate.root.archetype.information-pages.desktop.v1",
+      "a0.candidate.root.archetype.information-pages.mobile.v1",
+      "a0.candidate.root.archetype.special-state.desktop.v1",
+      "a0.candidate.root.archetype.special-state.mobile.v1"
+    ],
+    "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+  },
+  "bounded_mutation_scope": {
+    "allowed_paths": [
+      "a0.candidate.page.archetype-wave-2.v1",
+      "a0.candidate.root.archetype.search.desktop.v1",
+      "a0.candidate.root.archetype.search.mobile.v1",
+      "a0.candidate.root.archetype.favorites.desktop.v1",
+      "a0.candidate.root.archetype.favorites.mobile.v1",
+      "a0.candidate.root.archetype.personal-feed.desktop.v1",
+      "a0.candidate.root.archetype.personal-feed.mobile.v1",
+      "a0.candidate.root.archetype.festivals.desktop.v1",
+      "a0.candidate.root.archetype.festivals.mobile.v1",
+      "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+      "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+      "a0.candidate.root.archetype.artifacts.desktop.v1",
+      "a0.candidate.root.archetype.artifacts.mobile.v1",
+      "a0.candidate.root.archetype.event-detail.desktop.v1",
+      "a0.candidate.root.archetype.event-detail.mobile.v1",
+      "a0.candidate.root.archetype.focus-group.desktop.v1",
+      "a0.candidate.root.archetype.focus-group.mobile.v1",
+      "a0.candidate.root.archetype.information-pages.desktop.v1",
+      "a0.candidate.root.archetype.information-pages.mobile.v1",
+      "a0.candidate.root.archetype.special-state.desktop.v1",
+      "a0.candidate.root.archetype.special-state.mobile.v1"
+    ],
+    "max_semantic_pages": 1,
+    "max_semantic_roots": 20,
+    "existing_non_candidate_pages": "NO_MUTATION",
+    "acceptance_geometry": "NOT_OWNED_BY_A0",
+    "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+  },
+  "build_contract": {
+    "ordering": "STRICT_ASCENDING_ORDER",
+    "active_state_selection": "EXACT_SEMANTIC_BASELINE_FROM_PR50_CONTRACT",
+    "steps": [
+      {
+        "order": 1,
+        "semantic_root_key": "a0.candidate.root.archetype.search.desktop.v1",
+        "scenario_id": "a0.review.archetype.search.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.search.desktop.v1",
+        "archetype_id": "archetype.search",
+        "route_patterns": [
+          "/poisk/"
+        ],
+        "source_pages": [
+          "site/src/pages/poisk/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/0",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "idle",
+          "loading",
+          "results",
+          "retry",
+          "stale"
+        ],
+        "required_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "idle",
+          "loading",
+          "results",
+          "retry",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "results",
+        "shell_ref": "pr50.contract.archetype.search",
+        "shell_semantic_slots": [
+          "search.header",
+          "search.query-field",
+          "search.filters",
+          "search.results",
+          "search.collection-links",
+          "search.identity-gate"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "core.button",
+          "core.field",
+          "listing.event-card.compact",
+          "runtime.search",
+          "search.collection-links",
+          "search.query-controller",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/search.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "8ce71b4def54894be37c303125703f823b8eb9ca"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 6,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 15,
+          "required_state_bindings": 9,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 2,
+        "semantic_root_key": "a0.candidate.root.archetype.search.mobile.v1",
+        "scenario_id": "a0.review.archetype.search.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.search.mobile.v1",
+        "archetype_id": "archetype.search",
+        "route_patterns": [
+          "/poisk/"
+        ],
+        "source_pages": [
+          "site/src/pages/poisk/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/0",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "idle",
+          "loading",
+          "results",
+          "retry",
+          "stale"
+        ],
+        "required_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "idle",
+          "loading",
+          "results",
+          "retry",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "results",
+        "shell_ref": "pr50.contract.archetype.search",
+        "shell_semantic_slots": [
+          "search.header",
+          "search.query-field",
+          "search.filters",
+          "search.results",
+          "search.collection-links",
+          "search.identity-gate"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "core.button",
+          "core.field",
+          "listing.event-card.compact",
+          "runtime.search",
+          "search.collection-links",
+          "search.query-controller",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/search.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "8ce71b4def54894be37c303125703f823b8eb9ca"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 6,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 15,
+          "required_state_bindings": 9,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 3,
+        "semantic_root_key": "a0.candidate.root.archetype.favorites.desktop.v1",
+        "scenario_id": "a0.review.archetype.favorites.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.favorites.desktop.v1",
+        "archetype_id": "archetype.favorites",
+        "route_patterns": [
+          "/izbrannoe/"
+        ],
+        "source_pages": [
+          "site/src/pages/izbrannoe/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/1",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "loading",
+          "populated",
+          "retry",
+          "stale"
+        ],
+        "required_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "loading",
+          "populated",
+          "retry",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "populated",
+        "shell_ref": "pr50.contract.archetype.favorites",
+        "shell_semantic_slots": [
+          "favorites.header",
+          "favorites.identity-gate",
+          "favorites.saved-events",
+          "favorites.recovery"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "event.card.large",
+          "favorites.saved-events-controller",
+          "listing.event-card.compact",
+          "runtime.favorites",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/favorites.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "459656f10abdb375b8e85788bce454a7ad7d69c4"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 4,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 13,
+          "required_state_bindings": 8,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 4,
+        "semantic_root_key": "a0.candidate.root.archetype.favorites.mobile.v1",
+        "scenario_id": "a0.review.archetype.favorites.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.favorites.mobile.v1",
+        "archetype_id": "archetype.favorites",
+        "route_patterns": [
+          "/izbrannoe/"
+        ],
+        "source_pages": [
+          "site/src/pages/izbrannoe/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/1",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "loading",
+          "populated",
+          "retry",
+          "stale"
+        ],
+        "required_states": [
+          "anonymous",
+          "authenticated",
+          "empty",
+          "error",
+          "loading",
+          "populated",
+          "retry",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "populated",
+        "shell_ref": "pr50.contract.archetype.favorites",
+        "shell_semantic_slots": [
+          "favorites.header",
+          "favorites.identity-gate",
+          "favorites.saved-events",
+          "favorites.recovery"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "event.card.large",
+          "favorites.saved-events-controller",
+          "listing.event-card.compact",
+          "runtime.favorites",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/favorites.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "459656f10abdb375b8e85788bce454a7ad7d69c4"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 4,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 13,
+          "required_state_bindings": 8,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 5,
+        "semantic_root_key": "a0.candidate.root.archetype.personal-feed.desktop.v1",
+        "scenario_id": "a0.review.archetype.personal-feed.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.personal-feed.desktop.v1",
+        "archetype_id": "archetype.personal-feed",
+        "route_patterns": [
+          "/dlya-menya/"
+        ],
+        "source_pages": [
+          "site/src/pages/dlya-menya/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/2",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "cold-start",
+          "empty",
+          "failure",
+          "filtered",
+          "loading",
+          "profile-ready",
+          "reranked",
+          "stale"
+        ],
+        "required_states": [
+          "cold-start",
+          "empty",
+          "failure",
+          "filtered",
+          "loading",
+          "profile-ready",
+          "reranked",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "profile-ready",
+        "shell_ref": "pr50.contract.archetype.personal-feed",
+        "shell_semantic_slots": [
+          "personal.header",
+          "personal.interest-profile",
+          "personal.filters",
+          "personal.feed",
+          "personal.feedback"
+        ],
+        "component_semantic_refs": [
+          "event.card.large",
+          "focus.feedback",
+          "listing.personal-filter",
+          "personal.interest-profile",
+          "personal.rerank-controller",
+          "runtime.personal-feed",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "a68a6f2ef96ba4dfa12b94a7e8502d7c8def0616"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 14,
+          "required_state_bindings": 8,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 6,
+        "semantic_root_key": "a0.candidate.root.archetype.personal-feed.mobile.v1",
+        "scenario_id": "a0.review.archetype.personal-feed.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.personal-feed.mobile.v1",
+        "archetype_id": "archetype.personal-feed",
+        "route_patterns": [
+          "/dlya-menya/"
+        ],
+        "source_pages": [
+          "site/src/pages/dlya-menya/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/2",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "cold-start",
+          "empty",
+          "failure",
+          "filtered",
+          "loading",
+          "profile-ready",
+          "reranked",
+          "stale"
+        ],
+        "required_states": [
+          "cold-start",
+          "empty",
+          "failure",
+          "filtered",
+          "loading",
+          "profile-ready",
+          "reranked",
+          "stale"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "profile-ready",
+        "shell_ref": "pr50.contract.archetype.personal-feed",
+        "shell_semantic_slots": [
+          "personal.header",
+          "personal.interest-profile",
+          "personal.filters",
+          "personal.feed",
+          "personal.feedback"
+        ],
+        "component_semantic_refs": [
+          "event.card.large",
+          "focus.feedback",
+          "listing.personal-filter",
+          "personal.interest-profile",
+          "personal.rerank-controller",
+          "runtime.personal-feed",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/personal-feed.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "a68a6f2ef96ba4dfa12b94a7e8502d7c8def0616"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 14,
+          "required_state_bindings": 8,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 7,
+        "semantic_root_key": "a0.candidate.root.archetype.festivals.desktop.v1",
+        "scenario_id": "a0.review.archetype.festivals.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.festivals.desktop.v1",
+        "archetype_id": "archetype.festivals",
+        "route_patterns": [
+          "/festivali/"
+        ],
+        "source_pages": [
+          "site/src/pages/festivali/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/3",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "empty-period",
+          "favorite-count",
+          "past",
+          "ready",
+          "theme-values",
+          "upcoming"
+        ],
+        "required_states": [
+          "empty-period",
+          "favorite-count",
+          "past",
+          "ready",
+          "theme-values",
+          "upcoming"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "ready",
+        "shell_ref": "pr50.contract.archetype.festivals",
+        "shell_semantic_slots": [
+          "festival.header",
+          "festival.timeline",
+          "festival.card-flow",
+          "festival.category-chip"
+        ],
+        "component_semantic_refs": [
+          "festival.card",
+          "festival.header",
+          "festival.timeline",
+          "semantic.theme-chip",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "social-proof.like",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/festivals.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "c9a5ceae36204eff6f52c766affd373d41003252"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 4,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 12,
+          "required_state_bindings": 6,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 8,
+        "semantic_root_key": "a0.candidate.root.archetype.festivals.mobile.v1",
+        "scenario_id": "a0.review.archetype.festivals.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.festivals.mobile.v1",
+        "archetype_id": "archetype.festivals",
+        "route_patterns": [
+          "/festivali/"
+        ],
+        "source_pages": [
+          "site/src/pages/festivali/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/3",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "empty-period",
+          "favorite-count",
+          "past",
+          "ready",
+          "theme-values",
+          "upcoming"
+        ],
+        "required_states": [
+          "empty-period",
+          "favorite-count",
+          "past",
+          "ready",
+          "theme-values",
+          "upcoming"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "ready",
+        "shell_ref": "pr50.contract.archetype.festivals",
+        "shell_semantic_slots": [
+          "festival.header",
+          "festival.timeline",
+          "festival.card-flow",
+          "festival.category-chip"
+        ],
+        "component_semantic_refs": [
+          "festival.card",
+          "festival.header",
+          "festival.timeline",
+          "semantic.theme-chip",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "social-proof.like",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/festivals.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "c9a5ceae36204eff6f52c766affd373d41003252"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 4,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 12,
+          "required_state_bindings": 6,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 9,
+        "semantic_root_key": "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+        "scenario_id": "a0.review.archetype.interest-clubs.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.interest-clubs.desktop.v1",
+        "archetype_id": "archetype.interest-clubs",
+        "route_patterns": [
+          "/kluby-po-interesam/",
+          "/kluby-po-interesam/:slug/"
+        ],
+        "source_pages": [
+          "site/src/pages/kluby-po-interesam/index.astro",
+          "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/4",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "catalog",
+          "cover-absent",
+          "cover-present",
+          "detail-future-meetings",
+          "detail-no-future-meetings"
+        ],
+        "required_states": [
+          "catalog",
+          "cover-absent",
+          "cover-present",
+          "detail-future-meetings",
+          "detail-no-future-meetings"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "catalog",
+        "shell_ref": "pr50.contract.archetype.interest-clubs",
+        "shell_semantic_slots": [
+          "club.catalog-header",
+          "club.catalog-grid",
+          "club.card",
+          "club.detail-hero",
+          "club.detail-facts",
+          "club.meeting-list",
+          "club.empty-meetings"
+        ],
+        "component_semantic_refs": [
+          "club.card",
+          "club.detail-facts",
+          "club.meeting-list",
+          "core.breadcrumbs",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "fdf480026bb9fe9d83ffbb95440ce26f062c7c01"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 7,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 12,
+          "required_state_bindings": 5,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "detail generated-route evidence remains unresolved; materialize candidate and require V0 current re-observation"
+        ]
+      },
+      {
+        "order": 10,
+        "semantic_root_key": "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+        "scenario_id": "a0.review.archetype.interest-clubs.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.interest-clubs.mobile.v1",
+        "archetype_id": "archetype.interest-clubs",
+        "route_patterns": [
+          "/kluby-po-interesam/",
+          "/kluby-po-interesam/:slug/"
+        ],
+        "source_pages": [
+          "site/src/pages/kluby-po-interesam/index.astro",
+          "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/4",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "catalog",
+          "cover-absent",
+          "cover-present",
+          "detail-future-meetings",
+          "detail-no-future-meetings"
+        ],
+        "required_states": [
+          "catalog",
+          "cover-absent",
+          "cover-present",
+          "detail-future-meetings",
+          "detail-no-future-meetings"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "catalog",
+        "shell_ref": "pr50.contract.archetype.interest-clubs",
+        "shell_semantic_slots": [
+          "club.catalog-header",
+          "club.catalog-grid",
+          "club.card",
+          "club.detail-hero",
+          "club.detail-facts",
+          "club.meeting-list",
+          "club.empty-meetings"
+        ],
+        "component_semantic_refs": [
+          "club.card",
+          "club.detail-facts",
+          "club.meeting-list",
+          "core.breadcrumbs",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/interest-clubs.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "fdf480026bb9fe9d83ffbb95440ce26f062c7c01"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 7,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 12,
+          "required_state_bindings": 5,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "detail generated-route evidence remains unresolved; materialize candidate and require V0 current re-observation"
+        ]
+      },
+      {
+        "order": 11,
+        "semantic_root_key": "a0.candidate.root.archetype.artifacts.desktop.v1",
+        "scenario_id": "a0.review.archetype.artifacts.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.artifacts.desktop.v1",
+        "archetype_id": "archetype.artifacts",
+        "route_patterns": [
+          "/artefakty/"
+        ],
+        "source_pages": [
+          "site/src/pages/artefakty/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/5",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "complete",
+          "dialog-open",
+          "empty",
+          "locked",
+          "partial",
+          "unlocked"
+        ],
+        "required_states": [
+          "complete",
+          "dialog-open",
+          "empty",
+          "locked",
+          "partial",
+          "unlocked"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "partial",
+        "shell_ref": "pr50.contract.archetype.artifacts",
+        "shell_semantic_slots": [
+          "artifact.collection-header",
+          "artifact.progress",
+          "artifact.cards",
+          "artifact.reserved-slots",
+          "artifact.dialog"
+        ],
+        "component_semantic_refs": [
+          "artifact.collection-card",
+          "artifact.collection-progress",
+          "artifact.unlock-dialog",
+          "core.dialog",
+          "runtime.artifacts",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/artifacts.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "eb030343b898794ed110000388b35daa22e8a9f4"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 13,
+          "required_state_bindings": 6,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 12,
+        "semantic_root_key": "a0.candidate.root.archetype.artifacts.mobile.v1",
+        "scenario_id": "a0.review.archetype.artifacts.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.artifacts.mobile.v1",
+        "archetype_id": "archetype.artifacts",
+        "route_patterns": [
+          "/artefakty/"
+        ],
+        "source_pages": [
+          "site/src/pages/artefakty/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/5",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240",
+          "event.real.8006",
+          "event.real.8200"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "complete",
+          "dialog-open",
+          "empty",
+          "locked",
+          "partial",
+          "unlocked"
+        ],
+        "required_states": [
+          "complete",
+          "dialog-open",
+          "empty",
+          "locked",
+          "partial",
+          "unlocked"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "partial",
+        "shell_ref": "pr50.contract.archetype.artifacts",
+        "shell_semantic_slots": [
+          "artifact.collection-header",
+          "artifact.progress",
+          "artifact.cards",
+          "artifact.reserved-slots",
+          "artifact.dialog"
+        ],
+        "component_semantic_refs": [
+          "artifact.collection-card",
+          "artifact.collection-progress",
+          "artifact.unlock-dialog",
+          "core.dialog",
+          "runtime.artifacts",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/artifacts.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "eb030343b898794ed110000388b35daa22e8a9f4"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 3,
+          "required_component_bindings": 13,
+          "required_state_bindings": 6,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 13,
+        "semantic_root_key": "a0.candidate.root.archetype.event-detail.desktop.v1",
+        "scenario_id": "a0.review.archetype.event-detail.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.event-detail.desktop.v1",
+        "archetype_id": "archetype.event-detail",
+        "route_patterns": [
+          "/sobytiya/:slug/"
+        ],
+        "source_pages": [
+          "site/src/pages/sobytiya/[slug].astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/6",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "admission-absent",
+          "admission-present",
+          "archived",
+          "calendar-absent",
+          "calendar-present",
+          "multi-image",
+          "no-image",
+          "ocr-protected",
+          "portrait-image",
+          "transport-absent",
+          "transport-present",
+          "wide-image"
+        ],
+        "required_states": [
+          "admission-absent",
+          "admission-present",
+          "archived",
+          "calendar-absent",
+          "calendar-present",
+          "multi-image",
+          "no-image",
+          "ocr-protected",
+          "portrait-image",
+          "transport-absent",
+          "transport-present",
+          "wide-image"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "wide-image",
+        "shell_ref": "pr50.contract.archetype.event-detail",
+        "shell_semantic_slots": [
+          "event.hero",
+          "event.media-frame",
+          "event.summary",
+          "event.admission-actions",
+          "event.facts",
+          "event.participants",
+          "event.venue",
+          "event.medallions",
+          "event.transport",
+          "event.related-events",
+          "event.question-cta"
+        ],
+        "component_semantic_refs": [
+          "action.calendar",
+          "action.share",
+          "event.card.large",
+          "event.detail.facts",
+          "event.detail.hero-composition",
+          "event.detail.related",
+          "event.detail.transport",
+          "event.medallion",
+          "event.media-frame",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "social-proof.like",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/event-detail.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "2fd2180a3f7ca11b5c12184ce6782d785394fbda"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 11,
+          "specimen_record_bindings": 1,
+          "required_component_bindings": 17,
+          "required_state_bindings": 12,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "PR50 contract also declares a tablet responsive branch; Wave 2 intentionally remains the exact twenty desktop/mobile cases"
+        ]
+      },
+      {
+        "order": 14,
+        "semantic_root_key": "a0.candidate.root.archetype.event-detail.mobile.v1",
+        "scenario_id": "a0.review.archetype.event-detail.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.event-detail.mobile.v1",
+        "archetype_id": "archetype.event-detail",
+        "route_patterns": [
+          "/sobytiya/:slug/"
+        ],
+        "source_pages": [
+          "site/src/pages/sobytiya/[slug].astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/6",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [
+          "event.real.4240"
+        ],
+        "fixture_semantics": "REFERENCE_ONLY_NOT_ROUTE_MEMBERSHIP",
+        "contract_states": [
+          "admission-absent",
+          "admission-present",
+          "archived",
+          "calendar-absent",
+          "calendar-present",
+          "multi-image",
+          "no-image",
+          "ocr-protected",
+          "portrait-image",
+          "transport-absent",
+          "transport-present",
+          "wide-image"
+        ],
+        "required_states": [
+          "admission-absent",
+          "admission-present",
+          "archived",
+          "calendar-absent",
+          "calendar-present",
+          "multi-image",
+          "no-image",
+          "ocr-protected",
+          "portrait-image",
+          "transport-absent",
+          "transport-present",
+          "wide-image"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "wide-image",
+        "shell_ref": "pr50.contract.archetype.event-detail",
+        "shell_semantic_slots": [
+          "event.hero",
+          "event.media-frame",
+          "event.summary",
+          "event.admission-actions",
+          "event.facts",
+          "event.participants",
+          "event.venue",
+          "event.medallions",
+          "event.transport",
+          "event.related-events",
+          "event.question-cta"
+        ],
+        "component_semantic_refs": [
+          "action.calendar",
+          "action.share",
+          "event.card.large",
+          "event.detail.facts",
+          "event.detail.hero-composition",
+          "event.detail.related",
+          "event.detail.transport",
+          "event.medallion",
+          "event.media-frame",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "social-proof.like",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/event-detail.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "2fd2180a3f7ca11b5c12184ce6782d785394fbda"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 11,
+          "specimen_record_bindings": 1,
+          "required_component_bindings": 17,
+          "required_state_bindings": 12,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "PR50 contract also declares a tablet responsive branch; Wave 2 intentionally remains the exact twenty desktop/mobile cases"
+        ]
+      },
+      {
+        "order": 15,
+        "semantic_root_key": "a0.candidate.root.archetype.focus-group.desktop.v1",
+        "scenario_id": "a0.review.archetype.focus-group.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.focus-group.desktop.v1",
+        "archetype_id": "archetype.focus-group",
+        "route_patterns": [
+          "/fokus-gruppa/",
+          "/fokus-gruppa/priglashenie/",
+          "/fokus-gruppa/diagnostika/",
+          "/fokus-gruppa/diagnostika-ustoychivost/",
+          "/fokus-gruppa/kollektsiya/",
+          "/fokus-gruppa/zavershenie/"
+        ],
+        "source_pages": [
+          "site/src/pages/fokus-gruppa/index.astro",
+          "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+          "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+          "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+          "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+          "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/7",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "collection-locked",
+          "collection-open",
+          "completion",
+          "diagnostic-failure",
+          "diagnostic-idle",
+          "diagnostic-running",
+          "diagnostic-success",
+          "invitation-invalid",
+          "invitation-loading",
+          "invitation-valid",
+          "program"
+        ],
+        "required_states": [
+          "collection-locked",
+          "collection-open",
+          "completion",
+          "diagnostic-failure",
+          "diagnostic-idle",
+          "diagnostic-running",
+          "diagnostic-success",
+          "invitation-invalid",
+          "invitation-loading",
+          "invitation-valid",
+          "program"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "program",
+        "shell_ref": "pr50.contract.archetype.focus-group",
+        "shell_semantic_slots": [
+          "focus.program",
+          "focus.invitation-intake",
+          "focus.feedback",
+          "focus.connectivity-diagnostic",
+          "focus.collection",
+          "focus.completion"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "focus.completion",
+          "focus.connectivity-diagnostic",
+          "focus.feedback",
+          "focus.invitation-intake",
+          "focus.lab-badge",
+          "focus.thank-you",
+          "runtime.focus-group",
+          "system.state-panel"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/focus-group.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "798538de7bc3b6deff41dded3406195bb5803827"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 6,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 9,
+          "required_state_bindings": 11,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 16,
+        "semantic_root_key": "a0.candidate.root.archetype.focus-group.mobile.v1",
+        "scenario_id": "a0.review.archetype.focus-group.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.focus-group.mobile.v1",
+        "archetype_id": "archetype.focus-group",
+        "route_patterns": [
+          "/fokus-gruppa/",
+          "/fokus-gruppa/priglashenie/",
+          "/fokus-gruppa/diagnostika/",
+          "/fokus-gruppa/diagnostika-ustoychivost/",
+          "/fokus-gruppa/kollektsiya/",
+          "/fokus-gruppa/zavershenie/"
+        ],
+        "source_pages": [
+          "site/src/pages/fokus-gruppa/index.astro",
+          "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+          "site/src/pages/fokus-gruppa/diagnostika/index.astro",
+          "site/src/pages/fokus-gruppa/diagnostika-ustoychivost/index.astro",
+          "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+          "site/src/pages/fokus-gruppa/zavershenie/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/7",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "collection-locked",
+          "collection-open",
+          "completion",
+          "diagnostic-failure",
+          "diagnostic-idle",
+          "diagnostic-running",
+          "diagnostic-success",
+          "invitation-invalid",
+          "invitation-loading",
+          "invitation-valid",
+          "program"
+        ],
+        "required_states": [
+          "collection-locked",
+          "collection-open",
+          "completion",
+          "diagnostic-failure",
+          "diagnostic-idle",
+          "diagnostic-running",
+          "diagnostic-success",
+          "invitation-invalid",
+          "invitation-loading",
+          "invitation-valid",
+          "program"
+        ],
+        "excluded_unmaterialized_states": [],
+        "active_candidate_state": "program",
+        "shell_ref": "pr50.contract.archetype.focus-group",
+        "shell_semantic_slots": [
+          "focus.program",
+          "focus.invitation-intake",
+          "focus.feedback",
+          "focus.connectivity-diagnostic",
+          "focus.collection",
+          "focus.completion"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "focus.completion",
+          "focus.connectivity-diagnostic",
+          "focus.feedback",
+          "focus.invitation-intake",
+          "focus.lab-badge",
+          "focus.thank-you",
+          "runtime.focus-group",
+          "system.state-panel"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/focus-group.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "798538de7bc3b6deff41dded3406195bb5803827"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 6,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 9,
+          "required_state_bindings": 11,
+          "excluded_state_receipts": 0
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY"
+      },
+      {
+        "order": 17,
+        "semantic_root_key": "a0.candidate.root.archetype.information-pages.desktop.v1",
+        "scenario_id": "a0.review.archetype.information-pages.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.information-pages.desktop.v1",
+        "archetype_id": "archetype.information-pages",
+        "route_patterns": [
+          "/partners/",
+          "/partnerstvo/"
+        ],
+        "source_pages": [
+          "site/src/pages/partners/index.astro",
+          "site/src/pages/partnerstvo/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/8",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "legal-document",
+          "long-content",
+          "partners-index",
+          "partnership-content"
+        ],
+        "required_states": [
+          "long-content",
+          "partners-index",
+          "partnership-content"
+        ],
+        "excluded_unmaterialized_states": [
+          "legal-document"
+        ],
+        "active_candidate_state": "partners-index",
+        "shell_ref": "pr50.contract.archetype.information-pages",
+        "shell_semantic_slots": [
+          "information.page-header",
+          "information.long-form-content",
+          "partners.logo-grid",
+          "partnership.conditions",
+          "information.secondary-navigation"
+        ],
+        "component_semantic_refs": [
+          "core.breadcrumbs",
+          "document.typography",
+          "partners.logo-grid",
+          "partnership.conditions",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/information-pages.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "aadec25c3dc7004e625694a38e99a21b98184d6d"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 12,
+          "required_state_bindings": 3,
+          "excluded_state_receipts": 1
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "/legal/:slug/ is excluded because no current production source page is present in the repaired Wave 2 packet"
+        ]
+      },
+      {
+        "order": 18,
+        "semantic_root_key": "a0.candidate.root.archetype.information-pages.mobile.v1",
+        "scenario_id": "a0.review.archetype.information-pages.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.information-pages.mobile.v1",
+        "archetype_id": "archetype.information-pages",
+        "route_patterns": [
+          "/partners/",
+          "/partnerstvo/"
+        ],
+        "source_pages": [
+          "site/src/pages/partners/index.astro",
+          "site/src/pages/partnerstvo/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/8",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "legal-document",
+          "long-content",
+          "partners-index",
+          "partnership-content"
+        ],
+        "required_states": [
+          "long-content",
+          "partners-index",
+          "partnership-content"
+        ],
+        "excluded_unmaterialized_states": [
+          "legal-document"
+        ],
+        "active_candidate_state": "partners-index",
+        "shell_ref": "pr50.contract.archetype.information-pages",
+        "shell_semantic_slots": [
+          "information.page-header",
+          "information.long-form-content",
+          "partners.logo-grid",
+          "partnership.conditions",
+          "information.secondary-navigation"
+        ],
+        "component_semantic_refs": [
+          "core.breadcrumbs",
+          "document.typography",
+          "partners.logo-grid",
+          "partnership.conditions",
+          "shell.desktop-header",
+          "shell.event-layout",
+          "shell.footer",
+          "shell.mobile-bottom-navigation",
+          "shell.mobile-header",
+          "shell.mobile-menu",
+          "system.state-panel",
+          "system.toast-region"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/information-pages.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "aadec25c3dc7004e625694a38e99a21b98184d6d"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 12,
+          "required_state_bindings": 3,
+          "excluded_state_receipts": 1
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "/legal/:slug/ is excluded because no current production source page is present in the repaired Wave 2 packet"
+        ]
+      },
+      {
+        "order": 19,
+        "semantic_root_key": "a0.candidate.root.archetype.special-state.desktop.v1",
+        "scenario_id": "a0.review.archetype.special-state.desktop.v1",
+        "evidence_key": "v0.a0.review.archetype.special-state.desktop.v1",
+        "archetype_id": "archetype.special-state",
+        "route_patterns": [
+          "/zakrytaya-afisha/"
+        ],
+        "source_pages": [
+          "site/src/pages/zakrytaya-afisha/index.astro"
+        ],
+        "viewport": {
+          "id": "desktop",
+          "width": 1280,
+          "height": 800
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/9",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "checking",
+          "hub",
+          "locked",
+          "noscript",
+          "prelaunch-env",
+          "unavailable"
+        ],
+        "required_states": [
+          "checking",
+          "hub",
+          "locked",
+          "noscript"
+        ],
+        "excluded_unmaterialized_states": [
+          "prelaunch-env",
+          "unavailable"
+        ],
+        "active_candidate_state": "locked",
+        "shell_ref": "pr50.contract.archetype.special-state",
+        "shell_semantic_slots": [
+          "special.prelaunch",
+          "special.membership-check",
+          "special.locked",
+          "special.closed-hub",
+          "special.unavailable"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "brand.identity-and-pwa",
+          "focus.feedback",
+          "focus.lab-badge",
+          "runtime.special-state",
+          "special.closed-hub",
+          "special.membership-gate",
+          "special.prelaunch",
+          "system.state-panel"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/special-state.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "22c2c8fa5dfc339fca870110ed9e3326de4444a6"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 9,
+          "required_state_bindings": 4,
+          "excluded_state_receipts": 2
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "/:home-prelaunch-env/ is runtime-only and /:unavailable/ has no accepted dedicated route contract"
+        ]
+      },
+      {
+        "order": 20,
+        "semantic_root_key": "a0.candidate.root.archetype.special-state.mobile.v1",
+        "scenario_id": "a0.review.archetype.special-state.mobile.v1",
+        "evidence_key": "v0.a0.review.archetype.special-state.mobile.v1",
+        "archetype_id": "archetype.special-state",
+        "route_patterns": [
+          "/zakrytaya-afisha/"
+        ],
+        "source_pages": [
+          "site/src/pages/zakrytaya-afisha/index.astro"
+        ],
+        "viewport": {
+          "id": "mobile",
+          "width": 390,
+          "height": 844
+        },
+        "projection_ref": "catalog/asp-production-conveyor-v3/a0/archetype-wave-2.v2.json#archetypes/9",
+        "projection_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "fixture_ids": [],
+        "fixture_semantics": "NO_EVENT_DATA_REQUIRED",
+        "contract_states": [
+          "checking",
+          "hub",
+          "locked",
+          "noscript",
+          "prelaunch-env",
+          "unavailable"
+        ],
+        "required_states": [
+          "checking",
+          "hub",
+          "locked",
+          "noscript"
+        ],
+        "excluded_unmaterialized_states": [
+          "prelaunch-env",
+          "unavailable"
+        ],
+        "active_candidate_state": "locked",
+        "shell_ref": "pr50.contract.archetype.special-state",
+        "shell_semantic_slots": [
+          "special.prelaunch",
+          "special.membership-check",
+          "special.locked",
+          "special.closed-hub",
+          "special.unavailable"
+        ],
+        "component_semantic_refs": [
+          "authorization.static-site",
+          "brand.identity-and-pwa",
+          "focus.feedback",
+          "focus.lab-badge",
+          "runtime.special-state",
+          "special.closed-hub",
+          "special.membership-gate",
+          "special.prelaunch",
+          "system.state-panel"
+        ],
+        "archetype_contract_ref": {
+          "path": "catalog/global-archetype-sot-v1/archetype-contracts/special-state.semantic-contract.v1.json",
+          "git_commit": "9b8043f3bdb86fab4eee00bf94b0f10d4f029c50",
+          "git_blob_sha1": "22c2c8fa5dfc339fca870110ed9e3326de4444a6"
+        },
+        "expected_instances": {
+          "semantic_roots": 1,
+          "semantic_region_slots": 5,
+          "specimen_record_bindings": 0,
+          "required_component_bindings": 9,
+          "required_state_bindings": 4,
+          "excluded_state_receipts": 2
+        },
+        "geometry_authority": "VIEWPORT_FROM_PR50_ROUTE_REGISTRY; U0/F0 OWN_COMPONENT_AND_ACCEPTANCE_GEOMETRY",
+        "explicit_gaps": [
+          "/:home-prelaunch-env/ is runtime-only and /:unavailable/ has no accepted dedicated route contract"
+        ]
+      }
+    ]
+  },
+  "readback_contract": {
+    "pre": [
+      "one exact D0/PUBLISH writer",
+      "target semantic page absent or tagged with exact idempotency digest",
+      "all source, route, contract and dependency receipts match",
+      "focus-group repaired route/source-page tuple matches the PR50 donor exactly",
+      "all semantic region/component refs resolve without legacy identity reuse"
+    ],
+    "post": [
+      "one semantic page with exact idempotency digest",
+      "twenty roots match target.semantic_root_order byte-for-byte and in order",
+      "each root reports archetype, route/source-page tuple, viewport, fixtures, supported/excluded states and semantic bindings",
+      "all persisted IDs are newly assigned by D0 and absent from this adapter",
+      "validation is empty before V0 handoff"
+    ]
+  },
+  "abort_conditions": [
+    "SOURCE_FILE_OR_RECORD_HASH_MISMATCH",
+    "ROUTE_REGISTRY_OR_CONTRACT_RECEIPT_MISMATCH",
+    "FOCUS_GROUP_ROUTE_OR_SOURCE_PAGE_OMITTED_CHANGED_OR_REORDERED",
+    "CASE_OR_SEMANTIC_ROOT_ORDER_MISMATCH",
+    "FIXTURE_ID_OR_ORDER_MISMATCH",
+    "REQUIRED_STATE_OMITTED_OR_CHANGED",
+    "EXCLUDED_STATE_MATERIALIZED_WITHOUT_SOURCE_AUTHORITY",
+    "SPECIMEN_FIXTURE_ASSERTED_AS_ROUTE_MEMBERSHIP",
+    "U0_COMPONENT_DEPENDENCY_MISSING_OR_STALE",
+    "F0_ASSET_FOUNDATION_OR_GEOMETRY_DEPENDENCY_MISSING_OR_STALE",
+    "MULTIPLE_PENPOT_WRITERS",
+    "EXISTING_ROOT_IDEMPOTENCY_DIGEST_MISMATCH",
+    "OLD_PENPOT_UUID_OR_DIRECT_URL_PRESENT",
+    "STALE_VISUAL_PASS_OR_ACCEPTANCE_CLAIM",
+    "PROMOTION_REQUESTED_FROM_CANDIDATE_ADAPTER"
+  ],
+  "idempotency": {
+    "key": "a0.archetype-wave-2-candidate.v1:6c82d6f7a9eba1faa34371824c5c5d468457afc2c1fc2c131c61e0ea9258f74b",
+    "sha256": "6c82d6f7a9eba1faa34371824c5c5d468457afc2c1fc2c131c61e0ea9258f74b",
+    "material": {
+      "adapter_id": "A-ARCHETYPE-WAVE-2-CANDIDATE-ADAPTER.v1",
+      "source_tuple": {
+        "source_head": "e5f00941c6c5ab14cdd2caa9c68a68edd3a1ce2c",
+        "canonical_corpus_sha256": "b1746f0cd68be6dd6060858fb765c6863535aefbcf4844b9b50c279d69e9306a",
+        "a0_correction_payload_sha": "d85b38c7883d53f43b628d885513c5851c164b25",
+        "wave2_record_sha256": "f2b29688f06838634b146a9f025791812d5a0759e3e4af82245537d7f136174b",
+        "wave2_file_sha256": "8146bb75b385b5048d75f41177db083e9a3bcb9651e5dba7cae7a27078c83897",
+        "route_registry_sha256": "fb6f8252aba36eca906b6c1516ef19ef83532dda45c87ca0aa41c116773aae0d",
+        "pr52_case_structure_file_sha256": "7657be169a68f6df185bab7500511e725de05f7945ba76125fab4325d578c285",
+        "focus_group_contract_git_blob_sha1": "798538de7bc3b6deff41dded3406195bb5803827"
+      },
+      "contract_receipts_sha256": "1d2a1a1a4af6ba1d5ea362b2547ced14eb2179c05852ef2d6ae80daa8623572a",
+      "target": {
+        "semantic_page_key": "a0.candidate.page.archetype-wave-2.v1",
+        "semantic_page_name": "A0 Candidate · Archetype Wave 2",
+        "semantic_root_order": [
+          "a0.candidate.root.archetype.search.desktop.v1",
+          "a0.candidate.root.archetype.search.mobile.v1",
+          "a0.candidate.root.archetype.favorites.desktop.v1",
+          "a0.candidate.root.archetype.favorites.mobile.v1",
+          "a0.candidate.root.archetype.personal-feed.desktop.v1",
+          "a0.candidate.root.archetype.personal-feed.mobile.v1",
+          "a0.candidate.root.archetype.festivals.desktop.v1",
+          "a0.candidate.root.archetype.festivals.mobile.v1",
+          "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+          "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+          "a0.candidate.root.archetype.artifacts.desktop.v1",
+          "a0.candidate.root.archetype.artifacts.mobile.v1",
+          "a0.candidate.root.archetype.event-detail.desktop.v1",
+          "a0.candidate.root.archetype.event-detail.mobile.v1",
+          "a0.candidate.root.archetype.focus-group.desktop.v1",
+          "a0.candidate.root.archetype.focus-group.mobile.v1",
+          "a0.candidate.root.archetype.information-pages.desktop.v1",
+          "a0.candidate.root.archetype.information-pages.mobile.v1",
+          "a0.candidate.root.archetype.special-state.desktop.v1",
+          "a0.candidate.root.archetype.special-state.mobile.v1"
+        ],
+        "identity_assignment": "D0_ASSIGNS_ALL_NEW_PENPOT_IDENTITIES"
+      },
+      "build_steps_sha256": "537ab99939675fe52110a0b8d48111b520e66dd4460ac0c4a94821e385d50f83",
+      "bounded_mutation_scope": {
+        "allowed_paths": [
+          "a0.candidate.page.archetype-wave-2.v1",
+          "a0.candidate.root.archetype.search.desktop.v1",
+          "a0.candidate.root.archetype.search.mobile.v1",
+          "a0.candidate.root.archetype.favorites.desktop.v1",
+          "a0.candidate.root.archetype.favorites.mobile.v1",
+          "a0.candidate.root.archetype.personal-feed.desktop.v1",
+          "a0.candidate.root.archetype.personal-feed.mobile.v1",
+          "a0.candidate.root.archetype.festivals.desktop.v1",
+          "a0.candidate.root.archetype.festivals.mobile.v1",
+          "a0.candidate.root.archetype.interest-clubs.desktop.v1",
+          "a0.candidate.root.archetype.interest-clubs.mobile.v1",
+          "a0.candidate.root.archetype.artifacts.desktop.v1",
+          "a0.candidate.root.archetype.artifacts.mobile.v1",
+          "a0.candidate.root.archetype.event-detail.desktop.v1",
+          "a0.candidate.root.archetype.event-detail.mobile.v1",
+          "a0.candidate.root.archetype.focus-group.desktop.v1",
+          "a0.candidate.root.archetype.focus-group.mobile.v1",
+          "a0.candidate.root.archetype.information-pages.desktop.v1",
+          "a0.candidate.root.archetype.information-pages.mobile.v1",
+          "a0.candidate.root.archetype.special-state.desktop.v1",
+          "a0.candidate.root.archetype.special-state.mobile.v1"
+        ],
+        "max_semantic_pages": 1,
+        "max_semantic_roots": 20,
+        "existing_non_candidate_pages": "NO_MUTATION",
+        "acceptance_geometry": "NOT_OWNED_BY_A0",
+        "reversibility": "DELETE_OR_REBUILD_ONLY_ROOTS_WITH_EXACT_IDEMPOTENCY_DIGEST"
+      }
+    }
+  },
+  "receipts": {
+    "receipt_path": "catalog/asp-production-conveyor-v3/a0/candidate-adapter-receipt.v1.json",
+    "adapter_record_sha256": "bd0437408a661a29cd7ff3ba325e165b24606b34e0c5521bc21a67cc6985d0a0"
+  }
+}
