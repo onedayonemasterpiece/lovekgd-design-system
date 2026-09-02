@@ -9,3 +9,5 @@ Execution is stable-ID resumable. Every call activates the exact page, rechecks 
 Git QA/INTEGRATE does not authorize Penpot mutation. The sole writer still requires a fresh native projection, exact bundle authorization tuple, physical ACTIVE marker, settlement readback, validation `[]`, native exports and a page-scoped V0 trigger.
 
 The V2 authorization envelope additionally binds the exact Atlas page ID and three semantic slots, Atlas head/tree provenance, sole writer `/root/publish_r2`, D0 session/task/trigger identities and cancel-token parity between authorization provenance and the physical ACTIVE marker.
+
+V3 owns its deterministic UTF-8 encoder and SHA-256 implementation. Native projection does not depend on `crypto`, `crypto.subtle`, `TextEncoder`, Node built-ins or repository imports; tests execute with those globals explicitly absent.
