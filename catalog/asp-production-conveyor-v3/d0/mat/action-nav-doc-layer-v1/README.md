@@ -4,7 +4,7 @@ Package-local repair for `V0-ACTION-NAV-R2-DOC-LAYER-001`. The single bundle is 
 
 ## Native call sequence
 
-1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `c15dbcd9cba82f90e4dd64be1b2a6238cbb078615e1079b88783dc092d36a675`, Git blob `b44f3fbd6c4cf4c5674b7445bb18c29640ac7492`, bytes `51829`.
+1. Load `executables/asp-production-conveyor-v3/f0/action-nav-doc-layer-v1/action-nav-doc-layer.bundle.js` and verify SHA-256 `1f01ffa253490291230baf8d85340b04888c658c1f2feca4acec5bd39ab84509`, Git blob `d162c8c0605ff40c997b11ea05c2ef7b36cec5df`, bytes `51601`.
 2. Put the exact branch/head/tree/blob/bytes/SHA bundle identity, fresh current `revn`/projection/cursor/docs authorization, and the exact current physical released-marker **raw literal plus SHA-256** into storage. Do **not** write a new physical ACTIVE marker externally.
 3. Call `executeActionNavDocLayerPhase({penpot, storage})` once. The bundle validates the released physical marker, atomically mints ACTIVE, creates at most three nodes, binds its after-projection receipt, and releases the marker inside that same native call.
 4. For each remaining phase, perform a distinct read-only projection and repeat step 2 with the new authoritative `revn`; skipped/regressed counts and stale revisions fail closed. A timeout has unknown outcome: project again; never blindly retry.
@@ -48,3 +48,7 @@ The exact historical ActionNav V7 partial is now proven independently by its roo
 ## V10 package-local released-marker bridge
 
 V10 removes V9's incorrect assumption that every package uses `kenigevents.asp-run-control.v1`. The continuation now binds the byte-exact current `asp-active-run-v1` raw literal and its SHA-256; the execution call rereads that literal and requires exact equality before minting ActionNav `ACTIVE`. The marker schema is opaque/package-local. Its control fields must still prove the sole writer `/root/publish_r2`, non-`ACTIVE` state, cancelled or expired lease, `mutation_in_flight=false`, `writer_released=true`, and a non-future release time. Historical ActionNav V7 identity and docs `8/1/1` remain independently bound by the root authorization, projection and known V7 release hash. Later ActionNav phases additionally bind the released marker to the immediately previous ActionNav root receipt.
+
+## V11 revn-only native-host cleanup
+
+V11 does not read, write, or delete the unsupported `currentFile.revision` alias. Both production and conformance execution read only `currentFile.revn` and fail closed when it is absent. The conformance host also does not assign or override `currentFile.saveVersion`. This preserves the V10 raw released-marker literal/SHA bridge and atomic bounded phase while satisfying the nonconfigurable native-host traps in harness `62f26df36b8199e4b8899b9252f796b1fa5e9d42`.
