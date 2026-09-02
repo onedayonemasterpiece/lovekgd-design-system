@@ -47,6 +47,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          cat > /tmp/PARTS.SHA256 <<'EOF'
+          ff71a038d56ad46bc69861f82cb9361ce919381f1c74d073aabb5c036106f6d5  .a0-direct-plugin-bootstrap/part-00.b64
+          df0a505540652885f791842782e58f8ca7e41a7078d61c1b2d59f92aff442ef0  .a0-direct-plugin-bootstrap/part-01.b64
+          46d1a799f7f628245c36b62cdd4b07cd3bfee62576a9f8ed4ddd467d2f550cf5  .a0-direct-plugin-bootstrap/part-02.b64
+          b645070daa1b3dfc1882e595d55be679f9de8604d4d59e2d8806931a383e8a7e  .a0-direct-plugin-bootstrap/part-03.b64
+          454ff0743cf3d4ae995a56ef34b4739d80173955935230924e82824088aeaa8a  .a0-direct-plugin-bootstrap/part-04.b64
+          EOF
+          sha256sum -c /tmp/PARTS.SHA256
           cat .a0-direct-plugin-bootstrap/part-*.b64 | tr -d '\n' | base64 -d > /tmp/direct_plugin_sprint.py.gz
           echo '7040fa06a64ca4c704ed0ec5cf1a5ad1cfc035691a295644d5c35809b46c4f7a  /tmp/direct_plugin_sprint.py.gz' | sha256sum -c -
           gzip -dc /tmp/direct_plugin_sprint.py.gz > /tmp/direct_plugin_sprint.py
