@@ -109,6 +109,8 @@ function staticGate(source, bundlePath) {
   invariant(!/(?:node:fs|node:crypto|node:path|from\s*["'](?:node:)?fs|import\s*\()/u.test(source), 'FORBIDDEN_RUNTIME_MODULE_OR_FILESYSTEM');
   invariant(!/\b(?:eval|Function)\s*\(/u.test(code), 'DYNAMIC_CODE_FORBIDDEN');
   invariant(!/\breadNativeCoverage\b/u.test(code), 'UNAVAILABLE_CALLER_HELPER:readNativeCoverage');
+  invariant(!/\b__d0BundleConformance\b/u.test(code), 'CONFORMANCE_AUTHORIZATION_BYPASS_FORBIDDEN');
+  invariant(!/\bstructuredClone\s*\(/u.test(code), 'NATIVE_STRUCTURED_CLONE_FORBIDDEN');
 }
 
 function pluginNode(id, type = 'shape') {
@@ -142,17 +144,49 @@ function buildInstrumentedPenpot() {
     openPageCalls: 0,
     pluginStringWrites: 0,
     rejectedPluginWrites: 0,
+    currentFilePluginReads: 0,
+    currentFilePluginWrites: 0,
+    saveVersionOverrideAttempts: 0,
   };
   let sequence = 0;
   const pages = [];
+  const currentFilePluginData = new Map();
   const currentFile = {
     id: 'd0-conformance-file',
     revn: 1,
     pages,
     validate: () => [],
     findVersions: async () => [],
-    saveVersion: async () => invariant(false, 'ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN'),
   };
+  const nativeSetSharedPluginData = (namespace, key, value) => {
+    invariant(typeof namespace === 'string' && namespace.length > 0, 'FILE_PLUGIN_NAMESPACE_NOT_STRING');
+    invariant(typeof key === 'string' && key.length > 0, 'FILE_PLUGIN_KEY_NOT_STRING');
+    invariant(typeof value === 'string', `FILE_PLUGIN_DATA_NOT_STRING:${typeof value}`);
+    currentFilePluginData.set(`${namespace}\u0000${key}`, value);
+    audit.currentFilePluginWrites += 1;
+  };
+  const nativeGetSharedPluginData = (namespace, key) => {
+    audit.currentFilePluginReads += 1;
+    return currentFilePluginData.get(`${namespace}\u0000${key}`) || '';
+  };
+  const saveVersionTrap = async () => invariant(false, 'ORCHESTRATOR_SAVE_VERSION_CALL_FORBIDDEN');
+  for (const [name, nativeMethod] of [
+    ['setSharedPluginData', nativeSetSharedPluginData],
+    ['getSharedPluginData', nativeGetSharedPluginData],
+  ]) {
+    Object.defineProperty(currentFile, name, {
+      configurable: false,
+      enumerable: true,
+      get: () => nativeMethod,
+      set: () => {},
+    });
+  }
+  Object.defineProperty(currentFile, 'saveVersion', {
+    configurable: false,
+    enumerable: true,
+    get: () => saveVersionTrap,
+    set: () => { audit.saveVersionOverrideAttempts += 1; },
+  });
   // Penpot's native file API exposes `revn`. A writable `revision` alias made
   // stale test doubles pass while the same bundle failed in the sole writer.
   // Keep the alias deletable for bundles that defensively remove it, but fail
@@ -307,6 +341,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
     crypto: Object.freeze({}),
     TextEncoder: undefined,
     TextDecoder: undefined,
+    structuredClone: undefined,
     Uint8Array,
     ArrayBuffer,
     Blob,
@@ -339,6 +374,10 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   invariant(host.dependencies === undefined, 'CONFORMANCE_HOST_INJECTED_DEPENDENCIES');
   invariant(host.localStorage === undefined, 'CONFORMANCE_HOST_INJECTED_LOCAL_STORAGE');
   invariant(host.readActiveMarker === undefined, 'CONFORMANCE_HOST_INJECTED_ACTIVE_READER');
+  for (const component of instrumented.penpot.library.local.components) {
+    invariant(typeof component?.mainInstance === 'function', 'NATIVE_COMPONENT_MAIN_INSTANCE_METHOD_REQUIRED');
+    invariant(!Object.prototype.hasOwnProperty.call(component, 'main'), 'NON_NATIVE_COMPONENT_MAIN_API_FORBIDDEN');
+  }
   invariant(Number.isInteger(instrumented.penpot.currentFile.revn), 'NATIVE_REVN_REQUIRED');
   invariant(instrumented.penpot.currentFile.revision === undefined, 'NATIVE_REVISION_ALIAS_FORBIDDEN');
   invariant(instrumented.audit.creates === 0, 'CONFORMANCE_SETUP_NATIVE_CREATES_FORBIDDEN');
@@ -358,6 +397,9 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
   const first = await driveExecution(methods.execution, host, instrumented.audit, null, 'FIRST_RUN');
   invariant(first.total > 0, 'FIRST_RUN_CREATED_NOT_POSITIVE');
   invariant(instrumented.audit.createEvents.filter((event) => event.kind !== 'page').every((event) => event.current_page_id), 'CURRENT_PAGE_ACTIVATION_NOT_PROVEN');
+  if (/\bACTIVE\b/u.test(source) && /\/root\/publish_r2/u.test(source)) {
+    invariant(instrumented.audit.currentFilePluginReads > 0, 'PHYSICAL_ACTIVE_CURRENT_FILE_READER_REQUIRED');
+  }
 
   const settlementBefore = instrumented.audit.creates;
   const settlementReceipt = await methods.settlement(host);
@@ -443,6 +485,8 @@ async function selfTest() {
       ['crypto-subtle', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.crypto.subtle.digest; "), /digest/u],
       ['text-encoder', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; new globalThis.TextEncoder(); "), /TextEncoder|constructor/u],
       ['caller-helper', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; globalThis.readNativeCoverage; "), /UNAVAILABLE_CALLER_HELPER:readNativeCoverage/u],
+      ['structured-clone', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable'; structuredClone({}); "), /NATIVE_STRUCTURED_CLONE_FORBIDDEN/u],
+      ['authorization-bypass', source.replace("  const NS='d0-fixture', KEY='stable';", "  const NS='d0-fixture', KEY='stable', __d0BundleConformance=true; void __d0BundleConformance; "), /CONFORMANCE_AUTHORIZATION_BYPASS_FORBIDDEN/u],
       ['revision-alias', source.replace(
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
         'async createHost(seed){seed.penpot.currentFile.revision=1;return {penpot:seed.penpot,storage:seed.storage};}',
@@ -455,6 +499,14 @@ async function selfTest() {
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
         'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage,readActiveMarker(){return {}}};}',
       ), /CONFORMANCE_HOST_INJECTED_ACTIVE_READER/u],
+      ['non-native-component-main', source.replace(
+        'async createHost(seed){return {penpot:seed.penpot,storage:seed.storage};}',
+        'async createHost(seed){seed.penpot.library.local.components.push({id:"bad",main:{}});return {penpot:seed.penpot,storage:seed.storage};}',
+      ), /NATIVE_COMPONENT_MAIN_INSTANCE_METHOD_REQUIRED/u],
+      ['storage-only-active', source.replace(
+        "  const NS='d0-fixture', KEY='stable';",
+        "  const NS='d0-fixture', KEY='stable', ACTIVE='ACTIVE', WRITER='/root/publish_r2'; void ACTIVE; void WRITER;",
+      ), /PHYSICAL_ACTIVE_CURRENT_FILE_READER_REQUIRED/u],
       ['save-version', source.replace(
         'async function settlement(host){return {validation:host.penpot.currentFile.validate(),created:0};}',
         'async function settlement(host){await host.penpot.currentFile.saveVersion("forbidden");return {validation:host.penpot.currentFile.validate(),created:0};}',
