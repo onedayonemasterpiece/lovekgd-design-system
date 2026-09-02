@@ -34,6 +34,6 @@ if package['slug']=='owner-review-index':
     assert len(rows)==42
     assert max(row['geometry']['y']+row['geometry']['height'] for row in rows)==2464
 source=bundle.decode('utf-8')
-for token in ('D0_PLUGIN_BUNDLE_V1','createHost','prepareReplay','strictStringProbe','currentFile.revn','await penpot.openPage','EXTERNAL_AUTHORIZATION_TUPLE'):
+for token in ('D0_PLUGIN_BUNDLE_V1','createHost','prepareReplay','strictStringProbe','currentFile.revn','await penpot.openPage','EXTERNAL_AUTHORIZATION_TUPLE','EXPECTED_PROVIDER','ACTIVE_EXACT_GIT_TUPLE','ACTIVE_EXACT_BUNDLE_TUPLE'):
     assert token in source, token
 print(json.dumps({'result':'PASS','slug':package['slug'],'bundle_sha256':package['bundle']['sha256']}))
