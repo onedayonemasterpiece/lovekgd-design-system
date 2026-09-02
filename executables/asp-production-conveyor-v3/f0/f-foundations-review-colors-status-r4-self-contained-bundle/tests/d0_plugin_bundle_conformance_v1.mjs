@@ -444,7 +444,7 @@ async function runConformance({ bundlePath, expectedSha256, globalName }) {
 
   if (typeof bundle.conformance.identityNegativeProbe === 'function') {
     const negative = await bundle.conformance.identityNegativeProbe(host);
-    for (const key of ['authorization_head','physical_head','immutable_head','operation_identity']) invariant(negative[key] === true, `PROVIDER_IDENTITY_DRIFT_ACCEPTED:${key}`);
+    for (const key of ['authorization_head','physical_head','self_consistent_wrong','payload_attestation','operation_identity']) invariant(negative[key] === true, `PROVIDER_IDENTITY_DRIFT_ACCEPTED:${key}`);
     invariant(instrumented.audit.creates === 0, 'PROVIDER_IDENTITY_NEGATIVE_CREATED');
   }
 
