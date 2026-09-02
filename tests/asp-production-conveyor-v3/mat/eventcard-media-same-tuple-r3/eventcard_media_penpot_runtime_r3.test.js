@@ -204,3 +204,14 @@ test('strict shared plugin data accepts only strings and coverage failure blocks
   await assert.rejects(() => R.readEventcardMediaPenpotSettlementR3(fixture.context, receipt),
     (error) => error.code === 'MEDIA_R3_SETTLEMENT_COVERAGE_FAIL');
 });
+
+test('missing native coverage reader blocks before every upload, fill, evidence and receipt call', async () => {
+  const fixture = new Fixture();
+  const projection = await R.projectEventcardMediaPenpotR3(fixture.context), auth = fixture.authorize(projection);
+  fixture.context.readNativeCoverage = undefined;
+  await assert.rejects(() => R.executeEventcardMediaPenpotR3(fixture.context, auth),
+    (error) => error.code === 'MEDIA_R3_NATIVE_COVERAGE_READBACK_UNAVAILABLE');
+  assert.equal(fixture.uploads.length, 0); assert.equal(fixture.fillWrites.length, 0);
+  assert.equal(fixture.evidenceWrites.length, 0);
+  assert.equal(fixture.shared.has(`${R.NAMESPACE}:${R.RECEIPT_KEY}`), false);
+});

@@ -288,6 +288,9 @@ function receiptValue(context) {
 
 async function executeEventcardMediaPenpotR3(context, authorization) {
   authorizationEnvelope(context, authorization); assertActive(context, authorization);
+  // Settlement evidence is part of the executable contract, not an optional
+  // afterthought. Prove its native capability before the first upload/write.
+  if (typeof context.readNativeCoverage !== 'function') fail('MEDIA_R3_NATIVE_COVERAGE_READBACK_UNAVAILABLE');
   const before = await projectEventcardMediaPenpotR3(context, authorization);
   assertProjectionAuthorization(context, authorization, before); assertActive(context, authorization);
   const already = before.rows.every((row) => {
