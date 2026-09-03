@@ -51,7 +51,7 @@ A0:
   result: 5521930424
 ```
 
-## Correction: source contours are not exhausted
+## Source contours remain active
 
 The former `F0/M0/A0 OWNED_BACKLOG_EXHAUSTED` classification was too narrow. It
 looked only at the last named Wave rather than the full actual-consumer census.
@@ -76,12 +76,12 @@ F0/M0/A0 continue on role branches for the next integration checkpoint.
 |---|---|---|
 | N0 | `ACTIVE_CRITICAL_PATH` | accepted-candidate baseline task `5522381655/5522499169`; must continue to conditional promotion, fresh generation and reachable preview rather than finish on baseline |
 | R0 | `ACTIVE_NATIVE_EXECUTION` | execute current N0 same-data task; after every result fresh-read and continue authorized critical mechanics or bounded-watch for N0 trigger |
-| F0 | `ACTIVE_CONTINUOUS_FOUNDATIONS` | whole-product read-only census; add central aliases/roles for remaining home/free/unusual/gastronomy/personal-feed/rail/focus consumers; close visible color/type/spacing/icon gaps in F0 paths |
-| M0 | `ACTIVE_CONTINUOUS_FAMILIES` | implement/verify named EventMediaRail hero-selector and poster-strip variants; close remaining shared MediaFrame/family ownership and source/API gaps in M0 roots |
+| F0 | `ACTIVE_CONTINUOUS_FOUNDATIONS` | whole-product census; add central aliases/roles for remaining home/free/unusual/gastronomy/personal-feed/rail/focus consumers; close visible color/type/spacing/icon gaps in F0 paths |
+| M0 | `ACTIVE_CONTINUOUS_FAMILIES` | implement named EventMediaRail hero-selector and poster-strip variants; close remaining shared MediaFrame/family ownership and source/API gaps in M0 roots |
 | A0 | `ACTIVE_CONTINUOUS_CONSUMERS` | migrate remaining exact consumer files to AdaptiveEventCardGrid/canonical Button/tokens; later replace DesktopEventPage rail lookalikes with M0 variants |
-| V0 | `HARNESS_READY_STANDBY_TRIGGER_ARMED` | resume on exact reachable integrated preview URL; one run covers full browser matrix |
+| V0 | `ACTIVE_BOUNDED_HARNESS_DELTA` | latest F0/M0/A0 changes materially changed markers/direct roots/MediaFrame/grid selectors; update the existing harness once, then wait for the exact reachable preview and run the full browser matrix immediately |
 | K0 | `ACTIVE_PRODUCT_FIRST` | maintain continuous execution and repair process/canonical drift directly |
-| PM0 | `AVAILABLE_READ_ONLY` | readiness forecast only on request |
+| PM0 | `AVAILABLE_READ_ONLY` | readiness forecast only on request; no synthetic implementation work |
 
 ## Exact A0 consumer migration scope now assigned
 
@@ -124,7 +124,9 @@ A0:
   remaining actual consumer migration on separate role branch
 
 V0:
-  zero-cost standby until physical URL
+  one bounded harness delta now
+  → exact-trigger standby
+  → full personal DOM/computed audit immediately when URL exists
 ```
 
 A checkpoint does not end a role. After each result, the role fresh-reads,
@@ -141,6 +143,7 @@ when no independent useful work remains and an exact external trigger is recorde
 | F0 remaining foundation coverage | `ACTIVE_PARALLEL` |
 | M0 rail/framing convergence | `ACTIVE_PARALLEL` |
 | A0 remaining consumer migration | `ACTIVE_PARALLEL` |
+| V0 harness delta | `ACTIVE_BOUNDED` |
 | V0 browser verdict | `TRIGGERED_BY_REACHABLE_URL` |
 | `ASTRO_NORMALIZATION_PASS` | `CLOSED` |
 
