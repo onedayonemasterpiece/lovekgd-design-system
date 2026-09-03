@@ -12,7 +12,11 @@ a clock, not a permission gate.
 ```yaml
 events_bot_new:
   integration_branch: integration/ui-normalization-launch-20260902
-  current_verified_head: e2561aac0713e0b801203d09575a4b25932bdac5
+  current_verified_head: f7455bc3ef2542a7df2634665f83b75e5a171eae
+  current_head_delta_from_candidate_base:
+    type: documentation_only
+    commit: f7455bc3ef2542a7df2634665f83b75e5a171eae
+    path: docs/features/static-site-pages/design-system/launch-normalization-48h.md
   fresh_data_generation: NOT_STARTED
   accepted_integrated_wave: ABSENT
   owner_preview_entrypoint: /<buildId>/__preview/
@@ -51,13 +55,13 @@ watch rather than approval ping-pong.
 
 | Actor | State | Durable evidence | Next product action |
 |---|---|---|---|
-| N0 | `CRITICAL_PATH_DECISION_POSTED_BUT_CHAIN_NOT_CLOSED` | generation decision `5521885317`; accepted Wave-2 candidate `592bfce...`; no integration move, baseline or reachable preview | in one continuous turn review F0/A0 Wave 3 and publish conditional end-to-end authority covering latest candidate rehearsal → same-data baseline → promotion → fresh generation → reachable preview |
+| N0 | `CRITICAL_PATH_DECISION_POSTED_BUT_CHAIN_NOT_CLOSED` | generation decision `5521885317`; accepted Wave-2 candidate `592bfce...`; no integration move, baseline or reachable preview | in one continuous turn review F0/A0 Wave 3 and current doc-only integration delta, then publish conditional end-to-end authority covering latest candidate rehearsal → same-data baseline → promotion → fresh generation → reachable preview |
 | F0 | `OWNED_BACKLOG_EXHAUSTED_STANDBY` | Wave 3 `work/ui-normalization-f0-wave-3-20260903@7ae5282a860e36aa3ca5008053fae053b7474344`; result `5521926959` | standby until integration/build/V0 exposes F0 drift or an actual class-only consumer migration returns to F0 scope |
 | M0 | `OWNED_BACKLOG_EXHAUSTED_STANDBY` | Wave 2 `work/ui-normalization-m0-wave-2-20260903@a18210e8fb9574d7ea6ca30a0ca8ca5a3b31c3f3`; result `5521565674`; R0 review accepted `5521646256` | standby until A0/N0 migration question or V0 drift |
 | A0 | `OWNED_BACKLOG_EXHAUSTED_STANDBY` | Wave 3 `work/ui-normalization-a0-wave-3-20260903@08ac8eab1674281641ccfe59b89611c1434495c5`; result `5521930424` | standby until latest combined build or V0 reveals route/consumer drift |
 | V0 | `HARNESS_READY_STANDBY_TRIGGER_ARMED` | harness result `5521263641` | resume on exact reachable integrated preview URL and run full browser matrix |
 | K0 | `ACTIVE_CONTINUOUS_EXECUTION_REPAIR` | contract/docs continuous-owner repair at current branch head | eliminate micro-wave stops and minimize unavoidable platform wake-ups |
-| R0 | `READY_FOR_CONTINUOUS_CRITICAL_PATH_EXECUTION` | latest verified Wave-2 candidate `r0/combined-wave2-latest-20260903@592bfce1537c1b89b5d7e401a2516a7b7709421b`; N0 decision `5521885317`; newer F0/A0 heads available | build latest Wave-3 combined candidate, then execute N0 conditional baseline/promotion/generation chain without stopping between reversible stages |
+| R0 | `READY_FOR_CONTINUOUS_CRITICAL_PATH_EXECUTION` | latest verified Wave-2 candidate `r0/combined-wave2-latest-20260903@592bfce1537c1b89b5d7e401a2516a7b7709421b`; N0 decision `5521885317`; newer F0/A0 heads available | build latest candidate including current integration documentation delta plus F0/A0 Wave 3, then execute N0 conditional baseline/promotion/generation chain without stopping between reversible stages |
 | PM0 | `AVAILABLE_READ_ONLY` | result `5521143401` | readiness forecast only on request |
 
 ## Current source convergence
@@ -88,15 +92,18 @@ last_verified_combined_candidate:
   reachable_preview: false
   includes_F0_wave3: false
   includes_A0_wave3: false
+  includes_current_integration_doc_delta: false
 ```
 
 ## Immediate critical path
 
 ```text
-N0 reviews exact F0/A0 Wave-3 heads and issues one conditional end-to-end authority
+N0 reviews exact F0/A0 Wave-3 heads and current integration doc-only delta
+→ issues one conditional end-to-end authority
 +
 R0 builds/verifies latest candidate:
   592bfce...
+  + integration doc-only f7455bc...
   + F0 7ae5282...
   + A0 08ac8ea...
 → same-data before/after baseline
