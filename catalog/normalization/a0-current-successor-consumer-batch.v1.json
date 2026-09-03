@@ -1,8 +1,8 @@
 {
   "schema": "kenigevents.thin-s.a0-current-successor-consumer-batch.v1",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "contract_version": "1.10.0",
-  "status": "A0_SOURCE_ACCEPTED_CURRENT_FREEZE_FINAL_F0_AND_M0_TAIL_PENDING_R0",
+  "status": "A0_BOUNDED_SOURCE_ACCEPTED_MOBILE_RAIL_WRITER_BOUNDARY_AND_FINAL_DEPENDENCIES_PENDING",
   "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
   "authority": {
     "executable_repository": "onedayonemasterpiece/events-bot-new",
@@ -10,13 +10,11 @@
     "source_successor_sha": "cebeafeee08251a327145ee973ee035cced65204",
     "a0_projection_branch": "work/ui-normalization-a0-current-successor-consumer-batch-20260903",
     "a0_projection_sha": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
-    "a0_result_comments": [
-      5531482466,
-      5531606646
-    ],
+    "a0_result_comments": [5531482466, 5531606646],
     "f0_final_review_comment": 5531682890,
     "f0_delivery_comment": 5531902859,
     "m0_post_cutover_result_comment": 5531788718,
+    "fr0_delivery_review_comment": 5531918584,
     "candidate_acceptance_owner": "N0",
     "runtime_and_kaggle_owner": "R0",
     "browser_verdict_owner": "V0",
@@ -36,7 +34,8 @@
     "preserve_historical_preview_evidence": true,
     "do_not_replay_old_a0_source_branch": true,
     "do_not_promote_current_freeze_as_final_post_f0": true,
-    "reason": "The six bounded A0 consumers are already materialized and accepted in the current successor, but F0 rejected that frozen SHA only because its owned route-theme registry/checker still admitted contract 1.9 vocabulary. A later M0 post-cutover card/grid tail and the additive A0 boundary regression also remain unintegrated."
+    "do_not_expand_current_bounded_writer_intersection": true,
+    "reason": "The six explicitly writable A0 consumers are already materialized and accepted. Final delivery additionally needs one exact F0 vocabulary commit, the current M0 post-cutover tail, the additive A0 regression, and a separately authorized smallest-owner mobile-listing-rail resource-state correction."
   },
   "source_lineage": {
     "original_checkpoint": "1bc6d9cb4c122046f4782532381de953727c1da6",
@@ -44,6 +43,7 @@
       "sha": "cebeafeee08251a327145ee973ee035cced65204",
       "a0_consumer_verdict": "ACCEPTED_SOURCE",
       "f0_consumer_verdict": "FESTIVALS_EXHIBITIONS_AND_FR0_BATCH_4_ACCEPTED_SOURCE",
+      "local_production_form_result": 5531586743,
       "final_f0_eligible": false,
       "reason": "route-theme registry/checker vocabulary is not exact contract 1.10"
     },
@@ -63,13 +63,22 @@
     "M0": {
       "integrated_downstream_ancestor": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133",
       "published_post_cutover_head": "7e879210f68f7a7e4a53755f2e9431c61f445569",
-      "current_ref": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
-      "post_result_followthrough": [
-        "1828bde1c869150b25a292a65e8b20a646a5d611",
-        "8b0c6709beca1f7b0bef81b27464f786df1d7806"
-      ],
+      "minimum_product_source_head": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+      "current_review_head": "105bac16be6c73916a25f3e78b02116869ed5e1e",
+      "ownership_review_tail": {
+        "base": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+        "head": "105bac16be6c73916a25f3e78b02116869ed5e1e",
+        "ahead_by": 4,
+        "product_source_changed": false,
+        "changed_paths": [
+          "site/tests/event-card-control-target.test.mjs",
+          "site/tests/m0-post-fr0-test-ownership.test.mjs",
+          "site/tests/m0-post-fr0-test-ownership.v1.json"
+        ]
+      },
       "integration_status": "PENDING_NEXT_DESCENDANT",
-      "current_a0_consumer_api_gap": false
+      "current_a0_six_consumer_api_gap": false,
+      "resolve_current_descendant_at_materialization": true
     },
     "FR0": {
       "cutover_base": "c71351decdcee02941acb26c5e2fbaf88faf0378",
@@ -79,15 +88,21 @@
     "A0": {
       "divergent_role_ref": "dc7b722ecdc268b24c2a2d36911e76d4f2dfd891",
       "whole_divergent_branch_merge_allowed": false,
+      "bounded_source_paths": [
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/pages/festivali/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+        "site/src/components/InterestClubCard.astro",
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro"
+      ],
       "regression_projection": {
         "base": "cebeafeee08251a327145ee973ee035cced65204",
         "head": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
         "ahead_by": 1,
         "behind_by": 0,
         "changed_consumer_paths": [],
-        "changed_regression_paths": [
-          "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs"
-        ],
+        "changed_regression_paths": ["site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs"],
         "integration_status": "PENDING_NEXT_DESCENDANT",
         "blocks_current_diagnostic_preview": false
       }
@@ -104,14 +119,15 @@
       "source_present": 19,
       "denominator": 19,
       "fraction": "19/19",
-      "closed_since_base_matrix": [
-        "PM0-37-06 festivals",
-        "PM0-37-16 focus collection",
-        "PM0-37-19 closed focus hub"
-      ],
       "current_frozen_local_production_form_verified": 19,
       "final_post_f0_published_build_verified": 0,
       "independent_v0_browser_reviewed": 0
+    },
+    "bounded_consumer_closure": {
+      "accepted": 6,
+      "denominator": 6,
+      "fraction": "6/6",
+      "changed_consumer_paths_in_latest_a0_projection": 0
     },
     "penpot": {
       "native_masters_materialized": 0,
@@ -126,31 +142,12 @@
       "family": "ExhibitionsPersonalSurface",
       "version": 1,
       "variant": "ranked-personal-catalog",
-      "states": [
-        "personal all-topics populated",
-        "personal all-topics empty",
-        "all-mode",
-        "filtered",
-        "gallery-open",
-        "loading",
-        "error"
-      ],
+      "states": ["personal all-topics populated", "personal all-topics empty", "all-mode", "filtered", "gallery-open", "loading", "error"],
       "source_status": "IN_CURRENT_SUCCESSOR_F0_ACCEPTED",
       "foundation_owner": "F0",
       "framing_owner": "FR0",
-      "a0_owns": [
-        "route composition",
-        "mode and category filtering",
-        "new/priority/tail grouping",
-        "keyboard and gallery lifecycle",
-        "feedback and undo"
-      ],
-      "allowed_local_runtime_variables": [
-        "--ex-media-column",
-        "--ex-row-gap",
-        "--ex-surface-start",
-        "--ex-rail-color"
-      ],
+      "a0_owns": ["route composition", "mode and category filtering", "new/priority/tail grouping", "keyboard and gallery lifecycle", "feedback and undo"],
+      "allowed_local_runtime_variables": ["--ex-media-column", "--ex-row-gap", "--ex-surface-start", "--ex-rail-color"],
       "forbidden_local_theme_aliases": "all other --ex-*",
       "effective_media_owner": "site/src/components/media-frame.css",
       "penpot_master": "A0-M13",
@@ -163,31 +160,16 @@
       "family": "FestivalsTimelineRouteComposition",
       "version": 1,
       "variant": "annual-timeline",
-      "states": [
-        "populated",
-        "empty",
-        "liked",
-        "unliked",
-        "program-confirmed",
-        "program-pending",
-        "date-pending"
-      ],
+      "states": ["populated", "empty", "liked", "unliked", "program-confirmed", "program-pending", "date-pending"],
       "source_status": "IN_CURRENT_SUCCESSOR_F0_ACCEPTED",
-      "required_action_icons": [
-        "SemanticIcon/heart@control",
-        "SemanticIcon/link@control",
-        "SemanticIcon/calendar@control"
-      ],
+      "required_action_icons": ["SemanticIcon/heart@control", "SemanticIcon/link@control", "SemanticIcon/calendar@control"],
       "semantic_surface_roles": {
         "guide_like_action": "--ke-color-festival-guide-like-surface",
         "editorial_taxonomy": "--ke-color-festival-category-surface"
       },
       "safe_external_link": {
         "target": "_blank",
-        "required_rel_tokens": [
-          "noopener",
-          "noreferrer"
-        ]
+        "required_rel_tokens": ["noopener", "noreferrer"]
       },
       "minimum_favorite_target_px": 44,
       "penpot_master": "A0-M14",
@@ -200,19 +182,12 @@
       "family": "InterestClubDetailRouteComposition",
       "version": 1,
       "variant": "verified-club",
-      "states": [
-        "future-meetings",
-        "history-only"
-      ],
+      "states": ["future-meetings", "history-only"],
       "source_status": "IN_CURRENT_SUCCESSOR",
       "required_icon": "SemanticIcon/arrow-left@inline",
       "safe_external_link": {
         "target": "_blank",
-        "required_rel_tokens": [
-          "noopener",
-          "noreferrer",
-          "nofollow"
-        ]
+        "required_rel_tokens": ["noopener", "noreferrer", "nofollow"]
       },
       "penpot_master": "A0-M10",
       "route_board": "A0-R15D",
@@ -224,10 +199,7 @@
       "family": "InterestClubCard",
       "version": 1,
       "variant": "photographic-catalog-card",
-      "states": [
-        "cover-ready",
-        "fallback-art"
-      ],
+      "states": ["cover-ready", "fallback-art"],
       "source_status": "IN_CURRENT_SUCCESSOR",
       "required_tokens": [
         "--ke-color-club-card-fallback-orbit-ring-inner",
@@ -245,9 +217,7 @@
       "family": "FocusEggCollectionRouteComposition",
       "version": 1,
       "variant": "collection-prototype",
-      "states": [
-        "found-N-of-M"
-      ],
+      "states": ["found-N-of-M"],
       "runtime_state_source": "found and eligible collection counts",
       "source_status": "IN_CURRENT_SUCCESSOR",
       "penpot_master": "A0-M15",
@@ -260,11 +230,7 @@
       "family": "ClosedFocusHubRouteComposition",
       "version": 1,
       "variant": "participant-hub",
-      "states": [
-        "checking",
-        "locked",
-        "available"
-      ],
+      "states": ["checking", "locked", "available"],
       "runtime_state_source": "existing focus participation marker",
       "semantic_boundary": "focus participation and account authentication remain independent",
       "source_status": "IN_CURRENT_SUCCESSOR",
@@ -276,26 +242,15 @@
   "preserved_product_contracts": [
     {
       "id": "popular-density",
-      "requirements": [
-        "mobile-large and mobile-adaptive remain distinct representations",
-        "ke_listing_density_v2 restoration",
-        "radio, keyboard and pinch switching",
-        "visible event anchor preservation"
-      ]
+      "requirements": ["mobile-large and mobile-adaptive remain distinct representations", "ke_listing_density_v2 restoration", "radio, keyboard and pinch switching", "visible event anchor preservation"]
     },
     {
       "id": "date-weekend-distinction",
-      "requirements": [
-        "DateListingSurface remains chronological today, tomorrow or date",
-        "WeekendListingSurface remains a Saturday/Sunday editorial composition"
-      ]
+      "requirements": ["DateListingSurface remains chronological today, tomorrow or date", "WeekendListingSurface remains a Saturday/Sunday editorial composition"]
     },
     {
       "id": "service-runtime",
-      "requirements": [
-        "auth and participation remain independent",
-        "PWA, share, calendar and focus-group runtime hooks remain unchanged"
-      ]
+      "requirements": ["auth and participation remain independent", "PWA, share, calendar and focus-group runtime hooks remain unchanged"]
     }
   ],
   "pending_external_inputs": [
@@ -310,21 +265,27 @@
     {
       "id": "M0-POST-FR0-CARD-GRID-CONSOLIDATION",
       "owner": "M0",
-      "published_head": "7e879210f68f7a7e4a53755f2e9431c61f445569",
-      "current_head": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
-      "blocks": "final candidate coverage for card resource states and crop-budget resolver",
-      "current_a0_consumer_api_gap": false
+      "minimum_product_source_head": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+      "current_review_head": "105bac16be6c73916a25f3e78b02116869ed5e1e",
+      "integration_form": "selective M0 tail onto successor; do not replace successor or replay FR0",
+      "blocks": "final candidate coverage for card resource states, crop-budget resolver and ownership-transfer tests",
+      "current_a0_six_consumer_api_gap": false
     },
     {
       "id": "FR0-MOBILE-LISTING-RAIL-RESOURCE-STATE",
       "source_comment": 5530928932,
+      "review_comment": 5531918584,
+      "source_writer": "A0_CONSUMER_LINE",
       "paths": [
         "site/src/components/listings/MobileListingRailRow.astro",
         "site/src/components/listings/MobileListingRailSurface.astro"
       ],
+      "current_source_state": "UNRESOLVED_PRIVATE_DATA_MEDIA_STATE_CHANNEL_AND_NO_DIRECT_FRAME_FALLBACK",
       "current_bounded_a0_write_authorized": false,
-      "blocks": "only the exact mobile-listing-rail resource-state consumer",
-      "does_not_block": "the six bounded A0 consumer closure or the current diagnostic preview"
+      "hard_boundary": "paths are absent from the current explicit six-consumer writable intersection",
+      "blocks": "the exact mobile-listing-rail resource-state binding and its final V0 credit",
+      "does_not_block": "the accepted six-consumer source closure or diagnostic preview of the frozen successor",
+      "resume_condition": "explicit writer-scope expansion for both paths, or an authoritative successor transaction that has already materialized the exact FR0 requirement"
     }
   ],
   "ownership_exclusions": [
@@ -344,14 +305,7 @@
     "path": "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs",
     "commit": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
     "claims_execution": false,
-    "asserts": [
-      "all six consumer post-states",
-      "safe external links",
-      "A0-MECH-06 runtime state synchronization",
-      "FR0 effective fit, focal, clip and resource-state ownership",
-      "no M0 grid or diagnostics recreation",
-      "no local .ke-icon-role dimensions"
-    ]
+    "asserts": ["all six consumer post-states", "safe external links", "A0-MECH-06 runtime state synchronization", "FR0 effective fit, focal, clip and resource-state ownership", "no M0 grid or diagnostics recreation", "no local .ke-icon-role dimensions"]
   },
   "rollback": {
     "new_projection_unit": {
@@ -360,29 +314,29 @@
       "consumer_source_rollback": false
     },
     "consumer_policy": "revert only the smallest failing consumer unit",
+    "mobile_rail_future_unit": "must be independently reversible and must not roll back rail geometry, gestures, filters, actions, medallions or skeleton layout",
     "external_input_rollback_is_owner_scoped": true,
-    "canonical_root_rollback_forbidden": [
-      "F0",
-      "M0",
-      "FR0"
-    ],
+    "canonical_root_rollback_forbidden": ["F0", "M0", "FR0"],
     "immutable_preview_mutation_forbidden": true
   },
   "required_next_candidate": {
     "base": "cebeafeee08251a327145ee973ee035cced65204 or exact descendant",
     "must_include": [
       "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
-      "8b0c6709beca1f7b0bef81b27464f786df1d7806",
-      "3ef253980bdfe0731158f5b8b4b47965fa153ce9"
+      "105bac16be6c73916a25f3e78b02116869ed5e1e or exact current M0 descendant",
+      "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+      "an authorized exact mobile-listing-rail resource-state correction satisfying comments 5530928932 and 5531918584"
     ],
     "integration_forms": {
       "F0": "exact ea4eda91 commit only",
-      "M0": "exact current post-cutover tail through 8b0c6709 without FR0 replay",
-      "A0": "exact regression-only commit 3ef25398"
+      "M0": "selective current post-cutover tail through the resolved current M0 descendant without FR0 replay",
+      "A0_bounded": "exact regression-only commit 3ef25398",
+      "A0_mobile_rail": "separate smallest-owner source unit after explicit writable authorization"
     },
     "must_not_include": [
       "whole work/ui-normalization-a0-wave-3-20260903 replay",
       "whole work/ui-normalization-f0-wave-3-20260903 merge",
+      "whole divergent M0 branch replacement of successor",
       "A0 edits to F0, M0 or FR0 canonical internals"
     ]
   },
@@ -408,7 +362,7 @@
       "r0_result_comment": 5531586743,
       "source_and_local_runtime_pass": true,
       "final_post_f0_credit": false,
-      "reason": "does not contain F0 correction ea4eda91 and later M0 tail"
+      "reason": "does not contain exact F0 delivery, current M0 tail, A0 regression or mobile-rail correction"
     },
     "current_frozen_successor_canonical_kaggle": "IN_PROGRESS_OR_PENDING_RESULT",
     "next_final_successor_exact_build": null,
@@ -418,7 +372,8 @@
   },
   "next_gate": {
     "required": [
-      "R0 constructs an exact descendant containing the current F0 correction, current M0 tail and A0 regression projection",
+      "authorized smallest-owner mobile-listing-rail correction is produced",
+      "R0 constructs an exact descendant containing the exact F0 correction, resolved current M0 tail, A0 bounded regression and mobile-rail correction",
       "all A0, F0, M0, FR0 and successor-wide gates pass with exact exits",
       "N0 accepts the exact tested descendant",
       "one canonical full fresh-real Kaggle artifact is published for that exact SHA",
