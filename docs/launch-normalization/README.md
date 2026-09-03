@@ -13,7 +13,7 @@ named donor/history. Текущий процесс оптимизирует пу
 
 ```text
 fresh production events
-→ existing Astro generation restored
+→ existing Astro generation restored through the shared Kaggle pipeline
 → normalized foundations/components/actual consumers
 → exact reachable normalized /<buildId>/__preview/
 → V0 DOM/computed-style PASS or DRIFT
@@ -21,13 +21,58 @@ fresh production events
 → thin S + native Penpot masters/linked instances
 → ASTRO_NORMALIZATION_PASS
 → product UI-gap/change work
-→ release candidate
+→ release candidate through the same Kaggle pipeline
 ```
 
 Владелец смотрит реальные страницы с реальными событиями. Golden Corpus нужен
 для internal deterministic A=S=P, а не как обязательная owner-review surface.
 
-## 2. Continuous role execution
+## 2. Build execution contract
+
+Текущий launch использует:
+
+```text
+one events-bot-new build implementation
+one Kaggle StaticSiteBuilder
+one Yandex Object Storage bucket
+one allowlisted page-class selector
+one my-data-hub MCP control plane
+```
+
+Kaggle CPU обязателен для каждого полного либо опубликованного результата:
+
+- real Review Preview;
+- Golden Review Preview;
+- focused Review Preview с secret URL;
+- Release Candidate;
+- production-form build.
+
+Эти режимы отличаются только data mode, immutable root `slug/prefix`,
+опциональным page-class filter и promotion semantics. Они не являются разными
+пайплайнами или bucket architectures.
+
+Без Kaggle разрешена только локальная focused diagnostic одного route/page
+class. Она использует те же Astro sources, source SHA, snapshot/corpus и общий
+page-class selector, но не публикуется, не обновляет `preview.current`, не
+считается owner/V0/A=S=P evidence и не образует второй production path.
+
+`catalog-mode: slice|full` относится к объёму event data и не является
+page-class filter.
+
+`my-data-hub` владеет только MCP orchestration:
+
+```text
+kenigevents.preview.start
+kenigevents.preview.current
+operation.get
+```
+
+Exporter, selector, builder, Object Storage publisher и retention остаются в
+`events-bot-new`. Уже начатая MCP-реализация должна быть продолжена, а не
+форкнута. Future/default-off two-root bucket/ALB design находится вне текущего
+launch path.
+
+## 3. Continuous role execution
 
 Роль — это полный owned product contour. Wave, branch, commit и `[RESULT]` —
 versioned checkpoints, не turn boundaries.
@@ -49,7 +94,7 @@ Per-Wave owner resume является process defect. Старое `finish with
 Допустимый standby требует exact external trigger. Busywork после исчерпания
 scope запрещён.
 
-## 3. Execution surfaces
+## 4. Execution surfaces
 
 ```yaml
 K0: ChatGPT + GitHub
@@ -59,6 +104,8 @@ M0: ChatGPT + GitHub
 A0: ChatGPT + GitHub
 V0: ChatGPT + GitHub + my-browser-bridge
 R0: native Codex + local shell/git/gh
+published_preview_control: my-data-hub MCP
+full_build_executor: Kaggle CPU via events-bot-new
 ```
 
 K0/N0/F0/M0/A0 не вызывают `Codex DevCoveer`. Они лично читают source,
@@ -66,18 +113,22 @@ consumers и voice notes, принимают решения, делают bounde
 проверяют R0 output.
 
 R0 выполняет only already-decided mechanical work: isolated worktrees,
-repetitive edits, tests/build, exact merge/promotion under conditional authority
-и authorized Penpot mutation. Browser evidence принадлежит V0.
+repetitive edits, local focused diagnostics, tests/checks, exact merge/promotion,
+invocation/observation of the shared Kaggle pipeline и authorized Penpot
+mutation. Browser evidence принадлежит V0.
 
-## 4. Critical path without approval ping-pong
+R0 и `my-data-hub` не создают вторую реализацию exporter/selector/builder или
+publisher.
+
+## 5. Critical path without approval ping-pong
 
 N0 владеет полной цепочкой:
 
 ```text
 candidate acceptance
-→ same-data baseline
+→ same-data focused diagnostic
 → conditional promotion
-→ fresh-production generation
+→ full Kaggle fresh-production generation
 → reachable preview
 → V0 trigger
 → V0 verdict review
@@ -87,10 +138,10 @@ candidate acceptance
 end-to-end authorization:
 
 ```text
-IF candidate build/tests/baseline PASS
+IF candidate focused diagnostics/tests/baseline PASS
   THEN promote exact candidate
-  AND run fresh generation
-  AND publish reachable preview
+  AND invoke the one shared Kaggle pipeline
+  AND publish reachable preview from its checked artifact
 ELSE
   no promotion/deploy
   continue safe diagnosis
@@ -102,7 +153,7 @@ R0 — persistent native session. После каждого result он fresh-re
 использует bounded watch 60–120 seconds, maximum 30 minutes, а не немедленный
 exit.
 
-## 5. Product architecture and authority
+## 6. Product architecture and authority
 
 ### `events-bot-new`
 
@@ -112,7 +163,8 @@ Executable authority:
 - `site/src/components/design-system/**`;
 - product component families;
 - layouts/pages and actual route compositions;
-- generation, preview and release checks.
+- data export, page-class selection, Kaggle generation, preview publication,
+  retention and release checks.
 
 Branch:
 
@@ -138,12 +190,19 @@ Branch:
 integration/launch-normalized-sot-penpot-20260902
 ```
 
+### `my-data-hub`
+
+Sole MCP control plane for published review builds. It resolves a requested
+source ref, selects/reuses data, starts the existing `events-bot-new` Kaggle
+runner, exposes operation status and returns the last successful URL per data
+mode. It must not contain a second static-site build implementation.
+
 ### Penpot
 
 `R0.PENPOT` is the sole writer. Penpot follows completed and browser-accepted
 Astro families; it does not block Astro normalization.
 
-## 6. Actual routes
+## 7. Actual routes
 
 ```text
 /segodnya/                  current build date
@@ -165,7 +224,7 @@ Owner entry point:
 
 New owner-facing `/lab/launch/*` routes are forbidden.
 
-## 7. Core normalization invariants
+## 8. Core normalization invariants
 
 ### Component identity
 
@@ -231,7 +290,7 @@ One family covers applicable EventCard multi-card consumers:
 - no compact/mobile overflow;
 - framing remains MediaFrame-owned.
 
-## 8. Parallel roles
+## 9. Parallel roles
 
 - `N0`: candidate review, conditional generation authority, integration,
   preview, status, release;
@@ -242,12 +301,13 @@ One family covers applicable EventCard multi-card consumers:
 - `A0`: shell, listings, actual routes, consumer migration;
 - `V0`: browser DOM/computed audit; later Golden Penpot audit;
 - `K0`: product/process consultant and direct canonical-doc repair;
-- `R0`: persistent native mechanical executor and sole Penpot writer.
+- `R0`: persistent native mechanical executor, local focused diagnostic worker,
+  Kaggle invocation/observation and sole Penpot writer.
 
 No mandatory `MAT → QA → INTEGRATE → PUBLISH`, new orchestrator or micro-wave
 owner scheduler exists.
 
-## 9. Autonomous recovery
+## 10. Autonomous recovery
 
 Recoverable metadata, combined `branch@sha`, stale same-programme checkpoint,
 missing heading/packet, ENOSPC, aged fixture and local tooling defect are not
@@ -266,7 +326,7 @@ external, writer-conflict or irreversible-risk action is required.
 
 Correctable canonical drift is repaired before being reported to the owner.
 
-## 10. Browser and Golden
+## 11. Browser and Golden
 
 V0 personally checks actual routes on desktop wide, desktop compact, mobile
 390–430 and required breakpoint seams.
@@ -286,13 +346,14 @@ Source declaration or tests without browser evidence do not close drift.
 
 Golden uses a frozen Europe/Kaliningrad Friday clock across Friday/Saturday/
 Sunday/weekend/free actual routes. It is internal A=S=P evidence, not owner
-review prerequisite.
+review prerequisite. Full Golden Review Preview is generated by the same Kaggle
+pipeline under a separate immutable prefix.
 
-## 11. ASTRO_NORMALIZATION_PASS
+## 12. ASTRO_NORMALIZATION_PASS
 
 Gate requires:
 
-- reproducible fresh-data generation;
+- reproducible fresh-data full Kaggle generation;
 - tokenized foundations/colors;
 - four icon roles across all consumers;
 - single roots for same components;
@@ -304,11 +365,14 @@ Gate requires:
 Only after the gate may palette exploration, redesign and product UI-gap work
 begin. Release of a changed family also requires thin S and Penpot binding.
 
-## 12. Meaningful checkpoint
+## 13. Meaningful checkpoint
 
-Meaningful checkpoint is an actual generation verdict, reviewed source
+Meaningful checkpoint is an actual Kaggle generation verdict, reviewed source
 convergence, reachable normalized preview, V0 PASS/DRIFT, native Penpot family or
 checked release candidate.
+
+Local focused diagnostic is useful evidence for a defect but never closes a
+published preview, owner review, V0, PM0 or A=S=P checkpoint.
 
 Checkpoint publication does not automatically end a role. Packet, dispatch,
 worktree, commit without role review, test without output, 404 route and empty
