@@ -3,21 +3,20 @@
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`
 
-Окна работают не как очередь микрозадач, а как самостоятельные владельцы
-полных продуктовых контуров. Native Codex выполняет mechanical work. Владелец не
-является scheduler, message bus или источником следующего шага после каждого
-commit.
+Окна являются самостоятельными владельцами полных продуктовых контуров, а не
+очередью микрозадач. Wave, commit и `[RESULT]` — checkpoint, но не граница turn.
+Владелец не является scheduler, message bus или источником следующей задачи.
 
 ## 1. Путь к продукту
 
 ```text
-N0 ведёт candidate review → generation → integration → reachable preview
-+ F0 насыщает foundations/tokens/icons во всех owned consumers
-+ M0 нормализует component roots/framing/adaptive rows
-+ A0 мигрирует actual routes/shell/consumers
-+ V0 готовит и затем выполняет browser audit
-+ R0 непрерывно выполняет ready safe mechanical work
-→ fresh normalized /<buildId>/__preview/
+N0 ведёт candidate review → baseline → integration → fresh generation → preview
++ F0 непрерывно закрывает foundations/tokens/icons по всему actual-consumer census
++ M0 непрерывно закрывает component roots/framing/adaptive rows/rail families
++ A0 непрерывно мигрирует actual routes, shell и все допустимые consumers
++ V0 готовит и затем выполняет полный browser audit
++ R0 непрерывно выполняет ready safe mechanical backlog
+→ exact reachable normalized /<buildId>/__preview/
 → V0 DOM/computed-style PASS или DRIFT
 → owning roles закрывают critical DRIFT
 → owner-facing normalized preview
@@ -27,10 +26,8 @@ N0 ведёт candidate review → generation → integration → reachable prev
 ```
 
 Technical baseline нужен для before/after, но не является обязательным owner
-review. Family не считается завершённой без fresh-real-data build и V0 browser
-verdict.
-
-`T+0` — clock, а не permission gate.
+review. Family не завершена без fresh-real-data build и V0 browser verdict.
+`T+0` — clock, не permission gate.
 
 ## 2. Execution surfaces
 
@@ -45,91 +42,62 @@ R0: native Codex + local shell/git/gh
 ```
 
 K0/N0/F0/M0/A0 не вызывают и не диспетчеризуют `Codex DevCoveer`.
-
-ChatGPT role windows лично:
-
-- читают issue, refs, source, consumers и relevant voice notes;
-- принимают semantic/product/architecture decisions;
-- делают bounded direct GitHub edits;
-- дают native R0 только уже решённую mechanical работу;
-- читают и принимают либо отклоняют R0 output;
-- после каждого checkpoint пересчитывают свой backlog и продолжают.
-
-V0 лично наблюдает browser. R0 не подменяет browser verdict.
+ChatGPT roles лично читают source/consumers/voice notes, принимают решения,
+делают bounded GitHub edits, проверяют R0 output и сами выбирают следующий item.
+R0 выполняет только already-decided mechanical work. Browser evidence — V0.
 
 ## 3. Continuous owner protocol
 
-### 3.1. Checkpoint не является концом turn
-
-Wave, branch, commit и `[RESULT]` используются как versioned checkpoint. Они не
-являются границей работы роли.
-
 ```text
-fresh-read
-→ построить current role backlog
-→ выбрать highest-value safe item
+fresh-read issue/current refs/source
+→ пересчитать unresolved owned backlog
+→ выбрать highest-value safe reversible item
 → исследовать и принять решение
-→ реализовать/review
+→ реализовать и лично проверить
 → при необходимости опубликовать checkpoint
-→ fresh-read
+→ fresh-read снова
 → взять следующий item
-→ повторять до backlog exhaustion
+→ продолжать до фактического convergence frontier
 ```
 
-Старые инструкции `finish with [RESULT]` трактуются только как запрет plan-only
-status. Они не означают `после результата остановись`.
+`finish with [RESULT]` означает только «не завершай plan-only status». Оно не
+означает остановку после результата.
 
-### 3.2. Приоритет следующей работы
+### Приоритет backlog
 
 1. critical build/preview defect в owned scope;
 2. незакрытый mandatory normalization invariant;
-3. actual consumer, ещё не связанный с canonical API/token/family;
-4. duplicate owner, fork или internal override;
-5. regression coverage для уже принятого решения;
-6. новый DRIFT, адресованный роли;
-7. следующий product slice из canonical path.
+3. actual consumer, ещё не связанный с canonical family/token/API;
+4. duplicate owner/fork/internal override;
+5. regression coverage принятого решения;
+6. routed V0 DRIFT;
+7. следующий product slice из canonical route/family census.
 
-Отдельный owner-authored packet или список следующей Wave не нужен.
+### Допустимое завершение
 
-### 3.3. Допустимое завершение
-
-Role turn завершается только при одном из состояний:
+Turn завершается только при одном из состояний:
 
 ```yaml
 OWNED_BACKLOG_EXHAUSTED:
-  independent_work: 0
-  remaining_trigger: exact external role/result/url
+  independent_work_remaining: false
+  exact_resume_trigger: recorded
 
 HARD_BOUNDARY:
-  product_decision_or_writer_conflict_or_irreversible_risk: true
+  genuine_product_decision_or_writer_conflict_or_irreversible_risk: true
 
 PLATFORM_LIMIT:
-  actual_context_or_tool_runtime_limit: true
+  actual_context_tool_or_runtime_limit: true
 ```
 
-Нельзя завершаться на одном commit, dispatch, packet, worktree, тесте,
-rehearsal, numbered Wave или ожидании dependent surface при наличии другой
-owned работы.
-
-Standby допустим только при `OWNED_BACKLOG_EXHAUSTED`. Он сохраняет exact trigger
-и не просит владельца придумать задачу.
-
-### 3.4. Platform wake-up
-
-Завершённый ChatGPT turn не запускается сам. Поэтому процесс обязан редко
-создавать turn boundary:
-
-- одна role session берёт несколько backlog items подряд;
-- per-Wave resume запрещён;
-- K0 объединяет remaining backlog в одно continuous-run correction;
-- владелец подключается только при реальном product/safety decision либо после
-  внешнего trigger, физически появившегося позже.
+Нельзя завершаться из-за одного commit, одной Wave, одного `[RESULT]`, dispatch,
+worktree, теста, ожидания preview/integration при наличии другой owned работы,
+missing field или отсутствующего formal packet.
 
 ## 4. Critical path without ping-pong
 
 ### N0
 
-N0 владеет полной цепочкой:
+N0 владеет единой цепочкой:
 
 ```text
 candidate acceptance
@@ -141,106 +109,48 @@ candidate acceptance
 → V0 verdict review
 ```
 
-N0 не дробит эту цепочку на несколько owner wake-ups, если acceptance criteria
-можно определить заранее.
-
-Mechanical authorization для R0 должен быть end-to-end conditional:
+Если acceptance criteria известны, authorization для R0 должна сразу задавать:
 
 ```text
-IF exact baseline/checks PASS
-  THEN promote accepted candidate
-  AND run fresh generation
-  AND publish reachable preview
+IF baseline/build/checks PASS
+  THEN promote exact candidate
+  AND run fresh generation/publication
+  AND return exact reachable preview
 ELSE
   no promotion/deploy
   continue safe diagnosis
-  publish factual defect
+  publish one factual defect
 ```
 
-N0 остаётся владельцем решений; R0 исполняет заранее заданную условную ветку.
-`GENERATION_EXECUTION_DECISION` или dispatch без conditional path до preview не
-является завершением N0.
+N0 не заканчивает turn на dispatch или baseline-only gate.
 
 ### R0
 
-R0 — persistent native execution session.
-
-После bounded result он:
-
-1. fresh-read-ит #621/current refs;
-2. берёт следующую unambiguous safe mechanical task;
-3. продолжает без owner-authored packet;
-4. не завершает сессию только потому, что опубликован один result.
-
-Если expected critical-path trigger вероятно появится скоро, R0 использует
-bounded watch:
+R0 — persistent native session. После результата он fresh-read-ит #621/refs и
+берёт следующую ready safe mechanical task. При ожидаемом trigger:
 
 ```text
-poll issue/current refs every 60–120 seconds
-for up to 30 minutes
-→ immediately execute the trigger
+poll issue/current refs every 60–120 seconds for up to 30 minutes
+→ execute trigger immediately
 ```
 
-R0 прекращает работу только при отсутствии ready safe task после bounded watch
-либо при hard safety/semantic boundary.
+R0 останавливается лишь при отсутствии ready work после bounded watch либо на
+hard safety/semantic boundary.
 
 ### V0
 
-V0 выполняет полный source/harness backlog одним run. После его исчерпания
-standby до reachable preview допустим. Когда URL появился, одно возобновление
-должно покрыть полный route/viewport matrix, DRIFT routing и повторную проверку
-после исправлений в пределах доступного turn.
+После полного harness preparation V0 может ждать физически отсутствующий
+preview. Когда URL появился, один run покрывает полный route/viewport matrix,
+DRIFT routing и доступную повторную проверку.
 
-## 5. Автономное восстановление
-
-Формальные headings и packet fields — удобство, не gate.
-
-Агент выводит сведения из issue #621, current refs, repository state, role
-ownership и prose:
-
-- `owner` эквивалентен `requested_by`;
-- `branch@sha` разделяется автоматически;
-- writable paths section задаёт scope;
-- command/test blocks задают mechanical execution;
-- target branch выводится детерминированно, если это безопасно.
-
-```text
-обнаружил неполноту
-→ вывел недостающее
-→ проверил reversible scope
-→ выбрал safest assumption
-→ продолжил работу
-→ записал assumption в evidence
-```
-
-`[BLOCKER]` допустим только когда независимая работа исчерпана, fallback проверен
-и требуется конкретный product decision, внешний ресурс, writer-conflict
-resolution или предотвращение irreversible risk.
-
-Recoverable tooling/ENOSPC/aged fixture/stale checkpoint исправляется в
-authorized scope. Исправимый canonical drift исправляется до сообщения
-владельцу.
-
-## 6. Role ownership and backlog
+## 5. Role ownership and continuous backlog
 
 ### N0 — generation, integration, preview, release
 
-GitHub-only ChatGPT owner. Native local execution выполняет R0.
-
-N0 backlog включает:
-
-- current candidate review;
-- authoritative snapshot/generation flow;
-- same-data before/after baseline;
-- conditional promotion criteria;
-- integration branch;
-- fresh normalized preview publication;
-- V0 trigger и verdict review;
-- status/release decisions.
-
-N0 не читает runtime SQLite. Build/export output является preferred source
-buildId/URL. SQLite read-only fallback допустим только R0 при доказанной
-необходимости.
+N0 owns candidate review, snapshot/generation flow, same-data baseline,
+conditional promotion, integration branch, fresh preview publication, V0 trigger,
+verdict review, status и release decisions. N0 не читает runtime SQLite;
+read-only fallback разрешён только R0 при доказанной необходимости.
 
 ### F0 — foundations, colors, typography, spacing, icons
 
@@ -254,16 +164,19 @@ site/src/components/SocialIcon.astro
 site/src/components/brand/**
 ```
 
-F0 продолжает до convergence frontier:
+Read-only census охватывает весь actual product. F0 продолжает, пока остаются:
 
-- all visible colors/token aliases in owned consumers;
-- typography/spacing/geometry ownership;
-- exactly four icon roles;
-- canonical SVG identity;
-- duplicate style-owner closure;
-- compatibility boundaries with actual consumer proof.
+- visible raw/same-role duplicate colors без central semantic alias;
+- локальные type/spacing/radius/border/elevation/layer values, которым нужен
+  общий role;
+- icon dimensions/actions вне exactly four roles/canonical SVG;
+- legacy style owner, перекрывающий canonical owner;
+- новые A0/M0 consumers, которым требуется exact token binding.
 
-### M0 — component roots, MediaFrame, cards, adaptive rows
+F0 пишет central roles только в своих paths и публикует точные binding tables
+для consumer owners; он не ждёт preview для source-level token work.
+
+### M0 — component roots, MediaFrame, cards, adaptive rows, media rails
 
 Writable paths:
 
@@ -274,7 +187,7 @@ site/src/components/AdaptiveEventCardGrid.astro
 site/src/components/EventCard.astro
 site/src/components/listings/ListingEventCard.astro
 site/src/components/EventMediaRail.astro
-other exact assigned card/media paths
+other exact assigned card/media roots
 ```
 
 Mandatory donors:
@@ -285,12 +198,20 @@ site/src/lib/relatedCardLayout.mjs
 site/src/components/OptimizedEventCardGrid.astro
 ```
 
-M0 backlog: family identity, MediaFrame protocol, Adaptive grid consumer API,
-actual lookalike/removal boundaries and response to A0/V0 integration defects.
+M0 продолжает, пока остаются lookalikes или family work, включая:
 
-### A0 — shell, listings, routes, consumer migration
+- named `EventMediaRail` variants для production hero selector и poster strip;
+- один доказанный owner MediaFrame protocol/implementation без page-local framing;
+- remaining EventCard/ListingEventCard/media consumers с duplicate anatomy/CSS;
+- AdaptiveEventCardGrid API/diagnostics для ещё не мигрированных consumers;
+- source/build/V0 drift, адресованный M0.
 
-Writable paths:
+M0 может читать consumer paths, но пишет только canonical roots; A0 выполняет
+actual consumer replacement в своих assigned files.
+
+### A0 — shell, routes и actual consumer migration
+
+Base writable paths:
 
 ```text
 site/src/layouts/**
@@ -298,55 +219,78 @@ site/src/components/listings/**
 site/src/pages/**
 ```
 
-`ListingEventCard.astro` остаётся M0-owned.
+`site/src/components/listings/ListingEventCard.astro` остаётся M0-owned.
 
-A0 backlog: actual route composition identity, token/API binding, removal of
-page-local forks/overrides, Adaptive-grid/media migration and shell convergence.
-DateListingSurface и WeekendListingSurface остаются разными compositions.
+Для полного consumer convergence A0 дополнительно владеет только следующими
+exact consumer paths; canonical M0 roots в них импортируются, но не копируются:
+
+```text
+site/src/components/HomeColdStartFeed.astro
+site/src/components/FreeCollectionSurface.astro
+site/src/components/UnusualListingSurface.astro
+site/src/components/GastronomyCollectionSurface.astro
+site/src/components/PersonalFeedSlot.astro
+site/src/components/MobileEventReviewPage.astro
+site/src/components/DesktopEventPage.astro  # только после готового M0 rail API
+site/src/components/FocusGroupFeedback.astro
+site/src/components/FocusGroupInviteIntake.astro
+site/src/components/FocusGroupInviteShare.astro
+site/src/components/FocusGroupLabPanel.astro
+site/src/components/FocusPwaInstallAction.astro
+```
+
+Текущий independent backlog включает:
+
+- `HomeColdStartFeed`: wrapper/local grid → AdaptiveEventCardGrid, rerank metadata
+  на direct EventCard roots;
+- `FreeCollectionSurface`: два независимых timed/exhibition grids, без смешения;
+- `UnusualListingSurface`: wrapper metadata → direct EventCard roots;
+- `GastronomyCollectionSurface`: future/recent grids с сохранением группировки;
+- `PersonalFeedSlot`: canonical adaptive runtime host и удаление duplicate
+  grid/equal-height/media CSS;
+- technical review surface и class-only Button consumers → canonical roots;
+- `DesktopEventPage` inline rail lookalikes → named EventMediaRail variants после
+  публикации M0 API/removal boundary.
+
+A0 не редактирует `EventCard`, `ListingEventCard`, `AdaptiveEventCardGrid` или
+`EventMediaRail`; он использует их public APIs. DateListingSurface и
+WeekendListingSurface остаются разными compositions.
 
 ### V0 — browser/DOM/computed audit
 
-Read-only. Routes:
-
-```text
-/
-/segodnya/
-/zavtra/
-/date-YYYY-MM-DD/
-/vyhodnye/
-/podborki/besplatnye-sobytiya/
-/populyarnoe/
-/vystavki/
-/festivali/
-/sobytiya/<real-slug>/
-```
-
-Viewports: desktop wide, desktop compact, mobile 390–430 и required breakpoint
-seams.
-
-V0 измеряет DOM anatomy, family markers, computed type/spacing/colors/radii/
-borders/icon sizes, framing, row occupancy/equal heights, responsive transitions
-и horizontal overflow.
+Read-only. Проверяет `/`, date/weekend, free, popular, exhibitions, festivals и
+real event detail на desktop wide, desktop compact, mobile 390–430 и required
+breakpoint seams. Измеряет DOM anatomy, markers, computed foundations, framing,
+row occupancy/equal heights, responsive transitions и overflow.
 
 ### K0
 
-K0 чинит процесс и canonical docs самостоятельно, не создаёт микроволны и не
-предлагает владельцу resume каждого окна после каждого result.
+K0 исправляет process/canonical drift сам, не создаёт micro-wave scheduling и не
+объявляет scope exhausted без actual-consumer census.
 
 ### R0
 
-R0 uses isolated worktrees, local tests/build/merge and authorized Penpot
-mutation. Он восстанавливает выводимые поля, исправляет recoverable tooling
-problems и автоматически продолжает ready mechanical backlog.
+R0 выполняет isolated worktrees, tests/build/merge/promotion и authorized Penpot
+mutation. Он восстанавливает выводимые сведения и исправляет recoverable local
+tooling defects в authorized scope.
+
+## 6. Anti-idle rule
+
+F0/M0/A0 не могут объявить `OWNED_BACKLOG_EXHAUSTED`, пока current source всё ещё
+содержит перечисленные выше actual consumer forks/lookalikes и роль может
+безопасно двигать свой непересекающийся контур. Первый preview не блокирует эту
+следующую source wave: N0/R0 работают с замороженным candidate, а role branches
+продолжаются параллельно для следующего integration checkpoint.
+
+V0 является единственным ожидаемым zero-cost standby до физического preview URL.
 
 ## 7. Main UI invariants
 
-- same visual/behaviour component → один Astro family root/variant family;
-- один anatomy/CSS owner;
-- один canonical SVG на semantic action;
+- same visual/behaviour component → one Astro family root/variant family;
+- one anatomy/CSS owner;
+- one canonical SVG per semantic action;
 - complete actual-consumer inventory;
-- stable `data-ds-family`, `data-ds-version`, `data-ds-variant`, applicable
-  `data-ds-state`;
+- stable family/version/variant/applicable state diagnostics;
 - all visible colors tokenized; same-role duplicates merged;
 - exactly four central icon-size roles; local dimensions forbidden;
 - shared MediaFrame owns ratio/fit/crop/focal/clip/fallback/loading;
@@ -356,15 +300,6 @@ problems и автоматически продолжает ready mechanical bac
 
 ## 8. Communication
 
-Issue #621 is durable state. Meaningful events:
-
-```text
-[RESULT]
-[OWNER_REVIEW_READY]
-[DRIFT]
-[BLOCKER]
-```
-
-A meaningful checkpoint does not automatically end a role. Task dispatch,
-packet, worktree, commit without role review, test without output, 404 route and
-empty Penpot object are not product results.
+Issue #621 is durable state. `[RESULT]` is a checkpoint, not automatic role exit.
+Packet, dispatch, worktree, commit without role review, test without output, 404
+route and empty Penpot object are not owner-facing product results.
