@@ -1,0 +1,213 @@
+{
+  "schema": "kenigevents.thin-s.route-family-bindings.v1",
+  "version": "1.0.0",
+  "status": "SOURCE_BOUND_AWAITING_INTEGRATION_AND_V0",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "contract": {
+    "repository": "onedayonemasterpiece/lovekgd-design-system",
+    "branch": "integration/launch-normalized-sot-penpot-20260902",
+    "path": "contracts/launch-normalized-ui.v1.yaml",
+    "minimum_version": "1.9.0",
+    "resolve_current_version_at_consumption": true
+  },
+  "astro_authority": {
+    "repository": "onedayonemasterpiece/events-bot-new",
+    "role_branch": "work/ui-normalization-a0-wave-3-20260903",
+    "candidate_branch": "r0/ui-normalization-current-candidate-20260903",
+    "integration_branch": "integration/ui-normalization-launch-20260902",
+    "sha_policy": "Resolve all three refs immediately before integration; recorded SHAs are transaction evidence, not hard gates."
+  },
+  "evidence_policy": {
+    "source_bound_is_not_browser_pass": true,
+    "source_bound_is_not_penpot_materialized": true,
+    "thin_s_records_only_actual_consumers": true,
+    "detached_penpot_lookalikes_forbidden": true,
+    "v0_is_sole_browser_verdict_owner": true
+  },
+  "bindings": [
+    {
+      "id": "a0.collections",
+      "source_status": "SOURCE_CONVERGED",
+      "routes": ["/podborki/", "/podborki/*/"],
+      "route_compositions": ["CollectionCatalogRouteComposition", "StaticCollectionRouteComposition"],
+      "canonical_roots": ["CollectionCatalog", "FreeCollectionSurface", "GastronomyCollectionSurface", "AdaptiveEventCardGrid", "EventCard"],
+      "actual_consumers": [
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/components/CollectionCatalog.astro",
+        "site/src/components/FreeCollectionSurface.astro",
+        "site/src/components/GastronomyCollectionSurface.astro"
+      ],
+      "variants": ["publication-status-catalog", "free-events", "gastronomy"],
+      "states": ["available", "empty", "deferred-items", "all-public", "loading", "error"],
+      "visible_asset_slots": ["event-media", "event-type-icon", "admission-medallion"],
+      "thin_s_record": "thin-s/A0/collections",
+      "penpot_master": "A0 / Routes / Collections",
+      "v0_cases": ["V0-A0-COLLECTIONS-DESKTOP", "V0-A0-COLLECTIONS-MOBILE", "V0-A0-FREE-DESKTOP", "V0-A0-FREE-MOBILE"],
+      "rollback_unit": "RB-A0-COLLECTIONS"
+    },
+    {
+      "id": "a0.for-me",
+      "source_status": "SOURCE_CONVERGED",
+      "routes": ["/dlya-menya/"],
+      "route_compositions": ["ForMeRouteComposition"],
+      "canonical_roots": ["InterestProfile", "PersonalFeedSlot", "AdaptiveEventCardGrid", "EventCard"],
+      "actual_consumers": [
+        "site/src/pages/dlya-menya/index.astro",
+        "site/src/components/InterestProfile.astro",
+        "site/src/components/PersonalFeedSlot.astro"
+      ],
+      "variants": ["local-explicit-signals", "cold-start", "ranked-feed"],
+      "states": ["consent", "workspace", "empty", "populated", "insufficient-evidence"],
+      "visible_asset_slots": ["semantic-lock-icon", "event-media", "interest-meter"],
+      "thin_s_record": "thin-s/A0/for-me",
+      "penpot_master": "A0 / Routes / For me",
+      "v0_cases": ["V0-A0-FOR-ME-CONSENT", "V0-A0-FOR-ME-WORKSPACE", "V0-A0-FOR-ME-FEED"],
+      "rollback_unit": "RB-A0-FOR-ME"
+    },
+    {
+      "id": "a0.focus-group",
+      "source_status": "SOURCE_CONVERGED",
+      "routes": ["/fokus-gruppa/", "/fokus-gruppa/priglashenie/", "/fokus-gruppa/zavershenie/"],
+      "route_compositions": ["FocusGroupProgrammeSurface", "FocusGroupInviteRouteComposition", "FocusGroupCompletionRouteComposition"],
+      "canonical_roots": ["FocusGroupInviteIntake", "FocusGroupFeedback", "FocusGroupLabPanel", "FocusConnectivityDiagnostic", "FocusGroupThankYou", "FocusEggArtifact"],
+      "actual_consumers": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro",
+        "site/src/components/FocusGroupInviteIntake.astro",
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusGroupLabPanel.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro",
+        "site/src/components/FocusGroupThankYou.astro"
+      ],
+      "variants": ["research-programme", "authenticated-intake", "completion", "diagnostic"],
+      "states": ["available", "anonymous", "auth-pending", "joined", "submitted", "error", "offline"],
+      "visible_asset_slots": ["brand-lockup", "semantic-icons", "invitation-qr", "focus-artifact"],
+      "thin_s_record": "thin-s/A0/focus-group",
+      "penpot_master": "A0 / Routes / Focus group",
+      "v0_cases": ["V0-A0-FOCUS-PROGRAMME", "V0-A0-FOCUS-INVITE", "V0-A0-FOCUS-COMPLETE", "V0-A0-FOCUS-ERROR"],
+      "rollback_unit": "RB-A0-FOCUS"
+    },
+    {
+      "id": "a0.artifacts",
+      "source_status": "SOURCE_CONVERGED",
+      "routes": ["/artefakty/"],
+      "route_compositions": ["ArtifactCollectionRouteComposition"],
+      "canonical_roots": ["ArtifactCollection", "FocusEggArtifact", "FocusEggCollectionCard"],
+      "actual_consumers": [
+        "site/src/pages/artefakty/index.astro",
+        "site/src/components/artifacts/ArtifactCollection.astro",
+        "site/src/components/FocusEggArtifact.astro",
+        "site/src/components/FocusEggCollectionCard.astro"
+      ],
+      "variants": ["collection", "compact-artifact", "reserved-slot"],
+      "states": ["empty", "locked", "eligible", "found", "unavailable"],
+      "visible_asset_slots": ["artifact-glyph", "canonical-close-icon", "amber-media"],
+      "thin_s_record": "thin-s/A0/artifacts",
+      "penpot_master": "A0 / Routes / Artifacts",
+      "v0_cases": ["V0-A0-ARTIFACTS-EMPTY", "V0-A0-ARTIFACTS-FOUND", "V0-A0-ARTIFACT-DIALOG"],
+      "rollback_unit": "RB-A0-ARTIFACTS"
+    },
+    {
+      "id": "a0.information-pages",
+      "source_status": "SOURCE_CONVERGED",
+      "routes": ["/partners/", "/partnerstvo/"],
+      "route_compositions": ["PartnersRouteComposition", "PartnershipRouteComposition"],
+      "canonical_roots": ["Button", "EventLayout", "PartnerRegistryProjection"],
+      "actual_consumers": [
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro"
+      ],
+      "variants": ["registry", "organizer-information"],
+      "states": ["available", "empty"],
+      "visible_asset_slots": ["partner-logo", "brand-lockup", "canonical-action"],
+      "thin_s_record": "thin-s/A0/information-pages",
+      "penpot_master": "A0 / Routes / Information pages",
+      "v0_cases": ["V0-A0-PARTNERS", "V0-A0-PARTNERSHIP"],
+      "rollback_unit": "RB-A0-INFORMATION"
+    },
+    {
+      "id": "a0.festivals",
+      "source_status": "READY_FOR_R0_MECHANICAL",
+      "routes": ["/festivali/"],
+      "route_compositions": ["FestivalTimelineRouteComposition"],
+      "canonical_roots": ["EventLayout", "Icon"],
+      "actual_consumers": ["site/src/pages/festivali/index.astro"],
+      "variants": ["timeline-2026"],
+      "states": ["populated", "empty", "program-pending", "date-pending"],
+      "visible_asset_slots": ["festival-category-svg", "festival-media", "canonical-heart", "canonical-external-link"],
+      "thin_s_record": "thin-s/A0/festivals",
+      "penpot_master": "A0 / Routes / Festivals",
+      "v0_cases": ["V0-A0-FESTIVALS-DESKTOP", "V0-A0-FESTIVALS-MOBILE"],
+      "rollback_unit": "RB-A0-FESTIVALS"
+    },
+    {
+      "id": "a0.exhibitions",
+      "source_status": "READY_FOR_R0_MECHANICAL",
+      "routes": ["/vystavki/"],
+      "route_compositions": ["ExhibitionsRouteComposition"],
+      "canonical_roots": ["ExhibitionsPersonalSurface", "ExhibitionPrototypeRow"],
+      "actual_consumers": [
+        "site/src/pages/vystavki/index.astro",
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/components/ExhibitionPrototypeRow.astro"
+      ],
+      "variants": ["personal", "all", "gallery"],
+      "states": ["new", "priority", "tail", "empty", "image-loading", "image-error"],
+      "visible_asset_slots": ["exhibition-media", "gallery-media", "status-markers"],
+      "thin_s_record": "thin-s/A0/exhibitions",
+      "penpot_master": "A0 / Routes / Exhibitions",
+      "v0_cases": ["V0-A0-EXHIBITIONS-PERSONAL", "V0-A0-EXHIBITIONS-ALL", "V0-A0-EXHIBITIONS-GALLERY"],
+      "rollback_unit": "RB-A0-EXHIBITIONS"
+    },
+    {
+      "id": "a0.event-detail",
+      "source_status": "READY_FOR_R0_MECHANICAL",
+      "routes": ["/sobytiya/*/"],
+      "route_compositions": ["EventDetailRouteComposition", "MobileEventDetailSurface"],
+      "canonical_roots": ["DesktopEventPage", "EventHero", "EventMediaRail", "AdaptiveEventCardGrid", "EventCard", "MediaFrame"],
+      "actual_consumers": [
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/EventHero.astro",
+        "site/src/layouts/EventLayout.astro"
+      ],
+      "variants": ["editorial", "split", "wide-image", "narrow-image", "no-image", "archived"],
+      "states": ["active", "archived", "media-loading", "media-error", "fallback", "gallery-open"],
+      "visible_asset_slots": ["hero-media", "poster-strip", "gallery-thumbnail", "event-medallion", "semantic-actions"],
+      "thin_s_record": "thin-s/A0/event-detail",
+      "penpot_master": "A0 / Routes / Event detail",
+      "v0_cases": ["V0-A0-EVENT-WIDE", "V0-A0-EVENT-NARROW", "V0-A0-EVENT-NO-IMAGE", "V0-A0-EVENT-GALLERY", "V0-A0-EVENT-RELATED"],
+      "rollback_unit": "RB-A0-EVENT-DETAIL"
+    },
+    {
+      "id": "a0.interest-clubs",
+      "source_status": "PRODUCT_BINDING_DECISION_REQUIRED",
+      "routes": ["/kluby-po-interesam/", "/kluby-po-interesam/*/"],
+      "route_compositions": ["InterestClubsIndexRouteComposition", "InterestClubDetailRouteComposition"],
+      "canonical_roots": ["InterestClubCard", "ClubCatalogKeyboard", "EventLayout"],
+      "actual_consumers": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+        "site/src/components/InterestClubCard.astro"
+      ],
+      "variants": ["verified-directory", "club-detail"],
+      "states": ["populated", "empty"],
+      "visible_asset_slots": ["club-cover", "canonical-arrow", "club-count"],
+      "thin_s_record": "thin-s/A0/interest-clubs",
+      "penpot_master": "A0 / Routes / Interest clubs",
+      "v0_cases": ["V0-A0-CLUBS-INDEX", "V0-A0-CLUB-DETAIL"],
+      "rollback_unit": "RB-A0-CLUBS",
+      "decision_boundary": "Retain the current route-local hero/deck composition until F0 or the owner explicitly classifies it as a central launch palette binding; do not flatten it mechanically."
+    }
+  ],
+  "coverage": {
+    "source_converged": 5,
+    "mechanical_pending": 3,
+    "decision_pending": 1,
+    "total": 9,
+    "browser_pass": 0,
+    "penpot_linked_instances": 0
+  }
+}
