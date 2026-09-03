@@ -1,0 +1,249 @@
+{
+  "schema": "kenigevents.v0.a0-acceptance-matrix.v1",
+  "version": "1.0.0",
+  "status": "READY_FOR_V0_EXECUTION_AFTER_HTTP_200_PREVIEW",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "source_binding": "bindings/launch-normalization/a0-route-family-bindings.v1.json",
+  "preview_trigger": {
+    "required": "exact HTTP-200 Kaggle Review Preview /<buildId>/__preview/",
+    "source_of_truth": "latest meaningful issue #621 publication result",
+    "must_match": ["candidate SHA", "immutable snapshot or Golden corpus", "Kaggle operation", "preview-build.json"],
+    "local_diagnostic_allowed_for_final_verdict": false
+  },
+  "verdict_owner": "V0",
+  "matrix_policy": {
+    "source_assertions_are_not_visual_pass": true,
+    "computed_style_required": true,
+    "behavioral_probes_required": true,
+    "desktop_and_mobile_required_where_listed": true,
+    "critical_failure_result": "DRIFT",
+    "noncritical_failure_result": "DRIFT_WITH_SEVERITY"
+  },
+  "viewports": {
+    "M390": { "width": 390, "height": 844 },
+    "M430": { "width": 430, "height": 932 },
+    "T768": { "width": 768, "height": 1024 },
+    "D1280": { "width": 1280, "height": 800 },
+    "D1728": { "width": 1728, "height": 900 }
+  },
+  "global_probes": [
+    {
+      "id": "V0-A0-GLOBAL-IDENTITY",
+      "routes": ["all matrix routes"],
+      "viewports": ["M390", "D1280"],
+      "dom": [
+        "exactly one main route composition root",
+        "visible canonical roots expose data-ds-family or data-ds-component, version, variant and state",
+        "no duplicate visible canonical root for the same behavior"
+      ],
+      "computed": [
+        "documentElement.scrollWidth <= viewport width + 1px",
+        "approved font family resolves on H1, body, label and metadata samples",
+        "semantic icon boxes resolve only to 16, 20, 24 or 32 CSS px according to their named role",
+        "focus-visible outline is not clipped"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "V0-A0-GLOBAL-SHELL",
+      "routes": ["/", "/segodnya/", "/podborki/besplatnye-sobytiya/", "/sobytiya/*/"],
+      "viewports": ["M390", "T768", "D1728"],
+      "dom": [
+        "one shared header root",
+        "one shared footer root where the composition includes a footer",
+        "one mobile navigation root below its breakpoint",
+        "no duplicate active desktop and mobile navigation controls in the accessibility tree"
+      ],
+      "computed": [
+        "header and fixed navigation do not overlap main interactive content",
+        "safe-area padding is applied on mobile",
+        "sticky and fixed z-index ordering keeps dialogs and confirmation sheets above navigation"
+      ],
+      "severity": "critical"
+    }
+  ],
+  "case_groups": [
+    {
+      "id": "A0-DATE-LISTINGS",
+      "routes": ["/segodnya/", "/zavtra/", "/data/<available-date>/"],
+      "viewports": ["M390", "D1728"],
+      "required_selectors": ["[data-date-listing]", "[data-ds-family='MobileListingRailSurface']", "[data-ds-family='MobileListingRailRow']"],
+      "dom_assertions": [
+        "Today, tomorrow and arbitrary date retain their route semantics while consuming the shared listing roots",
+        "each visible event occurrence has one row/card root",
+        "city filtering changes visible rows without leaving empty visible group headings",
+        "mobile rows expose temporal and media state diagnostics"
+      ],
+      "computed_assertions": [
+        "mobile rails do not overflow the viewport vertically or create document horizontal overflow",
+        "media fit and object position resolve from MediaFrame-owned properties",
+        "sticky title and group headings do not cover focused controls"
+      ],
+      "behavior_assertions": [
+        "horizontal rail gestures do not activate a card after a drag",
+        "negative feedback confirmation and undo remain functional",
+        "like overpull, keyboard focus and pageshow reset retain accepted behavior"
+      ],
+      "pm0_items": [34]
+    },
+    {
+      "id": "A0-WEEKEND-POPULAR-UNUSUAL",
+      "routes": ["/vyhodnye/", "/populyarnoe/", "/neobychnoe/"],
+      "viewports": ["M390", "D1280"],
+      "required_selectors": ["[data-ds-family='WeekendListingSurface']", "[data-ds-family='PopularListingSurface']", "[data-ds-family='UnusualListingSurface']"],
+      "dom_assertions": [
+        "Weekend remains a distinct composition and is not collapsed into DateListingSurface",
+        "Popular desktop grouping and personalization remain present",
+        "Popular retains both mobile-large and mobile-adaptive representations and one visible density radiogroup",
+        "Unusual route uses canonical cards/grid without a page-local card anatomy"
+      ],
+      "computed_assertions": [
+        "only the selected Popular mobile representation is rendered and interactive",
+        "group headings have stable sticky offsets",
+        "no hidden representation contributes layout height"
+      ],
+      "behavior_assertions": [
+        "Popular Large/Compact selection persists under ke_listing_density_v2",
+        "Arrow/Home/End keyboard selection updates aria-checked and tabindex",
+        "pinch switching preserves the nearest visible event anchor",
+        "listing:density-change is emitted once per accepted change"
+      ],
+      "pm0_items": [35]
+    },
+    {
+      "id": "A0-SEARCH-FAVORITES-PERSONAL",
+      "routes": ["/poisk/", "/izbrannoe/", "/dlya-menya/"],
+      "viewports": ["M390", "D1280"],
+      "required_selectors": ["[data-ds-family='InterestProfile']", "[data-adaptive-event-card-grid]"],
+      "dom_assertions": [
+        "search loading, results, empty and recovery states have one route-owned state surface",
+        "favorites render one canonical event card root per saved item",
+        "For-me consent and workspace states are mutually exclusive",
+        "personal results use AdaptiveEventCardGrid/EventCard rather than a duplicated grid/card loop"
+      ],
+      "computed_assertions": [
+        "empty states and results share the approved container model",
+        "personal meters and labels use tokenized visible colors",
+        "result cards occupy available width without phantom tracks"
+      ],
+      "behavior_assertions": [
+        "InterestProfile consent, tri-state preference, reset and recommendation update remain browser-local",
+        "personal feed aria-live and busy state update with content",
+        "favorites removal and restoration do not leave stale grid state"
+      ],
+      "pm0_items": [36]
+    },
+    {
+      "id": "A0-COLLECTIONS-FREE",
+      "routes": ["/podborki/", "/podborki/besplatnye-sobytiya/", "/podborki/*/"],
+      "viewports": ["M430", "D1280", "D1728"],
+      "required_selectors": ["[data-ds-family='CollectionCatalogRouteComposition']", "[data-ds-family='CollectionCatalog']", "[data-adaptive-event-card-grid]"],
+      "dom_assertions": [
+        "catalog route delegates item markup to CollectionCatalog",
+        "free collection cards expose EventCard and MediaFrame identity",
+        "published/deferred collection states are represented as named states",
+        "one AdaptiveEventCardGrid owns each applicable multi-card surface"
+      ],
+      "computed_assertions": [
+        "desktop free-event rows fill available width",
+        "incomplete final rows use the declared stretch-N-of-M remainder variant",
+        "card media ratios, equal-height intent and gaps remain stable",
+        "no horizontal overflow at 390/430/1280/1728 widths"
+      ],
+      "behavior_assertions": [
+        "card actions remain individually focusable",
+        "filters or hydration update rendered count and remainder diagnostics"
+      ],
+      "pm0_items": [37, 38],
+      "severity": "critical"
+    },
+    {
+      "id": "A0-FOCUS-ARTIFACTS-INFORMATION",
+      "routes": ["/fokus-gruppa/", "/fokus-gruppa/priglashenie/", "/fokus-gruppa/zavershenie/", "/artefakty/", "/partners/", "/partnerstvo/"],
+      "viewports": ["M390", "M430", "D1280"],
+      "required_selectors": ["[data-ds-family='FocusGroupProgrammeSurface']", "[data-ds-family='ArtifactCollection']", "[data-ds-family='PartnersRouteComposition']", "[data-ds-family='PartnershipRouteComposition']"],
+      "dom_assertions": [
+        "focus programme, invitation and completion expose route states without replacing auth/runtime hooks",
+        "artifact empty/found/dialog states are explicit",
+        "partner registry renders every accepted projected partner once",
+        "canonical Button and close/back icons replace duplicate visible glyph implementations"
+      ],
+      "computed_assertions": [
+        "focus forms, QR, dialogs and status panels fit the mobile viewport",
+        "artifact dialog close control meets touch target and focus visibility",
+        "partner logo cells preserve intrinsic logo proportions"
+      ],
+      "behavior_assertions": [
+        "focus invite auth/join/PWA hooks remain operational",
+        "artifact collection state updates after a find action",
+        "dialog focus returns to its opener"
+      ],
+      "pm0_items": [37]
+    },
+    {
+      "id": "A0-FESTIVALS-EXHIBITIONS-CLUBS",
+      "routes": ["/festivali/", "/vystavki/", "/kluby-po-interesam/", "/kluby-po-interesam/*/"],
+      "viewports": ["M430", "D1280", "D1728"],
+      "required_selectors": ["[data-festival-timeline]", "[data-exhibitions-prototype]", "[data-ds-family='InterestClubCard']"],
+      "dom_assertions": [
+        "festival cards and category assets preserve source ordering and status semantics",
+        "exhibitions personal/all modes share one row family",
+        "club index and detail render canonical InterestClubCard/route compositions",
+        "no page-local duplicate icon is used for an action already present in the semantic registry"
+      ],
+      "computed_assertions": [
+        "festival timeline and exhibition rows do not overflow",
+        "document media remains contain-required",
+        "club card and route composition remain visually distinct only where the accepted composition requires it"
+      ],
+      "behavior_assertions": [
+        "festival save/source links remain operable",
+        "exhibition mode/category/gallery/keyboard controls retain accepted behavior",
+        "club keyboard navigation does not skip or duplicate cards"
+      ],
+      "pm0_items": [37],
+      "preconditions": ["READY_FOR_R0_MECHANICAL festival and exhibition units applied", "club route palette decision resolved"]
+    },
+    {
+      "id": "A0-EVENT-DETAIL",
+      "routes": ["/sobytiya/<wide-image>/", "/sobytiya/<narrow-image>/", "/sobytiya/<no-image>/"],
+      "viewports": ["M390", "T768", "D1280", "D1728"],
+      "required_selectors": ["[data-ds-family='EventDetailRouteComposition']", "[data-media-frame-contract='v1']", "[data-ds-family='EventMediaRail']", "[data-adaptive-event-card-grid]"],
+      "dom_assertions": [
+        "desktop and mobile compositions use the same event identity and occurrence data",
+        "DesktopEventPage hero-selector and poster-strip use EventMediaRail",
+        "related events use AdaptiveEventCardGrid/EventCard",
+        "EventHero interactive outer control contains one documented inner framing contract or the current bounded exception",
+        "missing media uses one fallback anatomy"
+      ],
+      "computed_assertions": [
+        "wide visual media covers only where crop is allowed",
+        "poster/document media contains without clipping source text",
+        "gallery thumbnails and poster strip preserve declared ratios",
+        "related rows have stable gaps, occupancy, media ratio and no horizontal overflow"
+      ],
+      "behavior_assertions": [
+        "hero selector updates image, alt, dimensions, fit and selected state",
+        "gallery and efficient viewer open/close/navigation/focus restore work",
+        "keyboard event navigation remains mounted in named preview builds",
+        "CTA, calendar, share, like and transport behavior is unchanged"
+      ],
+      "pm0_items": [27, 28, 29, 30, 31, 37],
+      "severity": "critical",
+      "preconditions": ["READY_FOR_R0_MECHANICAL event-detail units applied"]
+    }
+  ],
+  "negative_probes": [
+    "No visible obsolete Popular density representation remains simultaneously interactive.",
+    "No consumer-local EventCard anatomy or packed-grid implementation exists outside canonical roots.",
+    "No route-local media fit/object-position rule overrides MediaFrame for a canonical media segment.",
+    "No duplicate handwritten hero-selector or poster-strip remains after EventMediaRail migration.",
+    "No local icon width/height outside the four central roles is required for a canonical semantic action.",
+    "No route board or browser verdict treats source convergence as Penpot or A=S=P completion."
+  ],
+  "result_contract": {
+    "pass_requires": ["all critical assertions pass", "all route/precondition coverage is current", "exact preview identity recorded"],
+    "drift_report_fields": ["case_id", "route", "viewport", "selector", "expected", "observed", "computed_style_or_behavior_evidence", "severity", "owning_role"],
+    "forbidden_result": "PASS based only on source regexes, screenshots without DOM/computed styles, or a local non-Kaggle diagnostic"
+  }
+}
