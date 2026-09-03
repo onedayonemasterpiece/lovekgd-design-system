@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.8.0
+version: 1.9.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -16,6 +16,65 @@ authority:
   penpot:
     file_id: 40e06342-8830-80d6-8008-8fc8a3a4cd4f
     sole_writer: R0.PENPOT
+
+static_build_topology:
+  effective_decision: 2026-09-03
+  canonical_implementation_owner: onedayonemasterpiece/events-bot-new
+  kaggle_pipeline_count: 1
+  object_storage_bucket_count_for_current_launch: 1
+  full_build_executor: Kaggle_CPU
+  full_builds_always_use_kaggle:
+    - real_review_preview
+    - golden_review_preview
+    - release_candidate
+    - production_form_build
+  published_focused_preview:
+    executor: same_Kaggle_pipeline
+    optional_page_class_filter: true
+    output_difference: immutable_root_slug_or_prefix_only
+  local_focused_diagnostic:
+    allowed: true
+    scope: one_route_or_one_existing_page_class
+    uses_same_Astro_routes_components_source_SHA_and_data_identity: true
+    publish_to_object_storage: false
+    update_preview_current: false
+    owner_or_V0_acceptance_evidence: false
+    PM0_product_progress: false
+    A_equals_S_equals_P_evidence: false
+  data_modes:
+    real:
+      refresh_real_data_optional: true
+      refresh_false_reuses_immutable_snapshot: true
+      refresh_true_creates_fresh_immutable_snapshot: true
+    golden:
+      fixed_corpus_clock_and_assets: true
+      refresh_real_data_forbidden: true
+  page_class_filter:
+    default: all
+    allowlisted_and_owned_in_events_bot_new: true
+    same_selector_used_by_local_diagnostic_and_Kaggle: true
+    must_not_be_reimplemented_in_my_data_hub: true
+    existing_catalog_mode_slice_full_is_data_scope_not_page_class: true
+  my_data_hub:
+    role: sole_MCP_control_plane_for_published_review_builds
+    methods:
+      - kenigevents.preview.start
+      - kenigevents.preview.current
+      - operation.get
+    may_resolve_ref_queue_track_and_invoke: true
+    may_not_duplicate:
+      - Astro_exporter
+      - page_class_selector
+      - StaticSiteBuilder
+      - Object_Storage_publisher
+      - retention_algorithm
+    existing_in_flight_implementation_must_be_adopted_not_forked: true
+  storage:
+    same_bucket_separate_immutable_prefixes: true
+    real_and_golden_current_pointers_are_separate: true
+    current_and_previous_per_mode_protected: true
+    old_noncurrent_preview_retention_required: true
+    future_or_historical_two_root_ALB_design_not_in_current_launch_path: true
 
 execution_reality:
   chatgpt_turns_are_background_daemons: false
@@ -44,17 +103,20 @@ operating_modes:
     R0_does:
       - cross_branch_candidate_construction
       - local_dependency_and_runtime_execution
-      - tests_builds_and_checks
-      - generation_and_publication
+      - local_focused_diagnostics_only
+      - tests_and_checks
+      - invoke_and_observe_full_Kaggle_generation_and_publication
       - ordinary_merge_resolution
       - deterministic_bulk_mechanical_edits_only_when_materially_cheaper
-      - local_browser_smoke
+      - local_browser_smoke_on_focused_diagnostic_only
     R0_must_not_duplicate:
       - active_F0_semantic_or_foundation_work
       - active_M0_family_or_component_design_work
       - active_A0_consumer_migration_work
       - N0_candidate_or_acceptance_review
       - V0_independent_browser_verdict
+      - my_data_hub_preview_control_plane
+      - events_bot_new_build_or_page_class_implementation
   NIGHT_AUTONOMOUS:
     condition: role_windows_unavailable_or_intentionally_not_running
     objective: keep_product_path_moving_with_the_single_native_lane
@@ -76,7 +138,8 @@ scarce_Codex_budget:
   R0_task_admission_requires_one_of:
     - local_shell_or_dependency_environment
     - cross_branch_merge_or_candidate_construction
-    - executable_tests_build_or_generation
+    - executable_tests_or_focused_diagnostic
+    - invocation_or_observation_of_Kaggle_generation
     - artifact_or_preview_publication
     - ordinary_merge_conflict_resolution
     - deterministic_high_volume_mechanical_change_materially_cheaper_than_GitHub_edits
@@ -116,6 +179,9 @@ execution_surfaces:
     V0: ChatGPT_GitHub_my_browser_bridge
   native_execution_worker:
     R0: native_Codex_local_shell_git_gh
+  published_preview_control_plane:
+    owner: my_data_hub_MCP
+    executor: events_bot_new_Kaggle_StaticSiteBuilder
   codex_devcoveer_in_role_windows: forbidden
 
 worker_turn_contract:
@@ -181,7 +247,7 @@ resource_saturation:
     - M0_family_and_media_saturation
     - A0_actual_consumer_migration
     - V0_source_harness_and_available_browser_baseline
-    - R0_candidate_build_generation_and_publication
+    - R0_candidate_integration_and_Kaggle_preview_invocation
 
 specialist_output_contract:
   purpose: unload_scarce_R0
@@ -195,7 +261,8 @@ specialist_output_contract:
     - resolving_latest_accepted_role_head
     - reviewing_bounded_diff_for_integration_risk
     - merging_or_cherry_picking
-    - running_local_verification
+    - running_local_focused_verification
+    - invoking_the_shared_Kaggle_full_build_when_required
     - returning_only_material_failures_to_the_owner_role
 
 R0_policy:
@@ -211,7 +278,7 @@ R0_policy:
     - latest_role_branches_and_results
     - source_and_actual_consumer_census
     - failing_tests_builds_checks
-    - local_browser_smoke
+    - local_focused_browser_smoke
     - V0_DRIFT_and_available_fixes
   loop:
     - fresh_read_issue_refs_worktrees_contract
@@ -220,7 +287,7 @@ R0_policy:
     - prefer_ready_specialist_outputs_over_duplicate_implementation
     - select_highest_value_Codex_admissible_item
     - freeze_SHAs_as_transaction_evidence
-    - implement_merge_test_build_publish
+    - implement_merge_test_and_invoke_shared_Kaggle_publish
     - fix_recoverable_tooling_and_regression_defects
     - checkpoint
     - fresh_read_and_continue
@@ -228,9 +295,9 @@ R0_policy:
     - reversible_implementation_details_determined_by_existing_behavior
     - ordinary_merge_resolution
     - regression_fixture_and_test_repairs
-    - worktree_and_build_sequence
+    - worktree_and_diagnostic_sequence
     - latest_accepted_ref_selection
-    - local_browser_smoke_and_diagnostics
+    - local_focused_browser_smoke_and_diagnostics
   escalate_only:
     - new_product_behavior
     - changed_user_facing_semantics
@@ -310,12 +377,13 @@ role_contours:
 
 product_path:
   - N0_F0_M0_A0_V0_process_independent_backlogs_in_parallel
-  - R0_integrates_latest_safe_work_and_builds_fresh_preview
+  - R0_integrates_latest_safe_work
+  - my_data_hub_invokes_single_events_bot_new_Kaggle_pipeline
   - V0_runs_full_independent_browser_audit
   - owning_workers_close_DRIFT
   - repeat_until_ASTRO_NORMALIZATION_PASS
   - thin_S_and_Penpot
-  - checked_release_candidate
+  - checked_release_candidate_through_same_Kaggle_pipeline
 
 normalization_invariants:
   same_visual_behavior_means_one_family_root: true
@@ -335,11 +403,16 @@ owner_review:
   first_surface: first_normalized_fresh_real_data_preview
   entrypoint_template: /<buildId>/__preview/
   exact_clickable_url_required: true
+  published_full_build_must_be_Kaggle: true
+  local_focused_diagnostic_is_not_owner_surface: true
   new_owner_facing_lab_pages: forbidden
 
 not_a_new_system:
   new_repository: forbidden
   second_Astro_implementation: forbidden
+  second_static_site_builder: forbidden
+  second_page_class_filter_implementation: forbidden
+  second_bucket_or_parallel_preview_architecture: forbidden
   new_owner_facing_lab: forbidden
   mandatory_packet_schema: forbidden
   owner_as_message_bus: forbidden
