@@ -1,16 +1,19 @@
 {
   "schema_version": "kenigevents.f0-current-penpot-evidence-overlay.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contract_version": "1.10.0",
   "status": "EVIDENCE_LINKED_MATERIALIZATION_BLOCKED_BY_POST_F0_V0",
   "authority": {
     "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
     "sole_writer": "R0.PENPOT",
     "runtime_evidence_overlay": "catalog/normalization/f0-current-runtime-evidence-overlay.v1.json",
-    "f0_source_boundary": "0fb2938344cf96b05be0df09dfb9e69525b3717d"
+    "accepted_f0_semantic_boundary": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "current_f0_duplicate_owner_closure": "a5ac3b7b6517ce7b213bc52faa1e5a1389e6a534",
+    "current_f0_reporting_head": "1c4de6afdb0ab14e2d828946f9b34ce69ae3565e"
   },
   "current_preview_evidence": {
     "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
+    "manifest": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/preview-build.json",
     "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
     "classification": "BEFORE_BASELINE_ONLY_FOR_CURRENT_F0_MATERIALIZATION",
     "independent_v0_verdict": false,
@@ -20,22 +23,45 @@
     "penpot/candidate/f0-foundation-variable-spec.v1.json",
     "penpot/candidate/f0-interest-club-theme-extension.v1.json"
   ],
-  "accepted_source_followthrough": {
-    "F0_route_theme_source": "f2b9927e25ac0566d35577f69c574cedadab27d7",
-    "F0_club_theme_source": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
-    "A0_club_card_consumption": "29538035d94a15adac9fd8ee7463ece87c8d1033",
-    "state": "SOURCE_AND_PATCH_ACCEPTED_NOT_IN_CURRENT_PUBLIC_PREVIEW"
-  },
+  "accepted_source_followthrough": [
+    {
+      "id": "F0-ROUTE-THEME-SOURCE",
+      "commit": "f2b9927e25ac0566d35577f69c574cedadab27d7",
+      "state": "SOURCE_ACCEPTED_CONSUMER_INTEGRATION_PENDING"
+    },
+    {
+      "id": "F0-CLUB-THEME-SOURCE",
+      "commit": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+      "state": "SOURCE_ACCEPTED_CONSUMER_INTEGRATION_PENDING"
+    },
+    {
+      "id": "F0-DUPLICATE-ALIAS-OWNER-CLOSURE",
+      "commit": "a5ac3b7b6517ce7b213bc52faa1e5a1389e6a534",
+      "state": "SOURCE_READY_N0_REVIEW_PENDING",
+      "effect": "four repeated aliases are removed from continuity-aliases.css; the retained focus-intake spinner alias stays bound to feature=32"
+    },
+    {
+      "id": "A0-CLUB-CARD-CONSUMPTION",
+      "commit": "29538035d94a15adac9fd8ee7463ece87c8d1033",
+      "state": "F0_ACCEPTED_BOUNDED_PATCH_NOT_STANDALONE"
+    },
+    {
+      "id": "A0-CLUB-DETAIL-CONSUMPTION",
+      "commit": "2aa70f2ff8819d83e58da1473a35435d22783578",
+      "state": "F0_ACCEPTED_BOUNDED_PATCH_NOT_STANDALONE",
+      "canonical_svg": "SemanticIcon arrow-left/inline"
+    }
+  ],
   "native_materialization_unlock": {
     "all_required": [
-      "one exact integrated successor containing F0 0fb2938 and accepted consumer consumption",
-      "both strict F0 checks exit 0 on that exact SHA",
+      "one exact integrated successor containing F0 0fb2938, the reviewed duplicate-owner closure and accepted consumer consumption",
+      "F0 duplicate-owner probe plus both strict route/club checks exit 0 on that exact SHA",
       "one canonical full fresh-real Kaggle preview for that SHA",
       "independent V0 computed typography/color/icon/target verdict on that URL",
       "N0 promotes affected Astro/thin-S bindings to CURRENT"
     ],
     "current_state": "BLOCKED",
-    "blocking_owner_sequence": ["R0", "V0", "N0", "R0.PENPOT"]
+    "blocking_owner_sequence": ["N0", "R0", "V0", "N0", "R0.PENPOT"]
   },
   "evidence_to_capture_after_unlock": [
     {
@@ -52,19 +78,59 @@
     },
     {
       "route": "/kluby-po-interesam/<actual-slug>/",
-      "measure": ["club-detail theme", "canonical arrow-left glyph", "mobile one-column behavior"]
+      "measure": ["club-detail theme", "canonical arrow-left glyph", "44px action target", "mobile one-column behavior"]
+    }
+  ],
+  "penpot_binding_targets": {
+    "variable_sets": [
+      "F0-FOUNDATIONS-V1",
+      "F0-ROUTE-THEME-V1",
+      "F0-INTEREST-CLUB-THEME-V1"
+    ],
+    "linked_route_instances": [
+      "ExhibitionsPersonalSurface@1/ranked-personal-catalog",
+      "FestivalsTimelineRouteComposition@1/annual-timeline",
+      "InterestClubsRouteComposition@1/public-index",
+      "InterestClubDetailRouteComposition@1/verified-club"
+    ],
+    "evidence_state": "SPEC_ONLY_NOT_MATERIALIZED",
+    "detached_lookalike_instances_allowed": false
+  },
+  "rollback_boundaries": [
+    {
+      "unit": "F0-RB-ALIAS-OWNER-CLOSURE",
+      "trigger": "missing declaration resolution or negative-probe failure",
+      "action": "restore only the removed forwarding aliases while preserving all other F0 and successor work"
+    },
+    {
+      "unit": "F0-RB-CLUB-DETAIL-THEME",
+      "trigger": "strict source failure or V0 computed theme/icon/target drift",
+      "action": "revert only the bounded A0 route substitutions and corresponding F0 route-theme unit"
+    },
+    {
+      "unit": "F0-RB-INTEREST-CLUB-CARD-THEME",
+      "trigger": "strict source failure or V0 card-palette drift",
+      "action": "revert only the four A0 decorative-alpha substitutions and corresponding residual-token unit"
     }
   ],
   "fr0_boundary": {
     "media_frame_and_media_rail_variables_are_not_in_this_f0_overlay": true,
     "framing_master_owner": "FR0",
-    "F0_retains": ["typography", "semantic colors", "spacing and geometry foundations", "radii/borders/elevation/layers", "four icon roles", "canonical SVG/brand/social identities"]
+    "F0_retains": [
+      "typography",
+      "semantic colors",
+      "spacing and geometry foundations",
+      "radii/borders/elevation/layers",
+      "four icon roles",
+      "canonical SVG/brand/social identities"
+    ]
   },
   "negative_controls": [
     "do not materialize from the pre-F0 1bc6d9cb preview",
     "do not infer V0 PASS from R0 Playwright evidence",
     "do not create detached lookalike route boards",
     "do not add a fifth icon-size role",
+    "do not materialize repeated aliases as separate variables",
     "do not move FR0 framing ownership back into F0",
     "do not bind a font binary without an explicit accepted asset/checksum decision"
   ],
