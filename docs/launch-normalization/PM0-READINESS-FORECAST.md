@@ -1,6 +1,6 @@
 # PM0 — readiness, forecast and 40-point product checklist
 
-Version: `2.1.0`
+Version: `2.2.0`
 
 ## Role
 
@@ -54,7 +54,9 @@ Before every substantive answer read only:
 3. `lovekgd-design-system/docs/launch-normalization/STATUS.md`;
 4. `lovekgd-design-system/contracts/launch-normalized-ui.v1.yaml`;
 5. latest factual V0 browser verdict, current real/golden preview URL or build
-   verdict and latest factual Penpot readback/visual result.
+   verdict and latest factual Penpot readback/visual result;
+6. when build readiness is involved, current `my-data-hub` MCP tool/deployment
+   evidence and the matching `events-bot-new` Kaggle operation/artifact.
 
 Read old `#57` only when the current programme points to a specific donor or
 when estimating historical velocity. Do not repeat the old governance audit.
@@ -70,6 +72,24 @@ mutation or generation command from durable evidence and mark it `T0≈` with th
 confidence level. Never treat missing formal T0 as a blocker.
 
 All dates and ETA are shown in `Europe/Kaliningrad` and as absolute date/time.
+
+## Build evidence boundary
+
+Count a Review Preview, RC or production-form build only when it came from the
+single canonical `events-bot-new` Kaggle StaticSiteBuilder and, when published,
+from the current one-bucket immutable-prefix path.
+
+A local non-Kaggle render of one route or one page class is useful diagnostic
+evidence only. It never completes a preview/build checklist item, never turns
+the voice-review gate green and never earns A/S/P/A=S=P product credit.
+
+A focused secret preview may count when it used the same Kaggle pipeline with
+the shared allowlisted page-class filter. `catalog-mode: slice|full` is data
+scope and is not proof of page-class filtering.
+
+`my-data-hub` is counted only as the MCP control facade. A second exporter,
+selector, builder, publisher or retention implementation inside it is drift,
+not additional progress.
 
 # Mode 1 — ПРОГНОЗ
 
@@ -105,7 +125,8 @@ Use these stable weights unless the canonical contract changes product scope:
 
 For `A`, award area progress only for implemented and integrated current code;
 source census/decision alone may contribute at most 15% of that area's weight.
-A fresh-data preview plus V0 browser PASS is required for full `A` credit.
+A fresh-data **full Kaggle Review Preview** plus V0 browser PASS is required for
+full `A` credit.
 
 For `S`, count only current thin records bound to the implemented family,
 actual consumers, assets/states and Penpot target. Plans and superseded packages
@@ -128,11 +149,13 @@ Do not count:
 - branch/worktree creation;
 - packets, manifests, hashes or receipts by themselves;
 - tests without integrated visible output;
+- a local focused diagnostic as a published/full build;
 - a public prelaunch splash;
 - 404 routes;
 - empty Penpot pages/boards;
 - technical liveness or connector checks;
 - a task merely delegated to Codex;
+- a duplicate my-data-hub/static-builder implementation;
 - old historical Penpot content not adopted by the current programme.
 
 ## Remaining work and forecast
@@ -142,11 +165,11 @@ Examples:
 
 - one integrated foundation wave;
 - one component-family normalization and consumer migration;
-- one real-data preview rebuild;
+- one real-data full Kaggle preview rebuild;
 - one V0 browser pass/repair cycle;
 - one native Penpot family/page batch;
-- one Golden A=S=P pass;
-- one production-form release build.
+- one Golden Kaggle A=S=P pass;
+- one production-form Kaggle release build.
 
 For every answer:
 
@@ -172,7 +195,7 @@ prevents the next visible product checkpoint.
 
 Valid examples:
 
-- no fresh-data Astro preview exists;
+- no fresh-data Kaggle Astro preview exists;
 - MediaFrame is not integrated, so card routes cannot be validated;
 - actual consumers still use multiple roots;
 - Penpot has no linked family for a normalized Astro family;
@@ -242,7 +265,7 @@ code/data/design output. It can never produce `✅` by itself.
 Every line must end with one compact evidence or missing-condition phrase:
 
 ```text
-— SHA / build URL / issue comment / Penpot page+revision / V0 verdict
+— SHA / Kaggle operation+artifact+build URL / issue comment / Penpot page+revision / V0 verdict
 ```
 
 For a grouped route item show a factual fraction such as `3/7 route families`
@@ -268,10 +291,10 @@ Use `?` only when the required evidence exists but is stale, contradictory or
 currently inaccessible. Do not use `◐` for this binary gate.
 
 The gate is `✅` only when all of the following are true in one current
-fresh-real-data Review Preview:
+fresh-real-data **full Kaggle Review Preview**:
 
 1. the exact preview URL returns HTTP 200 and is bound to the current integrated
-   SHA and immutable real-data snapshot;
+   SHA, immutable real-data snapshot and matching Kaggle operation/artifact;
 2. the first normalized vertical slice has central font/type/spacing/color/
    radius/icon-size foundations applied;
 3. visually and behaviorally identical components in that slice use one
@@ -285,6 +308,8 @@ fresh-real-data Review Preview:
    my-browser-bridge and reported no critical structural drift in that slice;
 7. exact owner-review URLs and a compact normalization summary are published.
 
+A local focused diagnostic cannot satisfy condition 1 or make this gate green.
+
 This gate means **the first normalized product slice is stable enough for full
 voice design review**. It does not claim that every route is normalized, that
 `ASTRO_NORMALIZATION_PASS` is complete, or that Penpot/A=S=P is complete.
@@ -297,15 +322,19 @@ whether detailed voice review should start now.
 ### I. Documentation, data and executable review loop
 
 1. Current cross-repository authority and launch documentation are internally
-   consistent; superseded conveyor instructions are clearly historical.
+   consistent; the one-Kaggle-pipeline/one-current-bucket/MCP-facade boundary is
+   explicit and superseded conveyor/two-builder instructions are historical.
 2. Fresh production events can be exported into a consistent immutable snapshot
    with source time/count identity.
-3. `real` Review Preview can build, check, deploy and return an HTTP-200 exact
-   SHA+snapshot URL without production-root mutation.
-4. `golden` Review Preview can build, check, deploy and return a separate
-   HTTP-200 exact SHA+corpus URL with fixed clock/assets.
-5. Production-form/Kaggle generation runs on the current integrated SHA and
-   fresh real data and returns an owner-reviewable candidate.
+3. `real` **full Kaggle Review Preview** can build, check, deploy to an immutable
+   prefix in the current bucket and return an HTTP-200 exact SHA+snapshot URL
+   without production-root mutation.
+4. `golden` **full Kaggle Review Preview** can build, check, deploy through the
+   same pipeline to a separate immutable prefix and return an HTTP-200 exact
+   SHA+corpus URL with fixed clock/assets.
+5. Production-form/Release-Candidate Kaggle generation runs through that same
+   StaticSiteBuilder on the current integrated SHA and fresh real data and
+   returns an owner-reviewable candidate.
 
 ### II. Golden Corpus for reproducible A=S=P
 
