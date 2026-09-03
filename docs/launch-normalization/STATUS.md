@@ -14,7 +14,7 @@ events_bot_new:
   integration_branch: integration/ui-normalization-launch-20260902
   current_head: f7455bc3ef2542a7df2634665f83b75e5a171eae
   current_delta: documentation_only
-  fresh_data_generation: NOT_STARTED
+  fresh_data_generation: IN_PROGRESS_VIA_NATIVE_R0
   reachable_normalized_preview: ABSENT
 
 lovekgd_design_system:
@@ -24,128 +24,150 @@ lovekgd_design_system:
   contract_version: 1.5.0
 ```
 
-## Verified and role-owned checkpoints
+## Backlog-drain proof, not self-report
+
+A role is not considered autonomous merely because its prompt says “continue” or
+its result says “backlog exhausted”. K0 must verify behavior from current refs,
+source census and product output.
+
+Working backlog loop evidence is:
+
+```text
+one role turn
+→ more than one distinct ready item is selected when such items exist
+→ separate coherent repository/tool actions are completed
+→ after a checkpoint the role fresh-reads and takes another item
+→ exit occurs only after an actual full-scope census returns zero ready owned items
+   or a true external/product/safety boundary is reached
+```
+
+A repeated `wake → one small item → [RESULT] → stop` pattern while current source
+still contains owned executable work is `BACKLOG_NOT_FORMING` and a process
+defect. A self-declared exhaustion statement is insufficient. Exit evidence must
+identify the remaining non-owned trigger; no new packet or owner-created backlog
+is required.
+
+## Observed actor evidence
+
+### F0 — backlog loop observed
 
 ```yaml
-verified_combined_wave2:
-  branch: r0/combined-wave2-latest-20260903
-  head: 592bfce1537c1b89b5d7e401a2516a7b7709421b
-  result: 5521586228
-  source_build_checks: PASS
-  reachable_preview: false
-
-F0:
-  branch: work/ui-normalization-f0-wave-3-20260903
-  head: 7ae5282a860e36aa3ca5008053fae053b7474344
-  result: 5521926959
-
-M0:
-  branch: work/ui-normalization-m0-wave-2-20260903
-  head: a18210e8fb9574d7ea6ca30a0ca8ca5a3b31c3f3
-  result: 5521565674
-  R0_review_accepted: 5521646256
-
-A0:
-  branch: work/ui-normalization-a0-wave-3-20260903
-  head: 08ac8eab1674281641ccfe59b89611c1434495c5
-  result: 5521930424
+branch: work/ui-normalization-f0-wave-3-20260903
+head: bc1f566b6845557983042d8ed27ea94a6f572507
+since_previous_checkpoint: 6 commits
+changed_paths: 10
+observed_distinct_items:
+  - whole-product surface foundation bindings
+  - exact surface token bindings
+  - component token-owner consolidation
+  - shell and navigation foundations
+  - event-detail foundations
+verdict: BACKLOG_FORMATION_AND_DRAIN_OBSERVED
 ```
 
-## Source contours remain active
+F0 has continued beyond its former Wave-3 checkpoint rather than stopping after
+one result.
 
-The former `F0/M0/A0 OWNED_BACKLOG_EXHAUSTED` classification was too narrow. It
-looked only at the last named Wave rather than the full actual-consumer census.
-Current source still contains executable independent normalization work:
+### M0 — backlog loop observed
 
-- `HomeColdStartFeed.astro`: local wrapper/grid around direct EventCard;
-- `FreeCollectionSurface.astro`: two local EventCard grids;
-- `UnusualListingSurface.astro`: wrapper metadata and local grid;
-- `GastronomyCollectionSurface.astro`: future/recent wrapper grids;
-- `PersonalFeedSlot.astro`: duplicate grid/equal-height/media ownership;
-- `DesktopEventPage.astro`: hero-selector and poster-strip EventMediaRail
-  lookalikes;
-- class-only Button consumers and route-specific raw foundation values;
-- remaining MediaFrame/rail central ownership and token bindings.
+```yaml
+branch: work/ui-normalization-m0-continuity-20260903
+head: 00ef7b689cc5d040bd0099962576cadcd88270f7
+base: a18210e8fb9574d7ea6ca30a0ca8ca5a3b31c3f3
+since_base: 6 commits
+changed_paths: 3
+checkpoint_result: 5523403780
+observed_distinct_items:
+  - EventMediaRail hero-selector variant
+  - EventMediaRail poster-strip variant
+  - AdaptiveEventCardGrid live-region API
+  - ListingEventCard root metadata bridge
+  - production rail runtime-contract preservation
+verdict: BACKLOG_FORMATION_AND_DRAIN_OBSERVED
+```
 
-These are not blocked by the first preview. N0/R0 operate on a frozen candidate;
-F0/M0/A0 continue on role branches for the next integration checkpoint.
+The checkpoint explicitly remains nonterminal; M0 continues its consumer and
+CSS-owner recensus.
 
-## Durable actor state
+### A0 — backlog loop observed
 
-| Actor | State | Current work |
-|---|---|---|
-| N0 | `ACTIVE_CRITICAL_PATH` | accepted-candidate baseline task `5522381655/5522499169`; must continue to conditional promotion, fresh generation and reachable preview rather than finish on baseline |
-| R0 | `ACTIVE_NATIVE_EXECUTION` | execute current N0 same-data task; after every result fresh-read and continue authorized critical mechanics or bounded-watch for N0 trigger |
-| F0 | `ACTIVE_CONTINUOUS_FOUNDATIONS` | whole-product census; add central aliases/roles for remaining home/free/unusual/gastronomy/personal-feed/rail/focus consumers; close visible color/type/spacing/icon gaps in F0 paths |
-| M0 | `ACTIVE_CONTINUOUS_FAMILIES` | implement named EventMediaRail hero-selector and poster-strip variants; close remaining shared MediaFrame/family ownership and source/API gaps in M0 roots |
-| A0 | `ACTIVE_CONTINUOUS_CONSUMERS` | migrate remaining exact consumer files to AdaptiveEventCardGrid/canonical Button/tokens; later replace DesktopEventPage rail lookalikes with M0 variants |
-| V0 | `ACTIVE_BOUNDED_HARNESS_DELTA` | latest F0/M0/A0 changes materially changed markers/direct roots/MediaFrame/grid selectors; update the existing harness once, then wait for the exact reachable preview and run the full browser matrix immediately |
-| K0 | `ACTIVE_PRODUCT_FIRST` | maintain continuous execution and repair process/canonical drift directly |
-| PM0 | `AVAILABLE_READ_ONLY` | readiness forecast only on request; no synthetic implementation work |
+```yaml
+branch: work/ui-normalization-a0-wave-3-20260903
+head: 651f6a8e58bcad06859e42eee87b2b337bd1c536
+base: 08ac8eab1674281641ccfe59b89611c1434495c5
+since_base: 10 commits
+changed_paths: 20
+observed_distinct_items:
+  - focus runtime controls and invite state
+  - service-route composition identities
+  - partnership and collection-catalog consumers
+  - Home/Free/Unusual/Gastronomy/PersonalFeed canonical bindings
+verdict: BACKLOG_FORMATION_AND_DRAIN_OBSERVED
+```
 
-## Exact A0 consumer migration scope now assigned
+A0 is processing a sequence of actual consumers, not waiting for the first
+preview.
 
-In addition to layouts/listings/pages, A0 owns consumer-only changes in:
+### V0 — exact-trigger standby is legitimate
+
+```yaml
+full_harness: 5521263641
+latest_source_delta: 5522861326 / 5522899558
+independent_browser_work_remaining_without_url: 0
+resume_trigger: exact reachable integrated /<buildId>/__preview/
+verdict: STANDBY_VALID
+```
+
+V0 is read-only and has already updated the harness for the latest source
+contracts. Repeating source preparation without a rendered surface would be
+busywork.
+
+### N0 — policy established; final behavior not yet proven
+
+```yaml
+end_to_end_authority: 5522876492
+owned_gate: exact reachable normalized preview
+current_state: WAITING_FOR_NATIVE_R0_OUTPUT_REVIEW
+verdict: CONTINUOUS_CHAIN_DECLARED_NOT_YET_PROVEN_BY_PRODUCT_RESULT
+```
+
+N0 is complete only after it reviews actual R0 output and the reachable preview,
+not after publishing authorization.
+
+### R0 — active, but continuity remains under observation
+
+```yaml
+mission: reach first exact browser-testable normalized preview
+outcome_backlog_correction: 5523168515
+active_wait_correction: 5523352908
+current_local_contour: n0-critical-contour-*
+latest_product_result: NOT_YET_PUBLISHED
+verdict: BACKLOG_MODE_DEFINED_BUT_NOT_YET_PROVEN_TO_CURRENT_PRODUCT_GATE
+```
+
+The visible `sleep 180` was a process defect. R0 must attach to the actual child
+PID/log, react immediately to completion, and continue the already authorized
+baseline → promotion → fresh generation → publication chain. R0 is proven only
+when it reaches the current product gate or exhausts all safe mechanical work
+after a short active watch.
+
+## Current product gate
 
 ```text
-site/src/components/HomeColdStartFeed.astro
-site/src/components/FreeCollectionSurface.astro
-site/src/components/UnusualListingSurface.astro
-site/src/components/GastronomyCollectionSurface.astro
-site/src/components/PersonalFeedSlot.astro
-site/src/components/MobileEventReviewPage.astro
-site/src/components/DesktopEventPage.astro  # after M0 rail variants
-site/src/components/FocusGroupFeedback.astro
-site/src/components/FocusGroupInviteIntake.astro
-site/src/components/FocusGroupInviteShare.astro
-site/src/components/FocusGroupLabPanel.astro
-site/src/components/FocusPwaInstallAction.astro
+first exact reachable normalized /<buildId>/__preview/
+with reproducible fresh-production generation and explicit ancestry
 ```
 
-A0 may import/use M0 roots but must not edit `EventCard`, `ListingEventCard`,
-`AdaptiveEventCardGrid`, `OptimizedEventCardGrid` or `EventMediaRail`.
+F0/M0/A0 continue their next integration contour in parallel. Their newer work
+does not delay the frozen first-preview candidate. V0 resumes immediately when
+the physical URL exists.
 
-## Current parallel sequence
+## Interpretation
 
-```text
-N0 + R0:
-  frozen candidate same-data baseline
-  → conditional promotion
-  → fresh generation/publication
-  → reachable preview
-
-F0:
-  central semantic coverage for remaining actual surfaces
-
-M0:
-  canonical EventMediaRail variants + MediaFrame/family convergence
-
-A0:
-  remaining actual consumer migration on separate role branch
-
-V0:
-  one bounded harness delta now
-  → exact-trigger standby
-  → full personal DOM/computed audit immediately when URL exists
-```
-
-A checkpoint does not end a role. After each result, the role fresh-reads,
-recomputes its actual-consumer backlog and continues. Standby is allowed only
-when no independent useful work remains and an exact external trigger is recorded.
-
-## Owner-visible checkpoint board
-
-| Result | State |
-|---|---|
-| current same-data baseline | `READY_R0_EXECUTION` |
-| first conditional promotion/fresh generation | `PENDING_N0_CONTINUATION` |
-| reachable normalized preview | `PENDING_N0_R0` |
-| F0 remaining foundation coverage | `ACTIVE_PARALLEL` |
-| M0 rail/framing convergence | `ACTIVE_PARALLEL` |
-| A0 remaining consumer migration | `ACTIVE_PARALLEL` |
-| V0 harness delta | `ACTIVE_BOUNDED` |
-| V0 browser verdict | `TRIGGERED_BY_REACHABLE_URL` |
-| `ASTRO_NORMALIZATION_PASS` | `CLOSED` |
+The present evidence proves that F0, M0 and A0 are now creating and draining
+multi-item backlogs within a single role run. It does not yet prove the complete
+programme loop because N0/R0 have not produced the reachable preview. Until that
+product result exists, K0 must not claim the whole execution model solved.
 
 ## ASTRO_NORMALIZATION_PASS
 
