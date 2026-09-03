@@ -1,0 +1,214 @@
+{
+  "schema_version": "kenigevents.a0-focus-route-instance-spec.v1",
+  "contract_version": "1.9.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "extends": {
+    "path": "penpot/candidate/a0-route-instance-spec.v1.json",
+    "commit": "3d4e148b74594f6d0dda3adda0649441dc17bde7"
+  },
+  "binding_authority": {
+    "path": "catalog/normalization/a0-focus-route-bindings.v1.json",
+    "commit": "410c643cb24a529f211d7d88e609fb61f830cacf"
+  },
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "mechanical_batch_comment": 5527907602,
+    "v0_matrix": "catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json"
+  },
+  "materialization_policy": {
+    "native_components_only": true,
+    "linked_route_instances_only": true,
+    "detached_route_reconstruction_forbidden": true,
+    "apply_after_N0_accepted_source_and_V0_source_gates": true,
+    "actual_penpot_mutation_in_this_spec": false,
+    "rollback_unit": "one bounded focus-route Penpot transaction"
+  },
+  "target_pages": [
+    {
+      "id": "A0-P30",
+      "name": "A0 — Routes / personal and focus",
+      "use": "masters and route boards"
+    },
+    {
+      "id": "A0-P90",
+      "name": "A0 — Evidence / V0 links",
+      "use": "actual, baseline and diff references"
+    }
+  ],
+  "masters": [
+    {
+      "id": "A0-M15",
+      "name": "A0 / FocusEggCollectionRoute",
+      "binding_id": "a0.focus-egg-collection-route",
+      "page": "A0-P30",
+      "variants": [
+        "collection-prototype"
+      ],
+      "states": [
+        "found-0-of-N",
+        "found-partial-of-N",
+        "found-all-of-N"
+      ],
+      "nested_linked_masters": [
+        "A0 / FocusEggCollectionCard",
+        "A0 / FocusEggSavedListDemo",
+        "A0 / FocusLabBadge"
+      ],
+      "required_properties": [
+        "eligible count",
+        "found count",
+        "meter value",
+        "egg state",
+        "device mission state"
+      ]
+    },
+    {
+      "id": "A0-M16",
+      "name": "A0 / FocusDiagnostics",
+      "binding_id": "a0.focus-diagnostics-routes",
+      "page": "A0-P30",
+      "variants": [
+        "connectivity",
+        "resilience"
+      ],
+      "states": [
+        "idle",
+        "checking",
+        "available",
+        "partial",
+        "error"
+      ],
+      "nested_linked_masters": [
+        "A0 / FocusConnectivityDiagnostic",
+        "F0 / StatePanel",
+        "F0 / SemanticIcon"
+      ],
+      "required_properties": [
+        "diagnostic variant",
+        "current state",
+        "result rows",
+        "retry action"
+      ]
+    },
+    {
+      "id": "A0-M17",
+      "name": "A0 / ClosedFocusHubRoute",
+      "binding_id": "a0.closed-focus-hub-route",
+      "page": "A0-P30",
+      "variants": [
+        "participant-hub"
+      ],
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "nested_linked_masters": [
+        "A0 / FocusGroupFeedback",
+        "A0 / FocusGroupInviteShare",
+        "A0 / FocusGroupThankYou",
+        "A0 / FocusLabBadge"
+      ],
+      "required_properties": [
+        "participation state",
+        "auth state",
+        "visible navigation sections",
+        "leave action state"
+      ]
+    }
+  ],
+  "route_boards": [
+    {
+      "id": "A0-R18",
+      "pm0_case_id": "PM0-37-16",
+      "route": "/fokus-gruppa/kollektsiya/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M15"
+      ],
+      "required_states": [
+        "found-0-of-N",
+        "found-partial-of-N",
+        "found-all-of-N"
+      ]
+    },
+    {
+      "id": "A0-R19",
+      "pm0_case_id": "PM0-37-17",
+      "route": "/fokus-gruppa/diagnostika/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M16"
+      ],
+      "required_states": [
+        "idle",
+        "checking",
+        "available",
+        "error"
+      ]
+    },
+    {
+      "id": "A0-R20",
+      "pm0_case_id": "PM0-37-18",
+      "route": "/fokus-gruppa/diagnostika-ustoychivost/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M16"
+      ],
+      "required_states": [
+        "idle",
+        "checking",
+        "partial",
+        "available",
+        "error"
+      ]
+    },
+    {
+      "id": "A0-R21",
+      "pm0_case_id": "PM0-37-19",
+      "route": "/zakrytaya-afisha/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M17"
+      ],
+      "required_states": [
+        "checking",
+        "locked",
+        "available"
+      ]
+    }
+  ],
+  "evidence_link_contract": {
+    "evidence_page": "A0-P90",
+    "required_fields": [
+      "binding_id",
+      "pm0_case_id",
+      "source_sha",
+      "build_id",
+      "snapshot_id",
+      "viewport_id",
+      "v0_verdict",
+      "actual_artifact",
+      "baseline_artifact",
+      "diff_artifact"
+    ],
+    "pending_label": "PENDING V0 — not parity evidence"
+  }
+}
