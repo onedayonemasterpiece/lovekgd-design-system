@@ -1,95 +1,118 @@
-# Нормализация UI KenigEvents — 48-часовой запуск
+# Нормализация UI KenigEvents — continuous product-first launch
 
 Статус: `ACTIVE`  
 Координация: `onedayonemasterpiece/events-bot-new#621`  
-Параллельные роли: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md)
+Параллельные роли: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md)  
+Исполняемый contract: [`launch-normalized-ui.v1.yaml`](../../contracts/launch-normalized-ui.v1.yaml)
 
-Это текущий операционный маршрут. Старый ASP conveyor в
-`lovekgd-design-system#57` используется только как donor/history: его
-многоступенчатая очередь, технические roots и формальные write receipts не
-являются текущим процессом. Предыдущий запуск наглядно показал, что регистрация
-ролей и materializer phases не гарантируют видимый продуктовый результат.
+Старый ASP conveyor в `lovekgd-design-system#57` используется только как
+named donor/history. Текущий процесс оптимизирует путь до работающего продукта,
+а не количество tasks, receipts и handoffs.
 
-## 1. Цель
-
-Сначала получить нормализованную, управляемую UI-систему; только после этого
-переходить к изменениям интерфейса и закрытию продуктовых UI gaps.
+## 1. Product objective
 
 ```text
 fresh production events
-→ восстановленная существующая Astro generation
-→ технический fresh-data baseline
-→ параллельная нормализация foundations/components/routes
-→ my-browser-bridge DOM + computed-style drift loop
-→ первый owner-facing уже нормализованный /<buildId>/__preview/
+→ existing Astro generation restored
+→ normalized foundations/components/actual consumers
+→ exact reachable normalized /<buildId>/__preview/
+→ V0 DOM/computed-style PASS or DRIFT
+→ critical DRIFT closure
 → thin S + native Penpot masters/linked instances
-→ internal Golden A=S=P
-→ UI-gap/change work
-→ release build на свежих реальных данных
+→ ASTRO_NORMALIZATION_PASS
+→ product UI-gap/change work
+→ release candidate
 ```
 
-Владелец смотрит реальные продуктовые страницы с реальными событиями. Golden
-Corpus нужен для детерминированного A=S=P, а не как обязательная поверхность
-owner review.
+Владелец смотрит реальные страницы с реальными событиями. Golden Corpus нужен
+для internal deterministic A=S=P, а не как обязательная owner-review surface.
 
-## 2. Фактическая модель продукта
+## 2. Continuous role execution
 
-Исполняемый продукт уже существует в `events-bot-new` и существенно
-componentized. Задача — не нарисовать новый сайт, а устранить исторический drift.
-
-Фактические date/weekend routes:
+Роль — это полный owned product contour. Wave, branch, commit и `[RESULT]` —
+versioned checkpoints, не turn boundaries.
 
 ```text
-/segodnya/                  current build date
-/zavtra/                    next date
-/date-YYYY-MM-DD/           arbitrary date
-/vyhodnye/                  active/nearest Saturday–Sunday range
-/vyhodnye/YYYY-MM-DD/       selected available weekend range
+fresh-read current state
+→ recompute unresolved role backlog
+→ select highest-value safe reversible item
+→ analyze/decide/implement/review
+→ publish checkpoint when useful
+→ fresh-read again
+→ continue next item
+→ stop only when independent owned backlog is exhausted
 ```
 
-`/segodnya/`, `/zavtra/` и `/date-YYYY-MM-DD/` используют общий
-`DateListingSurface`. Weekend routes используют отдельный общий
-`WeekendListingSurface`. Разные композиции сохраняются; одинаковые foundations,
-cards, controls, media и icons обязаны иметь общие roots.
+Per-Wave owner resume является process defect. Старое `finish with [RESULT]`
+означает только «не возвращай plan-only status».
 
-Существующая owner entry point:
+Допустимый standby требует exact external trigger. Busywork после исчерпания
+scope запрещён.
+
+## 3. Execution surfaces
+
+```yaml
+K0: ChatGPT + GitHub
+N0: ChatGPT + GitHub
+F0: ChatGPT + GitHub
+M0: ChatGPT + GitHub
+A0: ChatGPT + GitHub
+V0: ChatGPT + GitHub + my-browser-bridge
+R0: native Codex + local shell/git/gh
+```
+
+K0/N0/F0/M0/A0 не вызывают `Codex DevCoveer`. Они лично читают source,
+consumers и voice notes, принимают решения, делают bounded GitHub edits и
+проверяют R0 output.
+
+R0 выполняет only already-decided mechanical work: isolated worktrees,
+repetitive edits, tests/build, exact merge/promotion under conditional authority
+и authorized Penpot mutation. Browser evidence принадлежит V0.
+
+## 4. Critical path without approval ping-pong
+
+N0 владеет полной цепочкой:
 
 ```text
-/<buildId>/__preview/
+candidate acceptance
+→ same-data baseline
+→ conditional promotion
+→ fresh-production generation
+→ reachable preview
+→ V0 trigger
+→ V0 verdict review
 ```
 
-Новые `/lab/launch/*` routes не создаются. `/lab/design-system/` остаётся
-внутренним regression harness и не является owner checkpoint.
+Когда acceptance criteria известны заранее, N0 даёт R0 одно conditional
+end-to-end authorization:
 
-## 3. Можно ли нормализовать до первой генерации
+```text
+IF candidate build/tests/baseline PASS
+  THEN promote exact candidate
+  AND run fresh generation
+  AND publish reachable preview
+ELSE
+  no promotion/deploy
+  continue safe diagnosis
+  publish factual defect
+```
 
-Да — F0/M0/A0 начинают source-level normalization параллельно с восстановлением
-generation. Но N0 обязан сначала получить технический fresh-data baseline,
-чтобы отличать дефекты сборки/данных от последствий изменений UI.
+R0 — persistent native session. После каждого result он fresh-read-ит #621 и
+берёт следующую ready safe mechanical task. При ожидаемом critical trigger он
+использует bounded watch 60–120 seconds, maximum 30 minutes, а не немедленный
+exit.
 
-Технический baseline не обязательно показывать владельцу. Первый owner-facing
-preview должен по возможности появиться уже после первой integrated
-normalization wave и V0 browser audit.
-
-Family нельзя назвать завершённой до:
-
-1. сборки на свежих реальных данных;
-2. проверки actual consumers;
-3. V0 DOM/computed-style verdict;
-4. устранения critical `DRIFT`.
-
-## 4. Authority; нового SoT нет
+## 5. Product architecture and authority
 
 ### `events-bot-new`
 
-Владеет executable normalized UI:
+Executable authority:
 
-- `site/src/styles/design-system.css` — foundations и semantic tokens;
-- `site/src/components/design-system/**` — primitives;
-- `site/src/components/**` — product component families;
-- `site/src/layouts/**`, `site/src/pages/**` — actual route compositions;
-- export/preview/production/Kaggle generation;
-- browser behaviour и release checks.
+- `site/src/styles/design-system.css` and semantic foundation layers;
+- `site/src/components/design-system/**`;
+- product component families;
+- layouts/pages and actual route compositions;
+- generation, preview and release checks.
 
 Branch:
 
@@ -99,18 +122,15 @@ integration/ui-normalization-launch-20260902
 
 ### `lovekgd-design-system`
 
-Владеет тонкой cross-surface записью:
+Thin cross-surface authority:
 
 - stable family/component IDs;
 - component/variant/state/composition decisions;
-- exact Astro source и actual consumer bindings;
-- exact visible SVG/raster identities;
+- Astro source and actual consumer bindings;
+- visible asset identities;
 - Golden fixture/route bindings;
-- Penpot master/page placement;
-- browser и A=S=P statuses;
-- selective donor evidence.
-
-Здесь не создаётся вторая независимо редактируемая Astro-реализация.
+- Penpot masters/route-board placement;
+- browser and A=S=P statuses.
 
 Branch:
 
@@ -120,89 +140,76 @@ integration/launch-normalized-sot-penpot-20260902
 
 ### Penpot
 
-Владеет native tokens/components/variants, linked instances, actual-route review
-boards, comments и exports. `R0.PENPOT` — единственный writer. Penpot следует за
-завершёнными family waves, но не блокирует Astro normalization.
+`R0.PENPOT` is the sole writer. Penpot follows completed and browser-accepted
+Astro families; it does not block Astro normalization.
 
-## 5. Единый component root — основная гарантия отсутствия drift
-
-Визуально и поведенчески одинаковая сущность обязана иметь:
-
-- один canonical Astro component root либо один variant family root;
-- одного владельца anatomy и family CSS;
-- один canonical SVG на semantic action;
-- полный actual consumer inventory;
-- один native Penpot master/variant family;
-- только linked Penpot instances на route boards.
-
-Различия допустимы как именованный `variant`, `state` или `composition`. Локальная
-копия разметки/стилей, которая выглядит как family, но не наследует её root,
-является `DRIFT`, даже если визуально сейчас совпадает.
-
-Каждый root отдаёт диагностические поля:
+## 6. Actual routes
 
 ```text
-data-ds-family
-data-ds-version
-data-ds-variant
-data-ds-state  # когда применимо
+/segodnya/                  current build date
+/zavtra/                    next date
+/date-YYYY-MM-DD/           arbitrary date
+/vyhodnye/                  active/nearest weekend
+/vyhodnye/YYYY-MM-DD/       selected available weekend range
+/podborki/besplatnye-sobytiya/
 ```
 
-Source checks доказывают импорты одного root; V0 через my-browser-bridge
-сравнивает нормализованный DOM anatomy и invariant computed-style signature
-между actual consumers.
+Date routes use `DateListingSurface`; weekend routes use distinct
+`WeekendListingSurface`. Intentional compositions remain separate.
 
-## 6. Foundations и цветовая нормализация
-
-Нормализация включает:
-
-- canonical font families/weights;
-- H1/H2/H3/H4, body, label, metadata roles;
-- spacing/sizing, containers и breakpoints;
-- radii, borders, elevation, layering;
-- semantic color tokens;
-- ровно четыре semantic icon-size roles;
-- canonical visible SVGs, brand и medallions.
-
-Цветовой contract:
-
-- каждый видимый UI-цвет происходит из token/semantic alias;
-- raw literals разрешены только в canonical token registry, image data и
-  документированном техническом исключении;
-- exact duplicate colors объединяются;
-- near-duplicates машинно кластеризуются и объединяются при одинаковом semantic
-  role;
-- сохранённая близкая пара должна иметь различимую semantic/contrast причину;
-- новая палитра выбирается после закрытия drift, чтобы изменение нескольких
-  central token values меняло весь сайт предсказуемо.
-
-Icon contract:
+Owner entry point:
 
 ```text
-ровно 4 semantic size roles
-→ concrete width/height только в central tokens/utilities
-→ consumer выбирает роль
-→ local icon dimensions запрещены
-→ изменение одного role value обновляет все его consumers
+/<buildId>/__preview/
 ```
 
-## 7. MediaFrame и framing
+New owner-facing `/lab/launch/*` routes are forbidden.
 
-Framing обязан быть закрыт на shared owner, а не исправляться page-local CSS.
-Contract включает:
+## 7. Core normalization invariants
+
+### Component identity
+
+Same visual/behaviour entity requires:
+
+- one canonical Astro root or named variant family;
+- one anatomy/CSS owner;
+- one canonical SVG per semantic action;
+- complete actual consumer inventory;
+- stable `data-ds-family/version/variant/state` diagnostics;
+- one native Penpot master/variant family and linked instances.
+
+Local lookalike markup/style is `DRIFT`, even if pixels currently match.
+
+### Foundations, colors and icons
+
+- canonical typography H1–H4/body/label/metadata;
+- spacing/sizing/containers/breakpoints;
+- radii/borders/elevation/layering;
+- all visible colors via tokens/semantic aliases;
+- exact and same-role near-duplicates merged;
+- exactly four central icon-size roles;
+- no component-local rendered icon dimensions;
+- canonical visible SVG/brand/medallion identities;
+- one active style owner per canonical component.
+
+Palette redesign starts only after drift closure.
+
+### MediaFrame
+
+One shared protocol owns:
 
 ```text
 media role
-frame ratio
-contain / cover
+ratio
+contain/cover
 crop permission
 focal/object position
-clip and overflow
+clip/overflow
 fallback/loading
-responsive resource behaviour
+responsive resources
 ```
 
-Обязательные donors:
+Mandatory donors:
 
 ```text
 events-bot-new/docs/features/static-site-pages/image-framing.md
@@ -210,166 +217,99 @@ site/src/lib/relatedCardLayout.mjs
 site/src/components/OptimizedEventCardGrid.astro
 ```
 
-Существующий framing/row optimizer расширяется и нормализуется; параллельный
-алгоритм не создаётся без доказанной невозможности reuse. V0 измеряет реальные
-bounds, `object-fit`, aspect ratio, overflow и clip в браузере.
+### AdaptiveEventCardGrid
 
-## 8. AdaptiveEventCardGrid
+One family covers applicable EventCard multi-card consumers:
 
-Сейчас часть related/discovery rows использует optimizer, а ряд
-free/search/unusual/gastronomy/preview surfaces остаётся на простых локальных
-`.cards-grid`. Это входит в normalization scope.
+- available-width ownership;
+- named responsive/density strategies;
+- no phantom columns;
+- named final remainder;
+- row width filled minus declared gaps;
+- equal media/card heights within row;
+- source/focus order preserved;
+- no compact/mobile overflow;
+- framing remains MediaFrame-owned.
 
-Целевой общий family contract:
+## 8. Parallel roles
 
-- row/grid container занимает доступную ширину `100%`;
-- column count и card width зависят от available width и density variant;
-- cards в строке совместно заполняют ширину без phantom column;
-- последняя неполная строка имеет явный one-/two-/three-up variant и тоже
-  использует доступную ширину;
-- media и total card heights согласованы внутри строки;
-- framing policy нельзя переопределять локальным grid CSS;
-- mobile/compact desktop transitions не дают overflow;
-- browser gate измеряет row occupancy, gaps, bounds, ratios и equal heights.
+- `N0`: candidate review, conditional generation authority, integration,
+  preview, status, release;
+- `F0`: foundations, colors, typography, spacing, four icon roles, SVG/brand,
+  duplicate style-owner closure;
+- `M0`: component identity, MediaFrame, EventCard/ListingEventCard,
+  AdaptiveEventCardGrid;
+- `A0`: shell, listings, actual routes, consumer migration;
+- `V0`: browser DOM/computed audit; later Golden Penpot audit;
+- `K0`: product/process consultant and direct canonical-doc repair;
+- `R0`: persistent native mechanical executor and sole Penpot writer.
 
-Все multi-card consumers либо мигрируются на один `AdaptiveEventCardGrid` root,
-либо получают документированную композиционную причину оставаться variant той
-же family.
+No mandatory `MAT → QA → INTEGRATE → PUBLISH`, new orchestrator or micro-wave
+owner scheduler exists.
 
-## 9. Browser/DOM drift loop
+## 9. Autonomous recovery
 
-V0 — отдельное read-only ChatGPT window с my-browser-bridge. После каждого
-integrated preview оно проверяет actual DOM и computed styles на реальных
-routes, включая `/`, date/weekend, free collection, popular, exhibitions,
-festivals и event detail.
+Recoverable metadata, combined `branch@sha`, stale same-programme checkpoint,
+missing heading/packet, ENOSPC, aged fixture and local tooling defect are not
+terminal blockers.
 
-Минимальные viewport classes: desktop wide, desktop compact, mobile 390–430.
+```text
+infer from issue/refs/repository/ownership
+→ verify reversible authorized scope
+→ choose safest deterministic assumption
+→ continue work
+→ record assumption once
+```
 
-V0 проверяет:
+`[BLOCKER]` is valid only when independent work is exhausted and a real product,
+external, writer-conflict or irreversible-risk action is required.
 
-- family/variant/version/state markers;
-- одинаковую anatomy одинаковых family variants;
-- typography, spacing, colours, radii, borders и icon sizes;
-- image framing, bounds, overflow и clip;
-- AdaptiveEventCardGrid occupancy/equal heights;
-- responsive composition и horizontal overflow;
-- page-local computed-style deviations.
+Correctable canonical drift is repaired before being reported to the owner.
 
-Вердикты:
+## 10. Browser and Golden
+
+V0 personally checks actual routes on desktop wide, desktop compact, mobile
+390–430 and required breakpoint seams.
+
+Checks include family markers, normalized DOM anatomy, computed type/spacing/
+colors/radii/borders/icon sizes, framing, adaptive row occupancy/equal heights,
+responsive transitions and horizontal overflow.
 
 ```text
 PASS
-DRIFT        → сразу F0/M0/A0 на исправление
-PRODUCT_GAP  → backlog после normalization gate
-BLOCKER
+DRIFT        → owning F0/M0/A0 immediately
+PRODUCT_GAP  → backlog after ASTRO_NORMALIZATION_PASS
+BLOCKER      → strict exhausted-work rule only
 ```
 
-Source declaration, тест или commit без фактического browser evidence не
-закрывает drift.
+Source declaration or tests without browser evidence do not close drift.
 
-## 10. Internal Golden A=S=P
+Golden uses a frozen Europe/Kaliningrad Friday clock across Friday/Saturday/
+Sunday/weekend/free actual routes. It is internal A=S=P evidence, not owner
+review prerequisite.
 
-Один frozen `Europe/Kaliningrad` Friday clock использует настоящие routes:
+## 11. ASTRO_NORMALIZATION_PASS
 
-```text
-/segodnya/                              Friday
-/zavtra/                                Saturday
-/date-YYYY-MM-DD/                       Sunday
-/vyhodnye/                              те же Saturday + Sunday occurrences
-/podborki/besplatnye-sobytiya/          free subset
-```
+Gate requires:
 
-Target density: `5 / 6 / 5`, minimum `4 / 5 / 4`. Нужны разные media, title и
-address lengths, exact/absent time, free/paid/sold-out, calendar,
-cancelled/rescheduled, continuing exhibition и medallion cases. Synthetic
-record разрешён только для отсутствующего stress cell и явно маркируется.
+- reproducible fresh-data generation;
+- tokenized foundations/colors;
+- four icon roles across all consumers;
+- single roots for same components;
+- MediaFrame/framing browser PASS;
+- AdaptiveEventCardGrid across applicable consumers;
+- actual routes migrated;
+- no critical V0 browser DRIFT.
 
-Владелец может посмотреть Golden позже, но не обязан принимать его до
-normalization.
+Only after the gate may palette exploration, redesign and product UI-gap work
+begin. Release of a changed family also requires thin S and Penpot binding.
 
-## 11. Параллельные роли
+## 12. Meaningful checkpoint
 
-- `N0`: generation, technical baseline, integration, status, preview, release;
-- `F0`: foundations, typography, spacing, colors, four icon roles, SVG/brand;
-- `M0`: component roots, MediaFrame, EventCard/ListingEventCard,
-  AdaptiveEventCardGrid;
-- `A0`: shell, listings, actual routes, consumer migration;
-- `V0`: my-browser-bridge DOM/computed audit; позже Golden Astro↔Penpot;
-- `K0`: консультант и prompt author;
-- `R0`: bounded Codex worktrees и sole Penpot writer.
+Meaningful checkpoint is an actual generation verdict, reviewed source
+convergence, reachable normalized preview, V0 PASS/DRIFT, native Penpot family or
+checked release candidate.
 
-Подробные границы и first results: [`PARALLEL-WINDOWS.md`](PARALLEL-WINDOWS.md).
-Нет обязательной цепочки `MAT → QA → INTEGRATE → PUBLISH` и нет нового
-оркестратора. N0 интегрирует meaningful family waves; V0 проверяет уже
-собранный продукт.
-
-## 12. Owner-visible checkpoints
-
-`T+0` — момент, когда N0 начал fresh-data generation и одновременно запущены
-минимум F0/M0/A0/V0. Отдельное ожидание формального «accept» от каждого окна не
-нужно.
-
-| Latest | Что доступно владельцу |
-|---:|---|
-| T+1h | technical fresh-data generation verdict; baseline identity сохранена |
-| T+3h | compact census: roots, colors, typography, icons, framing, card rows |
-| T+6h | первый уже нормализованный real-data `/<buildId>/__preview/` + V0 DOM verdict |
-| T+10h | MediaFrame, EventCard roots и AdaptiveEventCardGrid на real data |
-| T+14h | free + today/tomorrow/date/weekend actual routes normalized |
-| T+18h | Penpot foundations/icons/media/cards/free board + first Golden verdict |
-| T+24h | не менее половины launch route families normalized; fresh preview |
-| T+32h | `ASTRO_NORMALIZATION_PASS` либо один bounded deviation |
-| T+36h | internal Golden coverage launch-critical families |
-| T+40h | UI-gap/change work открыто; fresh production-form candidate |
-| T+44h | Penpot launch-scope masters и linked representative route boards |
-| T+48h | final real-data candidate, normalization report, critical A=S=P |
-
-Checkpoint — это build/report/browser/Penpot/release result, а не commit, test,
-empty page или hidden tree.
-
-## 13. Normalization gate перед изменением интерфейса
-
-`ASTRO_NORMALIZATION_PASS` требует:
-
-- fresh-data generation воспроизводится;
-- foundations и цвета tokenized;
-- four icon roles применены всеми consumers;
-- одинаковые компоненты имеют единые roots;
-- MediaFrame/framing закрыт;
-- AdaptiveEventCardGrid внедрён во все применимые consumers;
-- actual routes мигрированы;
-- V0 browser audit не содержит critical DRIFT.
-
-После этого можно начинать redesign/palette exploration и product UI gaps.
-Изменение затронутой family не готово к release до обновления thin S и Penpot
-binding.
-
-## 14. Required normalization report
-
-Итоговый compact report содержит:
-
-- font families/weights и H1–H4/body/label/metadata;
-- spacing/sizing/containers/breakpoints;
-- semantic colors и merged duplicates;
-- radii/borders/elevation/layering;
-- four icon roles, values и consumer map;
-- canonical SVG identity map;
-- MediaFrame contract и repaired framing;
-- component roots, variants/states и actual consumers;
-- AdaptiveEventCardGrid variants и migrated surfaces;
-- removed page-local forks/overrides;
-- remaining bounded deviations;
-- fresh real-data preview и V0 browser verdict;
-- Penpot linked-instance и A=S=P status.
-
-## 15. Не делать
-
-- новый SoT/repository/package до запуска;
-- новую owner-facing лабораторию;
-- ещё один global decoder/audit вместо bounded census;
-- новую lifecycle/governance generation;
-- full old-Penpot reconstruction;
-- bespoke Penpot runner на каждую family;
-- owner-operated message forwarding;
-- смешивание `PRODUCT_GAP` с normalization `DRIFT`;
-- объявление PASS только по source code или тестам.
+Checkpoint publication does not automatically end a role. Packet, dispatch,
+worktree, commit without role review, test without output, 404 route and empty
+Penpot page are not owner-facing progress.
