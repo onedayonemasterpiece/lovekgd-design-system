@@ -1,6 +1,6 @@
 {
   "schema": "kenigevents.thin-s.a0-current-successor-consumer-batch.v1",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "contract_version": "1.10.0",
   "status": "A0_SOURCE_ACCEPTED_CURRENT_FREEZE_FINAL_F0_AND_M0_TAIL_PENDING_R0",
   "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
@@ -15,6 +15,7 @@
       5531606646
     ],
     "f0_final_review_comment": 5531682890,
+    "f0_delivery_comment": 5531902859,
     "m0_post_cutover_result_comment": 5531788718,
     "candidate_acceptance_owner": "N0",
     "runtime_and_kaggle_owner": "R0",
@@ -50,6 +51,8 @@
       "integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
       "current_ref": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
       "required_correction": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "delivery_constraint": "EXACT_COMMIT_ONLY_NO_WHOLE_BRANCH_MERGE",
+      "diverged_branch_merge_base": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
       "required_correction_paths": [
         "site/src/components/design-system/f0-route-theme-bindings.v1.json",
         "site/src/components/design-system/check-f0-route-theme-bindings.mjs"
@@ -300,6 +303,7 @@
       "id": "F0-CONTRACT-1_10-ROUTE-THEME-VOCABULARY",
       "owner": "F0",
       "head": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "integration_form": "exact commit only; do not merge work/ui-normalization-f0-wave-3-20260903 wholesale",
       "blocks": "final post-F0 candidate and preview promotion only",
       "a0_consumer_edit_required": false
     },
@@ -371,8 +375,14 @@
       "8b0c6709beca1f7b0bef81b27464f786df1d7806",
       "3ef253980bdfe0731158f5b8b4b47965fa153ce9"
     ],
+    "integration_forms": {
+      "F0": "exact ea4eda91 commit only",
+      "M0": "exact current post-cutover tail through 8b0c6709 without FR0 replay",
+      "A0": "exact regression-only commit 3ef25398"
+    },
     "must_not_include": [
       "whole work/ui-normalization-a0-wave-3-20260903 replay",
+      "whole work/ui-normalization-f0-wave-3-20260903 merge",
       "A0 edits to F0, M0 or FR0 canonical internals"
     ]
   },
