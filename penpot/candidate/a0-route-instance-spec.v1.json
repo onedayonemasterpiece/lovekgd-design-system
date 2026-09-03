@@ -1,0 +1,878 @@
+{
+  "schema_version": "kenigevents.a0-penpot-route-instance-spec.v1",
+  "contract_version": "1.9.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "thin_s_bindings": "catalog/normalization/a0-thin-s-bindings.v1.json",
+    "thin_s_commit": "a800f619b66cdf713e94f234382481bb8621dd22",
+    "source_checkpoint": "onedayonemasterpiece/events-bot-new@ec926580fa2cc003318006f4c1d671fc459ea26c",
+    "mechanical_batch_comment": 5527907602
+  },
+  "materialization_policy": {
+    "native_components_only": true,
+    "route_boards_use_linked_instances": true,
+    "detached_lookalikes_forbidden": true,
+    "master_names_are_stable_ids": true,
+    "apply_only_after_N0_acceptance_of_integrated_source": true,
+    "apply_only_after_V0_source_gates_are_green": true,
+    "actual_penpot_mutation_in_this_spec": false,
+    "update_action": "one bounded R0.PENPOT materialization transaction"
+  },
+  "pages": [
+    {
+      "id": "A0-P00",
+      "name": "A0 — Foundations / bindings",
+      "purpose": "Readable source SHA, thin-S binding, typography, spacing, icon-role and asset authority."
+    },
+    {
+      "id": "A0-P10",
+      "name": "A0 — Masters / consumer families",
+      "purpose": "Native reusable masters and variants for A0-owned consumer compositions."
+    },
+    {
+      "id": "A0-P20",
+      "name": "A0 — Routes / listings and discovery",
+      "purpose": "Linked route instances for home, date listings, weekend, popular, search and collections."
+    },
+    {
+      "id": "A0-P30",
+      "name": "A0 — Routes / personal and focus",
+      "purpose": "Linked route instances for favorites, for-me, focus-group and artifacts."
+    },
+    {
+      "id": "A0-P40",
+      "name": "A0 — Routes / detail and directories",
+      "purpose": "Linked event-detail, exhibitions, festivals, clubs and information-page instances."
+    },
+    {
+      "id": "A0-P90",
+      "name": "A0 — Evidence / V0 links",
+      "purpose": "References to current Golden/fresh-real actual, baseline and diff evidence; no pasted detached rebuilds."
+    }
+  ],
+  "foundation_bindings": {
+    "font_authority": {
+      "source": "F0 f0-typography-authority.v1.json",
+      "rule": "Every text layer binds an accepted role; no board-local font family."
+    },
+    "icon_roles": [
+      {
+        "role": "inline",
+        "size_px": 16
+      },
+      {
+        "role": "control",
+        "size_px": 20
+      },
+      {
+        "role": "action",
+        "size_px": 24
+      },
+      {
+        "role": "feature",
+        "size_px": 32
+      }
+    ],
+    "icon_rule": "No master or route instance introduces a fifth square or overrides role dimensions.",
+    "media_rule": "MediaFrame metadata travels with the instance: role, kind, ratio, fit, crop permission, focal position, clip, radius, loading and fallback.",
+    "grid_rule": "AdaptiveEventCardGrid boards show named remainder variants complete or stretch-r-of-n, never phantom empty tracks."
+  },
+  "masters": [
+    {
+      "id": "A0-M01",
+      "name": "A0 / PopularListingSurface",
+      "binding_id": "a0.popular-listing-density",
+      "page": "A0-P10",
+      "variants": [
+        "desktop",
+        "mobile-large",
+        "mobile-adaptive"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "density-large",
+        "density-adaptive"
+      ],
+      "nested_linked_masters": [
+        "M0 / AdaptiveEventCardGrid",
+        "M0 / ListingEventCard",
+        "A0 / ListingMobileDensitySwitch"
+      ],
+      "required_properties": [
+        "selected density",
+        "persisted choice",
+        "visible representation",
+        "event anchor identity"
+      ]
+    },
+    {
+      "id": "A0-M02",
+      "name": "A0 / ListingMobileDensitySwitch",
+      "binding_id": "a0.popular-listing-density",
+      "page": "A0-P10",
+      "variants": [
+        "large-selected",
+        "adaptive-selected"
+      ],
+      "states": [
+        "rest",
+        "focus-visible",
+        "keyboard-change",
+        "pinch-change"
+      ],
+      "required_properties": [
+        "radio semantics",
+        "Крупно label",
+        "Компактно label",
+        "selection indicator"
+      ]
+    },
+    {
+      "id": "A0-M03",
+      "name": "A0 / PersonalFeedSlot",
+      "binding_id": "a0.personal-feed-slot",
+      "page": "A0-P10",
+      "variants": [
+        "listing",
+        "event-detail"
+      ],
+      "states": [
+        "dormant",
+        "pending",
+        "personal",
+        "popular-fallback",
+        "unavailable",
+        "empty",
+        "populated"
+      ],
+      "nested_linked_masters": [
+        "M0 / AdaptiveEventCardGrid"
+      ],
+      "required_properties": [
+        "context",
+        "status copy",
+        "visible count",
+        "fallback action"
+      ]
+    },
+    {
+      "id": "A0-M04",
+      "name": "A0 / HomeColdStartFeed",
+      "binding_id": "a0.home-cold-start-feed",
+      "page": "A0-P10",
+      "variants": [
+        "local-profile-rerank"
+      ],
+      "states": [
+        "static-fallback",
+        "local-rerank",
+        "empty",
+        "populated"
+      ],
+      "nested_linked_masters": [
+        "M0 / AdaptiveEventCardGrid"
+      ],
+      "required_properties": [
+        "profile signal count",
+        "status copy",
+        "rendered order"
+      ]
+    },
+    {
+      "id": "A0-M05",
+      "name": "A0 / FavoritesSurface",
+      "binding_id": "a0.favorites-surface",
+      "page": "A0-P10",
+      "variants": [
+        "future-saved-events"
+      ],
+      "states": [
+        "loading",
+        "auth-required",
+        "empty",
+        "populated",
+        "error",
+        "cloud-loading",
+        "cloud-ready",
+        "cloud-error"
+      ],
+      "nested_linked_masters": [
+        "M0 / AdaptiveEventCardGrid"
+      ],
+      "required_properties": [
+        "local/cloud state",
+        "saved source",
+        "rank",
+        "status copy"
+      ]
+    },
+    {
+      "id": "A0-M06",
+      "name": "A0 / CollectionCatalog",
+      "binding_id": "a0.collection-catalog",
+      "page": "A0-P10",
+      "variants": [
+        "publication-status-catalog"
+      ],
+      "states": [
+        "available",
+        "empty",
+        "deferred-items",
+        "all-public"
+      ],
+      "nested_linked_masters": [
+        "A0 / CollectionCatalogItem"
+      ],
+      "required_properties": [
+        "title",
+        "status",
+        "href",
+        "description"
+      ]
+    },
+    {
+      "id": "A0-M07",
+      "name": "A0 / InterestProfile",
+      "binding_id": "a0.interest-profile",
+      "page": "A0-P10",
+      "variants": [
+        "local-explicit-signals"
+      ],
+      "states": [
+        "consent",
+        "workspace",
+        "digest-ineligible",
+        "digest-eligible",
+        "digest-enabled"
+      ],
+      "nested_linked_masters": [
+        "F0 / SemanticIcon lock action"
+      ],
+      "required_properties": [
+        "tri-state stance",
+        "interest index",
+        "evidence sufficiency",
+        "digest eligibility"
+      ]
+    },
+    {
+      "id": "A0-M08",
+      "name": "A0 / FocusGroupFlow",
+      "binding_id": "a0.focus-group-flow",
+      "page": "A0-P10",
+      "variants": [
+        "programme",
+        "invite",
+        "feedback",
+        "diagnostic",
+        "thank-you",
+        "focus-egg"
+      ],
+      "states": [
+        "available",
+        "consent",
+        "checking",
+        "signed-in",
+        "success",
+        "error",
+        "eligible",
+        "found"
+      ],
+      "nested_linked_masters": [
+        "F0 / Button",
+        "F0 / SemanticIcon",
+        "A0 / FocusEggArtifact"
+      ],
+      "required_properties": [
+        "flow step",
+        "auth state",
+        "feedback type",
+        "local collection state"
+      ]
+    },
+    {
+      "id": "A0-M09",
+      "name": "A0 / ArtifactCollection",
+      "binding_id": "a0.artifact-collection",
+      "page": "A0-P10",
+      "variants": [
+        "local-browser-collection"
+      ],
+      "states": [
+        "empty",
+        "found",
+        "dialog-open"
+      ],
+      "nested_linked_masters": [
+        "F0 / SemanticIcon close control"
+      ],
+      "required_properties": [
+        "found count",
+        "slot state",
+        "dialog state",
+        "device-only note"
+      ]
+    },
+    {
+      "id": "A0-M10",
+      "name": "A0 / InterestClubs",
+      "binding_id": "a0.interest-clubs",
+      "page": "A0-P10",
+      "variants": [
+        "directory",
+        "catalog-card",
+        "detail"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "cover-ready",
+        "fallback-art",
+        "future-meetings",
+        "history-only"
+      ],
+      "nested_linked_masters": [
+        "A0 / InterestClubCard",
+        "F0 / SemanticIcon catalog-grid inline",
+        "F0 / SemanticIcon arrow-right inline"
+      ],
+      "required_properties": [
+        "club count",
+        "cover state",
+        "activity period",
+        "future meeting count"
+      ]
+    },
+    {
+      "id": "A0-M11",
+      "name": "A0 / SearchResultsComposition",
+      "binding_id": "a0.search-results",
+      "page": "A0-P10",
+      "variants": [
+        "ranked-phase-feed"
+      ],
+      "states": [
+        "auth-required",
+        "idle",
+        "loading",
+        "populated",
+        "empty",
+        "recovery",
+        "error"
+      ],
+      "nested_linked_masters": [
+        "M0 / EventCard"
+      ],
+      "required_properties": [
+        "query",
+        "phase heading",
+        "result count",
+        "vector preview state",
+        "endcap state"
+      ]
+    },
+    {
+      "id": "A0-M12",
+      "name": "A0 / EventDetailRoute",
+      "binding_id": "a0.event-detail",
+      "page": "A0-P10",
+      "variants": [
+        "desktop-editorial",
+        "desktop-split",
+        "mobile-accepted-v8"
+      ],
+      "states": [
+        "active",
+        "archived",
+        "photo",
+        "document",
+        "fallback",
+        "gallery-open"
+      ],
+      "nested_linked_masters": [
+        "M0 / MediaFrame",
+        "M0 / EventMediaRail",
+        "M0 / AdaptiveEventCardGrid",
+        "M0 / EventCard"
+      ],
+      "required_properties": [
+        "media classification",
+        "crop policy",
+        "hero rail variant",
+        "action state",
+        "related-card remainder"
+      ]
+    },
+    {
+      "id": "A0-M13",
+      "name": "A0 / ExhibitionsPersonalSurface",
+      "binding_id": "a0.exhibitions",
+      "page": "A0-P10",
+      "variants": [
+        "ranked-personal-catalog"
+      ],
+      "states": [
+        "personal",
+        "all",
+        "filtered",
+        "empty",
+        "populated",
+        "gallery-open"
+      ],
+      "nested_linked_masters": [
+        "A0 / ExhibitionPrototypeRow"
+      ],
+      "required_properties": [
+        "mode",
+        "filter",
+        "lifecycle",
+        "gallery state"
+      ]
+    },
+    {
+      "id": "A0-M14",
+      "name": "A0 / FestivalsTimelineRoute",
+      "binding_id": "a0.festivals",
+      "page": "A0-P10",
+      "variants": [
+        "annual-timeline"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "liked"
+      ],
+      "nested_linked_masters": [
+        "F0 / SemanticIcon link control",
+        "F0 / SemanticIcon calendar control"
+      ],
+      "required_properties": [
+        "month",
+        "row packing",
+        "program status",
+        "liked state"
+      ]
+    }
+  ],
+  "route_boards": [
+    {
+      "id": "A0-R01",
+      "archetype": "home",
+      "route": "/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "A0-M04"
+      ],
+      "states": [
+        "static-fallback",
+        "local-rerank"
+      ]
+    },
+    {
+      "id": "A0-R02",
+      "archetype": "today-listing",
+      "route": "/segodnya/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "tablet-768x1024",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "M0 / listing families"
+      ],
+      "states": [
+        "populated",
+        "empty"
+      ]
+    },
+    {
+      "id": "A0-R03",
+      "archetype": "tomorrow-listing",
+      "route": "/zavtra/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "M0 / listing families"
+      ],
+      "states": [
+        "populated",
+        "empty"
+      ]
+    },
+    {
+      "id": "A0-R04",
+      "archetype": "weekend-listing",
+      "route": "/vyhodnye/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "M0 / WeekendListingSurface"
+      ],
+      "states": [
+        "populated",
+        "empty"
+      ]
+    },
+    {
+      "id": "A0-R05",
+      "archetype": "popular-listing",
+      "route": "/populyarnoe/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M01",
+        "A0-M02"
+      ],
+      "states": [
+        "density-large",
+        "density-adaptive"
+      ]
+    },
+    {
+      "id": "A0-R06",
+      "archetype": "collections",
+      "route": "/podborki/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M06"
+      ],
+      "states": [
+        "available",
+        "deferred-items"
+      ]
+    },
+    {
+      "id": "A0-R07",
+      "archetype": "festivals",
+      "route": "/festivali/",
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "A0-M14"
+      ],
+      "states": [
+        "populated",
+        "liked"
+      ]
+    },
+    {
+      "id": "A0-R08",
+      "archetype": "exhibitions",
+      "route": "/vystavki/",
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M13"
+      ],
+      "states": [
+        "personal",
+        "all",
+        "gallery-open"
+      ]
+    },
+    {
+      "id": "A0-R09",
+      "archetype": "favorites",
+      "route": "/izbrannoe/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M05"
+      ],
+      "states": [
+        "loading",
+        "auth-required",
+        "empty",
+        "populated",
+        "error"
+      ]
+    },
+    {
+      "id": "A0-R10",
+      "archetype": "search",
+      "route": "/poisk/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M11"
+      ],
+      "states": [
+        "auth-required",
+        "loading",
+        "populated",
+        "empty",
+        "recovery",
+        "error"
+      ]
+    },
+    {
+      "id": "A0-R11",
+      "archetype": "for-me",
+      "route": "/dlya-menya/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M07",
+        "A0-M03"
+      ],
+      "states": [
+        "consent",
+        "workspace",
+        "digest-eligible"
+      ]
+    },
+    {
+      "id": "A0-R12",
+      "archetype": "focus-group",
+      "route": "/fokus-gruppa/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M08"
+      ],
+      "states": [
+        "programme",
+        "invite",
+        "feedback",
+        "thank-you"
+      ]
+    },
+    {
+      "id": "A0-R13",
+      "archetype": "artifacts",
+      "route": "/artefakty/",
+      "page": "A0-P30",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M09"
+      ],
+      "states": [
+        "empty",
+        "found",
+        "dialog-open"
+      ]
+    },
+    {
+      "id": "A0-R14",
+      "archetype": "event-detail",
+      "route": "/sobytiya/*/",
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-390x844",
+        "tablet-768x1024",
+        "desktop-1728x900"
+      ],
+      "linked_masters": [
+        "A0-M12"
+      ],
+      "states": [
+        "wide-image",
+        "narrow-image",
+        "no-image",
+        "gallery-open"
+      ]
+    },
+    {
+      "id": "A0-R15",
+      "archetype": "interest-clubs",
+      "route": "/kluby-po-interesam/",
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0-M10"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "cover-ready",
+        "fallback-art"
+      ]
+    },
+    {
+      "id": "A0-R16",
+      "archetype": "unusual-events",
+      "route": "/neobychnoe/",
+      "page": "A0-P20",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "M0 / listing families"
+      ],
+      "states": [
+        "populated",
+        "empty"
+      ]
+    },
+    {
+      "id": "A0-R17",
+      "archetype": "information-pages",
+      "route": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "linked_masters": [
+        "A0 / InformationPages"
+      ],
+      "states": [
+        "available",
+        "empty"
+      ]
+    }
+  ],
+  "asset_bindings": [
+    {
+      "id": "asset.semantic.catalog-grid",
+      "source": "SemanticIcon/catalog-grid",
+      "role": "inline",
+      "consumers": [
+        "A0-M10"
+      ]
+    },
+    {
+      "id": "asset.semantic.arrow-right",
+      "source": "SemanticIcon/arrow-right",
+      "role": "inline",
+      "consumers": [
+        "A0-M06",
+        "A0-M10"
+      ]
+    },
+    {
+      "id": "asset.semantic.close",
+      "source": "SemanticIcon/close",
+      "role": "control",
+      "consumers": [
+        "A0-M08",
+        "A0-M09"
+      ]
+    },
+    {
+      "id": "asset.semantic.lock",
+      "source": "SemanticIcon/lock",
+      "role": "action",
+      "consumers": [
+        "A0-M07"
+      ]
+    },
+    {
+      "id": "asset.semantic.link",
+      "source": "SemanticIcon/link",
+      "role": "control",
+      "consumers": [
+        "A0-M14"
+      ]
+    },
+    {
+      "id": "asset.semantic.calendar",
+      "source": "Icon/calendar",
+      "role": "control",
+      "consumers": [
+        "A0-M14"
+      ]
+    },
+    {
+      "id": "asset.amber-cosmonaut",
+      "source": "/assets/gamification/amber-cosmonaut-{1x,2x,3x}.webp",
+      "role": "artifact-media",
+      "consumers": [
+        "A0-M09"
+      ]
+    },
+    {
+      "id": "asset.club-covers",
+      "source": "site/src/data/interest-club-covers",
+      "role": "directory-cover",
+      "consumers": [
+        "A0-M10"
+      ]
+    },
+    {
+      "id": "asset.festival-categories",
+      "source": "/assets/icons/festival-categories/*.svg",
+      "role": "specialized-category",
+      "consumers": [
+        "A0-M14"
+      ],
+      "rule": "Do not remap specialized categories to generic semantic actions."
+    }
+  ],
+  "evidence_link_contract": {
+    "required_kinds": [
+      "actual",
+      "approved-baseline",
+      "diff"
+    ],
+    "required_metadata": [
+      "test_id",
+      "route",
+      "viewport_id",
+      "repo_sha",
+      "build_id",
+      "snapshot_id",
+      "run_id",
+      "captured_at",
+      "sha256"
+    ],
+    "board_annotation_fields": [
+      "binding_id",
+      "source_sha",
+      "build_id",
+      "snapshot_id",
+      "v0_case_id",
+      "verdict"
+    ],
+    "unverified_label": "PENDING V0 — do not treat as parity"
+  }
+}
