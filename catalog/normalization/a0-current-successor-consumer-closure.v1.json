@@ -1,0 +1,230 @@
+{
+  "schema": "kenigevents.thin-s.a0-current-successor-consumer-closure.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SPEC_BOUND_TO_UNINTEGRATED_SOURCE_TRANSACTION",
+  "extends": [
+    "catalog/normalization/a0-thin-s-bindings.v1.json",
+    "catalog/normalization/a0-focus-route-bindings.v1.json"
+  ],
+  "authority": {
+    "executable_repository": "onedayonemasterpiece/events-bot-new",
+    "source_contract": "site/src/data/a0-current-successor-consumer-closure.v1.json@6c6d2760931ffb63f8e319202eb3885914d9bc40",
+    "executable_transform": "site/scripts/apply-a0-current-successor-consumer-closure.mjs@5e66444b20a0c4b90004a895345a5c8389ec8530",
+    "regression_contract": "site/tests/a0-current-successor-consumer-closure.test.mjs@93acd4b8853d99dbd03b492c63d0cb2282a5fcc9",
+    "ready_for_r0_comment": 5527907602,
+    "candidate_acceptance_owner": "N0",
+    "runtime_and_kaggle_owner": "R0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "source_transaction": {
+    "current_successor": {
+      "branch": "agent/static-site-single-kaggle-contract",
+      "sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
+      "classification": "VALID_PUBLIC_PRE_F0_BASELINE_NOT_THIN_S_EQUALITY"
+    },
+    "f0_semantic_floor": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "m0_head_at_census": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133",
+    "fr0_cutover_at_census": null,
+    "a0_direct_patches": [
+      "29538035d94a15adac9fd8ee7463ece87c8d1033",
+      "2aa70f2ff8819d83e58da1473a35435d22783578"
+    ],
+    "whole_a0_branch_merge_allowed": false,
+    "resolve_live_role_heads_before_materialization": true
+  },
+  "evidence_boundary": {
+    "current_real": {
+      "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
+      "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
+      "r0_comment": 5529740140,
+      "classification": "PRE_F0_RUNTIME_BASELINE",
+      "v0_pass": false
+    },
+    "golden": {
+      "url": "https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/",
+      "source_sha": "84504f30eebc334deba46e94365601c3d572c5c0",
+      "v0_comment": 5527892153,
+      "verdict": "DRIFT"
+    },
+    "post_closure_real_preview": null,
+    "thin_s_equality_claimed": false,
+    "penpot_materialization_claimed": false
+  },
+  "bindings": [
+    {
+      "id": "a0.closure.interest-club-card-continuity",
+      "family": "InterestClubCard",
+      "version": 1,
+      "source_path": "site/src/components/InterestClubCard.astro",
+      "routes": [
+        "/kluby-po-interesam/"
+      ],
+      "states": [
+        "cover-ready",
+        "fallback-art"
+      ],
+      "foundation_source": "site/src/components/design-system/interest-club-card-continuity-foundations.css",
+      "required_tokens": [
+        "--ke-color-club-card-fallback-orbit-ring-inner",
+        "--ke-color-club-card-fallback-orbit-ring-outer",
+        "--ke-color-club-card-fallback-orbit-line",
+        "--ke-color-club-card-fact-divider"
+      ],
+      "accepted_patch": "29538035d94a15adac9fd8ee7463ece87c8d1033",
+      "acceptance_comment": 5529863067,
+      "rollback_unit": "A0-RB-CLUB-CARD-CONTINUITY",
+      "materialization_status": "ACCEPTED_PATCH_UNINTEGRATED"
+    },
+    {
+      "id": "a0.closure.interest-club-detail-theme",
+      "family": "InterestClubDetailRouteComposition",
+      "version": 1,
+      "source_path": "site/src/pages/kluby-po-interesam/[slug]/index.astro",
+      "routes": [
+        "/kluby-po-interesam/*/"
+      ],
+      "variant": "verified-club",
+      "states": [
+        "future-meetings",
+        "history-only"
+      ],
+      "foundation_source": "site/src/components/design-system/route-theme-foundations.css",
+      "required_token_prefixes": [
+        "--ke-club-detail-",
+        "--ke-color-club-detail-"
+      ],
+      "required_icon": "SemanticIcon/arrow-left@inline",
+      "accepted_patch": "2aa70f2ff8819d83e58da1473a35435d22783578",
+      "acceptance_comment": 5529948310,
+      "rollback_unit": "A0-RB-CLUB-DETAIL-THEME",
+      "materialization_status": "ACCEPTED_PATCH_UNINTEGRATED"
+    },
+    {
+      "id": "a0.closure.festivals-timeline-theme",
+      "family": "FestivalsTimelineRouteComposition",
+      "version": 1,
+      "source_path": "site/src/pages/festivali/index.astro",
+      "routes": [
+        "/festivali/"
+      ],
+      "variant": "annual-timeline",
+      "states": [
+        "populated",
+        "empty"
+      ],
+      "foundation_source": "site/src/components/design-system/route-theme-foundations.css",
+      "required_token_prefixes": [
+        "--ke-festival-",
+        "--ke-color-festival-"
+      ],
+      "required_action_icons": [
+        "SemanticIcon/heart@control",
+        "SemanticIcon/link@control",
+        "SemanticIcon/calendar@control"
+      ],
+      "preserved_editorial_assets": "site/public/assets/icons/festival-categories/**",
+      "target_minimum": "--ke-festival-like-target-min >= 44px",
+      "rollback_unit": "A0-RB-FESTIVAL-THEME",
+      "materialization_status": "EXECUTABLE_TRANSFORM_PENDING"
+    },
+    {
+      "id": "a0.closure.exhibitions-personal-theme",
+      "family": "ExhibitionsPersonalSurface",
+      "version": 1,
+      "source_path": "site/src/components/ExhibitionsPersonalSurface.astro",
+      "routes": [
+        "/vystavki/"
+      ],
+      "variant": "ranked-personal-catalog",
+      "states": [
+        "personal all-topics populated",
+        "personal all-topics empty"
+      ],
+      "foundation_source": "site/src/components/design-system/route-theme-foundations.css",
+      "required_token_prefixes": [
+        "--ke-exhibitions-",
+        "--ke-color-exhibitions-"
+      ],
+      "forbidden_local_registry": "--ex-*",
+      "preserved_interactions": [
+        "personal/all radiogroup",
+        "category filters",
+        "new/priority/tail groups",
+        "keyboard navigation",
+        "gallery",
+        "loading/error",
+        "feedback/undo"
+      ],
+      "rollback_unit": "A0-RB-EXHIBITIONS-THEME",
+      "materialization_status": "EXECUTABLE_TRANSFORM_PENDING"
+    },
+    {
+      "id": "a0.closure.focus-egg-collection-route",
+      "family": "FocusEggCollectionRouteComposition",
+      "version": 1,
+      "source_path": "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+      "routes": [
+        "/fokus-gruppa/kollektsiya/"
+      ],
+      "variant": "collection-prototype",
+      "states": [
+        "found-N-of-M"
+      ],
+      "canonical_children": [
+        "FocusEggCollectionCard",
+        "FocusEggSavedListDemo",
+        "FocusLabBadge"
+      ],
+      "rollback_unit": "A0-RB-FOCUS-COLLECTION-IDENTITY",
+      "materialization_status": "EXECUTABLE_TRANSFORM_PENDING"
+    },
+    {
+      "id": "a0.closure.closed-focus-hub-route",
+      "family": "ClosedFocusHubRouteComposition",
+      "version": 1,
+      "source_path": "site/src/pages/zakrytaya-afisha/index.astro",
+      "routes": [
+        "/zakrytaya-afisha/"
+      ],
+      "variant": "participant-hub",
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "canonical_children": [
+        "StaticSiteAuthRuntime",
+        "PersonalizationRuntime",
+        "FocusGroupFeedback",
+        "FocusGroupInviteShare",
+        "FocusGroupThankYou"
+      ],
+      "semantic_boundary": "local participation and Supabase account state remain independent",
+      "rollback_unit": "A0-RB-CLOSED-FOCUS-HUB-IDENTITY",
+      "materialization_status": "EXECUTABLE_TRANSFORM_PENDING"
+    }
+  ],
+  "strict_gates": [
+    "node site/scripts/apply-a0-current-successor-consumer-closure.mjs --check",
+    "node --test site/tests/a0-current-successor-consumer-closure.test.mjs site/tests/a0-current-successor-contract.test.mjs",
+    "F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-route-theme-bindings.mjs",
+    "F0_REQUIRE_CLUB_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs"
+  ],
+  "pm0_item_37": {
+    "denominator": 19,
+    "identity_target_after_source_materialization": "19/19",
+    "post_closure_full_kaggle_identity": "0/19",
+    "independent_v0_reviewed": "0/19"
+  },
+  "promotion_gate": {
+    "required": [
+      "N0-accepted integrated SHA containing current F0 and accepted M0/FR0 plus this A0 consumer closure",
+      "both strict F0 consumption gates PASS",
+      "canonical full fresh-real Kaggle URL with matching manifest and explicit ancestry",
+      "independent V0 route/viewport/computed-style verdict"
+    ],
+    "after_pass": "Promote these records from pending bindings to exact thin-S equality and unlock R0.PENPOT linked-instance materialization."
+  }
+}
