@@ -1,0 +1,179 @@
+{
+  "schema": "kenigevents.a0.coverage-rollback.v1",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "sources": {
+    "bindings": "bindings/launch-normalization/a0-route-family-bindings.v1.json",
+    "penpot_spec": "bindings/launch-normalization/a0-penpot-ready-spec.v1.json",
+    "v0_matrix": "bindings/launch-normalization/a0-v0-acceptance-matrix.v1.json",
+    "mechanical_batch": "onedayonemasterpiece/events-bot-new:site/src/data/a0-r0-mechanical-batch.v1.json"
+  },
+  "coverage": {
+    "denominator_policy": "Nine grouped route families from the current production-surface contract; browser, Penpot and strict A=S=P credit remain separate.",
+    "route_families": {
+      "source_converged": ["a0.collections", "a0.for-me", "a0.focus-group", "a0.artifacts", "a0.information-pages"],
+      "mechanical_pending": ["a0.festivals", "a0.exhibitions", "a0.event-detail"],
+      "product_decision_pending": ["a0.interest-clubs"]
+    },
+    "source_fraction": "5/9",
+    "browser_review_fraction": "0/9 until V0 publishes the exact preview verdict",
+    "penpot_linked_fraction": "0/9 until R0.PENPOT materializes and read-back verifies linked instances",
+    "strict_a_equals_s_equals_p_fraction": "0/9 until Golden V0 PASS"
+  },
+  "immutable_behavior_boundaries": [
+    {
+      "id": "BEHAVIOR-POPULAR-DENSITY",
+      "must_preserve": [
+        "visible Large/Compact radiogroup",
+        "ke_listing_density_v2 persistence",
+        "mobile-large and mobile-adaptive target representations",
+        "keyboard Arrow/Home/End selection",
+        "pinch switching",
+        "visible event anchor continuity",
+        "listing:density-change event"
+      ],
+      "rollback_rule": "Never roll back the restoration while retaining a test that treats the behavior as obsolete. A product decision is required to retire or replace it."
+    },
+    {
+      "id": "BEHAVIOR-DATE-WEEKEND",
+      "must_preserve": ["DateListingSurface and WeekendListingSurface remain distinct compositions"],
+      "rollback_rule": "Reject any rollback or conflict resolution that aliases Weekend into the date route solely to reduce root count."
+    },
+    {
+      "id": "BEHAVIOR-FOCUS-AUTH",
+      "must_preserve": ["join", "auth", "PWA", "feedback", "diagnostic", "QR and invitation hooks"],
+      "rollback_rule": "A visual normalization rollback may restore prior CSS/markup but may not remove or rename runtime hooks without a separately reviewed product/runtime change."
+    },
+    {
+      "id": "BEHAVIOR-MEDIA-SEMANTICS",
+      "must_preserve": ["document contain", "visual crop permission", "source ratio", "focal position", "loading priority", "fallback identity"],
+      "rollback_rule": "Rollback a consumer migration independently from the M0 MediaFrame/EventMediaRail root; never revert the canonical M0 root merely to restore one consumer."
+    }
+  ],
+  "rollback_units": [
+    {
+      "id": "RB-A0-COLLECTIONS",
+      "status": "SOURCE_CONVERGED",
+      "paths": [
+        "site/src/components/CollectionCatalog.astro",
+        "site/src/pages/podborki/index.astro",
+        "site/src/components/FreeCollectionSurface.astro",
+        "site/src/components/GastronomyCollectionSurface.astro"
+      ],
+      "atomicity": "catalog delegation and its regression contracts",
+      "rollback_trigger": "build/test failure or V0 regression attributable to catalog delegation",
+      "must_not_rollback_with": ["unrelated F0 tokens", "M0 AdaptiveEventCardGrid root"]
+    },
+    {
+      "id": "RB-A0-FOR-ME",
+      "status": "SOURCE_CONVERGED",
+      "paths": [
+        "site/src/components/InterestProfile.astro",
+        "site/src/components/PersonalFeedSlot.astro",
+        "site/src/pages/dlya-menya/index.astro"
+      ],
+      "atomicity": "foundation binding plus preserved local personalization behavior",
+      "rollback_trigger": "consent/profile/feed behavior regression",
+      "must_not_rollback_with": ["unrelated search/favorites routes", "M0 EventCard root"]
+    },
+    {
+      "id": "RB-A0-FOCUS",
+      "status": "SOURCE_CONVERGED",
+      "paths": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro",
+        "site/src/components/FocusGroupInviteIntake.astro",
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusGroupLabPanel.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro",
+        "site/src/components/FocusGroupThankYou.astro"
+      ],
+      "atomicity": "focus visual bindings and source diagnostics; runtime hooks preserved",
+      "rollback_trigger": "auth/join/feedback/PWA/diagnostic regression",
+      "must_not_rollback_with": ["global design-system registry", "unrelated artifact collection"]
+    },
+    {
+      "id": "RB-A0-ARTIFACTS",
+      "status": "SOURCE_CONVERGED",
+      "paths": [
+        "site/src/pages/artefakty/index.astro",
+        "site/src/components/artifacts/ArtifactCollection.astro",
+        "site/src/components/FocusEggArtifact.astro",
+        "site/src/components/FocusEggCollectionCard.astro",
+        "site/src/components/FocusEggSavedListDemo.astro"
+      ],
+      "atomicity": "artifact family identity, states and canonical close/action bindings",
+      "rollback_trigger": "collection state or find/dialog behavior regression",
+      "must_not_rollback_with": ["focus-group intake", "M0 media roots"]
+    },
+    {
+      "id": "RB-A0-INFORMATION",
+      "status": "SOURCE_CONVERGED",
+      "paths": ["site/src/pages/partners/index.astro", "site/src/pages/partnerstvo/index.astro"],
+      "atomicity": "partner registry and information route composition",
+      "rollback_trigger": "missing projected partner or layout/accessibility regression",
+      "must_not_rollback_with": ["brand root", "partner data source"]
+    },
+    {
+      "id": "RB-A0-FESTIVALS",
+      "status": "READY_FOR_R0_MECHANICAL",
+      "paths": ["site/src/pages/festivali/index.astro"],
+      "atomicity": "route identity and canonical action-icon substitution only",
+      "rollback_trigger": "festival ordering, save/source behavior, category mapping or layout regression",
+      "must_not_rollback_with": ["festival data projection", "festival category source SVGs"]
+    },
+    {
+      "id": "RB-A0-EXHIBITIONS",
+      "status": "READY_FOR_R0_MECHANICAL",
+      "paths": ["site/src/components/ExhibitionsPersonalSurface.astro"],
+      "atomicity": "foundation alias application without changing interaction/runtime code",
+      "rollback_trigger": "personal/all/category/gallery/keyboard behavior or contrast regression",
+      "must_not_rollback_with": ["ExhibitionPrototypeRow behavior", "exhibition projection data"]
+    },
+    {
+      "id": "RB-A0-EVENT-DETAIL",
+      "status": "READY_FOR_R0_MECHANICAL",
+      "paths": [
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/listings/MobileListingRailSurface.astro"
+      ],
+      "atomic_subunits": [
+        "RB-A0-EVENT-RAILS: replace hero-selector and poster-strip markup with EventMediaRail while retaining hooks",
+        "RB-A0-EVENT-LAYOUT-CSS: remove only orphan duplicate EventCard/media ownership",
+        "RB-A0-MOBILE-RAIL-CSS: remove only duplicate object-fit/object-position declarations now owned by MediaFrame"
+      ],
+      "rollback_trigger": "event media selection/gallery/card/listing regression",
+      "must_not_rollback_with": ["M0 MediaFrame", "M0 EventMediaRail", "M0 AdaptiveEventCardGrid", "event data or media-quality policy"]
+    },
+    {
+      "id": "RB-A0-CLUBS",
+      "status": "PRODUCT_DECISION_REQUIRED",
+      "paths": ["site/src/pages/kluby-po-interesam/index.astro"],
+      "atomicity": "route-local hero/deck paint ownership only after classification",
+      "rollback_trigger": "club directory identity or card navigation regression",
+      "must_not_rollback_with": ["InterestClubCard canonical root", "club data projection"]
+    }
+  ],
+  "integration_order": [
+    "Resolve current candidate, F0, M0 and A0 heads.",
+    "Integrate accepted F0/M0 roots before applying A0 consumer mechanics.",
+    "Apply each READY_FOR_R0_MECHANICAL subunit as its own commit and run its exact focused tests.",
+    "Integrate source-converged A0 units without squashing away rollback boundaries.",
+    "Run the one canonical Kaggle full Review Preview.",
+    "Trigger V0 with the exact HTTP-200 URL and matching identity.",
+    "Materialize Penpot only from accepted source bindings and V0 evidence."
+  ],
+  "rollback_execution": {
+    "default": "revert the smallest failing rollback unit or mechanical subunit",
+    "forbidden": [
+      "revert the complete A0 branch for one route defect",
+      "revert canonical F0/M0 roots to accommodate an unmigrated consumer",
+      "silently drop accepted user-facing behavior during conflict resolution",
+      "promote a source-only rollback as browser-verified"
+    ],
+    "required_evidence": ["failing test or V0 case", "affected route/viewport", "reverted unit", "post-revert focused result", "candidate ancestry"]
+  }
+}
