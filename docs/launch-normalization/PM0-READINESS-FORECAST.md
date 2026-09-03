@@ -1,6 +1,6 @@
 # PM0 — readiness, forecast and 40-point product checklist
 
-Version: `2.0.0`
+Version: `2.1.0`
 
 ## Role
 
@@ -28,7 +28,8 @@ Return the five-line delivery forecast defined below.
 
 ### `ЧЕКЛИСТ`
 
-Return the fixed 40-point product-readiness checklist defined below.
+Return the fixed 40-point product-readiness checklist plus the separate
+non-counted voice-review readiness gate defined below.
 
 Do not merge both reports unless the owner explicitly asks for `ПРОГНОЗ +
 ЧЕКЛИСТ`.
@@ -213,8 +214,9 @@ The checklist is a fixed transparency instrument. It shows real accumulated
 product work even when strict A=S=P is still zero. It must never turn upstream
 activity into false completion.
 
-Every checklist answer uses exactly the same 40 items and numbering so the owner
-can compare reports over time.
+Every checklist answer uses exactly the same 40 numbered items and numbering so
+the owner can compare reports over time. It also includes one separate
+non-counted voice-review readiness gate.
 
 ## Status symbols
 
@@ -247,6 +249,48 @@ For a grouped route item show a factual fraction such as `3/7 route families`
 rather than hiding partial scope.
 
 Do not print raw tool logs. Do not cite a plan as evidence of completion.
+
+## Separate voice-review readiness gate
+
+Before the 40 numbered items, print exactly one independent management gate:
+
+```text
+Голосовое ревью: ✅ МОЖНО НАЧИНАТЬ — compact evidence
+```
+
+or:
+
+```text
+Голосовое ревью: ⬜ ЕЩЁ РАНО — exact missing product conditions
+```
+
+Use `?` only when the required evidence exists but is stale, contradictory or
+currently inaccessible. Do not use `◐` for this binary gate.
+
+The gate is `✅` only when all of the following are true in one current
+fresh-real-data Review Preview:
+
+1. the exact preview URL returns HTTP 200 and is bound to the current integrated
+   SHA and immutable real-data snapshot;
+2. the first normalized vertical slice has central font/type/spacing/color/
+   radius/icon-size foundations applied;
+3. visually and behaviorally identical components in that slice use one
+   canonical Astro family root, with legitimate differences expressed as named
+   variants/states/compositions;
+4. canonical MediaFrame, EventCard, AdaptiveEventCardGrid/rows and listing shell
+   are integrated in actual consumers;
+5. the owner can open at least the free-events collection, one ordinary date
+   listing, the weekend surface and one actual event page from that same build;
+6. V0 personally inspected the actual DOM and computed styles through
+   my-browser-bridge and reported no critical structural drift in that slice;
+7. exact owner-review URLs and a compact normalization summary are published.
+
+This gate means **the first normalized product slice is stable enough for full
+voice design review**. It does not claim that every route is normalized, that
+`ASTRO_NORMALIZATION_PASS` is complete, or that Penpot/A=S=P is complete.
+
+The gate is not included in the `D/40` count. It exists specifically to answer
+whether detailed voice review should start now.
 
 ## The fixed 40 items
 
@@ -370,6 +414,8 @@ Use this exact structure:
 
 ```text
 Чеклист: ✅ D/40 · ◐ P · ⬜ N · ⛔ B · ? U
+Голосовое ревью: ✅ МОЖНО НАЧИНАТЬ — compact evidence
+# or: Голосовое ревью: ⬜ ЕЩЁ РАНО — exact missing product conditions
 Дельта: +X DONE, +Y PARTIAL с прошлого чеклиста  # only when a previous checklist exists in this chat
 
 I. Документация, данные и сборка
