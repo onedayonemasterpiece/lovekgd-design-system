@@ -1,5 +1,5 @@
 schema: kenigevents.launch-normalized-ui.v1
-version: 1.9.0
+version: 1.10.0
 status: ACTIVE
 coordination_issue: onedayonemasterpiece/events-bot-new#621
 parallel_roles_doc: docs/launch-normalization/PARALLEL-WINDOWS.md
@@ -91,7 +91,7 @@ operating_modes:
   DAY_PARALLEL:
     condition: multiple_role_windows_available
     objective: maximize_parallel_specialist_throughput_and_minimize_Codex_spend
-    active_lanes: [N0, F0, M0, A0, V0, R0]
+    active_lanes: [N0, F0, FR0, M0, A0, V0, R0]
     R0_role: scarce_runtime_materialization_lane
     specialist_roles_do:
       - full_source_and_consumer_census
@@ -111,7 +111,8 @@ operating_modes:
       - local_browser_smoke_on_focused_diagnostic_only
     R0_must_not_duplicate:
       - active_F0_semantic_or_foundation_work
-      - active_M0_family_or_component_design_work
+      - active_FR0_MediaFrame_or_framing_work
+      - active_M0_card_family_or_grid_work
       - active_A0_consumer_migration_work
       - N0_candidate_or_acceptance_review
       - V0_independent_browser_verdict
@@ -149,7 +150,7 @@ scarce_Codex_budget:
     - semantic_token_or_palette_decision
     - component_identity_or_route_composition_decision
     - ordinary_direct_GitHub_edit_owned_by_an_active_specialist
-    - duplicate_review_already_being_done_by_N0_F0_M0_A0_or_V0
+    - duplicate_review_already_being_done_by_N0_F0_FR0_M0_A0_or_V0
   before_R0_edits_role_owned_source:
     - resolve_latest_role_ref_and_recent_activity
     - prefer_integrating_or_testing_the_role_branch
@@ -165,7 +166,7 @@ scarce_Codex_budget:
     blind_wait_seconds: 0
     duplicated_specialist_work: 0
   long_local_job_policy:
-    - foreground_or_PID_wait_and_log_tail
+    - foreground_or_PID_wait_and_tail_log
     - use_idle_time_for_nonconflicting_candidate_inspection_or_next_runtime_preparation
     - never_blind_sleep_over_15_seconds
 
@@ -174,6 +175,7 @@ execution_surfaces:
     K0: ChatGPT_GitHub
     N0: ChatGPT_GitHub
     F0: ChatGPT_GitHub
+    FR0: ChatGPT_GitHub
     M0: ChatGPT_GitHub
     A0: ChatGPT_GitHub
     V0: ChatGPT_GitHub_my_browser_bridge
@@ -233,18 +235,44 @@ worker_turn_contract:
   standby_requires_source_and_ref_census: true
   stop_start_pattern_while_ready_work_exists: BACKLOG_NOT_FORMING
 
+integration_flow_control:
+  candidate_max_lag_minutes_when_merge_ready_output_exists: 30
+  max_unintegrated_coherent_waves_per_role: 2
+  full_preview_after_compatible_batches_min: 2
+  full_preview_after_compatible_batches_max: 3
+  full_preview_max_active_minutes_since_previous: 60
+  candidate_lag_over_limit_action: N0_and_R0_integration_first
+  one_broken_batch_blocks_only_itself: true
+  FR0_must_not_delay_already_ready_successor: true
+  branch_output_without_candidate_conversion_is_WIP_not_product_progress: true
+  additional_specialist_admission_requires_two_successive_fast_cycles: true
+
+FR0_cutover:
+  objective: split_framing_from_overloaded_M0_without_losing_existing_work
+  before_FR0_writes:
+    - resolve_latest_M0_MediaFrame_EventMediaRail_head
+    - resolve_integrated_descendant
+    - include_or_transfer_all_coherent_inflight_framing_commits
+    - publish_exact_FR0_CUTOVER_BASE
+    - stop_future_M0_writes_to_FR0_paths
+    - branch_FR0_from_exact_cutover_or_current_successor
+  concurrent_M0_FR0_write_to_same_root: forbidden
+  restart_framing_from_scratch: forbidden
+  create_new_framing_framework_or_corpus: forbidden
+
 resource_saturation:
   on_owner_report_that_windows_are_stopped:
     - inspect_current_refs_issue_and_source
     - determine_ready_backlog_per_role
     - provide_resume_to_every_stopped_role_with_ready_work
     - preserve_non_overlapping_write_ownership
-  zero_task_response_while_five_role_windows_have_ready_work: process_defect
+  zero_task_response_while_specialist_windows_have_ready_work: process_defect
   artificial_busywork_after_true_exhaustion: forbidden
   expected_parallel_lanes_before_first_preview:
     - N0_acceptance_generation_and_integration
     - F0_foundation_saturation
-    - M0_family_and_media_saturation
+    - FR0_MediaFrame_and_framing_saturation
+    - M0_card_root_and_adaptive_grid_saturation
     - A0_actual_consumer_migration
     - V0_source_harness_and_available_browser_baseline
     - R0_candidate_integration_and_Kaggle_preview_invocation
@@ -324,7 +352,7 @@ role_contours:
       - review_of_R0_product_output
       - V0_trigger_and_verdict_review
     current_backlog_sources:
-      - latest_F0_M0_A0_refs
+      - latest_F0_FR0_M0_A0_refs
       - current_integration_state
       - generation_scripts_and_publication_path
       - R0_results
@@ -342,27 +370,52 @@ role_contours:
       - site/src/components/Icon.astro
       - site/src/components/SocialIcon.astro
       - site/src/components/brand/**
+  FR0:
+    owns:
+      - canonical_MediaFrame_protocol_anatomy_and_style_owner
+      - media_role_ratio_fit_crop_focal_clip_radius
+      - loading_fallback_missing_broken_media
+      - OCR_document_visual_only_semantics
+      - responsive_media_resources
+      - EventMediaRail_media_composition_and_framing_variants
+      - framing_specific_diagnostics_and_tests
+    preferred_writable_paths:
+      - site/src/components/media-frame.css
+      - site/src/components/EventMediaRail.astro
+      - exact_canonical_MediaFrame_roots
+      - site/tests/*media-frame*.test.mjs
+      - site/tests/*framing*.test.mjs
+      - site/tests/*media-rail*.test.mjs
+    must_not_own:
+      - EventCard_text_anatomy_actions_metadata
+      - AdaptiveEventCardGrid_or_row_packing
+      - route_shell
+      - global_foundations
+      - Penpot_writes
   M0:
     owns:
-      - component_identity
-      - MediaFrame
-      - EventCard_and_ListingEventCard
+      - component_identity_and_one_root_convergence
+      - EventCard_and_ListingEventCard_anatomy_and_variants
+      - card_actions_metadata_and_admission_event_type_composition
       - AdaptiveEventCardGrid
-      - EventMediaRail
+      - OptimizedEventCardGrid
+      - row_occupancy_named_remainders_and_relatedCardLayout
     writable_paths:
       - site/src/lib/relatedCardLayout.mjs
       - site/src/components/OptimizedEventCardGrid.astro
       - site/src/components/AdaptiveEventCardGrid.astro
       - site/src/components/EventCard.astro
       - site/src/components/listings/ListingEventCard.astro
-      - site/src/components/EventMediaRail.astro
+      - exact_assigned_card_roots
+    must_consume_FR0_API_without_recreating_framing_owner: true
   A0:
     owns:
       - shell
       - actual_routes
       - consumer_migration
       - intentional_composition_preservation
-    must_not_edit_M0_roots: true
+    must_not_edit_F0_FR0_M0_roots: true
+    page_local_framing_fix: forbidden
   V0:
     owns:
       - source_bound_browser_harness
@@ -376,8 +429,8 @@ role_contours:
       - prepare_exact_before_after_measurements
 
 product_path:
-  - N0_F0_M0_A0_V0_process_independent_backlogs_in_parallel
-  - R0_integrates_latest_safe_work
+  - N0_F0_FR0_M0_A0_V0_process_independent_backlogs_in_parallel
+  - R0_integrates_latest_safe_work_within_30_minutes
   - my_data_hub_invokes_single_events_bot_new_Kaggle_pipeline
   - V0_runs_full_independent_browser_audit
   - owning_workers_close_DRIFT
@@ -393,8 +446,8 @@ normalization_invariants:
   same_role_duplicates_merged: true
   icon_size_role_count: 4
   component_local_icon_dimensions: forbidden
-  shared_MediaFrame_owns_framing: true
-  one_AdaptiveEventCardGrid_for_applicable_surfaces: true
+  shared_MediaFrame_owned_by_FR0: true
+  one_AdaptiveEventCardGrid_owned_by_M0_for_applicable_surfaces: true
   actual_consumers_must_use_canonical_roots: true
   date_and_weekend_remain_distinct_compositions: true
   product_UI_gap_and_redesign_before_ASTRO_NORMALIZATION_PASS: forbidden
@@ -417,3 +470,5 @@ not_a_new_system:
   mandatory_packet_schema: forbidden
   owner_as_message_bus: forbidden
   owner_as_micro_task_scheduler: forbidden
+  role_per_checklist_item: forbidden
+  additional_specialist_before_two_fast_integration_cycles: forbidden
