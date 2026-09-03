@@ -37,7 +37,8 @@ url: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/__prev
 manifest: https://kenigevents.ru/preview-real-3ca6a143e-normalized-20260903-v1/preview-build.json
 publication_result_comment: 5532453272
 N0_publication_acceptance_comment: 5532465693
-personal_V0_verdict: PENDING
+personal_V0_verdict: NOT_PRODUCED_PLATFORM_BLOCKED
+V0_platform_boundary_comment: 5532859577
 ```
 
 The Preview is the current exact public transaction. It does not inherit a V0
@@ -96,16 +97,21 @@ M0:
 
 A0:
   active_single_branch: work/ui-normalization-a0-mobile-listing-rail-resource-state-20260903
-  current_head: 2dac9d16031d4f1505184fc9678f88c855c3988a
+  current_head: 7f16c2bcbbd2c670fdf31286dd282fa0cd29d1fe
+  source_delta_after_2dac9d16: test_contract_repairs_only
+  mobile_rail_source: accepted_compatible
+  runtime_EventCard_rebinding: absent
   merge_ready: false
   second_branch_or_queue_allowed: false
-  required_action: supersede_same_branch_with_test_repairs_and_EventLayout_runtime_MediaFrame_rebinding
+  required_action: supersede_same_branch_with_bounded_EventLayout_runtime_MediaFrame_rebinding_and_exact_green_exits
 
 V0:
   branch: work/ui-normalization-v0-harness-20260903
   harness_head: 2e71e5521a1ebbd5f98c794abebd70aced030639
   exact_target_sha: 3ca6a143e4286c165282c2d8ceef1759a41185b7
-  personal_verdict: PENDING
+  personal_verdict: NOT_PRODUCED
+  platform_boundary: attached_my-browser-bridge_session_and_action_calls_forbidden_by_conversation_surface
+  platform_boundary_comment: 5532859577
   required_sections: [Foundations, MediaFrame, EventCard_Grid, Shell_Routes]
 ```
 
@@ -114,21 +120,21 @@ V0:
 ```yaml
 Foundations:
   source: integrated
-  personal_V0: pending
+  personal_V0: platform_blocked
 MediaFrame:
   source: integrated
   A0_runtime_consumer_correction: pending
-  personal_V0: pending
+  personal_V0: platform_blocked
 EventCard_Grid:
   source: integrated
-  personal_V0: pending
+  personal_V0: platform_blocked
 Shell_Routes:
   accepted_compatible_source: partial
   A0_superseding_batch: pending
-  personal_V0: pending
+  personal_V0: platform_blocked
 Exhibitions_vertical_slice:
   source: accepted_on_3ca6
-  browser: pending
+  browser: not_observed_platform_blocked
   unrelated_domain_DRIFT_cancels_acceptance: false
 ```
 
@@ -138,28 +144,55 @@ accepted vertical slice. Each domain keeps its own source and browser verdict.
 ## Active A0 correction
 
 The only admissible A0 batch must supersede
-`2dac9d16031d4f1505184fc9678f88c855c3988a` on the same active branch. It must
-incorporate the exact test corrections recorded in comments `5532352941`,
-`5532443121`, `5532468348`, `5532472748`, `5532482064`, together with the bounded
-`EventLayout.astro` runtime EventCard MediaFrame rebinding accepted in comments
-`5532284724` and `5532335696`.
+`7f16c2bcbbd2c670fdf31286dd282fa0cd29d1fe` on the same active branch. The
+current head contains the mobile-rail source plus test-contract repairs, but it
+still lacks the bounded `EventLayout.astro` runtime EventCard MediaFrame
+rebinding accepted in comments `5532284724` and `5532335696`. It is therefore
+not merge-ready.
+
+The next head must preserve the mobile-rail source, keep the exact-selector and
+direct-fallback regression corrections, add the one reused EventLayout runtime
+binding helper and publish exact green exits. A second A0 branch or parallel
+merge-ready queue is forbidden.
 
 After the A0 superseding result N0 independently issues R0 acceptance; the owner
 does not relay SHA, construct a packet or run pull manually.
 
-## V0 gate
+## V0 gate and platform boundary
 
-V0 personally audits the exact `3ca6a143...` Preview and reports independent
-sections for Foundations, MediaFrame, EventCard/Grid and Shell/Routes. It applies
+V0 target remains the exact `3ca6a143...` Preview. It must report independent
+sections for Foundations, MediaFrame, EventCard/Grid and Shell/Routes and apply
 comments `5531944339`, `5531980502`, `5532361117`, `5532544488` and `5532596307`.
 R0 smoke is not a V0 verdict.
 
-```text
-PASS
-DRIFT        → lowest owning F0/FR0/M0/A0 domain
-PRODUCT_GAP  → backlog after ASTRO_NORMALIZATION_PASS
-BLOCKER      → only after independent work and fallbacks are exhausted
+V0 result `5532859577` establishes an actual platform boundary:
+
+```yaml
+browser_connector_attached: true
+developer_MCP_discovery: available
+browser_session_and_action_calls_allowed: false
+personal_browser_observation_completed: false
+V0_PASS_or_DRIFT: not_issued
 ```
+
+No source inspection, R0 smoke, inferred CSS or automated classifier result may
+replace the missing personal browser observation. The exact external trigger is
+a V0 execution context in which the already attached `my-browser-bridge`
+session and action calls are permitted for the exact public `3ca6...` target.
+
+The unchanged automated V0 classifier remains non-authoritative because it has
+a runtime identifier typo and stale clipping, interaction-owner,
+resource-state-completeness and bare-marker scope rules.
+
+Canonical MediaFrame v1 roots use:
+
+```css
+[data-media-frame][data-media-frame-contract="v1"]
+```
+
+Bare markers are a separate
+`LEGACY_RESOURCE_MARKER_OUTSIDE_CURRENT_V1_DELIVERY` census: neither malformed
+v1 roots nor v1 normalization credit.
 
 ## Historical evidence boundary
 
@@ -172,13 +205,15 @@ its descendants.
 ## Near-term gate
 
 ```text
-personal V0 verdict on exact 3ca6a143 Preview
+V0 execution context permits attached my-browser-bridge session/action calls
+→ personal source-bound verdict on exact public 3ca6a143 Preview
+→ N0 accepts or rejects the exhibitions vertical slice independently
 +
-one superseding A0 correction batch on the existing branch
-→ N0/R0 acceptance into agent/static-site-single-kaggle-contract
+one coherent A0 superseding correction batch on the existing branch
+→ N0/R0 acceptance directly into agent/static-site-single-kaggle-contract
 → exact tested trunk descendant
 → full real Kaggle Preview within the existing cadence
-→ V0 recheck
+→ personal V0 retest
 ```
 
 ## Closed and open product gates
@@ -186,8 +221,9 @@ one superseding A0 correction batch on the existing branch
 ```yaml
 sole_executable_trunk: OPEN_AND_FIXED
 current_full_real_preview: PUBLISHED
-personal_V0_on_current_preview: PENDING
-A0_superseding_correction: PENDING
+personal_V0_on_current_preview: PLATFORM_BLOCKED_NOT_PRODUCED
+Exhibitions_vertical_slice_browser_acceptance: PLATFORM_BLOCKED_NOT_PRODUCED
+A0_superseding_correction: PENDING_NOT_MERGE_READY
 next_exact_trunk_descendant: PENDING
 next_full_real_preview: PENDING
 ASTRO_NORMALIZATION_PASS: CLOSED
