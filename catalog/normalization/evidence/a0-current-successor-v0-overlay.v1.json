@@ -1,0 +1,258 @@
+{
+  "schema": "kenigevents.v0.a0-current-successor-consumer-closure.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "PENDING_POST_CLOSURE_FULL_REAL_TARGET_AND_INDEPENDENT_V0",
+  "extends": "catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json",
+  "authority": {
+    "source_binding": "catalog/normalization/a0-current-successor-consumer-closure.v1.json@e9da3bea2d52f6b720c7829804d6a9db0f123b8f",
+    "penpot_projection": "penpot/candidate/a0-current-successor-route-instance-overlay.v1.json@acc35b6e5923172f6ffeea0dd6fa6cdfcac2ecee",
+    "source_transaction": "onedayonemasterpiece/events-bot-new/site/src/data/a0-current-successor-consumer-closure.v1.json@6c6d2760931ffb63f8e319202eb3885914d9bc40",
+    "v0_verdict_owner": "V0",
+    "candidate_acceptance_owner": "N0",
+    "runtime_and_publication_owner": "R0"
+  },
+  "targets": {
+    "current_public_pre_f0": {
+      "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
+      "manifest": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/preview-build.json",
+      "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
+      "classification": "OPTIONAL_BEFORE_BASELINE_ONLY",
+      "can_validate_post_closure": false,
+      "r0_browser_result": 5529740140,
+      "independent_v0_verdict": null
+    },
+    "older_golden": {
+      "url": "https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/",
+      "source_sha": "84504f30eebc334deba46e94365601c3d572c5c0",
+      "v0_comment": 5527892153,
+      "verdict": "DRIFT",
+      "carried_regression": "EventCard auxiliary negative target below 44px; verify closed on the post-closure successor but do not transfer PASS from R0 smoke."
+    },
+    "required_post_closure_real": {
+      "url": null,
+      "required_source": "N0-accepted successor containing current F0, accepted M0/FR0 and the six-consumer A0 closure",
+      "required_http": 200,
+      "required_manifest_match": true,
+      "required_kaggle_operation_and_artifact": true,
+      "required_immutable_snapshot": true
+    }
+  },
+  "viewports": [
+    {
+      "id": "mobile-390x844",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "id": "mobile-430x932",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "id": "tablet-768x1024",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "id": "desktop-1280x800",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "id": "desktop-1728x900",
+      "width": 1728,
+      "height": 900
+    }
+  ],
+  "global_probes": [
+    {
+      "id": "V0-A0-CLOSURE-BUILD-IDENTITY",
+      "method": "HTTP plus manifest plus DOM",
+      "assertions": [
+        "repo_sha equals the N0-accepted post-closure successor",
+        "build_id, immutable snapshot, Kaggle operation and artifact identities agree",
+        "selected routes are served from the same immutable prefix",
+        "no route or asset silently falls back to the pre-F0 1bc6d9cb prefix"
+      ]
+    },
+    {
+      "id": "V0-A0-CLOSURE-DOCUMENT",
+      "method": "DOM and computed style",
+      "assertions": [
+        "documentElement.scrollWidth - documentElement.clientWidth <= 1",
+        "visible focus indicators are not clipped",
+        "no consumer creates a fifth icon-size role",
+        "no nested interactive control is introduced",
+        "no visible raw text glyph substitutes the registered link, calendar, heart or arrow-left actions"
+      ]
+    },
+    {
+      "id": "V0-A0-CLOSURE-TARGET-SIZE",
+      "method": "DOM box geometry",
+      "assertions": [
+        "every actionable festival favorite button is at least 44 by 44 CSS px",
+        "the older Golden sub-44 EventCard auxiliary finding is independently rechecked on the post-closure successor",
+        "semantic icon square is measured separately from its interactive target"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "V0-A0-CLUB-CARD-CONTINUITY",
+      "pm0_case": "PM0-37-07",
+      "route": "/kluby-po-interesam/",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "root_selector": "[data-ds-family=\"InterestClubsIndexRouteComposition\"]",
+      "consumer_selector": "[data-ds-family=\"InterestClubCard\"][data-ke-foundation-consumer=\"interest-club-card\"]",
+      "states": [
+        "cover-ready",
+        "fallback-art"
+      ],
+      "assertions": [
+        "fallback orbit and fact-divider computed colors preserve the accepted source values",
+        "matched author rules resolve through the four --ke-color-club-card-* continuity roles",
+        "catalog cards retain keyboard navigation, cover/fallback state and arrow-right inline icon",
+        "index blue/gold composition remains distinct from the photographic card palette"
+      ],
+      "rollback_unit": "A0-RB-CLUB-CARD-CONTINUITY"
+    },
+    {
+      "id": "V0-A0-CLUB-DETAIL-THEME",
+      "pm0_case": "PM0-37-08",
+      "route": "/kluby-po-interesam/game-vibes/",
+      "same_root_pattern": "/kluby-po-interesam/<club-slug>/",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "root_selector": "[data-ds-family=\"InterestClubDetailRouteComposition\"][data-ds-version=\"1\"][data-ds-variant=\"verified-club\"]",
+      "state_values": [
+        "future-meetings",
+        "history-only"
+      ],
+      "assertions": [
+        "hero, facts, meeting list, empty state, note and action resolve the F0 club-detail roles",
+        "back action contains SemanticIcon arrow-left with inline 16 by 16 square",
+        "no visible text arrow remains",
+        "future/history content, breadcrumbs and external-link policy are unchanged"
+      ],
+      "rollback_unit": "A0-RB-CLUB-DETAIL-THEME"
+    },
+    {
+      "id": "V0-A0-FESTIVALS-THEME",
+      "pm0_case": "PM0-37-06",
+      "route": "/festivali/",
+      "viewports": [
+        "mobile-430x932",
+        "tablet-768x1024",
+        "desktop-1728x900"
+      ],
+      "root_selector": "[data-ds-family=\"FestivalsTimelineRouteComposition\"][data-ds-version=\"1\"][data-ds-variant=\"annual-timeline\"][data-ke-foundation-consumer=\"festival-route\"]",
+      "state_values": [
+        "populated",
+        "empty"
+      ],
+      "action_selectors": {
+        "guide": ".festival-guide__icon .ke-icon-role--control",
+        "favorite": ".festival-card__like .ke-icon-role--control",
+        "external_cards": ".festival-card__link[target=\"_blank\"]"
+      },
+      "assertions": [
+        "heart, link and calendar render as SemanticIcon control roles at 20 by 20 CSS px",
+        "every favorite target is at least 44 by 44 CSS px at all selected viewports",
+        "external card links include noopener and noreferrer",
+        "month ordering, row packing, status labels and specialized category SVG identities are unchanged",
+        "route theme values resolve through --ke-festival-* and --ke-color-festival-* roles",
+        "no legacy Icon heart or local 0.95rem guide-icon square wins matched rules"
+      ],
+      "rollback_unit": "A0-RB-FESTIVAL-THEME"
+    },
+    {
+      "id": "V0-A0-EXHIBITIONS-THEME",
+      "pm0_case": "PM0-37-05",
+      "route": "/vystavki/",
+      "viewports": [
+        "mobile-430x932",
+        "tablet-768x1024",
+        "desktop-1280x800"
+      ],
+      "outer_selector": "[data-ds-family=\"ExhibitionsRouteComposition\"]",
+      "root_selector": "[data-ds-family=\"ExhibitionsPersonalSurface\"][data-ds-version=\"1\"][data-ds-variant=\"ranked-personal-catalog\"][data-ke-foundation-consumer=\"exhibitions-personal-surface\"]",
+      "state_tokens": [
+        "personal",
+        "all-topics",
+        "populated",
+        "empty"
+      ],
+      "assertions": [
+        "author styles contain no --ex-* declaration or var reference",
+        "computed canvas/surface/text/status/control/timeline values preserve the current dark product language",
+        "mode switch, category filters, new/priority/tail grouping, keyboard help, gallery and undo remain functional",
+        "loading/error and selected-row states do not lose contrast or focus visibility"
+      ],
+      "rollback_unit": "A0-RB-EXHIBITIONS-THEME"
+    },
+    {
+      "id": "V0-A0-FOCUS-COLLECTION-IDENTITY",
+      "pm0_case": "PM0-37-16",
+      "route": "/fokus-gruppa/kollektsiya/",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "root_selector": "[data-ds-family=\"FocusEggCollectionRouteComposition\"][data-ds-version=\"1\"][data-ds-variant=\"collection-prototype\"]",
+      "state_pattern": "^found-[0-9]+-of-[0-9]+$",
+      "assertions": [
+        "initial state equals the visible found/eligible meter values",
+        "focus-egg-found updates cards, outputs, meter and data-ds-state in one settled mutation",
+        "eligible/unavailable rules and device mission semantics are unchanged",
+        "no second collection state writer or detached card family is introduced"
+      ],
+      "rollback_unit": "A0-RB-FOCUS-COLLECTION-IDENTITY"
+    },
+    {
+      "id": "V0-A0-CLOSED-HUB-IDENTITY",
+      "pm0_case": "PM0-37-19",
+      "route": "/zakrytaya-afisha/",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "root_selector": "[data-ds-family=\"ClosedFocusHubRouteComposition\"][data-ds-version=\"1\"][data-ds-variant=\"participant-hub\"]",
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "assertions": [
+        "without active participation the locked gate is visible and data-ds-state is locked",
+        "with active participation the hub is visible and data-ds-state is available",
+        "account sign-in/out remains independent of the participation marker",
+        "leave action clears participation without deleting unrelated personalization",
+        "checking state is represented before client settlement"
+      ],
+      "rollback_unit": "A0-RB-CLOSED-FOCUS-HUB-IDENTITY"
+    }
+  ],
+  "verdict_policy": {
+    "pass_requires": [
+      "all six cases executed on the exact post-closure full real target",
+      "global build/document/target-size probes pass",
+      "no critical or major A0-owned drift",
+      "every observation records URL, source SHA, route, viewport, selector, computed values and reproduction"
+    ],
+    "drift_routing": {
+      "foundation_value_or_icon_role": "F0",
+      "MediaFrame_or_EventMediaRail": "FR0",
+      "EventCard_or_AdaptiveGrid": "M0",
+      "route_identity_consumer_style_interaction_or_DOM_anchor": "A0",
+      "integration_publication_or_manifest": "N0/R0"
+    },
+    "r0_smoke_is_not_v0_pass": true,
+    "pre_f0_target_cannot_validate_post_closure": true
+  }
+}
