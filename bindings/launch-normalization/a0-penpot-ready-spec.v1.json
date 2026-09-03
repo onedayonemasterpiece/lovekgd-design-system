@@ -1,0 +1,224 @@
+{
+  "schema": "kenigevents.penpot-ready.route-family-spec.v1",
+  "version": "1.0.0",
+  "status": "READY_FOR_PENPOT_WRITER_AFTER_SOURCE_ACCEPTANCE",
+  "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+  "source_binding": "bindings/launch-normalization/a0-route-family-bindings.v1.json",
+  "penpot": {
+    "file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "write_permission_for_this_artifact": false,
+    "materialization_rule": "Create native masters and linked instances only after the corresponding Astro family is integrated and accepted. Detached visual copies, screenshots as components and hidden canary trees do not satisfy the specification."
+  },
+  "naming": {
+    "master_prefix": "KE / Launch / A0",
+    "route_board_prefix": "KE / Launch routes",
+    "evidence_board_prefix": "KE / Evidence",
+    "instance_label_format": "<route-id> · <viewport> · <state>"
+  },
+  "viewports": [
+    { "id": "mobile-390x844", "width": 390, "height": 844 },
+    { "id": "mobile-430x932", "width": 430, "height": 932 },
+    { "id": "tablet-768x1024", "width": 768, "height": 1024 },
+    { "id": "desktop-1280x800", "width": 1280, "height": 800 },
+    { "id": "desktop-1728x900", "width": 1728, "height": 900 }
+  ],
+  "shared_master_requirements": [
+    {
+      "id": "master.event-card-grid",
+      "name": "KE / Launch / AdaptiveEventCardGrid",
+      "source_root": "AdaptiveEventCardGrid",
+      "variant_axes": ["flow|packed", "fixed|progressive|stack", "complete|stretch-N-of-M", "empty|populated"],
+      "linked_by": ["a0.collections", "a0.for-me", "a0.event-detail"]
+    },
+    {
+      "id": "master.media-frame",
+      "name": "KE / Launch / MediaFrame",
+      "source_root": "MediaFrame",
+      "variant_axes": ["visual|document|unknown", "cover|contain", "loading|loaded|error|fallback", "crop-allowed|crop-forbidden"],
+      "linked_by": ["a0.collections", "a0.festivals", "a0.exhibitions", "a0.event-detail"]
+    },
+    {
+      "id": "master.event-media-rail",
+      "name": "KE / Launch / EventMediaRail",
+      "source_root": "EventMediaRail",
+      "variant_axes": ["gallery-thumbnails|hero-selector|poster-strip", "complete|overflow", "visual|document"],
+      "linked_by": ["a0.event-detail"]
+    },
+    {
+      "id": "master.semantic-actions",
+      "name": "KE / Launch / Semantic actions",
+      "source_root": "SemanticIcon",
+      "variant_axes": ["inline-16|control-20|action-24|feature-32", "default|hover|focus|pressed|disabled"],
+      "linked_by": ["a0.collections", "a0.for-me", "a0.focus-group", "a0.artifacts", "a0.information-pages", "a0.festivals", "a0.event-detail", "a0.interest-clubs"]
+    }
+  ],
+  "asset_specs": [
+    {
+      "id": "asset.brand-lockup",
+      "source_paths": [
+        "site/src/components/brand/AnnouncementsLockup.astro",
+        "site/public/brand/announcements-wordmark-ui.svg",
+        "site/public/brand-mark.svg"
+      ],
+      "penpot_asset_name": "KE / Brand / Announcements lockup",
+      "identity_rule": "Use the canonical source asset without redrawing paths or substituting text."
+    },
+    {
+      "id": "asset.semantic-icons",
+      "source_paths": [
+        "site/src/components/design-system/foundations.ts",
+        "site/src/components/design-system/SemanticIcon.astro",
+        "site/src/components/Icon.astro",
+        "site/src/components/SocialIcon.astro"
+      ],
+      "penpot_asset_name": "KE / Icons / Canonical semantic registry",
+      "identity_rule": "Exactly four size roles; a semantic action must resolve to one canonical SVG or glyph identity."
+    },
+    {
+      "id": "asset.festival-categories",
+      "source_paths": ["site/public/assets/icons/festival-categories/*.svg"],
+      "penpot_asset_name": "KE / Festivals / Category icons",
+      "identity_rule": "Keep source SVG identity and category mapping; no substitute emoji or independently redrawn category symbol."
+    },
+    {
+      "id": "asset.event-media",
+      "source_paths": ["immutable preview snapshot image identities", "site/src/components/media-frame.css"],
+      "penpot_asset_name": "KE / Media / Golden event media",
+      "identity_rule": "Use pinned Golden image identities and source ratios; document media must remain contain-required unless the accepted crop contract says otherwise."
+    },
+    {
+      "id": "asset.partner-and-medallion",
+      "source_paths": ["partner registry projection", "site/src/components/EventTokenMedallions.astro", "site/public/assets/badges/free-listing-medallion.svg"],
+      "penpot_asset_name": "KE / Identity / Partners and medallions",
+      "identity_rule": "Use exported source assets and canonical medallion geometry; do not recreate logos from text."
+    }
+  ],
+  "route_boards": [
+    {
+      "binding_id": "a0.collections",
+      "board": "KE / Launch routes / Collections",
+      "required_frames": [
+        "collections-index · mobile-430x932 · available",
+        "collections-index · desktop-1280x800 · deferred-items",
+        "free-events · mobile-390x844 · populated",
+        "free-events · desktop-1728x900 · populated",
+        "free-events · desktop-1280x800 · remainder-row"
+      ],
+      "required_linked_masters": ["master.event-card-grid", "master.media-frame", "master.semantic-actions"],
+      "assets": ["asset.event-media", "asset.semantic-icons", "asset.partner-and-medallion"]
+    },
+    {
+      "binding_id": "a0.for-me",
+      "board": "KE / Launch routes / For me",
+      "required_frames": [
+        "for-me · mobile-390x844 · consent",
+        "for-me · desktop-1280x800 · workspace",
+        "for-me · desktop-1280x800 · insufficient-evidence",
+        "for-me · desktop-1280x800 · populated"
+      ],
+      "required_linked_masters": ["master.event-card-grid", "master.semantic-actions"],
+      "assets": ["asset.semantic-icons", "asset.event-media"]
+    },
+    {
+      "binding_id": "a0.focus-group",
+      "board": "KE / Launch routes / Focus group",
+      "required_frames": [
+        "focus-programme · mobile-390x844 · available",
+        "focus-programme · desktop-1280x800 · available",
+        "focus-invite · mobile-390x844 · anonymous",
+        "focus-invite · mobile-390x844 · auth-pending",
+        "focus-invite · desktop-1280x800 · joined",
+        "focus-complete · desktop-1280x800 · submitted",
+        "focus-diagnostic · mobile-390x844 · error"
+      ],
+      "required_linked_masters": ["master.semantic-actions"],
+      "assets": ["asset.brand-lockup", "asset.semantic-icons"]
+    },
+    {
+      "binding_id": "a0.artifacts",
+      "board": "KE / Launch routes / Artifacts",
+      "required_frames": [
+        "artifacts · mobile-430x932 · empty",
+        "artifacts · desktop-1280x800 · found",
+        "artifact-dialog · desktop-1280x800 · open",
+        "focus-egg · mobile-430x932 · eligible"
+      ],
+      "required_linked_masters": ["master.semantic-actions"],
+      "assets": ["asset.semantic-icons"]
+    },
+    {
+      "binding_id": "a0.information-pages",
+      "board": "KE / Launch routes / Information pages",
+      "required_frames": [
+        "partners · mobile-390x844 · available",
+        "partners · desktop-1280x800 · available",
+        "partnership · mobile-390x844 · available",
+        "partnership · desktop-1280x800 · available"
+      ],
+      "required_linked_masters": ["master.semantic-actions"],
+      "assets": ["asset.brand-lockup", "asset.partner-and-medallion"]
+    },
+    {
+      "binding_id": "a0.festivals",
+      "board": "KE / Launch routes / Festivals",
+      "required_frames": [
+        "festivals · mobile-430x932 · populated",
+        "festivals · desktop-1728x900 · populated",
+        "festival-card · desktop-1280x800 · program-pending"
+      ],
+      "required_linked_masters": ["master.media-frame", "master.semantic-actions"],
+      "assets": ["asset.festival-categories", "asset.event-media", "asset.semantic-icons"],
+      "materialization_blocker": "RB-A0-FESTIVALS mechanical source batch and integration acceptance"
+    },
+    {
+      "binding_id": "a0.exhibitions",
+      "board": "KE / Launch routes / Exhibitions",
+      "required_frames": [
+        "exhibitions · mobile-430x932 · personal",
+        "exhibitions · desktop-1280x800 · all",
+        "exhibitions · desktop-1280x800 · empty",
+        "exhibition-gallery · desktop-1280x800 · image-error"
+      ],
+      "required_linked_masters": ["master.media-frame", "master.semantic-actions"],
+      "assets": ["asset.event-media", "asset.semantic-icons"],
+      "materialization_blocker": "RB-A0-EXHIBITIONS mechanical source batch and integration acceptance"
+    },
+    {
+      "binding_id": "a0.event-detail",
+      "board": "KE / Launch routes / Event detail",
+      "required_frames": [
+        "event-detail · mobile-390x844 · wide-image",
+        "event-detail · tablet-768x1024 · narrow-image",
+        "event-detail · desktop-1728x900 · editorial",
+        "event-detail · desktop-1728x900 · split-document",
+        "event-detail · desktop-1280x800 · no-image",
+        "event-gallery · desktop-1728x900 · open",
+        "event-related · desktop-1280x800 · remainder-row"
+      ],
+      "required_linked_masters": ["master.event-card-grid", "master.media-frame", "master.event-media-rail", "master.semantic-actions"],
+      "assets": ["asset.event-media", "asset.semantic-icons", "asset.partner-and-medallion", "asset.brand-lockup"],
+      "materialization_blocker": "RB-A0-EVENT-DETAIL mechanical source batch and integration acceptance"
+    },
+    {
+      "binding_id": "a0.interest-clubs",
+      "board": "KE / Launch routes / Interest clubs",
+      "required_frames": [
+        "interest-clubs · mobile-430x932 · populated",
+        "interest-clubs · desktop-1280x800 · populated",
+        "interest-clubs · desktop-1280x800 · empty",
+        "interest-club-detail · desktop-1280x800 · available"
+      ],
+      "required_linked_masters": ["master.semantic-actions"],
+      "assets": ["asset.event-media", "asset.semantic-icons"],
+      "materialization_blocker": "Explicit product/foundation classification of the route-local club hero/deck composition"
+    }
+  ],
+  "completion_checks": [
+    "Every frame names its exact Astro binding id, route, viewport and state.",
+    "Every reusable visual root is a linked native instance of the named master.",
+    "Every visible asset points to the canonical source identity or pinned Golden asset.",
+    "No route board contains detached replacements for MediaFrame, EventCard, AdaptiveEventCardGrid, EventMediaRail or semantic icons.",
+    "V0 evidence boards link to the same Golden input and accepted Astro SHA before strict A=S=P credit."
+  ]
+}
