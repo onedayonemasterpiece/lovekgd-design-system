@@ -1,8 +1,8 @@
 {
   "schema": "kenigevents.thin-s.a0-current-successor-consumer-batch.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contract_version": "1.10.0",
-  "status": "SOURCE_CLOSURE_IN_CURRENT_SUCCESSOR_REGRESSION_PROJECTION_PENDING_R0",
+  "status": "A0_SOURCE_ACCEPTED_CURRENT_FREEZE_FINAL_F0_AND_M0_TAIL_PENDING_R0",
   "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
   "authority": {
     "executable_repository": "onedayonemasterpiece/events-bot-new",
@@ -10,7 +10,12 @@
     "source_successor_sha": "cebeafeee08251a327145ee973ee035cced65204",
     "a0_projection_branch": "work/ui-normalization-a0-current-successor-consumer-batch-20260903",
     "a0_projection_sha": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
-    "a0_result_comment": 5531482466,
+    "a0_result_comments": [
+      5531482466,
+      5531606646
+    ],
+    "f0_final_review_comment": 5531682890,
+    "m0_post_cutover_result_comment": 5531788718,
     "candidate_acceptance_owner": "N0",
     "runtime_and_kaggle_owner": "R0",
     "browser_verdict_owner": "V0",
@@ -29,25 +34,60 @@
     "preserve_base_master_and_route_board_ids": true,
     "preserve_historical_preview_evidence": true,
     "do_not_replay_old_a0_source_branch": true,
-    "reason": "The base records predate materialization of the six-consumer closure and still describe festivals, exhibitions and A0-MECH-06 as pending. Current source truth is carried by this additive overlay."
+    "do_not_promote_current_freeze_as_final_post_f0": true,
+    "reason": "The six bounded A0 consumers are already materialized and accepted in the current successor, but F0 rejected that frozen SHA only because its owned route-theme registry/checker still admitted contract 1.9 vocabulary. A later M0 post-cutover card/grid tail and the additive A0 boundary regression also remain unintegrated."
   },
   "source_lineage": {
     "original_checkpoint": "1bc6d9cb4c122046f4782532381de953727c1da6",
-    "current_successor": "cebeafeee08251a327145ee973ee035cced65204",
-    "f0_integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
-    "f0_current_reporting_head_at_review": "32ce83d63c9bf87b2422e0ade10b30f14d3bc3b0",
-    "m0_ancestor": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133",
-    "fr0_ancestor": "2231e1d668f896d634e5663b59520bc710d5fea6",
-    "a0_source_projection": {
-      "base": "cebeafeee08251a327145ee973ee035cced65204",
-      "head": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
-      "ahead_by": 1,
-      "behind_by": 0,
-      "changed_consumer_paths": [],
-      "changed_regression_paths": [
-        "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs"
+    "current_frozen_successor": {
+      "sha": "cebeafeee08251a327145ee973ee035cced65204",
+      "a0_consumer_verdict": "ACCEPTED_SOURCE",
+      "f0_consumer_verdict": "FESTIVALS_EXHIBITIONS_AND_FR0_BATCH_4_ACCEPTED_SOURCE",
+      "final_f0_eligible": false,
+      "reason": "route-theme registry/checker vocabulary is not exact contract 1.10"
+    },
+    "F0": {
+      "integrated_source_ancestor": "a4db631dbb3b01e1f71c42e0e3b87d077a538d19",
+      "current_ref": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "required_correction": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "required_correction_paths": [
+        "site/src/components/design-system/f0-route-theme-bindings.v1.json",
+        "site/src/components/design-system/check-f0-route-theme-bindings.mjs"
       ],
-      "whole_divergent_a0_branch_merge_allowed": false
+      "integration_status": "PENDING_NEXT_DESCENDANT",
+      "a0_consumer_change_required": false
+    },
+    "M0": {
+      "integrated_downstream_ancestor": "5eeaba09b5ec432a77ff899ce98fb8b9f492c133",
+      "published_post_cutover_head": "7e879210f68f7a7e4a53755f2e9431c61f445569",
+      "current_ref": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+      "post_result_followthrough": [
+        "1828bde1c869150b25a292a65e8b20a646a5d611",
+        "8b0c6709beca1f7b0bef81b27464f786df1d7806"
+      ],
+      "integration_status": "PENDING_NEXT_DESCENDANT",
+      "current_a0_consumer_api_gap": false
+    },
+    "FR0": {
+      "cutover_base": "c71351decdcee02941acb26c5e2fbaf88faf0378",
+      "integrated_ancestor": "2231e1d668f896d634e5663b59520bc710d5fea6",
+      "batch_4_status": "IN_CURRENT_FROZEN_SUCCESSOR_AND_F0_ACCEPTED_SOURCE"
+    },
+    "A0": {
+      "divergent_role_ref": "dc7b722ecdc268b24c2a2d36911e76d4f2dfd891",
+      "whole_divergent_branch_merge_allowed": false,
+      "regression_projection": {
+        "base": "cebeafeee08251a327145ee973ee035cced65204",
+        "head": "3ef253980bdfe0731158f5b8b4b47965fa153ce9",
+        "ahead_by": 1,
+        "behind_by": 0,
+        "changed_consumer_paths": [],
+        "changed_regression_paths": [
+          "site/tests/a0-current-successor-fr0-consumer-boundary.test.mjs"
+        ],
+        "integration_status": "PENDING_NEXT_DESCENDANT",
+        "blocks_current_diagnostic_preview": false
+      }
     }
   },
   "coverage": {
@@ -66,7 +106,8 @@
         "PM0-37-16 focus collection",
         "PM0-37-19 closed focus hub"
       ],
-      "exact_current_successor_build_verified": 0,
+      "current_frozen_local_production_form_verified": 19,
+      "final_post_f0_published_build_verified": 0,
       "independent_v0_browser_reviewed": 0
     },
     "penpot": {
@@ -91,7 +132,7 @@
         "loading",
         "error"
       ],
-      "source_status": "IN_CURRENT_SUCCESSOR",
+      "source_status": "IN_CURRENT_SUCCESSOR_F0_ACCEPTED",
       "foundation_owner": "F0",
       "framing_owner": "FR0",
       "a0_owns": [
@@ -128,7 +169,7 @@
         "program-pending",
         "date-pending"
       ],
-      "source_status": "IN_CURRENT_SUCCESSOR",
+      "source_status": "IN_CURRENT_SUCCESSOR_F0_ACCEPTED",
       "required_action_icons": [
         "SemanticIcon/heart@control",
         "SemanticIcon/link@control",
@@ -254,6 +295,34 @@
       ]
     }
   ],
+  "pending_external_inputs": [
+    {
+      "id": "F0-CONTRACT-1_10-ROUTE-THEME-VOCABULARY",
+      "owner": "F0",
+      "head": "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "blocks": "final post-F0 candidate and preview promotion only",
+      "a0_consumer_edit_required": false
+    },
+    {
+      "id": "M0-POST-FR0-CARD-GRID-CONSOLIDATION",
+      "owner": "M0",
+      "published_head": "7e879210f68f7a7e4a53755f2e9431c61f445569",
+      "current_head": "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+      "blocks": "final candidate coverage for card resource states and crop-budget resolver",
+      "current_a0_consumer_api_gap": false
+    },
+    {
+      "id": "FR0-MOBILE-LISTING-RAIL-RESOURCE-STATE",
+      "source_comment": 5530928932,
+      "paths": [
+        "site/src/components/listings/MobileListingRailRow.astro",
+        "site/src/components/listings/MobileListingRailSurface.astro"
+      ],
+      "current_bounded_a0_write_authorized": false,
+      "blocks": "only the exact mobile-listing-rail resource-state consumer",
+      "does_not_block": "the six bounded A0 consumer closure or the current diagnostic preview"
+    }
+  ],
   "ownership_exclusions": [
     "site/src/components/media-frame.css",
     "site/src/components/EventMediaRail.astro",
@@ -263,6 +332,8 @@
     "site/src/components/AdaptiveEventCardGrid.astro",
     "site/src/components/OptimizedEventCardGrid.astro",
     "site/src/lib/relatedCardLayout.mjs",
+    "site/src/components/listings/MobileListingRailRow.astro in this bounded batch",
+    "site/src/components/listings/MobileListingRailSurface.astro in this bounded batch",
     "all global F0 token authorities"
   ],
   "regression_contract": {
@@ -285,6 +356,7 @@
       "consumer_source_rollback": false
     },
     "consumer_policy": "revert only the smallest failing consumer unit",
+    "external_input_rollback_is_owner_scoped": true,
     "canonical_root_rollback_forbidden": [
       "F0",
       "M0",
@@ -292,11 +364,25 @@
     ],
     "immutable_preview_mutation_forbidden": true
   },
+  "required_next_candidate": {
+    "base": "cebeafeee08251a327145ee973ee035cced65204 or exact descendant",
+    "must_include": [
+      "ea4eda91d03bd15bb99e26f4990fe9818e3d4d8b",
+      "8b0c6709beca1f7b0bef81b27464f786df1d7806",
+      "3ef253980bdfe0731158f5b8b4b47965fa153ce9"
+    ],
+    "must_not_include": [
+      "whole work/ui-normalization-a0-wave-3-20260903 replay",
+      "A0 edits to F0, M0 or FR0 canonical internals"
+    ]
+  },
   "required_r0_execution": [
     "cd site && node --test tests/a0-current-successor-fr0-consumer-boundary.test.mjs tests/a0-current-successor-consumer-closure.test.mjs tests/a0-current-successor-contract.test.mjs tests/a0-route-family-normalization.test.mjs tests/a0-consumer-ownership.test.mjs tests/a0-adaptive-grid-consumer-ownership.test.mjs tests/fr0-exhibitions-media-frame-contract.test.mjs tests/festival-external-link-safety.test.mjs tests/focus-egg-normalization.test.mjs tests/focus-normalization-source.test.mjs",
+    "cd site && node src/components/design-system/check-f0-route-theme-bindings.mjs",
     "cd site && F0_REQUIRE_ROUTE_THEME_CONSUMED=1 node src/components/design-system/check-f0-route-theme-bindings.mjs",
     "cd site && F0_REQUIRE_EXHIBITIONS_RESIDUAL_CONSUMED=1 node src/components/design-system/check-f0-exhibitions-residual-contract.mjs",
     "cd site && F0_REQUIRE_CLUB_THEME_CONSUMED=1 node src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+    "cd site && node --test tests/ui-normalization-m0-contract.test.mjs tests/m0-post-fr0-test-ownership.test.mjs tests/m0-downstream-contracts.test.mjs tests/m0-event-card-media-frame-resource-state.test.mjs tests/listing-event-card-media-fallback.test.mjs tests/event-card-control-target.test.mjs tests/m0-card-icon-role-contract.test.mjs tests/event-card-flex-placement.test.mjs tests/adaptive-event-card-grid.test.mjs tests/adaptive-grid-diagnostic-cardinality.test.mjs tests/optimized-grid-adapter.test.mjs tests/related-card-packer-inputs.test.mjs",
     "cd site && npm run test:n0-successor-acceptance",
     "cd site && npm run check:preview",
     "cd site && npm run check:design-system-production-surfaces",
@@ -307,16 +393,24 @@
       "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
       "classification": "OLDER_PRE_CURRENT_SUCCESSOR_REFERENCE_ONLY"
     },
-    "current_successor_exact_build": null,
-    "current_successor_independent_v0_verdict": null,
+    "current_frozen_successor_local_production_form": {
+      "source_sha": "cebeafeee08251a327145ee973ee035cced65204",
+      "r0_result_comment": 5531586743,
+      "source_and_local_runtime_pass": true,
+      "final_post_f0_credit": false,
+      "reason": "does not contain F0 correction ea4eda91 and later M0 tail"
+    },
+    "current_frozen_successor_canonical_kaggle": "IN_PROGRESS_OR_PENDING_RESULT",
+    "next_final_successor_exact_build": null,
+    "next_final_successor_independent_v0_verdict": null,
     "thin_s_equality_claimed": false,
     "penpot_materialization_claimed": false
   },
   "next_gate": {
     "required": [
-      "R0 integrates the A0 regression projection onto the current successor or exact descendant",
-      "all focused and strict gates pass with exact exits",
-      "N0 accepts the exact tested successor",
+      "R0 constructs an exact descendant containing the current F0 correction, current M0 tail and A0 regression projection",
+      "all A0, F0, M0, FR0 and successor-wide gates pass with exact exits",
+      "N0 accepts the exact tested descendant",
       "one canonical full fresh-real Kaggle artifact is published for that exact SHA",
       "V0 returns an independent DOM and computed-style verdict"
     ],
