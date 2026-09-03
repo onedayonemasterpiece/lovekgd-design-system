@@ -44,10 +44,10 @@ remote branch ref. Exact source-wave SHAs below remain pinned.
 | Actor | State | Durable evidence | Next product action |
 |---|---|---|---|
 | N0 | `LAUNCHED_NO_DURABLE_GENERATION_RESULT` | owner reports window completed; no N0 result, branch or fresh build in #621 | derive generation flow, use native R0 only for local execution, review output, publish real fresh-data verdict |
-| F0 | `SOURCE_WAVE_READY` | `work/ui-normalization-f0-20260903@d5f1fab4a09aada97e7b7064c88736c415bb5bef`; result `5521057582` | continue independent consumer bindings; later integrate and browser-check |
-| M0 | `SOURCE_WAVE_READY_VERIFICATION_PENDING` | `work/ui-normalization-m0-20260903@046b002621eee150adf2560c8e31e1adb53acb53`; results `5518054473`, `5518064829` | existing native R0 session completes tests/build verification; M0 reviews result |
-| A0 | `SOURCE_WAVE_READY` | `work/ui-normalization-a0-20260903@5a4a3d3c2afa2f1a4fb71cd23194081d74dca4a6`; result `5517791881` | continue independent route/consumer work; integrate after N0 review |
-| V0 | `DEPENDENCY_WAIT_PREVIEW_CONTINUING` | browser discovery `5517639901`; no product preview URL yet | continue source/selector/harness preparation; audit immediately when URL exists |
+| F0 | `SOURCE_WAVE_READY` | `work/ui-normalization-f0-20260903@d5f1fab4a09aada97e7b7064c88736c415bb5bef`; result `5521057582` | continue independent owned-path saturation on Wave 2; later integrate and browser-check |
+| M0 | `SOURCE_WAVE_READY_VERIFICATION_PENDING` | `work/ui-normalization-m0-20260903@046b002621eee150adf2560c8e31e1adb53acb53`; results `5518054473`, `5518064829` | native R0 verifies Wave 1 while M0 continues an independent Wave 2 |
+| A0 | `SOURCE_WAVE_READY` | `work/ui-normalization-a0-20260903@5a4a3d3c2afa2f1a4fb71cd23194081d74dca4a6`; result `5517791881` | continue independent route/shell Wave 2; integrate after N0 review |
+| V0 | `HARNESS_READY_STANDBY_TRIGGER_ARMED` | dependency correction `5517639901`; complete source/browser harness result `5521263641` | no busywork or polling; resume immediately on first exact local/published integrated preview URL, or on a materially changed source wave requiring a bounded harness delta |
 | K0 | `ACTIVE_PRODUCT_FIRST` | consultant correction `5521029923`; canonical autonomy repair in current docs | fix correctable process/doc drift directly; minimize owner messages |
 | R0 | `EXISTING_SESSION_CORRECTION_REQUIRED` | defective stop `5520870765`; superseding autonomy correction `5520939114` | resume the same M0 verification task; infer recoverable fields; produce actual tests/build result |
 | PM0 | `AVAILABLE_READ_ONLY` | role result `5521143401` | readiness forecast only on request; no dispatch or implementation |
@@ -55,6 +55,22 @@ remote branch ref. Exact source-wave SHAs below remain pinned.
 No role is classified `NOT_LAUNCHED` merely because integration or preview is
 missing. Missing dependent output is a scoped state, not a role-wide terminal
 failure.
+
+## Resource-efficient standby
+
+A role must continue while executable independent scope remains. It must not be
+kept artificially active after that scope is exhausted.
+
+For V0, result `5521263641` completed the current read-only source/consumer map,
+selector inventory, marker expectations, measurement fields, tolerances, route
+discovery and browser-harness preparation. Without an integrated preview or a
+materially new source wave, further V0 activity would be duplicate analysis or
+polling, not product progress.
+
+Therefore V0 standby is intentional resource conservation, not a process defect.
+The trigger is already durable in #621. No owner message is required now. The
+existing V0 window needs one resume message only after an exact trigger exists,
+because a completed ChatGPT turn cannot wake itself in the background.
 
 ## Current source waves
 
@@ -110,7 +126,8 @@ browser: NOT_RUN
 
 | Dependency | Blocks | Does not block |
 |---|---|---|
-| no fresh preview URL | V0 product DOM/computed sweep | V0 harness preparation; F0/M0/A0 source work; N0 generation analysis |
+| no fresh preview URL | V0 live product DOM/computed sweep | F0/M0/A0 source work; N0 generation analysis; already-complete V0 harness remains ready in standby |
+| materially new source wave | may require a bounded V0 harness delta | existing harness and selectors remain valid until that delta is identified |
 | M0 verification pending | integration of the M0 wave | F0/A0 independent work; M0 next independent slice |
 | N0 generation not started | technical baseline and combined preview | source normalization and process repair |
 | Penpot not started | Penpot/Golden parity | Astro normalization and browser preparation |
@@ -125,9 +142,10 @@ preview remains a scoped N0 dependency.
 existing R0 resumes M0 tests/build verification
 + N0 finalizes and executes fresh-data generation through native R0 where needed
 + F0/M0/A0 continue independent work
++ V0 remains harness-ready in zero-cost standby
 → N0 reviews and integrates verified F0/M0/A0 source waves
 → fresh combined /<buildId>/__preview/
-→ V0 personal DOM/computed-style verdict
+→ resume existing V0 window once; V0 performs personal DOM/computed-style verdict
 → critical DRIFT repair
 → first owner-facing normalized preview
 ```
@@ -143,8 +161,9 @@ a real generation/wave/preview result.
 | technical fresh-data baseline | `PENDING_N0_EXECUTION` | generation command has not started |
 | foundations/component/route source census | `AVAILABLE` | F0/M0/A0 durable results exist |
 | M0 executable regression verdict | `PENDING_R0_RESUME` | same native R0 session must continue |
+| V0 browser harness | `READY_STANDBY` | no further action until exact trigger |
 | combined normalized preview | `PENDING_GENERATION_AND_INTEGRATION` | N0 |
-| V0 DOM/computed verdict | `PENDING_PREVIEW_NONTERMINAL` | exact local or published URL |
+| V0 DOM/computed verdict | `TRIGGERED_BY_EXACT_PREVIEW_URL` | exact local or published integrated URL |
 | `ASTRO_NORMALIZATION_PASS` | `CLOSED` | generation, integration, consumer migration and browser evidence incomplete |
 
 ## ASTRO_NORMALIZATION_PASS
@@ -167,6 +186,8 @@ until this gate opens.
 
 - Fix correctable canonical drift before reporting it.
 - Missing metadata, stale checkpoints and dependent surfaces are not terminal.
+- Continue every executable independent lane; do not manufacture busywork after
+  a read-only lane has completed its current independent scope.
 - `[BLOCKER]` requires exhausted independent work plus a concrete external,
   product-decision, writer-conflict or irreversible-risk boundary.
 - N0 updates this file after meaningful durable results; other authorized
