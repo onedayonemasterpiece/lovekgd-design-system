@@ -1,0 +1,679 @@
+{
+  "schema_version": "kenigevents.a0-thin-s-bindings.v1",
+  "contract_version": "1.9.0",
+  "authority": {
+    "executable_repository": "onedayonemasterpiece/events-bot-new",
+    "thin_s_repository": "onedayonemasterpiece/lovekgd-design-system",
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "frozen_inputs": {
+    "accepted_combined_precursor": {
+      "branch": "r0/ui-normalization-current-candidate-20260903",
+      "sha": "0d73428dfafff2fd5450b74fd68e7bb40e92d2c5"
+    },
+    "f0_dependency": {
+      "branch": "work/ui-normalization-f0-wave-3-20260903",
+      "sha": "de92dabd4551e117ca1af1be7915ff223321cc32"
+    },
+    "m0_dependency": {
+      "branch": "work/ui-normalization-m0-continuity-20260903",
+      "sha": "4c83fc7769b1dec2d92469373e3b15154af437f4"
+    },
+    "a0_source_checkpoint": {
+      "branch": "work/ui-normalization-a0-wave-3-20260903",
+      "sha": "ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "integration_state": "implemented_unintegrated_patch_line"
+    },
+    "ready_for_r0_mechanical_comment": 5527907602,
+    "golden_pipeline_preflight": {
+      "url": "https://kenigevents.ru/preview-golden-84504f30-20270604-v1/__preview/",
+      "repo_sha": "84504f30eebc334deba46e94365601c3d572c5c0",
+      "classification": "pipeline_preflight_not_current_normalized_successor_acceptance"
+    }
+  },
+  "truth_boundary": {
+    "source_implemented_does_not_mean_integrated": true,
+    "integrated_does_not_mean_browser_passed": true,
+    "penpot_specs_are_not_penpot_materialization": true,
+    "v0_verdict_owner": "V0",
+    "candidate_acceptance_owner": "N0",
+    "runtime_and_kaggle_owner": "R0"
+  },
+  "bindings": [
+    {
+      "id": "a0.popular-listing-density",
+      "astro_family": "PopularListingSurface",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/listings/PopularListingSurface.astro",
+        "site/src/components/listings/PopularMobileBehaviorRows.astro",
+        "site/src/components/listings/PopularMobileAdaptiveRows.astro",
+        "site/src/components/listings/ListingMobileDensitySwitch.astro"
+      ],
+      "actual_consumers": [
+        "/populyarnoe/"
+      ],
+      "variants": [
+        "social-signal-groups",
+        "desktop",
+        "mobile-large",
+        "mobile-adaptive"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "density-large",
+        "density-adaptive"
+      ],
+      "canonical_children": [
+        "PopularBehaviorRows",
+        "PopularPersonalizedRow",
+        "AdaptiveEventCardGrid",
+        "ListingEventCard"
+      ],
+      "visible_assets": [
+        "SemanticIcon/trend-up",
+        "Icon/heart",
+        "Icon/comment",
+        "Icon/share"
+      ],
+      "foundation_dependencies": [
+        "F0 exactly-four icon roles",
+        "F0 product-contour foundations",
+        "M0 AdaptiveEventCardGrid",
+        "M0 ListingEventCard"
+      ],
+      "penpot_master_target": "A0 / PopularListingSurface",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "N0 accepts the product-preserving two-visible-representation implementation",
+      "v0_matrix_ids": [
+        "V0-A0-POPULAR-DENSITY"
+      ],
+      "rollback_cluster": "A0-RB-POPULAR"
+    },
+    {
+      "id": "a0.personal-feed-slot",
+      "astro_family": "PersonalFeedSlot",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/PersonalFeedSlot.astro"
+      ],
+      "actual_consumers": [
+        "/sobytiya/*/",
+        "listing contexts: today,tomorrow,date,weekend,exhibitions,popular"
+      ],
+      "variants": [
+        "today",
+        "tomorrow",
+        "date",
+        "weekend",
+        "event-detail",
+        "exhibitions",
+        "popular"
+      ],
+      "states": [
+        "dormant",
+        "pending",
+        "personal",
+        "popular-fallback",
+        "unavailable",
+        "populated",
+        "empty"
+      ],
+      "canonical_children": [
+        "AdaptiveEventCardGrid",
+        "EventCard"
+      ],
+      "visible_assets": [],
+      "foundation_dependencies": [
+        "F0 product-contour foundations",
+        "M0 AdaptiveEventCardGrid runtime diagnostics"
+      ],
+      "penpot_master_target": "A0 / PersonalFeedSlot",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 integrates current M0 before the A0 consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-ADAPTIVE-DIAGNOSTICS",
+        "V0-A0-PERSONAL-FEED"
+      ],
+      "rollback_cluster": "A0-RB-ADAPTIVE-CONSUMERS"
+    },
+    {
+      "id": "a0.home-cold-start-feed",
+      "astro_family": "HomeColdStartFeed",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/HomeColdStartFeed.astro"
+      ],
+      "actual_consumers": [
+        "/"
+      ],
+      "variants": [
+        "local-profile-rerank"
+      ],
+      "states": [
+        "static-fallback",
+        "local-rerank",
+        "populated",
+        "empty"
+      ],
+      "canonical_children": [
+        "AdaptiveEventCardGrid",
+        "EventCard"
+      ],
+      "visible_assets": [],
+      "foundation_dependencies": [
+        "F0 product-contour foundations",
+        "M0 AdaptiveEventCardGrid runtime diagnostics"
+      ],
+      "penpot_master_target": "A0 / HomeColdStartFeed",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 integrates current M0 before the A0 consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-ADAPTIVE-DIAGNOSTICS",
+        "V0-A0-HOME"
+      ],
+      "rollback_cluster": "A0-RB-ADAPTIVE-CONSUMERS"
+    },
+    {
+      "id": "a0.favorites-surface",
+      "astro_family": "FavoritesSurface",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/FavoritesSurface.astro"
+      ],
+      "actual_consumers": [
+        "/izbrannoe/"
+      ],
+      "variants": [
+        "future-saved-events"
+      ],
+      "states": [
+        "loading",
+        "ready",
+        "error",
+        "auth-required",
+        "populated",
+        "empty",
+        "cloud-idle",
+        "cloud-loading",
+        "cloud-ready",
+        "cloud-error"
+      ],
+      "canonical_children": [
+        "AdaptiveEventCardGrid",
+        "EventCard"
+      ],
+      "visible_assets": [],
+      "foundation_dependencies": [
+        "F0 product-contour foundations",
+        "M0 AdaptiveEventCardGrid runtime diagnostics"
+      ],
+      "penpot_master_target": "A0 / FavoritesSurface",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 integrates current M0 before the A0 consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-ADAPTIVE-DIAGNOSTICS",
+        "V0-A0-FAVORITES"
+      ],
+      "rollback_cluster": "A0-RB-ADAPTIVE-CONSUMERS"
+    },
+    {
+      "id": "a0.collection-catalog",
+      "astro_family": "CollectionCatalog",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/CollectionCatalog.astro",
+        "site/src/pages/podborki/index.astro"
+      ],
+      "actual_consumers": [
+        "/podborki/"
+      ],
+      "variants": [
+        "publication-status-catalog"
+      ],
+      "states": [
+        "available",
+        "empty",
+        "deferred-items",
+        "all-public"
+      ],
+      "canonical_children": [
+        "CollectionCatalogItem"
+      ],
+      "visible_assets": [
+        "SemanticIcon/arrow-right"
+      ],
+      "foundation_dependencies": [
+        "F0 collection foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / CollectionCatalog",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 applies the net A0 route/catalog consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-COLLECTIONS"
+      ],
+      "rollback_cluster": "A0-RB-COLLECTIONS"
+    },
+    {
+      "id": "a0.interest-profile",
+      "astro_family": "InterestProfile",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/InterestProfile.astro"
+      ],
+      "actual_consumers": [
+        "/dlya-menya/"
+      ],
+      "variants": [
+        "local-explicit-signals"
+      ],
+      "states": [
+        "consent",
+        "workspace",
+        "digest-ineligible",
+        "digest-eligible",
+        "digest-enabled"
+      ],
+      "canonical_children": [
+        "SemanticIcon",
+        "local tri-state preference controls"
+      ],
+      "visible_assets": [
+        "SemanticIcon/lock@action"
+      ],
+      "foundation_dependencies": [
+        "F0 personalization foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / InterestProfile",
+      "implementation_status": "mechanical_cleanup_pending",
+      "integration_gate": "A0-MECH-01 in issue comment 5527907602",
+      "v0_matrix_ids": [
+        "V0-A0-ICON-ROLES",
+        "V0-A0-FOR-ME"
+      ],
+      "rollback_cluster": "A0-RB-INTEREST-PROFILE"
+    },
+    {
+      "id": "a0.focus-group-flow",
+      "astro_family": "FocusGroupProgrammeSurface",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/components/FocusGroupInviteIntake.astro",
+        "site/src/components/FocusGroupInviteShare.astro",
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusGroupLabPanel.astro",
+        "site/src/components/FocusGroupThankYou.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro",
+        "site/src/components/FocusEggArtifact.astro",
+        "site/src/components/FocusEggCollectionCard.astro",
+        "site/src/components/FocusEggSavedListDemo.astro"
+      ],
+      "actual_consumers": [
+        "/fokus-gruppa/",
+        "/fokus-gruppa/priglashenie/",
+        "/fokus-gruppa/zavershenie/",
+        "focus collection and diagnostic routes"
+      ],
+      "variants": [
+        "research-programme",
+        "invite-intake",
+        "invite-share",
+        "feedback",
+        "diagnostic",
+        "thank-you",
+        "focus-egg"
+      ],
+      "states": [
+        "available",
+        "consent",
+        "signed-out",
+        "checking",
+        "signed-in",
+        "success",
+        "error",
+        "empty",
+        "eligible",
+        "found"
+      ],
+      "canonical_children": [
+        "Button",
+        "SemanticIcon",
+        "FocusEggArtifact",
+        "StatePanel"
+      ],
+      "visible_assets": [
+        "SemanticIcon/arrow-left",
+        "SemanticIcon/close",
+        "SemanticIcon/copy",
+        "QR invitation asset"
+      ],
+      "foundation_dependencies": [
+        "F0 focus continuity foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / FocusGroupFlow",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 applies the net A0 focus consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-FOCUS-GROUP"
+      ],
+      "rollback_cluster": "A0-RB-FOCUS"
+    },
+    {
+      "id": "a0.artifact-collection",
+      "astro_family": "ArtifactCollection",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/artifacts/ArtifactCollection.astro",
+        "site/src/pages/artefakty/index.astro"
+      ],
+      "actual_consumers": [
+        "/artefakty/"
+      ],
+      "variants": [
+        "local-browser-collection"
+      ],
+      "states": [
+        "empty",
+        "found",
+        "dialog-open"
+      ],
+      "canonical_children": [
+        "SemanticIcon"
+      ],
+      "visible_assets": [
+        "SemanticIcon/close@control",
+        "amber-cosmonaut responsive image set"
+      ],
+      "foundation_dependencies": [
+        "F0 collection foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / ArtifactCollection",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 applies the net A0 artifact consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-ARTIFACTS",
+        "V0-A0-ICON-ROLES"
+      ],
+      "rollback_cluster": "A0-RB-ARTIFACTS"
+    },
+    {
+      "id": "a0.interest-clubs",
+      "astro_family": "InterestClubsIndexRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/components/InterestClubCard.astro",
+        "site/src/pages/kluby-po-interesam/[slug]/index.astro"
+      ],
+      "actual_consumers": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/*/"
+      ],
+      "variants": [
+        "verified-directory",
+        "photographic-catalog-card",
+        "verified-club"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "cover-ready",
+        "fallback-art",
+        "future-meetings",
+        "history-only"
+      ],
+      "canonical_children": [
+        "InterestClubCard",
+        "SemanticIcon"
+      ],
+      "visible_assets": [
+        "SemanticIcon/catalog-grid@inline",
+        "SemanticIcon/arrow-right@inline",
+        "club cover responsive images"
+      ],
+      "foundation_dependencies": [
+        "F0 interest-club route foundations",
+        "F0 collection foundations",
+        "F0 exactly-four icon roles"
+      ],
+      "penpot_master_target": "A0 / InterestClubs",
+      "implementation_status": "index_source_implemented_detail_foundations_pending",
+      "integration_gate": "F0 publishes exact detail-route foundation bindings; R0 then applies the A0 consumer patch",
+      "v0_matrix_ids": [
+        "V0-A0-INTEREST-CLUBS",
+        "V0-A0-ICON-ROLES"
+      ],
+      "rollback_cluster": "A0-RB-CLUBS"
+    },
+    {
+      "id": "a0.information-pages",
+      "astro_family": "PartnersRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/partners/index.astro",
+        "site/src/pages/partnerstvo/index.astro"
+      ],
+      "actual_consumers": [
+        "/partners/",
+        "/partnerstvo/"
+      ],
+      "variants": [
+        "partnership-registry",
+        "organizer-information"
+      ],
+      "states": [
+        "available",
+        "empty"
+      ],
+      "canonical_children": [
+        "Button",
+        "canonical partnership registry entries"
+      ],
+      "visible_assets": [
+        "partner logo assets"
+      ],
+      "foundation_dependencies": [
+        "F0 partnership foundations"
+      ],
+      "penpot_master_target": "A0 / InformationPages",
+      "implementation_status": "source_implemented_unintegrated",
+      "integration_gate": "R0 applies the net A0 information-page consumer diff",
+      "v0_matrix_ids": [
+        "V0-A0-INFORMATION-PAGES"
+      ],
+      "rollback_cluster": "A0-RB-INFORMATION"
+    },
+    {
+      "id": "a0.search-results",
+      "astro_family": "SearchResultsComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/components/AuthorizedEventSearch.astro"
+      ],
+      "actual_consumers": [
+        "/poisk/"
+      ],
+      "variants": [
+        "ranked-phase-feed"
+      ],
+      "states": [
+        "auth-required",
+        "idle",
+        "loading",
+        "populated",
+        "empty",
+        "recovery",
+        "error"
+      ],
+      "canonical_children": [
+        "EventCard",
+        "phase headings",
+        "vector preview",
+        "search endcap"
+      ],
+      "visible_assets": [
+        "canonical search and action icons"
+      ],
+      "foundation_dependencies": [
+        "F0 product-contour foundations",
+        "M0 EventCard"
+      ],
+      "penpot_master_target": "A0 / SearchResultsComposition",
+      "implementation_status": "mechanical_materialization_pending",
+      "integration_gate": "A0-MECH-02 in issue comment 5527907602",
+      "v0_matrix_ids": [
+        "V0-A0-SEARCH"
+      ],
+      "rollback_cluster": "A0-RB-SEARCH"
+    },
+    {
+      "id": "a0.event-detail",
+      "astro_family": "EventDetailRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/sobytiya/[slug].astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/components/EventHero.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/MobileEventProductionStyles.astro"
+      ],
+      "actual_consumers": [
+        "/sobytiya/*/"
+      ],
+      "variants": [
+        "responsive-pair",
+        "desktop-editorial",
+        "desktop-split",
+        "mobile-accepted-v8",
+        "wide-image",
+        "narrow-image",
+        "no-image"
+      ],
+      "states": [
+        "active",
+        "archived",
+        "photo",
+        "document",
+        "fallback",
+        "gallery-open"
+      ],
+      "canonical_children": [
+        "EventMediaRail",
+        "MediaFrame",
+        "EventCard",
+        "AdaptiveEventCardGrid",
+        "EventCtaPanel",
+        "EventFacts"
+      ],
+      "visible_assets": [
+        "event media",
+        "brand lockup",
+        "canonical action icons"
+      ],
+      "foundation_dependencies": [
+        "F0 product-contour foundations",
+        "M0 MediaFrame",
+        "M0 EventMediaRail",
+        "M0 EventCard",
+        "M0 AdaptiveEventCardGrid"
+      ],
+      "penpot_master_target": "A0 / EventDetailRoute",
+      "implementation_status": "mechanical_materialization_pending",
+      "integration_gate": "A0-MECH-03 and A0-MECH-04 in issue comment 5527907602",
+      "v0_matrix_ids": [
+        "V0-A0-EVENT-DETAIL",
+        "V0-A0-MEDIAFRAME",
+        "V0-A0-ICON-ROLES"
+      ],
+      "rollback_cluster": "A0-RB-EVENT-DETAIL"
+    },
+    {
+      "id": "a0.exhibitions",
+      "astro_family": "ExhibitionsPersonalSurface",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/vystavki/index.astro",
+        "site/src/components/ExhibitionsPersonalSurface.astro",
+        "site/src/components/ExhibitionPrototypeRow.astro"
+      ],
+      "actual_consumers": [
+        "/vystavki/"
+      ],
+      "variants": [
+        "ranked-personal-catalog"
+      ],
+      "states": [
+        "personal",
+        "all",
+        "filtered",
+        "populated",
+        "empty",
+        "gallery-open"
+      ],
+      "canonical_children": [
+        "ExhibitionPrototypeRow"
+      ],
+      "visible_assets": [
+        "exhibition image gallery assets"
+      ],
+      "foundation_dependencies": [
+        "F0 exact exhibition-theme bindings not yet published"
+      ],
+      "penpot_master_target": "A0 / ExhibitionsPersonalSurface",
+      "implementation_status": "identity_mechanical_pending_foundations_external",
+      "integration_gate": "A0-MECH-05 plus an exact F0 exhibition-theme binding",
+      "v0_matrix_ids": [
+        "V0-A0-EXHIBITIONS"
+      ],
+      "rollback_cluster": "A0-RB-EXHIBITIONS"
+    },
+    {
+      "id": "a0.festivals",
+      "astro_family": "FestivalsTimelineRouteComposition",
+      "version": 1,
+      "source_roots": [
+        "site/src/pages/festivali/index.astro"
+      ],
+      "actual_consumers": [
+        "/festivali/"
+      ],
+      "variants": [
+        "annual-timeline"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "liked"
+      ],
+      "canonical_children": [
+        "festival timeline rows",
+        "canonical semantic guide icons"
+      ],
+      "visible_assets": [
+        "SemanticIcon/heart",
+        "SemanticIcon/link@control",
+        "SemanticIcon/calendar@control",
+        "festival category SVG assets",
+        "festival timeline images"
+      ],
+      "foundation_dependencies": [
+        "F0 exact festival-theme bindings not yet published"
+      ],
+      "penpot_master_target": "A0 / FestivalsTimelineRoute",
+      "implementation_status": "identity_and_icons_mechanical_pending_foundations_external",
+      "integration_gate": "A0-MECH-05 plus an exact F0 festival-theme binding",
+      "v0_matrix_ids": [
+        "V0-A0-FESTIVALS"
+      ],
+      "rollback_cluster": "A0-RB-FESTIVALS"
+    }
+  ]
+}
