@@ -1,0 +1,363 @@
+{
+  "schema": "kenigevents.penpot.a0-current-successor-route-instance-overlay.v1",
+  "version": "1.0.0",
+  "contract_version": "1.10.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "extends": [
+    "penpot/candidate/a0-route-instance-spec.v1.json",
+    "penpot/candidate/a0-focus-route-instance-spec.v1.json"
+  ],
+  "binding_authority": "catalog/normalization/a0-current-successor-consumer-closure.v1.json@e9da3bea2d52f6b720c7829804d6a9db0f123b8f",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_contract": "site/src/data/a0-current-successor-consumer-closure.v1.json@6c6d2760931ffb63f8e319202eb3885914d9bc40",
+    "mechanical_batch_comment": 5527907602,
+    "actual_penpot_mutation_in_this_overlay": false
+  },
+  "source_and_evidence_boundary": {
+    "current_public_pre_f0": {
+      "url": "https://kenigevents.ru/preview-real-1bc6d9cb-normalized-20260903-v1/__preview/",
+      "source_sha": "1bc6d9cb4c122046f4782532381de953727c1da6",
+      "use": "reference-only actual before source closure",
+      "may_materialize_as_accepted_master": false,
+      "independent_v0_pass": false
+    },
+    "required_post_closure_source": "N0-accepted successor containing current F0 plus accepted M0/FR0 and the six-consumer A0 closure",
+    "required_post_closure_evidence": "exact canonical full fresh-real Kaggle URL plus independent V0 DOM/computed-style verdict",
+    "pending_board_label": "PENDING POST-F0 V0 — reference only, not parity"
+  },
+  "variable_bindings": [
+    {
+      "id": "A0-VB-C10",
+      "target_master": "A0-M10",
+      "source": "site/src/components/design-system/interest-club-card-continuity-foundations.css",
+      "groups": [
+        "club-card/fallback-orbit",
+        "club-card/fact-divider"
+      ],
+      "required_variables": [
+        "--ke-color-club-card-fallback-orbit-ring-inner",
+        "--ke-color-club-card-fallback-orbit-ring-outer",
+        "--ke-color-club-card-fallback-orbit-line",
+        "--ke-color-club-card-fact-divider"
+      ]
+    },
+    {
+      "id": "A0-VB-D10",
+      "target_master": "A0-M10",
+      "source": "site/src/components/design-system/route-theme-foundations.css",
+      "groups": [
+        "club-detail/hero",
+        "club-detail/facts",
+        "club-detail/meeting-list",
+        "club-detail/empty",
+        "club-detail/note",
+        "club-detail/action"
+      ],
+      "required_prefixes": [
+        "--ke-club-detail-",
+        "--ke-color-club-detail-"
+      ]
+    },
+    {
+      "id": "A0-VB-E13",
+      "target_master": "A0-M13",
+      "source": "site/src/components/design-system/route-theme-foundations.css",
+      "groups": [
+        "exhibitions/canvas",
+        "exhibitions/surfaces",
+        "exhibitions/status",
+        "exhibitions/controls",
+        "exhibitions/timeline",
+        "exhibitions/motion"
+      ],
+      "required_prefixes": [
+        "--ke-exhibitions-",
+        "--ke-color-exhibitions-"
+      ],
+      "forbidden_local_variable_prefix": "--ex-"
+    },
+    {
+      "id": "A0-VB-F14",
+      "target_master": "A0-M14",
+      "source": "site/src/components/design-system/route-theme-foundations.css",
+      "groups": [
+        "festival/page",
+        "festival/hero",
+        "festival/navigation",
+        "festival/guide",
+        "festival/timeline",
+        "festival/card",
+        "festival/status",
+        "festival/favorite"
+      ],
+      "required_prefixes": [
+        "--ke-festival-",
+        "--ke-color-festival-"
+      ],
+      "minimum_interactive_target_px": 44
+    }
+  ],
+  "master_overlays": [
+    {
+      "master_id": "A0-M10",
+      "name": "A0 / InterestClubs",
+      "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_bindings": [
+        "a0.closure.interest-club-card-continuity",
+        "a0.closure.interest-club-detail-theme"
+      ],
+      "variants": [
+        "directory",
+        "catalog-card",
+        "detail"
+      ],
+      "states": [
+        "populated",
+        "empty",
+        "cover-ready",
+        "fallback-art",
+        "future-meetings",
+        "history-only"
+      ],
+      "required_linked_assets": [
+        "SemanticIcon/catalog-grid@inline",
+        "SemanticIcon/arrow-right@inline",
+        "SemanticIcon/arrow-left@inline",
+        "club cover responsive images"
+      ],
+      "detached_duplicate_allowed": false
+    },
+    {
+      "master_id": "A0-M13",
+      "name": "A0 / ExhibitionsPersonalSurface",
+      "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_binding": "a0.closure.exhibitions-personal-theme",
+      "variant": "ranked-personal-catalog",
+      "states": [
+        "personal-all-topics-populated",
+        "personal-all-topics-empty",
+        "all-mode",
+        "filtered",
+        "gallery-open",
+        "loading",
+        "error"
+      ],
+      "required_properties": [
+        "mode",
+        "category filter",
+        "new/priority/tail grouping",
+        "keyboard state",
+        "gallery state",
+        "undo state"
+      ],
+      "detached_duplicate_allowed": false
+    },
+    {
+      "master_id": "A0-M14",
+      "name": "A0 / FestivalsTimelineRoute",
+      "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_binding": "a0.closure.festivals-timeline-theme",
+      "variant": "annual-timeline",
+      "states": [
+        "populated",
+        "empty",
+        "liked",
+        "unliked",
+        "program-confirmed",
+        "program-pending",
+        "date-pending"
+      ],
+      "required_linked_assets": [
+        "SemanticIcon/heart@control",
+        "SemanticIcon/link@control",
+        "SemanticIcon/calendar@control",
+        "specialized festival category SVG assets"
+      ],
+      "detached_duplicate_allowed": false
+    },
+    {
+      "master_id": "A0-M15",
+      "name": "A0 / FocusEggCollectionRoute",
+      "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_binding": "a0.closure.focus-egg-collection-route",
+      "variant": "collection-prototype",
+      "states": [
+        "found-0-of-N",
+        "found-partial-of-N",
+        "found-all-of-N"
+      ],
+      "required_properties": [
+        "eligible count",
+        "found count",
+        "meter value",
+        "egg states",
+        "device mission state"
+      ],
+      "detached_duplicate_allowed": false
+    },
+    {
+      "master_id": "A0-M17",
+      "name": "A0 / ClosedFocusHubRoute",
+      "operation": "UPDATE_EXISTING_NATIVE_MASTER",
+      "source_binding": "a0.closure.closed-focus-hub-route",
+      "variant": "participant-hub",
+      "states": [
+        "checking",
+        "locked",
+        "available"
+      ],
+      "required_properties": [
+        "participation state",
+        "account state",
+        "visible navigation sections",
+        "leave action state"
+      ],
+      "detached_duplicate_allowed": false
+    }
+  ],
+  "route_board_overlays": [
+    {
+      "board_id": "A0-R07",
+      "route": "/festivali/",
+      "linked_master": "A0-M14",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1728x900"
+      ],
+      "required_states": [
+        "populated",
+        "liked",
+        "unliked"
+      ]
+    },
+    {
+      "board_id": "A0-R08",
+      "route": "/vystavki/",
+      "linked_master": "A0-M13",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "required_states": [
+        "personal",
+        "all",
+        "filtered",
+        "gallery-open"
+      ]
+    },
+    {
+      "board_id": "A0-R15",
+      "route": "/kluby-po-interesam/",
+      "linked_master": "A0-M10",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "required_states": [
+        "populated",
+        "empty",
+        "cover-ready",
+        "fallback-art"
+      ]
+    },
+    {
+      "board_id": "A0-R15D",
+      "route": "/kluby-po-interesam/*/",
+      "linked_master": "A0-M10",
+      "page": "A0-P40",
+      "viewports": [
+        "mobile-430x932",
+        "desktop-1280x800"
+      ],
+      "required_states": [
+        "future-meetings",
+        "history-only"
+      ]
+    },
+    {
+      "board_id": "A0-R18",
+      "route": "/fokus-gruppa/kollektsiya/",
+      "linked_master": "A0-M15",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "required_states": [
+        "found-0-of-N",
+        "found-partial-of-N",
+        "found-all-of-N"
+      ]
+    },
+    {
+      "board_id": "A0-R21",
+      "route": "/zakrytaya-afisha/",
+      "linked_master": "A0-M17",
+      "viewports": [
+        "mobile-390x844",
+        "desktop-1280x800"
+      ],
+      "required_states": [
+        "checking",
+        "locked",
+        "available"
+      ]
+    }
+  ],
+  "asset_overlays": [
+    {
+      "asset_id": "asset.semantic.heart",
+      "source": "SemanticIcon/heart",
+      "role": "control",
+      "consumers": [
+        "A0-M14"
+      ]
+    },
+    {
+      "asset_id": "asset.semantic.calendar",
+      "supersedes_base_source": "Icon/calendar",
+      "source": "SemanticIcon/calendar",
+      "role": "control",
+      "consumers": [
+        "A0-M14"
+      ]
+    },
+    {
+      "asset_id": "asset.semantic.arrow-left",
+      "source": "SemanticIcon/arrow-left",
+      "role": "inline",
+      "consumers": [
+        "A0-M10"
+      ]
+    },
+    {
+      "asset_id": "asset.festival-categories",
+      "source": "/assets/icons/festival-categories/*.svg",
+      "role": "specialized-category",
+      "rule": "Preserve exact editorial category identity; never redraw as generic action icons."
+    }
+  ],
+  "materialization_gate": {
+    "required": [
+      "post-closure integrated source accepted by N0",
+      "both strict F0 consumption gates PASS",
+      "current accepted M0/FR0 nested family refs",
+      "canonical full fresh-real Kaggle URL",
+      "independent V0 PASS or accepted bounded DRIFT disposition",
+      "ASTRO_NORMALIZATION_PASS"
+    ],
+    "transaction": "one bounded R0.PENPOT update of existing native masters and linked route instances",
+    "rollback": "revert the smallest master/route-board overlay; do not replace the Penpot file or detach unrelated instances"
+  },
+  "claims_not_made": [
+    "source integrated",
+    "source tests passed",
+    "post-closure preview published",
+    "independent V0 pass",
+    "Penpot variables created",
+    "Penpot masters updated",
+    "Penpot linked instances materialized"
+  ]
+}
