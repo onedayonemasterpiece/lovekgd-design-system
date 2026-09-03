@@ -1,0 +1,450 @@
+{
+  "schema_version": "kenigevents.a0-source-integration-and-rollback.v1",
+  "contract_version": "1.9.0",
+  "status": "READY_FOR_SELECTIVE_MATERIALIZATION",
+  "authority": {
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621",
+    "mechanical_batch_comment": 5527907602,
+    "thin_s_bindings": "catalog/normalization/a0-thin-s-bindings.v1.json",
+    "penpot_spec": "penpot/candidate/a0-route-instance-spec.v1.json",
+    "v0_matrix": "catalog/normalization/evidence/a0-v0-acceptance-matrix.v1.json"
+  },
+  "frozen_inputs": {
+    "accepted_combined_precursor": {
+      "branch": "r0/ui-normalization-current-candidate-20260903",
+      "sha": "0d73428dfafff2fd5450b74fd68e7bb40e92d2c5"
+    },
+    "f0_dependency": {
+      "branch": "work/ui-normalization-f0-wave-3-20260903",
+      "sha": "de92dabd4551e117ca1af1be7915ff223321cc32"
+    },
+    "m0_dependency": {
+      "branch": "work/ui-normalization-m0-continuity-20260903",
+      "sha": "4c83fc7769b1dec2d92469373e3b15154af437f4"
+    },
+    "a0_patch_line": {
+      "branch": "work/ui-normalization-a0-wave-3-20260903",
+      "sha": "ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "relationship_to_candidate": "divergent_selective_patch_source_not_wholesale_merge_target"
+    }
+  },
+  "integration_order": [
+    {
+      "step": 1,
+      "action": "Resolve the latest N0-accepted combined precursor or successor and record its exact SHA."
+    },
+    {
+      "step": 2,
+      "action": "Integrate the current accepted F0 dependency before consumer replay."
+    },
+    {
+      "step": 3,
+      "action": "Integrate the current accepted M0 dependency before consumer replay."
+    },
+    {
+      "step": 4,
+      "action": "Apply only the net A0 consumer changes through ec926580fa2cc003318006f4c1d671fc459ea26c."
+    },
+    {
+      "step": 5,
+      "action": "Apply A0-MECH-01 through A0-MECH-06 against the post-F0/post-M0 tree."
+    },
+    {
+      "step": 6,
+      "action": "Run the focused source-test packet and normal focused checks."
+    },
+    {
+      "step": 7,
+      "action": "N0 accepts or rejects the resulting integrated successor with explicit ancestry and rollback boundary."
+    },
+    {
+      "step": 8,
+      "action": "Invoke the one canonical Kaggle StaticSiteBuilder for the current full fresh-real Review Preview."
+    },
+    {
+      "step": 9,
+      "action": "V0 inspects the exact accepted HTTP-200 build and publishes PASS or DRIFT."
+    },
+    {
+      "step": 10,
+      "action": "Only after accepted source and V0 gates, R0.PENPOT materializes the linked-instance spec in one bounded transaction."
+    }
+  ],
+  "excluded_from_a0_replay": [
+    {
+      "path": "site/src/components/AdaptiveEventCardGrid.astro",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/EventCard.astro",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/listings/ListingEventCard.astro",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/EventMediaRail.astro",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/listings/MobileListingRailRow.astro",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/media-frame.css",
+      "owner": "M0"
+    },
+    {
+      "path": "site/src/components/OptimizedEventCardGrid.astro",
+      "owner": "M0",
+      "reason": "The A0 copy has no required net value over the accepted thin compatibility adapter."
+    },
+    {
+      "path": "site/src/styles/design-system.css",
+      "owner": "F0"
+    },
+    {
+      "path": "site/src/components/design-system/**",
+      "owner": "F0"
+    }
+  ],
+  "source_clusters": [
+    {
+      "id": "A0-RB-POPULAR",
+      "purpose": "Preserve the accepted Popular Large/Compact product behavior while removing the disconnected visible representation.",
+      "source_commits": [
+        "3630c3eb92088c5b8de163805bb2c4f564def57c",
+        "142086f1d9ee6c2782bd0181e5ce2569d208f016"
+      ],
+      "paths": [
+        "site/src/components/listings/PopularListingSurface.astro",
+        "site/tests/a0-consumer-ownership.test.mjs"
+      ],
+      "must_preserve": [
+        "ListingMobileDensitySwitch",
+        "ke_listing_density_v2",
+        "keyboard radio behavior",
+        "pinch behavior",
+        "visible-event anchor preservation",
+        "mobile-large representation",
+        "mobile-adaptive representation"
+      ],
+      "must_remove": [
+        "a third disconnected visible MobileListingRailSurface",
+        "display-none donor targeting"
+      ],
+      "rollback_action": "Revert only the Popular consumer and its focused test; never revert the accepted product behavior by deleting the density switch.",
+      "rollback_trigger": [
+        "N0 rejects the two-visible-representation composition",
+        "focused source test fails outside expected integration conflict",
+        "V0 reports that a choice has zero visual effect or more than one representation is visible"
+      ]
+    },
+    {
+      "id": "A0-RB-ADAPTIVE-CONSUMERS",
+      "purpose": "Make AdaptiveEventCardGrid the sole count, order, remainder and runtime-state diagnostics owner.",
+      "source_commits": [
+        "d50ca4b12261883d02904c88c84cb5fc158d4100",
+        "b239870d0c5527146e1c0a38e7f12f31ab6c6425",
+        "7106e558a44e7fac720c078aeeecf7393a7c3b8e",
+        "8cfac46df8be93309efad2f5452cf843250b9b12"
+      ],
+      "paths": [
+        "site/src/components/PersonalFeedSlot.astro",
+        "site/src/components/HomeColdStartFeed.astro",
+        "site/src/components/FavoritesSurface.astro",
+        "site/tests/a0-adaptive-grid-consumer-ownership.test.mjs"
+      ],
+      "precondition": "Current M0 AdaptiveEventCardGrid runtime diagnostics are integrated.",
+      "consumer_ownership": [
+        "product mode",
+        "copy",
+        "loading status",
+        "visibility",
+        "local or cloud product state"
+      ],
+      "m0_ownership": [
+        "source count and order",
+        "rendered count and order",
+        "remainder count and variant",
+        "populated or empty grid state"
+      ],
+      "rollback_action": "Revert all three consumer changes together if current M0 is absent; do not reintroduce parallel manual diagnostics after M0 is present.",
+      "rollback_trigger": [
+        "M0 runtime is not in the constructed successor",
+        "dynamic child mutation is no longer observed",
+        "V0 finds stale or conflicting diagnostic values"
+      ]
+    },
+    {
+      "id": "A0-RB-COLLECTIONS",
+      "purpose": "Delegate collection catalog items and route composition to one accepted root.",
+      "source_boundary": "A0 net consumer diff through ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "paths": [
+        "site/src/components/CollectionCatalog.astro",
+        "site/src/pages/podborki/index.astro",
+        "site/src/pages/podborki/[slug]/index.astro",
+        "site/src/components/FreeCollectionSurface.astro",
+        "site/src/components/GastronomyCollectionSurface.astro"
+      ],
+      "rollback_action": "Revert the catalog route and root as one unit; do not restore page-local duplicate item markup.",
+      "rollback_trigger": [
+        "catalog lifecycle entries are missing",
+        "route no longer renders published or deferred collection states",
+        "V0 finds a page-local duplicate item family"
+      ]
+    },
+    {
+      "id": "A0-RB-FOCUS",
+      "purpose": "Normalize programme, invite, feedback, diagnostics, thank-you and FocusEgg consumers without changing auth, consent or local collection semantics.",
+      "source_boundary": "A0 net consumer diff through ec926580fa2cc003318006f4c1d671fc459ea26c",
+      "paths": [
+        "site/src/pages/fokus-gruppa/index.astro",
+        "site/src/pages/fokus-gruppa/priglashenie/index.astro",
+        "site/src/pages/fokus-gruppa/zavershenie/index.astro",
+        "site/src/components/FocusGroupInviteIntake.astro",
+        "site/src/components/FocusGroupInviteShare.astro",
+        "site/src/components/FocusGroupFeedback.astro",
+        "site/src/components/FocusGroupLabPanel.astro",
+        "site/src/components/FocusGroupThankYou.astro",
+        "site/src/components/FocusConnectivityDiagnostic.astro",
+        "site/src/components/FocusEggArtifact.astro",
+        "site/src/components/FocusEggCollectionCard.astro",
+        "site/src/components/FocusEggSavedListDemo.astro"
+      ],
+      "must_preserve": [
+        "browser-local consent boundary",
+        "Supabase auth hooks",
+        "PWA hooks",
+        "NPS versus utility distinction",
+        "FocusEgg eligibility and found-state semantics"
+      ],
+      "rollback_action": "Rollback by named subfamily only when its behavior gate fails; shared foundation entry-point removal is not an accepted blanket rollback.",
+      "rollback_trigger": [
+        "auth or consent hooks disappear",
+        "FocusEgg found state no longer persists",
+        "route or component state no longer reflects runtime"
+      ]
+    },
+    {
+      "id": "A0-RB-CLUBS",
+      "purpose": "Consume the F0 interest-club route foundations and four-role semantic icons.",
+      "source_commits": [
+        "92264f06f79ad1fedb20096dfb4bbecc3a8f6f72",
+        "e28b0b6ba57637fc6caebca743a302444a271b3b",
+        "ec926580fa2cc003318006f4c1d671fc459ea26c"
+      ],
+      "paths": [
+        "site/src/pages/kluby-po-interesam/index.astro",
+        "site/src/components/InterestClubCard.astro",
+        "site/tests/a0-consumer-ownership.test.mjs"
+      ],
+      "external_dependency": "F0 must still publish exact detail-route foundations for site/src/pages/kluby-po-interesam/[slug]/index.astro.",
+      "rollback_action": "Revert index and card changes together only if the F0 route foundation contract is absent; never restore local .ke-icon-role sizing.",
+      "rollback_trigger": [
+        "required F0 tokens are undefined",
+        "catalog-grid or arrow-right semantic identity is unavailable",
+        "V0 reports non-16px inline icons"
+      ]
+    },
+    {
+      "id": "A0-RB-ARTIFACTS",
+      "purpose": "Use one artifact palette, runtime state and canonical close control identity.",
+      "source_commits": [
+        "75465138eae249024eb611e5e4ffd7c9a4988738",
+        "ec926580fa2cc003318006f4c1d671fc459ea26c"
+      ],
+      "paths": [
+        "site/src/components/artifacts/ArtifactCollection.astro",
+        "site/src/pages/artefakty/index.astro",
+        "site/tests/a0-consumer-ownership.test.mjs"
+      ],
+      "rollback_action": "Rollback component and focused test as one unit; preserve the local collection storage key and dialog behavior.",
+      "rollback_trigger": [
+        "found or empty state is incorrect",
+        "dialog close/focus restoration regresses",
+        "control icon is not 20px"
+      ]
+    },
+    {
+      "id": "A0-RB-INTEREST-PROFILE",
+      "purpose": "Retain the local explicit-signal model while closing the final fifth icon square.",
+      "materialization_cluster": "A0-MECH-01",
+      "paths": [
+        "site/src/components/InterestProfile.astro",
+        "site/tests/interest-profile-normalization.test.mjs"
+      ],
+      "rollback_action": "Revert only the icon-size cleanup if the decorative container is damaged; do not revert profile semantics or the action-role icon.",
+      "rollback_trigger": [
+        "lock icon is visually clipped",
+        "action icon no longer renders 24px",
+        "profile consent or workspace transition changes"
+      ]
+    },
+    {
+      "id": "A0-RB-SEARCH",
+      "purpose": "Give the interleaved ranked search feed an explicit accepted composition without inventing a second renderer.",
+      "materialization_cluster": "A0-MECH-02",
+      "paths": [
+        "site/src/components/AuthorizedEventSearch.astro",
+        "existing search source tests"
+      ],
+      "must_preserve": [
+        "phase headings",
+        "vector-preview placeholders",
+        "explanatory notes",
+        "endcap",
+        "canonical EventCard HTML"
+      ],
+      "rollback_action": "Revert state/identity wiring only; retain the existing search ranking and renderer.",
+      "rollback_trigger": [
+        "search lifecycle state becomes inconsistent",
+        "settled results lose canonical EventCard roots",
+        "phase composition is flattened into incorrect card-only markup"
+      ]
+    },
+    {
+      "id": "A0-RB-EVENT-DETAIL",
+      "purpose": "Consume M0 MediaFrame, EventMediaRail, EventCard and Adaptive grid roots across the actual event-detail vertical slice.",
+      "materialization_clusters": [
+        "A0-MECH-03",
+        "A0-MECH-04"
+      ],
+      "paths": [
+        "site/src/components/listings/MobileListingRailSurface.astro",
+        "site/src/components/DesktopEventPage.astro",
+        "site/src/layouts/EventLayout.astro",
+        "site/src/components/EventHero.astro",
+        "site/src/components/MobileEventProductionStyles.astro",
+        "site/src/components/design-system/a0-media-frame-exceptions.v1.json",
+        "site/tests/event-hero-media-frame-exception.test.mjs"
+      ],
+      "precondition": "Current M0 MediaFrame and all EventMediaRail variants are integrated.",
+      "rollback_subunits": [
+        {
+          "id": "A0-RB-EVENT-DETAIL-MOBILE-RAIL",
+          "paths": [
+            "site/src/components/listings/MobileListingRailSurface.astro"
+          ]
+        },
+        {
+          "id": "A0-RB-EVENT-DETAIL-DESKTOP-RAILS",
+          "paths": [
+            "site/src/components/DesktopEventPage.astro"
+          ]
+        },
+        {
+          "id": "A0-RB-EVENT-DETAIL-HERO",
+          "paths": [
+            "site/src/components/EventHero.astro",
+            "site/src/components/design-system/a0-media-frame-exceptions.v1.json",
+            "site/tests/event-hero-media-frame-exception.test.mjs"
+          ]
+        },
+        {
+          "id": "A0-RB-EVENT-DETAIL-LAYOUT-STYLES",
+          "paths": [
+            "site/src/layouts/EventLayout.astro",
+            "site/src/components/MobileEventProductionStyles.astro"
+          ]
+        }
+      ],
+      "rollback_action": "Rollback the smallest failing subunit; never restore duplicate fit or rail anatomy merely because an unrelated event-detail interaction fails.",
+      "rollback_trigger": [
+        "MediaFrame crop or fallback semantics regress",
+        "gallery, rotation or viewer-start hooks are lost",
+        "EventMediaRail responsive counts differ from the existing behavior",
+        "header, auth, PWA, share or calendar runtime regresses",
+        "V0 reports duplicate matched-rule ownership"
+      ]
+    },
+    {
+      "id": "A0-RB-EXHIBITIONS",
+      "purpose": "Add honest inner-family and lifecycle identity before exact theme foundation saturation.",
+      "materialization_cluster": "A0-MECH-05",
+      "paths": [
+        "site/src/components/ExhibitionsPersonalSurface.astro"
+      ],
+      "external_dependency": "F0 exact exhibition-theme bindings.",
+      "rollback_action": "Rollback identity/state wiring only if runtime state is wrong; do not redesign or partially rename private theme variables in R0.",
+      "rollback_trigger": [
+        "personal/all/filter state does not match the visible surface",
+        "gallery behavior regresses"
+      ]
+    },
+    {
+      "id": "A0-RB-FESTIVALS",
+      "purpose": "Add route identity and canonical semantic guide icons before exact theme foundation saturation.",
+      "materialization_cluster": "A0-MECH-05",
+      "paths": [
+        "site/src/pages/festivali/index.astro"
+      ],
+      "external_dependency": "F0 exact festival-theme bindings.",
+      "rollback_action": "Rollback identity and guide-icon substitutions only; preserve specialized category SVGs and timeline behavior.",
+      "rollback_trigger": [
+        "semantic guide icon meaning is incorrect",
+        "festival row packing or like behavior changes"
+      ]
+    },
+    {
+      "id": "A0-RB-FOCUS-ROUTE-IDENTITIES",
+      "purpose": "Close the final PM0-37 identity gaps without changing focus collection or closed-hub behavior.",
+      "materialization_cluster": "A0-MECH-06",
+      "paths": [
+        "site/src/pages/fokus-gruppa/kollektsiya/index.astro",
+        "site/src/pages/zakrytaya-afisha/index.astro",
+        "site/tests/a0-route-family-normalization.test.mjs"
+      ],
+      "edits": [
+        "FocusEggCollectionRouteComposition@1 / collection-prototype with runtime found/eligible state",
+        "ClosedFocusHubRouteComposition@1 / participant-hub with checking/locked/available state"
+      ],
+      "rollback_action": "Rollback only identity/state attributes; preserve local participation, auth, collection and navigation behavior.",
+      "rollback_trigger": [
+        "identity state does not match visible gate or hub",
+        "local participation or collection behavior changes"
+      ]
+    }
+  ],
+  "source_test_packet": [
+    "site/tests/a0-consumer-ownership.test.mjs",
+    "site/tests/a0-adaptive-grid-consumer-ownership.test.mjs",
+    "site/tests/a0-route-family-normalization.test.mjs",
+    "site/tests/a0-foundation-reference-integrity.test.mjs",
+    "site/tests/interest-profile-normalization.test.mjs",
+    "site/tests/search-learning.test.mjs",
+    "site/tests/personal-feed-surface.test.mjs",
+    "site/tests/favorites-home-contract.test.mjs",
+    "site/tests/event-hero-media-frame-exception.test.mjs",
+    "site/tests/adaptive-grid-diagnostic-cardinality.test.mjs",
+    "site/tests/media-frame-style-owner.test.mjs",
+    "site/tests/event-media-rail-hardening.test.mjs",
+    "site/tests/m0-card-icon-role-contract.test.mjs",
+    "site/tests/mobile-listing-rails.test.mjs",
+    "site/tests/visual-keyboard-regressions.test.mjs"
+  ],
+  "test_semantics": {
+    "event_hero_exception_test": "Replace with a positive MediaFrame contract test when A0-MECH-04 removes the exception.",
+    "branch_local_source_test_credit": false,
+    "full_build_credit_requires_kaggle": true,
+    "browser_pass_requires_v0": true
+  },
+  "candidate_rollback_policy": {
+    "first_response": "Reject or rollback the smallest failing cluster, not the whole F0/M0/A0 successor.",
+    "ancestry_required": true,
+    "previous_accepted_candidate": "0d73428dfafff2fd5450b74fd68e7bb40e92d2c5",
+    "publication_failure": "Do not promote preview.current; preserve the previous per-mode current and previous immutable prefixes.",
+    "browser_drift": "Route DRIFT to the smallest source cluster and rebuild through the same Kaggle path after correction.",
+    "penpot_failure": "Leave Astro/SoT accepted state unchanged and rollback only the bounded R0.PENPOT transaction."
+  },
+  "completion_boundary": {
+    "a0_analysis_and_specification": "DONE",
+    "mechanical_source_materialization": "R0_REQUIRED",
+    "f0_theme_bindings": "F0_REQUIRED_FOR_EXHIBITIONS_FESTIVALS_CLUB_DETAIL",
+    "candidate_acceptance": "N0_REQUIRED",
+    "runtime_tests_and_kaggle": "R0_REQUIRED",
+    "browser_verdict": "V0_REQUIRED",
+    "penpot_materialization": "R0.PENPOT_REQUIRED_AFTER_ACCEPTANCE"
+  }
+}
