@@ -1,0 +1,159 @@
+{
+  "schema_version": "kenigevents.f0-interest-club-penpot-extension.v1",
+  "version": "1.0.0",
+  "contract_version": "1.9.0",
+  "status": "SPEC_ONLY_NOT_MATERIALIZED",
+  "authority": {
+    "penpot_file_id": "40e06342-8830-80d6-8008-8fc8a3a4cd4f",
+    "sole_writer": "R0.PENPOT",
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_commit": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "thin_s_extension": "catalog/normalization/f0-interest-club-theme-extension.v1.json"
+  },
+  "materialization_boundary": {
+    "actual_penpot_mutation_in_this_record": false,
+    "apply_only_after": [
+      "N0 accepts an integrated successor containing F0 0fb2938",
+      "the strict F0 club-theme source gate passes on that exact successor",
+      "V0 accepts the club index and card computed-style bindings on the exact fresh-real URL"
+    ],
+    "native_variables_only": true,
+    "native_components_only": true,
+    "linked_route_instances_only": true,
+    "detached_visual_reconstruction_forbidden": true
+  },
+  "variable_collections": [
+    {
+      "id": "F0-C13",
+      "name": "F0 / Interest clubs index",
+      "source_file": "site/src/components/design-system/interest-club-route-foundations.css",
+      "source_prefixes": [
+        "--ke-clubs-",
+        "--ke-color-clubs-",
+        "--ke-elevation-clubs-"
+      ],
+      "mode": "editorial-blue-gold",
+      "semantic_boundary": "route identity, not generic information or warning status",
+      "required_master": "A0 / InterestClubsIndexRouteComposition"
+    },
+    {
+      "id": "F0-C14",
+      "name": "F0 / Interest club card",
+      "source_files": [
+        "site/src/components/design-system/collection-foundations.css",
+        "site/src/components/design-system/interest-club-card-continuity-foundations.css"
+      ],
+      "source_prefixes": [
+        "--ke-club-card-",
+        "--ke-color-club-card-",
+        "--ke-elevation-club-"
+      ],
+      "mode": "photographic-dark",
+      "semantic_boundary": "reusable component family, not a route-local deck palette",
+      "required_master": "A0 / InterestClubCard",
+      "required_variables": [
+        {
+          "name": "club-card.fallback.orbit-ring-inner",
+          "source": "--ke-color-club-card-fallback-orbit-ring-inner"
+        },
+        {
+          "name": "club-card.fallback.orbit-ring-outer",
+          "source": "--ke-color-club-card-fallback-orbit-ring-outer"
+        },
+        {
+          "name": "club-card.fallback.orbit-line",
+          "source": "--ke-color-club-card-fallback-orbit-line"
+        },
+        {
+          "name": "club-card.fact-divider",
+          "source": "--ke-color-club-card-fact-divider"
+        }
+      ]
+    }
+  ],
+  "masters": [
+    {
+      "id": "F0-M13",
+      "name": "A0 / InterestClubsIndexRouteComposition",
+      "family": "InterestClubsIndexRouteComposition",
+      "version": 1,
+      "variant": "verified-directory",
+      "states": ["populated", "empty"],
+      "variable_collections": ["F0-C13", "F0-C03"],
+      "nested_icon_bindings": [
+        {
+          "action": "interest-clubs.index.catalog-count",
+          "glyph": "catalog-grid",
+          "role": "inline",
+          "size_px": 16
+        }
+      ],
+      "preserve": [
+        "blue and gold atmospheric hero layers",
+        "cool count chip",
+        "mobile sticky shelf",
+        "route copy and catalogue count states"
+      ]
+    },
+    {
+      "id": "F0-M14",
+      "name": "A0 / InterestClubCard",
+      "family": "InterestClubCard",
+      "version": 1,
+      "variant": "photographic-catalog-card",
+      "states": ["cover-ready", "fallback-art", "future-meetings", "history-only"],
+      "variable_collections": ["F0-C14", "F0-C03"],
+      "nested_icon_bindings": [
+        {
+          "action": "interest-club.card.open-detail",
+          "glyph": "arrow-right",
+          "role": "inline",
+          "size_px": 16
+        }
+      ],
+      "preserve": [
+        "photographic/fallback media state",
+        "dark veil and scheduled-activity orange",
+        "keyboard focus and hints",
+        "fact rows and responsive card anatomy"
+      ]
+    }
+  ],
+  "route_instances": [
+    {
+      "route": "/kluby-po-interesam/",
+      "page": "A0-P40",
+      "instance_of": "F0-M13",
+      "nested_instances": ["F0-M14"],
+      "required_variable_collections": ["F0-C13", "F0-C14", "F0-C03"],
+      "evidence_required": [
+        "exact integrated source SHA containing 0fb2938",
+        "fresh-real immutable preview URL",
+        "V0 computed colors, icon bounds and responsive layout verdict"
+      ]
+    }
+  ],
+  "negative_controls": [
+    "do not collapse the index blue/gold collection into the card dark photographic collection",
+    "do not map scheduled-activity orange to generic warning status",
+    "do not detach club cards from the canonical InterestClubCard master",
+    "do not add a fifth icon-size role",
+    "do not use text glyphs in place of catalog-grid or arrow-right",
+    "do not claim materialization from this JSON specification"
+  ],
+  "evidence": {
+    "current_fresh_real_before_baseline": {
+      "url": "https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/__preview/",
+      "source_sha": "4536847f9fbdaa27326ebb3ec9ec1c825736e107",
+      "classification": "valid historical transaction predating current club source and F0 0fb2938"
+    },
+    "required_replacement": "exact fresh-real successor containing F0 0fb2938 and all accepted consumer bindings"
+  },
+  "not_claimed": [
+    "variable collections exist in Penpot",
+    "masters exist in Penpot",
+    "route instances are linked in Penpot",
+    "Astro equals Penpot",
+    "V0 acceptance exists"
+  ]
+}

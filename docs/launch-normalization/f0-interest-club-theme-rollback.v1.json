@@ -1,0 +1,165 @@
+{
+  "schema_version": "kenigevents.f0-interest-club-theme-rollback.v1",
+  "version": "1.0.0",
+  "contract_version": "1.9.0",
+  "status": "READY_FOR_BOUNDED_INTEGRATION_NOT_EXECUTED",
+  "authority": {
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "source_commit": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "current_successor_at_authoring": "2e8f4dd2393ce0c5100f8b610aae3f01380aad8c",
+    "candidate_acceptance_owner": "N0",
+    "cross_branch_materialization_owner": "R0",
+    "consumer_owner": "A0",
+    "browser_verdict_owner": "V0",
+    "penpot_writer": "R0.PENPOT"
+  },
+  "critical_integration_boundary": {
+    "allowed": [
+      "integrate the new F0-owned decision, token and check files",
+      "add exactly one product-contour import for interest-club-card-continuity-foundations.css",
+      "apply four exact color substitutions in the current InterestClubCard consumer",
+      "retain the current successor copy of the already-tokenized club index route"
+    ],
+    "forbidden": [
+      "merge the F0 branch wholesale over current route or card consumers",
+      "replace site/src/pages/kluby-po-interesam/index.astro with the older F0-branch copy",
+      "replace site/src/components/InterestClubCard.astro with the older F0-branch copy",
+      "collapse the route and card palettes",
+      "change user-facing copy, projection logic, keyboard behavior, media state or responsive anatomy",
+      "mutate production roots or existing immutable previews"
+    ],
+    "reason": "The F0 branch descends from de92 and contains legacy consumer copies, while the current successor has later A0 route identity, SemanticIcon and token-consumption changes. Only F0-owned files and the four exact consumer substitutions are accepted inputs."
+  },
+  "integration_units": [
+    {
+      "id": "F0-IC-01-SOURCE",
+      "paths": [
+        "site/src/components/design-system/interest-club-card-continuity-foundations.css",
+        "site/src/components/design-system/f0-interest-club-theme-decision.v1.json",
+        "site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+        "site/src/components/design-system/product-contour-foundations.css"
+      ],
+      "source_commit": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+      "postcondition": "the new foundation file is token-only and imported exactly once"
+    },
+    {
+      "id": "F0-IC-02-CARD-CONSUMER",
+      "path": "site/src/components/InterestClubCard.astro",
+      "owner": "A0",
+      "substitutions": [
+        {
+          "from": "rgba(255,255,255,.035)",
+          "to": "var(--ke-color-club-card-fallback-orbit-ring-inner)"
+        },
+        {
+          "from": "rgba(255,255,255,.025)",
+          "to": "var(--ke-color-club-card-fallback-orbit-ring-outer)"
+        },
+        {
+          "from": "rgba(255,255,255,.3)",
+          "to": "var(--ke-color-club-card-fallback-orbit-line)"
+        },
+        {
+          "from": "rgba(255,255,255,.24)",
+          "to": "var(--ke-color-club-card-fact-divider)"
+        }
+      ],
+      "precondition": "the current card remains InterestClubCard@1/photographic-catalog-card and already uses SemanticIcon arrow-right/inline",
+      "postcondition": "all four replacements are present and none of the four raw literals remains"
+    },
+    {
+      "id": "F0-IC-03-VERIFY",
+      "commands": [
+        "node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+        "F0_REQUIRE_CLUB_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+        "node site/src/components/design-system/check-f0-interest-club-and-icon-contract.mjs",
+        "node site/src/components/design-system/f0-normalization-negative-probes.mjs",
+        "node site/src/components/design-system/f0-candidate-consumer-census.mjs HEAD"
+      ],
+      "pass_boundary": "every command exits 0; the strict club gate reports centralized route and card states; exactly four central icon roles remain"
+    },
+    {
+      "id": "F0-IC-04-RUNTIME",
+      "owner": "R0",
+      "action": "publish one full fresh-real immutable successor through the canonical events-bot-new Kaggle StaticSiteBuilder",
+      "required_evidence": [
+        "HTTP-200 /<buildId>/__preview/",
+        "matching preview-build.json",
+        "fresh immutable production snapshot identity",
+        "explicit source ancestry including 0fb2938",
+        "Kaggle operation and artifact identity",
+        "no production-root mutation"
+      ]
+    },
+    {
+      "id": "F0-IC-05-BROWSER",
+      "owner": "V0",
+      "routes": [
+        "/kluby-po-interesam/",
+        "/kluby-po-interesam/<actual-slug>/"
+      ],
+      "measurements": [
+        "index intro and mobile shelf computed color/style owners",
+        "card fallback orbit and fact-divider computed colors",
+        "catalog-grid, arrow-right and detail back-arrow glyph dimensions",
+        "responsive index/card/detail geometry",
+        "unexpected horizontal overflow",
+        "duplicate raw or matched style owners"
+      ]
+    }
+  ],
+  "rollback_units": [
+    {
+      "id": "F0-RB-INTEREST-CLUB-INDEX-THEME",
+      "scope": "classification and downstream records only; current index source already centralized before F0 0fb2938",
+      "trigger": "new accepted product decision reclassifies the editorial route atmosphere",
+      "action": "supersede or revert the classification records; do not revert the current index route without an explicit N0/owner decision",
+      "protected": ["current route composition", "projection data", "immutable previews"]
+    },
+    {
+      "id": "F0-RB-INTEREST-CLUB-CARD-THEME",
+      "scope": "F0 source unit plus four exact card substitutions",
+      "trigger": [
+        "computed card appearance differs from the accepted current source",
+        "a token is missing, duplicated or ambiguously owned",
+        "keyboard, media, links, facts or responsive anatomy changes",
+        "V0 reports critical route/card drift"
+      ],
+      "action": "revert only the four consumer substitutions and/or omit the new F0 source unit; preserve the primary collection-foundations card theme and all unrelated successor changes",
+      "protected": [
+        "InterestClubCard family identity",
+        "club index route identity",
+        "SemanticIcon bindings",
+        "club data and copy",
+        "immutable previews"
+      ]
+    },
+    {
+      "id": "F0-RB-INTEREST-CLUB-DOWNSTREAM-SPEC",
+      "scope": "thin-S and Penpot extension records",
+      "trigger": "N0 rejects source integration, V0 reports critical F0 drift, or a newer accepted source changes authority",
+      "action": "mark these records superseded or revert them; do not mutate Penpot or published artifacts",
+      "protected": ["historical evidence", "other F0/A0/M0 bindings", "current Penpot file"]
+    }
+  ],
+  "evidence_boundary": {
+    "current_fresh_real": "https://kenigevents.ru/preview-real-4536847f-fresh-20260903-v1/__preview/",
+    "current_fresh_real_source": "4536847f9fbdaa27326ebb3ec9ec1c825736e107",
+    "classification": "valid pipeline/data baseline that predates the current successor and F0 0fb2938",
+    "does_not_validate": [
+      "the four card substitutions",
+      "strict source gates",
+      "current club theme browser parity",
+      "Penpot materialization"
+    ]
+  },
+  "not_claimed": [
+    "integration executed",
+    "consumer substitutions applied",
+    "checks passed",
+    "Kaggle invoked",
+    "V0 accepted",
+    "Penpot mutated"
+  ]
+}

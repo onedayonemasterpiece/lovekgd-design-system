@@ -1,0 +1,121 @@
+{
+  "schema_version": "kenigevents.f0-interest-club-theme-extension.v1",
+  "version": "1.0.0",
+  "contract_version": "1.9.0",
+  "status": "SOURCE_DECISION_READY_CARD_RESIDUAL_CONSUMPTION_PENDING",
+  "authority": {
+    "source_repository": "onedayonemasterpiece/events-bot-new",
+    "source_branch": "work/ui-normalization-f0-wave-3-20260903",
+    "source_commit": "0fb2938344cf96b05be0df09dfb9e69525b3717d",
+    "decision_record": "site/src/components/design-system/f0-interest-club-theme-decision.v1.json",
+    "coordination_issue": "onedayonemasterpiece/events-bot-new#621"
+  },
+  "observed_successor": {
+    "branch": "agent/static-site-single-kaggle-contract",
+    "sha": "2e8f4dd2393ce0c5100f8b610aae3f01380aad8c",
+    "classification": "CURRENT_SOURCE_SUCCESSOR_NOT_YET_CONTAINING_F0_0FB2938"
+  },
+  "decision": {
+    "owner_product_decision_required": false,
+    "club_index_intro": "intentional editorial route identity already centralized through F0 route tokens",
+    "club_card_deck": "canonical reusable InterestClubCard family with its own photographic theme",
+    "forbidden_collapse": "do not merge the index blue/gold atmosphere with the dark photographic card palette or generic status colors"
+  },
+  "pm0_items": [13, 15, 16, 17, 18, 19, 25, 37],
+  "bindings": [
+    {
+      "id": "f0.route-theme.club-index",
+      "family": "InterestClubsIndexRouteComposition",
+      "version": 1,
+      "variants": ["verified-directory"],
+      "states": ["populated", "empty"],
+      "route": "/kluby-po-interesam/",
+      "actual_consumer": "site/src/pages/kluby-po-interesam/index.astro",
+      "source_owner": "site/src/components/design-system/interest-club-route-foundations.css",
+      "token_prefixes": [
+        "--ke-clubs-",
+        "--ke-color-clubs-",
+        "--ke-elevation-clubs-"
+      ],
+      "icon_bindings": [
+        {
+          "action": "interest-clubs.index.catalog-count",
+          "component": "SemanticIcon",
+          "name": "catalog-grid",
+          "role": "inline",
+          "size_px": 16
+        }
+      ],
+      "source_status": "CURRENT_SUCCESSOR_CONSUMER_CENTRALIZED",
+      "consumer_edit_required": false,
+      "browser_status": "NO_V0_VERDICT_ON_CURRENT_SUCCESSOR",
+      "penpot_master_target": "A0 / InterestClubsIndexRouteComposition",
+      "rollback_unit": "F0-RB-INTEREST-CLUB-INDEX-THEME"
+    },
+    {
+      "id": "f0.component-theme.interest-club-card",
+      "family": "InterestClubCard",
+      "version": 1,
+      "variants": ["photographic-catalog-card"],
+      "states": ["cover-ready", "fallback-art", "future-meetings", "history-only"],
+      "actual_consumer": "site/src/components/InterestClubCard.astro",
+      "primary_source_owner": "site/src/components/design-system/collection-foundations.css",
+      "residual_source_owner": "site/src/components/design-system/interest-club-card-continuity-foundations.css",
+      "token_prefixes": [
+        "--ke-club-card-",
+        "--ke-color-club-card-",
+        "--ke-elevation-club-"
+      ],
+      "residual_bindings": [
+        {
+          "current": "rgba(255,255,255,.035)",
+          "replacement": "var(--ke-color-club-card-fallback-orbit-ring-inner)"
+        },
+        {
+          "current": "rgba(255,255,255,.025)",
+          "replacement": "var(--ke-color-club-card-fallback-orbit-ring-outer)"
+        },
+        {
+          "current": "rgba(255,255,255,.3)",
+          "replacement": "var(--ke-color-club-card-fallback-orbit-line)"
+        },
+        {
+          "current": "rgba(255,255,255,.24)",
+          "replacement": "var(--ke-color-club-card-fact-divider)"
+        }
+      ],
+      "icon_bindings": [
+        {
+          "action": "interest-club.card.open-detail",
+          "component": "SemanticIcon",
+          "name": "arrow-right",
+          "role": "inline",
+          "size_px": 16
+        }
+      ],
+      "source_status": "PRIMARY_THEME_CENTRALIZED_RESIDUAL_FOUR_LITERAL_SUBSTITUTIONS_PENDING",
+      "consumer_edit_owner": "A0",
+      "consumer_edit_kind": "four exact deterministic substitutions only",
+      "browser_status": "NO_V0_VERDICT_ON_F0_0FB2938_SUCCESSOR",
+      "penpot_master_target": "A0 / InterestClubCard",
+      "rollback_unit": "F0-RB-INTEREST-CLUB-CARD-THEME"
+    }
+  ],
+  "acceptance": {
+    "source_gate_default": "node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+    "source_gate_strict": "F0_REQUIRE_CLUB_THEME_CONSUMED=1 node site/src/components/design-system/check-f0-interest-club-theme-decision.mjs",
+    "runtime_gate": "one exact HTTP-200 fresh-real full Kaggle successor containing F0 0fb2938 and the four card substitutions",
+    "v0_gate": [
+      "index intro and mobile shelf retain accepted computed colors and geometry",
+      "card fallback ornaments and fact dividers are pixel-equivalent",
+      "catalog-grid and arrow-right compute to the 16px inline role",
+      "no route-local or card-local duplicate palette owner remains"
+    ]
+  },
+  "truth_boundary": {
+    "this_record_is_not_source_integration": true,
+    "this_record_is_not_browser_acceptance": true,
+    "this_record_is_not_penpot_materialization": true,
+    "current_fresh_real_preview_predates_this_source": true
+  }
+}
